@@ -31,9 +31,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div class="full_area0 itemBlock">
+<div class="full_area0 itemBlock" >
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblBasic}" />
+		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -41,46 +41,47 @@
 <%-- Genre --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" /><h:outputText value="#{lbl.EditItem_lblGenre}" /><span class="noDisplay">: </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional == 'false' && genre.item_basic_item_genre_display == 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="large_select replace">
+				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('btnChangeGenre').click();" binding="#{EditItem.genreSelect}" >
 					<f:selectItems value="#{EditItem.genres}" />
 				</h:selectOneMenu>
+				<h:commandButton action="#{EditItem.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 			</span>
 		</div>
 
 <%-- Title --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false' && genre.item_basic_item_title_display == 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<h:commandButton title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" />
-				<h:commandButton title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}"/>
+				<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" />
+				<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}"/>
 			</span>
 		</div>
 
 <%-- Alternative title --%>
-		<tr:iterator var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}">
+		<tr:iterator var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.item_basic_item_title_alternative_display == 'true'}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAltTitle}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional == 'false' && genre.item_basic_item_title_alternative_display == 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" rendered="#{genre.item_basic_item_title_alternative_display == 'true'}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable == 'true'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable == 'true'}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>	
 	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblBasic}" /></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblBasic}" /></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/></a>
 </div>

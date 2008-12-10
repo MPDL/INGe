@@ -56,6 +56,8 @@ public class EditItemSessionBean extends FacesBean
 	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
 	
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+	
+	private String genreBundle = "Genre_ARTICLE";
 
 	/**
 	 * Public constructor.
@@ -84,6 +86,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
+		this.genreBundle = null;
 		
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
@@ -148,5 +151,14 @@ public class EditItemSessionBean extends FacesBean
 		this.locators = locators;
 	}
 
+	public String getGenreBundle() {
+		return genreBundle;
+	}
+
+	public void setGenreBundle(String genreBundle) {
+		this.genreBundle = genreBundle;
+	}
+
+	
 	
 }

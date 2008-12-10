@@ -36,9 +36,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -54,6 +56,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.EditItemPage;
@@ -98,6 +101,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorTyp
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
@@ -180,6 +184,12 @@ public class EditItem extends FacesBean
     
     private String suggestConeUrl = null;
     
+    private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
+    
+    private CoreInputFile inputFile = new CoreInputFile();
+    
+    private String genreBundle = "Genre_ARTICLE";
+    
     /**
      * Public constructor.
      */
@@ -208,6 +218,8 @@ public class EditItem extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
+        this.genreBundle = this.getEditItemSessionBean().getGenreBundle();
+    	
         this.fileTable = new CoreTable();
 
         // enables the commandlinks
@@ -246,6 +258,19 @@ public class EditItem extends FacesBean
         
     }
 
+    public String getAttributes()
+    {
+    	FacesContext context = FacesContext.getCurrentInstance();
+    	Map<String, Object> attributes = context.getViewRoot().getAttributes();
+    	String result = "";
+    	for (String key : attributes.keySet())
+    	{
+			result += key + "=" + attributes.get(key) + "; ";
+		}
+    	
+    	return result;
+    }
+    
     /**
      * Delivers a reference to the currently edited item.
      * This is a shortCut for the method in the ItemController.
@@ -292,6 +317,12 @@ public class EditItem extends FacesBean
 
         if (pubItem != null)
         {
+        	// set the default genre to article
+        	if(pubItem.getMetadata().getGenre() == null)
+        	{
+        		pubItem.getMetadata().setGenre(Genre.ARTICLE);
+        		this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
+        	}
         	this.getItemControllerSessionBean().initializeItem(pubItem);
         
             if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
@@ -1053,6 +1084,39 @@ public class EditItem extends FacesBean
           error(getMessage("ComponentEmpty"));
       }
     }
+    
+    public String fileUploaded()
+    {
+    	int indexUpload = this.getEditItemSessionBean().getFiles().size()-1;
+        
+        UploadedFile file = this.uploadedFile;
+        String contentURL;
+        if (file != null || file.getLength()==0)
+        {
+          contentURL = uploadFile(file);
+      	if(contentURL != null && !contentURL.trim().equals(""))
+      	{	
+      		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+      		
+      		fileVO.getDefaultMetadata().setSize((int)file.getLength());
+              fileVO.setName(file.getFilename());
+              fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
+              fileVO.setMimeType(file.getContentType());
+              FormatVO formatVO = new FormatVO();
+              formatVO.setType("dcterms:IMT");
+              formatVO.setValue(file.getContentType());
+              fileVO.getDefaultMetadata().getFormats().add(formatVO);
+              fileVO.setContent(contentURL);
+      	}
+          //bindFiles();
+        }
+        else 
+        {
+            //show error message
+            error(getMessage("ComponentEmpty"));
+        }
+    	return null;
+    }
 
 	/**
      * Preview method for uploaded files
@@ -1726,7 +1790,16 @@ public class EditItem extends FacesBean
         }
     }
     
-   
+    public String changeGenre()
+    {
+      
+    	String newGenre = this.genreSelect.getSubmittedValue().toString();
+    	
+    	this.getEditItemSessionBean().setGenreBundle("Genre_" + newGenre);
+    	this.init();
+    	return null;
+      
+    }
 
     public void setCreatorParseString(String creatorParseString)
     {
@@ -1829,6 +1902,30 @@ public class EditItem extends FacesBean
     {
         return overwriteCreators;
     }
+
+	public HtmlSelectOneMenu getGenreSelect() {
+		return genreSelect;
+	}
+
+	public void setGenreSelect(HtmlSelectOneMenu genreSelect) {
+		this.genreSelect = genreSelect;
+	}
+
+	public CoreInputFile getInputFile() {
+		return inputFile;
+	}
+
+	public void setInputFile(CoreInputFile inputFile) {
+		this.inputFile = inputFile;
+	}
+
+	public String getGenreBundle() {
+		return genreBundle;
+	}
+
+	public void setGenreBundle(String genreBundle) {
+		this.genreBundle = genreBundle;
+	}
     
     
 }

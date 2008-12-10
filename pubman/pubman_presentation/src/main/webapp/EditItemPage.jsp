@@ -38,6 +38,7 @@
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
+			<f:loadBundle var="genre" basename="#{EditItem.genreBundle}"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
@@ -48,6 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+
 			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -110,8 +112,8 @@
 									<a class="free_area0" href="#editPerson"><h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" /></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 									<a class="free_area0" href="#editLocator"><h:outputText value="#{lbl.EditItem_lblFileLoc}" /></a>
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editFile"><h:outputText value="#{lbl.EditItem_lblFile}" /></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.files_display == 'true'}"/>
+									<a class="free_area0" href="#editFile"><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" rendered="#{genre.files_display == 'true'}"/></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 								</span>
 							</div>

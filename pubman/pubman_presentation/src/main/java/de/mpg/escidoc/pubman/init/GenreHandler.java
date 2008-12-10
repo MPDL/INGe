@@ -51,7 +51,7 @@ public class GenreHandler extends ShortContentHandler
 				
 				for (String key : map.keySet())
 				{
-					fileWriter.append(key);
+					fileWriter.append(key.replace("-", "_"));
 					fileWriter.append("=");
 					fileWriter.append(map.get(key));
 					fileWriter.append("\n");
