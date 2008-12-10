@@ -33,7 +33,7 @@
 
 <div id="editLocator" class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblFileLoc}" />
+		<h:outputText value="#{lbl.EditItem_lblLoc}" />
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
