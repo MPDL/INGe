@@ -145,6 +145,7 @@ function openCenteredWindowTest(html, width, height, windowName)
 /** Ask the user if s/he really wants to delete an item.
 *   @author franke
 */
+/*
 function confirmDelete(prefix)
 {
 	var answer = true;
@@ -155,10 +156,11 @@ function confirmDelete(prefix)
 	return answer;
 
 }
-
+*/
 /** Ask the user if s/he really wants to delete items from a list.
 *   @author franke
 */
+/*
 function confirmListDelete(form)
 {
 	var answer = true;
@@ -186,7 +188,7 @@ function confirmListDelete(form)
 //	return answer;
 
 }
-
+*/
 /** Triggered when an item is checked/unchecked to increase/decrease the count of checked items.
 *   @author franke
 */
@@ -217,6 +219,7 @@ function showCollectionDescription()
  * Allow only numbers, "-" and "v" and "c" (for copy and pasting with strg-c and strg-v) for dte fields.
  * @author Thomas Dieb�cker
  */
+/*
 function restrictDateEntry(e)
 {							
 	var key;
@@ -242,7 +245,7 @@ function restrictDateEntry(e)
 	else
 	   return false;
 }
-
+*/
 function exportDataPopUp(w,h,site) 
 {
 	x=screen.availWidth/2-w/2;
@@ -304,7 +307,7 @@ function orgInformationPopUp(w,h,site)
 	// FrM: Inserted to avoid Firefox trouble.
 	popupWindow.document.close();
 }
-
+/*
 function goBack() 
 {
   document.getElementById("form1:btGoBack").click();
@@ -354,3 +357,4 @@ function toggleErrorMessage()
 		button.value = '+';
 	}
 }
+*/
