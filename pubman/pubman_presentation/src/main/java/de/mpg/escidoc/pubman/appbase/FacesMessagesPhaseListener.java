@@ -35,8 +35,10 @@ import org.apache.log4j.Logger;
 public class FacesMessagesPhaseListener implements PhaseListener
 {
     private Logger logger = Logger.getLogger(FacesMessagesPhaseListener.class);
-    private Map<String, Collection<FacesMessage>> messageCache = Collections
-            .synchronizedMap(new HashMap<String, Collection<FacesMessage>>());
+    
+    private static final String sessionToken = "MULTI_PAGE_MESSAGES_SUPPORT";
+    
+    //private Map<String, Collection<FacesMessage>> messageCache = Collections.synchronizedMap(new HashMap<String, Collection<FacesMessage>>());
 
     
     /**
@@ -73,7 +75,8 @@ public class FacesMessagesPhaseListener implements PhaseListener
      */
     private void removeFromCache(FacesContext context)
     {
-        messageCache.clear();
+        
+        getMessageCache(context).clear();
         logger.trace("Message Cache cleared");
     }
 
@@ -91,12 +94,12 @@ public class FacesMessagesPhaseListener implements PhaseListener
         {
             String clientId = clientIdsWithMessages.next();
             Iterator<FacesMessage> iterator = context.getMessages(clientId);
-            Collection<FacesMessage> cachedMessages = messageCache.get(clientId);
+            Collection<FacesMessage> cachedMessages = getMessageCache(context).get(clientId);
             if (cachedMessages == null)
             {
                 // cachedMessages = new TreeSet<FacesMessage>(new FacesMessageComparator());
                 cachedMessages = new ArrayList<FacesMessage>();
-                messageCache.put(clientId, cachedMessages);
+                getMessageCache(context).put(clientId, cachedMessages);
             }
             while (iterator.hasNext())
             {
@@ -118,11 +121,11 @@ public class FacesMessagesPhaseListener implements PhaseListener
      */
     private void restoreMessages(FacesContext context)
     {
-        if (!messageCache.isEmpty())
+        if (!getMessageCache(context).isEmpty())
         {
-            for (String clientId : messageCache.keySet())
+            for (String clientId : getMessageCache(context).keySet())
             {
-                for (FacesMessage message : messageCache.get(clientId))
+                for (FacesMessage message : getMessageCache(context).get(clientId))
                 {
                     context.addMessage(clientId, message);
                 }
@@ -134,5 +137,19 @@ public class FacesMessagesPhaseListener implements PhaseListener
     public PhaseId getPhaseId()
     {
         return PhaseId.ANY_PHASE;
+    }
+    
+    private Map<String, Collection<FacesMessage>> getMessageCache(FacesContext context)
+    {
+        if (context.getExternalContext().getSessionMap().get(sessionToken)!=null)
+        {
+            return (Map<String, Collection<FacesMessage>>) context.getExternalContext().getSessionMap().get(sessionToken);
+        }
+        else
+        {
+            Map<String, Collection<FacesMessage>> messageCache= Collections.synchronizedMap(new HashMap<String, Collection<FacesMessage>>());
+            context.getExternalContext().getSessionMap().put(sessionToken, messageCache);
+            return messageCache;
+        }
     }
 }
