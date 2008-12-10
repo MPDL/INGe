@@ -70,6 +70,9 @@
 		h1, h2, h4, h5 {
 			font-family: "Myriad Pro Condesed", "Arial Narrow", sans-serif;
 		}
+		.mainMenu * {
+			font-variant:small-caps;
+		}
 /*
 *
 *  COMPONENT RELATED COLORING
@@ -79,6 +82,7 @@
 	body {
 		background-color: #EDF4F6;
 		color: #524240;
+		line-height: 200%;
 	}
 	
 	input, button, textarea, select {
@@ -110,7 +114,7 @@
 	}
 	/*SEPERATORS*/
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator  {
-		background-color: #388097;
+		background-color: #AFCCD5;
 	}
 	
 	.itemList .seperator {

@@ -33,6 +33,11 @@
 /*META MENU*/
 	.metaMenu {
 		height: 2.73em;
+		line-height: normal;
+	}
+	
+	.metaMenu a {
+		padding-top: 0.37em;
 	}
 
 	.metaMenu .logButton, .metaMenu button, .metaMenu label {
@@ -106,6 +111,7 @@
 	}
 
 	.breadcrumb li {
+		font-size: 10px;
 		margin: 0px;
 	}
 
@@ -124,10 +130,13 @@
 	}
 
 /*CONTENT MENU*/
+	.contentMenu * {
+		line-height: normal;
+	}
 
 	.contentMenu {
 		margin-top: 0em;
-		padding-top: 2em;
+		padding-top: 1.46em;
 	}
 
 	.contentMenu .sub {

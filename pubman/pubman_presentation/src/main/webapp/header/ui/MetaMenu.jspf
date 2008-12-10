@@ -39,7 +39,7 @@
 	</h:selectOneMenu>
 
 <%-- <h:commandLink styleClass="small_area0_p3 endline" title="Show gerneral help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" /> --%>
-	<h:commandLink styleClass="small_area0_p3 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink styleClass="small_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 <%--
@@ -49,7 +49,7 @@
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 --%>
-	<h:commandLink styleClass="large_area0_p3 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
+	<h:commandLink styleClass="large_area0_p8 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
@@ -58,8 +58,8 @@
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 
-	<h:outputLabel styleClass="large_label endline xTiny_marginLExcl" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
-	<h:panelGroup styleClass="seperator xTiny_marginRExcl" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
+	<h:outputLabel styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
+	<h:panelGroup styleClass="seperator" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 
 	<!-- meta Menu ends here -->
 </span>

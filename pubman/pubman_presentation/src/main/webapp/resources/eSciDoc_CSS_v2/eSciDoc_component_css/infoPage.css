@@ -39,6 +39,11 @@
 	padding-top: 0px;
 }
 
+.infoPage .mainSection ol {
+	margin-left: 0em;
+	padding-left: 0px;
+}
+
 .infoPage h2 {
 	margin: 0px;
 	margin-left: -0.74em;

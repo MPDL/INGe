@@ -44,7 +44,10 @@
 .rangeSelector {
 		margin-top: 0.36em;
 	}
-
+	
+.rangeSelector select {
+	margin-top: 0.37em;
+}
 
 /*
 	.rangeSelector {
@@ -163,6 +166,8 @@
 	}
 
 	.gotoBox input {
-		margin-top: 0.28em;
+		margin-top: 0.65em;
+		margin-left: 0.10em;
+		margin-right: 0.19em;
 		padding-top: 0.18em;
 	}
