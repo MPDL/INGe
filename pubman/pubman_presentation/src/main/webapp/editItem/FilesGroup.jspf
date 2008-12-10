@@ -62,7 +62,7 @@
 					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
 			
@@ -88,7 +88,7 @@
 					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.EditItem_btUpload}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
 
@@ -159,8 +159,8 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 
