@@ -31,9 +31,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div id="editPerson" class="full_area0 itemBlock">
+<h:panelGroup layout="block" id="editPerson" styleClass="full_area0 itemBlock" rendered="#{genre.creator_person_organization_display != 'false' && genre.creator_person_organization_form_id != 'easy-submission'}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
+		<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -58,7 +58,7 @@
 <%-- Creator role --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EditItem.creatorIterator.rowIndex == 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional == 'false'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
@@ -71,7 +71,7 @@
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.creatorIterator.rowIndex > 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional == 'false'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
@@ -83,7 +83,7 @@
 <%-- Creator type --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorType}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_creator_type_optional !='true'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_creator_type_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:selectOneRadio styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
@@ -96,7 +96,7 @@
 <%-- Creator person family name, Creator person given name --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional == 'false' || creator_person_organization_creator_persons_person_given_name_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
@@ -114,10 +114,10 @@
 			<tr:iterator var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+						<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
 						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
@@ -126,14 +126,14 @@
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 			</tr:iterator>
@@ -141,10 +141,10 @@
 <%-- Creator organisation affiliation --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+					<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
 					<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
@@ -153,7 +153,7 @@
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
@@ -161,12 +161,12 @@
 			</h:panelGroup>
 			
 			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-				<tr:commandButton text=" " shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" />
-				<tr:commandButton text=" " shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" />
+				<tr:commandButton text=" " shortDesc="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+				<tr:commandButton text=" " shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblPersonsAndOrganizations}" /></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblPersonsAndOrganizations}" /></a>
-</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter" /></a>
+</h:panelGroup>

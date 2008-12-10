@@ -20,7 +20,7 @@
 				<field id="component_visibility" repeatable="false" display="true" optional="false" label="locator_component_visibility"/>
 				<field id="component_description" repeatable="false" display="true" optional="true" label="locator_description"/>
 			</group>
-			<group id="creator_person_organization" repeatable="false" display="true" optional="false" label="g_creator_person_organization" form-id="all">
+			<group id="creator_person_organization" repeatable="true" display="true" optional="false" label="g_creator_person_organization" form-id="all">
 				<group id="creator" display="true" repeatable="true" optional="false" label="g_creator" form-id="all" default-value="persons">
 					<group id="select_roles" repeatable="false" display="true" optional="false" label="g_select_roles">
 						<field id="creator_type" repeatable="false" display="true" optional="false" default-value="author" label="creator_type"/>

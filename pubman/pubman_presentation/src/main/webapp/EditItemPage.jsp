@@ -108,10 +108,10 @@
 									<a class="free_area0" href="#editDetail"><h:outputText value="#{lbl.EditItem_lblDetails}" /></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 									<a class="free_area0" href="#editContent"><h:outputText value="#{lbl.EditItem_lblContent}" /></a>
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editPerson"><h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" /></a>
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editLocator"><h:outputText value="#{lbl.EditItem_lblFileLoc}" /></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.creator_person_organization_display != 'false'}"/>
+									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.locators_display != 'false'}"/>
+									<a class="free_area0" href="#editLocator"><h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter" rendered="#{genre.locators_display != 'false'}"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.files_display == 'true'}"/>
 									<a class="free_area0" href="#editFile"><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" rendered="#{genre.files_display == 'true'}"/></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
