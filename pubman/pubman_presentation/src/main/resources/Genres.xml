@@ -40,7 +40,7 @@
 				</group>
 			</group>
 			<group id="content" repeatable="false" display="true" optional="true" label="g_content" form-id="all">
-				<field id="item_subject" repeatable="true" display="true" optional="true"/>
+				<field id="item_subject" repeatable="true" display="true" label="item_subject" optional="true"/>
 				<field id="item_abstract" repeatable="true" display="true" label="item_abstract" optional="true"/>
 			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
