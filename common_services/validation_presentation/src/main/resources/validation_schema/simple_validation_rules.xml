@@ -151,6 +151,10 @@
 		<value>application/dca-rft</value>
 		<value>application/dec-dx</value>
 		<value>application/eshop</value>
+		
+		<!-- Added -->
+		<value>application/gzip</value>
+		
 		<value>application/hyperstudio</value>
 		<value>application/iges</value>
 		<value>application/mac-binhex40</value>
@@ -185,6 +189,10 @@
 		<value>application/sgml-open-catalog</value>
 		<value>application/slate</value>
 		<value>application/smil</value>
+		
+		<!-- Added -->
+		<value>application/x-tar</value>
+		
 		<value>application/vemmi</value>
 		<value>application/vnd.3M.Post-it-Notes</value>
 		<value>application/vnd.FloGraphIt</value>
