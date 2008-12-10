@@ -35,50 +35,26 @@
 .dateJSLabel {
 	position: absolute;
 	float: none;
-	padding-top: 0.09em;
-	padding-bottom: 0.09em;
-	height: 1.3em;
 	z-index: 2;
-	margin-top: -1.4em ;
 	display: inline;
-	/*ADD OPACITY*/
-	/*
-	opacity: 0.9;
-	filter: alpha(opacity=90);
-	*/
 }
 
 /*SELECT REPLACEMENT*/
 
 .replace .replaceLabel {
 	white-space:nowrap;
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
 	z-index: 1;
-	border-top-width: 0px !important;
-	border-bottom-width: 0px !important;
-	border-style: solid;
 	position: absolute;
 }
 
 .replace .pulldown {
-	border-style: solid !important;
-	border-top-width: 0px !important;
 	position: absolute;
 	z-index:3;
 	display: none;
-	/*ADD OPACITY*/
-	/*
-	opacity: 0.9;
-	filter: alpha(opacity=90);
-	*/
 }
 
 .replace .selectLine {
 	white-space:nowrap;
-	margin-right: 0px !important;
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
 }
 
 .replace .open, .replace .close {
@@ -86,15 +62,11 @@
 }
 
 .replace .openArea {
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
 	position: absolute;
 	z-index: 2;
 }
 
 .replace .close {
-	margin-top: -1.45em !important;
-	margin-right: 0.74em !important;
 	position: relative;
 	z-index:4;
 }

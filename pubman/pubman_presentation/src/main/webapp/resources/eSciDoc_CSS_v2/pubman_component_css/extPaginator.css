@@ -123,6 +123,10 @@
 
 /*PAGE BROWSER*/
 
+	.pageBrowser {
+		margin-top: 0.27em;
+	}
+
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		height: 2.45em;
 	}

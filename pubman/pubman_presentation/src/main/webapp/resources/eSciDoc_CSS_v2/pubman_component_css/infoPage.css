@@ -30,6 +30,34 @@
 * All rights reserved. Use is subject to license terms.
 */
 
+.infoPage {
+	border-top-width: 0.10em !important;
+}
+
+.infoPage .mainSection {
+	margin-left: 4.92em;
+	padding-top: 0px;
+}
+
+.infoPage .mainSection ol {
+	margin-left: 0em;
+	padding-left: 0px;
+}
+
+.infoPage h2 {
+	margin: 0px;
+	margin-left: -0.74em;
+	padding-left: 0.74em;
+}
+
+.infoPage .mainSection h2 {
+	border-width: 0px;
+	border-top-width: 0.10em !important;
+}
+
 .infoPage .sideSection {
-	float: right;
+	padding: 0px;
+	width: 31.28em;
+	border-width: 0px;
+	border-top-width: 0.10em !important;
 }

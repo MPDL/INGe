@@ -95,6 +95,7 @@
 /*BODY*/
 
 .fullItem .itemBlock .expand, .fullItem .itemBlock .collapse {
+	line-height: normal;
 	margin-left: 0.73em;
 	margin-top: 0.19em;
 	padding-bottom: 0.19em;

@@ -114,7 +114,7 @@ BrowserDetect.init();
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
-	$('.quickSearchTextInput').keydown(function(keyEvent){
+	$('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
 			$(this).parents('.searchMenu').find('.quickSearchBtn').click();
 		};

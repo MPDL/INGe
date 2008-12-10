@@ -61,6 +61,7 @@
 }
 
 .listHeader .collapse, .listHeader .collapse:hover, .listHeader .collapse:focus, .listHeader .expand, .listHeader .expand:hover, .listHeader .expand:focus {
+	line-height: normal;
 	margin-left: 0.19em;
 	background-position: left;
 }
@@ -195,6 +196,7 @@
 	/*ITEM BODY*/
 
 .listItem .collapse, .listItem .expand {
+	line-height: normal;
 	padding-left: 1.36em;
 	margin-left: -1.92em;
 }

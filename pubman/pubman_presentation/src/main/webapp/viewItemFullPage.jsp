@@ -80,9 +80,6 @@
 									<h:outputText styleClass="seperator void" />
 									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT' and !ViewItemFull.isStateWithdrawn}"><h:outputText value="#{lbl.List_lblExportOptions}"/></h:outputLink>
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
-									
-									
-									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
 								<h:panelGroup layout="block" styleClass="sub" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
@@ -206,7 +203,7 @@
 							</div>
 							<h:panelGroup layout="block" styleClass="full_area0 itemBlock visibility" rendered="#{!ViewItemFull.isStateWithdrawn}">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									<h:outputText styleClass="xLarge_area0_p8 endline blockHeader" value="Visibility" />
+									<h:outputText value="Visibility" />
 								</h3>
 								<h:panelGroup styleClass="seperator" />
 								<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>

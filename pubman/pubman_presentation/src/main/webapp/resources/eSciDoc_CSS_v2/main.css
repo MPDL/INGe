@@ -37,7 +37,7 @@
 /* import component specific styles | komponentenspezifische Stylesheets einbinden */
 	/* import header styles | das Stylesheet für den Seitenkopf einbinden */
 		@import url(./eSciDoc_component_css/header.css);	
-	/* import home page styles | das Stylesheet für die HOME Seite einbinden */
+	/* import info page styles | das Stylesheet für die Info Seiten einbinden */
 		@import url(./eSciDoc_component_css/infoPage.css);	
 	/* import extended paginator component styles | das Stylesheet für die Komponente "erweiterter Paginator" einbinden */
 		@import url(./eSciDoc_component_css/extPaginator.css);
@@ -50,13 +50,17 @@
 		
 /* import solution specific styles | anwendungsspezifische Stylesheets einbinden */
 	/* import header styles | das Stylesheet für den Seitenkopf einbinden */
-		@import url(./pubman_component_css/header.css);	
+		@import url(./pubman_component_css/header.css);
+	/* import info page styles | das Stylesheet für die Info Seiten einbinden */
+		@import url(./pubman_component_css/infoPage.css);	
 	/* import extended paginator component styles | das Stylesheet für die Komponente "erweiterter Paginator" einbinden */
 		@import url(./pubman_component_css/extPaginator.css);
 	/* import list component styles | das Stylesheet für die Listenkomponenten einbinden */
 		@import url(./pubman_component_css/lists.css);
 	/* import full item component styles | das Stylesheet für die Komponente für die Itemvollansicht einbinden */
 		@import url(./pubman_component_css/fullItem.css);
+	/* import single elements styles | das Stylesheet für die einzelnen Elemente einbinden */
+		@import url(./pubman_component_css/singleElements.css);
 
 
 /* import vendor specific styles | anbieterspezifische Styles einbinden */
