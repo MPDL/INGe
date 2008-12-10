@@ -78,7 +78,8 @@ public class Search extends FacesBean
         
         // check if the searchString contains useful data
         if( searchString.trim().equals("") ) {
-            return (SearchResultList.LOAD_NO_ITEMS_FOUND);
+            error(getMessage("search_NoCriteria"));
+            return "";
         }
         
               

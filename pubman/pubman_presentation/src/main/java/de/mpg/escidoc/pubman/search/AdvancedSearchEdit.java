@@ -182,7 +182,8 @@ public class AdvancedSearchEdit extends SearchResultList
     	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
     	
     	if( criterionList.size() == 0 ) {
-    		return list.startAdvancedSearch( searchCriteria );
+    		error(getMessage("search_NoCriteria"));
+    		return "";
     	}
     	
     	// transform the criteria to searchCriteria

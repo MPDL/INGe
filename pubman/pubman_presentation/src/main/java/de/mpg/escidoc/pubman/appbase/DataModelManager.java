@@ -69,7 +69,7 @@ public abstract class DataModelManager<T>
 	}
 	
 	/**
-	 * The DataModel is allways created by wrapping the data objects contained
+	 * The DataModel is always created by wrapping the data objects contained
 	 * in the objectList. If this objectList is empty, there will be no rows to 
 	 * be displayed.
 	 * 
