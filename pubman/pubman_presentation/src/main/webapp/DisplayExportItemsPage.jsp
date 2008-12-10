@@ -46,17 +46,19 @@
 				<meta http-equiv="cache-control" content="no-cache"/>
 				<meta http-equiv="expires" content="0"/>
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+				<script type="text/javascript" language="JavaScript">
+					window.opener.document.forms[0].target = window.opener.name;
+				</script>
 			</head>
 			<body><h:form id="form1">
 				<h:outputText value="#{DisplayExportItemsPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
 				<div id="page_margins">
 					<div id="page">
-						
-							<h:outputLink value="#{ApplicationBean.appContext}#{DisplayExportItemsPage.previousPageURI}">
-								<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
-							<br/>
-							<br/>
-							</h:outputLink>
+<!--							<h:outputLink value="#{ApplicationBean.appContext}#{DisplayExportItemsPage.previousPageURI}">-->
+<!--								<h:outputText value="#{lbl.SearchResultList_lblBack}"/>-->
+<!--							<br/>-->
+<!--							<br/>-->
+<!--							</h:outputLink>-->
 							<h:outputFormat value="#{ExportItemsSessionBean.exportDisplayData}" escape="false"/>
 					</div>
 				</div>

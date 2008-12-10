@@ -746,6 +746,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             sb.setExportDisplayData(displayExportData);
             // restore selected file format on the interface
             sb.setFileFormat(selectedFileFormat);
+//            return "dialog:showDisplayExportItemsPage";
             return "showDisplayExportItemsPage";
         }
         else

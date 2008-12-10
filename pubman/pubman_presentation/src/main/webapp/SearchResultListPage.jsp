@@ -98,7 +98,8 @@
 										</h:selectOneMenu>
 									</h:panelGroup>
 									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-										<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
+<!--										<tr:commandButton id="btnDisplayItems" styleClass="free_area0" text="#{lbl.export_btDisplay}" useWindow="true" partialSubmit="true" windowHeight="300" windowWidth="400" action="#{PubItemListSessionBean.exportSelectedDisplay}" />-->
+										<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" onclick="this.form.target ='_blank';" action="#{PubItemListSessionBean.exportSelectedDisplay}" />
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}" />
 										<h:outputText styleClass="seperator" />

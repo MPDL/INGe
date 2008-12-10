@@ -152,6 +152,7 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
+<!--			<from-outcome>dialog:showDisplayExportItemsPage</from-outcome>-->
 			<from-outcome>showDisplayExportItemsPage</from-outcome>
 			<to-view-id>
 			/DisplayExportItemsPage.jsp</to-view-id>
