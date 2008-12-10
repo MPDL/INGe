@@ -57,13 +57,13 @@ function changeSortCriteria()
 {
 	document.getElementById("form1:content:btnSortItemList").click();
 }
-
+/*
 function loadAbout() 
 {
 	// use the h:output tag to output the bean property
 	openCenteredWindow("http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan", 1360, 1040, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
-
+*/
 function loadHelp(url, anchor)
 {
 	// use the h:output tag to output the bean property
@@ -192,6 +192,7 @@ function confirmListDelete(form)
 /** Triggered when an item is checked/unchecked to increase/decrease the count of checked items.
 *   @author franke
 */
+/*
 function computeCheckedItems(element)
 {
 	var checked = element.checked;
@@ -209,12 +210,13 @@ function computeCheckedItems(element)
 	}
 
 }
-
+*/
+/*
 function showCollectionDescription()
 {
 	openCenteredWindow("editItem/contextDescription.jsp", 400, 200, "Description"); // // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }					
-
+*/
 /**
  * Allow only numbers, "-" and "v" and "c" (for copy and pasting with strg-c and strg-v) for dte fields.
  * @author Thomas Dieb�cker
@@ -268,12 +270,17 @@ function sortItemList ()
 {
   document.getElementById("form1:SearchResultList:btnSortItemList").click();
 }
-
+/*
 function downloadFile(FileID) 
 {
   document.getElementById("form1:SearchResultList:"+FileID).click();
 }
+*/
 
+/**
+ * Clicks download file button (JSF BUG WORKAROUND) 
+ * @author Tobias Schraut
+ */
 function downloadFileViewItem(element) 
 {
 	var button = element.previousSibling;
