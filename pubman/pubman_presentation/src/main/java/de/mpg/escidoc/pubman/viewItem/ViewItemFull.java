@@ -366,6 +366,11 @@ public class ViewItemFull extends FacesBean
                 this.isWorkflowStandard = false;
             }
             
+            if(isStateWithdrawn)
+            {
+                getViewItemSessionBean().itemChanged();
+            }
+            
             //set citation url
             try
             {

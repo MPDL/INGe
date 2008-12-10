@@ -510,7 +510,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
+            setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
         }
         
        

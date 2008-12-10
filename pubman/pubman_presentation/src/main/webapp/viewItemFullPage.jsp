@@ -78,8 +78,8 @@
 									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.linkForActionsView}" rendered="#{ViewItemSessionBean.subMenu != 'ACTIONS'}" ><h:outputText value="ITEM ACTIONS"/></h:outputLink>
 									<h:outputText styleClass="free_area0" value="ITEM ACTIONS" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT'}"><h:outputText value="#{lbl.List_lblExportOptions}"/></h:outputLink>
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}" />
+									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT' and !ViewItemFull.isStateWithdrawn}"><h:outputText value="#{lbl.List_lblExportOptions}"/></h:outputLink>
+									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
 									
 									
 									&#160;
@@ -106,8 +106,8 @@
 									<h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}" value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />									
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" />
-									<h:panelGroup styleClass="seperator"/>
-									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" />
+									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="sub" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
