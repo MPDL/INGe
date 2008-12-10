@@ -156,13 +156,6 @@
 			</group>
 		</genre>
 		<genre id="BOOK" label="ENUM_GENRE_BOOK">
-			<group id="files" display="false" repeatable="true" optional="true" label="g_files" form-id="all">
-				<field id="component_name" repeatable="false" display="true" label="component_name" optional="false"/>
-				<field id="component_content-category" repeatable="false" display="true" optional="false" label="component_content-category"/>
-				<field id="component_visibility" repeatable="false" display="true" optional="false" label="component_visibility"/>
-				<field id="component_content" repeatable="false" display="true" optional="false" label="component_content"/>
-				<field id="component_description" repeatable="false" display="true" optional="true" label="component_description"/>
-			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
 				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="easy-submission">
 					<field id="publishing-info_publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true"/>
