@@ -88,7 +88,7 @@
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
 								</h:panelGroup>
-								&#160;
+								<h:outputText value="&#160;" rendered="#{!HomePage.hasErrorMessages}" />
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
