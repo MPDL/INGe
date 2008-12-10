@@ -36,7 +36,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
 {
     private Logger logger = Logger.getLogger(FacesMessagesPhaseListener.class);
     
-    private static final String sessionToken = "MULTI_PAGE_MESSAGES_SUPPORT";
+    private static final String sessionToken = "REDIRECT_MESSAGES_SUPPORT";
     
     //private Map<String, Collection<FacesMessage>> messageCache = Collections.synchronizedMap(new HashMap<String, Collection<FacesMessage>>());
 
