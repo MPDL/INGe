@@ -382,10 +382,8 @@ public class ViewItemFull extends FacesBean
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
                 if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
                 
-                if(!this.getIsStatePending())
-                {
-                    this.citationURL = pubmanUrl + itemPattern;
-                }       
+                // MF: Removed exclusion of pending items here
+                this.citationURL = pubmanUrl + itemPattern;
                 
             }
             catch (Exception e)
