@@ -70,9 +70,6 @@
 		h1, h2, h4, h5 {
 			font-family: "Myriad Pro Condesed", "Arial Narrow", sans-serif;
 		}
-		.mainMenu * {
-			font-variant:small-caps;
-		}
 /*
 *
 *  COMPONENT RELATED COLORING
@@ -279,6 +276,7 @@
 	
 	.listHeader a {
 		font-weight: bold;
+		line-height:100%;
 	}
 	
 		/*SELECT MENU*/

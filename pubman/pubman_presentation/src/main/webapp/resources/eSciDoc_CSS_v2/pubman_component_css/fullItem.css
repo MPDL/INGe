@@ -58,13 +58,18 @@
 }
 
 .fullItem .fullItemControls a {
-	padding: 0em 0.19em 0em 0.19em !important;
-	margin: 0.36em 0.28em 0.45em 0.27em;
+	padding: 0em 0.37em 0em 0.37em !important;
+	margin: 0.37em 0.28em 0.36em 0.28em;
+	line-height: normal;
 }
 
 .fullItem .itemBlock, .fullItem .itemHeader {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
+}
+
+.fullItem .itemHeader .statusArea {
+	margin-top: 0.56em;
 }
 
 .fullItem .itemHeadline {
@@ -90,6 +95,7 @@
 
 .easySubmissionHeader .step {
 	padding-top: 0.19em;
+	margin-bottom: 5em;
 }
 
 /*BODY*/

@@ -39,9 +39,14 @@
 	padding-top: 0px;
 }
 
-.infoPage .mainSection ol {
+.infoPage .mainSection ul {
 	margin-left: 0em;
 	padding-left: 0px;
+	list-style: inside;
+}
+
+.infoPage .mainSection li {
+	margin-bottom: 1em;
 }
 
 .infoPage h2 {

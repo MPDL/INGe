@@ -55,16 +55,16 @@
 
 
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CreateItemPage' and PubManRequestBean.requestedPage != 'SubmissionPage' and PubManRequestBean.requestedPage != 'EditItemPage' and PubManRequestBean.requestedPage != 'EasySubmissionPage'}">
-		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+		<h:outputText value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (PubManRequestBean.requestedPage == 'CreateItemPage' || PubManRequestBean.requestedPage == 'SubmissionPage' || PubManRequestBean.requestedPage == 'EditItemPage' || PubManRequestBean.requestedPage == 'EasySubmissionPage')}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (PubManRequestBean.requestedPage == 'CreateItemPage' || PubManRequestBean.requestedPage == 'SubmissionPage' || PubManRequestBean.requestedPage == 'EditItemPage' || PubManRequestBean.requestedPage == 'EasySubmissionPage')}" />
 
 
 	
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
-		<h:outputText value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
+		<h:outputText value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}" />
 
 <%-- 
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">

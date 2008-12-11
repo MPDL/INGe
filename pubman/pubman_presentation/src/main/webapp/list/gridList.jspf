@@ -227,7 +227,7 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="large_area0_p8">
-		      			<h:outputText value="#{item.creators}"/>&#160;
+		      			<h:outputText value="#{item.creatorsShort}"/>&#160;
 		      		</span>
 		      	</td>
 		      	<td class="free_area0 endline">

@@ -41,7 +41,7 @@
 	}
 
 	.metaMenu .logButton, .metaMenu button, .metaMenu label {
-		margin-top: 0.18em;
+		margin-top: 0.27em;
 		padding-top: 0px;
 		padding-left: 0.18em;
 	}
@@ -106,12 +106,16 @@
 
 /*BREADCRUMB*/
 
+.breadcrumb {
+	margin-top: -0.46em;
+	margin-bottom: 0.46em;
+}
+
 	.breadcrumb ol {
 		margin: 0px;
 	}
 
 	.breadcrumb li {
-		font-size: 10px;
 		margin: 0px;
 	}
 

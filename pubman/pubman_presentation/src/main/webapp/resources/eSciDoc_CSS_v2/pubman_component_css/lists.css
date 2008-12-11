@@ -148,7 +148,11 @@
 	margin-right: 0px;
 }
 
-.listItem .itemHeader, .listItem .shortView, .listItem .mediumView {
+.listItem .itemHeader {
+	margin-bottom: -2.65em;
+}
+
+.listItem .shortView, .listItem .mediumView {
 	margin-bottom: 0.5em;
 }
 
