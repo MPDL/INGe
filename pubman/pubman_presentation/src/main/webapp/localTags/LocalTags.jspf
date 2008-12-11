@@ -33,7 +33,7 @@
 
 <%-- JIRA AS-583 --%>
 
-<div class="full_area0 itemBlock underRework">
+<div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 	</h3>
@@ -47,23 +47,19 @@
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
+					<h:outputText value="#{lbl.ViewItemFull_lblTagName}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.ViewItemFull_lblTagName}" />
-					<tr:inputText styleClass="quad_txtInput" value="#{localTag.value}" valueChangeListener="#{EditItem.pubItem.writeBackLocalTags}" rendered="#{EditItem.localTagEditingAllowed}"/>
-					<tr:outputText styleClass="quad_txtInput" value="#{localTag.value}" rendered="#{!EditItem.localTagEditingAllowed}"/>
+					<h:inputText styleClass="quad_txtInput" value="#{localTag.value}" valueChangeListener="#{EditItem.pubItem.writeBackLocalTags}" rendered="#{EditItem.localTagEditingAllowed}"/>
+					<h:outputText styleClass="quad_area0" value="#{localTag.value}" rendered="#{!EditItem.localTagEditingAllowed}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" rendered="#{EditItem.localTagEditingAllowed}" text=" " action="#{localTag.removeLocalTag}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed and localTag.isLast}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{localTag.removeLocalTag}" rendered="#{EditItem.localTagEditingAllowed and !localTag.isSingle}"/>
 				</span>
 			</h:panelGroup>
 
 		</tr:iterator>
-
-		<span class="large_area0_p8 lineToolSection">
-			<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed}"/>
-		</span>
 
 	</div>
 </div>

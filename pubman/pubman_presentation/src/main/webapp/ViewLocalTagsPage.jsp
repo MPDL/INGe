@@ -72,7 +72,7 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu lower line starts here -->										
-									&#160;
+									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->

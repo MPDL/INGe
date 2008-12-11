@@ -187,6 +187,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             }
         }
         
+        if (this.getLocalTags().isEmpty())
+        {
+            this.getLocalTags().add("");
+        }
+        
         for (int i = 0; i < this.getLocalTags().size(); i++)
         {
             WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
@@ -1318,6 +1323,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             parent.getWrappedLocalTags().remove(this);
             parent.writeBackLocalTags(null);
             return null;
+        }
+        
+        public boolean getIsLast()
+        {
+            return (this == parent.getWrappedLocalTags().get(parent.getWrappedLocalTags().size() - 1));
+        }
+        
+        public boolean getIsSingle()
+        {
+            return (parent.getWrappedLocalTags().size() == 1);
         }
     }
     
