@@ -33,28 +33,30 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 
-public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> implements PhaseListener
+/**
+ * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
     private static Logger logger = Logger.getLogger(PubItemListSessionBean.class);
+    
     public static String BEAN_NAME = "PubItemListSessionBean";
     
-    /*
-    public static String[] sortCriteriaNames = new String[]{"TITLE", "EVENT_TITLE", "GENRE",
-          "PUBLISHING_INFO", "REVIEW_METHOD", "MODIFICATION_DATE", "CONTEXT", "STATE", "OWNER"};
-    
-    public static String[] sortCriteriaFilters = new String[]{
-        "/md-records/md-record/publication/title",
-        "/md-records/md-record/publication/event/title",
-        "/md-records/md-record/publication/type",
-        "/md-records/md-record/publication/source/publishing-info/publisher",
-        "/md-records/md-record/publication/review-method",
-        "/properties/version/date",
-        "/properties/context/title",
-        "/properties/version/status",
-        "/properties/created-by/title" 
-    };
-    
-    */
+   
+    /**
+     * An enumeration that contains the index for the search service and the sorting filter for the eSciDoc ItemHandler for the offered sorting criterias.
+     * TODO Description
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public static enum SORT_CRITERIA
     {
         TITLE ("escidoc.title", "/md-records/md-record/publication/title"),
@@ -73,9 +75,19 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         COLLECTION("escidoc.context.name", "/properties/context/title");
         
         
-        
+        /**
+         * The search sorting index
+         */
         private String index;
+        
+        /**
+         * The path to the xml by which a list should be sorted
+         */
         private String sortPath;
+        
+        /**
+         * An additional attribute that has to be set, indicating the sort order ("ascending" or "descending")
+         */
         private String sortOrder;
         
         SORT_CRITERIA(String index, String sortPath)
@@ -85,31 +97,55 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             this.sortOrder="";
         }
 
+        /**
+         * Sets the sorting search index
+         * @param index
+         */
         public void setIndex(String index)
         {
             this.index = index;
         }
 
+        /**
+         * Returns the sorting search index
+         * @return
+         */
         public String getIndex()
         {
             return index;
         }
 
+        /**
+         * Sets the path to the xml tag by which the list should be sorted. Used in filter of ItemHandler
+         * @param sortPath
+         */
         public void setSortPath(String sortPath)
         {
             this.sortPath = sortPath;
         }
 
+        /**
+         * Sets the path to the xml tag by awhich the list should be sorted. Used in filter of ItemHandler
+         * @return
+         */
         public String getSortPath()
         {
             return sortPath;
         }
 
+        /**
+         * Sets the sort order. "ascending" or "descending"
+         * @param sortOrder
+         */
         public void setSortOrder(String sortOrder)
         {
             this.sortOrder = sortOrder;
         }
 
+        /**
+         * Returns the sort order. "ascending" or "descending"
+         * @param sortOrder
+         */
         public String getSortOrder()
         {
             return sortOrder;
@@ -119,20 +155,44 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * The HTTP GET parameter name for the sorting criteria.
+     */
     private static String parameterSelectedSortBy = "sortBy";
     
+    /**
+     * The HTTP GET parameter name for the sorting order
+     */
     private static String parameterSelectedSortOrder = "sortOrder";
 
+    /**
+     * A list containing the menu entries of the sorting criteria menu.
+     */
     private List<SelectItem> sortBySelectItems;
     
+    /**
+     * The currently selected sorting criteria.
+     */
     private String selectedSortBy;
     
+    /**
+     * The currently selected sort order
+     */
     private String selectedSortOrder;
     
+    /**
+     * A string indicating the currently selected submenu of a PubItem list.
+     */
     private String subMenu = "VIEW";
     
+    /**
+     * A string indicating the currently selected list type of a Pub Item list.
+     */
     private String listType = "BIB";
 
+    /**
+     * A map containing the references of the currently selected pub items of one page. Used to reset selections after a redirect.
+     */
     private Map<String, ItemRO> selectedItemRefs;
     
     private LoginHelper loginHelper;
@@ -143,48 +203,15 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public PubItemListSessionBean()
     {
         super();
-        
         loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        
         selectedItemRefs = new HashMap<String, ItemRO>();
-        
-        
-        
-        //sortBySelectItems = Arrays.asList(this.i18nHelper.getSelectItemsItemListSortBy());
-
-        
-        
-        /*
-        for (int i = 0; i < ItemVO.State.values().length; i++)
-        {
-            itemStateSelectItems.add(new SelectItem(getModifiedLink(parameterSelectedItemState, ItemVO.State.values()[i].toString()), ItemVO.State.values()[i].toString()));
-        }
-        */
-       
     }
     
   
-    /*
-    public void changeSortBy(ValueChangeEvent event)
-    {
-        if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
-        {
-            try
-            {
-                setSelectedSortBy(event.getNewValue().toString());
-                resetFilters();
-                redirect();
-            }
-            catch (Exception e)
-            {
-               error("Could not redirect");
-            }
-        }
-    }
-    */
-    
-   
-    
+    /**
+     * Called by JSF when the items should be sorted by their state. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByState()
     {
         
@@ -201,6 +228,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the items should be sorted by their title. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByTitle()
     {
         
@@ -217,6 +248,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the items should be sorted by their genre. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByGenre()
     {
         
@@ -233,6 +268,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the items should be sorted by their date. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByDate()
     {
         
@@ -249,6 +288,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the items should be sorted by their creators. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByCreator()
     {
         
@@ -265,6 +308,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
    
+    /**
+     * Called by JSF when the items should be sorted by their files. Redirects to the same page with updated GET parameter for sorting.
+     * @return
+     */
     public String changeToSortByFile()
     {
         
@@ -283,6 +330,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
 
+    /**
+     * Called by JSF when the sort order should be changed from "ascending" to "descending" or vice versa.
+     * @return
+     */
     public String changeSortOrder()
     {
         if (selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING))
@@ -306,6 +357,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when submenu should be changed to the VIEW part
+     * @return
+     */
     public String changeSubmenuToView()
     {
         
@@ -322,6 +377,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the submenu should be changed to the EXPORT part
+     * @return
+     */
     public String changeSubmenuToExport()
     {
         
@@ -338,6 +397,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when submenu should be changed to the FILTER part
+     * @return
+     */
     public String changeSubmenuToFilter()
     {
         
@@ -354,6 +417,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when submenu should be changed to the SORTING part
+     * @return
+     */
     public String changeSubmenuToSorting()
     {
         
@@ -370,6 +437,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the list type should be changed to bibliographic lists
+     * @return
+     */
     public String changeListTypeToBib()
     {
         
@@ -386,6 +457,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Called by JSF when the list type should be changed to grid lists
+     * @return
+     */
     public String changeListTypeToGrid()
     {
         
@@ -402,18 +477,28 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /**
+     * Returns true if the current sort order is ascending, false if "descending
+     * @return
+     */
     public boolean getIsAscending()
     {
         return selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING);
     }
 
 
+    /**
+     * Sets the menu entries for the sorting criteria menu
+     * @param sortBySelectItems
+     */
     public void setSortBySelectItems(List<SelectItem> sortBySelectItems)
     {
         this.sortBySelectItems = sortBySelectItems;
     }
 
-
+    /**
+     * Returns the menu entries for the sorting criteria menu
+     */
     public List<SelectItem> getSortBySelectItems()
     {
         sortBySelectItems = new ArrayList<SelectItem>();
@@ -441,6 +526,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
 
+    /**
+     * Sets the current sorting criteria
+     * @param selectedSortBy
+     */
     public void setSelectedSortBy(String selectedSortBy)
     {
         this.selectedSortBy = selectedSortBy;
@@ -448,39 +537,43 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
 
-
+   /**
+    * Returns the currently selected sorting criteria
+    * @return
+    */
     public String getSelectedSortBy()
     {
         return selectedSortBy;
     }
     
+    /**
+     * Retu´rns the label in the selected language for the currrently selected sorting criteria
+     * @return
+     */
     public String getSelectedSortByLabel()
     {
-        
-        
         String returnString = "";
-        
-        
         if (!getSelectedSortBy().equals("all"))
         {
             returnString =  getLabel("ENUM_CRITERIA_"+getSelectedSortBy());
         }
         return returnString;
     }
-    
-    
 
 
-
-
+    /**
+     * Returns the current sort order ("ascending" or "descending")
+     */
     public String getSelectedSortOrder()
     {
         return selectedSortOrder;
     }
 
 
-
-
+    /**
+     * Sets the current sort order ("ascending" or "descending")
+     * @param selectedSortOrder
+     */
     public void setSelectedSortOrder(String selectedSortOrder)
     {
         this.selectedSortOrder = selectedSortOrder;
@@ -489,6 +582,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
 
+    /**
+     * Reads out additional parmaeters from GET request for sorting criteria and sort order and sets their default values if they are null
+     */
     @Override
     protected void readOutParameters()
     {
@@ -519,6 +615,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
 
+    /**
+     * Returns the currently selected sorting criteria which is used as an additional filter
+     */
     @Override
     public SORT_CRITERIA getAdditionalFilters()
     {
@@ -528,40 +627,63 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
 
+    /**
+     * Sets the submenu
+     * @param subMenu
+     */
     public void setSubMenu(String subMenu)
     {
         this.subMenu = subMenu;
     }
 
 
+    /**
+     * Returns a string describing the curently selected submenu
+     * @return
+     */
     public String getSubMenu()
     {
         return subMenu;
     }
 
 
+    /**
+     * Resets the submenus and the list types, clears parameters
+     */
     @Override
     protected void pageTypeChanged()
     {
        subMenu = "VIEW";
        listType = "BIB";
-       getParameterMap().clear();
        getSelectedItemRefs().clear();
         
     }
 
 
+    /**
+     * Sets the list type ("BIB" or "GRID")
+     * @param listType
+     */
     public void setListType(String listType)
     {
         this.listType = listType;
     }
 
 
+    /**
+     * Returns the list type ("BIB" or "GRID")
+     * @param listType
+     */
     public String getListType()
     {
         return listType;
     }
-
+    
+    
+    /**
+     * Returns the currently selected pub items of the displayed list page
+     * @return
+     */
     public List<PubItemVOPresentation> getSelectedItems()
     {
         List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
@@ -575,6 +697,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return selectedPubItems;
     }
     
+    /**
+     * Adds the currently selected pub items to the basket and displays corresponding messages.
+     * @return
+     */
     public String addSelectedToCart()
     {
         PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
@@ -596,10 +722,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             }
            
         }
-        
-     
 
-        
         if(selectedPubItems.size()==0)
         {
             error(getMessage("basket_NoItemsSelected"));
@@ -612,8 +735,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             info(getMessage("basket_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
         }
-            
-       
         
         redirect();
        
@@ -621,12 +742,19 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
     
+    /**
+     * Before any redirect, the references of the currently selected publication items are stored in this session in order to reselct them after the redirect
+     * Thus, the selection is not lost.
+     */
     @Override
     protected void beforeRedirect()
     {
         saveSelections();
     }
     
+    /**
+     * Saves the references of currently selected pub items into a map.
+     */
     private void saveSelections()
     {
         
@@ -644,6 +772,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
     
+    /**
+     * Checks if items on the current page have to be selected (checked) after an redirect.
+     */
     private void updateSelections()
     {
         for (PubItemVOPresentation pubItem : getCurrentPartList())
@@ -656,48 +787,81 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
     }
     
+    /*
     @Override
     protected void saveState()
     {
         //saveSelections();
     }
+    */
     
+    /**
+     * Updates the checkboxes of the items on the page after a new list is displayed.
+     */
     @Override
     protected void listUpdated()
     {
         updateSelections();
     }
     
+    /**
+     * Exports the selected items and displays the results.
+     * @return
+     */
     public String exportSelectedDisplay()
     {
         return showDisplayExportData(getSelectedItems());
     }
     
+    /**
+     * Exports the selected items and shows the email page.
+     * @return
+     */
     public String exportSelectedEmail()
     {
         return showExportEmailPage(getSelectedItems());
     }
     
+    /**
+     * Exports the selected items and allows the user to download them .
+     * @return
+     */
     public String exportSelectedDownload()
     {
         return downloadExportFile(getSelectedItems());
     }
     
+    /**
+     * Exports all items (without offset and limit filters) and displays them.
+     * @return
+     */
     public String exportAllDisplay()
     {
         return showDisplayExportData(retrieveAll());
     }
     
+    /**
+     * Exports all items (without offset and limit filters) and and shows the email page.
+     * @return
+     */
     public String exportAllEmail()
     {
         return showExportEmailPage(retrieveAll());
     }
     
+    /**
+     * Exports all items (without offset and limit filters) and allows the user to download them .
+     * @return
+     */
     public String exportAllDownload()
     {
         return downloadExportFile(retrieveAll());
     }
     
+    /**
+     * Retrieves all pub items (without offset and limit filters) and returns them in a list
+     * @return
+     */
     private List<PubItemVOPresentation> retrieveAll()
     {
         List<PubItemVOPresentation> itemList = getPaginatorListRetriever().retrieveList(0, 0, getAdditionalFilters());
@@ -707,9 +871,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     
     
     /**
-     * Returns the navigation string for loading the DisplayExportItemsPage.jsp .
-     * 
-     * @author: StG
+     * Exports the given items and displays them
+     * @param pubItemList
+     * @return
      */
     public String showDisplayExportData(List<PubItemVOPresentation> pubItemList)
     {
@@ -760,12 +924,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
    
     
-    /**
-     * Invokes the email service to send per email the the page with the selected items as attachment. This method is
-     * called when the user selects one or more items and then clicks on the EMail-Button in the Export-Items Panel.
-     * 
-     * @author: StG
-     */
+   /**
+    * Exports the given pub items and shows the email page.
+    * @param pubItemList
+    * @return
+    */
     public String showExportEmailPage(List<PubItemVOPresentation> pubItemList)
     {
         saveSelections();
@@ -828,10 +991,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
     /**
-     * Downloads the page with the selected items as export. This method is called when the user selects one or more
-     * items and then clicks on the Download-Button in the Export-Items Panel.
-     * 
-     * @author: StG
+     * Exports the given pub items and allows the user to download them
+     * @param pubItemList
+     * @return
      */
     public String downloadExportFile(List<PubItemVOPresentation> pubItemList)
     {
@@ -882,61 +1044,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     }
 
 
-   
-
-
-    public void setSelectedItemRefs(Map<String, ItemRO> selectedItemRefs)
-    {
-        this.selectedItemRefs = selectedItemRefs;
-    }
-    
+    /**
+     * Returns a map that contains references of the selected pub items of the last page
+     * @return
+     */
     public Map<String, ItemRO> getSelectedItemRefs()
     {
         return selectedItemRefs;
     }
     
-    public String selectAllOnPage()
-    {
-        for (PubItemVOPresentation pubItem : getCurrentPartList())
-        {
-            getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
-        }
-        redirect();
-        return"";
-        //getSelectedItemRefs().clear();
-    }
-    
-    public String selectNone()
-    {
-        getSelectedItemRefs().clear();
-        redirect();
-        return "";
-    }
-
-
-    public void afterPhase(PhaseEvent pe)
-    {
-        logger.debug("After Phase: "+pe.getPhaseId());
-        
-    }
-
-
-    public void beforePhase(PhaseEvent pe)
-    {
-        logger.debug("Before Phase: "+pe.getPhaseId());
-        
-    }
-
-
-    public PhaseId getPhaseId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    
-
-
-    
-   
 }

@@ -62,9 +62,13 @@
 
 	
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
-		<h:outputText value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
+		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}" />
+	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}">
+		<h:outputText styleClass="" value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})"  />
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
+	</h:panelGroup>
 
 <%-- 
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">

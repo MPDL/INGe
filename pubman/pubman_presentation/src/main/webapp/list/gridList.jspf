@@ -71,7 +71,7 @@ All rights reserved. Use is subject to license terms.
  			<h:outputText value="#{lbl.List_lblPage}"/>
 		</label>
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
- 		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
+ 		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
  		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
@@ -80,7 +80,7 @@ All rights reserved. Use is subject to license terms.
  			<h:panelGroup styleClass="seperator" />
  		
  		</tr:iterator>
- 		<tr:goButton styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset+PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
+ 		<tr:goButton styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset+ 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
  		<tr:goButton styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
  	</div>
 
@@ -336,7 +336,7 @@ All rights reserved. Use is subject to license terms.
  	<div class="small_marginLExcl pageBrowser">
  		<label class="noDisplay pageLabel">Page</label>
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
- 		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
+ 		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 -PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
  		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
@@ -345,7 +345,7 @@ All rights reserved. Use is subject to license terms.
  			<h:panelGroup styleClass="seperator" />
  		
  		</tr:iterator>
- 		<tr:goButton styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset+PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
+ 		<tr:goButton styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
  		<tr:goButton styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
  	</div>
 

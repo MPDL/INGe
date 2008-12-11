@@ -6,9 +6,9 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated list.
- * It requires a suitable PaginatorListBean for the same element and filter type.
+ * It requires a suitable BasePaginatorListSessionBean for the same element and filter type.
  * Implementations of this bean must be managed with scope "request" and have to be initialized before any properties of the
- * corresponding PaginatorListBean are requested (e.g. by calling the dummy method getBeanName() first).
+ * corresponding BasePaginatorListSessionBean are requested (e.g. by calling the dummy method getBeanName() first).
  * When using own properties in implementing classes which should be passed within a GET request, please ensure to add them to
  * the parameterMap of the corresponding PaginatorListBean and then call redirect() on it.
  *
@@ -85,13 +85,25 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
      */
     public abstract int getTotalNumberOfRecords();
     
+    /**
+     * Must return the relative name (and evtl. path) of the corresponding jsp page in order to redirect to this page
+     * @return
+     */
     public abstract String getListPageName();
 
+    /**
+     * Sets the corresponding BasePaginatorListSessionBean
+     * @return basePaginatorListSessionBean
+     */
     public void setBasePaginatorListSessionBean(BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean)
     {
         this.basePaginatorListSessionBean = basePaginatorListSessionBean;
     }
 
+    /**
+     * Returns the corresponding BasePaginatorListSessionBean
+     * @return basePaginatorListSessionBean
+     */
     public BasePaginatorListSessionBean<ListElementType, FilterType> getBasePaginatorListSessionBean()
     {
         return basePaginatorListSessionBean;
