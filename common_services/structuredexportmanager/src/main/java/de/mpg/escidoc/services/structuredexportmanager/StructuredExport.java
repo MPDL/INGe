@@ -284,8 +284,8 @@ public class StructuredExport implements StructuredExportHandler {
 			Element n = (Element)formatElements.item(i);
 			String id = n.getElementsByTagName("dc:identifier").item(0).getTextContent(); 
 			//populate key/value pars
-			logger.info("ID: " + id);
-			logger.info("FILE: " + XSLT_FILE_LIST.get(id));
+//			logger.info("ID: " + id);
+//			logger.info("FILE: " + XSLT_FILE_LIST.get(id));
 			fh.put(
 					id, 
 					XSLT_FILE_LIST.get(id)
