@@ -38,6 +38,7 @@ import test.referenceobjects.ReferenceObjectTest;
 import test.valueobjects.ValueObjectTest;
 import test.valueobjects.comparator.ComparatorTest;
 import test.xmltransforming.XmlTransformingTest;
+import test.xmltransforming.component.TransformPubItemTest;
 import test.xmltransforming.component.TransformStatisticReportTest;
 
 /**
@@ -48,11 +49,13 @@ import test.xmltransforming.component.TransformStatisticReportTest;
  * @revised by MuJ: 06.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataTest.class
+@Suite.SuiteClasses({
+//                    ReferenceObjectTest.class
+//                    ,ValueObjectTest.class                                        
+//                    ,ComparatorTest.class
+//                    ,XmlTransformingTest.class
+//                    ,MetadataTest.class
+                    TransformPubItemTest.class
                     })
 public class TestCommonLogic
 {

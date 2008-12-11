@@ -114,11 +114,17 @@
 <!--				<value style="element" name="comment" ns="${xsd.soap.common.release}" field="lastMessage" usage="optional" />-->
 <!--				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" />-->
 <!--			</structure>-->
+
 			<!-- Node: item.properties.content-model-specific -->
 			<!-- Field: none, but mandatory in the schema instances -->
-			<structure name="content-model-specific" ns="${xsd.soap.common.prop}" ordered="false"
-				flexible="true">
-				<!-- structure name="anything" /-->
+			<structure name="content-model-specific" ns="${xsd.soap.common.prop}" ordered="false" flexible="true">
+				
+				<structure name="local-tags" usage="optional" ordered="false" allow-repeats="true">
+					<collection field="localTags" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.localTagsListFactory" item-type="java.lang.String" usage="optional">
+						<value name="local-tag"/>
+					</collection>
+				</structure>
+				
 			</structure>
 
 		</structure>

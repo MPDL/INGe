@@ -76,6 +76,7 @@ public class ItemVO extends ValueObject implements Cloneable
     }
 
     private java.util.List<FileVO> files = new java.util.ArrayList<FileVO>();
+    private java.util.List<String> localTags = new java.util.ArrayList<String>();
     private List<MetadataSetVO> metadataSets = new java.util.ArrayList<MetadataSetVO>();
 
     private AccountUserRO owner;
@@ -183,6 +184,10 @@ public class ItemVO extends ValueObject implements Cloneable
         for (ItemRelationVO relation : other.getRelations())
         {
             this.getRelations().add((ItemRelationVO) relation.clone());
+        }
+        for (String localTag : other.getLocalTags())
+        {
+            this.localTags.add(localTag);
         }
     }
 
@@ -436,6 +441,11 @@ public class ItemVO extends ValueObject implements Cloneable
     public void setPublicStatus(State publicStatus)
     {
         this.publicStatus = publicStatus;
+    }
+
+    public java.util.List<String> getLocalTags()
+    {
+        return localTags;
     }
 
 

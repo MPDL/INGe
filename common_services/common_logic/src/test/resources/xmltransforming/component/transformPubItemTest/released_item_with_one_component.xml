@@ -24,7 +24,7 @@
             <version:status>released</version:status>
             <version:valid-status>valid</version:valid-status>
             <srel:modified-by objid="escidoc:user1" />
-            <version:comment>Current version comment</version:comment>            
+            <version:comment>Current version comment</version:comment>
         	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>
         </prop:version>
         <prop:latest-version>
@@ -36,7 +36,12 @@
             <release:date>2007-04-24T16:20:26.823Z</release:date>
             <release:pid>hdl:someHandle/test/escidoc:375</release:pid>            
         </prop:latest-release>
-        <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
+        <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}">
+        	<local-tags>
+        		<local-tag>best-of</local-tag>
+        		<local-tag>very-best-of</local-tag>
+        	</local-tags>
+        </prop:content-model-specific>
     </escidocItem:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
         <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" name="escidoc">

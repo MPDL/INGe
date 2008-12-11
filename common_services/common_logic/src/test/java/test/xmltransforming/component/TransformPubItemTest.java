@@ -264,6 +264,52 @@ public class TransformPubItemTest extends XmlTransformingTestBase
     }
 
     /**
+     * Test method for
+     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testTransformReleasedItemToPubItemAndCheckLocalTags() throws Exception
+    {
+        logger.info("### testTransformReleasedItemToPubItemAndCheckLocalTags ###");
+
+        // read item[XML] from file
+        String releasedPubItemXML = readFile(RELEASED_ITEM_FILE);
+        logger.info("Item[XML] read from file.");
+        logger.info("Content: " + releasedPubItemXML);
+        // transform the item directly into a PubItemVO
+        long zeit = -System.currentTimeMillis();
+        ItemVO pubItemVO = xmlTransforming.transformToItem(releasedPubItemXML);
+
+        assertNotNull("Local tags are null", pubItemVO.getLocalTags());
+        assertEquals("There should be two local tags", 2, pubItemVO.getLocalTags().size());
+        assertEquals("best-of", pubItemVO.getLocalTags().get(0));
+        assertEquals("very-best-of", pubItemVO.getLocalTags().get(1));
+    }
+
+    /**
+     * Test method for local tags.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testTransformItemWithLocalTags() throws Exception
+    {
+        logger.info("### testTransformItemWithLocalTags ###");
+
+        PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
+        pubItem.getLocalTags().add("Ümläut-Tág");
+        pubItem.getLocalTags().add("Ûmlàut-TÄg");
+        String itemXml = xmlTransforming.transformToItem(pubItem);
+        
+        logger.info(itemXml);
+        
+        assertTrue("Local tag not found", itemXml.contains("<local-tag>Ümläut-Tág</local-tag>"));
+        assertTrue("Local tag not found", itemXml.contains("<local-tag>Ûmlàut-TÄg</local-tag>"));
+    }
+
+    /**
      * Test method for checking the identity of a PubItem after being transformed to an item(XML) and back.
      * 
      * @throws Exception

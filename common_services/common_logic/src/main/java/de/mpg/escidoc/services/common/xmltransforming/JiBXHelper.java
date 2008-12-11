@@ -156,6 +156,16 @@ public class JiBXHelper
     }
 
     /**
+     * Factory method to create a <code>java.util.ArrayList&lt;String></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;String></code>
+     */
+    public static List<String> localTagsListFactory()
+    {
+        return new ArrayList<String>();
+    }
+    /**
      * Factory method to create a <code>java.util.ArrayList&lt;CreatorVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
