@@ -313,4 +313,22 @@
 			/ExportPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadViewLocalTags</from-outcome>
+			<to-view-id>
+			/ViewLocalTagsPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadEditLocalTags</from-outcome>
+			<to-view-id>
+			/LocalTagsPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

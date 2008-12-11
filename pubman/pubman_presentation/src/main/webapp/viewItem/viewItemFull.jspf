@@ -44,5 +44,20 @@
 		<jsp:directive.include file="ui/SystemDetails.jspf"/>
 
 		<jsp:directive.include file="../desktop/messages.jspf"/>
+
+<!-- Piwik -->
+<a href="http://piwik.org" title="Open source web analytics" onclick="window.open(this.href);return(false);">
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://localhost/piwik/" : "http://localhost/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = 'viewItem_<h:outputText value="#{ViewItemFull.pubItem.version.objectId}"/>';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p>Open source web analytics <img src="http://localhost/piwik/piwik.php" style="border:0" alt=""/></p></noscript></object></a>
+<!-- End Piwik Tag --> 
+
 	</f:subview>
 </div>

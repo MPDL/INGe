@@ -177,9 +177,8 @@ public class DepositorWS extends ItemList
                     error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                     return null;
                 }
-                // TODO FrM: Survey this change.
                 //getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
-                getItemControllerSessionBean().setCurrentPubItem(item);
+                getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(item));
             }
             // force reload of list next time this page is navigated to
             this.getItemListSessionBean().setListDirty(true);
@@ -237,7 +236,7 @@ public class DepositorWS extends ItemList
             {
                 throw new RuntimeException("Validation service not initialized", ne);
             }
-            PubItemVO pubItem = this.getItemListSessionBean().getSelectedPubItems().get(0);
+            PubItemVOPresentation pubItem = this.getItemListSessionBean().getSelectedPubItems().get(0);
             ValidationReportVO report = null;
             try
             {

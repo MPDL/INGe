@@ -101,7 +101,9 @@
 									<h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/>
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}" />
 									<h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}" value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
-									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />									
+									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />
+									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
+									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" />
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
@@ -148,13 +150,10 @@
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
 									<b class="free_area0 small_marginLExcl">&#160;<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}" rendered="#{ViewItemFull.isStateWithdrawn}" /></b>
-<!-- JIRA AS-583 -->
-<!-- start please develop local Tags functionality -->
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
-									<h:outputLink styleClass="free_area0 underRework" value="#{ApplicationBean.appContext}LocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+									<h:outputLink styleClass="free_area0 underRework" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
-<!-- stop please develop local Tags functionality -->
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
 									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemLogPage}"/>

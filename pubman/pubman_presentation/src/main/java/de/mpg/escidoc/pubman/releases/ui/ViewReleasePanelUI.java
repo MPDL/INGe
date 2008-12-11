@@ -48,6 +48,7 @@ import de.mpg.escidoc.pubman.releases.PubItemVersionVOWrapper;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
@@ -131,31 +132,31 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
      */
     public void processAction(ActionEvent event)
     {
-       ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean)FacesContext.getCurrentInstance()
-        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+        ItemControllerSessionBean itemControllerSessionBean = (ItemControllerSessionBean)FacesContext.getCurrentInstance()
+                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                 ItemControllerSessionBean.BEAN_NAME);
-       
-       String itemID = "";
-       PubItemVO pubItemVO = null; 
-       HtmlCommandLink link = (HtmlCommandLink)(event.getSource());
-       
-       // then find the item ID delivered by the link´s ID
-       if(link != null)
-       {
-           itemID = link.getId().substring(13).replace("-", ":");
-       }
-       
-       if(itemID != null)
-       {
-           try
+        
+        String itemID = "";
+        PubItemVOPresentation pubItemVO = null;
+        HtmlCommandLink link = (HtmlCommandLink) (event.getSource());
+        
+        // then find the item ID delivered by the link´s ID
+        if (link != null)
         {
-               pubItemVO = itemControllerSessionBean.retrieveItem(itemID);
+            itemID = link.getId().substring(13).replace("-", ":");
         }
-        catch (Exception e)
+        
+        if (itemID != null)
         {
-            logger.error("Could not retrioeve item by ID: " + itemID + "! ", e);
+            try
+            {
+                pubItemVO = itemControllerSessionBean.retrieveItem(itemID);
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrioeve item by ID: " + itemID + "! ", e);
+            }
         }
-       }
        
        // set this pub item in the itemcontroller session bean
        itemControllerSessionBean.setCurrentPubItem(pubItemVO);

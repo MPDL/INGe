@@ -74,6 +74,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -885,8 +886,8 @@ public class EasySubmission extends FacesBean
             String result = mdHandler.bibtex2item(content.toString());
             PubItemVO itemVO = xmlTransforming.transformToPubItem(result);
             itemVO.setContext(getItem().getContext());
-            this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
-            this.setItem(itemVO);
+            this.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(itemVO));
+            this.setItem(new PubItemVOPresentation(itemVO));
         }
         catch (MultipleEntriesInBibtexException meibe)
         {
@@ -1066,8 +1067,8 @@ public class EasySubmission extends FacesBean
                         {                           
                             itemVO.getFiles().add(fileVO);
                         }                       
-                        this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
-                        this.setItem(itemVO);
+                        this.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(itemVO));
+                        this.setItem(new PubItemVOPresentation(itemVO));
                         
                      }
                      catch(TechnicalException e)
@@ -1615,7 +1616,7 @@ public class EasySubmission extends FacesBean
         return this.getItemControllerSessionBean().getCurrentPubItem();
     }
 
-    public void setItem(PubItemVO item)
+    public void setItem(PubItemVOPresentation item)
     {
         this.getItemControllerSessionBean().setCurrentPubItem(item);
     }

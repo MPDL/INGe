@@ -136,7 +136,7 @@ public class ViewItemFull extends FacesBean
     
     // Validation Service
     private ItemValidating itemValidating = null; 
-    private PubItemVO pubItem = null;
+    private PubItemVOPresentation pubItem = null;
 
     private HtmlMessages valMessage = new HtmlMessages();
 
@@ -171,7 +171,7 @@ public class ViewItemFull extends FacesBean
     private UIXIterator sourceCreatorOrganizationsIterator = new UIXIterator(); 
     
     
-    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();	
+    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();
     
     private UIXIterator fileIterator = new UIXIterator();
     
@@ -665,10 +665,12 @@ public class ViewItemFull extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
+        PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        
         ValidationReportVO report = null;
         try
         {
-            report = this.itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "submit_item");
+            report = this.itemValidating.validateItemObject(pubItem, "submit_item");
         }
         catch (Exception e)
         {
@@ -676,7 +678,8 @@ public class ViewItemFull extends FacesBean
         }
         logger.debug("Validation Report: " + report);
         
-        if (report.isValid() && !report.hasItems()) {
+        if (report.isValid() && !report.hasItems())
+        {
        
             if (logger.isDebugEnabled())
             {
@@ -705,10 +708,12 @@ public class ViewItemFull extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
+        PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        
         ValidationReportVO report = null;
         try
         {
-            report = this.itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "accept_item");
+            report = this.itemValidating.validateItemObject(pubItem, "accept_item");
         }
         catch (Exception e)
         {
@@ -1594,7 +1599,7 @@ public class ViewItemFull extends FacesBean
 		return this.pubItem;
 	}
 
-	public void setPubItem(PubItemVO pubItem) {
+	public void setPubItem(PubItemVOPresentation pubItem) {
 		this.pubItem = pubItem;
 	}
 
@@ -1663,45 +1668,55 @@ public class ViewItemFull extends FacesBean
 	    
 	}
 	
-	public ArrayList<String> getOrganizationArray() {
+	public ArrayList<String> getOrganizationArray()
+	{
 		return this.organizationArray;
 	}
 
-	public void setOrganizationArray(ArrayList<String> organizationArray) {
+	public void setOrganizationArray(ArrayList<String> organizationArray)
+	{
 		this.organizationArray = organizationArray;
 	}
 
-	public ArrayList<ViewItemOrganization> getOrganizationList() {
+	public ArrayList<ViewItemOrganization> getOrganizationList()
+	{
 		return this.organizationList;
 	}
 
-	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
+	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList)
+	{
 		this.organizationList = organizationList;
 	}
 
-	public List<OrganizationVO> getAffiliatedOrganizationsList() {
+	public List<OrganizationVO> getAffiliatedOrganizationsList()
+	{
 		return this.affiliatedOrganizationsList;
 	}
 
 	public void setAffiliatedOrganizationsList(
-			List<OrganizationVO> affiliatedOrganizationsList) {
+			List<OrganizationVO> affiliatedOrganizationsList)
+	{
 		this.affiliatedOrganizationsList = affiliatedOrganizationsList;
 	}
 
-	public ArrayList<String> getCreatorArray() {
+	public ArrayList<String> getCreatorArray()
+	{
 		return this.creatorArray;
 	}
 
-	public void setCreatorArray(ArrayList<String> creatorArray) {
+	public void setCreatorArray(ArrayList<String> creatorArray)
+	{
 		this.creatorArray = creatorArray;
 	}
 
-	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
+	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray()
+	{
 		return this.creatorOrganizationsArray;
 	}
 
 	public void setCreatorOrganizationsArray(
-			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray) {
+			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray)
+	{
 		this.creatorOrganizationsArray = creatorOrganizationsArray;
 	}
 

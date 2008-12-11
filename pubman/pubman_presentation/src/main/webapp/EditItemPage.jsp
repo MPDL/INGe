@@ -118,7 +118,6 @@
 								</span>
 							</div>
 
-
 						 	<jsp:directive.include file="editItem/BasicGroup.jspf" />
 							<jsp:directive.include file="editItem/FilesGroup.jspf" />
 							<jsp:directive.include file="editItem/LocatorsGroup.jspf" />
@@ -128,7 +127,6 @@
 							<jsp:directive.include file="editItem/EventGroup.jspf" />
 							<jsp:directive.include file="editItem/SourceGroup.jspf" />
 						 
-
 						</div>
 						<div class="full_area0 formButtonArea">
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>

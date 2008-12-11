@@ -83,6 +83,8 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -120,8 +122,8 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 public class EditItem extends FacesBean
 {
 
-	private static final long serialVersionUID = 1L;
-	public static final String BEAN_NAME = "EditItem";
+    private static final long serialVersionUID = 1L;
+    public static final String BEAN_NAME = "EditItem";
     private static Logger logger = Logger.getLogger(EditItem.class);
 
     // Faces navigation string
@@ -174,7 +176,7 @@ public class EditItem extends FacesBean
 
     private CoreTable fileTable = new CoreTable();
     
-    PubItemVO item = null;
+    private PubItemVOPresentation item = null;
     
     private boolean fromEasySubmission = false;
     
@@ -276,34 +278,34 @@ public class EditItem extends FacesBean
      * This is a shortCut for the method in the ItemController.
      * @return the item that is currently edited
      */
-    public PubItemVO getPubItem()
+    public PubItemVOPresentation getPubItem()
     {
-    	
+        
         if (this.item == null)
         {
-        	this.item = this.getItemControllerSessionBean().getCurrentPubItem();
+            this.item = this.getItemControllerSessionBean().getCurrentPubItem();
         }
         return this.item;
     }
 
     public String getContextName()
     {
-    	if (this.contextName == null)
-    	{
-	        try
-	        {
-	            ContextVO context = this.getItemControllerSessionBean().retrieveContext(
-	                     this.getPubItem().getContext().getObjectId());
-	            return context.getName();
-	        }
-	        catch (Exception e)
-	        {
-	            logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-	            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
-	            return ErrorPage.LOAD_ERRORPAGE;
-	        }
-    	}
-    	return this.contextName;
+        if (this.contextName == null)
+        {
+            try
+            {
+                ContextVO context = this.getItemControllerSessionBean().retrieveContext(
+                         this.getPubItem().getContext().getObjectId());
+                return context.getName();
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrieve the requested context." + "\n" + e.toString());
+                ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+        }
+        return this.contextName;
 
     }
 
@@ -327,7 +329,7 @@ public class EditItem extends FacesBean
         
             if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
             {
-            	bindFiles();
+                bindFiles();
             }
         }
         else
@@ -339,49 +341,49 @@ public class EditItem extends FacesBean
 
     private void bindFiles()
     {
-    	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-    	List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-    	int fileCount = 0;
-    	int locatorCount = 0;
-    	// add files
-    	for (int i = 0; i < this.item.getFiles().size(); i++)
-    	{
-			if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
-			{
-				PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),false);
-				files.add(filepres);
-				fileCount ++;
-			}
-		}
-    	this.getEditItemSessionBean().setFiles(files);
-    	
-    	// add locators
-    	for (int i = 0; i < this.item.getFiles().size(); i++)
-    	{
-			if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
-			{
-				PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
-				locators.add(locatorpres);
-				locatorCount ++;
-			}
-		}
-    	this.getEditItemSessionBean().setLocators(locators);
-    	
-    	// make sure that at least one locator and one file is stored in the  EditItemSessionBean
-    	if(this.getEditItemSessionBean().getFiles().size() < 1)
-    	{
-    	    FileVO newFile = new FileVO();
-    	    newFile.getMetadataSets().add(new MdsFileVO());
-    	    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
-    	}
-    	if(this.getEditItemSessionBean().getLocators().size() < 1)
-    	{
-    		FileVO newLocator = new FileVO();
-    		newLocator.getMetadataSets().add(new MdsFileVO());
-    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-    	}
+        List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+        List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+        int fileCount = 0;
+        int locatorCount = 0;
+        // add files
+        for (int i = 0; i < this.item.getFiles().size(); i++)
+        {
+            if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
+            {
+                PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),false);
+                files.add(filepres);
+                fileCount ++;
+            }
+        }
+        this.getEditItemSessionBean().setFiles(files);
+        
+        // add locators
+        for (int i = 0; i < this.item.getFiles().size(); i++)
+        {
+            if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
+            {
+                PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
+                locators.add(locatorpres);
+                locatorCount ++;
+            }
+        }
+        this.getEditItemSessionBean().setLocators(locators);
+        
+        // make sure that at least one locator and one file is stored in the  EditItemSessionBean
+        if(this.getEditItemSessionBean().getFiles().size() < 1)
+        {
+            FileVO newFile = new FileVO();
+            newFile.getMetadataSets().add(new MdsFileVO());
+            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+            this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
+        }
+        if(this.getEditItemSessionBean().getLocators().size() < 1)
+        {
+            FileVO newLocator = new FileVO();
+            newLocator.getMetadataSets().add(new MdsFileVO());
+            newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+            this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+        }
     }
     
     /**
@@ -389,13 +391,13 @@ public class EditItem extends FacesBean
      */
     public void reorganizeFileIndexes()
     {
-    	if(this.getEditItemSessionBean().getFiles() != null)
-    	{
-    		for(int i = 0; i < this.getEditItemSessionBean().getFiles().size(); i++)
-        	{
-        		this.getEditItemSessionBean().getFiles().get(i).setIndex(i);
-        	}
-    	}
+        if(this.getEditItemSessionBean().getFiles() != null)
+        {
+            for(int i = 0; i < this.getEditItemSessionBean().getFiles().size(); i++)
+            {
+                this.getEditItemSessionBean().getFiles().get(i).setIndex(i);
+            }
+        }
     }
     
     /**
@@ -403,13 +405,13 @@ public class EditItem extends FacesBean
      */
     public void reorganizeLocatorIndexes()
     {
-    	if(this.getEditItemSessionBean().getLocators() != null)
-    	{
-    		for(int i = 0; i < this.getEditItemSessionBean().getLocators().size(); i++)
-        	{
-        		this.getEditItemSessionBean().getLocators().get(i).setIndex(i);
-        	}
-    	}
+        if(this.getEditItemSessionBean().getLocators() != null)
+        {
+            for(int i = 0; i < this.getEditItemSessionBean().getLocators().size(); i++)
+            {
+                this.getEditItemSessionBean().getLocators().get(i).setIndex(i);
+            }
+        }
     }
     
     /**
@@ -417,35 +419,35 @@ public class EditItem extends FacesBean
      */
     private void bindUploadedFilesAndLocators()
     {
-    	// first clear the file list
-    	this.getPubItem().getFiles().clear();
-		// add the files
-    	if(this.getFiles() != null && this.getFiles().size() > 0)
-    	{
-    		for(int i = 0; i < this.getFiles().size(); i++)
-    		{
-    			this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
-    		}
-    	}
-    	// add the locators
-		if(this.getLocators() != null && this.getLocators().size() > 0)
-    	{
-    		for(int i = 0; i < this.getLocators().size(); i++)
-    		{
-    		    
-    		    //add name from content if not available
-    		    if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
+        // first clear the file list
+        this.getPubItem().getFiles().clear();
+        // add the files
+        if(this.getFiles() != null && this.getFiles().size() > 0)
+        {
+            for(int i = 0; i < this.getFiles().size(); i++)
+            {
+                this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
+            }
+        }
+        // add the locators
+        if(this.getLocators() != null && this.getLocators().size() > 0)
+        {
+            for(int i = 0; i < this.getLocators().size(); i++)
+            {
+                
+                //add name from content if not available
+                if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
                 {
                     this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
                     //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
                 }
                 
-    			this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
-    		}
-    	}
-		// finally clean the session bean
-		/*this.getEditItemSessionBean().getFiles().clear();
-		this.getEditItemSessionBean().getLocators().clear();*/
+                this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
+            }
+        }
+        // finally clean the session bean
+        /*this.getEditItemSessionBean().getFiles().clear();
+        this.getEditItemSessionBean().getLocators().clear();*/
     }
     
     /**
@@ -495,50 +497,50 @@ public class EditItem extends FacesBean
 
     public String addLanguage()
     {
-    	getPubItem().getMetadata().getLanguages().add("");
-    	return null;
+        getPubItem().getMetadata().getLanguages().add("");
+        return null;
     }
 
     public String removeLanguage()
     {
-    	getPubItem().getMetadata().getLanguages().remove(getPubItem().getMetadata().getLanguages().size() - 1);
-    	return null;
+        getPubItem().getMetadata().getLanguages().remove(getPubItem().getMetadata().getLanguages().size() - 1);
+        return null;
     }
     
     public boolean getRenderRemoveLanguage()
     {
-    	return (getPubItem().getMetadata().getLanguages().size() > 1);
+        return (getPubItem().getMetadata().getLanguages().size() > 1);
     }
 
     public List<ListItem> getLanguages()
     {
-    	if (this.languages == null)
-    	{
-    		this.languages = new ArrayList<ListItem>();
-    		if (getPubItem().getMetadata().getLanguages().size() == 0)
-    		{
-    			getPubItem().getMetadata().getLanguages().add("");
-    		}
-    		int counter = 0;
-    		for (Iterator<String> iterator = getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
-    			String value = (String) iterator.next();
-    			ListItem item = new ListItem();
-    			item.setValue(value);
-    			item.setIndex(counter++);
-    			item.setStringList(getPubItem().getMetadata().getLanguages());
-    			item.setItemList(this.languages);
-    			this.languages.add(item);
-    		}
-    	}
-    	return this.languages;
+        if (this.languages == null)
+        {
+            this.languages = new ArrayList<ListItem>();
+            if (getPubItem().getMetadata().getLanguages().size() == 0)
+            {
+                getPubItem().getMetadata().getLanguages().add("");
+            }
+            int counter = 0;
+            for (Iterator<String> iterator = getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
+                String value = (String) iterator.next();
+                ListItem item = new ListItem();
+                item.setValue(value);
+                item.setIndex(counter++);
+                item.setStringList(getPubItem().getMetadata().getLanguages());
+                item.setItemList(this.languages);
+                this.languages.add(item);
+            }
+        }
+        return this.languages;
     }
     
-	public SelectItem[] getLanguageOptions()
+    public SelectItem[] getLanguageOptions()
     {
-    	return CommonUtils.getLanguageOptions();
+        return CommonUtils.getLanguageOptions();
     }
-	
-	/**
+    
+    /**
      * Validates the item.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
@@ -577,16 +579,16 @@ public class EditItem extends FacesBean
      */
     public String save()
     {
-    	// bind the temporary uploaded files to the files in the current item
-    	bindUploadedFilesAndLocators();
-    	
-    	/*
+        // bind the temporary uploaded files to the files in the current item
+        bindUploadedFilesAndLocators();
+        
+        /*
          * FrM: Validation with validation point "default"
          */
         ValidationReportVO report = null;
         try
         {
-        	PubItemVO itemVO = new PubItemVO(getPubItem());
+            PubItemVO itemVO = new PubItemVO(getPubItem());
             report = this.itemValidating.validateItemObject(itemVO, "default");
         }
         catch (Exception e)
@@ -639,8 +641,8 @@ public class EditItem extends FacesBean
         {
             // TODO FrM: Informative messages
             //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false);
-        	this.getItemListSessionBean().setListDirty(true);
-        	String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+            this.getItemListSessionBean().setListDirty(true);
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
 
             if (retVal == null)
             {
@@ -741,14 +743,14 @@ public class EditItem extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
-    	// bind the temporary uploaded files to the files in the current item
-    	bindUploadedFilesAndLocators();
-    	
+        // bind the temporary uploaded files to the files in the current item
+        bindUploadedFilesAndLocators();
+        
         ValidationReportVO report = null;
         try
         {
-        	PubItemVO item = new PubItemVO(getPubItem());
-        	
+            PubItemVO item = new PubItemVO(getPubItem());
+            
             report = this.itemValidating.validateItemObject(item, "submit_item");
         }
         catch (Exception e)
@@ -837,34 +839,35 @@ public class EditItem extends FacesBean
      */
     public String cancel()
     {
-    	// examine if the user came from the view Item Page or if he started a new submission
-    	String navString = "";
-    	if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
+        // examine if the user came from the view Item Page or if he started a new submission
+        String navString = "";
+        if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
         {
             navString = ViewItemFull.LOAD_VIEWITEM;
         }
         else
         {
-        	navString = Home.LOAD_HOME;
+            navString = Home.LOAD_HOME;
         }
-    	cleanEditItem();
-    	
-    	if (navString.equals(ViewItemFull.LOAD_VIEWITEM))
-    	{
-    	    try 
+        cleanEditItem();
+        
+        if (navString.equals(ViewItemFull.LOAD_VIEWITEM))
+        {
+            try 
             {
-    	        EditItemPage editItemPage = (EditItemPage) getRequestBean(EditItemPage.class); 
+                EditItemPage editItemPage = (EditItemPage) getRequestBean(EditItemPage.class); 
                 FacesContext fc = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
                 fc.getExternalContext().redirect(request.getContextPath() + "/faces/" + editItemPage.getPreviousPageURI());
             } 
-            catch (IOException e) {
+            catch (IOException e)
+            {
                 logger.error("Could not redirect to View Item Page", e);
             }
-    	    
-    	}
-    	
-    	return navString;
+            
+        }
+        
+        return navString;
     }
     
     /**
@@ -872,16 +875,16 @@ public class EditItem extends FacesBean
      */
     private void cleanEditItem()
     {
-    	this.item = null;
-    	this.titleCollection = null;
-    	this.eventTitleCollection = null;
-    	this.contentAbstractCollection = null;
-    	this.creatorCollection = null;
-    	this.identifierCollection = null;
-    	this.sourceCollection = null;
-    	this.languages = null;
-    	this.uploadedFile = null;
-    	this.fileTable = null;
+        this.item = null;
+        this.titleCollection = null;
+        this.eventTitleCollection = null;
+        this.contentAbstractCollection = null;
+        this.creatorCollection = null;
+        this.identifierCollection = null;
+        this.sourceCollection = null;
+        this.languages = null;
+        this.uploadedFile = null;
+        this.fileTable = null;
     }
     
     
@@ -896,14 +899,14 @@ public class EditItem extends FacesBean
          * Copied by DiT from saveAndSubmit(), written by FrM: Validation with validation point "accept_item"
          */
         
-    	// bind the temporary uploaded files to the files in the current item
-    	bindUploadedFilesAndLocators();
-    	
+        // bind the temporary uploaded files to the files in the current item
+        bindUploadedFilesAndLocators();
+        
         ValidationReportVO report = null;
 
         try
         {
-            report = this.itemValidating.validateItemObject(getPubItem(), EditItem.VALIDATIONPOINT_ACCEPT);
+            report = this.itemValidating.validateItemObject(new PubItemVO(getPubItem()), EditItem.VALIDATIONPOINT_ACCEPT);
         }
         catch (Exception e)
         {
@@ -928,7 +931,7 @@ public class EditItem extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-                ((ErrorPage)getBean(ErrorPage.class)).setException(e);
+                ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
                 
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -1003,8 +1006,8 @@ public class EditItem extends FacesBean
     
     public String uploadFile(UploadedFile file)
     {
-    	String contentURL = "";
-    	if (file != null)
+        String contentURL = "";
+        if (file != null)
           {  
               try
               {
@@ -1025,7 +1028,7 @@ public class EditItem extends FacesBean
 
                   if(url != null)
                   {
-                	  contentURL = url.toString();
+                      contentURL = url.toString();
                   }
                
               }
@@ -1047,8 +1050,8 @@ public class EditItem extends FacesBean
                   return ErrorPage.LOAD_ERRORPAGE;
               }
           }
-    	
-    	
+        
+        
       return contentURL;
     }
     
@@ -1062,11 +1065,11 @@ public class EditItem extends FacesBean
       if (file != null || file.getLength()==0)
       {
         contentURL = uploadFile(file);
-    	if(contentURL != null && !contentURL.trim().equals(""))
-    	{	
-    		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
-    		
-    		fileVO.getDefaultMetadata().setSize((int)file.getLength());
+        if(contentURL != null && !contentURL.trim().equals(""))
+        {    
+            FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+            
+            fileVO.getDefaultMetadata().setSize((int)file.getLength());
             fileVO.setName(file.getFilename());
             fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
             fileVO.setMimeType(file.getContentType());
@@ -1080,7 +1083,7 @@ public class EditItem extends FacesBean
             formatVO.setValue(file.getContentType());
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(contentURL);
-    	}
+        }
         //bindFiles();
       }
       else 
@@ -1123,26 +1126,26 @@ public class EditItem extends FacesBean
     	return null;
     }
 
-	/**
+    /**
      * Preview method for uploaded files
      */
     public void fileDownloaded(){
 
-    	int index = this.fileIterator.getRowIndex();
-  	
-		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(index).getFile();
-		
-		try {
-			fileVO.setContent(fileVO.getContent().replaceFirst(ServiceLocator.getFrameworkUrl(), ""));
-		} 
-		catch (ServiceException e) 
-		{e.printStackTrace();} 
-		catch (URISyntaxException e) 
-		{e.printStackTrace();}
-    	FileBean File = new FileBean(fileVO,this.getPubItem().getPublicStatus());
-    	
-    	
-    	File.downloadFile();
+        int index = this.fileIterator.getRowIndex();
+      
+        FileVO fileVO = this.getEditItemSessionBean().getFiles().get(index).getFile();
+        
+        try {
+            fileVO.setContent(fileVO.getContent().replaceFirst(ServiceLocator.getFrameworkUrl(), ""));
+        } 
+        catch (ServiceException e) 
+        {e.printStackTrace();} 
+        catch (URISyntaxException e) 
+        {e.printStackTrace();}
+        FileBean File = new FileBean(fileVO,this.getPubItem().getPublicStatus());
+        
+        
+        File.downloadFile();
     }
     
     /**
@@ -1151,15 +1154,15 @@ public class EditItem extends FacesBean
      */
     public String addFile()
     {
-    	// avoid to upload more than one item before filling the metadata
-    	if(this.getEditItemSessionBean().getFiles() != null)
-    	{
-    		FileVO newFile = new FileVO();
-    		newFile.getMetadataSets().add(new MdsFileVO());
-    		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
-    	}
-    	return null;
+        // avoid to upload more than one item before filling the metadata
+        if(this.getEditItemSessionBean().getFiles() != null)
+        {
+            FileVO newFile = new FileVO();
+            newFile.getMetadataSets().add(new MdsFileVO());
+            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+            this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
+        }
+        return null;
     }
     
     /**
@@ -1168,14 +1171,14 @@ public class EditItem extends FacesBean
      */
     public void addFile(ActionEvent event)
     {
-    	// avoid to upload more than one item before filling the metadata
-    	if(this.getEditItemSessionBean().getFiles() != null)
-    	{
-    		FileVO newFile = new FileVO();
-    		newFile.getMetadataSets().add(new MdsFileVO());
-    		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
-    	}
+        // avoid to upload more than one item before filling the metadata
+        if(this.getEditItemSessionBean().getFiles() != null)
+        {
+            FileVO newFile = new FileVO();
+            newFile.getMetadataSets().add(new MdsFileVO());
+            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+            this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
+        }
     }
     
     /**
@@ -1184,14 +1187,14 @@ public class EditItem extends FacesBean
      */
     public String addLocator()
     {
-    	if(this.getEditItemSessionBean().getLocators() != null)
-    	{
-    		FileVO newLocator = new FileVO();
-    		newLocator.getMetadataSets().add(new MdsFileVO());
-    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
-    	}
-    	return "loadEditItem";
+        if(this.getEditItemSessionBean().getLocators() != null)
+        {
+            FileVO newLocator = new FileVO();
+            newLocator.getMetadataSets().add(new MdsFileVO());
+            newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+            this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
+        }
+        return "loadEditItem";
     }
     
     /**
@@ -1200,17 +1203,17 @@ public class EditItem extends FacesBean
      */
     public String saveLocator()
     {
-    	if(this.getEditItemSessionBean().getLocators() != null)
-    	{
-    		// set the name if it is not filled
-        	if(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle() == null || this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
-        	{
-        	    this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent()));
-        		//this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
-        	}
-        	
-    	}
-    	return "loadEditItem";
+        if(this.getEditItemSessionBean().getLocators() != null)
+        {
+            // set the name if it is not filled
+            if(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle() == null || this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
+            {
+                this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent()));
+                //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
+            }
+            
+        }
+        return "loadEditItem";
     }
     
  
@@ -1335,10 +1338,7 @@ public class EditItem extends FacesBean
     private void enableLinks()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-     // Try to get the validation service
        
-       
-        boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
         boolean isWorkflowStandard = false;
         boolean isWorkflowSimple = true;
         
@@ -1347,6 +1347,7 @@ public class EditItem extends FacesBean
         boolean isStateReleased = false;
         boolean isStateInRevision = false;
 
+        boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
         if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null)
         {
             isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
@@ -1369,14 +1370,14 @@ public class EditItem extends FacesBean
         }
         catch (Exception e)
         {
-            
+            throw new RuntimeException("Previously uncaught exception", e);
         }
         
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
         this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner);
         this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision) &&  isWorkflowStandard && isOwner);
-        this.lnkSave.setRendered(((isStatePending || isStateInRevision)&& isOwner) || (isStateSubmitted && isModerator));
+        this.lnkSave.setRendered(((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator));
         
         /*
         this.lnkAccept.setRendered(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getContext()));
@@ -1386,6 +1387,44 @@ public class EditItem extends FacesBean
         */
     }
 
+    public boolean getLocalTagEditingAllowed()
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+
+        boolean isStateSubmitted = false;
+        boolean isStateReleased = false;
+        
+        if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null)
+        {
+            isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
+            isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+        }
+        
+        boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+
+        return (isStateSubmitted || isStateReleased) && isModerator;
+        
+    }
+
+    public String acceptLocalTags()
+    {
+        getPubItem().writeBackLocalTags(null);
+        saveAndAccept();
+        getItemControllerSessionBean().acceptCurrentPubItem("Local tags modified", ViewItemFull.LOAD_VIEWITEM);
+        try 
+        {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
+            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()); 
+
+        } 
+        catch (IOException e) {
+            logger.error("Could not redirect to View Item Page", e);
+        }
+        return null;
+    }
+    
     /**
      * Evaluates if the EditItem should be in modify mode.
      * @return true if modify mode should be on
@@ -1634,70 +1673,72 @@ public class EditItem extends FacesBean
         this.sourceCollection = sourceCollection;
     }
 
-	public List<PubFileVOPresentation> getFiles() {
-		return this.getEditItemSessionBean().getFiles();
-	}
+    public List<PubFileVOPresentation> getFiles() {
+        return this.getEditItemSessionBean().getFiles();
+    }
 
-	public void setFiles(List<PubFileVOPresentation> files) {
-		this.getEditItemSessionBean().setFiles(files);
-	}
-	
-	public List<PubFileVOPresentation> getLocators() {
-		return this.getEditItemSessionBean().getLocators();
-	}
+    public void setFiles(List<PubFileVOPresentation> files) {
+        this.getEditItemSessionBean().setFiles(files);
+    }
+    
+    public List<PubFileVOPresentation> getLocators() {
+        return this.getEditItemSessionBean().getLocators();
+    }
 
-	public void setLocators(List<PubFileVOPresentation> locators) {
-		this.getEditItemSessionBean().setLocators(locators);
-	}
+    public void setLocators(List<PubFileVOPresentation> locators) {
+        this.getEditItemSessionBean().setLocators(locators);
+    }
 
-	public UploadedFile getUploadedFile() {
-		return this.uploadedFile;
-	}
+    public UploadedFile getUploadedFile() {
+        return this.uploadedFile;
+    }
 
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		this.uploadedFile = uploadedFile;
-	}
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
 
-	public CoreTable getFileTable() {
-		return this.fileTable;
-	}
+    public CoreTable getFileTable() {
+        return this.fileTable;
+    }
 
-	public void setFileTable(CoreTable fileTable) {
-		this.fileTable = fileTable;
-	}
-	
-	public int getNumberOfFiles()
-	{
-		int fileNumber = 0;
-		if(this.getEditItemSessionBean().getFiles() != null)
-		{
-			fileNumber = this.getEditItemSessionBean().getFiles().size();
-		}
-		return fileNumber;
-	}
-	
-	public int getNumberOfLocators()
-	{
-		int locatorNumber = 0;
-		if(this.getEditItemSessionBean().getLocators() != null)
-		{
-			locatorNumber = this.getEditItemSessionBean().getLocators().size();
-		}
-		return locatorNumber;
-	}
-	
-	public EditItemPage getEditItemPage()
-	{
-	    return (EditItemPage)getBean(EditItemPage.class);
-	}
+    public void setFileTable(CoreTable fileTable) {
+        this.fileTable = fileTable;
+    }
+    
+    public int getNumberOfFiles()
+    {
+        int fileNumber = 0;
+        if(this.getEditItemSessionBean().getFiles() != null)
+        {
+            fileNumber = this.getEditItemSessionBean().getFiles().size();
+        }
+        return fileNumber;
+    }
+    
+    public int getNumberOfLocators()
+    {
+        int locatorNumber = 0;
+        if(this.getEditItemSessionBean().getLocators() != null)
+        {
+            locatorNumber = this.getEditItemSessionBean().getLocators().size();
+        }
+        return locatorNumber;
+    }
+    
+    public EditItemPage getEditItemPage()
+    {
+        return (EditItemPage) getRequestBean(EditItemPage.class);
+    }
 
-	public PubItemVO getItem() {
-		return this.item;
-	}
+    public PubItemVO getItem()
+    {
+        return this.item;
+    }
 
-	public void setItem(PubItemVO item) {
-		this.item = item;
-	}
+    public void setItem(PubItemVOPresentation item)
+    {
+        this.item = item;
+    }
 
     public boolean isFromEasySubmission()
     {
@@ -1720,7 +1761,8 @@ public class EditItem extends FacesBean
     }
     
     
-    /**Parses a string that includes creators in different formats and adds them to the given creatorCollection
+    /** Parses a string that includes creators in different formats and adds them to the
+     * given creatorCollection.
      * 
      * @param creatorString The String to be parsed
      * @param creatorCollection The collection to which the creators should be added
@@ -1731,7 +1773,8 @@ public class EditItem extends FacesBean
     {
         AuthorDecoder authDec = new AuthorDecoder(creatorString);
         List<Author> authorList = authDec.getBestAuthorList();
-        if (authorList==null || authorList.size()==0) {
+        if (authorList == null || authorList.size() == 0)
+        {
             throw new Exception("Couldn't parse given creator string");
         }
         
@@ -1744,11 +1787,13 @@ public class EditItem extends FacesBean
         CreatorManager creatorManager = creatorCollection.getCreatorManager();
 
         //check if last existing author is empty, then remove it
-        if (creatorManager.getObjectList().size()>=1)
+        if (creatorManager.getObjectList().size() >= 1)
         {
             CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size()-1);
             CreatorVO creatorVO  = lastCreatorBean.getCreator();
-            if (creatorVO.getPerson().getFamilyName().equals("") && creatorVO.getPerson().getGivenName().equals("") && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
+            if (creatorVO.getPerson().getFamilyName().equals("")
+                    && creatorVO.getPerson().getGivenName().equals("")
+                    && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
                 creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size()-1);
@@ -1762,14 +1807,14 @@ public class EditItem extends FacesBean
             CreatorBean creatorBean = creatorManager.createNewObject();
             creatorBean.getCreator().getPerson().setFamilyName(author.getSurname());
           
-                if(author.getGivenName()==null || author.getGivenName().equals(""))
-                {
-                    creatorBean.getCreator().getPerson().setGivenName(author.getPrefix());
-                }
-                else
-                {
-                    creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
-                }
+            if(author.getGivenName() == null || author.getGivenName().equals(""))
+            {
+                creatorBean.getCreator().getPerson().setGivenName(author.getPrefix());
+            }
+            else
+            {
+                creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
+            }
             creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
             creatorBean.getCreator().setType(CreatorType.PERSON);
             
@@ -1805,6 +1850,22 @@ public class EditItem extends FacesBean
     	return null;
       
     }
+    /**
+     * Adds a new local tag to the PubItemVO and a new wrapped local tag to PubItemVOPresentation.
+     * 
+     * @return Returns always null.
+     */
+    public String addLocalTag()
+    {
+        WrappedLocalTag wrappedLocalTag = this.getPubItem().new WrappedLocalTag();
+        wrappedLocalTag.setParent(this.getPubItem());
+        wrappedLocalTag.setValue("");
+        this.getPubItem().getWrappedLocalTags().add(wrappedLocalTag);
+        
+        this.getPubItem().writeBackLocalTags(null);
+        
+        return null;
+    }
 
     public void setCreatorParseString(String creatorParseString)
     {
@@ -1816,13 +1877,15 @@ public class EditItem extends FacesBean
         return this.creatorParseString;
     }
    
-    public UIXIterator getFileIterator() {
-		return this.fileIterator;
-	}
+    public UIXIterator getFileIterator()
+    {
+        return this.fileIterator;
+    }
 
-	public void setFileIterator(UIXIterator fileIterator) {
-		this.fileIterator = fileIterator;
-	}
+    public void setFileIterator(UIXIterator fileIterator)
+    {
+        this.fileIterator = fileIterator;
+    }
 
     public String getSuggestConeUrl() throws Exception
     {

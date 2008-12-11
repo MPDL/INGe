@@ -51,19 +51,11 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.ViewItemFull_lblTagName}" />
-					<tr:inputText styleClass="quad_txtInput" value="#{localTag.value}" valueChangeListener="#{EditItem.pubItem.writeBackLocalTags}" rendered="#{EditItem.localTagEditingAllowed}"/>
-					<tr:outputText styleClass="quad_txtInput" value="#{localTag.value}" rendered="#{!EditItem.localTagEditingAllowed}"/>
-				</span>
-				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" rendered="#{EditItem.localTagEditingAllowed}" text=" " action="#{localTag.removeLocalTag}"/>
+					<tr:outputText styleClass="quad_txtInput" value="#{localTag.value}"/>
 				</span>
 			</h:panelGroup>
 
 		</tr:iterator>
-
-		<span class="large_area0_p8 lineToolSection">
-			<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed}"/>
-		</span>
 
 	</div>
 </div>
