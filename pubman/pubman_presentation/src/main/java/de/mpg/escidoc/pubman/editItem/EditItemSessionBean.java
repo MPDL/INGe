@@ -58,6 +58,11 @@ public class EditItemSessionBean extends FacesBean
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 	
 	private String genreBundle = "Genre_ARTICLE";
+	
+	 /**The offset of the page where to jump back*/
+    private String offset;
+    
+
 
 	/**
 	 * Public constructor.
@@ -87,6 +92,7 @@ public class EditItemSessionBean extends FacesBean
 		this.files.clear();
 		this.locators.clear();
 		this.genreBundle = null;
+		this.offset="";
 		
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
@@ -158,6 +164,16 @@ public class EditItemSessionBean extends FacesBean
 	public void setGenreBundle(String genreBundle) {
 		this.genreBundle = genreBundle;
 	}
+
+    public void setOffset(String offset)
+    {
+        this.offset = offset;
+    }
+
+    public String getOffset()
+    {
+        return offset;
+    }
 
 	
 	

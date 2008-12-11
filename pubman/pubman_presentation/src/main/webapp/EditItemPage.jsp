@@ -52,7 +52,7 @@
 
 			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
-			<h:inputHidden id="offset"></h:inputHidden>
+			<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 			
 				<jsp:directive.include file="header/Header.jspf" />
 

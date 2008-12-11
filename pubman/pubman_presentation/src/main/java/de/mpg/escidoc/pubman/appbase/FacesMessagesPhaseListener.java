@@ -82,7 +82,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
 
     
     /**
-     * Caches messages from current faces context to local object
+     * Caches messages from current faces context to a session object
      * @param context
      * @return
      */
@@ -116,7 +116,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
 
     
     /**
-     * Restores messages from local storage to faces context
+     * Restores messages from session to faces context
      * @param context
      */
     private void restoreMessages(FacesContext context)

@@ -83,7 +83,8 @@ public class ViewItemSessionBean extends FacesBean
     private boolean hasBeenRedirected = false;
     
     private String subMenu;
-
+    
+   
     
     /**
      * Public constructor.
@@ -355,5 +356,8 @@ public class ViewItemSessionBean extends FacesBean
     public void itemChanged()
     {
         subMenu="ACTIONS";
+        
     }
+
+    
 }
