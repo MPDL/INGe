@@ -127,7 +127,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
         }
         
-        this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+        if (this.getVersion() != null && this.getVersion().getState() != null)
+        {
+            this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+        }
         
         // set up some pre-requisites
         //the list of numbered affiliated organizations 
