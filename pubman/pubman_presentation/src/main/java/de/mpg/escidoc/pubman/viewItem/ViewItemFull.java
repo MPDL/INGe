@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -1027,7 +1027,7 @@ public class ViewItemFull extends FacesBean
                 }
                 if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
                 {
-                    identifiers.append(", ");
+                    identifiers.append("<br/>");
                 }
             }
         }
@@ -1896,7 +1896,6 @@ public class ViewItemFull extends FacesBean
         boolean valid = false;
         try
         {
-            System.out.println("ID: " + id.getId() + "    TYPE: " + id.getType());
             if (id.getType().equals(IdType.URI))
             {
                 new URL (id.getId());

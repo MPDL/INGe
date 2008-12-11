@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -360,7 +360,7 @@ public class SourceBean extends FacesBean
     }
 
 	public String getIdentifiers() {
-		return identifiers;
+		return this.identifiers;
 	}
 
 	public void setIdentifiers(String identifiers) {
@@ -368,7 +368,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public String getStartEndPage() {
-		return startEndPage;
+		return this.startEndPage;
 	}
 
 	public void setStartEndPage(String startEndPage) {
@@ -376,7 +376,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public String getPublishingInfo() {
-		return publishingInfo;
+		return this.publishingInfo;
 	}
 
 	public void setPublishingInfo(String publishingInfo) {
@@ -384,7 +384,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public SourceVO getSource() {
-		return source;
+		return this.source;
 	}
 
 	public void setSource(SourceVO source) {
@@ -392,7 +392,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<String> getSourceOrganizationArray() {
-		return sourceOrganizationArray;
+		return this.sourceOrganizationArray;
 	}
 
 	public void setSourceOrganizationArray(ArrayList<String> sourceOrganizationArray) {
@@ -400,7 +400,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<ViewItemOrganization> getSourceOrganizationList() {
-		return sourceOrganizationList;
+		return this.sourceOrganizationList;
 	}
 
 	public void setSourceOrganizationList(
@@ -409,7 +409,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public List<OrganizationVO> getSourceAffiliatedOrganizationsList() {
-		return sourceAffiliatedOrganizationsList;
+		return this.sourceAffiliatedOrganizationsList;
 	}
 
 	public void setSourceAffiliatedOrganizationsList(
@@ -418,7 +418,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<String> getSourceCreatorArray() {
-		return sourceCreatorArray;
+		return this.sourceCreatorArray;
 	}
 
 	public void setSourceCreatorArray(ArrayList<String> sourceCreatorArray) {
@@ -426,13 +426,29 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<ViewItemCreatorOrganization> getSourceCreatorOrganizationsArray() {
-		return sourceCreatorOrganizationsArray;
+		return this.sourceCreatorOrganizationsArray;
 	}
 
 	public void setSourceCreatorOrganizationsArray(
 			ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
 		this.sourceCreatorOrganizationsArray = sourceCreatorOrganizationsArray;
 	}
+	
+	public boolean getHasCreator()
+	{
+	    if (this.sourceCreatorArray.size() > 0 && this.sourceCreatorOrganizationsArray.size() > 0)
+	    {
+	        return true;
+	    }
+	    return false;
+	}
     
-    
+    public boolean getHasAffiliation()
+    {
+        if (this.sourceOrganizationArray.size() > 0 )
+        {
+            return true;
+        }
+        return false;
+    }
 }
