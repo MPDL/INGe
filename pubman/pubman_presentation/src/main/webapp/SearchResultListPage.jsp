@@ -88,7 +88,7 @@
 									<!-- content menu upper line ends here -->
 									</div>
 									<!-- content menu lower line starts here -->
-									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 										<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 												 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>
@@ -97,7 +97,7 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 <!--										<tr:commandButton id="btnDisplayItems" styleClass="free_area0" text="#{lbl.export_btDisplay}" useWindow="true" partialSubmit="true" windowHeight="300" windowWidth="400" action="#{PubItemListSessionBean.exportSelectedDisplay}" />-->
 										<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" onclick="this.form.target ='_blank';" action="#{PubItemListSessionBean.exportSelectedDisplay}" />
 										<h:outputText styleClass="seperator" />
@@ -106,7 +106,7 @@
 										<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 									<!-- content menu lower line starts here -->
 										<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 											<h:outputText value="#{lbl.List_lblBibList}" />
@@ -119,7 +119,7 @@
 										<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
+									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 									<!-- content menu lower line starts here -->
 										<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
 										<h:commandLink styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />

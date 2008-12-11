@@ -72,7 +72,7 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="sub">
+								<div class="sub action">
 								<!-- content menu upper line starts here -->
 									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" disabled="#{!ExportItemsSessionBean.enableExport}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
@@ -83,7 +83,7 @@
 									</h:selectOneMenu>
 								<!-- content menu upper line ends here -->
 								</div>
-								<div class="sub">
+								<div class="sub action">
 								<!-- content menu lower line starts here -->
 									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{SearchResultList.showDisplayExportData}"	disabled="#{!ExportItemsSessionBean.enableExport}"/>
 									<h:outputText styleClass="seperator" />

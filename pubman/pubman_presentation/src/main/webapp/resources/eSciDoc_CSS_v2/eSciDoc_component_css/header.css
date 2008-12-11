@@ -139,6 +139,10 @@
 	.contentMenu .sub {
 		overflow: hidden;
 	}
+	
+	.contentMenu .action {
+		overflow: visible;
+	}
 
 	.contentMenu span {
 		float: left;

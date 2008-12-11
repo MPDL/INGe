@@ -84,7 +84,7 @@
 									
 								<!-- content menu upper line ends here -->
 								</div>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
+								<h:panelGroup layout="block" styleClass="sub action" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
 									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
@@ -97,7 +97,7 @@
 									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="sub action" rendered="#{ItemListSessionBean.submenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
 									<h:selectOneMenu styleClass="large_select replace" id="cboItemstate" binding="#{DepositorWS.cboItemstate}" value="#{DepositorWSSessionBean.selectedItemState}" onchange="$(this).parents('.replace').siblings('.changeState').click();">
@@ -106,7 +106,7 @@
 									<tr:commandButton styleClass="noDisplay changeState" action="#{DepositorWS.changeItemState}" immediate="true" id="btnChangeItemState" text="#{lbl.depositorWS_btnChangeItemState}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
+								<h:panelGroup layout="block" styleClass="sub action" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">

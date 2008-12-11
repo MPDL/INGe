@@ -280,6 +280,61 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         return creators.toString();
     }
     
+    public String getCreatorsShort()
+    {
+        int creatorMaximum = 4;
+        StringBuffer creators = new StringBuffer();
+
+        if (getMetadata().getCreators() != null)
+        {
+            for (int i = 0; i < creatorMaximum; i++)
+            {
+                if (getMetadata().getCreators().get(i).getPerson() != null)
+                {
+                    if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
+                    {
+                        creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
+                    }
+                    if (getMetadata()
+                            .getCreators()
+                            .get(i)
+                            .getPerson()
+                            .getFamilyName() != null
+                        && getMetadata()
+                            .getCreators()
+                            .get(i)
+                            .getPerson()
+                            .getGivenName() != null)
+                    {
+                        creators.append(", ");
+                    }
+                    if (getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
+                    {
+                        creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
+                    }
+                }
+                else if (getMetadata().getCreators().get(i).getOrganization() != null)
+                {
+                    if (getMetadata().getCreators().get(i).getOrganization().getName().getValue() != null)
+                    {
+                        creators.append(
+                                getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+                    }
+                }
+                if (i < creatorMaximum - 1)
+                {
+                    creators.append("; ");
+                }
+            }
+            
+        }
+        if (getMetadata().getCreators().size()>creatorMaximum)
+        {
+            return creators.toString() + " ...";
+        }
+        return creators.toString();
+    }
+    
     /**
      * Returns the newest date of the metadata date section.
      * @return the latest date

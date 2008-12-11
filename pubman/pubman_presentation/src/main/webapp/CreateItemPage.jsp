@@ -44,18 +44,9 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
 
-				<link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
-
-				<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-				<meta http-equiv="pragma" content="no-cache"/>
-				<meta http-equiv="cache-control" content="no-cache"/>
-				<meta http-equiv="expires" content="0"/>
-				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-				
-				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
-
+				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
