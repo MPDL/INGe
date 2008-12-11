@@ -104,10 +104,10 @@
 									<a class="free_area0" href="#editSource"><h:outputText value="#{lbl.EditItem_lblSource}" /></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 									<a class="free_area0" href="#editEvent"><h:outputText value="#{lbl.EditItem_lblEvent}"/></a>
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editDetail"><h:outputText value="#{lbl.EditItem_lblDetails}" /></a>
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editContent"><h:outputText value="#{lbl.EditItem_lblContent}" /></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.details_display != 'false'}"/>
+									<a class="free_area0" href="#editDetail"><h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.content_display != 'false'}"/>
+									<a class="free_area0" href="#editContent"><h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.creator_person_organization_display != 'false'}"/>
 									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.locators_display != 'false'}"/>
