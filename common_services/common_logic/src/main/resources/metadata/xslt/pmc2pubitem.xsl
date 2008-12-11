@@ -261,6 +261,10 @@
 				<xsl:when test="@pub-id-type='doi'">
 					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
 				</xsl:when>
+				<xsl:when test="@pub-id-type='pmc' or @pub-id-type='pmcid'">
+					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:value-of select="'pmc:'"/>
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
 				</xsl:otherwise>
@@ -283,7 +287,9 @@
 		<xsl:choose>
 			<xsl:when test="@pub-type='epub'">
 				<xsl:element name="publ:published-online">
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@pub-type='ppub'">
