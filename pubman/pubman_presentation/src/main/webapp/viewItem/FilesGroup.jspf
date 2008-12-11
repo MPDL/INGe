@@ -94,6 +94,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{file.file.description}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.description == null || file.file.description == ''}"/>
 				</span>
 			</h:panelGroup>
 

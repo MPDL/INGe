@@ -67,6 +67,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.event.place.value == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
 			</span>
 		</div>
 
@@ -77,6 +78,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.startEndDate}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
 			</span>
 		</div>
 

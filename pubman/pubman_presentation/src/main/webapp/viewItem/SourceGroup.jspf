@@ -88,9 +88,10 @@
 					<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblSourceCreators}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount <= 0 && ViewItemFull.sourceCreatorOrganizationsIterator.rowCount <=0}"/>
 					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index">
 						<h:panelGroup styleClass="free_area0 creator">
-							<h:outputText value="#{sourceCreatorPerson}" escape="false" />
+							<h:outputText value="#{sourceCreatorPerson}" escape="false"/>							
 						</h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>
 					</tr:iterator>
@@ -109,11 +110,12 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceAffiliations}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
 					<tr:iterator var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index">
 						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 						<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
-						<h:outputText value="<br />" escape="false"/>
-					</tr:iterator>
+						<h:outputText value="<br />" escape="false"/>						
+					</tr:iterator>					
 				</span>
 			</div>
 
@@ -124,6 +126,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{source.publishingInfo}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.publishingInfo == null || source.publishingInfo == ''}"/>
 				</span>
 			</div>
 	
@@ -137,6 +140,7 @@
 					<h:outputText value=" (" rendered="#{source.source.issue != null && source.source.issue != ''}" />
 					<h:outputText value="#{source.source.issue}"/>
 					<h:outputText value=")" rendered="#{source.source.issue != null && source.source.issue != ''}" />
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{(source.source.volume == null || source.source.volume == '') && (source.source.issue == null || source.source.issue == '')}"/>
 				</span>
 			</h:panelGroup>
 
@@ -147,6 +151,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{source.source.sequenceNumber}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.source.sequenceNumber == null || source.source.sequenceNumber == ''}"/>
 				</span>
 			</h:panelGroup>
 
@@ -157,6 +162,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{source.startEndPage}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.startEndPage == null || source.startEndPage == ''}"/>
 				</span>
 			</h:panelGroup>
 
@@ -167,6 +173,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{source.identifiers}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.identifiers == null || source.identifiers == ''}"/>
 				</span>
 			</h:panelGroup>
 	

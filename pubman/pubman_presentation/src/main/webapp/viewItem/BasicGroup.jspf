@@ -47,6 +47,7 @@
 				<h:outputLink value="#{ViewItemFull.citationURL}">
 					<h:outputText value="#{ViewItemFull.citationURL}"/>
 				</h:outputLink>	
+			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.citationURL == null || ViewItemFull.citationURL == ''}"/>
 			</span>
 		</div>
 

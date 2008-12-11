@@ -44,7 +44,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}" />
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.subject.value == null || ViewItemFull.pubItem.metadata.subject.value == ''}"/>
 			</span>
 		</div>
 
@@ -65,10 +66,10 @@
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				&#160;
-			</span>
+				<h:outputText value="#{lbl.lbl_noEntry}"/>
+			</span>			
 		</h:panelGroup>
-
+		
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblContent}" /></a>	
 	</h:panelGroup>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblContent}" /></a>

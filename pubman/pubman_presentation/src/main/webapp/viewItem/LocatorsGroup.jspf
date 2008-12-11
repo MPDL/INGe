@@ -84,6 +84,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{locator.file.description}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.description == null || locator.file.description == ''}"/>
 				</span>
 			</h:panelGroup>
 

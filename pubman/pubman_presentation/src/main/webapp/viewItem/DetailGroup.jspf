@@ -48,6 +48,7 @@
 					<h:outputText value="#{languages}"/>
 					<h:outputText value=", " rendered="#{ViewItemFull.languagesIterator.rowIndex +1 < ViewItemFull.languagesIterator.rowCount}"/>
 				</tr:iterator>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.languagesIterator.rowCount <= 0}"/>
 			</span>
 		</div>
 
@@ -91,6 +92,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.totalNumberOfPages}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.totalNumberOfPages == null  || ViewItemFull.pubItem.metadata.totalNumberOfPages == ''}"/>
 			</span>
 		</div>
 
@@ -101,6 +103,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.publishingInfo}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.publishingInfo == '' || ViewItemFull.publishingInfo == null}"/>
 			</span>
 		</div>
 
@@ -111,6 +114,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}" converter="HTMLEscapeConverter" escape="false"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.tableOfContents.value == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
 			</span>
 		</div>
 
@@ -121,6 +125,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.reviewMethod}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.reviewMethod == '' || ViewItemFull.reviewMethod == null}"/>
 			</span>
 		</div>
 
@@ -131,6 +136,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.identifiers}" escape="false"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.identifiers == '' || ViewItemFull.identifiers == null}"/>
 			</span>
 		</div>
 
@@ -141,6 +147,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.degreeType}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.degreeType == '' || ViewItemFull.degreeType == null}"/>
 			</span>
 		</div>
 
@@ -151,6 +158,7 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.location}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.location == null || ViewItemFull.pubItem.metadata.location == ''}"/>
 			</span>
 		</div>
 
