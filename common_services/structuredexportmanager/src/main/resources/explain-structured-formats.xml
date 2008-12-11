@@ -55,13 +55,4 @@
 		<dc:creator>jkurt</dc:creator>
 		<dc:creator>vmakarenko</dc:creator>
 	</export-format>
-	<export-format type="structured" context="Faces PubMan">
-		<dc:title>RSS 2.0 Export Format</dc:title>
-		<dc:identifier>RSS20</dc:identifier>
-		<output-format>
-			<dc:title>xml</dc:title>
-			<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		</output-format>
-		<dc:creator>vmakarenko</dc:creator>
-	</export-format>
 </export-formats>
