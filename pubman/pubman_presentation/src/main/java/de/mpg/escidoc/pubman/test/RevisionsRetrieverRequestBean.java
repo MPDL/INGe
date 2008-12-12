@@ -10,6 +10,15 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
+/**
+ * This bean is an implementation of the BaseListRetrieverRequestBean class for the Item Revisions list.
+ * It uses the PubItemListSessionBean as corresponding BasePaginatorListSessionBean.
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
     
@@ -45,6 +54,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         // No parameters needed
     }
 
+    /**Retrieves the revisions and ignores limit and offset and sorting because there is no paginator and no sorting mechanism for this list*/
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {

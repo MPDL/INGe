@@ -19,6 +19,16 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
+
+/**
+ * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list.
+ * It uses the PubItemSessionBean as cooresponding BasePaginatorListSessionBean.
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
     public static String BEAN_NAME = "CartItemsRetrieverRequestBean";
@@ -44,15 +54,18 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public void init()
     {
-        // TODO Auto-generated method stub
+       //no additional initialization needed
     }
 
     @Override
     public void readOutParameters()
     {
-        // TODO Auto-generated method stub
+        // no additional parameters needed
     }
 
+    /**
+     * Retrieves the list of item baskets.
+     */
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
@@ -127,6 +140,10 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
    
 
+    /**
+     * Called from JSF when selected items in the list should be removed from the basket
+     * @return
+     */
     public String deleteSelected()
     {
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
@@ -149,6 +166,10 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         return "CartItemsPage.jsp";
     }
     
+    /**
+     * Checks if the selected sorting criteria is currently available. If not (empty string), it displays a warning message to the user.
+     * @param sc The sorting criteria to be checked
+     */
     protected void checkSortCriterias(SORT_CRITERIA sc)
     {
         if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
@@ -161,7 +182,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     
     
     /**
-     * Method needs to be called over this bean, because it has to be called first in order to save the selections in the list
+     * Called when the export format list should be updated. Workaround.
+     * Method needs to be called over this bean and not directly in the ExportItems bean, because it has to be called first in order to save the selections in the list
      */
     public void updateExportOptions()
     {

@@ -38,12 +38,24 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
     public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
    
+    /**
+     * The GET parameter name for the item state.
+     */
     protected static String parameterSelectedItemState = "itemState";
     
+    /**
+     * The total number of records
+     */
     private int numberOfRecords;
     
+    /**
+     * The menu entries of the item state filtering menu
+     */
     private List<SelectItem> itemStateSelectItems;
     
+    /**
+     * The currently selected item state.
+     */
     private String selectedItemState;
     
     public MyItemsRetrieverRequestBean()
@@ -55,6 +67,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         
     }
     
+    /**
+     * Checks if the user is logged in. If not, redirects to the login page.
+     */
     protected void checkLogin()
     {
         LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
@@ -79,20 +94,6 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     public void init()
     {
         checkLogin();
-        //activate export option in menu
-        Navigation nav = (Navigation) getRequestBean(Navigation.class);
-        nav.setShowExportMenuOption(true);
-
-        /*
-        itemStateSelectItems = new ArrayList<SelectItem>();
-        itemStateSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
-        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
-        */
-        
     }
 
     @Override
@@ -189,7 +190,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return returnList;
 
     }
-    
+
+    /**
+     * Checks if the selected sorting criteria is currently available. If not (empty string), it displays a warning message to the user.
+     * @param sc The sorting criteria to be checked
+     */
     protected void checkSortCriterias(SORT_CRITERIA sc)
     {
         if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
@@ -201,12 +206,19 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     }
 
   
-
+    /**
+     * Sets the current item state filter
+     * @param itemStateSelectItem
+     */
     public void setItemStateSelectItems(List<SelectItem> itemStateSelectItem)
     {
         this.itemStateSelectItems = itemStateSelectItem;
     }
 
+    /**
+     * Sets and returns the menu entries of the item state filter menu.
+     * @return
+     */
     public List<SelectItem> getItemStateSelectItems()
     {
         itemStateSelectItems = new ArrayList<SelectItem>();
@@ -220,17 +232,29 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         return itemStateSelectItems;
     }
     
+    /**
+     * Sets the selected item state filter
+     * @param selectedItemState
+     */
     public void setSelectedItemState(String selectedItemState)
     {
         this.selectedItemState = selectedItemState;
         getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedItemState, selectedItemState);
     }
 
+    /**
+     * Returns the currently selected item state filter
+     * @return
+     */
     public String getSelectedItemState()
     {
         return selectedItemState;
     }
     
+    /**
+     * Returns the label for the currently selected item state.
+     * @return
+     */
     public String getSelectedItemStateLabel()
     {
         String returnString = "";
@@ -242,6 +266,10 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         
     }
     
+    /**
+     * Called by JSF whenever the item state menu is changed. 
+     * @return
+     */
     public String changeItemState()
     {
             try
@@ -260,6 +288,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     
     
 
+    /**
+     * Reads out the item state parameter from the HTTP GET request and sets an default value if it is null.
+     */
     @Override
     public void readOutParameters()
     {

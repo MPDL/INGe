@@ -22,16 +22,35 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
+/**
+ * This bean is an implementation of the BaseListRetrieverRequestBean class for the Quality Assurance Workspace
+ * It uses the PubItemListSessionBean as corresponding BasePaginatorListSessionBean and adds additional functionality for filtering the items by their state.
+ * It extends the MyItemsRetriever RequestBean because it has a similar behaviour regarding item state filters.
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 {
     public static String BEAN_NAME = "MyTasksRetrieverRequestBean";
     
     private int numberOfRecords;
     
+    /**
+     * The currently selected context filter.
+     */
     private String selectedContext;
     
+    /**
+     * The HTTP GET parameter name for the context filter.
+     */
     private static String parameterSelectedContext = "context"; 
     
+    /**
+     * A list with menu entries for the context filter menu.
+     */
     private List<SelectItem> contextSelectItems;
     
     
@@ -44,10 +63,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     public void init()
     {
         checkLogin();
-        //super.init();
-        Navigation nav = (Navigation) getRequestBean(Navigation.class);
-        nav.setShowExportMenuOption(true);
-        
         initSelectionMenu();
         
     }
@@ -152,6 +167,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
     }
     
+    /**
+     * Reads out the parameters from HTTP-GET request for the selected item state and the selected context filter. Sets default values if they are null.
+     */
     @Override
     public void readOutParameters()
     {
@@ -183,17 +201,29 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return "MyTasks";
     }
 
+    /**
+     * Sets the selected context filter
+     * @param selectedContext
+     */
     public void setSelectedContext(String selectedContext)
     {
         this.selectedContext = selectedContext;
         getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedContext, selectedContext);
     }
 
+    /**
+     * Returns the selected context filter
+     * @return
+     */
     public String getSelectedContext()
     {
         return selectedContext;
     }
     
+    /**
+     * Returns a label for the selected context.
+     * @return
+     */
     public String getSelectedContextLabel()
     {
         String returnString = "";
@@ -217,6 +247,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
     
     
+    /**
+     * Returns a list with menu entries for the item state filter menu.
+     */
     public List<SelectItem> getItemStateSelectItems()
     {
         List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
@@ -229,6 +262,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return itemStateSelectItems;
     }
     
+    /**
+     * Initializes the menu for the context filtering.
+     */
     private void initSelectionMenu()
     {
         
@@ -264,16 +300,28 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
        
     }
 
+    /**
+     * Sets the current menu items for the context filter menu.
+     * @param contextSelectItems
+     */
     public void setContextSelectItems(List<SelectItem> contextSelectItems)
     {
         this.contextSelectItems = contextSelectItems;
     }
 
+    /**
+     * Returns the mneu items for the context filter menu.
+     * @return
+     */
     public List<SelectItem> getContextSelectItems()
     {
         return contextSelectItems;
     }
     
+    /**
+     * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with updated context GET parameter.
+     * @return
+     */
     public String changeContext()
     {
             try
