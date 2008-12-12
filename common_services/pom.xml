@@ -173,6 +173,7 @@
 	<modules>
     <module>framework_access</module>
     <module>common_logic</module>
+    <module>common_presentation</module>
     <module>citationmanager</module>
     <module>citationmanager_ear</module>
     <module>validation</module>
