@@ -236,6 +236,8 @@ public class RestServlet extends HttpServlet
                 LOGGER.debug("contentType: " + contentType);
 
                 ServletOutputStream os = resp.getOutputStream();
+                
+                resp.addHeader("x-total-number-of-results", queryResult.getTotalNumberOfResults().toString() ); 
 
                 resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
