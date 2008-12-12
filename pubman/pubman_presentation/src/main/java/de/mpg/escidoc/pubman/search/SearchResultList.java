@@ -215,19 +215,26 @@ public class SearchResultList extends ItemList
                 return ErrorPage.LOAD_ERRORPAGE;
             }
 
-            if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.STRUCTURED)
-            {
-            	// replace the carriage returns by html breaks so that h:outputText can correctly display it
-            	this.displayExportData = this.displayExportData.replaceAll("\n","<br/>");
-            }
             
             logger.debug("prepareDisplayExportData set FULL data to session bean ");
             
             sb.setExportDisplayData(this.displayExportData);
             //restore selected file format on the interface
-        	sb.setFileFormat(selectedFileFormat);
+            sb.setFileFormat(selectedFileFormat);
             
-            return "showDisplayExportItemsPage";
+            if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.STRUCTURED)
+            {
+            	return "showDisplayExportItemsPageStructured";
+            	// replace the carriage returns by html breaks so that h:outputText can correctly display it
+//            	this.displayExportData = this.displayExportData.replaceAll("\n","<br/>");
+//            	this.displayExportData = "<pre>" + this.displayExportData + "</pre>";
+            }
+            else
+            {
+            	return "showDisplayExportItemsPageLayout";
+            }
+            
+            
         }
         else
         {            

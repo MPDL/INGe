@@ -1015,24 +1015,25 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             }
             catch (TechnicalException e)
             {
+            	throw new RuntimeException("Cannot retrieve export data", e);
             }
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
             String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
             response.setContentType(contentType);
-            try
-            {
-                response.setHeader("Content-disposition", "attachment; filename="
-                        + URLEncoder.encode("ExportFile", "UTF-8"));
-                OutputStream out = response.getOutputStream();
-                out.write(exportFileData);
-                out.flush();
-                facesContext.responseComplete();
-                out.close();
-            }
-            catch (IOException e1)
-            {
-            }
+    	    String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + sb.getFileFormat();
+	    	response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+    	    try
+    	    {
+    	    	OutputStream out = response.getOutputStream();
+    	    	out.write(exportFileData);
+    	    	out.close();
+    	    }
+    	    catch (Exception e) 
+    	    {
+    	    	throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
+			}
+    	    facesContext.responseComplete();
         }
         else
         {
@@ -1040,7 +1041,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             
         }
         
-        redirect();
+//        redirect();
         return "";
     }
 
