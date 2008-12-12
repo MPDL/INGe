@@ -32,10 +32,11 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <div id="editSource"></div>
-<tr:iterator var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" binding="#{EditItem.sourceIterator}" varStatus="index">
+<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
+    <h:column>
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText value="#{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" />
+			<h:outputText value="#{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
 		</h3>
 		<span class="seperator"></span>
 		<div class="free_area0 itemBlockContent endline">
@@ -81,7 +82,8 @@
 			</div>
 
 	<%-- Source alternative title --%>
-			<tr:iterator var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}">
+			<h:dataTable var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}">
+				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
@@ -94,13 +96,14 @@
 						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
 					</span>
 				</h:panelGroup>
-			</tr:iterator>
+				</h:column>
+			</h:dataTable>
 
 <%-- Source creator --%>
-			<tr:iterator var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" binding="#{EditItem.sourceCreatorIterator}" varStatus="index">
-
+			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}">
+            <h:column>
 	<%-- Source Author copy&paste --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCreatorIterator.rowIndex == 0 }">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 					</b>
@@ -116,7 +119,7 @@
 				</h:panelGroup>
 	
 	<%-- Source creator role --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCreatorIterator.rowIndex == 0 }">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
 					</b>
@@ -129,7 +132,7 @@
 						<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
 					</span>
 				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCreatorIterator.rowIndex > 0 }">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex > 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
 					</b>
@@ -171,7 +174,8 @@
 				</h:panelGroup>
 
 	<%-- Source creator person affiliation --%>
-				<tr:iterator var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+				<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+					<h:column>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
@@ -196,7 +200,8 @@
 							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
 						</span>
 					</h:panelGroup>
-				</tr:iterator>
+					</h:column>
+				</h:dataTable>
 
 	<%-- Source creator organisation affiliation --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
@@ -225,8 +230,8 @@
 					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btRemove}" styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" />
 					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btAdd}" styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
 				</h:panelGroup>
-
-			</tr:iterator>
+               </h:column>
+			</h:dataTable>
 
 <%-- Source Details --%>
 
@@ -274,10 +279,11 @@
 			</div>
 
 	<%-- Source details identifier --%>
-			<tr:iterator  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.sourceIdentifierIterator}" varStatus="index">
+			<h:dataTable  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}">
+				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.sourceIdentifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 largeFormPush">
@@ -292,7 +298,8 @@
 						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
 					</span>
 				</h:panelGroup>
-			</tr:iterator>
+				</h:column>
+			</h:dataTable>
 
 	<%-- Source details edition, issue --%>
 			<div class="free_area0 endline itemLine noTopBorder">
@@ -332,8 +339,9 @@
 				</span>
 			</div>
 			
-			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" /></a>	
+			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
 		</div>
-		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" /></a>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
 	</h:panelGroup>
-</tr:iterator>
+	</h:column>
+</h:dataTable>

@@ -37,10 +37,10 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-		<tr:iterator  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}" binding="#{EasySubmission.creatorIterator}" varStatus="index">
-
+	<h:dataTable  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
+    <h:column>
 <%-- Author copy&paste --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EasySubmission.creatorIterator.rowIndex == 0 }">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 				</b>
@@ -57,7 +57,7 @@
 			</h:panelGroup>
 			
 <%-- Creator role --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorIterator.rowIndex == 0 }">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
 				</b>
@@ -70,7 +70,7 @@
 					<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
 				</h:panelGroup>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EasySubmission.creatorIterator.rowIndex > 0 }">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex > 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
 				</b>
@@ -112,7 +112,8 @@
 			</h:panelGroup>
 
 <%-- Creator person affiliation --%>
-			<tr:iterator var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
@@ -137,7 +138,8 @@
 						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
 					</span>
 				</h:panelGroup>
-			</tr:iterator>
+			</h:column>
+			</h:dataTable>
 
 <%-- Creator organisation affiliation --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
@@ -165,8 +167,8 @@
 				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool remove" disabled="#{EasySubmission.creatorCollection.creatorManager.size == 1}" action="#{EasySubmission.creatorCollection.creatorManager.removeObject}" />
 				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool add" action="#{EasySubmission.creatorCollection.creatorManager.addObject}" />
 			</h:panelGroup>
-
-		</tr:iterator>	
+        </h:column>
+		</h:dataTable>	
 	</div>
 </div>
 

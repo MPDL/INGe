@@ -40,7 +40,7 @@
 		<h:commandButton title="#{tip.EditItem_btnAddAuthorsOverwrite}" id="overwriteCreatorParseButton" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" action="#{EditItem.overwriteAndAddCreatorString}" styleClass="inlineButton"/>
 	</h:panelGroup>
 	<div style="clear: left;"></div>
-	<h:dataTable  var="creatorBean" styleClass="fullWidth" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rendered="#{EditItem.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
+	<h:dataTable  var="creatorBean" styleClass="fullWidth" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rendered="#{EditItem.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 		<h:column>
 			<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="fullWidth floatbox">
