@@ -136,7 +136,7 @@ public class EDocImport extends DefaultHandler
 				{
 				    newXml.append("<creators>\n");
     				for(int i=0; i < authors.size(); i++){
-    					newXml.append("<creator role=\"");
+    					newXml.append("<creator type=\"" + name + "\" role=\"");
     					if ("bookcreatorfn".equals(name))
     					{
     					    newXml.append("author");

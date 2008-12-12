@@ -594,7 +594,7 @@
 			</xsl:element>			
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator">				
+		<xsl:for-each select="creators/creator[@type = 'issuecontributorfn']">				
 			<xsl:element name="e:creator">
 				<xsl:call-template name="createCreator"/>					
 			</xsl:element>
@@ -618,7 +618,7 @@
 			</xsl:element>		
 		</xsl:if>		
 		<!-- CREATOR -->	
-		<xsl:for-each select="creators/creator">				
+		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">				
 			<xsl:element name="e:creator">
 				<xsl:call-template name="createCreator"/>					
 			</xsl:element>
@@ -682,7 +682,7 @@
 			</xsl:element>
 		</xsl:if>		
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator">				
+		<xsl:for-each select="creators/creator[@type = 'seriescontributorfn']">				
 			<xsl:element name="e:creator">
 				<xsl:call-template name="createCreator"/>					
 			</xsl:element>
@@ -715,7 +715,7 @@
 			</xsl:if>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:for-each select="creators/creator">				
+		<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">				
 			<xsl:element name="e:creator">
 				<xsl:call-template name="createCreator"/>					
 			</xsl:element>

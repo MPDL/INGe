@@ -146,7 +146,7 @@ public class PubManImport extends Thread
             for (String itemXml : itemXmls)
             {
                 importItem(itemXml);
-                sleep(5000);
+                //sleep(5000);
             }
         }
         catch (Exception e) {
