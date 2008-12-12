@@ -167,11 +167,9 @@ public class EditItem extends FacesBean
     private UploadedFile uploadedFile;
     
     private UIXIterator fileIterator = new UIXIterator();
-    private UIXIterator creatorIterator = new UIXIterator();
     private UIXIterator pubLangIterator = new UIXIterator();
     private UIXIterator identifierIterator = new UIXIterator();
     private UIXIterator sourceIterator = new UIXIterator();
-    private UIXIterator sourceCreatorIterator = new UIXIterator();
     private UIXIterator sourceIdentifierIterator = new UIXIterator();
 
     private CoreTable fileTable = new CoreTable();
@@ -1901,16 +1899,6 @@ public class EditItem extends FacesBean
         this.suggestConeUrl = suggestConeUrl;
     }
 
-    public UIXIterator getCreatorIterator()
-    {
-        return creatorIterator;
-    }
-
-    public void setCreatorIterator(UIXIterator creatorIterator)
-    {
-        this.creatorIterator = creatorIterator;
-    }
-
     public UIXIterator getPubLangIterator()
     {
         return pubLangIterator;
@@ -1939,16 +1927,6 @@ public class EditItem extends FacesBean
     public void setSourceIterator(UIXIterator sourceIterator)
     {
         this.sourceIterator = sourceIterator;
-    }
-
-    public UIXIterator getSourceCreatorIterator()
-    {
-        return sourceCreatorIterator;
-    }
-
-    public void setSourceCreatorIterator(UIXIterator sourceCreatorIterator)
-    {
-        this.sourceCreatorIterator = sourceCreatorIterator;
     }
 
     public UIXIterator getSourceIdentifierIterator()
