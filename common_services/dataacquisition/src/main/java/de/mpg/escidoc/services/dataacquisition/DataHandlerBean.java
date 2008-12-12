@@ -72,6 +72,7 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.dataacquisition.coins.coinsTransformation;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
@@ -110,6 +111,7 @@ public class DataHandlerBean implements DataHandler
     private final String fetchTypeAPA = "APA";
     private final String fetchTypeAJP = "AJP";
     private final String fetchTypeMETS = "METS";
+    private final String fetchTypeCoinS = "COINS";
     private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
     private String contentType;
     private String fileEnding;
@@ -150,7 +152,7 @@ public class DataHandlerBean implements DataHandler
             
             //Hack for natasa, will be deleted when transformation service is impelemented
             if ((fetchType.equals(this.fetchTypeENDNOTE) || fetchType.equals(this.fetchTypeBIBTEX) 
-                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP)) & sourceName.toLowerCase().equals("arxiv"))
+                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP) || fetchType.equals(this.fetchTypeCoinS)) & sourceName.toLowerCase().equals("arxiv"))
             {
                 // Temp
                 fetchedData = this.fetchArxivHack(identifier, format, importSource);
@@ -196,6 +198,11 @@ public class DataHandlerBean implements DataHandler
             {
                 // Temp
                 fetchedData = this.fetchMETSTemp(identifier);
+            }
+            if (fetchType.equals(this.fetchTypeCoinS))
+            {
+                // Temp
+                fetchedData = this.fetchCOINSTemp(identifier);
             }
             if (fetchType.equals(this.fetchTypeUNKNOWN))
             {
@@ -744,6 +751,11 @@ public class DataHandlerBean implements DataHandler
                 identifier = identifier.substring(9);
                 return identifier.trim();
             }
+            if (identifier.toLowerCase().startsWith("pmcid: pmc", 0))
+            {
+                identifier = identifier.substring(10);
+                return identifier.trim();
+            }
             if (identifier.toLowerCase().startsWith("pmcid:", 0))
             {
                 identifier = identifier.substring(6);
@@ -968,7 +980,6 @@ public class DataHandlerBean implements DataHandler
         
         //byte array of arXiv metadata in eSciDoc format
         eSciDocItem = this.fetchMetadata(importSource, identifier, "pubitem");
-        System.out.println("Escidoc item: " + eSciDocItem);
         
         try
         {
@@ -1027,10 +1038,42 @@ public class DataHandlerBean implements DataHandler
                 this.setContentType("text/html");
                 this.setFileEnding(".html");
             }
+            
+            if (format.toLowerCase().equals("coins"))
+            {
+                InitialContext initialContext = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
+                coinsTransformation coinsT = new coinsTransformation();
+                fetchedFormat=coinsT.getCOinS(itemVO).getBytes();
+                this.setContentType("text/plain");
+                this.setFileEnding(".txt");
+            }
         }
         catch (Exception e) { throw new RuntimeException(); }
         
         return fetchedFormat;
+    }
+    
+    private byte[] fetchCOINSTemp(String identifier)
+    {
+        byte[] coins = null;
+        String item = null;
+
+        try
+        {
+            InitialContext initialContext = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            item = this.fetchEsciDocRecord(identifier);
+            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
+            coinsTransformation coinsT = new coinsTransformation();
+            coins=coinsT.getCOinS(itemVO).getBytes();
+            this.setContentType("text/html");
+            this.setFileEnding(".html");
+        }
+        catch (Exception e) { throw new RuntimeException(); }
+        
+        return coins;
     }
     
     private byte[] fetchMETSTemp(String identifier) throws RuntimeException
@@ -1158,6 +1201,10 @@ public class DataHandlerBean implements DataHandler
         if (format.toLowerCase().equals("mets"))
         {
             return this.fetchTypeMETS;
+        }
+        if (format.toLowerCase().equals("coins"))
+        {
+            return this.fetchTypeCoinS;
         }
         if (this.getMdObjectToFetch(source, format) != null)
         {

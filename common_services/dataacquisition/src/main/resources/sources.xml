@@ -50,7 +50,7 @@
 			<MD-fetch-setting default="false">
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
 				<dc:format>text/html</dc:format>
-				<label>AJP</label>
+				<label>CoinS</label>
 				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
@@ -163,7 +163,7 @@
 			<MD-fetch-setting default="false">
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
 				<dc:format>text/html</dc:format>
-				<label>AJP</label>
+				<label>CoinS</label>
 				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
