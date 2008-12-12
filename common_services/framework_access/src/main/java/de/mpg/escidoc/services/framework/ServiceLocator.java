@@ -89,9 +89,7 @@ public class ServiceLocator
     private static final String CONFIGURATION_FILE = "client.wsdd";
     private static final String FRAMEWORK_PATH = "/axis/services";
     private static final String SRW_PATH = "/srw/search";
-    private static final String SRW_DATABASE = "escidoc_";
-    private static final String SRW_LANGUAGE = "all";
-
+    
     private static UserManagementWrapperServiceLocator authorizedUserManagementWrapperServiceLocator;
     private static UserAccountHandlerServiceLocator authorizedUserAccountHandlerServiceLocator;
     private static OrganizationalUnitHandlerServiceLocator publicOrganizationalUnitHandlerServiceLocator;
@@ -375,20 +373,20 @@ public class ServiceLocator
     /**
      * Gets the ExplainHandler service for an anonymous user.
      *
-     * @param language The 2 character ISO code of the language.
+     * @param databaseIdentifier  escidoc search database identifier
      * @return A ExplainHandler (ExplainPort)
      * @throws ServiceException
      * @throws MalformedURLException
      * @throws URISyntaxException 
      */
-    public static ExplainPort getExplainHandler(String language) throws ServiceException, MalformedURLException, URISyntaxException
+    public static ExplainPort getExplainHandler(String databaseIdentifier) throws ServiceException, MalformedURLException, URISyntaxException
     {
-        if (language == null)
+        if (databaseIdentifier == null)
         {
-            language = SRW_LANGUAGE;
+            throw new ServiceException("Database identifier is not valid");
         }
         SRWSampleServiceLocator explainHandlerServiceLocator = new SRWSampleServiceLocator();
-        String url = getFrameworkUrl() + SRW_PATH + "/" + SRW_DATABASE + language;
+        String url = getFrameworkUrl() + SRW_PATH + "/" + databaseIdentifier;
         Logger.getLogger(ServiceLocator.class).info("publicExplainHandlerServiceLocator URL=" + url);
         explainHandlerServiceLocator.setSRWEndpointAddress(url);
         ExplainPort handler = explainHandlerServiceLocator.getExplainSOAP(new URL(url + "?operation=explain"));
