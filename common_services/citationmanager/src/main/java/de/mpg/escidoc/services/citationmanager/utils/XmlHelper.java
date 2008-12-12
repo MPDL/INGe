@@ -63,7 +63,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
