@@ -62,6 +62,7 @@ public class CreatorCollection
 		
 		public CreatorBean createNewObject()
 		{
+		    int i = objectDM.getRowIndex();
 			CreatorVO newVO = new CreatorVO();
 			newVO.setPerson(new PersonVO());
             // create a new Organization for this person
@@ -73,7 +74,8 @@ public class CreatorCollection
 			CreatorBean creatorBean = new CreatorBean(newVO);
 			// we do not have direct access to the original list
 			// so we have to add the new VO on our own
-			parentVO.add(newVO);
+			parentVO.add(i+1,newVO);
+			
 			return creatorBean;
 		}
 		
@@ -85,8 +87,10 @@ public class CreatorCollection
 			parentVO.remove(i);
 		}
 
-		public List<CreatorBean> getDataListFromVO()
-		{
+		
+		//public List<CreatorBean> getDataListFromVO()
+		//{
+		    /*
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice CreatorBean
 			List<CreatorBean> beanList = new ArrayList<CreatorBean>();
@@ -95,8 +99,10 @@ public class CreatorCollection
 				beanList.add(new CreatorBean(creatorVO));
 			}
 			return beanList;
-		}
+			*/
+		//}
 
+		
 		public void setParentVO(List<CreatorVO> parentVO)
 		{
 			this.parentVO = parentVO;

@@ -27,11 +27,11 @@ public class CreatorBean extends FacesBean
 {
 	private static Logger logger = Logger.getLogger(CreatorBean.class);
 	
-    private CreatorVO creator;
-    private PersonOrganisationManager personOrganisationManager;
+    private CreatorVO creator = null;
+    private PersonOrganisationManager personOrganisationManager = null;
 
     private boolean personType, organisationType;
-    private OrganizationVO currentOrgaForSelection;
+    private OrganizationVO currentOrgaForSelection = null;
 
     public CreatorBean()
     {
@@ -42,6 +42,7 @@ public class CreatorBean extends FacesBean
     public CreatorBean(CreatorVO creator)
     {
         setCreator(creator);
+        
     }
 
     public CreatorVO getCreator()
