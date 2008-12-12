@@ -133,7 +133,7 @@
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>private</prop:visibility>
-				<prop:content-category>ANY_FULLTEXT</prop:content-category>
+				<prop:content-category>any-fulltext</prop:content-category>
 				<prop:mime-type>application/pdf</prop:mime-type>
 			</ec:properties>
 			<xsl:element name="ec:content">					
