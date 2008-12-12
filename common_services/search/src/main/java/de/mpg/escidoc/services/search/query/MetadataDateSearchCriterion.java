@@ -86,14 +86,14 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         buffer.append(" ( ");
         for (int i = 0; i < getSearchIndexes().size(); i++)
         {
-            if( i == (getSearchIndexes().size() - 1) )
+            if (i == (getSearchIndexes().size() - 1))
             {
                
-                buffer.append(createCqlFragment( this.getSearchTerm(), this.toField, getSearchIndexes().get(i) ));
+                buffer.append(createCqlFragment(this.getSearchTerm(), this.toField, getSearchIndexes().get(i)));
             }
             else 
             {
-                buffer.append(createCqlFragment( this.getSearchTerm(), this.toField, getSearchIndexes().get(i) ));
+                buffer.append(createCqlFragment(this.getSearchTerm(), this.toField, getSearchIndexes().get(i)));
                 buffer.append(" " + CQL_OR + " ");
             }
         }
@@ -101,7 +101,7 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         return buffer.toString();
     }
     
-    private String createCqlFragment (String searchFrom, String searchTo, String index) 
+    private String createCqlFragment(String searchFrom, String searchTo, String index) 
         throws ParseException, TechnicalException
     {
         QueryParser parserFrom = new QueryParser(getSearchTerm(),
@@ -109,8 +109,8 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         QueryParser parserTo = new QueryParser(this.toField, booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
         StringBuffer buffer = new StringBuffer();
         
-        parserFrom.addCQLIndex( index );
-        parserTo.addCQLIndex( index );
+        parserFrom.addCQLIndex(index);
+        parserTo.addCQLIndex(index);
       
         buffer.append(" ( " + parserFrom.parse() + " " + CQL_AND + " " + parserTo.parse() + " ) ");
         return buffer.toString();
