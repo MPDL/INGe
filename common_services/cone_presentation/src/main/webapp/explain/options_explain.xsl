@@ -41,7 +41,7 @@
 				CoNE
 			</name>
 			<interface>
-				JQuery
+				Options
 			</interface>
 			<description>
 				Control of Named Entities

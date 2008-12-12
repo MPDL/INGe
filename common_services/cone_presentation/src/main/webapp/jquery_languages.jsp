@@ -23,7 +23,7 @@
 			</select>
 		</form>
 		<script type="text/javascript">
-			$(".languageSuggest").suggest("jquery/lang/query",{ onSelect: function() {alert("You selected: " + this.getResultID())}});
+			$(".languageSuggest").suggest("languages/query",{ onSelect: function() {alert("You selected: " + this.getResultID())}});
 		</script>
 	</body>
 </html>

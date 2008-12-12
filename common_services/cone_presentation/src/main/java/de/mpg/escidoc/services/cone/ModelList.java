@@ -16,8 +16,10 @@ package de.mpg.escidoc.services.cone;
 
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -61,6 +63,7 @@ public class ModelList
     /**
      * Returns the singleton.
      * 
+     * @throws Exception Any exception.
      * @return The singleton
      */
     public static ModelList getInstance() throws Exception
@@ -77,6 +80,24 @@ public class ModelList
         return list;
     }
 
+    /**
+     * Find a model by its alias.
+     * 
+     * @param alias The String to look for.
+     * @return The first {@link Model} in the list using the given alias.
+     */
+    public Model getModelByAlias(String alias)
+    {
+        for (Model model : getList())
+        {
+            if (model.getAliases().contains(alias))
+            {
+                return model;
+            }
+        }
+        return null;
+    }
+    
     /**
      * SAX handler.
      * 
@@ -99,6 +120,10 @@ public class ModelList
             else if ("models/model/description".equals(stack.toString()))
             {
                 currentService.setDescription(content);
+            }
+            else if ("models/model/aliases/alias".equals(stack.toString()))
+            {
+                currentService.getAliases().add(content);
             }
         }
 
@@ -217,6 +242,7 @@ public class ModelList
     {
         private String name;
         private String description;
+        private List<String> aliases = new ArrayList<String>();
 
         /**
          * Default constructor.
@@ -247,6 +273,20 @@ public class ModelList
             this.description = description;
         }
 
+        /**
+         * Constructor by name, description and aliases.
+         * 
+         * @param name The service name
+         * @param description The description
+         * @param aliases The {@link List} of aliases.
+         */
+        public Model(String name, String description, List<String> aliases)
+        {
+            this.name = name;
+            this.description = description;
+            this.aliases = aliases;
+        }
+
         public String getName()
         {
             return name;
@@ -265,6 +305,16 @@ public class ModelList
         public void setDescription(String description)
         {
             this.description = description;
+        }
+
+        public List<String> getAliases()
+        {
+            return aliases;
+        }
+
+        public void setAliases(List<String> aliases)
+        {
+            this.aliases = aliases;
         }
 
         /**

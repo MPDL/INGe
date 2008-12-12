@@ -45,7 +45,7 @@ public class CreateTripleStore
     private static final String REGEX_BRACKETS = "<[^>]+>";
     private static final String EXECUTING = "Executing: ";
     private Logger logger = Logger.getLogger(CreateTripleStore.class);
-    private String[] models = { "jnar", "lang" };
+    private String[] models = { "journals", "languages" };
     private String mulgaraServer;
     private String mulgaraPort;
 

@@ -28,7 +28,11 @@
 -->
 <models>
 	<model>
-		<name>jnar</name>
+		<name>journals</name>
+		<aliases>
+			<alias>jnar</alias>
+			<alias>journals</alias>
+		</aliases>
 		<description>Journal Names</description>
 		<samples>
 			<sample>
@@ -53,7 +57,11 @@
 		<example_page>../jquery_journals.jsp</example_page>
 	</model>
 	<model>
-		<name>lang</name>
+		<name>languages</name>
+		<aliases>
+			<alias>lang</alias>
+			<alias>languages</alias>
+		</aliases>
 		<description>Languages</description>
 		<samples>
 			<sample>

@@ -66,7 +66,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String searchString, String language) throws Exception
+    public List<Pair> query(String model, String searchString, String language, int limit) throws Exception
     {
         if (language == null)
         {
@@ -80,8 +80,14 @@ public class MulgaraQuerier implements Querier
             query += " and $s $p '" + string + "' " + "in <rmi://" + mulgaraServer + ":" + mulgaraPort + DATABASE_NAME
                     + model + "_fulltext>";
         }
-        query += " limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
+        
+        if (limit > 0)
+        {
+            query += " limit " + limit;
+        }
 
+        query += ";";
+        
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         long now = new Date().getTime();
         Answer answer = interpreter.executeQuery(query);
@@ -178,4 +184,14 @@ public class MulgaraQuerier implements Querier
     {
         return id;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Pair> query(String model, String query, String language) throws Exception
+    {
+        String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+        return query(model, query, null, Integer.parseInt(limitString));
+    }
+
 }

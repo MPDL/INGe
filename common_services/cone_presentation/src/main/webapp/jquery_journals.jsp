@@ -18,7 +18,7 @@
 			
 		</form>
 		<script type="text/javascript">
-			$(".journalSuggest").suggest("jquery/jnar/query");
+			$(".journalSuggest").suggest("journals/query");
 		</script>
 	</body>
 </html>

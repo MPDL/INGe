@@ -51,6 +51,14 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
+    public List<Pair> query(String model, String query, String lang, int limit) throws Exception
+    {
+        return query(model, query);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public List<Pair> query(String model, String query)
     {
         Map<String, String> resultMap = new LinkedHashMap<String, String>();
@@ -277,4 +285,5 @@ public class MockQuerier implements Querier
         }
         return resultSet;
     }
+
 }

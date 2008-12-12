@@ -30,12 +30,9 @@
 
 package de.mpg.escidoc.services.cone.web;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -55,17 +52,17 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.util.Pair;
 
 /**
- * Servlet to answer calls from the JQuery Javascript API.
+ * Servlet to answer calls from PubMan for options generation.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class JQueryConeServlet extends ConeServlet
+public class OptionsConeServlet extends ConeServlet
 {
 
-    private static final Logger logger = Logger.getLogger(JQueryConeServlet.class);
+    private static final Logger logger = Logger.getLogger(OptionsConeServlet.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
@@ -85,7 +82,7 @@ public class JQueryConeServlet extends ConeServlet
         response.setContentType("text/xml");
         
         InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/options_explain.xsl");
         
         try
         {
@@ -98,34 +95,6 @@ public class JQueryConeServlet extends ConeServlet
             logger.error(ERROR_TRANSFORMING_RESULT, e);
             throw new IOException(e.getMessage());
         }
-    }
-    
-    /**
-     * Formats an RDF XML String into a JQuery readable list.
-     * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
-     */
-    protected OutputStream format(String source) throws IOException
-    {
-        
-     // Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-
-        InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
-        OutputStream result = new ByteArrayOutputStream();
-        
-        try
-        {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
-            transformer.transform(new StreamSource(new StringReader(source)), new StreamResult(result));
-        }
-        catch (Exception e)
-        {
-            logger.error(ERROR_TRANSFORMING_RESULT, e);
-            throw new IOException(e.getMessage());
-        }
-        return result;
     }
 
     /**
@@ -145,9 +114,9 @@ public class JQueryConeServlet extends ConeServlet
             {
                 String key = pair.getKey();
                 String value = pair.getValue();
-                result.append(value);
+                result.append(key.substring(key.lastIndexOf(":") + 1));
                 result.append("|");
-                result.append(key);
+                result.append(value);
                 result.append("\n");
             }
         }

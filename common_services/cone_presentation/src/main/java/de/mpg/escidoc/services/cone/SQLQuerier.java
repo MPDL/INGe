@@ -66,12 +66,22 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public List<Pair> query(String model, String searchString, String language) throws Exception
+    public List<Pair> query(String model, String query, String language) throws Exception
+    {
+        String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+        return query(model, query, language, Integer.parseInt(limitString));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Pair> query(String model, String searchString, String language, int limit) throws Exception
     {
         if (language == null)
         {
             language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
         }
+
         String[] searchStringsWithWildcards = formatSearchString(searchString);
         String query = "select id, value, lang"
                 + " from results where id in (select subject from vw_search where model = '" + model + "' and";
@@ -84,8 +94,14 @@ public class SQLQuerier implements Querier
             query += " object ilike '" + searchStringsWithWildcards[i] + "'";
         }
         query += ")";
-        query += " order by value";
-        query += " limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
+        query += " order by value, id";
+        if (limit > 0)
+        {
+            query += " limit " + limit;
+        }
+        
+        query += ";";
+        
         logger.debug("query: " + query);
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();

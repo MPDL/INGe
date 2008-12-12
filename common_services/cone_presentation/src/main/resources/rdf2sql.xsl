@@ -61,9 +61,9 @@
 			</xsl:for-each>
 			
 			<xsl:choose>
-				<xsl:when test="$model = 'jnar'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/><xsl:if test="dc:publisher or dcterms:publisher">; <xsl:value-of select="dc:publisher"/><xsl:if test="dc:publisher and dcterms:publisher">, </xsl:if><xsl:value-of select="dcterms:publisher"/></xsl:if></xsl:with-param></xsl:call-template>');
+				<xsl:when test="$model = 'journals'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/><xsl:if test="dc:publisher or dcterms:publisher">; <xsl:value-of select="dc:publisher"/><xsl:if test="dc:publisher and dcterms:publisher">, </xsl:if><xsl:value-of select="dcterms:publisher"/></xsl:if></xsl:with-param></xsl:call-template>');
 </xsl:when>
-				<xsl:when test="$model = 'lang'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/></xsl:with-param></xsl:call-template>', '<xsl:value-of select="dc:title/@xml:lang"/>');
+				<xsl:when test="$model = 'languages'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/></xsl:with-param></xsl:call-template>', '<xsl:value-of select="dc:title/@xml:lang"/>');
 </xsl:when>
 			</xsl:choose>
 		

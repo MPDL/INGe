@@ -1,4 +1,4 @@
-drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#lang>;
-drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#lang_result>;
-drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#jnar>;
-drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#jnar_result>;
+drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#languages>;
+drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#languages_result>;
+drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#journals>;
+drop <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#journals_result>;
