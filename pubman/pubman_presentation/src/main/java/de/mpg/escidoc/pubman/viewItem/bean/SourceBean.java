@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
@@ -259,15 +260,24 @@ public class SourceBean extends FacesBean
             {
                 identifiers.append(source.getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
-                identifiers.append(source.getIdentifiers().get(i).getId());
+                if (CommonUtils.getisUriValidUrl(source.getIdentifiers().get(i)))
+                {
+                    identifiers.append("<a href='"+source.getIdentifiers().get(i).getId()+"'>"+source.getIdentifiers().get(i).getId()+"</a>"); 
+
+                }
+                else
+                {
+                    identifiers.append(source.getIdentifiers().get(i).getId());
+                }
                 if(i < source.getIdentifiers().size() - 1)
                 {
-                    identifiers.append(", ");
+                    identifiers.append("<br/>");
                 }
             }
         }
         return identifiers.toString();
     }
+
     
     /**
      * Returns the formatted Publishing Info according to filled elements
