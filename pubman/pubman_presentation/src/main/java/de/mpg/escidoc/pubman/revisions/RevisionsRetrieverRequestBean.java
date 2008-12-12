@@ -1,10 +1,12 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.revisions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;

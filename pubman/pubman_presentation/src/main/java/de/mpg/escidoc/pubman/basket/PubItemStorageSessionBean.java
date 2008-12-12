@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.basket;
 
 import java.util.HashMap;
 import java.util.Map;

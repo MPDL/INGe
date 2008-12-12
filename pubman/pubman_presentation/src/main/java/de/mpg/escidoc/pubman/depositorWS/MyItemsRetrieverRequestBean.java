@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.depositorWS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,11 @@ import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.desktop.Navigation;
-import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;

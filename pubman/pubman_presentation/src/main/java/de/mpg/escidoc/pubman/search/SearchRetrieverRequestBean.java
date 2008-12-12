@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.search;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -10,7 +10,9 @@ import javax.naming.NamingException;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 
-import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;

@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.itemList;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +22,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
+import de.mpg.escidoc.pubman.common_presentation.BasePaginatorListSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;

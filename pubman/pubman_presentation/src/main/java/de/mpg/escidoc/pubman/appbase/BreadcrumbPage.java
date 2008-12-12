@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 
 /**
  *

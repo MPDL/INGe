@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.qaws;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,10 @@ import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.desktop.Navigation;
-import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;

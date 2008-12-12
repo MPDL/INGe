@@ -1,4 +1,4 @@
-package de.mpg.escidoc.pubman.test;
+package de.mpg.escidoc.pubman.common_presentation;
 
 
 import java.io.IOException;
@@ -620,7 +620,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * Returns a map that contains all HTTP GET parameters as key-value pairs. If you want to redirect please add your parameters here first.
      * @return
      */
-    protected Map<String, String> getParameterMap()
+    public Map<String, String> getParameterMap()
     {
         return redirectParameterMap;
     }
