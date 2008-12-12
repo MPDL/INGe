@@ -15,7 +15,6 @@ import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
-import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -45,12 +44,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
      */
     private boolean isRevisionView = false;
-    
-    
-    /**
-     * The content for the CoinS tag for each item
-     */
-    private String coins;
     
     /**
      * The list of formatted organzations in an ArrayList.
@@ -146,10 +139,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
         
         getCountCreators();
-        
-        // get the information for the CoinS tag
-        COinSUI coins = new COinSUI();
-        this.coins = coins.getCOinSString(this);
         
         // get the search result hits
         if(this.searchHitList != null && this.searchHitList.size() > 0)
@@ -1226,16 +1215,6 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     public void setSearchHits(List<SearchHitBean> searchHits)
     {
         this.searchHits = searchHits;
-    }
-
-    public String getCoins()
-    {
-        return coins;
-    }
-
-    public void setCoins(String coins)
-    {
-        this.coins = coins;
     }
 
     public ArrayList<String> getAllCreatorsList()
