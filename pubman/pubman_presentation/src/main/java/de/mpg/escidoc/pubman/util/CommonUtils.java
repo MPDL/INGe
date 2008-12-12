@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +40,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -50,8 +53,6 @@ import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -59,6 +60,8 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
@@ -644,4 +647,26 @@ public class CommonUtils extends InternationalizedImpl
       return sdf.format(cal.getTime());
 
     }
+    
+
+    public static boolean getisUriValidUrl(IdentifierVO id)
+    {
+        boolean valid = false;
+        try
+        {
+            if (id.getType()== null){return false;}
+            if (id.getType().equals(IdType.URI))
+            {
+                new URL (id.getId());
+                valid = true;
+            }
+        }
+        catch (MalformedURLException e)
+        {
+            logger.warn("URI: " + "is no valid URL", e);
+            return false;
+        }
+        return valid;
+    }
+    
 }
