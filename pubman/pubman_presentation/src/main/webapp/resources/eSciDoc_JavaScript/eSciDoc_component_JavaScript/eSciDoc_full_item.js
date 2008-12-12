@@ -76,7 +76,7 @@ function addFullItemFunctions() {
 	$('.fullItem').find('.shortView').each(function(i,ele){$(ele).hide();});
 	$('.fullItem').find('.itemInfoSwitch').each(function(i,ele){$(ele).click(function(){$(this).parents('.listItem').find('.shortView').slideToggle('normal');});});
 
-	$('.fileUploadBtn').each(function(i, elem){ if($(elem).parents('.fileSection').find('.fileInput').val() == ''){ $(elem).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');}; });
+//	$('.fileUploadBtn').each(function(i, elem){ if($(elem).parents('.fileSection').find('.fileInput').val() == ''){ $(elem).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');}; });
 
 	$('.showMultipleAuthors').click(function(){
 		$(this).parents('.itemBlock').find('.multipleAuthors').slideDown('normal');
