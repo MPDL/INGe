@@ -172,7 +172,7 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceIdentifier}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{source.identifiers}"/>
+					<h:outputText value="#{source.identifiers}" escape="false"/>
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.identifiers == null || source.identifiers == ''}"/>
 				</span>
 			</h:panelGroup>
