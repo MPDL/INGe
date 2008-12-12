@@ -56,9 +56,6 @@
 	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isStateInRevision}">
 			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}"/>
 	</h:panelGroup>	
-	
-	<!-- COinS -->
-	<!--<h:outputText value="#{ViewItemFull.coins}" escape="false"/>-->
 
 	<!-- The unAPI Identifier for this item -->
 	<h:outputText value="<abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'></abbr>" escape="false" rendered="#{ViewItemFull.isStateReleased}"/>

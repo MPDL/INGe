@@ -86,10 +86,6 @@
 
 <%-- 
 <f:subview id="viewItemShort">
-	
-	<!-- COinS 
-	<h:outputText value="#{item.coins}" escape="false"/>
-    -->
 
 	<!-- unAPI identifier -->
 	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
