@@ -44,7 +44,6 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
-import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -59,7 +58,6 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 {
     private PubItemVO pubItem;
     private HTMLElementUI htmlElement = new HTMLElementUI();
-    private COinSUI coins = new COinSUI();
     
     private ResourceBundle bundleLabel = null;
     
@@ -165,10 +163,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // *** CREATORS (PERSONS AND ORGANIZATIONS) ***
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-            
-            this.getChildren().add(coins.getCOinSTag(pubItemVO));
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblCreators")));
-            
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblCreators")));          
             this.getChildren().add(htmlElement.getEndTag("div"));
             
             // value (inserted by the called method)

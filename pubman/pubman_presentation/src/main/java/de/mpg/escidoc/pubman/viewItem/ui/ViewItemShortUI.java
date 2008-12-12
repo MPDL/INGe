@@ -54,7 +54,6 @@ public class ViewItemShortUI extends ContainerPanelUI
     private static Logger logger = Logger.getLogger(ViewItemShortUI.class);
 
     private HTMLElementUI htmlElement = new HTMLElementUI();
-    private COinSUI coins = new COinSUI();
 
     /**
      * Default constructor.
@@ -117,7 +116,6 @@ public class ViewItemShortUI extends ContainerPanelUI
         //label
         this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
 
-        this.getChildren().add(coins.getCOinSTag(pubItemVOWrapper.getValueObject()));
         HtmlOutputText lblCreators = new HtmlOutputText();
         bindComponentLabel(lblCreators, "ViewItemShort_lblCreators");
         this.getChildren().add(lblCreators);

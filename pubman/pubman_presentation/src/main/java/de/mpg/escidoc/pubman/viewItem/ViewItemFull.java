@@ -34,8 +34,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,7 +87,6 @@ import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
-import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -102,10 +99,8 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -145,8 +140,6 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-    
-    private String coins;
     
     private UIXIterator titleIterator = new UIXIterator();
     
@@ -366,7 +359,7 @@ public class ViewItemFull extends FacesBean
                 this.isWorkflowStandard = false;
             }
             
-            if(isStateWithdrawn)
+            if(this.isStateWithdrawn)
             {
                 getViewItemSessionBean().itemChanged();
             }
@@ -398,10 +391,6 @@ public class ViewItemFull extends FacesBean
             
             // the list of creators (persons and organizations)
             createCreatorList();
-            
-            // create the COinS information
-            COinSUI coins = new COinSUI();
-            this.coins = coins.getCOinSString(this.pubItem);
             
             // the list of sources
            
@@ -1823,14 +1812,6 @@ public class ViewItemFull extends FacesBean
 
 	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
-	}
-
-	public String getCoins() {
-		return this.coins;
-	}
-
-	public void setCoins(String oinS) {
-		this.coins = oinS;
 	}
 
 	public List<FileBean> getLocatorList() {
