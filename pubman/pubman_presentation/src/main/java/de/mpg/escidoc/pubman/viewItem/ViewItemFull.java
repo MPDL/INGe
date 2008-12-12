@@ -1019,7 +1019,7 @@ public class ViewItemFull extends FacesBean
             {
                 identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
-                if (this.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
+                if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
                 {
                     identifiers.append("<a href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>"); 
 
@@ -1902,25 +1902,6 @@ public class ViewItemFull extends FacesBean
     public void setPrivilegedViewer(boolean isPrivilegedViewer)
     {
         this.isPrivilegedViewer = isPrivilegedViewer;
-    }
-    
-    public boolean getisUriValidUrl(IdentifierVO id)
-    {
-        boolean valid = false;
-        try
-        {
-            if (id.getType().equals(IdType.URI))
-            {
-                new URL (id.getId());
-                valid = true;
-            }
-        }
-        catch (MalformedURLException e)
-        {
-            logger.warn("URI: " + "is no valid URL", e);
-            return false;
-        }
-        return valid;
     }
     
     public boolean getIsLoggedIn()
