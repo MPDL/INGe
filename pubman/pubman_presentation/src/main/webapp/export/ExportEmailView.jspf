@@ -30,9 +30,6 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		&#160;
