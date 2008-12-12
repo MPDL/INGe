@@ -85,7 +85,7 @@ All rights reserved. Use is subject to license terms.
  	</div>
 
  	<div class="gotoBox">
- 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGo}"/></label>
+ 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}"/></label>
  		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}"/>
  		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
  		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
@@ -350,7 +350,7 @@ All rights reserved. Use is subject to license terms.
  	</div>
 
 	<div class="gotoBox">
- 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGo}"/></label>
+ 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}"/></label>
  		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageBottom}"/>
  		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
  		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
