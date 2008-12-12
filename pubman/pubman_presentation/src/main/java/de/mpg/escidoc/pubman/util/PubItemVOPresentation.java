@@ -289,6 +289,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         int creatorMaximum = 4;
         StringBuffer creators = new StringBuffer();
+        
+        if (getMetadata().getCreators().size() < creatorMaximum)
+        {
+            creatorMaximum = getMetadata().getCreators().size();
+        }
 
         if (getMetadata().getCreators() != null)
         {
