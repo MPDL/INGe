@@ -41,7 +41,7 @@ public abstract class DataModelManager<T>
 	 * 
 	 * @return Set containing data object of type T
 	 */
-	public abstract List<T> getDataListFromVO();
+	//public abstract List<T> getDataListFromVO();
 	
 	// //////////////////////////////////////////////////////////////////////////
 	//
@@ -110,7 +110,7 @@ public abstract class DataModelManager<T>
 		{
 			objectList.add(i + 1, elem);
 		}
-		return null;
+		return "";
 	}
 
 	/**
@@ -120,7 +120,7 @@ public abstract class DataModelManager<T>
 	{
 		int i = objectDM.getRowIndex();
 		removeObjectAtIndex(i);
-		return null;
+		return "";
 	}
 
 	protected void removeObjectAtIndex(int i)
