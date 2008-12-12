@@ -261,9 +261,13 @@
 				<xsl:when test="@pub-id-type='doi'">
 					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
 				</xsl:when>
-				<xsl:when test="@pub-id-type='pmc' or @pub-id-type='pmcid'">
+				<xsl:when test="@pub-id-type='pmc'">
 					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
 					<xsl:value-of select="'pmc:'"/>
+				</xsl:when>
+				<xsl:when test="@pub-id-type='pmid'">
+					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:value-of select="'pmid:'"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
