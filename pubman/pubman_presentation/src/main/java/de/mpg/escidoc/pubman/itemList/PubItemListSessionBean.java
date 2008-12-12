@@ -656,7 +656,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     protected void pageTypeChanged()
     {
        subMenu = "VIEW";
-       listType = "BIB";
        getSelectedItemRefs().clear();
         
     }
