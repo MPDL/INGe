@@ -66,7 +66,7 @@
 		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
 	</h:outputLink>
 	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}">
-		<h:outputText styleClass="" value="#{lbl.mainMenu_lblCart} (#{PubItemStorageSessionBean.storedPubItemsSize})"  />
+		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
 		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
 	</h:panelGroup>
 
