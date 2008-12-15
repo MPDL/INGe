@@ -89,7 +89,7 @@
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
-								<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
