@@ -30,8 +30,12 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import org.apache.log4j.Logger;
+import java.util.Vector;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -53,6 +57,8 @@ import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -63,6 +69,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Provides different utilities for all kinds of stuff.
@@ -152,25 +159,84 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
-     * Returns all ISOLanguages, with "de" and "en" at the first positions.
-     * @return all ISOLanguages, with "de" and "en" at the first positions
+     * Returns all Languages from Cone Service, with "de" and "en" at the first positions.
+     * @return all OLanguages from Cone Service, with "de" and "en" at the first positions
      */
     public static SelectItem[] getLanguageOptions()
     {
-        SelectItem[] isoLanguages = CommonUtils.convertToOptions(Locale.getISOLanguages(), false);
+        Locale localLang = Locale.getDefault();
+        SelectItem[] coneLanguages = CommonUtils.convertToOptions(CommonUtils.getConeLanguages(), false);
 
-        SelectItem[] options = new SelectItem[isoLanguages.length + 4];
+        SelectItem[] options = new SelectItem[coneLanguages.length + 4];
         options[0] = new SelectItem("", NO_ITEM_SET);
-        options[1] = new SelectItem("en");
-        options[2] = new SelectItem("de");
+        if (localLang.getLanguage().equals("de"))
+        {
+            options[1] = new SelectItem("en|Englisch");
+            options[2] = new SelectItem("de|Deutsch");
+        }
+        if (localLang.getLanguage().equals("en"))
+        {
+            options[1] = new SelectItem("en|English");
+            options[2] = new SelectItem("de|German");
+        }
+        if (localLang.getLanguage().equals("fr"))
+        {
+            options[1] = new SelectItem("en|Anglais");
+            options[2] = new SelectItem("de|Allemand");
+        }
         options[3] = new SelectItem("", NO_ITEM_SET);
 
-        for (int i = 0; i < isoLanguages.length; i++)
+        for (int i = 0; i < coneLanguages.length; i++)
         {
-            options[i + 4] = isoLanguages[i]; 
+            options[i + 4] = coneLanguages[i]; 
         }
 
         return options;
+    }
+    
+    /**
+     * Retrievs an array of all languages from the cone service in format abbr|language name 
+     * @return Object array of languages
+     * @throws RuntimeException
+     */
+    private static Object[] getConeLanguages() throws RuntimeException
+    {
+        Vector <String> langVec = new Vector<String>();
+        InputStreamReader isReader;
+        BufferedReader bReader;
+        Locale localLang = Locale.getDefault();
+        System.out.println(localLang.getLanguage());
+        
+        try
+        {
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"options/languages/all?lang="+localLang.getLanguage());
+            URLConnection conn = coneUrl.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            
+            switch (responseCode)
+            {
+                case 200:
+                    logger.info("Cone Service responded with 200");
+                    break;
+                default:
+                    throw new RuntimeException("An error occurred while calling Cone Service: "
+                            + responseCode + ": " + httpConn.getResponseMessage());
+            }
+            
+            isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+            bReader = new BufferedReader(isReader);
+            String line = "";
+            while ((line = bReader.readLine()) != null)
+            {
+                langVec.add(line);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("An error occurred while calling the cone service",e);
+        }
+        return langVec.toArray();
     }
 
     /**
