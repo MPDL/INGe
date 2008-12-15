@@ -29,11 +29,10 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 import java.util.Date;
 
-
-
 /**
  * 
- * TODO Representation of a result (http://www.escidoc.de/schemas/result/0.1/)
+ * Representation of a result (http://www.escidoc.de/schemas/result/0.1/) that is returned when
+ * calling an action method like submit(), release(), revise(), withdraw() on Object Manager handlers.
  *
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
@@ -52,16 +51,25 @@ public class ResultVO extends ValueObject
         this.lastModificationDate = lastModificationDate;
     }
 
+    /**
+     * Returns the new modification date of the manipulated object.
+     * @return
+     */
     public Date getLastModificationDate()
     {
         return lastModificationDate;
     }
 
+    
     public void setPid(String pid)
     {
         this.pid = pid;
     }
 
+    /**
+     * Returns the pid of the manipulated object.
+     * @return
+     */
     public String getPid()
     {
         return pid;
