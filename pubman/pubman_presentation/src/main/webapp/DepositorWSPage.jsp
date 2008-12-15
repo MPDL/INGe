@@ -100,8 +100,10 @@
 									</h:selectOneMenu>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<!--
 									<h:commandButton title="#{tip.export_btDisplay}" id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.exportSelectedDisplay}"/>
 									<h:outputText styleClass="seperator" />
+									 -->
 									<h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}" />
 									<h:outputText styleClass="seperator" />
 									<h:commandLink title="#{tip.export_btEMail}" id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
