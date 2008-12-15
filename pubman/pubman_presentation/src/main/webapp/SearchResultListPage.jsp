@@ -137,25 +137,34 @@
 									<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 									<h:outputText value=")"/>	
 								</div>
-							</h:panelGroup>
-							<div class="subHeader">
+							</h:panelGroup>		
+							
+							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 								<!-- Subheadline starts here -->
-								<h:panelGroup rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
 									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
-								</h:panelGroup>
 								<!-- Subheadline ends here -->
-							</div>
-							<div class="subHeader">
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 								<!-- Subheadline starts here -->
-								<h:panelGroup rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
 										<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
 										<h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}"/>
 									</h:panelGroup>
-								</h:panelGroup>
 								<!-- Subheadline ends here -->
-							</div>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}" >
+								<!-- Subheadline starts here -->
+									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
+									<a class="free_area0 xTiny_marginRIncl" href="#contentSkipLinkAnchor" onclick="$(this).siblings('.affDetail').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Affiliation"/></a>
+									<h:panelGroup layout="block" styleClass="half_area0_p6 affDetail" style="display: none;">
+										<jsp:directive.include file="search/AffiliationDetail.jspf"/>
+									</h:panelGroup>
+								<!-- Subheadline ends here -->
+							</h:panelGroup>
+
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}"/>
