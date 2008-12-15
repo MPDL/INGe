@@ -96,10 +96,11 @@
 <%-- Creator person family name, Creator person given name --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional == 'false' || creator_person_organization_creator_persons_person_given_name_optional == 'false'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional == 'false' || creator_person_organization_creator_persons_person_given_name_optional == 'false'}" />
 						<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonFamilyName}"/>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}"/>
 					</span>
@@ -115,9 +116,10 @@
 				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" />
 						<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
 						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 					</span>
