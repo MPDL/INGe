@@ -115,6 +115,8 @@
 						<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
+						<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
+						<%-- 
 						<span class="quad_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="quad_label" value="#{lbl.easy_submission_lblBibtexPath}"/>
 							<span class="xDouble_area0 tiny_marginRIncl">
@@ -127,6 +129,7 @@
 							</span>
 							<h:outputLabel styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
 						</span>
+						 --%>
 					</span>
 				</h:panelGroup>
 			</div>
