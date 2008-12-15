@@ -126,6 +126,8 @@
 							<jsp:directive.include file="editItem/DetailGroup.jspf" />
 							<jsp:directive.include file="editItem/EventGroup.jspf" />
 							<jsp:directive.include file="editItem/SourceGroup.jspf" />
+
+							<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" /></div>
 						 
 						</div>
 						<div class="full_area0 formButtonArea">
