@@ -278,7 +278,7 @@
 							<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{lbl.EditItem_lblEndDate}" />	
 							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
 						</span>
-						<span class="medium_area0">
+						<span class="medium_area0 toLabelBottom">
 							<span class="medium_checkbox">
 								<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EasySubmission.invited}" />
 								<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{lbl.EditItem_lblInvitationstatus}" />
