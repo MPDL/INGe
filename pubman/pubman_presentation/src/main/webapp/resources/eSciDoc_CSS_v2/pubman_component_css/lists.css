@@ -149,11 +149,11 @@
 }
 
 .listItem .itemHeader {
-	margin-bottom: -2.65em;
+	margin-bottom: -1.00em;
 }
 
 .loggedIn .listItem .itemHeader {
-	margin-bottom: -1.00em;
+	margin-bottom: -2.65em;
 }
 
 .listItem .shortView, .listItem .mediumView {
