@@ -46,8 +46,8 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="small_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<h:inputText styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
@@ -65,8 +65,8 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="small_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<h:inputText styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
