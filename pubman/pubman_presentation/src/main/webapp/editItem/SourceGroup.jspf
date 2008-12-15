@@ -31,79 +31,79 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<h:panelGroup layout="block" id="editSource" rendered="#{genre.sources_display != 'false' && genre.sources_source_basic_form_id != 'easy-submission'}"/>
 <div id="editSource"></div>
-<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
+<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{genre.sources_display != 'false'}">
     <h:column>
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText value="#{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
+			<h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
 		</h3>
 		<span class="seperator"></span>
 		<div class="free_area0 itemBlockContent endline">
 
 	<%-- Source genre --%>
-			<div class="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.sources_source_basic_source_genre_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" /><h:outputText value="#{lbl.EditItem_lblGenre}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_genre_optional == 'false'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" >
+					<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" required="#{genre.sources_source_basic_source_genre_optional == 'false'}">
 						<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
 					</h:selectOneMenu>
 				</span>
 				<span class="huge_area0_p8 lineToolSection sourcesControls">
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}" rendered="#{genre.sources_source_basic_source_genre_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" rendered="#{genre.sources_source_basic_source_genre_repeatable != 'false'}"/>
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source title --%>
-			<div class="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional == 'false'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" required="#{genre.sources_source_basic_source_title_optional == 'false'}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source alternative title copy&paste --%>
-			<div class="free_area0 endline itemLine noTopBorder noDisplay">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder noDisplay">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{sourceBean.hiddenAlternativeTitlesField}" cols="15" rows="3" />
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source alternative title --%>
-			<h:dataTable var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}">
+			<h:dataTable var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}">
 				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_alternative_optional == 'false'}" /><h:outputText value="#{genre.sources_source_basic_source_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" required="#{genre.sources_source_basic_source_title_alternative_optional == 'false'}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
 			</h:dataTable>
 
 <%-- Source creator --%>
-			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}">
+			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" rendered="#{genre.sources_source_person_organization_display != 'false'}">
             <h:column>
-	<%-- Source Author copy&paste --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 }">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_repeatable != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 					</b>
@@ -119,12 +119,12 @@
 				</h:panelGroup>
 	
 	<%-- Source creator role --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 }">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_select_roles_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_select_roles_optional == 'false'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" required="#{genre.sources_source_person_organization_select_roles_optional == 'false'}">
 							<f:selectItems value="#{creatorBean.creatorRoles}"/>
 						</h:selectOneMenu>
 					</span>
@@ -134,55 +134,55 @@
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex > 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_select_roles_optional == 'false'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" required="#{genre.sources_source_person_organization_select_roles_optional == 'false'}">
 							<f:selectItems value="#{creatorBean.creatorRoles}"/>
 						</h:selectOneMenu>
 					</span>
 				</h:panelGroup>
 
 	<%-- Source creator type --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.sources_source_person_organization_select_roles_creator_type_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorType}"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_select_roles_creator_type_optional == 'false'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_creator_type_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneRadio styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
-							valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();">
+							valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();" required="#{genre.sources_source_person_organization_select_roles_creator_type_optional == 'false'}">
 							<f:selectItems value="#{creatorBean.creatorTypes}"/>
 						</h:selectOneRadio>
 					</span>
 				</h:panelGroup>
 
 	<%-- Source creator person family name, Creator person given name --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_persons_person_family_name_optional == 'false' || genre.sources_source_person_organization_source_persons_person_given_name_optional == 'false'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="double_area0 xTiny_marginRIncl">
-							<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonFamilyName}"/>
-							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}"/>
+							<h:outputLabel styleClass="double_label" value="#{genre.sources_source_person_organization_source_persons_person_family_name_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" required="#{genre.sources_source_person_organization_source_persons_person_family_name_optional == 'false'}"/>
 						</span>
 						<span class="double_area0">
-							<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonGivenName}"/>
-							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}"/>
+							<h:outputLabel styleClass="double_label" value="#{genre.sources_source_person_organization_source_persons_person_given_name_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" required="#{genre.sources_source_person_organization_source_persons_person_given_name_optional == 'false'}"/>
 						</span>
 					</span>
 				</h:panelGroup>
 
 	<%-- Source creator person affiliation --%>
-				<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+				<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
 					<h:column>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
-							<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
+							<h:outputLabel styleClass="quad_label" value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}" required="#{genre.sources_source_person_organization_source_organizations_organization_name_optional == 'false'}"/>
 						</span>
 						<span class="large_area0_p8 lineToolSection">
 							<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
@@ -190,27 +190,27 @@
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" required="#{genre.sources_source_person_organization_source_organizations_organization_address_optional == 'false'}"/>	
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" rendered="#{genre.sources_source_person_organization_source_organizations_repeatable != 'false'}"/>
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{genre.sources_source_person_organization_source_organizations_repeatable != 'false'}"/>
 						</span>
 					</h:panelGroup>
 					</h:column>
 				</h:dataTable>
 
 	<%-- Source creator organisation affiliation --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType && genre.sources_source_person_organization_source_organizations_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creatorBean.organisationType && genre.sources_source_person_organization_source_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
-						<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
+						<h:outputLabel styleClass="quad_label" value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}" required="#{genre.sources_source_person_organization_source_organizations_organization_name_optional == 'false'}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
@@ -218,17 +218,17 @@
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" required="#{genre.sources_source_person_organization_source_organizations_organization_address_optional == 'false'}"/>
 					</span>
 				</h:panelGroup>
 				
 	<%-- Handle source creator controls --%>
 				<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btRemove}" styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" />
-					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btAdd}" styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
+					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btRemove}" styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{genre.sources_source_person_organization_repeatable != 'false'}"/>
+					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btAdd}" styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" rendered="#{genre.sources_source_person_organization_repeatable != 'false'}"/>
 				</h:panelGroup>
                </h:column>
 			</h:dataTable>
@@ -236,34 +236,34 @@
 <%-- Source Details --%>
 
 	<%-- Source details volume --%>
-			<div class="free_area0 endline itemLine">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{genre.sources_source_details_1_source_volume_display != false && genre.sources_source_details_1_form_id != 'easy-submission'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblDetailsOfSource}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_details_1_source_volume_optional == false}" /><h:outputText value="#{genre.sources_source_details_1_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblVolume}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.volume}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_details_1_source_volume_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.volume}" required="#{genre.sources_source_details_1_source_volume_optional == false}"/>
 					</span>
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source details publisher, place --%>
-			<div class="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional == false || genre.sources_source_publishing_info_publishing_info_place_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblPublisher}" />
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
+						<h:outputLabel styleClass="xDouble_label" value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" required="#{genre.sources_source_publishing_info_publishing_info_publisher_optional == false}"/>
 					</span>
 					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblPlace}"/>
-						<h:inputText styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" required="#{genre.sources_source_publishing_info_publishing_info_place_optional == false}"/>
 					</span>
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source details identifier copy&paste --%>
 			<div class="free_area0 endline itemLine noTopBorder noDisplay">
@@ -279,69 +279,70 @@
 			</div>
 
 	<%-- Source details identifier --%>
-			<h:dataTable  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}">
+			<h:dataTable  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{genre.sources_source_identifiers_display != 'false' && genre.sources_source_identifiers_form_id != 'easy-submission'}">
 				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" /><span class="noDisplay">: </span>
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_identifiers_source_identifier_type_optional == 'false' || genre.sources_source_identifiers_source_identifier_value_optional == 'false'}" /><h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 largeFormPush">
-							<h:selectOneMenu styleClass="large_select replace identifierType" value="#{identifier.typeString}">
+							<h:selectOneMenu styleClass="large_select replace identifierType" value="#{identifier.typeString}" required="#{genre.sources_source_identifiers_source_identifier_type_optional == 'false'}">
 								<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}"/>
 							</h:selectOneMenu>
 						</span>
-						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" />
+						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" required="#{genre.sources_source_identifiers_source_identifier_value_optional == 'false'}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
 			</h:dataTable>
 
 	<%-- Source details edition, issue --%>
-			<div class="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional == 'false' || genre.sources_source_details_1_source_issue_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblEdition}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.publishingInfo.edition}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.publishingInfo.edition}" required="#{genre.sources_source_publishing_info_publishing_info_edition_optional == 'false'}"/>
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblIssue}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.issue}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_details_1_source_issue_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.issue}" required="#{genre.sources_source_details_1_source_issue_optional == 'false'}"/>
 					</span>
 				</span>
-			</div>
+			</h:panelGroup>
 
 	<%-- Source details start page, end page, sequence --%>
-			<div class="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_details_1_source_start_page_optional == 'false' || genre.sources_source_details_1_source_end_page_optional == 'false' || genre.sources_source_details_2_source_sequence_number_optional == 'false'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblStartpage}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.startPage}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_details_1_source_start_page_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.startPage}" required="#{genre.sources_source_details_1_source_start_page_optional == 'false'}"/>
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblEndpage}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.endPage}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_details_1_source_end_page_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.endPage}" required="#{genre.sources_source_details_1_source_end_page_optional == 'false'}"/>
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblSequenceNumber}" />
-						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.sequenceNumber}" />
+						<h:outputLabel styleClass="large_label" value="#{genre.sources_source_details_2_source_sequence_number_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.sequenceNumber}" required="#{genre.sources_source_details_2_source_sequence_number_optional == 'false'}"/>
 					</span>
 				</span>
-			</div>
+			</h:panelGroup>
 			
-			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
+			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>	
+
 		</div>
-		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblSource} #{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}" /> <h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" /></a>
 	</h:panelGroup>
 	</h:column>
 </h:dataTable>

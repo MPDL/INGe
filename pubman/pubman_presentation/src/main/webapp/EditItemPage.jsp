@@ -100,16 +100,16 @@
 						<div class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
-									<h:panelGroup styleClass="seperator"></h:panelGroup>
-									<a class="free_area0" href="#editSource"><h:outputText value="#{lbl.EditItem_lblSource}" /></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.sources_display != 'false'}"/>
+									<a class="free_area0" href="#editSource"><h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" rendered="#{genre.sources_display != 'false'}"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.events_display != 'false'}"/>
-									<a class="free_area0" href="#editEvent"><h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/></a>
+									<a class="free_area0" href="#editEvent"><h:outputText value="#{genre.events_label}" rendered="#{genre.events_display != 'false'}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.details_display != 'false'}"/>
-									<a class="free_area0" href="#editDetail"><h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/></a>
+									<a class="free_area0" href="#editDetail"><h:outputText value="#{genre.details_label}" rendered="#{genre.details_display != 'false'}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.content_display != 'false'}"/>
-									<a class="free_area0" href="#editContent"><h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
+									<a class="free_area0" href="#editContent"><h:outputText value="#{genre.content_label}"  rendered="#{genre.content_display != 'false'}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.creator_person_organization_display != 'false'}"/>
-									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/></a>
+									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" rendered="#{genre.creator_person_organization_display != 'false'}" converter="GenreLabelConverter"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.locators_display != 'false'}"/>
 									<a class="free_area0" href="#editLocator"><h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter" rendered="#{genre.locators_display != 'false'}"/></a>
 									<h:panelGroup styleClass="seperator" rendered="#{genre.files_display == 'true'}"/>
