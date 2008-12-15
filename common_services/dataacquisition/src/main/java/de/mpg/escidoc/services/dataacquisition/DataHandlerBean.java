@@ -20,7 +20,7 @@
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
@@ -72,7 +72,8 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.dataacquisition.coins.coinsTransformation;
+import de.mpg.escidoc.services.dataacquisition.coins.CoinsTransformation;
+import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
@@ -129,7 +130,8 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier) throws SourceNotAvailableException, AccessException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, FormatNotAvailableException
     {
         DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
         MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
@@ -140,7 +142,8 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier, String format) throws SourceNotAvailableException,
-            AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
+            AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, FormatNotAvailableException
     {
         byte[] fetchedData = null;
         try
@@ -152,7 +155,8 @@ public class DataHandlerBean implements DataHandler
             
             //Hack for natasa, will be deleted when transformation service is impelemented
             if ((fetchType.equals(this.fetchTypeENDNOTE) || fetchType.equals(this.fetchTypeBIBTEX) 
-                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP) || fetchType.equals(this.fetchTypeCoinS)) & sourceName.toLowerCase().equals("arxiv"))
+                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP) 
+                    || fetchType.equals(this.fetchTypeCoinS)) & sourceName.toLowerCase().equals("arxiv"))
             {
                 // Temp
                 fetchedData = this.fetchArxivHack(identifier, format, importSource);
@@ -237,7 +241,8 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, FormatNotAvailableException
     {
         identifier = this.trimIdentifier(sourceName, identifier);
         DataSourceVO importSource = new DataSourceVO();
@@ -281,6 +286,7 @@ public class DataHandlerBean implements DataHandler
         boolean supportedProtocol = false;
         InitialContext initialContext = null;
         MetadataHandler mdHandler;
+        ProtocolHandler protocolHandler = new ProtocolHandler();
         MetadataVO md = this.getMdObjectToFetch(importSource, format);
         // Replace regex with identifier
         try
@@ -293,7 +299,10 @@ public class DataHandlerBean implements DataHandler
             if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
             {
                 this.logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
+                //Fetch the OAI record
                 itemXML = fetchOAIRecord(importSource, md);
+                //Check the record for error codes
+                protocolHandler.checkOAIRecord(itemXML);
                 supportedProtocol = true;
             }
             if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
@@ -318,6 +327,16 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("The Identifier " + identifier + "was not recognized by source " + importSource.getName()
                     + ".", e);
             throw new IdentifierNotRecognisedException();
+        }
+        catch (BadArgumentException e)
+        {
+            this.logger.error("The request contained illegal arguments", e);
+            throw new RuntimeException();
+        }
+        catch (FormatNotRecognisedException e)
+        {
+            this.logger.error("The requested format was not recognised by the import source", e);
+            throw new RuntimeException();
         }
         catch (MalformedURLException e)
         {
@@ -507,7 +526,7 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("Import Source " + importSource + " not available.", e);
             throw new SourceNotAvailableException();
         }
-        catch(FormatNotAvailableException e)
+        catch (FormatNotAvailableException e)
         {
             throw new FormatNotAvailableException(e.getMessage());
         }
@@ -557,7 +576,8 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not prcessed by source
-                    this.logger.warn("Import source "+ importSource.getName() + "did not provide data in format " + fulltext.getFtLabel());
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide data in format " 
+                            + fulltext.getFtLabel());
                     throw new FormatNotAvailableException(fulltext.getFtLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
@@ -1044,13 +1064,14 @@ public class DataHandlerBean implements DataHandler
                 InitialContext initialContext = new InitialContext();
                 XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
                 PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                coinsTransformation coinsT = new coinsTransformation();
-                fetchedFormat=coinsT.getCOinS(itemVO).getBytes();
+                CoinsTransformation coinsT = new CoinsTransformation();
+                fetchedFormat = coinsT.getCOinS(itemVO).getBytes();
                 this.setContentType("text/plain");
                 this.setFileEnding(".txt");
             }
         }
-        catch (Exception e) { throw new RuntimeException(); }
+        catch (Exception e) 
+        { throw new RuntimeException(); }
         
         return fetchedFormat;
     }
@@ -1066,12 +1087,13 @@ public class DataHandlerBean implements DataHandler
             XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             item = this.fetchEsciDocRecord(identifier);
             PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            coinsTransformation coinsT = new coinsTransformation();
-            coins=coinsT.getCOinS(itemVO).getBytes();
+            CoinsTransformation coinsT = new CoinsTransformation();
+            coins = coinsT.getCOinS(itemVO).getBytes();
             this.setContentType("text/html");
             this.setFileEnding(".html");
         }
-        catch (Exception e) { throw new RuntimeException(); }
+        catch (Exception e) 
+        { throw new RuntimeException(); }
         
         return coins;
     }
