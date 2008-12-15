@@ -650,7 +650,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
     /**
-     * Resets the submenus and the list types, clears parameters
+     * Resets the submenus, clears parameters from the map
      */
     @Override
     protected void pageTypeChanged()

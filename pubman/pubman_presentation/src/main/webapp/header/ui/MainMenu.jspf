@@ -63,11 +63,11 @@
 	
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
 		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
-		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
 	</h:outputLink>
 	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}">
 		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
-		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubItemStorageSessionBean.storedPubItemsSize > 0}"/>
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
 	</h:panelGroup>
 
 <%-- 
