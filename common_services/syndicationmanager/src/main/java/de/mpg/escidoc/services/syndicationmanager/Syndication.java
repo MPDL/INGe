@@ -1,22 +1,34 @@
 package de.mpg.escidoc.services.syndicationmanager;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
+
+import com.sun.mail.iap.ByteArray;
+import com.sun.syndication.io.FeedException;
+import com.sun.syndication.io.SyndFeedOutput;
 
 import de.mpg.escidoc.services.syndicationmanager.feed.Feed;
 
 public class Syndication implements SyndicationHandler {
 
+    private Logger logger = Logger.getLogger(Syndication.class);
+	
+	
 	private String explainXML;
 	private Feeds feeds;
 
 	public Syndication() throws IOException, SyndicationManagerException 
 	{
 		explainXML = Utils.getResourceAsString("./resources/feeds.xml");
-		feeds = Feeds.parseFeedsHeaders("./resources/feeds-digester-rules.xml",
+		feeds = Feeds.readFeedsFromXml("./resources/feeds-digester-rules.xml",
 				"./resources/feeds.xml");
 	}
 
@@ -34,47 +46,40 @@ public class Syndication implements SyndicationHandler {
 		return fl;
 	}
 
-	public String[] getFeedFormatList(String feedId) {
+	public String[] getFeedFormatList(String uri) 
+	{
+		String ft = feeds.matchFeedByUri(uri).getFeedTypes();
+		return splitFeedTypes(ft);
+	}
+	
+//	public String[] getFeedFormatListById(String uri) 
+//	{
+//		String ft = feeds.getFeedByUri(uri).getFeedTypes();
+//		return splitFeedTypes(ft);
+//	}
 
-		String ft = feeds.getFeedById(feedId).getFeedTypes();
-		StringTokenizer st = new StringTokenizer(ft, ",");
+	
+	private String[] splitFeedTypes(String feedTypes)
+	{
+		StringTokenizer st = new StringTokenizer(feedTypes, ",");
 		String[] result = new String[st.countTokens()];
 		int i = 0;
 		while (st.hasMoreTokens())
 			result[i++] = st.nextToken().trim();
 		return result;
 	}
-
-	public byte[] getFeed(String feedId, String feedFormat) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public byte[] getFeed(String uri) throws SyndicationManagerException {
-		
+	public byte[] getFeed(String uri) throws SyndicationManagerException, IOException, URISyntaxException, FeedException 
+	{
+		 
 		Feed f = feeds.matchFeedByUri(uri);
-		byte[] result = f.generateFeed(uri);
+		f.populateEntries(uri);
 		
-		return null;
-	}
-
-	public static void main(String[] args) throws IOException, SyndicationManagerException {
-		Syndication synd = new Syndication();
-		System.out.println("explainFeedsXML" + synd.explainFeedsXML());
-
-		System.out.println("feedList---");
-		for (String f : synd.getFeedList())
-			System.out.println("feed:" + f);
-
-		System.out.println("feedFormatList---");
-		for (String f : synd.getFeedList()) {
-			System.out.println("---feed:" + f);
-			for (String ff : synd.getFeedFormatList(f)) {
-				System.out.println("---format:" + ff);
-			}
-
-		}
-
+		Writer writer = new StringWriter();
+        SyndFeedOutput output = new SyndFeedOutput();
+        output.output(f, writer);
+        
+		return writer.toString().getBytes();
 	}
 
 }

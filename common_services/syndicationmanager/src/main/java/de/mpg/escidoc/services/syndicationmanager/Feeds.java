@@ -37,7 +37,7 @@ public class Feeds {
 		return str; 
 	}
 
-	public Feed getFeedById( String feedId ) {
+	public Feed getFeedByUri( String feedId ) {
 		for ( Feed f : (List<Feed>) feeds )
 			if ( feedId.equals( f.getUri() ) )
 				return f;
@@ -53,10 +53,8 @@ public class Feeds {
 		return null; 
 	}
 	
-	
-
     
-    public static Feeds parseFeedsHeaders(String rulesFileName, String feedsFileName ) throws SyndicationManagerException  
+    public static Feeds readFeedsFromXml(String rulesFileName, String feedsFileName ) throws SyndicationManagerException  
     {
 		URL rules = Feeds.class.getClassLoader().getResource( rulesFileName );
 
@@ -71,29 +69,11 @@ public class Feeds {
 		} 
 		catch (Exception e) 
 		{
-			throw new SyndicationManagerException("Cannot parse " + feedsFileName, e);
+			throw new SyndicationManagerException("Cannot parse: " + feedsFileName, e);
 		}
 
     	return fs;
     }	
     
-    
- 
-    
-	public static void main( String[] args ) throws SyndicationManagerException 
-	{ 
-		
-		 
-		Feeds fs = parseFeedsHeaders("./resources/feeds-digester-rules.xml", "./resources/feeds.xml");
-
-		String uri = "http://pubman.mpdl.mpg.de/rss_2.0/publications/organization/escidoc:persistent3";
-		Feed f = fs.matchFeedByUri(uri);
-		
-		System.out.println("Privet ku");
-
-		f.generateFeed(uri); 
-		
-		
-	}	
 	
 }

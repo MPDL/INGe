@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		CDDL HEADER START The contents of this file are subject to the terms
+		of the Common Development and Distribution License, Version 1.0 only
+		(the "License"). You may not use this file except in compliance with
+		the License. You can obtain a copy of the license at
+		license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+		License for the specific language governing permissions and
+		limitations under the License. When distributing Covered Code, include
+		this CDDL HEADER in each file and include the License file at
+		license/ESCIDOC.LICENSE. If applicable, add the following below this
+		CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+		your own identifying information: Portions Copyright [yyyy] [name of
+		copyright owner] CDDL HEADER END Copyright 2006-2008
+		Fachinformationszentrum Karlsruhe Gesellschaft für
+		wissenschaftlich-technische Information mbH and Max-Planck-
+		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+		Use is subject to license terms.
+	-->
+	<!--
+		PubMan feeders Initial creation: vmakarenko $Author:$ $Revision:$
+		$LastChangedDate:$
+	-->
+<feeds xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<feed>
+<!--		The title of the feed -->
+		<title>Recent releases in repository</title>
+		
+<!--		Feed's description -->
+		<description>Recent releases in repository (item versions)</description>
+		
+		<!-- Identifier of the feeder class -->
+		<!-- <dc:identifier>escidoc:feed_1</dc:identifier> -->
+		
+		<!-- supported output feed formats-->
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<!--
+			Permanent link to the originated site, e.g. http://pubman.mpdl.mpg.de
+		-->
+		<link>${baseApllicationUrl}?entry=feed</link>
+		<!--
+			Permanent link to the feed under the link to the originated site
+		-->
+		<uri>${baseFeedUrl}/${feedType}/publications</uri>
+		
+		<!-- Categories of the feed-->
+		<category>MPG</category>
+		<category>PubMan</category>
+		
+		<!-- Copyright -->
+		<copyright>Copyright</copyright>
+		
+		<author>
+			<name>Vlad Makarenko</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>
+		
+		<!-- Charset encoding of the feed-->
+		<!-- <encoding>UTF-8</encoding>-->
+		
+		<!-- Image of the feed -->
+		<image>
+		
+			<!--			Text alternative if image cannot be dispalyed-->
+			<title>Recent releases in repository</title>
+			
+			<!--			Location of the image file-->
+			<url>${baseFeedUrl}/publications/feed_image.gif</url>
+			
+			<!--			Link back to the site-->
+			<link>${baseApplicationUrl}?entry=feed</link>
+			
+			<!--			Tooltip for the image -->
+			<description>Recent releases in repository (item versions)</description>
+		</image>
+
+		<!-- Language of the feed's content -->
+		<!--<dc:language xsi:type="dcterms:RFC3066">en-US</dc:language>-->
+		<language>en-US</language>
+		
+		<!-- Definition of the feed's entries retrieval -->
+		<entries>
+			<!-- CQL query which fetches -->
+			<query>escidoc.public-status=released</query>
+			<sortKeys>escidoc.latest-release.date,,0</sortKeys>
+			<maximumRecords>30</maximumRecords>
+		</entries>
+			
+	</feed>
+	<feed>
+		<title>Recent releases for a specific Organization Unit</title>
+		<description>Recent releases for a specific Organization Unit (item versions)</description>
+		<!-- <dc:identifier>escidoc:feed_2</dc:identifier>-->
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<link>${baseApplicationUrl}?entry=feed</link>
+		<uri>${baseFeedUrl}/${feedType}/publications/organization/${organizationId}</uri>
+		
+		<category>MPG</category>
+		<category>PubMan</category>
+		<copyright>Copyright</copyright>
+		<author>
+			<name>Vlad Makarenko</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>		
+		<image>
+			<title>Recent releases for a specific Organization Unit</title>
+			<url>${baseFeedUrl}/publications/organization/feed_image.gif</url>
+			<link>${baseApplicationUrl}?entry=feed</link>
+			<description>Recent releases for a specific Organization Unit (item versions)</description>
+		</image>
+		
+		<language>en-US</language>
+		
+		<entries context="srw">
+			<query>(escidoc.any-organization-pids=${organizationId} and escidoc.public-status=released)</query>
+			<sortKeys>escidoc.latest-release.date,,0</sortKeys>
+			<maximumRecords>30</maximumRecords>
+		</entries>
+			
+	</feed>
+	<feed>
+		<title>Recent changes for a specific publication</title>
+		<description>Recent changes for a specific publication</description>
+		<!-- <dc:identifier>escidoc:feed_3</dc:identifier>-->
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<link>${baseApplicationUrl}?entry=feed</link>
+		<uri>${baseFeedUrl}/${feedType}/publications/item/${itemId}</uri>
+		<category>MPG</category>
+		<category>PubMan</category>
+		<copyright>Copyright</copyright>
+		<author>
+			<name>Vlad Makarenko</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>
+		<image>
+			<title>Recent changes for a specific publication</title>
+			<url>${baseFeedUrl}/publications/item/feed_image.gif</url>
+			<link>${baseApplicationUrl}?entry=feed</link>
+			<description>Recent changes for a specific publication</description>
+		</image>
+		<language >en-US</language>
+		<entries>
+			<query>escidoc.pid=${itemId}</query>
+			<sortKeys> escidoc.,,0</sortKeys>
+			<maximumRecords>30</maximumRecords>
+		</entries>
+	</feed>
+</feeds>

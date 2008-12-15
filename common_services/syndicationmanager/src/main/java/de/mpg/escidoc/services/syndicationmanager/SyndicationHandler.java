@@ -30,6 +30,9 @@
 package de.mpg.escidoc.services.syndicationmanager;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+
+import com.sun.syndication.io.FeedException;
 
 /**
  * Interface for rss/atom syndications on eSciDoc   
@@ -64,17 +67,17 @@ public interface SyndicationHandler {
     
     /**
      * Returns the list of available formats for the feed
-     * @param feedId is a feed id
-     * @return String[]
+     * @param uri is a feed uri
+     * @return String[] list of the feed formats
      */
-    public String[] getFeedFormatList(String feedId);
+    public String[] getFeedFormatList(String uri);
     
     /**
      * Generates the feed according to the feed id and feed format 
-     * @param feedId is feed id
-     * @param feedFormat is feed format 
+     * @param uri is feed uri
      * @return
+     * @throws FeedException 
      */
-    public byte[] getFeed( String feedId, String feedFormat );
+    public byte[] getFeed(String uri) throws SyndicationManagerException, IOException, URISyntaxException, FeedException;
 	
 }

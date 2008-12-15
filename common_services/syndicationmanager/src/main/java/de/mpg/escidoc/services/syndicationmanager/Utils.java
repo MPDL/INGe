@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -167,5 +169,16 @@ public class Utils {
         }
         return result;
     }    
+    
+    public static <T> String join(final Collection<T> objs, final String delimiter) 
+    {
+    	if (objs == null || objs.isEmpty()) return "";
+    	Iterator<T> iter = objs.iterator();
+    	StringBuffer buffer = new StringBuffer(iter.next().toString());
+    	while (iter.hasNext())
+    		buffer.append(delimiter).append(iter.next().toString());
+    	return buffer.toString();
+    }
+    
     
 }

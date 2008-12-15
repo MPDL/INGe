@@ -1,26 +1,45 @@
 package de.mpg.escidoc.services.syndicationmanager.feed;
 
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.bean.SearchBean;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import  de.mpg.escidoc.services.search.query.PlainCqlQuery;
-
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.axis.types.NonNegativeInteger;
-import org.apache.commons.logging.impl.Log4JLogger;
-import org.apache.log4j.Logger; 
+import org.apache.log4j.Logger;
 
 import com.sun.syndication.feed.synd.SyndCategory;
+import com.sun.syndication.feed.synd.SyndCategoryImpl;
+import com.sun.syndication.feed.synd.SyndContent;
+import com.sun.syndication.feed.synd.SyndContentImpl;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.feed.synd.SyndPerson;
+import com.sun.syndication.feed.synd.SyndPersonImpl;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.PropertyReader; 
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.bean.SearchBean;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.syndicationmanager.SyndicationManagerException;
 import de.mpg.escidoc.services.syndicationmanager.Utils;
 
@@ -29,7 +48,11 @@ public class Feed extends SyndFeedImpl {
 
 
     private static final Logger logger = Logger.getLogger(Feed.class);
-	
+
+    /** EJB instance of search service. */
+    
+    private Search itemContainerSearch = new SearchBean();
+    
 	//Search CQL query 
 	//see: http://www.escidoc-project.de/documentation/Soap_api_doc_SB_Search.pdf
 	private String query;
@@ -49,6 +72,8 @@ public class Feed extends SyndFeedImpl {
 	
 	
 	private List paramList = new ArrayList<String>();
+	
+	private Map paramHash = new HashMap<String, String>();
 	
 	public String getQuery()  
 	{
@@ -151,12 +176,9 @@ public class Feed extends SyndFeedImpl {
 	}
 	
 	
-	public String populateQueryWithValues(String uri) throws SyndicationManagerException
+	private void populateParamsFromUri(String uri) throws SyndicationManagerException
 	{
 		Utils.checkName(uri, "Uri is empty");
-		
-		String q = getQuery();
-		Utils.checkName(q, "Query pattern is empty");
 		
 		String um = getUriMatcher();
 		Utils.checkName(um, "Uri matcher is empty");
@@ -165,15 +187,21 @@ public class Feed extends SyndFeedImpl {
 		if (m.find())
 		{
 			for (int i = 0; i < m.groupCount(); i++) 
-			{
-				q = q.replaceAll(
-						Utils.quoteReplacement(
-								(String)paramList.get( i )
-						)
-						, m.group(i + 1)
-				);
-			}
+				paramHash.put((String)paramList.get( i ), m.group(i + 1));
 		}
+		
+	}
+	
+	public String populateQueryWithParams() throws SyndicationManagerException
+	{
+		String q = getQuery();
+		Utils.checkName(q, "Query pattern is empty");
+		
+		String um = getUriMatcher();
+		Utils.checkName(um, "Uri matcher is empty");
+
+		for ( String key : (Set<String>) paramHash.keySet() )
+			q = q.replaceAll(Utils.quoteReplacement(key) , (String) paramHash.get(key) );
 		
 		return q;
 	}
@@ -196,37 +224,183 @@ public class Feed extends SyndFeedImpl {
 	}
 
 	
-	
-	public byte[] generateFeed(String uri) throws SyndicationManagerException 
+	public void populateEntries(String uri) throws SyndicationManagerException, IOException, URISyntaxException 
 	{
-		byte[] res = null;
  
 		logger.info("uri:" + uri);
-		String retrieveQuery = populateQueryWithValues(uri);
+		
+		populateParamsFromUri(uri);
+		
+		//set feedType !!!
+		setFeedType((String) paramHash.get("${feedType}"));
+		
+		String retrieveQuery = populateQueryWithParams();
 		logger.info("Generated uri:" + retrieveQuery);
 		
         PlainCqlQuery pcq = new PlainCqlQuery(retrieveQuery);
            
-		logger.info("MaximumRecords():" + getMaximumRecords());
 		pcq.setMaximumRecords(new NonNegativeInteger(String.valueOf(getMaximumRecords())));
-//        pcq.setSortKeys(getSortKeys());    
- 
-        SearchBean sb = new SearchBean();
+        pcq.setSortKeys(getSortKeys());
+        
+        logger.info("MaximumRecords():" + pcq.getMaximumRecords());
+        
         ItemContainerSearchResult result = null;
+        
 		try 
-		{ 
-			result = sb.searchForItemContainer(pcq);
+		{
+			result = itemContainerSearch.searchForItemContainer(pcq);
 		} 
 		catch (Exception e) 
 		{
-			// TODO Auto-generated catch block ???????
-			e.printStackTrace();
+			throw new SyndicationManagerException("Problems by ItemContainerSearch: ", e);
 		}
-        List pubItemList = result.getResultList();
-        
-        logger.info("found items: "+  pubItemList.size());
+
 		
-		return null;
+		List<ItemContainerSearchResultVO> results = result.getResultList();
+        
+        logger.info("found items: "+  results.size());
+
+        List entries = new ArrayList();
+	 	XmlTransforming xt = new XmlTransformingBean();
+        
+        for( int i = 0; i < results.size(); i++ ) {
+        	//check if we have found an item
+        	if( results.get( i ) instanceof ItemResultVO ) {
+        		// cast to PubItemResultVO 
+        		ItemResultVO ir = (ItemResultVO)results.get( i );
+        	 	PubItemVO pi = new PubItemVO( ir );
+        	 	MdsPublicationVO md = pi.getMetadata();
+        	 	
+
+        	 	SyndEntry se = new SyndEntryImpl();
+
+        	 	//Content
+        	 	SyndContent scont = new SyndContentImpl();
+        	 	scont.setType("application/xml");
+        	 	try {
+//        	 		logger.info("XML"  + xt.transformToItem( pi ));
+        	 		// For the initial implementation 
+        	 		// 1) the complete PubItem will be in the enty, 
+        	 		// not the md-record since no transformation md-record -> XML is implemented
+        	 		// 2) CDATA is used for atom/rss compatibility
+        	 		// TODO: resolve the issues
+					scont.setValue(
+							"<![CDATA[" + 
+								xt.transformToItem( pi ) +
+							"]]>"
+					);
+				} 
+        	 	catch (TechnicalException e) 
+				{
+					throw new RuntimeException("Problems with Xml transformation: ", e);
+				}; 
+				
+				
+        	 	se.setContents(Arrays.asList(scont));
+        	 	
+        	 	//Title
+        	 	se.setTitle( md.getTitle().getValue() );
+        	 	
+        	 	//Description ??? optional
+        	 	List abs = md.getAbstracts();
+        	 	SyndContent sc = new SyndContentImpl();
+        	 	if ( abs != null && ! abs.isEmpty() )
+        	 	{
+        	 		sc.setValue(((TextVO)abs.get(0)).getValue());
+        	 	}
+        	 	else
+        	 	{
+        	 		sc.setValue( md.getTitle().getValue() );
+        	 	}	
+        	 	
+        	 	se.setDescription(sc);
+        	 		
+        	 	//Category
+        	 	TextVO subj = md.getSubject();
+        	 	if( subj != null && Utils.checkVal( subj.getValue() ) )
+        	 	{
+            	 	List categories = new ArrayList();
+        	 		SyndCategory scat = new SyndCategoryImpl();
+        	 		scat.setName(subj.getValue());
+        	 		categories.add(scat);
+        	 		se.setCategories( categories );
+        	 	}
+        	 		
+        	 	
+        	 	if ( md.getCreators() != null && ! md.getCreators().isEmpty()  )
+        	 	{
+        	 		List authors = new ArrayList();
+        	 		List contributors = new ArrayList();
+        	 		SyndPerson sp;
+
+        	 		for (  CreatorVO creator : (List<CreatorVO>) md.getCreators()  )
+        	 		{
+        	 			//					String crs = creator.getPerson() != null  ?
+        	 			//							creator.getPerson().getCompleteName() : 
+        	 			//								creator.getOrganization().getName().getValue();  
+        	 			String crs = creator.getPerson() != null  ?
+        	 					Utils.join( Arrays.asList(
+        	 						 creator.getPerson().getFamilyName()
+        	 						,creator.getPerson().getGivenName()        	 						
+        	 					), ", ")
+        	 						: creator.getOrganization().getName().getValue();  
+        	 					logger.info("cerator--->" + crs);
+        	 					logger.info("Role--->" + creator.getRole());
+
+        	 					if ( creator.getRole() == CreatorRole.AUTHOR )
+        	 					{
+        	 						//Authors
+        	 						sp = new SyndPersonImpl();
+        	 						sp.setName(crs);
+        	 						authors.add(sp);
+        	 					} 
+        	 					else // ( creator.getRole() == CreatorRole.CONTRIBUTOR )
+        	 					{
+        	 						//Contributors
+        	 						sp = new SyndPersonImpl();
+        	 						sp.setName(crs);
+        	 						contributors.add(sp);
+        	 					}
+
+        	 		} 
+        	 		se.setAuthors(authors);
+        	 		se.setContributors(contributors);
+        	 	}
+        	 	
+        	 	//Contents ???
+        	 	//se.setContents(contents)
+        	 	
+        	 	//Link to the PubItem http://dev-pubman.mpdl.mpg.de:8080/pubman/item/escidoc:12713:2
+        	 	String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+        	 	
+        	 	se.setLink( pubmanUrl + "/item/" + pi.getLatestRelease().getObjectIdAndVersion() );
+        	 	
+        	 	
+        	 	//Uri ????
+        	 	se.setUri( se.getLink() );
+        	 	
+        	 	//Entry UpdatedDate ??? 
+        	 	se.setUpdatedDate( pi.getModificationDate() );
+        	 	
+        	 	//Entry PublishedDate ???
+        	 	se.setPublishedDate( pi.getLatestRelease().getModificationDate() );
+        	
+        	 	entries.add(se);
+        	 	
+        	}
+        	
+        }
+
+	 	setEntries(entries);
+        
+        //Set PublishedDate of the feed to the PublishedDate of the latest  Entry
+        //or, if no entires presented, to the current date
+        setPublishedDate(
+        		(entries != null && entries.size()>0) ?
+        		  ((SyndEntry)entries.get(0)).getPublishedDate() :
+        		  new Date()
+        );
+        
 	}
 	
 	

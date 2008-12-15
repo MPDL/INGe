@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<digester-rules>
+
+	<object-create-rule pattern="feeds" classname="de.mpg.escidoc.services.syndicationmanager.Feeds" />
+	<set-properties-rule />
+
+	<pattern value="feeds/feed">
+		<object-create-rule classname="de.mpg.escidoc.services.syndicationmanager.feed.Feed" />
+		<set-properties-rule />
+		<call-method-rule pattern="title" methodname="setTitle" paramcount="0" />
+		<call-method-rule pattern="description" methodname="setDescription" paramcount="0" />
+		<call-method-rule pattern="feedTypes" methodname="setFeedTypes" paramcount="0" />
+<!--		<call-method-rule pattern="identifier" methodname="setId" paramcount="0" />-->
+		<call-method-rule pattern="link" methodname="setLink" paramcount="0" />
+		<call-method-rule pattern="uri" methodname="setUri" paramcount="0" />
+		<call-method-rule pattern="copyright" methodname="setCopyright" paramcount="0" />
+		<call-method-rule pattern="language" methodname="setLanguage" paramcount="0" />
+		<call-method-rule pattern="entries/query" methodname="setQuery" paramcount="0" />
+		<call-method-rule pattern="entries/sortKeys" methodname="setSortKeys" paramcount="0" />
+		<call-method-rule pattern="entries/maximumRecords" methodname="setMaximumRecords" paramcount="0" />
+
+		<pattern value="category">
+			<object-create-rule classname="com.sun.syndication.feed.synd.SyndCategoryImpl" />
+			<call-method-rule methodname="setName" paramcount="0" /> <!-- ??? -->			
+			<set-next-rule methodname="addCategory" />						
+		</pattern>
+		
+		<pattern value="author">
+			<object-create-rule classname="com.sun.syndication.feed.synd.SyndPersonImpl" />
+			<call-method-rule pattern="name" methodname="setName" paramcount="0" /> 			
+			<call-method-rule pattern="email" methodname="setEmail" paramcount="0" /> 			
+			<call-method-rule pattern="uri" methodname="setUri" paramcount="0" /> 			
+			<set-next-rule methodname="addAuthor" />						
+		</pattern>
+
+		<pattern value="image">
+			<object-create-rule classname="com.sun.syndication.feed.synd.SyndImageImpl" />
+			<set-properties-rule />
+			<call-method-rule pattern="title" methodname="setTitle" paramcount="0" />
+			<call-method-rule pattern="url" methodname="setUrl" paramcount="0" />
+			<call-method-rule pattern="link" methodname="setLink" paramcount="0" />
+			<call-method-rule pattern="description" methodname="setDescription" paramcount="0" />
+			<set-next-rule methodname="setImage" />						
+		</pattern>
+		
+		<set-next-rule methodname="addFeed" />						
+		
+	</pattern>
+</digester-rules>
