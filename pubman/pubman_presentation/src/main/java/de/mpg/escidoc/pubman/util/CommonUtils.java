@@ -65,7 +65,6 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -87,6 +86,8 @@ public class CommonUtils extends InternationalizedImpl
     //HTML escaped characters mapping
     private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
     private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>" };
+    
+    private static String localLang = "";
 
     /**
      * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -164,22 +165,21 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static SelectItem[] getLanguageOptions()
     {
-        Locale localLang = Locale.getDefault();
         SelectItem[] coneLanguages = CommonUtils.convertToOptions(CommonUtils.getConeLanguages(), false);
 
         SelectItem[] options = new SelectItem[coneLanguages.length + 4];
         options[0] = new SelectItem("", NO_ITEM_SET);
-        if (localLang.getLanguage().equals("de"))
+        if (CommonUtils.localLang.equals("de"))
         {
             options[1] = new SelectItem("en|Englisch");
             options[2] = new SelectItem("de|Deutsch");
         }
-        if (localLang.getLanguage().equals("en"))
+        if (CommonUtils.localLang.equals("en"))
         {
             options[1] = new SelectItem("en|English");
             options[2] = new SelectItem("de|German");
         }
-        if (localLang.getLanguage().equals("fr"))
+        if (CommonUtils.localLang.equals("fr"))
         {
             options[1] = new SelectItem("en|Anglais");
             options[2] = new SelectItem("de|Allemand");
@@ -204,12 +204,15 @@ public class CommonUtils extends InternationalizedImpl
         Vector <String> langVec = new Vector<String>();
         InputStreamReader isReader;
         BufferedReader bReader;
-        Locale localLang = Locale.getDefault();
-        System.out.println(localLang.getLanguage());
+        CommonUtils.localLang = Locale.getDefault().getLanguage();
+        if (!(localLang.equals("en")||localLang.equals("de")||localLang.equals("fr")))
+        {
+            localLang ="en";
+        }
         
         try
         {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"options/languages/all?lang="+localLang.getLanguage());
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"options/languages/all?lang="+localLang);
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -475,7 +478,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubItemVOWrapper> convertToWrapperList(final List<PubItemVO> valueObjectList)
     {
-        List wrapperList = new ArrayList<ValueObjectWrapper>();
+        List <PubItemVOWrapper> wrapperList = new ArrayList<PubItemVOWrapper>();
 
         for (int i = 0; i < valueObjectList.size(); i++)
         {
@@ -492,7 +495,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubItemVO> convertToPubItemList(List<PubItemVOWrapper> wrapperList)
     {
-        List pubItemList = new ArrayList<ValueObject>();
+        List <PubItemVO> pubItemList = new ArrayList<PubItemVO>();
 
         for (int i = 0; i < wrapperList.size(); i++)
         {
@@ -645,7 +648,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(List<ContextVO> valueObjectList)
     {
-        List wrapperList = new ArrayList<PubContextVOWrapper>();
+        List <PubContextVOWrapper> wrapperList = new ArrayList<PubContextVOWrapper>();
 
         for (int i = 0; i < valueObjectList.size(); i++)
         {
