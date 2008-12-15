@@ -5,8 +5,7 @@
 	xmlns:prop="${xsd.soap.common.prop}"
 	xmlns:srel="${xsd.soap.common.srel}"
 	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../../../../misc/xsd/soap/item/0.3/item-list.xsd">
+	xmlns:release="${xsd.soap.common.release}">
     <escidocItem:item 
     xmlns:escidocItem="${xsd.soap.item.item}" 
     xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -36,7 +35,7 @@
         </escidocItem:properties>
         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             <escidocMetadataRecords:md-record name="escidoc">
-                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ ../../../../misc/xsd/metadata/0.1/escidocprofile.xsd" type="talk-at-event">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="talk-at-event">
                     <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
                         <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
                             <escidoc:complete-name></escidoc:complete-name>

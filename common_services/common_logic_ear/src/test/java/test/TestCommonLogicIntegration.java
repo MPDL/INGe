@@ -52,9 +52,9 @@ import test.common.xmltransforming.XmlTransformingIntegrationTest;
 					 XmlTransformingIntegrationTest.class
                      ,DataGatheringTest.class
                      ,ValueObjectTest.class
-                    ,ComparatorTest.class
-                    ,EncodingTest.class
-                    ,EmailHandlingTest.class
+                     ,ComparatorTest.class
+                     ,EncodingTest.class
+                     ,EmailHandlingTest.class
                     })
 public class TestCommonLogicIntegration
 {

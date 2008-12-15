@@ -13,8 +13,7 @@
     xmlns:prop="${xsd.soap.common.prop}"
     xmlns:srel="${xsd.soap.common.srel}"
 	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	xmlns:release="${xsd.soap.common.release}">
     <toc:properties>
         <prop:creation-date>2007-04-24T16:20:19.495Z</prop:creation-date>
         <srel:created-by objid="escidoc:user1" />
@@ -59,8 +58,7 @@
     
     <table-of-content:toc ID="meins" TYPE="LOGICAL" LABEL="Table of Content" 
 xml:base="http://localhost:8080" 
-xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1" 
-xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
+xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1">
 	<!-- 
 		ID: 	xsd:ID       optional 
 						an optional XML ID value.

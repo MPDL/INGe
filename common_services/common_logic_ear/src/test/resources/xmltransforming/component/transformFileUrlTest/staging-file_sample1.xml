@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <staging-file:staging-file xml:base="http://www.escidoc.de/" xmlns="http://www.escidoc.de/schemas/staging-file/0.2"
 	xmlns:staging-file="${xsd.rest.stagingfile.stagingfile}" xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/staging-file/0.2/staging-file.xsd" xlink:type="simple"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xlink:type="simple"
 	xlink:href="/st/staging-file/escidoctoken:2a1082d0-d6c8-11db-8655-af79371c28f2"
 	last-modification-date="2007-03-20T09:48:32.556Z" />
 

@@ -1,5 +1,5 @@
 
-<context:context xmlns:context="${xsd.soap.context.context}" objid="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
+<context:context xmlns:context="${xsd.soap.context.context}" objid="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<context:properties>
 		<context:creation-date>2007-01-16T11:23:24.359Z</context:creation-date>
 		<context:created-by objid="escidoc:user42" />
