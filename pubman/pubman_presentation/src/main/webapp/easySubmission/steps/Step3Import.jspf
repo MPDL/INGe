@@ -134,7 +134,7 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">					
-	<tr:commandLink text="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></tr:commandLink>
+	<tr:commandLink shortDesc="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
 </div>
 
 </f:subview>
