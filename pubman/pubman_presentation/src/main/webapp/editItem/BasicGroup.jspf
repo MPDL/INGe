@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div class="full_area0 itemBlock" >
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{genre.item_basic_display != 'true' && genre.item_basic_form_id != 'full-submission' && genre.item_basic_form_id != 'all' || genre.item_basic_display != 'false' && genre.item_basic_form_id != 'easy-submission'}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/>
 	</h3>
@@ -84,4 +84,4 @@
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/></a>	
 	</div>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display == 'true' && (genre.item_basic_form_id == 'full-submission' || genre.item_basic_form_id == 'all')}"/></a>
-</div>
+</h:panelGroup>
