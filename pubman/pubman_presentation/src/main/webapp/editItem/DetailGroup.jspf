@@ -91,7 +91,7 @@
 		</h:panelGroup>
 
 <%-- Number of Pages --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_display != 'false'}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_total_number_of_pages_display != 'true' && genre.details_total_number_of_pages_form_id != 'all' && genre.details_total_number_of_pages_form_id != 'full-submission' || genre.details_total_number_of_pages_display != 'false' && genre.details_total_number_of_pages_form_id != 'easy-submission'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional == 'false'}" /><span class="noDisplay"> </span>
 			</b>
@@ -104,7 +104,7 @@
 		</h:panelGroup>
 
 <%-- Publisher, Place --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_display == 'true' && genre.details_publishing_info_form_id != 'easy-submission'}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_display != 'false' && genre.details_publishing_info_form_id != 'easy-submission' || genre.details_publishing_info_display != 'true' && genre.details_publishing_info_form_id != 'full-submission' && genre.details_publishing_info_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional == 'false' || genre.details_publishing_info_publishing_info_place_optional == 'false'}" /><span class="noDisplay"> </span>
 			</b>
@@ -121,7 +121,7 @@
 		</h:panelGroup>
 
 <%-- Table of Contents --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_toc_display != 'false' && genre.details_item_toc_form_id != 'easy-submission'}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_toc_display != 'false' && genre.details_item_toc_form_id != 'easy-submission' || genre.details_item_toc_display != 'true' && genre.details_item_toc_form_id != 'full-submission' && genre.details_item_toc_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_toc_item_table_of_contents_optional == 'false'}" /><span class="noDisplay">: </span>
 			</b>
@@ -132,7 +132,7 @@
 		</h:panelGroup>
 
 <%-- Review Type --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_review_method_display != 'false' && genre.details_review_method_form_id != 'easy-submission'}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_review_method_display != 'false' && genre.details_review_method_form_id != 'easy-submission' || genre.details_review_method_display != 'true' && genre.details_review_method_form_id != 'full-submission' && genre.details_review_method_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_review_method_item_review_method_optional == 'false'}" /><span class="noDisplay"> </span>
 			</b>
@@ -147,7 +147,7 @@
 		</h:panelGroup>
 
 <%-- Identifier --%>
-		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index" rendered="#{genre.details_identifiers_display != 'false' && genre.details_identifiers_form_id != 'easy-submission'}">
+		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index" rendered="#{genre.details_identifiers_display != 'false' && genre.details_identifiers_form_id != 'easy-submission' || genre.details_identifiers_display != 'true' && genre.details_identifiers_form_id != 'full-submission' && genre.details_identifiers_form_id != 'all'}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_item_identifier_type_optional == 'false' || genre.details_identifiers_item_identifier_value_optional == 'false'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -175,20 +175,26 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional == 'false' || genre.details_item_degree_optional == 'false' || genre.details_item_location_optional == 'false'}" /><h:outputText value="#{lbl.EditItem_lblDegreeTypeGroup}"/><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
-					<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" required="#{genre.details_publishing_info_publishing_info_edition_optional == 'false'}"/>
-				</span>
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
-					<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" required="#{genre.details_item_degree_optional == 'false'}">
-						<f:selectItems value="#{EditItem.degreeTypes}" />
-					</h:selectOneMenu>
-				</span>
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
-					<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" required="#{genre.details_item_location_optional == 'false'}"/>
-				</span>
+				<h:panelGroup layout="block" rendered="#{genre.details_publishing_info_display != 'false' && genre.details_publishing_info_form_id != 'easy-submission' && genre.details_publishing_info_publishing_info_edition_display != 'false' || genre.details_publishing_info_display != 'true' && genre.details_publishing_info_publishing_info_edition_display != 'false' && genre.details_publishing_info_form_id != 'full-submission' && genre.details_publishing_info_form_id != 'all'}">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
+						<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" required="#{genre.details_publishing_info_publishing_info_edition_optional == 'false'}"/>
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{genre.details_item_degree_display != 'false' && genre.details_item_degree_form_id != 'easy-submission' || genre.details_item_degree_display != 'true' && genre.details_item_degree_form_id != 'full-submission' && genre.details_item_degree_form_id != 'all'}">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
+						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" required="#{genre.details_item_degree_optional == 'false'}">
+							<f:selectItems value="#{EditItem.degreeTypes}" />
+						</h:selectOneMenu>
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{genre.details_item_location_display != 'false' && genre.details_item_location_form_id != 'easy-submission' || genre.details_item_location_display != 'true' && genre.details_item_location_form_id != 'full-submission' && genre.details_item_location_form_id != 'all'}">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
+						<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" required="#{genre.details_item_location_optional == 'false'}"/>
+					</span>
+				</h:panelGroup>
 			</span>
 		</h:panelGroup>
 
