@@ -64,18 +64,19 @@ All rights reserved. Use is subject to license terms.
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			&#160;
 		</h3>
-		<div class="free_area0 itemBlockContent hideBlockIfVoid endline">		
+		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
 					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="xHuge_area0 xTiny_marginLExcl description endline">
 					<h:outputText value="#{context.description}"/>
 				</span>
+				<span class="medium_area0_p8 lineToolSection">
+					<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
+				</span>
 			</div>
-			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
 		</div>
-		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
 	</h:panelGroup>
 
 </tr:iterator>

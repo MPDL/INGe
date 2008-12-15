@@ -175,6 +175,10 @@
 	width: 30.46em;
 }
 
+.fullItem .description {
+	height: 1.46em;
+}
+
 .formButtonArea {
 	margin-top: 0.10em;
 }
