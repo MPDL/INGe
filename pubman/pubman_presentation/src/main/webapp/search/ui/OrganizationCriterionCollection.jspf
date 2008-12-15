@@ -46,7 +46,8 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
@@ -62,7 +63,8 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
