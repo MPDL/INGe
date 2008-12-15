@@ -172,7 +172,7 @@
 <%-- Edition, Degree type, location --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_publishing_info_edition_display != 'false' || genre.details_item_degree_display != 'false' || genre.details_item_location_display != 'false'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional == 'false' || genre.details_item_degree_optional == 'false' || genre.details_item_location_optional == 'false'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional == 'false' || genre.details_item_degree_optional == 'false' || genre.details_item_location_optional == 'false'}" /><h:outputText value="#{lbl.EditItem_lblDegreeTypeGroup}"/><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="large_area0 tiny_marginRIncl">
