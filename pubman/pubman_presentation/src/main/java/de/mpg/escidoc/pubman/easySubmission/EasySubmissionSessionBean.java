@@ -100,6 +100,8 @@ public class EasySubmissionSessionBean extends FacesBean
 	private boolean importSourceRefresh = false;
     public SelectItem[] FULLTEXT_OPTIONS;
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+    
+    private String genreBundle = "Genre_ARTICLE";
 
 	/**
      * Public constructor.
@@ -242,6 +244,14 @@ public class EasySubmissionSessionBean extends FacesBean
 
 	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
 		this.radioSelectFulltext = radioSelectFulltext;
+	}
+
+	public String getGenreBundle() {
+		return genreBundle;
+	}
+
+	public void setGenreBundle(String genreBundle) {
+		this.genreBundle = genreBundle;
 	}
 
 }
