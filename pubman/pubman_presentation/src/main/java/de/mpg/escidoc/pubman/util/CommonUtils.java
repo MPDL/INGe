@@ -165,37 +165,37 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static SelectItem[] getLanguageOptions()
     {
-        SelectItem[] coneLanguages = CommonUtils.convertToOptions(CommonUtils.getConeLanguages(), false);
+        Object[] coneLanguages = CommonUtils.getConeLanguages();
 
         SelectItem[] options = new SelectItem[coneLanguages.length + 4];
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (CommonUtils.localLang.equals("de"))
         {
-            options[1] = new SelectItem("en|Englisch");
-            options[2] = new SelectItem("de|Deutsch");
+            options[1] = new SelectItem("en", "en - Englisch");  
+            options[2] = new SelectItem("de", "de - Deutsch");  
         }
         if (CommonUtils.localLang.equals("en"))
         {
-            options[1] = new SelectItem("en|English");
-            options[2] = new SelectItem("de|German");
+            options[1] = new SelectItem("en", "en - English");  
+            options[2] = new SelectItem("de", "de - German");  
         }
         if (CommonUtils.localLang.equals("fr"))
         {
-            options[1] = new SelectItem("en|Anglais");
-            options[2] = new SelectItem("de|Allemand");
+            options[1] = new SelectItem("en", "en - Anglais");  
+            options[2] = new SelectItem("de", "de - Allemand");  
         }
         options[3] = new SelectItem("", NO_ITEM_SET);
 
         for (int i = 0; i < coneLanguages.length; i++)
         {
-            options[i + 4] = coneLanguages[i]; 
+            options[i + 4] = new SelectItem(coneLanguages[i].toString().split(" - ")[0], coneLanguages[i].toString());  
         }
 
         return options;
     }
     
     /**
-     * Retrievs an array of all languages from the cone service in format abbr|language name 
+     * Retrievs an array of all languages from the cone service in format abbr - language name.
      * @return Object array of languages
      * @throws RuntimeException
      */
@@ -220,7 +220,7 @@ public class CommonUtils extends InternationalizedImpl
             switch (responseCode)
             {
                 case 200:
-                    logger.info("Cone Service responded with 200");
+                    logger.info("Cone Service responded with 200.");
                     break;
                 default:
                     throw new RuntimeException("An error occurred while calling Cone Service: "
@@ -232,12 +232,16 @@ public class CommonUtils extends InternationalizedImpl
             String line = "";
             while ((line = bReader.readLine()) != null)
             {
-                langVec.add(line);
+                line = line.replace("|", " - ");
+                if (!line.trim().equals(""))
+                {
+                    langVec.add(line);                  
+                }
             }
         }
         catch (Exception e)
         {
-            throw new RuntimeException("An error occurred while calling the cone service",e);
+            throw new RuntimeException("An error occurred while calling the Cone service.",e);
         }
         return langVec.toArray();
     }
