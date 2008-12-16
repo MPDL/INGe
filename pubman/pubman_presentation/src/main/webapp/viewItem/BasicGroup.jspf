@@ -45,9 +45,9 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputLink value="#{ViewItemFull.citationURL}">
-					<h:outputText value="#{ViewItemFull.citationURL}"/>
+					<h:outputText value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}"/>
 				</h:outputLink>	
-			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.citationURL == null || ViewItemFull.citationURL == ''}"/>
+			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
 		</div>
 
