@@ -472,6 +472,31 @@
 		border-color: #222222;
 	}
 	
+/*AUTOSUGGEST*/
+
+	.ac_results {
+		border-style: solid;
+		border-color: #ACC6CF;
+		background-color: #ECF2F4;
+	}
+	
+	.ac_results li {
+		border-bottom-style: solid;
+		border-bottom-color: #ACC6CF;
+		font-family: sans-serif;
+	}
+	
+	.ac_over {
+		cursor: pointer;
+		background-color: #9B9D86;
+	}
+	
+	.ac_match {
+		font-family: sans-serif;
+		font-weight: bold;
+		color: #000000;
+	}
+	
 /*BLANK INPUT*/
 	.blankInput {
 		color: #B9B9B9;
