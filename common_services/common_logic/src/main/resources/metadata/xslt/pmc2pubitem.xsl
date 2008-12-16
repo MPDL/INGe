@@ -284,10 +284,7 @@
 	</xsl:template>
 	
 	<!-- DATES -->
-	<xsl:template match="pm:pub-date">
-		
-		<!--<xsl:variable name="yymm">if(pm:day!='' and pm:month!='' and pm:year!='') then concat(pm:year, '-', pm:month, '-', pm:day) 
-			else if(pm:day='')</xsl:variable>-->
+	<xsl:template match="pm:pub-date">		
 		<xsl:choose>
 			<xsl:when test="@pub-type='epub'">
 				<xsl:element name="publ:published-online">
@@ -333,10 +330,26 @@
 	</xsl:template>
 	
 	<xsl:template match="pm:month">
-		<xsl:value-of select="concat('-',.)"/>
+		<xsl:variable name="month" select="."/>
+		<xsl:choose>
+			<xsl:when test="fn:string-length($month) = 1">
+				<xsl:value-of select="concat('-','0',.)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="concat('-',.)"/>
+			</xsl:otherwise>
+		</xsl:choose>		
 	</xsl:template>
 	<xsl:template match="pm:day">
-		<xsl:value-of select="concat('-',.)"/>
+		<xsl:variable name="day" select="."/>
+		<xsl:choose>
+			<xsl:when test="fn:string-length($day) = 1">
+				<xsl:value-of select="concat('-','0',.)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="concat('-',.)"/>
+			</xsl:otherwise>
+		</xsl:choose>	
 	</xsl:template>
 	<!-- TOTAL NO OF PAGES  -->
 	<xsl:template match="pm:page-range">
