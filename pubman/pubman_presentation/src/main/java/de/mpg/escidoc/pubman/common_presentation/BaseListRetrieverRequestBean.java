@@ -36,12 +36,10 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
         getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
         getBasePaginatorListSessionBean().setPageType(getType());
         init();
-        
-        
+
         if (getFacesContext().getRenderResponse()){
             readOutParameters();
             getBasePaginatorListSessionBean().update();
-            
         }
         /*
         else

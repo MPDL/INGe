@@ -121,7 +121,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     private String pageType;
    
-
+    /**
+     * A Map that has stored the GET parameters from the last request
+     */
+    private Map<String, String> oldRedirectParameterMap;
 
     /**
      * Initializes a new BasePaginatorListSessionBean
@@ -129,6 +132,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     public BasePaginatorListSessionBean()
     {
         redirectParameterMap = new HashMap<String, String>();
+        oldRedirectParameterMap = new HashMap<String, String>();
+        
         
         elementsPerPageSelectItems = new ArrayList<SelectItem>();
         elementsPerPageSelectItems.add(new SelectItem("10","10"));
@@ -176,25 +181,55 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         readOutParameters();
         
         
-        currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
-        totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
-        
-        //reset current page and reload list if list is shorter than the given current page number allows
-        if (getTotalNumberOfElements()<= getOffset()){
-            setCurrentPageNumber(((getTotalNumberOfElements()-1)/getElementsPerPage())+1);
+        if (parametersChanged())
+        {
+            
             currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
             totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+            
+            //reset current page and reload list if list is shorter than the given current page number allows
+            if (getTotalNumberOfElements()<= getOffset()){
+                setCurrentPageNumber(((getTotalNumberOfElements()-1)/getElementsPerPage())+1);
+                currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
+                totalNumberOfElements = getPaginatorListRetriever().getTotalNumberOfRecords();
+            }
+            
+            paginatorPageList.clear();
+            for(int i=0; i<((getTotalNumberOfElements()-1)/elementsPerPage) + 1; i++)
+            {
+                paginatorPageList.add(new PaginatorPage(i+1));
+            }
+            
+            listUpdated();
         }
+       
+        saveOldParameters();
         
-        paginatorPageList.clear();
-        for(int i=0; i<((getTotalNumberOfElements()-1)/elementsPerPage) + 1; i++)
+    }
+    
+    /**
+     * Compares the parameters from the current request with the ones from the last request.
+     * Returns true if parameters have changed or if there are more/less parameters since the last request.
+     * @return
+     */
+    private boolean parametersChanged()
+    {
+        if (oldRedirectParameterMap.isEmpty() || oldRedirectParameterMap.size()!=getParameterMap().size()) 
         {
-            paginatorPageList.add(new PaginatorPage(i+1));
+            return true;
         }
-        
-        listUpdated();
-        
-        
+        else
+        {
+            for(String key : oldRedirectParameterMap.keySet())
+            {
+                if (!redirectParameterMap.containsKey(key) || !redirectParameterMap.get(key).equals(oldRedirectParameterMap.get(key)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+       
     }
     
 
@@ -565,7 +600,6 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     public void redirect()
     {
-        //update();
         beforeRedirect();
         try
         {
@@ -725,6 +759,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             pageTypeChanged();
             setGoToPage("");
             getParameterMap().clear();
+            oldRedirectParameterMap.clear();
         }
         this.pageType = pageType;
     }
@@ -794,6 +829,15 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     public String getGoToPage()
     {
         return goToPage;
+    }
+
+    /**
+     * Copies the current parameters in the parameter store
+     */
+    public void saveOldParameters()
+    {
+        oldRedirectParameterMap.clear();
+        oldRedirectParameterMap.putAll(redirectParameterMap);
     }
     
 }
