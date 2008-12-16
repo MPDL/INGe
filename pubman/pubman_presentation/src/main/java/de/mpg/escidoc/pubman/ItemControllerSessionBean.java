@@ -76,6 +76,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
@@ -666,6 +667,12 @@ public class ItemControllerSessionBean extends FacesBean
         if (newPubItem.getMetadata().getTitle() == null)
         {
             newPubItem.getMetadata().setTitle(new TextVO());
+        }
+        
+        // Genre
+        if (newPubItem.getMetadata().getGenre() == null)
+        {
+            newPubItem.getMetadata().setGenre(Genre.ARTICLE);
         }
         // File
 //        if (newPubItem.getFiles().size() == 0)

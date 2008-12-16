@@ -33,9 +33,9 @@
 
 
 
-<div id="editFile" class="full_area0 itemBlock">
+<h:panelGroup layout="block" id="editFile" styleClass="full_area0 itemBlock" rendered="#{genre.files_display != 'false' && genre.files_form_id != 'full-submission' || genre.files_display != 'true' && genre.files_form_id != 'easy-submission'&& genre.files_form_id != 'all'}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblFile}" />
+		<h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -44,7 +44,7 @@
 <%-- Add File --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />Save File<span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
@@ -70,7 +70,7 @@
 			
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />Add New File<span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedFile}" valueChangeListener="#{EasySubmission.fileUploaded}" />
@@ -95,29 +95,29 @@
 			</h:panelGroup>
 
 <%-- File content category --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0 && genre.files_component_content_category_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblContentCategory}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" required="#{genre.files_component_content_category_optional != 'true'}">
 						<f:selectItems value="#{EasySubmission.contentCategories}" />
 					</h:selectOneMenu>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{component.index > 0 && component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblContentCategory}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" required="#{genre.files_component_content_category_optional != 'true'}">
 						<f:selectItems value="#{EasySubmission.contentCategories}" />
 					</h:selectOneMenu>
 				</span>
 			</h:panelGroup>
 
 <%-- Real filename --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && genre.files_component_name_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -129,16 +129,16 @@
 <%-- Filename, File visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_name_optional != 'true' || genre.files_component_visibility_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
-						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">*</span><h:outputText value="#{lbl.EditItem_lblName}"/></label>
-						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
+						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
+						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}" required="#{genre.files_component_name_optional != 'true'}"/>
 					</span>
 					<span class="large_area0 endline">
-						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblVisibility}"/>
-						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}">
+						<h:outputLabel styleClass="large_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter"/>
+						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}" required="#{genre.files_component_visibility_optional != 'true'}">
 							<f:selectItems value="#{EasySubmission.visibilities}" />
 						</h:selectOneRadio>
 					</span>
@@ -146,14 +146,14 @@
 			</h:panelGroup>
 
 <%-- File description, MIME type --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && genre.files_component_description_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblDescription}"/>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" />
+						<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" required="#{genre.files_component_description_optional != 'true'}"/>
 					</span>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
@@ -161,14 +161,14 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFileEasySubmission}"/>
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addFile}" disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" />
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFileEasySubmission}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addFile}" disabled="#{EasySubmission.files[EasySubmission.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 
 		</tr:iterator>	
 	</div>
-</div>
+</h:panelGroup>
 
 
 

@@ -40,6 +40,7 @@
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
+			<f:loadBundle var="genre" basename="#{EasySubmissionSessionBean.genreBundle}"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 

@@ -97,31 +97,32 @@
 		</h:panelGroup>
 		<div class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{lbl.EditItem_lblBasic}" />
+				<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
 		<%-- Genre --%>
-				<div class="free_area0 endline itemLine noTopBorder">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.item_basic_item_genre_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" /><h:outputText value="#{lbl.easy_submission_lblGenre}" /><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace">
+						<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" required="#{genre.item_basic_item_genre_optional != 'true'}" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
 							<f:selectItems value="#{EasySubmission.genres}" />
 						</h:selectOneMenu>
+						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 					</span>
-				</div>
+				</h:panelGroup>
 		
 		<%-- Title --%>
-				<div class="free_area0 endline itemLine noTopBorder">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.item_basic_item_title_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.easy_submission_lblTitle}" /><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" ></h:inputTextarea>
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" required="#{genre.item_basic_item_title_optional != 'true'}"></h:inputTextarea>
 					</span>
-				</div>
+				</h:panelGroup>
 			</div>
 		</div>
 
