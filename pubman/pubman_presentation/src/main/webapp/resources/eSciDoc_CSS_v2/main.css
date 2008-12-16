@@ -61,12 +61,3 @@
 		@import url(./pubman_component_css/fullItem.css);
 	/* import single elements styles | das Stylesheet für die einzelnen Elemente einbinden */
 		@import url(./pubman_component_css/singleElements.css);
-
-
-/* import vendor specific styles | anbieterspezifische Styles einbinden */
-	/* import vendor specific appearance styles | das kundenspezifische Darstellungs-Stylesheet einbinden */
-		@import url(./mpdl_css/appearance.css);
-		@import url(./mpdl_css/images.css);
-		
-		/*@import url(./Nijmegen/appearance.css);
-		@import url(./Nijmegen/images.css);*/

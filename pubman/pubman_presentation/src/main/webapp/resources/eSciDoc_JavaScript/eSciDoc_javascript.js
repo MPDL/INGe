@@ -28,6 +28,51 @@
 * All rights reserved. Use is subject to license terms.
 */
 
+function applyCookieStyle() {
+	var cookieValue = ""
+	var cookie = "layout=";
+	var dc = document.cookie;
+	if (dc.length > 0) {
+		var start = dc.indexOf(cookie);
+		if (start != -1) {
+			start += cookie.length;
+			var stop = dc.indexOf(";", start);
+			if (stop == -1) stop = dc.length;
+			cookieValue = unescape(dc.substring(start,stop));
+		}
+	}
+	if (cookieValue != "" && document.getElementsByTagName) {
+		var el = document.getElementsByTagName("link");
+		for (var i = 0; i < el.length; i++ ) {
+			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
+				el[i].disabled = true;
+				if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
+			}
+		}
+	}
+}
+
+function setStyleCookie() {
+	var cookieValue = "";
+	if(document.getElementsByTagName) {
+		var el = document.getElementsByTagName("link");
+		for (var i = 0; i < el.length; i++ ) {
+			var enabledCounter = 0;
+			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].disabled == false && enabledCounter == 0) {
+				cookieValue = el[i].getAttribute("id");
+				enabledCounter++;
+			}
+		}
+	}
+	var now = new Date();
+	var exp = new Date(now.getTime() + (1000*60*60*24*30));
+	if(cookieValue != "") {
+		document.cookie = "layout=" + escape(cookieValue) + ";" +
+							"expires=" + exp.toGMTString() + ";" +
+							"path=/";
+	}
+}
+
 var included = false;
 
  /*INCLUDES EXTERNAL JAVASCRIPT TO PAGE DOM*/
@@ -83,4 +128,6 @@ function include_javascripts() {
 		}
 }
 
+applyCookieStyle();
 include_javascripts();
+window.onunload=function(e){setStyleCookie();};
