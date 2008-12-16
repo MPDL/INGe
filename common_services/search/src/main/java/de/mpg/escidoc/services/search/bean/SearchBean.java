@@ -128,8 +128,10 @@ public class SearchBean implements Search
     private static final String SEARCHREQUEST_VERSION = "1.1";
     /** Packing of result. */
     private static final String RECORD_PACKING = "xml";
-    /** Diagnostic error from the SRW interface which should not be treated as an error. */
-    private static final String SRW_DIAGNOSTIC_NO_ERROR = "61/StartRecord > endRecord";
+    /** Diagnostic startrecord error from the SRW interface which should not be treated as an error. */
+    private static final String SRW_STARTRECORD__NO_ERROR = "61/StartRecord > endRecord";
+    /** Diagnostic sort type error from the SRW interface which should not be treated as an error. */
+    private static final String SRW_SORT_NO_ERROR = "cannot determine sort type";
 
     /**
      * {@inheritDoc}
@@ -242,13 +244,19 @@ public class SearchBean implements Search
             // something went wrong
             for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
             {
-                logger.warn(diagnostic.getUri());
-                logger.warn(diagnostic.getMessage());
-                logger.warn(diagnostic.getDetails());
-                if (!diagnostic.getDetails().contains(SRW_DIAGNOSTIC_NO_ERROR)) 
+                if ((diagnostic.getDetails().contains(SRW_STARTRECORD__NO_ERROR)) 
+                        || (diagnostic.getDetails().contains(SRW_SORT_NO_ERROR))) 
                 {
+                    logger.info("SRW interface produces an error, this one is safe to ignore: " 
+                            + diagnostic.getDetails()); 
+                }
+                else 
+                { 
+                    logger.warn(diagnostic.getUri());
+                    logger.warn(diagnostic.getMessage());
+                    logger.warn(diagnostic.getDetails());
                     throw new TechnicalException("Search request failed for query: "
-                            + searchRetrieveRequest.getQuery());
+                        + searchRetrieveRequest.getQuery());
                 }
             }
         }
