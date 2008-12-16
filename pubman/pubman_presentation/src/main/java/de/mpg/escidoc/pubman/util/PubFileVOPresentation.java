@@ -261,6 +261,10 @@ public class PubFileVOPresentation extends FacesBean
         {
             this.file.getMetadataSets().add(new MdsFileVO());
         }
+        
+        //set in properties
+        this.file.setMimeType(mimeType);
+        
         List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
         boolean found = false;
         for (FormatVO formatVO : formats)
@@ -289,6 +293,7 @@ public class PubFileVOPresentation extends FacesBean
         }
         else
         {
+
             List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
             boolean found = false;
             for (FormatVO formatVO : formats)
