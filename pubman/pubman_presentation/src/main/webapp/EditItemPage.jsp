@@ -100,20 +100,20 @@
 						<div class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
-									<h:panelGroup styleClass="seperator" rendered="#{genre.sources_display != 'false'}"/>
-									<a class="free_area0" href="#editSource"><h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" rendered="#{genre.sources_display != 'false'}"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.events_display != 'false'}"/>
-									<a class="free_area0" href="#editEvent"><h:outputText value="#{genre.events_label}" rendered="#{genre.events_display != 'false'}" converter="GenreLabelConverter"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.details_display != 'false'}"/>
-									<a class="free_area0" href="#editDetail"><h:outputText value="#{genre.details_label}" rendered="#{genre.details_display != 'false'}" converter="GenreLabelConverter"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.content_display != 'false'}"/>
-									<a class="free_area0" href="#editContent"><h:outputText value="#{genre.content_label}"  rendered="#{genre.content_display != 'false'}" converter="GenreLabelConverter"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.creator_person_organization_display != 'false'}"/>
-									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" rendered="#{genre.creator_person_organization_display != 'false'}" converter="GenreLabelConverter"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.locators_display != 'false'}"/>
-									<a class="free_area0" href="#editLocator"><h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter" rendered="#{genre.locators_display != 'false'}"/></a>
-									<h:panelGroup styleClass="seperator" rendered="#{genre.files_display == 'true'}"/>
-									<a class="free_area0" href="#editFile"><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" rendered="#{genre.files_display == 'true'}"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.sources_display != 'false' and genre.sources_source_basic_form_id != 'easy-submission' or genre.sources_display != 'true' and genre.sources_source_basic_form_id != 'full-submission' and genre.sources_source_basic_form_id != 'all'}"/>
+									<a class="free_area0" href="#editSource"><h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter" rendered="#{genre.sources_display != 'false' and genre.sources_source_basic_form_id != 'easy-submission' or genre.sources_display != 'true' and genre.sources_source_basic_form_id != 'full-submission' and genre.sources_source_basic_form_id != 'all'}"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.events_display != 'false' and genre.events_form_id != 'easy-submission' or genre.events_display != 'true' and genre.events_form_id != 'full-submission' and genre.events_form_id != 'all'}"/>
+									<a class="free_area0" href="#editEvent"><h:outputText value="#{genre.events_label}" rendered="#{genre.events_display != 'false' and genre.events_form_id != 'easy-submission' or genre.events_display != 'true' and genre.events_form_id != 'full-submission' and genre.events_form_id != 'all'}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.details_display != 'false' and genre.content_form_id != 'easy-submission' or genre.details_display != 'true' and genre.content_form_id != 'full-submission' and genre.content_form_id != 'all'}"/>
+									<a class="free_area0" href="#editDetail"><h:outputText value="#{genre.details_label}" rendered="#{genre.details_display != 'false' and genre.content_form_id != 'easy-submission' or genre.details_display != 'true' and genre.content_form_id != 'full-submission' and genre.content_form_id != 'all'}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.content_display != 'false' and genre.content_form_id != 'easy-submission' or genre.content_display != 'true' and genre.content_form_id != 'full-submission' and genre.content_form_id != 'all'}"/>
+									<a class="free_area0" href="#editContent"><h:outputText value="#{genre.content_label}"  rendered="#{genre.content_display != 'false' and genre.content_form_id != 'easy-submission' or genre.content_display != 'true' and genre.content_form_id != 'full-submission' and genre.content_form_id != 'all'}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.creator_person_organization_display != 'false' and genre.creator_person_organization_form_id != 'easy-submission' or genre.creator_person_organization_display != 'true' and genre.creator_person_organization_form_id != 'full-submission' and genre.creator_person_organization_form_id != 'all'}"/>
+									<a class="free_area0" href="#editPerson"><h:outputText value="#{genre.creator_person_organization_label}" rendered="#{genre.creator_person_organization_display != 'false' and genre.creator_person_organization_form_id != 'easy-submission' or genre.creator_person_organization_display != 'true' and genre.creator_person_organization_form_id != 'full-submission' and genre.creator_person_organization_form_id != 'all'}" converter="GenreLabelConverter"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.locators_display != 'false' and genre.locators_form_id != 'easy-submission' or genre.locators_display != 'true' and genre.locators_form_id != 'full-submission' and genre.locators_form_id != 'all'}"/>
+									<a class="free_area0" href="#editLocator"><h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter" rendered="#{genre.locators_display != 'false' and genre.locators_form_id != 'easy-submission' or genre.locators_display != 'true' and genre.locators_form_id != 'full-submission' and genre.locators_form_id != 'all'}"/></a>
+									<h:panelGroup styleClass="seperator" rendered="#{genre.files_display != 'false' and genre.files_form_id != 'easy-submission' or genre.files_display != 'true' and genre.files_form_id != 'full-submission' and genre.files_form_id != 'all'}"/>
+									<a class="free_area0" href="#editFile"><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter" rendered="#{genre.files_display != 'false' and genre.files_form_id != 'easy-submission' or genre.files_display != 'true' and genre.files_form_id != 'full-submission' and genre.files_form_id != 'all'}"/></a>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
 								</span>
 							</div>

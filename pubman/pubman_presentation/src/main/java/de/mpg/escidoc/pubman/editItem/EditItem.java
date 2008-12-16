@@ -1843,6 +1843,11 @@ public class EditItem extends FacesBean
       
     	String newGenre = this.genreSelect.getSubmittedValue().toString();
     	
+    	if(newGenre != null && newGenre.trim().equals(""))
+    	{
+    		newGenre = "ARTICLE";
+    	}
+    	
     	this.getEditItemSessionBean().setGenreBundle("Genre_" + newGenre);
     	this.init();
     	return null;
