@@ -33,6 +33,9 @@
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 				
 <link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+<link href="./resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
+<link href="./resources/eSciDoc_CSS_v2/themes/beige/styles/theme.css" id="beigeTheme" type="text/css" title="beige" rel="alternate stylesheet"/>
+<link href="./resources/eSciDoc_CSS_v2/themes/contrast/styles/theme.css" id="contrastTheme" type="text/css" title="contrast" rel="alternate stylesheet"/>
 <link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
