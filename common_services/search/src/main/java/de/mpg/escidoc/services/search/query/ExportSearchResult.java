@@ -27,6 +27,7 @@ public class ExportSearchResult extends SearchResult implements Serializable
      *            the output of the search in a binary form (pdf, etc.).
      * @param cqlQuery
      *            cql query
+     * @param totalNumberOfResults  total number of search results
      */
     public ExportSearchResult(byte[] result, String cqlQuery, NonNegativeInteger totalNumberOfResults)
     {

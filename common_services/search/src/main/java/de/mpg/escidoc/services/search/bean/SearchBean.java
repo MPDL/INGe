@@ -37,7 +37,6 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -128,9 +127,15 @@ public class SearchBean implements Search
     private static final String SEARCHREQUEST_VERSION = "1.1";
     /** Packing of result. */
     private static final String RECORD_PACKING = "xml";
-    /** Diagnostic startrecord error from the SRW interface which should not be treated as an error. */
-    private static final String SRW_STARTRECORD__NO_ERROR = "61/StartRecord > endRecord";
-    /** Diagnostic sort type error from the SRW interface which should not be treated as an error. */
+    /**
+     * Diagnostic startrecord error from the SRW interface which should not be
+     * treated as an error.
+     */
+    private static final String SRW_STARTRECORD_NO_ERROR = "61/StartRecord > endRecord";
+    /**
+     * Diagnostic sort type error from the SRW interface which should not be
+     * treated as an error.
+     */
     private static final String SRW_SORT_NO_ERROR = "cannot determine sort type";
 
     /**
@@ -148,31 +153,27 @@ public class SearchBean implements Search
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
             searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
-            
+
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-            SearchRetrieveResponseType searchResult = performSearch(
-                    searchRetrieveRequest, INDEXDATABASE_ALL);
+            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
             List<ItemContainerSearchResultVO> resultList = transformToSearchResultList(searchResult);
-            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList,
-                    cqlQuery, searchResult.getNumberOfRecords());
+            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
+                    .getNumberOfRecords());
             return result;
         } 
-        catch (ParseException f) 
+        catch (ParseException f)
         {
             throw new ParseException();
-        }
+        } 
         catch (Exception e)
         {
             throw new TechnicalException(e);
         }
     }
 
-
-    
-    
     /**
      * {@inheritDoc}
      */
@@ -192,34 +193,34 @@ public class SearchBean implements Search
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-            SearchRetrieveResponseType searchResult = performSearch(
-                    searchRetrieveRequest, INDEXDATABASE_OU);
+            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_OU);
             List<AffiliationVO> resultList = transformToAffiliationList(searchResult);
-            OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery,
-                    searchResult.getNumberOfRecords());
+            OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery, searchResult
+                    .getNumberOfRecords());
             return result;
         } 
-        catch (ParseException f) 
+        catch (ParseException f)
         {
             throw new ParseException();
-        }
+        } 
         catch (Exception e)
         {
             throw new TechnicalException(e);
         }
     }
 
-    
-
     /**
      * Perform a search with the SRU interface.
-     * @param searchRetrieveRequest  SRU search request
-     * @param sel  index database selector
-     * @return  search result set
-     * @throws TechnicalException  if the search fails
+     * 
+     * @param searchRetrieveRequest
+     *            SRU search request
+     * @param sel
+     *            index database selector
+     * @return search result set
+     * @throws TechnicalException
+     *             if the search fails
      */
-    private SearchRetrieveResponseType performSearch(SearchRetrieveRequestType searchRetrieveRequest, 
-        String index)
+    private SearchRetrieveResponseType performSearch(SearchRetrieveRequestType searchRetrieveRequest, String index)
         throws TechnicalException
     {
 
@@ -228,10 +229,8 @@ public class SearchBean implements Search
         try
         {
             logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
-            searchResult = ServiceLocator.getSearchHandler(index)
-                    .searchRetrieveOperation(searchRetrieveRequest);
-            logger.info("Search result: " + searchResult.getNumberOfRecords()
-                    + " item(s) or container(s)");
+            searchResult = ServiceLocator.getSearchHandler(index).searchRetrieveOperation(searchRetrieveRequest);
+            logger.info("Search result: " + searchResult.getNumberOfRecords() + " item(s) or container(s)");
         } 
         catch (Exception e)
         {
@@ -244,19 +243,19 @@ public class SearchBean implements Search
             // something went wrong
             for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
             {
-                if ((diagnostic.getDetails().contains(SRW_STARTRECORD__NO_ERROR)) 
-                        || (diagnostic.getDetails().contains(SRW_SORT_NO_ERROR))) 
+                if ((diagnostic.getDetails().contains(SRW_STARTRECORD_NO_ERROR))
+                        || (diagnostic.getDetails().contains(SRW_SORT_NO_ERROR)))
                 {
-                    logger.info("SRW interface produces an error, this one is safe to ignore: " 
-                            + diagnostic.getDetails()); 
-                }
-                else 
-                { 
+                    logger.info("SRW interface produces an error, this one is safe to ignore: "
+                            + diagnostic.getDetails());
+                } 
+                else
+                {
                     logger.warn(diagnostic.getUri());
                     logger.warn(diagnostic.getMessage());
                     logger.warn(diagnostic.getDetails());
-                    throw new TechnicalException("Search request failed for query: "
-                        + searchRetrieveRequest.getQuery());
+                    throw new TechnicalException("Search request failed for query: " 
+                            + searchRetrieveRequest.getQuery());
                 }
             }
         }
@@ -266,12 +265,15 @@ public class SearchBean implements Search
 
     /**
      * Transform the search result set into ItemContainerSearchResultVOs.
-     * @param searchResult  search result retrieved from the SRU interface
-     * @return  list of ItemContainerSearchResultVOs
-     * @throws TechnicalException  if transforming fails
+     * 
+     * @param searchResult
+     *            search result retrieved from the SRU interface
+     * @return list of ItemContainerSearchResultVOs
+     * @throws TechnicalException
+     *             if transforming fails
      */
-    private List<ItemContainerSearchResultVO> transformToSearchResultList(
-            SearchRetrieveResponseType searchResult) throws TechnicalException
+    private List<ItemContainerSearchResultVO> transformToSearchResultList(SearchRetrieveResponseType searchResult)
+        throws TechnicalException
     {
 
         ArrayList<ItemContainerSearchResultVO> resultList = new ArrayList<ItemContainerSearchResultVO>();
@@ -314,11 +316,10 @@ public class SearchBean implements Search
         }
         return resultList;
     }
-    
-    
+
     /**
      * {@inheritDoc}
-     */ 
+     */
     public ExportSearchResult searchAndExportItems(ExportSearchQuery query) throws Exception
     {
 
@@ -331,63 +332,58 @@ public class SearchBean implements Search
 
         searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
         searchRetrieveRequest.setStartRecord(query.getStartRecord());
-        
+
         searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
         SearchRetrieveResponseType searchResult = null;
-        
-        if( query.getIndexSelector() == null )
+
+        if (query.getIndexSelector() == null)
         {
-            searchResult = performSearch(searchRetrieveRequest, 
-                    INDEXDATABASE_ALL);
-        }
-        else 
+            searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
+        } 
+        else
         {
-            searchResult = performSearch(searchRetrieveRequest, 
-                    query.getIndexSelector());
+            searchResult = performSearch(searchRetrieveRequest, query.getIndexSelector());
         }
-        
+
         String itemList = transformToItemListAsString(searchResult);
 
         String outputFormat = query.getOutputFormat();
         String exportFormat = query.getExportFormat();
-        
-        if ( !checkVal(exportFormat) )
+
+        if (!checkVal(exportFormat))
         {
             throw new TechnicalException("exportFormat is empty");
         }
-        if ( !checkVal(itemList) )
+        if (!checkVal(itemList))
         {
             throw new TechnicalException("itemList is empty");
         }
-        
-        
+
         byte[] exportData = null;
-        
+
         // structured export
-        if ( structuredExportHandler.isStructuredFormat(exportFormat) )
+        if (structuredExportHandler.isStructuredFormat(exportFormat))
         {
-                exportData = getOutput(exportFormat, FormatType.STRUCTURED, null,
-                        itemList);
-                return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
-        } 
+            exportData = getOutput(exportFormat, FormatType.STRUCTURED, null, itemList);
+            return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
+        }
         // citation style
-        else if ( citationStyleHandler.isCitationStyle(exportFormat) ) 
+        else if (citationStyleHandler.isCitationStyle(exportFormat))
         {
-            if ( !checkVal(outputFormat) )
+            if (!checkVal(outputFormat))
             {
-                throw new TechnicalException("outputFormat should be not empty for exportFormat:"
-                        + exportFormat);
+                throw new TechnicalException("outputFormat should be not empty for exportFormat:" + exportFormat);
             }
             outputFormat = outputFormat.trim();
-            if ( citationStyleHandler.getMimeType(exportFormat, outputFormat)==null)
+            if (citationStyleHandler.getMimeType(exportFormat, outputFormat) == null)
             {
-                throw new TechnicalException("file output format: " + outputFormat
-                        + " for export format: " + exportFormat + " is not supported");
+                throw new TechnicalException("file output format: " + outputFormat + " for export format: "
+                        + exportFormat + " is not supported");
             }
             exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
             return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
-        }
+        } 
         else
         {
             // no export format found!!!
@@ -397,22 +393,32 @@ public class SearchBean implements Search
 
     /**
      * Queries an export service to get the search result in an binary format.
-     * @param exportFormat  export format to transform to
-     * @param formatType  format type to transform to
-     * @param outputFormat  output format to transform to
-     * @param itemList  the list of items to be transformed
-     * @return  a binary stream which contains the items in a given format (pdf, etc.)
-     * @throws TechnicalException  
-     * @throws StructuredExportXSLTNotFoundException  if the corresponding xslt is not found
-     * @throws StructuredExportManagerException if structured exportmanager reports an error
-     * @throws IOException  if an io error occurs
-     * @throws JRException  if a jr error occurs
-     * @throws CitationStyleManagerException  if the citationstyle manager reports an error
+     * 
+     * @param exportFormat
+     *            export format to transform to
+     * @param formatType
+     *            format type to transform to
+     * @param outputFormat
+     *            output format to transform to
+     * @param itemList
+     *            the list of items to be transformed
+     * @return a binary stream which contains the items in a given format (pdf,
+     *         etc.)
+     * @throws TechnicalException
+     * @throws StructuredExportXSLTNotFoundException
+     *             if the corresponding xslt is not found
+     * @throws StructuredExportManagerException
+     *             if structured exportmanager reports an error
+     * @throws IOException
+     *             if an io error occurs
+     * @throws JRException
+     *             if a jr error occurs
+     * @throws CitationStyleManagerException
+     *             if the citationstyle manager reports an error
      */
-    private byte[] getOutput(String exportFormat, FormatType formatType, String outputFormat,
-            String itemList) throws TechnicalException, StructuredExportXSLTNotFoundException,
-            StructuredExportManagerException, IOException, JRException,
-            CitationStyleManagerException
+    private byte[] getOutput(String exportFormat, FormatType formatType, String outputFormat, String itemList)
+        throws TechnicalException, StructuredExportXSLTNotFoundException, StructuredExportManagerException,
+        IOException, JRException, CitationStyleManagerException
     {
 
         byte[] exportData = null;
@@ -443,16 +449,15 @@ public class SearchBean implements Search
         return exportData;
     }
 
-    
-
     /**
      * Transforms the search result set to a xml string.
-     * @param searchResult  search result retrieved from the SRU interface
-     * @return  search result set as string
+     * 
+     * @param searchResult
+     *            search result retrieved from the SRU interface
+     * @return search result set as string
      * @throws Exception
      */
-    private String transformToItemListAsString(SearchRetrieveResponseType searchResult)
-        throws Exception
+    private String transformToItemListAsString(SearchRetrieveResponseType searchResult) throws Exception
     {
         ArrayList<ItemVO> resultList = new ArrayList<ItemVO>();
         if (searchResult.getRecords() != null)
@@ -473,7 +478,7 @@ public class SearchBean implements Search
                     } 
                     catch (TechnicalException e)
                     {
-                        logger.warn("ItemContainerSearchBean::transformToItemListAsString(): Unmarshalling " 
+                        logger.warn("ItemContainerSearchBean::transformToItemListAsString(): Unmarshalling "
                                 + "failed, maybe a container?" + e.getStackTrace());
                     }
                 }
@@ -482,9 +487,8 @@ public class SearchBean implements Search
         String itemStringList = xmlTransforming.transformToItemList(resultList);
         return itemStringList;
     }
-    
-    private List<AffiliationVO> transformToAffiliationList(SearchRetrieveResponseType searchResult) 
-        throws Exception
+
+    private List<AffiliationVO> transformToAffiliationList(SearchRetrieveResponseType searchResult) throws Exception
     {
         ArrayList<AffiliationVO> resultList = new ArrayList<AffiliationVO>();
         if (searchResult.getRecords() != null)
@@ -495,19 +499,20 @@ public class SearchBean implements Search
                 MessageElement[] messages = data.get_any();
                 // Data is in the first record
                 if (messages.length == 1)
-                {                
+                {
                     String searchResultItem = messages[0].getAsString();
                     logger.debug("Search result: " + searchResultItem);
-                    AffiliationVO itemResult = 
-                        xmlTransforming.transformToAffiliation(searchResultItem);
+                    AffiliationVO itemResult = xmlTransforming.transformToAffiliation(searchResultItem);
                     resultList.add(itemResult);
-                    
+
                 }
             }
         }
         return resultList;
     }
-    private boolean checkVal(String str) {
-        return !(str == null || str.trim().equals("")); 
+
+    private boolean checkVal(String str)
+    {
+        return !(str == null || str.trim().equals(""));
     }
 }
