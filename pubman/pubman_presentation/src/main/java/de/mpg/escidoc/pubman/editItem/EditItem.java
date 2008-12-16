@@ -323,6 +323,10 @@ public class EditItem extends FacesBean
         		pubItem.getMetadata().setGenre(Genre.ARTICLE);
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
         	}
+        	else
+        	{
+        		this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
+        	}
         	this.getItemControllerSessionBean().initializeItem(pubItem);
         
             if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
@@ -1838,6 +1842,10 @@ public class EditItem extends FacesBean
         }
     }
     
+    /**
+     * This method changes the Genre and sets the needed property file for genre specific Metadata
+     * @return String null
+     */
     public String changeGenre()
     {
       

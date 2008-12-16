@@ -93,6 +93,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
@@ -198,6 +199,8 @@ public class EasySubmission extends FacesBean
     private TitleCollection eventTitleCollection;
     
     private UIXIterator identifierIterator;
+    
+    private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
     
 
     /**
@@ -307,6 +310,12 @@ public class EasySubmission extends FacesBean
         {
             this.autosuggestJournals = true;
         }
+    	
+    	PubItemVO it = getItem();
+    	if(getItem() != null && getItem().getMetadata()!= null && getItem().getMetadata().getGenre() == null)
+    	{
+    		getItem().getMetadata().setGenre(Genre.ARTICLE);
+    	}
     	
     	
     }
@@ -1566,6 +1575,27 @@ public class EasySubmission extends FacesBean
         }
         return null;
     }
+    
+    /**
+     * This method changes the Genre and sets the needed property file for genre specific Metadata
+     * @return String null
+     */
+    public String changeGenre()
+    {
+      
+    	String newGenre = this.genreSelect.getSubmittedValue().toString();
+    	
+    	if(newGenre != null && newGenre.trim().equals(""))
+    	{
+    		newGenre = "ARTICLE";
+    		getItem().getMetadata().setGenre(Genre.ARTICLE);
+    	}
+    	
+    	this.getEasySubmissionSessionBean().setGenreBundle("Genre_" + newGenre);
+    	this.init();
+    	return null;
+      
+    }
 
     public SelectItem[] getSUBMISSION_METHOD_OPTIONS()
     {
@@ -2308,6 +2338,16 @@ public class EasySubmission extends FacesBean
     {
         return identifierIterator;
     }
+
+	public HtmlSelectOneMenu getGenreSelect() {
+		return genreSelect;
+	}
+
+	public void setGenreSelect(HtmlSelectOneMenu genreSelect) {
+		this.genreSelect = genreSelect;
+	}
+    
+    
     
     
 }
