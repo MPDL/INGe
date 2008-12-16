@@ -34,7 +34,6 @@ public class GenreHandler extends ShortContentHandler
 			String content) {
 		// TODO Auto-generated method stub
 		super.content(uri, localName, name, content);
-		System.out.println("content " + content);
 	}
 
 	@Override
@@ -71,8 +70,6 @@ public class GenreHandler extends ShortContentHandler
 		catch (Exception e) {
 			throw new SAXException(e);
 		}
-		
-		System.out.println("end " + name);
 	}
 
 	@Override
@@ -117,7 +114,6 @@ public class GenreHandler extends ShortContentHandler
 		catch (Exception e) {
 			throw new SAXException(e);
 		}
-		System.out.println("start " + name);
 	}
 	
 
