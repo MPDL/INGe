@@ -22,6 +22,7 @@ import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
+import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
@@ -126,7 +127,7 @@ public class AffiliationBean extends FacesBean
             }
             return "loadEditItem";
         }
-        if ("EasySubmission".equals(source))
+        else if ("EasySubmission".equals(source))
         {
             if (cache != null && cache instanceof OrganizationVO)
             {
@@ -151,6 +152,15 @@ public class AffiliationBean extends FacesBean
                 ((OrganizationVO)cache).setAddress(address);
             }
             return "loadNewEasySubmission";
+        }
+        
+        else if ("AdvancedSearch".equals(source))
+        {
+            if (cache != null && cache instanceof OrganizationCriterion)
+            {
+                ((OrganizationCriterion)cache).setSearchString("\"" + selectedAffiliation.getName() + "\"");
+            }
+            return "displaySearchPage";
         }
         else if (selectedAffiliation != null)
         {
