@@ -1,0 +1,814 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
+
+/* Layout independent adjustments | Layout-unabhängige Anpassungen */
+/* Only if necessary | Nur bei Bedarf */
+/* @import url(../yaml/core/iehacks.css);*/
+
+
+/*  JUST POSITIONS AND RELATED SETTINGS IN THIS FILE, NO OTHER FORMATTING */
+ 
+	/* GENERAL */
+	
+#page{
+	width:expression(
+		document.body.clientWidth 
+		> 1620? "1620px": "auto")
+}
+
+#col1, #col2 {
+	top: 105px;
+	margin-top: 10px;
+}
+
+#col1 {
+	left: 10px;
+}
+
+#col2 {
+	right: 10px;
+}
+
+#col3 {
+	z-index: 1;
+}
+	
+	
+	
+.clear {clear: both;}
+label{
+	float: left;
+}
+
+
+	/* MAIN SECTION */
+
+#nav_main {
+	margin-left: 180px;
+	height: 20px;
+}
+
+/* HOME */
+
+.homeTitle .helpIcon {	
+	left:480px;
+	
+}
+.homeTitle .headingAndIcon span{
+	position:relative;
+	top:5px;
+}
+
+	/* MAIN SECTION: MAIN MENU */
+/*
+.mainMenu {
+}
+*/
+	/* ACTION MENU */
+
+.contentActions {
+	padding: 5px;	
+}
+
+.contentActions li {
+	margin-left: 0px;
+	margin-bottom: 0.2ex;	
+}
+
+	/* CONTENT SECTION - GENERAL*/
+
+.contentTop {
+	margin-bottom: 0px;
+	height: 30px;
+}
+
+.mainContent {
+	margin-top: -10px;
+	margin-left: 200px;
+	margin-right: 12px; 
+	margin-bottom: 12px;
+}
+
+.content {
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+
+
+	/* EDIT ITEM */
+
+.editItem {
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.editItem label{
+	margin: 0.5em 1em 1em 0
+}
+						
+.editItem input, .editItem select, .editItem textarea{display: block;}
+
+.editItem textarea{
+	width: 25em;
+	height: 7em;
+}
+
+.editItem form {line-height: 140%;}
+
+.editItem legend {		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
+	position: absolute;
+	top: -0.9em;
+	left: 0.7em;	
+	padding: 0em 1em 0.5em 2.3em;
+}		
+			
+.editItem fieldset{		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
+	position: relative;
+	margin: 35px 0em 0em 0em;
+	max-width: 740px;
+	padding: 20px 12px 12px 12px;
+}
+
+html > body fieldset{
+	background: white; /* vor IE verstecken */
+}
+
+.addFieldset a{
+	display: block;
+	padding: 0em 1em 1em 3em;
+	border: none;
+	background-repeat: no-repeat;
+	margin: 0.5em 1em 0em 0em;
+	background-position: left top;
+	background-image: url(../images/add_file.gif);
+}
+
+.date{}
+
+.dateInput{width: 10em;}
+
+/* FORM FEEDBACK EFFECTS */
+
+	/* ITEM DISPLAY */
+
+.singleItem{
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.itemTitle {
+	margin-right: 1em;
+	padding-right: 6px;
+	width: 20%;
+	float: left;
+	margin-top: 0.2em;
+	overflow: hidden;
+	white-space: nowrap;
+ }
+
+.itemText {
+	padding-left: 6px;
+	margin-top: 0.2em;
+	text-align:left;
+	float: left;
+	width: 75% !important;
+ }
+
+html > body .itemText {
+	width: 75% !important;
+}
+
+.paginator .itemText {
+width: 76% !important;
+}
+
+.itemAffiliations {
+	position: relative;
+	width: 15em;
+	height: 5em;
+	overflow-x: hidden;
+	overflow-y: auto;
+	float: left;
+	margin: 8px;
+	padding-bottom: 5px;
+}
+
+.revisions{
+}
+
+.revisions .formField{
+	margin: 12px;
+	width: 410px;	
+	text-align: right;
+}
+
+.revisions .objectButtons{
+	display: inline;
+	width: 410px;
+	margin: 0px 0px 0px 302px;
+}
+
+.revisions .formField textarea{
+	margin: 0px 0px 12px 0px ;
+	width: 400px;
+	height: 7em;
+}
+
+
+	/* LIST DISPLAY */
+
+
+.bottomSpace{
+	margin-bottom:20px;
+}
+	
+.showItemsMenu{
+	float:left;
+	margin-bottom:10px;
+	margin-right:5px;
+	padding-left:0px;
+	color:black;
+}
+
+.messageBox{
+	padding-bottom: 20px;
+}
+
+.rightSpace{
+	margin-right:5px;
+}
+
+.topSpace5{
+	position:relative;
+	top:5px;
+}
+
+.paginatorControls{
+	float:left;
+}
+
+.paginatorResultLabel {
+	float: right;
+}
+	
+.list{
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.list input{
+	border: none;
+}
+
+.paginator{
+	padding-bottom: 5px;
+	text-align: center;
+	margin: 1em 1em 1em 0em;
+	width: 780px;
+	vertical-align: baseline;
+}
+
+.paginator select{
+	width: 3.7em;
+	margin: 0px 6px 0px 6px;
+}
+
+.paginator input, .paginator button {
+	margin: 0px 3px 0px 0px;
+	padding: 1px 2px 1px 2px;
+	background-color: white;
+	border: 1px solid #999 !important;
+	color: #444;
+}
+
+.paginator input:hover, .paginator button:hover{
+	cursor: pointer; 
+	background-color: #ffffcc;
+	border: 1px solid #444;
+	color: black;
+}
+
+.paginator .disabled, .paginator .disabled:hover{
+	background-color: #efefef;
+	border-color: silver !important;
+	color: silver;
+	font-weight: bold;
+}
+
+.listHeader, .listItemHeader{ /* Also used for Advanced Search */
+	margin-top: 2px;
+	padding: 6px 14px 2px 12px;
+	width: 750px;
+	/*height: 28px;*/
+	color:black;
+	border:1px solid #afafaf;
+}
+
+.listItemHeader input {
+	padding: 0px;
+	border: 0px !important;
+}
+
+.listHeader input {
+	padding: 0px;
+}
+
+.displayControls input {
+	padding: 0px !important;
+	border: 0px !important;
+	background-color: #e2e2e2 !important;
+}
+
+.listItemRow {
+	margin: 0px;
+	padding: 2px 14px 2px 12px;
+	width: 750px !important;
+	display: block;
+	overflow: hidden;
+	color:black;
+	border:0px;
+}
+
+.listItem {
+	border:1px solid #afafaf;
+	border-top: 0px;
+	display: block;
+	overflow: hidden;
+	width: 776px !important;
+}
+
+.listItem * {
+	float: left;
+}
+
+.listItem .itemTitle {
+padding-left: 20px;
+text-align: left;
+width: 12%;
+}
+
+.listItem .itemTitle a {
+margin-left: -10px;
+}
+
+.listItemHeader{
+	height: 20px;
+}
+
+.listHeader select{
+	width: 9em;
+	margin: 0px 10px 0px 0px;
+}
+
+.listHeader label{
+	float: none;
+	vertical-align: 2px;
+}
+
+
+/* list */
+
+#listtable, .odd, .even{
+	width:100%;
+}
+
+.displayControls {
+	float: right;
+	vertical-align: 2px;
+	/*margin: -20px 5px 0px 0px;*/
+	margin: 5px 5px 0px 0px;
+}
+
+.moveTop{
+	margin: -20px 5px 0px 0px;
+}
+
+.displayControls input, .displayControls input:hover{	
+	border: none;
+	padding: 0px 0px 0px 6px;
+	vertical-align: middle;
+	background: transparent;
+	
+}
+
+.listItemHeader input{
+	margin-right:5px;
+}
+
+.listHeaderControls{
+	float:right;
+	
+}
+
+.listHeaderControls input{
+	margin-left:5px;
+	
+}
+
+.listHeaderSort{
+ float:left;
+ margin-left:10px;
+ margin-right:5px;
+ margin-top:3px;
+}
+
+.listHeaderSort input{
+	border: 0px !important;
+	background-color:#e2e2e2;
+}
+
+.listHeaderSort select{
+	margin-left:5px;
+}
+
+.listHeaderSelectItems{
+	float:left;
+	
+}
+
+.listHeaderSelectItems select{
+	width:200px;
+}
+
+.listItemHeader input{
+	border: none;	
+	margin-right:5px;
+}
+
+.listItemHeader  a{
+	font-weight: bold;
+}
+
+.listItemHeader .displayControls{ /* used in List */
+	font-weight: bold;
+	margin: -20px 0px 0px 0px;
+}
+
+.listItemHeader{
+	height:20px;
+}
+
+.listItemHeaderTitle{
+	float:left;
+}
+
+.listItemHeaderViews{
+	float:right;
+}
+
+.listItemHeaderViews input, .listItemHeaderViews button, .listHeaderControls input, .listHeaderControls input, .listItemHeaderViews input:hover, .listItemHeaderViews button:hover, .listHeaderControls input:hover, .listHeaderControls input:hover {
+	background-color: #eeeeee;
+}
+
+
+	
+	/* ADVANCED SEARCH */
+
+/*
+
+#F3F3F3\ganz hell
+#DDDDDD\ 
+#AFAFAF\ 
+#5A5A5A\ ganz dunkel
+
+*/
+
+.smallFont{
+	font-size:70%;
+}
+
+
+.advancedSearch .formFieldLanguage .editItemComboBoxLanguage{
+	margin-left:10px;
+	
+}
+
+.advancedSearch{
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.operatorCenter{
+	text-align: center;
+	margin-top:10px;
+	margin-bottom: 10px;
+}
+
+
+.advancedSearch h2 {
+	font-variant: small-caps;
+	font-size: 1.3em;
+	font-weight: bold;
+	color: #333;
+}
+
+.objectButtons{
+	clear:both;
+	/*margin: 0px 5px 0px 10px;*/
+	padding: 0px;
+	width: 780px;
+	height: 35px;
+	text-align: right;
+}
+
+.formField .objectButtons {
+	width: 744px;
+}
+
+.objectButtons label{
+	margin-top:20px;
+}
+
+.objectButtons select{
+	margin: 0px;
+	clear: both;
+	width: auto;
+}
+
+.objectButtons .inlineButton{
+	margin-right:0px;	
+	float:right;
+}
+
+.checkItem label{
+	white-space: nowrap;
+	margin-left:3px;
+	overflow:hidden;
+	display:block;
+}
+
+.formField, .formFieldLanguage{
+	width: 750px;
+	padding: 12px 12px 12px 12px;
+	border: 1px #dfdee2 solid;
+	background-color: #fafafa;
+}
+
+.formFieldLanguage{
+	margin-bottom: 1em;
+}
+
+.searchTerm{
+	width: 25em;
+	float: left;
+}
+
+.searchTerm input{
+	width: 35em;
+}
+
+.formGroupTitle{
+	float: right;
+	border: 1px #dfdee2 solid;
+	padding: 12px 12px 12px 12px;
+	width: 220px;
+}
+
+.formGroupTitle input{
+	vertical-align: middle;
+	clear:both;
+}
+
+.formGroupCheckboxes{
+	clear: both;
+	/*width: 755px;*/
+	border: 1px #dfdee2 solid;
+	margin: 0.2em 0.5em 0.5em 0em;
+	/*padding: 6px 12px 6px 37px;*/
+}
+
+
+.formGroupCheckboxMatrix{
+	width: 727px;
+	border: 1px #dfdee2 solid;
+	margin: 0.2em 0.2em 0.5em 0em;
+	padding: 10px;
+	padding-right:0px;
+	padding-left:15px;
+}
+
+.checkboxCol{
+	float:left;
+	width:16%;
+	
+}
+
+.formGroupCheckboxMatrix .checkItem label, .formGroupCheckboxMatrix .checkItem input{
+	/*position:relative;
+	top:-17px;
+	left:15px;*/
+	display: inline;
+	float: left;
+}
+
+.short{
+	width:100px;
+}
+
+.medium{
+	width:110;
+}
+
+.long{
+	width:125px;
+}
+.dateCol{
+	width:120px;
+	display: inline;
+	float:left;
+	margin-right:3px;
+}
+
+.dateCol label {
+	width: 97px;
+}
+
+.advancedSearch .editItemComboBoxLanguage{
+	margin-left:10px;
+}
+
+.dateColShort{
+	width:100px;
+	display: inline;
+	float:left;
+	margin-right:3px;
+}
+
+.dateColShort label {
+	width: 77px;
+}
+
+.wider {
+	width:160px;
+	margin-left:5px;
+}
+
+.wider label{
+	width:160px;
+}
+
+.searchTerm input.dateField{
+	width:150px;
+}
+
+.topSpace10{
+	position:relative;
+	top:-3px;
+}
+
+.rightHalf{
+	width:380px;
+	float:right;
+}
+
+.rightHalfInnerPanel {
+	width:360px !important;
+	padding: 0px;
+}
+
+.rightHalfInnerPanel .inlineButton {
+	display: inline;
+	float: right;
+}
+
+.leftHalf{
+	width:350px;
+	display: inline;
+	float:left;
+}
+
+
+.innerPanel{
+	background-color:#fafafa;
+	padding:5px;
+	border:1px solid #e2e2e2;
+	width: 740px;
+	display: block;
+	overflow: hidden;
+}
+
+.checkItem{
+	clear:right;
+	height:15px;
+}
+
+.formGroupCheckboxes input{
+	/*margin: 0.2em 0.2em 0em 0.5em;*/
+}
+
+.markAll{
+	padding: 1px 0px 0px 10px;
+	clear: both;
+	border: none;
+	background-image: url(../images/button_mark_all.gif);
+	background-repeat: no-repeat;
+	background-position: 46px 0px;
+	cursor: pointer;
+}
+
+.markAll a, .markAll a:hover{text-decoration: none; color: black;}
+
+
+.markAll input{
+	vertical-align: middle;
+	border: none;
+}
+
+.formGroupAny{
+	float: right;
+	clear: both;
+	border: none;
+	width: 232px;
+}
+
+.clearButton{
+	clear: both;
+	border: none;
+	text-align: left;
+}
+
+	/* MESSAGES */
+
+
+	
+	/* EXPORT */	
+.export{
+}
+
+.export h1{
+	margin-top: 0.8em;
+	font-size: 100%;
+	padding-left: 12px;
+	font-weight: bold;
+	font-variant: normal;
+	font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+}
+
+.export .formField{
+	padding: 4px;
+	margin: 10px 0px 0px 0px ;
+	width: auto;
+	height: auto;
+}
+
+.export .formField select,.export .formField .inlineButton{
+	margin: 10px 0px 0px 10px;
+}
+
+/*.export .inlineButton{
+	margin: 10px 0px 0px 16px;
+	width: 120px;
+}*/
+
+.export .formGroupTitle{
+	width: 100px;
+}
+
+
+.export .radio{
+	padding: 0px 0px 0px 0px;
+}
+
+.export label{
+	float: none;
+}
+
+	/* FOOTER SECTION */
+
+#footer {
+	height: 20px;
+	margin-top: 20px;
+	margin-bottom: 4px;
+	margin-left: 12px;
+	margin-right: 12px;
+	bottom: 4px;
+}
