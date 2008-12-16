@@ -124,7 +124,7 @@
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
+									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
 									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
 									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
 								<!-- content menu lower line ends here -->

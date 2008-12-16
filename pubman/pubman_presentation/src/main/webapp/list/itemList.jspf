@@ -102,7 +102,7 @@
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
  				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
- 				<h:commandLink title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAll}"/></span></h:commandLink>
+ 				<h:commandLink title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
  				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
  				<h:commandLink title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
  			</div>

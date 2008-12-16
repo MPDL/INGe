@@ -125,7 +125,7 @@
 										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 											<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 										</h:selectOneMenu>
-										<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
+										<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
 									</h:panelGroup>
 									<!-- content menu lower line ends here -->
 								<!-- content menu ends here -->

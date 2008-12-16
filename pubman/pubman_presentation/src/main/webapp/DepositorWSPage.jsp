@@ -140,7 +140,7 @@
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>
-									<h:commandButton title="#{tip.list_btSortBy}" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
+									<h:commandButton title="#{tip.list_btSortBy}" styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.changeSortBy}"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 
@@ -150,7 +150,7 @@
 							<div class="subHeader">
 								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
-								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyItemsRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyItemsRetrieverRequestBean.selectedItemState != 'all'}"/>
+								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyItemsRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyItemsRetrieverRequestBean.selectedItemState != null and MyItemsRetrieverRequestBean.selectedItemState != 'all'}"/>
  								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
 								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 								<h:outputText value=")"/>	

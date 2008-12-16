@@ -216,10 +216,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public String changeToSortByState()
     {
-        
         try
         {
             setSelectedSortBy("STATE");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -240,6 +240,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("TITLE");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -260,6 +261,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("GENRE");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -280,6 +282,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("DATE");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -300,6 +303,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("CREATOR");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -320,6 +324,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("FILE");
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
@@ -349,6 +354,26 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortOrder(selectedSortOrder);
+            setCurrentPageNumber(1);
+            redirect();
+        }
+        catch (Exception e)
+        {
+           error("Could not redirect");
+        }
+        return "";
+        
+    }
+    
+    /**
+     * Called by JSF when the sorting criteria should be changed.
+     * @return
+     */
+    public String changeSortBy()
+    {
+        try
+        {
+            setCurrentPageNumber(1);
             redirect();
         }
         catch (Exception e)
