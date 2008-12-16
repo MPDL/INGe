@@ -166,7 +166,18 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     {
         logger.debug("Accessing BC:" + breadcrumbs + ":" + this);
 
-        return breadcrumbs;
+        // return only the last 3 items of the breadcrumb list
+        if( breadcrumbs.size() > 3 ) {
+            List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-3));
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-2));
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-1));
+            return breadcrumbsLimited;
+        }
+        else 
+        {
+            return breadcrumbs;
+        }
     }
 
     public void setBreadcrumbItemHistory(List<BreadcrumbItem> breadcrumbs)
