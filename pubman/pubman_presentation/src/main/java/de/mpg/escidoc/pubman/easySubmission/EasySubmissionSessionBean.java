@@ -49,7 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * PubItem within the easy submission process.
  *
  * @author: Tobias Schraut, created 04.04.2008
- * @version: $Revision: 1 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class EasySubmissionSessionBean extends FacesBean
 {

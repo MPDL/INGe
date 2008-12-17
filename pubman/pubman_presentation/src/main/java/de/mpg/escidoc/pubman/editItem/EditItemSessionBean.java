@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
  * Keeps all attributes that are used for the whole session by the EditItem.
  * 
  * @author: Tobias Schraut, created 26.02.2007
- * @version: $Revision: 1 $ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13
+ * @version: $Revision$ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13
  *           Nov 2007) $
  */
 public class EditItemSessionBean extends FacesBean 

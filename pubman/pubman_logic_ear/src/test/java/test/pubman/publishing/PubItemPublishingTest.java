@@ -57,8 +57,8 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
  * Test class for {@link PubItemPublishing}
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 445 $ $LastChangedDate: 2007-11-22 09:43:02 +0100 (Thu, 22 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 public class PubItemPublishingTest extends TestBase

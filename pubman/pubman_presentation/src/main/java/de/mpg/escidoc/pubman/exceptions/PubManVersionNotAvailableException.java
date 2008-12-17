@@ -34,8 +34,8 @@ package de.mpg.escidoc.pubman.exceptions;
  * Exception class used if pubman.version can not be detected.
  *
  * @author Tobias Schraut (initial creation)
- * @author $Author: tdiebaec $ (last modification)
- * @version $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 public class PubManVersionNotAvailableException extends Exception

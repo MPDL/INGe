@@ -51,7 +51,7 @@ import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
  * ContainerPanelUI for keeping ViewItemUIs.
  * 
  * @author: Thomas Diebäcker, created 30.08.2007
- * @version: $Revision: 1598 $ $LastChangedDate: 2007-11-21 20:24:31 +0100 (Mi, 21 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemPanelUI extends CollapsiblePanelUI implements ActionListener, ValueChangeListener
 {

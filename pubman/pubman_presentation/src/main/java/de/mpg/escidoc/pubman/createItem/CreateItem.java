@@ -50,8 +50,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * Fragment class for CreateItem.
  * 
  * @author: Thomas Diebäcker, created 11.10.2007
- * @author: $Author: mfranke $ last modification
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $ 
+ * @author: $Author$ last modification
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class CreateItem extends FacesBean
 {

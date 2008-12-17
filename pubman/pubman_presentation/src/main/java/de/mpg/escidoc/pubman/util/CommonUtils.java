@@ -74,7 +74,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * Provides different utilities for all kinds of stuff.
  * 
  * @author: Thomas Diebäcker, created 25.04.2007
- * @version: $Revision: 1633 $ $LastChangedDate: 2007-11-29 15:16:57 +0100 (Do, 29 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 07.08.2007
  */
 public class CommonUtils extends InternationalizedImpl

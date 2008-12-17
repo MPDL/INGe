@@ -84,7 +84,7 @@ import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
  * This class provides all functionality for choosing and viewing one or more items out of a list of SearchResults.  
  *
  * @author:  Tobias Schraut; Thomas Diebäcker, Hugo Niedermaier, created 10.01.2007
- * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class SearchResultList extends ItemList

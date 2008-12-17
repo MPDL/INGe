@@ -37,8 +37,8 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  * Exception class used to indicate that the required reason for withdrawal is missing.
  *
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 public class MissingWithdrawalCommentException extends PublishingException

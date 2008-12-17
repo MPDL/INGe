@@ -47,7 +47,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * BackingBean for SearchResultListPage.jsp.
  *
  * @author: Thomas Diebäcker, created 24.01.2007
- * @version: $Revision: 1663 $ $LastChangedDate: 2007-12-11 13:11:46 +0100 (Di, 11 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class SearchResultListPage extends BreadcrumbPage

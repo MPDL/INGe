@@ -113,7 +113,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
  * 
  * @author Tobias Schraut, created 03.09.2007
- * @version: $Revision: 1656 $ $LastChangedDate: 2007-12-10 17:56:58 +0100 (Mo, 10 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemFull extends FacesBean
 {

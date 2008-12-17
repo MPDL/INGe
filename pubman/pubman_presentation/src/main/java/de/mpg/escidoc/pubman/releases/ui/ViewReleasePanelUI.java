@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * ContainerPanelUI for keeping ViewCollectionUIs.
  * 
  * @author: Thomas Diebäcker, created 12.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListener, ValueChangeListener
 {

@@ -50,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
  * 
  * @author: Tobias Schraut, created 25.03.2008
- * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class SourceBean extends FacesBean
 {

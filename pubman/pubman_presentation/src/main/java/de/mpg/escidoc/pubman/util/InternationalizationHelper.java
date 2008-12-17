@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * Class for Internationalization settings.
  *
  * @author: Tobias Schraut, created 04.07.2007
- * @version: $Revision: 23 $ $LastChangedDate: 2007-12-05 15:47:07 +0100 (Mi, 05 Dez 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
 public class InternationalizationHelper
 {

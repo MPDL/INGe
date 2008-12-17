@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.search.parser.ParseException;
  * Don't forget in the calling component to set the exception as the reason for this error before you display the page!
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class ErrorPage extends BreadcrumbPage

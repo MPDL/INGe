@@ -43,7 +43,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
  * Converter for converting Enums to Strings and vice versa.
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class EnumConverter implements Converter

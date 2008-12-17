@@ -38,7 +38,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * fragment.
  *
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 937 $ $LastChangedDate: 2007-08-23 11:20:02 +0200 (Do, 23 Aug 2007) $ Revised by ScT: 23.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 23.08.2007
  */
 public class AcceptItemPage extends BreadcrumbPage
 {

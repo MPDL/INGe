@@ -27,8 +27,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 /**
  * Wrapper class for items to be used in the presentation.
  * @author franke
- * @author $Author: $
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
+ * @author $Author$
+ * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 public class PubItemVOPresentation extends PubItemVO implements Internationalized
 {

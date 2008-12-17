@@ -68,7 +68,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Bean for storing the information of files attached to items.
  * 
  * @author: Tobias Schraut, created 25.03.2008
- * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class FileBean extends FacesBean
 {

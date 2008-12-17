@@ -3,7 +3,7 @@
    "-//JBoss//DTD JBOSS XMBEAN 1.1//EN"
    "http://www.jboss.org/j2ee/dtd/jboss_xmbean_1_1.dtd">
 
-<!-- $Id: TransactionManagerService-xmbean.xml 32334 2005-06-17 06:45:59Z adrian $ -->
+<!-- $Id$ -->
 <mbean>
 	 <description>TransactionManager Service.</description>
 	 <class>org.jboss.tm.TransactionManagerService</class>

@@ -45,7 +45,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
  * SearchResults.
  * 
  * @author: Tobias Schraut, created 14.08.2007
- * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by NiH: 13.09.2007
  */
 public class AffiliationSearchResultListPage extends BreadcrumbPage

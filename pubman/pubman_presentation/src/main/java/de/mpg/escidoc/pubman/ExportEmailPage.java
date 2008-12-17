@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
  * 
  * @author: Galina Stancheva, created 07.10.2007
- * @version: $Revision:  $ $LastChangedDate:  $ 
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class ExportEmailPage extends BreadcrumbPage
 {

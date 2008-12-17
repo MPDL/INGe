@@ -45,7 +45,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * Backing bean for ViewItemFullPage.jsp (for viewing items in a full context). 
  *
  * @author Tobias Schraut, created 03.09.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemFullPage extends BreadcrumbPage
 {

@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  * Fragment class for CreateRevision.
  * 
  * @author: Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $ 
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class CreateRevision extends FacesBean
 {

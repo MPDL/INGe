@@ -55,7 +55,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Class for providing login / logout functionality and coresponds to the Login.jspf.
  * 
  * @author: Tobias Schraut, created 31.01.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
 public class Login extends FacesBean
 {

@@ -37,7 +37,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * Class for the AdvancedSearch Page.
  *
  * @author:  Hugo Niedermaier, created 24.07.2007
- * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Do, 15 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by NiH: 14.08.2007
  */
 public class AdvancedSearchPage extends BreadcrumbPage

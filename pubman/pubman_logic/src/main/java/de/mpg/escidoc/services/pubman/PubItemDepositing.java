@@ -52,8 +52,8 @@ import de.mpg.escidoc.services.validation.ItemInvalidException;
 /**
  * Depositing service interface for Publication Items.
  * @created 31-Jan-2007 17:26:09
- * @author $Author: pbroszei $
- * @version $Revision: 430 $ $LastChangedDate: 2007-11-12 16:04:14 +0100 (Mon, 12 Nov 2007) $
+ * @author $Author$
+ * @version $Revision$ $LastChangedDate$
  * @updated 22-Okt-2007 18:20:48
  */
 public interface PubItemDepositing

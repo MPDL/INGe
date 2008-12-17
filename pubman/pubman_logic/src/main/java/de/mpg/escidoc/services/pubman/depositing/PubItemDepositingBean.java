@@ -98,8 +98,8 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * This class provides the ejb implementation of the {@link PubItemDepositing} interface.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 445 $ $LastChangedDate: 2007-11-22 09:43:02 +0100 (Thu, 22 Nov 2007) $ 
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$ 
  * @revised by MuJ: 19.09.2007
  */
 @Remote

@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
  * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp.
  *
  * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 21.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 21.08.2007
  */
 public class ObjectFormatter extends InternationalizedImpl
 {

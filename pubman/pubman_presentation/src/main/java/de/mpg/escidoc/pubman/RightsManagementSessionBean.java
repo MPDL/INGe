@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * Handels all rights of the current user and handels disabled features described in the escidoc.properties file.
  * 
  * @author: (First draft version) Thomas Diebäcker, created 25.07.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class RightsManagementSessionBean extends FacesBean

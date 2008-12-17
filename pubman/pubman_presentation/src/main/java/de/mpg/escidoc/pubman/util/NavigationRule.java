@@ -34,8 +34,8 @@ package de.mpg.escidoc.pubman.util;
  * A Class for combining faces navigation strings(like 'loadDepsitorWS') and requested URLs (like
  * '/DepositorWSPage.jsp').
  * 
- * @author $Author: tdiebaec $
- * @version $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @author $Author$
+ * @version $Revision$ $LastChangedDate$
  * @created 10-Jul-2007 16:55:03 Revised by ScT: 21.08.2007
  */
 public class NavigationRule

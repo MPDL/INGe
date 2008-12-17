@@ -57,7 +57,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * by logical operators.
  * 
  * @author Hugo Niedermaier, endres
- * @version $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
+ * @version $Revision$ $LastChangedDate$
  */
 public class AdvancedSearchEdit extends SearchResultList
 {

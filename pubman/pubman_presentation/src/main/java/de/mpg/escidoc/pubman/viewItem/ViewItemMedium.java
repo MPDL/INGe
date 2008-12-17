@@ -38,7 +38,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * Backing bean for ViewItemMedium.jspf (for viewing items in a medium context).
  * 
  * @author Tobias Schraut, created 28.03.2008
- * @version: $Revision: 1656 $ $LastChangedDate: 2007-12-10 17:56:58 +0100 (Mo, 10 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemMedium extends FacesBean
 {

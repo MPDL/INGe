@@ -96,8 +96,8 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * This class provides all functionality for viewing one specified item.
  * 
  * @author Tobias Schraut (created on 08.02.2007)
- * @author $Author: tdiebaec $ (last modification)
- * @version $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $ Revised by ScT: 30.08.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$ Revised by ScT: 30.08.2007
  */
 public class ViewItem extends FacesBean
 {

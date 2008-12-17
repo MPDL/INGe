@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * Superclass for lists with a paginator and all functions to navigate through them.
  *
  * @author: Thomas Diebäcker, created 30.08.2007
- * @version: $Revision: 1681 $ $LastChangedDate: 2007-12-14 17:15:05 +0100 (Fr, 14 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public abstract class ListUI extends ContainerPanelUI implements ActionListener, ValueChangeListener
 {

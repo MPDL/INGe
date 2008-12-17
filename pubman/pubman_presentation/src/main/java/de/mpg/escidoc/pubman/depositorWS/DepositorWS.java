@@ -59,7 +59,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * of a list, depending on the status of the items. Items can be viewed, edited, deleted or submitted from this point.
  *
  * @author: Tobias Schraut; Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007) $ Revised by DiT:
+ * @version: $Revision$ $LastChangedDate$ Revised by DiT:
  *           09.08.2007
  */
 public class DepositorWS extends ItemList

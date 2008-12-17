@@ -52,7 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * UI for creating the basic section of a pubitem to be used in the ViewItemMediumUI.
  * 
  * @author: Tobias Schraut, created 26.09.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemBasicsUI extends HtmlPanelGroup
 {

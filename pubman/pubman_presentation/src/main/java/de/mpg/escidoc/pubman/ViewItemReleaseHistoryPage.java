@@ -39,7 +39,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * BackingBean for ViewItemReleaseHistoryPage.jsp.
  *
  * @author: Tobias Schraut, created 19.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemReleaseHistoryPage extends BreadcrumbPage
 {

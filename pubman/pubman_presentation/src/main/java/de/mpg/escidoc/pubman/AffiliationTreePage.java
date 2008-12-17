@@ -42,7 +42,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * functionality for choosing one affiliation.
  * 
  * @author: Tobias Schraut, created 14.08.2007
- * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Do, 15 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by NiH: 13.09.2007
  */
 public class AffiliationTreePage extends BreadcrumbPage

@@ -116,7 +116,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * PubItem including methods for depending dynamic UI components.
  *
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 09.08.2007
  */
 public class EditItem extends FacesBean

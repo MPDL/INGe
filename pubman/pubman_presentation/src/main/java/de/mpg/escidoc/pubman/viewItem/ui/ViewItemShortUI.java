@@ -46,7 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * UI for viewing items in a brief context.
  *
  * @author: Tobias Schraut, created 30.08.2007
- * @version: $Revision: 1646 $ $LastChangedDate: 2007-12-05 17:48:05 +0100 (Mi, 05 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemShortUI extends ContainerPanelUI
 {

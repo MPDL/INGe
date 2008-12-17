@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.util.CommonUtils;
  * ApplicationBean which stores all application wide values.
  *
  * @author: Thomas Diebäcker, created 09.08.2007
- * @version: $Revision: 1700 $ $LastChangedDate: 2007-12-18 16:18:16 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 09.08.2007
  */
 public class ApplicationBean extends FacesBean

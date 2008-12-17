@@ -38,7 +38,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  * UI class for generating unescaped common HTML elements.
  *
  * @author: Tobias Schraut, created 06.09.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class HTMLElementUI
 {

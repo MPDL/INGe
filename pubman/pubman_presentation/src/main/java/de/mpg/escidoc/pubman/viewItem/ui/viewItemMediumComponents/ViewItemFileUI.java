@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * UI for creating the files section of a pubitem to be used in the ViewItemMediumUI.
  * 
  * @author: Tobias Schraut, created 27.09.2007
- * @version: $Revision: 1618 $ $LastChangedDate: 2007-11-27 15:54:47 +0100 (Di, 27 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemFileUI extends HtmlPanelGroup
 {

@@ -52,7 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 /**
  * Superclass for keeping all attributes that are used for the whole session by ItemLists.
  * @author:  Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1629 $ $LastChangedDate: 2007-11-29 12:01:41 +0100 (Do, 29 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class ItemListSessionBean extends FacesBean

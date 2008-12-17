@@ -38,8 +38,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 /**
  * Keeps all attributes that are used for the whole session by WithdrawItem.
  * @author:  Michael Franke, created 15.06.2007
- * @author: $Author: tdiebaec $
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @author: $Author$
+ * @version: $Revision$ $LastChangedDate$
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented.
  */

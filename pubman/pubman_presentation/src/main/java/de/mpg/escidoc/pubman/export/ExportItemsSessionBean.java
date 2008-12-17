@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 /**
  * Superclass for keeping the attributes used d�ring the session by ExportItems.
  * @author:  Galina Stancheva, created 02.08.2007
- * @version: $Revision:  $ $LastChangedDate:  $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by StG: 28.09.2007 - Comments for the get- and set-methods are missing! ToDo StG.
  */
 public class ExportItemsSessionBean extends FacesBean

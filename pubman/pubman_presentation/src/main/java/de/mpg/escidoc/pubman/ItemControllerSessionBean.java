@@ -100,7 +100,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Handles all actions on/with items, calls to the framework.
  * 
  * @author: Thomas Diebäcker, created 25.04.2007
- * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class ItemControllerSessionBean extends FacesBean

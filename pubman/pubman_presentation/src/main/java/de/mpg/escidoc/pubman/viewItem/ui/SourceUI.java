@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
  * Class for representing one source element within the view item page.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
 public class SourceUI
 {

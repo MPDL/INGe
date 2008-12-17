@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
   * This class provides all functionality for exporting items according the selected export format 
   * (layout or structured) and the selected file format (PDF, TXT, etc..).  
   * @author:  Galina Stancheva, created 02.08.2007
-  * @version: $Revision:  $ $LastChangedDate:  $
+  * @version: $Revision$ $LastChangedDate$
   *  Revised by StG: 28.09.2007
 */
 public class ExportItems extends FacesBean

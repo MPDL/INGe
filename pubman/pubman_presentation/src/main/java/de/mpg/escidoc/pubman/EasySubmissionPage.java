@@ -43,7 +43,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
  *
  * @author: mfranke
  * @author: $Author: mfranke$
- * @version: $Revision: 937 $ $LastChangedDate: 2007-08-23 11:20:02 +0200 (Do, 23 Aug 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class EasySubmissionPage extends BreadcrumbPage
 {

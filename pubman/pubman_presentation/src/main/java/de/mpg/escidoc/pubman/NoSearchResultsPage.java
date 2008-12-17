@@ -38,7 +38,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * BackingBean for NoSearchResultsPage.jsp.
  *
  * @author: Michael Franke, created 02.04.2008
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class NoSearchResultsPage extends BreadcrumbPage
 {

@@ -51,8 +51,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * PubItem including methods for depending dynamic UI components.
  *
  * @author: Michael Franke, 2007-10-31
- * @author: $Author: mfranke $
- * @version: $Revision: 858 $ $LastChangedDate: 2007-08-09 16:51:42 +0200 (Do, 09 Aug 2007) $
+ * @author: $Author$
+ * @version: $Revision$ $LastChangedDate$
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented, cleaned.
  */
