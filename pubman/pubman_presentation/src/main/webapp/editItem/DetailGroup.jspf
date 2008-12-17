@@ -183,7 +183,7 @@
 				</h:panelGroup>
 				<h:panelGroup layout="block" rendered="#{genre.details_item_degree_display != 'false' && genre.details_item_degree_form_id != 'easy-submission' || genre.details_item_degree_display != 'true' && genre.details_item_degree_form_id != 'full-submission' && genre.details_item_degree_form_id != 'all'}">
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
+						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
 						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" required="#{genre.details_item_degree_optional == 'false'}">
 							<f:selectItems value="#{EditItem.degreeTypes}" />
 						</h:selectOneMenu>
