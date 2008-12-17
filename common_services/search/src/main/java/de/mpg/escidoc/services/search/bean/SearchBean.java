@@ -61,7 +61,7 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.parser.ParseException;
@@ -159,7 +159,7 @@ public class SearchBean implements Search
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
             SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, INDEXDATABASE_ALL);
-            List<ItemContainerSearchResultVO> resultList = transformToSearchResultList(searchResult);
+            List<SearchResultElement> resultList = transformToSearchResultList(searchResult);
             ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery, searchResult
                     .getNumberOfRecords());
             return result;
@@ -272,11 +272,11 @@ public class SearchBean implements Search
      * @throws TechnicalException
      *             if transforming fails
      */
-    private List<ItemContainerSearchResultVO> transformToSearchResultList(SearchRetrieveResponseType searchResult)
-        throws TechnicalException
+    private List<SearchResultElement> transformToSearchResultList(
+            SearchRetrieveResponseType searchResult) throws TechnicalException
     {
 
-        ArrayList<ItemContainerSearchResultVO> resultList = new ArrayList<ItemContainerSearchResultVO>();
+        ArrayList<SearchResultElement> resultList = new ArrayList<SearchResultElement>();
         if (searchResult.getRecords() != null)
         {
             for (RecordType record : searchResult.getRecords().getRecord())
@@ -286,31 +286,17 @@ public class SearchBean implements Search
                 // Data is in the first record
                 if (messages.length == 1)
                 {
+                    String searchResultItem = null;
                     try
                     {
-                        String searchResultItem = messages[0].getAsString();
-                        logger.debug("Search result: " + searchResultItem);
-                        ItemContainerSearchResultVO itemResult = xmlTransforming
-                                .transformToItemResultVO(searchResultItem);
-                        resultList.add(itemResult);
-                    } 
-                    catch (Exception e)
-                    {
-                        try
-                        {
-                            e.printStackTrace();
-                            String searchResultItem = messages[0].getAsString();
-                            logger.debug("Search result: " + searchResultItem);
-                            ItemContainerSearchResultVO containerResult = xmlTransforming
-                                    .transformToContainerResult(searchResultItem);
-                            resultList.add(containerResult);
-                        } 
-                        catch (Exception f)
-                        {
-                            f.printStackTrace();
-                            throw new TechnicalException(f);
-                        }
+                        searchResultItem = messages[0].getAsString();
                     }
+                    catch (Exception e) {
+                        throw new TechnicalException("Error getting search result message.", e);
+                    }
+                    logger.debug("Search result: " + searchResultItem);
+                    SearchResultElement itemResult = xmlTransforming.transformToSearchResult(searchResultItem);
+                    resultList.add(itemResult);
                 }
             }
         }

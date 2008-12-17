@@ -32,7 +32,6 @@ package de.mpg.escidoc.services.search.query;
 import java.io.Serializable;
 
 import org.apache.axis.types.NonNegativeInteger;
-import org.apache.axis.types.PositiveInteger;
 
 /**
  * The result of a search query. It contains the cql query.
@@ -52,7 +51,7 @@ public class SearchResult implements Serializable
     /** Total number of search results. Might be interesting if using limits and offsets. */
     private NonNegativeInteger totalNumberOfResults = null;
     
-    public SearchResult( String cqlQuery, NonNegativeInteger totalNumberOfResults) 
+    public SearchResult(String cqlQuery, NonNegativeInteger totalNumberOfResults)
     {
         this.cqlQuery = cqlQuery;
         this.totalNumberOfResults = totalNumberOfResults;

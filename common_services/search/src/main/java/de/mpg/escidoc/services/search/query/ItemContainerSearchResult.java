@@ -33,7 +33,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.apache.axis.types.NonNegativeInteger;
 
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 
 /**
  * Search result for a standard search query. The result consist of
@@ -43,13 +43,13 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
  * @author endres
  * 
  */
-public class ItemContainerSearchResult extends SearchResult implements Serializable
+public class ItemContainerSearchResult extends de.mpg.escidoc.services.search.query.SearchResult implements Serializable
 {
 
     /** Serial identifier. */
     private static final long serialVersionUID = 1L;
     /** Result list. */
-    private List<ItemContainerSearchResultVO> resultList = null;
+    private List<SearchResultElement> resultList = null;
 
     /**
      * Create a result.
@@ -61,7 +61,9 @@ public class ItemContainerSearchResult extends SearchResult implements Serializa
      * @param totalNumberOfResults
      *          total number of search results
      */
-    public ItemContainerSearchResult(List<ItemContainerSearchResultVO> results, String cqlQuery, 
+    public ItemContainerSearchResult(
+            List<SearchResultElement> results,
+            String cqlQuery, 
             NonNegativeInteger totalNumberOfResults)
     {
         super(cqlQuery, totalNumberOfResults);
@@ -73,7 +75,7 @@ public class ItemContainerSearchResult extends SearchResult implements Serializa
      * 
      * @return list of results
      */
-    public List<ItemContainerSearchResultVO> getResultList()
+    public List<SearchResultElement> getResultList()
     {
         return resultList;
     }
