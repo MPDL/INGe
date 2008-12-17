@@ -62,7 +62,7 @@
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
 				<fileType>.pdf</fileType>
-				<content-categorie>PRE_PRINT</content-categorie>
+				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
@@ -70,7 +70,7 @@
 				<dc:format>application/gzip</dc:format>
 				<label>Postscript</label>
 				<fileType>.ps.gz</fileType>
-				<content-categorie>PRE_PRINT</content-categorie>
+				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
@@ -115,7 +115,7 @@
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
 				<fileType>.pdf</fileType>
-				<content-categorie>ANY_FULLTEXT</content-categorie>
+				<content-categorie>any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
