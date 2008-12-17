@@ -61,7 +61,7 @@ public class ExportItemsSessionBean extends FacesBean
     private ExportFormatVO curExportFormatVO = new ExportFormatVO();        
     private FileFormatVO curFileFormatVO = new FileFormatVO();
     
-    private boolean enableLayout = true;
+    private boolean enableFileFormats = true;
     private boolean enableExport = true;
 
     //email properties
@@ -170,30 +170,32 @@ public class ExportItemsSessionBean extends FacesBean
 
     public void setExportFormatType(String exportFormatType)
     {
-    	if  (exportFormatType.equals("LAYOUT"))
-    	{
-    		this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-    		this.enableLayout = true;
-    	}
-    	else
-    	{
-    		this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-    		this.enableLayout = false;
-    	}
-        this.exportFormatType = exportFormatType;
+    	this.exportFormatType = exportFormatType;
     }
  
     public String getExportFormatName()
     {       
-        return curExportFormatVO.getName();
+        return this.curExportFormatVO.getName();
     }
 
     public void setExportFormatName(String exportFormatName)
     {
-        if ( exportFormatName == null || exportFormatName.trim().equals("") )
-        	exportFormatName = "APA";
+//        if ( exportFormatName == null || exportFormatName.trim().equals("") )
+//        	exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
+    	if  ( "APA".equals(exportFormatName) || "AJP".equals(exportFormatName))
+    	{
+    		curExportFormatVO.setFormatType(FormatType.LAYOUT);
+            this.exportFormatType = FormatType.LAYOUT.toString();
+    		setEnableFileFormats(true);
+    	}
+    	else
+    	{
+    		curExportFormatVO.setFormatType(FormatType.STRUCTURED);
+            this.exportFormatType = FormatType.STRUCTURED.toString();
+            setEnableFileFormats(false);
+    	}
     }
     
     public String getFileFormat()
@@ -352,13 +354,13 @@ public class ExportItemsSessionBean extends FacesBean
     }
 
 
-	public boolean getEnableLayout() {
-		return enableLayout;
+	public boolean getEnableFileFormats() {
+		return enableFileFormats;
 	}
 
 
-	public void setEnableLayout(boolean enableLayout) {
-		this.enableLayout = enableLayout;
+	public void setEnableFileFormats(boolean enableFileFormats) {
+		this.enableFileFormats = enableFileFormats;
 	}
 
 

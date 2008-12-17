@@ -34,6 +34,7 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
 
@@ -73,10 +74,11 @@ public class ExportItems extends FacesBean
     // constants for comboBoxes and HtmlSelectOneRadios
     public SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
     public SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
-    public SelectItem EXPORTFORMAT_LAYOUT = new SelectItem("LAYOUT", getLabel("Export_ExportFormat_LAYOUT"));
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_LAYOUT};
-    public SelectItem LAYOUTCITATIONSTYLE_APA = new SelectItem("APA", getLabel("Export_LayoutCitationStyle_APA"));
-    public SelectItem[] LAYOUTCITATIONSTYLE_OPTIONS = new SelectItem[]{LAYOUTCITATIONSTYLE_APA};
+    public SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
+    public SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
+//    public SelectItemGroup CITATIONSTYLES_GROUP = new SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
+//    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, CITATIONSTYLES_GROUP};
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_APA, EXPORTFORMAT_AJP};
     public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
     public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
     public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
@@ -167,11 +169,6 @@ public class ExportItems extends FacesBean
         return this.FILEFORMAT_OPTIONS;
     }
 
-    public SelectItem[] getLAYOUTCITATIONSTYLE_OPTIONS()
-    {
-        return this.LAYOUTCITATIONSTYLE_OPTIONS;
-    }    
-
 
     /*
      * Gets the session bean. 
@@ -202,22 +199,20 @@ public class ExportItems extends FacesBean
     	
 
     	ExportItemsSessionBean sb = this.getSessionBean(); 
-        String selExportFormat = sb.getExportFormatType(); 
+//        String selExportFormat = sb.getExportFormatType(); 
+        String selExportFormat = sb.getExportFormatName(); 
         
         if (logger.isDebugEnabled())
         {
             logger.debug(">>>  New export format: " + selExportFormat);                     
-            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_ENDNOTE.getValue());
-            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_BIBTEX.getValue());
-            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_LAYOUT.getValue());
-            
             logger.debug("curExportFormat:" + this.getSessionBean().getCurExportFormatVO());
         }
 
-        if (selExportFormat.equals((String)this.EXPORTFORMAT_LAYOUT.getValue()))
+        sb.setExportFormatName(selExportFormat);
+        
+        if ( "APA".equals(selExportFormat) || "AJP".equals(selExportFormat) )
         {
-            sb.setExportFormatName("APA");
-            //set default fileFormat of APA to PDF 
+            //set default fileFormat for APA or AJP to pdf 
             String fileFormat = sb.getFileFormat();  
             if ( fileFormat != null || fileFormat.trim().equals("") || 
             		fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
@@ -226,10 +221,9 @@ public class ExportItems extends FacesBean
         }
         else
         {
-            sb.setExportFormatName(selExportFormat);
+        	//txt for all other
             sb.setFileFormat(FileFormatVO.TEXT_NAME);       
         }
-        
         
     }
 

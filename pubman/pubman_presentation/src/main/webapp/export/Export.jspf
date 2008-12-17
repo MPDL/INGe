@@ -37,44 +37,21 @@
 					value="#{lbl.export_lblExport}" />
 				</h1>
 				<h:panelGrid columns="1">				
-					<h:selectOneRadio id="rbgExportFormats"  
-									  value="#{ExportItemsSessionBean.exportFormatType}"
-									  styleClass="exportFormatRadios"
-									  onclick="updateExportFormats()"
-									  layout="pageDirection"
-									  disabled="#{!ExportItemsSessionBean.enableExport}">
-							 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-					</h:selectOneRadio>
-					<h:selectOneMenu id="cboLayoutCitStyles"  
+					<h:selectOneMenu id="cboExportFormats"  
 									 value="#{ExportItemsSessionBean.exportFormatName}" 
-									 disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}">
-							 <f:selectItems value="#{ExportItems.LAYOUTCITATIONSTYLE_OPTIONS}"/>
+									 disabled="#{!ExportItemsSessionBean.enableExport}">
+							 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 					</h:selectOneMenu>
 			  	</h:panelGrid>   
-
-				<h:panelGrid>
-					<%/*
-					<h:commandButton id="btnDisplayItems"
-									 value="#{lbl.export_btDisplay}"
-									 actionListener="#{SearchResultList.prepareDisplayExportData}"									 
-			 			 		  	 onclick="#{SearchResultList.displayExportData}"
-									 styleClass="inlineButton" />
-					*/%>
-					<h:commandButton id="btnDisplayItems" title="#{tip.export_btDisplay}"
-									 value="#{lbl.export_btDisplay}"
-									 action="#{SearchResultList.showDisplayExportData}"									  
-									 styleClass="inlineButton centeredExportButton"
-									 disabled="#{!ExportItemsSessionBean.enableExport}"/>
-				</h:panelGrid>		
 				<hr />
-				<h:selectOneRadio id="rbgFileFormats" 
+				<h:selectOneMenu id="cboFileFormats" 
 								  value="#{ExportItemsSessionBean.fileFormat}"
 								  styleClass="exportFileTypeRadios"
-								  disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}"
+								  disabled="#{!(ExportItemsSessionBean.enableExport && ExportItemsSessionBean.enableFileFormats)}"
 								  layout="pageDirection"
 								  >
 						 <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
-				</h:selectOneRadio>
+				</h:selectOneMenu>
 									 
 					<h:commandButton id="btnExportDownload" title="#{tip.export_btDownload}"
 									 value="#{lbl.export_btDownload}"
