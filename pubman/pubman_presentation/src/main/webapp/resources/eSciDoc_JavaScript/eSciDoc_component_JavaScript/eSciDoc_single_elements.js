@@ -112,9 +112,8 @@ var BrowserDetect = {
 BrowserDetect.init();
 
 /*EASTER EGG*/
-
 function bunny() {
-	if(BrowserDetect.browser != 'Explorer') {
+	if(BrowserDetect.browser == 'Firefox') {
 		$('.quickSearchTextInput').dblclick(function(){
 			if($(this).val() == 'PubWoman') {
 				showPubWomanStyle();
@@ -124,7 +123,7 @@ function bunny() {
 }
 
 function raiseBunny() {
-	if(BrowserDetect.browser != 'Explorer') {
+	if(BrowserDetect.browser == 'Firefox') {
 		$('link[id]:first').before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
 		applyCookieStyle();
 	};
