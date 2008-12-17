@@ -36,7 +36,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElemen
  * @author endres
  *
  */
-public class ContainerResultVO extends ContainerVO implements SearchResultElement {
+public class AffiliationResultVO extends AffiliationVO implements SearchResultElement {
 
 	/**
      * List of hits. Every hit in files contains the file reference and the text fragments of the search hit.
@@ -46,9 +46,9 @@ public class ContainerResultVO extends ContainerVO implements SearchResultElemen
     /**
      * Construct an ItemResultVO using the parents copy constructor.
      */
-    public ContainerResultVO(ContainerVO containerVO)
+    public AffiliationResultVO(AffiliationVO affiliationVO)
     {
-        super(containerVO);
+        super(affiliationVO);
     }
     
     /**

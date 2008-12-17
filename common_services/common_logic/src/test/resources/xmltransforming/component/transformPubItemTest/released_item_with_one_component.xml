@@ -77,7 +77,7 @@
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>
 						<dc:identifier xsi:type="dcterms:URI">http://myFile.com</dc:identifier>
-						<file:content-category>full text</file:content-category>
+						<file:content-category>any-fulltext</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
 					</file:file>

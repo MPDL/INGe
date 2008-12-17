@@ -32,17 +32,20 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
  * Representation of an PubItem search result record.
+ * This class is used only for JiBX transformations of search results.
+ * In {@link XmlTransformingBean} it is transformed to another implementation of {@link SearchResultElement}.
  * 
  * @revised by MuJ: 28.08.2007
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  * @updated 05-Sep-2007 10:30:52
  */
-public class ItemResultVO extends ItemVO implements SearchResultElement
+public class SearchResultVO implements SearchResultElement
 {
-	/**
+    /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
      * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
@@ -56,29 +59,24 @@ public class ItemResultVO extends ItemVO implements SearchResultElement
      * List of hits. Every hit in files contains the file reference and the text fragments of the search hit.
      */
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
+    private Searchable resultVO;
 
     /**
-     * Default constructor.
-     */
-    public ItemResultVO()
-    {
-        
-    }
-    
-    /**
-     * Construct an ItemResultVO using the parents copy constructor.
-     */
-    public ItemResultVO(ItemVO itemVO)
-    {
-        super(itemVO);
-    }
-    
-    /**
-     * Delivers the list of search hits.
+     * {@inheritDoc}
      */
     public java.util.List<SearchHitVO> getSearchHitList()
     {
         return searchHitList;
     }
 
+    public Searchable getResultVO()
+    {
+        return resultVO;
+    }
+
+    public void setResultVO(Searchable resultVO)
+    {
+        this.resultVO = resultVO;
+    }
+    
 }

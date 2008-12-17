@@ -36,6 +36,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.types.Coordinates;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 /**
@@ -47,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUni
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  * @updated 07-Sep-2007 13:27:29
  */
-public class AffiliationVO extends ValueObject
+public class AffiliationVO extends ValueObject implements Searchable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

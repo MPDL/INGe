@@ -1,0 +1,71 @@
+
+<search-result:search-result-record
+		xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:prop="${xsd.soap.common.prop}"
+		xmlns:srel="${xsd.soap.common.srel}"
+		xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
+	<search-result:highlight>
+		<search-result:search-hit type="metadata">
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[> <srel:context xlink:type="simple" xlink:title="PubMan Test Collection &amp;apos; &amp;gt;]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>63</search-result:start-index>
+					<search-result:end-index>66</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[ xlink:title="unknown" xlink:href="/aa/user-account/escidoc:user2"/> <escidocItem:comment>submit test]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>97</search-result:start-index>
+					<search-result:end-index>100</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>119</search-result:start-index>
+					<search-result:end-index>124</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>70</search-result:start-index>
+					<search-result:end-index>73</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+		</search-result:search-hit>
+	</search-result:highlight>
+	<organizational-unit:organizational-unit
+			xmlns:organizational-unit="${xsd.soap.ou.ou}"
+			xmlns:md-records="${xsd.soap.common.mdrecords}"
+			xmlns:ou-details="${xsd.metadata.organization}"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:dcterms="http://purl.org/dc/terms/"
+			xmlns:kml="http://www.opengis.net/kml/2.2"
+			objid="escidoc:persistent1"
+			last-modification-date="2007-03-19T12:16:19.322Z">
+		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
+			<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc">
+				<ou-details:organization-details>
+					<dc:title>MPI for the History of Science</dc:title>
+					<dcterms:alternative>MPIWG</dcterms:alternative>
+					<dc:identifier xsi:type="dcterms:URI">http://www.mpgwg-berlin.mpg.de</dc:identifier>
+					<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
+					<ou-details:city>Berlin</ou-details:city>
+					<ou-details:country>DE</ou-details:country>
+					<kml:coordinates>-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou-details:start-date>2007-03-15T08:07:11.015Z</ou-details:start-date>
+				</ou-details:organization-details>
+			</md-records:md-record>
+		</md-records:md-records>
+	</organizational-unit:organizational-unit>
+</search-result:search-result-record>

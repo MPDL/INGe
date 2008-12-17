@@ -75,9 +75,9 @@ public class TransformContainerTest extends XmlTransformingTestBase
 {
     private Logger logger = Logger.getLogger(getClass());
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-    private static String TEST_FILE_ROOT = "xmltransforming/component/transformContainerTest/";
-    private static String RELEASED_CONTAINER_FILE = TEST_FILE_ROOT + "released_container.xml";
-    private static String CONTAINER_LIST_FILE = TEST_FILE_ROOT + "container_list.xml";
+    private static final String TEST_FILE_ROOT = "xmltransforming/component/transformContainerTest/";
+    private static final String RELEASED_CONTAINER_FILE = TEST_FILE_ROOT + "released_container.xml";
+    private static final String CONTAINER_LIST_FILE = TEST_FILE_ROOT + "container_list.xml";
 
     /**
      * Test method for {@link de.mpg.escidoc.services.common.XmlTransforming#transformToContainer(java.lang.String)}.
@@ -100,8 +100,8 @@ public class TransformContainerTest extends XmlTransformingTestBase
         containerVO.setContentModel("escidoc:ex4");
         
         MdsPublicationVO mds = getMdsPublication1();
-        containerVO.setMetadata(mds);
-        containerVO.getMembers().add((ReferenceObject)member);
+        containerVO.getMetadataSets().add(mds);
+        containerVO.getMembers().add((ReferenceObject) member);
 
         // transform the ContainerVO
         long zeit = -System.currentTimeMillis();
@@ -125,7 +125,7 @@ public class TransformContainerTest extends XmlTransformingTestBase
     }
 
     /**
-     * Test of {@link XmlTransforming#transformToContainerList(List)}
+     * Test of {@link XmlTransforming#transformToContainerList(List)}.
      * 
      * @throws Exception
      */
@@ -146,7 +146,7 @@ public class TransformContainerTest extends XmlTransformingTestBase
             container.setContext(ctx);
             container.setContentModel("escidoc:ex4");
             MdsPublicationVO mds = getMdsPublication1();
-            container.setMetadata(mds);
+            container.getMetadataSets().add(mds);
             containerList.add(container);
         }
 
@@ -238,9 +238,9 @@ public class TransformContainerTest extends XmlTransformingTestBase
         container.setContentModel("escidoc:ex4");
         
         MdsPublicationVO mds = getMdsPublication1();
-        container.setMetadata(mds);
-        container.getMembers().add((ReferenceObject)member1);
-        container.getMembers().add((ReferenceObject)member2);
+        container.getMetadataSets().add(mds);
+        container.getMembers().add((ReferenceObject) member1);
+        container.getMembers().add((ReferenceObject) member2);
         
         List<ValueObject> mlist = new ArrayList<ValueObject>();
         mlist.add(item1);

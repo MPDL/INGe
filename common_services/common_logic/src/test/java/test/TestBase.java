@@ -1015,7 +1015,8 @@ public abstract class TestBase
                 }
 
             } catch (Exception e) {
-                logger.warn("Invalid xml schema", e);
+                logger.warn("Invalid xml schema " + file);
+                logger.debug("Stacktrace: ", e);
             }
 
         }

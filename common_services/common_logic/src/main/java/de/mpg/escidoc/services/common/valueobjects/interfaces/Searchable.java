@@ -26,36 +26,18 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package test;
-
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import test.metadata.MetadataTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
-import test.xmltransforming.component.TransformPubItemTest;
-import test.xmltransforming.component.TransformStatisticReportTest;
+package de.mpg.escidoc.services.common.valueobjects.interfaces;
 
 /**
- * Component test suite for common_logic.
+ * Interface to indicate that a value object class can be retrieved by the search. 
  *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-                    ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataTest.class
-                    })
-public class TestCommonLogic
+public interface Searchable extends Cloneable
 {
 }

@@ -70,7 +70,7 @@
 	<include path="ContainerVOListWrapper_binding_input.xml" />
 	<include path="face/MdsFacesContainer_binding_input.xml" />
 	<include path="ContainerVO_binding_input.xml" />
-	<include path="ContainerResultVO_binding_input.xml" />
+	<!-- <include path="ContainerResultVO_binding_input.xml" /> -->
 
 </binding>
 

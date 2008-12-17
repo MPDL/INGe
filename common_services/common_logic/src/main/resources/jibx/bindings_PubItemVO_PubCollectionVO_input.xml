@@ -83,5 +83,6 @@
 	<include path="ContainerVO_binding_input.xml" />
 	<include path="face/MdsFacesContainer_binding_input.xml" />
 	<include path="ResultVO_binding.xml" />
+
 </binding>
 

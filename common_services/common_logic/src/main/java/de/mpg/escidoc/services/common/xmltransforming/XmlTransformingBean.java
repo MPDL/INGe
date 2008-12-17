@@ -37,6 +37,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -68,6 +70,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
@@ -81,6 +84,8 @@ import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ResultVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
@@ -89,6 +94,8 @@ import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
@@ -679,39 +686,93 @@ public class XmlTransformingBean implements XmlTransforming
 
         return itemList;
     }
-    
-   
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     public ItemResultVO transformToItemResultVO(String searchResultItem) throws TechnicalException
     {
         if (searchResultItem == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItemResultVO:searchResultItem is null");
         }
-        ItemResultVO itemResultVO = null;
+
+        SearchResultElement searchResultElement = transformToSearchResult(searchResultItem);
+        if (!(searchResultElement instanceof ItemResultVO))
+        {
+            throw new TechnicalException("XML not in the right format");
+        }
+        
+        return (ItemResultVO) searchResultElement;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public SearchResultElement transformToSearchResult(String searchResultXml) throws TechnicalException
+    {
+        if (searchResultXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToSearchResult:searchResultXml is null");
+        }
+        SearchResultVO searchResultVO = null;
         try
         {
             // unmarshall PubItemResultVO from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemResultVO.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("SearchResultVO_input", SearchResultVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-            StringReader sr = new StringReader(searchResultItem);
-            itemResultVO = (ItemResultVO)uctx.unmarshalDocument(sr, "UTF-8");
+            StringReader sr = new StringReader(searchResultXml);
+            searchResultVO = (SearchResultVO)uctx.unmarshalDocument(sr, "UTF-8");
 
         }
         catch (JiBXException e)
         {
             // throw a new UnmarshallingException, log the root cause of the JiBXException first
             logger.error(e.getRootCause());
-            throw new UnmarshallingException(searchResultItem, e);
+            throw new UnmarshallingException(searchResultXml, e);
         }
         catch (ClassCastException e)
         {
             throw new TechnicalException(e);
         }
-        return itemResultVO;
+        return convertToVO(searchResultVO);
+    }
+
+    /**
+     * Converts a {@link SearchResultVO} into an instantiation of {@link SearchResultElement}. May be a
+     * - {@link ItemResultVO}
+     * - {@link ContainerResultVO}
+     * - {@link AffiliationResultVO}
+     * 
+     * @param searchResultVO The original VO.
+     * 
+     * @return The new VO.
+     */
+    private SearchResultElement convertToVO(SearchResultVO searchResultVO) throws TechnicalException
+    {
+        Searchable searchable = searchResultVO.getResultVO();
+        List<SearchHitVO> searchHits = searchResultVO.getSearchHitList();
+        
+        if (searchable instanceof ItemVO)
+        {
+            ItemResultVO itemResultVO = new ItemResultVO((ItemVO) searchable);
+            itemResultVO.getSearchHitList().addAll(searchHits);
+            return itemResultVO;
+        }
+        else if (searchable instanceof ContainerVO)
+        {
+            ContainerResultVO containerResultVO = new ContainerResultVO((ContainerVO) searchable);
+            containerResultVO.getSearchHitList().addAll(searchHits);
+            return containerResultVO;
+        }
+        else if (searchable instanceof AffiliationVO)
+        {
+            AffiliationResultVO affiliationResultVO = new AffiliationResultVO((AffiliationVO) searchable);
+            affiliationResultVO.getSearchHitList().addAll(searchHits);
+            return affiliationResultVO;
+        }
+        throw new TechnicalException("Search result is of unknown type");
     }
 
     /**
@@ -1307,32 +1368,44 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public ContainerResultVO transformToContainerResult( String containerResult ) throws TechnicalException {
-    	 logger.debug("transformToContainer(String) - String container=" + containerResult );
-         if (containerResult == null)
-         {
-             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerResult: containerResult is null");
-         }
-         ContainerResultVO containerResultVO = null;
-         try
-         {
-             IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_input", ContainerVO.class);
-             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-             StringReader sr = new StringReader( containerResult );
-             containerResultVO = (ContainerResultVO)uctx.unmarshalDocument(sr, null);
-         }
-         catch (JiBXException e)
-         {
-             // throw a new UnmarshallingException, log the root cause of the JiBXException first
-             logger.error(e.getRootCause());
-             logger.error(e.getMessage());
-             throw new UnmarshallingException( containerResult, e );
-         }
-         catch (ClassCastException e)
-         {
-             throw new TechnicalException(e);
-         }
-         return containerResultVO;
+    @Deprecated
+    public ContainerResultVO transformToContainerResult(String containerResult) throws TechnicalException
+    {
+        logger.debug("transformToContainer(String) - String container=" + containerResult);
+        if (containerResult == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":transformToContainerResult: containerResult is null");
+        }
+
+        SearchResultElement searchResultElement = transformToSearchResult(containerResult);
+        if (!(searchResultElement instanceof ContainerResultVO))
+        {
+            throw new TechnicalException("XML not in the right format");
+        }
+        
+        return (ContainerResultVO) searchResultElement;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Deprecated
+    public AffiliationResultVO transformToAffiliationResult(String affiliationResult) throws TechnicalException
+    {
+        logger.debug("transformToAffiliationResult(String) - String affiliation=" + affiliationResult);
+        if (affiliationResult == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":transformToAffiliationResult: affiliationResult is null");
+        }
+
+        SearchResultElement searchResultElement = transformToSearchResult(affiliationResult);
+        if (!(searchResultElement instanceof AffiliationResultVO))
+        {
+            throw new TechnicalException("XML not in the right format");
+        }
+        
+        return (AffiliationResultVO) searchResultElement;
     }
     
     /**

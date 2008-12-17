@@ -50,38 +50,23 @@
 								</taskdef>
 								<bind load="true" verbose="true">
 									<bindingfileset dir="${project.build.outputDirectory}/jibx">
-										<include name="bindings_AccountUserVO.xml">
-										</include>
-										<include name="bindings_AffiliationVO_input.xml">
-										</include>
-										<include name="bindings_AffiliationVO_output.xml">
-										</include>
-										<include name="bindings_PubItemVO_PubCollectionVO_input.xml">
-										</include>
-										<include name="bindings_PubItemVO_PubCollectionVO_output.xml">
-										</include>
-										<include name="bindings_ContainerVO_input.xml">
-										</include>
-										<include name="bindings_ContainerVO_output.xml">
-										</include>
-										<include name="bindings_TaskParamVO.xml">
-										</include>
-										<include name="bindings_PidTaskParamVO.xml">
-										</include>
-										<include name="bindings_FilterTaskParamVO.xml">
-										</include>
-										<include name="bindings_FileURL.xml">
-										</include>
-										<include name="bindings_ExportFormat.xml">
-										</include>
-										<include name="bindings_Grant.xml">
-										</include>
-										<include name="bindings_StatisticReportVO.xml">
-										</include>
-										<include name="bindings_TocItemVO_input.xml">
-										</include>
-										<include name="bindings_TocItemVO_output.xml">
-										</include>
+										<include name="bindings_AccountUserVO.xml"/>
+										<include name="bindings_AffiliationVO_input.xml"/>
+										<include name="bindings_AffiliationVO_output.xml"/>
+										<include name="bindings_PubItemVO_PubCollectionVO_input.xml"/>
+										<include name="bindings_PubItemVO_PubCollectionVO_output.xml"/>
+										<include name="bindings_ContainerVO_input.xml"/>
+										<include name="bindings_ContainerVO_output.xml"/>
+										<include name="bindings_TaskParamVO.xml"/>
+										<include name="bindings_PidTaskParamVO.xml"/>
+										<include name="bindings_FilterTaskParamVO.xml"/>
+										<include name="bindings_FileURL.xml"/>
+										<include name="bindings_ExportFormat.xml"/>
+										<include name="bindings_Grant.xml"/>
+										<include name="bindings_StatisticReportVO.xml"/>
+										<include name="bindings_TocItemVO_input.xml"/>
+										<include name="bindings_TocItemVO_output.xml"/>
+										<include name="bindings_SearchResultVO_input.xml"/>
 									</bindingfileset>
 									<classpathset dir="${project.build.outputDirectory}">
 									</classpathset>

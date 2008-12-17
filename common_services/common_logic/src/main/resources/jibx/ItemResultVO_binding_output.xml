@@ -37,8 +37,6 @@
       class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
       extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
 
-        <!-- Node: search-result-record.item -->
-        <!-- embed the concrete mapping for the super class [ItemVO] -->
         <structure map-as="PubItemVOOutputAbstract" />
 
     </mapping>

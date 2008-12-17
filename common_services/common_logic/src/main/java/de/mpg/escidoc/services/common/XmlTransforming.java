@@ -38,6 +38,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationResultVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
@@ -57,6 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.TocVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
@@ -293,12 +295,26 @@ public interface XmlTransforming
      * Transforms an XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
      * (search-result.xsd) to the corresponding <code>ItemResultVO</code>.
      * 
+     * @deprecated Please use XmlTransforming.transformToSearchResult instead.
+     * 
      * @param searchResultItem XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
      *            (search-result.xsd)
      * @return The corresponding <code>ItemResultVO</code>
      * @throws TechnicalException
      */
+    @Deprecated
     public ItemResultVO transformToItemResultVO(String searchResultItem) throws TechnicalException;
+
+    /**
+     * Transforms an XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
+     * (search-result.xsd) to the corresponding <code>ItemResultVO</code>.
+     *
+     * @param searchResultItem XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
+     *            (search-result.xsd)
+     * @return The corresponding <code>ItemResultVO</code>
+     * @throws TechnicalException
+     */
+    public SearchResultElement transformToSearchResult(String searchResultXml) throws TechnicalException;
 
     /**
      * Transforms a given <code>TaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,
@@ -374,6 +390,8 @@ public interface XmlTransforming
     
     /**
      * Transform a xml string to a container list.
+     * 
+
      * @param containerList  xml string of containers
      * @return  list of containers
      * @throws TechnicalException  if transforming fails
@@ -381,12 +399,28 @@ public interface XmlTransforming
     public List<? extends ContainerVO> transformToContainerList(String containerList) throws TechnicalException;
     
     /**
-     *  Transform a xml string to a container result.
+     * Transform a xml string to a container result.
+     * 
+     * @deprecated Please use XmlTransforming.transformToSearchResult instead.
+     * 
      * @param containerResult  xml string of container search result.
      * @return  container search result
      * @throws TechnicalException  if transforming fails
      */
-    public ContainerResultVO transformToContainerResult( String containerResult ) throws TechnicalException;
+    @Deprecated
+   public ContainerResultVO transformToContainerResult( String containerResult ) throws TechnicalException;
+    
+    /**
+     * Transform a xml string to a organizational unit result.
+     * 
+     * @deprecated Please use XmlTransforming.transformToSearchResult instead.
+     * 
+     * @param affiliationResult xml string of ou search result.
+     * @return  ou search result
+     * @throws TechnicalException if transforming fails
+     */
+    @Deprecated
+    public AffiliationResultVO transformToAffiliationResult(String affiliationResult) throws TechnicalException;
     
     public String transformToContainer(ContainerVO containerVO) throws TechnicalException;
     

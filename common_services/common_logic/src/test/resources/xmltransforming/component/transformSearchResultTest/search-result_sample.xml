@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-result:search-result-record xml:base="http://www.escidoc.de/" xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}">
+	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441" xmlns:escidocItem="${xsd.soap.item.item}">
+		<escidocItem:properties>
+			<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user1"/>
+			<prop:public-status>released</prop:public-status>
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:content-model-specific />
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records
+			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+			<escidocMetadataRecords:md-record name="escidoc">
+				<escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:creator role="author" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+						<escidoc:person>
+							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+							<escidoc:family-name>Meier</escidoc:family-name>
+							<escidoc:given-name>Hans</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+					<dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan: The first of all.</dc:title>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
+        <escidocComponents:component objid="escidoc:376" last-modification-date="2007-04-24T16:20:19.308Z">
+            <escidocComponents:properties xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <prop:creation-date>2007-04-24T16:20:19.308Z</prop:creation-date>
+                <srel:created-by objid="escidoc:user1" />
+                <prop:description>Ein Farbtest.</prop:description>                
+                <prop:valid-status>valid</prop:valid-status>
+                <prop:visibility>public</prop:visibility>
+                <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
+                <prop:content-category>publisher-version</prop:content-category>
+                <prop:file-name>farbtest.gif</prop:file-name>
+            </escidocComponents:properties>
+            <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
+            <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+            	<escidocMetadataRecords:md-record name="escidoc">
+            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<dc:title>My File</dc:title>
+						<dc:description>This is my file.</dc:description>
+						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>
+						<dc:identifier xsi:type="dcterms:URI">http://myFile.com</dc:identifier>
+						<file:content-category>any-fulltext</file:content-category>
+						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent>12</dcterms:extent>
+					</file:file>
+            	</escidocMetadataRecords:md-record>
+            </escidocMetadataRecords:md-records>
+        </escidocComponents:component>
+    </escidocComponents:components>
+	</escidocItem:item>
+</search-result:search-result-record>

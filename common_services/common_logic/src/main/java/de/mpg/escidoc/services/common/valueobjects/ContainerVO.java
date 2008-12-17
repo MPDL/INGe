@@ -34,6 +34,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
@@ -42,7 +43,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
  * @revised by FrW: 10.06.2008
  * @version 1.0
  */
-public class ContainerVO extends ValueObject implements Cloneable
+public class ContainerVO extends ValueObject implements Searchable
 {
     /**
      * The possible states of a container.
@@ -411,33 +412,5 @@ public class ContainerVO extends ValueObject implements Cloneable
     {
         this.statusComment = statusComment;
     }
-    
-    /**
-     * MetaData
-     * @return
-     */
-    public MdsPublicationVO getMetadata()
-    {
-        if (getMetadataSets() != null && getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsPublicationVO)
-        {
-            return (MdsPublicationVO) getMetadataSets().get(0);
-        }
-        else
-        {
-            return null;
-        }
-    }
 
-    public void setMetadata(MdsPublicationVO mdsPublicationVO)
-    {
-        if (getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsPublicationVO)
-        {
-            getMetadataSets().set(0, mdsPublicationVO);
-        }
-        else if (getMetadataSets() != null)
-        {
-            getMetadataSets().add(mdsPublicationVO);
-        }
-    }
-    
 }

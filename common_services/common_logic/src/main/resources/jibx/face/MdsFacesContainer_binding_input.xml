@@ -49,7 +49,7 @@
 			<value style="element" name="description" field="description" usage="optional" />
 			
 			<collection field="creators"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory" usage="optional">
 				<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
 					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
 			</collection>

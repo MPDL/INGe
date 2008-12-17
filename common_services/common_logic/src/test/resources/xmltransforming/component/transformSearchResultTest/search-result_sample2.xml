@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-result:search-result-record xml:base="http://www.escidoc.de/" xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:prop="${xsd.soap.common.prop}"
+		xmlns:srel="${xsd.soap.common.srel}"
+		xmlns:struct-map="${xsd.soap.container.structmap}"
+		xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
+		xmlns:version="${xsd.soap.common.version}"
+		xmlns:release="${xsd.soap.common.release}"
+		xmlns:container="${xsd.soap.container.container}">
+	<search-result:highlight>
+		<search-result:search-hit type="fulltext" objid="escidoc:442">
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[„Schönen guten Tag“, antwortete der kleine Prinz, der sich umdrehte, aber nichts sah.]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>1</search-result:start-index>
+					<search-result:end-index>5</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>6</search-result:start-index>
+					<search-result:end-index>9</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[Der Fuchs schien aufgeregt: „Auf einem
+„Ja“
+„Gibt es Jäger auf deinem Planeten?“
+„Nein“
+„Das ist interessant. Und Hühner?“]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>8</search-result:start-index>
+					<search-result:end-index>14</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>19</search-result:start-index>
+					<search-result:end-index>26</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+		</search-result:search-hit>
+		
+		<search-result:search-hit type="metadata">
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[<escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+<escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+<escidoc:organization>
+<escidoc:organization-name xml:lang="fr">
+Facultad de Ciencias]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>1</search-result:start-index>
+					<search-result:end-index>5</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>6</search-result:start-index>
+					<search-result:end-index>9</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[<escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+<escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+<escidoc:organization>
+<escidoc:organization-name xml:lang="fr">
+Facultad de Ciencias]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>8</search-result:start-index>
+					<search-result:end-index>14</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>19</search-result:start-index>
+					<search-result:end-index>26</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+		</search-result:search-hit>
+	</search-result:highlight>
+	<container:container objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
+		<container:properties>
+			<prop:creation-date>2008-03-19T16:47:36.29Z</prop:creation-date>
+			<srel:created-by objid="escidoc:1047" />
+			<prop:public-status>released</prop:public-status>
+			<prop:name>&quot;Vom Jahr 1663 bis 1752</prop:name>
+			<prop:description></prop:description>
+			<srel:context objid="escidoc:1036" />
+			<srel:content-model objid="escidoc:virrcm2" />
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:pid>hdl:someHandle/test/escidoc:1787</prop:pid>
+			<prop:version objid="escidoc:1787:2">
+				<version:number>2</version:number>
+				<version:date>2008-03-20T11:25:43.930Z</version:date>
+				<version:status>released</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:1047" />
+				<version:comment>ContainerHandler.release()</version:comment>
+				<version:pid>hdl:someHandle/test/escidoc:1787</version:pid>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1787:2">
+				<version:number>2</version:number>
+				<version:date>2008-03-20T11:25:43.930Z</version:date>
+			</prop:latest-version>
+		
+			<prop:latest-release objid="escidoc:1787:2">
+				<release:number>2</release:number>
+				<release:date>2008-03-20T14:13:25.874Z</release:date>
+			</prop:latest-release>
+			<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		</container:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<virr-book xmlns="http://www.loc.gov/mods/v3">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+					<mods version="3.2">
+						<genre authority="MAB2-051/1-3">u</genre>
+						<titleInfo>
+							<title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</title>
+						</titleInfo>
+						<titleInfo type="uniform">
+							<title>Vollst�ndige Sammlung aller Conclusorum, Schreiben und anderer �brigen Verhandlungen des hochprei�lischen Corporis evangelicorum</title>
+						</titleInfo>
+						<originInfo>
+							<dateIssued encoding="w3cdtf" keyDate="yes">1752</dateIssued>
+						</originInfo>
+						<recordInfo>
+							<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
+						</recordInfo>
+						<language>
+							<languageTerm type="text">ger</languageTerm>
+						</language>
+						<relatedItem type="host">
+							<identifier type="local">69448</identifier>
+						</relatedItem>
+						<part order="3" type="host">
+							<detail>
+								<number>3</number>
+							</detail>
+						</part>
+						<recordInfo>
+							<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
+						</recordInfo>
+						<identifier type="local">69452</identifier>
+						<location>
+							<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
+						</location>
+					</mods>
+				</virr-book>
+			</escidocMetadataRecords:md-record>
+			<escidocMetadataRecords:md-record name="virr_mab" md-type="MAB">
+				<mab-md>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+				<![CDATA[
+					00371nM2.01030024      u
+					001 69452
+					002 19950116000000.0
+					003 20070608000000.0
+					010 69448
+					030 zz5d||rz||||7
+					037 ger
+					050 
+					051 
+					077 c1
+					078 a M000069452
+					b Dt 9 Bg 18 Q [3]
+					c 01
+					d 0
+					e 0
+					f 0
+					089 3
+					331 Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum
+					425 1752
+					544 Dt 9 Bg 18 Q [3]
+				]]>
+			</mab-md>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<struct-map:struct-map>
+			<srel:item objid="escidoc:1790"/>
+			<srel:item objid="escidoc:1796"/>
+			<srel:item objid="escidoc:1802"/>
+			<srel:item objid="escidoc:1808"/>
+			<srel:item objid="escidoc:1814"/>
+			<srel:item objid="escidoc:1820"/>
+			<srel:item objid="escidoc:1826"/>
+			<srel:item objid="escidoc:1832"/>
+			<srel:item objid="escidoc:1838"/>
+			<srel:item objid="escidoc:1844"/>
+			<srel:item objid="escidoc:1850"/>
+			<srel:item objid="escidoc:1856"/>
+			<srel:item objid="escidoc:1862"/>
+			<srel:item objid="escidoc:1868"/>
+			<srel:item objid="escidoc:1874"/>
+			<srel:item objid="escidoc:1880"/>
+			<srel:item objid="escidoc:1886"/>
+			<srel:item objid="escidoc:1892"/>
+			<srel:item objid="escidoc:1898"/>
+			<srel:item objid="escidoc:1904"/>
+			<srel:item objid="escidoc:1910"/>
+			<srel:item objid="escidoc:1916"/>
+			<srel:item objid="escidoc:1922"/>
+			<srel:item objid="escidoc:1928"/>
+			<srel:item objid="escidoc:1934"/>
+			<srel:item objid="escidoc:1940"/>
+			<srel:item objid="escidoc:1946"/>
+			<srel:item objid="escidoc:1952"/>
+			<srel:item objid="escidoc:1958"/>
+			<srel:item objid="escidoc:1964"/>
+			<srel:item objid="escidoc:1970"/>
+			<srel:item objid="escidoc:1976"/>
+			<srel:item objid="escidoc:1982"/>
+			<srel:item objid="escidoc:1988"/>
+			<srel:item objid="escidoc:1994"/>
+			<srel:item objid="escidoc:2000"/>
+			<srel:item objid="escidoc:2006"/>
+			<srel:item objid="escidoc:2012"/>
+			<srel:item objid="escidoc:2018"/>
+			<srel:item objid="escidoc:2024"/>
+			<srel:item objid="escidoc:2030"/>
+			<srel:item objid="escidoc:2036"/>
+			<srel:item objid="escidoc:2042"/>
+			<srel:item objid="escidoc:2048"/>
+			<srel:item objid="escidoc:2054"/>
+			<srel:item objid="escidoc:2060"/>
+			<srel:item objid="escidoc:2066"/>
+			<srel:item objid="escidoc:2072"/>
+			<srel:item objid="escidoc:2078"/>
+			<srel:item objid="escidoc:2084"/>
+			<srel:item objid="escidoc:2090"/>
+			<srel:item objid="escidoc:2096"/>
+			<srel:item objid="escidoc:2102"/>
+			<srel:item objid="escidoc:2108"/>
+			<srel:item objid="escidoc:2114"/>
+			<srel:item objid="escidoc:2120"/>
+			<srel:item objid="escidoc:2126"/>
+			<srel:item objid="escidoc:2132"/>
+			<srel:item objid="escidoc:2138"/>
+			<srel:item objid="escidoc:2144"/>
+			<srel:item objid="escidoc:2150"/>
+			<srel:item objid="escidoc:2156"/>
+			<srel:item objid="escidoc:2162"/>
+			<srel:item objid="escidoc:2168"/>
+			<srel:item objid="escidoc:2174"/>
+			<srel:item objid="escidoc:2180"/>
+			<srel:item objid="escidoc:2186"/>
+			<srel:item objid="escidoc:2192"/>
+			<srel:item objid="escidoc:2198"/>
+			<srel:item objid="escidoc:2204"/>
+			<srel:item objid="escidoc:2210"/>
+			<srel:item objid="escidoc:2216"/>
+			<srel:item objid="escidoc:2222"/>
+			<srel:item objid="escidoc:2228"/>
+			<srel:item objid="escidoc:2234"/>
+			<srel:item objid="escidoc:2240"/>
+			<srel:item objid="escidoc:2246"/>
+			<srel:item objid="escidoc:2252"/>
+			<srel:item objid="escidoc:2258"/>
+			<srel:item objid="escidoc:2264"/>
+			<srel:item objid="escidoc:2270"/>
+			<srel:item objid="escidoc:2276"/>
+			<srel:item objid="escidoc:2282"/>
+			<srel:item objid="escidoc:2288"/>
+			<srel:item objid="escidoc:2294"/>
+			<srel:item objid="escidoc:2300"/>
+			<srel:item objid="escidoc:2306"/>
+			<srel:item objid="escidoc:2312"/>
+			<srel:item objid="escidoc:2318"/>
+			<srel:item objid="escidoc:2324"/>
+			<srel:item objid="escidoc:2330"/>
+			<srel:item objid="escidoc:2336"/>
+			<srel:item objid="escidoc:2342"/>
+			<srel:item objid="escidoc:2348"/>
+			<srel:item objid="escidoc:2354"/>
+			<srel:item objid="escidoc:2360"/>
+			<srel:item objid="escidoc:2366"/>
+			<srel:item objid="escidoc:2372"/>
+			<srel:item objid="escidoc:2378"/>
+			<srel:item objid="escidoc:2384"/>
+			<srel:item objid="escidoc:2390"/>
+			<srel:item objid="escidoc:2396"/>
+			<srel:item objid="escidoc:2402"/>
+			<srel:item objid="escidoc:2408"/>
+		</struct-map:struct-map>
+	</container:container>
+</search-result:search-result-record>

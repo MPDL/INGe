@@ -1061,6 +1061,24 @@ public class JiBXHelper
     }
 
     /**
+     * Serializes a Java Enum of arbitrary type to the corresponding String representation according to the following
+     * rules: Every upper case letter is replaced by a lower case letter and every underscore is replaced by a hyphen.
+     * If theses rules are not sufficient, a specialized serialization method has to be used instead.
+     * 
+     * @param enumeration The Enum to serialize
+     * @return String The corresponding String
+     */
+    public static String serializeEnumLikeStringToString(String enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.replace('_', '-').toLowerCase();
+        }
+        return enumString;
+    }
+
+    /**
      * Deserializes a String containing a review-method like defined in escidocenumtypes.xsd to the corresponding
      * <code>MdsPublicationVO.ReviewMethod</code> Enum.
      * 

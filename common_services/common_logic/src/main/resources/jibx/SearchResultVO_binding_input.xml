@@ -108,8 +108,8 @@
 
 		</structure>
 
-		<!-- Node: search-result-record.item -->
-		<!-- embed the concrete mapping for the super class [ItemVO] -->
+		<!-- Node: search-result-record.??? -->
+		<!-- embed the concrete mapping contained type -->
 		<structure field="resultVO"/>
 
 	</mapping>

@@ -44,6 +44,7 @@ import test.xmltransforming.component.TransformParamTest;
 import test.xmltransforming.component.TransformPubItemTest;
 import test.xmltransforming.component.TransformPubItemVersionListTest;
 import test.xmltransforming.component.TransformRelationTest;
+import test.xmltransforming.component.TransformSearchResultTest;
 import test.xmltransforming.component.TransformStatisticReportTest;
 import test.xmltransforming.component.TransformTocTest;
 
@@ -56,7 +57,8 @@ import test.xmltransforming.component.TransformTocTest;
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TransformAffiliationTest.class,
+@Suite.SuiteClasses({
+                     TransformAffiliationTest.class,
                      TransformContainerTest.class,
                      TransformExportFormatTest.class,
                      TransformInvalidPubItemTest.class,
@@ -67,7 +69,8 @@ import test.xmltransforming.component.TransformTocTest;
                      TransformRelationTest.class,
                      TransformPubItemVersionListTest.class,
                      TransformStatisticReportTest.class,
-                     TransformTocTest.class
+                     TransformTocTest.class,
+                     TransformSearchResultTest.class
                     })
 public class XmlTransformingTest extends TestBase
 {

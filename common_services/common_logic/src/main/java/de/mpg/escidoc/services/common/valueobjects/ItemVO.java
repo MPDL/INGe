@@ -33,7 +33,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
 
 /**
  * Item object which consists of descriptive metadata and may have one or more files associated.
@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
  * @version $Revision: 641 $ $LastChangedDate: 2007-11-22 14:49:16 +0100 (Thu, 22 Nov 2007) $ by $Author: jmueller $
  * @updated 21-Nov-2007 11:52:58
  */
-public class ItemVO extends ValueObject implements Cloneable 
+public class ItemVO extends ValueObject implements Searchable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
