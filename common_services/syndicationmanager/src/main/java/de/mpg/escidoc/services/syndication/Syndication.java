@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.syndicationmanager;
+package de.mpg.escidoc.services.syndication;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import com.sun.mail.iap.ByteArray;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 
-import de.mpg.escidoc.services.syndicationmanager.feed.Feed;
+import de.mpg.escidoc.services.syndication.feed.Feed;
 
 public class Syndication implements SyndicationHandler {
 

@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.syndicationmanager;
+package de.mpg.escidoc.services.syndication;
 
 /**
  * Citation Style Processing Engine specific exception. 

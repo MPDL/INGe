@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.syndicationmanager.feed;
+package de.mpg.escidoc.services.syndication.feed;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -40,8 +40,8 @@ import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.bean.SearchBean;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.syndicationmanager.SyndicationManagerException;
-import de.mpg.escidoc.services.syndicationmanager.Utils;
+import de.mpg.escidoc.services.syndication.SyndicationManagerException;
+import de.mpg.escidoc.services.syndication.Utils;
 
 
 public class Feed extends SyndFeedImpl { 

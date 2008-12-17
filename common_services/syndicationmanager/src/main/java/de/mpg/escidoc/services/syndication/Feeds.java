@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.syndicationmanager;
+package de.mpg.escidoc.services.syndication;
 
 import java.net.URL;
 import java.util.ArrayList; 
@@ -8,7 +8,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.log4j.Logger; 
  
-import de.mpg.escidoc.services.syndicationmanager.feed.Feed;
+import de.mpg.escidoc.services.syndication.feed.Feed;
 
 public class Feeds {
 	

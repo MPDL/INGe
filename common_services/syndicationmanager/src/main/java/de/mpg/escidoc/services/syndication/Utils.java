@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.syndicationmanager;
+package de.mpg.escidoc.services.syndication;
 
 import java.io.BufferedReader;
 import java.io.File;

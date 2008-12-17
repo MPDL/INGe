@@ -8,13 +8,13 @@
 		<version>1.0.14-SNAPSHOT</version>
 	</parent>
 	<groupId>de.mpg.escidoc.services</groupId>
-	<artifactId>syndicationmanager</artifactId>
-	<name>syndicationmanager</name>
+	<artifactId>syndication</artifactId>
+	<name>syndication</name>
 	<packaging>ejb</packaging>
 	<version>1.0.3-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndicationmanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndicationmanager</developerConnection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndication</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndication</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	<build>
@@ -36,7 +36,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<test>SyndicationManagerTest</test>
+					<test>SyndicationTest</test>
 				</configuration>
 			</plugin>
 		</plugins>

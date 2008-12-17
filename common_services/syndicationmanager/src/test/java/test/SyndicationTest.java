@@ -13,20 +13,20 @@ import org.junit.Test;
 
 import com.sun.syndication.io.FeedException;
 
-import de.mpg.escidoc.services.syndicationmanager.Feeds;
-import de.mpg.escidoc.services.syndicationmanager.Syndication;
-import de.mpg.escidoc.services.syndicationmanager.SyndicationHandler;
-import de.mpg.escidoc.services.syndicationmanager.SyndicationManagerException;
-import de.mpg.escidoc.services.syndicationmanager.Utils;
-import de.mpg.escidoc.services.syndicationmanager.feed.Feed;
+import de.mpg.escidoc.services.syndication.Feeds;
+import de.mpg.escidoc.services.syndication.Syndication;
+import de.mpg.escidoc.services.syndication.SyndicationHandler;
+import de.mpg.escidoc.services.syndication.SyndicationManagerException;
+import de.mpg.escidoc.services.syndication.Utils;
+import de.mpg.escidoc.services.syndication.feed.Feed;
 
 /**
  * Unit test for simple App.
  */
-public class SyndicationManagerTest  
+public class SyndicationTest  
 {
 
-    private Logger logger = Logger.getLogger(SyndicationManagerTest.class);
+    private Logger logger = Logger.getLogger(SyndicationTest.class);
 	
 	SyndicationHandler sh;
 
