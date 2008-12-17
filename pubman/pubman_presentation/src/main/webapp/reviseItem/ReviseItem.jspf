@@ -72,35 +72,3 @@
 		</div>
 	</div>
 </div>
-
-
-<%-- 
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-	<f:subview id="SubmitItem">
-		<h1>
-			
-			<h:outputText id="valOrientationTextRelease" styleClass="orientationHeader" value="#{lbl.ReviseItemPage}: "/>
-			<h:outputText styleClass="orientationHeader" value="#{ReviseItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
-		</h1>
-		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
-			<h:outputText value="Publication:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{ReviseItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
-
-			<h:outputText value="Creator:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{ReviseItem.creators}"/>
-		</h:panelGrid>
-
-		<h:panelGrid styleClass="withdrawMessage" rendered="#{ReviseItem.valMessage != null}">
-			<h:outputText value="#{ReviseItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
-
-			
-			<h:outputLabel for="txtaComment" id="lblCommentRelease" value="#{lbl.ReviseItem_lblReviseComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{ReviseItem.reviseComment}"/>
-
-		</h:panelGrid>
-	</f:subview>
-</div>
---%>
