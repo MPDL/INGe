@@ -83,7 +83,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResult;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -368,7 +368,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
 
                     String searchResultContainer = messages[0].getAsString();
                     logger.debug("Search result: " + searchResultContainer);
-                    SearchResult containerResult = xmlTransforming.transformToSearchResult(searchResultContainer);
+                    SearchResultElement containerResult = xmlTransforming.transformToSearchResult(searchResultContainer);
                     assertTrue(containerResult instanceof ContainerResultVO);
 
                     // CORE OF THE TEST: check if transforming works with subclass "ContainerResultVO"
@@ -461,7 +461,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
 
                     String searchResultAffiliation = messages[0].getAsString();
                     logger.debug("Search result: " + searchResultAffiliation);
-                    SearchResult affiliationResult = xmlTransforming.transformToSearchResult(searchResultAffiliation);
+                    SearchResultElement affiliationResult = xmlTransforming.transformToSearchResult(searchResultAffiliation);
                     assertTrue(affiliationResult instanceof AffiliationResultVO);
 
                     // CORE OF THE TEST: check if transforming works with subclass "AffiliationResultVO"
