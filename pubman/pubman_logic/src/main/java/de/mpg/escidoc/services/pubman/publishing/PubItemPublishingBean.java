@@ -158,7 +158,9 @@ public class PubItemPublishingBean implements PubItemPublishing
                 LOGGER.debug("Floating PID assigned: " + result);
             }
             catch (Exception e) {
-                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
+                System.out.println(e.getClass());
+                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                LOGGER.debug("Stacktrace:", e);
             }
             // Retrieve the item to get last modification date
             actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
