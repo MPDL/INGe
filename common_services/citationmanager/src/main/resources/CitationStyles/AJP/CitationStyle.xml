@@ -286,14 +286,14 @@
 			</layout-element>
 		
 		<!-- debug elements: -->
-			<layout-element name="debug_genre" ref="publication/@type" >
-				<parameters>
-				<starts-with value="Genre:"/>
-				<ends-with value=";"/>
-				<font-style ref="BOLD"/>
-				</parameters>
-				<elements/>
-			</layout-element>
+<!--			<layout-element name="debug_genre" ref="publication/@type" >-->
+<!--				<parameters>-->
+<!--				<starts-with value="Genre:"/>-->
+<!--				<ends-with value=";"/>-->
+<!--				<font-style ref="BOLD"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element>-->
 			
 		
 	</layout-elements>
