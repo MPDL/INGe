@@ -72,30 +72,3 @@
 		</div>
 	</div>
 </div>
-
-<%-- 
-<div>
-	<f:subview id="AcceptItem">
-		<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.AcceptItemPage}: "/>
-			<h:outputText styleClass="orientationHeader" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
-		</h1>
-		<h:panelGrid columns="2" styleClass="messageItem">
-			<h:outputText styleClass="itemInformation" value="Publication:" />
-			<h:outputText styleClass="itemInformation" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
-
-			<h:outputText styleClass="itemInformation" value="Creator:" />
-			<h:outputText styleClass="itemInformation" value="#{AcceptItem.creators}"/>
-		</h:panelGrid>
-		
-		<h:panelGrid styleClass="boxSpacing" rendered="#{AcceptItem.valMessage != null}">
-			<h:outputText value="#{AcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus" rendered="#{AcceptItem.valMessage != null}"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panContent" styleClass="messageItem">
-			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.AcceptItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="acceptItemInputArea" value="#{AcceptItem.acceptanceComment}"/>
-		</h:panelGrid>
-	</f:subview>
-</div>
---%>
