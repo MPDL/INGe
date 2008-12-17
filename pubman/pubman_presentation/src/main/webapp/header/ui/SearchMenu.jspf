@@ -41,16 +41,16 @@
 		<h:commandButton styleClass="std_imgBtn quickSearchIcon quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value=" "/>	
 	</span>
 	<span class="large_area0 advancedSearchMenu">
-		<h:commandLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+		<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp" rendered="#{!AdvancedSearch.disableAdvancedSearch}">
 			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
 			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
-		</h:commandLink>
+		</h:outputLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
-		<h:commandLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" action="#{Navigation.loadAffiliationTree}">
+		<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" value="#{ApplicationBean.appContext}AffiliationTreePage.jsp">
 			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
 			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
-		</h:commandLink>
+		</h:outputLink>
 	</span>
 	<!-- search Menu ends here -->
 </div>
