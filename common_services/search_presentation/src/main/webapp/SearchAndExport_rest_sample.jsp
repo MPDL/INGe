@@ -74,7 +74,7 @@
 		<form name="form" method="post" action="rest">
 			<div class="editItemSingleCol">
 				<label class="colLbl">This is the CQL search query:</label><br/>
-				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=test"></input>
+				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=&#34;test&#34;"></input>
 			</div>
 			<div class="editItemSingleCol">
                 <label class="colLbl">Add a sorting key here:</label><br/>
