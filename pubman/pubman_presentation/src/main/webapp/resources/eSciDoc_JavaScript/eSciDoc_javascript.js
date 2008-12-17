@@ -41,9 +41,23 @@ function applyCookieStyle() {
 			cookieValue = unescape(dc.substring(start,stop));
 		}
 	}
+	var enableHiddenShemes = false;
+	cookie = "enableHiddenSchemes=";
+	if (dc.length > 0) {
+		var start = dc.indexOf(cookie);
+		if (start != -1) {
+			start += cookie.length;
+			var stop = dc.indexOf(";", start);
+			if (stop == -1) stop = dc.length;
+			if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+		}
+	}
 	if (cookieValue != "" && document.getElementsByTagName) {
 		var el = document.getElementsByTagName("link");
 		for (var i = 0; i < el.length; i++ ) {
+			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
+				el[i].setAttribute("title", el[i].getAttribute("id"));
+			}
 			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
 				el[i].disabled = true;
 				if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
@@ -58,7 +72,7 @@ function setStyleCookie() {
 		var el = document.getElementsByTagName("link");
 		for (var i = 0; i < el.length; i++ ) {
 			var enabledCounter = 0;
-			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].disabled == false && enabledCounter == 0) {
+			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
 				cookieValue = el[i].getAttribute("id");
 				enabledCounter++;
 			}
@@ -128,6 +142,6 @@ function include_javascripts() {
 		}
 }
 
-applyCookieStyle();
 include_javascripts();
+applyCookieStyle();
 window.onunload=function(e){setStyleCookie();};

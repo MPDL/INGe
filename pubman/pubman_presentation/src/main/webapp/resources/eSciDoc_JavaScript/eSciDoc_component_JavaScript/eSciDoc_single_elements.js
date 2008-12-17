@@ -111,9 +111,57 @@ var BrowserDetect = {
 
 BrowserDetect.init();
 
+/*EASTER EGG*/
+/*
+function raiseBunny() {
+	$('link:last').after('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
+	applyCookieStyle();
+}
+
+function bunny() {
+	$('.quickSearchTextInput').dblclick(function(){
+		if($(this).val() == 'PubWoman') {
+			showPubWomanStyle();
+		};
+	});
+}
+
+function enableHiddenStyle(){
+	var now = new Date();
+	var exp = new Date(now.getTime() + (1000*60*60*24*30));
+	document.cookie = "enableHiddenSchemes=true;" +
+						"expires=" + exp.toGMTString() + ";" +
+						"path=/";
+}
+
+function setStyle(styleValue) {
+	if(document.getElementsByTagName) {
+		var el = document.getElementsByTagName("link");
+		for (var i = 0; i < el.length; i++ ) {
+			if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
+				if(styleValue == el[i].getAttribute("id")){
+					el[i].disabled = false;
+				} else {
+					el[i].disabled = true;
+				}
+			}
+		}
+	}
+}
+
+function showPubWomanStyle() {
+	$('#PubWoman').attr('title','PubWoman');
+	enableHiddenStyle();
+	setStyle('PubWoman');
+	alert('PubWoman style activated! Happy easter!');
+}
+
+raiseBunny();
+*/
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
+	bunny();
 	$('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
 			$(this).parents('.searchMenu').find('.quickSearchBtn').click();

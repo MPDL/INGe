@@ -96,6 +96,10 @@
 		text-decoration: none;
 	}
 	
+	input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+		cursor: pointer;
+	}
+	
 	input[type="text"], textarea {
 		border: 1px solid #0076C9;
 	}
