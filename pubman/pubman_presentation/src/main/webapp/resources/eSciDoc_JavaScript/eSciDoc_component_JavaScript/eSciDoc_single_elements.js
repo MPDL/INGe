@@ -113,18 +113,21 @@ BrowserDetect.init();
 
 /*EASTER EGG*/
 
-
 function bunny() {
-/*	$('.quickSearchTextInput').dblclick(function(){
-		if($(this).val() == 'PubWoman') {
-			showPubWomanStyle();
-		};
-	});
-*/}
-/*
+	if(BrowserDetect.browser != 'Explorer') {
+		$('.quickSearchTextInput').dblclick(function(){
+			if($(this).val() == 'PubWoman') {
+				showPubWomanStyle();
+			};
+		});
+	};
+}
+
 function raiseBunny() {
-	$('link:last').after('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
-	applyCookieStyle();
+	if(BrowserDetect.browser != 'Explorer') {
+		$('link[id]:first').before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
+		applyCookieStyle();
+	};
 }
 
 function enableHiddenStyle(){
@@ -158,7 +161,7 @@ function showPubWomanStyle() {
 }
 
 raiseBunny();
-*/
+
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
