@@ -2120,6 +2120,13 @@ public class ViewItemFull extends FacesBean
         }
         return "";
 	}
+	
+	public boolean getIsInBasket()
+	{
+	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+	    return pubItemStorage.getStoredPubItems().containsKey(this.pubItem.getVersion().getObjectIdAndVersion());
+	    
+	}
 
     
     public String getLinkForActionsView()

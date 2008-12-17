@@ -104,7 +104,9 @@
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" />
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and !ViewItemFull.isInBasket}"/>
+									<h:outputText id="lnkAddToBasketDisabled" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
+									
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="sub" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
