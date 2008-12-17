@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,6 +72,17 @@ public class Utils {
     {
     	return ( val != null && val.length()>0 );
     }
+
+	/**
+	 * Returns <code>true</code> if list is not empty
+	 * @param l
+	 * @return
+	 */
+	public static <T> boolean checkList(List<T> l)
+	{
+		return ( l != null && !l.isEmpty() );
+	}    
+    
     
     /**
      * Throws ExportManagerException true if cond is true 
@@ -78,28 +90,29 @@ public class Utils {
      * @param message
      * @throws ExportManagerException
      */
-    public static void checkCondition(boolean cond, String message) throws SyndicationManagerException
+    public static void checkCondition(final boolean cond, final String message) throws SyndicationManagerException
     {
     	if ( cond )
     		throw new SyndicationManagerException(message);
     }
 	
-	public static void checkName(String name) throws SyndicationManagerException
+	public static void checkName(final String name) throws SyndicationManagerException
 	{
 		Utils.checkCondition(!checkVal(name), "Empty name");
 	}
 	
-	public static void checkName(String name, String message) throws SyndicationManagerException
+	public static void checkName(final String name, final String message) throws SyndicationManagerException
 	{
 		Utils.checkCondition(!checkVal(name), message);
-	}    
+	}
+	
 
 
     /**
      * Find <code>name</code> in <code>a</code> String[]
      * @return <code>true</code> if <code>name</code> has been found 
      */
-    public static boolean findInList(String[] a, String name){
+    public static boolean findInList(final String[] a, final String name){
     	for (String s: a) {
 			if (s.equals(name)) 
 				return true;
@@ -170,9 +183,16 @@ public class Utils {
         return result;
     }    
     
+    /**
+     * Join elements of any collection with delimiter
+     * @param <T>
+     * @param objs 
+     * @param delimiter
+     * @return a joined string
+     */
     public static <T> String join(final Collection<T> objs, final String delimiter) 
     {
-    	if (objs == null || objs.isEmpty()) return "";
+    	if ( objs == null || objs.isEmpty()) return "";
     	Iterator<T> iter = objs.iterator();
     	StringBuffer buffer = new StringBuffer(iter.next().toString());
     	while (iter.hasNext())

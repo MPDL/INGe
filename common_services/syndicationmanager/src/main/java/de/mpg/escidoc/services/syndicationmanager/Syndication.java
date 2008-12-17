@@ -73,6 +73,9 @@ public class Syndication implements SyndicationHandler {
 	{
 		 
 		Feed f = feeds.matchFeedByUri(uri);
+		if ( f == null ) 
+			throw new SyndicationManagerException("The feed for uri: " + uri + "has not been found");
+			
 		f.populateEntries(uri);
 		
 		Writer writer = new StringWriter();

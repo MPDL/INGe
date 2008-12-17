@@ -67,7 +67,6 @@ public class SyndicationManagerTest
     }
     
     @Test
-    @Ignore
     public void checkGetFeed() throws SyndicationManagerException, IOException, URISyntaxException, FeedException
     {
 
