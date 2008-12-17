@@ -76,203 +76,180 @@ public class RestServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
     {
-        String cqlQuery = null;
-        String language = null;
-        String exportFormat = null;
-        String outputFormat = null;
-        try
-        {
-            try
-            {
-                String qs = req.getQueryString();
-                LOGGER.debug("QueryString: " + qs);
-                // Init exporting service
-                InitialContext ctx = new InitialContext();
-                itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
-                cqlQuery = req.getParameter("cqlQuery");
-                if ( !checkVal(cqlQuery) )
-                {
-                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: "
-                            + qs);
-                    return;
-                }
-
-                language = req.getParameter("language");
-                language = language == null ? "" : language.trim().toLowerCase();
-                if (language.equals(""))
-                {
-                    language = "all";
-                } 
-                else if ( !("all".equals(language) || "en".equals(language) || "de".equals(language)) )
-                {
-                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
-                    return;
-                }
-
-                exportFormat = req.getParameter("exportFormat");
-                exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim().toUpperCase();
-                
-                
-                
-                ProcessCitationStyles pcs = new ProcessCitationStyles();
-                StructuredExport se = new StructuredExport();
-                if (exportFormat.equals(""))
-                {
-                 // TODO: move default values to services
-                	exportFormat = "ENDNOTE";
-                    // if exportFormat is ENDNOTE set outputFormat forced to the
-                    // txt
-                } 
-                else if ( !(pcs.isCitationStyle(exportFormat) || se.isStructuredFormat(exportFormat)) )
-                {
-                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
-                    return;
-                }
-
-                if ( se.isStructuredFormat(exportFormat) )
-                {
-                    outputFormat = FileFormatVO.TEXT_NAME;
-                } 
-                else
-                	// citation style
-                {
-                    outputFormat = req.getParameter("outputFormat");
-                    outputFormat = !checkVal(outputFormat) ? "" : outputFormat.trim().toLowerCase();
-                    // get default outputFormat if it is not defined
-                    if (outputFormat.equals(""))
-                    {
-                        outputFormat = FileFormatVO.DEFAULT_NAME;
-                    }
-                    // check output format consistency
-                    else if ( pcs.getMimeType(exportFormat, outputFormat)==null )
-                    {
-                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
-                                + " is not supported for the export format: " + exportFormat);
-                        return;
-                    }
-                }
-
-                String index = null;
-
-                // transform language selector to enum
-                if (language.contains("all"))
-                {
-                    index = "escidoc_all";
-                } 
-                else if (language.contains("en"))
-                {
-                    index = "escidoc_en";
-                } 
-                else if (language.contains("de"))
-                {
-                    index = "escidoc_de";
-                } 
-                else
-                {
-                    throw new TechnicalException("Cannot map language string to database selector.");
-                }
-                
-                // create the query
-                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat,
-                        outputFormat );
-                
-                // check if sortKeys is set
-                if( checkVal( req.getParameter("sortKeys") ) )
-                {
-                    query.setSortKeys( req.getParameter("sortKeys") );
-                }
-                
-                // check if startRecord is set
-                if( checkVal( req.getParameter("startRecord") ) )
-                {
-                    query.setStartRecord( req.getParameter("startRecord") );
-                }
-                
-                // check if maximum records are set
-                if( checkVal( req.getParameter("maximumRecords") ) )
-                {
-                    query.setMaximumRecords( req.getParameter("maximumRecords") );
-                }
-                
-                // check if sortOrder is set
-                if( checkVal( req.getParameter("sortOrder") ) )
-                {
-                    String sortOrder = req.getParameter("sortOrder");
-                    if( sortOrder.contains("descending") )
-                    {
-                        query.setSortOrder(SortingOrder.DESCENDING);
-                    }
-                    else
-                    {
-                        query.setSortOrder(SortingOrder.ASCENDING);
-                    }
-                    
-                }
-                
-                // query the search service
-                ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
-
-                byte[] result = queryResult.getResult();
-
-                String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
-                LOGGER.debug("fileName: " + fileName);
-                String contentType = getContentType(outputFormat);
-                resp.setContentType(contentType);
-                LOGGER.debug("contentType: " + contentType);
-
-                ServletOutputStream os = resp.getOutputStream();
-                
-                resp.addHeader("x-total-number-of-results", queryResult.getTotalNumberOfResults().toString() ); 
-
-                resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
-
-                resp.setContentLength(result.length);
-
-                for (byte b : result)
-                {
-                    os.write(b);
-                }
-                os.close();
-
-            } 
-            catch (NamingException ne)
-            {
-                handleException(ne, resp);
-            } 
-            catch (TechnicalException te)
-            {
-                handleException(te, resp);
-            }
-        } 
-        catch (Exception e)
-        {
-            throw new ServletException(e);
-        }
+//        String cqlQuery = null;
+//        String language = null;
+//        String exportFormat = null;
+//        String outputFormat = null;
+//        try
+//        {
+//            try
+//            {
+//                String qs = req.getQueryString();
+//                LOGGER.debug("QueryString: " + qs);
+//                // Init exporting service
+//                InitialContext ctx = new InitialContext();
+//                itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
+//                cqlQuery = req.getParameter("cqlQuery");
+//                if ( !checkVal(cqlQuery) )
+//                {
+//                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: "
+//                            + qs);
+//                    return;
+//                }
+//
+//                language = req.getParameter("language");
+//                language = language == null ? "" : language.trim().toLowerCase();
+//                if (language.equals(""))
+//                {
+//                    language = "all";
+//                } 
+//                else if ( !("all".equals(language) || "en".equals(language) || "de".equals(language)) )
+//                {
+//                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
+//                    return;
+//                }
+//
+//                exportFormat = req.getParameter("exportFormat");
+//                exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim().toUpperCase();
+//                
+//                
+//                
+//                ProcessCitationStyles pcs = new ProcessCitationStyles();
+//                StructuredExport se = new StructuredExport();
+//                if (exportFormat.equals(""))
+//                {
+//                 // TODO: move default values to services
+//                	exportFormat = "ENDNOTE";
+//                    // if exportFormat is ENDNOTE set outputFormat forced to the
+//                    // txt
+//                } 
+//                else if ( !(pcs.isCitationStyle(exportFormat) || se.isStructuredFormat(exportFormat)) )
+//                {
+//                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
+//                    return;
+//                }
+//
+//                if ( se.isStructuredFormat(exportFormat) )
+//                {
+//                    outputFormat = FileFormatVO.TEXT_NAME;
+//                } 
+//                else
+//                	// citation style
+//                {
+//                    outputFormat = req.getParameter("outputFormat");
+//                    outputFormat = !checkVal(outputFormat) ? "" : outputFormat.trim().toLowerCase();
+//                    // get default outputFormat if it is not defined
+//                    if (outputFormat.equals(""))
+//                    {
+//                        outputFormat = FileFormatVO.DEFAULT_NAME;
+//                    }
+//                    // check output format consistency
+//                    else if ( pcs.getMimeType(exportFormat, outputFormat)==null )
+//                    {
+//                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
+//                                + " is not supported for the export format: " + exportFormat);
+//                        return;
+//                    }
+//                }
+//
+//                String index = null;
+//
+//                // transform language selector to enum
+//                if (language.contains("all"))
+//                {
+//                    index = "escidoc_all";
+//                } 
+//                else if (language.contains("en"))
+//                {
+//                    index = "escidoc_en";
+//                } 
+//                else if (language.contains("de"))
+//                {
+//                    index = "escidoc_de";
+//                } 
+//                else
+//                {
+//                    throw new TechnicalException("Cannot map language string to database selector.");
+//                }
+//                
+//                // create the query
+//                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat,
+//                        outputFormat );
+//                
+//                // check if sortKeys is set
+//                if( checkVal( req.getParameter("sortKeys") ) )
+//                {
+//                    query.setSortKeys( req.getParameter("sortKeys") );
+//                }
+//                
+//                // check if startRecord is set
+//                if( checkVal( req.getParameter("startRecord") ) )
+//                {
+//                    query.setStartRecord( req.getParameter("startRecord") );
+//                }
+//                
+//                // check if maximum records are set
+//                if( checkVal( req.getParameter("maximumRecords") ) )
+//                {
+//                    query.setMaximumRecords( req.getParameter("maximumRecords") );
+//                }
+//                
+//                // check if sortOrder is set
+//                if( checkVal( req.getParameter("sortOrder") ) )
+//                {
+//                    String sortOrder = req.getParameter("sortOrder");
+//                    if( sortOrder.contains("descending") )
+//                    {
+//                        query.setSortOrder(SortingOrder.DESCENDING);
+//                    }
+//                    else
+//                    {
+//                        query.setSortOrder(SortingOrder.ASCENDING);
+//                    }
+//                    
+//                }
+//                
+//                // query the search service
+//                ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
+//
+//                byte[] result = queryResult.getResult();
+//
+//                String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
+//                LOGGER.debug("fileName: " + fileName);
+//                String contentType = getContentType(outputFormat);
+//                resp.setContentType(contentType);
+//                LOGGER.debug("contentType: " + contentType);
+//
+//                ServletOutputStream os = resp.getOutputStream();
+//                
+//                resp.addHeader("x-total-number-of-results", queryResult.getTotalNumberOfResults().toString() ); 
+//
+//                resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+//
+//                resp.setContentLength(result.length);
+//
+//                for (byte b : result)
+//                {
+//                    os.write(b);
+//                }
+//                os.close();
+//
+//            } 
+//            catch (NamingException ne)
+//            {
+//                handleException(ne, resp);
+//            } 
+//            catch (TechnicalException te)
+//            {
+//                handleException(te, resp);
+//            }
+//        } 
+//        catch (Exception e)
+//        {
+//            throw new ServletException(e);
+//        }
     }
 
-    /**
-     * Mapping of outputFormat to mime-type. 
-     * TODO: Get the mapping directly from ItemExportingBean
-     * 
-     * @param outputFormat
-     * @return mime-type according to the outputFormat
-     */
-    private String getContentType(final String outputFormat)
-    {
-        return FileFormatVO.getMimeTypeByName(outputFormat);
-    }
-
-    /**
-     * Mapping of the outputType file to the correct file extension. 
-     * TODO: Get the mapping directly from ItemExportingBean
-     * 
-     * @param outputFormat
-     * @return mime-type according to the outputFormat
-     */
-    private String getFileExtension(final String outputFormat)
-    {
-        return "." + (outputFormat.trim().equals("snippet") ? "xml" : outputFormat);
-    }
 
     /**
      * Take care on an incoming exception.
