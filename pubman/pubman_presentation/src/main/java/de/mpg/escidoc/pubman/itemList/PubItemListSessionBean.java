@@ -737,9 +737,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         for(PubItemVOPresentation pubItem : selectedPubItems)
         {
             
-            if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectId()))
+            if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
             {
-                pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectId(), pubItem.getVersion());
+                pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
                 added++;
             }
             else

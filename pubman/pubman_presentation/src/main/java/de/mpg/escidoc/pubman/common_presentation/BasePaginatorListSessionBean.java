@@ -127,6 +127,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     private Map<String, String> oldRedirectParameterMap;
 
     /**
+     * Indicates if the list should be upadated even if no parameters have changed
+     */
+    private boolean hasChanged;
+    
+    /**
      * Initializes a new BasePaginatorListSessionBean
      */
     public BasePaginatorListSessionBean()
@@ -181,7 +186,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         readOutParameters();
         
         
-        if (parametersChanged())
+        if (parametersChanged() || getHasChanged())
         {
             
             currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
@@ -838,6 +843,25 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     {
         oldRedirectParameterMap.clear();
         oldRedirectParameterMap.putAll(redirectParameterMap);
+    }
+    
+    /**
+     * Set this method from outside if the list has to be updated even if no GET parameters have changed;
+     */
+    public void setHasChanged()
+    {
+        hasChanged=true;
+    }
+    
+    /**
+     * Returns the value of hasChanged and resets it to false.
+     * @return
+     */
+    private boolean getHasChanged()
+    {
+        boolean returnVal = hasChanged;
+        hasChanged=false;
+        return returnVal;
     }
     
 }
