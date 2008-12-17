@@ -100,7 +100,7 @@
 		cursor: pointer;
 	}
 	
-	input[type="text"], textarea {
+	input[type="text"], textarea, select {
 		border: 1px solid #8D3996;
 	}
 	
