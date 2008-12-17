@@ -112,18 +112,19 @@ var BrowserDetect = {
 BrowserDetect.init();
 
 /*EASTER EGG*/
-/*
-function raiseBunny() {
-	$('link:last').after('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
-	applyCookieStyle();
-}
+
 
 function bunny() {
-	$('.quickSearchTextInput').dblclick(function(){
+/*	$('.quickSearchTextInput').dblclick(function(){
 		if($(this).val() == 'PubWoman') {
 			showPubWomanStyle();
 		};
 	});
+*/}
+/*
+function raiseBunny() {
+	$('link:last').after('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
+	applyCookieStyle();
 }
 
 function enableHiddenStyle(){
