@@ -33,8 +33,8 @@ package de.mpg.escidoc.services.validation;
  * Exception thrown by the validator cache.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 @SuppressWarnings("serial")
