@@ -50,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.search.Search;

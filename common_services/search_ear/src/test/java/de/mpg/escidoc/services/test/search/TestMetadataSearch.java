@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
@@ -440,7 +440,7 @@ public class TestMetadataSearch extends TestSearchBase
         
         ItemContainerSearchResult result = itemContainerSearch.searchForItemContainer(query);
         
-        List<ItemContainerSearchResultVO> resultList = result.getResultList();
+        List<SearchResultElement> resultList = result.getResultList();
         
         assertEquals("Wrong number of search results", 0, resultList.size());   
     }
@@ -499,7 +499,7 @@ public class TestMetadataSearch extends TestSearchBase
     private void searchAndCompareResults(MetadataSearchQuery query, ItemVO itemToCompare) throws Exception
     {
         ItemContainerSearchResult result = itemContainerSearch.searchForItemContainer(query);
-        List<ItemContainerSearchResultVO> resultList = result.getResultList();
+        List<SearchResultElement> resultList = result.getResultList();
         assertEquals("Wrong number of search results", 1, resultList.size());
         ItemVO resultItem = (ItemVO)resultList.get(0);
         ObjectComparator oc = new ObjectComparator(new ItemVO(itemToCompare), new ItemVO(resultItem));
