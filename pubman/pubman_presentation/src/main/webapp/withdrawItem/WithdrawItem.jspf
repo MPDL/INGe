@@ -68,38 +68,3 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-<%-- 
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-	<f:subview id="WithdrawItem">
-		<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.WithdrawItemPage}: "/>
-			<h:outputText styleClass="orientationHeader" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
-		</h1>
-
-		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
-			<h:outputText value="Publication:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
-
-			<h:outputText value="Creator:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.creators}"/>
-		</h:panelGrid>
-		
-		<h:panelGrid styleClass="withdrawMessage" rendered="#{WithdrawItem.valMessage != null}">
-			<h:outputText value="#{WithdrawItem.valMessage}" id="valMessage" styleClass="messageStatus withdrawMessageVal"/>
-		</h:panelGrid>
-			
-		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
-
-			<h:outputLabel for="txtaComment" id="lblComment"
-					style="" value="#{lbl.WithdrawItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{WithdrawItem.withdrawalComment}"/>
-		</h:panelGrid>
-
-	</f:subview>
-</div>
---%>
