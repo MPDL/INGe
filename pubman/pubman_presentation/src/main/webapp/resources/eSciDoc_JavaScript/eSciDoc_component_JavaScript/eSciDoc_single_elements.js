@@ -115,13 +115,13 @@ BrowserDetect.init();
 
 
 function bunny() {
-	$('.quickSearchTextInput').dblclick(function(){
+/*	$('.quickSearchTextInput').dblclick(function(){
 		if($(this).val() == 'PubWoman') {
 			showPubWomanStyle();
 		};
 	});
-}
-
+*/}
+/*
 function raiseBunny() {
 	$('link:last').after('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
 	applyCookieStyle();
@@ -158,7 +158,7 @@ function showPubWomanStyle() {
 }
 
 raiseBunny();
-
+*/
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
