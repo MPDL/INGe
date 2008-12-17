@@ -494,7 +494,7 @@ public class DataHandlerBean implements DataHandler
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
                 in = this.fetchFile(importSource, fulltext);
                 this.setVisibility(fulltext.getVisibility());
-                this.setContentCategorie(fulltext.getContentCategorie());
+                this.setContentCategorie(fulltext.getContentCategory());
                 this.setContentType(fulltext.getFtFormat());
                 this.setFileEnding(fulltext.getFileType());
                 // If only one file => return it in fetched format
@@ -1269,7 +1269,7 @@ public class DataHandlerBean implements DataHandler
         this.fileEnding = fileEnding;
     }
 
-    public String getContentCategorie()
+    public String getContentCategory()
     {
         return this.contentCategorie;
     }

@@ -117,7 +117,7 @@ public class DataSourceHandlerBean
                         fulltextVO.setFtDefault(ftf.getDefault());
                         fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
                         fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
-                        fulltextVO.setContentCategorie(simpleLiteralTostring(ftf.getContentCategorie()));
+                        fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                         fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
                         fulltextVec.add(fulltextVO);
                     }
@@ -246,7 +246,7 @@ public class DataSourceHandlerBean
                     fulltextVO.setFtDefault(ftf.getDefault());
                     fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
                     fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
-                    fulltextVO.setContentCategorie(simpleLiteralTostring(ftf.getContentCategorie()));
+                    fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                     fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
                     fulltextVec.add(fulltextVO);
                 }

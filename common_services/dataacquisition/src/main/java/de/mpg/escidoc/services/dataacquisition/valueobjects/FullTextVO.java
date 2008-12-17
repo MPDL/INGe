@@ -15,7 +15,7 @@ public class FullTextVO
     private String ftLabel;
     private boolean ftDefault;
     private String fileType;
-    private String contentCategorie;
+    private String contentCategory;
     private String visibility;
 
     public String getFileType()
@@ -78,14 +78,14 @@ public class FullTextVO
         this.ftDefault = ftDefault;
     }
 
-    public String getContentCategorie()
+    public String getContentCategory()
     {
-        return this.contentCategorie;
+        return this.contentCategory;
     }
 
-    public void setContentCategorie(String contentCategorie)
+    public void setContentCategory(String contentCategory)
     {
-        this.contentCategorie = contentCategorie;
+        this.contentCategory = contentCategory;
     }
 
     public String getVisibility()
