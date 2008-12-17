@@ -49,12 +49,20 @@
 /*LIST HEADER*/
 
 	/*GENERAL*/
+	
+.listHeader {
+	overflow: visible;
+}
 
 .listHeader input {
 	float: right;
 }
 
 	/*SELECT MENU*/
+	
+.itemSelectArea {
+	overflow: visible;
+}
 
 .selectMenu {
 	position: absolute;
