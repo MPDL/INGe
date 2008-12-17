@@ -56,18 +56,18 @@ import test.common.xmltransforming.integration.TransformTocTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-                     TransformAccountUserAndGrantsIntegrationTest.class,
-                     TransformAffiliationIntegrationTest.class,
-                     TransformPubCollectionIntegrationTest.class,
-                     TransformPubItemIntegrationTest.class,
-                     TransformPubItemResultListIntegrationTest.class,
-                     TransformPubItemVersionListIntegrationTest.class,
-                     TransformSchindlMayrIntegrationTest.class,
-                     TransformFileUrlTest.class,
-                     // TODO: Fix this test.
-                     //TransformContainerIntegrationTest.class,
-                     TransformStatisticsTest.class,
-                     TransformTocTest.class
+//                     TransformAccountUserAndGrantsIntegrationTest.class,
+//                     TransformAffiliationIntegrationTest.class,
+//                     TransformPubCollectionIntegrationTest.class,
+//                     TransformPubItemIntegrationTest.class,
+                     TransformPubItemResultListIntegrationTest.class
+//                     TransformPubItemVersionListIntegrationTest.class,
+//                     TransformSchindlMayrIntegrationTest.class,
+//                     TransformFileUrlTest.class,
+//                     // TODO: Fix this test.
+//                     //TransformContainerIntegrationTest.class,
+//                     TransformStatisticsTest.class,
+//                     TransformTocTest.class
                      
                     })
 public class XmlTransformingIntegrationTest extends TestBase

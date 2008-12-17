@@ -104,8 +104,10 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -140,8 +142,11 @@ public class TestBase
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
+    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:2002";
+    protected static final String FACES_CONTENT_MODEL_ID = "escidoc:faces50";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-    protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
+    protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
+        "This is the sample collection description of the PubMan Test\n"
             + "collection. Any content can be stored in this collection, which is of relevance\n"
             + "for the users of the system. You can submit relevant bibliographic information\n"
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
@@ -189,6 +194,8 @@ public class TestBase
     /**
      * Helper method to retrieve a EJB service instance. The name to be passed to the method is normally
      * 'ServiceXY.SERVICE_NAME'.
+     * 
+     * @param serviceName The name of the EJB service
      * 
      * @return instance of the EJB service
      * @throws NamingException
@@ -249,7 +256,7 @@ public class TestBase
             throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
         String userHandle = null;
-        Header headers[] = postMethod.getResponseHeaders();
+        Header[] headers = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
         {
             if ("Location".equals(headers[i].getName()))
@@ -314,7 +321,7 @@ public class TestBase
      * Logs the user roland in who is a system administrator and returns the corresponding user handle.
      * 
      * @return userHandle
-     * @throws Exception
+     * @throws Exception Any exception
      */
     protected static String loginSystemAdministrator() throws Exception
     {
@@ -340,18 +347,18 @@ public class TestBase
     /**
      * @param userHandle
      * @return The AccountUserVO
-     * @throws Exception
+     * @throws Exception Any exception
      */
     protected AccountUserVO getAccountUser(String userHandle) throws Exception
     {
         AccountUserVO accountUser = new AccountUserVO();
         String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        accountUser = ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
+        accountUser = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
         // add the user handle to the transformed account user
         accountUser.setHandle(userHandle);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
                 accountUser.getReference().getObjectId());
-        List<GrantVO> grants = ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME))
+        List<GrantVO> grants = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
                 .transformToGrantVOList(userGrantXML);
         if (grants != null)
         {
@@ -535,6 +542,54 @@ public class TestBase
     }
 
     /**
+     * Creates a well-defined, simple Faces container without members.
+     * 
+     * @return The container
+     */
+    protected ContainerVO getFacesAlbumContainer()
+    {
+        ContainerVO container = new ContainerVO();
+        // Metadata
+        MdsFacesContainerVO mds = getMdsFacesAlbum();
+        container.getMetadataSets().add(mds);
+        // PubCollectionRef
+        ContextRO collectionRef = new ContextRO();
+        collectionRef.setObjectId(FACES_TEST_COLLECTION_ID);
+        container.setContext(collectionRef);
+        // Content model
+        container.setContentModel(FACES_CONTENT_MODEL_ID);
+        return container;
+    }
+
+    /**
+     * Create metadata for a Faces album.
+     * 
+     * @return The metadata VO
+     */
+    private MdsFacesContainerVO getMdsFacesAlbum()
+    {
+        
+        MdsFacesContainerVO mds = new MdsFacesContainerVO();
+        mds.setName("FacesAlbum");
+        mds.setTitle(new TextVO("My Faces Album"));
+        mds.setDescription("Faces (album)\n"
+                + "From Wikipedia, the free encyclopedia\n"
+                + "\n"
+                + "Faces is a double-LP by R&B artists Earth, Wind & Fire,"
+                + "which was released in 1980.");
+        
+        PersonVO personVO = new PersonVO();
+        personVO.setFamilyName("Ban");
+        personVO.setGivenName("Ki Moon");
+        
+        CreatorVO creatorVO = new CreatorVO(personVO, CreatorRole.EDITOR);
+        
+        mds.getCreators().add(creatorVO);
+        
+        return mds;
+    }
+
+    /**
      * Creates a well-defined, complex MdsPublicationVO.
      * 
      * @return The generated MdsPublicationVO.
@@ -546,62 +601,9 @@ public class TestBase
         // Genre
         mds.setGenre(Genre.BOOK);
         // Creator
-        CreatorVO creator;
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.AUTHOR);
-        // Creator.Person
-        PersonVO person = new PersonVO();
-        // Creator.Person.CompleteName
-        person.setCompleteName("Hans Meier");
-        // Creator.Person.GivenName
-        person.setGivenName("Hans");
-        // Creator.Person.FamilyName
-        person.setFamilyName("Meier");
-        // Creator.Person.AlternativeName
-        person.getAlternativeNames().add("Werner");
-        person
-                .getAlternativeNames()
-                .add(
-                        "These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-        person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
-        // Creator.Person.Title
-        person.getTitles().add("Dr. (?)");
-        // Creator.Person.Pseudonym
-        person.getPseudonyms().add("<b>Shorty</b>");
-        person.getPseudonyms().add("<'Dr. Short'>");
-        // Creator.Person.Organization
         OrganizationVO organization;
-        organization = new OrganizationVO();
-        // Creator.Person.Organization.Name
-        TextVO name = new TextVO();
-        name.setLanguage("en");
-        name.setValue("Vinzenzmurr");
-        organization.setName(name);
-        // Creator.Person.Organization.Address
-        organization.setAddress("<a ref=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
-        // Creator.Person.Organization.Identifier
-        organization.setIdentifier("ED-84378462846");
-        person.getOrganizations().add(organization);
-        // Creator.Person.Identifier
-        person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
-        creator.setPerson(person);
-        mds.getCreators().add(creator);
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.CONTRIBUTOR);
-        // Source.Creator.Organization
-        organization = new OrganizationVO();
-        // Creator.Organization.Name
-        name = new TextVO();
-        name.setLanguage("en");
-        name.setValue("MPDL");
-        organization.setName(name);
-        // Creator.Organization.Address
-        organization.setAddress("Amalienstraße");
-        // Creator.Organization.Identifier
-        organization.setIdentifier("1a");
-        creator.setOrganization(organization);
+        TextVO name;
+        CreatorVO creator = createCreator(mds);
         mds.getCreators().add(creator);
         // Title
         mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
@@ -631,6 +633,66 @@ public class TestBase
         // Review method
         mds.setReviewMethod(ReviewMethod.INTERNAL);
         // Source
+        SourceVO source = createSource();
+        mds.getSources().add(source);
+        // Event
+        EventVO event = createEvent();
+        mds.setEvent(event);
+        // Total Numeber of Pages
+        mds.setTotalNumberOfPages("999");
+        // Degree
+        mds.setDegree(DegreeType.MASTER);
+        // Abstracts
+        mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+        mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
+        // Subject
+        TextVO subject = new TextVO();
+        subject.setLanguage("de");
+        subject.setValue("wichtig,wissenschaftlich,spannend");
+        mds.setSubject(subject);
+        // Table of Contents
+        TextVO tableOfContents = new TextVO();
+        tableOfContents.setLanguage("de");
+        tableOfContents.setValue("1.Einleitung 2.Inhalt");
+        mds.setTableOfContents(tableOfContents);
+        // Location
+        mds.setLocation("IPP, Garching");
+        return mds;
+    }
+
+    /**
+     * @return
+     */
+    private EventVO createEvent()
+    {
+        EventVO event = new EventVO();
+        // Event.Title
+        event.setTitle(new TextVO("Weekly progress meeting", "en"));
+        // Event.AlternativeTitle
+        event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
+        // Event.StartDate
+        event.setStartDate("2004-11-11");
+        // Event.EndDate
+        event.setEndDate("2005-02-19");
+        // Event.Place
+        TextVO place = new TextVO();
+        place.setLanguage("de");
+        place.setValue("Köln");
+        event.setPlace(place);
+        // Event.InvitationStatus
+        event.setInvitationStatus(InvitationStatus.INVITED);
+        return event;
+    }
+
+    /**
+     * @return
+     */
+    private SourceVO createSource()
+    {
+        OrganizationVO organization;
+        TextVO name;
+        CreatorVO creator;
+        PublishingInfoVO pubInfo;
         SourceVO source = new SourceVO();
         // Source.Title
         source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
@@ -644,8 +706,9 @@ public class TestBase
                 new TextVO("> and ' and ? are problematic characters in XML and therefore should be escaped.", "en"));
         source.getAlternativeTitles().add(
                 new TextVO(
-                        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \\, -, the _, the\n"
-                                + "~, the @ and the #)?", "en"));
+                        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old %"
+                        + " (not to forget the /, the \\, -, the _, the\n"
+                        + "~, the @ and the #)?", "en"));
         source.getAlternativeTitles().add(new TextVO("By the way, the Euro sign looks like this: €", "en"));
         // Source.Creator
         creator = new CreatorVO();
@@ -694,45 +757,73 @@ public class TestBase
         sourceSourceCreator.getOrganization().setName(name);
         sourceSourceCreator.getOrganization().setIdentifier("ID-4711-0815");
         source.getSources().get(0).getCreators().add(sourceSourceCreator);
-        mds.getSources().add(source);
-        // Event
-        EventVO event = new EventVO();
-        // Event.Title
-        event.setTitle(new TextVO("Weekly progress meeting", "en"));
-        // Event.AlternativeTitle
-        event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
-        // Event.StartDate
-        event.setStartDate("2004-11-11");
-        // Event.EndDate
-        event.setEndDate("2005-02-19");
-        // Event.Place
-        TextVO place = new TextVO();
-        place.setLanguage("de");
-        place.setValue("Köln");
-        event.setPlace(place);
-        // Event.InvitationStatus
-        event.setInvitationStatus(InvitationStatus.INVITED);
-        mds.setEvent(event);
-        // Total Numeber of Pages
-        mds.setTotalNumberOfPages("999");
-        // Degree
-        mds.setDegree(DegreeType.MASTER);
-        // Abstracts
-        mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
-        mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
-        // Subject
-        TextVO subject = new TextVO();
-        subject.setLanguage("de");
-        subject.setValue("wichtig,wissenschaftlich,spannend");
-        mds.setSubject(subject);
-        // Table of Contents
-        TextVO tableOfContents = new TextVO();
-        tableOfContents.setLanguage("de");
-        tableOfContents.setValue("1.Einleitung 2.Inhalt");
-        mds.setTableOfContents(tableOfContents);
-        // Location
-        mds.setLocation("IPP, Garching");
-        return mds;
+        return source;
+    }
+
+    /**
+     * @param mds
+     * @return
+     */
+    private CreatorVO createCreator(MdsPublicationVO mds)
+    {
+        CreatorVO creator;
+        creator = new CreatorVO();
+        // Creator.Role
+        creator.setRole(CreatorRole.AUTHOR);
+        // Creator.Person
+        PersonVO person = new PersonVO();
+        // Creator.Person.CompleteName
+        person.setCompleteName("Hans Meier");
+        // Creator.Person.GivenName
+        person.setGivenName("Hans");
+        // Creator.Person.FamilyName
+        person.setFamilyName("Meier");
+        // Creator.Person.AlternativeName
+        person.getAlternativeNames().add("Werner");
+        person
+                .getAlternativeNames()
+                .add(
+                        "These tokens are escaped and must stay escaped: "
+                        + "\"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
+        person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+        // Creator.Person.Title
+        person.getTitles().add("Dr. (?)");
+        // Creator.Person.Pseudonym
+        person.getPseudonyms().add("<b>Shorty</b>");
+        person.getPseudonyms().add("<'Dr. Short'>");
+        // Creator.Person.Organization
+        OrganizationVO organization;
+        organization = new OrganizationVO();
+        // Creator.Person.Organization.Name
+        TextVO name = new TextVO();
+        name.setLanguage("en");
+        name.setValue("Vinzenzmurr");
+        organization.setName(name);
+        // Creator.Person.Organization.Address
+        organization.setAddress("<a ref=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
+        // Creator.Person.Organization.Identifier
+        organization.setIdentifier("ED-84378462846");
+        person.getOrganizations().add(organization);
+        // Creator.Person.Identifier
+        person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
+        creator.setPerson(person);
+        mds.getCreators().add(creator);
+        creator = new CreatorVO();
+        // Creator.Role
+        creator.setRole(CreatorRole.CONTRIBUTOR);
+        // Source.Creator.Organization
+        organization = new OrganizationVO();
+        // Creator.Organization.Name
+        name = new TextVO();
+        name.setLanguage("en");
+        name.setValue("MPDL");
+        organization.setName(name);
+        // Creator.Organization.Address
+        organization.setAddress("Amalienstraße");
+        // Creator.Organization.Identifier
+        organization.setIdentifier("1a");
+        creator.setOrganization(organization);
+        return creator;
     }
 
     /**
@@ -752,13 +843,7 @@ public class TestBase
         // Genre
         mds.setGenre(Genre.BOOK);
         // Creators
-        CreatorVO creator = new CreatorVO();
-        creator.setRole(CreatorRole.AUTHOR);
-        PersonVO person = new PersonVO();
-        person.setGivenName("Hans");
-        person.setFamilyName("Meier");
-        person.setCompleteName("Hans Meier");
-        creator.setPerson(person);
+        CreatorVO creator = createAnotherCreator();
         mds.getCreators().add(creator);
         // Dates
         mds.setDateCreated("2005-2");
@@ -767,14 +852,7 @@ public class TestBase
         mds.setDatePublishedInPrint("2006-2-1");
         mds.setDateModified("2007-2-29");
         // Identifiers
-        List<IdentifierVO> identifierList = mds.getIdentifiers();
-        IdentifierVO identifierVO = new IdentifierVO();
-        identifierVO.setId("id1");
-        identifierVO.setType(IdType.ESCIDOC);
-        for (int i = 0; i < 2; i++)
-        {
-            identifierList.add(identifierVO);
-        }
+        List<IdentifierVO> identifierList = addIdentifiers(mds);
         // Publishing info
         PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
         publishingInfoVO.setEdition("Edition 123");
@@ -782,8 +860,40 @@ public class TestBase
         publishingInfoVO.setPublisher("Publisher XY");
         mds.setPublishingInfo(publishingInfoVO);
         // build the List of SourceVOs...
-        List<SourceVO> sourcesList = mds.getSources();
         // build one SourceVO instance...
+        List<SourceVO> sourcesList = mds.getSources();
+        createComplexSources(title, creator, identifierList, sourcesList, publishingInfoVO);
+        // Event
+        EventVO event = new EventVO();
+        // Event.Title
+        event.setTitle(new TextVO("Länderübergreifende Änderungsüberlegungen", "jp"));
+        // Event.AlternativeTitle
+        event.getAlternativeTitles().add(new TextVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
+        // Event.StartDate
+        event.setStartDate("2000-02-29");
+        // Event.EndDate
+        event.setEndDate("2001-02-28");
+        // Event.Place
+        TextVO place = new TextVO();
+        title.setLanguage("de");
+        title.setValue("Grevenbröich");
+        event.setPlace(place);
+        // Event.InvitationStatus
+        event.setInvitationStatus(InvitationStatus.INVITED);
+        mds.setEvent(event);
+        return mds;
+    }
+
+    /**
+     * @param title
+     * @param creator
+     * @param identifierList
+     * @param sourcesList
+     * @param publishingInfoVO
+     */
+    private void createComplexSources(TextVO title, CreatorVO creator, List<IdentifierVO> identifierList,
+            List<SourceVO> sourcesList, PublishingInfoVO publishingInfoVO)
+    {
         SourceVO sourceVO = new SourceVO();
         sourceVO.setTitle(title);
         List<TextVO> alternativeTitleList = sourceVO.getAlternativeTitles();
@@ -842,25 +952,38 @@ public class TestBase
         {
             sourcesList.add(sourceVO);
         }
-        // Event
-        EventVO event = new EventVO();
-        // Event.Title
-        event.setTitle(new TextVO("Länderübergreifende Änderungsüberlegungen", "jp"));
-        // Event.AlternativeTitle
-        event.getAlternativeTitles().add(new TextVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
-        // Event.StartDate
-        event.setStartDate("2000-02-29");
-        // Event.EndDate
-        event.setEndDate("2001-02-28");
-        // Event.Place
-        TextVO place = new TextVO();
-        title.setLanguage("de");
-        title.setValue("Grevenbröich");
-        event.setPlace(place);
-        // Event.InvitationStatus
-        event.setInvitationStatus(InvitationStatus.INVITED);
-        mds.setEvent(event);
-        return mds;
+    }
+
+    /**
+     * @param mds
+     * @return
+     */
+    private List<IdentifierVO> addIdentifiers(MdsPublicationVO mds)
+    {
+        List<IdentifierVO> identifierList = mds.getIdentifiers();
+        IdentifierVO identifierVO = new IdentifierVO();
+        identifierVO.setId("id1");
+        identifierVO.setType(IdType.ESCIDOC);
+        for (int i = 0; i < 2; i++)
+        {
+            identifierList.add(identifierVO);
+        }
+        return identifierList;
+    }
+
+    /**
+     * @return
+     */
+    private CreatorVO createAnotherCreator()
+    {
+        CreatorVO creator = new CreatorVO();
+        creator.setRole(CreatorRole.AUTHOR);
+        PersonVO person = new PersonVO();
+        person.setGivenName("Hans");
+        person.setFamilyName("Meier");
+        person.setCompleteName("Hans Meier");
+        creator.setPerson(person);
+        return creator;
     }
 
     /**
@@ -989,7 +1112,7 @@ public class TestBase
      * 
      * @param xmlData
      * @param schemaFileName
-     * @throws Exception
+     * @throws Exception Any exception
      */
     public static void assertXMLValid(final String xmlData) throws Exception
     {
@@ -1156,7 +1279,7 @@ public class TestBase
      * Delivers the value of one distinct node in an <code>org.w3c.dom.Document</code>.
      * 
      * @param document The <code>org.w3c.dom.Document</code>.
-     * @param xpath The xPath describing the node position.
+     * @param xpathExpression The xPath describing the node position.
      * @return The value of the node.
      * @throws TransformerException
      */
@@ -1202,7 +1325,7 @@ public class TestBase
      * Return the child of the node selected by the xPath.
      * 
      * @param node The node.
-     * @param xPath The xPath.
+     * @param xpathExpression The xPath.
      * @return The child of the node selected by the xPath.
      * @throws TransformerException If anything fails.
      */
@@ -1212,7 +1335,7 @@ public class TestBase
         XPath xPath = factory.newXPath();
         try
         {
-            return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+            return (Node) xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
         }
         catch (Exception e)
         {
@@ -1224,7 +1347,7 @@ public class TestBase
      * Return the list of children of the node selected by the xPath.
      * 
      * @param node The node.
-     * @param xPath The xPath.
+     * @param xpathExpression The xPath.
      * @return The list of children of the node selected by the xPath.
      * @throws TransformerException If anything fails.
      */
@@ -1234,7 +1357,7 @@ public class TestBase
         XPath xPath = factory.newXPath();
         try
         {
-            return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+            return (NodeList) xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
         }
         catch (Exception e)
         {
@@ -1252,7 +1375,7 @@ public class TestBase
      * @throws Exception If anything fails.
      */
     public static String getAttributeValue(final Node node, final String xPath, final String attributeName)
-            throws Exception
+        throws Exception
     {
         if (node == null)
         {
@@ -1286,7 +1409,7 @@ public class TestBase
      * @throws TransformerException
      */
     public static String getRootElementAttributeValue(final Document document, final String attributeName)
-            throws Exception
+        throws Exception
     {
         if (document == null)
         {
@@ -1330,7 +1453,7 @@ public class TestBase
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         // serialize
         DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
-        DOMImplementationLS feature = (DOMImplementationLS)implementation.getFeature("LS", "3.0");
+        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
         LSSerializer serial = feature.createLSSerializer();
         LSOutput output = feature.createLSOutput();
         output.setByteStream(outputStream);
@@ -1342,7 +1465,7 @@ public class TestBase
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
      * 
-     * @param filename The file to upload
+     * @param fileName The file to upload
      * @param mimetype The mimetype of the file
      * @param userHandle The userHandle to use for upload
      * @return The URL of the uploaded file.
@@ -1363,7 +1486,7 @@ public class TestBase
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-        return ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
+        return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
     }
 
     /**
@@ -1371,7 +1494,7 @@ public class TestBase
      * 
      * @param userHandle The userHandle of a user with the appropriate grants.
      * @return The XML of the created item with a file, given back by the framework.
-     * @throws Exception
+     * @throws Exception Any exception
      */
     protected String createItemWithFile(String userHandle) throws Exception
     {
@@ -1408,7 +1531,9 @@ public class TestBase
     /**
      * Formats a given date to the format used by the framework.
      * 
-     * @return The formatted date.
+     * @param date The Date to be formatted
+     * 
+     * @return The formatted date
      */
     public static String formatDate(Date date)
     {

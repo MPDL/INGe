@@ -78,7 +78,8 @@ public class AffiliationCreator extends TestBase
             InitialContext context = new InitialContext();
             xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             fail("XmlTransforming not found.");
         }
     }
@@ -121,11 +122,21 @@ public class AffiliationCreator extends TestBase
         affiliationVO = getAffiliationMPIFG();
         List<String> parentObjIds = new ArrayList<String>();
         parentObjIds.add(objectIdMPG);
-        String objectIdMPIFG = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdMPIFG =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdMPIFG", objectIdMPIFG);
         // create MPI-G as a sub-affiliation of MPG
         affiliationVO = getAffiliationMPI_G();
-        String objectIdMPI_G = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdMPI_G =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdMPI_G", objectIdMPI_G);
         // create FML as a sub-affiliation of MPG
         affiliationVO = getAffiliationFML();
@@ -133,7 +144,12 @@ public class AffiliationCreator extends TestBase
         abbreviationToObjIdMapping.put("objectIdFML", objectIdFML);
         // create MPIMF as a sub-affiliation of MPG
         affiliationVO = getAffiliationMPIMF();
-        String objectIdMPIMF = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdMPIMF =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdMPIMF", objectIdMPIMF);
         // create ZEL as a sub-affiliation of MPIMF
         affiliationVO = getAffiliationZEL();
@@ -143,15 +159,23 @@ public class AffiliationCreator extends TestBase
         abbreviationToObjIdMapping.put("objectIdZEL", objectIdZEL);
         // create MPH-HD as a sub-affiliation of MPIMF
         affiliationVO = getAffiliationMPH_HD();
-        String objectIdMPH_HD = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdMPH_HD =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdMPH_HD", objectIdMPH_HD);
         // create ZEL_2 as a sub-affiliation of MPH-HD
         affiliationVO = getAffiliationZEL();
         // The name of an affiliation mus be unique, therefore "_2" is appended.
-        if (affiliationVO.getMetadataSets().size() > 0 && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        if (affiliationVO.getMetadataSets().size() > 0
+                && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            ((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).setName(((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).getName() + "_2");
-        }
+            ((MdsOrganizationalUnitDetailsVO) affiliationVO.getMetadataSets().get(0))
+                    .setName(((MdsOrganizationalUnitDetailsVO) affiliationVO.getMetadataSets().get(0))
+                            .getName() + "_2");
+        } 
         parentObjIds.clear();
         parentObjIds.add(objectIdMPH_HD);
         String objectIdZEL2 = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
@@ -159,13 +183,21 @@ public class AffiliationCreator extends TestBase
         // create FU_BERLIN_2 as a sub-affiliation of ZEL_2
         affiliationVO = getAffiliationFU_BERLIN();
         // The name of an affiliation mus be unique, therefore "_2" is appended.
-        if (affiliationVO.getMetadataSets().size() > 0 && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        if (affiliationVO.getMetadataSets().size() > 0
+                && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            ((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).setName(((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).getName() + "_2");
+            ((MdsOrganizationalUnitDetailsVO) affiliationVO.getMetadataSets().get(0))
+                    .setName(((MdsOrganizationalUnitDetailsVO) affiliationVO.getMetadataSets().get(0))
+                                .getName() + "_2");
         }
         parentObjIds.clear();
         parentObjIds.add(objectIdZEL2);
-        String objectIdFuBerlin_2 = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdFuBerlin_2 =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdFuBerlin_2", objectIdFuBerlin_2);
         // create FU-BERLIN as a sub-affiliation of MPG, FG and HG
         affiliationVO = getAffiliationFU_BERLIN();
@@ -173,7 +205,12 @@ public class AffiliationCreator extends TestBase
         parentObjIds.add(objectIdMPG);
         parentObjIds.add(objectIdFG);
         parentObjIds.add(objectIdHG);
-        String objectIdFuBerlin = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
+        String objectIdFuBerlin =
+            createSubAffiliation(
+                    affiliationVO,
+                    parentObjIds,
+                    systemAdministratorUserHandle,
+                    uniquer);
         abbreviationToObjIdMapping.put("objectIdFuBerlin", objectIdFuBerlin);
         logger.debug("Affiliation structure created!");
         return abbreviationToObjIdMapping;
@@ -190,30 +227,47 @@ public class AffiliationCreator extends TestBase
      * @return The object id of the created affiliation.
      * @throws Exception
      */
-    public static String createTopLevelAffiliation(AffiliationVO affiliation, String userHandle, long uniquer) throws Exception
+    public static String createTopLevelAffiliation(
+            AffiliationVO affiliation,
+            String userHandle, long uniquer) throws Exception
     {
         // make sure the XmlTransforming instance is properly initialized
         if (affiliation == null)
         {
-            throw new IllegalArgumentException(AffiliationCreator.class.getSimpleName() + ":createTopLevelAffiliation:affiliation is null");
+            throw new IllegalArgumentException(
+                    AffiliationCreator.class.getSimpleName()
+                    + ":createTopLevelAffiliation:affiliation is null");
         }
         String name = null;
-        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        if (affiliation.getMetadataSets().size() > 0
+                && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            name = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).getName() + " Nr." + uniquer + "***";
-            ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).setName(name);
+            name = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0))
+                    .getName() + " Nr." + uniquer + "***";
+            ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0))
+                    .setName(name);
         }
 
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
-        logger.debug("createTopLevelAffiliation() - PreCreate (without PID): This top level affiliation is sent to the framework:\n" + organizationalUnitPreCreate);
+        logger.debug(
+                "createTopLevelAffiliation() - PreCreate (without PID): This top level "
+                + "affiliation is sent to the framework:\n" + organizationalUnitPreCreate);
         // create the organizational unit in the framework
-        String organizationalUnitPostCreate = ServiceLocator.getOrganizationalUnitHandler(userHandle).create(organizationalUnitPreCreate);
+        String organizationalUnitPostCreate =
+            ServiceLocator
+                    .getOrganizationalUnitHandler(userHandle)
+                    .create(organizationalUnitPreCreate);
         assertNotNull(organizationalUnitPostCreate);
         // extract the objid from the returned OU
         String objectId = getObjid(organizationalUnitPostCreate);
         StringBuffer sb = new StringBuffer();
-        sb.append("createTopLevelAffiliation() - " + name + ": organizational unit created in the framework (objectId: " + objectId + ").");
+        sb.append(
+                "createTopLevelAffiliation() - "
+                + name
+                + ": organizational unit created in the framework (objectId: "
+                + objectId
+                + ").");
         if (logger.isDebugEnabled())
         {
             sb.append("\n" + toString(getDocument(organizationalUnitPostCreate, false), false));
@@ -223,7 +277,8 @@ public class AffiliationCreator extends TestBase
     }
 
     /**
-     * Creates a sub-affiliation of a list of other affiliations and checks the number of parent affiliations afterwards
+     * Creates a sub-affiliation of a list of other affiliations and checks the number
+     * of parent affiliations afterwards.
      * 
      * @param affiliation The affiliation that shall be created.
      * @param parentObjectIds The list of object ids of the parent affiliations.
@@ -233,13 +288,20 @@ public class AffiliationCreator extends TestBase
      * @return The object id of the created affiliation.
      * @throws Exception
      */
-    public static String createSubAffiliation(final AffiliationVO affiliation, List<String> parentObjectIds, String userHandle, long uniquer) throws Exception
+    public static String createSubAffiliation(
+            final AffiliationVO affiliation,
+            List<String> parentObjectIds,
+            String userHandle,
+            long uniquer) throws Exception
     {
         String name = null;
-        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        if (affiliation.getMetadataSets().size() > 0
+                && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            name = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).getName() + " Nr." + uniquer + "***";
-            ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).setName(name);
+            name = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0))
+                    .getName() + " Nr." + uniquer + "***";
+            ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0))
+                    .setName(name);
         }
         for (String objId : parentObjectIds)
         {
@@ -248,19 +310,35 @@ public class AffiliationCreator extends TestBase
         }
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
-        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        if (affiliation.getMetadataSets().size() > 0
+                && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            MdsOrganizationalUnitDetailsVO details = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0));
-            logger.debug("createSubAffiliation() - PreCreate - " + name + ": AffiliationVO.externalID = " + details.getIdentifiers());
+            MdsOrganizationalUnitDetailsVO details =
+                ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0));
+            logger.debug(
+                    "createSubAffiliation() - PreCreate - "
+                    + name + ": AffiliationVO.externalID = "
+                    + details.getIdentifiers());
         }
-        logger.debug("createSubAffiliation() - PreCreate - " + name + ": organizational unit after transformation from AffiliationVO (unformatted) =\n" + organizationalUnitPreCreate);
+        logger.debug(
+                "createSubAffiliation() - PreCreate - "
+                + name
+                + ": organizational unit after transformation from AffiliationVO (unformatted) =\n"
+                + organizationalUnitPreCreate);
         // create the organizational unit in the framework
-        String organizationalUnitPostCreate = ServiceLocator.getOrganizationalUnitHandler(userHandle).create(organizationalUnitPreCreate);
+        String organizationalUnitPostCreate =
+            ServiceLocator.getOrganizationalUnitHandler(userHandle)
+                .create(organizationalUnitPreCreate);
         assertNotNull(organizationalUnitPostCreate);
         // extract the objid from the returned OU
         String objectId = getObjid(organizationalUnitPostCreate);
         StringBuffer sb = new StringBuffer();
-        sb.append("createSubAffiliation() - " + name + ": organizational unit created in the framework (objectId: " + objectId + ") as a sub_OU of ");
+        sb.append(
+                "createSubAffiliation() - "
+                + name +
+                ": organizational unit created in the framework (objectId: "
+                + objectId +
+                ") as a sub_OU of ");
         for (String objId : parentObjectIds)
         {
             sb.append(objId + ", ");
@@ -277,7 +355,11 @@ public class AffiliationCreator extends TestBase
         // check relationship to parent affiliation(s)
         String parents = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveParents(objectId);
         logger.info("createSubAffiliation() - " + name + ": parent-OUs retrieved.");
-        logger.debug("createSubAffiliation() - " + name + ": list of retrieved parent affiliations =\n" + toString(getDocument(parents, false), false));
+        logger.debug(
+                "createSubAffiliation() - "
+                + name
+                + ": list of retrieved parent affiliations =\n"
+                + toString(getDocument(parents, false), false));
         List<AffiliationRO> parentsROList = xmlTransforming.transformToParentAffiliationList(parents);
         assertEquals(parentObjectIds.size(), parentsROList.size());
         return objectId;
@@ -301,7 +383,18 @@ public class AffiliationCreator extends TestBase
 
         details.setCountryCode("NO");
         details.getDescriptions()
-                .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
+                .add("In der Helmholtz-Gemeinschaft haben sich 15 "
+                        + "naturwissenschaftlich-technische und medizinisch-biologische "
+                        + "Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, "
+                        + "langfristige Forschungsziele des Staates und der Gesellschaft "
+                        + "zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die "
+                        + "dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und "
+                        + "zu verbessern. Dazu identifiziert und bearbeitet sie große und "
+                        + "drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft "
+                        + "durch strategisch-programmatisch ausgerichtete Spitzenforschung "
+                        + "in sechs Forschungsbereichen: Energie, Erde und Umwelt, "
+                        + "Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie "
+                        + "Verkehr und Weltraum.");
         details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711"));
 
         affiliationMPG.getMetadataSets().add(details);
@@ -320,21 +413,21 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         AffiliationVO affiliationHelmholtz = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
 
-            details.setName("Helmholtz-Gemeinschaft");
-            details.getAlternativeNames().add("HG");
+        details.setName("Helmholtz-Gemeinschaft");
+        details.getAlternativeNames().add("HG");
+
+        details.setCity("Bonn");
+
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI,"http://www.helmholtz.de"));
+        details.setCountryCode("DE");
+        details.getDescriptions()
+                .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.EDOC,"239832-3232"));
+        affiliationHelmholtz.getMetadataSets().add(details);
     
-            details.setCity("Bonn");
     
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI,"http://www.helmholtz.de"));
-            details.setCountryCode("DE");
-            details.getDescriptions()
-                    .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.EDOC,"239832-3232"));
-            affiliationHelmholtz.getMetadataSets().add(details);
-        
-        
         return affiliationHelmholtz;
     }
 
@@ -349,21 +442,21 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         AffiliationVO affiliationFraunhofer = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
-            
-            details.setName("Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.");
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.");
 
-            details.getAlternativeNames().add("FG");
-    
-            details.setCity("München");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fraunhofer.de"));
-    
-            details.setCountryCode("NO");
-            details.getDescriptions()
-                    .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711"));
-            
-            affiliationFraunhofer.getMetadataSets().add(details);
+        details.getAlternativeNames().add("FG");
+
+        details.setCity("München");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fraunhofer.de"));
+
+        details.setCountryCode("NO");
+        details.getDescriptions()
+                .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711"));
+        
+        affiliationFraunhofer.getMetadataSets().add(details);
         
         return affiliationFraunhofer;
     }
@@ -379,20 +472,20 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         AffiliationVO affiliationMPIFG = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
-            
-            details.setName("Max-Planck-Institut für Gesellschaftsforschung");
-            details.getAlternativeNames().add("MPIFG");
-            details.setCity("Köln");
-    
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpifg.de"));
-    
-            details.setCountryCode("DE");
-            details.getDescriptions()
-                    .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711-4712"));
-            
-            affiliationMPIFG.getMetadataSets().add(details);
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Max-Planck-Institut für Gesellschaftsforschung");
+        details.getAlternativeNames().add("MPIFG");
+        details.setCity("Köln");
+
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpifg.de"));
+
+        details.setCountryCode("DE");
+        details.getDescriptions()
+                .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711-4712"));
+        
+        affiliationMPIFG.getMetadataSets().add(details);
         
 
         return affiliationMPIFG;
@@ -410,24 +503,24 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         AffiliationVO affiliationMPI_G = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
-            
-            details.setName("Max-Planck-Institut zur Erforschung multireligiöser und multiethnischer Gesellschaften");
-            details.getAlternativeNames().add("MPI-G");
-            details.setCity("Göttingen");
-    
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.geschichte.mpg.de/"));
-    
-            details.setCountryCode("DE");
-            details.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
-                    + "das durch eine aus französischen und deutschen Persönlichkeiten zusammengesetzte wissenschaftliche Kommission beraten wird.\n"
-                    + "Die Mission Historique Francaise en Allemagne wurde 1977 durch Robert Mandrou gegründet, der auch ihr erster Direktor war. "
-                    + "Heute nimmt sie im wissenschaftlichen Austausch der Historiker in Frankreich und Deutschland einen allgemein anerkannten Platz ein.\n"
-                    + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
-                    + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
-                    + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "r2d2-49"));
-            affiliationMPI_G.getMetadataSets().add(details);
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Max-Planck-Institut zur Erforschung multireligiöser und multiethnischer Gesellschaften");
+        details.getAlternativeNames().add("MPI-G");
+        details.setCity("Göttingen");
+
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.geschichte.mpg.de/"));
+
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
+                + "das durch eine aus französischen und deutschen Persönlichkeiten zusammengesetzte wissenschaftliche Kommission beraten wird.\n"
+                + "Die Mission Historique Francaise en Allemagne wurde 1977 durch Robert Mandrou gegründet, der auch ihr erster Direktor war. "
+                + "Heute nimmt sie im wissenschaftlichen Austausch der Historiker in Frankreich und Deutschland einen allgemein anerkannten Platz ein.\n"
+                + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
+                + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
+                + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "r2d2-49"));
+        affiliationMPI_G.getMetadataSets().add(details);
 
         return affiliationMPI_G;
     }
@@ -443,43 +536,43 @@ public class AffiliationCreator extends TestBase
     {
         AffiliationVO affiliationFML = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
-            
-            details.setName("Friedrich-Miescher-Laboratorium für biologische Arbeitsgruppen in der Max-Planck-Gesellschaft");
-            details.getAlternativeNames().add("FML");
-    
-            details.setCity("Tübingen");
-    
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fml.tuebingen.mpg.de"));
-            
-            details.setCountryCode("DE");
-            details.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
-                    + "die Möglichkeit zu bieten, mit unabhängigen Arbeitsgruppen für einen befristeten Zeitraum (fünf Jahre) eigene "
-                    + "Forschungsprojekte zu bearbeiten. Die Forschungsschwerpunkte wechseln mit der Berufung neuer Gruppenleiter.\n"
-                    + "Administrative und organisatorische Interessen der Arbeitsgruppen des Friedrich-Miescher-Laboratoriums werden "
-                    + "alternierend durch einen der Arbeitsgruppenleiter vertreten. Die räumliche und thematische Einbettung des "
-                    + "Laboratoriums auf dem Campus der Max-Planck-Institute in Tübingen ermöglicht intensive wissenschaftliche und "
-                    + "methodische Kontakte zu den Abteilungen der benachbarten Institute.\n"
-                    + "Die seit Januar 2005 bestehende und von Gunnar Rätsch geleitete Gruppe ist an der Beantwortung biologischer "
-                    + "Fragestellungen mithilfe moderner Methoden des maschinellen Lernens interessiert. Maschinelles Lernen beschäftigt "
-                    + "sich mit der computergestützen Analyse komplexer Phänomene und hat sich als sehr nützlich bei der Untersuchung "
-                    + "biologischer Systeme erwiesen. Die Gruppe hat sich zum Ziel gesetzt, effiziente und präzise Lernmethoden zu entwickeln, "
-                    + "die in der Lage sind, mit großen genomischen Datenmengen umzugehen. Es wird angestrebt, durch für den Menschen "
-                    + "nachvollziehbare Vorhersagen ein besseres Verständnis der betrachteten biologischen Zusammenhänge zu erlangen. "
-                    + "Die Arbeitsgruppe ist besonders an der Anwendung und Entwicklung neuer Sequenzanalysealgorithmen zur Vorhersage "
-                    + "neuer Gene auf der genomischen DNA interessiert. Sie strebt außerdem ein besseres Verständnis der zellulären "
-                    + "Spleißmechanismen mithilfe dieser Methoden an. Die genaue Vorhersage von alternativen Spleißprodukten und die "
-                    + "Untersuchung von Regulationsmechanismen stehen im Moment im Mittelpunkt ihrer Forschung.\n"
-                    + "Die Gruppe von Silke Hauf beschäftigt sich mit der Regulation der Chromosomensegregation während der Zellteilung "
-                    + "von Eukaryonten. Insbesondere wird untersucht, wie Kinetochore die Chromosomensegregation beeinflussen und für "
-                    + "einen fehlerfreien Ablauf sorgen. Korrekte Chromosomensegregation ist essentiell für die Weitergabe der "
-                    + "Erbinformation an die Tochterzellen, und damit essentiell für den Bestand von Organismen. Die grundlegenden "
-                    + "Komponenten und Prinzipien haben sich daher über viele Jahrmillionen nur wenig verändert, und ähneln sich in "
-                    + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
-                    + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
-                    + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "MPI-27892-UBUNTU"));
-            affiliationFML.getMetadataSets().add(details);
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Friedrich-Miescher-Laboratorium für biologische Arbeitsgruppen in der Max-Planck-Gesellschaft");
+        details.getAlternativeNames().add("FML");
+
+        details.setCity("Tübingen");
+
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fml.tuebingen.mpg.de"));
+        
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
+                + "die Möglichkeit zu bieten, mit unabhängigen Arbeitsgruppen für einen befristeten Zeitraum (fünf Jahre) eigene "
+                + "Forschungsprojekte zu bearbeiten. Die Forschungsschwerpunkte wechseln mit der Berufung neuer Gruppenleiter.\n"
+                + "Administrative und organisatorische Interessen der Arbeitsgruppen des Friedrich-Miescher-Laboratoriums werden "
+                + "alternierend durch einen der Arbeitsgruppenleiter vertreten. Die räumliche und thematische Einbettung des "
+                + "Laboratoriums auf dem Campus der Max-Planck-Institute in Tübingen ermöglicht intensive wissenschaftliche und "
+                + "methodische Kontakte zu den Abteilungen der benachbarten Institute.\n"
+                + "Die seit Januar 2005 bestehende und von Gunnar Rätsch geleitete Gruppe ist an der Beantwortung biologischer "
+                + "Fragestellungen mithilfe moderner Methoden des maschinellen Lernens interessiert. Maschinelles Lernen beschäftigt "
+                + "sich mit der computergestützen Analyse komplexer Phänomene und hat sich als sehr nützlich bei der Untersuchung "
+                + "biologischer Systeme erwiesen. Die Gruppe hat sich zum Ziel gesetzt, effiziente und präzise Lernmethoden zu entwickeln, "
+                + "die in der Lage sind, mit großen genomischen Datenmengen umzugehen. Es wird angestrebt, durch für den Menschen "
+                + "nachvollziehbare Vorhersagen ein besseres Verständnis der betrachteten biologischen Zusammenhänge zu erlangen. "
+                + "Die Arbeitsgruppe ist besonders an der Anwendung und Entwicklung neuer Sequenzanalysealgorithmen zur Vorhersage "
+                + "neuer Gene auf der genomischen DNA interessiert. Sie strebt außerdem ein besseres Verständnis der zellulären "
+                + "Spleißmechanismen mithilfe dieser Methoden an. Die genaue Vorhersage von alternativen Spleißprodukten und die "
+                + "Untersuchung von Regulationsmechanismen stehen im Moment im Mittelpunkt ihrer Forschung.\n"
+                + "Die Gruppe von Silke Hauf beschäftigt sich mit der Regulation der Chromosomensegregation während der Zellteilung "
+                + "von Eukaryonten. Insbesondere wird untersucht, wie Kinetochore die Chromosomensegregation beeinflussen und für "
+                + "einen fehlerfreien Ablauf sorgen. Korrekte Chromosomensegregation ist essentiell für die Weitergabe der "
+                + "Erbinformation an die Tochterzellen, und damit essentiell für den Bestand von Organismen. Die grundlegenden "
+                + "Komponenten und Prinzipien haben sich daher über viele Jahrmillionen nur wenig verändert, und ähneln sich in "
+                + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
+                + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
+                + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "MPI-27892-UBUNTU"));
+        affiliationFML.getMetadataSets().add(details);
 
         return affiliationFML;
     }
@@ -495,44 +588,44 @@ public class AffiliationCreator extends TestBase
 
         AffiliationVO affiliationMPIMF = new AffiliationVO();
 
-            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
-            
-            details.setName("Max-Planck-Institut für medizinische Forschung");
-            details.getAlternativeNames().add("MPIMF");
-            details.setCity("Heidelberg");
-    
-            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpimf-heidelberg.mpg.de/"));
-    
-            details.setCountryCode("DE");
-            details.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
-                    + "medizinische Grundlagenforschung einzuführen. Die Abteilungen für Chemie, Physiologie und Biophysik konzentrierten "
-                    + "sich auf biophysikalische und chemische Fragestellungen, in der Tradition der Naturstoffchemie des Instituts. Mit "
-                    + "einer Abteilung für Molekularbiologie wurde in den 60er Jahren neuen Entwicklungen in der Biologie Rechnung getragen. "
-                    + "Ende der 80er Jahre und während der 90er Jahre kamen Untersuchungen zu spezifischen Funktionen von Muskel- und "
-                    + "Nervenzellen hinzu. Neue Abteilungen für Zellphysiologie (1989), Molekulare Zellforschung (1992-1999), Molekulare "
-                    + "Neurobiologie (1995), Biomedizinische Optik (1999) und Biomolekulare Mechanismen (2002) wurden ebenso wie die "
-                    + "Nachwuchsgruppen Ionenkanalstruktur (1997-2003) und für Entwicklungsgenetik (1999-2005) gegründet. Am Institut "
-                    + "arbeiteten seit seiner Gründung fünf Nobelpreisträger: Meyerhof (Physiologie), Kuhn (Chemie), Bothe (Physik), " + "Mößbauer (Physik) und Sakmann (Physiologie).\n"
-                    + "Gegenwärtig hat das Institut vier Abteilungen. Die Abteilung Zellphysiologie bearbeitet die Entstehung von "
-                    + "elektrischen Signalen und der Weiterleitung zwischen und innerhalb von Nervenzellen sowie deren Veränderbarkeit durch "
-                    + "Übung und Gebrauch. Die Abteilung Molekulare Neurobiologie hat als Schwerpunkt die Analyse und Veränderung in der Maus "
-                    + "von Genen, deren Produkte für die schnelle Signalübermittlung im Gehirn verantwortlich sind und geht der Frage nach, "
-                    + "welche Hirnleistungen vererbt oder welche erworben werden. Die Abteilung Biomedizinische Optik bestimmt unter Anwendung "
-                    + "und Weiterentwicklung der Multiquantenmikroskopie die Aktivität von Gruppen von Nervenzellen, in Gewebepräparaten und "
-                    + "in intakten Tieren. Ziel der Arbeiten der Abteilung Biomolekulare Mechanismen ist es, die molekularen Grundlagen von "
-                    + "Modellreaktionen anhand biophysikalischer und strukturbiologischer Untersuchungen aufzuklären.\n"
-                    + "Schwerpunkt der Emeritusgruppe Biophysik ist die Struktur des Myosin-Aktin Komplexes mit atomarer Auflösung.\n"
-                    + "Künftig sollen unter anderem am Institut Nervenzellen und ihre vielfältigen Verschaltungen in der Großhirnrinde, die "
-                    + "für Empfang und Verarbeitung von Meldungen der Sinnesorgane, wie dem Geruchs-, Seh- und Tastsinn, verantwortlich sind, "
-                    + "mit Hilfe von molekulargenetischen, physiologischen und bildgebenden Verfahren untersucht werden. Insbesondere "
-                    + "interessiert uns, wie Information in den Kontaktpunkten (Synapsen) der Verdrahtungen zwischen Nervenzellen gespeichert "
-                    + "und abgerufen wird und wie neue Kontaktpunkte gebildet sowie nicht mehr benötigte entfernt werden. Für diese künftigen "
-                    + "Arbeiten sollen neu zu entwickelnde Genschalter zum Einsatz kommen, mit denen die Aktivität von Schlüsselmolekülen "
-                    + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
-                    + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
-                    + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
-            details.setCoordinates(new Coordinates(1.45246462436, 2.34673657346));
-            affiliationMPIMF.getMetadataSets().add(details);
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Max-Planck-Institut für medizinische Forschung");
+        details.getAlternativeNames().add("MPIMF");
+        details.setCity("Heidelberg");
+
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpimf-heidelberg.mpg.de/"));
+
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
+                + "medizinische Grundlagenforschung einzuführen. Die Abteilungen für Chemie, Physiologie und Biophysik konzentrierten "
+                + "sich auf biophysikalische und chemische Fragestellungen, in der Tradition der Naturstoffchemie des Instituts. Mit "
+                + "einer Abteilung für Molekularbiologie wurde in den 60er Jahren neuen Entwicklungen in der Biologie Rechnung getragen. "
+                + "Ende der 80er Jahre und während der 90er Jahre kamen Untersuchungen zu spezifischen Funktionen von Muskel- und "
+                + "Nervenzellen hinzu. Neue Abteilungen für Zellphysiologie (1989), Molekulare Zellforschung (1992-1999), Molekulare "
+                + "Neurobiologie (1995), Biomedizinische Optik (1999) und Biomolekulare Mechanismen (2002) wurden ebenso wie die "
+                + "Nachwuchsgruppen Ionenkanalstruktur (1997-2003) und für Entwicklungsgenetik (1999-2005) gegründet. Am Institut "
+                + "arbeiteten seit seiner Gründung fünf Nobelpreisträger: Meyerhof (Physiologie), Kuhn (Chemie), Bothe (Physik), " + "Mößbauer (Physik) und Sakmann (Physiologie).\n"
+                + "Gegenwärtig hat das Institut vier Abteilungen. Die Abteilung Zellphysiologie bearbeitet die Entstehung von "
+                + "elektrischen Signalen und der Weiterleitung zwischen und innerhalb von Nervenzellen sowie deren Veränderbarkeit durch "
+                + "Übung und Gebrauch. Die Abteilung Molekulare Neurobiologie hat als Schwerpunkt die Analyse und Veränderung in der Maus "
+                + "von Genen, deren Produkte für die schnelle Signalübermittlung im Gehirn verantwortlich sind und geht der Frage nach, "
+                + "welche Hirnleistungen vererbt oder welche erworben werden. Die Abteilung Biomedizinische Optik bestimmt unter Anwendung "
+                + "und Weiterentwicklung der Multiquantenmikroskopie die Aktivität von Gruppen von Nervenzellen, in Gewebepräparaten und "
+                + "in intakten Tieren. Ziel der Arbeiten der Abteilung Biomolekulare Mechanismen ist es, die molekularen Grundlagen von "
+                + "Modellreaktionen anhand biophysikalischer und strukturbiologischer Untersuchungen aufzuklären.\n"
+                + "Schwerpunkt der Emeritusgruppe Biophysik ist die Struktur des Myosin-Aktin Komplexes mit atomarer Auflösung.\n"
+                + "Künftig sollen unter anderem am Institut Nervenzellen und ihre vielfältigen Verschaltungen in der Großhirnrinde, die "
+                + "für Empfang und Verarbeitung von Meldungen der Sinnesorgane, wie dem Geruchs-, Seh- und Tastsinn, verantwortlich sind, "
+                + "mit Hilfe von molekulargenetischen, physiologischen und bildgebenden Verfahren untersucht werden. Insbesondere "
+                + "interessiert uns, wie Information in den Kontaktpunkten (Synapsen) der Verdrahtungen zwischen Nervenzellen gespeichert "
+                + "und abgerufen wird und wie neue Kontaktpunkte gebildet sowie nicht mehr benötigte entfernt werden. Für diese künftigen "
+                + "Arbeiten sollen neu zu entwickelnde Genschalter zum Einsatz kommen, mit denen die Aktivität von Schlüsselmolekülen "
+                + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
+                + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
+                + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
+        details.setCoordinates(new Coordinates(1.45246462436, 2.34673657346));
+        affiliationMPIMF.getMetadataSets().add(details);
         
         return affiliationMPIMF;
     }
@@ -628,7 +721,7 @@ public class AffiliationCreator extends TestBase
     }
 
     /**
-     * @throws Exception
+     * @throws Exception Any exception
      */
     public static void deleteAllAffiliationsContainingThreeAsteriskes() throws Exception
     {
@@ -642,14 +735,16 @@ public class AffiliationCreator extends TestBase
       System.out.println(affiliationsXML);
       List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);
        
-      for (AffiliationVO affiliation : affiliations) {
-    	  String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
-    	  if (affiliationName.contains("***") ) {
-    		  deleteAffiliationNode( ouh, affiliation );
-    	  }
+      for (AffiliationVO affiliation : affiliations)
+      {
+          String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+          if (affiliationName.contains("***") )
+          {
+              deleteAffiliationNode( ouh, affiliation );
+          }
       }
 //        do
-//        {        	
+//        {            
 //            // retrieve all affiliations in the framework (again)
 //            OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
 //            String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
@@ -691,38 +786,47 @@ public class AffiliationCreator extends TestBase
 //        logout(systemAdministratorUserHandle);
     }
     
-    private static void deleteAffiliationNode( OrganizationalUnitHandler ouh, AffiliationVO affiliation ) {
-    	if( affiliation.getHasChildren() == true ) {
-    		List<AffiliationRO> childList = affiliation.getChildAffiliations();
-    		for( int i = 0; i < childList.size(); i++ ) {
-    			String xmlAffiliation = null;
-    			AffiliationVO childAffiliation = null;
-				try {
-					xmlAffiliation = ouh.retrieve( childList.get( i ).getObjectId() );
-					childAffiliation = xmlTransforming.transformToAffiliation( xmlAffiliation );
-				} 
-				catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				deleteAffiliationNode( ouh, childAffiliation );
-				try {
-	    			ouh.delete(affiliation.getReference().getObjectId());
-	    		}
-	    		catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    		}
-    	}
-    	else {
-    		try {
-    			ouh.delete(affiliation.getReference().getObjectId());
-    		}
-    		catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	}
+    private static void deleteAffiliationNode(OrganizationalUnitHandler ouh, AffiliationVO affiliation ) {
+        if( affiliation.getHasChildren() == true )
+        {
+            List<AffiliationRO> childList = affiliation.getChildAffiliations();
+            for( int i = 0; i < childList.size(); i++ )
+            {
+                String xmlAffiliation = null;
+                AffiliationVO childAffiliation = null;
+                try
+                {
+                    xmlAffiliation = ouh.retrieve( childList.get( i ).getObjectId() );
+                    childAffiliation = xmlTransforming.transformToAffiliation( xmlAffiliation );
+                } 
+                catch (Exception e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                deleteAffiliationNode( ouh, childAffiliation );
+                try
+                {
+                    ouh.delete(affiliation.getReference().getObjectId());
+                }
+                catch (Exception e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        else
+        {
+            try
+            {
+                ouh.delete(affiliation.getReference().getObjectId());
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 }

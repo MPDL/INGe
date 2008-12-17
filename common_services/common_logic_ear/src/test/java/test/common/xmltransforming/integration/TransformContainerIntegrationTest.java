@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
@@ -166,7 +167,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         assertEquals("escidoc:persistent51", container.getContext().getObjectId());
         assertEquals("escidoc:user42", container.getOwner().getObjectId());
         assertTrue(2 == container.getMembers().size());
-        MdsPublicationVO md = container.getMetadata();
+        MetadataSetVO md = container.getMetadataSets().get(0);
+        assertTrue(md instanceof MdsPublicationVO);
     }
 
     /**
@@ -206,10 +208,11 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
     }
 
     /**
-     * Tests the transformation of container[XML] (containing two members) to containerVO with a self-created container retrieved
+     * Tests the transformation of container[XML] (containing two members) to
+     * containerVO with a self-created container retrieved.
      * from the framework.
      * 
-     * @throws Exception
+     * @throws Exception Any exception
      */
     @Test
     public void testTransformToContainerWithOneMembersCreate() throws Exception
@@ -232,7 +235,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list
@@ -261,8 +264,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         containerVOPreCreate.setContentModel("escidoc:persistent4");
         
         MdsPublicationVO mds = getMdsPublication1();
-        containerVOPreCreate.setMetadata(mds);
-        containerVOPreCreate.getMembers().add((ReferenceObject)member);
+        containerVOPreCreate.getMetadataSets().add(mds);
+        containerVOPreCreate.getMembers().add((ReferenceObject) member);
         
         // transform the ContainerVO into an container (for create)
         zeit = -System.currentTimeMillis();
@@ -302,7 +305,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO mdsFileVO = new MdsFileVO();
-        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
         mdsFileVO.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(mdsFileVO);
         //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
@@ -310,24 +313,31 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)
         String pubItemXMLPreCreate = xmlTransforming.transformToItem(pubItemVOPreCreate);
-        logger.info("PubItemVO with file transformed to item(XML) for create." + "\nContentItem() (item after transformation from PubItemVO) =" + pubItemXMLPreCreate);
+        logger.info("PubItemVO with file transformed to item(XML) for create."
+                + "\nContentItem() (item after transformation from PubItemVO) ="
+                + pubItemXMLPreCreate);
         // create the item in the framework
         String pubItemXMLPostCreate = ServiceLocator.getItemHandler(userHandle).create(pubItemXMLPreCreate);
         assertNotNull(pubItemXMLPostCreate);
-        logger.info("item(XML) created in the framework." + "\nItem objid: " + getObjid(pubItemXMLPostCreate) + "\nResponse from framework =" + pubItemXMLPostCreate);
+        logger.info("item(XML) created in the framework." + "\nItem objid: "
+                + getObjid(pubItemXMLPostCreate)
+                + "\nResponse from framework ="
+                + pubItemXMLPostCreate);
         // transform the returned item to a PubItemVO
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
         logger.debug("Create: Returned item transformed back to PubItemVO.");
         if (pubItemVOPostCreate.getVersion() != null)
         {
-            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): " + pubItemVOPostCreate.getVersion().getObjectId());
+            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): "
+                    + pubItemVOPostCreate.getVersion().getObjectId());
         }
         else
         {
             fail("pubItemVOPostCreate.getVersion() is null!");
         }
         
-        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getVersion().getModificationDate());
+        logger.debug("pubItemVOPostCreate.getModificationDate(): "
+                + pubItemVOPostCreate.getVersion().getModificationDate());
         
       //create new ItemRO
         ItemRO member = new ItemRO(getObjid(pubItemXMLPostCreate));
@@ -340,8 +350,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         containerVOPreCreate.setContentModel("escidoc:persistent4");
         
         MdsPublicationVO mds = getMdsPublication1();
-        containerVOPreCreate.setMetadata(mds);
-        containerVOPreCreate.getMembers().add((ReferenceObject)member);
+        containerVOPreCreate.getMetadataSets().add(mds);
+        containerVOPreCreate.getMembers().add((ReferenceObject) member);
         
         // transform the ContainerVO into an container (for create)
         long zeit = -System.currentTimeMillis();
@@ -355,34 +365,48 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         logger.debug("Create: Returned container transformed back to ContainerVO.");
         if (containerVOPostCreate.getVersion() != null)
         {
-            logger.debug("containerVOPostCreate.getVersion().getObjectId() (objid): " + containerVOPostCreate.getVersion().getObjectId());
+            logger.debug("containerVOPostCreate.getVersion().getObjectId() (objid): "
+                    + containerVOPostCreate.getVersion().getObjectId());
         }
         else
         {
             fail("containerVOPostCreate.getVersion() is null!");
         }
         
-        logger.debug("containerVOPostCreate.getModificationDate(): " + containerVOPostCreate.getVersion().getModificationDate());
+        logger.debug("containerVOPostCreate.getModificationDate(): "
+                + containerVOPostCreate.getVersion().getModificationDate());
         // transform the ContainerVO into a container again
         String containerXMLPreUpdate = xmlTransforming.transformToContainer(containerVOPostCreate);
         String id = getObjid(containerXMLPreUpdate);
-        logger.info("ContainerVO transfored back to container(XML) for update." + "\nContainer() =\n######\n" + containerXMLPreUpdate + "\n######\nContainer id: " + id);
+        logger.info("ContainerVO transfored back to container(XML) for update."
+                + "\nContainer() =\n######\n"
+                + containerXMLPreUpdate
+                + "\n######\nContainer id: "
+                + id);
         // update the container in the framework
         logger.info("Trying to update the container in the framework...");
 
         logger.debug("containerXMLPreUpdate: " + containerXMLPreUpdate);
 
-        String containerXMLPostUpdate = ServiceLocator.getContainerHandler(userHandle).update(id, containerXMLPreUpdate);
+        String containerXMLPostUpdate =
+            ServiceLocator
+            .getContainerHandler(userHandle)
+            .update(id, containerXMLPreUpdate);
         assertNotNull(containerXMLPostUpdate);
-        logger.info("container(XML) updated in the framework." + "\nContainer objid: " + getObjid(containerXMLPostUpdate) + "\nResponse from framework =\n######\n" + containerXMLPostUpdate + "\n######\n");
+        logger.info("container(XML) updated in the framework."
+                + "\nContainer objid: "
+                + getObjid(containerXMLPostUpdate)
+                + "\nResponse from framework =\n######\n"
+                + containerXMLPostUpdate
+                + "\n######\n");
         // transform the returned container to a ContainerVO
         ContainerVO containerVOPostUpdate = xmlTransforming.transformToContainer(containerXMLPostUpdate);
         logger.debug("Update: Returned container transformed back to ContainerVO.");
         // check results
         assertTrue(containerVOPostUpdate.getLatestVersion().getVersionNumber() >= 1);        
         // compare the metadata sets peu a peu (good for bug tracking)
-        MdsPublicationVO mdsPublication1 = containerVOPreCreate.getMetadata();
-        MdsPublicationVO mdsPublication2 = containerVOPostUpdate.getMetadata();
+        MetadataSetVO mdsPublication1 = containerVOPreCreate.getMetadataSets().get(0);
+        MetadataSetVO mdsPublication2 = containerVOPostUpdate.getMetadataSets().get(0);
         ObjectComparator oc = new ObjectComparator(mdsPublication1, mdsPublication2);
         for (String diff : oc.getDiffs())
         {
@@ -417,7 +441,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         sourceContainerPreCreate.setContext(ctx);
         sourceContainerPreCreate.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();
-        sourceContainerPreCreate.setMetadata(mds);
+        sourceContainerPreCreate.getMetadataSets().add(mds);
         
         List<ItemRelationVO> sourceItemRelations = sourceContainerPreCreate.getRelations();
         sourceItemRelations.add(new ItemRelationVO(PREDICATE_ISREVISIONOF, targetItemRef));
@@ -474,7 +498,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         containerVO.setContext(ctx);
         containerVO.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();
-        containerVO.setMetadata(mds);
+        containerVO.getMetadataSets().add(mds);
         String container1 = xmlTransforming.transformToContainer(containerVO);
         logger.debug("container1 created from scratch and transformed to XML.");
         assertNotNull(container1);
@@ -503,7 +527,8 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         String containerListXML = ServiceLocator.getContainerHandler(userHandle).retrieveContainers(filterTMP);
         logger.debug(containerListXML);
         assertXMLValid(containerListXML);
-        List<? extends ContainerVO> containerList = xmlTransforming.transformToContainerList(containerListXML);
+        List<? extends ContainerVO> containerList =
+            xmlTransforming.transformToContainerList(containerListXML);
         assertNotNull(containerList);
     }
 

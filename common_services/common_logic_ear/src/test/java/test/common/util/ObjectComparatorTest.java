@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRol
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
- * Test class for {@link de.mpg.escidoc.services.common.util.ObjectComparator}
+ * Test class for {@link de.mpg.escidoc.services.common.util.ObjectComparator}.
  * 
  * @author Johannes Mueller (initial creation)
  * @author $Author: jmueller $ (last modification)
@@ -59,7 +59,7 @@ public class ObjectComparatorTest extends TestBase
     private static final Logger logger = Logger.getLogger(ObjectComparatorTest.class);
 
     /**
-     * @throws Exception
+     * @throws Exception Any exception
      */
     @Test
     public void testCompare() throws Exception
@@ -76,7 +76,7 @@ public class ObjectComparatorTest extends TestBase
     }
 
     /**
-     * @throws Exception
+     * @throws Exception Any exception
      */
     @Test
     public void testCompareStrings() throws Exception
@@ -87,7 +87,7 @@ public class ObjectComparatorTest extends TestBase
     }
 
     /**
-     * @throws Exception
+     * @throws Exception Any exception
      */
     @Test
     public void testCompareNull() throws Exception
