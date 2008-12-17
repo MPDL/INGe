@@ -77,16 +77,13 @@ public class DataSourceHandlerBean
                 Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
                 String status = simpleLiteralTostring(source.getStatus());
                 if (status.toLowerCase().trim().equals("published"))
-                {
-                    // Source parameters
-                    DataSourceVO sourceVO = new DataSourceVO();
+                {   DataSourceVO sourceVO = new DataSourceVO();
                     sourceVO.setName(source.getName());
                     sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
                     sourceVO.setUrl(new URL(simpleLiteralTostring(source.getIdentifier())));
                     sourceVO.setType(simpleLiteralTostring(source.getFormatArray(0)));
                     sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
                     sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
-                    // TODO:sourceVO.setRetryAfter(new Date(source.getRetryAfter().toString()));
                     sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
                     sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
@@ -98,9 +95,7 @@ public class DataSourceHandlerBean
                     {
                         MetadataVO mdVO = new MetadataVO();
                         if (mdf.getDescription() != null)
-                        {
-                            mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
-                        }
+                        { mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription())); }
                         mdVO.setMdUrl(new URL(simpleLiteralTostring(mdf.getIdentifier())));
                         mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
                         mdVO.setMdDefault(mdf.getDefault());
@@ -116,9 +111,7 @@ public class DataSourceHandlerBean
                     {
                         FullTextVO fulltextVO = new FullTextVO();
                         if (ftf.getDescription() != null)
-                        {
-                            fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription()));
-                        }
+                        { fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription())); }
                         fulltextVO.setFtUrl(new URL(simpleLiteralTostring(ftf.getIdentifier())));
                         fulltextVO.setFtFormat(simpleLiteralTostring(ftf.getFormat()));
                         fulltextVO.setFtDefault(ftf.getDefault());
@@ -130,7 +123,6 @@ public class DataSourceHandlerBean
                     }
                     sourceVO.setFtFormats(fulltextVec);
                     // Check if a transformation for the default MD format is possible
-                    // TODO: check via transformation.xml
                     if (this.transformationFormat != null)
                     {
                         for (int i = 0; i < sourceVO.getMdFormats().size(); i++)
@@ -139,29 +131,22 @@ public class DataSourceHandlerBean
                             if (md.isMdDefault())
                             {
                                 if (this.mdHandler.checkTransformation(md.getMdLabel(), this.transformationFormat))
-                                {
-                                    sourceVec.add(sourceVO);
-                                }
+                                { sourceVec.add(sourceVO); }
                             }
                         }
                     }
-                    // If no transformationFormat is given => all sources are read in
                     else
-                    {
-                        sourceVec.add(sourceVO);
-                    }
+                    { sourceVec.add(sourceVO); }
                 }
             }
         }
         catch (XmlException e)
         {
-            LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
+            LOGGER.error("Parsing sources.xml caused an error", e); throw new RuntimeException();
         }
         catch (MalformedURLException e)
         {
-            LOGGER.error("Processing the source URL caused an error", e);
-            throw new RuntimeException();
+            LOGGER.error("Processing the source URL caused an error", e); throw new RuntimeException();
         }
         catch (IOException e)
         {
@@ -170,7 +155,7 @@ public class DataSourceHandlerBean
         }
         catch (NamingException e)
         {
-            LOGGER.error("An error occurred when looking up the MetadataHandler Service", e);
+            LOGGER.error("An error occurred when looking up the MetadataHandler Service", e); 
             throw new RuntimeException();
         }
         return sourceVec;
@@ -224,7 +209,6 @@ public class DataSourceHandlerBean
                 sourceVO.setType(simpleLiteralTostring(source.getFormatArray(0)));
                 sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
                 sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
-                // TODO:sourceVO.setRetryAfter(new Date(source.getRetryAfter().toString()));
                 sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
                 sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                 sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
