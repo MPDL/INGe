@@ -128,7 +128,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             }
             
             
-            if (!getSelectedContext().toLowerCase().equals("all"))
+            if (getSelectedContext().toLowerCase().equals("all"))
+            {
+                // add all contexts for which the user has moderator rights (except the "all" item of the menu)
+                for(int i=1; i<getContextSelectItems().size(); i++)
+                {
+                    String contextId = (String)getContextSelectItems().get(i).getValue();
+                    filter.getFilterList().add(filter.new ContextFilter(contextId));
+                }
+                
+            }
+            else
             {
                 Filter f10 = filter.new ContextFilter(getSelectedContext());
                 filter.getFilterList().add(f10);
