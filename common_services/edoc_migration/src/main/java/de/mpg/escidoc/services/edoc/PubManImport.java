@@ -95,6 +95,9 @@ public class PubManImport extends Thread
         if (args != null && args.length == 3)
         {
             CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+            
+            System.out.println("Importing into " + CORESERVICES_URL);
+            
             PubManImport pubManImport = new PubManImport(args[0], args[1], args[2]);
             pubManImport.start();
         }
