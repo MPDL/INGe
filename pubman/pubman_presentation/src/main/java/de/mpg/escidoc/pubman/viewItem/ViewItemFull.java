@@ -52,6 +52,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -285,18 +287,20 @@ public class ViewItemFull extends FacesBean
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
             }
+//            catch (AuthorizationException e)
+//            {
+//                Login login = (Login)getSessionBean(Login.class);
+//                login.forceLogout();
+//            }
+//            catch (AuthenticationException e)
+//            {
+//                Login login = (Login)getSessionBean(Login.class);
+//                login.forceLogout();
+//            }
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
-                Login login = (Login)getSessionBean(Login.class);
-                try
-                {
-                    login.forceLogout();
-                }
-                catch (Exception e2) {
-                    logger.error("Error logging out user", e2);
-                }
-                // TODO: Error handling
+                error("Could not retrieve item with id "+itemID+"\n"+e.toString());
             }
         }
         else

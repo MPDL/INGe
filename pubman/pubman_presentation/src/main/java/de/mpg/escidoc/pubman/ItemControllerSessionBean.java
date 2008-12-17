@@ -1607,32 +1607,36 @@ public class ItemControllerSessionBean extends FacesBean
         //login with escidoc user handle 
         if(loginHelper.getESciDocUserHandle() != null)
         {
-            try
-            {
+            
+//            try
+//            {
+            
                 xmlItem = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(itemID);
-            }
-            catch (AuthenticationException e)
-            {
-                logger.debug(e.toString());
-                Login login = (Login) getSessionBean(Login.class);
-                login.forceLogout();
-                throw e;
-            }
+//            }
+//            catch (AuthenticationException e)
+//            {
+//                logger.debug(e.toString());
+//                Login login = (Login) getSessionBean(Login.class);
+//                login.forceLogout();
+//                throw e;
+//            }
+            
         }
         //anonymous login
         else
         {
-            try
-            {
+            
+//            try
+//            {
                 xmlItem = ServiceLocator.getItemHandler().retrieve(itemID);
-            }
-            catch (AuthenticationException e)
-            {
-                logger.debug(e.toString());
-                Login login = (Login) getSessionBean(Login.class);
-                login.forceLogout();
-                throw e;
-            }
+//            }
+//            catch (AuthenticationException e)
+//            {
+//                logger.debug(e.toString());
+//                Login login = (Login) getSessionBean(Login.class);
+//                login.forceLogout();
+//                throw e;
+//            }
         }
         
         // transform the xml item

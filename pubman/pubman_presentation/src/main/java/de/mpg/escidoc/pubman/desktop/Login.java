@@ -135,13 +135,8 @@ public class Login extends FacesBean
         else
         {
             //login mechanism
-            BreadcrumbItemHistorySessionBean breadCrumbHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
-            
-            String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-            if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
-            
-            String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage());
-            fc.getExternalContext().redirect(url);
+           
+            fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
             
         }
         return "";
@@ -165,20 +160,28 @@ public class Login extends FacesBean
      *
      * @return String navigation string for loading the login error page
      */
-    public String forceLogout() throws URISyntaxException
+    public String forceLogout()
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         try
         {
+            
             fc.getExternalContext().redirect(
                     ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
+                    
+            //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+           
         }
         catch (IOException e)
-        {
+        { 
             logger.error("Could not redirect to Fremework login page", e);
         }
         catch (ServiceException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (URISyntaxException e)
         {
             logger.error("Could not redirect to Fremework login page", e);
         }
@@ -240,5 +243,16 @@ public class Login extends FacesBean
     public void setTxtPassword(HtmlInputText txtPassword)
     {
         this.txtPassword = txtPassword;
+    }
+    
+    private String getLoginUrlFromCurrentBreadcrumb() throws IOException, URISyntaxException, ServiceException
+    {
+        BreadcrumbItemHistorySessionBean breadCrumbHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
+        
+        String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+        if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
+        
+        String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage());
+        return url;
     }
 }

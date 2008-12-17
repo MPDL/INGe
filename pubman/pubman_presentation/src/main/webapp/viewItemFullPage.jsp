@@ -50,7 +50,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText id="pageDummy" value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
 			<!-- The unAPI Identifier for this item -->
-			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.isStateReleased}"/>
+			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -71,7 +71,7 @@
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
-							<div class="contentMenu">
+							<h:panelGroup layout="block" styleClass="contentMenu" rendered="#{ViewItemFull.pubItem != null}">
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
@@ -130,7 +130,7 @@
 								</h:panelGroup>
 								
 							<!-- content menu ends here -->
-							</div>
+							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
@@ -147,7 +147,7 @@
 							</div>
 						</div>
 					</div>			
-					<div class="full_area0">
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ViewItemFull.pubItem != null}">
 						<div class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
@@ -223,7 +223,7 @@
 							<jsp:directive.include file="viewItem/WithdrawnGroup.jspf" />
 
 						</div>
-					</div>
+					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
 			</tr:form>
