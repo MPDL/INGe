@@ -27,7 +27,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search.presentation;
+package de.mpg.escidoc.services.syndication.presentation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,19 +41,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
-
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
-import de.mpg.escidoc.services.search.Search;
-import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the
@@ -70,9 +58,6 @@ public class RestServlet extends HttpServlet
     /** Logging instance. */
     private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
 
-    /** EJB instance of search service. */
-    @EJB
-    private Search itemContainerSearch;
 
     /**
      * {@inheritDoc}
@@ -306,9 +291,6 @@ public class RestServlet extends HttpServlet
         e.printStackTrace(pw);
         pw.close();
     }
-    
-    private boolean checkVal(String str) {
-    	return !(str == null || str.trim().equals(""));
-    }	
+
 	    
 }
