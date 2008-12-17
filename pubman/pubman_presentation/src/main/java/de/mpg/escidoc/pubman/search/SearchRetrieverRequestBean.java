@@ -16,7 +16,7 @@ import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -80,7 +80,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public String getType()
     {
-        return "SearchResult";
+        return "SearchResultElement";
     }
 
     
@@ -197,7 +197,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      */
     private ArrayList<PubItemVOPresentation> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
         
-        List<ItemContainerSearchResultVO> results = result.getResultList();
+        List<SearchResultElement> results = result.getResultList();
         
         ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
         for( int i = 0; i < results.size(); i++ ) {

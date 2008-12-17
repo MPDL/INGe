@@ -60,7 +60,7 @@ public class AffiliationBean extends FacesBean
 
     public TreeModel getTree()
     {
-        if (timestamp < ((AffiliationTree)getApplicationBean(AffiliationTree.class)).getTimestamp())
+        if (timestamp < ((AffiliationTree) getApplicationBean(AffiliationTree.class)).getTimestamp())
         {
             tree = new ChildPropertyTreeModel(getAffiliations(), "children");
             timestamp = new Date().getTime();
@@ -82,7 +82,7 @@ public class AffiliationBean extends FacesBean
     {
         UIComponent component = event.getComponent();
         ValueExpression valueExpression = component.getValueExpression("text");
-        String value = (String)valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+        String value = (String) valueExpression.getValue(FacesContext.getCurrentInstance().getELContext());
         logger.debug("SELECTNODE:" + value);
         if (value != null)
         {
@@ -95,7 +95,7 @@ public class AffiliationBean extends FacesBean
                 }
             }
         }
-        ((AffiliationDetail)getSessionBean(AffiliationDetail.class)).setAffiliationVO(selectedAffiliation);
+        ((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(selectedAffiliation);
         logger.debug("Selected affiliation is " + selectedAffiliation);
     }
 
@@ -105,8 +105,8 @@ public class AffiliationBean extends FacesBean
         {
             if (cache != null && cache instanceof OrganizationVO)
             {
-                ((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-                ((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+                ((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
+                ((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
                 String address = "";
                 if (selectedAffiliation.getDefaultMetadata().getCity() != null)
                 {
@@ -123,7 +123,7 @@ public class AffiliationBean extends FacesBean
                 {
                     address += selectedAffiliation.getDefaultMetadata().getCountryCode();
                 }
-                ((OrganizationVO)cache).setAddress(address);
+                ((OrganizationVO) cache).setAddress(address);
             }
             return "loadEditItem";
         }
@@ -131,8 +131,8 @@ public class AffiliationBean extends FacesBean
         {
             if (cache != null && cache instanceof OrganizationVO)
             {
-                ((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-                ((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+                ((OrganizationVO) cache).setName(new TextVO(selectedAffiliation.getNamePath()));
+                ((OrganizationVO) cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
                 String address = "";
                 if (selectedAffiliation.getDefaultMetadata().getCity() != null)
                 {
@@ -149,7 +149,7 @@ public class AffiliationBean extends FacesBean
                 {
                     address += selectedAffiliation.getDefaultMetadata().getCountryCode();
                 }
-                ((OrganizationVO)cache).setAddress(address);
+                ((OrganizationVO) cache).setAddress(address);
             }
             return "loadNewEasySubmission";
         }
@@ -158,7 +158,7 @@ public class AffiliationBean extends FacesBean
         {
             if (cache != null && cache instanceof OrganizationCriterion)
             {
-                ((OrganizationCriterion)cache).setSearchString("\"" + selectedAffiliation.getName() + "\"");
+                ((OrganizationCriterion) cache).setSearchString("\"" + selectedAffiliation.getName() + "\"");
             }
             return "displaySearchPage";
         }
@@ -175,13 +175,13 @@ public class AffiliationBean extends FacesBean
     }
 
     private AffiliationVOPresentation findAffiliationByName(String name, AffiliationVOPresentation affiliation)
-            throws Exception
+        throws Exception
     {
         String affName = null;
         if (affiliation != null && affiliation.getMetadataSets().size() > 0
                 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
         {
-            affName = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).getName();
+            affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
         }
         if (name.equals(affName))
         {
@@ -203,12 +203,12 @@ public class AffiliationBean extends FacesBean
 
     private AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean)getSessionBean(AffiliationSessionBean.class);
+        return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
     }
 
     private ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     }
 
     public List<AffiliationVOPresentation> getSelected()
@@ -253,43 +253,50 @@ public class AffiliationBean extends FacesBean
 
     public List<AffiliationVOPresentation> getAffiliations()
     {
-        return ((AffiliationTree)getApplicationBean(AffiliationTree.class)).getAffiliations();
+        return ((AffiliationTree) getApplicationBean(AffiliationTree.class)).getAffiliations();
     }
     
     /**
-     * Searches Items by Affiliation 
-     * @return string, identifying the page that should be navigated to after this methodcall
+     * Searches Items by Affiliation.
+     * 
+     * @return string, identifying the page that should be navigated to after this method call
      */    
-    public String startSearchForAffiliation( AffiliationVO affiliation )
+    public String startSearchForAffiliation(AffiliationVO affiliation)
     {
         try
         {
             ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
-                        affiliation.getReference().getObjectId() ));
-            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
-                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
+            criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
+                        affiliation.getReference().getObjectId()));
+            criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
+                    "item", MetadataSearchCriterion.LogicalOperator.AND));
             
             ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
-            contentTypes.add( contentTypeIdPublication );
+            String contentTypeIdPublication = PropertyReader.getProperty(PROPERTY_CONTENT_MODEL);
+            contentTypes.add(contentTypeIdPublication);
             
-            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
+            MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
             
             String cql = query.getCqlQuery();
             
             //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=org");
+            getExternalContext().redirect("SearchResultListPage.jsp?"
+                    + SearchRetrieverRequestBean.parameterCqlQuery
+                    + "="
+                    + URLEncoder.encode(cql)
+                    + "&"
+                    + SearchRetrieverRequestBean.parameterSearchType
+                    + "=org");
             
         }
         catch (Exception e)
         {
             logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
      
-       return "";
+        return "";
     }
 }

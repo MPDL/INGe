@@ -65,7 +65,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -1685,9 +1685,13 @@ public class ItemControllerSessionBean extends FacesBean
 
     /**
      * Returns all top-level affiliations.
+     * 
+     * @deprecated Use searchTopLevelAffiliations instead.
+     * 
      * @return all top-level affiliations
      * @throws Exception if framework access fails
      */
+    @Deprecated
     public ArrayList<AffiliationVO> retrieveTopLevelAffiliations() throws Exception
     {
         if (logger.isDebugEnabled())
@@ -1746,6 +1750,19 @@ public class ItemControllerSessionBean extends FacesBean
     }
 
     /**
+     * TODO MF: Implement this when bug http://www.escidoc.org/issueManagement/show_bug.cgi?id=699 is fixed.
+     * 
+     * Returns all top-level affiliations.
+     * 
+     * @return all top-level affiliations
+     * @throws Exception if framework access fails
+     */
+    public ArrayList<AffiliationVO> searchTopLevelAffiliations() throws Exception
+    {
+        return null;
+    }
+    
+    /**
      * Method for sending an email with attached file. The sending requires authentication.
      * 
      * @author:  StG
@@ -1755,7 +1772,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param senderAddress    the email address of the sender
      * @param recipientsAddresses    the email address(es) of the recipients
      * @param recipientsCCAddresses    the email address(es) of the recipients
-     * @param replytoAddresses    the replyto address(es)
+     * @param replyToAddresses    the reply to address(es)
      * @param text    the content text of the email
      * @param subject    the subject of the email
      * @param attachments    the names/paths of the files to be attached
