@@ -251,7 +251,7 @@ public class TestQueryParser
         Reader sr = new StringReader("äöüß/@ §$%=`´'_");;
         QueryParser qp = new QueryParser(sr);
         String cqlQuery = qp.parse();
-        String expected = "\"äöüß/@\" and \"§$%=`´'_\"";
+        String expected = "\"äöüß/@\" and \"§$\\%=`´'_\"";
         assertEquals(expected, cqlQuery);
     }
     
