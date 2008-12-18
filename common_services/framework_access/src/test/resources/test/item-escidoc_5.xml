@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:8080/xsl/Resource2Html.xsl"?>
+<escidocItem:item
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xml:base="http://localhost:8080" xlink:type="simple"
+	xlink:title="Item escidoc:5" xlink:href="/ir/item/escidoc:5"
+	last-modification-date="2007-11-15T08:36:58.765Z">
+	
+	<escidocItem:properties xlink:type="simple" xlink:title="Properties"
+		xlink:href="/ir/item/escidoc:5/properties">
+		<escidocItem:creation-date>
+			2007-11-15T08:36:49.625Z
+		</escidocItem:creation-date>
+		<escidocItem:created-by xlink:type="simple" xlink:title="roland"
+			xlink:href="/aa/user-account/escidoc:user42" />
+		<escidocItem:public-status>released</escidocItem:public-status>
+		<escidocItem:context xlink:type="simple"
+			xlink:title="A simple Context" xlink:href="/ir/context/escidoc:ex1" />
+		<escidocItem:content-model xlink:type="simple" xlink:title="ct"
+			xlink:href="/cmm/content-model/escidoc:ex4" />
+		<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+		<escidocItem:version xlink:type="simple"
+			xlink:title="This Version" xlink:href="/ir/item/escidoc:5:1">
+			<escidocItem:number>1</escidocItem:number>
+			<escidocItem:date>
+				2007-11-15T08:36:58.765Z
+			</escidocItem:date>
+			<escidocItem:version-status>
+				released
+			</escidocItem:version-status>
+			<escidocItem:valid-status>valid</escidocItem:valid-status>
+			<escidocItem:modified-by xlink:type="simple"
+				xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+			<escidocItem:comment>
+				Status changed to released for Item escidoc:5.
+			</escidocItem:comment>
+		</escidocItem:version>
+		<escidocItem:latest-version xlink:type="simple"
+			xlink:title="Latest Version" xlink:href="/ir/item/escidoc:5:1">
+			<escidocItem:number>1</escidocItem:number>
+			<escidocItem:date>
+				2007-11-15T08:36:58.765Z
+			</escidocItem:date>
+		</escidocItem:latest-version>
+		<escidocItem:latest-release xlink:type="simple"
+			xlink:title="Latest public version"
+			xlink:href="/ir/item/escidoc:5:1">
+			<escidocItem:number>1</escidocItem:number>
+			<escidocItem:date>
+				2007-11-15T08:36:58.765Z
+			</escidocItem:date>
+		</escidocItem:latest-release>
+		<escidocItem:content-model-specific
+			xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6" />
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records
+		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+		xlink:type="simple" xlink:title="Metadata Records of Item escidoc:5"
+		xlink:href="/ir/item/escidoc:5/md-records">
+		<escidocMetadataRecords:md-record name="escidoc"
+			xlink:type="simple" xlink:title="escidoc"
+			xlink:href="/ir/item/escidoc:5/md-records/md-record/escidoc">
+			<dc-md>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+					eSciDoc Banner
+				</dc:title>
+				<dc:description
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					The eSciDoc banner used for headers.
+				</dc:description>
+				<dc:format
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					Image
+				</dc:format>
+				<dc:format
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					image/jpeg
+				</dc:format>
+				<dc:format
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					info:pronom/fmt/42
+				</dc:format>
+			</dc-md>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+	<escidocComponents:components
+		xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6"
+		xlink:type="simple" xlink:title="Components of Item escidoc:5"
+		xlink:href="/ir/item/escidoc:5/components">
+		<escidocComponents:component xlink:type="simple"
+			xlink:title="escidoc-banner.jpg"
+			xlink:href="/ir/item/escidoc:5/components/component/escidoc:ex6">
+			<escidocComponents:properties xlink:type="simple"
+				xlink:title="Properties"
+				xlink:href="/ir/item/escidoc:5/components/component/escidoc:ex6/properties">
+				<escidocComponents:creation-date>
+					2007-11-20T09:57:43.203Z
+				</escidocComponents:creation-date>
+				<escidocComponents:created-by xlink:type="simple"
+					xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+				<escidocComponents:description>
+					The eSciDoc banner JPEG used for header in webpages
+					etc..
+				</escidocComponents:description>
+				<escidocComponents:valid-status>
+					valid
+				</escidocComponents:valid-status>
+				<escidocComponents:visibility>
+					public
+				</escidocComponents:visibility>
+				<escidocComponents:content-category>
+					image
+				</escidocComponents:content-category>
+				<escidocComponents:file-name>
+					escidoc-banner.jpg
+				</escidocComponents:file-name>
+				<escidocComponents:mime-type>
+					image/jpeg
+				</escidocComponents:mime-type>
+				<escidocComponents:file-size>
+					7963
+				</escidocComponents:file-size>
+			</escidocComponents:properties>
+			<escidocComponents:content xlink:type="simple"
+				xlink:title="escidoc-banner.jpg"
+				xlink:href="/ir/item/escidoc:5/components/component/escidoc:ex6/content" />
+		</escidocComponents:component>
+	</escidocComponents:components>
+	<escidocItem:resources xlink:type="simple" xlink:title="Resources"
+		xlink:href="/ir/item/escidoc:5/resources">
+		<escidocItem:version-history xlink:type="simple"
+			xlink:title="Version History"
+			xlink:href="/ir/item/escidoc:5/resources/version-history" />
+	</escidocItem:resources>
+</escidocItem:item>

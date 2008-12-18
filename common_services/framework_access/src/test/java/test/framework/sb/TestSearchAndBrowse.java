@@ -99,7 +99,7 @@ public class TestSearchAndBrowse
         zeit += System.currentTimeMillis();
         ExplainRequestType explainRequest = new ExplainRequestType();
         explainRequest.setVersion(VERSION);
-        ExplainResponseType explainResponse = ServiceLocator.getExplainHandler(null).explainOperation(explainRequest);
+        ExplainResponseType explainResponse = ServiceLocator.getExplainHandler("escidoc_all").explainOperation(explainRequest);
         logger.info("explainPlan()->" + zeit + "ms");
         assertNotNull(explainResponse);
         RecordType record = explainResponse.getRecord();

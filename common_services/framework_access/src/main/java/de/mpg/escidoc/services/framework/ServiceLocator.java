@@ -72,7 +72,8 @@ import de.escidoc.www.services.sm.ScopeHandler;
 import de.escidoc.www.services.sm.ScopeHandlerServiceLocator;
 import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
-
+import de.escidoc.www.services.om.IngestHandler;
+import de.escidoc.www.services.om.IngestHandlerServiceLocator;
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>
  * The URL of the framework can be configured using the system property "framework.url".
@@ -108,6 +109,7 @@ public class ServiceLocator
     private static ReportDefinitionHandlerServiceLocator  publicReportDefinitionHandlerServiceLocator;
     private static ReportHandlerServiceLocator  publicReportHandlerServiceLocator;
     private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
+    private static IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -601,6 +603,30 @@ public class ServiceLocator
             authorizedTocHandlerServiceLocator.setTocHandlerServiceEndpointAddress(url);
         }
         TocHandler handler = authorizedTocHandlerServiceLocator.getTocHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the IngestHandler service for an authenticated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return A IngestHandler.
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static IngestHandler getIngestHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+    	if (authorizedIngestHandlerServiceLocator == null)
+        {
+            authorizedIngestHandlerServiceLocator = new IngestHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedIngestHandlerServiceLocator.getIngestHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("authorizedIngestHandlerServiceLocator URL=" + url);
+            authorizedIngestHandlerServiceLocator.setIngestHandlerServiceEndpointAddress(url);
+        }
+        IngestHandler handler = authorizedIngestHandlerServiceLocator.getIngestHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
