@@ -93,7 +93,7 @@
 			</h:panelGroup>
 
 <%-- File content category --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0 && genre.files_component_content_category_display != 'false'}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && genre.files_component_content_category_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
