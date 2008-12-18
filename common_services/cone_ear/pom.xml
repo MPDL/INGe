@@ -193,7 +193,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
