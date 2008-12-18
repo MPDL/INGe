@@ -96,6 +96,7 @@ private String booleanOperator = "";  /**
   	result = result.replace( "+", "\\+" );
   	result = result.replace( "-", "\\-" );
   	result = result.replace( "&", "\\&" );
+  	result = result.replace( "%", "\\%" );
   	result = result.replace( "|", "\\|" );
   	result = result.replace( "(", "\\(" );
   	result = result.replace( ")", "\\)" );
