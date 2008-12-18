@@ -1843,7 +1843,13 @@ public class ItemControllerSessionBean extends FacesBean
       }     
       byte[] res = null;
       // retrieve the export data calling the interface method
-      res = this.itemExporting.getOutput(exportFormatVO, itemsToExportList);
+      
+      List<PubItemVO> pubItemList = new ArrayList();
+      for(PubItemVO pubItem : itemsToExportList)
+      {
+          pubItemList.add(new PubItemVO(pubItem));
+      }
+      res = this.itemExporting.getOutput(exportFormatVO, pubItemList);
   
       if ( (res == null) || (new String(res)).trim().equals("") ){ 
           logger.debug("Empty OR NULL string came from external export service!");
