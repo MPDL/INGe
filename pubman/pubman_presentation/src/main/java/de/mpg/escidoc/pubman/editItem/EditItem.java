@@ -93,6 +93,7 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
@@ -1411,19 +1412,29 @@ public class EditItem extends FacesBean
     public String acceptLocalTags()
     {
         getPubItem().writeBackLocalTags(null);
-        saveAndAccept();
-        getItemControllerSessionBean().acceptCurrentPubItem("Local tags modified", ViewItemFull.LOAD_VIEWITEM);
-        try 
+        if (getPubItem().getVersion().getState().equals(State.RELEASED))
         {
-            FacesContext fc = FacesContext.getCurrentInstance();
-            HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+            return saveAndAccept();
+            /*
+            try 
+            {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+                
+                
+                fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getPubItem().getVersion().getObjectId()); 
 
-            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()); 
-
-        } 
-        catch (IOException e) {
-            logger.error("Could not redirect to View Item Page", e);
+            } 
+            catch (IOException e) {
+                logger.error("Could not redirect to View Item Page", e);
+            }
+            */
         }
+        else
+        {
+            save();
+        }
+       
         return null;
     }
     

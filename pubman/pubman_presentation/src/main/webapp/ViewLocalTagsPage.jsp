@@ -72,7 +72,19 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu lower line starts here -->										
-									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
+									<!--<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/> -->
+										<!-- Rendering condition for edit local tag:								
+											- NOT state withdrawn
+											AND
+											- item version is latest version
+											AND
+											(
+												- user is moderator AND item is in state Released OR Submitted
+											 	OR
+											 	- user is owner AND item is in state pending OR in-revision
+											)
+										-->
+									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestVersion and ((ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled and (ViewItemFull.isStateReleased || ViewItemFull.isStateSubmitted)) || (ViewItemFull.isOwner and (ViewItemFull.isStatePending || ViewItemFull.isStateInRevision)))}" />
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->

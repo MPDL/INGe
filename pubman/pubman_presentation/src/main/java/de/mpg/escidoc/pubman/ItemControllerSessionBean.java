@@ -966,7 +966,7 @@ public class ItemControllerSessionBean extends FacesBean
         /*
          * FrM: Validation with validation point "submit_item"
          */
-        ValidationReportVO report = this.itemValidating.validateItemObject(pubItem, "submit_item");
+        ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(pubItem), "submit_item");
         currentItemValidationReport = report;
 
         logger.debug("Validation Report: " + report);
@@ -2304,11 +2304,11 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
         {
-             return this.pubItemDepositing.submitAndReleasePubItem(pubItem, submissionComment, user);
+             return this.pubItemDepositing.submitAndReleasePubItem(new PubItemVO(pubItem), submissionComment, user);
         }
         else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD))
         {
-            return this.pubItemDepositing.submitPubItem(pubItem, submissionComment, user);
+            return this.pubItemDepositing.submitPubItem(new PubItemVO(pubItem), submissionComment, user);
         }
         
         return null;

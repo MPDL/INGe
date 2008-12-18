@@ -129,8 +129,8 @@
 						</div>
 						<div class="full_area0 formButtonArea">
 
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" rendered="#{EditItem.localTagEditingAllowed}" value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" rendered="#{EditItem.localTagEditingAllowed}" value="#{lbl.EditItem_lnkSave}" action="#{EditItem.acceptLocalTags}"/>
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel"  value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/>
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept"  value="#{lbl.EditItem_lnkSave}" action="#{EditItem.acceptLocalTags}"/>
 				
 						</div>
 					</div>

@@ -1263,6 +1263,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         return wrappedLocalTags;
     }
+    
+    public int getNumberOfWrappedLocalTags()
+    {
+        return wrappedLocalTags.size();
+    }
 
     public void setWrappedLocalTags(List<WrappedLocalTag> wrappedLocalTags)
     {
@@ -1304,6 +1309,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         public boolean getIsLast()
         {
             return (this == parent.getWrappedLocalTags().get(parent.getWrappedLocalTags().size() - 1));
+        }
+        
+        public int getNumberOfAllTags()
+        {
+            return (parent.getWrappedLocalTags().size());
         }
         
         public boolean getIsSingle()
