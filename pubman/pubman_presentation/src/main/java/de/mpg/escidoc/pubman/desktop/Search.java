@@ -114,7 +114,7 @@ public class Search extends FacesBean
             String cql = query.getCqlQuery();
             
             //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql));
+            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
             
             
         }

@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.search;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,10 +116,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         else
         {
-            setCqlQuery(URLDecoder.decode(cql));
+           setCqlQuery(cql);
         }
         
-        
+             
         String searchType = getExternalContext().getRequestParameterMap().get(parameterSearchType);
         if (searchType==null)
         {
@@ -126,7 +127,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         else
         {
-            setSearchType(URLDecoder.decode(searchType));
+            setSearchType(searchType);
         }
         
     }
