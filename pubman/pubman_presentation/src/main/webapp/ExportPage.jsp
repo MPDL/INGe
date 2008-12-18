@@ -74,11 +74,11 @@
 							<!-- content menu starts here -->
 								<div class="sub action">
 								<!-- content menu upper line starts here -->
-									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" disabled="#{!ExportItemsSessionBean.enableExport}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" disabled="#{!ExportItemsSessionBean.enableExport}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
-									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{(ExportItemsSessionBean.enableLayout and ExportItemsSessionBean.enableExport)}">
+									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{(ExportItemsSessionBean.enableFileFormats and ExportItemsSessionBean.enableExport)}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 								<!-- content menu upper line ends here -->

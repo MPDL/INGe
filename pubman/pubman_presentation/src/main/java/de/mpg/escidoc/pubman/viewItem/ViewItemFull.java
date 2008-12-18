@@ -2146,51 +2146,7 @@ public class ViewItemFull extends FacesBean
         
     }
     
-    /**
-     * Returns the navigation string for loading the DisplayExportItemsPage.jsp .
-     * 
-     * @author: StG
-     */
-    public String exportDisplay()
-    {
-        
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        String displayExportData = "";
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-        pubItemList.add(getPubItem());
-      
-        // set the currently selected items in the FacesBean
-        // this.setSelectedItemsAndCurrentItem();
-       
-            // save selected file format on the web interface
-        String selectedFileFormat = sb.getFileFormat();
-        // for the display export data the file format should be always HTML
-        sb.setFileFormat(FileFormatVO.HTML_NAME);
-        ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-        try
-        {
-            displayExportData = new String(icsb.retrieveExportData(curExportFormat, pubItemList));
-        }
-        catch (TechnicalException e)
-        {
-            ((ErrorPage)this.getSessionBean(ErrorPage.class)).setException(e);
-            return ErrorPage.LOAD_ERRORPAGE;
-        }
-        if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED)
-        {
-            displayExportData =  "<pre>" + displayExportData + "</pre>";
-        }
-        sb.setExportDisplayData(displayExportData);
-        // restore selected file format on the interface
-        sb.setFileFormat(selectedFileFormat);
-        return "showDisplayExportItemsPage";
-        
-       
-    }
-
-   
+    
     
     /**
      * Invokes the email service to send per email the the page with the selected items as attachment. This method is
@@ -2263,46 +2219,50 @@ public class ViewItemFull extends FacesBean
      */
     public String exportDownload()
     {
-        
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        // set the currently selected items in the FacesBean
-        // this.setSelectedItemsAndCurrentItem();
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        
-        
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-        pubItemList.add(getPubItem());
-        
-       
-        // export format and file format.
-        ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-        byte[] exportFileData = null;
-        try
-        {
-            exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
-        }
-        catch (TechnicalException e)
-        {
-        }
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
-        String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-        response.setContentType(contentType);
-        try
-        {
-            response.setHeader("Content-disposition", "attachment; filename="
-                    + URLEncoder.encode("ExportFile", "UTF-8"));
-            OutputStream out = response.getOutputStream();
-            out.write(exportFileData);
-            out.flush();
-            facesContext.responseComplete();
-            out.close();
-        }
-        catch (IOException e1)
-        {
-        }
-       
-        
-        return "";
+
+    	ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    	// set the currently selected items in the FacesBean
+    	// this.setSelectedItemsAndCurrentItem();
+    	ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
+
+
+    	List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    	pubItemList.add(getPubItem());
+
+
+    	// export format and file format.
+    	ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    	byte[] exportFileData = null;
+    	try
+    	{
+    		exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+    	}
+    	catch (Exception e)
+    	{
+    		throw new RuntimeException("Cannot export item:", e);
+    	}
+
+    	FacesContext facesContext = FacesContext.getCurrentInstance();
+    	HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
+    	String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+    	response.setContentType(contentType);
+    	String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + sb.getFileFormat();
+    	response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+    	try
+    	{
+    		OutputStream out = response.getOutputStream();
+    		out.write(exportFileData);
+    		out.flush();
+    		out.close();
+    	}
+    	catch (Exception e) 
+    	{
+    		throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
+    	}
+    	facesContext.responseComplete();
+
+    	return "";
+
     }
-}
+    
+}    
