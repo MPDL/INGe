@@ -62,7 +62,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" required="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}">
+					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" >
 						<f:selectItems value="#{creatorBean.creatorRoles}"/>
 					</h:selectOneMenu>
 				</span>
@@ -102,11 +102,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_family_name_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" required="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}"/>
+						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" />
 					</span>
 					<span class="double_area0">
 						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" required="#{genre.creator_person_organization_creator_persons_person_given_name_optional != 'true'}"/>
+						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" />
 					</span>
 				</span>
 			</h:panelGroup>

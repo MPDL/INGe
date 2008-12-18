@@ -37,7 +37,7 @@
     <h:column>
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText value="#{genre.sources_source_basic_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
+			<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/> <h:outputText value="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex+1}" />
 		</h3>
 		<span class="seperator"></span>
 		<div class="free_area0 itemBlockContent endline">

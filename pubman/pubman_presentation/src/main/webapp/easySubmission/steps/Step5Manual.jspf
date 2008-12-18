@@ -123,27 +123,27 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" required="#{genre.details_item_details_dates_item_date_issued_optional != true}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}" required="#{genre.details_item_details_dates_item_published_online_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}"/>
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}" required="#{genre.details_item_details_dates_item_date_accepted_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}"/>
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" required="#{genre.details_item_details_dates_item_date_submitted_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}" required="#{genre.details_item_details_dates_item_date_modified_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}"/>
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" required="#{genre.details_item_details_dates_item_date_created_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl toLabelInputBottom showMoreDates" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
@@ -157,7 +157,7 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}" required="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional != 'true'}"/>
+							<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}" />
 						</span>
 					</span>
 				</h:panelGroup>
@@ -214,7 +214,7 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_item_degree_label}" converter="GenreLabelConverter"/>
-							<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}" required="#{genre.details_item_degree_item_degree_optional != 'true'}">
+							<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
 								<f:selectItems value="#{EasySubmission.degreeTypes}" />
 							</h:selectOneMenu>
 						</span>
@@ -238,7 +238,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3" required="#{genre.events_event_title_optional != 'true'}"/>
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<h:commandButton title="#{tip.easy_submission_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
@@ -253,7 +253,7 @@
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" required="#{genre.events_event_title_alternative_optional != 'true'}"/>
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
 							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
@@ -270,15 +270,15 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="medium_area0 xTiny_marginRIncl">
 							<h:outputLabel styleClass="medium_label" id="lblEventPlace" for="txtEventPlace" value="#{genre.events_event_place_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" required="#{genre.events_event_place_optional != 'true'}"/>
+							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
 						</span>
 						<span class="medium_area0 xTiny_marginRIncl">
 							<h:outputLabel styleClass="medium_label" id="lblEventStartDate" for="txtEventStartDate" value="#{genre.events_event_start_date_label}" converter="GenreLabelConverter"/>	
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" required="#{genre.events_event_start_date_optional != 'true'}"/>
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
 						</span>
 						<span class="medium_area0 xTiny_marginRIncl">
 							<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{genre.events_event_end_date_label}" converter="GenreLabelConverter"/>	
-							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" required="#{genre.events_event_end_date_optional != 'true'}"/>
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
 						</span>
 						<span class="medium_area0 toLabelBottom">
 							<span class="medium_checkbox">
@@ -303,7 +303,7 @@
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" required="#{genre.sources_source_basic_source_genre_display != 'false'}">
+							<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}">
 								<f:selectItems value="#{EasySubmission.sourceGenreOptions}"/>
 							</h:selectOneMenu>
 						</span>
@@ -315,7 +315,7 @@
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{EasySubmission.sourceTitle}" cols="15" rows="3" required="#{genre.sources_source_basic_source_title_optional != 'true'}"/>
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{EasySubmission.sourceTitle}" cols="15" rows="3" />
 						</span>
 					</h:panelGroup>
 

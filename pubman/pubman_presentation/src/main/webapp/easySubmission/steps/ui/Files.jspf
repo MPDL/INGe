@@ -100,7 +100,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" required="#{genre.files_component_content_category_optional != 'true'}">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" >
 						<f:selectItems value="#{EasySubmission.contentCategories}" />
 					</h:selectOneMenu>
 				</span>
@@ -110,7 +110,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" required="#{genre.files_component_content_category_optional != 'true'}">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}" >
 						<f:selectItems value="#{EasySubmission.contentCategories}" />
 					</h:selectOneMenu>
 				</span>
@@ -134,11 +134,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}" required="#{genre.files_component_name_optional != 'true'}"/>
+						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}" />
 					</span>
 					<span class="large_area0 endline">
 						<h:outputLabel styleClass="large_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter"/>
-						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}" required="#{genre.files_component_visibility_optional != 'true'}">
+						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}" >
 							<f:selectItems value="#{EasySubmission.visibilities}" />
 						</h:selectOneRadio>
 					</span>
@@ -153,7 +153,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" required="#{genre.files_component_description_optional != 'true'}"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />

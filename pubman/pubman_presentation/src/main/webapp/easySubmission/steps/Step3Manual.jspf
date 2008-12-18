@@ -107,7 +107,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" required="#{genre.item_basic_item_genre_optional != 'true'}" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
+						<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
 							<f:selectItems value="#{EasySubmission.genres}" />
 						</h:selectOneMenu>
 						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
@@ -120,7 +120,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" required="#{genre.item_basic_item_title_optional != 'true'}"></h:inputTextarea>
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" ></h:inputTextarea>
 					</span>
 				</h:panelGroup>
 			</div>

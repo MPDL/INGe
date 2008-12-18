@@ -46,7 +46,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
-					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}" required="#{genre.locators_optional != 'true'}"/>
+					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
@@ -58,7 +58,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
-					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}" required="#{genre.locators_optional != 'true'}"/>
+					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
@@ -101,11 +101,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}" required="#{genre.locators_component_name_optional != 'true'}"/>
+						<h:inputText styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
 					</span>
 					<span class="large_area0 endline">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/></label>
-						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}" required="#{genre.locators_component_visibility_optional != 'true'}">
+						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
 							<f:selectItems value="#{EasySubmission.visibilities}" />
 						</h:selectOneRadio>
 					</span>
@@ -120,7 +120,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3" required="#{genre.locators_component_description_optional != 'true'}"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3"/>
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
