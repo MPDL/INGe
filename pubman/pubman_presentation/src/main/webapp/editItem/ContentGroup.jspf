@@ -41,10 +41,10 @@
 <%-- Subject (Free Keywords) --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.content_item_subject_display != 'false'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional == 'false'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.subject.value}" cols="15" rows="3" required="#{genre.content_item_subject_optional == 'false'}"/>
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.subject.value}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 
@@ -52,10 +52,10 @@
 		<tr:iterator var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{genre.content_item_abstract_display != 'false'}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional == 'false'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" required="#{genre.content_item_abstract_optional == 'false'}"/>
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>

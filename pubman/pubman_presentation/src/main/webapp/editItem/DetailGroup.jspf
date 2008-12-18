@@ -42,11 +42,11 @@
 		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index" rendered="#{genre.details_item_language_display != 'false'}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional == 'false'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');" required="#{genre.details_item_language_optional == 'false'}">
+					<h:selectOneMenu styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
 						<f:selectItems value="#{EditItem.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
@@ -60,32 +60,32 @@
 <%-- Dates --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_details_dates_item_date_issued_display != 'false' || genre.details_item_details_dates_item_date_accepted_display != 'false' || genre.details_item_details_dates_item_date_modified_display != 'false' || genre.details_item_details_dates_item_date_created_display != 'false' || genre.details_item_details_dates_item_date_submitted_display != 'false' || genre.details_item_details_dates_item_published_online_display != 'false'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional == 'false' || genre.details_item_details_dates_item_date_accepted_optional == 'false' || genre.details_item_details_dates_item_date_modified_optional == 'false' || genre.details_item_details_dates_item_date_created_optional == 'false' || genre.details_item_details_dates_item_date_submitted_optional == 'false' || genre.details_item_details_dates_item_published_online_optional == 'false'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional != 'true' || genre.details_item_details_dates_item_date_accepted_optional != 'true' || genre.details_item_details_dates_item_date_modified_optional != 'true' || genre.details_item_details_dates_item_date_created_optional != 'true' || genre.details_item_details_dates_item_date_submitted_optional != 'true' || genre.details_item_details_dates_item_published_online_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" required="#{genre.details_item_details_dates_item_date_issued_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" required="#{genre.details_item_details_dates_item_published_online_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" required="#{genre.details_item_details_dates_item_date_accepted_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" required="#{genre.details_item_details_dates_item_date_submitted_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" required="#{genre.details_item_details_dates_item_date_modified_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" required="#{genre.details_item_details_dates_item_date_created_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
 				</span>
 			</span>
 		</h:panelGroup>
@@ -93,12 +93,12 @@
 <%-- Number of Pages --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_total_number_of_pages_display != 'true' && genre.details_total_number_of_pages_form_id != 'all' && genre.details_total_number_of_pages_form_id != 'full-submission' || genre.details_total_number_of_pages_display != 'false' && genre.details_total_number_of_pages_form_id != 'easy-submission'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional == 'false'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{EditItem.pubItem.metadata.totalNumberOfPages}" required="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{EditItem.pubItem.metadata.totalNumberOfPages}"/>
 				</span>
 			</span>
 		</h:panelGroup>
@@ -106,16 +106,16 @@
 <%-- Publisher, Place --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_display != 'false' && genre.details_publishing_info_form_id != 'easy-submission' || genre.details_publishing_info_display != 'true' && genre.details_publishing_info_form_id != 'full-submission' && genre.details_publishing_info_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional == 'false' || genre.details_publishing_info_publishing_info_place_optional == 'false'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="xDouble_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{genre.details_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
-					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" required="#{genre.details_publishing_info_publishing_info_publisher_optional == 'false'}"/>
+					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{genre.details_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{EditItem.pubItem.metadata.publishingInfo.place}" required="#{genre.details_publishing_info_publishing_info_place_optional == 'false'}"/>
+					<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
 				</span>
 			</span>
 		</h:panelGroup>
@@ -123,23 +123,23 @@
 <%-- Table of Contents --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_toc_display != 'false' && genre.details_item_toc_form_id != 'easy-submission' || genre.details_item_toc_display != 'true' && genre.details_item_toc_form_id != 'full-submission' && genre.details_item_toc_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_toc_item_table_of_contents_optional == 'false'}" /><span class="noDisplay">: </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_toc_item_table_of_contents_optional != 'true'}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputLabel styleClass="quad_label" for="txtaTableOfContent" id="lblTableOfContent" value="#{genre.details_item_toc_item_table_of_contents_label}" converter="GenreLabelConverter"/>
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="txtaTableOfContent" value="#{EditItem.pubItem.metadata.tableOfContents.value}" cols="15" rows="3" required="#{genre.details_item_toc_item_table_of_contents_optional == 'false'}"/>
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="txtaTableOfContent" value="#{EditItem.pubItem.metadata.tableOfContents.value}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 
 <%-- Review Type --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_review_method_display != 'false' && genre.details_review_method_form_id != 'easy-submission' || genre.details_review_method_display != 'true' && genre.details_review_method_form_id != 'full-submission' && genre.details_review_method_form_id != 'all'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_review_method_item_review_method_optional == 'false'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_review_method_item_review_method_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="cboReviewType" id="lblReviewType" value="#{genre.details_review_method_item_review_method_label}" converter="GenreLabelConverter"/>
-					<h:selectOneMenu styleClass="large_select replace" id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}" required="#{genre.details_review_method_item_review_method_optional == 'false'}">
+					<h:selectOneMenu styleClass="large_select replace" id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}" >
 						<f:selectItems value="#{EditItem.reviewMethods}" />
 					</h:selectOneMenu>
 				</span>
@@ -150,17 +150,17 @@
 		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index" rendered="#{genre.details_identifiers_display != 'false' && genre.details_identifiers_form_id != 'easy-submission' || genre.details_identifiers_display != 'true' && genre.details_identifiers_form_id != 'full-submission' && genre.details_identifiers_form_id != 'all'}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_item_identifier_type_optional == 'false' || genre.details_identifiers_item_identifier_value_optional == 'false'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="large_area0 largeFormPush">
 						<h:outputLabel styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
-						<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}" required="#{genre.details_identifiers_item_identifier_type_optional == 'false'}">
+						<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}" >
 							<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
 						</h:selectOneMenu>
 					</span>
 					<h:outputLabel styleClass="xDouble_label" value="#{genre.details_identifiers_item_identifier_value_label}" converter="GenreLabelConverter"/>
-					<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" required="#{genre.details_identifiers_item_identifier_value_optional == 'false'}"/>
+					<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addID}" action="#{EditItem.identifierCollection.identifierManager.addObject}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
@@ -172,19 +172,19 @@
 <%-- Edition, Degree type, location --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_publishing_info_edition_display != 'false' || genre.details_item_degree_display != 'false' || genre.details_item_location_display != 'false'}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional == 'false' || genre.details_item_degree_optional == 'false' || genre.details_item_location_optional == 'false'}" /><h:outputText value="#{lbl.EditItem_lblDegreeTypeGroup}"/><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional != 'true' || genre.details_item_degree_optional != 'true' || genre.details_item_location_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblDegreeTypeGroup}"/><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup layout="block" rendered="#{genre.details_publishing_info_display != 'false' && genre.details_publishing_info_form_id != 'easy-submission' && genre.details_publishing_info_publishing_info_edition_display != 'false' || genre.details_publishing_info_display != 'true' && genre.details_publishing_info_publishing_info_edition_display != 'false' && genre.details_publishing_info_form_id != 'full-submission' && genre.details_publishing_info_form_id != 'all'}">
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
-						<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" required="#{genre.details_publishing_info_publishing_info_edition_optional == 'false'}"/>
+						<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" rendered="#{genre.details_item_degree_display != 'false' && genre.details_item_degree_form_id != 'easy-submission' || genre.details_item_degree_display != 'true' && genre.details_item_degree_form_id != 'full-submission' && genre.details_item_degree_form_id != 'all'}">
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
-						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" required="#{genre.details_item_degree_optional == 'false'}">
+						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" >
 							<f:selectItems value="#{EditItem.degreeTypes}" />
 						</h:selectOneMenu>
 					</span>
@@ -192,7 +192,7 @@
 				<h:panelGroup layout="block" rendered="#{genre.details_item_location_display != 'false' && genre.details_item_location_form_id != 'easy-submission' || genre.details_item_location_display != 'true' && genre.details_item_location_form_id != 'full-submission' && genre.details_item_location_form_id != 'all'}">
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
-						<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" required="#{genre.details_item_location_optional == 'false'}"/>
+						<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" />
 					</span>
 				</h:panelGroup>
 			</span>

@@ -42,7 +42,7 @@
 <%-- Add locator --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator == null || locator.locator == '') && locator.index == 0 }" >
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional == 'false'}" /><h:outputText value="#{lbl.EditItem_lblLocator}" rendered="#{genre.locators_display != 'false'}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblLocator}" rendered="#{genre.locators_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
@@ -54,7 +54,7 @@
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional == 'false'}" /><h:outputText value="#{lbl.EditItem_lblNewLocator}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblNewLocator}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
@@ -68,7 +68,7 @@
 <%-- Locator content category --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.index == 0 && genre.locators_component_content_category_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_display == 'false'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_display != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
 					<h:selectOneMenu styleClass="double_select replace" value="#{locator.file.contentCategory}" >
@@ -78,7 +78,7 @@
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator != null && locator.locator != '') && locator.index > 0 && genre.locators_component_content_category_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_display == 'false'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
 					<h:selectOneMenu styleClass="double_select replace" value="#{locator.file.contentCategory}" >
@@ -104,12 +104,12 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
-						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional == 'false'}" /></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
+						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}" /></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
 						<h:inputText styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}" />
 					</span>
 					<span class="large_area0 endline">
 						<h:panelGroup styleClass="large_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_visibility_optional == 'false'}" />
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}" />
 							<h:outputText value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/>
 						</h:panelGroup>
 						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
@@ -122,7 +122,7 @@
 <%-- Locator description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != '' && genre.locators_component_description_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_description_optional == 'false'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_description_optional != 'true'}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
