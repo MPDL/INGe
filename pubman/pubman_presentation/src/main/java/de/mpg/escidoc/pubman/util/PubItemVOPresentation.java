@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -95,13 +94,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private List<WrappedLocalTag> wrappedLocalTags = new ArrayList<WrappedLocalTag>();
 
     //For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
+    //private Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
-    private InternationalizationHelper i18nHelper2 = (InternationalizationHelper)FacesContext
-        .getCurrentInstance()
-        .getExternalContext()
-        .getApplicationMap()
-        .get(InternationalizationHelper.BEAN_NAME);
     
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext
         .getCurrentInstance()

@@ -529,7 +529,7 @@ public class ItemControllerSessionBean extends FacesBean
     {
         this.getItemListSessionBean().setListDirty(true);
         // create the new item
-        PubItemVO newRevision = this.pubItemDepositing.createRevisionOfItem(pubItem, revisionDescription, pubContextRO, loginHelper.getAccountUser());
+        PubItemVO newRevision = this.pubItemDepositing.createRevisionOfItem(new PubItemVO(pubItem), revisionDescription, pubContextRO, loginHelper.getAccountUser());
                     
         return newRevision;
     }
@@ -1049,7 +1049,7 @@ public class ItemControllerSessionBean extends FacesBean
         //withdrawalComment = pubItem.getWithdrawalComment();
 
         // withdraw the item
-        this.pubItemPublishing.withdrawPubItem(pubItem, lastModificationDate, withdrawalComment, loginHelper.getAccountUser());
+        this.pubItemPublishing.withdrawPubItem(new PubItemVO(pubItem), lastModificationDate, withdrawalComment, loginHelper.getAccountUser());
 
     }
 
