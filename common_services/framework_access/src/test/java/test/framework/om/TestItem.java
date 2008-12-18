@@ -439,8 +439,9 @@ public class TestItem extends TestItemBase
     /**
      * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
-    // @Test(expected = InvalidXmlException.class)
-    @Test(expected = AuthorizationException.class)
+    @Test(expected = InvalidXmlException.class)
+    // CHAGED IN RC1.20 and above
+    // @Test(expected = AuthorizationException.class)
     public void withdrawContentItemNotAuthorized() throws Exception
     {
         String item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
