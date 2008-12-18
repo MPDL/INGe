@@ -1026,7 +1026,7 @@ public class EasySubmission extends FacesBean
                             fileVO.setContent(fileURL.toString());
                             fileVO.getDefaultMetadata().setSize(ba.length);
                             fileVO.getDefaultMetadata().setDescription("Data downloaded from "+ service + " at " + CommonUtils.currentDate());
-                            fileVO.setContentCategory(dataHandler.getContentCategorie());
+                            fileVO.setContentCategory(dataHandler.getContentCategory());
                         }
                     }
                 }
