@@ -1844,7 +1844,7 @@ public class ItemControllerSessionBean extends FacesBean
       byte[] res = null;
       // retrieve the export data calling the interface method
       
-      List<PubItemVO> pubItemList = new ArrayList();
+      List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
       for(PubItemVO pubItem : itemsToExportList)
       {
           pubItemList.add(new PubItemVO(pubItem));
