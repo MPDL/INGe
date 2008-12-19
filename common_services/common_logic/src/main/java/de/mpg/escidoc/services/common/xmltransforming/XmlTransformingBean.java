@@ -1192,7 +1192,7 @@ public class XmlTransformingBean implements XmlTransforming
     
     public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException
     {
-        ItemVO itemVO = transformToItem(itemXml);
+        ItemResultVO itemVO = (ItemResultVO)transformToSearchResult(itemXml);
         if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsFaceVO)
         {
             return new FaceItemVO(itemVO);
