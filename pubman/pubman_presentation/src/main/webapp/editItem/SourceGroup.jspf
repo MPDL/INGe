@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" id="editSource" rendered="#{genre.sources_display != 'false' && genre.sources_source_basic_form_id != 'easy-submission' || genre.sources_display != 'true' && genre.sources_source_basic_form_id != 'full-submission' && genre.sources_source_basic_form_id != 'all'}"/>
 <div id="editSource"></div>
-<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{genre.sources_display != 'false'}">
+<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
     <h:column>
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -59,7 +59,7 @@
 			</h:panelGroup>
 
 	<%-- Source title --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.sources_source_basic_source_title_display != 'false'}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
@@ -185,7 +185,7 @@
 							<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
+							<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
 						</span>
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -213,7 +213,7 @@
 						<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
