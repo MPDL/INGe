@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.14</version>
+		<version>1.0.14-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>search_ear</artifactId>
 	<name>search_ear</name>
-	<version>1.0.11</version>
+	<version>1.0.11-SNAPSHOT</version>
 	<packaging>ear</packaging>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.14/search_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/common_services-1.0.14/search_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.14</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/search_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/search_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -355,14 +355,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.11-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.11-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -375,20 +375,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.12</version>
+			<version>1.1.12-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.18</version>
+			<version>1.0.18-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.15</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
