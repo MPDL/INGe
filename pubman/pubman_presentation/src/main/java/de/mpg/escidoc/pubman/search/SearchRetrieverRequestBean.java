@@ -81,7 +81,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public String getType()
     {
-        return "SearchResultElement";
+        return "SearchResult";
     }
 
     
