@@ -14,7 +14,7 @@
 
 	<rule>
 		<from>^/explain/?</from>
-		<to>/jquery/explain/</to>
+		<to>/jquery/explain</to>
 	</rule>
 
 	<rule>
