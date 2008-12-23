@@ -318,9 +318,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             //check middle parts
             if (parts.length > 2)
             {
-                for (int i = 1; i < parts.length-1; i++)
+                for (int i = 1; i < parts.length - 1; i++)
                 {
-                    if (parts[i].matches(" *"+PREFIX+" *"))
+                    if (parts[i].matches(" *" + PREFIX + " *"))
                     {
                         author.setPrefix(parts[i]);
                         prefixPosition = i;
@@ -331,7 +331,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             String givenName = "";
             String surname = "";
             
-            if (prefixPosition==-1)
+            if (prefixPosition == -1)
             {
                 int lastSpace = authorString.lastIndexOf(" ");
                 givenName = authorString.substring(0, lastSpace);
@@ -339,7 +339,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             }
             else 
             {
-                surname = parts[parts.length-1];
+                surname = parts[parts.length - 1];
                 for (int i = 0; i < prefixPosition; i++)
                 {
                     givenName+=parts[i];
@@ -411,8 +411,8 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             {
                 return null;
             }
-            String givenName = authorString.substring(0, authorsString.indexOf(names[part]) - 1);
-            String surname = authorString.substring(authorsString.indexOf(names[part]));
+            String givenName = authorString.substring(0, authorString.indexOf(names[part]) - 1);
+            String surname = authorString.substring(authorString.indexOf(names[part]));
 
             author.setGivenName(givenName);
             author.setSurname(surname);
@@ -436,10 +436,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             int openBracketIndex = authorString.indexOf("(");
             int closingBracketIndex = authorString.indexOf(")");
             
-            if (openBracketIndex!=-1 && closingBracketIndex!=-1)
+            if (openBracketIndex != -1 && closingBracketIndex != -1)
             {
-                String additionalInfo = authorString.substring(openBracketIndex+1, closingBracketIndex);
-                authorString = authorString.substring(0,openBracketIndex);
+                String additionalInfo = authorString.substring(openBracketIndex + 1, closingBracketIndex);
+                authorString = authorString.substring(0, openBracketIndex);
             }
             
             
@@ -450,23 +450,23 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             //split the rest of the string and parse it
             String[] parts = authorString.split("\\s");
             
-            if (parts.length>1)
+            if (parts.length > 1)
             {
                 
-                String surname = parts[parts.length-1];
+                String surname = parts[parts.length - 1];
                 String prefix = "";
-                String givenName="";
+                String givenName = "";
                 String title = "";
-                for (int i = 0; i<parts.length-1; i++)
+                for (int i = 0; i < parts.length - 1; i++)
                 {
                     String part = parts[i];
                     if (part.matches(PREFIX) && !givenName.trim().equals(""))
                     {
-                        prefix+=part + " ";
+                        prefix += part + " ";
                     }
                     else if (part.matches(TITLE) && givenName.trim().equals(""))
                     {
-                        title+=part+" ";
+                        title += part + " ";
                     }
                     else if (part.matches(IGNORE_CHARACTERS))
                     {
@@ -475,7 +475,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                    
                     else
                     {
-                        givenName+=part+" ";
+                        givenName += part + " ";
                     }
                     
                     
@@ -488,7 +488,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 result.add(author);
                
             }
-            else if(parts.length==1 && !parts[0].equals(""))
+            else if (parts.length==1 && !parts[0].equals(""))
             {
                
                     author.setSurname(parts[0].trim());
