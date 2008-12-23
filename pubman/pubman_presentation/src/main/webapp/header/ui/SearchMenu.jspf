@@ -41,16 +41,24 @@
 		<h:commandButton styleClass="std_imgBtn quickSearchIcon quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value=" "/>	
 	</span>
 	<span class="large_area0 advancedSearchMenu">
-		<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp" rendered="#{!AdvancedSearch.disableAdvancedSearch}">
+		<%--<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp" rendered="#{!AdvancedSearch.disableAdvancedSearch}">
 			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
 			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
-		</h:outputLink>
+		</h:outputLink>--%>
+		<h:commandLink id="lnkAdvancedSearch" styleClass="free_area0_p3 endline" title="#{tip.search_advanced}" immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
+			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
+		</h:commandLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
-		<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" value="#{ApplicationBean.appContext}AffiliationTreePage.jsp">
+		<%--<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" value="#{ApplicationBean.appContext}AffiliationTreePage.jsp">
 			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
 			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
-		</h:outputLink>
+		</h:outputLink>--%>
+		<h:commandLink styleClass="free_area0_p3 endline" id="lnkBrowseByAffiliation" title="#{tip.search_byAffiliation}" immediate="true" action="#{Navigation.loadAffiliationTree}">
+			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
+			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
+		</h:commandLink>
 	</span>
 	<!-- search Menu ends here -->
 </div>
