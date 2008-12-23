@@ -30,31 +30,13 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.CommonSessionBean;
-import de.mpg.escidoc.pubman.ErrorPage;
-import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.search.SearchResultList;
-import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
-import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.PubItemResultVO;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 

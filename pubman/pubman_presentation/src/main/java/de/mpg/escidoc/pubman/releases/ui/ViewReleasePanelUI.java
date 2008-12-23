@@ -52,7 +52,6 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * ContainerPanelUI for keeping ViewCollectionUIs.

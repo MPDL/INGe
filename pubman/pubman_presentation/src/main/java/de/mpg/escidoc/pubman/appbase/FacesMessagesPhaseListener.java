@@ -1,23 +1,16 @@
 package de.mpg.escidoc.pubman.appbase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeSet;
-
-import javax.faces.context.FacesContext;
 
 import javax.faces.application.FacesMessage;
-
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
-
 import javax.faces.event.PhaseId;
-
 import javax.faces.event.PhaseListener;
 
 import org.apache.log4j.Logger;

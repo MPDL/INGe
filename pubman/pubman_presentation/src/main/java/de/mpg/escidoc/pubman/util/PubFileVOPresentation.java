@@ -3,7 +3,6 @@ package de.mpg.escidoc.pubman.util;
 import java.util.List;
 
 import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -20,7 +19,6 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * Presentation wrapper for {@link FileVO}.
@@ -46,7 +44,7 @@ public class PubFileVOPresentation extends FacesBean
 
 
     /**
-     * The possible content types of a file.
+     * The possible content types of a pubfile.
      * @updated 21-Nov-2007 12:05:47
      */
     public enum ContentCategory
@@ -54,6 +52,10 @@ public class PubFileVOPresentation extends FacesBean
         ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS,
         SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT;
         
+        /**
+         * Overrides default toString method to transform from upper to lowercase and to turn
+         * underscores into hyphens.
+         */
         public String toString()
         {
             return super.toString().toLowerCase().replace("_", "-");
@@ -198,6 +200,31 @@ public class PubFileVOPresentation extends FacesBean
         return contentCategory;
     }
     
+    /**
+     * Returns an string according to XML conventions.
+     * 
+     * @return The content category of the file.
+     */
+    public String getContentCategoryAsXmlString()
+    {
+        return this.file.getContentCategory().toLowerCase().replace("_", "-");
+    }
+    
+    /**
+     * Sets the content category of the file.
+     * 
+     * @param category The content category as a string according to XML conventions.
+     */
+    public void setContentCategoryAsXmlString(String category)
+    {
+        this.file.setContentCategory(category);
+    }
+    
+    /**
+     * Return the file size.
+     * 
+     * @return The number of bytes.
+     */
     public int getSize()
     {
         int size = 0;
@@ -295,7 +322,6 @@ public class PubFileVOPresentation extends FacesBean
         {
 
             List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
-            boolean found = false;
             for (FormatVO formatVO : formats)
             {
                 if ("dcterms:IMT".equals(formatVO.getType()))

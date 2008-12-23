@@ -3,7 +3,9 @@ package de.mpg.escidoc.pubman.init;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
 public class InitializerServlet extends HttpServlet {

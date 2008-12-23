@@ -50,12 +50,12 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblTagName}" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputText styleClass="quad_txtInput" value="#{localTag.value}" valueChangeListener="#{EditItem.pubItem.writeBackLocalTags}"/>
-					<h:outputText styleClass="quad_area0" value="#{localTag.value}"/>
+					<h:inputText styleClass="quad_txtInput" value="#{localTag.value}" valueChangeListener="#{EditItem.pubItem.writeBackLocalTags}" rendered="#{EditItem.localTagEditingAllowed}"/>
+					<h:outputText styleClass="quad_area0" value="#{localTag.value}" rendered="#{!EditItem.localTagEditingAllowed}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.addLocalTag}" rendered="#{localTag.isLast}"/>
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{localTag.removeLocalTag}" rendered="#{!localTag.isSingle}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.addLocalTag}" rendered="#{EditItem.localTagEditingAllowed and localTag.isLast}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{localTag.removeLocalTag}" rendered="#{EditItem.localTagEditingAllowed and !localTag.isSingle}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>

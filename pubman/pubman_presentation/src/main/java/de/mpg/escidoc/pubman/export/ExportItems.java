@@ -34,7 +34,6 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
 
@@ -47,7 +46,6 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 
 /**

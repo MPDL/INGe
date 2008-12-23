@@ -39,8 +39,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import de.mpg.escidoc.pubman.appbase.FacesBean;
-
 public class GenreLabelConverter implements Converter
 {
 	

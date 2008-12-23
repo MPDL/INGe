@@ -98,7 +98,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
 						<f:selectItems value="#{EditItem.contentCategories}" />
 					</h:selectOneMenu>
 				</span>

@@ -2,7 +2,6 @@ package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 
 /**
  *

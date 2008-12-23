@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -21,7 +20,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * POJO bean to deal with one source.

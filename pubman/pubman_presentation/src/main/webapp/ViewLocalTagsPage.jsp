@@ -84,7 +84,7 @@
 											 	- user is owner AND item is in state pending OR in-revision
 											)
 										-->
-									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestVersion and ((ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled and (ViewItemFull.isStateReleased || ViewItemFull.isStateSubmitted)) || (ViewItemFull.isOwner and (ViewItemFull.isStatePending || ViewItemFull.isStateInRevision)))}" />
+									<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{EditItem.localTagEditingAllowed}" />
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->

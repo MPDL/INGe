@@ -39,7 +39,6 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.escidoc.services.common.valueobjects.MdsFilmVO.FilmType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**

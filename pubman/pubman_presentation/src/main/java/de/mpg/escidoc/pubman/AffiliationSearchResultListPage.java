@@ -36,8 +36,6 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.export.ExportItems;
-import de.mpg.escidoc.pubman.search.SearchResultList;
 
 /**
  * Fragment class for the AffiliationSearchResultListPage. This class provides

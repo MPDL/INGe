@@ -934,7 +934,7 @@ public class EditItem extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve item." + "\n" + e.toString(), e);
-                ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
+                ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                 
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -1392,20 +1392,9 @@ public class EditItem extends FacesBean
 
     public boolean getLocalTagEditingAllowed()
     {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        ViewItemFull viewItemFull = (ViewItemFull) getRequestBean(ViewItemFull.class);
 
-        boolean isStateSubmitted = false;
-        boolean isStateReleased = false;
-        
-        if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null)
-        {
-            isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
-            isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
-        }
-        
-        boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
-
-        return (isStateSubmitted || isStateReleased) && isModerator;
+        return !viewItemFull.getIsStateWithdrawn() && viewItemFull.getIsLatestVersion() && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() && (viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull.getIsOwner() && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateInRevision())));
         
     }
 

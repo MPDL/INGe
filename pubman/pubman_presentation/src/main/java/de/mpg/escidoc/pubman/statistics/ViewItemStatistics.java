@@ -34,9 +34,6 @@ package de.mpg.escidoc.pubman.statistics;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
@@ -48,7 +45,6 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * Backing Bean for viewItemStatistics.jspf

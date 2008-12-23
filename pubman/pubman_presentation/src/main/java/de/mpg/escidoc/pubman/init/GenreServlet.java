@@ -1,7 +1,6 @@
 package de.mpg.escidoc.pubman.init;
 
 import java.io.File;
-import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

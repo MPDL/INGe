@@ -30,10 +30,6 @@
 
 package de.mpg.escidoc.pubman.home;
 
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;

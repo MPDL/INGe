@@ -115,7 +115,7 @@ public class AffiliationTreePage extends BreadcrumbPage
 	 */
 	protected CommonSessionBean getCommonSessionBean()
     {
-		return (CommonSessionBean) getBean(CommonSessionBean.class);
+		return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
 	}
 
 }

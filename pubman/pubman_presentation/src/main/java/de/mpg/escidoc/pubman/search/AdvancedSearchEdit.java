@@ -31,7 +31,6 @@ package de.mpg.escidoc.pubman.search;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
@@ -46,11 +45,10 @@ import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
-
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined 

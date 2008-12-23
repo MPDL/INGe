@@ -38,9 +38,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.BooleanOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * date criterion vo for the advanced search
