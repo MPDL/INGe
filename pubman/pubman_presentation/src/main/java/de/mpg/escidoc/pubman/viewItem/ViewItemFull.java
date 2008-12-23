@@ -34,7 +34,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -52,8 +51,6 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -69,7 +66,6 @@ import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
@@ -95,7 +91,6 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -300,7 +295,7 @@ public class ViewItemFull extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
-                error("Could not retrieve item with id "+itemID+"\n"+e.toString());
+                error(getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
             }
         }
         else
