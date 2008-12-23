@@ -49,9 +49,7 @@
 					<xsl:for-each select="/explain/services/service">
 						<li>
 							<h3>
-								<a href="{link}">
-									<xsl:value-of select="name"/>
-								</a>
+								<xsl:value-of select="name"/>
 							</h3>
 							<p>
 								<xsl:value-of select="description"/>
