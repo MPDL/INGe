@@ -13,8 +13,8 @@
     -->
 
 	<rule>
-		<from>^/explain/?</from>
-		<to>/jquery/explain</to>
+		<from>^/explain/?$</from>
+		<to>/jquery/explain/</to>
 	</rule>
 
 	<rule>
