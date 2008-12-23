@@ -78,6 +78,7 @@ All rights reserved. Use is subject to license terms.
 			</div>
 			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
 		</div>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
 	</h:panelGroup>
 
 </tr:iterator>
