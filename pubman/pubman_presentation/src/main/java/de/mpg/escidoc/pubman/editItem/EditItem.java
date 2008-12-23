@@ -1791,14 +1791,14 @@ public class EditItem extends FacesBean
         //check if last existing author is empty, then remove it
         if (creatorManager.getObjectList().size() >= 1)
         {
-            CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size()-1);
+            CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size() - 1);
             CreatorVO creatorVO  = lastCreatorBean.getCreator();
             if (creatorVO.getPerson().getFamilyName().equals("")
                     && creatorVO.getPerson().getGivenName().equals("")
                     && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
-                creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size()-1);
+                creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size() - 1);
             }
         }
         

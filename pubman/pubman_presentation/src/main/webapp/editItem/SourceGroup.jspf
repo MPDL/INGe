@@ -103,7 +103,7 @@
 <%-- Source creator --%>
 			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" rendered="#{genre.sources_source_person_organization_display != 'false'}">
             <h:column>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_repeatable != 'false'}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_repeatable != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 					</b>
@@ -114,12 +114,12 @@
 							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
 							<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 						</span>
-						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text=" " shortDesc="#{tip.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
+						<h:commandButton title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
 					</span>
 				</h:panelGroup>
 	
 	<%-- Source creator role --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_select_roles_display != 'false'}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{genre.sources_source_person_organization_select_roles_display != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_select_roles_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
@@ -128,19 +128,11 @@
 							<f:selectItems value="#{creatorBean.creatorRoles}"/>
 						</h:selectOneMenu>
 					</span>
-					<span class="large_area0_p8 lineToolSection">
-						<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
-					</span>
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex > 0 }">
-					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_select_roles_optional != 'true'}" /><h:outputText value="#{genre.sources_source_person_organization_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" >
-							<f:selectItems value="#{creatorBean.creatorRoles}"/>
-						</h:selectOneMenu>
-					</span>
+					<h:panelGroup rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0}">
+						<span class="large_area0_p8 lineToolSection">
+							<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
+						</span>
+					</h:panelGroup>
 				</h:panelGroup>
 
 	<%-- Source creator type --%>

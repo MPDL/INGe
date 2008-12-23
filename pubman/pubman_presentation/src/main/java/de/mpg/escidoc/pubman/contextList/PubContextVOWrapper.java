@@ -51,6 +51,11 @@ public class PubContextVOWrapper extends ValueObjectWrapper
         super();
     }
     
+    /**
+     * Constructor using a given context.
+     * 
+     * @param contextVO The context.
+     */
     public PubContextVOWrapper(ContextVO contextVO)
     {
         super(contextVO);
@@ -58,7 +63,7 @@ public class PubContextVOWrapper extends ValueObjectWrapper
 
     public ContextVO getValueObject()
     {
-        return (ContextVO)this.valueObject;
+        return (ContextVO) this.valueObject;
     }
 
     public void setValueObject(ContextVO pubItemVO)
