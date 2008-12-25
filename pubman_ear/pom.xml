@@ -50,8 +50,8 @@
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>import_presentation</artifactId>
-							<contextRoot>/import</contextRoot>
+							<artifactId>dataacquisition_presentation</artifactId>
+							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -63,7 +63,7 @@
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>importmanager</artifactId>
+							<artifactId>dataacquisition</artifactId>
 						</ejbModule>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -270,6 +270,13 @@
 								true
 							</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>urlrewrite</groupId>
+							<artifactId>urlrewrite</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -351,69 +358,69 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.10</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.7</version>
+			<version>1.1.12-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.13</version>
+			<version>1.0.18-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>importmanager</artifactId>
-			<version>1.0.4</version>
+			<artifactId>dataacquisition</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.10</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.16-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.13</version>
+			<version>1.0.18-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.10-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
             <groupId>de.mpg.escidoc.services</groupId>
-            <artifactId>import_presentation</artifactId>
-            <version>1.0.4</version>
+			<artifactId>dataacquisition_presentation</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.11-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -587,6 +594,12 @@
 			<artifactId>postgresql</artifactId>
 			<version>8.1-407.jdbc3</version>
 		</dependency>  
+		<dependency>
+			<groupId>urlrewrite</groupId>
+			<artifactId>urlrewrite</artifactId>
+			<version>3.1.0</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<profiles>

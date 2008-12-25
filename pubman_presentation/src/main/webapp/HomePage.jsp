@@ -45,7 +45,6 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
-				<title>PubMan HomePage</title>
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
