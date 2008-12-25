@@ -1,37 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-
- CDDL HEADER START
-
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
-
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
-
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
-
- CDDL HEADER END
-
-
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>3.8.3-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -76,7 +48,7 @@
 		<developer>
 			<id>nab</id>
 			<name>Natasa Bulatovic</name>
-			<email>nab@mpdl.mpg.de</email>
+			<email>bulatovic@mpdl.mpg.de</email>
 			<roles>
 				<role>Software development manager</role>
 				<role>Architect</role>
@@ -159,20 +131,20 @@
 			<name>Friederike Kleinfercher</name>
 			<email>kleinfercher@mpdl.mpg.de</email>
 			<roles>
-                <role>Software developer</role>
-            </roles>
-            <organization>Max Planck Digital Library</organization>
-            <timezone>+2</timezone>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
 		</developer>
 		<developer>
 		  <id>haarlaender</id>
-            <name>Markus Haarlaender</name>
-            <email>haarlaender@mpdl.mpg.de</email>
-            <roles>
-                <role>Software developer</role>
-            </roles>
-            <organization>Max Planck Digital Library</organization>
-            <timezone>+2</timezone>
+			<name>Markus Haarlaender</name>
+			<email>haarlaender@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
 		</developer>
 	</developers>
 
@@ -209,7 +181,7 @@
   </modules>
 
 	<scm>
-	        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/branches/nims</connection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/branches/nims</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/branches/nims</developerConnection>
 		<url>https://zim02.gwdg.de/repos/pubman/branches/nims</url>
 	</scm>
@@ -290,13 +262,6 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav</artifactId>
-				<version>1.0-beta-2</version>
-			</extension>
-		</extensions>
 		<!-- if no tests are present don't fail the complete package process -->
 		<pluginManagement>
 			<plugins>
@@ -351,6 +316,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		  <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
 	</build>
 
 	<reporting>
@@ -391,9 +363,9 @@
 				</reportSets>
 			</plugin>
 			<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>changelog-maven-plugin</artifactId>
-            </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>changelog-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -404,24 +376,24 @@
 				</configuration>
 			</plugin>
 			<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <configuration>
-                <configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
-            </configuration>
-        </plugin>
-        <plugin>
-                <!-- JavaNCSS - A Source Measurement Suite for Java
-                    http://www.kclee.de/clemens/java/javancss/ -->
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>javancss-maven-plugin</artifactId>
-        </plugin>
-        <plugin>
-                <!-- A Java package dependency analyzer that generates
-                      design quality metrics http://clarkware.com/software/JDepend.html -->
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>jdepend-maven-plugin</artifactId>
-        </plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-checkstyle-plugin</artifactId>
+			<configuration>
+				<configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
+			</configuration>
+		</plugin>
+		<plugin>
+				<!-- JavaNCSS - A Source Measurement Suite for Java
+					http://www.kclee.de/clemens/java/javancss/ -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>javancss-maven-plugin</artifactId>
+		</plugin>
+		<plugin>
+				<!-- A Java package dependency analyzer that generates
+					  design quality metrics http://clarkware.com/software/JDepend.html -->
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>jdepend-maven-plugin</artifactId>
+		</plugin>
 		</plugins>
 	</reporting>
 
@@ -486,8 +458,8 @@
 
 				<!-- URL of the FIZ framework instance -->
 				<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de:8080</escidoc.common.framework.url>
-                <!--escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url-->
-                
+				<!--escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url-->
+				
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 
@@ -502,7 +474,8 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
@@ -516,7 +489,8 @@
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				
 				<!-- unAPI -->
-				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
+				<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				
 				
 			</properties>
@@ -579,10 +553,10 @@
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
 				<escidoc.pubman_presentation.email.mailservername>mail.mpisoc.mpg.de</escidoc.pubman_presentation.email.mailservername>
-                <escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
-                <escidoc.pubman_presentation.email.withauthentication>true</escidoc.pubman_presentation.email.withauthentication>
-                <escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
-                <escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
+				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
+				<escidoc.pubman_presentation.email.withauthentication>true</escidoc.pubman_presentation.email.withauthentication>
+				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
+				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de:8080</escidoc.pubman.instance.url>
@@ -605,8 +579,10 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
-				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model +(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context +(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
@@ -621,7 +597,8 @@
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de:8080/cone/</escidoc.cone.service.url>
 				
 				<!-- unAPI -->
-				<escidoc.unapi.server>http://dev-pubman.mpdl.mpg.de:8080/import/unapi/</escidoc.unapi.server>
+				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/view/unapi/</escidoc.unapi.view.server>
+				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/download/unapi/</escidoc.unapi.download.server>
 				
 			</properties>
 				<distributionManagement>

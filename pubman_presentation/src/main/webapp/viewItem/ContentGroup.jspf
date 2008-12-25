@@ -1,0 +1,76 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.EditItem_lblContent}" />
+	</h3>
+	<span class="seperator"></span>
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.pubItem.metadata.subject != null || ViewItemFull.hasAbstracts}">
+
+<%-- Free keywords --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.subject.value == null || ViewItemFull.pubItem.metadata.subject.value == ''}"/>
+			</span>
+		</div>
+
+<%-- Abstract --%>
+		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!ViewItemFull.hasAbstracts}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.lbl_noEntry}"/>
+			</span>			
+		</h:panelGroup>
+		
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblContent}" /></a>	
+	</h:panelGroup>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblContent}" /></a>
+</h:panelGroup>

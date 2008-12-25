@@ -21,16 +21,18 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* f�r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur F�rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
 package de.mpg.escidoc.pubman.search;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Locale;
+
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
@@ -43,7 +45,9 @@ import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
@@ -51,10 +55,13 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
  * by logical operators.
  * 
  * @author Hugo Niedermaier, endres
- * @version $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
+ * @version $Revision$ $LastChangedDate$
  */
 public class AdvancedSearchEdit extends SearchResultList
 {
+    private static final String PROPERTY_CONTENT_MODEL = 
+        "escidoc.framework_access.content-model.id.publication";
+    
     public static final String BEAN_NAME = "AdvancedSearchEdit";
     /** faces navigation string */
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
@@ -72,6 +79,17 @@ public class AdvancedSearchEdit extends SearchResultList
     private IdentifierCriterionCollection identifierCriterionCollection = null;
     private LanguageCriterionCollection languageCriterionCollection = null;
     
+    private UIXIterator anyFieldCriterionIterator = new UIXIterator();
+    private UIXIterator personCriterionIterator = new UIXIterator();
+    private UIXIterator dateCriterionIterator = new UIXIterator();
+    private UIXIterator genreCriterionIterator = new UIXIterator();
+    private UIXIterator organizationCriterionIterator = new UIXIterator();
+    private UIXIterator eventCriterionIterator = new UIXIterator();
+    private UIXIterator sourceCriterionIterator = new UIXIterator();
+    private UIXIterator identifierCriterionIterator = new UIXIterator();
+    private UIXIterator languageCriterionIterator = new UIXIterator();
+    
+    private String suggestConeUrl = null;
    /**
     * Create a new instance. Set the buttons and the search type masks.
     *
@@ -161,7 +179,8 @@ public class AdvancedSearchEdit extends SearchResultList
     	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
     	
     	if( criterionList.size() == 0 ) {
-    		return list.startAdvancedSearch( searchCriteria );
+    		error(getMessage("search_NoCriteria"));
+    		return "";
     	}
     	
     	// transform the criteria to searchCriteria
@@ -176,15 +195,32 @@ public class AdvancedSearchEdit extends SearchResultList
     					criterionList.get( i - 1 ), criterionList.get( i ) );
     			searchCriteria.addAll( sub );	
     		}
+    		
+    		
+    		
+            //search only for items
+            searchCriteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
+                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
+            
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+            contentTypes.add( contentTypeIdPublication );
+            
+            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, searchCriteria );
+            
+            String cql = query.getCqlQuery();
+            
+            //redirect to SearchResultPage which processes the query
+            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
     	}
-    	catch( TechnicalException e ) {
+    	catch(Exception e ) {
     		logger.error("Could not transform advanced search criteria", e);
     	}
     
-    	//set the old list dirty
-    	this.getItemListSessionBean().setListDirty(true);
-        
-        return list.startAdvancedSearch( searchCriteria );
+    	
+    	
+    	
+        return "";
     }
     
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
@@ -298,5 +334,108 @@ public class AdvancedSearchEdit extends SearchResultList
 	{
 		this.languageCriterionCollection = languageCriterionCollection;
 	}
-	
+
+    public UIXIterator getAnyFieldCriterionIterator()
+    {
+        return anyFieldCriterionIterator;
+    }
+
+    public void setAnyFieldCriterionIterator(UIXIterator anyFieldCriterionIterator)
+    {
+        this.anyFieldCriterionIterator = anyFieldCriterionIterator;
+    }
+
+    public UIXIterator getPersonCriterionIterator()
+    {
+        return personCriterionIterator;
+    }
+
+    public void setPersonCriterionIterator(UIXIterator personCriterionIterator)
+    {
+        this.personCriterionIterator = personCriterionIterator;
+    }
+
+    public UIXIterator getDateCriterionIterator()
+    {
+        return dateCriterionIterator;
+    }
+
+    public void setDateCriterionIterator(UIXIterator dateCriterionIterator)
+    {
+        this.dateCriterionIterator = dateCriterionIterator;
+    }
+
+    public UIXIterator getGenreCriterionIterator()
+    {
+        return genreCriterionIterator;
+    }
+
+    public void setGenreCriterionIterator(UIXIterator genreCriterionIterator)
+    {
+        this.genreCriterionIterator = genreCriterionIterator;
+    }
+
+    public UIXIterator getOrganizationCriterionIterator()
+    {
+        return organizationCriterionIterator;
+    }
+
+    public void setOrganizationCriterionIterator(UIXIterator organizationCriterionIterator)
+    {
+        this.organizationCriterionIterator = organizationCriterionIterator;
+    }
+
+    public UIXIterator getEventCriterionIterator()
+    {
+        return eventCriterionIterator;
+    }
+
+    public void setEventCriterionIterator(UIXIterator eventCriterionIterator)
+    {
+        this.eventCriterionIterator = eventCriterionIterator;
+    }
+
+    public UIXIterator getSourceCriterionIterator()
+    {
+        return sourceCriterionIterator;
+    }
+
+    public void setSourceCriterionIterator(UIXIterator sourceCriterionIterator)
+    {
+        this.sourceCriterionIterator = sourceCriterionIterator;
+    }
+
+    public UIXIterator getIdentifierCriterionIterator()
+    {
+        return identifierCriterionIterator;
+    }
+
+    public void setIdentifierCriterionIterator(UIXIterator identifierCriterionIterator)
+    {
+        this.identifierCriterionIterator = identifierCriterionIterator;
+    }
+
+    public UIXIterator getLanguageCriterionIterator()
+    {
+        return languageCriterionIterator;
+    }
+
+    public void setLanguageCriterionIterator(UIXIterator languageCriterionIterator)
+    {
+        this.languageCriterionIterator = languageCriterionIterator;
+    }
+
+    public String getSuggestConeUrl() throws Exception
+    {
+        if (suggestConeUrl == null)
+        {
+            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+        }
+        return suggestConeUrl;
+    }
+
+    public void setSuggestConeUrl(String suggestConeUrl)
+    {
+        this.suggestConeUrl = suggestConeUrl;
+    }
 }

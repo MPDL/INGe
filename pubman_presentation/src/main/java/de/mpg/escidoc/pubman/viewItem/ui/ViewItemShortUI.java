@@ -46,7 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * UI for viewing items in a brief context.
  *
  * @author: Tobias Schraut, created 30.08.2007
- * @version: $Revision: 1646 $ $LastChangedDate: 2007-12-05 17:48:05 +0100 (Mi, 05 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemShortUI extends ContainerPanelUI
 {
@@ -54,7 +54,6 @@ public class ViewItemShortUI extends ContainerPanelUI
     private static Logger logger = Logger.getLogger(ViewItemShortUI.class);
 
     private HTMLElementUI htmlElement = new HTMLElementUI();
-    private COinSUI coins = new COinSUI();
 
     /**
      * Default constructor.
@@ -117,7 +116,6 @@ public class ViewItemShortUI extends ContainerPanelUI
         //label
         this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
 
-        this.getChildren().add(coins.getCOinSTag(pubItemVOWrapper.getValueObject()));
         HtmlOutputText lblCreators = new HtmlOutputText();
         bindComponentLabel(lblCreators, "ViewItemShort_lblCreators");
         this.getChildren().add(lblCreators);

@@ -66,7 +66,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  * functionality (language switching).
  *
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Di, 18 Dez 2007) $ Revised by ScT: 16.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 16.08.2007
  */
 public class Navigation extends FacesBean
 {
@@ -74,6 +74,8 @@ public class Navigation extends FacesBean
 
     public static final String BEAN_NAME = "Navigation";
     private List<NavigationRule> navRules;
+    
+    private boolean showExportMenuOption;
 
     /** identifier from the breadcrump component in the page */
 
@@ -386,6 +388,16 @@ public class Navigation extends FacesBean
     protected SearchResultList getSearchResultList()
     {
         return (SearchResultList) getSessionBean(SearchResultList.class);
+    }
+
+    public void setShowExportMenuOption(boolean showExportMenuOption)
+    {
+        this.showExportMenuOption = showExportMenuOption;
+    }
+
+    public boolean getShowExportMenuOption()
+    {
+        return showExportMenuOption;
     }
 
 }

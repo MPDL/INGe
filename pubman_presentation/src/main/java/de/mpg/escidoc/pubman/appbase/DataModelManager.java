@@ -41,7 +41,7 @@ public abstract class DataModelManager<T>
 	 * 
 	 * @return Set containing data object of type T
 	 */
-	public abstract List<T> getDataListFromVO();
+	//public abstract List<T> getDataListFromVO();
 	
 	// //////////////////////////////////////////////////////////////////////////
 	//
@@ -69,7 +69,7 @@ public abstract class DataModelManager<T>
 	}
 	
 	/**
-	 * The DataModel is allways created by wrapping the data objects contained
+	 * The DataModel is always created by wrapping the data objects contained
 	 * in the objectList. If this objectList is empty, there will be no rows to 
 	 * be displayed.
 	 * 
@@ -110,7 +110,7 @@ public abstract class DataModelManager<T>
 		{
 			objectList.add(i + 1, elem);
 		}
-		return null;
+		return "";
 	}
 
 	/**
@@ -120,7 +120,7 @@ public abstract class DataModelManager<T>
 	{
 		int i = objectDM.getRowIndex();
 		removeObjectAtIndex(i);
-		return null;
+		return "";
 	}
 
 	protected void removeObjectAtIndex(int i)

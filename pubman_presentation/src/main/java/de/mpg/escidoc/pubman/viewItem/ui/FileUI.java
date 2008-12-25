@@ -52,7 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
  * UI component for listing files in the view item page.
  * 
  * @author: Tobias Schraut, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 17.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 17.08.2007
  */
 
 public class FileUI 

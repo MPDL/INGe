@@ -42,7 +42,7 @@
 
 			<h1 class="bottomSpace">
 				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.QAWSPage}"/>
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ModeratorWS');return false"/>	   
+				<h:commandButton title="#{tip.qaws_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
 			</h1>
 			
 			<div>
@@ -51,7 +51,7 @@
 						value="#{QAWSSessionBean.selectedItemState}" onchange="changeQAWS();">
 					<f:selectItems id="selectItemState" value="#{QAWS.selectItemStateList}"/>
 				</h:selectOneMenu>
-				<h:commandButton action="#{QAWS.changeItemState}" immediate="true" 
+				<h:commandButton title="#{tip.qaws_changeState}" action="#{QAWS.changeItemState}" immediate="true" 
 					id="btnChangeItemState" value="" style="visibility:hidden;"/>
 			</div>
 
@@ -61,7 +61,7 @@
 						value="#{QAWSSessionBean.selectedContextId}" onchange="changeQAWS();">
 					<f:selectItems id="selectContext" value="#{QAWS.selectContextList}"/>
 				</h:selectOneMenu>
-				<h:commandButton action="#{QAWS.changeContext}" immediate="true" 
+				<h:commandButton action="#{QAWS.changeContext}" immediate="true" title="#{tip.qaws_changeContext}"
 					id="btnChangeContext" value="change" style="visibility:hidden;"/>
 			</div>
 			

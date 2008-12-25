@@ -30,10 +30,6 @@
 
 package de.mpg.escidoc.pubman.home;
 
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -42,7 +38,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * Fragment class for the corresponding Home-JSP.
  * 
  * @author: Thomas Diebäcker, created 08.02.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class Home extends FacesBean

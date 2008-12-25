@@ -47,8 +47,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     // the List of BreadCrumbs representing JSP's that have been viewed
     private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
 
-    private BreadcrumbItem currentItem;
-
     private static Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
 
     /**
@@ -168,7 +166,18 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     {
         logger.debug("Accessing BC:" + breadcrumbs + ":" + this);
 
-        return breadcrumbs;
+        // return only the last 3 items of the breadcrumb list
+        if( breadcrumbs.size() > 3 ) {
+            List<BreadcrumbItem> breadcrumbsLimited = new ArrayList<BreadcrumbItem>();
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-3));
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-2));
+            breadcrumbsLimited.add(breadcrumbs.get(breadcrumbs.size()-1));
+            return breadcrumbsLimited;
+        }
+        else 
+        {
+            return breadcrumbs;
+        }
     }
 
     public void setBreadcrumbItemHistory(List<BreadcrumbItem> breadcrumbs)
@@ -178,12 +187,14 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
 
     public BreadcrumbItem getCurrentItem()
     {
-        return currentItem;
-    }
-
-    public void setCurrentItem(BreadcrumbItem currentItem)
-    {
-        this.currentItem = currentItem;
+        if (breadcrumbs.size() > 0)
+        {
+            return breadcrumbs.get(breadcrumbs.size() - 1);
+        }
+        else
+        {
+            return new BreadcrumbItem("HomePage", "HomePage", null);
+        }
     }
 
 	public BreadcrumbItem getPreviousItem() {

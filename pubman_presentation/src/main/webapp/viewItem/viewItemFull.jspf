@@ -44,5 +44,6 @@
 		<jsp:directive.include file="ui/SystemDetails.jspf"/>
 
 		<jsp:directive.include file="../desktop/messages.jspf"/>
+
 	</f:subview>
 </div>

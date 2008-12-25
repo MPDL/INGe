@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* "Yet Another Multicolumn Layout" v3.0.4 (c) by Dirk Jesse (http://www.yaml.de)
-* $Revision: 134 $ $Date: 2007-10-12 20:31:37 +0200 (Fr, 12 Okt 2007) $ */
+* $Revision$ $Date$ */
 @media print {
 body,#page_margins,#page,#main {margin:0;padding:0;border:0;}
 #page_margins,#page{width:100% !important;min-width:0;max-width:none}

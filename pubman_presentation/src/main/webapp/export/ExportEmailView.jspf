@@ -27,49 +27,50 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<div style="width: 860px;"><f:subview id="ExportEmailView">
 
-	
-	<h1>
-		<h:outputText id="lblExport" value="#{lbl.export_lblExport}" />
-		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ExportEMail');return false"/>
-	</h1>
-	
-
-	
-	<h:panelGrid id="panelBackSend" columns="2" styleClass="exportEmailButtonBox">
-
-		<h:commandLink id="lnkBack" styleClass="exportBackButton" value="#{lbl.ExportEmail_lblBack}" action="#{ExportItems.backToList}" />
-
-		<h:commandLink id="lnkSend" styleClass="exportSendButton" value="#{lbl.ExportEmail_lblSend}" action="#{ExportItems.sendEMail}" />	
-	</h:panelGrid>
-	
-	<h:panelGroup layout="block" styleClass="messageBox" rendered="#{ExportItemsSessionBean.hasMessages}">
-		<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
-		<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
-	</h:panelGroup>
-	
-	<h:panelGrid id="panelEmailHeader" styleClass="exportEmailBox">
-
-		<h:outputLabel for="txtItemsAttached" id="lblItemsAttached" value="#{lbl.ExportEmail_lblItemsAttached}" />
-
-		<h:inputText id="txtItemsAttached" styleClass="exportInputTexts" disabled="true" value="#{ExportItemsSessionBean.attExportFileName}" />
-
-		<h:outputLabel for="txtToRecipient" id="lblToRecipient" value="#{lbl.ExportEmail_lblToRecipient}" />
-		<h:inputText id="txtToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.emailRecipients}" />
-
-		<h:outputLabel for="txtCCRecipient" id="lblCCRecipient" value="#{lbl.ExportEmail_lblCCRecipient}" />
-		<h:inputText id="txtCCRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.emailCCRecipients}" />
-	</h:panelGrid>
-	<h:panelGrid id="panelEmailContent" styleClass="exportEmailBox">
-		<h:outputLabel for="txtEmailSubject" id="lblEmailSubject" value="#{lbl.ExportEmail_lblSubject}" />
-		<h:outputText id="txtEmailSubject" styleClass="exportEMailSubjectTextBox" value="#{ExportItemsSessionBean.exportEmailSubject}" />
-		<h:outputText id="txtaContent" styleClass="exportEMailBodyText" value="#{ExportItemsSessionBean.exportEmailTxt}" />
-
-		<h:outputLabel for="txtReturnToRecipient" id="lblReturnToRecipient" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
-		<h:inputText id="txtReturnToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
-		</h:panelGrid>
-</f:subview></div>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		&#160;
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblItemsAttached}" />
+				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.attExportFileName}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblToRecipient}" />
+				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailRecipients}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblCCRecipient}" />
+				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailCCRecipients}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblSubject}" />
+				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.exportEmailSubject}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="Body" />
+				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.exportEmailTxt}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="quad_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
+				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
+			</span>
+		</div>
+	</div>
+</div>

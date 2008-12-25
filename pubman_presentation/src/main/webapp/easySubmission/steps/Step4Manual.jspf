@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,45 +31,110 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<f:subview id="easySubmissionStep4Manual">
-	
-	<h1>
-		<div class="orientationHeader"><h:outputText value="#{lbl.EasySubmission}"/></div>
-	</h1>
-	
-	<div class="easySubmissionBox floatbox">
-		<div class="easySubmissionBoxHeader">
-			<ol class="five">
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
-				<li class="easySubmissionDone"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></p></li>
-				<li class="easySubmissionActivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>4</span></p></li>
-				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>5</span></p></li>
-			</ol>
-		</div>
-		<div class="easySubmissionBoxBody">
-			<h3><h:outputText value="#{msg.easy_submission_Step4Manual}"/></h3>
-			<div class="easySubmissionBoxBodyContent">
-							
-					<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
-				
-			</div>
+<f:subview id="easySubmissionStep2Manual">
+
+<div class="clear">
+	<div class="headerSection">
+		
+	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
+
+		<div id="contentSkipLinkAnchor" class="clear headLine">
+			<!-- Headline starts here -->
+			<h1><h:outputText value="#{lbl.EasySubmission}"/></h1>
+			<!-- Headline ends here -->
 		</div>
 	</div>
-	<div class="easySubmissionControls floatbox">
-		<div>
-			<div class="easySubmissionsBackSection">
-			<h:commandLink action="#{EasySubmission.loadStep3Manual}">
-				<h:panelGroup styleClass="easySubmissionBackButton"/>
-				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
-			</h:commandLink>
+	<div class="small_marginLIncl subHeaderSection">
+		<div class="contentMenu">
+		<!-- content menu starts here -->
+			<div class="sub">
+			<!-- content menu lower line starts here -->
+				&#160;
+			<!-- content menu lower line ends here -->
 			</div>
-			<div class="easySubmissionsNextSection">
-			<h:commandLink action="#{EasySubmission.loadStep5Manual}">
-				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
-				<h:panelGroup styleClass="easySubmissionNextButton"/>
-			</h:commandLink>
-			</div>
+		<!-- content menu ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
+				<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+				&#160;
+			<!-- Subheadline ends here -->
 		</div>
 	</div>
+</div>			
+<div class="full_area0">
+	<div class="full_area0 fullItem">
+		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
+			<span class="small_area0 endline">
+				&nbsp;
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xLarge_area0_p7 step">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 1
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xLarge_area0_p7 step">
+				<b class="actual">
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 2
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xLarge_area0_p7 step">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 3
+				</b>
+			</span>
+		</h:panelGroup>
+
+		<%-- Creators --%>
+		<jsp:directive.include file="ui/CreatorCollection.jspf"/>
+
+		<h:panelGroup styleClass="full_area0 itemBlock" rendered="#{genre.content_display != 'false' && genre.content_form_id != 'full-submission' || genre.content_display != 'true' && genre.content_form_id != 'easy-submission'&& genre.content_form_id != 'all'}">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/>
+			</h3>
+			<span class="seperator"></span>
+			<div class="free_area0 itemBlockContent endline">
+
+		<%-- Subject (Free Keywords) --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.subject}" cols="15" rows="3" />
+					</span>
+				</div>
+		
+		<%-- Abstract --%>		
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.abstract}" cols="15" rows="3" />
+					</span>
+				</div>
+			</div>
+		</h:panelGroup>
+
+		<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" /></div>
+
+	</div>
+</div>
+<div class="full_area0 formButtonArea">	
+	<h:commandLink title="#{tip.easy_submission_btnBack}" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep3Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnNext}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep5Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
+</div>
+
 </f:subview>

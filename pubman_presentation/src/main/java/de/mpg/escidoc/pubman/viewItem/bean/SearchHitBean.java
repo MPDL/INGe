@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  * Simple bean to store the elements of the fulltext search hits.
  * 
  * @author: Tobias Schraut, created 25.03.2008
- * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class SearchHitBean 
 {

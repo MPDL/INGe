@@ -98,24 +98,25 @@
 		<param-value>session</param-value>
 	</context-param>
 
+	<!-- Genre Servlet -->
+	<servlet>
+		<servlet-name>Genre Servlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.pubman.init.GenreServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- Faces Servlet -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
 	<!-- Initializer Servlet -->
 	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.pubman.init.InitializerServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-	
-	<!-- Initializer Servlet -->
-	<servlet>
-		<servlet-name>SearchAndOutput Servlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.pubman.searching.webservice.RestServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
 	</servlet>
 	
   <!-- resource loader servlet -->
@@ -135,33 +136,19 @@
 		</listener-class>
 	</listener>
 	
-	<!-- IMPORTANT: Do not place any filters above this filer. Otherwise, the request encoding will break. -->
-	<filter>
-		<filter-name>EncodingFilter</filter-name>
-		<filter-class>
-			de.mpg.escidoc.pubman.appbase.EncodingFilter
-		</filter-class>
-	</filter>
-
 	<filter>
 		<filter-name>SessionTimeoutFilter</filter-name>
 		<filter-class>
 			de.mpg.escidoc.pubman.appbase.SessionTimeoutFilter
 		</filter-class>
 	</filter>
-	
+
 	<!-- This filter is always required;  one of its functions is 
 		file upload. -->
 	<filter>
 		<filter-name>trinidad</filter-name>
 		<filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
 	</filter>
-
-	<!-- IMPORTANT: Do not place any filters above this filer. Otherwise, the request encoding will break. -->
-	<filter-mapping>
-		<filter-name>EncodingFilter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>SessionTimeoutFilter</filter-name>
@@ -185,11 +172,6 @@
 	<servlet-mapping>
 		<servlet-name>Redirect Servlet</servlet-name>
 		<url-pattern>/item/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>SearchAndOutput Servlet</servlet-name>
-		<url-pattern>/SearchAndOutput/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

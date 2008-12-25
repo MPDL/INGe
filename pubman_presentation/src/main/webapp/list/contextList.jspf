@@ -29,24 +29,56 @@ All rights reserved. Use is subject to license terms.
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
-<div>
-	<f:subview id="list">
-		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.depositorContextList}" rowClasses="odd, even">
-			<h:column>
-				<h:panelGroup styleClass="easySubmissionSubBox">
-					<h:panelGroup layout="block" id="link" styleClass="easySubmissionBoxBodyLine easySubmissionSubBoxHeader">
-						<h:commandLink action="#{context.select}">
-							<h:outputText value="#{context.name}"/>
-						</h:commandLink>
-					</h:panelGroup>
-					<h:panelGroup layout="block" id="description" styleClass="easySubmissionBoxBodySubLine">
-						<h:outputText value="#{context.description}"/>
-					</h:panelGroup>
-					
-				</h:panelGroup>
-			</h:column>
-		</h:dataTable>
-	</f:subview>
-</div>
+
+<tr:iterator var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" varStatus="index">
+
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader noTopBorder" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:commandLink title="#{tip.list_select}" action="#{context.select}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
+			</b>
+		</span>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="full_area0 itemHeader" rendered="#{ContextListSessionBean.contextIterator.rowIndex > 0}">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:commandLink title="#{tip.list_select}" action="#{context.select}">
+					<h:outputText value="#{context.name}"/>
+				</h:commandLink>
+			</b>
+		</span>
+	</h:panelGroup>
+
+	<h:panelGroup layout="block" styleClass="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl description endline">
+					<h:outputText value="#{context.description}"/>
+				</span>
+				<span class="medium_area0_p8 lineToolSection">
+					<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
+				</span>
+			</div>
+			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
+		</div>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
+	</h:panelGroup>
+
+</tr:iterator>

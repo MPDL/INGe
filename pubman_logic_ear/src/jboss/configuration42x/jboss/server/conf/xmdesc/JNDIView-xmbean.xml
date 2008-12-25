@@ -3,7 +3,7 @@
    "-//JBoss//DTD JBOSS XMBEAN 1.1//EN"
    "http://www.jboss.org/j2ee/dtd/jboss_xmbean_1_1.dtd">
 <!-- The JNDIView service XMBean
-$Id: JNDIView-xmbean.xml 38992 2005-12-13 15:29:35Z jerrygauth $
+$Id$
 -->
 <mbean>
 	 <description>JNDIView Service. List deployed application java:comp namespaces, 

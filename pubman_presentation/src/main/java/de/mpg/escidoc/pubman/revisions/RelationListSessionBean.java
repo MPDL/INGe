@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 /**
  * Keeps all attributes that are used for the whole session by the RevisionList.
  * @author:  Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1599 $ $LastChangedDate: 2007-11-21 20:51:24 +0100 (Mi, 21 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class RelationListSessionBean extends FacesBean
 {

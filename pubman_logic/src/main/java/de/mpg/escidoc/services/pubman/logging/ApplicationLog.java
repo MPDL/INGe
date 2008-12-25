@@ -41,8 +41,8 @@ import de.mpg.escidoc.services.common.logging.Messages;
  * All messages are logged to a defined logger. Only info level is allowed.
  *
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @Revised by BrP: 20.09.2007
  */
 public class ApplicationLog

@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
@@ -49,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
  * 
  * @author: Tobias Schraut, created 25.03.2008
- * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class SourceBean extends FacesBean
 {
@@ -208,7 +209,7 @@ public class SourceBean extends FacesBean
                         {
                             if (organizationsFound == 0)
                             {
-                                annotation.append("   [");
+                                annotation.append("<sup>");
                             }
                             if (organizationsFound > 0 && j < this.sourceAffiliatedOrganizationsList.size())
                             {
@@ -221,9 +222,9 @@ public class SourceBean extends FacesBean
                 }
                 if (annotation.length() > 0)
                 {
-                    annotation.append("]");
+                    annotation.append("</sup>");
                 }
-                formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+                formattedCreator = formatter.formatCreator(creator, annotation.toString());
                 if (creator.getPerson() != null)
                 {
                     this.sourceCreatorArray.add(formattedCreator);
@@ -259,15 +260,24 @@ public class SourceBean extends FacesBean
             {
                 identifiers.append(source.getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
-                identifiers.append(source.getIdentifiers().get(i).getId());
+                if (CommonUtils.getisUriValidUrl(source.getIdentifiers().get(i)))
+                {
+                    identifiers.append("<a href='"+source.getIdentifiers().get(i).getId()+"'>"+source.getIdentifiers().get(i).getId()+"</a>"); 
+
+                }
+                else
+                {
+                    identifiers.append(source.getIdentifiers().get(i).getId());
+                }
                 if(i < source.getIdentifiers().size() - 1)
                 {
-                    identifiers.append(", ");
+                    identifiers.append("<br/>");
                 }
             }
         }
         return identifiers.toString();
     }
+
     
     /**
      * Returns the formatted Publishing Info according to filled elements
@@ -360,7 +370,7 @@ public class SourceBean extends FacesBean
     }
 
 	public String getIdentifiers() {
-		return identifiers;
+		return this.identifiers;
 	}
 
 	public void setIdentifiers(String identifiers) {
@@ -368,7 +378,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public String getStartEndPage() {
-		return startEndPage;
+		return this.startEndPage;
 	}
 
 	public void setStartEndPage(String startEndPage) {
@@ -376,7 +386,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public String getPublishingInfo() {
-		return publishingInfo;
+		return this.publishingInfo;
 	}
 
 	public void setPublishingInfo(String publishingInfo) {
@@ -384,7 +394,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public SourceVO getSource() {
-		return source;
+		return this.source;
 	}
 
 	public void setSource(SourceVO source) {
@@ -392,7 +402,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<String> getSourceOrganizationArray() {
-		return sourceOrganizationArray;
+		return this.sourceOrganizationArray;
 	}
 
 	public void setSourceOrganizationArray(ArrayList<String> sourceOrganizationArray) {
@@ -400,7 +410,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<ViewItemOrganization> getSourceOrganizationList() {
-		return sourceOrganizationList;
+		return this.sourceOrganizationList;
 	}
 
 	public void setSourceOrganizationList(
@@ -409,7 +419,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public List<OrganizationVO> getSourceAffiliatedOrganizationsList() {
-		return sourceAffiliatedOrganizationsList;
+		return this.sourceAffiliatedOrganizationsList;
 	}
 
 	public void setSourceAffiliatedOrganizationsList(
@@ -418,7 +428,7 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<String> getSourceCreatorArray() {
-		return sourceCreatorArray;
+		return this.sourceCreatorArray;
 	}
 
 	public void setSourceCreatorArray(ArrayList<String> sourceCreatorArray) {
@@ -426,13 +436,29 @@ public class SourceBean extends FacesBean
 	}
 
 	public ArrayList<ViewItemCreatorOrganization> getSourceCreatorOrganizationsArray() {
-		return sourceCreatorOrganizationsArray;
+		return this.sourceCreatorOrganizationsArray;
 	}
 
 	public void setSourceCreatorOrganizationsArray(
 			ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
 		this.sourceCreatorOrganizationsArray = sourceCreatorOrganizationsArray;
 	}
+	
+	public boolean getHasCreator()
+	{
+	    if (this.sourceCreatorArray.size() > 0 && this.sourceCreatorOrganizationsArray.size() > 0)
+	    {
+	        return true;
+	    }
+	    return false;
+	}
     
-    
+    public boolean getHasAffiliation()
+    {
+        if (this.sourceOrganizationArray.size() > 0 )
+        {
+            return true;
+        }
+        return false;
+    }
 }

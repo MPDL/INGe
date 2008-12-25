@@ -12,8 +12,8 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 /**
  * Wrapper class for contexts to be used in the presentation.
  * @author franke
- * @author $Author: $
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
+ * @author $Author$
+ * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 public class PubContextVOPresentation extends ContextVO {
 
@@ -76,7 +76,10 @@ public class PubContextVOPresentation extends ContextVO {
     	}
     	selected = true;
     	EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
-    	return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
+    	
+    	((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
+    	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+    	return EasySubmission.LOAD_EASYSUBMISSION;
     }
     
     /**

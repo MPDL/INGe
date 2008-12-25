@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.search.bean;
 
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 
@@ -54,5 +55,23 @@ public class OrganizationCriterionBean extends CriterionBean
 		// navigation refresh
 		return null;
 	}
+	
+	/**
+     * Action navigation call to select the creator organisation
+     * @return
+     */
+    public String selectOrganisation()
+    {
+        if (organizationCriterionVO.getSearchString() == null)
+        {
+            organizationCriterionVO.setSearchString("");
+        }
+
+        // Set this value to let the affiliation tree know where to jump after selection.
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("AdvancedSearch");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(organizationCriterionVO);
+        
+        return "loadAffiliationTree";
+    }
 
 }

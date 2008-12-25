@@ -21,156 +21,207 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:dataTable var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-	<h:column>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<%/* panTitleBar */%>
-		<h:panelGroup> 
-			<div class="listHeader dark">
-				<%/* panTitelComponent */%>
-			
-					<h3>
-					<h:outputText value="#{lbl.adv_search_lbHeaderGenre}" />
-				</h3>
-				
-			
-				<%/* panControls */%>
-				
-					<div class="displayControls moveTop">
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{genreCriterionBean.collapse}" rendered="#{!genreCriterionBean.collapsed}" />	
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{genreCriterionBean.expand}" rendered="#{genreCriterionBean.collapsed}"/>	
-					</div>
-				
-			</div>
-		</h:panelGroup>
-		
-		<%/* panContainer */%>
-		
-		<h:panelGroup rendered="#{!genreCriterionBean.collapsed}">
-			<div class="formField floatbox">	
-				<div class="innerPanel">			
-					<div class="objectButtons floatbox">
-						<h:outputLabel value="#{lbl.adv_search_lblChkGenre}" />
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{genreCriterionBean.selectAll}" />
-					</div>
-				
-				
-					<div class="formGroupCheckboxMatrix floatbox">
-						<h:panelGroup layout="block" styleClass="checkboxCol long">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchArticle" value="#{genreCriterionBean.searchArticle}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" for="genreCriterionBean_searchArticle" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchIssue" value="#{genreCriterionBean.searchIssue}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_ISSUE}" for="genreCriterionBean_searchIssue" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchReport" value="#{genreCriterionBean.searchReport}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_REPORT}" for="genreCriterionBean_searchReport" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol short">	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchBook" value="#{genreCriterionBean.searchBook}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK}" for="genreCriterionBean_searchBook" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchJournal" value="#{genreCriterionBean.searchJournal}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_JOURNAL}" for="genreCriterionBean_searchJournal" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchSeries" value="#{genreCriterionBean.searchSeries}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_SERIES}" for="genreCriterionBean_searchSeries" />
-							</h:panelGroup>
-						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="checkboxCol short">							
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItem" value="#{genreCriterionBean.searchBookItem}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK_ITEM}" for="genreCriterionBean_searchBookItem" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscript" value="#{genreCriterionBean.searchManuscript}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_MANUSCRIPT}" for="genreCriterionBean_searchManuscript" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEvent" value="#{genreCriterionBean.searchTalkAtEvent}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_TALK_AT_EVENT}" for="genreCriterionBean_searchTalkAtEvent" />
-							</h:panelGroup>
-						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="checkboxCol long">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLecture" value="#{genreCriterionBean.searchCoursewareLecture}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_COURSEWARE_LECTURE}" for="genreCriterionBean_searchCoursewareLecture" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchPaper" value="#{genreCriterionBean.searchPaper}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_PAPER}" for="genreCriterionBean_searchPaper" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchThesis" value="#{genreCriterionBean.searchThesis}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_THESIS}" for="genreCriterionBean_searchThesis" />
-							</h:panelGroup>
-						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="checkboxCol long">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePaper" value="#{genreCriterionBean.searchConferencePaper}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_PAPER}" for="genreCriterionBean_searchConferencePaper" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchPoster" value="#{genreCriterionBean.searchPoster}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_POSTER}" for="genreCriterionBean_searchPoster" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_OTHER}" for="genreCriterionBean_searchOther" />
-							</h:panelGroup>
-						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="checkboxCol long">	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReport" value="#{genreCriterionBean.searchConferenceReport}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_REPORT}" for="genreCriterionBean_searchConferenceReport" />
-							</h:panelGroup>								
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedings" value="#{genreCriterionBean.searchProceedings}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_PROCEEDINGS}" for="genreCriterionBean_searchProceedings" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:outputLabel value=" " />		
-							</h:panelGroup>					
-						</h:panelGroup>
-					</div>				
-				
-				</div>
-			
-			
-				<div class="objectButtons floatbox">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size > 1}"/>
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
-				</div>
-			</div>
-		</h:panelGroup>
+		<tr:iterator var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
 
-		
-			<div class="operatorCenter">
-				<h:selectOneMenu value="#{genreCriterionBean.logicOperator}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<a class="medium_area0 xTiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<span class="free_area0 checkboxTripleGroup">
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticle" value="#{genreCriterionBean.searchArticle}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" for="genreCriterionBean_searchArticle" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBook" value="#{genreCriterionBean.searchBook}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK}" for="genreCriterionBean_searchBook" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItem" value="#{genreCriterionBean.searchBookItem}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK_ITEM}" for="genreCriterionBean_searchBookItem" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLecture" value="#{genreCriterionBean.searchCoursewareLecture}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_COURSEWARE_LECTURE}" for="genreCriterionBean_searchCoursewareLecture" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePaper" value="#{genreCriterionBean.searchConferencePaper}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_PAPER}" for="genreCriterionBean_searchConferencePaper" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReport" value="#{genreCriterionBean.searchConferenceReport}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_REPORT}" for="genreCriterionBean_searchConferenceReport" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchIssue" value="#{genreCriterionBean.searchIssue}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_ISSUE}" for="genreCriterionBean_searchIssue" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchJournal" value="#{genreCriterionBean.searchJournal}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_JOURNAL}" for="genreCriterionBean_searchJournal" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscript" value="#{genreCriterionBean.searchManuscript}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_MANUSCRIPT}" for="genreCriterionBean_searchManuscript" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPaper" value="#{genreCriterionBean.searchPaper}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_PAPER}" for="genreCriterionBean_searchPaper" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPoster" value="#{genreCriterionBean.searchPoster}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_POSTER}" for="genreCriterionBean_searchPoster" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedings" value="#{genreCriterionBean.searchProceedings}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_PROCEEDINGS}" for="genreCriterionBean_searchProceedings" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchReport" value="#{genreCriterionBean.searchReport}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_REPORT}" for="genreCriterionBean_searchReport" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchSeries" value="#{genreCriterionBean.searchSeries}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_SERIES}" for="genreCriterionBean_searchSeries" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEvent" value="#{genreCriterionBean.searchTalkAtEvent}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_TALK_AT_EVENT}" for="genreCriterionBean_searchTalkAtEvent" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesis" value="#{genreCriterionBean.searchThesis}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_THESIS}" for="genreCriterionBean_searchThesis" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_OTHER}" for="genreCriterionBean_searchOther" />
+						</span>
+						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<a class="medium_area0 xTiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<span class="free_area0 checkboxTripleGroup">
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticles" value="#{genreCriterionBean.searchArticle}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" for="genreCriterionBean_searchArticles" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBooks" value="#{genreCriterionBean.searchBook}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK}" for="genreCriterionBean_searchBooks" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItems" value="#{genreCriterionBean.searchBookItem}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK_ITEM}" for="genreCriterionBean_searchBookItems" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLectures" value="#{genreCriterionBean.searchCoursewareLecture}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_COURSEWARE_LECTURE}" for="genreCriterionBean_searchCoursewareLectures" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePapers" value="#{genreCriterionBean.searchConferencePaper}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_PAPER}" for="genreCriterionBean_searchConferencePapers" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReports" value="#{genreCriterionBean.searchConferenceReport}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_REPORT}" for="genreCriterionBean_searchConferenceReports" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchIssues" value="#{genreCriterionBean.searchIssue}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_ISSUE}" for="genreCriterionBean_searchIssues" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchJournals" value="#{genreCriterionBean.searchJournal}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_JOURNAL}" for="genreCriterionBean_searchJournals" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscripts" value="#{genreCriterionBean.searchManuscript}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_MANUSCRIPT}" for="genreCriterionBean_searchManuscripts" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPapers" value="#{genreCriterionBean.searchPaper}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_PAPER}" for="genreCriterionBean_searchPapers" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPosters" value="#{genreCriterionBean.searchPoster}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_POSTER}" for="genreCriterionBean_searchPosters" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedingss" value="#{genreCriterionBean.searchProceedings}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_PROCEEDINGS}" for="genreCriterionBean_searchProceedingss" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchReports" value="#{genreCriterionBean.searchReport}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_REPORT}" for="genreCriterionBean_searchReports" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchSeriess" value="#{genreCriterionBean.searchSeries}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_SERIES}" for="genreCriterionBean_searchSeriess" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEvents" value="#{genreCriterionBean.searchTalkAtEvent}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_TALK_AT_EVENT}" for="genreCriterionBean_searchTalkAtEvents" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesiss" value="#{genreCriterionBean.searchThesis}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_THESIS}" for="genreCriterionBean_searchThesiss" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchOthers" value="#{genreCriterionBean.searchOther}" />
+							<h:outputLabel value="#{lbl.ENUM_GENRE_OTHER}" for="genreCriterionBean_searchOthers" />
+						</span>
+						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{genreCriterionBean.logicOperator}">
 					<f:selectItems value="#{genreCriterionBean.logicOptions}"/>
-			</h:selectOneMenu>
-			</div>
-	
-		
-	</h:column>
-</h:dataTable>
+				</h:selectOneMenu>				
+			</h:panelGroup>
 
-
+		</tr:iterator>
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderGenre}" /></a>
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderGenre}" /></a>
+</div>

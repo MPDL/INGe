@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
@@ -46,7 +45,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * BackingBean for DepositorWSPage.jsp.
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 09.08.2007
  */
 public class DepositorWSPage extends BreadcrumbPage

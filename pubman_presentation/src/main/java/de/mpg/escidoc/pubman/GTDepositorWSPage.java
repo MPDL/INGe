@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
@@ -45,7 +44,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * not be displayed.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
 public class GTDepositorWSPage extends FacesBean
 {

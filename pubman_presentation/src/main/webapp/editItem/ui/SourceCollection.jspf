@@ -59,10 +59,10 @@
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 					<h:inputTextarea styleClass="editItemTextArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" />		
 					<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
-						title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
+						title="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 						action="#{sourceBean.titleCollection.addTitle}" />
 					<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
-						title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
+						title="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
 						action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
 					<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
 				</h:panelGroup>
@@ -79,10 +79,10 @@
 								
 							
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
-									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
+									title="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 									action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}"
-									title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}"  
+									title="#{tip.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}"  
 									action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" />						
 							</h:panelGroup>
 						</h:panelGroup>		
@@ -149,16 +149,16 @@
 											<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
 											<h:inputText styleClass="editItemTextFieldMedium" value="#{persOrga.name.value}"/>
 											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" 
-												title="#{lbl.EditItem_btSelect} #{lbl.EditItem_lblOrganization}" 
+												title="#{tip.EditItem_btSelect} #{lbl.EditItem_lblOrganization}" 
 												action="#{creatorBean.selectPersonOrganisation}" />
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="editItemSingleCol">										
 											<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>									
 											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
-												title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
+												title="#{tip.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
 												action="#{creatorBean.personOrganisationManager.addObject}" />
 											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
-												title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
+												title="#{tip.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
 												action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />
 											<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
 										</h:panelGroup>
@@ -174,7 +174,7 @@
 									<h:outputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.organization.identifier}" />--%>
 									<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
 									<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>
-									<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+									<h:commandButton title="#{tip.EditItem_btSelect}" styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace10">	
 									<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
@@ -186,12 +186,12 @@
 						<h:panelGroup layout="block" styleClass="editItemAddLink">
 								<h:panelGroup layout="block" styleClass="editItemLeftCol">
 									<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}"/>
-									<h:commandLink value="#{lbl.EditItem_lblAddCreator}" title="#{lbl.EditItem_lblAddCreator} #{lbl.EditItem_lblOrganization}" 
+									<h:commandLink value="#{lbl.EditItem_lblAddCreator}" title="#{tip.EditItem_lblAddCreator} #{lbl.EditItem_lblOrganization}" 
 									action="#{sourceBean.creatorCollection.creatorManager.addObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}" />
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="editItemRightCol">
 									<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>
-									<h:commandLink value="#{lbl.EditItem_lblDeleteCreator}" title="#{lbl.EditItem_lblDeleteCreator} #{lbl.EditItem_lblOrganization}" 
+									<h:commandLink value="#{lbl.EditItem_lblDeleteCreator}" title="#{tip.EditItem_lblDeleteCreator} #{lbl.EditItem_lblOrganization}" 
 									action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>			
 								</h:panelGroup>	
 								<h:outputText value=" " rendered="#{sourceBean.creatorCollection.creatorManager.size < 2}"/>				
@@ -270,10 +270,10 @@
 						</h:selectOneMenu>
 						<h:inputText styleClass="editItemTextFieldShort leftSpace10 identifierValue" value="#{identifier.id}" />						
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
-							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" 
+							title="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" 
 							action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
-							title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" 
+							title="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" 
 							action="#{sourceBean.identifierCollection.identifierManager.removeObject}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 1}"/>
 						<h:outputText value=" " rendered="#{sourceBean.identifierCollection.identifierManager.size < 2}"/>
 					</h:panelGroup>				
@@ -286,12 +286,12 @@
 		<h:panelGroup layout="block" styleClass="editItemAddLink">
 		<h:panelGroup layout="block" styleClass="editItemLeftCol">
 		<h:panelGroup layout="block" styleClass="icon addIcon" />
-			<h:commandLink value="#{lbl.EditItem_btAddSource}" title="#{lbl.EditItem_btAddSource}" 
+			<h:commandLink value="#{lbl.EditItem_btAddSource}" title="#{tip.EditItem_btAddSource}" 
 					action="#{EditItem.sourceCollection.sourceManager.addObject}" />
 			</h:panelGroup>	
 			<h:panelGroup layout="block" styleClass="editItemRightCol">	
 			<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EditItem.sourceCollection.sourceManager.size > 1}"/>	
-			<h:commandLink value="#{lbl.EditItem_btRemoveSource}" title="#{lbl.EditItem_btRemoveSource}" 
+			<h:commandLink value="#{lbl.EditItem_btRemoveSource}" title="#{tip.EditItem_btRemoveSource}" 
 					action="#{EditItem.sourceCollection.sourceManager.removeObject}" rendered="#{EditItem.sourceCollection.sourceManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.sourceCollection.sourceManager.size < 2}"/>
 			</h:panelGroup>

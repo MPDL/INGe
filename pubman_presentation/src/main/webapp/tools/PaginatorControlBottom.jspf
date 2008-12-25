@@ -42,8 +42,8 @@
 			</h:selectOneMenu>
 			<h:outputText value="#{lbl.Paginator_ObjectsPerPage}" style="margin-left:5px; margin-right:5px;"/>
 			
-			<h:commandButton value="#{lbl.Paginator_First}" action="#{PaginatorControlSessionBean.firstPage}" disabled="#{PaginatorControlSessionBean.currentPage == 1}"/>
-			<h:commandButton value="#{lbl.Paginator_Previous}" action="#{PaginatorControlSessionBean.previousPage}" disabled="#{PaginatorControlSessionBean.currentPage == 1}"/>
+			<h:commandButton title="#{tip.Paginator_First}" value="#{lbl.Paginator_First}" action="#{PaginatorControlSessionBean.firstPage}" disabled="#{PaginatorControlSessionBean.currentPage == 1}"/>
+			<h:commandButton title="#{tip.Paginator_Previous}" value="#{lbl.Paginator_Previous}" action="#{PaginatorControlSessionBean.previousPage}" disabled="#{PaginatorControlSessionBean.currentPage == 1}"/>
 			
 			<%/* Single Page Buttons */%>
 			<h:commandButton value="#{PaginatorControlSessionBean.pageButtonText[1]}" rendered="#{PaginatorControlSessionBean.pageButtonVisible[1]}"
@@ -75,8 +75,8 @@
 				<f:attribute name="pageButton" value="7" />
 			</h:commandButton>
 
-			<h:commandButton value="#{lbl.Paginator_Next}" action="#{PaginatorControlSessionBean.nextPage}" disabled="#{PaginatorControlSessionBean.currentPage == PaginatorControlSessionBean.numberOfPages}"/>
-			<h:commandButton value="#{lbl.Paginator_Last}" action="#{PaginatorControlSessionBean.lastPage}" disabled="#{PaginatorControlSessionBean.currentPage == PaginatorControlSessionBean.numberOfPages}"/>
+			<h:commandButton title="#{tip.Paginator_Next}" value="#{lbl.Paginator_Next}" action="#{PaginatorControlSessionBean.nextPage}" disabled="#{PaginatorControlSessionBean.currentPage == PaginatorControlSessionBean.numberOfPages}"/>
+			<h:commandButton title="#{tip.Paginator_Last}" value="#{lbl.Paginator_Last}" action="#{PaginatorControlSessionBean.lastPage}" disabled="#{PaginatorControlSessionBean.currentPage == PaginatorControlSessionBean.numberOfPages}"/>
 		</span>
 	</div>
 </h:panelGroup>

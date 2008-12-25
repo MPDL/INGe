@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -30,9 +30,12 @@
 
 package de.mpg.escidoc.pubman.viewItem;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,6 +45,7 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
@@ -58,19 +62,19 @@ import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.desktop.Login;
-import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.export.ExportItems;
+import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.reviseItem.ReviseItem;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
@@ -81,11 +85,12 @@ import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
-import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -105,7 +110,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
  * 
  * @author Tobias Schraut, created 03.09.2007
- * @version: $Revision: 1656 $ $LastChangedDate: 2007-12-10 17:56:58 +0100 (Mo, 10 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ViewItemFull extends FacesBean
 {
@@ -113,15 +118,17 @@ public class ViewItemFull extends FacesBean
     private static Logger logger = Logger.getLogger(ViewItemFull.class);
     final public static String BEAN_NAME = "ViewItemFull";
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
+    public static final String PARAMETERNAME_MENU_VIEW = "view";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
     
     public boolean isDepositor = false;
     public boolean isModerator = false;
+    public boolean isPrivilegedViewer=false;
     
     // Validation Service
     private ItemValidating itemValidating = null; 
-    private PubItemVO pubItem = null;
+    private PubItemVOPresentation pubItem = null;
 
     private HtmlMessages valMessage = new HtmlMessages();
 
@@ -130,8 +137,6 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
-    
-    private String coins;
     
     private UIXIterator titleIterator = new UIXIterator();
     
@@ -156,7 +161,7 @@ public class ViewItemFull extends FacesBean
     private UIXIterator sourceCreatorOrganizationsIterator = new UIXIterator(); 
     
     
-    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();	
+    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();
     
     private UIXIterator fileIterator = new UIXIterator();
     
@@ -202,8 +207,8 @@ public class ViewItemFull extends FacesBean
     private String citationURL;
 
     /**unapi*/
-	private String unapiURL;
-	private String unapiURLzotero;
+	private String unapiURLdownload;
+	private String unapiURLview;
 	private String unapiEscidoc;
 	private String unapiEndnote;
 	private String unapiBibtex;
@@ -225,6 +230,7 @@ public class ViewItemFull extends FacesBean
     private boolean isWorkflowStandard;
     private boolean isWorkflowSimple;
     private boolean isStateInRevision;
+    
    
     /**
      * Public constructor.
@@ -269,20 +275,27 @@ public class ViewItemFull extends FacesBean
             try
             {
                 this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
+                //if it is a new item reset ViewItemSessionBean
+                if(getItemControllerSessionBean().getCurrentPubItem()==null || !pubItem.getVersion().getObjectIdAndVersion().equals(getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectIdAndVersion()))
+                {
+                    getViewItemSessionBean().itemChanged();
+                }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
             }
+//            catch (AuthorizationException e)
+//            {
+//                Login login = (Login)getSessionBean(Login.class);
+//                login.forceLogout();
+//            }
+//            catch (AuthenticationException e)
+//            {
+//                Login login = (Login)getSessionBean(Login.class);
+//                login.forceLogout();
+//            }
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
-                Login login = (Login)getSessionBean(Login.class);
-                try
-                {
-                    login.forceLogout();
-                }
-                catch (Exception e2) {
-                    logger.error("Error logging out user", e2);
-                }
-                // TODO: Error handling
+                error(getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
             }
         }
         else
@@ -291,12 +304,65 @@ public class ViewItemFull extends FacesBean
         }
         
         
+        String subMenu = request.getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
+        if (subMenu!=null){
+            getViewItemSessionBean().setSubMenu(subMenu);
+        }
+        
+        
+        
         //check if arriving from easy submission
-        EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
-        this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
+        //EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
+        //this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
         
         if(this.pubItem != null)
         {
+            this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            
+            //DiT: multiple new conditions for link-activation added
+            this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+            this.isPrivilegedViewer= this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
+            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            this.isDepositor = this.loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
+            //isDepositor = loginHelper.getAccountUser().isDepositor();
+            
+            this.isOwner = true;
+            if (this.pubItem.getOwner() != null)
+            {
+                this.isOwner = (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+            }
+            this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
+            this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
+
+            //@author Markus Haarlaender - setting properties for Action Links
+            
+            this.isLoggedIn = this.loginHelper.isLoggedIn();
+            this.isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
+            this.isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
+            
+            this.isStateWithdrawn = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            
+            this.isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+            this.isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+            this.isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+            this.isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+            
+            try
+            {
+                this.isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+                this.isWorkflowSimple = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            }
+            catch (Exception e)
+            {
+                this.isWorkflowSimple = true;
+                this.isWorkflowStandard = false;
+            }
+            
+            if(this.isStateWithdrawn)
+            {
+                getViewItemSessionBean().itemChanged();
+            }
+            
             //set citation url
             try
             {
@@ -308,6 +374,7 @@ public class ViewItemFull extends FacesBean
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
                 if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
                 
+                // MF: Removed exclusion of pending items here
                 this.citationURL = pubmanUrl + itemPattern;
                 
             }
@@ -317,56 +384,12 @@ public class ViewItemFull extends FacesBean
                 this.citationURL = "";
             }
             
-            loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-            
-            //DiT: multiple new conditions for link-activation added
-            isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-            isDepositor = loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
-            //isDepositor = loginHelper.getAccountUser().isDepositor();
-            
-            isOwner = true;
-            if (this.pubItem.getOwner() != null)
-            {
-            	isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
-            }
-            isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
-            isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
-
-            //@author Markus Haarlaender - setting properties for Action Links
-            
-            isLoggedIn = loginHelper.isLoggedIn();
-            isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
-            isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
-            
-            isStateWithdrawn = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
-            
-            isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
-            isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
-            isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
-            isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
-            
-            try
-            {
-                isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-                isWorkflowSimple = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
-            }
-            catch (Exception e)
-            {
-                isWorkflowSimple = true;
-                isWorkflowStandard = false;
-            }
-            
             // set up some pre-requisites
             // the list of numbered affiliated organizations 
             createAffiliatedOrganizationList();
             
             // the list of creators (persons and organizations)
             createCreatorList();
-            
-            // create the COinS information
-            COinSUI coins = new COinSUI();
-            this.coins = coins.getCOinSString(this.pubItem);
             
             // the list of sources
            
@@ -440,20 +463,20 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
-            //Unapi Export tmp static
+            //Unapi Export 
             try
             {
-                this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
-                this.unapiURLzotero = this.unapiURL.replaceFirst("unapi", "zotero");
+                this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+                this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+                this.unapiEscidoc = this.unapiURLdownload+"?id="+itemID+"&format=escidoc";
+                this.unapiEndnote = this.unapiURLdownload+"?id="+itemID+"&format=endnote";
+                this.unapiBibtex = this.unapiURLdownload+"?id="+itemID+"&format=bibtex";
+                this.unapiApa = this.unapiURLdownload+"?id="+itemID+"&format=apa";
             }
             catch (Exception e) {
                 logger.error("Error getting unapi url property", e);
                 throw new RuntimeException(e);
             }
-            this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
-            this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
-            this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
-            this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
 
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
             // set up the release history of the item
@@ -628,10 +651,12 @@ public class ViewItemFull extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
+        PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        
         ValidationReportVO report = null;
         try
         {
-            report = this.itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "submit_item");
+            report = this.itemValidating.validateItemObject(pubItem, "submit_item");
         }
         catch (Exception e)
         {
@@ -639,7 +664,8 @@ public class ViewItemFull extends FacesBean
         }
         logger.debug("Validation Report: " + report);
         
-        if (report.isValid() && !report.hasItems()) {
+        if (report.isValid() && !report.hasItems())
+        {
        
             if (logger.isDebugEnabled())
             {
@@ -668,10 +694,12 @@ public class ViewItemFull extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
+        PubItemVO pubItem = new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        
         ValidationReportVO report = null;
         try
         {
-            report = this.itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "accept_item");
+            report = this.itemValidating.validateItemObject(pubItem, "accept_item");
         }
         catch (Exception e)
         {
@@ -784,7 +812,7 @@ public class ViewItemFull extends FacesBean
                 info(getMessage(element.getContent()));
             }
         }
-        valMessage.setRendered(true);
+        this.valMessage.setRendered(true);
     }
     
     /**
@@ -884,7 +912,7 @@ public class ViewItemFull extends FacesBean
                     {
                         if (organizationsFound == 0)
                         {
-                            annotation.append("   [");
+                            annotation.append("<sup>");
                         }
                         if (organizationsFound > 0 && j < this.affiliatedOrganizationsList.size())
                         {
@@ -897,9 +925,9 @@ public class ViewItemFull extends FacesBean
             }
             if (annotation.length() > 0)
             {
-                annotation.append("]");
+                annotation.append("</sup>");
             }
-            formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+            formattedCreator = formatter.formatCreator(creator, annotation.toString());
             if (creator.getPerson() != null)
             {
                 this.creatorArray.add(formattedCreator);
@@ -979,10 +1007,18 @@ public class ViewItemFull extends FacesBean
             {
                 identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
-                identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
+                {
+                    identifiers.append("<a href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>"); 
+
+                }
+                else
+                {
+                    identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                }
                 if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
                 {
-                    identifiers.append(", ");
+                    identifiers.append("<br/>");
                 }
             }
         }
@@ -997,13 +1033,16 @@ public class ViewItemFull extends FacesBean
     {
     	if(this.pubItem.getMetadata() != null)
         {
-            if((this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0)
-                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
-                    || this.pubItem.getMetadata().getPublishingInfo() != null
+            if((this.pubItem.getMetadata().getLanguages() != null && this.pubItem.getMetadata().getLanguages().size() > 0)
+                    || (getShowDates())
                     || (this.pubItem.getMetadata().getTotalNumberOfPages() != null && !this.pubItem.getMetadata().getTotalNumberOfPages().trim().equals(""))
-                    || this.pubItem.getMetadata().getDegree() != null
+                    || (this.pubItem.getMetadata().getPublishingInfo() != null)
+                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
+                    || (this.pubItem.getMetadata().getReviewMethod() != null)
+                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0)
+                    || (this.pubItem.getMetadata().getDegree() != null)
                     || (this.pubItem.getMetadata().getLocation() != null && !this.pubItem.getMetadata().getLocation().trim().equals(""))
-                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0))
+                    )
             {
             	return true;
             }
@@ -1064,6 +1103,21 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
+     * Returns the total number of files in the item
+     * @return int
+     */
+    public int getAmountOfFiles() {
+        if (this.fileList != null && this.fileList.size() > 0)
+        {
+            return this.fileList.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
      * Returns a true or a false according to the existance of locators in the item
      * @return boolean
      */
@@ -1080,13 +1134,28 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
+     * Returns the total number of locators in the item
+     * @return int
+     */
+    public int getAmountOfLocators() {
+        if (this.locatorList != null && this.locatorList.size() > 0)
+        {
+            return this.locatorList.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
      * Returns a true or a false according to the user state (logged in or not)
      * @author Markus Haarlaender
      * @return boolean
      */
     public boolean getShowSystemDetails()
     {
-        return loginHelper.isLoggedIn();
+        return this.loginHelper.isLoggedIn();
     }
     
     /**
@@ -1230,10 +1299,10 @@ public class ViewItemFull extends FacesBean
         
         if (this.context == null)
         {
-            context = getItemControllerSessionBean().getCurrentContext();
+            this.context = getItemControllerSessionBean().getCurrentContext();
         }
         
-        return context;
+        return this.context;
     }
     
     /**
@@ -1494,7 +1563,7 @@ public class ViewItemFull extends FacesBean
     // Getters and Setters
     public HtmlPanelGroup getPanelItemFull()
     {
-        return panelItemFull;
+        return this.panelItemFull;
     }
 
     public void setPanelItemFull(HtmlPanelGroup panelItemFull)
@@ -1504,7 +1573,7 @@ public class ViewItemFull extends FacesBean
 
     public HtmlMessages getValMessage()
     {
-        return valMessage;
+        return this.valMessage;
     }
 
     public void setValMessage(HtmlMessages valMessage)
@@ -1513,10 +1582,10 @@ public class ViewItemFull extends FacesBean
     }
     
     public PubItemVO getPubItem() {
-		return pubItem;
+		return this.pubItem;
 	}
 
-	public void setPubItem(PubItemVO pubItem) {
+	public void setPubItem(PubItemVOPresentation pubItem) {
 		this.pubItem = pubItem;
 	}
 
@@ -1532,6 +1601,10 @@ public class ViewItemFull extends FacesBean
 			}
 		}
 		return abstracts;
+	}
+	
+	public boolean getHasAbstracts() {
+	    return this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0;
 	}
 	public String getGenre()
     {
@@ -1577,54 +1650,64 @@ public class ViewItemFull extends FacesBean
 	
 	public String getCitationURL()
 	{
-	   return citationURL;
+	   return this.citationURL;
 	    
 	}
 	
-	public ArrayList<String> getOrganizationArray() {
-		return organizationArray;
+	public ArrayList<String> getOrganizationArray()
+	{
+		return this.organizationArray;
 	}
 
-	public void setOrganizationArray(ArrayList<String> organizationArray) {
+	public void setOrganizationArray(ArrayList<String> organizationArray)
+	{
 		this.organizationArray = organizationArray;
 	}
 
-	public ArrayList<ViewItemOrganization> getOrganizationList() {
-		return organizationList;
+	public ArrayList<ViewItemOrganization> getOrganizationList()
+	{
+		return this.organizationList;
 	}
 
-	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
+	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList)
+	{
 		this.organizationList = organizationList;
 	}
 
-	public List<OrganizationVO> getAffiliatedOrganizationsList() {
-		return affiliatedOrganizationsList;
+	public List<OrganizationVO> getAffiliatedOrganizationsList()
+	{
+		return this.affiliatedOrganizationsList;
 	}
 
 	public void setAffiliatedOrganizationsList(
-			List<OrganizationVO> affiliatedOrganizationsList) {
+			List<OrganizationVO> affiliatedOrganizationsList)
+	{
 		this.affiliatedOrganizationsList = affiliatedOrganizationsList;
 	}
 
-	public ArrayList<String> getCreatorArray() {
-		return creatorArray;
+	public ArrayList<String> getCreatorArray()
+	{
+		return this.creatorArray;
 	}
 
-	public void setCreatorArray(ArrayList<String> creatorArray) {
+	public void setCreatorArray(ArrayList<String> creatorArray)
+	{
 		this.creatorArray = creatorArray;
 	}
 
-	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
-		return creatorOrganizationsArray;
+	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray()
+	{
+		return this.creatorOrganizationsArray;
 	}
 
 	public void setCreatorOrganizationsArray(
-			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray) {
+			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray)
+	{
 		this.creatorOrganizationsArray = creatorOrganizationsArray;
 	}
 
 	public UIXIterator getTitleIterator() {
-		return titleIterator;
+		return this.titleIterator;
 	}
 
 	public void setTitleIterator(UIXIterator titleIterator) {
@@ -1632,7 +1715,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getCreatorPersonsIterator() {
-		return creatorPersonsIterator;
+		return this.creatorPersonsIterator;
 	}
 
 	public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
@@ -1640,7 +1723,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getCreatorAffiliationsIterator() {
-		return creatorAffiliationsIterator;
+		return this.creatorAffiliationsIterator;
 	}
 
 	public void setCreatorAffiliationsIterator(
@@ -1649,7 +1732,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getLanguagesIterator() {
-		return languagesIterator;
+		return this.languagesIterator;
 	}
 
 	public void setLanguagesIterator(UIXIterator languagesIterator) {
@@ -1657,7 +1740,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getAbstractIterator() {
-		return abstractIterator;
+		return this.abstractIterator;
 	}
 
 	public void setAbstractIterator(UIXIterator abstractIterator) {
@@ -1665,7 +1748,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getEventAltTitleIterator() {
-		return eventAltTitleIterator;
+		return this.eventAltTitleIterator;
 	}
 
 	public void setEventAltTitleIterator(UIXIterator eventAltTitleIterator) {
@@ -1673,7 +1756,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceIterator() {
-		return sourceIterator;
+		return this.sourceIterator;
 	}
 
 	public void setSourceIterator(UIXIterator sourceIterator) {
@@ -1681,7 +1764,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceTitleIterator() {
-		return sourceTitleIterator;
+		return this.sourceTitleIterator;
 	}
 
 	public void setSourceTitleIterator(UIXIterator sourceTitleIterator) {
@@ -1689,7 +1772,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceCreatorPersonsIterator() {
-		return sourceCreatorPersonsIterator;
+		return this.sourceCreatorPersonsIterator;
 	}
 
 	public void setSourceCreatorPersonsIterator(
@@ -1698,7 +1781,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceCreatorAffiliationsIterator() {
-		return sourceCreatorAffiliationsIterator;
+		return this.sourceCreatorAffiliationsIterator;
 	}
 
 	public void setSourceCreatorAffiliationsIterator(
@@ -1707,7 +1790,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<SourceBean> getSourceList() {
-		return sourceList;
+		return this.sourceList;
 	}
 
 	public void setSourceList(List<SourceBean> sourceList) {
@@ -1715,7 +1798,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getFileIterator() {
-		return fileIterator;
+		return this.fileIterator;
 	}
 
 	public void setFileIterator(UIXIterator fileIterator) {
@@ -1723,23 +1806,15 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<FileBean> getFileList() {
-		return fileList;
+		return this.fileList;
 	}
 
 	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
 
-	public String getCoins() {
-		return coins;
-	}
-
-	public void setCoins(String oinS) {
-		this.coins = oinS;
-	}
-
 	public List<FileBean> getLocatorList() {
-		return locatorList;
+		return this.locatorList;
 	}
 
 	public void setLocatorList(List<FileBean> locatorList) {
@@ -1747,7 +1822,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getLocatorIterator() {
-		return locatorIterator;
+		return this.locatorIterator;
 	}
 
 	public void setLocatorIterator(UIXIterator locatorIterator) {
@@ -1756,7 +1831,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getCreatorOrganizationsIterator()
     {
-        return creatorOrganizationsIterator;
+        return this.creatorOrganizationsIterator;
     }
 
     public void setCreatorOrganizationsIterator(UIXIterator creatorOrganizationsIterator)
@@ -1781,7 +1856,7 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getIsDepositor()
 	{
-		return isDepositor;
+		return this.isDepositor;
 	}
 
 	public void setDepositor(boolean isDepositor)
@@ -1791,17 +1866,27 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getIsModerator()
 	{
-		return isModerator;
+		return this.isModerator;
 	}
-
+	
 	public void setModerator(boolean isModerator)
 	{
 		this.isModerator = isModerator;
 	}
 
+    public boolean getisPrivilegedViewer()
+    {
+        return this.isPrivilegedViewer;
+    }
+	
+    public void setPrivilegedViewer(boolean isPrivilegedViewer)
+    {
+        this.isPrivilegedViewer = isPrivilegedViewer;
+    }
+    
     public boolean getIsLoggedIn()
     {
-        return isLoggedIn;
+        return this.isLoggedIn;
     }
 
     public void setLoggedIn(boolean isLoggedIn)
@@ -1811,7 +1896,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsLatestVersion()
     {
-        return isLatestVersion;
+        return this.isLatestVersion;
     }
 
     public void setLatestVersion(boolean isLatestVersion)
@@ -1821,7 +1906,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsLatestRelease()
     {
-        return isLatestRelease;
+        return this.isLatestRelease;
     }
 
     public void setLatestRelease(boolean isLatestRelease)
@@ -1831,7 +1916,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateSubmitted()
     {
-        return isStateSubmitted;
+        return this.isStateSubmitted;
     }
 
     public void setStateSubmitted(boolean isStateSubmitted)
@@ -1841,7 +1926,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateReleased()
     {
-        return isStateReleased;
+        return this.isStateReleased;
     }
 
     public void setStateReleased(boolean isStateReleased)
@@ -1851,7 +1936,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStatePending()
     {
-        return isStatePending;
+        return this.isStatePending;
     }
 
     public void setStatePending(boolean isStatePending)
@@ -1861,7 +1946,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsOwner()
     {
-        return isOwner;
+        return this.isOwner;
     }
 
     public void setOwner(boolean isOwner)
@@ -1871,7 +1956,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsModifyDisabled()
     {
-        return isModifyDisabled;
+        return this.isModifyDisabled;
     }
 
     public void setModifyDisabled(boolean isModifyDisabled)
@@ -1881,7 +1966,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsCreateNewRevisionDisabled()
     {
-        return isCreateNewRevisionDisabled;
+        return this.isCreateNewRevisionDisabled;
     }
 
     public void setCreateNewRevisionDisabled(boolean isCreateNewRevisionDisabled)
@@ -1906,7 +1991,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getSourceCreatorOrganizationsIterator()
     {
-        return sourceCreatorOrganizationsIterator;
+        return this.sourceCreatorOrganizationsIterator;
     }
 
     public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
@@ -1916,7 +2001,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getFileSearchHitIterator()
     {
-        return fileSearchHitIterator;
+        return this.fileSearchHitIterator;
     }
 
     public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
@@ -1926,7 +2011,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsWorkflowStandard()
     {
-        return isWorkflowStandard;
+        return this.isWorkflowStandard;
     }
 
     public void setWorkflowStandard(boolean isWorkflowStandard)
@@ -1936,7 +2021,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsWorkflowSimple()
     {
-        return isWorkflowSimple;
+        return this.isWorkflowSimple;
     }
 
     public void setWorkflowSimple(boolean isWorkflowSimple)
@@ -1952,7 +2037,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateInRevision()
     {
-        return isStateInRevision;
+        return this.isStateInRevision;
     }
 
     public void setStateInRevision(boolean isStateInRevision)
@@ -1971,12 +2056,12 @@ public class ViewItemFull extends FacesBean
     }
     
     
-    public String getUnapiURL() {
-		return this.unapiURL;
+    public String getUnapiURLdownload() {
+		return this.unapiURLdownload;
 	}
 
-	public void setUnapiURL(String unapiURL) {
-		this.unapiURL = unapiURL;
+	public void setUnapiURLdownload(String unapiURLdownload) {
+		this.unapiURLdownload = unapiURLdownload;
 	}
 	
 	public String getUnapiEscidoc() {
@@ -2011,11 +2096,168 @@ public class ViewItemFull extends FacesBean
 		this.unapiApa = unapiApa;
 	}
 	
-	public String getUnapiURLzotero() {
-		return this.unapiURLzotero;
+	public String getUnapiURLview() {
+		return this.unapiURLview;
 	}
 
-	public void setUnapiURLzotero(String unapiURLzotero) {
-		this.unapiURLzotero = unapiURLzotero;
+	public void setUnapiURLview(String unapiURLview) {
+		this.unapiURLview = unapiURLview;
 	}
-}
+	
+	public String addToBasket()
+	{
+	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+       
+        if (!pubItemStorage.getStoredPubItems().containsKey(this.pubItem.getVersion().getObjectIdAndVersion()))
+        {
+            pubItemStorage.getStoredPubItems().put(this.pubItem.getVersion().getObjectIdAndVersion(), this.pubItem.getVersion());
+            info(getMessage("basket_SingleAddedSuccessfully"));
+        }
+        else
+        {
+            error(getMessage("basket_SingleAlreadyInBasket"));
+        }
+        return "";
+	}
+	
+	public boolean getIsInBasket()
+	{
+	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+	    return pubItemStorage.getStoredPubItems().containsKey(this.pubItem.getVersion().getObjectIdAndVersion());
+	    
+	}
+
+    
+    public String getLinkForActionsView()
+    {
+        String url = "viewItemFullPage.jsp?"+PARAMETERNAME_ITEM_ID+"="+getPubItem().getVersion().getObjectIdAndVersion()+"&"+PARAMETERNAME_MENU_VIEW+"=ACTIONS";
+        return url;
+        
+    }
+    
+    public String getLinkForExportView()
+    {
+        return "viewItemFullPage.jsp?"+PARAMETERNAME_ITEM_ID+"="+getPubItem().getVersion().getObjectIdAndVersion()+"&"+PARAMETERNAME_MENU_VIEW+"=EXPORT";
+        
+    }
+    
+    
+    
+    /**
+     * Invokes the email service to send per email the the page with the selected items as attachment. This method is
+     * called when the user selects one or more items and then clicks on the EMail-Button in the Export-Items Panel.
+     * 
+     * @author: StG
+     */
+    public String exportEmail()
+    {
+        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        // this.setSelectedItemsAndCurrentItem();
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
+       
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        pubItemList.add(getPubItem());
+        
+      
+        // gets the export format VO that holds the data.
+        ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+        byte[] exportFileData;
+        try
+        {
+            exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+        }
+        catch (TechnicalException e)
+        {
+            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        if ((exportFileData == null) || (new String(exportFileData)).trim().equals(""))
+        {
+            error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
+            return "";
+        }
+        // YEAR + MONTH + DAY_OF_MONTH
+        Calendar rightNow = Calendar.getInstance();
+        String date = rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
+                + rightNow.get(Calendar.MONTH) + "_";
+        // create an attachment temp file from the byte[] stream
+        File exportAttFile;
+        try
+        {
+            exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
+                    + curExportFormat.getSelectedFileFormat().getName());
+            FileOutputStream fos = new FileOutputStream(exportAttFile);
+            fos.write(exportFileData);
+            fos.close();
+        }
+        catch (IOException e1)
+        {
+            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e1);
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+        sb.setAttExportFileName(exportAttFile.getName());
+        sb.setAttExportFile(exportAttFile);
+        sb.setExportEmailSubject(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": "
+                + exportAttFile.getName());
+        // hier call set the values on the exportEmailView - attachment file, subject, ....
+        return "displayExportEmailPage";
+        
+       
+    }
+
+    /**
+     * Downloads the page with the selected items as export. This method is called when the user selects one or more
+     * items and then clicks on the Download-Button in the Export-Items Panel.
+     * 
+     * @author: StG
+     */
+    public String exportDownload()
+    {
+
+    	ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    	// set the currently selected items in the FacesBean
+    	// this.setSelectedItemsAndCurrentItem();
+    	ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
+
+
+    	List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    	pubItemList.add(getPubItem());
+
+
+    	// export format and file format.
+    	ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    	byte[] exportFileData = null;
+    	try
+    	{
+    		exportFileData = icsb.retrieveExportData(curExportFormat, pubItemList);
+    	}
+    	catch (Exception e)
+    	{
+    		throw new RuntimeException("Cannot export item:", e);
+    	}
+
+    	FacesContext facesContext = FacesContext.getCurrentInstance();
+    	HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
+    	String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+    	response.setContentType(contentType);
+    	String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + sb.getFileFormat();
+    	response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+    	try
+    	{
+    		OutputStream out = response.getOutputStream();
+    		out.write(exportFileData);
+    		out.flush();
+    		out.close();
+    	}
+    	catch (Exception e) 
+    	{
+    		throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
+    	}
+    	facesContext.responseComplete();
+
+    	return "";
+
+    }
+    
+}    

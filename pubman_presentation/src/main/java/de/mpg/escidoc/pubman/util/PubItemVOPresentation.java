@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -15,10 +14,7 @@ import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
-import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -30,28 +26,23 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 /**
  * Wrapper class for items to be used in the presentation.
  * @author franke
- * @author $Author: $
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
+ * @author $Author$
+ * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
-public class PubItemVOPresentation extends PubItemVO implements Internationalized {
+public class PubItemVOPresentation extends PubItemVO implements Internationalized
+{
 
-	private boolean selected = false;
-	private boolean shortView = true;
-	private boolean released = false;
+    private boolean selected = false;
+    private boolean shortView = true;
+    private boolean released = false;
 
 
-	/**
-	 * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
-	 */
-	private boolean isRevisionView = false;
-	
-	
-	/**
-	 * The content for the CoinS tag for each item
-	 */
-	private String coins;
-	
-	/**
+    /**
+     * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
+     */
+    private boolean isRevisionView = false;
+    
+    /**
      * The list of formatted organzations in an ArrayList.
      */
     private ArrayList<String> organizationArray;
@@ -100,34 +91,34 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     
     private boolean isFromEasySubmission;
     
+    private List<WrappedLocalTag> wrappedLocalTags = new ArrayList<WrappedLocalTag>();
+
     //For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
+    //private Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
-    private InternationalizationHelper i18nHelper2 = (InternationalizationHelper)FacesContext
-	    .getCurrentInstance()
-	    .getExternalContext()
-	    .getApplicationMap()
-	    .get(InternationalizationHelper.BEAN_NAME);
     
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext
-    	.getCurrentInstance()
-    	.getApplication().getVariableResolver()
-    	.resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+        .getCurrentInstance()
+        .getApplication().getVariableResolver()
+        .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
     
-	public PubItemVOPresentation( PubItemVO item)
-	{
-		super(item);
+    public PubItemVOPresentation( PubItemVO item)
+    {
+        super(item);
 
-		if( item instanceof PubItemResultVO ) {
-			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
-			this.isSearchResult = true;
+        if( item instanceof PubItemResultVO ) {
+            this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
+            this.isSearchResult = true;
 
-		}
-		
-		this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
-		
-		// set up some pre-requisites
-		//the list of numbered affiliated organizations 
+        }
+        
+        if (this.getVersion() != null && this.getVersion().getState() != null)
+        {
+            this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+        }
+        
+        // set up some pre-requisites
+        //the list of numbered affiliated organizations 
         createAffiliatedOrganizationList();
         
         // the list of creators (persons and organizations)
@@ -136,30 +127,26 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         // get the first source of the item (if available)
         if(item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0)
         {
-        	this.firstSource = item.getMetadata().getSources().get(0);
+            this.firstSource = item.getMetadata().getSources().get(0);
         }
         
         getCountCreators();
         
-        // get the information for the CoinS tag
-        COinSUI coins = new COinSUI();
-        this.coins = coins.getCOinSString(this);
-        
         // get the search result hits
         if(this.searchHitList != null && this.searchHitList.size() > 0)
         {
-        	String beforeSearchHitString;
-        	String searchHitString;
-        	String afterSearchHitString;
-        	
-        	// browse through the list of hits and set up the SearchHitBean list
-            for(int i = 0; i < searchHitList.size(); i++)
+            String beforeSearchHitString;
+            String searchHitString;
+            String afterSearchHitString;
+            
+            // browse through the list of hits and set up the SearchHitBean list
+            for (int i = 0; i < searchHitList.size(); i++)
             {
-                if(searchHitList.get(i).getType() == SearchHitType.FULLTEXT)
+                if (searchHitList.get(i).getType() == SearchHitType.FULLTEXT)
                 {    
-                    if(searchHitList.get(i).getHitReference() != null)
+                    if (searchHitList.get(i).getHitReference() != null)
                     {
-                        for(int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++)
+                        for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++)
                         {
                             int startPosition = 0;
                             int endPosition = 0;
@@ -180,31 +167,51 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
                 
             }
         }
-	}
-	
-	public boolean getSelected() {
-		return selected;
-	}
+        
+        if (this.getLocalTags().isEmpty())
+        {
+            this.getLocalTags().add("");
+        }
+        
+        for (int i = 0; i < this.getLocalTags().size(); i++)
+        {
+            WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
+            wrappedLocalTag.setParent(this);
+            wrappedLocalTag.setValue(this.getLocalTags().get(i));
+            wrappedLocalTags.add(wrappedLocalTag);
+        }
+        
+    }
+    
+    public boolean getSelected()
+    {
+        return selected;
+    }
 
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
+    }
 
-	public boolean getShortView() {
-		return shortView;
-	}
+    public boolean getShortView()
+    {
+        return shortView;
+    }
 
-	public void setShortView(boolean shortView) {
-		this.shortView = shortView;
-	}
+    public void setShortView(boolean shortView)
+    {
+        this.shortView = shortView;
+    }
 
-	public boolean getMediumView() {
-		return !shortView;
-	}
+    public boolean getMediumView()
+    {
+        return !shortView;
+    }
 
-	public void setMediumView(boolean mediumView) {
-		this.shortView = !mediumView;
-	}
+    public void setMediumView(boolean mediumView)
+    {
+        this.shortView = !mediumView;
+    }
 
     /**
      * Distinguish between Persons and organization as creators and returns them formatted as string.
@@ -259,6 +266,66 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         return creators.toString();
     }
     
+    public String getCreatorsShort()
+    {
+        int creatorMaximum = 4;
+        StringBuffer creators = new StringBuffer();
+        
+        if (getMetadata().getCreators().size() < creatorMaximum)
+        {
+            creatorMaximum = getMetadata().getCreators().size();
+        }
+
+        if (getMetadata().getCreators() != null)
+        {
+            for (int i = 0; i < creatorMaximum; i++)
+            {
+                if (getMetadata().getCreators().get(i).getPerson() != null)
+                {
+                    if (getMetadata().getCreators().get(i).getPerson().getFamilyName() != null)
+                    {
+                        creators.append(getMetadata().getCreators().get(i).getPerson().getFamilyName());
+                    }
+                    if (getMetadata()
+                            .getCreators()
+                            .get(i)
+                            .getPerson()
+                            .getFamilyName() != null
+                        && getMetadata()
+                            .getCreators()
+                            .get(i)
+                            .getPerson()
+                            .getGivenName() != null)
+                    {
+                        creators.append(", ");
+                    }
+                    if (getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
+                    {
+                        creators.append(getMetadata().getCreators().get(i).getPerson().getGivenName());
+                    }
+                }
+                else if (getMetadata().getCreators().get(i).getOrganization() != null)
+                {
+                    if (getMetadata().getCreators().get(i).getOrganization().getName().getValue() != null)
+                    {
+                        creators.append(
+                                getMetadata().getCreators().get(i).getOrganization().getName().getValue());
+                    }
+                }
+                if (i < creatorMaximum - 1)
+                {
+                    creators.append("; ");
+                }
+            }
+            
+        }
+        if (getMetadata().getCreators().size()>creatorMaximum)
+        {
+            return creators.toString() + " ...";
+        }
+        return creators.toString();
+    }
+    
     /**
      * Returns the newest date of the metadata date section.
      * @return the latest date
@@ -267,31 +334,31 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         if (getMetadata().getDatePublishedInPrint() != null && !"".equals(getMetadata().getDatePublishedInPrint()))
         {
-        	return getMetadata().getDatePublishedInPrint() + ", " + getLabel("ViewItem_lblDatePublishedInPrint");
+            return getMetadata().getDatePublishedInPrint() + ", " + getLabel("ViewItem_lblDatePublishedInPrint");
         }
         else if (getMetadata().getDatePublishedOnline() != null && !"".equals(getMetadata().getDatePublishedOnline()))
         {
-        	return getMetadata().getDatePublishedOnline() + ", " + getLabel("ViewItem_lblDatePublishedOnline");
+            return getMetadata().getDatePublishedOnline() + ", " + getLabel("ViewItem_lblDatePublishedOnline");
         }
         else if (getMetadata().getDateAccepted() != null && !"".equals(getMetadata().getDateAccepted()))
         {
-        	return getMetadata().getDateAccepted() + ", " + getLabel("ViewItem_lblDateAccepted");
+            return getMetadata().getDateAccepted() + ", " + getLabel("ViewItem_lblDateAccepted");
         }
         else if (getMetadata().getDateSubmitted() != null && !"".equals(getMetadata().getDateSubmitted()))
         {
-        	return getMetadata().getDateSubmitted() + ", " + getLabel("ViewItem_lblDateSubmitted");
+            return getMetadata().getDateSubmitted() + ", " + getLabel("ViewItem_lblDateSubmitted");
         }
         else if (getMetadata().getDateModified() != null && !"".equals(getMetadata().getDateModified()))
         {
-        	return getMetadata().getDateModified() + ", " + getLabel("ViewItem_lblDateModified");
+            return getMetadata().getDateModified() + ", " + getLabel("ViewItem_lblDateModified");
         }
         else if (getMetadata().getDateCreated() != null && !"".equals(getMetadata().getDateCreated()))
         {
-        	return getMetadata().getDateCreated() + ", " + getLabel("ViewItem_lblDateCreated");
+            return getMetadata().getDateCreated() + ", " + getLabel("ViewItem_lblDateCreated");
         }
         else
         {
-        	return null;
+            return null;
         }
     }
     
@@ -353,12 +420,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getGenre()
     {
-    	String genre="";
-    	if(getMetadata().getGenre() != null)
-    	{
-    		genre = getLabel(this.i18nHelper.convertEnumToString(getMetadata().getGenre()));
-    	}
-		return genre;
+        String genre="";
+        if(getMetadata().getGenre() != null)
+        {
+            genre = getLabel(this.i18nHelper.convertEnumToString(getMetadata().getGenre()));
+        }
+        return genre;
     }
     
     /**
@@ -367,12 +434,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getSourceGenre()
     {
-    	String sourceGenre="";
-    	if(this.firstSource != null && this.firstSource.getGenre() != null)
-    	{
-    		sourceGenre = getLabel(this.i18nHelper.convertEnumToString(this.firstSource.getGenre()));
-    	}
-		return sourceGenre;
+        String sourceGenre="";
+        if(this.firstSource != null && this.firstSource.getGenre() != null)
+        {
+            sourceGenre = getLabel(this.i18nHelper.convertEnumToString(this.firstSource.getGenre()));
+        }
+        return sourceGenre;
     }
     
     /**
@@ -384,7 +451,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         StringBuffer startEndPage = new StringBuffer();
         if(this.firstSource != null)
         {
-        	if(this.firstSource.getStartPage() != null)
+            if(this.firstSource.getStartPage() != null)
             {
                 startEndPage.append(this.firstSource.getStartPage());
             }
@@ -454,31 +521,31 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
             // Edition
             if(this.firstSource.getPublishingInfo().getEdition() != null)
             {
-            	publishingInfoSource.append(this.firstSource.getPublishingInfo().getEdition());
+                publishingInfoSource.append(this.firstSource.getPublishingInfo().getEdition());
             }
             
             // Comma
             if((this.firstSource.getPublishingInfo().getEdition() != null && !this.firstSource.getPublishingInfo().getEdition().trim().equals("")) && ((this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().equals("")) || (this.firstSource.getPublishingInfo().getPublisher() != null && !this.firstSource.getPublishingInfo().getPublisher().trim().equals(""))))
             {
-            	publishingInfoSource.append(". ");
+                publishingInfoSource.append(". ");
             }
             
             // Place
             if(this.firstSource.getPublishingInfo().getPlace() != null)
             {
-            	publishingInfoSource.append(this.firstSource.getPublishingInfo().getPlace().trim());
+                publishingInfoSource.append(this.firstSource.getPublishingInfo().getPlace().trim());
             }
             
             // colon
             if(this.firstSource.getPublishingInfo().getPublisher() != null && !this.firstSource.getPublishingInfo().getPublisher().trim().equals("") && this.firstSource.getPublishingInfo().getPlace() != null && !this.firstSource.getPublishingInfo().getPlace().trim().equals(""))
             {
-            	publishingInfoSource.append(" : ");
+                publishingInfoSource.append(" : ");
             }
             
             // Publisher
             if(this.firstSource.getPublishingInfo().getPublisher() != null)
             {
-            	publishingInfoSource.append(this.firstSource.getPublishingInfo().getPublisher().trim());
+                publishingInfoSource.append(this.firstSource.getPublishingInfo().getPublisher().trim());
             }
         }
         return publishingInfoSource.toString();
@@ -490,22 +557,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getEventTitle()
     {
-    	String eventTitle = "";
-    	if(getMetadata().getEvent() != null 
-    			&& getMetadata().getEvent().getTitle() != null 
-    			&& getMetadata().getEvent().getTitle().getValue() != null 
-    			&& !getMetadata().getEvent().getTitle().getValue().trim().equals(""))
-    	{
-    		if(getMetadata().getEvent().getTitle().getValue().length() > 50)
-    		{
-    			eventTitle = getMetadata().getEvent().getTitle().getValue().substring(0, 49) + "...";
-    		}
-    		else
-    		{
-    			eventTitle = getMetadata().getEvent().getTitle().getValue();
-    		}
-    	}
-		return eventTitle;
+        String eventTitle = "";
+        if(getMetadata().getEvent() != null 
+                && getMetadata().getEvent().getTitle() != null 
+                && getMetadata().getEvent().getTitle().getValue() != null 
+                && !getMetadata().getEvent().getTitle().getValue().trim().equals(""))
+        {
+            if(getMetadata().getEvent().getTitle().getValue().length() > 50)
+            {
+                eventTitle = getMetadata().getEvent().getTitle().getValue().substring(0, 49) + "...";
+            }
+            else
+            {
+                eventTitle = getMetadata().getEvent().getTitle().getValue();
+            }
+        }
+        return eventTitle;
     }
     
     /**
@@ -515,23 +582,23 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getShortTitle()
     {
-    	if(getMetadata().getTitle() != null 
-    			&& getMetadata().getTitle().getValue() != null 
-    			&& !getMetadata().getTitle().getValue().trim().equals(""))
-    	{
-    		if(getMetadata().getTitle().getValue().length() > 80)
-    		{
-    			return getMetadata().getTitle().getValue().substring(0, 79) + "...";
-    		}
-    		else
-    		{
-    			return getMetadata().getTitle().getValue();
-    		}
-    	}
-    	else
-    	{
-    		return null;
-    	}
+        if(getMetadata().getTitle() != null 
+                && getMetadata().getTitle().getValue() != null 
+                && !getMetadata().getTitle().getValue().trim().equals(""))
+        {
+            if(getMetadata().getTitle().getValue().length() > 80)
+            {
+                return getMetadata().getTitle().getValue().substring(0, 79) + "...";
+            }
+            else
+            {
+                return getMetadata().getTitle().getValue();
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
     
     /**
@@ -540,22 +607,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public String getSourceTitle()
     {
-    	String sourceTitle = "";
-    	if(this.firstSource != null 
-    			&& this.firstSource.getTitle() != null 
-    			&& this.firstSource.getTitle().getValue() != null 
-    			&& !this.firstSource.getTitle().getValue().trim().equals(""))
-    	{
-    		if(this.firstSource.getTitle().getValue().length() > 50)
-    		{
-    			sourceTitle = this.firstSource.getTitle().getValue().substring(0, 49) + "...";
-    		}
-    		else
-    		{
-    			sourceTitle = this.firstSource.getTitle().getValue();
-    		}
-    	}
-		return sourceTitle;
+        String sourceTitle = "";
+        if(this.firstSource != null 
+                && this.firstSource.getTitle() != null 
+                && this.firstSource.getTitle().getValue() != null 
+                && !this.firstSource.getTitle().getValue().trim().equals(""))
+        {
+            if(this.firstSource.getTitle().getValue().length() > 50)
+            {
+                sourceTitle = this.firstSource.getTitle().getValue().substring(0, 49) + "...";
+            }
+            else
+            {
+                sourceTitle = this.firstSource.getTitle().getValue();
+            }
+        }
+        return sourceTitle;
     }
     
     /**
@@ -618,7 +685,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         // generate a 'well-formed' list for presentation in the jsp
         for (int k = 0; k < sortOrganizationList.size(); k++)
         {
-        	String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName().getValue() : "";
+            String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName().getValue() : "";
             formattedOrganization = "<p>"+(k + 1) + ": " + name +"</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>" + sortOrganizationList.get(k).getIdentifier() + "</p>";
             this.organizationArray.add(formattedOrganization);
         }
@@ -698,10 +765,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     protected ApplicationBean getApplicationBean()
     {
-    	return (ApplicationBean)FacesContext
-    	.getCurrentInstance()
-    	.getApplication().getVariableResolver()
-    	.resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
+        return (ApplicationBean)FacesContext
+        .getCurrentInstance()
+        .getApplication().getVariableResolver()
+        .resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
     }
     
     /*
@@ -777,16 +844,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
         if (this.getLocatorList() != null)
         {
-        	locators.append(this.getLocatorList().size());
+            locators.append(this.getLocatorList().size());
 
             // if there is only 1 locator, display "Locator", otherwise display "Locators" (plural)
             if (this.getLocatorList().size() == 1)
             {
-            	locators.append(" " + getLabel("ViewItemShort_lblLocatorAttached"));
+                locators.append(" " + getLabel("ViewItemShort_lblLocatorAttached"));
             }
             else
             {
-            	locators.append(" " + getLabel("ViewItemShort_lblLocatorsAttached"));
+                locators.append(" " + getLabel("ViewItemShort_lblLocatorsAttached"));
             }
         }
         return locators.toString();
@@ -798,18 +865,23 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     private List<FileVO> getFileList()
     {
-    	List<FileVO> fileList = new ArrayList<FileVO>();
-    	if(this.getFiles() != null)
-    	{
-    		for(int i = 0; i < this.getFiles().size(); i++)
-    		{
-    			if(this.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
-    			{
-    				fileList.add(this.getFiles().get(i));
-    			}
-    		}
-    	}
-    	return fileList;
+        List<FileVO> fileList = new ArrayList<FileVO>();
+        if(this.getFiles() != null)
+        {
+            for(int i = 0; i < this.getFiles().size(); i++)
+            {
+                if(this.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
+                {
+                    fileList.add(this.getFiles().get(i));
+                }
+            }
+        }
+        return fileList;
+    }
+    
+    public int getNumberOfFiles()
+    {
+        return getFileList().size();
     }
     
     /**
@@ -818,18 +890,23 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     private List<FileVO> getLocatorList()
     {
-    	List<FileVO> locatorList = new ArrayList<FileVO>();
-    	if(this.getFiles() != null)
-    	{
-    		for(int i = 0; i < this.getFiles().size(); i++)
-    		{
-    			if(this.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
-    			{
-    				locatorList.add(this.getFiles().get(i));
-    			}
-    		}
-    	}
-    	return locatorList;
+        List<FileVO> locatorList = new ArrayList<FileVO>();
+        if(this.getFiles() != null)
+        {
+            for(int i = 0; i < this.getFiles().size(); i++)
+            {
+                if(this.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
+                {
+                    locatorList.add(this.getFiles().get(i));
+                }
+            }
+        }
+        return locatorList;
+    }
+    
+    public int getNumberOfLocators()
+    {
+        return getLocatorList().size();
     }
     
     /**
@@ -838,13 +915,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public int getAmountOfFiles()
     {
-    	int countedFiles = 0;
-    	
-    	if(this.getFileList() != null)
-    	{
-    		countedFiles = this.getFileList().size();
-    	}
-    	return countedFiles;
+        int countedFiles = 0;
+        
+        if(this.getFileList() != null)
+        {
+            countedFiles = this.getFileList().size();
+        }
+        return countedFiles;
     }
     
     /**
@@ -853,13 +930,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public int getAmountOfLocators()
     {
-    	int countedLocators = 0;
-    	
-    	if(this.getLocatorList() != null)
-    	{
-    		countedLocators = this.getLocatorList().size();
-    	}
-    	return countedLocators;
+        int countedLocators = 0;
+        
+        if(this.getLocatorList() != null)
+        {
+            countedLocators = this.getLocatorList().size();
+        }
+        return countedLocators;
     }
     
     /**
@@ -868,13 +945,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public int getFurtherSources()
     {
-    	int furtherSources = 0;
-    	// get the  number of sources (if bigger than 1) minus the first one
-    	if(getMetadata().getSources() != null && getMetadata().getSources().size() > 1)
-    	{
-    		furtherSources = getMetadata().getSources().size() - 1;
-    	}
-    	return furtherSources;
+        int furtherSources = 0;
+        // get the  number of sources (if bigger than 1) minus the first one
+        if(getMetadata().getSources() != null && getMetadata().getSources().size() > 1)
+        {
+            furtherSources = getMetadata().getSources().size() - 1;
+        }
+        return furtherSources;
     }
     
     /**
@@ -883,16 +960,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public int getCountCreators()
     {
-    	int creators = 0;
-    	if(this.creatorArray != null)
-    	{
-    		creators = creators + this.creatorArray.size();
-    	}
-    	if(this.creatorOrganizationsArray != null)
-    	{
-    		creators = creators + this.creatorOrganizationsArray.size();
-    	}
-    	return creators;
+        int creators = 0;
+        if(this.creatorArray != null)
+        {
+            creators = creators + this.creatorArray.size();
+        }
+        if(this.creatorOrganizationsArray != null)
+        {
+            creators = creators + this.creatorOrganizationsArray.size();
+        }
+        return creators;
     }
     
     /**
@@ -901,135 +978,246 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     public int getCountAffiliatedOrganizations()
     {
-    	int organizations = 0;
-    	if(this.affiliatedOrganizationsList != null)
-    	{
-    		organizations = organizations + this.affiliatedOrganizationsList.size();
-    	}
-    	return organizations;
+        int organizations = 0;
+        if(this.affiliatedOrganizationsList != null)
+        {
+            organizations = organizations + this.affiliatedOrganizationsList.size();
+        }
+        return organizations;
     }
 
 
-	public void switchToMediumView()
+    public void switchToMediumView()
     {
-    	shortView = false;
+        shortView = false;
     }
     
     public void switchToShortView()
     {
-    	shortView = true;
+        shortView = true;
     }
     
     public void select(ValueChangeEvent event)
     {
-    	selected = ((Boolean)event.getNewValue()).booleanValue();
+        selected = ((Boolean)event.getNewValue()).booleanValue();
     }
 
     public String getLink() throws Exception
     {
-    	if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
-    	{
-    		return PropertyReader.getProperty("escidoc.pubman.instance.url")
-			+ PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-    			+ PropertyReader
-    				.getProperty("escidoc.pubman.item.pattern")
-    				.replaceAll("\\$1", this.getVersion().getObjectId()
-    						+ (this.getVersion().getVersionNumber() != 0 ? ":" 
-    								+ this.getVersion().getVersionNumber() : ""));
-    	}
-    	else
-    	{
-    		return null;
-    	}
+        if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
+        {
+            return PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader
+                    .getProperty("escidoc.pubman.item.pattern")
+                    .replaceAll("\\$1", this.getVersion().getObjectId()
+                            + (this.getVersion().getVersionNumber() != 0 ? ":" 
+                                    + this.getVersion().getVersionNumber() : ""));
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public String getLinkLatestRelease() throws Exception
+    {
+        if (this.getLatestRelease()!=null && this.getLatestRelease().getObjectId() != null)
+        {
+            return PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader
+                    .getProperty("escidoc.pubman.item.pattern")
+                    .replaceAll("\\$1", this.getLatestRelease().getObjectId()
+                            + (this.getLatestRelease().getVersionNumber() != 0 ? ":" 
+                                    + this.getLatestRelease().getVersionNumber() : ""));
+        }
+        else
+        {
+            return null;
+        }
     }
     
     public boolean getShowCheckbox()
     {
-    	boolean showCheckbox = true;
-    	if(this.getPublicStatus().equals(State.WITHDRAWN))
-    	{
-    		showCheckbox = false;
-    	}
-    	return showCheckbox;
+        boolean showCheckbox = true;
+        if(this.getPublicStatus().equals(State.WITHDRAWN))
+        {
+            showCheckbox = false;
+        }
+        return showCheckbox;
     }
     
-	public java.util.List<SearchHitVO> getSearchHitList() {
-		return searchHitList;
-	}
+    public void writeBackLocalTags(ValueChangeEvent event)
+    {
+        this.getLocalTags().clear();
+        for (WrappedLocalTag wrappedLocalTag : this.getWrappedLocalTags())
+        {
+            this.getLocalTags().add(wrappedLocalTag.getValue());
+        }
+    }
+    
+    /**
+     * This method return the public state of the current item
+     * @author Tobias Schraut
+     * @return String public state of the current item
+     */
+    public String getItemPublicState()
+    {
+        String itemState="";
+        if(this.getPublicStatus() != null)
+        {
+            itemState = getLabel(this.i18nHelper.convertEnumToString(this.getPublicStatus()));
+        }
+        return itemState;
+    }
+    
+    /**
+     * This method return the state of the current item version
+     * @author Tobias Schraut
+     * @return String state of the current item version
+     */
+    public String getItemState()
+    {
+        
+        String itemState="";
+        if(this.getVersion().getState() != null)
+        {
+            itemState = getLabel(this.i18nHelper.convertEnumToString(this.getVersion().getState()));
+        }
+        return itemState;
+    }
+    
+    /**
+     * This method return true if the item is withdrawn, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is withdrawn
+     */
+    public boolean getIsStateWithdrawn()
+    {
+        return this.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+    }
+    
+    /**
+     * This method return true if the item is submitted, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is submitted
+     */
+    public boolean getIsStateSubmitted()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+    }
+    
+    /**
+     * This method return true if the item is released, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is released
+     */
+    public boolean getIsStateReleased()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+    }
+    
+    /**
+     * This method return true if the item is pending, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is pending
+     */
+    public boolean getIsStatePending()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+    }
+    
+    /**
+     * This method return true if the item is in revision, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is in revision
+     */
+    public boolean getIsStateInRevision()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+    }
+    
+    
+    public java.util.List<SearchHitVO> getSearchHitList() {
+        return searchHitList;
+    }
 
-	public ArrayList<String> getOrganizationArray() {
-		return organizationArray;
-	}
+    public ArrayList<String> getOrganizationArray() {
+        return organizationArray;
+    }
 
-	public void setOrganizationArray(ArrayList<String> organizationArray) {
-		this.organizationArray = organizationArray;
-	}
+    public void setOrganizationArray(ArrayList<String> organizationArray) {
+        this.organizationArray = organizationArray;
+    }
 
-	public ArrayList<ViewItemOrganization> getOrganizationList() {
-		return organizationList;
-	}
+    public ArrayList<ViewItemOrganization> getOrganizationList() {
+        return organizationList;
+    }
 
-	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
-		this.organizationList = organizationList;
-	}
+    public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
+        this.organizationList = organizationList;
+    }
 
-	public List<OrganizationVO> getAffiliatedOrganizationsList() {
-		return affiliatedOrganizationsList;
-	}
+    public List<OrganizationVO> getAffiliatedOrganizationsList() {
+        return affiliatedOrganizationsList;
+    }
 
-	public void setAffiliatedOrganizationsList(
-			List<OrganizationVO> affiliatedOrganizationsList) {
-		this.affiliatedOrganizationsList = affiliatedOrganizationsList;
-	}
+    public void setAffiliatedOrganizationsList(
+            List<OrganizationVO> affiliatedOrganizationsList) {
+        this.affiliatedOrganizationsList = affiliatedOrganizationsList;
+    }
 
-	public ArrayList<String> getCreatorArray() {
-		return creatorArray;
-	}
+    public ArrayList<String> getCreatorArray() {
+        return creatorArray;
+    }
 
-	public void setCreatorArray(ArrayList<String> creatorArray) {
-		this.creatorArray = creatorArray;
-	}
+    public void setCreatorArray(ArrayList<String> creatorArray) {
+        this.creatorArray = creatorArray;
+    }
 
-	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
-		return creatorOrganizationsArray;
-	}
+    public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
+        return creatorOrganizationsArray;
+    }
 
-	public void setCreatorOrganizationsArray(
-			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray) {
-		this.creatorOrganizationsArray = creatorOrganizationsArray;
-	}
+    public void setCreatorOrganizationsArray(
+            ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray) {
+        this.creatorOrganizationsArray = creatorOrganizationsArray;
+    }
 
-	public SourceVO getFirstSource() {
-		return firstSource;
-	}
+    public SourceVO getFirstSource() {
+        return firstSource;
+    }
 
-	public void setFirstSource(SourceVO firstSource) {
-		this.firstSource = firstSource;
-	}
+    public void setFirstSource(SourceVO firstSource)
+    {
+        this.firstSource = firstSource;
+    }
 
-	public List<SearchHitBean> getSearchHits() {
-		return searchHits;
-	}
+    public List<SearchHitBean> getSearchHits()
+    {
+        return searchHits;
+    }
+    
+    public boolean getHasSearchHits()
+    {
+        return getSearchHits()!= null && getSearchHits().size() > 0;
+    }
 
-	public void setSearchHits(List<SearchHitBean> searchHits) {
-		this.searchHits = searchHits;
-	}
+    public void setSearchHits(List<SearchHitBean> searchHits)
+    {
+        this.searchHits = searchHits;
+    }
 
-	public String getCoins() {
-		return coins;
-	}
+    public ArrayList<String> getAllCreatorsList()
+    {
+        return allCreatorsList;
+    }
 
-	public void setCoins(String coins) {
-		this.coins = coins;
-	}
-
-	public ArrayList<String> getAllCreatorsList() {
-		return allCreatorsList;
-	}
-
-	public void setAllCreatorsList(ArrayList<String> allCreatorsList) {
-		this.allCreatorsList = allCreatorsList;
-	}
+    public void setAllCreatorsList(ArrayList<String> allCreatorsList)
+    {
+        this.allCreatorsList = allCreatorsList;
+    }
 
     public boolean getIsRevisionView()
     {
@@ -1041,13 +1229,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         this.isRevisionView = isRevisionView;
     }
 
-	public boolean isSearchResult() {
-		return isSearchResult;
-	}
+    public boolean isSearchResult()
+    {
+        return isSearchResult;
+    }
 
-	public void setSearchResult(boolean isSearchResult) {
-		this.isSearchResult = isSearchResult;
-	}
+    public void setSearchResult(boolean isSearchResult)
+    {
+        this.isSearchResult = isSearchResult;
+    }
 
     public boolean getIsFromEasySubmission()
     {
@@ -1058,15 +1248,78 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         this.isFromEasySubmission = isFromEasySubmission;
     }
-	
-	public boolean getIsReleased() 
-	{
-		return this.released;
-	}
+    
+    public boolean getIsReleased() 
+    {
+        return this.released;
+    }
 
-	public void setReleased(boolean released) 
-	{
-		this.released = released;
-	}
-	
+    public void setReleased(boolean released) 
+    {
+        this.released = released;
+    }
+
+    public List<WrappedLocalTag> getWrappedLocalTags()
+    {
+        return wrappedLocalTags;
+    }
+    
+    public int getNumberOfWrappedLocalTags()
+    {
+        return wrappedLocalTags.size();
+    }
+
+    public void setWrappedLocalTags(List<WrappedLocalTag> wrappedLocalTags)
+    {
+        this.wrappedLocalTags = wrappedLocalTags;
+    }
+
+    public class WrappedLocalTag
+    {
+        private String value;
+        private PubItemVOPresentation parent;
+
+        public String getValue()
+        {
+            return value;
+        }
+
+        public void setValue(String value)
+        {
+            this.value = value;
+        }
+        
+        public PubItemVOPresentation getParent()
+        {
+            return parent;
+        }
+
+        public void setParent(PubItemVOPresentation parent)
+        {
+            this.parent = parent;
+        }
+
+        public String removeLocalTag()
+        {
+            parent.getWrappedLocalTags().remove(this);
+            parent.writeBackLocalTags(null);
+            return null;
+        }
+        
+        public boolean getIsLast()
+        {
+            return (this == parent.getWrappedLocalTags().get(parent.getWrappedLocalTags().size() - 1));
+        }
+        
+        public int getNumberOfAllTags()
+        {
+            return (parent.getWrappedLocalTags().size());
+        }
+        
+        public boolean getIsSingle()
+        {
+            return (parent.getWrappedLocalTags().size() == 1);
+        }
+    }
+    
 }

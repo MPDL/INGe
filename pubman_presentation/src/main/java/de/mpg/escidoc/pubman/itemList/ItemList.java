@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * Fragment class for lists of items. 
  * 
  * @author: Thomas Diebäcker, created 29.08.2007
- * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ItemList extends FacesBean
 {

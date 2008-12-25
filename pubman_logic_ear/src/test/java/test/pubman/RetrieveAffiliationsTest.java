@@ -48,8 +48,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Tests the retrieval of Affiliations.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 446 $ $LastChangedDate: 2007-11-22 16:11:56 +0100 (Thu, 22 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class RetrieveAffiliationsTest
 {

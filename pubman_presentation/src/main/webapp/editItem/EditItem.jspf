@@ -37,7 +37,7 @@
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
 		<h:outputText value="#{lbl.EditItemPage} : " />
-		<h:commandLink value="#{EditItem.contextName}" styleClass="noBorder" onclick="loadDescription('#{EditItem.contextDescriptionForPopup}');return false"/>
+		<h:commandLink title="#{tip.EditItem_desc}" value="#{EditItem.contextName}" styleClass="noBorder" onclick="loadDescription('#{EditItem.contextDescriptionForPopup}');return false"/>
 	</h:panelGroup>
 </h1>
 <h:panelGroup layout="block" styleClass="messageBox" rendered="#{EditItem.hasMessages}">
@@ -99,7 +99,7 @@
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
+	      				<tr:commandButton id="btn_uploadFile" text=" " shortDesc="#{tip.EditItem_upload}" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
 							
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -109,9 +109,7 @@
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
 						</div>
-						<!--  
-						<tr:commandButton text="#{lbl.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
-						-->
+						<tr:commandButton text=" " shortDesc="#{tip.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
 					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
@@ -145,11 +143,11 @@
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}"/>
-						<tr:commandLink id="lnk_addFile" partialSubmit="false" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
+						<tr:commandLink id="lnk_addFile" partialSubmit="true" text="#{tip.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.size > 0}"/>
-						<tr:commandLink id="lnk_removeFile" partialSubmit="false" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
+						<tr:commandLink id="lnk_removeFile" partialSubmit="true" text="#{tip.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
 			
@@ -171,7 +169,7 @@
    				<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblURL}" rendered="#{locator.locator == null || locator.locator == ''}"/>      				
    				<h:inputText value="#{locator.locator}" rendered="#{locator.locator == null || locator.locator == ''}"/>
    				<h:outputText value="#{locator.locator}" rendered="#{locator.locator != null && locator.locator != ''}"/>
-   				<tr:commandButton styleClass="inlineButton" text="#{lbl.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.locator == null || locator.locator == ''}"/>						
+   				<tr:commandButton styleClass="inlineButton" text=" " shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.locator == null || locator.locator == ''}"/>						
 			</h:panelGroup>
        
       		 <h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -205,11 +203,11 @@
     	<h:panelGroup layout="block" styleClass="editItemAddLink">
 			<h:panelGroup layout="block" styleClass="editItemLeftCol" rendered="#{locator.locator != null && locator.locator != '' && locator.index+1 == EditItem.numberOfLocators}">
 				<h:panelGroup layout="block" styleClass="icon addIcon"/>
-				<tr:commandLink text="#{lbl.EditItem_btAddFileLoc}" action="#{EditItem.addLocator}"/>
+				<tr:commandLink text="#{tip.EditItem_btAddFileLoc}" action="#{EditItem.addLocator}"/>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="editItemRightCol" rendered="#{locator.locator != null && locator.locator != ''}">
 				<h:panelGroup layout="block" styleClass="icon removeIcon"/>
-				<tr:commandLink text="#{lbl.EditItem_btRemoveFileLoc}" action="#{locator.removeLocatorEditItem}"/>						
+				<tr:commandLink text="#{tip.EditItem_btRemoveFileLoc}" action="#{locator.removeLocatorEditItem}"/>						
 			</h:panelGroup>
        	</h:panelGroup>  
   	</tr:iterator> 
@@ -323,8 +321,8 @@
 							<f:selectItems value="#{EditItem.languageOptions}"/>
 						</h:selectOneMenu>
 					
-						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{language.addItem}" />
-						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{language.removeItem}" rendered="#{language.moreThanOne}"/>
+						<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{language.addItem}" />
+						<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{language.removeItem}" rendered="#{language.moreThanOne}"/>
 						<h:outputText value=" " rendered="#{!language.moreThanOne}"/>
 					</h:panelGroup>
 				</h:column>

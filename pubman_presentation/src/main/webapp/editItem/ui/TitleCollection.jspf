@@ -37,8 +37,8 @@
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 			<h:inputTextarea styleClass="editItemComboBoxLong editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>
 			
-				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.addTitle}" />
-				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}"/>
+				<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.addTitle}" />
+				<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}"/>
 				<h:outputText value=" " rendered="#{EditItem.titleCollection.alternativeTitleManager.size < 1}"/>
 			
 		</h:panelGroup>
@@ -54,8 +54,8 @@
 				<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>		
 				--%>
 				<h:inputTextarea styleClass="editItemComboBoxLong editItemTextArea" value="#{data.value}"/>
-				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
-				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
+				<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
+				<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
 			</h:panelGroup>
 		
 		</h:column>

@@ -22,64 +22,108 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+
+	<jsp:output doctype-root-element="html"
+	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
-			<html>
-				<head>
-					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<meta http-equiv="pragma" content="no-cache"/>
-					<meta http-equiv="cache-control" content="no-cache"/>
-					<meta http-equiv="expires" content="0"/>
-					<!-- FrM: Moved JS sources to external file -->
-					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-				</head>
-				<body>
-					<h:outputText id="pageDummy" value="#{AdvancedSearchPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
-					<div id="page_margins">
-						<div id="page">
-							<h:form id="form1">
-								<div id="header">
-									<jsp:directive.include file="desktop/Header.jspf"/>
-									<jsp:directive.include file="desktop/Login.jspf"/>
-									<jsp:directive.include file="desktop/Search.jspf"/>
+		<f:loadBundle var="tip" basename="Tooltip"/>
+				
+		<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+
+				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+
+				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+
+			</head>
+			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText id="pageDummy" value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
+			<tr:form usesUpload="true">
+			<h:inputHidden id="offset"></h:inputHidden>
+			
+				<jsp:directive.include file="header/Header.jspf" />
+
+				<div id="content" class="full_area0 clear">
+				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					<div class="clear">
+						<div class="headerSection">
+							
+						<jsp:directive.include file="header/Breadcrumb.jspf" />
+				
+							<div id="contentSkipLinkAnchor" class="clear headLine">
+								<!-- Headline starts here -->
+								<h1><h:outputText value="#{lbl.search_lblAdvancedSearch}" /></h1>
+								<!-- Headline ends here -->
+							</div>
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+							<!-- content menu starts here -->
+								<div class="sub">
+								<!-- content menu lower line starts here -->										
+									&#160;
+								<!-- content menu lower line ends here -->
 								</div>
-								<div id="nav">
-									<jsp:directive.include file="desktop/Breadcrumb.jspf"/>
-								</div>
-								<div id="main">
-									<div id="col1">
-										<span class="mainMenu">
-											<jsp:directive.include file="desktop/Navigation.jspf"/> 
-										</span>
-									</div>		 
-									<div id="col2">
-										&#xa0;
-									</div>		
-									<div id="col3">
-										<div class="content">
-											<jsp:directive.include file="search/AdvancedSearchEdit.jspf"/>
-										</div>
-									</div>
-								</div>
-							</h:form>
-						 </div>
-					  </div>
-				</body>
-			</html>
-		
+							<!-- content menu ends here -->
+							</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+									&#160;
+								<!-- Subheadline ends here -->
+							</div>
+							<div class="subHeader">
+                                <!-- Subheadline starts here -->
+                                <h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.numberOfMessages == 1}"/>
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{AdvancedSearchPage.hasErrorMessages and AdvancedSearchPage.numberOfMessages != 1}">
+                                    <h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.hasMessages}"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{AdvancedSearchPage.hasMessages and !AdvancedSearchPage.hasErrorMessages and AdvancedSearchPage.numberOfMessages != 1}">
+                                    <h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AdvancedSearchPage.hasMessages}"/>
+                                </h:panelGroup>
+                                <h:outputText value="&#160;" rendered="#{!AdvancedSearchPage.hasErrorMessages}" />
+                                <!-- Subheadline ends here -->
+                            </div>
+						</div>
+					</div>			
+					<div class="full_area0">
+						<div class="full_area0 fullItem">
+
+							<jsp:directive.include file="search/AdvancedSearchEdit.jspf" />
+
+						</div>
+					</div>
+					<div class="full_area0 formButtonArea">
+							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}"/>						
+							<h:commandLink styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}"/>
+						</div>
+				<!-- end: content section -->
+				</div>
+			</tr:form>
+			<script type="text/javascript">
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
+				});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				});
+				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>jquery/lang/query';
+			</script>
+			</body>
+		</html>
 	</f:view>
 </jsp:root>

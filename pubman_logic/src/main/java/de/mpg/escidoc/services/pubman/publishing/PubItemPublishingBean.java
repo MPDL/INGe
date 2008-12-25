@@ -75,8 +75,8 @@ import de.mpg.escidoc.services.pubman.util.AdminHelper;
  * This class provides the ejb implementation of the {@link PubItemPublishing} interface.
  *
  * @author Miriam Doelle (initial creation)
- * @author $Author: tendres $ (last modification)
- * @version $Revision: 461 $ $LastChangedDate: 2007-12-12 15:44:15 +0100 (Wed, 12 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 @Remote
@@ -158,7 +158,9 @@ public class PubItemPublishingBean implements PubItemPublishing
                 LOGGER.debug("Floating PID assigned: " + result);
             }
             catch (Exception e) {
-                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
+                System.out.println(e.getClass());
+                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                LOGGER.debug("Stacktrace:", e);
             }
             // Retrieve the item to get last modification date
             actualItem = itemHandler.retrieve(pubItemRef.getObjectId());

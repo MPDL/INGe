@@ -21,63 +21,69 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:dataTable var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-	<h:column>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderOrgan}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<%/* panTitleBar */%>
-		<h:panelGroup> 
-			<div class="listHeader dark">
-				<%/* panTitelComponent */%>
-				
-					<h3>
-						<h:outputText value="#{lbl.adv_search_lbHeaderOrgan}" />
-					</h3>
-				
-			
-				<%/* panControls */%>
-				
-					<div class="displayControls moveTop">
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{organizationCriterionBean.collapse}" rendered="#{!organizationCriterionBean.collapsed}" />	
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{organizationCriterionBean.expand}" rendered="#{organizationCriterionBean.collapsed}"/>	
-					</div>
-				
-			</div>
-		</h:panelGroup>
-		
-		<%/* panContainer */%>
-		<h:panelGroup layout="block" styleClass="formField floatbox" rendered="#{!organizationCriterionBean.collapsed}">	
-				
-				<div class="searchTerm">
-					<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
-				</div>
-				<div class="objectButtons">					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size > 1}"/>
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
-				</div>			
-			
-		</h:panelGroup>
+		<tr:iterator var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
 
-		
-			<div class="operatorCenter">
-				<h:selectOneMenu value="#{organizationCriterionBean.logicOperator}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{organizationCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{organizationCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+					<tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{organizationCriterionBean.logicOperator}">
 					<f:selectItems value="#{organizationCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>
-			</div>
-		
-		
-	</h:column>
-</h:dataTable>
+				</h:selectOneMenu>				
+			</h:panelGroup>
 
-
+		</tr:iterator>
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderOrgan}" /></a>
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.adv_search_lbHeaderOrgan}" /></a>
+</div>

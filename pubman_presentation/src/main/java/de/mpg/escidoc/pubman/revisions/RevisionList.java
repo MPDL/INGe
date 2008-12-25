@@ -47,7 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * Fragment class for Revision list.
  * 
  * @author: Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class RevisionList extends ItemList
 {

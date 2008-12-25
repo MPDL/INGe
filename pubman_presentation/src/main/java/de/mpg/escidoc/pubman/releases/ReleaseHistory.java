@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
  * Fragment class for Releasy history.
  * 
  * @author: Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class ReleaseHistory extends FacesBean
 {

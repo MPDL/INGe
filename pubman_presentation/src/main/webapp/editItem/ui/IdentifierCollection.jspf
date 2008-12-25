@@ -41,8 +41,8 @@
 			<%--</h:panelGroup>
 		<h:panelGroup layout="block" styleClass="editItemRightCol">--%>
 			<h:inputText styleClass="editItemTextFieldMedium leftSpace10" value="#{identifier.id}" />
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.identifierCollection.identifierManager.addObject}" />
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.identifierCollection.identifierManager.removeObject}" rendered="#{EditItem.identifierCollection.identifierManager.size > 1}"/>
+			<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.identifierCollection.identifierManager.addObject}" />
+			<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.identifierCollection.identifierManager.removeObject}" rendered="#{EditItem.identifierCollection.identifierManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.identifierCollection.identifierManager.size < 2}"/>
 		</h:panelGroup>
 		

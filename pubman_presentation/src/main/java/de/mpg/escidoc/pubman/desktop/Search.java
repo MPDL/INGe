@@ -30,112 +30,102 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.CommonSessionBean;
-import de.mpg.escidoc.pubman.ErrorPage;
-import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
-import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
-/**
- * Search.java Backing bean for the Search.jspf takes the serach values of the jsp page and calls the serach method of
- * pubman_logic
- * 
- * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1647 $ $LastChangedDate: 2007-12-06 13:28:26 +0100 (Do, 06 Dez 2007) $ Revised by ScT: 21.08.2007
- */
+
 public class Search extends FacesBean
 {
+    private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
+    
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(Search.class);
-    
-    
-    /**
-     * Public constructor
-     */
-    public Search()
-    {
-        this.init();
-    }
 
-    /**
-     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
-     * navigation.
-     */
-    public void init()
+    private String searchString;
+    private boolean includeFiles;
+    
+  
+    public String startSearch()
     {
-        // Perform initializations inherited from our superclass
-        super.init();
-    }
 
-    /**
-     * Starts a new search with the binded search criteria in SearchResultListSessionBean.
-     * 
-     * @return string, identifying the page that should be navigated to after this methodcall
-     */
-    public String search()
-    {
+        String searchString = getSearchString();
+        boolean includeFiles = getIncludeFiles();
         
-        SearchResultListSessionBean resultListSessionBean = (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
-       
-        String retVal = this.getSearchResultList().startSearch();
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        // if search returns an error, force JSF to load the ErrorPage
-        if (retVal == ErrorPage.LOAD_ERRORPAGE)
-        {
-            // if search has been run as GUI Tool go to the GUI Tool error page.
-            if (sessionBean.isRunAsGUITool() == true)
-            {
-                retVal = ErrorPage.GT_LOAD_ERRORPAGE;
-            }
+        // check if the searchString contains useful data
+        if( searchString.trim().equals("") ) {
+            error(getMessage("search_NoCriteria"));
+            return "";
         }
-        return retVal;
+        
+              
+        try
+        {
+            ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+                        
+            if( includeFiles == true ) {
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY_INCLUDE, 
+                        searchString ) );
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+                        searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+            }
+            else {
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY, 
+                        searchString ) );
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+                        searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+            }
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTEXT_OBJECTID, 
+                    searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID, 
+                    searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
+                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
+            
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+            contentTypes.add( contentTypeIdPublication );
+            
+            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
+            String cql = query.getCqlQuery();
+            
+            //redirect to SearchResultPage which processes the query
+            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
+            
+            
+        }
+        catch (Exception e)
+        {
+            error("Error in search query!");
+        }
+        return "";
+           
     }
+    
 
-    /**
-     * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-     * 
-     * @return a reference to the scoped data bean
-     */
-    protected ItemControllerSessionBean getItemControllerSessionBean()
+    public void setSearchString(String searchString)
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        this.searchString = searchString;
     }
 
-    /**
-     * Returns the SearchResultListSessionBean.
-     * 
-     * @return a reference to the scoped data bean (SearchResultListSessionBean)
-     */
-    protected SearchResultListSessionBean getSearchResultListSessionBean()
+    public String getSearchString()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
+        return searchString;
     }
 
-    /**
-     * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
+    public void setIncludeFiles(boolean includeFiles)
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
+        this.includeFiles = includeFiles;
     }
 
-    /**
-     * Returns the SearchResultList.
-     * 
-     * @return a reference to the scoped data bean (SearchResultList)
-     */
-    protected SearchResultList getSearchResultList()
+    public boolean getIncludeFiles()
     {
-        return (SearchResultList)getBean(SearchResultList.class);
+        return includeFiles;
     }
-
-   
 }

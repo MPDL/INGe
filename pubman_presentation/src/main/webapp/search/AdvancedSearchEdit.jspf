@@ -21,66 +21,24 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div>
-	<f:subview id="AdvancedSearchEdit">
-		<div class="advancedSearch">
-			
-				<h1 class="bottomSpace">
-				<h:outputText id="hdrApplicationtitle" styleClass="orientationHeader" value="#{lbl.search_lblAdvancedSearch}"/>			
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#AdvancedSearch');return false"/>
-					
-			</h1>
-												  
-			<div class="objectButtons floatbox">				
-				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}" />
-				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}" />
-			</div>
 
-			<%/* @ include file="../tools/ListControl.jspf" */%>
-			
-			
-		   	<h:panelGroup id="panelAnyFieldCriterionCollection">
-				<%@ include file="ui/AnyFieldCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelPersonCriterionCollection">
-				<%@ include file="ui/PersonCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelOrganizationCriterionCollection">
-				<%@ include file="ui/OrganizationCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelGenreCriterionCollection">
-				<%@ include file="ui/GenreCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelDateCriterionCollection">
-				<%@ include file="ui/DateCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelSourceCriterionCollection">
-				<%@ include file="ui/SourceCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelEventCriterionCollection">
-				<%@ include file="ui/EventCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelIdentifierCriterionCollection">
-				<%@ include file="ui/IdentifierCriterionCollection.jspf"%>
-		</h:panelGroup>
-		   	<h:panelGroup id="panelLanguageCriterionCollection">
-				<%@ include file="ui/LanguageCriterionCollection.jspf"%>
-		</h:panelGroup>
-		
-		<div class="objectButtons floatbox">				
-				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}" />
-				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}" />
-			</div>
-		</div>
-	</f:subview>
-</div>
+	<%@ include file="ui/AnyFieldCriterionCollection.jspf"%>
+	<%@ include file="ui/PersonCriterionCollection.jspf"%>
+	<%@ include file="ui/DateCriterionCollection.jspf"%>
+	<%@ include file="ui/GenreCriterionCollection.jspf"%>
+	<%@ include file="ui/OrganizationCriterionCollection.jspf"%>
+	<%@ include file="ui/EventCriterionCollection.jspf"%>
+	<%@ include file="ui/SourceCriterionCollection.jspf"%>
+
+	<%@ include file="ui/IdentifierCriterionCollection.jspf"%>
+	<%@ include file="ui/LanguageCriterionCollection.jspf"%>

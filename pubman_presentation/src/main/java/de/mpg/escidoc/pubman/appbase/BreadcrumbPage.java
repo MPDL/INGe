@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -49,23 +50,21 @@ public abstract class BreadcrumbPage extends FacesBean
         //-----
         Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
         
+        
+        HttpServletRequest requ = (HttpServletRequest)fc.getExternalContext().getRequest();
+        //Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
+        if (requ.getQueryString()!=null && !pageName.equals("HomePage"))
+        {
+            page+="?"+requ.getQueryString();
+        }
+                
+        
+        /*
         String itemId = parameterMap.get("itemId");
         if (itemId!=null) 
         {
             page += "?itemId="+itemId;
         }
-        
-        /*
-        String parameters="?";
-        for (Iterator<Map.Entry<String, String>> iter = parameterMap.entrySet().iterator(); iter.hasNext();)
-        {
-            Map.Entry<String, String> parameter = iter.next();
-            parameters+=parameter.getKey()+"="+parameter.getValue()+"&";
-        }
-        
-        page+=parameters;
-        //----
-         
          */
         
         Method defaultAction = null;

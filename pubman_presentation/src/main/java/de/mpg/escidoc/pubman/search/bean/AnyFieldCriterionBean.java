@@ -153,7 +153,8 @@ public class AnyFieldCriterionBean extends CriterionBean
         SelectItem TYPE_TITLE = new SelectItem("Title", getLabel("adv_search_lblRgbTitle"));
         SelectItem TYPE_TOPIC = new SelectItem("Topic", getLabel("adv_search_lblRgbTopic"));
         SelectItem TYPE_ANY = new SelectItem("Any", getLabel("adv_search_lblRgbAny"));
-        SelectItem[] TYPE_OPTIONS = new SelectItem[]{TYPE_TITLE, TYPE_TOPIC, TYPE_ANY};
+        SelectItem TYPE_ANY_FULLTEXT = new SelectItem("Any_Fulltext", getLabel("adv_search_lblRgbAnyFulltext"));
+        SelectItem[] TYPE_OPTIONS = new SelectItem[]{TYPE_TITLE, TYPE_TOPIC, TYPE_ANY, TYPE_ANY_FULLTEXT};
 
     	return TYPE_OPTIONS;
     }
@@ -217,6 +218,15 @@ public class AnyFieldCriterionBean extends CriterionBean
 			topicCriterionVO.setLogicalOperator(logicOperator);
 			// Reinitialize this POJO, because the selectedType has been changed.
 			criterionVO = topicCriterionVO;
+		}
+		else if (selectedType != null && selectedType.equals("Any_Fulltext"))
+		{
+			AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
+			anyFieldCriterionVO.setSearchString(searchString);
+			anyFieldCriterionVO.setLogicalOperator(logicOperator);
+			anyFieldCriterionVO.setIncludeFiles(true);
+			// Reinitialize this POJO, because the selectedType has been changed.
+			criterionVO = anyFieldCriterionVO;
 		}
 		else
 		{

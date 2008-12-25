@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,74 +31,104 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<f:subview id="Locators">
-	<%-- LOCATORS --%>
-		<tr:iterator var="locator" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
-    			
-    			
-    			
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine" rendered="#{locator.file.content != null && locator.file.content != ''}">
-	    			<h:panelGroup layout="block" styleClass="easySubmissionSubBox">
-	     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
-	     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl} "/>   
-	     					<tr:outputLabel value="#{locator.file.content}, "/>		
-	     					
-	     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorName}: "/>
-	     					<tr:outputLabel value="#{locator.file.defaultMetadata.title.value}, "/>	
-	     				
-	     					<tr:outputLabel value=" #{locator.contentCategory}, "/>	
-	     				
-	     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorDescription}: "/>
-	     					<tr:outputLabel value="#{locator.description}"/>	
-	     				</h:panelGroup>
-						<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" action="#{locator.removeLocatorEasySubmission}"/>	
-					</h:panelGroup>
-     			</h:panelGroup>
-     			
-     			<h:outputText value="<h3>" escape="false" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
-     			<h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
-     			<h:outputText value="</h3>" escape="false" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
-    			
-    			
-    		<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.content == null || locator.file.content == ''}">
-    			<h3><h:outputText value="#{lbl.easy_submission_lblLocator}"/></h3>
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-    				<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
-    					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}"/>   
-    					<tr:inputText value="#{locator.file.content}" />   
-    				</h:panelGroup>
-    			</h:panelGroup>
-    			
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-    				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorProperties}" styleClass="margin5Top" />   
-    			</h:panelGroup>
-    			
-    			<h:panelGroup layout="block" styleClass="easySubmissionSubSubBox">
-    			
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-           			
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" >   
-           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}"  />
-           				<tr:inputText value="#{locator.file.defaultMetadata.title.value}" />
-           			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" >   
-           				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"  />
-           				<tr:outputLabel value="#{locator.contentCategory}" styleClass="cursive" />
-           			</h:panelGroup>
-           		</h:panelGroup>
-           		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">  
-           			<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem"> 
-           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorDescription}"  />
-           				<tr:inputText value="#{locator.description}" rows="4" />	
-           			</h:panelGroup>
-           		</h:panelGroup>
-           		</h:panelGroup>
+<h:panelGroup layout="block" id="editLocator" styleClass="full_area0 itemBlock" rendered="#{genre.locators_display != 'false' && genre.locators_form_id != 'full-submission' || genre.locators_display != 'true' && genre.locators_form_id != 'easy-submission' && genre.locators_form_id != 'all'}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{genre.locators_label}" converter="GenreLabelConverter"/>
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+		<tr:iterator var="locator" id="locatorUploads" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
+
+<%-- Add locator --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator == null || locator.locator == '') && locator.index == 0 }" >
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblLocator}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+				</span>
 			</h:panelGroup>
-    			
-        		<h:panelGroup layout="block" styleClass="editItemLeftCol easySubmissionBoxBodyLine">
-					<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
-					<tr:commandLink text="#{lbl.easy_submission_btnLocatorAdd}" action="#{EasySubmission.addLocator}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
-       			</h:panelGroup> 
-       		
-   	</tr:iterator> 
-</f:subview>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblNewLocator}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+				</span>
+			</h:panelGroup>
+
+<%-- Locator content category --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.index == 0 && genre.locators_component_content_category_display != 'false'}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					<h:outputLabel styleClass="double_label" value="#{locator.contentCategory}" />
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator != null && locator.locator != '') && locator.index > 0 }">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					<h:outputLabel styleClass="double_label" value="#{locator.contentCategory}" />
+				</span>
+			</h:panelGroup>
+
+<%-- Locator URL --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{locator.locator}" />
+				</span>
+			</h:panelGroup>
+
+<%-- Locator name, Locator visibility --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != '' && (genre.locators_component_name_display != 'false' || genre.locators_component_visibility_display != 'false')}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_name_optional != 'true' || genre.locators_component_visibility_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="xDouble_area0 tiny_marginRIncl">
+						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
+						<h:inputText styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
+					</span>
+					<span class="large_area0 endline">
+						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/></label>
+						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
+							<f:selectItems value="#{EasySubmission.visibilities}" />
+						</h:selectOneRadio>
+					</span>
+				</span>
+			</h:panelGroup>
+
+<%-- Locator description --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != '' && genre.locators_component_description_display != 'false'}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_description_optional != 'true'}" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="xDouble_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3"/>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
+				</span>
+			</h:panelGroup>
+
+		</tr:iterator>
+	</div>
+</h:panelGroup>

@@ -54,7 +54,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
  * Panel that works as a container for other contents (e.g. item lists, search criteria). 
  *
  * @author: Thomas Diebäcker, created 29.08.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ContainerPanelUI extends HtmlPanelGroup implements Internationalized
 {

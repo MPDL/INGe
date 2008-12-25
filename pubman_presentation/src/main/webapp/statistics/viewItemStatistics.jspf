@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -32,6 +32,82 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<ol>
+	<li class="full_area0 listItem">
+		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+			<span class="huge_area0_p8 endline labelLine">
+				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblItemRetrievals}"/><br class="noDisplay" /></b>
+				<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 endline">
+				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" />
+			</span>
+		</div>
+		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+			<span class="huge_area0_p8 endline labelLine">
+				<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 endline">
+				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" />
+			</span>
+		</div>		
+	</li>
+	<h:panelGroup rendered="#{ViewItemStatistics.filesAvailable}">
+		<li class="full_area0 listItem">
+			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+				<span class="huge_area0_p8 endline labelLine">
+					<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblDownloads}"/><br class="noDisplay" /></b>
+				</span>
+				<span class="xHuge_area0 endline">
+					&#160
+				</span>
+			</div>
+			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+				<span class="huge_area0_p8 endline labelLine">
+					<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblAllFiles}"/><br class="noDisplay" /></b>
+					<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
+				</span>
+				<span class="xHuge_area0 endline">
+					<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" />
+				</span>
+			</div>
+			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+				<span class="huge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
+				</span>
+				<span class="xHuge_area0 endline">
+					<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" />
+				</span>
+			</div>
+			<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">
+				<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine">
+					<span class="huge_area0_p8 endline labelLine">
+						<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblFile} #{file.file.name}"/><br class="noDisplay" /></b>
+						<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
+					</span>
+					<span class="xHuge_area0 endline">
+						<h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" />
+					</span>
+				</div>
+				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+					<span class="huge_area0_p8 endline labelLine">
+						<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
+					</span>
+					<span class="xHuge_area0 endline">
+						<h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" />
+					</span>
+				</h:panelGroup>		
+			</tr:iterator>	
+		</li>
+	</h:panelGroup>
+</ol>
+
+
+
+
+
+
+<%-- 
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 	<f:subview id="ViewItemStatisitcs">
 
@@ -103,3 +179,5 @@
 		
 	</f:subview>
 </div>
+
+--%>

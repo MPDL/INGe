@@ -1,0 +1,86 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+
+<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
+	<!-- main Menu starts here -->
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp" rendered="#{PubManRequestBean.requestedPage != 'HomePage'}">
+		<h:outputText value="#{lbl.mainMenu_lnkHome}" />
+	</h:outputLink>
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkHome}" rendered="#{PubManRequestBean.requestedPage == 'HomePage'}" />
+
+<%-- start should replace the following later --%>
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_myItems}" value="#{ApplicationBean.appContext}MyItemsPage.jsp" rendered="false">
+		<h:outputText value="MY ITEMS" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
+	</h:outputLink>
+<%-- stop should replace the following later --%>
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_depWorkspace}" value="#{ApplicationBean.appContext}DepositorWSPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'DepositorWSPage'}">
+		<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
+	</h:outputLink>
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and PubManRequestBean.requestedPage == 'DepositorWSPage'}" />
+
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'QAWSPage'}">
+		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
+	</h:outputLink>
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0 and PubManRequestBean.requestedPage == 'QAWSPage'}" />
+
+
+
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CreateItemPage' and PubManRequestBean.requestedPage != 'SubmissionPage' and PubManRequestBean.requestedPage != 'EditItemPage' and PubManRequestBean.requestedPage != 'EasySubmissionPage'}">
+		<h:outputText value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+	</h:outputLink>
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (PubManRequestBean.requestedPage == 'CreateItemPage' || PubManRequestBean.requestedPage == 'SubmissionPage' || PubManRequestBean.requestedPage == 'EditItemPage' || PubManRequestBean.requestedPage == 'EasySubmissionPage')}" />
+
+
+	
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
+		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
+	</h:outputLink>
+	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}">
+		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
+		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
+	</h:panelGroup>
+
+<%-- 
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">
+
+	--%>
+	
+<%--
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." value="#{ApplicationBean.appContext}ExportPage.jsp">
+		<h:outputText value="#{lbl.export_lblExport}" />
+	</h:outputLink>
+--%>
+<%-- <h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" /> --%>
+
+	<!-- main Menu ends here -->
+</div>

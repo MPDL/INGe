@@ -32,16 +32,16 @@
 	<f:subview id="Search">
 		<div class="simpleSearch">
 			<span class="simpleSearchForm">
-				<h:inputText id="txtSearch" value="#{SearchResultListSessionBean.searchString}" onkeyup="startQuicksearch(event);"/>
-				<h:commandButton action="#{Search.search}" id="btSearch"  value="#{lbl.search_btSearch}" styleClass="inlineButton"/>
-				<h:selectBooleanCheckbox  id="chkIncludeFiles" value="#{SearchResultListSessionBean.includeFiles}" />
+				<h:inputText id="txtSearch" value="#{Search.searchString}" onkeyup="startQuicksearch(event);"/>
+				<h:commandButton action="#{Search.startSearch}" id="btSearch" title="#{tip.search_start} }" value="#{lbl.search_btSearch}" styleClass="inlineButton"/>
+				<h:selectBooleanCheckbox id="chkIncludeFiles" value="#{Search.includeFiles}" />
 				<h:outputText id="lblIncludeFiles" value="#{lbl.search_lblIncludeFiles}" />
 			</span>
 			<span class="simpleSearchText">
-				<h:commandLink id="lnkAdvancedSearch" immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" value="#{lbl.search_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}" />
+				<h:commandLink id="lnkAdvancedSearch" title="#{tip.search_advanced}" immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" value="#{lbl.search_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}" />
 			</span>
 			<span class="simpleSearchText">
-				<h:commandLink id="lnkBrowseByAffiliation" immediate="true" value="#{lbl.mainMenu_lnkBrowseByAffiliation}" action="#{Navigation.loadAffiliationTree}" />
+				<h:commandLink id="lnkBrowseByAffiliation" title="#{tip.search_byAffiliation}" immediate="true" value="#{lbl.mainMenu_lnkBrowseByAffiliation}" action="#{Navigation.loadAffiliationTree}" />
 			</span>
 		</div>
 	</f:subview>

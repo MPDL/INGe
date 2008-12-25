@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -52,7 +53,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * Class for Internationalization settings.
  *
  * @author: Tobias Schraut, created 04.07.2007
- * @version: $Revision: 23 $ $LastChangedDate: 2007-12-05 15:47:07 +0100 (Mi, 05 Dez 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 20.08.2007
  */
 public class InternationalizationHelper
 {
@@ -127,6 +128,38 @@ public class InternationalizationHelper
     public String getSelectedHelpPage()
     {
         return selectedHelpPage;
+    }
+    
+    public void changeLanguage(ValueChangeEvent event)
+    {
+    	FacesContext fc = FacesContext.getCurrentInstance();
+    	if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
+    	{
+    		Locale locale = null;
+    		String language = event.getNewValue().toString();
+            String country = language.toUpperCase();
+            this.locale = language;
+            try
+            {
+                locale = new Locale(language, country);
+                fc.getViewRoot().setLocale(locale);
+                Locale.setDefault(locale);
+                userLocale = locale;
+                logger.debug("New locale: " + language + "_" + country + " : " + locale);
+            }
+            catch (Exception e)
+            {
+                logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
+            }
+            if (language.equals("de"))
+            {
+                selectedHelpPage = HELP_PAGE_DE;
+            }
+            else
+            {
+                selectedHelpPage = HELP_PAGE_EN;
+            }
+    	}
     }
 
     public void toggleLocale(ActionEvent event)
@@ -444,7 +477,4 @@ public class InternationalizationHelper
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
-    
-    
-
 }

@@ -45,7 +45,7 @@ import de.mpg.escidoc.pubman.desktop.Navigation;
  * This one is empty because all code is implemented in the BackingBean of the fragment.
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class EditItemPage extends BreadcrumbPage

@@ -38,8 +38,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * Keeps all attributes that are used for the whole session by AcceptItem.
  *
  * @author:  Michael Franke, created 06.09.2007
- * @author: $Author: mfranke $
- * @version: $Revision: 834 $ $LastChangedDate: 2007-08-01 19:24:53 +0200 (Mi, 01 Aug 2007) $
+ * @author: $Author$
+ * @version: $Revision$ $LastChangedDate$
  */
 public class AcceptItemSessionBean extends FacesBean
 {

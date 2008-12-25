@@ -63,8 +63,8 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * This class provides the ejb implementation of the {@link ItemExporting} interface.
  * 
  * @author Galina Stancheva (initial creation)
- * @author $Author: gstancheva $ (last modification)
- * @version $Revision:  $ $LastChangedDate: $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 @Remote
@@ -186,7 +186,7 @@ public class ItemExportingBean implements ItemExporting
      	   if (logger.isDebugEnabled()) logger.debug(">>> start citationStyleHandler " + itemList);
      	   exportData = citationStyleHandler.getOutput( exportFormat, outputFormat, itemList );
    	 }	
-   	 else if ( formatType == FormatType.STRUCTURED || formatType == FormatType.BIBTEX)
+   	 else if ( formatType == FormatType.STRUCTURED )
    	 {
    		if (logger.isDebugEnabled()) logger.debug(">>> start structuredExportHandler " + itemList);
    		exportData = structuredExportHandler.getOutput( itemList, exportFormat );

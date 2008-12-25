@@ -21,37 +21,50 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-	<f:subview id="WithdrawItem">
-		<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.WithdrawItemPage}: "/>
-			<h:outputText styleClass="orientationHeader" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
-		</h1>
-
-		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
-			<h:outputText value="Publication:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
-
-			<h:outputText value="Creator:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.creators}"/>
-		</h:panelGrid>
-		
-		<h:panelGrid styleClass="withdrawMessage" rendered="#{WithdrawItem.valMessage != null}">
-			<h:outputText value="#{WithdrawItem.valMessage}" id="valMessage" styleClass="messageStatus withdrawMessageVal"/>
-		</h:panelGrid>
-			
-		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
-
-			<h:outputLabel for="txtaComment" id="lblComment"
-					style="" value="#{lbl.WithdrawItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{WithdrawItem.withdrawalComment}"/>
-		</h:panelGrid>
-
-	</f:subview>
+<div class="full_area0 itemHeader">
+	<h:panelGroup styleClass="xLarge_area0 endline" >
+		&#160;
+	</h:panelGroup>
+		<h:panelGroup styleClass="seperator" />
+	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
+		<b><h:outputText value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
+	</h:panelGroup>
+</div>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		&#160;
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.WithdrawItem_lnkPublication}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.WithdrawItem_lnkCreator}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{WithdrawItem.creators}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.WithdrawItem_lblComment}" />&#160;<span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{WithdrawItem.withdrawalComment}" cols="15" rows="3" ></h:inputTextarea>
+			</span>
+		</div>
+	</div>
 </div>

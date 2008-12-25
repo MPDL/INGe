@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,119 +31,344 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<f:subview id="easySubmissionStep5Manual">
-	
-	<h1>
-		<div class="orientationHeader"><h:outputText value="#{lbl.EasySubmission}"/></div>
-	</h1>
-	
-	<div class="easySubmissionBox floatbox">
-		<div class="easySubmissionBoxHeader">
-			<ol class="five">
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
-				<li class="easySubmissionDone"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></li>
-				<li class="easySubmissionDone"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>4</span></li>
-				<li class="easySubmissionActivated easySubmissionLast"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>5</span></li>
-			</ol>
-		</div>
-		<div class="easySubmissionBoxBody">
-			<h3><h:outputText value="#{msg.easy_submission_Step5Manual}"/></h3>
-			<div class="easySubmissionBoxBodyContent">
-				
-				
-				<div class="easySubmissionBoxBodyLine">
-					<%-- Date --%>
-					<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDate}" title="#{msg.mandatoryField}" />
-          				<h:inputText value="#{EasySubmissionSessionBean.selectedDate}"/>
-          			</div>
-          		
-          			<%-- Date Type --%>
-          			<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDateType}" title="#{msg.mandatoryField}" />
-						<h:selectOneMenu id="cboDateType" value="#{EasySubmissionSessionBean.currentDateType}" binding="#{EasySubmission.dateSelect}">
-							<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
-						</h:selectOneMenu>
-					</div>
-				
-					<%-- Publication Language --%>
-					<div class="easySubmissionLangItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage}"/>
-						<input type="text" class="languageSuggest" />
-						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
-							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
-						</h:selectOneMenu>
-					</div>
-				</div>
-				
-				
-				<div class="easySubmissionBoxBodyLine">
-					<%-- Genre of Source --%>
-					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" styleClass="journalPulldown" value="#{EasySubmission.source.genre}" >
-						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
-					</h:selectOneMenu>
-					<tr:commandButton styleClass="genreButton" action="#{EasySubmission.chooseSourceGenre}" text="choose genre" id="btn_chooseGenre" inlineStyle="visibility:hidden"/>
-					</div>
-					
-				
-					<%-- Title --%>
-					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmission.sourceTitle}"/>
-					</div>
-					
-					<%-- Publisher (hidden for autosugggest)--%>
-					<h:inputTextarea value="#{EasySubmission.sourcePublisher}" styleClass="publisher" style="visibility:hidden;"/>
+<f:subview id="easySubmissionStep3Manual">
 
-					<%-- Place (hidden for autosugggest)--%>
-					<h:inputText value="#{EasySubmission.sourcePublisherPlace}" styleClass="place" style="visibility:hidden;"/>
+<div class="clear">
+	<div class="headerSection">
+		
+	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
 
-					<%-- Identifier (hidden for autosugggest)--%>
-					<h:inputText value="#{EasySubmission.sourceIdentifier}" styleClass="identifierValue" style="visibility:hidden;"/>
-					
-				</div>
-				
-				<div class="easySubmissionBoxBodyLine">
-					<%-- Keywords --%>
-					<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords}"/>
-    	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
-					</div>
-				</div>
-          		
-          		<div class="easySubmissionBoxBodyLine">
-          			<%-- Abstract --%>
-          			<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract}"/>
-          				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
-          			</div>
-          		</div>
-          		
-			</div>
+		<div id="contentSkipLinkAnchor" class="clear headLine">
+			<!-- Headline starts here -->
+			<h1><h:outputText value="#{lbl.EasySubmission}"/></h1>
+			<!-- Headline ends here -->
 		</div>
 	</div>
-	<div class="easySubmissionControls floatbox">
-		<div>
-			<h:commandLink action="#{EasySubmission.loadStep4Manual}">
-			<div class="easySubmissionsBackSection">
-				<h:panelGroup styleClass="easySubmissionBackButton"/>
-				<h:outputLabel value="#{lbl.easy_submission_btnBack}"/>
+	<div class="small_marginLIncl subHeaderSection">
+		<div class="contentMenu">
+		<!-- content menu starts here -->
+			<div class="sub">
+			<!-- content menu lower line starts here -->
+				&#160;
+			<!-- content menu lower line ends here -->
 			</div>
-			</h:commandLink>
-			
-			<div class="easySubmissionsCancelSection">
-				<h:commandLink value="#{lbl.easy_submission_btnAddDetails}" action="#{EasySubmission.loadPreview}"/>
-			</div>
-			
-			<h:commandLink action="#{EasySubmission.save}">
-			<div class="easySubmissionsNextSection">
-				<h:outputLabel value="#{lbl.easy_submission_btnSave}"/>
-				<h:panelGroup styleClass="easySubmissionNextButton"/>
-			</div>
-			</h:commandLink>
+		<!-- content menu ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
+				<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages  and EasySubmissionSessionBean.numberOfMessages != 1}">
+					<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+				&#160;
+			<!-- Subheadline ends here -->
 		</div>
 	</div>
+</div>			
+<div class="full_area0">
+	<div class="full_area0 fullItem">
+		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
+			<span class="small_area0 endline">
+				&nbsp;
+			</span>
+			<span class="seperator"></span>
+			<span class="endline huge_area0_p7 step">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 1
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline huge_area0_p7 step">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 2
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline huge_area0_p7 step">
+				<b class="actual">
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 3
+				</b>
+			</span>
+		</h:panelGroup>
+		<div class="full_area0 itemBlock">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{genre.details_label}" converter="GenreLabelConverter"/>
+			</h3>
+			<span class="seperator"></span>
+			<div class="free_area0 itemBlockContent endline">
+
+		<%-- Language of Publication --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_language_display != 'false' && genre.details_item_language_form_id != 'full-submission' || genre.details_item_language_display != 'true' && genre.details_item_language_form_id != 'easy-submission'&& genre.details_item_language_form_id != 'all'}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_language_item_language_optional != 'true'}"/><h:outputText value="#{genre.details_item_language_item_language_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
+						<h:selectOneMenu styleClass="xDouble_select replace" value="#{EasySubmission.publicationLanguage}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
+							<f:selectItems value="#{EasySubmission.publicationLanguages}"/>
+						</h:selectOneMenu>
+					</span>
+				</h:panelGroup>
+		
+		<%-- Dates --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_details_dates_display != 'false' && genre.details_item_details_dates_form_id != 'full-submission' || genre.details_item_details_dates_display != 'true' && genre.details_item_details_dates_form_id != 'easy-submission' && genre.details_item_details_dates_form_id != 'all'}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional != 'true' || genre.details_item_details_dates_item_date_accepted_optional != 'true' || genre.details_item_details_dates_item_date_modified_optional != 'true' || genre.details_item_details_dates_item_date_created_optional != 'true' || genre.details_item_details_dates_item_date_submitted_optional != 'true' || genre.details_item_details_dates_item_published_online_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}"/>
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}"/>
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}"/>
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
+						</span>
+						<a class="large_area0 tiny_marginRIncl toLabelInputBottom showMoreDates" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</h:panelGroup>
+		
+		<%-- Number of Pages --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_total_number_of_pages_display != 'false' && genre.details_total_number_of_pages_form_id != 'full-submission' || genre.details_total_number_of_pages_display != 'true' && genre.details_total_number_of_pages_form_id != 'easy-submission'&& genre.details_total_number_of_pages_form_id != 'all'}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_total_number_of_pages_item_total_number_of_pages_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}" />
+						</span>
+					</span>
+				</h:panelGroup>
+		
+		<%-- Publisher, Place --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_publishing_info_display != 'false' && genre.details_publishing_info_form_id != 'full-submission' || genre.details_publishing_info_display != 'true' && genre.details_publishing_info_form_id != 'easy-submission'&& genre.details_publishing_info_form_id != 'all'}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="xDouble_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{genre.details_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
+							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{genre.details_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.place}" />
+						</span>
+					</span>
+				</h:panelGroup>
+		
+		<!-- Identifier -->
+				<h:panelGroup layout="block" rendered="#{genre.details_identifiers_display != 'false' && genre.details_identifiers_form_id != 'full-submission' || genre.details_identifiers_display != 'true' && genre.details_identifiers_form_id != 'easy-submission'&& genre.details_identifiers_form_id != 'all'}">
+					<tr:iterator var="identifier" value="#{EasySubmission.identifierCollection.identifierManager.objectDM}" binding="#{EasySubmission.identifierIterator}" varStatus="index">
+						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+							
+							<b class="xLarge_area0_p8 endline labelLine clear">
+								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" converter="GenreLabelConverter" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+							</b>
+							
+							<span class="xHuge_area0 xTiny_marginLExcl endline">
+								<span class="large_area0 largeFormPush">
+									<h:outputLabel styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
+									<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}">
+										<f:selectItems value="#{EasySubmission.identifierCollection.identifierTypes}"/>
+									</h:selectOneMenu>
+								</span>
+								<h:outputLabel styleClass="xDouble_label" value="#{genre.details_identifiers_item_identifier_value_label}" converter="GenreLabelConverter"/>
+								<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
+							</span>
+							<span class="large_area0_p8 lineToolSection">
+								<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
+								<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}" rendered="#{genre.details_identifiers_repeatable != 'false'}"/>
+							</span>
+						</h:panelGroup>
+					</tr:iterator>
+				</h:panelGroup>
+
+		<%-- Edition, Degree type, location --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.details_item_degree_display != 'false' && genre.details_item_degree_form_id != 'full-submission' || genre.details_item_degree_display != 'true' && genre.details_item_degree_form_id != 'easy-submission'&& genre.details_item_degree_form_id != 'all'}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_degree_item_degree_optional != 'true'}" /><h:outputText value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_item_degree_label}" converter="GenreLabelConverter"/>
+							<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
+								<f:selectItems value="#{EasySubmission.degreeTypes}" />
+							</h:selectOneMenu>
+						</span>
+					</span>
+				</h:panelGroup>
+
+			</div>
+		</div>
+
+		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{genre.events_display != 'false' && genre.events_form_id != 'full-submission' || genre.events_display != 'true' && genre.events_form_id != 'easy-submission'&& genre.events_form_id != 'all'}">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/>
+			</h3>
+			<span class="seperator"></span>
+
+<%-- no Event section at the moment --%>
+			<div class="free_area0 itemBlockContent endline">
+		<!-- Event title -->
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3" />
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<h:commandButton title="#{tip.easy_submission_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
+						<h:commandButton title="#{tip.easy_submission_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" rendered="#{genre.events_event_title_repeatable != 'false'}"/>
+					</span>
+				</div>
+		
+		<!-- Alternative event title -->
+				<tr:iterator var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.events_event_title_alternative_display != 'false'}">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+						</span>
+						<span class="large_area0_p8 lineToolSection">
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+						</span>
+					</h:panelGroup>
+				</tr:iterator>
+		
+		<!-- Event place, Event start date, Event end date -->
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true' || genre.events_event_start_date_optional != 'true' || genre.events_event_end_date_optional != 'true' || genre.events_event_invitation_status_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventPlace" for="txtEventPlace" value="#{genre.events_event_place_label}" converter="GenreLabelConverter"/>
+							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
+						</span>
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventStartDate" for="txtEventStartDate" value="#{genre.events_event_start_date_label}" converter="GenreLabelConverter"/>	
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
+						</span>
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{genre.events_event_end_date_label}" converter="GenreLabelConverter"/>	
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
+						</span>
+						<span class="medium_area0 toLabelBottom">
+							<span class="medium_checkbox">
+								<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EasySubmission.invited}" />
+								<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{genre.events_event_invitation_status_label}" converter="GenreLabelConverter"/>
+							</span>
+						</span>
+					</span>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{genre.sources_display != 'false' && genre.sources_form_id != 'full-submission' || genre.sources_display != 'true' && genre.sources_form_id != 'easy-submission'&& genre.sources_form_id != 'all'}">
+				<h3 class="xLarge_area0_p8 endline blockHeader">
+					<h:outputText value="#{genre.sources_label}" converter="GenreLabelConverter"/>
+				</h3>
+				<span class="seperator"></span>
+				<div class="free_area0 itemBlockContent endline">
+
+			<%-- Source genre --%>
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.sources_source_basic_source_genre_display != 'false'}">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}">
+								<f:selectItems value="#{EasySubmission.sourceGenreOptions}"/>
+							</h:selectOneMenu>
+						</span>
+					</h:panelGroup>
+		
+			<%-- Source title --%>
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.sources_source_basic_source_title_display != 'false'}">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{EasySubmission.sourceTitle}" cols="15" rows="3" />
+						</span>
+					</h:panelGroup>
+
+			<%-- Source alternative title copy&paste --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{EasySubmission.hiddenAlternativeTitlesField}" cols="15" rows="3" />
+						</span>
+					</div>
+
+			<%-- Source details publisher, place --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<span class="xDouble_area0 tiny_marginRIncl">
+								<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblPublisher}" />
+								<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{EasySubmission.sourcePublisher}" cols="15" rows="3" />
+							</span>
+							<span class="large_area0 xTiny_marginRIncl">
+								<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblPlace}"/>
+								<h:inputText styleClass="large_txtInput place" value="#{EasySubmission.sourcePublisherPlace}" />
+							</span>
+						</span>
+					</div>
+
+			<%-- Source details identifier copy&paste --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{EasySubmission.hiddenIdsField}" cols="15" rows="3" />
+						</span>
+					</div>
+
+
+				</div>
+			</h:panelGroup>
+		</div>
+
+	<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" /></div>
+
+	</div>
+</div>
+<div class="full_area0 formButtonArea">	
+	<h:commandLink title="#{tip.easy_submission_btnBack}" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnAddDetails}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadPreview}"><h:outputText value="#{lbl.easy_submission_btnAddDetails}" /></h:commandLink>
+</div>
+
 </f:subview>

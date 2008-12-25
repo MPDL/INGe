@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * displayed.
  * 
  * @author: Tobias Schraut, created 13.11.2007
- * @version: $Revision: 1591 $ $LastChangedDate: 2007-08-23 10:56:18 +0200 (Do, 23 Aug 2007)
+ * @version: $Revision$ $LastChangedDate: 2007-08-23 10:56:18 +0200 (Do, 23 Aug 2007)
  */
 public class GTViewItemFullPage extends FacesBean
 {

@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 /**
  * Keeps all attributes that are used for the whole session by the Affiliation components.
  * @author:  Hugo Niedermaier, Basics by Thomas Diebäcker, created 30.05.2007
- * @version: $Revision: 1604 $ $LastChangedDate: 2007-11-26 11:04:12 +0100 (Mo, 26 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by NiH: 13.08.2007
  */
 public class AffiliationSessionBean extends FacesBean

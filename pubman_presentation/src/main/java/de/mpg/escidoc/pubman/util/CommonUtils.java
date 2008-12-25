@@ -30,6 +30,12 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Vector;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -58,14 +65,16 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
-import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Provides different utilities for all kinds of stuff.
  * 
  * @author: Thomas Diebäcker, created 25.04.2007
- * @version: $Revision: 1633 $ $LastChangedDate: 2007-11-29 15:16:57 +0100 (Do, 29 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 07.08.2007
  */
 public class CommonUtils extends InternationalizedImpl
@@ -77,6 +86,8 @@ public class CommonUtils extends InternationalizedImpl
     //HTML escaped characters mapping
     private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
     private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>" };
+    
+    private static String localLang = "";
 
     /**
      * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -149,25 +160,90 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
-     * Returns all ISOLanguages, with "de" and "en" at the first positions.
-     * @return all ISOLanguages, with "de" and "en" at the first positions
+     * Returns all Languages from Cone Service, with "de" and "en" at the first positions.
+     * @return all OLanguages from Cone Service, with "de" and "en" at the first positions
      */
     public static SelectItem[] getLanguageOptions()
     {
-        SelectItem[] isoLanguages = CommonUtils.convertToOptions(Locale.getISOLanguages(), false);
+        Object[] coneLanguages = CommonUtils.getConeLanguages();
 
-        SelectItem[] options = new SelectItem[isoLanguages.length + 4];
+        SelectItem[] options = new SelectItem[coneLanguages.length + 4];
         options[0] = new SelectItem("", NO_ITEM_SET);
-        options[1] = new SelectItem("en");
-        options[2] = new SelectItem("de");
+        if (CommonUtils.localLang.equals("de"))
+        {
+            options[1] = new SelectItem("en", "en - Englisch");  
+            options[2] = new SelectItem("de", "de - Deutsch");  
+        }
+        if (CommonUtils.localLang.equals("en"))
+        {
+            options[1] = new SelectItem("en", "en - English");  
+            options[2] = new SelectItem("de", "de - German");  
+        }
+        if (CommonUtils.localLang.equals("fr"))
+        {
+            options[1] = new SelectItem("en", "en - Anglais");  
+            options[2] = new SelectItem("de", "de - Allemand");  
+        }
         options[3] = new SelectItem("", NO_ITEM_SET);
 
-        for (int i = 0; i < isoLanguages.length; i++)
+        for (int i = 0; i < coneLanguages.length; i++)
         {
-            options[i + 4] = isoLanguages[i]; 
+            options[i + 4] = new SelectItem(coneLanguages[i].toString().split(" - ")[0], coneLanguages[i].toString());  
         }
 
         return options;
+    }
+    
+    /**
+     * Retrievs an array of all languages from the cone service in format abbr - language name.
+     * @return Object array of languages
+     * @throws RuntimeException
+     */
+    private static Object[] getConeLanguages() throws RuntimeException
+    {
+        Vector <String> langVec = new Vector<String>();
+        InputStreamReader isReader;
+        BufferedReader bReader;
+        CommonUtils.localLang = Locale.getDefault().getLanguage();
+        if (!(localLang.equals("en")||localLang.equals("de")||localLang.equals("fr")))
+        {
+            localLang ="en";
+        }
+        
+        try
+        {
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"options/languages/all?lang="+localLang);
+            URLConnection conn = coneUrl.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            
+            switch (responseCode)
+            {
+                case 200:
+                    logger.info("Cone Service responded with 200.");
+                    break;
+                default:
+                    throw new RuntimeException("An error occurred while calling Cone Service: "
+                            + responseCode + ": " + httpConn.getResponseMessage());
+            }
+            
+            isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+            bReader = new BufferedReader(isReader);
+            String line = "";
+            while ((line = bReader.readLine()) != null)
+            {
+                line = line.replace("|", " - ");
+                if (!line.trim().equals(""))
+                {
+                    langVec.add(line);                  
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("An error occurred while calling the Cone service.",e);
+        }
+        return langVec.toArray();
     }
 
     /**
@@ -406,7 +482,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubItemVOWrapper> convertToWrapperList(final List<PubItemVO> valueObjectList)
     {
-        List wrapperList = new ArrayList<ValueObjectWrapper>();
+        List <PubItemVOWrapper> wrapperList = new ArrayList<PubItemVOWrapper>();
 
         for (int i = 0; i < valueObjectList.size(); i++)
         {
@@ -423,7 +499,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubItemVO> convertToPubItemList(List<PubItemVOWrapper> wrapperList)
     {
-        List pubItemList = new ArrayList<ValueObject>();
+        List <PubItemVO> pubItemList = new ArrayList<PubItemVO>();
 
         for (int i = 0; i < wrapperList.size(); i++)
         {
@@ -576,7 +652,7 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(List<ContextVO> valueObjectList)
     {
-        List wrapperList = new ArrayList<PubContextVOWrapper>();
+        List <PubContextVOWrapper> wrapperList = new ArrayList<PubContextVOWrapper>();
 
         for (int i = 0; i < valueObjectList.size(); i++)
         {
@@ -644,4 +720,26 @@ public class CommonUtils extends InternationalizedImpl
       return sdf.format(cal.getTime());
 
     }
+    
+
+    public static boolean getisUriValidUrl(IdentifierVO id)
+    {
+        boolean valid = false;
+        try
+        {
+            if (id.getType()== null){return false;}
+            if (id.getType().equals(IdType.URI))
+            {
+                new URL (id.getId());
+                valid = true;
+            }
+        }
+        catch (MalformedURLException e)
+        {
+            logger.warn("URI: " + "is no valid URL", e);
+            return false;
+        }
+        return valid;
+    }
+    
 }

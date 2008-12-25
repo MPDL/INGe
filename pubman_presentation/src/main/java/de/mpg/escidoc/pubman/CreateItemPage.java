@@ -37,7 +37,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
  * 
  * @author: Galina Stancheva, created 07.10.2007
- * @version: $Revision:  $ $LastChangedDate:  $ 
+ * @version: $Revision$ $LastChangedDate$ 
  */
 public class CreateItemPage extends BreadcrumbPage
 {

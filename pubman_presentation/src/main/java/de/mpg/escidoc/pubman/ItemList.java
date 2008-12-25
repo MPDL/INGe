@@ -59,7 +59,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * This class provides all functionality for showing, sorting and choosing one or more items out of a list.
  *
  * @author:  Thomas Diebäcker, created 10.05.2007
- * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public abstract class ItemList extends FacesBean

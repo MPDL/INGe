@@ -34,7 +34,7 @@
 	<div>
 	<h1 class="bottomSpace">
 		<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}" />
-		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>
+		<h:commandButton title="#{tip.revisions_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>
 	</h1>
 	<div>
 		<h2><h:outputText id="existingRevisions"
@@ -55,8 +55,8 @@
 			-->
 	</div>
 
-	<div><h:commandButton id="cancel" styleClass="inlineButton" value="#{lbl.cancel}" action="#{CreateRevision.cancel}" />
-		<h:commandButton id="confirm" styleClass="inlineButton" value="#{lbl.CreateNewRevision_CreateNewRevision}" action="#{CreateRevision.confirm}" /></div>
+	<div><h:commandButton title="#{tip.cancel}" id="cancel" styleClass="inlineButton" value="#{lbl.cancel}" action="#{CreateRevision.cancel}" />
+		<h:commandButton title="#{tip.CreateNewRevision_CreateNewRevision}" id="confirm" styleClass="inlineButton" value="#{lbl.CreateNewRevision_CreateNewRevision}" action="#{CreateRevision.confirm}" /></div>
 	</div>
 	<div><jsp:directive.include file="../desktop/messages.jspf" /></div>
 </f:subview></div>

@@ -37,7 +37,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  * fragment.
  *
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by ScT: 23.08.2007
  */
 public class WithdrawItemPage extends BreadcrumbPage

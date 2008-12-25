@@ -42,8 +42,8 @@ import de.mpg.escidoc.services.pubman.publishing.MissingWithdrawalCommentExcepti
 /**
  * Publishing service interface for Publication Items.
  * 
- * @author $Author: jmueller $
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$
+ * @version $Revision$ $LastChangedDate$
  * @created 14-Feb-2007 13:57:03
  * Revised by StG: 24.08.2007
  */

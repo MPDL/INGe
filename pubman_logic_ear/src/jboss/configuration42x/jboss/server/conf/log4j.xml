@@ -5,7 +5,7 @@
 <!--																							  -->
 <!-- ===================================================================== -->
 
-<!-- $Id: jboss-log4j.xml 62403 2007-04-18 15:26:43Z dimitris@jboss.org $ -->
+<!-- $Id$ -->
 
 <!--
 	| For more configuration infromation and examples see the Jakarta Log4j
@@ -308,7 +308,7 @@
 <!--																							  -->
 <!-- ===================================================================== -->
 
-<!-- $Id: jboss-log4j.xml 62403 2007-04-18 15:26:43Z dimitris@jboss.org $ -->
+<!-- $Id$ -->
 
 <!--
 	| For more configuration infromation and examples see the Jakarta Log4j

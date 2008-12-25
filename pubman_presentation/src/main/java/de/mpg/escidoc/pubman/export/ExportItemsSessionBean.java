@@ -38,12 +38,13 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Superclass for keeping the attributes used d�ring the session by ExportItems.
  * @author:  Galina Stancheva, created 02.08.2007
- * @version: $Revision:  $ $LastChangedDate:  $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by StG: 28.09.2007 - Comments for the get- and set-methods are missing! ToDo StG.
  */
 public class ExportItemsSessionBean extends FacesBean
@@ -59,7 +60,7 @@ public class ExportItemsSessionBean extends FacesBean
     private ExportFormatVO curExportFormatVO = new ExportFormatVO();        
     private FileFormatVO curFileFormatVO = new FileFormatVO();
     
-    private boolean enableLayout = true;
+    private boolean enableFileFormats = true;
     private boolean enableExport = true;
 
     //email properties
@@ -106,30 +107,22 @@ public class ExportItemsSessionBean extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
-        if (exportFormatType.equals("STRUCTURED")){
-            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-            this.curExportFormatVO.setName("ENDNOTE");
-            // default format for STRUCTURED is TEXT
-            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
-            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
-            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
-        }
-        if (exportFormatType.equals("BIBTEX")){
-            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
-            this.curExportFormatVO.setName("BIBTEX");
-            // default format for STRUCTURED is TEXT
-            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
-            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
-            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
-        }
-        else { 
+        if (exportFormatType.equals("LAYOUT"))
+        { 
         	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-        	this.curExportFormatVO.setName(exportFormatName);
             // default format for STRUCTURED is pdf
             curFileFormatVO.setName(FileFormatVO.PDF_NAME);
             curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
-            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
         }
+        else 
+        {
+            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
+            // default format for STRUCTURED is TEXT
+            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
+            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+        }
+        this.curExportFormatVO.setName(exportFormatName);
+        this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
         
         try
         {
@@ -176,35 +169,32 @@ public class ExportItemsSessionBean extends FacesBean
 
     public void setExportFormatType(String exportFormatType)
     {
-         if (exportFormatType.equals("STRUCTURED"))
-         {
-             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-         	 this.enableLayout = false;
-         }
-         if (exportFormatType.equals("BIBTEX"))
-         {
-             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
-         	 this.enableLayout = false;
-         }
-         else if  (exportFormatType.equals("LAYOUT"))
-         {
-        	 this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-        	 this.enableLayout = true;
-         }
-         this.exportFormatType = exportFormatType;
+    	this.exportFormatType = exportFormatType;
     }
  
     public String getExportFormatName()
     {       
-        return curExportFormatVO.getName();
+        return this.curExportFormatVO.getName();
     }
 
     public void setExportFormatName(String exportFormatName)
     {
-        if ( exportFormatName == null || exportFormatName.trim().equals("") )
-        	exportFormatName = "APA";
+//        if ( exportFormatName == null || exportFormatName.trim().equals("") )
+//        	exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
+    	if  ( "APA".equals(exportFormatName) || "AJP".equals(exportFormatName))
+    	{
+    		curExportFormatVO.setFormatType(FormatType.LAYOUT);
+            this.exportFormatType = FormatType.LAYOUT.toString();
+    		setEnableFileFormats(true);
+    	}
+    	else
+    	{
+    		curExportFormatVO.setFormatType(FormatType.STRUCTURED);
+            this.exportFormatType = FormatType.STRUCTURED.toString();
+            setEnableFileFormats(false);
+    	}
     }
     
     public String getFileFormat()
@@ -217,7 +207,9 @@ public class ExportItemsSessionBean extends FacesBean
         if ( 
         		fileFormat == null || fileFormat.trim().equals("")
         		//  ENDNOTE fileForamt is always TXT
-        		|| getExportFormatName().equals("ENDNOTE")
+//        		|| getExportFormatName().equals("ENDNOTE")
+//        		|| getExportFormatName().equals("BIBTEX")
+        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
         )
         	fileFormat = FileFormatVO.TEXT_NAME;
         
@@ -361,13 +353,13 @@ public class ExportItemsSessionBean extends FacesBean
     }
 
 
-	public boolean getEnableLayout() {
-		return enableLayout;
+	public boolean getEnableFileFormats() {
+		return enableFileFormats;
 	}
 
 
-	public void setEnableLayout(boolean enableLayout) {
-		this.enableLayout = enableLayout;
+	public void setEnableFileFormats(boolean enableFileFormats) {
+		this.enableFileFormats = enableFileFormats;
 	}
 
 

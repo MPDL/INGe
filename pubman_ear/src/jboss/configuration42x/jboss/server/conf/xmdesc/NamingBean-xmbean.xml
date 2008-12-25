@@ -4,7 +4,7 @@
    "http://www.jboss.org/j2ee/dtd/jboss_xmbean_1_1.dtd">
 
 <!-- The JNDI Naming XMBean
-   $Id: NamingBean-xmbean.xml 60240 2007-02-03 18:29:53Z scott.stark@jboss.org $
+   $Id$
 -->
 <mbean>
    <description>The JNDI pojo bean</description>

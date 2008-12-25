@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
  * Wrapper for VersionHistoryEntryVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class PubItemVersionVOWrapper extends ValueObjectWrapper
 {

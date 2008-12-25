@@ -41,7 +41,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * and presenting an item list in accordance of a special export format.
  * Revised by StG: 24.08.2007
  * @created 26-Jun-2007 18:14:02
- * @author Galina Stancheva  (initial creation) $Author:$ (last modification)
+ * @author Galina Stancheva  (initial creation) $Author$ (last modification)
  * @version 1.0
  * @updated 14-Sep-2007 12:39:00
  */

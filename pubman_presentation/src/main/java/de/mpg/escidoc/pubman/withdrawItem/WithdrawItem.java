@@ -51,8 +51,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * PubItem including methods for depending dynamic UI components.
  *
  * @author: Thomas Diebäcker, created 10.01.2007
- * @author: $Author: tendres $
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
+ * @author: $Author$
+ * @version: $Revision$ $LastChangedDate$
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented, cleaned.
  */
@@ -155,7 +155,7 @@ public class WithdrawItem extends FacesBean
 
         if (withdrawalComment == null || "".equals(withdrawalComment))
         {
-            valMessage = getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN);
+            error(getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
             return null;
         }
 

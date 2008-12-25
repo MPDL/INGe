@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  * Wrapper for ContextVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Thomas Diebäcker, created 29.08.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class PubContextVOWrapper extends ValueObjectWrapper
 {
@@ -51,6 +51,11 @@ public class PubContextVOWrapper extends ValueObjectWrapper
         super();
     }
     
+    /**
+     * Constructor using a given context.
+     * 
+     * @param contextVO The context.
+     */
     public PubContextVOWrapper(ContextVO contextVO)
     {
         super(contextVO);
@@ -58,7 +63,7 @@ public class PubContextVOWrapper extends ValueObjectWrapper
 
     public ContextVO getValueObject()
     {
-        return (ContextVO)this.valueObject;
+        return (ContextVO) this.valueObject;
     }
 
     public void setValueObject(ContextVO pubItemVO)

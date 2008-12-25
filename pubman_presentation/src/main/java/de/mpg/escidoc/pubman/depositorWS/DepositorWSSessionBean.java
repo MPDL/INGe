@@ -37,7 +37,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 /**
  * Keeps all attributes that are used for the whole session by the DepositorWS.
  * @author:  Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1675 $ $LastChangedDate: 2007-12-14 13:47:11 +0100 (Fr, 14 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 09.08.2007
  */
 public class DepositorWSSessionBean extends FacesBean

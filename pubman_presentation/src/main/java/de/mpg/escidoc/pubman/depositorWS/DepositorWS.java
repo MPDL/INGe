@@ -46,6 +46,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -58,7 +59,7 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * of a list, depending on the status of the items. Items can be viewed, edited, deleted or submitted from this point.
  *
  * @author: Tobias Schraut; Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007) $ Revised by DiT:
+ * @version: $Revision$ $LastChangedDate$ Revised by DiT:
  *           09.08.2007
  */
 public class DepositorWS extends ItemList
@@ -95,6 +96,9 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Initializing DepositorWS...");
         }
+        
+        Navigation navBean = (Navigation)getRequestBean(Navigation.class);
+        navBean.setShowExportMenuOption(true);
         
         if (!"DepositorWS".equals(getItemListSessionBean().getType()))
         {
@@ -173,9 +177,8 @@ public class DepositorWS extends ItemList
                     error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                     return null;
                 }
-                // TODO FrM: Survey this change.
                 //getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
-                getItemControllerSessionBean().setCurrentPubItem(item);
+                getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(item));
             }
             // force reload of list next time this page is navigated to
             this.getItemListSessionBean().setListDirty(true);
@@ -233,7 +236,7 @@ public class DepositorWS extends ItemList
             {
                 throw new RuntimeException("Validation service not initialized", ne);
             }
-            PubItemVO pubItem = this.getItemListSessionBean().getSelectedPubItems().get(0);
+            PubItemVOPresentation pubItem = this.getItemListSessionBean().getSelectedPubItems().get(0);
             ValidationReportVO report = null;
             try
             {
@@ -420,6 +423,7 @@ public class DepositorWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("DepositorWS");
+        //this.getItemListSessionBean().setSubmenu("VIEW");
         if (newItemState.equals(PubItemVO.State.IN_REVISION.name()))
         {
             getItemListSessionBean().setIsInRevisionView(true);

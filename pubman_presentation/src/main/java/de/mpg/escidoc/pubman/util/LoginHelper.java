@@ -62,7 +62,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
  * 
  * @author: Tobias Schraut, created 07.03.2007
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007) $ Revised by ScT:
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT:
  *           21.08.2007
  */
 public class LoginHelper extends FacesBean
@@ -316,6 +316,11 @@ public class LoginHelper extends FacesBean
     }
 
     public boolean isLoggedIn()
+    {
+        return loggedIn;
+    }
+    
+    public boolean getLoggedIn()
     {
         return loggedIn;
     }

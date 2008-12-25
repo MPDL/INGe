@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -49,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * PubItem within the easy submission process.
  *
  * @author: Tobias Schraut, created 04.04.2008
- * @version: $Revision: 1 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class EasySubmissionSessionBean extends FacesBean
 {
@@ -100,6 +99,8 @@ public class EasySubmissionSessionBean extends FacesBean
 	private boolean importSourceRefresh = false;
     public SelectItem[] FULLTEXT_OPTIONS;
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+    
+    private String genreBundle = "Genre_ARTICLE";
 
 	/**
      * Public constructor.
@@ -242,6 +243,14 @@ public class EasySubmissionSessionBean extends FacesBean
 
 	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
 		this.radioSelectFulltext = radioSelectFulltext;
+	}
+
+	public String getGenreBundle() {
+		return genreBundle;
+	}
+
+	public void setGenreBundle(String genreBundle) {
+		this.genreBundle = genreBundle;
 	}
 
 }

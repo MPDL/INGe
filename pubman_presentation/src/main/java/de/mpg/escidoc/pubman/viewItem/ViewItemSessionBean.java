@@ -39,13 +39,13 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 
 /**
  * Keeps all attributes that are used for the whole session by ViewItem.
  * 
  * @author: Thomas Diebäcker, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 22.08.2007
+ * @version: $Revision$ $LastChangedDate$ Revised by ScT: 22.08.2007
  */
 public class ViewItemSessionBean extends FacesBean
 {
@@ -81,7 +81,10 @@ public class ViewItemSessionBean extends FacesBean
     
     // Flag if view item has already been redirected
     private boolean hasBeenRedirected = false;
-
+    
+    private String subMenu;
+    
+   
     
     /**
      * Public constructor.
@@ -89,6 +92,7 @@ public class ViewItemSessionBean extends FacesBean
     public ViewItemSessionBean()
     {
         this.init();
+        subMenu="ACTIONS";
     }
 
     /**
@@ -110,7 +114,7 @@ public class ViewItemSessionBean extends FacesBean
     {
         String itemID = getFacesParamValue("itemID").substring(13).replace("-", ":");
         
-        PubItemVO pubItemVO = null;
+        PubItemVOPresentation pubItemVO = null;
         
         // set the reload flag to false to force a redirecting to get a proper URL
         this.hasBeenRedirected = false;
@@ -127,7 +131,8 @@ public class ViewItemSessionBean extends FacesBean
             {
                 login.forceLogout();
             }
-            catch (Exception e2) {
+            catch (Exception e2)
+            {
                 logger.error("Error logging out user", e2);
             }
             return "";
@@ -337,5 +342,23 @@ public class ViewItemSessionBean extends FacesBean
     public void setLnkRelease(HtmlCommandLink lnkRelease)
     {
         this.lnkRelease = lnkRelease;
-    }        
+    }
+
+    public void setSubMenu(String subMenu)
+    {
+        this.subMenu = subMenu;
+    }
+
+    public String getSubMenu()
+    {
+        return subMenu;
+    } 
+    
+    public void itemChanged()
+    {
+        subMenu="ACTIONS";
+        
+    }
+
+    
 }

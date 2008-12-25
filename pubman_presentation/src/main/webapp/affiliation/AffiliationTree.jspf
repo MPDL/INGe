@@ -22,27 +22,23 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ f�r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur F�rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 */ %>
 
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
-<div>
-	<f:loadBundle var="lbl"	basename="Label" />
-	<f:subview id="AffiliationTreePage">
-		<h2>
-		<div class="viewItemTopHeader">
-			<div class="icon affiliationsIcon"></div>
-			<h:outputText id="txtOrga" styleClass="orientationHeader" value="#{lbl.AffiliationTree_txtHeadline}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#OrganizationsSearch');return false"/>
-		</div>	
-		</h2>
-		<br/>
-		
+
+
+<div class="full_area0 itemHeader">
+	<h:panelGroup styleClass="xLarge_area0 endline" >
+		&#160;<h:outputText value="#{lbl.AffiliationTree_txtHeadline}" />
+	</h:panelGroup>
+		<h:panelGroup styleClass="seperator" />
+	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
 		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
 				<h:panelGroup>
@@ -50,12 +46,10 @@
 					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
-					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
+					<h:commandButton styleClass="noBorder" title="#{tip.Affiliation_details}" image="./images/PM_info_16.gif" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 800, 400, 'Details');return false"/>
 					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
-					<%--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />--%>
 				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
-		
-	</f:subview>
+	</h:panelGroup>
 </div>

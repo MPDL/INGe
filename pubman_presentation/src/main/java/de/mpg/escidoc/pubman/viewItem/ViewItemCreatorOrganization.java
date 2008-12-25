@@ -39,7 +39,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  *
  * Created on 20. Februar 2007, 12:17
  * @author: Tobias Schraut
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-08-20 16:24:53 +0200 (Mo,
+ * @version: $Revision$ $LastChangedDate: 2007-08-20 16:24:53 +0200 (Mo,
  *           20 Aug 2007) $ Revised by ScT: 20.08.2007
  */
 public class ViewItemCreatorOrganization

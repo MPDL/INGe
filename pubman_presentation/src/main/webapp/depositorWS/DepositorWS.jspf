@@ -30,6 +30,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
 <div>
 	<f:subview id="content">
@@ -42,18 +43,18 @@
 
 			<h1 class="bottomSpace">
 				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
+				<h:commandButton title="#{tip.Workspace_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
 			</h1>
 			
 			
 			<h:outputLabel styleClass="rightSpace" for="cboItemstate" id="lblItemstate" value="#{lbl.depositorWS_lblItemstate}"/>
-			<h:selectOneMenu id="cboItemstate" binding="#{DepositorWS.cboItemstate}" 
+<%--			<h:selectOneMenu id="cboItemstate" binding="#{DepositorWS.cboItemstate}" 
 					value="#{DepositorWSSessionBean.selectedItemState}" onchange="changeItemState();">
 				<f:selectItems id="selectItems" value="#{DepositorWS.ITEMSTATE_OPTIONS}"/>
 			</h:selectOneMenu>
-			<h:commandButton action="#{DepositorWS.changeItemState}" immediate="true" 
-				id="btnChangeItemState" value="#{lbl.depositorWS_btnChangeItemState}" style="visibility:hidden;"/>
-			
+			<tr:commandButton action="#{DepositorWS.changeItemState}" immediate="true" 
+				id="btnChangeItemState" text="#{lbl.depositorWS_btnChangeItemState}"/>
+--%>			
 			<jsp:directive.include file="../list/itemList.jspf"/>
 		</div>
 		<div>

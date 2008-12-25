@@ -1,0 +1,183 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.isStateWithdrawn}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.EditItem_lblBasic} (#{ViewItemFull.itemPublicState})" />
+	</h3>
+	<span class="seperator"></span>
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
+
+<%-- Date of withdrawal --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalDate}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.withdrawalDate}"/>
+			</span>
+		</div>
+
+<%-- Withdrawal comment --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalComment}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.pubItem.withdrawalComment}"/>
+			</span>
+		</div>
+
+<%-- Creators --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0 endline labelLine">
+				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
+					<h:panelGroup styleClass="free_area0 creator">
+						<h:outputText value="#{creatorPerson}" escape="false"/>
+					</h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
+				</tr:iterator>
+				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" binding="#{ViewItemFull.creatorOrganizationsIterator}" varStatus="index">
+					<h:panelGroup styleClass="free_area0 creator">
+						<h:outputText value="#{creatorOrganization.organizationName}"/>
+					</h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
+				</tr:iterator>		
+			</span>
+		</div>
+
+<%-- Affiliations --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0 endline labelLine">
+				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
+					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
+					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
+				</tr:iterator>
+			</span>
+		</div>
+
+<%-- Dates --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDates}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " />
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
+				</h:panelGroup>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null && ViewItemFull.pubItem.metadata.dateModified != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " />
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
+				</h:panelGroup>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null && ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: "/>
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
+				</h:panelGroup>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null && ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: "/>
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
+				</h:panelGroup>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null && ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
+				</h:panelGroup>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
+					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
+					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
+				</h:panelGroup>
+			</span>
+		</div>
+
+<%-- Files total --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFileAttached}" rendered="#{ViewItemFull.amountOfFiles == 1}"/>
+				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFilesAttached}" rendered="#{ViewItemFull.amountOfFiles != 1}"/>
+			</span>
+		</div>
+
+<%-- Locators total --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorAttached}" rendered="#{ViewItemFull.amountOfLocators == 1}"/>
+				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorsAttached}" rendered="#{ViewItemFull.amountOfLocators != 1}"/>
+			</span>
+		</div>
+
+<%-- Item identifier --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
+			</span>
+		</div>
+
+<%-- Item state --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.itemPublicState}"/>
+			</span>
+		</div>
+
+<%-- Collection name --%>
+		<h:panelGroup styleClass="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
+			</span>
+		</h:panelGroup>
+
+	</h:panelGroup>
+
+</h:panelGroup>

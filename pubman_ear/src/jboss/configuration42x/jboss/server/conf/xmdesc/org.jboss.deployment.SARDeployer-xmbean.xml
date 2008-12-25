@@ -5,7 +5,7 @@
 <!--
    SARDeployer XMBean descriptor
    
-   $Id: org.jboss.deployment.SARDeployer-xmbean.xml 35861 2005-09-11 22:24:37Z dimitris $
+   $Id$
  -->
 <mbean>
    <description>The SAR deployer handles the JBoss service archive deployments.</description>

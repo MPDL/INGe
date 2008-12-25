@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.
  * @author:  Thomas Diebäcker; Tobias Schraut, created 10.01.2007
- * @version: $Revision: 1536 $ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  * Revised by DiT: 14.08.2007
  */
 public class SearchResultListSessionBean extends FacesBean

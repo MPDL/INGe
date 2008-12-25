@@ -37,14 +37,13 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
  * 
  * @author: Tobias Schraut, created 26.02.2007
- * @version: $Revision: 1 $ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13
+ * @version: $Revision$ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13
  *           Nov 2007) $
  */
 public class EditItemSessionBean extends FacesBean 
@@ -56,6 +55,13 @@ public class EditItemSessionBean extends FacesBean
 	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
 	
 	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+	
+	private String genreBundle = "Genre_ARTICLE";
+	
+	 /**The offset of the page where to jump back*/
+    private String offset;
+    
+
 
 	/**
 	 * Public constructor.
@@ -84,6 +90,8 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
+		this.genreBundle = null;
+		this.offset="";
 		
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
@@ -148,5 +156,24 @@ public class EditItemSessionBean extends FacesBean
 		this.locators = locators;
 	}
 
+	public String getGenreBundle() {
+		return genreBundle;
+	}
+
+	public void setGenreBundle(String genreBundle) {
+		this.genreBundle = genreBundle;
+	}
+
+    public void setOffset(String offset)
+    {
+        this.offset = offset;
+    }
+
+    public String getOffset()
+    {
+        return offset;
+    }
+
+	
 	
 }

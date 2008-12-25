@@ -36,6 +36,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -49,7 +50,7 @@ import de.mpg.escidoc.services.pubman.QualityAssurance;
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
  * @author:  Thomas Diebäcker, created 12.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * @version: $Revision$ $LastChangedDate$
  */
 public class ContextListSessionBean extends FacesBean
 {
@@ -61,6 +62,8 @@ public class ContextListSessionBean extends FacesBean
     private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
+    private UIXIterator contextIterator = new UIXIterator();
+    
     /**
      * Public constructor.
      */
@@ -219,6 +222,16 @@ public class ContextListSessionBean extends FacesBean
     public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList)
     {
         this.moderatorContextList = moderatorContextList;
+    }
+
+    public UIXIterator getContextIterator()
+    {
+        return contextIterator;
+    }
+
+    public void setContextIterator(UIXIterator contextIterator)
+    {
+        this.contextIterator = contextIterator;
     }
     
     

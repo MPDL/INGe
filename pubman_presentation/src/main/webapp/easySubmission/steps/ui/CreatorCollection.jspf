@@ -21,119 +21,153 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-	
-	<h:panelGroup layout="block" styleClass="easySubmissionSubBox floatbox">
-		
-		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-			<h:outputText value="#{lbl.submission_lblAuthorCopyPaste}"/>
-			<h:inputTextarea id="creatorParseTextArea" value="#{EasySubmission.creatorParseString}" rows="5" styleClass="fullWidth" />
-		</h:panelGroup>
-		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-			<h:commandButton id="addCreatorParseButton" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" styleClass="inlineButton" />
-			<h:commandButton id="overwriteCreatorParseButton" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" action="#{EasySubmission.overwriteAndAddCreatorString}" styleClass="inlineButton" />
-		</h:panelGroup>
-	</h:panelGroup>
-
-	<h:dataTable  var="creatorBean" styleClass="fullWidth" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
-		<h:column>
+<h:panelGroup layout="block" id="editPerson" styleClass="full_area0 itemBlock" rendered="#{genre.creator_person_organization_display != 'false' && genre.creator_person_organization_form_id != 'full-submission' || genre.creator_person_organization_display != 'true' && genre.creator_person_organization_form_id != 'easy-submission'&& genre.creator_person_organization_form_id != 'all'}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/>
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+	<h:dataTable  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
+    <h:column>
+<%-- Author copy&paste --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
+					<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EasySubmission.creatorParseString}" cols="15" rows="3" />
+					<span class="large_checkbox">
+						<%-- EasySubmission.overwriteCreators --%>
+						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EasySubmission.overwriteCreators}" />	
+						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
+					</span>
+					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />
+				</span>
+			</h:panelGroup>
 			
-		<h:panelGroup layout="block" styleClass="easySubmissionSubBox">
-			<%/* Creator */%>
-			
-			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-				<h:panelGroup layout="block" styleClass="easySubmissionDateItem">
-					<h:outputLabel value="#{lbl.easy_submission_lblCreator}"/>
-						<h:selectOneMenu value="#{creatorBean.creator.roleString}">
-							<f:selectItems value="#{creatorBean.creatorRoles}"/>
-						</h:selectOneMenu>
+<%-- Creator role --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.creator_person_organization_creator_select_roles_display != 'false'}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}" >
+						<f:selectItems value="#{creatorBean.creatorRoles}"/>
+					</h:selectOneMenu>
+				</span>
+				<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+					<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
 				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex > 0 }">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+						<f:selectItems value="#{creatorBean.creatorRoles}"/>
+					</h:selectOneMenu>
+				</span>
+			</h:panelGroup>
 			
-				<h:panelGroup layout="block" styleClass="easySubmissionCreatorLine">
-					<h:selectOneRadio value="#{creatorBean.creator.typeString}" 
-						valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();//document.getElementById('form1:EditItem:dummybutton').click();">
+<%-- Creator type --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.creator_person_organization_creator_select_roles_creator_type_display != 'false'}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_creator_type_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblCreatorType}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:selectOneRadio styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
+						valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();">
 						<f:selectItems value="#{creatorBean.creatorTypes}"/>
 					</h:selectOneRadio>
-				</h:panelGroup>
+				</span>
 			</h:panelGroup>
-			
-			<%/* Creator's Person */%>
-			<h:panelGroup layout="block"  styleClass="easySubmissionBoxBodySubLine" rendered="#{creatorBean.personType}">
-				<div class="easySubmissionBasicSubItem">
-					<h:outputLabel value="#{lbl.easy_submission_lblFamilyName}"/>
-					<h:inputText value="#{creatorBean.creator.person.familyName}"/>
-				</div>
-				
-				<div class="easySubmissionBasicSubItem">
-					<h:outputLabel value="#{lbl.easy_submission_lblFirstName}"/>
-					<h:inputText value="#{creatorBean.creator.person.givenName}"/>
-				</div>
-				
+
+<%-- Creator person family name, Creator person given name --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType && (genre.creator_person_organization_creator_persons_person_family_name_display != 'false' || genre.creator_person_organization_creator_persons_person_given_name_display != 'false')}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true' || genre.creator_person_organization_creator_persons_person_given_name_optional != 'true'}" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="double_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_family_name_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" />
+					</span>
+					<span class="double_area0">
+						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" />
+					</span>
+				</span>
 			</h:panelGroup>
-			
-			<%/* Creator's Person's list of Organisations */%>
-			
-			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+
+<%-- Creator person affiliation --%>
 			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:column>
-					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">	
-						<div class="easySubmissionOrgItem">
-							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
-							<h:inputText value="#{persOrga.name.value}"/>
-							<h:inputTextarea value="#{persOrga.address}" styleClass="margin5Top"/>
-						</div>
-						<div class="easySubmissionAddOrgButtonLine">
-							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="inlineButton" />
-						</div>
-													
-						<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">		
-							<h:commandButton value="#{lbl.easy_submission_btnAddMoreOrgs}" action="#{creatorBean.personOrganisationManager.addObject}" styleClass="inlineButton" />
-							<h:commandButton value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" styleClass="inlineButton" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
-						</h:panelGroup>			
-					</h:panelGroup>
-				</h:column>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" />
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{creatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+					</span>
+				</h:panelGroup>
+			</h:column>
 			</h:dataTable>
+
+<%-- Creator organisation affiliation --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" />
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional == 'false'}" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
+				</span>
 			</h:panelGroup>
 			
-			<%/* Creator's Organisation */%>
-			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{creatorBean.organisationType}">
-				<h:panelGroup layout="block" rendered="#{creatorBean.organisationType}">
-					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-						<h:panelGroup layout="block" styleClass="easySubmissionOrgItem">
-							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
-							<h:inputText value="#{creatorBean.creator.organization.name.value}"/>
-							<h:inputTextarea value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
-						</h:panelGroup>
-						<div class="easySubmissionAddOrgButtonLine">				
-							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="inlineButton" />
-						</div>
-					</h:panelGroup>
-											
-						
-									
-				</h:panelGroup>				
-			</h:panelGroup>	
-				
-		</h:panelGroup>
-				<h:panelGroup layout="block"  styleClass="easySubmissionBoxBodyLine">	
-					<h:panelGroup layout="block" styleClass="icon addIcon"/>
-					<h:commandLink value="#{lbl.easy_submission_btnAddCreator}" action="#{EasySubmission.creatorCollection.creatorManager.addObject}" />
-				
-				
-					<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 1}"/>
-					<h:commandLink value="#{lbl.easy_submission_btnRemoveCreator}" action="#{EasySubmission.creatorCollection.creatorManager.removeObject}" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 1}"/>
-					<h:outputText value=" " rendered="#{EasySubmission.creatorCollection.creatorManager.size < 2}"/>
-				</h:panelGroup>
-		</h:column>		
-	</h:dataTable>
+			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
+				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool remove" disabled="#{EasySubmission.creatorCollection.creatorManager.size == 1}" action="#{EasySubmission.creatorCollection.creatorManager.removeObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool add" action="#{EasySubmission.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
+			</h:panelGroup>
+        </h:column>
+		</h:dataTable>	
+	</div>
 </h:panelGroup>

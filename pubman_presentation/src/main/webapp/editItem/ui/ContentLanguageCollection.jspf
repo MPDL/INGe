@@ -39,8 +39,8 @@
 				<f:selectItems value="#{EditItem.contentLanguageCollection.languageOptions}"/>
 			</h:selectOneMenu>
 		
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.addObject}" />
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.removeObject}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 1}"/>
+			<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.addObject}" />
+			<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.removeObject}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size < 2}"/>
 		</h:panelGroup>
 	</h:column>

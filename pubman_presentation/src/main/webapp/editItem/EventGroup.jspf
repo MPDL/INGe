@@ -1,0 +1,101 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:panelGroup layout="block" id="editEvent" styleClass="full_area0 itemBlock" rendered="#{genre.events_display != 'false' && genre.events_form_id != 'easy-submission' || genre.events_display != 'true' && genre.events_form_id != 'full-submission' && genre.events_form_id != 'all'}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/>
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+
+<%-- Event title --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.eventTitleCollection.titleIF.title.value}" cols="15" rows="3" />
+			</span>
+			<span class="large_area0_p8 lineToolSection">
+				<h:commandButton title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.eventTitleCollection.addTitle}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+				<h:commandButton title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.eventTitleCollection.removeTitle}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+			</span>
+		</div>
+
+<%-- Alternative event title --%>
+		<tr:iterator var="altTitle" value="#{EditItem.eventTitleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.events_event_title_alternative_display != 'false'}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.events_event_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.events_event_title_alternative_repeatable != 'false'}"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
+<%-- Event place, Event start date, Event end date --%>
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.events_event_place_display != 'false' || genre.events_event_start_date_display != 'false' || genre.events_event_end_date_display != 'false' || genre.events_event_invitation_status_display != 'false'}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true' || genre.events_event_start_date_optional != 'true' || genre.events_event_end_date_optional != 'true' || genre.events_event_invitation_status_optional != 'true'}" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="medium_area0 xTiny_marginRIncl">
+					<h:outputLabel styleClass="medium_label" id="lblEventPlace" for="txtEventPlace" value="#{genre.events_event_place_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" />
+				</span>
+				<span class="medium_area0 xTiny_marginRIncl">
+					<h:outputLabel styleClass="medium_label" id="lblEventStartDate" for="txtEventStartDate" value="#{genre.events_event_start_date_label}" converter="GenreLabelConverter"/>	
+					<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{EditItem.pubItem.metadata.event.startDate}" />
+				</span>
+				<span class="medium_area0 xTiny_marginRIncl">
+					<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{genre.events_event_end_date_label}" converter="GenreLabelConverter"/>	
+					<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{EditItem.pubItem.metadata.event.endDate}" />
+				</span>
+				<span class="medium_area0 toLabelBottom">
+					<span class="medium_checkbox">
+						<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" />
+						<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{genre.events_event_invitation_status_label}" converter="GenreLabelConverter"/>
+					</span>
+				</span>
+			</span>
+		</h:panelGroup>
+	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/></a>	
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/></a>
+</h:panelGroup>

@@ -33,24 +33,24 @@
 <div><f:subview
 	id="Navigation">
 	<ul>
-		<h1><h:commandLink id="lnkHome" action="#{Navigation.loadHome}">
+		<h1><h:commandLink id="lnkHome" title="#{tip.mainMenu_lnkHome}" action="#{Navigation.loadHome}">
 			<h:outputText value="#{lbl.mainMenu_lnkHome}" />
 		</h:commandLink></h1>
 		<h1><h:outputText id="lblMyWorkspace"
 			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace and ContextListSessionBean.depositorContextListSize>0}">
 		</h:outputText></h1>
 		<li><h:outputLink
-			value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+			value="#{ApplicationBean.appContext}DepositorWSPageNew.jsp">
 			<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:outputLink></li>
 			
-		<li><h:commandLink id="lnkNewSubmission"
+		<li><h:commandLink id="lnkNewSubmission" title="#{tip.actionMenu_lnkNewSubmission}"
 			action="#{CreateItem.newSubmission}" immediate="true">
 			<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:commandLink></li>
 		
 		<li><h:commandLink
-			action="#{EasySubmission.newEasySubmission}">
+			action="#{EasySubmission.newEasySubmission}" title="#{tip.mainMenu_lnkEasySubmission}">
 			<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 		</h:commandLink></li>
 		
@@ -58,7 +58,7 @@
 			value="#{lbl.mainMenu_lblQA}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
 		</h1>
 		
-		<li><h:outputLink
+		<li><h:outputLink title="#{tip.mainMenu_lnkQAWorkspace}"
 			value="#{ApplicationBean.appContext}QAWSPage.jsp">
 			<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
 		</h:outputLink></li>

@@ -38,7 +38,7 @@ import de.mpg.escidoc.services.common.logging.Messages;
  * Messages used in pubman logic.
  *
  * @author Miriam Doelle
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+ * @version $Revision$ $LastChangedDate$
  * @Revised by BrP: 20.09.2007
  */
 public enum PMLogicMessages implements Messages

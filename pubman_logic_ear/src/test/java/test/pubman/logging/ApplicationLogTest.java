@@ -46,8 +46,8 @@ import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
  * Test class for application log
  *
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @Revised by BrP: 20.09.1007
  */
 public class ApplicationLogTest
@@ -56,8 +56,8 @@ public class ApplicationLogTest
      * A simple Appender for the logging test.
      *
      * @author Peter Broszeit (initial creation)
-     * @author $Author: jmueller $ (last modification)
-     * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
      *
      */
     private class TestAppender extends AppenderSkeleton

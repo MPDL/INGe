@@ -54,8 +54,8 @@ import javax.naming.NamingException;
 * Test class for {@link de.mpg.escidoc.services.pubman.ItemExporting}.
 * 
 * @author Galina Stancheva (initial creation)
-* @author $Author: gstancheva $ (last modification)
-* @version $Revision:$ $LastChangedDate:$
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate$
 * Revised by StG: 05.10.2007
 */
 public class ItemExportingTest extends TestBase
@@ -115,7 +115,8 @@ public class ItemExportingTest extends TestBase
         {
             logger.debug(formatVO);
         }
-        assertEquals(2, exportFormatsVOList.size());
+        assertEquals(3, exportFormatsVOList.size());
+        
 
     }
     
