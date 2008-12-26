@@ -11,7 +11,7 @@ def parse_resource_file( filename )
       io.each do |line|
          next if line =~ /^\s*#/
          next if line =~ /^\s*$/
-         if line =~ /^\s*([\w\.]+)\s*=\s*(.+)$/
+         if line =~ /^\s*([\w\.\-]+)\s*=\s*(.+)$/
             if resource[ $1 ]
                puts "#{filename}:#{$.}: Warining: duplicate resource: #{ $1 }"
             end
