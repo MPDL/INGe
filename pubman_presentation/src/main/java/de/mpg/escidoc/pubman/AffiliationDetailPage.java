@@ -29,32 +29,16 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.rmi.RemoteException;
-
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
-import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -62,8 +46,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Request Bean for affiliation details page (which is a popup taht is opened when clicking an info button on affiliation tree)
  *
  * @author Markus Haarlaender (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 1891 $ $LastChangedDate: 2008-12-23 19:13:59 +0900 (火, 23 12月 2008) $
  *
  */
 public class AffiliationDetailPage extends FacesBean
@@ -123,7 +107,7 @@ public class AffiliationDetailPage extends FacesBean
     
     public String getDescription()
     {
-        if (affilitation!=null && affilitation.getDefaultMetadata()!=null)
+        if (affilitation!=null && affilitation.getDefaultMetadata()!=null && affilitation.getDefaultMetadata().getDescriptions().size()>0)
             return affilitation.getDefaultMetadata().getDescriptions().get(0);
         else
             return "";
