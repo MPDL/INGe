@@ -68,7 +68,7 @@
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitle}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 
@@ -94,7 +94,7 @@
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblTitle}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}" rendered="#{genre.sources_source_basic_source_title_alternative_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
@@ -286,8 +286,8 @@
 						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addID}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeID}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}" rendered="#{genre.sources_source_identifiers_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
