@@ -604,90 +604,9 @@
 
 	<profiles>
 		<profile>
-			<id>jboss40</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.3.1</version>
-						<configuration>
-							<container>
-								<containerId>jboss4x</containerId>
-								<zipUrlInstaller>
-									<url>${cargo.jboss.url}</url>
-									<installDir>
-										${cargo.install.dir}
-									</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<home>
-									${project.build.directory}/jboss/server
-								</home>
-								<properties>
-									<cargo.servlet.port>
-										${cargo.port}
-									</cargo.servlet.port>
-									<cargo.rmi.port>
-										${cargo.rmi.port}
-									</cargo.rmi.port>
-									<cargo.jvmargs>
-										${cargo.jvmargs}
-									</cargo.jvmargs>
-									<cargo.logging>
-										${cargo.log}
-									</cargo.logging>
-								</properties>
-							</configuration>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>jboss42</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
-						<configuration>
-							<wait>false</wait>
-							<container>
-								<containerId>jboss42x</containerId>
-								<zipUrlInstaller>
-									<url>${cargo.jboss.url}</url>
-									<installDir>
-										${cargo.install.dir}
-									</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<type>existing</type>
-								<home>
-									${project.build.directory}/jboss/server
-								</home>
-								<properties>
-									<cargo.servlet.port>
-										${cargo.port}
-									</cargo.servlet.port>
-									<cargo.rmi.port>
-										${cargo.rmi.port}
-									</cargo.rmi.port>
-									<cargo.logging>
-										${cargo.log}
-									</cargo.logging>
-									<cargo.jvmargs>
-										${cargo.jvmargs}
-									</cargo.jvmargs>
-									<cargo.jboss.configuration>
-										default
-									</cargo.jboss.configuration>
-								</properties>
-							</configuration>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
