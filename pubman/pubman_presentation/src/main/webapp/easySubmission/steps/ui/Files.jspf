@@ -64,7 +64,7 @@
 					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="Upload File" partialSubmit="false"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{lbl.easy_submission_btnUploadFile}" partialSubmit="false"/>
 				</span>
 			</h:panelGroup>
 			
