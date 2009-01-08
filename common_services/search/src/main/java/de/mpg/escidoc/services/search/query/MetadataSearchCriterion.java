@@ -33,7 +33,8 @@ public class MetadataSearchCriterion implements Serializable
     {
         TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
-        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE
+        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
+        COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY
     };
 
     /**
@@ -115,6 +116,12 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_LANGUAGE = "escidoc.language";
     /** Index for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
+    /** Index for component availability */
+    private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.valid-status";
+    /** Index for component visibility */
+    private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
+    /** Index for component content category */
+    private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
 
     private ArrayList<String> searchIndexes = null;
     private String searchTerm = null;
@@ -370,6 +377,14 @@ public class MetadataSearchCriterion implements Serializable
             case OBJECT_TYPE:
                 indexes.add(INDEX_OBJECT_TYPE);
                 break;
+            case COMPONENT_ACCESSABILITY:
+                indexes.add(INDEX_COMPONENT_ACCESSIBILITY);
+                break;
+            case COMPONENT_VISIBILITY:
+                indexes.add(INDEX_COMPONENT_VISIBILITY);
+                break;
+            case COMPONENT_CONTENT_CATEGORY:
+                indexes.add(INDEX_COMPONENT_CONTENT_CATEGORY);
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
         }
