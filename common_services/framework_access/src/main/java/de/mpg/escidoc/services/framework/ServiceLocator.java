@@ -543,7 +543,7 @@ public class ServiceLocator
     }
 
     /**
-     * Gets the ContainerHandler service for an authentificated user.
+     * Gets the ContainerHandler service for an authenticated user.
      *
      * @param userHandle The handle of the logged in user.
      * @return A ContainerHandler.
@@ -565,7 +565,7 @@ public class ServiceLocator
     }
 
     /**
-     * Gets the ContainerHandler service for an authentificated user.
+     * Gets the ContainerHandler service.
      *
      * @return A ContainerHandler.
      * @throws ServiceException
