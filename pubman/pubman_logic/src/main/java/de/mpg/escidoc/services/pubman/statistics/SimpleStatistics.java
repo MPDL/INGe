@@ -40,6 +40,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.ejb.EJB;
@@ -109,13 +110,8 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     private XmlTransforming xmlTransforming;
     
    
-    
-    /**
-     * {@inheritDoc}
-     */
-    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception{
-        
-
+    public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception
+    {
         if (reportDefinitionType == null || objectId == null)
         {
             throw new IllegalArgumentException("Arguments are null!");
@@ -156,6 +152,17 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         String xmlReport = repHandler.retrieve(xmlParams);
         
         List<StatisticReportRecordVO> reportRecordList = xmlTransforming.transformToStatisticReportRecordList(xmlReport);
+        
+        return reportRecordList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception{
+        
+
+        List<StatisticReportRecordVO> reportRecordList = getStatisticReportRecord(reportDefinitionType, objectId, accountUser);
         
 
        int requests = 0;
@@ -219,7 +226,15 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                 if(repDefFW != null) 
                 {
                     //set Property
-                    ReportDefinitionStorage.getInstance().getReportDefinitionMap().put(repDefFW.getSql(), repDefFW.getObjectId());
+                    Map<String, String> reportDefMap =   ReportDefinitionStorage.getInstance().getReportDefinitionMap();
+                    reportDefMap.put(repDefFW.getSql(), repDefFW.getObjectId());
+                    
+                    for(String key : reportDefMap.keySet())
+                    {
+                        logger.info(reportDefMap.get(key)+" --- "+key);
+                    }
+                    
+                    
                     
                 }
                 //Report Definition does not exist yet
@@ -233,6 +248,10 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                     
                 }
             }
+            
+            logger.info( ReportDefinitionStorage.getInstance().getReportDefinitionMap().size()
+            +" Statistic report definitions are initialized! ");
+           
             
            
         }

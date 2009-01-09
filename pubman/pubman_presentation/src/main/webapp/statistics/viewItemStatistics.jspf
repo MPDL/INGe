@@ -50,7 +50,8 @@
 			<span class="xHuge_area0 endline">
 				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" />
 			</span>
-		</div>		
+		</div>
+		<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}"/>
 	</li>
 	<h:panelGroup rendered="#{ViewItemStatistics.filesAvailable}">
 		<li class="full_area0 listItem">
@@ -101,6 +102,8 @@
 		</li>
 	</h:panelGroup>
 </ol>
+
+
 
 
 

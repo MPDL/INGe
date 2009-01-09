@@ -98,6 +98,21 @@
 		<param-value>session</param-value>
 	</context-param>
 
+
+	<!-- chartservlet -->
+	<servlet>
+	  <servlet-name>StatisticChartServlet</servlet-name>
+	  <servlet-class>de.mpg.escidoc.pubman.statistic_charts.StatisticChartServlet</servlet-class>
+	</servlet>
+	 
+	<servlet-mapping>
+	   <servlet-name>StatisticChartServlet</servlet-name>
+	   <url-pattern>/statisticchart/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- END of chartservlet -->
+
+
 	<!-- Genre Servlet -->
 	<servlet>
 		<servlet-name>Genre Servlet</servlet-name>

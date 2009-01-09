@@ -29,7 +29,10 @@
 */
 package de.mpg.escidoc.services.pubman;
 
+import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 
 
 /**
@@ -113,10 +116,10 @@ public interface PubItemSimpleStatistics
     
     
     
-    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by object_id;";
+    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select month, year, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by month, year;";
     public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by parent_object_id;";
     public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by object_id;";
-    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='' group by object_id;";
+    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select month, year, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='' group by month, year;";
     public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;";
     public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;";
 
@@ -137,5 +140,14 @@ public interface PubItemSimpleStatistics
      * Adds the real report definitions IDs to a property file.
      */
     public void initReportDefinitionsInFramework();
+    
+    /**Retrieves a statistic report for an item from the Framework according to the specified report definition type
+     * 
+      * @param reportDefinitionType The id of the report definition
+     * @param objectId The id of the item.
+     * @return The statistic report
+     * @throws Exception
+     */
+    public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception;
     
 }
