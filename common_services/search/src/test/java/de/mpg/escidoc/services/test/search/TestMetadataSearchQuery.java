@@ -54,10 +54,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
 public class TestMetadataSearchQuery
 {
     private Logger logger = Logger.getLogger(TestMetadataSearchQuery.class);
-    
-    
-    
-    
+       
     @Test
     public void testBuildSimpleMetadataQuery() throws Exception
     {
