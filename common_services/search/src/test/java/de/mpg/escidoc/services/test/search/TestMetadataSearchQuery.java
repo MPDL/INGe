@@ -113,4 +113,26 @@ public class TestMetadataSearchQuery
         assertEquals(expected, query);
         
     }
+    @Test
+    public void testBuildMetadataComponentQuery() throws Exception
+    {
+        logger.info("Testing simple metadata search query transformation with dates and boolean operators");
+        
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        contentTypes.add("escidoc:persistent4");
+        MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
+        
+        ArrayList<CriterionType> criterions = new ArrayList<CriterionType>();
+        criterions.add(CriterionType.COMPONENT_VISIBILITY);
+        criterions.add(CriterionType.COMPONENT_ACCESSABILITY);
+        criterions.add(CriterionType.COMPONENT_CONTENT_CATEGORY);
+        msq.addCriterion(new MetadataSearchCriterion(criterions, "argument"));
+        
+        String query = msq.getCqlQuery();
+        logger.debug(query);
+        String expected = " ( (escidoc.component.visibility=\"argument\" or escidoc.component.valid-status=\"argument\" or escidoc.component.content-category=\"argument\") )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        assertNotNull(query);
+        assertEquals(expected, query);
+        
+    }
 }
