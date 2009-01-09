@@ -61,10 +61,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.encoders.KeypointPNGEncoderAdapter;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LayeredBarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -202,7 +204,7 @@ public class StatisticChartServlet extends HttpServlet
         Collections.sort(sortingListAnonymousUsers);
         
         
-        String allUsersSeries = "All Users";
+        String loggedInUsersSeries = "Logged-in Users";
         String anonymousUsersSeries = "Anonymous Users";
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -(numberOfMonths-1));
@@ -220,26 +222,32 @@ public class StatisticChartServlet extends HttpServlet
         for (int i=0; i<numberOfMonths ; i++)
         {
             String xLabel = cal.get(Calendar.MONTH)+1 +"/"+cal.get(Calendar.YEAR);
+            int allUserRequests = 0;
+            int anonymousUserrequests = 0;
+            
             if (currentAllUsersRecord!=null && currentAllUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAllUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
-                dataset.addValue(currentAllUsersRecord.getRequests(), allUsersSeries, xLabel );
+                allUserRequests = currentAllUsersRecord.getRequests();
                 if (iter.hasNext()) currentAllUsersRecord = iter.next();
             }
             else
             {
-                dataset.addValue(0, allUsersSeries, xLabel);
+                allUserRequests = 0;
+                
             }
             
             if (currentAnonymousUsersRecord!=null && currentAnonymousUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAnonymousUsersRecord.getYear()==cal.get(Calendar.YEAR))
             {
-                dataset.addValue(currentAnonymousUsersRecord.getRequests(), anonymousUsersSeries, xLabel);
+                anonymousUserrequests = currentAnonymousUsersRecord.getRequests();
                 if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
             }
             else
             {
-                dataset.addValue(0, anonymousUsersSeries, xLabel);
+                anonymousUserrequests = 0;
             }
             
+           dataset.addValue(allUserRequests - anonymousUserrequests, loggedInUsersSeries, xLabel );
+           dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
            cal.add(Calendar.MONTH, 1);   
         }
 
@@ -257,9 +265,9 @@ public class StatisticChartServlet extends HttpServlet
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
 
+        
         // create the chart...
-       //ChartFactory.createLineChart3D(title, categoryAxisLabel, valueAxisLabel, dataset, orientation, legend, tooltips, urls)
-        JFreeChart chart = ChartFactory.createBarChart(
+        JFreeChart chart = ChartFactory.createStackedBarChart(
             null,       // chart title
             "Month",               // domain axis label
             "Number of Retrievals",                  // range axis label
@@ -306,6 +314,8 @@ public class StatisticChartServlet extends HttpServlet
         GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.red,
                 0.0f, 0.0f, new Color(64, 0, 0));
         renderer.setSeriesPaint(1, gp1);
+        
+        
 
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
@@ -314,6 +324,67 @@ public class StatisticChartServlet extends HttpServlet
         // OPTIONAL CUSTOMISATION COMPLETED.
 
         return chart;
+        
+        
+        
+        
+        
+        
+        /*
+        
+        CategoryAxis categoryAxis = new CategoryAxis("Month");
+        categoryAxis.setCategoryLabelPositions(
+                CategoryLabelPositions.createUpRotationLabelPositions(
+                        Math.PI / 6.0));
+        //categoryAxis.setMaximumCategoryLabelWidthRatio(10.0f);
+        ValueAxis valueAxis = new NumberAxis("Item Retrievals");
+        valueAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+
+        CategoryPlot plot = new CategoryPlot(dataset, 
+                                             categoryAxis,
+                                             valueAxis,
+                                             new LayeredBarRenderer());
+        
+        plot.setOrientation(PlotOrientation.VERTICAL);
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setDomainGridlinesVisible(true);
+        plot.setRangeGridlinePaint(Color.white);
+        
+        JFreeChart chart = new JFreeChart(plot);
+        chart.getLegend().setVisible(true);
+
+        // set the background color for the chart...
+        chart.setBackgroundPaint(Color.white);
+
+        LayeredBarRenderer renderer = (LayeredBarRenderer) plot.getRenderer();
+        
+        renderer.setDrawBarOutline(false);
+        // we can set each series bar width individually or let the renderer manage a standard view.
+        // the width is set in percentage, where 1.0 is the maximum (100%).
+        renderer.setSeriesBarWidth(0, 1);
+        renderer.setSeriesBarWidth(1, 1);
+//        renderer.setSeriesBarWidth(2, 0.4);
+        
+        
+        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
+                0.0f, 0.0f, new Color(0, 0, 64));
+        renderer.setSeriesPaint(0, gp0);
+       
+        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.red,
+                0.0f, 0.0f, new Color(64, 0, 0));
+        renderer.setSeriesPaint(1, gp1);
+
+        renderer.setItemMargin(0.01);
+        
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        domainAxis.setCategoryMargin(0.25);
+        domainAxis.setUpperMargin(0.05);
+        domainAxis.setLowerMargin(0.05);
+        
+        return chart;
+*/
 
     }
     
