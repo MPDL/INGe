@@ -269,8 +269,8 @@ public class StatisticChartServlet extends HttpServlet
         // create the chart...
         JFreeChart chart = ChartFactory.createStackedBarChart(
             null,       // chart title
-            "Month",               // domain axis label
-            "Number of Retrievals",                  // range axis label
+            "",               // domain axis label
+            "",                  // range axis label
             dataset,                  // data
             PlotOrientation.VERTICAL, // orientation
             true,                     // include legend
@@ -309,11 +309,11 @@ public class StatisticChartServlet extends HttpServlet
         // set up gradient paints for series...
         GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
                 0.0f, 0.0f, new Color(0, 0, 64));
-        renderer.setSeriesPaint(0, gp0);
+        renderer.setSeriesPaint(1, gp0);
        
         GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.red,
                 0.0f, 0.0f, new Color(64, 0, 0));
-        renderer.setSeriesPaint(1, gp1);
+        renderer.setSeriesPaint(0, gp1);
         
         
 
