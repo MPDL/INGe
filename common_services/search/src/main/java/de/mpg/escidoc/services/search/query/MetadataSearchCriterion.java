@@ -230,7 +230,7 @@ public class MetadataSearchCriterion implements Serializable
      * @param searchTerm  search term
      * @throws TechnicalException  if creation of object fails
      */
-    protected MetadataSearchCriterion(ArrayList<CriterionType> types, String searchTerm) throws TechnicalException
+    public MetadataSearchCriterion(ArrayList<CriterionType> types, String searchTerm) throws TechnicalException
     {
         typeList = new ArrayList<CriterionType>();
         this.searchTerm = searchTerm;
@@ -385,6 +385,7 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case COMPONENT_CONTENT_CATEGORY:
                 indexes.add(INDEX_COMPONENT_CONTENT_CATEGORY);
+                break;
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
         }
