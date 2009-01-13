@@ -37,7 +37,10 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -45,6 +48,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
+import javax.xml.namespace.QName;
 
 import net.sf.jasperreports.engine.JRException;
 
@@ -62,6 +66,7 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.parser.ParseException;
@@ -93,8 +98,8 @@ public class SearchBean implements Search
     /**
      * A XmlTransforming instance.
      */
-    @EJB
-    private XmlTransforming xmlTransforming;
+    //@EJB
+    private XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     /**
      * A CitationStyleHandler instance.
@@ -455,8 +460,19 @@ public class SearchBean implements Search
                 // Data is in the first record
                 if (messages.length == 1)
                 {
+                	
                     String searchResultItem = messages[0].getAsString();
-                    logger.debug("Search result: " + searchResultItem);
+                    logger.info("Search result: " + searchResultItem);
+
+                    //DIRTY HACK
+                    //TODO: replace hack with the normal solution
+            		Pattern p = Pattern.compile("(<escidocItem:item.*?</escidocItem:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+            	    Matcher m = p.matcher(searchResultItem);
+            	    m.find();
+            	    searchResultItem = m.group(1);
+                    logger.info("Search result after: " + searchResultItem);
+                    //END OF DIRTY HACK
+                    
                     try
                     {
                         ItemVO itemResult = xmlTransforming.transformToItem(searchResultItem);
