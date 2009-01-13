@@ -18,7 +18,7 @@ public class StatisticReportRecordVOPresentation implements Comparable<Statistic
     {
         for(StatisticReportRecordParamVO param : statisticReportRecordVO.getParamList())
         {
-            if (param.getName().equals("itemrequests"))
+            if (param.getName().equals("itemrequests") || param.getName().equals("filerequests"))
             {
               return Integer.parseInt(param.getParamValue().getValue());
             }

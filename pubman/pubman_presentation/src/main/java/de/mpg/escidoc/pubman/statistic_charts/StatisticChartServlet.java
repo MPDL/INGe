@@ -56,9 +56,10 @@ import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.encoders.KeypointPNGEncoderAdapter;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StackedBarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -83,17 +84,21 @@ public class StatisticChartServlet extends HttpServlet
     
     private static final String idParameterName = "id";
     
+    private static final String typeParameterName = "type";
+    
     private Logger logger = Logger.getLogger(StatisticChartServlet.class);
 
     private String id;
 
     private int numberOfMonths;
     
+    private String type;
+    
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
     }
  
-    public void doGet(HttpServletRequest request, 
+    public synchronized void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
         
         String numberOfMonthsString = request.getParameter(numberOfMonthsParameterName);
@@ -107,13 +112,15 @@ public class StatisticChartServlet extends HttpServlet
         }
            
         
-        id = (String)request.getParameter(idParameterName);
+        id = request.getParameter(idParameterName);
+        type = request.getParameter(typeParameterName);
         
         try
         {
+       
             CategoryDataset dataset = createDataset();
             JFreeChart chart = createChart(dataset);
-            BufferedImage img = chart.createBufferedImage(600, 300);
+            BufferedImage img = chart.createBufferedImage(500, 250);
             byte[] image = new KeypointPNGEncoderAdapter().encode(img);
             
             response.setContentType(CONTENT_TYPE);
@@ -121,6 +128,7 @@ public class StatisticChartServlet extends HttpServlet
             out.write(image);
             out.flush();
             out.close();
+            
            
         }
         catch (FileNotFoundException e)
@@ -159,20 +167,33 @@ public class StatisticChartServlet extends HttpServlet
         }
         catch (NamingException e1)
         {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         
-        List<StatisticReportRecordVO> reportListAllUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id, null);
-        List<StatisticReportRecordVO> reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id, null);
+        //retrieve the statistic reports
+        List<StatisticReportRecordVO> reportListAllUsers = new ArrayList<StatisticReportRecordVO>();
+        List<StatisticReportRecordVO> reportListAnonymousUsers = new ArrayList<StatisticReportRecordVO>();
         
+        if (type.equals("item"))
+        {
+            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, id, null);
+            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, id, null);
+        }
+        else if (type.equals("file"))
+        {
+            reportListAllUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, id, null);
+            reportListAnonymousUsers = pubItemStatistic.getStatisticReportRecord(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, id, null);
+        }
+        
+        
+        //sort the report records by date, newest first
         List<StatisticReportRecordVOPresentation> sortingListAllUsers = new ArrayList<StatisticReportRecordVOPresentation>();
         for (StatisticReportRecordVO reportRec : reportListAllUsers)
         {
             sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
         
         }
-        Collections.sort(sortingListAllUsers);
+        Collections.sort(sortingListAllUsers, Collections.reverseOrder());
         
         List<StatisticReportRecordVOPresentation> sortingListAnonymousUsers = new ArrayList<StatisticReportRecordVOPresentation>();
         for (StatisticReportRecordVO reportRec : reportListAnonymousUsers)
@@ -180,15 +201,14 @@ public class StatisticChartServlet extends HttpServlet
             sortingListAnonymousUsers.add(new StatisticReportRecordVOPresentation(reportRec));
         
         }
-        Collections.sort(sortingListAnonymousUsers);
+        Collections.sort(sortingListAnonymousUsers, Collections.reverseOrder());
         
-        
+        //Create the dataset with 2 series for anonmyous and logged-in users.
         String loggedInUsersSeries = "Logged-in Users";
         String anonymousUsersSeries = "Anonymous Users";
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, -(numberOfMonths-1));
-       
-        
+        //cal.add(Calendar.MONTH, -(numberOfMonths-1));
+
         Iterator<StatisticReportRecordVOPresentation> iter = sortingListAllUsers.iterator();
         StatisticReportRecordVOPresentation currentAllUsersRecord = null;
         if (iter.hasNext()) currentAllUsersRecord = iter.next();
@@ -197,6 +217,9 @@ public class StatisticChartServlet extends HttpServlet
         StatisticReportRecordVOPresentation currentAnonymousUsersRecord = null;
         if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
         
+        
+        List<Integer> anonymousRequestsList = new ArrayList<Integer>();
+        List<Integer> loggedInRequestsList = new ArrayList<Integer>();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i=0; i<numberOfMonths ; i++)
         {
@@ -212,7 +235,6 @@ public class StatisticChartServlet extends HttpServlet
             else
             {
                 allUserRequests = 0;
-                
             }
             
             if (currentAnonymousUsersRecord!=null && currentAnonymousUsersRecord.getMonth()==cal.get(Calendar.MONTH)+1 && currentAnonymousUsersRecord.getYear()==cal.get(Calendar.YEAR))
@@ -224,25 +246,38 @@ public class StatisticChartServlet extends HttpServlet
             {
                 anonymousUserrequests = 0;
             }
-            
-           dataset.addValue(allUserRequests - anonymousUserrequests, loggedInUsersSeries, xLabel );
+           
+           
+           dataset.addValue(allUserRequests-anonymousUserrequests, loggedInUsersSeries, xLabel );
            dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
-           cal.add(Calendar.MONTH, 1);   
+           
+           cal.add(Calendar.MONTH, -1);   
         }
 
       
+        /*
+        //fill dataset in reverse order
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for(int i=0; i<loggedInRequestsList.size();i++)
+        {
+            
+          dataset.addValue(loggedInRequestsList.get(i), loggedInUsersSeries, xLabel );
+          dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
+        }
+        dataset.getV
+        */
         return dataset;
 
     }
 
     /**
-     * Creates a sample chart.
+     * Creates the statistic chart.
      *
      * @param dataset  the dataset.
      *
      * @return The chart.
      */
-    private static JFreeChart createChart(CategoryDataset dataset) {
+    private JFreeChart createChart(CategoryDataset dataset) {
 
         
         // create the chart...
@@ -268,13 +303,16 @@ public class StatisticChartServlet extends HttpServlet
         plot.setDomainGridlinePaint(Color.white);
         plot.setDomainGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.white);
-
+        
+        //plot from oldest to newest date
+      
+        
         // set the range axis to display integers only...
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
+        rangeAxis.setLowerBound(0);
         // disable bar outlines...
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
 
         // set up gradient paints for series...
@@ -286,14 +324,25 @@ public class StatisticChartServlet extends HttpServlet
                 0.0f, 0.0f, new Color(64, 0, 0));
         renderer.setSeriesPaint(0, gp1);
         
-        
+        //Labels in bars
+        /*
+        renderer.setSeriesItemLabelsVisible(0, true);
+        renderer.setSeriesItemLabelGenerator(0, new StandardCategoryItemLabelGenerator());
+        renderer.setSeriesItemLabelPaint(0, Color.white);
+        renderer.setSeriesItemLabelsVisible(1, true);
+        renderer.setSeriesItemLabelGenerator(1, new StandardCategoryItemLabelGenerator());
+        renderer.setSeriesItemLabelPaint(1, Color.white);
+          */
+
+        //setCategorySummary(dataset);
+
 
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(
                         Math.PI / 6.0));
-        // OPTIONAL CUSTOMISATION COMPLETED.
 
+        // OPTIONAL CUSTOMISATION COMPLETED.
         return chart;
         
         
