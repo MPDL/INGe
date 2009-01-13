@@ -54,7 +54,7 @@
 		<dc:creator>vmakarenko</dc:creator>
 	</export-format>
 	<export-format type="layout" context="PubMan">
-		<dc:title>APA Citation Style Rewised</dc:title>
+		<dc:title>APA Citation Style Revised</dc:title>
 		<dc:identifier>APA_revised</dc:identifier>
 		<output-format>
 			<dc:title>pdf</dc:title>
