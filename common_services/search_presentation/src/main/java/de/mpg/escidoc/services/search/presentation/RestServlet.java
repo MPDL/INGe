@@ -125,7 +125,7 @@ public class RestServlet extends HttpServlet
                 }
 
                 exportFormat = req.getParameter("exportFormat");
-                exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim().toUpperCase();
+                exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim();
                 
                 
                 

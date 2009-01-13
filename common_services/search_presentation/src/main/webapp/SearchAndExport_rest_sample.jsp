@@ -60,7 +60,7 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" ||  efv == "AJP" ); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "APA_rewised" || efv == "AJP" ); 
 			}				
 		</script>
 	</head>
@@ -112,6 +112,7 @@
 				<label class="colLbl">Choose an Export format:</label><br/>
 				<select size="1" name="exportFormat" onchange="checkOutputFormat()" style="width:120px">
 					<option value="APA">APA</option>
+					<option value="APA_rewised">APA_rewised</option>
 					<option value="AJP">AJP</option>
 					<option value="ENDNOTE">EndNote</option>
 					<option value="BIBTEX">BibTeX</option>
