@@ -112,7 +112,7 @@
 				<label class="colLbl">Choose an Export format:</label><br/>
 				<select size="1" name="exportFormat" onchange="checkOutputFormat()" style="width:120px">
 					<option value="APA">APA</option>
-					<option value="APA_rewised">APA_rewised</option>
+					<option value="APA_revised">APA_rewised</option>
 					<option value="AJP">AJP</option>
 					<option value="ENDNOTE">EndNote</option>
 					<option value="BIBTEX">BibTeX</option>
