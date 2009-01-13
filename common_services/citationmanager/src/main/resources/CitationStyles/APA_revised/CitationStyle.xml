@@ -17,7 +17,7 @@
 		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
 		Use is subject to license terms.
 	-->
-<citation-style name="APA_rewised" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" md-xpath="//item/md-records/md-record">
+<citation-style name="APA_revised" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" md-xpath="//item/md-records/md-record">
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<!-- variables which use xpath directly in DataSource NS-->
@@ -27,22 +27,22 @@
 		
 		<variable name="ed-postfix" expression="Integer.parseInt(${editorsCount}) == 1 ? &quot; (Ed.)&quot; : &quot; (Eds.)&quot;" />
 		
-		<variable name="genre" xpath="publication@type" />
+		<variable name="genre" xpath="publication/@type" />
 		
 		<!-- Date block -->
 		<variable name="date" expression="( (${publication@type}.equals(&quot;manuscript&quot;) &amp;&amp; ${publication/created}) != null ? &quot; (&quot;. $P{REPORT_SCRIPTLET}.get_year(${publication/created}) .&quot;). &quot; : ${publication/issued} != null? &quot; (&quot;. $P{REPORT_SCRIPTLET}.get_year(${publication/issued}) .&quot;). &quot; : ${publication/published-online} != null || ${publication/dateAccepted} != null) ? &quot; (in press).&quot; : ${publication/modified} != null ? &quot; (in preparation).&quot; : &quot; (n.d.).&quot;" />
 		
 		
 		<variable name="hasPublication" xpath="not(publication)=false()" />
-		<variable name="isBookArticleOrChapter" xpath="not(publication[@type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report'])=false()" />
-		<variable name="isBookProceedingsThesis" xpath="not(publication[@type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
-		<variable name="isJournalOrMagazineArticle" xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
+		
+<!--		<variable name="isBookArticleOrChapter" xpath="not(publication[@type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report'])=false()" />-->
+<!--		<variable name="isBookProceedingsThesis" xpath="not(publication[@type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
+<!--		<variable name="isJournalOrMagazineArticle" xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
 
 		<!-- variables which use java-like expressions with references to other variables defined above -->
 		
 		<variable name="date" expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
 		
-		<variable name="inPressOrPreparation" expression="(${publication/published-online} != null || ${publication/dateAccepted} != null) ? &quot; (in press).&quot; : (${publication/published-online} == null &amp;&amp; ( ${publication/modified} != null || ${publication/modified} != null)) ? &quot; (in preparation).&quot; : null" />
 	</variables>
 
 	<!-- predefined layout elements which can be referenced in CSLDs -->
@@ -143,7 +143,7 @@
 				<ends-with value=". "/>
 			</parameters>
 			<elements>
-				<layout-element name="year"/>
+				<layout-element ref="year"/>
 			</elements>
 		</layout-element>
 		
@@ -153,7 +153,7 @@
 				<ends-with value=". "/>
 			</parameters>
 			<elements>
-				<layout-element name="year"/>
+				<layout-element ref="year"/>
 			</elements>
 		</layout-element>
 		
@@ -163,7 +163,7 @@
 				<ends-with value=". "/>
 			</parameters>
 			<elements>
-				<layout-element name="year"/>
+				<layout-element ref="year"/>
 			</elements>
 		</layout-element>
 		
@@ -173,7 +173,7 @@
 				<ends-with value=". "/>
 			</parameters>
 			<elements>
-				<layout-element name="year"/>
+				<layout-element ref="year"/>
 			</elements>
 		</layout-element>
 		
@@ -196,7 +196,6 @@
 		
 		<layout-element name="start-page-end-page">
 			<parameters>
-				<starts-with value=", " />
 				<delimiter value="-" />
 			</parameters>
 			<elements>
@@ -264,21 +263,26 @@
 
 
 
-<!--	<layout-element name="debugBlock">-->
-<!--		<parameters>-->
-<!--			<starts-with value="debug:"/>-->
-<!--			<ends-with value=", citation: " />-->
-<!--			<delimiter value=","/>-->
-<!--		</parameters>-->
-<!--		<elements>-->
-<!--			<layout-element ref="publication/@type" />-->
-<!--			<layout-element ref="publication/title" />-->
-<!--			<layout-element ref="publication/issued" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="issued:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
+	<layout-element name="debugBlock">
+		<parameters>
+			<starts-with value="debug:"/>
+			<ends-with value=", citation: " />
+			<delimiter value=","/>
+		</parameters>
+		<elements>
+			<layout-element ref="publication/@type" >
+				<parameters>
+					<font-style ref="BOLD"/>
+				</parameters>
+				<elements/>
+			</layout-element>
+			<layout-element ref="publication/title" />
+			<layout-element ref="publication/issued" >
+				<parameters>
+					<starts-with value="issued:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
 <!--			<layout-element ref="isBookArticleOrChapter" /> -->
 <!--			<layout-element ref="isBookProceedingsThesis" /> -->
 <!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
@@ -314,8 +318,8 @@
 <!--				</parameters>-->
 <!--				<elements/>-->
 <!--			</layout-element> -->
-<!--		</elements>-->
-<!--	</layout-element>		-->
+		</elements>
+	</layout-element>		
 	
 	</layout-elements>
 
@@ -725,11 +729,11 @@
 		<elements>
 			<layout-element ref="debugBlock" />
 			
-			<layout-element name="authors"/>
+			<layout-element ref="authors"/>
 
 			<layout-element ref="year-authors-are-presented"/>
 			
-			<layout-element name="title-with-dot"/>
+			<layout-element ref="title-with-dot"/>
 			
 			<layout-element ref="year-authors-are-not-presented"/>
 
@@ -767,7 +771,7 @@
 		<elements>
 			<layout-element ref="debugBlock" />
 			
-			<layout-element name="authors"/>
+			<layout-element ref="authors"/>
 
 			<layout-element ref="year-authors-are-presented"/>
 			

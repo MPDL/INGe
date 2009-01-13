@@ -54,6 +54,31 @@
 		<dc:creator>vmakarenko</dc:creator>
 	</export-format>
 	<export-format type="layout" context="PubMan">
+		<dc:title>APA Citation Style Rewised</dc:title>
+		<dc:identifier>APA_revised</dc:identifier>
+		<output-format>
+			<dc:title>pdf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>rtf</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>html</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>odt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+		</output-format>
+		<output-format>
+			<dc:title>snippet</dc:title>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+		</output-format>
+		<dc:creator>vmakarenko</dc:creator>
+	</export-format>
+	<export-format type="layout" context="PubMan">
 		<dc:title>AJP Citation Style</dc:title>
 		<dc:identifier>AJP</dc:identifier>
 		<output-format>
