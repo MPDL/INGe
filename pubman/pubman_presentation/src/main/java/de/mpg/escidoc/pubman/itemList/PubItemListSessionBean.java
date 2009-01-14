@@ -676,7 +676,13 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     @Override
     protected void pageTypeChanged()
     {
-       subMenu = "VIEW";
+       if (getPageType().equals("MyItems") || getPageType().equals("MyTasks")){
+           subMenu = "FILTER";
+       }
+       else {
+           subMenu = "VIEW";
+       }
+        
        getSelectedItemRefs().clear();
         
     }

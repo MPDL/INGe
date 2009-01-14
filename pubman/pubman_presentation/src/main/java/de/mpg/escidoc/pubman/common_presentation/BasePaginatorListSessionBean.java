@@ -759,14 +759,17 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      */
     public void setPageType(String pageType)
     {
-        if (!pageType.equals(this.pageType))
+        String oldPageType = this.pageType;
+        this.pageType = pageType;
+        
+        if (!pageType.equals(oldPageType))
         {
             pageTypeChanged();
             setGoToPage("");
             getParameterMap().clear();
             oldRedirectParameterMap.clear();
         }
-        this.pageType = pageType;
+        
     }
 
     /**
