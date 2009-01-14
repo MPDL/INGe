@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" id="editSource" rendered="#{genre.sources_display != 'false' && genre.sources_source_basic_form_id != 'easy-submission' || genre.sources_display != 'true' && genre.sources_source_basic_form_id != 'full-submission' && genre.sources_source_basic_form_id != 'all'}"/>
 <div id="editSource"></div>
-<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
+<h:dataTable styleClass="free_area0" var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
     <h:column>
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -83,7 +83,7 @@
 			</h:panelGroup>
 
 	<%-- Source alternative title --%>
-			<h:dataTable var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}">
+			<h:dataTable styleClass="free_area0" var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}">
 				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -101,7 +101,7 @@
 			</h:dataTable>
 
 <%-- Source creator --%>
-			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" >
+			<h:dataTable styleClass="free_area0" var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" >
             <h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_repeatable != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -172,7 +172,7 @@
 				</h:panelGroup>
 
 	<%-- Source creator person affiliation --%>
-				<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
+				<h:dataTable styleClass="free_area0" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
 					<h:column>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
@@ -283,7 +283,7 @@
 			</div>
 
 	<%-- Source details identifier --%>
-			<h:dataTable  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{genre.sources_source_identifiers_display != 'false' && genre.sources_source_identifiers_form_id != 'easy-submission'}">
+			<h:dataTable styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{genre.sources_source_identifiers_display != 'false' && genre.sources_source_identifiers_form_id != 'easy-submission'}">
 				<h:column>
 				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">

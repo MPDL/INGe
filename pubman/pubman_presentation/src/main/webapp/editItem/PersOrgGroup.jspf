@@ -37,7 +37,7 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-		<h:dataTable  var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}">
+		<h:dataTable styleClass="free_area0" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}">
         <h:column>
 <%-- Author copy&paste --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EditItem.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
@@ -117,7 +117,7 @@
 			</h:panelGroup>
 
 <%-- Creator person affiliation --%>
-			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+			<h:dataTable styleClass="free_area0" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
