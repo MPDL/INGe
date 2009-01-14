@@ -102,14 +102,14 @@
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:panelGroup styleClass="double_area0">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}" />
-							<h:outputText value="#{lbl.EditItem_lblPersonFamilyName}" />
+							<h:outputText value="#{lbl.EditItem_lblPersonFamilyName}"  converter="GenreLabelConverter"/>
 						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}"/>
 					</span>
 					<span class="double_area0">
 						<h:panelGroup styleClass="double_area0">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
-							<h:outputText value="#{lbl.EditItem_lblPersonGivenName}" />
+							<h:outputText value="#{lbl.EditItem_lblPersonGivenName}"  converter="GenreLabelConverter"/>
 						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}"/>
 					</span>

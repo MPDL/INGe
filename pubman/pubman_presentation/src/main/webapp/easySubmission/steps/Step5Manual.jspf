@@ -269,19 +269,28 @@
 		<!-- Event place, Event start date, Event end date -->
 				<div class="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true' || genre.events_event_start_date_optional != 'true' || genre.events_event_end_date_optional != 'true' || genre.events_event_invitation_status_optional != 'true'}" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="medium_area0 xTiny_marginRIncl">
-							<h:outputLabel styleClass="medium_label" id="lblEventPlace" for="txtEventPlace" value="#{genre.events_event_place_label}" converter="GenreLabelConverter"/>
+							<h:panelGroup styleClass="medium_area0">
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
+								<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
+							</h:panelGroup>
 							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
 						</span>
 						<span class="medium_area0 xTiny_marginRIncl">
-							<h:outputLabel styleClass="medium_label" id="lblEventStartDate" for="txtEventStartDate" value="#{genre.events_event_start_date_label}" converter="GenreLabelConverter"/>	
+							<h:panelGroup styleClass="medium_area0">
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_start_date_optional != 'true'}" />
+								<h:outputText value="#{genre.events_event_start_date_label}"  converter="GenreLabelConverter"/>
+							</h:panelGroup>
 							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
 						</span>
 						<span class="medium_area0 xTiny_marginRIncl">
-							<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{genre.events_event_end_date_label}" converter="GenreLabelConverter"/>	
+							<h:panelGroup styleClass="medium_area0">
+								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_end_date_optional != 'true'}" />
+								<h:outputText value="#{genre.events_event_end_date_label}"  converter="GenreLabelConverter"/>
+							</h:panelGroup>
 							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
 						</span>
 						<span class="medium_area0 toLabelBottom">
