@@ -101,13 +101,16 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
 						<h:panelGroup styleClass="double_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true' || creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}" />
 							<h:outputText value="#{lbl.EditItem_lblPersonFamilyName}" />
 						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}"/>
 					</span>
 					<span class="double_area0">
-						<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonGivenName}"/>
+						<h:panelGroup styleClass="double_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
+							<h:outputText value="#{lbl.EditItem_lblPersonGivenName}" />
+						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}"/>
 					</span>
 				</span>
