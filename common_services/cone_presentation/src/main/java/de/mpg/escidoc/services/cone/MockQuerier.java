@@ -15,6 +15,7 @@
 package de.mpg.escidoc.services.cone;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 
 /**
@@ -33,12 +35,12 @@ import de.mpg.escidoc.services.cone.util.Pair;
  */
 public class MockQuerier implements Querier
 {
-    private static final String DIES_IST_DIE_BESCHREIBUNG = "Dies ist die Beschreibung. ";
-    private static final String DIES_IST_DER_TITEL = "Dies ist der Titel";
+    private static final LocalizedString DIES_IST_DIE_BESCHREIBUNG = new LocalizedString("Dies ist die Beschreibung. ");
+    private static final LocalizedString DIES_IST_DER_TITEL = new LocalizedString("Dies ist der Titel");
     private static final String DC_DESCRIPTION = "http://purl.org/dc/elements/1.1/description";
     private static final String DC_TITLE = "http://purl.org/dc/elements/1.1/title";
-    private static final String THIS_IS_THE_DESCRIPTION = "This is the description. ";
-    private static final String THIS_IS_THE_TITLE = "This is the title";
+    private static final LocalizedString THIS_IS_THE_DESCRIPTION = new LocalizedString("This is the description. ");
+    private static final LocalizedString THIS_IS_THE_TITLE = new LocalizedString("This is the title");
 
     /**
      * {@inheritDoc}
@@ -243,15 +245,17 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String query) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String query) throws Exception
     {
-        Map<String, List<String>> resultSet = new HashMap<String, List<String>>();
-        List<String> triple1 = new ArrayList<String>();
+        Map<String, List<LocalizedString>> resultSet = new HashMap<String, List<LocalizedString>>();
+        List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
         triple1.add(THIS_IS_THE_TITLE);
         resultSet.put(DC_TITLE, triple1);
-        List<String> triple2 = new ArrayList<String>();
-        triple2.add(THIS_IS_THE_DESCRIPTION + THIS_IS_THE_DESCRIPTION + THIS_IS_THE_DESCRIPTION
-                + THIS_IS_THE_DESCRIPTION);
+        List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
+        triple2.add(THIS_IS_THE_DESCRIPTION
+                .concat(THIS_IS_THE_DESCRIPTION)
+                .concat(THIS_IS_THE_DESCRIPTION)
+                .concat(THIS_IS_THE_DESCRIPTION));
         resultSet.put(DC_DESCRIPTION, triple1);
         return resultSet;
     }
@@ -259,31 +263,59 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String id, String lang) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String id, String lang) throws Exception
     {
-        Map<String, List<String>> resultSet = new HashMap<String, List<String>>();
+        Map<String, List<LocalizedString>> resultSet = new HashMap<String, List<LocalizedString>>();
         if ("de".equals(lang))
         {
-            List<String> triple1 = new ArrayList<String>();
+            List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
             triple1.add(DIES_IST_DER_TITEL);
             resultSet.put(DC_TITLE, triple1);
-            List<String> triple2 = new ArrayList<String>();
-            triple2.add(DIES_IST_DIE_BESCHREIBUNG + DIES_IST_DIE_BESCHREIBUNG + DIES_IST_DIE_BESCHREIBUNG
-                    + DIES_IST_DIE_BESCHREIBUNG);
+            List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
+            triple2.add(DIES_IST_DIE_BESCHREIBUNG
+                    .concat(DIES_IST_DIE_BESCHREIBUNG)
+                    .concat(DIES_IST_DIE_BESCHREIBUNG)
+                    .concat(DIES_IST_DIE_BESCHREIBUNG));
             resultSet.put(DC_DESCRIPTION, triple1);
         }
         else
         {
-            List<String> triple1 = new ArrayList<String>();
+            List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
             triple1.add(THIS_IS_THE_TITLE);
             resultSet.put(DC_TITLE, triple1);
-            List<String> triple2 = new ArrayList<String>();
+            List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
             triple2
-                    .add(THIS_IS_THE_DESCRIPTION + THIS_IS_THE_DESCRIPTION + THIS_IS_THE_DESCRIPTION
-                            + THIS_IS_THE_DESCRIPTION);
+                    .add(THIS_IS_THE_DESCRIPTION
+                            .concat(THIS_IS_THE_DESCRIPTION)
+                            .concat(THIS_IS_THE_DESCRIPTION)
+                            .concat(THIS_IS_THE_DESCRIPTION));
             resultSet.put(DC_DESCRIPTION, triple1);
         }
         return resultSet;
+    }
+
+    /**
+     * Empty implementation.
+     */
+    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    {
+        // Do nothing here
+    }
+
+    /**
+     * Empty implementation.
+     */
+    public void delete(String model, String id) throws Exception
+    {
+     // Do nothing here
+    }
+
+    /**
+     * Empty implementation.
+     */
+    public String createUniqueIdentifier(String model) throws Exception
+    {
+        return "mock" + new Date().getTime();
     }
 
 }

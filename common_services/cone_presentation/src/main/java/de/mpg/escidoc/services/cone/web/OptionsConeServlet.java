@@ -49,6 +49,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 
 /**
@@ -130,7 +131,7 @@ public class OptionsConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(Map<String, List<String>> triples) throws IOException
+    protected String formatDetails(Map<String, List<LocalizedString>> triples) throws IOException
     {
         
         StringWriter result = new StringWriter();
@@ -139,23 +140,23 @@ public class OptionsConeServlet extends ConeServlet
         for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
         {
             String predicate = (String) iterator.next();
-            List<String> objects = triples.get(predicate);
+            List<LocalizedString> objects = triples.get(predicate);
             
             result.append("\"");
             result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
             result.append("\" : \"");
             if (objects.size() == 1)
             {
-                result.append(objects.get(0).replace("'", "\\'"));
+                result.append(objects.get(0).toString().replace("'", "\\'"));
             }
             else
             {
                 result.append("{\n");
-                for (Iterator<String> iterator2 = objects.iterator(); iterator2.hasNext();)
+                for (Iterator<LocalizedString> iterator2 = objects.iterator(); iterator2.hasNext();)
                 {
-                    String object = (String) iterator2.next();
+                    LocalizedString object = (LocalizedString) iterator2.next();
                     result.append("\"");
-                    result.append(object.replace("'", "\\'"));
+                    result.append(object.toString().replace("'", "\\'"));
                     result.append("\"");
                     if (iterator2.hasNext())
                     {

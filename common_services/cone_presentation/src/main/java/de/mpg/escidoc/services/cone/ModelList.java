@@ -115,16 +115,25 @@ public class ModelList
         {
             if ("models/model/name".equals(stack.toString()))
             {
-                currentService.setName(content);
+                currentService.setName(content.trim());
             }
             else if ("models/model/description".equals(stack.toString()))
             {
-                currentService.setDescription(content);
+                currentService.setDescription(content.trim());
             }
             else if ("models/model/aliases/alias".equals(stack.toString()))
             {
-                currentService.getAliases().add(content);
+                currentService.getAliases().add(content.trim());
             }
+            else if ("models/model/primary-identifier".equals(stack.toString()))
+            {
+                currentService.setIdentifier(content.trim());
+            }
+            else if ("models/model/result/pattern".equals(stack.toString()))
+            {
+                currentService.getResultPattern().add(content.trim());
+            }
+            
         }
 
         @Override
@@ -135,6 +144,15 @@ public class ModelList
             {
                 currentService = new Model();
             }
+            else if ("models/model/predicates/predicate".equals(stack.toString()))
+            {
+                currentService.getPredicates().add(new Predicate(attributes.getValue("value"), Boolean.parseBoolean(attributes.getValue("multiple")), Boolean.parseBoolean(attributes.getValue("mandatory")), Boolean.parseBoolean(attributes.getValue("localized")), attributes.getValue("name")));
+            }
+            else if ("models/model/primary-identifier".equals(stack.toString()))
+            {
+                currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate")));
+                currentService.setIdentifierPrefix(attributes.getValue("prefix"));
+            }
         }
 
         @Override
@@ -142,6 +160,28 @@ public class ModelList
         {
             if ("models/model".equals(stack.toString()))
             {
+                boolean localized = false;
+                boolean global = false;
+                for (String pattern : currentService.getResultPattern())
+                {
+                    for (Predicate predicate : currentService.getPredicates())
+                    {
+                        if (predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                        {
+                            localized = true;
+                        }
+                        else if (!predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                        {
+                            global = true;
+                        }
+                    }
+                    if (localized && global)
+                    {
+                        break;
+                    }
+                }
+                currentService.setLocalizedResultPattern(localized);
+                currentService.setGlobalResultPattern(global);
                 list.add(currentService);
             }
             super.endElement(uri, localName, name);
@@ -151,6 +191,7 @@ public class ModelList
         {
             return list;
         }
+   
     }
 
     /**
@@ -243,6 +284,13 @@ public class ModelList
         private String name;
         private String description;
         private List<String> aliases = new ArrayList<String>();
+        private List<Predicate> predicates = new ArrayList<Predicate>();
+        private String identifier;
+        private String identifierPrefix;
+        private boolean generateIdentifier;
+        private List<String> resultPattern = new ArrayList<String>();
+        private boolean localizedResultPattern;
+        private boolean globalResultPattern;
 
         /**
          * Default constructor.
@@ -287,6 +335,22 @@ public class ModelList
             this.aliases = aliases;
         }
 
+        /**
+         * Constructor by name, description and aliases.
+         * 
+         * @param name The service name
+         * @param description The description
+         * @param aliases The {@link List} of aliases
+         * @param predicates The {@link List} of allowed predicates
+         */
+        public Model(String name, String description, List<String> aliases, List<Predicate> predicates)
+        {
+            this.name = name;
+            this.description = description;
+            this.aliases = aliases;
+            this.predicates = predicates;
+        }
+
         public String getName()
         {
             return name;
@@ -315,6 +379,76 @@ public class ModelList
         public void setAliases(List<String> aliases)
         {
             this.aliases = aliases;
+        }
+
+        public List<Predicate> getPredicates()
+        {
+            return predicates;
+        }
+
+        public void setPredicates(List<Predicate> predicates)
+        {
+            this.predicates = predicates;
+        }
+
+        public String getIdentifier()
+        {
+            return identifier;
+        }
+
+        public void setIdentifier(String identifier)
+        {
+            this.identifier = identifier;
+        }
+
+        public boolean isGenerateIdentifier()
+        {
+            return generateIdentifier;
+        }
+
+        public void setGenerateIdentifier(boolean generateIdentifier)
+        {
+            this.generateIdentifier = generateIdentifier;
+        }
+
+        public String getIdentifierPrefix()
+        {
+            return identifierPrefix;
+        }
+
+        public void setIdentifierPrefix(String identifierPrefix)
+        {
+            this.identifierPrefix = identifierPrefix;
+        }
+
+        public List<String> getResultPattern()
+        {
+            return resultPattern;
+        }
+
+        public void setResultPattern(List<String> resultPattern)
+        {
+            this.resultPattern = resultPattern;
+        }
+
+        public boolean isLocalizedResultPattern()
+        {
+            return localizedResultPattern;
+        }
+
+        public void setLocalizedResultPattern(boolean localizedResultPattern)
+        {
+            this.localizedResultPattern = localizedResultPattern;
+        }
+
+        public boolean isGlobalResultPattern()
+        {
+            return globalResultPattern;
+        }
+
+        public void setGlobalResultPattern(boolean globalResultPattern)
+        {
+            this.globalResultPattern = globalResultPattern;
         }
 
         /**
@@ -357,5 +491,77 @@ public class ModelList
         {
             return (this.name == null ? 0 : this.name.hashCode());
         }
+    }
+    
+    /**
+     * Inner VO class to define the data structure inside a model.
+     *
+     * @author franke (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class Predicate
+    {
+        private String name;
+        private String id;
+        private boolean multiple;
+        private boolean mandatory;
+        private boolean localized;
+
+        public Predicate(String id, boolean multiple, boolean mandatory, boolean localized, String name)
+        {
+            this.id = id;
+            this.multiple = multiple;
+            this.mandatory = mandatory;
+            this.localized = localized;
+            this.name = name;
+        }
+        
+        public String getName()
+        {
+            return name;
+        }
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+        public String getId()
+        {
+            return id;
+        }
+        public void setId(String id)
+        {
+            this.id = id;
+        }
+        public boolean isMultiple()
+        {
+            return multiple;
+        }
+        public void setMultiple(boolean multiple)
+        {
+            this.multiple = multiple;
+        }
+
+        public boolean isMandatory()
+        {
+            return mandatory;
+        }
+
+        public void setMandatory(boolean mandatory)
+        {
+            this.mandatory = mandatory;
+        }
+
+        public boolean isLocalized()
+        {
+            return localized;
+        }
+
+        public void setLocalized(boolean localized)
+        {
+            this.localized = localized;
+        }
+
     }
 }

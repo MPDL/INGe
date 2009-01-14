@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -129,7 +130,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String id) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String id) throws Exception
     {
         return details(model, id, null);
     }
@@ -137,7 +138,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String id, String language) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String id, String language) throws Exception
     {
         id = formatIdString(id);
         String query = "select $p $o from <rmi://" + mulgaraServer 
@@ -146,7 +147,7 @@ public class MulgaraQuerier implements Querier
         logger.debug("query: " + query);
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         Answer answer = interpreter.executeQuery(query);
-        Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
+        Map<String, List<LocalizedString>> resultMap = new HashMap<String, List<LocalizedString>>();
         while (answer.next())
         {
             String predicate = answer.getObject(0).toString();
@@ -165,12 +166,12 @@ public class MulgaraQuerier implements Querier
             {
                 if (resultMap.containsKey(predicate))
                 {
-                    resultMap.get(predicate).add(object);
+                    resultMap.get(predicate).add(new LocalizedString(object, lang));
                 }
                 else
                 {
-                    ArrayList<String> newEntry = new ArrayList<String>();
-                    newEntry.add(object);
+                    ArrayList<LocalizedString> newEntry = new ArrayList<LocalizedString>();
+                    newEntry.add(new LocalizedString(object, lang));
                     resultMap.put(predicate, newEntry);
                 }
             }
@@ -192,6 +193,22 @@ public class MulgaraQuerier implements Querier
     {
         String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
         return query(model, query, null, Integer.parseInt(limitString));
+    }
+
+    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    {
+        // TODO MF: Implement
+    }
+
+    public void delete(String model, String id) throws Exception
+    {
+        // TODO MF: Implement
+    }
+
+    public String createUniqueIdentifier(String model) throws Exception
+    {
+        // TODO MF: Implement
+        return null;
     }
 
 }

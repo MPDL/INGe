@@ -79,5 +79,22 @@ public class Pair
         this.value = value;
     }
     
-    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(Object other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        else if (!(other instanceof Pair))
+        {
+            return false;
+        }
+        Pair otherPair = (Pair) other;
+        
+        return (key == null ? otherPair.key == null : key.equals(otherPair.key))
+                && (value == null ? otherPair.value == null : value.equals(otherPair.value));
+    }
 }

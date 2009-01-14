@@ -48,6 +48,7 @@ import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 
 /**
@@ -229,7 +230,7 @@ public abstract class ConeServlet extends HttpServlet
                 }
                 else
                 {
-                    Map<String, List<String>> result = null;
+                    Map<String, List<LocalizedString>> result = null;
                     
                     try
                     {
@@ -338,6 +339,6 @@ public abstract class ConeServlet extends HttpServlet
 
     protected abstract String formatQuery(List<Pair> pairs) throws IOException;
 
-    protected abstract String formatDetails(Map<String, List<String>> triples) throws IOException;
+    protected abstract String formatDetails(Map<String, List<LocalizedString>> triples) throws IOException;
     
 }

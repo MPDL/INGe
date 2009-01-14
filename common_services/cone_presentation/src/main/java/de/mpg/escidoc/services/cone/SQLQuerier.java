@@ -15,6 +15,7 @@
 package de.mpg.escidoc.services.cone;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.PatternHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -114,9 +117,10 @@ public class SQLQuerier implements Querier
             String id = result.getString("id");
             String value = result.getString("value");
             String lang = result.getString("lang");
-            if (lang == null || language == null || lang.equals(language))
+            Pair pair = new Pair(id, value);
+            if ((lang == null || language == null || lang.equals(language)) && !resultSet.contains(pair))
             {
-                resultSet.add(new Pair(id, value));
+                resultSet.add(pair);
             }
         }
         connection.close();
@@ -140,7 +144,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String id) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String id) throws Exception
     {
         return details(model, id, null);
     }
@@ -148,15 +152,16 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<String>> details(String model, String id, String language) throws Exception
+    public Map<String, List<LocalizedString>> details(String model, String id, String language) throws Exception
     {
         id = escape(id);
-        String query = "select distinct object, predicate from triples where " + "subject = '" + id + "'";
+        String query = "select distinct object, predicate, lang from triples where model = '"
+            + model + "' and " + "subject = '" + id + "'";
         if (language == null)
         {
             language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
         }
-        if (language != null)
+        if (language != null && !"*".equals(language))
         {
             query += "and (lang is null or lang = '" + language + "')";
         }
@@ -164,19 +169,21 @@ public class SQLQuerier implements Querier
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
-        Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
+        Map<String, List<LocalizedString>> resultMap = new HashMap<String, List<LocalizedString>>();
         while (result.next())
         {
             String predicate = result.getString("predicate");
             String object = result.getString("object");
+            String lang = result.getString("lang");
+            
             if (resultMap.containsKey(predicate))
             {
-                resultMap.get(predicate).add(object);
+                resultMap.get(predicate).add(new LocalizedString(object, lang));
             }
             else
             {
-                ArrayList<String> newEntry = new ArrayList<String>();
-                newEntry.add(object);
+                ArrayList<LocalizedString> newEntry = new ArrayList<LocalizedString>();
+                newEntry.add(new LocalizedString(object, lang));
                 resultMap.put(predicate, newEntry);
             }
         }
@@ -195,4 +202,113 @@ public class SQLQuerier implements Querier
     {
         return str.replace("'", "''");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    {
+        
+        String query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
+        
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        
+        for (String predicate : values.keySet())
+        {
+            statement.setString(1, id);
+            statement.setString(2, predicate);
+            statement.setString(5, model);
+            
+            for (LocalizedString object : values.get(predicate))
+            {
+                statement.setString(3, object.getValue());
+                statement.setString(4, object.getLanguage());
+                statement.executeUpdate();
+            }
+        }
+        
+        query = "insert into results (id, value, lang) values (?, ?, ?)";
+        statement = connection.prepareStatement(query);
+        
+        statement.setString(1, id);
+        
+        List<Pair> results = PatternHelper.buildObjectFromPattern(model, id, values);
+        
+        for (Pair pair : results)
+        {
+            if (pair.getValue() != null && !"".equals(pair.getValue()))
+            {
+                statement.setString(2, pair.getValue());
+                if (pair.getKey() != null && "".equals(pair.getKey()))
+                {
+                    statement.setString(3, null);
+                }
+                else
+                {
+                    statement.setString(3, pair.getKey());
+                }
+                statement.executeUpdate();
+            }
+        }
+
+        connection.close();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void delete(String model, String id) throws Exception
+    {
+        
+        String query = "delete from triples where subject = ? and model = ?";
+        
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        
+        statement.setString(1, id);
+        statement.setString(2, model);
+        
+        statement.executeUpdate();
+        
+        query = "delete from results where id = ?";
+                
+        statement = connection.prepareStatement(query);
+        statement.setString(1, id);
+
+        statement.executeUpdate();
+        
+        connection.close();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public synchronized String createUniqueIdentifier(String model) throws Exception
+    {
+        String query = "select value from properties where name = 'max_id'";
+        Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        
+        ResultSet resultSet = statement.executeQuery(query);
+        
+        if (resultSet.next())
+        {
+            String maxIdAsString = resultSet.getString("value");
+            int maxId = Integer.parseInt(maxIdAsString) + 1;
+            
+            query = "update properties set value = '" + maxId + "' where name = 'max_id'";
+            statement.executeUpdate(query);
+            
+            connection.close();
+            
+            return model + maxId;
+        }
+        else
+        {
+            connection.close();
+            throw new Exception("'max_id not found in properties table'");
+        }
+    }
+    
 }
