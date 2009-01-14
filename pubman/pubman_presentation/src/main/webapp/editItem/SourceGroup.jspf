@@ -101,7 +101,7 @@
 			</h:dataTable>
 
 <%-- Source creator --%>
-			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" rendered="#{genre.sources_source_person_organization_display != 'false'}">
+			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" >
             <h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.sources_source_person_organization_repeatable != 'false'}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
