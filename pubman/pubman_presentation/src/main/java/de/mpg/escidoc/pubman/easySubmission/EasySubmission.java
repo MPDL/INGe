@@ -81,6 +81,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
@@ -201,6 +202,9 @@ public class EasySubmission extends FacesBean
     private UIXIterator identifierIterator;
     
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
+    
+    /** pub context name. */
+    private String contextName = null;
     
 
     /**
@@ -1513,7 +1517,8 @@ public class EasySubmission extends FacesBean
         }
         return disable;
     }
-
+    
+    
     /**
      * Returns the CollectionListSessionBean.
      * 
@@ -2346,8 +2351,30 @@ public class EasySubmission extends FacesBean
 	public void setGenreSelect(HtmlSelectOneMenu genreSelect) {
 		this.genreSelect = genreSelect;
 	}
-    
-    
-    
-    
+
+	public String getContextName()
+    {
+        if (this.contextName == null)
+        {
+            try
+            {
+                ContextVO context = this.getItemControllerSessionBean().retrieveContext(
+                         this.getItem().getContext().getObjectId());
+                this.contextName = context.getName();
+                return this.contextName;
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrieve the requested context." + "\n" + e.toString());
+                ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+        }
+        return this.contextName;
+
+    }
+
+	public void setContextName(String contextName) {
+		this.contextName = contextName;
+	}
 }
