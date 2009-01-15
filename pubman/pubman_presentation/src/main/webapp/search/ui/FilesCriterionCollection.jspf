@@ -56,7 +56,6 @@
 				<span class="free_area0">
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
-						<h:inputText styleClass="large_txtInput" />
 <%--
 							<h:selectOneMenu styleClass="large_select replace" value=" !!!CONTENT CATEGORIES + 'all categories'!!! ">
 								<f:selectItems value="  " />
