@@ -55,6 +55,45 @@
 					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />
 				</span>
 			</h:panelGroup>
+
+<%--
+
+JIRA: PUBMAN-699
+Copy&Paste Organisations for Authors
+
+			<h:dataTable styleClass="free_area0 multipleAuthors" var="pasteOrga" value=" !!!Collection of Orgs here!!! ">
+				<h:column>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:panelGroup styleClass="quad_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
+							<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
+						</h:panelGroup>
+						<h:inputText styleClass="quad_txtInput" value="#{pasteOrga.name.value}"/>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action=" !!!Select org Unit from tree here!!! " />
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{pasteOrga.address}" cols="15" rows="3" />	
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action=" !!!Add new Org here!!! " rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" action="!!!Delete This Org here!!!" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}" disabled=" !!!True if more than 1 Org!!! "/>
+					</span>
+				</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+--%>		
+
 			
 <%-- Creator role --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.creator_person_organization_creator_select_roles_display != 'false'}">
