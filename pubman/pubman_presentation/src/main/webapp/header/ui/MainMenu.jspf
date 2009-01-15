@@ -48,9 +48,9 @@
 	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and PubManRequestBean.requestedPage == 'DepositorWSPage'}" />
 
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'QAWSPage'}">
-		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
+		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0 and PubManRequestBean.requestedPage == 'QAWSPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0 and PubManRequestBean.requestedPage == 'QAWSPage'}" />
 
 
 

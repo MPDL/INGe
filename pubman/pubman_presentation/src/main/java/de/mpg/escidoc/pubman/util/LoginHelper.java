@@ -347,4 +347,13 @@ public class LoginHelper extends FacesBean
                 ? "User " + eSciDocUserHandle + "(" + accountUser + ") is logged in]"
                 : "No user is logged in (" + accountUser + ")]");
     }
+    
+    /**
+     * JSF Wrapper for isModerator()
+     * @return
+     */
+    public boolean getIsModerator()
+    {
+        return isLoggedIn() && getAccountUser().isModerator();
+    }
 }
