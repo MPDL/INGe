@@ -52,6 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ObjectTypeF
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PersonsOrganizationsFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.TopLevelAffiliationFilter;
@@ -221,6 +222,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     {
                         ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active"); //public-status
                     }
+                    else if (filter instanceof PersonsOrganizationsFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "/md-records/md-record/publication/creator/person/organization/identifier"); //person's organization in metadata
+                    }
                     ctx.closeStartContent();
     
                     // create filter content (the "top-level-organizational-units" filter needs no content)
@@ -300,6 +305,12 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     {
                         UserAccountStateFilter stateFilter= (UserAccountStateFilter)filter;
                         ctx.content(String.valueOf(stateFilter.getActive()));
+                       
+                    }
+                    else if (filter instanceof PersonsOrganizationsFilter)
+                    {
+                        PersonsOrganizationsFilter orgFilter= (PersonsOrganizationsFilter)filter;
+                        ctx.content(orgFilter.getOrgUnitId());
                        
                     }
     

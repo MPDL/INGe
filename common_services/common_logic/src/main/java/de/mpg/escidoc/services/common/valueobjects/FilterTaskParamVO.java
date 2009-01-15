@@ -655,6 +655,40 @@ public class FilterTaskParamVO extends ValueObject
         
     }
     
+    /**
+     * 
+     * This filter filters pub items by the id of the person's organization
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    
+    public class PersonsOrganizationsFilter implements Filter
+    {
+        
+        private String orgUnitId;
+
+        public PersonsOrganizationsFilter(String  orgUnitId)
+        {
+            super();
+            this.orgUnitId = orgUnitId;
+        }
+
+        public String getOrgUnitId()
+        {
+            return orgUnitId;
+        }
+
+        public void setOrgUnitId(String contextId)
+        {
+            this.orgUnitId = contextId;
+        }
+        
+        
+    }
+    
     
     
 }
