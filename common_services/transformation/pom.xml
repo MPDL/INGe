@@ -10,7 +10,11 @@
     <artifactId>transformation</artifactId>
     <name>transformation</name>
 	<version>1.0.0-SNAPSHOT</version>
-
+	<scm>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>
