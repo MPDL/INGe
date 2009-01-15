@@ -29,8 +29,13 @@
 
 package de.mpg.escidoc.pubman.affiliation;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -50,6 +55,8 @@ public class AffiliationTree extends FacesBean
     public static final String BEAN_NAME = "AffiliationTree";
     private List<AffiliationVOPresentation> affiliations;
     private long timestamp;
+    private List<SelectItem> affiliationSelectItems;
+    private Map<String, AffiliationVOPresentation> affiliationMap;
 
     /**
      * Default constructor.
@@ -58,6 +65,7 @@ public class AffiliationTree extends FacesBean
      */
     public AffiliationTree() throws Exception
     {
+        affiliationMap = new HashMap<String, AffiliationVOPresentation>();
         affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
                 .retrieveTopLevelAffiliations());
         timestamp = new Date().getTime();
@@ -100,5 +108,71 @@ public class AffiliationTree extends FacesBean
     public void setTimestamp(long timestamp)
     {
         this.timestamp = timestamp;
+    }
+
+    public void setAffiliationSelectItems(List<SelectItem> affiliationsSelectItem)
+    {
+        this.affiliationSelectItems = affiliationsSelectItem;
+    }
+
+    /**
+     * Returns SelectItems for a menu with all organizational units.
+     * @return
+     * @throws Exception
+     */
+    public List<SelectItem> getAffiliationSelectItems() throws Exception
+    {
+        if (affiliationSelectItems == null)
+        {
+            affiliationSelectItems = new ArrayList<SelectItem>();
+            affiliationSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+            
+            
+            List<AffiliationVOPresentation> topLevelAffs = getAffiliations();
+            addChildAffiliationsToMenu(topLevelAffs, affiliationSelectItems, 0);
+            
+         
+        }
+        return affiliationSelectItems;
+    }
+    
+    /**
+     * Adds the list of the given affiliations to the filter select
+     * @param affs
+     * @param affSelectItems
+     * @param level
+     * @throws Exception
+     */
+    private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
+    {
+        String prefix = "";
+        for (int i = 0; i < level; i++)
+        {
+            //2 save blanks
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+        }
+        //1 right angle
+        prefix+='\u2514';
+        for(AffiliationVOPresentation aff : affs){
+            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix+" "+aff.getName()));
+            affiliationMap.put(aff.getReference().getObjectId(), aff);
+            addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level+1);
+        }
+    }
+
+    public void setAffiliationMap(Map<String, AffiliationVOPresentation> affiliationMap)
+    {
+        this.affiliationMap = affiliationMap;
+    }
+
+    /**
+     * Returns a Map that contains all affiliations with their id as key. Only fully available if getAffiliationSelectItems() is called before.
+     * @return
+     */
+    public Map<String, AffiliationVOPresentation> getAffiliationMap()
+    {
+        return affiliationMap;
     }
 }
