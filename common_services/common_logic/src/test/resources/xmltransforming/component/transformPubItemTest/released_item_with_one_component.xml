@@ -22,7 +22,6 @@
             <version:number>1</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
             <version:status>released</version:status>
-            <version:valid-status>valid</version:valid-status>
             <srel:modified-by objid="escidoc:user1" />
             <version:comment>Current version comment</version:comment>
         	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>

@@ -169,21 +169,28 @@ public class ItemVO extends ValueObject implements Searchable
         {
             this.setContentModel(other.getContentModel());
         }
-        if (other.getVersion() != null)
+        try
         {
-            this.setVersion((ItemRO) other.getVersion().clone());
+            if (other.getVersion() != null)
+            {
+                this.setVersion((ItemRO) other.getVersion().clone());
+            }
+            if (other.getLatestVersion() != null)
+            {
+                this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
+            }
+            if (other.getLatestRelease() != null)
+            {
+                this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
+            }
+            for (ItemRelationVO relation : other.getRelations())
+            {
+                this.getRelations().add((ItemRelationVO) relation.clone());
+            }
         }
-        if (other.getLatestVersion() != null)
+        catch (CloneNotSupportedException cnse)
         {
-            this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
-        }
-        if (other.getLatestRelease() != null)
-        {
-            this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
-        }
-        for (ItemRelationVO relation : other.getRelations())
-        {
-            this.getRelations().add((ItemRelationVO) relation.clone());
+            throw new RuntimeException(cnse);
         }
         for (String localTag : other.getLocalTags())
         {
@@ -390,6 +397,8 @@ public class ItemVO extends ValueObject implements Searchable
 
     /**
      * Delivers the comment which has to be given when an item is withdrawn.
+     * 
+     * @return The modification date as {@link Date}.
      */
     public Date getModificationDate()
     {

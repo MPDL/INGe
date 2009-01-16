@@ -63,6 +63,16 @@
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 			</structure>
 
+			<!-- Node: item.properties.public-status -->
+			<!-- Field: PubItemVO.publicStatus [PubItemVO.State] -->
+			<value style="element" name="public-status" ns="${xsd.soap.common.prop}" field="publicStatus"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				
+			<!-- Node: item.properties.public-status-comment -->
+			<!-- Field: PubItemVO.publicStatusComment [String] -->
+			<value style="element" name="public-status-comment" ns="${xsd.soap.common.prop}" field="publicStatusComment" usage="optional" />
+
 			<!-- Node: item.properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
 				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
@@ -81,18 +91,7 @@
 				<!-- mandatory in XML during update and during create, useless in VO -->
 				<value style="attribute" name="objid" field="contentModel" usage="optional" />
 
-			</structure>
-			
-			<!-- Node: item.properties.public-status -->
-			<!-- Field: PubItemVO.publicStatus [PubItemVO.State] -->
-			<value style="element" name="public-status" ns="${xsd.soap.common.prop}" field="publicStatus"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
-				
-			<!-- Node: item.properties.public-status-comment -->
-			<!-- Field: PubItemVO.publicStatusComment [String] -->
-			<value style="element" name="public-status-comment" ns="${xsd.soap.common.prop}" field="publicStatusComment" usage="optional" />
-			
+			</structure>			
 
 			<!-- Node: item.properties.lock-status -->
 			<!-- Field: PubItemVO.lockStatus [PubItemVO.LockStatus] -->
@@ -116,8 +115,16 @@
 					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
 					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
-				<structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" />
-				<structure name="modified-by" ns="${xsd.soap.common.srel}" usage="optional" />
+				<!-- <structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" /> -->
+
+				<!-- Node: item.properties.version.modified-by -->
+				<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
+					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+	
+					<!-- Node: item.properties.version.modified-by.@objid -->
+					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+	
+				</structure>
 
 				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />
 				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />

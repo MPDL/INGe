@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 
@@ -86,6 +87,9 @@ public class FileVO extends ValueObject implements Cloneable
      * A short description of the file.
      */
     private String description;
+    
+    private AccountUserRO createdByRO;
+    
     /**
      * This date gives the moment in time the file was created.
      */
@@ -274,6 +278,16 @@ public class FileVO extends ValueObject implements Cloneable
     public void setDescription(String newVal)
     {
         description = newVal;
+    }
+
+    public AccountUserRO getCreatedByRO()
+    {
+        return createdByRO;
+    }
+
+    public void setCreatedByRO(AccountUserRO createdByRO)
+    {
+        this.createdByRO = createdByRO;
     }
 
     /**

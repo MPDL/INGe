@@ -23,7 +23,6 @@
             <version:number>1</version:number>
             <version:date>2007-08-21T12:00:32.658Z</version:date>
             <version:status>pending</version:status>
-            <version:valid-status>valid</version:valid-status>
             <srel:modified-by objid="escidoc:user1" />
             <version:comment>Current version comment</version:comment>
         </prop:version>

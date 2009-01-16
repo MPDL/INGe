@@ -18,7 +18,6 @@
 				<version:number>2</version:number>
 				<version:date>2007-11-29T17:21:05.961Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>ItemHandler.update()</version:comment>
 			</prop:version>
@@ -71,7 +70,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-11-30T12:39:12.611Z</version:date>
 				<version:status>pending</version:status>
-				<version:status>valid</version:status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:471 created.</version:comment>
 			</prop:version>
@@ -230,7 +228,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-04T15:25:35.751Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:579 created.</version:comment>
 			</prop:version>
@@ -389,7 +386,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-06T08:38:48.157Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:716 created.</version:comment>
 			</prop:version>
@@ -548,7 +544,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-06T15:08:23.704Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:818 created.</version:comment>
 			</prop:version>
@@ -626,7 +621,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-06T15:38:57.610Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:822 created.</version:comment>
 			</prop:version>
@@ -704,7 +698,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-06T16:00:21.657Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:831 created.</version:comment>
 			</prop:version>
@@ -782,7 +775,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-06T17:08:18.688Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:836 created.</version:comment>
 			</prop:version>
@@ -860,7 +852,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-12T10:45:03.218Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:1219 created.</version:comment>
 			</prop:version>
@@ -1019,7 +1010,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-12T10:52:01.202Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:1306 created.</version:comment>
 			</prop:version>
@@ -1178,7 +1168,6 @@
 				<version:number>2</version:number>
 				<version:date>2007-12-12T11:05:35.952Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>ItemHandler.update()</version:comment>
 			</prop:version>
@@ -1247,7 +1236,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-19T10:33:46.004Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:1519 created.</version:comment>
 			</prop:version>
@@ -1406,7 +1394,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-19T12:46:43.816Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:1644 created.</version:comment>
 			</prop:version>
@@ -1565,7 +1552,6 @@
 				<version:number>1</version:number>
 				<version:date>2007-12-19T13:13:30.566Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>Object escidoc:1770 created.</version:comment>
 			</prop:version>
@@ -1724,7 +1710,6 @@
 				<version:number>2</version:number>
 				<version:date>2007-12-19T17:09:06.051Z</version:date>
 				<version:status>pending</version:status>
-				<version:valid-status>valid</version:valid-status>
 				<srel:modified-by objid="escidoc:user2" />
 				<version:comment>ItemHandler.update()</version:comment>
 			</prop:version>

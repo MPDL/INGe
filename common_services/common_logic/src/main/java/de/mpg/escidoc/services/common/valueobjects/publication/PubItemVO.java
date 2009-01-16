@@ -20,7 +20,8 @@ public class PubItemVO extends ItemVO
         {
             this.setContentModel(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             logger.error("Unable to set publication content model", e);
         }
     }

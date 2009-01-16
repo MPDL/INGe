@@ -20,7 +20,6 @@
 			<version:number>1</version:number>
 			<version:date>2007-11-26T13:50:43.601Z</version:date>
 			<version:status>withdrawn</version:status>
-			<version:valid-status>valid</version:valid-status>
 			<srel:modified-by objid="escidoc:user2" />
 			<version:comment>Withdraw withdraw</version:comment>
 		</prop:version>

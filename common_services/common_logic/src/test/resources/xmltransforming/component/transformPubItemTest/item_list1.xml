@@ -24,7 +24,6 @@
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:07:42.210Z</version:date>
                 <version:status>pending</version:status>
-                <version:valid-status>valid</version:valid-status>
                 <srel:modified-by objid="escidoc:user2" />
                 <version:comment>Object escidoc:295 created.</version:comment>
             </prop:version>
@@ -67,7 +66,6 @@
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:13:52.257Z</version:date>
                 <version:status>pending</version:status>
-                <version:valid-status>valid</version:valid-status>
                 <srel:modified-by objid="escidoc:user2" />
                 <version:comment>Object escidoc:302 created.</version:comment>
             </prop:version>

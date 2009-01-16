@@ -77,9 +77,11 @@ public class MetadataHandlerTest {
     public void testBibtex2item() throws Exception
     {
         File[] examples = ResourceUtil.getFilenamesInDirectory("metadata/bibtex/");
-        for (int i = 0; i < examples.length; i++) {
+        for (int i = 0; i < examples.length; i++)
+        {
             
-            String result = metadataHandler.bibtex2item(ResourceUtil.getResourceAsString(examples[i].getAbsolutePath()));
+            String result = metadataHandler.bibtex2item(
+                    ResourceUtil.getResourceAsString(examples[i].getAbsolutePath()));
             
             logger.debug("Result: " + result);
             

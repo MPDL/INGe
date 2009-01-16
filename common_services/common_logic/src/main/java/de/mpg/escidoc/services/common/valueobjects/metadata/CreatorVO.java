@@ -181,41 +181,33 @@ public class CreatorVO extends ValueObject implements Cloneable
         role = newVal;
     }
 
-    /**
-     * Set the creators' type.
-     * 
-     * @param newVal
-     */
     public void setType(CreatorType newVal)
     {
         type = newVal;
     }
 
-    /*
-     * (non-Javadoc) >
-     * 
-     * @see java.lang.Object#clone()
+    /**
+     * {@inheritDoc}
      */
     @Override
-    public Object clone()
+    public Object clone() 
     {
+
         CreatorVO clone = new CreatorVO();
         clone.setRole(this.getRole());
         if (getPerson() != null)
         {
-            clone.setPerson((PersonVO)getPerson().clone());
+            clone.setPerson((PersonVO) getPerson().clone());
         }
         else if (getOrganization() != null)
         {
-            clone.setOrganization((OrganizationVO)getOrganization().clone());
+            clone.setOrganization((OrganizationVO) getOrganization().clone());
         }
         return clone;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj)
@@ -224,7 +216,7 @@ public class CreatorVO extends ValueObject implements Cloneable
         {
             return false;
         }
-        CreatorVO other = (CreatorVO)obj;
+        CreatorVO other = (CreatorVO) obj;
         return equals(getPerson(), other.getPerson()) && equals(getOrganization(), other.getOrganization())
                 && equals(getRole(), other.getRole());
     }
@@ -246,7 +238,7 @@ public class CreatorVO extends ValueObject implements Cloneable
     /**
      * Sets the value of the role Enum by a String.
      * 
-     * @param newValString
+     * @param newValString A string containing the new value.
      */
     public void setRoleString(String newValString)
     {
@@ -278,7 +270,7 @@ public class CreatorVO extends ValueObject implements Cloneable
     /**
      * Sets the value of the type Enum by a String.
      * 
-     * @param newValString
+     * @param newValString A string containing the new value.
      */
     public void setTypeString(String newValString)
     {

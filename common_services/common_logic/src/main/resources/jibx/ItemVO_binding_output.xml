@@ -46,13 +46,35 @@
 		<structure name="properties" ns="${xsd.soap.item.item}" ordered="false" flexible="true"
 			allow-repeats="true">
 
+			<!-- Node: item.properties.creation-date -->
+			<!-- Field: PubItemVO.creationDate [java.util.Date] -->
+			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate"
+				usage="optional" />
+
+			<!-- Node: item.properties.created-by.@objid -->
+			<!-- Field: PubItemVO.owner [AccountUserRO] -->
+			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+			</structure>
+
+			<!-- Node: item.properties.public-status -->
+			<!-- Field: PubItemVO.publicStatus [PubItemVO.State] -->
+			<value style="element" name="public-status" ns="${xsd.soap.common.prop}" field="publicStatus"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				
+			<!-- Node: item.properties.public-status-comment -->
+			<!-- Field: PubItemVO.publicStatusComment [String] -->
+			<value style="element" name="public-status-comment" ns="${xsd.soap.common.prop}" field="publicStatusComment" usage="optional" />
+
 			<!-- Node: item.properties.context -->
 			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
 				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 
 			</structure>
 
@@ -62,58 +84,64 @@
 
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" field="contentModel" usage="optional"/>
+				<value style="attribute" name="objid" field="contentModel" usage="optional" />
 
-			</structure>
+			</structure>			
 
+			<!-- Node: item.properties.lock-status -->
+			<!-- Field: PubItemVO.lockStatus [PubItemVO.LockStatus] -->
+			<value style="element" name="lock-status" ns="${xsd.soap.common.prop}" field="lockStatus"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeLockStatusEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				
 			<!-- Node: item.properties.pid -->
-			<!-- Field: PubItemVO.pid -->
-			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid" usage="optional"
-				test-method="hasPID" />
-
-
-			<!-- NOTE: version, latest-version and latest-release are discarded in the output. -->
+			<!-- Field: PubItemVO.pid [String] -->
+			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid" usage="optional" />
 
 			<!-- Node: item.version -->
-			<!-- Field: PubItemVO.version [PubItemRO] -->
-<!--			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO"-->
-<!--				test-method="alreadyExistsInFramework" usage="optional" name="version">-->
-<!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />-->
-<!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />-->
-<!--				-->
-<!--				 Node: item.properties.version.version-status -->
-<!--				 Field: PubItemVO.state [PubItemVO.State] -->
-<!--				<value style="element" name="status" ns="${xsd.soap.common.version}" field="state"-->
-<!--					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"-->
-<!--					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"-->
-<!--					usage="optional" />-->
-<!---->
-<!--				<structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" />-->
-<!--				<structure name="modified-by" ns="${xsd.soap.common.srel}" usage="optional" />-->
-<!--				-->
-<!--				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />-->
-<!--				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />-->
-<!--			</structure>-->
+			<!-- Field: PubItemVO.version [ItemRO] -->
+			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
+				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
+
+				<!-- Node: item.properties.version.version-status -->
+				<!-- Field: PubItemVO.state [PubItemVO.State] -->
+				<value style="element" name="status" ns="${xsd.soap.common.version}" field="state"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+				<!-- <structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" /> -->
+
+				<!-- Node: item.properties.version.modified-by -->
+				<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
+					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
 	
+					<!-- Node: item.properties.version.modified-by.@objid -->
+					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+	
+				</structure>
+
+				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />
+			</structure>
+
 			<!-- Node: item.latest-version -->
 			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
-<!--			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO"-->
-<!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-version">-->
-<!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />-->
-<!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />-->
-<!--				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />-->
-<!--				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />-->
-<!--			</structure>-->
-	
+			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
+				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />
+			</structure>
+
 			<!-- Node: item.latest-release -->
 			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
-<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO"-->
-<!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-release">-->
-<!--				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />-->
-<!--				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />-->
-<!--				<value style="element" name="comment" ns="${xsd.soap.common.release}" field="lastMessage" usage="optional" />-->
-<!--				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" />-->
-<!--			</structure>-->
+			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
+				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="${xsd.soap.common.release}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" />
+			</structure>
 
 			<!-- Node: item.properties.content-model-specific -->
 			<!-- Field: none, but mandatory in the schema instances -->

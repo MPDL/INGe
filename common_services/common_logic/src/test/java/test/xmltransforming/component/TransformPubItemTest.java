@@ -44,6 +44,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import test.XmlComparator;
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
@@ -315,9 +316,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
      * @throws Exception
      */
     @Test
-    public void testRountripTransformPubItem() throws Exception
+    public void testRountripTransformPubItem1() throws Exception
     {
-        logger.info("### testRountripTransformPubItem ###");
+        logger.info("### testRountripTransformPubItem1 ###");
 
         // read PubItemVO from base test class
         PubItemVO pubItem = getPubItemNamedTheFirstOfAll();
@@ -343,6 +344,38 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         {
             oc = new ObjectComparator(pubItem.getMetadata(), roundtrippedPubItem.getMetadata());
             assertEquals(0, oc.getDiffs().size());
+        }
+        catch (AssertionError e)
+        {
+            logger.error(oc);
+            throw (e);
+        }
+    }
+    /**
+     * Test method for checking the identity of a PubItem after being transformed to an item(VO) and back.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testRountripTransformPubItem2() throws Exception
+    {
+        logger.info("### testRountripTransformPubItem2 ###");
+
+        // read PubItemXml from test resources
+        String releasedPubItemXML = readFile(RELEASED_ITEM_FILE);
+
+        // transform the item into XML
+        ItemVO itemVO = xmlTransforming.transformToItem(releasedPubItemXML);
+        logger.debug("Transformed item(VO):\n" + itemVO);
+
+        String roundtrippedPubItem = xmlTransforming.transformToItem(itemVO);
+
+        // compare metadata before and after roundtripping
+        XmlComparator oc = null;
+        try
+        {
+            oc = new XmlComparator(releasedPubItemXML, roundtrippedPubItem);
+            assertTrue(oc.getErrors().toString() + "\n\nXML1:\n" + releasedPubItemXML + "\n\nXML2:\n" + roundtrippedPubItem, oc.equal());
         }
         catch (AssertionError e)
         {

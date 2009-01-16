@@ -75,6 +75,11 @@ public class ItemRO extends ReferenceObject implements Cloneable
     private ItemVO.State state;
 
     /**
+     * The eSciDoc ID of the user that modified that version.
+     */
+    private AccountUserRO modifiedByRO;
+
+    /**
      * The version PID of the item.
      */
     private String pid;
@@ -108,6 +113,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
         this.versionNumber = other.versionNumber;
         this.lastMessage = other.lastMessage;
         this.state = other.state;
+        this.modifiedByRO = other.modifiedByRO;
         this.modificationDate = other.modificationDate;
         this.pid = other.pid;
     }
@@ -117,8 +123,9 @@ public class ItemRO extends ReferenceObject implements Cloneable
      * @author Thomas Diebaecker
      */
     @Override
-    public Object clone()
+    public Object clone() throws CloneNotSupportedException
     {
+        super.clone();
         return new ItemRO(this);
     }
 
@@ -200,6 +207,8 @@ public class ItemRO extends ReferenceObject implements Cloneable
 
     /**
      * Delivers the state of the item.
+     * 
+     * @return The current State.
      */
     public ItemVO.State getState()
     {
@@ -209,11 +218,21 @@ public class ItemRO extends ReferenceObject implements Cloneable
     /**
      * Sets the state of the item.
      *
-     * @param newVal
+     * @param newVal The new state.
      */
     public void setState(ItemVO.State newVal)
     {
         state = newVal;
+    }
+
+    public AccountUserRO getModifiedByRO()
+    {
+        return modifiedByRO;
+    }
+
+    public void setModifiedByRO(AccountUserRO modifiedByRO)
+    {
+        this.modifiedByRO = modifiedByRO;
     }
 
     public String getPid()

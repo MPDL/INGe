@@ -52,8 +52,13 @@
 				field="creationDate" usage="optional" />
 
 			<!-- Node: component.properties.created-by -->
-			<!-- Field: none, but empty structure mandatory in XML during update -->
-			<structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional"></structure>
+			<structure name="created-by" ns="${xsd.soap.common.srel}" field="createdByRO"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
+			
+				<!-- Node: component.properties.created-by.@objid -->
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+					
+			</structure>
 
 			<!-- Node: component.properties.description -->
 			<!-- Field: PubFileVO.description[String] -->
@@ -101,6 +106,10 @@
 		</structure>
 
 		<structure name="content" ns="${xsd.soap.item.components}" ordered="false" flexible="true">
+
+			<value style="attribute" name="type" ns="http://www.w3.org/1999/xlink" constant="simple"/>
+			
+			<value style="attribute" name="title" ns="http://www.w3.org/1999/xlink" field="name" usage="optional" />
 
 			<!-- Node: component.content.href -->
 			<!-- Field: PubFileVO.content[String] -->
