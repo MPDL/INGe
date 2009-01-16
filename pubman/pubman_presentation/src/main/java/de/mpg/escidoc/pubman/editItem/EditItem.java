@@ -183,10 +183,6 @@ public class EditItem extends FacesBean
     
     private boolean fromEasySubmission = false;
     
-    private String creatorParseString;
-    
-    private boolean overwriteCreators;
-    
     private String suggestConeUrl = null;
     
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
@@ -1840,10 +1836,10 @@ public class EditItem extends FacesBean
     {
         try
         {
-            List<OrganizationVO> orgs = getEditItemSessionBean().getAuthorCopyPasteOrganizationManager().getObjectList();
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), orgs, getOverwriteCreators());
-            setCreatorParseString("");
-            getEditItemSessionBean().initAuthorCopyPasteOrganizationsManager();
+            EditItemSessionBean eisb = getEditItemSessionBean();
+            List<OrganizationVO> orgs = eisb.getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList();
+            EditItem.parseCreatorString(eisb.getCreatorParseString(), getCreatorCollection(), orgs, eisb.getOverwriteCreators());
+            getEditItemSessionBean().initAuthorCopyPasteCreatorBean();
 
             return null;
         }
@@ -1891,15 +1887,6 @@ public class EditItem extends FacesBean
         return null;
     }
 
-    public void setCreatorParseString(String creatorParseString)
-    {
-        this.creatorParseString = creatorParseString;
-    }
-
-    public String getCreatorParseString()
-    {
-        return this.creatorParseString;
-    }
    
     public UIXIterator getFileIterator()
     {
@@ -1963,16 +1950,6 @@ public class EditItem extends FacesBean
     public void setSourceIdentifierIterator(UIXIterator sourceIdentifierIterator)
     {
         this.sourceIdentifierIterator = sourceIdentifierIterator;
-    }
-
-    public void setOverwriteCreators(boolean overwriteCreators)
-    {
-        this.overwriteCreators = overwriteCreators;
-    }
-
-    public boolean getOverwriteCreators()
-    {
-        return overwriteCreators;
     }
 
 	public HtmlSelectOneMenu getGenreSelect() {

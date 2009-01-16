@@ -67,10 +67,16 @@ public class EditItemSessionBean extends FacesBean
 	 /**The offset of the page where to jump back*/
     private String offset;
     
+    /**The string with authors to parse for author copy&paste.*/
+    private String creatorParseString;
+    
+    /**Checkbox if existing authors should be overwritten with the ones from author copy/paste*/
+    private boolean overwriteCreators;
+    
     /**
-     * A person organization manager that holds the data from the author copy&paste organizations
+     * A creator bean that holds the data from the author copy&paste organizations
      */
-    private PersonOrganisationManager authorCopyPasteOrganizationManager;
+    private CreatorBean authorCopyPasteOrganizationsCreatorBean;
     
 
 
@@ -92,7 +98,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		// Perform initializations inherited from our superclass
 		super.init();
-		initAuthorCopyPasteOrganizationsManager();
+		initAuthorCopyPasteCreatorBean();
 	}
 	
 	/**
@@ -121,7 +127,7 @@ public class EditItemSessionBean extends FacesBean
     		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
     	
-    	initAuthorCopyPasteOrganizationsManager();
+    	initAuthorCopyPasteCreatorBean();
 	}
 	
 	/**
@@ -191,7 +197,7 @@ public class EditItemSessionBean extends FacesBean
     /**
      * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
      */
-    public void initAuthorCopyPasteOrganizationsManager()
+    public void initAuthorCopyPasteCreatorBean()
     {
         CreatorVO newVO = new CreatorVO();
         newVO.setPerson(new PersonVO());
@@ -201,25 +207,47 @@ public class EditItemSessionBean extends FacesBean
         newPersonOrganization.setIdentifier("");
         newVO.getPerson().getOrganizations().add(newPersonOrganization);
         CreatorBean dummyCreatorBean = new CreatorBean(newVO);
-        setAuthorCopyPasteOrganizationManager(dummyCreatorBean.getPersonOrganisationManager());
+        authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
+        setCreatorParseString("");
     }
 
+
     /**
-     * Sets the PersonOPrganisationManager that manages the author copy&paste organizations.
-     * @param authorCopyPasteOrganizationManager
+     * Sets the CreatorBean that manages the author copy&paste organizations.
+     * @param authorCopyPasteOrganizationsCreatorBean
      */
-    public void setAuthorCopyPasteOrganizationManager(PersonOrganisationManager authorCopyPasteOrganizationManager)
+    public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean)
     {
-        this.authorCopyPasteOrganizationManager = authorCopyPasteOrganizationManager;
+        this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
     }
 
     /**
      * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
      * @return
      */
-    public PersonOrganisationManager getAuthorCopyPasteOrganizationManager()
+    public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean()
     {
-        return authorCopyPasteOrganizationManager;
+        return authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    public void setCreatorParseString(String creatorParseString)
+    {
+        this.creatorParseString = creatorParseString;
+    }
+
+    public String getCreatorParseString()
+    {
+        return creatorParseString;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
     }
 
 	

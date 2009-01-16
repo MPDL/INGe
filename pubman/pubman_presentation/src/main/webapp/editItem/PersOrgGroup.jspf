@@ -46,9 +46,9 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
-					<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EditItem.creatorParseString}" cols="15" rows="3" />
+					<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EditItemSessionBean.creatorParseString}" cols="15" rows="3" />
 					<span class="large_checkbox">
-						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItem.overwriteCreators}" />	
+						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItemSessionBean.overwriteCreators}" />	
 						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 					</span>
 					<h:commandButton title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
@@ -57,7 +57,7 @@
 
 <%--Copy&Paste Organisations for Authors--%>
 
-			<h:dataTable styleClass="free_area0 multipleAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationManager.objectDM}">
+			<h:dataTable styleClass="free_area0 multipleAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
 				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -71,7 +71,7 @@
 						<h:inputText styleClass="quad_txtInput" value="#{pasteOrga.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.selectPersonOrganisation}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -82,8 +82,8 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{pasteOrga.address}" cols="15" rows="3" />	
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{EditItemSessionBean.authorCopyPasteOrganizationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.authorCopyPasteOrganizationManager.size == 1}" action="#{EditItemSessionBean.authorCopyPasteOrganizationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.size == 1}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
