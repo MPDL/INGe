@@ -119,6 +119,15 @@ public class PersonVO extends ValueObject implements Cloneable
     {
         return organizations;
     }
+    
+    /**
+     * Sets the list of organizational units the person was affiliated to when creating the item.
+     * @param organizations
+     */
+    public void setOrganizations(java.util.List<OrganizationVO> organizations)
+    {
+        this.organizations = organizations;
+    }
 
     /**
      * Delivers the identifier in the Personennormdatei, provided by the Deutsche Nationalbibliothek.
@@ -216,4 +225,6 @@ public class PersonVO extends ValueObject implements Cloneable
                 && equals(getOrganizations(), vo.getOrganizations()) && equals(getPseudonyms(), vo.getPseudonyms())
                 && equals(getTitles(), vo.getTitles());
     }
+
+    
 }
