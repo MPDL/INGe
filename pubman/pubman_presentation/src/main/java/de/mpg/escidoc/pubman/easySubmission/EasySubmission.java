@@ -2098,7 +2098,7 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
             setCreatorParseString("");
 
             return "loadNewEasySubmission";

@@ -35,9 +35,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean.PersonOrganisationManager;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -61,6 +67,11 @@ public class EditItemSessionBean extends FacesBean
 	 /**The offset of the page where to jump back*/
     private String offset;
     
+    /**
+     * A person organization manager that holds the data from the author copy&paste organizations
+     */
+    private PersonOrganisationManager authorCopyPasteOrganizationManager;
+    
 
 
 	/**
@@ -81,6 +92,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		// Perform initializations inherited from our superclass
 		super.init();
+		initAuthorCopyPasteOrganizationsManager();
 	}
 	
 	/**
@@ -108,6 +120,8 @@ public class EditItemSessionBean extends FacesBean
     		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
+    	
+    	initAuthorCopyPasteOrganizationsManager();
 	}
 	
 	/**
@@ -172,6 +186,40 @@ public class EditItemSessionBean extends FacesBean
     public String getOffset()
     {
         return offset;
+    }
+    
+    /**
+     * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
+     */
+    public void initAuthorCopyPasteOrganizationsManager()
+    {
+        CreatorVO newVO = new CreatorVO();
+        newVO.setPerson(new PersonVO());
+        OrganizationVO newPersonOrganization = new OrganizationVO();
+        newPersonOrganization.setName(new TextVO());
+        newPersonOrganization.setAddress("");
+        newPersonOrganization.setIdentifier("");
+        newVO.getPerson().getOrganizations().add(newPersonOrganization);
+        CreatorBean dummyCreatorBean = new CreatorBean(newVO);
+        setAuthorCopyPasteOrganizationManager(dummyCreatorBean.getPersonOrganisationManager());
+    }
+
+    /**
+     * Sets the PersonOPrganisationManager that manages the author copy&paste organizations.
+     * @param authorCopyPasteOrganizationManager
+     */
+    public void setAuthorCopyPasteOrganizationManager(PersonOrganisationManager authorCopyPasteOrganizationManager)
+    {
+        this.authorCopyPasteOrganizationManager = authorCopyPasteOrganizationManager;
+    }
+
+    /**
+     * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
+     * @return
+     */
+    public PersonOrganisationManager getAuthorCopyPasteOrganizationManager()
+    {
+        return authorCopyPasteOrganizationManager;
     }
 
 	
