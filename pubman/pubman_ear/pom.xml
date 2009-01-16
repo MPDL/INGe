@@ -602,7 +602,7 @@
 	    <dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>8.1-407.jdbc3</version>
+			<version>8.3-604.jdbc3</version>
 		</dependency>
 		<dependency>
 	    	<groupId>urlrewrite</groupId>
