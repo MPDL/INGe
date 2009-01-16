@@ -13,6 +13,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
+import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -58,6 +59,9 @@ public class AffiliationBean extends FacesBean
         if (timestamp < ((AffiliationTree) getApplicationBean(AffiliationTree.class)).getTimestamp())
         {
             tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+            List<SortCriterion> sortList = new ArrayList<SortCriterion>();
+            sortList.add(new SortCriterion("sortOrder", true));
+            tree.setSortCriteria(sortList);
             timestamp = new Date().getTime();
         }
         return tree;

@@ -22,14 +22,14 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
 <h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{genre.content_display != 'false' && genre.content_form_id != 'easy-submission' || genre.content_display != 'true' && genre.content_form_id != 'full-submission' && genre.content_form_id != 'all'}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -44,7 +44,7 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.subject.value}" cols="15" rows="3" />
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EditItem.pubItem.metadata.subject.value}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 

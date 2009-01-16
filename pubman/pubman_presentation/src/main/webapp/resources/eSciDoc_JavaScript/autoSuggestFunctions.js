@@ -34,6 +34,7 @@
 
 	var languageSuggestURL = '';
 	var journalSuggestURL = '';
+	var subjectSuggestURL = '';
 	var journalDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var journalSuggestCommonParentClass = 'sourceArea';
@@ -89,7 +90,7 @@
 	function fillFields()
 	{
 		$input = $(this);
-		$.getJSON(journalDetailsBaseURL + this.resultID, getJournalDetails);							
+		$.getJSON(journalDetailsBaseURL + this.resultID, getJournalDetails);
 	}
 	
 	function bindJournalSuggest()
@@ -131,4 +132,5 @@
 		bindJournalSuggest();
 		
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[2] ); }   });
+		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
 	};

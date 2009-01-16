@@ -157,9 +157,10 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 			
-				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/lang/query';
-				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/query';
-				journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/details?id=';
+				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/languages/query';
+				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/journals/query';
+				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/ddc/query';
+				journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/journals/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
 			</script>
