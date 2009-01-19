@@ -201,6 +201,13 @@ public class FileBean extends FacesBean
                     
                     // Execute the method with HttpClient.
                     HttpClient client = new HttpClient();
+                    String proxyHost = System.getProperty("http.proxyHost");
+                    String proxyPortS = System.getProperty("http.proxyPort");
+                    if (proxyHost != null && proxyPortS != null)
+                    {
+                            int proxyPort = Integer.valueOf(proxyPortS);
+                            client.getHostConfiguration().setProxy(proxyHost, proxyPort);
+                    }
                     client.executeMethod(method);
                     OutputStream out = response.getOutputStream();
                     InputStream input = method.getResponseBodyAsStream();

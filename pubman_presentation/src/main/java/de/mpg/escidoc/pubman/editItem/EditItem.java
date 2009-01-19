@@ -491,6 +491,13 @@ public class EditItem extends FacesBean
 
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
+        String proxyHost = System.getProperty("http.proxyHost");
+        String proxyPortS = System.getProperty("http.proxyPort");
+        if (proxyHost != null && proxyPortS != null)
+        {
+                int proxyPort = Integer.valueOf(proxyPortS);
+                client.getHostConfiguration().setProxy(proxyHost, proxyPort);
+        }
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();

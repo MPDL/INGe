@@ -199,7 +199,13 @@ public class TestBase
         int port = Integer.parseInt( hostPort.nextToken() );
         
         HttpClient client = new HttpClient();
-
+        String proxyHost = System.getProperty("http.proxyHost");
+        String proxyPortS = System.getProperty("http.proxyPort");
+        if (proxyHost != null && proxyPortS != null)
+        {
+                int proxyPort = Integer.valueOf(proxyPortS);
+                client.getHostConfiguration().setProxy(proxyHost, proxyPort);
+        }
         client.getHostConfiguration().setHost( host, port, "http");
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         
