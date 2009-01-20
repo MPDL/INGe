@@ -467,7 +467,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 // insert delimiter between elements
             	if (i>1 && i<=eSize) { 
             		if (Utils.checkLen(delimiter)) {
-                        expr += " + ("+ eS +".length()>0 && " + prevES + ".length()>0 ? \"" + delimiter + "\" : \"\") + ";
+                        expr += " + (!"+ eS +".trim().equals(\"\") ? \"" + delimiter + "\" : \"\") + ";
             		} else {
             			expr += " + ";
             		}
