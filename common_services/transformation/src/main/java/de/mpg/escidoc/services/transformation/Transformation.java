@@ -51,6 +51,14 @@ public interface Transformation
     public Format[] getSourceFormats() throws RuntimeException;
     
     /**
+     * Get all possible source formats for a target format. 
+     * @param Format : the target format
+     * @return Format[]: list of possible source formats as value object
+     * @throws RuntimeException
+     */
+    public Format[] getSourceFormats(Format trg) throws RuntimeException;
+    
+    /**
      * Get all possible source formats. 
      * @return String: list of possible source formats as xml
      * @throws RuntimeException

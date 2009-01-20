@@ -79,10 +79,9 @@
 		</dependency>
 		<dependency>
       		<groupId>xmlbeans</groupId>
-      		<artifactId>transformationService</artifactId>
+      		<artifactId>transformation</artifactId>
       		<version>1.0.0</version>
-      		<scope>system</scope>
-      		<systemPath>C:\Dokumente und Einstellungen\kleinfe1\Eigene Dateien\Dev\transformationService.jar</systemPath>
+      		<scope>compile</scope>
     	</dependency>
 	</dependencies>
 
