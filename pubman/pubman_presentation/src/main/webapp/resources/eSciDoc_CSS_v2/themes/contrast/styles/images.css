@@ -53,7 +53,7 @@
 	
 	.themePark {
 		background: inherit;
-		background-image: url('../images/logo_overlay_beta.gif');
+	/*	background-image: url('../images/logo_overlay_beta.gif');*/
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
@@ -330,7 +330,7 @@
 	}
 	
 	.inRevisionItem {
-		background-image: url('../images/31x31.gif');
+		background-image: url('../images/All_Status_ItemRework_31_Static.gif');
 		background-repeat: no-repeat;
 		background-position: left;
 	}
