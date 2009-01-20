@@ -453,31 +453,30 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     public String applyElements(CitationStyle cs, LayoutElement le, String delimiter) throws CitationStyleManagerException, JRException {
         String expr = "";
-        String prevES = null;
         
         ArrayList<LayoutElement> elements = (ArrayList)le.getElementsAtDefault();
         Parameters parameters = (Parameters)le.getParametersAtDefault();
         
         int eSize = elements.size();
         if ( eSize > 0) {
+        	boolean delim_ok = Utils.checkLen(delimiter); 
         	int i = 1;
             for (LayoutElement e : elements) {
             	String eS = "$V{" + e.getId() + "}"; 
                 addLayoutElementToVariablesMap(cs, e);
                 // insert delimiter between elements
-            	if (i>1 && i<=eSize) { 
-            		if (Utils.checkLen(delimiter)) {
-                        expr += " + (!"+ eS +".trim().equals(\"\") ? \"" + delimiter + "\" : \"\") + ";
-            		} else {
-            			expr += " + ";
-            		}
-            	}    
-        		expr += eS;
-        		prevES = eS;
+                expr += 
+                	eS
+                	+
+                	(delim_ok && i<eSize? 
+            			" + ( !"+ eS +".trim().equals(\"\") ? \"" + delimiter + "\" : \"\")" 
+                			: 
+                		""
+                	)
+                	+ 
+                	(i<eSize ? " + " : "");
                 i++;
             }
-//            expr = expr.substring(0, expr.length() -
-//                    (delimiter == null ? 3 : delimiter.length() + 8 ) );
         } else if (le.getRef().length() > 0) {
         	String ref = le.getRef();
 //          In the case we can define complex MD handling, which is not supported with XPAth
