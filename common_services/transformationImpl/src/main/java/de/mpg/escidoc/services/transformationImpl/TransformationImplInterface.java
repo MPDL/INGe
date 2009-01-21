@@ -52,8 +52,14 @@ import de.mpg.escidoc.services.transformationImpl.transformations.thirdPartyForm
  * @version $Revision$ $LastChangedDate$
  *
  */
+
 public class TransformationImplInterface implements de.mpg.escidoc.services.transformation.Transformation
 {
+    /**
+     * The name of the EJB service.
+     */
+    public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/Transformation";
+    
     private final Logger logger = Logger.getLogger(TransformationImplInterface.class);
     
     private final String thirdPartyModule = "THIRD_PARTY_MODULE";

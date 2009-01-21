@@ -27,7 +27,7 @@ public class TransformationTest
         
         this.logger.info("Check Transformation");
         ClassLoader cl = this.getClass().getClassLoader();
-        InputStream in = cl.getResourceAsStream("resources/testFiles/escidoc.xml");
+        InputStream in = cl.getResourceAsStream("test/resources/testFiles/escidocItem.xml");
         
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         StringBuilder stringBuilder = new StringBuilder();
