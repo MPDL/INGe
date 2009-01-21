@@ -339,8 +339,9 @@ public class SearchBean implements Search
         }
 
         List<SearchResultElement> searchElements = transformToSearchResultList(searchResult);
-        ArrayList<ItemResultVO> itemElements = extractItemsOfSearchResult(searchElements);
-        String itemListAsString = xmlTransforming.transformToItemList(itemElements);
+        ExportSearchResult exportedResult = new ExportSearchResult(searchElements, cqlQuery,
+                searchResult.getNumberOfRecords());
+        String itemListAsString = xmlTransforming.transformToItemList(exportedResult.extractItemsOfSearchResult());
 
         String outputFormat = query.getOutputFormat();
         String exportFormat = query.getExportFormat();
@@ -360,7 +361,8 @@ public class SearchBean implements Search
         if (structuredExportHandler.isStructuredFormat(exportFormat))
         {
             exportData = getOutput(exportFormat, FormatType.STRUCTURED, null, itemListAsString);
-            return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
+            exportedResult.setExportedResults(exportData);
+            return exportedResult;
         }
         // citation style
         else if (citationStyleHandler.isCitationStyle(exportFormat))
@@ -376,7 +378,8 @@ public class SearchBean implements Search
                         + exportFormat + " is not supported");
             }
             exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemListAsString);
-            return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
+            exportedResult.setExportedResults(exportData);
+            return exportedResult;
         } 
         else
         {
@@ -494,22 +497,4 @@ public class SearchBean implements Search
     {
         return !(str == null || str.trim().equals(""));
     }
-    
-    private ArrayList<ItemResultVO> extractItemsOfSearchResult(List<SearchResultElement> results)
-    { 
-        
-        ArrayList<ItemResultVO> itemList = new ArrayList<ItemResultVO>();
-        for (int i = 0; i < results.size(); i++)
-        {
-            //check if we have found an item
-            if (results.get(i) instanceof ItemResultVO)
-            {
-                // cast to PubItemResultVO
-                ItemResultVO item = (ItemResultVO) results.get(i);
-                itemList.add(item);
-            }
-        }
-        return itemList;
-    }
-    
 }

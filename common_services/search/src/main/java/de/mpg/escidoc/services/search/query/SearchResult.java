@@ -51,6 +51,11 @@ public class SearchResult implements Serializable
     /** Total number of search results. Might be interesting if using limits and offsets. */
     private NonNegativeInteger totalNumberOfResults = null;
     
+    /**
+     * 
+     * @param cqlQuery
+     * @param totalNumberOfResults
+     */
     public SearchResult(String cqlQuery, NonNegativeInteger totalNumberOfResults)
     {
         this.cqlQuery = cqlQuery;

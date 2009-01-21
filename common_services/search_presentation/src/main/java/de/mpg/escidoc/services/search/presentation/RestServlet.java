@@ -214,7 +214,7 @@ public class RestServlet extends HttpServlet
             // query the search service
             ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
 
-            byte[] result = queryResult.getResult();
+            byte[] result = queryResult.getExportedResults();
 
             String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
             LOGGER.debug("fileName: " + fileName);

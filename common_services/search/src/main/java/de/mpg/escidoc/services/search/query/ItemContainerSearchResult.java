@@ -30,9 +30,11 @@
 package de.mpg.escidoc.services.search.query;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.axis.types.NonNegativeInteger;
 
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
 
 /**
@@ -43,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElemen
  * @author endres
  * 
  */
-public class ItemContainerSearchResult extends de.mpg.escidoc.services.search.query.SearchResult implements Serializable
+public class ItemContainerSearchResult extends SearchResult implements Serializable
 {
 
     /** Serial identifier. */
@@ -78,5 +80,26 @@ public class ItemContainerSearchResult extends de.mpg.escidoc.services.search.qu
     public List<SearchResultElement> getResultList()
     {
         return resultList;
+    }
+    
+    /**
+     * extracts items out of the search result list.
+     * @return  list of items
+     */
+    public ArrayList<ItemResultVO> extractItemsOfSearchResult()
+    { 
+        
+        ArrayList<ItemResultVO> itemList = new ArrayList<ItemResultVO>();
+        for (int i = 0; i < resultList.size(); i++)
+        {
+            //check if we have found an item
+            if (resultList.get(i) instanceof ItemResultVO)
+            {
+                // cast to PubItemResultVO
+                ItemResultVO item = (ItemResultVO) resultList.get(i);
+                itemList.add(item);
+            }
+        }
+        return itemList;
     }
 }
