@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.transformation.valueObjects;
 
+import java.io.Serializable;
+
 /**
  * This class describes a format object.
  * @author kleinfe1 (initial creation)
@@ -37,8 +39,10 @@ package de.mpg.escidoc.services.transformation.valueObjects;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Format
+public class Format implements Serializable
 {
+    
+    private static final long serialVersionUID = 1L;
     
     private String name;
     private String type;
