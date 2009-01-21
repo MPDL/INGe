@@ -29,24 +29,25 @@
 
 package test; 
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import gov.loc.www.zing.srw.RecordType;
+import gov.loc.www.zing.srw.SearchRetrieveRequestType;
+import gov.loc.www.zing.srw.SearchRetrieveResponseType;
+import gov.loc.www.zing.srw.StringOrXmlFragment;
+import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.axis.message.MessageElement;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -54,7 +55,8 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
-  
+import org.apache.log4j.Logger;
+
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -70,11 +72,16 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestHelper
 {
+
+	private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "50"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; 
+//	public static final String USER_NAME = "test_dep_scientist"; 
+//	public static final String USER_PASSWD = "verdi"; 
+	public static final String USER_NAME = "citman_user"; 
+	public static final String USER_PASSWD = "citman_user"; 
+	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22"; 
 	
  
     /**
@@ -109,7 +116,81 @@ public class TestHelper
         return ch.retrieveItems(filter);
     
     }
+     
     
+    public static String getItemsFromFramework_APA() throws Exception {
+    	
+    	return 
+    		getItemsFromFramework(
+    			"escidoc.abstract=%22APA:%22%20AND%20" + SEARCH_CONTEXT 
+    	);
+    }
+    
+    public static String getItemsFromFramework_AJP() throws Exception  {
+    	
+    	return  
+    	getItemsFromFramework(
+    			"escidoc.abstract=%22AJP:%22%20AND%20" + SEARCH_CONTEXT 
+    	);
+    }
+    	
+    public static String getItemsFromFramework(String cql) throws Exception {
+    	
+//    	http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
+    	
+    	
+        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+        searchRetrieveRequest.setVersion("1.1");
+        searchRetrieveRequest.setRecordPacking("xml");
+        searchRetrieveRequest.setQuery(cql);
+        
+        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
+        if (searchResult.getDiagnostics() != null)
+        {
+            // something went wrong
+            for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
+            {
+                    logger.warn(diagnostic.getUri());
+                    logger.warn(diagnostic.getMessage());
+                    logger.warn(diagnostic.getDetails());
+            }
+        }
+
+        return transformToItemListAsString(searchResult);
+        
+}        
+        
+    
+
+    private static String transformToItemListAsString(SearchRetrieveResponseType searchResult) throws Exception
+    {
+    	String itemStringList = "";
+		Pattern p = Pattern.compile("(<\\w+?:item.*?</\\w+?:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        if (searchResult.getRecords() != null)
+        {
+            for (RecordType record : searchResult.getRecords().getRecord())
+            {
+                StringOrXmlFragment data = record.getRecordData();
+                MessageElement[] messages = data.get_any();
+                // Data is in the first record
+                if (messages.length == 1)
+                {
+            	    Matcher m = null;
+            	    String str = messages[0].getAsString();
+					m = p.matcher(str);
+            	    if (m.find())  
+            	    {
+            	    	itemStringList += m.group(1);
+					} 
+//            	    itemStringList += str;
+                }
+            }
+        }
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><il:item-list xmlns:il=\"http://www.escidoc.de/schemas/itemlist/0.7\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\">" 
+        		+  itemStringList 
+        		+ "</il:item-list>"; 
+    }
+     
     
     
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException

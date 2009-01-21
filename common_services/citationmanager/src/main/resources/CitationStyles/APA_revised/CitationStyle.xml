@@ -282,7 +282,9 @@
 					<starts-with value="issued:"/>
 				</parameters>
 				<elements/>
-			</layout-element> 
+			</layout-element>
+			<layout-element ref="(publication/abstract)[1]"/> 
+			<layout-element ref="(publication/abstract)[2]"/> 
 <!--			<layout-element ref="isBookArticleOrChapter" /> -->
 <!--			<layout-element ref="isBookProceedingsThesis" /> -->
 <!--			<layout-element ref="isJournalOrMagazineArticle" /> -->

@@ -42,7 +42,8 @@
 		-->
 		<variable name="date"
 			expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
-		<variable name="static_in"	expression="&quot;in&quot;" />
+		<variable name="static_in" expression="&quot;in&quot;" />
+<!--		<variable name="static_in" xpath="'in'" />-->
 		<variable name="ed"	expression=" Integer.parseInt(${bookEditorsCount}) == 1 ? &quot; (ed)&quot; : &quot; (eds)&quot;" />
 
 	</variables>
@@ -165,7 +166,6 @@
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
-				<ends-with value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="given-name" />
@@ -185,7 +185,6 @@
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})==2]]></valid-if>
 				<delimiter value=", " />
-				<ends-with value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="given-name" />
@@ -220,7 +219,7 @@
 		</layout-element>
 		
 		
-		<layout-element name="pp"> 
+		<layout-element name="pp-with-total-number-of-pages"> 
 			<parameters>
 				<starts-with value="pp. "/>
 			</parameters>
@@ -231,7 +230,7 @@
 					</parameters>
 					<elements/>
 				</layout-element>
-				<layout-element name="VolumeIssueBlock">
+				<layout-element>
 					<parameters>
 						<valid-if><![CDATA[${hasTotalNumberOfPages}.equals("false")]]></valid-if>
 						<delimiter value="-" />
@@ -243,6 +242,18 @@
 				</layout-element>			
 			</elements>
 		</layout-element>			
+
+		<layout-element name="pp"> 
+			<parameters>
+				<starts-with value="pp. "/>
+				<delimiter value="-" />
+			</parameters>
+			<elements>
+				<layout-element ref="publication/source/start-page" />
+				<layout-element ref="publication/source/end-page" />
+			</elements>
+		</layout-element>			
+
 		
 		<layout-element name="publishingInfoAndIssued">
 				<parameters>
@@ -260,10 +271,14 @@
 			<layout-element name="editorsAndPublishingInfoAndIssued">
 				<parameters>
 					<delimiter value=" "/>
-					<starts-with value=" edited by "/>
 				</parameters>
 				<elements>
-					<layout-element ref="source-editors"/>
+					<layout-element ref="source-editors">
+						<parameters>
+							<starts-with value=" edited by "/>
+						</parameters>
+						<elements/>
+					</layout-element>
 					<layout-element ref="publishingInfoAndIssued" />
 				</elements>
 			</layout-element>
@@ -285,15 +300,20 @@
 				<elements />
 			</layout-element>
 		
-		<!-- debug elements: -->
-<!--			<layout-element name="debug_genre" ref="publication/@type" >-->
-<!--				<parameters>-->
-<!--				<starts-with value="Genre:"/>-->
-<!--				<ends-with value=";"/>-->
-<!--				<font-style ref="BOLD"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element>-->
+				<!-- debug elements: -->
+			<layout-element name="debug">
+				<parameters>
+					<starts-with value="debug:" />
+					<ends-with value=";\n" />
+					<font-style ref="BOLD" />
+					<delimiter value="\n"/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/@type" />
+					<layout-element ref="publication/abstract[contains(.,'AJP:')]" />
+					<layout-element ref="publication/subject" />
+				</elements>
+			</layout-element>
 			
 		
 	</layout-elements>
@@ -329,7 +349,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
 						
@@ -345,14 +365,14 @@
 					<layout-element ref="publication/source/title" />
 					<layout-element ref="publication/source/volume">
 						<parameters>
-							<font-style ref="ITALIC" />
-							<starts-with value=", " />
+							<font-style ref="BOLD" />
+							<starts-with value=" "/>
 						</parameters>
 						<elements />
 					</layout-element>
 					<layout-element ref="publication/source/issue">
 						<parameters>
-							<starts-with value="(" />
+							<starts-with value=" (" />
 							<ends-with value=")" />
 						</parameters>
 						<elements />
@@ -389,7 +409,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
 						
@@ -410,11 +430,9 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="book-editors" />
-			
-			<layout-element ref="bookEditorsCount"/>
 						
 			<layout-element  ref="title-italic"/>
 
@@ -433,7 +451,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
 						
@@ -447,6 +465,7 @@
 			
 			<layout-element name="BookTitleBlock">
 				<parameters>
+					<valid-if><![CDATA[${publication/source[@type='book']/title}!=null]]></valid-if>
 					<delimiter value=" "/>
 				</parameters>
 				<elements>
@@ -478,7 +497,7 @@
 		</parameters>
 		<elements>
 
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" >
 				<parameters>
@@ -502,7 +521,7 @@
 		</parameters>
 		<elements>
 
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
 
@@ -526,7 +545,7 @@
 		</parameters>
 		<elements>
 
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
 
@@ -551,10 +570,10 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug_genre" />
+			<layout-element ref="debug" />
 			
 			<layout-element ref="authors" />
-						
+
 			<layout-element  ref="publication/title">
 				<parameters>
 					<starts-with value="&quot;" />
@@ -563,8 +582,10 @@
 				<elements />
 			</layout-element>
 			
+			
 			<layout-element name="SourceTitleBlock">
 				<parameters>
+					<valid-if><![CDATA[ ${publication/source/title}!=null ]]></valid-if>
 					<delimiter value=" "/>
 				</parameters>
 				<elements>
@@ -582,7 +603,7 @@
 			
 			<layout-element ref="vol"/>
 			
-			<layout-element ref="pp"/>
+			<layout-element ref="pp-with-total-number-of-pages"/>
 			
 		</elements>
 	</cs-layout-definition>

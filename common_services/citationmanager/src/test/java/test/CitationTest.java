@@ -64,9 +64,12 @@ public class CitationTest {
 //    	itemList = ResourceUtil.getResourceAsString(ds);
 //    	assertNotNull("Item list xml is not found:", ds);
     	
-    	itemList = TestHelper.getItemListFromFramework();
+//    	itemList = TestHelper.getItemListFromFramework(); 
+    	itemList = TestHelper.getItemsFromFramework_AJP();
 		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
-		logger.info("item list from framework:\n" + itemList);
+//		logger.info("item list from framework:\n" + itemList);
+		   
+		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
 
     }	
 	
@@ -75,17 +78,19 @@ public class CitationTest {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testGetStyles() throws Exception {
     	logger.info("List of citation styles: " );
     	for (String s : pcs.getStyles() )
     		logger.info("Citation Style: " + s);
     }
-    
+     
     /**
      * Test list of styles
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testExplainStuff() throws Exception {
     	
     	String explain = pcs.explainStyles();
@@ -113,6 +118,7 @@ public class CitationTest {
      * @throws IOException 
      */
     @Test
+    @Ignore
     public final void testDataSourceValidation() throws IOException{
     	
     	//TODO: always recent schema should be provided
@@ -141,6 +147,7 @@ public class CitationTest {
      * @throws CitationStyleManagerException 
      */
     @Test
+    @Ignore
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
     	
@@ -176,13 +183,15 @@ public class CitationTest {
     @Test
     public final void testCitManOutput() throws Exception {
     	
-    	for (String cs : pcs.getStyles() )
+    	
+//    	for (String cs : pcs.getStyles() )
+    	for (String cs : new String[]{"AJP"} )
     	{
     		long start;
         	byte[] result;
     		for ( String format : 
-    				pcs.getOutputFormats(cs)
-//    				new String[]{"snippet"}
+//    				pcs.getOutputFormats(cs)
+    				new String[]{"pdf"}
     		) {
         		logger.info("Test Citation Style: " + cs);
     			
