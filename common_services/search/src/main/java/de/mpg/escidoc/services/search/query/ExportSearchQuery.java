@@ -29,6 +29,10 @@
 
 package de.mpg.escidoc.services.search.query;
 
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+
 
 /**
  * Search query used by the export interface.
@@ -94,10 +98,15 @@ public class ExportSearchQuery extends SearchQuery
      * Getter for the cql query.
      * 
      * @return cql query
+     * @throws TechnicalException if the generation of the criterion fails
+     * @throws ParseException  if the generation of the cql of the criterion fails
      */
-    public String getCqlQuery()
+    public String getCqlQuery() throws TechnicalException, ParseException
     {
-        return cqlQuery;
+        MetadataSearchCriterion criterion = new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item");
+        String objectTypeQuery = criterion.generateCqlQuery();
+        String newCqlQuery = "( " + cqlQuery + " ) " + " AND " + " ( " + objectTypeQuery + " ) ";
+        return newCqlQuery;
     }
 
     /**

@@ -63,10 +63,10 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.parser.ParseException;
@@ -98,8 +98,8 @@ public class SearchBean implements Search
     /**
      * A XmlTransforming instance.
      */
-    //@EJB
-    private XmlTransforming xmlTransforming = new XmlTransformingBean();
+    @EJB
+    private XmlTransforming xmlTransforming;
 
     /**
      * A CitationStyleHandler instance.
@@ -251,7 +251,7 @@ public class SearchBean implements Search
                 if ((diagnostic.getDetails().contains(SRW_STARTRECORD_NO_ERROR))
                         || (diagnostic.getDetails().contains(SRW_SORT_NO_ERROR)))
                 {
-                    logger.info("SRW interface produces an error, this one is safe to ignore: "
+                    logger.info("SRW interface returns an error, this one is safe to ignore: "
                             + diagnostic.getDetails());
                 } 
                 else
@@ -296,7 +296,8 @@ public class SearchBean implements Search
                     {
                         searchResultItem = messages[0].getAsString();
                     }
-                    catch (Exception e) {
+                    catch (Exception e) 
+                    {
                         throw new TechnicalException("Error getting search result message.", e);
                     }
                     logger.debug("Search result: " + searchResultItem);
@@ -337,16 +338,18 @@ public class SearchBean implements Search
             searchResult = performSearch(searchRetrieveRequest, query.getIndexSelector());
         }
 
-        String itemList = transformToItemListAsString(searchResult);
+        List<SearchResultElement> searchElements = transformToSearchResultList(searchResult);
+        ArrayList<ItemResultVO> itemElements = extractItemsOfSearchResult(searchElements);
+        String itemListAsString = xmlTransforming.transformToItemList(itemElements);
 
         String outputFormat = query.getOutputFormat();
         String exportFormat = query.getExportFormat();
 
-        if (!checkVal(exportFormat))
+        if (!checkValue(exportFormat))
         {
             throw new TechnicalException("exportFormat is empty");
         }
-        if (!checkVal(itemList))
+        if (!checkValue(itemListAsString))
         {
             throw new TechnicalException("itemList is empty");
         }
@@ -356,13 +359,13 @@ public class SearchBean implements Search
         // structured export
         if (structuredExportHandler.isStructuredFormat(exportFormat))
         {
-            exportData = getOutput(exportFormat, FormatType.STRUCTURED, null, itemList);
+            exportData = getOutput(exportFormat, FormatType.STRUCTURED, null, itemListAsString);
             return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
         }
         // citation style
         else if (citationStyleHandler.isCitationStyle(exportFormat))
         {
-            if (!checkVal(outputFormat))
+            if (!checkValue(outputFormat))
             {
                 throw new TechnicalException("outputFormat should be not empty for exportFormat:" + exportFormat);
             }
@@ -372,7 +375,7 @@ public class SearchBean implements Search
                 throw new TechnicalException("file output format: " + outputFormat + " for export format: "
                         + exportFormat + " is not supported");
             }
-            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
+            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemListAsString);
             return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
         } 
         else
@@ -417,18 +420,12 @@ public class SearchBean implements Search
         // structured export
         if (formatType == FormatType.LAYOUT)
         {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug(">>> start citationStyleHandler " + itemList);
-            }
+            logger.info("Calling citationStyleHandler");
             exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
         } 
         else if (formatType == FormatType.STRUCTURED)
         {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug(">>> start structuredExportHandler " + itemList);
-            }
+            logger.info("Calling structuredExportHandler");
             exportData = structuredExportHandler.getOutput(itemList, exportFormat);
         } 
         else
@@ -459,30 +456,10 @@ public class SearchBean implements Search
                 MessageElement[] messages = data.get_any();
                 // Data is in the first record
                 if (messages.length == 1)
-                {
-                	
-                    String searchResultItem = messages[0].getAsString();
-                    logger.info("Search result: " + searchResultItem);
-
-                    //DIRTY HACK
-                    //TODO: replace hack with the normal solution
-            		Pattern p = Pattern.compile("(<escidocItem:item.*?</escidocItem:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-            	    Matcher m = p.matcher(searchResultItem);
-            	    m.find();
-            	    searchResultItem = m.group(1);
-                    logger.info("Search result after: " + searchResultItem);
-                    //END OF DIRTY HACK
-                    
-                    try
-                    {
-                        ItemVO itemResult = xmlTransforming.transformToItem(searchResultItem);
-                        resultList.add(itemResult);
-                    } 
-                    catch (TechnicalException e)
-                    {
-                        logger.warn("ItemContainerSearchBean::transformToItemListAsString(): Unmarshalling "
-                                + "failed, maybe a container?" + e.getStackTrace());
-                    }
+                {   
+                    String searchResultItem = messages[0].getAsString();                  
+                    ItemVO itemResult = xmlTransforming.transformToItem(searchResultItem);
+                    resultList.add(itemResult); 
                 }
             }
         }
@@ -513,8 +490,26 @@ public class SearchBean implements Search
         return resultList;
     }
 
-    private boolean checkVal(String str)
+    private boolean checkValue(String str)
     {
         return !(str == null || str.trim().equals(""));
     }
+    
+    private ArrayList<ItemResultVO> extractItemsOfSearchResult(List<SearchResultElement> results)
+    { 
+        
+        ArrayList<ItemResultVO> itemList = new ArrayList<ItemResultVO>();
+        for (int i = 0; i < results.size(); i++)
+        {
+            //check if we have found an item
+            if (results.get(i) instanceof ItemResultVO)
+            {
+                // cast to PubItemResultVO
+                ItemResultVO item = (ItemResultVO) results.get(i);
+                itemList.add(item);
+            }
+        }
+        return itemList;
+    }
+    
 }
