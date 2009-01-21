@@ -33,7 +33,6 @@
 			xpath="string(count(publication/creator[@role='author']/person|organization))" />
 		<variable name="sourceEditorsCount"
 			xpath="string(count(publication/source/creator[@role='editor']/person|organization))" />
-		<variable name="hasTotalNumberOfPages" xpath="not(publication/total-number-of-pages)=false()" />
 		<variable name="bookEditorsCount" xpath="string(count(publication[@type='book']/creator[@role='editor']))" />
 			
 		<!--
@@ -224,15 +223,10 @@
 				<starts-with value="pp. "/>
 			</parameters>
 			<elements>
-				<layout-element ref="publication/total-number-of-pages" >
-					<parameters> 
-						<valid-if><![CDATA[${hasTotalNumberOfPages}.equals("true")]]></valid-if>
-					</parameters>
-					<elements/>
-				</layout-element>
+				<layout-element ref="publication/total-number-of-pages" />
 				<layout-element>
 					<parameters>
-						<valid-if><![CDATA[${hasTotalNumberOfPages}.equals("false")]]></valid-if>
+						<valid-if><![CDATA[${publication/total-number-of-pages}==null]]></valid-if>
 						<delimiter value="-" />
 					</parameters>
 					<elements>
