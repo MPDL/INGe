@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema (since Version 0.3, Februar, 2008):
+	- removed resource specific filter schemas
+	- schema version and namespace changed to 0.4
+	- filter names are not restricted
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="filter" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:complexType mixed="true">
+						<xs:sequence>
+							<xs:element name="id" minOccurs="0"
+								maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>
+										The id element is allowed only
+										in filter with name
+										"http://purl.org/dc/elements/1.1/identifier".
+									</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="name" type="xs:token">
+							<xs:annotation>
+								<xs:documentation>
+									The filter names of version 0.3 are
+									not longer used.
+
+									Since version 0.4 every predicate
+									may be used as filter name. The
+									content of the filter element is a
+									value bound to that predicate that
+									should match.
+
+									Predicates are implicitly defined by
+									the properties scheme
+									(properties.xsd) and
+									structural-relations schema
+									(structural-relations.xsd). The full
+									qualified names of elements defined
+									by this schemas must be used. E.g.
+									filter name "public-status" in 0.3
+									is now
+									"http://escidoc.de/core/01/properties/public-status"
+									and "created-by" in 0.3 is now
+									"http://escidoc.de/core/01/structural-relations/created-by".
+
+									Exceptions are:
+
+									- The name of the id-filter is not
+									longer the resource name but
+									"http://purl.org/dc/elements/1.1/identifier"
+									which is a predicate bound to each
+									resource that holds the escidoc
+									identifier of the resource.
+
+									- The filter names "user", "role"
+									and "top-level-organizational-units"
+									are unchanged. (May be changed for
+									release 1.0)
+
+									- The filter "object-type" is
+									changed to
+									"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+									and the value that should match is
+									the resource-type URI. The
+									resource-type URI starts with
+									"http://escidoc.de/core/01/resources/"
+									suffixed with the resource name in
+									camel-case. E.g. item URI is
+									"http://escidoc.de/core/01/resources/Item"
+									and organizational-unit URI is
+									"http://escidoc.de/core/01/resources/OrganizationalUnit".
+									(May be changed for release 1.0)
+
+									Examples:
+
+									- To match (a)items (b)with the id
+									"escidoc:1" (c)created by
+									"escidoc:user42":
+									<param>
+										<filter
+											name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
+											http://escidoc.de/core/01/resources/Item
+										</filter>
+										<filter
+											name="http://purl.org/dc/elements/1.1/identifier">
+											<id>escidoc:1</id>
+										</filter>
+										<filter
+											name="http://escidoc.de/core/01/properties/created-by">
+											escidoc:user42
+										</filter>
+									</param>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="format" minOccurs="0" type="xs:token" />
+				<xs:element name="order-by" minOccurs="0">
+					<xs:complexType>
+					    <xs:simpleContent>
+      						<xs:extension base="xs:token">
+        						<xs:attribute name="sorting" default="ascending">
+									<xs:simpleType>
+										<xs:restriction base="xs:token">
+											<xs:enumeration value="ascending" />
+											<xs:enumeration value="descending" />
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+      						</xs:extension>
+    					</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="limit" minOccurs="0" type="xs:int" default="1000"/>
+				<xs:element name="offset" minOccurs="0" type="xs:int" default="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- 
+		<xs:simpleType name="nameType">
+		<xs:restriction base="xs:string">
+		<xs:pattern value="created-by" />
+		<xs:pattern value="content-model" />
+		<xs:pattern value="items" />
+		<xs:pattern value="related-to" />
+		<xs:pattern value="public-status" />
+		<xs:pattern value="latest-version-status" />
+		<xs:pattern value="user" />
+		<xs:pattern value="role" />
+		</xs:restriction>
+		</xs:simpleType>
+	-->
+</xs:schema>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Changes applied to this schema (since Version 01, May, 2008):
+	- May, 2008
+	- schema version 0.1 created (FRS)
+	  
+-->
+<xs:schema targetNamespace="http://www.escidoc.de/schemas/tableofcontent/0.1"
+	xmlns:toc="http://www.escidoc.de/schemas/tableofcontent/0.1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xlink="http://www.w3.org/1999/xlink">
+
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="../../../soap/common/0.4/xlink.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../soap/common/0.4/xml.xsd" />
+
+	<xs:element name="toc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="toc:div" />
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:ID" use="optional" />
+			<xs:attribute name="TYPE" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						TYPE: an optional string attribute specifying
+						the type of structural map provided. Typical
+						values will be &quot;PHYSICAL&quot; for a map
+						which describes the physical composition of the
+						original work (a series with individual
+						monographs with pages) and &quot;LOGICAL&quot;
+						for one which describes the intellectual
+						structure of the work (a monograph with TOC,
+						forward, chapters, index., etc.);
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="LABEL" type="xs:string"
+				use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						LABEL: an optional string attribute which may be
+						used to describe the structMap to users. This is
+						primarily useful where more than one structMap
+						is provided for a single object (e.g., both
+						logical and physical structMap).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xml:base" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="div">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="toc:ptr" />
+					<xs:element ref="toc:div" />
+					<xs:any namespace="##other" processContents="skip" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:ID" use="optional" />
+			<xs:attribute name="ORDER" type="xs:integer"
+				use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						ORDER: an optional integer representation of
+						this div's order among its siblings (e.g., its
+						sequence).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="ORDERLABEL" type="xs:string"
+				use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						ORDERLABEL: an optional string representation of
+						this div's order among its siblings (e.g.,
+						&quot;xii&quot;), or a non-integer native
+						numbering system. It is presumed that this value
+						will still be machine-actionable (e.g., supports
+						a page 'go to' function), and is not a
+						replacement/substitute for the LABEL attribute.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="LABEL" type="xs:string"
+				use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						LABEL: an optional string label to describe this
+						div to an end user viewing the document, as per
+						a table of contents entry (NB: a div LABEL
+						should be specific to its level in the
+						structural map. In the case of a book with
+						chapters, the book div LABEL should have the
+						book title, and the chapter div LABELS should
+						have the individual chapter titles, rather than
+						having the chapter div LABELs combine both book
+						title and chapter title).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="TYPE" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						TYPE: an optional string attribute for
+						specifying a type of division (e.g., chapter,
+						article, page, etc.).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="visible" type="xs:string"
+				default="true">
+				<xs:annotation>
+					<xs:documentation>
+						Indicates if this div (and its sub-elements
+						should be displayed when displaying this toc.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ptr">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:ID" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						ID: an optional XML ID value
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="LOCTYPE" type="xs:string" fixed="URL" />
+			<xs:attribute name="USE" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						USE: an optional string attribute indicating the
+						intended use of the resource (e.g., master,
+						reference, thumbnails for image files).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="MIMETYPE" type="xs:string"
+				use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						MIMETYPE: an optional string attribute providing
+						the MIME type for the resource.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute ref="xlink:type" />
+			<xs:attribute ref="xlink:title" />
+			<xs:attribute ref="xlink:href" />
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

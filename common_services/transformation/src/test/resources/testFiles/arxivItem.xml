@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2009-01-09T09:32:06Z</responseDate>
+<request verb="GetRecord" identifier="oai:arXiv.org:0712.2485" metadataPrefix="arXiv">http://export.arxiv.org/oai2</request>
+<GetRecord>
+<record>
+<header>
+ <identifier>oai:arXiv.org:0712.2485</identifier>
+ <datestamp>2009-01-08</datestamp>
+ <setSpec>physics:gr-qc</setSpec>
+
+ <setSpec>physics:hep-lat</setSpec>
+ <setSpec>physics:hep-th</setSpec>
+</header>
+<metadata>
+ <arXiv xmlns="http://arxiv.org/OAI/arXiv/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://arxiv.org/OAI/arXiv/ http://arxiv.org/OAI/arXiv.xsd">
+ <id>0712.2485</id><created>2007-12-17</created><updated>2009-01-08</updated><authors><author><keyname>Ambjorn</keyname><forenames>J.</forenames></author><author><keyname>Gorlich</keyname><forenames>A.</forenames></author><author><keyname>Jurkiewicz</keyname><forenames>J.</forenames></author><author><keyname>Loll</keyname><forenames>R.</forenames></author></authors><title>Planckian Birth of the Quantum de Sitter Universe</title><categories>hep-th gr-qc hep-lat</categories><comments>Article unchanged. Line added in acknowledgment</comments><report-no>ITP-UU-07/64</report-no><journal-ref>Phys.Rev.Lett.100:091304,2008</journal-ref><doi>10.1103/PhysRevLett.100.091304</doi><license>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</license><abstract>  We show that the quantum universe emerging from a nonperturbative, Lorentzian
+sum-over-geometries can be described with high accuracy by a four-dimensional
+de Sitter spacetime. By a scaling analysis involving Newton's constant, we
+establish that the linear size of the quantum universes under study is in
+between 17 and 28 Planck lengths. Somewhat surprisingly, the measured quantum
+fluctuations around the de Sitter universe in this regime are to good
+approximation still describable semiclassically. The numerical evidence
+presented comes from a regularization of quantum gravity in terms of causal
+dynamical triangulations.
+
+</abstract></arXiv>
+</metadata>
+</record>
+</GetRecord>
+</OAI-PMH>
+
