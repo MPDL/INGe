@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        
+	    xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    
+	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        
+	    xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         
+	    xmlns:version="http://escidoc.de/core/01/properties/version/" 
+	    xmlns:release="http://escidoc.de/core/01/properties/release/" 	     
+	    xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  
+	    xmlns:prop="http://escidoc.de/core/01/properties/" 
+	    xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	    xmlns:xml="http://www.w3.org/XML/1998/namespace"  
+	    objid="escidoc:143027"  
+	    last-modification-date="2009-01-13T09:43:51.248Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-13T09:23:13.869Z</prop:creation-date><srel:created-by   objid="escidoc:60112" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment >tt</prop:public-status-comment>    <srel:context   objid="escidoc:59254" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:143027:2</prop:pid>        <prop:version   objid="escidoc:143027:2">
+    	<version:number >2</version:number>    	<version:date >2009-01-13T09:43:51.248Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:60112" />    
+    	<version:comment >tt</version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:143027:2</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:143027:2">
+    	<version:number >2</version:number>    	<version:date >2009-01-13T09:43:51.248Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:143027:2">
+    		<release:number >2</release:number>	    	<release:date >2009-01-13T09:43:50.787Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:143027:1</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records   >
+<escidocMetadataRecords:md-record name="escidoc"        >
+
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book-item">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Dreyer</escidoc:family-name>
+      <escidoc:given-name>Malte</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
+        <escidoc:address>Munich, DE</escidoc:address>
+        <escidoc:identifier>escidoc:persistent25</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">test of creator role(s)</dc:title>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008-01-13</dcterms:issued>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">test</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Tschida</escidoc:family-name>
+        <escidoc:given-name>U.</escidoc:given-name>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+  </publication:source>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations   >
+</relations:relations> 	</escidocItem:item>

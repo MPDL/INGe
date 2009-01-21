@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://escidoc.de/core/01/structural-relations/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:annotation>
+		<xs:documentation>
+			The term "raw source of the resource" refers to the object
+			or simply the data behind the resource. What is usually
+			meant with the physical representation of a resource where
+			every representation is derived from.
+		</xs:documentation>
+	</xs:annotation>
+	
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+	
+	<xs:element name="created-by" type="common-types:readOnlyLink">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource/person that created the
+				raw source of a resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="modified-by" type="common-types:readOnlyLink">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource/person that created the
+				version of the raw source of a resource which is the
+				source the current representation is derived from.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+    <xs:element name="revoked-by" type="common-types:readOnlyLink">
+        <xs:annotation>
+            <xs:documentation>
+                Refers to the entity/resource/person that revoked
+                a grant.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="context" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the context of a resource. A context describes
+				conditions of accessing, manipulating and behavior of a
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="content-model"
+		type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the resource describing the content model of a
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="lock-owner" type="common-types:readOnlyLink">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource/person that locked a
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="organizational-unit" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>Refers to an organizational unit to that a resource is related.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+    <xs:element name="affiliation">
+        <xs:annotation>
+            <xs:documentation>Refers to an affiliation of a user account.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="common-types:linkRequired">
+                    <xs:attribute name="primary" type="xs:boolean"
+                        use="optional" default="false" />
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="person" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>Refers to the related person resource of a resource.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="role" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>Refers to the role of a grant.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="assigned-on" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>Refers to the object for that a role is granted to a user.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="parent" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource that is a parent of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="member" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource that is a member of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="item" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the item that is a member of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="container" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the container that is a member of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="child" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the entity/resource that is a child of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="component" type="common-types:linkRequired">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the component of this
+				item resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
