@@ -17,6 +17,28 @@ public class FullTextVO
     private String fileType;
     private String contentCategory;
     private String visibility;
+    private String name;
+    private String encoding;
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getEncoding()
+    {
+        return this.encoding;
+    }
+
+    public void setEncoding(String encoding)
+    {
+        this.encoding = encoding;
+    }
 
     public String getFileType()
     {

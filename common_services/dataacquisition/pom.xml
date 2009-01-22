@@ -93,12 +93,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>1.0</version>
@@ -129,19 +123,8 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>common_logic</artifactId>
-			<version>1.1.12-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.15-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>citationmanager</artifactId>
-			<version>1.0.18-SNAPSHOT</version>
+			<artifactId>transformation</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -160,36 +143,6 @@
 			<groupId>xmlbeans</groupId>
 			<artifactId>xbean_xpath</artifactId>
 			<version>2.1.0</version>
-			<scope>compile</scope>
-		</dependency>
-				<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>mods_3.2</artifactId>
-			<version>3.2</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>mets_1.7</artifactId>
-			<version>1.7</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-container</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-item</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-toc</artifactId>
-			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>

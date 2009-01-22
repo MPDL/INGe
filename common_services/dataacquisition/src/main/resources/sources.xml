@@ -5,7 +5,8 @@
 		<dc:description>PubMed Central (PMC) is the U.S. National Institutes of Health (NIH) free digital archive of biomedical and life sciences journal literature.</dc:description>
 		<dc:identifier xsi:type="dcterms:URI">http://www.pubmedcentral.nih.gov/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<dc:format>UTF-8</dc:format>
+		<dc:format>UTF-8</dc:format>		
+		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
 		<source-identifier>PMCID</source-identifier>
 		<source-oai_identifier>oai:pubmedcentral.nih.gov:</source-oai_identifier>
 		<harvest-protocol>OAI-PMH</harvest-protocol>
@@ -20,14 +21,18 @@
 				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>pmc</label>
+				<label>PubMed Central</label>
+				<name>pmc</name>
+				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>oai_dc</label>
+				<label>oai dc</label>
+				<name>oai_dc</name>
+				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
@@ -37,6 +42,8 @@
 				<dc:identifier>http://www.pubmedcentral.nih.gov/picrender.fcgi?artid=GETID%26blobtype=pdf</dc:identifier>
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
+				<name>pdf</name>
+				<encoding>*</encoding>
 				<fileType>.pdf</fileType>
 				<content-categorie>any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
@@ -49,6 +56,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
+		<item-url>http://arxiv.org/abs/GETID</item-url>
 		<source-identifier>arXiv</source-identifier>
 		<harvest-protocol>OAI-PMH</harvest-protocol>
 		<retry-after>0</retry-after>
@@ -63,44 +71,18 @@
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>arXiv</label>
+				<name>arXiv</name>
+				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>oai_dc</label>
+				<label>oai dc</label>
+				<name>oai_dc</name>
+				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/plain</dc:format>
-				<label>EndNote</label>
-				<fileType>.enl</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/plain</dc:format>
-				<label>BibTex</label>
-				<fileType>.bib</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>APA</label>
-				<fileType>.html</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>AJP</label>
-				<fileType>.html</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>CoinS</label>
-				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		
@@ -110,6 +92,8 @@
 				<dc:identifier>http://export.arxiv.org/pdf/GETID</dc:identifier>
 				<dc:format>application/pdf</dc:format>
 				<label>PDF</label>
+				<name>pdf</name>
+				<encoding>*</encoding>
 				<fileType>.pdf</fileType>
 				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
@@ -118,6 +102,8 @@
 				<dc:identifier>http://export.arxiv.org/ps/GETID</dc:identifier>
 				<dc:format>application/gzip</dc:format>
 				<label>Postscript</label>
+				<name>ps</name>
+				<encoding>*</encoding>
 				<fileType>.ps.gz</fileType>
 				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
@@ -130,6 +116,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
+		<item-url>http://localhost:8080/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoc</source-identifier>
 		<harvest-protocol>ejb</harvest-protocol>
 		<retry-after>0</retry-after>
@@ -139,42 +126,14 @@
 		
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/plain</dc:format>
-				<label>EndNote</label>
-				<fileType>.enl</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/plain</dc:format>
-				<label>BibTex</label>
-				<fileType>.bib</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>APA</label>
-				<fileType>.html</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>AJP</label>
-				<fileType>.html</fileType>
-			</MD-fetch-setting>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
+				<name>escidoc</name>
+				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
-			</MD-fetch-setting>
-			<MD-fetch-setting default="false">
-				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<dc:format>text/html</dc:format>
-				<label>CoinS</label>
-				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		

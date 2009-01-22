@@ -17,6 +17,7 @@
 			<xs:element ref="dc:identifier"/>
 			<!-- type of metadata fetch, encoding -->
 			<xs:element ref="dc:format" maxOccurs="unbounded"/>
+			<xs:element name="item-url" type="dc:SimpleLiteral"/>
 			<xs:element name="source-identifier" type="dc:SimpleLiteral"/>
 			<xs:element name="harvest-protocol" type="dc:SimpleLiteral"/>
 			<xs:element name="retry-after" type="xs:nonNegativeInteger"/>
@@ -43,8 +44,12 @@
 			<xs:element ref="dc:format"/>
 			<!-- label for presentation-->
 			<xs:element name="label" type="dc:SimpleLiteral"/>
+			<!-- name-->
+			<xs:element name="name" type="dc:SimpleLiteral"/>
 			<!-- file ending-->
 			<xs:element name="fileType" type="dc:SimpleLiteral"/>
+			<!-- encoding-->
+			<xs:element name="encoding" type="dc:SimpleLiteral"/>
 		</xs:sequence>
 		<xs:attribute name="default" type="xs:boolean" use="required"/>
 	</xs:complexType>
@@ -58,16 +63,20 @@
 			<xs:element ref="dc:description" minOccurs="0" maxOccurs="1"/>
 			<!--fetch FT url-->
 			<xs:element ref="dc:identifier"/>
-			<!-- available fetching format-->
+			<!-- mimetype-->
 			<xs:element ref="dc:format"/>
 			<!-- label for presentation-->
 			<xs:element name="label" type="dc:SimpleLiteral"/>
+			<!-- name-->
+			<xs:element name="name" type="dc:SimpleLiteral"/>
 			<!-- file ending-->
 			<xs:element name="fileType" type="dc:SimpleLiteral"/>
 			<!-- full text content -->
 			<xs:element name="content-categorie" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
 			<!-- full text visibility -->
 			<xs:element name="visibility" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
+			<!-- encoding-->
+			<xs:element name="encoding" type="dc:SimpleLiteral"/>
 		</xs:sequence>
 		<xs:attribute name="default" type="xs:boolean" use="required"/>
 	</xs:complexType>

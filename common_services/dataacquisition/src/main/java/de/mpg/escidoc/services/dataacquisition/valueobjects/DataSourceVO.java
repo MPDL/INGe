@@ -43,6 +43,7 @@ public class DataSourceVO
     private String name;
     private String description;
     private URL url;
+    private URL itemUrl;
     private String type;
     private String encoding;
     private String harvestProtocol;
@@ -190,5 +191,15 @@ public class DataSourceVO
     public void setIdentifier(String identifier)
     {
         this.identifier = identifier;
+    }
+    
+    public URL getItemUrl()
+    {
+        return this.itemUrl;
+    }
+
+    public void setItemUrl(URL itemUrl)
+    {
+        this.itemUrl = itemUrl;
     }
 }

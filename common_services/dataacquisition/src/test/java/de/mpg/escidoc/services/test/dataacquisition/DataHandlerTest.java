@@ -2,7 +2,6 @@ package de.mpg.escidoc.services.test.dataacquisition;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 
 /**
  * 

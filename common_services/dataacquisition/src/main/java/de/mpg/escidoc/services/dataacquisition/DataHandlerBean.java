@@ -30,19 +30,14 @@ package de.mpg.escidoc.services.dataacquisition;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.Vector;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -51,11 +46,8 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import net.sf.jasperreports.engine.JRException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -63,29 +55,18 @@ import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.common.MetadataHandler;
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
-import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.dataacquisition.coins.CoinsTransformation;
 import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
-import de.mpg.escidoc.services.dataacquisition.mets.METSTransformation;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * This class provides the ejb implementation of the {@link DataHandler} interface.
@@ -96,28 +77,25 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
 @RemoteBinding(jndiBinding = DataHandler.SERVICE_NAME)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@Interceptors({ LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
 public class DataHandlerBean implements DataHandler
 {
     private final Logger logger = Logger.getLogger(DataHandlerBean.class);
-    private final String fetchTypeMETADATA = "METADATA";
-    private final String fetchTypeFILE = "FILE";
-    private final String fetchTypeCITATION = "CITATION";
-    private final String fetchTypeLAYOUT = "LAYOUT";
+    private final String fetchTypeTEXTUALDATA = "TEXTUALDATA";
+    private final String fetchTypeFILEDATA = "FILEDATA";
+    private final String fetchTypeESCIDOCTRANS = "ESCIDOCTRANS";
     private final String fetchTypeUNKNOWN = "UNKNOWN";
     private final String regex = "GETID";
-    // This is tmp till clarification of new transformation design
-    private final String fetchTypeENDNOTE = "ENDNOTE";
-    private final String fetchTypeBIBTEX = "BIBTEX";
-    private final String fetchTypeAPA = "APA";
-    private final String fetchTypeAJP = "AJP";
-    private final String fetchTypeMETS = "METS";
-    private final String fetchTypeCoinS = "COINS";
+
     private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+    private Util util = new Util();
+    
+    //Additional data info
     private String contentType;
     private String fileEnding;
     private String contentCategorie;
     private String visibility = "PRIVATE";
+    private URL itemUrl;
+
 
     /**
      * public constructor for DataHandlerBean class.
@@ -135,78 +113,42 @@ public class DataHandlerBean implements DataHandler
     {
         DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
         MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
-        return this.doFetch(sourceName, identifier, md.getMdLabel());
+        return this.doFetch(sourceName, identifier, md.getName(), md.getMdFormat(), md.getEncoding());
     }
 
     /**
      * {@inheritDoc}
      */
-    public byte[] doFetch(String sourceName, String identifier, String format) throws SourceNotAvailableException,
+    public byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws SourceNotAvailableException,
             AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
     {
         byte[] fetchedData = null;
+        DataSourceVO importSource = new DataSourceVO();
+        
         try
-        {
-            identifier = this.trimIdentifier(sourceName, identifier);
-            DataSourceVO importSource = new DataSourceVO();
+        {             
+            identifier = this.util.trimIdentifier(sourceName, identifier);           
             importSource = this.sourceHandler.getSourceByName(sourceName);
-            String fetchType = this.getFetchingType(importSource, format);
-            
-            //Hack for natasa, will be deleted when transformation service is impelemented
-            if ((fetchType.equals(this.fetchTypeENDNOTE) || fetchType.equals(this.fetchTypeBIBTEX) 
-                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP) 
-                    || fetchType.equals(this.fetchTypeCoinS)) & sourceName.toLowerCase().equals("arxiv"))
+            String fetchType = this.getFetchingType(importSource, trgFormatName, trgFormatType, trgFormatEncoding);
+
+            if (fetchType.equals(this.fetchTypeTEXTUALDATA))
             {
-                // Temp
-                fetchedData = this.fetchArxivHack(identifier, format, importSource);
-                return fetchedData;
+                fetchedData = this.fetchTextualData(importSource, identifier, trgFormatName, trgFormatType, trgFormatEncoding).getBytes("UTF-8");
             }
-            if (fetchType.equals(this.fetchTypeMETADATA))
+            if (fetchType.equals(this.fetchTypeFILEDATA))
             {
-                fetchedData = this.fetchMetadata(importSource, identifier, format).getBytes();
+                Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+                fetchedData = this.fetchData(importSource, identifier, new Format[] {format });
             }
-            if (fetchType.equals(this.fetchTypeFILE))
+            if (fetchType.equals(this.fetchTypeESCIDOCTRANS))
             {
-                fetchedData = this.fetchData(importSource, identifier, new String[] {format });
-            }
-            if (fetchType.equals(this.fetchTypeCITATION))
-            {
-                // TODO
-            }
-            if (fetchType.equals(this.fetchTypeLAYOUT))
-            {
-                // TODO
-            }
-            if (fetchType.equals(this.fetchTypeENDNOTE))
-            {
-                // Temp
-                fetchedData = this.fetchEndnoteTemp(identifier);
-            }
-            if (fetchType.equals(this.fetchTypeBIBTEX))
-            {
-                // Temp
-                fetchedData = this.fetchBibtexTemp(identifier);
-            }
-            if (fetchType.equals(this.fetchTypeAPA))
-            {
-                // Temp
-                fetchedData = this.fetchApaTemp(identifier);
-            }
-            if (fetchType.equals(this.fetchTypeAJP))
-            {
-                // Temp
-                fetchedData = this.fetchAjpTemp(identifier);
-            }
-            if (fetchType.equals(this.fetchTypeMETS))
-            {
-                // Temp
-                fetchedData = this.fetchMETSTemp(identifier);
-            }
-            if (fetchType.equals(this.fetchTypeCoinS))
-            {
-                // Temp
-                fetchedData = this.fetchCOINSTemp(identifier);
+                fetchedData = this.fetchTextualData(importSource, identifier, "escidoc", "application/xml", "UTF-8").getBytes("UTF-8");
+                InitialContext initialContext = new InitialContext();
+                Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+                fetchedData = transformer.transform(fetchedData, "escidoc", "application/xml", "UTF-8", trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
+                this.setContentType(trgFormatType);
+                this.setFileEnding(null);
             }
             if (fetchType.equals(this.fetchTypeUNKNOWN))
             {
@@ -220,19 +162,23 @@ public class DataHandlerBean implements DataHandler
         }
         catch (IdentifierNotRecognisedException e)
         {
-            throw new IdentifierNotRecognisedException();
+            throw new IdentifierNotRecognisedException(e);
         }
         catch (SourceNotAvailableException e)
         {
-            throw new SourceNotAvailableException();
+            throw new SourceNotAvailableException(e);
+        }
+        catch (FormatNotRecognisedException e)
+        {
+            throw new FormatNotRecognisedException (e);
         }
         catch (FormatNotAvailableException e)
         {
-            throw new FormatNotAvailableException(e.getMessage());
+            throw new FormatNotAvailableException(e);
         }
-        catch (RuntimeException e)
+        catch (Exception e)
         {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return fetchedData;
     }
@@ -240,14 +186,61 @@ public class DataHandlerBean implements DataHandler
     /**
      * {@inheritDoc}
      */
+    public byte[] doFetch(String sourceName, String identifier, Format[] formats) throws SourceNotAvailableException,
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, FormatNotAvailableException
+    {
+        identifier = this.util.trimIdentifier(sourceName, identifier);
+        DataSourceVO importSource = new DataSourceVO();
+        importSource = this.sourceHandler.getSourceByName(sourceName);
+        return this.fetchData(importSource, identifier, formats);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
     {
-        identifier = this.trimIdentifier(sourceName, identifier);
+        identifier = this.util.trimIdentifier(sourceName, identifier);
         DataSourceVO importSource = new DataSourceVO();
         importSource = this.sourceHandler.getSourceByName(sourceName);
-        return this.fetchData(importSource, identifier, formats);
+        Format[] formatsF = new Format[formats.length];
+        Format format;
+        
+        for (int i = 0; i< formats.length; i++)
+        {
+            format = new Format(formats[i], this.util.getDefaultMimeType(formats[i]), this.util.getDefaultEncoding(formats[i]));
+            formatsF[i] = format;
+        }
+        
+        return this.fetchData(importSource, identifier, formatsF);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] doFetch(String sourceName, String identifier, String formatName) throws SourceNotAvailableException,
+        IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException,
+        FormatNotAvailableException
+    {
+        String type;
+        String enc;
+        
+        //check if the format is in the name
+        if (formatName.contains(new String("\u005F")))
+        {
+            String[] typeArr = formatName.split(new String("\u005F"));
+            formatName = typeArr[0];
+            type = typeArr[1];
+            enc = "*";
+        }
+        else{
+            type = this.util.getDefaultMimeType(formatName);
+            enc = this.util.getDefaultEncoding(formatName);
+        }
+        return this.doFetch(sourceName, identifier, formatName, type, enc);
     }
 
     /**
@@ -258,7 +251,14 @@ public class DataHandlerBean implements DataHandler
         String explainXML = "";
         try
         {
-            explainXML = ResourceUtil.getResourceAsString("resources/sources.xml");
+            ClassLoader cl = this.getClass().getClassLoader();
+            InputStream fileIn = cl.getResourceAsStream("resources/sources.xml");
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+            String line = null;
+            while ((line = br.readLine()) != null)
+            {
+                explainXML += line + "\n";
+            }
         }
         catch (IOException e)
         {
@@ -269,7 +269,7 @@ public class DataHandlerBean implements DataHandler
     }
 
     /**
-     * Operation for fetching data of type METADATA.
+     * Operation for fetching data of type TEXTUALDATA.
      * 
      * @param importSource
      * @param identifier
@@ -278,37 +278,37 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws SourceNotAvailableException
      * @throws AccessException
+     * @throws FormatNotSupportedException
      */
-    private String fetchMetadata(DataSourceVO importSource, String identifier, String format)
-        throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException
+    private String fetchTextualData(DataSourceVO importSource, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding)
+        throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException, FormatNotAvailableException, FormatNotRecognisedException
     {
-        String itemXML = null;
+        String item= null;
         boolean supportedProtocol = false;
-        InitialContext initialContext = null;
-        MetadataHandler mdHandler;
         ProtocolHandler protocolHandler = new ProtocolHandler();
-        MetadataVO md = this.getMdObjectToFetch(importSource, format);
-        // Replace regex with identifier
+        
         try
         {
+            MetadataVO md = this.util.getMdObjectToFetch(importSource, trgFormatName, trgFormatType, trgFormatEncoding);
+            
             String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), importSource.getEncoding());
             md.setMdUrl(new URL(decoded));
             md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(this.regex, identifier.trim())));
             importSource = this.sourceHandler.updateMdEntry(importSource, md);
+            
             // Select harvesting method
             if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
             {
                 this.logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
-                //Fetch the OAI record
-                itemXML = fetchOAIRecord(importSource, md);
+                item = fetchOAIRecord(importSource, md);
                 //Check the record for error codes
-                protocolHandler.checkOAIRecord(itemXML);
+                protocolHandler.checkOAIRecord(item);
                 supportedProtocol = true;
             }
             if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
-                itemXML = this.fetchEsciDocRecord(identifier);
+                item = this.fetchEsciDocRecord(identifier);
                 supportedProtocol = true;
             }
             if (!supportedProtocol)
@@ -316,6 +316,20 @@ public class DataHandlerBean implements DataHandler
                 this.logger.warn("Harvesting protocol " + importSource.getHarvestProtocol() + " not supported.");
                 throw new RuntimeException();
             }
+            
+            // Transform the itemXML if necessary
+            if (item != null && !trgFormatName.trim().toLowerCase().equals(md.getName().toLowerCase()))
+            {               
+                InitialContext initialContext = new InitialContext();
+                Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+                Format srcFormat = new Format (md.getName(), md.getMdFormat(),"*");
+                Format trgFormat = new Format (trgFormatName, trgFormatType, trgFormatEncoding);
+
+                item = new String (transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
+                this.setItemUrl(new URL(importSource.getItemUrl().toString().replace("GETID", identifier)));
+            }
+            
+            this.setContentType(trgFormatType);
         }
         catch (AccessException e)
         {
@@ -326,52 +340,24 @@ public class DataHandlerBean implements DataHandler
         {
             this.logger.error("The Identifier " + identifier + "was not recognized by source " + importSource.getName()
                     + ".", e);
-            throw new IdentifierNotRecognisedException();
+            throw new IdentifierNotRecognisedException(e);
         }
         catch (BadArgumentException e)
         {
             this.logger.error("The request contained illegal arguments", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         catch (FormatNotRecognisedException e)
         {
             this.logger.error("The requested format was not recognised by the import source", e);
-            throw new RuntimeException();
+            throw new FormatNotRecognisedException(e);
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
-            this.logger.error("An error occurred while retrieving the source URL ( " + md.getMdUrl() + " ).", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        catch (UnsupportedEncodingException e)
-        {
-            this.logger.error("An error occurred while decoding the source URL ( " + md.getMdUrl() + " ).", e);
-            throw new RuntimeException();
-        }
-        // Transform the itemXML if necessary
-        if (itemXML != null && !itemXML.trim().equals("")
-                && !format.trim().toLowerCase().equals(md.getMdLabel().toLowerCase()))
-        {
-            try
-            {
-                initialContext = new InitialContext();
-                mdHandler = (MetadataHandler) initialContext.lookup(MetadataHandler.SERVICE_NAME);
-                itemXML = mdHandler.transform(md.getMdLabel(), format, itemXML);
-            }
-            catch (NamingException e)
-            {
-                this.logger.error("Unable to initialize Metadata Handler.", e);
-                throw new RuntimeException();
-            }
-            catch (Exception e)
-            {
-                this.logger.error("An error occured while transforming the metadata.", e);
-                throw new RuntimeException();
-            }
-        }
-        this.setContentType(md.getMdFormat());
-        this.setFileEnding(md.getFileType());
-        return itemXML;
+        
+        return item;
     }
 
     /**
@@ -445,21 +431,11 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("Access denied.", e);
             throw new AccessException(url.toString());
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
-            this.logger.error("An error occurred while trying to set alternative server location.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        catch (IOException e)
-        {
-            this.logger.error("An error ocurred while creating the zip file.", e);
-            throw new RuntimeException();
-        }
-        catch (ParseException e)
-        {
-            this.logger.error("Response Header could not be parsed.", e);
-            throw new RuntimeException();
-        }
+
         return baos.toByteArray();
     }
 
@@ -473,32 +449,32 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws SourceNotAvailableException
      */
-    private byte[] fetchData(DataSourceVO importSource, String identifier, String[] listOfFormats) 
+    private byte[] fetchData(DataSourceVO importSource, String identifier, Format[] formats) 
         throws SourceNotAvailableException, RuntimeException, FormatNotAvailableException
     {
         byte[] in = null;
         FullTextVO fulltext = new FullTextVO();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(baos);
+
         try
         {
-            // Call fetch file for every selected format
-            for (int i = 0; i < listOfFormats.length; i++)
+            // Call fetch file for every given format
+            for (int i = 0; i < formats.length; i++)
             {
-                String format = listOfFormats[i];
-                fulltext = this.getFtObjectToFetch(importSource, format);
+                Format format = formats[i];
+                fulltext = this.util.getFtObjectToFetch(importSource, format.getName(), format.getType(), format.getEncoding());
                 // Replace regex with identifier
                 String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding());
                 fulltext.setFtUrl(new URL(decoded));
                 fulltext.setFtUrl(new URL(fulltext.getFtUrl().toString().replaceAll(this.regex, identifier.trim())));
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
+                
                 in = this.fetchFile(importSource, fulltext);
-                this.setVisibility(fulltext.getVisibility());
-                this.setContentCategorie(fulltext.getContentCategory());
-                this.setContentType(fulltext.getFtFormat());
-                this.setFileEnding(fulltext.getFileType());
+                this.setFileProperties(fulltext);
+                
                 // If only one file => return it in fetched format
-                if (listOfFormats.length == 1)
+                if (formats.length == 1)
                 {
                     return in;
                 }
@@ -514,12 +490,13 @@ public class DataHandlerBean implements DataHandler
                     zos.putNextEntry(ze);
                     zos.write(in);
                     zos.flush();
-                    zos.closeEntry();
+                    zos.closeEntry();                 
                 }
             }
             this.setContentType("application/zip");
             this.setFileEnding(".zip");
             zos.close();
+
         }
         catch (SourceNotAvailableException e)
         {
@@ -530,26 +507,11 @@ public class DataHandlerBean implements DataHandler
         {
             throw new FormatNotAvailableException(e.getMessage());
         }
-        catch (RuntimeException e)
+        catch (Exception e)
         {
-            this.logger.error("Technical problems occurred when communication with import source.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        catch (MalformedURLException e)
-        {
-            this.logger.error("Error when replacing regex in fetching URL.");
-            throw new RuntimeException();
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            this.logger.error("Error when decoding source url.", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            this.logger.error("An error ocurred while creating the zip file.", e);
-            throw new RuntimeException();
-        }
+        
         return baos.toByteArray();
     }
 
@@ -603,15 +565,9 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("Access denied.", e);
             throw new AccessException(importSource.getName());
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
-            this.logger.error("An error occurred while trying to set alternative server location.", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            this.logger.error("File could not be downloaded from.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return input;
     }
@@ -695,20 +651,9 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("Access denied.", e);
             throw new AccessException(importSource.getName());
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
-            this.logger.error("An error occurred while trying to set alternative server location.", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            this.logger.error("File could not be downloaded.", e);
-            throw new RuntimeException();
-        }
-        catch (ParseException e)
-        {
-            this.logger.error("Response Header could not be parsed.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return itemXML;
     }
@@ -740,505 +685,59 @@ public class DataHandlerBean implements DataHandler
     }
 
     /**
-     * For a more flexible interface for handling user input. This is the only source specific method, which should be
-     * updated when a new source is specified for import
-     * 
-     * @param sourceName
-     * @param identifier
-     * @return a trimed identifier
-     */
-    public String trimIdentifier(String sourceName, String identifier)
-    {
-        // Trim the identifier arXiv
-        if (sourceName.trim().toLowerCase().equals("arxiv") || sourceName.trim().toLowerCase().equals("arxiv(oai_dc)"))
-        {
-            if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
-            {
-                identifier = identifier.substring(14);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("arxiv:", 0))
-            {
-                identifier = identifier.substring(6);
-                return identifier.trim();
-            }
-        }
-        // Trim identifier for PubMedCentral
-        if (sourceName.trim().toLowerCase().equals("pubmedcentral"))
-        {
-            if (identifier.toLowerCase().startsWith("pmcid:pmc", 0))
-            {
-                identifier = identifier.substring(9);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmcid: pmc", 0))
-            {
-                identifier = identifier.substring(10);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmcid:", 0))
-            {
-                identifier = identifier.substring(6);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmc", 0))
-            {
-                identifier = identifier.substring(3);
-                return identifier.trim();
-            }
-        }
-        return identifier.trim();
-    }
-
-    private byte[] fetchEndnoteTemp(String identifier) throws IdentifierNotRecognisedException, RuntimeException
-    {
-        byte[] cite = null;
-        String item = null;
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            StructuredExportHandler structExport = (StructuredExportHandler) initialContext
-                    .lookup(StructuredExportHandler.SERVICE_NAME);
-            item = this.fetchEsciDocRecord(identifier);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            cite = structExport.getOutput(itemList, "ENDNOTE");
-            this.setContentType("text/plain");
-            this.setFileEnding(".enl");
-        }
-        catch (IdentifierNotRecognisedException e)
-        {
-            this.logger.error("Item with identifier " + identifier + " was not found.", e);
-            throw new IdentifierNotRecognisedException(e);
-        }
-        catch (NamingException e)
-        {
-            this.logger.error("An error occurred while initializing the context.", e);
-            throw new RuntimeException();
-        }
-        catch (StructuredExportManagerException e)
-        {
-            this.logger.error("StructuredExportManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (StructuredExportXSLTNotFoundException e)
-        {
-            this.logger.error("StructuredExportManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (TechnicalException e)
-        {
-            this.logger.error("An error occurred while transforming the record " + identifier + " to a PubItem.", e);
-            throw new RuntimeException();
-        }
-        return cite;
-    }
-
-    private byte[] fetchBibtexTemp(String identifier) throws IdentifierNotRecognisedException, RuntimeException
-    {
-        byte[] bib = null;
-        String item = null;
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            StructuredExportHandler structExport = (StructuredExportHandler) initialContext
-                    .lookup(StructuredExportHandler.SERVICE_NAME);
-            item = this.fetchEsciDocRecord(identifier);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            bib = structExport.getOutput(itemList, "BIBTEX");
-            this.setContentType("text/plain");
-            this.setFileEnding(".bib");
-        }
-        catch (IdentifierNotRecognisedException e)
-        {
-            this.logger.error("Item with identifier " + identifier + " was not found.", e);
-            throw new IdentifierNotRecognisedException(e);
-        }
-        catch (NamingException e)
-        {
-            this.logger.error("An error occurred while initializing the context.", e);
-            throw new RuntimeException();
-        }
-        catch (StructuredExportManagerException e)
-        {
-            this.logger.error("StructuredExportManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (StructuredExportXSLTNotFoundException e)
-        {
-            this.logger.error("StructuredExportManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (TechnicalException e)
-        {
-            this.logger.error("An error occurred while transforming the record " + identifier + " to a PubItem.", e);
-            throw new RuntimeException();
-        }
-        return bib;
-    }
-
-    private byte[] fetchApaTemp(String identifier) throws IdentifierNotRecognisedException, RuntimeException
-    {
-        byte[] apa = null;
-        String item = null;
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
-                    .lookup(CitationStyleHandler.SERVICE_NAME);
-            item = this.fetchEsciDocRecord(identifier);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            apa = citeHandler.getOutput("APA", "html", itemList);
-            this.setContentType("text/html");
-            this.setFileEnding(".html");
-        }
-        catch (IdentifierNotRecognisedException e)
-        {
-            this.logger.error("Item with identifier " + identifier + " was not found.", e);
-            throw new IdentifierNotRecognisedException(e);
-        }
-        catch (NamingException e)
-        {
-            this.logger.error("An error occurred while initializing the context.", e);
-            throw new RuntimeException();
-        }
-        catch (CitationStyleManagerException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (JRException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (TechnicalException e)
-        {
-            this.logger.error("An error occurred while transforming the record " + identifier + " to a PubItem.", e);
-            throw new RuntimeException();
-        }
-        return apa;
-    }
-
-    private byte[] fetchAjpTemp(String identifier) throws IdentifierNotRecognisedException, RuntimeException
-    {
-        byte[] ajp = null;
-        String item = null;
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
-                    .lookup(CitationStyleHandler.SERVICE_NAME);
-            item = this.fetchEsciDocRecord(identifier);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            ajp = citeHandler.getOutput("AJP", "html", itemList);
-            this.setContentType("text/html");
-            this.setFileEnding(".html");
-        }
-        catch (IdentifierNotRecognisedException e)
-        {
-            this.logger.error("Item with identifier " + identifier + " was not found.", e);
-            throw new IdentifierNotRecognisedException(e);
-        }
-        catch (NamingException e)
-        {
-            this.logger.error("An error occurred while initializing the context.", e);
-            throw new RuntimeException();
-        }
-        catch (CitationStyleManagerException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (JRException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            this.logger.error("CitationStyleManager threw an exception.", e);
-            throw new RuntimeException();
-        }
-        catch (TechnicalException e)
-        {
-            this.logger.error("An error occurred while transforming the record " + identifier + " to a PubItem.", e);
-            throw new RuntimeException();
-        }
-        return ajp;
-    }
-    
-    /**
-     * This method enables the fetching of arXiv data and the transformation in all available eSciDoc formats.
-     * @param identifier
-     * @param format
-     * @param importSource
-     * @return fetched item in requested format
-     */
-    private byte[] fetchArxivHack(String identifier, String format, DataSourceVO importSource) 
-        throws AccessException, IdentifierNotRecognisedException, SourceNotAvailableException, RuntimeException
-    {
-        byte[] fetchedFormat = null;
-        String eSciDocItem = null;
-
-        
-        //byte array of arXiv metadata in eSciDoc format
-        eSciDocItem = this.fetchMetadata(importSource, identifier, "pubitem");
-        
-        try
-        {
-            if (format.toLowerCase().equals("endnote"))
-            {
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                StructuredExportHandler structExport = (StructuredExportHandler) initialContext
-                        .lookup(StructuredExportHandler.SERVICE_NAME);
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-                String itemList = xmlTransforming.transformToItemList(pubitemList);
-                fetchedFormat = structExport.getOutput(itemList, "ENDNOTE");
-                this.setContentType("text/plain");
-                this.setFileEnding(".enl");
-            }
-            
-            if (format.toLowerCase().equals("bibtex"))
-            {
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                StructuredExportHandler structExport = (StructuredExportHandler) initialContext
-                        .lookup(StructuredExportHandler.SERVICE_NAME);
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-                String itemList = xmlTransforming.transformToItemList(pubitemList);
-                fetchedFormat = structExport.getOutput(itemList, "BIBTEX");
-                this.setContentType("text/plain");
-                this.setFileEnding(".bib");
-            }
-            
-            if (format.toLowerCase().equals("apa"))
-            {
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
-                        .lookup(CitationStyleHandler.SERVICE_NAME);
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-                String itemList = xmlTransforming.transformToItemList(pubitemList);
-                fetchedFormat = citeHandler.getOutput("APA", "html", itemList);
-                this.setContentType("text/html");
-                this.setFileEnding(".html");
-            }
-            
-            if (format.toLowerCase().equals("ajp"))
-            {
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
-                        .lookup(CitationStyleHandler.SERVICE_NAME);
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-                String itemList = xmlTransforming.transformToItemList(pubitemList);
-                fetchedFormat = citeHandler.getOutput("AJP", "html", itemList);
-                this.setContentType("text/html");
-                this.setFileEnding(".html");
-            }
-            
-            if (format.toLowerCase().equals("coins"))
-            {
-                InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
-                CoinsTransformation coinsT = new CoinsTransformation();
-                fetchedFormat = coinsT.getCOinS(itemVO).getBytes();
-                this.setContentType("text/plain");
-                this.setFileEnding(".txt");
-            }
-        }
-        catch (Exception e) 
-        { throw new RuntimeException(); }
-        
-        return fetchedFormat;
-    }
-    
-    private byte[] fetchCOINSTemp(String identifier)
-    {
-        byte[] coins = null;
-        String item = null;
-
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            item = this.fetchEsciDocRecord(identifier);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
-            CoinsTransformation coinsT = new CoinsTransformation();
-            coins = coinsT.getCOinS(itemVO).getBytes();
-            this.setContentType("text/html");
-            this.setFileEnding(".html");
-        }
-        catch (Exception e) 
-        { throw new RuntimeException(); }
-        
-        return coins;
-    }
-    
-    private byte[] fetchMETSTemp(String identifier) throws RuntimeException
-    {
-        byte[] mets = null;
-        METSTransformation metsTransform = new METSTransformation();
-        mets = metsTransform.transformToMETS(identifier);
-        return mets;
-    }
-
-    /**
-     * This operation return the Metadata Object of the format to fetch from the source.
-     * 
-     * @param source
-     * @param format
-     * @return Metadata Object of the format to fetch
-     */
-    private MetadataVO getMdObjectToFetch(DataSourceVO source, String format)
-    {
-        MetadataVO sourceMd = null;
-        MetadataVO transformMd = null;
-        // First: check if format can be fetched directly
-        for (int i = 0; i < source.getMdFormats().size(); i++)
-        {
-            sourceMd = source.getMdFormats().get(i);
-            if (sourceMd.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
-            {
-                return sourceMd;
-            }
-        }
-        // Second: check which format can be transformed into the given format
-        Vector<String> possibleFormats = this.sourceHandler.getFormatsForTransformation(format);
-        Vector<MetadataVO> possibleMds = new Vector<MetadataVO>();
-        for (int i = 0; i < source.getMdFormats().size(); i++)
-        {
-            transformMd = source.getMdFormats().get(i);
-            for (int x = 0; x < possibleFormats.size(); x++)
-            {
-                String possibleFormat = possibleFormats.get(x);
-                if (transformMd.getMdLabel().trim().toLowerCase().equals(possibleFormat))
-                {
-                    possibleMds.add(transformMd);
-                }
-            }
-        }
-        // More than one format from this source can be transformed into the requested format
-        if (possibleMds.size() > 1)
-        {
-            for (int y = 0; y < possibleMds.size(); y++)
-            {
-                transformMd = possibleMds.get(y);
-                if (transformMd.isMdDefault())
-                {
-                    return sourceMd = this.sourceHandler.getMdObjectfromSource(source, transformMd.getMdLabel());
-                }
-                // If no default format was declared, one random like metadata set is returned
-                else
-                {
-                    sourceMd = this.sourceHandler.getMdObjectfromSource(source, transformMd.getMdLabel());
-                }
-            }
-        }
-        if (possibleMds.size() == 1)
-        {
-            sourceMd = possibleMds.get(0);
-        }
-        if (possibleMds.size() == 0)
-        {
-            sourceMd = null;
-        }
-        return sourceMd;
-    }
-
-    /**
-     * This operation return the Fulltext Object of the format to fetch from the source.
-     * 
-     * @param source
-     * @param format
-     * @return Fulltext Object of the format to fetch
-     */
-    private FullTextVO getFtObjectToFetch(DataSourceVO source, String format)
-    {
-        FullTextVO ft = null;
-        for (int i = 0; i < source.getFtFormats().size(); i++)
-        {
-            ft = source.getFtFormats().get(i);
-            if (ft.getFtLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
-            {
-                return ft;
-            }
-            else
-            {
-                ft = null;
-            }
-        }
-        return ft;
-    }
-
-    /**
      * Decide which kind of data has to be fetched.
      * 
      * @param source
      * @param format
      * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}
      */
-    private String getFetchingType(DataSourceVO source, String format)
+    private String getFetchingType(DataSourceVO source, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws FormatNotAvailableException
     {
-        // tmp, till we clearify the new transformation service design
-        if (format.toLowerCase().equals("endnote"))
+        //Native metadata format
+        if (this.util.getMdObjectToFetch(source, trgFormatName, trgFormatType, trgFormatEncoding) != null)
         {
-            return this.fetchTypeENDNOTE;
+            return this.fetchTypeTEXTUALDATA;
         }
-        if (format.toLowerCase().equals("bibtex"))
+        //Native Fulltext format
+        if (this.util.getFtObjectToFetch(source, trgFormatName, trgFormatType, trgFormatEncoding) != null)
         {
-            return this.fetchTypeBIBTEX;
+            return this.fetchTypeFILEDATA;
         }
-        if (format.toLowerCase().equals("apa"))
+        //Transformations via escidoc format
+        if (this.util.checkEscidocTransform(trgFormatName, trgFormatType, trgFormatEncoding))
         {
-            return this.fetchTypeAPA;
+            return this.fetchTypeESCIDOCTRANS;
         }
-        if (format.toLowerCase().equals("ajp"))
+        //Transformable formats
+        try
         {
-            return this.fetchTypeAJP;
+            InitialContext initialContext = new InitialContext();
+            Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+            Format[] trgFormats = transformer.getTargetFormats(new Format(trgFormatName, trgFormatType, trgFormatEncoding));
+            if (trgFormats.length > 0)
+            {
+                return this.fetchTypeTEXTUALDATA;
+            }
         }
-        if (format.toLowerCase().equals("mets"))
+        catch (NamingException e)
         {
-            return this.fetchTypeMETS;
-        }
-        if (format.toLowerCase().equals("coins"))
-        {
-            return this.fetchTypeCoinS;
-        }
-        if (this.getMdObjectToFetch(source, format) != null)
-        {
-            return this.fetchTypeMETADATA;
-        }
-        if (this.getFtObjectToFetch(source, format) != null)
-        {
-            return this.fetchTypeFILE;
+            this.logger.warn(e);
         }
         return this.fetchTypeUNKNOWN;
     }
 
+    /**
+     * Sets the properties for a file.
+     * @param fulltext
+     */
+    public void setFileProperties(FullTextVO fulltext)
+    {       
+        this.setVisibility(fulltext.getVisibility());
+        this.setContentCategorie(fulltext.getContentCategory());
+        this.setContentType(fulltext.getFtFormat());
+        this.setFileEnding(fulltext.getFileType());
+    }
+    
     /**
      * method for retrieving the current sys date.
      * @return current date
@@ -1287,5 +786,15 @@ public class DataHandlerBean implements DataHandler
     public void setVisibility(String visibility)
     {
         this.visibility = visibility;
+    } 
+
+    public URL getItemUrl()
+    {
+        return this.itemUrl;
+    }
+
+    public void setItemUrl(URL itemUrl)
+    {
+        this.itemUrl = itemUrl;
     }
 }

@@ -33,6 +33,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Interface for fetching data from external systems.
@@ -52,14 +53,6 @@ public interface DataHandler
     String explainSources() throws RuntimeException;
 
     /**
-     * This is the only source specific method, which has to be updated when a new source is specified for import.
-     * @param sourceName
-     * @param identifier
-     * @return trimmed identifier
-     */
-    String trimIdentifier(String sourceName, String identifier);
-
-    /**
      * This operation fetches data from the specified source. 
      * The format of the requested data will be the default metadata format defined in sources.xml.
      * 
@@ -77,12 +70,13 @@ public interface DataHandler
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
+     * The format properties are default
      * This format can either be the format the external source provides, or a format we can transform 
      * from a format the external source provides
      * 
      * @param sourceName
      * @param identifier
-     * @param format
+     * @param formatName
      * @return fetched data as byte[]
      * @throws SourceNotAvailableException
      * @throws IdentifierNotRecognisedException
@@ -90,12 +84,52 @@ public interface DataHandler
      * @throws RuntimeException
      * @throws FormatNotAvailableException
      */
-    byte[] doFetch(String sourceName, String identifier, String format) throws SourceNotAvailableException,
+    byte[] doFetch(String sourceName, String identifier, String formatName) throws SourceNotAvailableException,
             IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
+     * This format can either be the format the external source provides, or a format we can transform 
+     * from a format the external source provides
+     * 
+     * @param sourceName
+     * @param identifier
+     * @param trgFormatName
+     * @param trgFormatType
+     * @param trgFormatEndcoding
+     * @return fetched data as byte[]
+     * @throws SourceNotAvailableException
+     * @throws IdentifierNotRecognisedException
+     * @throws FormatNotRecognisedException
+     * @throws RuntimeException
+     * @throws FormatNotAvailableException
+     */
+    byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws SourceNotAvailableException,
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+
+    
+    /**
+     * This operation fetches data from the specified source and returns it in the requested format. 
      * The fetched data will return in zip format, currently only file fetching is possible for multiple formats
+     * 
+     * @param sourceName
+     * @param identifier
+     * @param formats[]
+     * @return fetched data as byte[]
+     * @throws SourceNotAvailableException
+     * @throws IdentifierNotRecognisedException
+     * @throws FormatNotRecognisedException
+     * @throws RuntimeException
+     * @throws AccessException
+     * @throws FormatNotAvailableException
+     */
+    byte[] doFetch(String sourceName, String identifier, Format[] formats) throws SourceNotAvailableException,
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+    
+    /**
+     * This operation fetches data from the specified source and returns it in the requested format. 
+     * The fetched data will return in zip format, currently only file fetching is possible for multiple formats
+     * The formats properties are default
      * 
      * @param sourceName
      * @param identifier

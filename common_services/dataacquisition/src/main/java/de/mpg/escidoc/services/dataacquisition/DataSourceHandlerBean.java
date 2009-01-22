@@ -5,9 +5,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.purl.dc.elements.x11.SimpleLiteral;
@@ -19,15 +16,10 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocum
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformations.MetadataformatType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformations.MetadataformatsType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformations.TransformationType;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformations.TransformationsDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.transformations.TransformationsType;
-import de.mpg.escidoc.services.common.MetadataHandler;
-import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
+import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 
 /**
  * This class handles the import function from external sources.
@@ -38,11 +30,7 @@ public class DataSourceHandlerBean
 {
     private ImportSourcesDocument sourceDoc = null;
     private ImportSourcesType sourceType = null;
-    private TransformationsDocument transformDoc = null;
-    private TransformationsType transformType = null;
-    // Metadata Service
-    private MetadataHandler mdHandler = null;
-    private InitialContext initialContext = null;
+    private ThirdPartyTransformation thirdPartyTransformer = null;
     private static final Logger LOGGER = Logger.getLogger(DataHandlerBean.class);
     private String transformationFormat = null;
 
@@ -67,8 +55,7 @@ public class DataSourceHandlerBean
             ClassLoader cl = this.getClass().getClassLoader();
             java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
-            this.initialContext = new InitialContext();
-            this.mdHandler = (MetadataHandler) this.initialContext.lookup(MetadataHandler.SERVICE_NAME);
+            this.thirdPartyTransformer = new ThirdPartyTransformation();
             this.sourceType = this.sourceDoc.getImportSources();
             ImportSourceType[] sources = this.sourceType.getImportSourceArray();
             for (ImportSourceType source : sources)
@@ -88,6 +75,7 @@ public class DataSourceHandlerBean
                     sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                     sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                    sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
                     // Metadata parameters
                     MDFetchSettingsType mdfs = source.getMDFetchSettings();
                     MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -101,6 +89,8 @@ public class DataSourceHandlerBean
                         mdVO.setMdDefault(mdf.getDefault());
                         mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
                         mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
+                        mdVO.setName(simpleLiteralTostring(mdf.getName()));
+                        mdVO.setEncoding(simpleLiteralTostring(mdf.getEncoding()));
                         mdVec.add(mdVO);
                     }
                     sourceVO.setMdFormats(mdVec);
@@ -119,6 +109,8 @@ public class DataSourceHandlerBean
                         fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
                         fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                         fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
+                        fulltextVO.setName(simpleLiteralTostring(ftf.getName()));
+                        fulltextVO.setEncoding(simpleLiteralTostring(ftf.getEncoding()));
                         fulltextVec.add(fulltextVO);
                     }
                     sourceVO.setFtFormats(fulltextVec);
@@ -130,13 +122,15 @@ public class DataSourceHandlerBean
                             MetadataVO md = sourceVO.getMdFormats().get(i);
                             if (md.isMdDefault())
                             {
-                                if (this.mdHandler.checkTransformation(md.getMdLabel(), this.transformationFormat))
+                                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), this.transformationFormat))
                                 { sourceVec.add(sourceVO); }
                             }
                         }
                     }
                     else
-                    { sourceVec.add(sourceVO); }
+                    { 
+                        sourceVec.add(sourceVO); 
+                       }
                 }
             }
         }
@@ -151,11 +145,6 @@ public class DataSourceHandlerBean
         catch (IOException e)
         {
             LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
-        }
-        catch (NamingException e)
-        {
-            LOGGER.error("An error occurred when looking up the MetadataHandler Service", e); 
             throw new RuntimeException();
         }
         return sourceVec;
@@ -213,6 +202,7 @@ public class DataSourceHandlerBean
                 sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                 sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                 sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
                 // Metadata parameters
                 MDFetchSettingsType mdfs = source.getMDFetchSettings();
                 MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -228,6 +218,8 @@ public class DataSourceHandlerBean
                     mdVO.setMdDefault(mdf.getDefault());
                     mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
                     mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
+                    mdVO.setName(simpleLiteralTostring(mdf.getName()));
+                    mdVO.setEncoding(simpleLiteralTostring(mdf.getEncoding()));
                     mdVec.add(mdVO);
                 }
                 sourceVO.setMdFormats(mdVec);
@@ -248,6 +240,8 @@ public class DataSourceHandlerBean
                     fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
                     fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                     fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
+                    fulltextVO.setName(simpleLiteralTostring(ftf.getName()));
+                    fulltextVO.setEncoding(simpleLiteralTostring(ftf.getEncoding()));
                     fulltextVec.add(fulltextVO);
                 }
                 sourceVO.setFtFormats(fulltextVec);
@@ -377,36 +371,12 @@ public class DataSourceHandlerBean
         for (int i = 0; i < source.getMdFormats().size(); i++)
         {
             md = source.getMdFormats().get(i);
-            if (md.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
+            if (md.getName().trim().toLowerCase().equals(format.trim().toLowerCase()))
             {
                 return md;
             }
         }
         return null;
-    }
-
-    /**
-     * This is the only source specific method, which has to be updated when a new source is specified for import.
-     * 
-     * @param sourceName
-     * @param identifier
-     * @return the trimedIdentifier as String
-     */
-    public String trimIdentifier(String sourceName, String identifier)
-    {
-        // Trim the identifier source arXiv
-        if (sourceName.trim().toLowerCase().equals("arxiv") || sourceName.trim().toLowerCase().equals("arxiv(oai_dc)"))
-        {
-            if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
-            {
-                identifier = identifier.substring(14);
-            }
-            if (identifier.toLowerCase().startsWith("arxiv:", 0))
-            {
-                identifier = identifier.substring(6);
-            }
-        }
-        return identifier.trim();
     }
 
     /**
@@ -444,7 +414,7 @@ public class DataSourceHandlerBean
             for (int i = 0; i < mdv.size(); i++)
             {
                 MetadataVO mdVO = source.getMdFormats().get(i);
-                if (mdVO.getMdLabel().trim().toLowerCase().equals(md.getMdLabel().trim().toLowerCase()))
+                if (mdVO.getName().trim().toLowerCase().equals(md.getName().trim().toLowerCase()))
                 {
                     mdv.setElementAt(md, i);
                 }
@@ -452,46 +422,6 @@ public class DataSourceHandlerBean
         }
         source.setMdFormats(mdv);
         return source;
-    }
-
-    /**
-     * This operation gives back the name of all formats which can be transformed into the requested format.
-     * 
-     * @param transformFormat the format in which the object should be transformed
-     * @return a list of formats which can be transformed into the requested format 
-     */
-    public Vector<String> getFormatsForTransformation(String transformFormat)
-    {
-        Vector<String> formats = new Vector<String>();
-        try
-        {
-            ClassLoader cl = this.getClass().getClassLoader();
-            java.io.InputStream in = cl.getResourceAsStream("resources/transformations.xml");
-            this.transformDoc = TransformationsDocument.Factory.parse(in);
-        }
-        catch (XmlException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        this.transformType = this.transformDoc.getTransformations();
-        TransformationType[] transformations = this.transformType.getTransformationArray();
-        for (TransformationType transformation : transformations)
-        {
-            MetadataformatsType mdFormats = transformation.getMetadataFormats();
-            for (MetadataformatType mdFormat : mdFormats.getMetadataFormatArray())
-            {
-                String mdFormatStr = this.simpleLiteralTostring(mdFormat.getLabel());
-                if (mdFormatStr.trim().toLowerCase().equals(transformFormat.toLowerCase()))
-                {
-                    formats.add(this.simpleLiteralTostring(transformation.getFormat()));
-                }
-            }
-        }
-        return formats;
     }
 
     private String simpleLiteralTostring(SimpleLiteral sl)

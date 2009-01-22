@@ -38,8 +38,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.sun.javadoc.ThrowsTag;
-
 import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;

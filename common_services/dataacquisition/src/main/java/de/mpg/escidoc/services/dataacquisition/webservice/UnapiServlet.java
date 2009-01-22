@@ -26,6 +26,7 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
+import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
@@ -47,7 +48,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
     private final String idTypeEscidoc = "ESCIDOC";
     private final String idTypeUnknown = "UNKNOWN";
     private final Logger logger = Logger.getLogger(UnapiServlet.class);
-    private DataHandlerBean importHandler = new DataHandlerBean();
+    private DataHandlerBean dataHandler = new DataHandlerBean();
     private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
     private boolean view = false; // default option is download
     private String filename = "unapi";
@@ -125,11 +126,18 @@ public class UnapiServlet extends HttpServlet implements Unapi
                             }
                             else
                             {
-                                response.setContentType(this.importHandler.getContentType());
+                                response.setContentType(this.dataHandler.getContentType());
                                 if (!this.view)
                                 {
+                                    if (this.dataHandler.getFileEnding()!= null)
+                                    {
                                     response.setHeader("Content-disposition", "attachment; filename=" + this.filename
-                                            + this.importHandler.getFileEnding());
+                                            + this.dataHandler.getFileEnding());
+                                    }
+                                    else
+                                    {
+                                        response.setHeader("Content-disposition", "attachment; filename=" + this.filename);
+                                    }
                                 }
                                 response.setStatus(200);
                                 outStream.write(data);
@@ -235,14 +243,15 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
     /**
      * {@inheritDoc} if unapi interface is called with no identifier, the identifier is set to escidoc as default,
-     * showing escidoc formats to fetch Only when not the default identifier is set, the identifier is displayed in the
+     * showing escidoc formats to fetch only when not the default identifier is set, the identifier is displayed in the
      * formats xml.
      */
     public byte[] unapi(String identifier, boolean show)
-    {
+    {   
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Vector<FullTextVO> fullTextV = new Vector<FullTextVO>();
         Vector<MetadataVO> metadataV = new Vector<MetadataVO>();
+        Util util = new Util();
         String[] tmp = identifier.split(":");
         DataSourceVO source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
         // No source for this identifier
@@ -257,25 +266,34 @@ public class UnapiServlet extends HttpServlet implements Unapi
             xmlFormats.setId(identifier);
         }
         fullTextV = source.getFtFormats();
+        //get fetchable metadata formats
         metadataV = source.getMdFormats();
-        // Metadata formats
+        //get transformable formats
+        metadataV.addAll(util.getTransformFormats(metadataV));
+        //get transformable formats via escidoc format
+        if (!identifier.toLowerCase().contains("escidoc"))
+        {
+            metadataV.addAll(util.getTransformationsWithEscidocTransition());
+        }
+        metadataV = util.getRidOfDuplicatesInVector(metadataV);
+
         for (int i = 0; i < metadataV.size(); i++)
         {
             MetadataVO md = metadataV.get(i);
             FormatType xmlFormat = xmlFormats.addNewFormat();
-            xmlFormat.setName(md.getMdLabel().toLowerCase());
+            xmlFormat.setName(md.getName());
             xmlFormat.setType(md.getMdFormat());
             if (md.getMdDesc() != null)
             {
                 xmlFormat.setDocs(md.getMdDesc());
             }
         }
-        // File formats
+        //get fetchable file formats
         for (int i = 0; i < fullTextV.size(); i++)
         {
             FullTextVO ft = fullTextV.get(i);
             FormatType xmlFormat = xmlFormats.addNewFormat();
-            xmlFormat.setName(ft.getFtLabel());
+            xmlFormat.setName(ft.getName());
             xmlFormat.setType(ft.getFtFormat());
         }
         try
@@ -287,12 +305,10 @@ public class UnapiServlet extends HttpServlet implements Unapi
         }
         catch (IOException e)
         {
-            this.logger.info("Error when creating outputXml.", e);
+            this.logger.info("Error when creating output xml.", e);
             throw new RuntimeException();
         }
         return baos.toByteArray();
-        // TODO
-        // Get additional formats provided by internal transformations
     }
 
     /**
@@ -307,25 +323,26 @@ public class UnapiServlet extends HttpServlet implements Unapi
         String id = tmp[1];
         String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
         String idType = this.checkIdentifier(identifier, format);
+        
         try
         {
             if (idType.equals(this.idTypeUri))
             {
                 if (sourceName != null)
                 {
-                    return this.importHandler.doFetch(sourceName, id, format);
+                    return this.dataHandler.doFetch(sourceName, id, format);
                 }
             }
             if (idType.equals(this.idTypeUrl))
             {
-                return this.importHandler.fetchMetadatafromURL(new URL(identifier));
+                return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
             }
             if (idType.equals(this.idTypeEscidoc))
             {
                 id = this.setEsciDocIdentifier(identifier);
                 sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
                 this.filename = id;
-                return this.importHandler.doFetch(sourceName, id, format);
+                return this.dataHandler.doFetch(sourceName, id, format);
             }
             if (idType.equals(this.idTypeUnknown) || sourceName == null)
             {
@@ -339,15 +356,15 @@ public class UnapiServlet extends HttpServlet implements Unapi
         }
         catch (IdentifierNotRecognisedException e)
         {
-            throw new IdentifierNotRecognisedException();
+            throw new IdentifierNotRecognisedException(e);
         }
         catch (SourceNotAvailableException e)
         {
-            throw new SourceNotAvailableException();
+            throw new SourceNotAvailableException(e);
         }
         catch (FormatNotRecognisedException e)
         {
-            throw new FormatNotRecognisedException();
+            throw new FormatNotRecognisedException(e);
         }
         catch (FormatNotAvailableException e)
         {
@@ -355,11 +372,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
         }
         catch (RuntimeException e)
         {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         catch (MalformedURLException e)
         {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -393,8 +410,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
     private void resetValues()
     {
-        this.importHandler.setContentType("");
-        this.importHandler.setFileEnding("");
+        this.dataHandler.setContentType("");
+        this.dataHandler.setFileEnding("");
         this.filename = ("");
         this.view = false;
     }
