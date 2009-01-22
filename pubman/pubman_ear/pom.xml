@@ -115,6 +115,10 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>validation</artifactId>
 						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>transformation</artifactId>
+						</ejbModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
@@ -287,6 +291,11 @@
 							<artifactId>jcommon</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+      						<artifactId>transformation</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -427,6 +436,19 @@
             <scope>compile</scope>
             <type>war</type>
         </dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>transformation</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+      		<groupId>xmlbeans</groupId>
+      		<artifactId>transformation</artifactId>
+      		<version>1.0.0</version>
+      		<scope>compile</scope>
+    	</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
