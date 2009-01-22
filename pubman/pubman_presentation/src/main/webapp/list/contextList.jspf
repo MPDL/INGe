@@ -76,9 +76,7 @@ All rights reserved. Use is subject to license terms.
 					<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
 				</span>
 			</div>
-			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
 		</div>
-		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
 	</h:panelGroup>
 
 </tr:iterator>
