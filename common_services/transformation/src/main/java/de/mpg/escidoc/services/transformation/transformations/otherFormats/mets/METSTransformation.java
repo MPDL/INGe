@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.transformationImpl.transformations.otherFormats.mets;
+package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
 import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;

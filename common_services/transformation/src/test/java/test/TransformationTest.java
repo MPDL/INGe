@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.transformationImpl.TransformationImplInterface;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 
 
 public class TransformationTest
 {
-    TransformationImplInterface trans = new TransformationImplInterface();
+    TransformationBean trans = new TransformationBean();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
     @Test
@@ -27,7 +27,7 @@ public class TransformationTest
         
         this.logger.info("Check Transformation");
         ClassLoader cl = this.getClass().getClassLoader();
-        InputStream in = cl.getResourceAsStream("resources/testFiles/escidoc.xml");
+        InputStream in = cl.getResourceAsStream("test/resources/testFiles/escidocItem.xml");
         
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
         StringBuilder stringBuilder = new StringBuilder();

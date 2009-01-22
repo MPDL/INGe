@@ -28,7 +28,7 @@
     * All rights reserved. Use is subject to license terms.
     */ 
 
-package de.mpg.escidoc.services.transformationImpl.transformations.microFormats;
+package de.mpg.escidoc.services.transformation.transformations.microFormats;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;

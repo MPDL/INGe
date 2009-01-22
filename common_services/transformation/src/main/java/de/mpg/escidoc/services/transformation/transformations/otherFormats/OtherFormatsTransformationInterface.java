@@ -28,7 +28,7 @@
     * All rights reserved. Use is subject to license terms.
     */ 
 
-package de.mpg.escidoc.services.transformationImpl.transformations.otherFormats;
+package de.mpg.escidoc.services.transformation.transformations.otherFormats;
 
 import java.util.Vector;
 

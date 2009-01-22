@@ -29,7 +29,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformationImpl.transformations.thirdPartyFormats;
+package de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
