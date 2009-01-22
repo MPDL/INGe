@@ -1,34 +1,34 @@
-/*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ /*
+    *
+    * CDDL HEADER START
+    *
+    * The contents of this file are subject to the terms of the
+    * Common Development and Distribution License, Version 1.0 only
+    * (the "License"). You may not use this file except in compliance
+    * with the License.
+    *
+    * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+    * or http://www.escidoc.de/license.
+    * See the License for the specific language governing permissions
+    * and limitations under the License.
+    *
+    * When distributing Covered Code, include this CDDL HEADER in each
+    * file and include the License file at license/ESCIDOC.LICENSE.
+    * If applicable, add the following below this CDDL HEADER, with the
+    * fields enclosed by brackets "[]" replaced with your own identifying
+    * information: Portions Copyright [yyyy] [name of copyright owner]
+    *
+    * CDDL HEADER END
+    */
 
-/*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
+    /*
+    * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+    * für wissenschaftlich-technische Information mbH and Max-Planck-
+    * Gesellschaft zur Förderung der Wissenschaft e.V.
+    * All rights reserved. Use is subject to license terms.
+    */ 
 
-package de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats;
+package de.mpg.escidoc.services.transformationImpl.transformations.microFormats;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
@@ -43,34 +43,33 @@ import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSuppor
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
- * Implements transformations for third party metadata formats.
+ * Implementation of the transformation interface for micro formats.
  * @author kleinfe1 (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ThirdPartyTransformationInterface implements de.mpg.escidoc.services.transformation.Transformation
+public class MicroTransformationInterface implements de.mpg.escidoc.services.transformation.Transformation
 {
-    private final Logger logger = Logger.getLogger(ThirdPartyTransformationInterface.class);
+
+    private final Logger logger = Logger.getLogger(MicroTransformationInterface.class);
     
-    private final String EXPLAIN_FILE_PATH ="resources/transformations/thirdParty/";
+    private final String EXPLAIN_FILE_PATH ="resources/transformations/microFormats/";
     private final String EXPLAIN_FILE_NAME="explain-transformations.xml";
     
     private Util util;
-    private ThirdPartyTransformation transformer;
     
     /**
      * Public constructor.
      */
-    public ThirdPartyTransformationInterface()
+    public MicroTransformationInterface()
     {
         this.util = new Util();
-        this.transformer = new ThirdPartyTransformation();
     }
     
     /**
-     * {@inheritDoc}
-     */
+    * {@inheritDoc}
+    */
     public Format[] getSourceFormats() throws RuntimeException
     {
         Vector<Format> sourceFormats = new Vector<Format>();
@@ -117,7 +116,8 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
     /**
      * {@inheritDoc}
      */
-    public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) throws RuntimeException
+    public String getTargetFormatsAsXml(String srcFormatName, String srcType, String srcEncoding) 
+        throws RuntimeException
     {
         Format[] formats = this.getTargetFormats(new Format(srcFormatName, srcType, srcEncoding));
         return this.util.createFormatsXml(formats);
@@ -131,7 +131,7 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
         Vector<Format> targetFormats = new Vector<Format>();
         TransformationsDocument transDoc = null;
         TransformationsType transType = null;
-        
+      
         ClassLoader cl = this.getClass().getClassLoader();
         java.io.InputStream in = cl.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
         try
@@ -143,13 +143,14 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
             this.logger.error("An error occurred while reading transformations.xml for micro formats.", e);
             throw new RuntimeException();
         }
+        
         transType = transDoc.getTransformations();
         TransformationType[] transformations = transType.getTransformationArray();
         for (TransformationType transformation : transformations)
         {
             Format source = new Format(this.util.simpleLiteralTostring(transformation.getSource().getName()),
-                    this.util.simpleLiteralTostring(transformation.getSource().getType()),
-                    this.util.simpleLiteralTostring(transformation.getSource().getEncoding()));
+                  this.util.simpleLiteralTostring(transformation.getSource().getType()),
+                  this.util.simpleLiteralTostring(transformation.getSource().getEncoding()));
             //Only get Target if source is given source
             if (this.util.isFormatEqual(source, src))
             {
@@ -157,7 +158,7 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
                 String type = this.util.simpleLiteralTostring(transformation.getTarget().getType());
                 String encoding = this.util.simpleLiteralTostring(transformation.getTarget().getEncoding());
                 Format sourceFormat = new Format(name, type, encoding);
-                
+              
                 targetFormats.add(sourceFormat);   
             }
         }    
@@ -170,8 +171,7 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
      * {@inheritDoc}
      */
     public byte[] transform(byte[] src, String srcFormatName, String srcType, String srcEncoding, String trgFormatName,
-            String trgType, String trgEncoding, String service) 
-            throws TransformationNotSupportedException, RuntimeException
+            String trgType, String trgEncoding, String service) throws TransformationNotSupportedException
     {
         Format source = new Format(srcFormatName, srcType, srcEncoding);
         Format target = new Format(trgFormatName, trgType, trgEncoding);
@@ -182,24 +182,45 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
      * {@inheritDoc}
      */
     public byte[] transform(byte[] src, Format srcFormat, Format trgFormat, String service)
-        throws TransformationNotSupportedException, RuntimeException
+        throws TransformationNotSupportedException
     {
         byte[] result = null;
         boolean supported = false;
         
-        if (this.transformer.checkXsltTransformation(srcFormat.getName(), trgFormat.getName()))
+        if (srcFormat.getName().toLowerCase().equals("escidoc"))
         {
-            String transformedXml = this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src));
+            result = this.escidocTransform(src, srcFormat, trgFormat, service);
+            supported = true;
+        }
+        if (!supported)
+        {
+            this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
+                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
+                    + ", " + trgFormat.getEncoding());
+            throw new TransformationNotSupportedException();
+        }       
+        return result;
+    }
+    
+    private byte[] escidocTransform(byte[] src, Format srcFormat, Format trgFormat, String service) 
+        throws TransformationNotSupportedException, RuntimeException
+    {
+        byte[] result = null;
+        boolean supported = false;
+
+        if (trgFormat.getName().toLowerCase().equals("coins"))
+        {
+            CoinsTransformation coinsTransformation = new CoinsTransformation();
             try
             {
-                result = transformedXml.getBytes("UTF-8");
+                result = coinsTransformation.getCOinS(src).getBytes("UTF-8");
             }
             catch (UnsupportedEncodingException e)
             {
-                throw new RuntimeException(e);
+               throw new RuntimeException(e);
             }
             supported = true;
-        }
+        }     
         if (!supported)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 

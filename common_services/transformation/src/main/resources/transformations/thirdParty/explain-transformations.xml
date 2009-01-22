@@ -14,7 +14,7 @@
 	</Transformation>
 	<Transformation>
 		<Source>
-			<Name>PubMed Central</Name>
+			<Name>pmc</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>

@@ -28,28 +28,21 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation;
+package de.mpg.escidoc.services.transformationImpl;
 
 import java.util.Vector;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.citationFormats.CitationTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.CommonTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.feedFormats.FeedTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.microFormats.MicroTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.OtherFormatsTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformationInterface;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
+import de.mpg.escidoc.services.transformationImpl.transformations.citationFormats.CitationTransformationInterface;
+import de.mpg.escidoc.services.transformationImpl.transformations.commonPublicationFormats.CommonTransformationInterface;
+import de.mpg.escidoc.services.transformationImpl.transformations.feedFormats.FeedTransformationInterface;
+import de.mpg.escidoc.services.transformationImpl.transformations.microFormats.MicroTransformationInterface;
+import de.mpg.escidoc.services.transformationImpl.transformations.otherFormats.OtherFormatsTransformationInterface;
+import de.mpg.escidoc.services.transformationImpl.transformations.thirdPartyFormats.ThirdPartyTransformationInterface;
 
 /**
  * Implementation of the Transformation Service.
@@ -59,16 +52,9 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @version $Revision$ $LastChangedDate$
  *
  */
-
-@Stateless
-@Remote
-@RemoteBinding(jndiBinding = Transformation.SERVICE_NAME)
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-
-public class TransformationBean implements Transformation
+public class TransformationImplInterface implements de.mpg.escidoc.services.transformation.Transformation
 {
-    
-    private final Logger logger = Logger.getLogger(TransformationBean.class);
+    private final Logger logger = Logger.getLogger(TransformationImplInterface.class);
     
     private final String thirdPartyModule = "THIRD_PARTY_MODULE";
     private final String microModule = "MICRO_MODULE";
@@ -92,7 +78,7 @@ public class TransformationBean implements Transformation
     /**
      * Public constructor.
      */
-    public TransformationBean()
+    public TransformationImplInterface()
     {
         this.util = new Util();
         

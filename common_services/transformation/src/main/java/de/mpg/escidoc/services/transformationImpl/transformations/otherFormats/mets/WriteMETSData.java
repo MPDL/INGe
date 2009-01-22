@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
+package de.mpg.escidoc.services.transformationImpl.transformations.otherFormats.mets;
 
 import gov.loc.mets.AmdSecType;
 import gov.loc.mets.DivType;

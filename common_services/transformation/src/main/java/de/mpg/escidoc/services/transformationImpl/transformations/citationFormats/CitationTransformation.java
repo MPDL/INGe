@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.citationFormats;
+package de.mpg.escidoc.services.transformationImpl.transformations.citationFormats;
 
 import java.util.Arrays;
 import java.util.List;

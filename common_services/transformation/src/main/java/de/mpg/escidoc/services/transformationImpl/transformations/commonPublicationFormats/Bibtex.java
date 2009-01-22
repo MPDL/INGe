@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
+package de.mpg.escidoc.services.transformationImpl.transformations.commonPublicationFormats;
 
 import java.io.StringReader;
 import java.util.List;

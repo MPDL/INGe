@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
+package de.mpg.escidoc.services.transformationImpl.transformations.commonPublicationFormats;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -37,6 +37,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;

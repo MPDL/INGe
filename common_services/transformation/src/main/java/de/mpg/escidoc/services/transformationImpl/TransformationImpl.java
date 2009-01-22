@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.transformation;
+package de.mpg.escidoc.services.transformationImpl;
 
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 

@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats;
+package de.mpg.escidoc.services.transformationImpl.transformations.thirdPartyFormats;
 
 import java.io.File;
 import java.io.FileNotFoundException;
