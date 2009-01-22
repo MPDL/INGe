@@ -119,6 +119,10 @@
 							<artifactId>escidoc-toc</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>transformationImpl</artifactId>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
