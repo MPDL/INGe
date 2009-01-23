@@ -137,6 +137,7 @@
 			<elements />
 		</layout-element>
 		
+
 		<layout-element name="year-authors-are-presented">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>0]]></valid-if>
@@ -156,6 +157,41 @@
 				<layout-element ref="year"/>
 			</elements>
 		</layout-element>
+
+		<layout-element name="year-and-month-name" func="get_year">
+			<parameters>
+				<valid-if><![CDATA[${publication/issued}!=null]]></valid-if>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+				<starts-with value=" (" />
+				<ends-with value="). " />
+				<delimiter value=", "/>
+			</parameters>
+			<elements >
+				<layout-element ref="publication/issued" func="get_year"/>
+				<layout-element ref="publication/issued" func="get_month_name"/>
+			</elements>
+		</layout-element>
+
+		<layout-element name="year-and-month-authors-are-presented">
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>0]]></valid-if>
+				<ends-with value=". "/>
+			</parameters>
+			<elements>
+				<layout-element ref="year-and-month-name"/>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="year-and-month-authors-are-not-presented">
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==0]]></valid-if>
+				<ends-with value=". "/>
+			</parameters>
+			<elements>
+				<layout-element ref="year-and-month-name"/>
+			</elements>
+		</layout-element>
+
 		
 		<layout-element name="year-editors-are-presented">
 			<parameters>
@@ -482,7 +518,7 @@
 	<!-- PROCEEDINGS PAPER -->
 	<cs-layout-definition name="proceedings-paper">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("proceedings-paper")]]></valid-if>
+			<valid-if><![CDATA[${genre}.equals("conference-paper")]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -718,11 +754,10 @@
 	</cs-layout-definition>
 	
 	<!-- TALK-AT-EVENT, POSTER, PAPER -->
-	<cs-layout-definition name="talk-at-event-or-poster-or-paper">
+	<cs-layout-definition name="talk-at-event-or-or-paper">
 		<parameters>
 			<valid-if><![CDATA[
 					${genre}.equals("talk-at-event")
-				||	${genre}.equals("poster")
 				||	${genre}.equals("paper")
 				]]></valid-if>
 			<delimiter value="" />
@@ -762,6 +797,41 @@
 		</elements>
 	
 	</cs-layout-definition>
+	
+	<!-- POSTER  -->
+	<cs-layout-definition name="poster">
+		<parameters>
+			<valid-if><![CDATA[${genre}.equals("poster")]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element ref="authors"/>
+
+			<layout-element ref="year-and-month-authors-are-presented"/>
+			
+			<layout-element ref="title-with-dot-italic"/>
+			
+			<layout-element ref="year-and-month-authors-are-not-presented"/>
+
+			<layout-element name="event-title-and-place">
+				<parameters>
+					<valid-if><![CDATA[${publication/event/title}!=null]]></valid-if>
+					<starts-with value="Poster presented at "/>
+					<delimiter value=", "/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/title"/>
+					<layout-element ref="publication/event/place"/>
+				</elements>
+			</layout-element>
+
+		</elements>
+	
+	</cs-layout-definition>
+	
 	
 	<!-- REPORT -->
 	<cs-layout-definition name="report">
