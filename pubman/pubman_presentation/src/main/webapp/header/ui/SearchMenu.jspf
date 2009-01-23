@@ -41,7 +41,7 @@
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
 	</span>
-	<h:commandButton styleClass="xSmall_txtBtn xTiny_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="start"/>
+	<h:commandButton styleClass="xSmall_txtBtn xTiny_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
 
 
 
