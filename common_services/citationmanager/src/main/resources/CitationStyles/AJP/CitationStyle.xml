@@ -297,13 +297,24 @@
 				<!-- debug elements: -->
 			<layout-element name="debug">
 				<parameters>
-					<starts-with value="debug:" />
-					<ends-with value=";\n" />
-					<font-style ref="BOLD" />
-					<delimiter value="\n"/>
+					<starts-with value="debug__" />
+					<ends-with value="__debug" />
+					<font-style ref="BOLD"/>
+					<delimiter value=","/>
 				</parameters>
 				<elements>
-					<layout-element ref="publication/@type" />
+					<layout-element ref="../../@objid" >
+						<parameters>
+							<starts-with value="OBJID:"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+					<layout-element ref="publication/@type" >
+						<parameters>
+							<starts-with value="type:"/>
+						</parameters>
+						<elements/>
+					</layout-element>
 					<layout-element ref="publication/abstract[contains(.,'AJP:')]" />
 					<layout-element ref="publication/subject" />
 				</elements>
@@ -602,27 +613,4 @@
 		</elements>
 	</cs-layout-definition>
 	
-<!--	Test CSLD: -->
-	<cs-layout-definition name="notMatched">
-		<parameters>
-<!--	-->
-<!--		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
-<!--	-->
-			<font-style ref="BOLD"/>
-			<ends-with value=".\n\n" />
-		</parameters>
-		<elements/>
-<!--			<layout-element ref="publication/@type" />-->
-<!--			<layout-element ref="publication/title" />-->
-<!--			<layout-element ref="publication/issued" /> -->
-<!--			<layout-element ref="isBookArticleOrChapter" /> -->
-<!--			<layout-element ref="isBookProceedingsThesis" /> -->
-<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
-<!--			<layout-element ref="publication/published-online" /> -->
-<!--			<layout-element ref="publication/dateAccepted" /> -->
-<!--			<layout-element ref="publication/dateSubmitted" /> -->
-<!--			<layout-element ref="publication/published-online" /> -->
-<!--			<layout-element ref="publication/created" /> -->
-<!--		</elements>-->
-	</cs-layout-definition>		
 </citation-style>
