@@ -70,11 +70,21 @@
 		float: left;
 	}
 
-	.quickSearchTextInput, .quickSearchCheckBoxMenu, .advancedSearchMenu *, .organisationSearchMenu * {
+	.quickSearchTextInput, .quickSearchCheckBoxMenu {
 		text-align: left;
 		float: left;
 		display: inline;
 		text-decoration: none;
+	}
+	
+	.quickSearchCheckBoxMenu input {
+		margin-left: -0.09em;
+	}
+	
+	.advancedSearchMenu, .organisationSearchMenu {
+		text-align: right;
+		padding-top: 0em;
+		margin-top: -0.19em;
 	}
 
 /*MAIN MENU*/

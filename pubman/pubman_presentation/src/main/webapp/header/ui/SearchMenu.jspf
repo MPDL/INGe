@@ -32,33 +32,32 @@
 
 <div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
-	<h:inputText styleClass="medium_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
-	<span class="xLarge_area0 quickSearchMenu">
-		<h:panelGroup styleClass="free_checkbox quickSearchCheckBoxMenu">
+
+	<span class="min_imgArea quickSearchIcon">&#160;</span>
+	<span class="large_area0 quickSearchMenu">
+		<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+		<h:panelGroup styleClass="large_checkbox quickSearchCheckBoxMenu">
 			<h:selectBooleanCheckbox id="quickSearchCheckBox" value="#{Search.includeFiles}" />
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
-		<h:commandButton styleClass="std_imgBtn quickSearchIcon quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value=" "/>	
 	</span>
-	<span class="large_area0 advancedSearchMenu">
-		<%--<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp" rendered="#{!AdvancedSearch.disableAdvancedSearch}">
-			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
-			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
-		</h:outputLink>--%>
-		<h:commandLink id="lnkAdvancedSearch" styleClass="free_area0_p3 endline" title="#{tip.search_advanced}" immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
-			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
-			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
-		</h:commandLink>
-	</span>
-	<span class="medium_area0 organisationSearchMenu endline">
-		<%--<h:outputLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" value="#{ApplicationBean.appContext}AffiliationTreePage.jsp">
-			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
-			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
-		</h:outputLink>--%>
-		<h:commandLink styleClass="free_area0_p3 endline" id="lnkBrowseByAffiliation" title="#{tip.search_byAffiliation}" immediate="true" action="#{Navigation.loadAffiliationTree}">
-			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
-			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
-		</h:commandLink>
-	</span>
+	<h:commandButton styleClass="xSmall_txtBtn xTiny_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="start"/>
+
+
+
+
+	<%--<h:outputLink styleClass="medium_area0_p3 xTiny_marginRIncl advancedSearchMenu" title="#{tip.search_lblAdvancedSearch}" value="#{ApplicationBean.appContext}AdvancedSearchPage.jsp" rendered="#{!AdvancedSearch.disableAdvancedSearch}">
+		<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
+	</h:outputLink>--%>
+	<h:commandLink id="lnkAdvancedSearch" styleClass="medium_area0_p3 xTiny_marginRIncl advancedSearchMenu" title="#{tip.search_advanced}" immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+		<h:outputText value="#{lbl.search_lblAdvancedSearch}"/>
+	</h:commandLink>
+
+	<%--<h:outputLink styleClass="medium_area0_p3 organisationSearchMenu endline" title="#{tip.search_affiliationTree}" value="#{ApplicationBean.appContext}AffiliationTreePage.jsp">
+		<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
+	</h:outputLink>--%>
+	<h:commandLink styleClass="medium_area0_p3 organisationSearchMenu endline" id="lnkBrowseByAffiliation" title="#{tip.search_byAffiliation}" immediate="true" action="#{Navigation.loadAffiliationTree}">
+		<h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/>
+	</h:commandLink>
 	<!-- search Menu ends here -->
 </div>
