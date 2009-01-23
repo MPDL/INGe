@@ -1,6 +1,5 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
-import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 
 import java.io.ByteArrayOutputStream;
@@ -9,18 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 
-import de.escidoc.schemas.container.x07.ContainerDocument;
-import de.escidoc.schemas.container.x07.ContainerDocument.Container;
-import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.toc.x06.TocDocument;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * This class provides METS transformation for a escidoc objects.

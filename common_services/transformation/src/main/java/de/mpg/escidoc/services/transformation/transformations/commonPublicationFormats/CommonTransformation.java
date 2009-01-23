@@ -37,7 +37,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;

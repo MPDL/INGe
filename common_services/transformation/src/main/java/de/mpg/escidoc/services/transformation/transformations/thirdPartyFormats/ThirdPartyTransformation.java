@@ -42,9 +42,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.log4j.Logger;
-
 import net.sf.saxon.TransformerFactoryImpl;
+
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 
@@ -112,7 +112,6 @@ public class ThirdPartyTransformation
         try {
             
             File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
-            System.out.println("File: " + transformFile);
             check = true;
             
         }

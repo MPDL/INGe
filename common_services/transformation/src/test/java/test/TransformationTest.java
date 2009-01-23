@@ -8,11 +8,14 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 
 public class TransformationTest
 {
     TransformationBean trans = new TransformationBean();
+    Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
     @Test
@@ -24,6 +27,9 @@ public class TransformationTest
         this.logger.info(this.trans.getTargetFormatsAsXml("eSciDoc", "application/xml", "*"));
         this.logger.info("Check target xml for escidocToc item:");
         this.logger.info(this.trans.getTargetFormatsAsXml("eSciDocToc", "application/xml", "*"));
+        this.logger.info("Check source xml for escidoc item:");
+        Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc", "application/xml", "UTF-8"));
+        this.logger.info(this.util.createFormatsXml(tmp));
         
         this.logger.info("Check Transformation");
         ClassLoader cl = this.getClass().getClassLoader();
@@ -40,7 +46,7 @@ public class TransformationTest
                 stringBuilder.append(line + "\n");
             }
             this.logger.info(new String(this.trans.transform( stringBuilder.toString().getBytes("UTF-8"), 
-                    "escidoc", "text/xml", "*", "endnote", "text/plain", "UTF-8", "escidoc")));
+                    "escidoc", "application/xml", "UTF-8", "endnote", "text/plain", "UTF-8", "escidoc")));
         }
         catch (Exception e)
         {

@@ -39,6 +39,7 @@ import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationTy
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
 import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -49,6 +50,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  * @version $Revision$ $LastChangedDate$
  *
  */
+@TransformationModule
 public class MicroTransformationInterface implements de.mpg.escidoc.services.transformation.Transformation
 {
 

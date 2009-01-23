@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.services.transformation;
 
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -56,9 +55,7 @@ public interface Transformation
      *
      */
     @Retention( RetentionPolicy.RUNTIME )
-    public @interface TransformationModule {
-        String setModule();
-    }
+    public @interface TransformationModule {}
  
     /**
      * The name of the EJB service.

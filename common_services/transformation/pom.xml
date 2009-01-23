@@ -160,5 +160,17 @@
 			<version>2.3.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>external</groupId>
+			<artifactId>scannotation</artifactId>
+			<version>1.0.2</version>
+      		<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>external</groupId>
+			<artifactId>java_assist</artifactId>
+			<version>3.9.0</version>
+      		<scope>compile</scope>
+		</dependency>
 	</dependencies>
 </project>

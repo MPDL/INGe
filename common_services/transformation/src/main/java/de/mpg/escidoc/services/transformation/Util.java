@@ -216,6 +216,7 @@ public class Util
             for (int x = 0; x < tmpA.length; x++)
             {
                 tmpV.add(tmpA[x]);
+                //System.out.println(tmpA[x].getName());
             }
         }
         tmpV = this.getRidOfDuplicatesInVector(tmpV);

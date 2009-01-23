@@ -30,12 +30,13 @@
 
 package de.mpg.escidoc.services.transformation;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.Set;
 import java.util.Vector;
 
+import javax.ejb.Init;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -43,15 +44,10 @@ import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
-import org.junit.Test;
+import org.scannotation.AnnotationDB;
+import org.scannotation.ClasspathUrlFinder;
 
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.citationFormats.CitationTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.CommonTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.feedFormats.FeedTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.microFormats.MicroTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.OtherFormatsTransformationInterface;
-import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformationInterface;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -67,29 +63,12 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 @Remote
 @RemoteBinding(jndiBinding = Transformation.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-
 public class TransformationBean implements Transformation
 {
     
-    private final Logger logger = Logger.getLogger(TransformationBean.class);
-    
-    private final String thirdPartyModule = "THIRD_PARTY_MODULE";
-    private final String microModule = "MICRO_MODULE";
-    private final String feedsModule = "FEEDS_MODULE";
-    private final String commonModule = "COMMON_MODULE";
-    private final String citationModule = "CITATION_MODULE";
-    private final String otherModule = "OTHER_MODULE";
-    
+    private final Logger logger = Logger.getLogger(TransformationBean.class);    
     private Util util;
-    
-    //All transformation modules:
-    private MicroTransformationInterface microTrans;
-    private ThirdPartyTransformationInterface thirdPartyTrans;
-    private CitationTransformationInterface citeTrans;
-    private CommonTransformationInterface commonTrans;
-    private FeedTransformationInterface feedTrans;
-    private OtherFormatsTransformationInterface otherTrans;
-
+    private Vector<Class> transformationClasses = new Vector<Class>();
    
     
     /**
@@ -98,13 +77,17 @@ public class TransformationBean implements Transformation
     public TransformationBean()
     {
         this.util = new Util();
-        
-        this.microTrans = new MicroTransformationInterface();
-        this.thirdPartyTrans = new ThirdPartyTransformationInterface();
-        this.citeTrans = new CitationTransformationInterface();
-        this.commonTrans = new CommonTransformationInterface();
-        this.feedTrans = new FeedTransformationInterface();
-        this.otherTrans = new OtherFormatsTransformationInterface();
+        this.initializeTransformationModules();
+    }
+    
+    /**
+     * Initializes the Transformation service
+     */
+    @Init
+    public void initialize()
+    {
+        this.util = new Util();
+        this.initializeTransformationModules();
     }
     
     /**
@@ -112,23 +95,11 @@ public class TransformationBean implements Transformation
      */
     public Format[] getSourceFormats() throws RuntimeException
     {
-        Vector<Format[]> allFormats = new Vector<Format[]>();
+        Format[] allSourceFormats = null;
+        String thisMethodName = "getSourceFormats";
+        allSourceFormats = this.callMethodOnTransformationModules(thisMethodName, null);
         
-        Format[] microFormats = this.microTrans.getSourceFormats();       
-        Format[] thirdPartyFormats = this.thirdPartyTrans.getSourceFormats();
-        Format[] citeFormats = this.citeTrans.getSourceFormats();
-        Format[] commonFormats = this.commonTrans.getSourceFormats();
-        Format[] feedFormats = this.feedTrans.getSourceFormats();
-        Format[] otherFormats = this.otherTrans.getSourceFormats();
-        
-        allFormats.add(microFormats);
-        allFormats.add(thirdPartyFormats);
-        allFormats.add(citeFormats);
-        allFormats.add(commonFormats);
-        allFormats.add(feedFormats);
-        allFormats.add(otherFormats);
-        
-        return this.util.mergeFormats(allFormats);
+        return allSourceFormats;
     }
 
     /**
@@ -155,26 +126,14 @@ public class TransformationBean implements Transformation
      */
     public Format[] getTargetFormats(Format src) throws RuntimeException
     {
+        Format[] allTargetFormats = null;
+        String thisMethodName = "getTargetFormats";
+        
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
         src.setType(this.util.normalizeMimeType(src.getType()));
+        allTargetFormats = this.callMethodOnTransformationModules(thisMethodName, src);
         
-        Vector<Format[]> allFormats = new Vector<Format[]>();
-
-        Format[] microFormats = this.microTrans.getTargetFormats(src);
-        Format[] thirdPartyFormats = this.thirdPartyTrans.getTargetFormats(src);
-        Format[] citeFormats = this.citeTrans.getTargetFormats(src);
-        Format[] commonFormat = this.commonTrans.getTargetFormats(src);
-        Format[] feedFormat = this.feedTrans.getTargetFormats(src);
-        Format[] otherFormat = this.otherTrans.getTargetFormats(src);
-        
-        allFormats.add(microFormats);
-        allFormats.add(thirdPartyFormats);
-        allFormats.add(citeFormats);
-        allFormats.add(commonFormat);
-        allFormats.add(feedFormat);
-        allFormats.add(otherFormat);
-        
-        return this.util.mergeFormats(allFormats);
+        return allTargetFormats;
     }
     
     /**
@@ -185,23 +144,11 @@ public class TransformationBean implements Transformation
         //Normalize mimetype to avoid that e.g. application/xml and text/xml need two different transformations
         trg.setType(this.util.normalizeMimeType(trg.getType()));
         
-        Vector<Format[]> allFormats = new Vector<Format[]>();
-
-        Format[] microFormats = this.microTrans.getSourceFormats(trg);
-        Format[] thirdPartyFormats = this.thirdPartyTrans.getSourceFormats(trg);
-        Format[] citeFormats = this.citeTrans.getSourceFormats(trg);
-        Format[] commonFormat = this.commonTrans.getSourceFormats(trg);
-        Format[] feedFormat = this.feedTrans.getSourceFormats(trg);
-        Format[] otherFormat = this.otherTrans.getSourceFormats(trg);
+        Format[] allSourceFormats = null;
+        String thisMethodName = "getSourceFormats";
+        allSourceFormats = this.callMethodOnTransformationModules(thisMethodName, trg);
         
-        allFormats.add(microFormats);
-        allFormats.add(thirdPartyFormats);
-        allFormats.add(citeFormats);
-        allFormats.add(commonFormat);
-        allFormats.add(feedFormat);
-        allFormats.add(otherFormat);
-        
-        return this.util.mergeFormats(allFormats);
+        return allSourceFormats;
     }
 
     /**
@@ -237,111 +184,168 @@ public class TransformationBean implements Transformation
     private byte[] escidocTransformService(byte[] src, Format srcFormat, Format trgFormat, String service) 
         throws TransformationNotSupportedException, RuntimeException
     {
-        String module = this.findModule(srcFormat, trgFormat);
-        if (module == null)
+        Class transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
+        byte[] result = null;
+        String methodName ="transform";
+        
+        if (transformationClass == null)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
-                        + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                        + ", " + trgFormat.getEncoding());
+                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
+                    + ", " + trgFormat.getEncoding());
             throw new TransformationNotSupportedException();
         }
-        if (module.equals(this.citationModule))
-        {          
-            return this.citeTrans.transform(src, srcFormat, trgFormat, service);        
-        }
-        if (module.equals(this.commonModule))
+        else 
         {
-            return this.commonTrans.transform(src, srcFormat, trgFormat, service);
-        }
-        if (module.equals(this.feedsModule))
-        {
-            return this.feedTrans.transform(src, srcFormat, trgFormat, service);
-        }
-        if (module.equals(this.microModule))
-        {
-            return this.microTrans.transform(src, srcFormat, trgFormat, service);
-        }
-        if (module.equals(this.thirdPartyModule))
-        {
-            return this.thirdPartyTrans.transform(src, srcFormat, trgFormat, service);
-        }
-        if (module.equals(this.otherModule))
-        {
-            return this.otherTrans.transform(src, srcFormat, trgFormat, service);
-        }
-        return null;
-    }
+            try{
+                //Instanciate the class
+                ClassLoader cl = this.getClass().getClassLoader();
+                transformationClass = cl.loadClass(transformationClass.getName());
     
-    private String findModule(Format source, Format target)
-    {
-        Format[] targets;
-        
-        targets = this.microTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.microModule;
-        }
-        targets = this.thirdPartyTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.thirdPartyModule;
-        }
-        targets = this.citeTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.citationModule;
-        }
-        targets = this.commonTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.commonModule;
-        }
-        targets = this.feedTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.feedsModule;
-        }
-        targets = this.otherTrans.getTargetFormats(source);
-        if (this.util.containsFormat(targets, target))
-        {
-            return this.otherModule;
-        }
-        return null;
-    }
-    
-    @Test
-    public void getTransformationModule()
-    {
-        //Annotation transformationModule;
-        //transformationModule = this.getClass().getAnnotation(TransformationModule.class);
-        System.out.println("start...");
-        
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        
-//        try
-//        {
-            //Enumeration<URL> urls = cl.getResources("java.class.path");
-            URL url = cl.getResource("java.class.path");
-            System.out.println(url);
-            
-//            System.out.println("has element: " + urls.hasMoreElements());
-//            while (urls.hasMoreElements())
-//            {
-//                URL url = urls.nextElement();
-//                System.out.println(url);
-//            }
-            
-            Annotation[] transformationModules = Transformation.class.getAnnotations();
-            for (int i =0; i< transformationModules.length; i++)
-            {
-                Annotation a = transformationModules[i];
-                System.out.println(a);
+                //Set methods parameters
+                Class[] parameterTypes = new Class[]{ byte[].class, Format.class, Format.class, String.class };
+                
+                //Call the method
+                Method method = transformationClass.getMethod(methodName, parameterTypes);
+
+                //Execute the method
+                result = (byte[])method.invoke(transformationClass.newInstance(), src, srcFormat, trgFormat, service);
             }
-//        }
-//        catch (IOException e)
-//        {
-//        }
+            catch(Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
         
+        return result;
+    }
+    
+    private void initializeTransformationModules() throws RuntimeException
+    {
+        this.logger.debug("Classes which implement the transformation interface:");
+        URL classPath = null;
+        Set entities;
+        Vector entetiesV = new Vector();
+        ClassLoader cl = this.getClass().getClassLoader();
+        Class transformationClass;
+        ClasspathUrlFinder classPathFinder = new ClasspathUrlFinder();
+        
+        try
+        {
+            //Location of classes to search
+            classPath = classPathFinder.findClassBase(this.getClass());
+            //Small hack due to problems with blanks in URLs
+            String classPathStr = classPath.toExternalForm();
+            classPath = new URL (java.net.URLDecoder.decode(classPathStr));          
+            
+            AnnotationDB anDB = new AnnotationDB();
+            anDB.scanArchives(classPath);
+            anDB.setScanClassAnnotations(true);
+
+            entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());           
+            entetiesV.addAll(entities);
+                
+            for (int i = 0; i< entetiesV.size(); i++)
+            {
+                this.logger.debug(entetiesV.get(i));
+                transformationClass = cl.loadClass(entetiesV.get(i).toString());
+                this.transformationClasses.add(transformationClass);
+            }       
+
+        }
+        catch (MalformedURLException e)
+        {
+            this.logger.error("Invalid classpath: " + classPath.toString(), e);
+            throw new RuntimeException(e);
+        }
+        catch (Exception e)
+        {
+            this.logger.error("An error occurred during the allocation of transformation classes.", e);
+            throw new RuntimeException(e);
+        }
+    }
+    
+    private Format[] callMethodOnTransformationModules (String methodName, Format param) throws RuntimeException
+    {
+        Vector<Format[]> allFormats = new Vector<Format[]>();
+        Format[] formats = null;
+        
+        for (int i=0; i<this.transformationClasses.size(); i++)
+        {
+            try
+            {
+                //Instanciate the class
+                Class transformationClass = (Class) transformationClasses.get(i);
+                ClassLoader cl = this.getClass().getClassLoader();
+                transformationClass = cl.loadClass(transformationClass.getName());
+  
+                if (param == null)
+                {
+                    //Call the method
+                    Method method = transformationClass.getMethod(methodName, null);
+
+                    //Execute the method
+                    formats = (Format[])method.invoke(transformationClass.newInstance(), null);
+                }
+                else
+                {
+                    //Set methods parameters
+                    Class[] parameterTypes = new Class[]{ Format.class }; 
+                    
+                    //Call the method
+                    Method method = transformationClass.getMethod(methodName, parameterTypes);
+                    
+                    //Execute the method
+                    formats = (Format[])method.invoke(transformationClass.newInstance(), param);
+                }
+                allFormats.add(formats);
+            } 
+            catch(Exception e)
+            {
+                this.logger.error("An error occurred during the allocation of transformation classes.", e);
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return this.util.mergeFormats(allFormats);    
+    }
+    
+    private Class getTransformationClassForTransformation (Format source, Format target) throws RuntimeException
+    {
+        Class transformationClass = null;
+        Format[] targets;
+        String methodName = "getTargetFormats";
+        
+        for (int i=0; i<this.transformationClasses.size(); i++)
+        {
+            try
+            {
+                //Instanciate the class
+                transformationClass = (Class) transformationClasses.get(i);
+                ClassLoader cl = this.getClass().getClassLoader();
+                transformationClass = cl.loadClass(transformationClass.getName());
+    
+                //Set methods parameters
+                Class[] parameterTypes = new Class[]{ Format.class };
+                
+                //Call the method
+                Method method = transformationClass.getMethod(methodName, parameterTypes);
+    
+                //Execute the method
+                targets = (Format[])method.invoke(transformationClass.newInstance(), source);
+                if (this.util.containsFormat(targets, target))
+                {
+                    return transformationClass;
+                }
+            }
+            catch (Exception e)
+            {
+                this.logger.error("An error occurred during the allocation of transformation classes.", e);
+                throw new RuntimeException(e);
+            }
+        }
+        
+        return null;
     }
 
 }
