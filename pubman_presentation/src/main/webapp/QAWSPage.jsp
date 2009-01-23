@@ -128,11 +128,18 @@
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeState" action="#{MyTasksRetrieverRequestBean.changeItemState}" value="change item state"/>
+									
 									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblCollectionSelection}: "/>
 									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('div').find('.changeCollection').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
+
+									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblOrgUnitSelection}: "/>
+									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
+										<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}"/>
+									</h:selectOneMenu>
+									<h:commandButton styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
@@ -154,6 +161,7 @@
 								<h:outputText value=" ("/>
 								<h:outputText value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyTasksRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyTasksRetrieverRequestBean.selectedItemState != null and MyTasksRetrieverRequestBean.selectedItemState != 'all'}"/>
 								<h:outputText value="#{MyTasksRetrieverRequestBean.selectedContextLabel}, " rendered="#{MyTasksRetrieverRequestBean.selectedContext != 'all'}"/>
+								<h:outputText value="#{MyTasksRetrieverRequestBean.selectedOrgUnitLabel}, " rendered="#{MyTasksRetrieverRequestBean.selectedOrgUnit != 'all'}"/>
  								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
 								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
 								<h:outputText value=")"/>	

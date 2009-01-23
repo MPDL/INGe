@@ -1,14 +1,19 @@
 package de.mpg.escidoc.pubman.qaws;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 
+import de.escidoc.core.x01.structuralRelations.AffiliationDocument.Affiliation;
+import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
@@ -44,25 +49,51 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     private String selectedContext;
     
     /**
+     * The currently selected org unit.
+     */
+    private String selectedOrgUnit;
+    
+    /**
      * The HTTP GET parameter name for the context filter.
      */
     private static String parameterSelectedContext = "context"; 
+    
+    /**org unit filter.
+     */
+    private static String parameterSelectedOrgUnit = "orgUnit"; 
     
     /**
      * A list with menu entries for the context filter menu.
      */
     private List<SelectItem> contextSelectItems;
+
+    /**
+     * A list with the menu entries for the org units filter menu.
+     */
+    private List<SelectItem> orgUnitSelectItems;
     
+    //private Map<String, AffiliationVOPresentation> affiliationMap;
     
     public MyTasksRetrieverRequestBean()
     {
         super();
+        
     }
     
     @Override
     public void init()
     {
+        //affiliationMap = new HashMap<String, AffiliationVOPresentation>();
         checkLogin();
+        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        try
+        {
+            orgUnitSelectItems = affTree.getAffiliationSelectItems();
+        }
+        catch (Exception e)
+        {
+            error ("Couldn't retrieve all organizational units for the filter menu");
+        }
         initSelectionMenu();
         
     }
@@ -142,7 +173,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 filter.getFilterList().add(f10);
             }
             
-           
+            
+            if (!getSelectedOrgUnit().toLowerCase().equals("all"))
+            {
+                AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+                addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
+            }
             
             Filter f11 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
             filter.getFilterList().add(f11);
@@ -178,6 +214,29 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
     
     /**
+     * Adds organization filters to the given FilterTaskParam for the given affiliation and recursively for all its children.
+     * @param aff
+     * @param filter
+     */
+    private void addOrgFiltersRecursive(AffiliationVOPresentation aff, FilterTaskParamVO filter)
+    {
+        try
+        {
+            Filter f = filter.new PersonsOrganizationsFilter(aff.getReference().getObjectId());
+            filter.getFilterList().add(f); 
+            
+            for(AffiliationVOPresentation childAff : aff.getChildren()){
+                addOrgFiltersRecursive(childAff, filter);
+            }
+        }
+        catch (Exception e)
+        {
+            error ("Couldn't retrieve all organizational units for the filter menu");
+        }
+        
+    }
+
+    /**
      * Reads out the parameters from HTTP-GET request for the selected item state and the selected context filter. Sets default values if they are null.
      */
     @Override
@@ -201,6 +260,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         else
         {
             setSelectedContext(context);
+        }
+        
+        
+        String orgUnit = getExternalContext().getRequestParameterMap().get(parameterSelectedOrgUnit);
+        if (orgUnit==null)
+        {
+            setSelectedOrgUnit((String)getOrgUnitSelectItems().get(0).getValue());
+        }
+        else
+        {
+            setSelectedOrgUnit(orgUnit);
         }
         
     }
@@ -256,6 +326,18 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return returnString;
     }
     
+    /**
+     * Returns a label for the selected context.
+     * @return
+     */
+    public String getSelectedOrgUnitLabel()
+    {
+        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        return affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath();
+    
+    }
+    
+    
     
     /**
      * Returns a list with menu entries for the item state filter menu.
@@ -305,11 +387,54 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
   
         }
           
-               
+            
+        /*
+        //Org unit menu
+        orgUnitSelectItems = new ArrayList<SelectItem>();
+        orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
         
-       
+        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        
+        List<AffiliationVOPresentation> topLevelAffs = affTree.getAffiliations();
+        try
+        {
+            addChildAffiliationsToMenu(topLevelAffs, orgUnitSelectItems, 0);
+        }
+        catch (Exception e)
+        {
+           error ("Couldn't retrieve all organizational units for the filter menu");
+        }
+        */
     }
-
+    
+    
+    /**
+     * Adds the list of the given affiliations to the filter select
+     * @param affs
+     * @param affSelectItems
+     * @param level
+     * @throws Exception
+     */
+    /*
+    private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level) throws Exception
+    {
+        String prefix = "";
+        for (int i = 0; i < level; i++)
+        {
+            //2 save blanks
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+            prefix += '\u00A0';
+        }
+        //1 right angle
+        prefix+='\u2514';
+        for(AffiliationVOPresentation aff : affs){
+            affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix+" "+aff.getName()));
+            affiliationMap.put(aff.getReference().getObjectId(), aff);
+            addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level+1);
+        }
+    }
+*/
     /**
      * Sets the current menu items for the context filter menu.
      * @param contextSelectItems
@@ -348,9 +473,49 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         
     }
     
+    /**
+     * Called by JSF whenever the organizational unit filter menu is changed. Causes a redirect to the page with updated context GET parameter.
+     * @return
+     */
+    public String changeOrgUnit()
+    {
+            try
+            {
+               
+                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+                getBasePaginatorListSessionBean().redirect();
+            }
+            catch (Exception e)
+            {
+               error("Could not redirect");
+            }
+            return "";
+    }
+    
     @Override
     public String getListPageName()
     {
         return "QAWSPage.jsp";
+    }
+
+    public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems)
+    {
+        this.orgUnitSelectItems = orgUnitSelectItems;
+    }
+
+    public List<SelectItem> getOrgUnitSelectItems()
+    {
+        return orgUnitSelectItems;
+    }
+
+    public void setSelectedOrgUnit(String selectedOrgUnit)
+    {
+        this.selectedOrgUnit = selectedOrgUnit;
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
+    }
+
+    public String getSelectedOrgUnit()
+    {
+        return selectedOrgUnit;
     }
 }

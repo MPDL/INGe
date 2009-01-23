@@ -50,7 +50,8 @@
 			<span class="xHuge_area0 endline">
 				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" />
 			</span>
-		</div>		
+		</div>
+		<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item"/>
 	</li>
 	<h:panelGroup rendered="#{ViewItemStatistics.filesAvailable}">
 		<li class="full_area0 listItem">
@@ -80,7 +81,7 @@
 				</span>
 			</div>
 			<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">
-				<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine">
+				<div layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine">
 					<span class="huge_area0_p8 endline labelLine">
 						<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblFile} #{file.file.name}"/><br class="noDisplay" /></b>
 						<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
@@ -96,11 +97,14 @@
 					<span class="xHuge_area0 endline">
 						<h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" />
 					</span>
-				</h:panelGroup>		
+				</div>	
+				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file"/>	
 			</tr:iterator>	
 		</li>
 	</h:panelGroup>
 </ol>
+
+
 
 
 

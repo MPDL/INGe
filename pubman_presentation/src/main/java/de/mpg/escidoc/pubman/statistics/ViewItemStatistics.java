@@ -105,6 +105,9 @@ public class ViewItemStatistics extends FacesBean
         fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
         
         //Get Statistics handler
+        
+        // create image
+       
 
        
     }
@@ -194,4 +197,8 @@ public class ViewItemStatistics extends FacesBean
     public boolean getFilesAvailable() {
         return fileList.size() > 0;
     }
+    
+  
+    
+   
 }

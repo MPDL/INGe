@@ -312,7 +312,7 @@ public class SourceBean extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
             setCreatorParseString("");
             return null;
         }

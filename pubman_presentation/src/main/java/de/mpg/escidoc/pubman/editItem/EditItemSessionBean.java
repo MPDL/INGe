@@ -35,9 +35,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean.PersonOrganisationManager;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -61,6 +67,17 @@ public class EditItemSessionBean extends FacesBean
 	 /**The offset of the page where to jump back*/
     private String offset;
     
+    /**The string with authors to parse for author copy&paste.*/
+    private String creatorParseString;
+    
+    /**Checkbox if existing authors should be overwritten with the ones from author copy/paste*/
+    private boolean overwriteCreators;
+    
+    /**
+     * A creator bean that holds the data from the author copy&paste organizations
+     */
+    private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+    
 
 
 	/**
@@ -81,6 +98,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		// Perform initializations inherited from our superclass
 		super.init();
+		initAuthorCopyPasteCreatorBean();
 	}
 	
 	/**
@@ -108,6 +126,8 @@ public class EditItemSessionBean extends FacesBean
     		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
+    	
+    	initAuthorCopyPasteCreatorBean();
 	}
 	
 	/**
@@ -172,6 +192,62 @@ public class EditItemSessionBean extends FacesBean
     public String getOffset()
     {
         return offset;
+    }
+    
+    /**
+     * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
+     */
+    public void initAuthorCopyPasteCreatorBean()
+    {
+        CreatorVO newVO = new CreatorVO();
+        newVO.setPerson(new PersonVO());
+        OrganizationVO newPersonOrganization = new OrganizationVO();
+        newPersonOrganization.setName(new TextVO());
+        newPersonOrganization.setAddress("");
+        newPersonOrganization.setIdentifier("");
+        newVO.getPerson().getOrganizations().add(newPersonOrganization);
+        CreatorBean dummyCreatorBean = new CreatorBean(newVO);
+        authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
+        setCreatorParseString("");
+    }
+
+
+    /**
+     * Sets the CreatorBean that manages the author copy&paste organizations.
+     * @param authorCopyPasteOrganizationsCreatorBean
+     */
+    public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean)
+    {
+        this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    /**
+     * Returns the PersonOPrganisationManager that manages the author copy&paste organizations.
+     * @return
+     */
+    public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean()
+    {
+        return authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    public void setCreatorParseString(String creatorParseString)
+    {
+        this.creatorParseString = creatorParseString;
+    }
+
+    public String getCreatorParseString()
+    {
+        return creatorParseString;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
     }
 
 	

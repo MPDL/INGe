@@ -38,6 +38,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -636,13 +637,15 @@ public class CommonUtils extends InternationalizedImpl
     public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationVO> list)
     {
         List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
-
+        
         for (int i = 0; i < list.size(); i++)
         {
-        	affiliationList.add(new AffiliationVOPresentation(list.get(i)));
+            affiliationList.add(new AffiliationVOPresentation(list.get(i)));
         }
-
-        return affiliationList;
+        AffiliationVOPresentation[] affiliationArray = affiliationList.toArray(new AffiliationVOPresentation[]{});
+        Arrays.sort(affiliationArray);
+        
+        return Arrays.asList(affiliationArray);
     }
 
     /**

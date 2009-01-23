@@ -106,6 +106,9 @@
 							<jsp:directive.include file="createItem/CreateItem.jspf"/>
 
 						</div>
+						<div class="full_area0 formButtonArea">		
+							<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:outputLink>
+						</div>
 					</div>
 				<!-- end: content section -->
 				</div>

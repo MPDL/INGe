@@ -1,0 +1,85 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="large_area0 tiny_marginRIncl">
+					<span class="xLarge_checkbox">
+						<h:selectBooleanCheckbox id="fileCriterion_restrictedAccess" value="false" />
+						<h:outputLabel value="#{lbl.adv_search_fileRestrictedAccess}" for="fileCriterion_restrictedAccess" />
+					</span>
+					<span class="xLarge_checkbox">
+						<h:selectBooleanCheckbox id="fileCriterion_publicAvailable" value="false" />
+						<h:outputLabel value="#{lbl.adv_search_filePublicAvailable}" for="fileCriterion_publicAvailable" />
+					</span>
+				</span>
+				<span class="free_area0">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
+<%--
+							<h:selectOneMenu styleClass="large_select replace" value=" !!!CONTENT CATEGORIES + 'all categories'!!! ">
+								<f:selectItems value="  " />
+							</h:selectOneMenu>
+--%>
+					</span>
+					<span class="large_checkbox toLabelInputBottom">
+						<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="false" />
+						<h:outputLabel value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
+					</span>
+				</span>
+			</span>
+		</h:panelGroup>
+
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+		<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+<%--
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value=" !!!PUT IN LOGIC OPERATOR PULLDOWN HERE!!! ">
+					<f:selectItems value=" !!!PUT IN LOGIC OPERATOR PULLDOWN VALUES HERE!!! "/>
+				</h:selectOneMenu>		
+--%>		
+		</h:panelGroup>
+
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
+</div>

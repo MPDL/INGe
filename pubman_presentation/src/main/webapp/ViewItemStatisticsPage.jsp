@@ -28,7 +28,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad" xmlns:c="http://sourceforge.net/projects/jsf-comp">
 
 	<jsp:output doctype-root-element="html"
 	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"

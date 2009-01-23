@@ -387,7 +387,12 @@
 		<managed-bean-name>CreateItemPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.CreateItemPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>	
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>SubmissionPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.SubmissionPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>		
 	<managed-bean>
 		<managed-bean-name>ContextListSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.contextList.ContextListSessionBean</managed-bean-class>

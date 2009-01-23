@@ -34,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.AccessException;
 import java.util.ArrayList;
@@ -75,12 +76,10 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
-import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
@@ -96,6 +95,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminD
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
+import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -103,6 +103,8 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -124,8 +126,8 @@ public class EasySubmission extends FacesBean
     //Import Service
     private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
     private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();       
-    // Metadata Service
-    private MetadataHandler mdHandler = null;
+    // Transformation Service
+    private Transformation transformer = null;
     // XML Transforming Service
     private XmlTransforming xmlTransforming = null;
     // Validation Service
@@ -157,7 +159,7 @@ public class EasySubmission extends FacesBean
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
     public SelectItem[] FULLTEXT_OPTIONS;
 
-	public final String INTERNAL_MD_FORMAT = "pubItem";
+	public final String INTERNAL_MD_FORMAT = "escidoc";
 
     // Faces navigation string
     public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
@@ -202,6 +204,9 @@ public class EasySubmission extends FacesBean
     
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
     
+    /** pub context name. */
+    private String contextName = null;
+    
 
     /**
      * Public constructor.
@@ -211,7 +216,7 @@ public class EasySubmission extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.mdHandler = (MetadataHandler)initialContext.lookup(MetadataHandler.SERVICE_NAME);
+            this.transformer = (Transformation)initialContext.lookup(Transformation.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         }
@@ -906,23 +911,13 @@ public class EasySubmission extends FacesBean
                 warn(getMessage("easy_submission_bibtex_empty_file"));
                 return null;
             }
-            String result = mdHandler.bibtex2item(content.toString());
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(result);
+            Format source = new Format ("bibtex", "text/plain", "*");
+            Format target = new Format ("escidoc", "application/xml", "UTF-8");
+            byte[] result = this.transformer.transform(content.toString().getBytes("UTF-8"), source, target, "escidoc");
+            PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
             itemVO.setContext(getItem().getContext());
             this.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(itemVO));
             this.setItem(new PubItemVOPresentation(itemVO));
-        }
-        catch (MultipleEntriesInBibtexException meibe)
-        {
-            logger.error("Error reading bibtex file", meibe);
-            warn(getMessage("easy_submission_bibtex_multiple_entries"));
-            return null;
-        }
-        catch (NoEntryInBibtexException neibe)
-        {
-            logger.error("Error reading bibtex file", neibe);
-            warn(getMessage("easy_submission_bibtex_no_entries"));
-            return null;
         }
         catch (Exception e)
         {
@@ -971,6 +966,7 @@ public class EasySubmission extends FacesBean
             else
             {       
                 DataHandlerBean dataHandler = new DataHandlerBean();
+                Util dataHandlerUtil = new Util();
     
                 try {
                     //Harvest metadata
@@ -994,7 +990,7 @@ public class EasySubmission extends FacesBean
                                 fulltext = ftFormats.get(x);
                                 if (fulltext.isFtDefault())
                                 {   
-                                    formats.add(fulltext.getFtLabel());
+                                    formats.add(fulltext.getName());
                                     break;
                                 }
                             }                           
@@ -1006,7 +1002,7 @@ public class EasySubmission extends FacesBean
                             for (int x =0; x< ftFormats.size(); x++)
                             {
                                 fulltext = ftFormats.get(x);
-                                formats.add(fulltext.getFtLabel());
+                                formats.add(fulltext.getName());
                             }   
                         }
                         
@@ -1028,9 +1024,9 @@ public class EasySubmission extends FacesBean
                                 fileVO.setVisibility(FileVO.Visibility.PRIVATE);
                             }
                             fileVO.setDefaultMetadata(new MdsFileVO());
-                            fileVO.getDefaultMetadata().setTitle(new TextVO(dataHandler.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding()));
+                            fileVO.getDefaultMetadata().setTitle(new TextVO(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding()));
                             fileVO.setMimeType(dataHandler.getContentType());
-                            fileVO.setName(dataHandler.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding());
+                            fileVO.setName(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding());
                             
                             FormatVO formatVO = new FormatVO();
                             formatVO.setType("dcterms:IMT");
@@ -1086,6 +1082,20 @@ public class EasySubmission extends FacesBean
                         itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);       
                         itemVO.getFiles().clear();
                         itemVO.setContext(getItem().getContext());
+                        if (dataHandler.getItemUrl() != null)
+                        {
+                            IdentifierVO id = new IdentifierVO();
+                            id.setType(IdType.URI);
+                            try
+                            {
+                                id.setId(java.net.URLDecoder.decode(dataHandler.getItemUrl().toString(), "UTF-8"));
+                                itemVO.getMetadata().getIdentifiers().add(id);
+                            }
+                            catch (UnsupportedEncodingException e)
+                            {
+                                logger.warn("Item URL could not be decoded");
+                            }                          
+                        }
                         if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE))
                         {                           
                             itemVO.getFiles().add(fileVO);
@@ -1527,7 +1537,8 @@ public class EasySubmission extends FacesBean
         }
         return disable;
     }
-
+    
+    
     /**
      * Returns the CollectionListSessionBean.
      * 
@@ -2107,7 +2118,7 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
             setCreatorParseString("");
 
             return "loadNewEasySubmission";
@@ -2360,8 +2371,30 @@ public class EasySubmission extends FacesBean
 	public void setGenreSelect(HtmlSelectOneMenu genreSelect) {
 		this.genreSelect = genreSelect;
 	}
-    
-    
-    
-    
+
+	public String getContextName()
+    {
+        if (this.contextName == null)
+        {
+            try
+            {
+                ContextVO context = this.getItemControllerSessionBean().retrieveContext(
+                         this.getItem().getContext().getObjectId());
+                this.contextName = context.getName();
+                return this.contextName;
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrieve the requested context." + "\n" + e.toString());
+                ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+        }
+        return this.contextName;
+
+    }
+
+	public void setContextName(String contextName) {
+		this.contextName = contextName;
+	}
 }

@@ -46,7 +46,7 @@
 					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
-					<h:commandButton styleClass="noBorder" title="#{tip.Affiliation_details}" image="./images/PM_info_16.gif" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 800, 400, 'Details');return false"/>
+					<h:commandButton title="#{tip.Affiliation_details}" image="./images/PM_info_16.gif" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 800, 400, 'Details');return false"/>
 					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
 				</h:panelGroup>
 			</f:facet>

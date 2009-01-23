@@ -122,8 +122,8 @@
  		</span>
  		<span class="seperator status"></span>
  		<span class="half_area0_p6 headerSwitchView">
- 			<a class="expand"><span class="noDisplay"><h:outputText value="#{lbl.List_Show}"/> </span><h:outputText value="#{lbl.List_MedView}"/></a>
- 			<a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.List_SelectItem}"/> </span><h:outputText value="#{lbl.List_ShortView}"/></a>
+ 			<a class="expand"><span class="noDisplay"><h:outputText title="#{tip.List_Show}" value="#{lbl.List_Show}"/> </span><h:outputText title="#{tip.List_MedView}" value="#{lbl.List_MedView}"/></a>
+ 			<a class="collapse"><span class="noDisplay"><h:outputText title="#{tip.List_SelectItem}" value="#{lbl.List_SelectItem}"/> </span><h:outputText title="#{tip.List_ShortView}" value="#{lbl.List_ShortView}"/></a>
  		</span>
  	</div>
  	<ol>

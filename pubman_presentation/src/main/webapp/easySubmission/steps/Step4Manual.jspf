@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -56,6 +56,11 @@
 		</div>
 		<div class="subHeader">
 			<!-- Subheadline starts here -->
+			<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
+			<!-- Subheadline ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
 				<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.numberOfMessages == 1}"/>
 				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages and EasySubmissionSessionBean.numberOfMessages != 1}">
 					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
@@ -65,7 +70,6 @@
 					<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
 				</h:panelGroup>
-				&#160;
 			<!-- Subheadline ends here -->
 		</div>
 	</div>
@@ -112,7 +116,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.subject}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EasySubmission.subject}" cols="15" rows="3" />
 					</span>
 				</div>
 		

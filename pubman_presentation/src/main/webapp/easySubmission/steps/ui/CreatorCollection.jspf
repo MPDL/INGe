@@ -37,7 +37,7 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-	<h:dataTable  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
+	<h:dataTable styleClass="free_area0"  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
     <h:column>
 <%-- Author copy&paste --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
@@ -55,6 +55,45 @@
 					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />
 				</span>
 			</h:panelGroup>
+
+<%--
+
+JIRA: PUBMAN-699
+Copy&Paste Organisations for Authors
+
+			<h:dataTable styleClass="free_area0 multipleAuthors" var="pasteOrga" value=" !!!Collection of Orgs here!!! ">
+				<h:column>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:panelGroup styleClass="quad_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
+							<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
+						</h:panelGroup>
+						<h:inputText styleClass="quad_txtInput" value="#{pasteOrga.name.value}"/>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action=" !!!Select org Unit from tree here!!! " />
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_address_optional != 'true'}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{pasteOrga.address}" cols="15" rows="3" />	
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action=" !!!Add new Org here!!! " rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" action="!!!Delete This Org here!!!" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}" disabled=" !!!True if more than 1 Org!!! "/>
+					</span>
+				</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+--%>		
+
 			
 <%-- Creator role --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0 && genre.creator_person_organization_creator_select_roles_display != 'false'}">
@@ -97,29 +136,38 @@
 <%-- Creator person family name, Creator person given name --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType && (genre.creator_person_organization_creator_persons_person_family_name_display != 'false' || genre.creator_person_organization_creator_persons_person_given_name_display != 'false')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true' || genre.creator_person_organization_creator_persons_person_given_name_optional != 'true'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_family_name_label}" converter="GenreLabelConverter"/>
+						<h:panelGroup styleClass="double_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}" />
+							<h:outputText value="#{genre.creator_person_organization_creator_persons_person_family_name_label}"  converter="GenreLabelConverter"/>
+						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" />
 					</span>
 					<span class="double_area0">
-						<h:outputLabel styleClass="double_label" value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"/>
+						<h:panelGroup styleClass="double_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
+							<h:outputText value="#{genre.creator_person_organization_creator_persons_person_given_name_label}"  converter="GenreLabelConverter"/>
+						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" />
 					</span>
 				</span>
 			</h:panelGroup>
 
 <%-- Creator person affiliation --%>
-			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+			<h:dataTable styleClass="free_area0" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+						<h:panelGroup styleClass="quad_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
+							<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
+						</h:panelGroup>
 						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
@@ -144,10 +192,13 @@
 <%-- Creator organisation affiliation --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional == 'false'}" /><span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter"/>
+					<h:panelGroup styleClass="quad_area0">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_organizations_organization_name_optional != 'true'}" />
+						<h:outputText value="#{genre.creator_person_organization_creator_organizations_organization_name_label}" converter="GenreLabelConverter" />
+					</h:panelGroup>
 					<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">

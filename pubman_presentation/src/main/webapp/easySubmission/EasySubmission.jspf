@@ -50,5 +50,4 @@
 	<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP5' && EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
 		<jsp:directive.include file="steps/Step5Manual.jspf"/>
 	</h:panelGroup>
-	<jsp:directive.include file="../desktop/messages.jspf"/>
 </f:subview>

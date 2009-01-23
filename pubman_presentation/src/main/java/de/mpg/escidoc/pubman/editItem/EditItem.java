@@ -75,6 +75,7 @@ import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean.PersonOrganisationManager;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
@@ -98,6 +99,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
@@ -162,6 +165,7 @@ public class EditItem extends FacesBean
     private CreatorCollection creatorCollection;
     private IdentifierCollection identifierCollection;
     private SourceCollection sourceCollection;
+    //private CreatorCollection authorCopyPasteOrganizations;
 
     private List<ListItem> languages = null;
     
@@ -179,10 +183,6 @@ public class EditItem extends FacesBean
     
     private boolean fromEasySubmission = false;
     
-    private String creatorParseString;
-    
-    private boolean overwriteCreators;
-    
     private String suggestConeUrl = null;
     
     private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
@@ -190,6 +190,7 @@ public class EditItem extends FacesBean
     private CoreInputFile inputFile = new CoreInputFile();
     
     private String genreBundle = "Genre_ARTICLE";
+    
     
     /**
      * Public constructor.
@@ -1775,10 +1776,11 @@ public class EditItem extends FacesBean
      * 
      * @param creatorString The String to be parsed
      * @param creatorCollection The collection to which the creators should be added
+     * @param orgs A lsit of organizations that should be added to every creator. null if no organizations should be added.
      * @param overwrite Indicates if the already exisiting creators sshould be overwritten
      * @throws Exception
      */
-    public static void parseCreatorString(String creatorString, CreatorCollection creatorCollection, boolean overwrite) throws Exception
+    public static void parseCreatorString(String creatorString, CreatorCollection creatorCollection, List<OrganizationVO> orgs, boolean overwrite) throws Exception
     {
         AuthorDecoder authDec = new AuthorDecoder(creatorString);
         List<Author> authorList = authDec.getBestAuthorList();
@@ -1827,6 +1829,11 @@ public class EditItem extends FacesBean
             creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
             creatorBean.getCreator().setType(CreatorType.PERSON);
             
+            //set organization
+            if (orgs!=null && orgs.size()>0)
+            {
+                creatorBean.getPersonOrganisationManager().setObjectList(orgs);
+            }
             creatorManager.getObjectList().add(creatorBean);
         }
            
@@ -1836,8 +1843,10 @@ public class EditItem extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
-            setCreatorParseString("");
+            EditItemSessionBean eisb = getEditItemSessionBean();
+            List<OrganizationVO> orgs = eisb.getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList();
+            EditItem.parseCreatorString(eisb.getCreatorParseString(), getCreatorCollection(), orgs, eisb.getOverwriteCreators());
+            getEditItemSessionBean().initAuthorCopyPasteCreatorBean();
 
             return null;
         }
@@ -1885,15 +1894,6 @@ public class EditItem extends FacesBean
         return null;
     }
 
-    public void setCreatorParseString(String creatorParseString)
-    {
-        this.creatorParseString = creatorParseString;
-    }
-
-    public String getCreatorParseString()
-    {
-        return this.creatorParseString;
-    }
    
     public UIXIterator getFileIterator()
     {
@@ -1957,16 +1957,6 @@ public class EditItem extends FacesBean
     public void setSourceIdentifierIterator(UIXIterator sourceIdentifierIterator)
     {
         this.sourceIdentifierIterator = sourceIdentifierIterator;
-    }
-
-    public void setOverwriteCreators(boolean overwriteCreators)
-    {
-        this.overwriteCreators = overwriteCreators;
-    }
-
-    public boolean getOverwriteCreators()
-    {
-        return overwriteCreators;
     }
 
 	public HtmlSelectOneMenu getGenreSelect() {
