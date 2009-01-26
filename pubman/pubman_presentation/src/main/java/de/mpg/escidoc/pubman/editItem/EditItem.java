@@ -75,7 +75,6 @@ import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
-import de.mpg.escidoc.pubman.editItem.bean.CreatorBean.PersonOrganisationManager;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
@@ -1825,7 +1824,16 @@ public class EditItem extends FacesBean
             //set organization
             if (orgs!=null && orgs.size()>0)
             {
-                creatorBean.getPersonOrganisationManager().setObjectList(orgs);
+                creatorBean.getPersonOrganisationManager().getObjectList().clear();
+               // creatorBean.getPersonOrganisationManager().getDataListFromVO().clear();
+                for (OrganizationVO orgVO : orgs)
+                {
+                    OrganizationVO newOrgVO = (OrganizationVO)orgVO.clone();
+                    creatorBean.getPersonOrganisationManager().getObjectList().add(newOrgVO);
+                    //creatorBean.getPersonOrganisationManager().getDataListFromVO().add(newOrgVO);
+                    
+                }
+                
             }
             creatorManager.getObjectList().add(creatorBean);
         }
@@ -1839,7 +1847,7 @@ public class EditItem extends FacesBean
             EditItemSessionBean eisb = getEditItemSessionBean();
             List<OrganizationVO> orgs = eisb.getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList();
             EditItem.parseCreatorString(eisb.getCreatorParseString(), getCreatorCollection(), orgs, eisb.getOverwriteCreators());
-            getEditItemSessionBean().initAuthorCopyPasteCreatorBean();
+            eisb.initAuthorCopyPasteCreatorBean();
 
             return null;
         }

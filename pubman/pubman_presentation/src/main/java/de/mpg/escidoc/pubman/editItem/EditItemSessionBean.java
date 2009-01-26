@@ -77,6 +77,11 @@ public class EditItemSessionBean extends FacesBean
      * A creator bean that holds the data from the author copy&paste organizations
      */
     private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+   
+    /**
+     * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
+     */
+    private String showAuthorCopyPaste;
     
 
 
@@ -110,6 +115,7 @@ public class EditItemSessionBean extends FacesBean
 		this.locators.clear();
 		this.genreBundle = null;
 		this.offset="";
+		this.showAuthorCopyPaste = "";
 		
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
@@ -200,15 +206,20 @@ public class EditItemSessionBean extends FacesBean
     public void initAuthorCopyPasteCreatorBean()
     {
         CreatorVO newVO = new CreatorVO();
+       
+        /*
         newVO.setPerson(new PersonVO());
         OrganizationVO newPersonOrganization = new OrganizationVO();
         newPersonOrganization.setName(new TextVO());
         newPersonOrganization.setAddress("");
         newPersonOrganization.setIdentifier("");
         newVO.getPerson().getOrganizations().add(newPersonOrganization);
+        */
+        
         CreatorBean dummyCreatorBean = new CreatorBean(newVO);
-        authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
+        this.authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
         setCreatorParseString("");
+        setShowAuthorCopyPaste("");
     }
 
 
@@ -248,6 +259,21 @@ public class EditItemSessionBean extends FacesBean
     public boolean getOverwriteCreators()
     {
         return overwriteCreators;
+    }
+    
+    /**
+     * Returns the content(set by javascript) from a hidden input field  that indicates whether the author copy&paste elements are to be displayed or not.
+     */
+    public  String getShowAuthorCopyPaste()
+    {
+        return showAuthorCopyPaste;
+    }
+
+    /**Sets the content from a hidden input field  that indicates whether the author copy&paste elements are to be displayed or not.
+     */
+    public void setShowAuthorCopyPaste(String showAuthorCopyPaste)
+    {
+        this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
 
 	

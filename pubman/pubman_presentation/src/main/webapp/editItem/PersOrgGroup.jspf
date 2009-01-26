@@ -37,10 +37,13 @@
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
-		<h:dataTable styleClass="free_area0" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}">
-        <h:column>
+		
 <%-- Author copy&paste --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors" rendered="#{EditItem.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
+		<h:panelGroup layout="block" styleClass="free_area0 multipleAuthors">
+	<%-- Hidden field for display/non-display Author copy&paste group --%>
+			<h:inputHidden value="#{EditItemSessionBean.showAuthorCopyPaste}"></h:inputHidden>	
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
 				</b>
@@ -57,7 +60,7 @@
 
 <%--Copy&Paste Organisations for Authors--%>
 
-			<h:dataTable styleClass="free_area0 multipleAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
+			<h:dataTable styleClass="free_area0" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
 				<h:column>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -82,14 +85,16 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{pasteOrga.address}" cols="15" rows="3" />	
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.size == 1}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<h:commandButton styleClass="min_imgBtn groupTool add" value=" " title="#{tip.EditItem_addOrga}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.addObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
+						<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.EditItem_removeOrga}" disabled="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.size == 1}" action="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.removeObject}" rendered="#{genre.creator_person_organization_creator_organizations_repeatable != 'false'}"/>
 					</span>
 				</h:panelGroup>
 				</h:column>
 			</h:dataTable>
-	
-	
+		</h:panelGroup>
+
+		<h:dataTable styleClass="free_area0" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}">
+        <h:column>
 <%-- Creator role --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EditItem.creatorCollection.creatorManager.objectDM.rowIndex == 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
