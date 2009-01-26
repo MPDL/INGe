@@ -85,7 +85,7 @@ public class TestSearchAndExport extends TestSearchBase
         ExportSearchQuery exportQuery = new ExportSearchQuery(query.getCqlQuery(), "APA", "snippet");
        
         ExportSearchResult result = itemContainerSearch.searchAndExportItems(exportQuery);
-        String resultString = new String((byte[]) result.getResult());
+        String resultString = new String((byte[]) result.getExportedResults());
         
         //List<? extends ItemVO> itemList = xmlTransforming.transformToItemList(resultString);
         logger.debug(resultString);
@@ -127,7 +127,7 @@ public class TestSearchAndExport extends TestSearchBase
        
         ExportSearchResult result = itemContainerSearch.searchAndExportItems(exportQuery);
         
-        byte[] htmlFile = result.getResult();
+        byte[] htmlFile = result.getExportedResults();
         
         assertTrue("File size is null", htmlFile.length>0);
         
