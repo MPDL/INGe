@@ -174,7 +174,7 @@ All rights reserved. Use is subject to license terms.
 	  </th>
       <th class="large_area0">
 			<span class="seperator"></span>
-			<h:commandLink title="#{tip.ItemList_SortBy} "  styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
+			<h:commandLink disabled="true" title="#{tip.ItemList_SortBy} "  styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>
  			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
