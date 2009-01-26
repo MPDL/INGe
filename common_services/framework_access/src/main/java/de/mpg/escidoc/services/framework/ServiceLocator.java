@@ -89,7 +89,7 @@ public class ServiceLocator
 {
     private static final String CONFIGURATION_FILE = "client.wsdd";
     private static final String FRAMEWORK_PATH = "/axis/services";
-    private static final String SRW_PATH = "/srw/search";
+    private static final String SRW_PATH = "/srw/search"; 
     
     private static UserManagementWrapperServiceLocator authorizedUserManagementWrapperServiceLocator;
     private static UserAccountHandlerServiceLocator authorizedUserAccountHandlerServiceLocator;
