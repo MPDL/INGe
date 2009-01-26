@@ -64,7 +64,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
         MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
         EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
-        SOURCE_TITLE ("escidoc.any-source", ""),
+        SOURCE_TITLE ("", ""),
         SOURCE_CREATOR("", ""),
         REVIEW_METHOD("", "/md-records/md-record/publication/review-method"),
         FILE("",""),
@@ -526,13 +526,20 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     {
         sortBySelectItems = new ArrayList<SelectItem>();
         
+       
         //the last three should not be in if not logged in
         if (!loginHelper.isLoggedIn())
         {
             for (int i = 0; i< SORT_CRITERIA.values().length - 3; i++)
             {
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
-                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                
+                //only add if index/sorting path is available
+                if (getPageType().equals("SearchResult") && !sc.getIndex().equals("") || !getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))
+                {
+                    sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                }
+                
             }
         }
         else
@@ -540,7 +547,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             for (int i = 0; i< SORT_CRITERIA.values().length; i++)
             {
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
-                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+              //only add if index/sorting path is available
+                if (getPageType().equals("SearchResult") && !sc.getIndex().equals("") || !getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))
+                {
+                    sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                }
             }
             
         }
