@@ -167,6 +167,10 @@
 		float: left;
 	}
 	
+	.subHeader {
+		clear: left;
+	}
+	
 @media print {
 	.contentMenu .sub {
 		display: none;

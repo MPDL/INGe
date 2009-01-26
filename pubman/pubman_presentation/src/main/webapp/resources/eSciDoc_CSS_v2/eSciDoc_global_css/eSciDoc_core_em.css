@@ -107,7 +107,16 @@
 		/*LINEBREAK AND LAST IN LINE*/	
 			.clear {
 				clear: both;
-			}	
+			}
+			
+			.clearLeft {
+				clear: left;
+			}
+			
+			.clearRight {
+				clear: right;
+			}
+			
 			.linebreak {
 				width: 100%;
 				height: 0px;
