@@ -128,12 +128,19 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template name="createComponent">		
+	<xsl:template name="createComponent">
 		<xsl:element name="ec:component">
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>private</prop:visibility>
-				<prop:content-category>any-fulltext</prop:content-category>
+				<xsl:choose>
+					<xsl:when test="@viewftext='PUBLIC'">
+						<prop:content-category>publisher-version</prop:content-category>						
+					</xsl:when>
+					<xsl:otherwise>
+						<prop:content-category>any-fulltext</prop:content-category>						
+					</xsl:otherwise>
+				</xsl:choose>
 				<prop:mime-type>application/pdf</prop:mime-type>
 			</ec:properties>
 			<xsl:element name="ec:content">					
@@ -423,6 +430,11 @@
 					<xsl:element name="publ:source">
 						<xsl:call-template name="createProceedings"/>
 					</xsl:element>
+					<xsl:if test="exists(titleofseries)">
+						<xsl:element name="publ:source">
+							<xsl:call-template name="createSeries"/>
+						</xsl:element>
+					</xsl:if>
 				</xsl:when>
 				<xsl:when test="titleofseries">
 					<xsl:element name="publ:source">
@@ -625,7 +637,9 @@
 		</xsl:for-each>
 		<xsl:apply-templates select="bookcorporatebody"/>		
 		<!-- VOLUME -->
-		<xsl:apply-templates select="volume"/>
+		<xsl:if test="not(exists(titleofseries))">
+			<xsl:apply-templates select="volume"/>
+		</xsl:if>
 		<!-- START_PAGE -->
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
@@ -675,7 +689,7 @@
 	<!-- SERIES TEMPLATE -->	
 	<xsl:template name="createSeries">
 		<!-- TITLE -->			
-		<xsl:if test="titleofseries">					
+		<xsl:if test="exists(titleofseries)">					
 			<xsl:attribute name="type" select="'series'"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="titleofseries"/>						
@@ -996,6 +1010,11 @@
 	<!-- REVIEW-METHOD TEMPLATE -->
 	<xsl:template match="reviewType">
 		<xsl:choose>
+			<xsl:when test="../genre='Article' and exists(../journaltitle)">
+				<xsl:element name="mdp:review-method">
+					<xsl:value-of select="'peer review'"/>
+				</xsl:element>
+			</xsl:when>
 			<xsl:when test="reviewType='joureview'">
 				<xsl:element name="mdp:review-method">
 					<xsl:value-of select="'peer'"/>
@@ -1133,6 +1152,11 @@
 		<xsl:element name="dcterms:dateAccepted">
 			<xsl:value-of select="."/>
 		</xsl:element>
+		<xsl:if test="../genre='PhD-Thesis'">
+			<xsl:element name="dcterms:issued">
+				<xsl:value-of select="."/>
+			</xsl:element>
+		</xsl:if>		
 	</xsl:template>
 	<xsl:template match="datesubmitted">
 		<xsl:element name="dcterms:dateSubmitted">
