@@ -354,6 +354,7 @@ public class EasySubmission extends FacesBean
         easySubmissionSessionBean.getFiles().clear();
         easySubmissionSessionBean.getLocators().clear();
         easySubmissionSessionBean.setSelectedDate("");
+        easySubmissionSessionBean.initAuthorCopyPasteCreatorBean();
         // also make sure that the EditItemSessionBean is cleaned, too
         this.getEditItemSessionBean().getFiles().clear();
         this.getEditItemSessionBean().getLocators().clear();
@@ -383,6 +384,7 @@ public class EasySubmission extends FacesBean
         easySubmissionSessionBean.getFiles().clear();
         easySubmissionSessionBean.getLocators().clear();
         easySubmissionSessionBean.setSelectedDate("");
+        easySubmissionSessionBean.initAuthorCopyPasteCreatorBean();
         // also make sure that the EditItemSessionBean is cleaned, too
         this.getEditItemSessionBean().getFiles().clear();
         this.getEditItemSessionBean().getLocators().clear();
@@ -2104,8 +2106,10 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), null, getOverwriteCreators());
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getEasySubmissionSessionBean().getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList(), getOverwriteCreators());
             setCreatorParseString("");
+            
+            getEasySubmissionSessionBean().initAuthorCopyPasteCreatorBean();
 
             return "loadNewEasySubmission";
         }
