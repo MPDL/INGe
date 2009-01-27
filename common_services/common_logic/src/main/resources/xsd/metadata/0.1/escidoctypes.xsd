@@ -56,7 +56,7 @@
 			<xs:element name="person-title" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="pseudonym" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="organization" type="OrganizationType" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="identifier" type="eidt:PND" minOccurs="0"/>
+			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!--*******************************
