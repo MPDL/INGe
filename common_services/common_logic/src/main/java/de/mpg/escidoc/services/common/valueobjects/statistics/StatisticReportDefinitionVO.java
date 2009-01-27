@@ -29,6 +29,8 @@
 */ 
 package de.mpg.escidoc.services.common.valueobjects.statistics;
 
+import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -49,6 +51,8 @@ public class StatisticReportDefinitionVO extends ValueObject
     private String name;
 
     private String scopeId;
+    
+    private List<String> allowedRoles;
     
     public String getObjectId()
     {
@@ -88,6 +92,16 @@ public class StatisticReportDefinitionVO extends ValueObject
     public void setScopeID(String scopeID)
     {
         this.scopeId = scopeID;
+    }
+
+    public void setAllowedRoles(List<String> allowedRoles)
+    {
+        this.allowedRoles = allowedRoles;
+    }
+
+    public List<String> getAllowedRoles()
+    {
+        return allowedRoles;
     }   
     
 }

@@ -39,7 +39,13 @@
 			<value style="attribute" name="objid" field="scopeId" />
 		</structure>
 		<value style="element" name="sql" field="sql" ns="${xsd.soap.statistic.reportdefinition}"/>
-		<structure name="allowed-roles" ns="${xsd.soap.statistic.reportdefinition}" usage="optional" ordered="false" flexible="true"/>
+		
+		
+			
+			<collection name="allowed-roles" ns="${xsd.soap.statistic.reportdefinition}" field="allowedRoles" usage="optional" item-type="java.lang.String" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory">
+				<value name="allowed-role" ns="${xsd.soap.statistic.reportdefinition}"/>
+			</collection>
+
 			
 	</mapping>
  
