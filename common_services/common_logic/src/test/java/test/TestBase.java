@@ -125,7 +125,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 03.09.2007
  */
-public abstract class TestBase
+public class TestBase
 {
     protected static final String TEST_FILE_ROOT = "target/test-classes/";
     protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
@@ -942,24 +942,35 @@ public abstract class TestBase
         
         Schema schema = schemas.get(nameSpace);
         
+        logger.info("Schema: " + schema);
+        
         // FIXME tendres: fix this here that it will run on the build-server!
-        try
-        {
-            Validator validator = schema.newValidator();
-            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-            validator.validate(new SAXSource(new InputSource(in)));
-        }
-        catch (SAXParseException e)
-        {
-            StringBuffer sb = new StringBuffer();
-            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
-            sb.append("SAXParseException message: " + e.getMessage() + "\n");
-            sb.append("Affected XML: \n" + xmlData);
-            fail(sb.toString());
-        }
+//        try
+//        {
+//            Validator validator = schema.newValidator();
+//            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
+//            
+//            logger.info("Validator: " + validator);
+//            
+//            //validator.validate(new SAXSource(new InputSource(in)));
+//        }
+//        catch (SAXParseException e)
+//        {
+//            StringBuffer sb = new StringBuffer();
+//            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
+//            sb.append("SAXParseException message: " + e.getMessage() + "\n");
+//            sb.append("Affected XML: \n" + xmlData);
+//            fail(sb.toString());
+//        }
         
     }
 
+    public static void main(String[] args) throws Exception
+    {
+        String xml = args[0];
+        assertXMLValid(xml);
+    }
+    
     /**
      * @param xmlData
      * @return
