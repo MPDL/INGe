@@ -101,19 +101,19 @@
 			<!-- Node: item.version -->
 			<!-- Field: PubItemVO.version [ItemRO] -->
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
-				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
-				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
+				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
 
 				<!-- Node: item.properties.version.version-status -->
 				<!-- Field: PubItemVO.state [PubItemVO.State] -->
-				<value style="element" name="status" ns="${xsd.soap.common.version}" field="state"
+				<value style="element" name="status" ns="${xsd.soap.common.version}" get-method="getStateForXml"
 					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
 					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 				<!-- <structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" /> -->
 
 				<!-- Node: item.properties.version.modified-by -->
-				<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedByRO"
+				<structure name="modified-by" ns="${xsd.soap.common.srel}" get-method="getModifiedByForXml"
 					type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" usage="optional">
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
@@ -121,25 +121,22 @@
 	
 				</structure>
 
-				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />
+				<value style="element" name="comment" ns="${xsd.soap.common.version}" get-method="getLastMessageForXml" usage="optional" />
 				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />
 			</structure>
 
 			<!-- Node: item.latest-version -->
 			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
-				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" />
-				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" />
-				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" />
-				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" />
+				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
 			</structure>
 
 			<!-- Node: item.latest-release -->
 			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
 			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
-				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" />
-				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" />
-				<value style="element" name="comment" ns="${xsd.soap.common.release}" field="lastMessage" usage="optional" />
+				<value style="element" name="number" ns="${xsd.soap.common.release}" get-method="getVersionNumberForXml" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.common.release}" get-method="getModificationDateForXml" usage="optional" />
 				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" />
 			</structure>
 

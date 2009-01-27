@@ -20,7 +20,7 @@
 		schemaLocation="../../../metadata/0.1/xml.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
-		schemaLocation="./../../soap/organizational-unit/0.6/organizational-unit.xsd" />
+		schemaLocation="../../../soap/organizational-unit/0.6/organizational-unit.xsd" />
 	<xs:element name="organizational-unit-list">
 		<xs:complexType>
 			<xs:sequence minOccurs="0" maxOccurs="unbounded">

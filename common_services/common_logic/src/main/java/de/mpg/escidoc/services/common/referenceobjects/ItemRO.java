@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.common.referenceobjects;
 import java.util.Date;
 
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 
 /**
  * The class for item references.
@@ -258,4 +259,63 @@ public class ItemRO extends ReferenceObject implements Cloneable
         }
     }
 
+    public int getVersionNumberForXml()
+    {
+        if (versionNumber > 0)
+        {
+            return versionNumber;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    
+    public Date getModificationDateForXml()
+    {
+        if (modificationDate == null)
+        {
+            return new Date();
+        }
+        else
+        {
+            return modificationDate;
+        }
+    }
+    
+    public State getStateForXml()
+    {
+        if (state == null)
+        {
+            return State.PENDING;
+        }
+        else
+        {
+            return state;
+        }
+    }
+    
+    public AccountUserRO getModifiedByForXml()
+    {
+        if (modifiedByRO == null)
+        {
+            return new AccountUserRO();
+        }
+        else
+        {
+            return modifiedByRO;
+        }
+    }
+    
+    public String getLastMessageForXml()
+    {
+        if (lastMessage == null)
+        {
+            return "";
+        }
+        else
+        {
+            return lastMessage;
+        }
+    }
 }

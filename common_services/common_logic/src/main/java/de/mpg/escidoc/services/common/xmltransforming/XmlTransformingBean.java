@@ -528,7 +528,7 @@ public class XmlTransformingBean implements XmlTransforming
         String utf8item = null;
         try
         {
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output", PubItemVO.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output", ItemVO.class);
             // marshal object (with nice indentation, as UTF-8)
             IMarshallingContext mctx = bfact.createMarshallingContext();
             mctx.setIndent(2);

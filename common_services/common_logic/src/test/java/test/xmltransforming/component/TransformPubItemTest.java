@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -471,9 +472,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
     }
 
     /**
-     * Test method for checking the correct transformation of an item-list[XML] to a List<PubItemVO>.
+     * Test method for checking the correct transformation of an item-list[XML] to a List&lt;PubItemVO&gt;.
      * 
-     * @throws Exception
+     * @throws Exception Any exception
      */
     @Test
     public void testTransformToPubItemList() throws Exception
@@ -490,4 +491,20 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         assertNotNull(itemList);
     }
 
+    @Test
+    public void testTransformItemVO2XmlAndValidateXml() throws Exception
+    {
+        logger.info("### testTransformItemVO2XmlAndValidateXml ###");
+        
+        ItemVO itemVO = new PubItemVO();
+        MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
+        itemVO.getMetadataSets().add(mdsPublicationVO);
+        
+        String itemXml = xmlTransforming.transformToItem(itemVO);
+        
+        logger.info("XML: " + itemXml);
+        
+        assertXMLValid(itemXml);
+    }
+    
 }

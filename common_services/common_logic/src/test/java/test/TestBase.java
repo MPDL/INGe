@@ -89,8 +89,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
-import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -134,7 +133,8 @@ public abstract class TestBase
     protected static final String MIME_TYPE = "application/pdf";
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-    protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
+    protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection "
+            + "description of the PubMan Test\n"
             + "collection. Any content can be stored in this collection, which is of relevance\n"
             + "for the users of the system. You can submit relevant bibliographic information\n"
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
@@ -151,9 +151,12 @@ public abstract class TestBase
     /**
      * Helper method to retrieve a EJB service instance. The name to be passed to the method is normally
      * 'ServiceXY.SERVICE_NAME'.
+     * 
+     * @param serviceName The name of the service, e.g. "ejb.de.mpg.escidoc.services.common.XmlTransforming"
      *
      * @return instance of the EJB service
-     * @throws NamingException
+     * 
+     * @throws NamingException Thrown if the service is not found.
      */
     protected static Object getService(String serviceName) throws NamingException
     {
@@ -166,23 +169,24 @@ public abstract class TestBase
     /**
      * Logs the user with the given userHandle out from the system.
      * 
-     * @param userHandle
-     * @throws WebserverSystemException
-     * @throws SqlDatabaseSystemException
-     * @throws AuthenticationException
-     * @throws RemoteException
-     * @throws ServiceException
+     * @param userHandle The current user handle
+     * 
+     * @throws ServiceException Thrown if the service is not available
+     * @throws URISyntaxException Thrown if a wrong uri is handed over
+     * @throws RemoteException Any remote exception
+     * @throws SystemException Any system exception
+     * @throws AuthenticationException Thrown if the user handle is not valid
      */
-    protected static void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException,
-            AuthenticationException, RemoteException, ServiceException, URISyntaxException
+    protected static void logout(String userHandle)
+        throws ServiceException, URISyntaxException, AuthenticationException, SystemException, RemoteException
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
     }
 
     /**
-     * @param userHandle
+     * @param userHandle The user handle
      * @return The AccountUserVO
-     * @throws Exception
+     * @throws Exception Any exception
      */
     protected AccountUserVO getAccountUser(String userHandle) throws Exception
     {
@@ -225,7 +229,8 @@ public abstract class TestBase
             String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
             item.setContentModel(contentModel);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error getting content-model", e);
         }
         ItemRO version = new ItemRO("escidoc:123");
@@ -264,6 +269,8 @@ public abstract class TestBase
      * Creates a well-defined PubItemVO named "PubMan: The first of all.".
      * 
      * @return pubItem
+     * 
+     * @throws Exception Any exception
      */
     protected PubItemVO getPubItemNamedTheFirstOfAll() throws Exception
     {
@@ -316,7 +323,8 @@ public abstract class TestBase
         // subject
         TextVO subject = new TextVO("This is the subject. Betreffs fußen auf Gerüchten für Äonen.", "de");
         String s1 = subject.getValue();
-        logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
+        logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = "
+                + (s1.contains("ü")));
         mds.setSubject(subject);
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
@@ -417,62 +425,9 @@ public abstract class TestBase
         mds.setGenre(Genre.BOOK);
 
         // Creator
-        CreatorVO creator;
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.AUTHOR);
-        // Creator.Person
-        PersonVO person = new PersonVO();
-        // Creator.Person.CompleteName
-        person.setCompleteName("Hans Meier");
-        // Creator.Person.GivenName
-        person.setGivenName("Hans");
-        // Creator.Person.FamilyName
-        person.setFamilyName("Meier");
-        // Creator.Person.AlternativeName
-        person.getAlternativeNames().add("Werner");
-        person
-                .getAlternativeNames()
-                .add(
-                        "These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-        person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
-        // Creator.Person.Title
-        person.getTitles().add("Dr. (?)");
-        // Creator.Person.Pseudonym
-        person.getPseudonyms().add("<b>Shorty</b>");
-        person.getPseudonyms().add("<'Dr. Short'>");
-        // Creator.Person.Organization
-        OrganizationVO organization;
-        organization = new OrganizationVO();
-        // Creator.Person.Organization.Name
-        TextVO name = new TextVO();
-        name.setLanguage("en");
-        name.setValue("Vinzenzmurr");
-        organization.setName(name);
-        // Creator.Person.Organization.Address
-        organization.setAddress("<a ref=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
-        // Creator.Person.Organization.Identifier
-        organization.setIdentifier("ED-84378462846");
-        person.getOrganizations().add(organization);
-        // Creator.Person.Identifier
-        person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
-        creator.setPerson(person);
+        CreatorVO creator = createCreator1();
         mds.getCreators().add(creator);
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.CONTRIBUTOR);
-        // Source.Creator.Organization
-        organization = new OrganizationVO();
-        // Creator.Organization.Name
-        name = new TextVO();
-        name.setLanguage("en");
-        name.setValue("MPDL");
-        organization.setName(name);
-        // Creator.Organization.Address
-        organization.setAddress("Amalienstraße");
-        // Creator.Organization.Identifier
-        organization.setIdentifier("1a");
-        creator.setOrganization(organization);
+        creator = createCreator2();
         mds.getCreators().add(creator);
 
         // Title
@@ -510,6 +465,74 @@ public abstract class TestBase
         mds.setReviewMethod(ReviewMethod.INTERNAL);
 
         // Source
+        SourceVO source = createSource();
+        mds.getSources().add(source);
+
+        // Event
+        EventVO event = createEvent();
+        mds.setEvent(event);
+
+        // Total Numeber of Pages
+        mds.setTotalNumberOfPages("999");
+
+        // Degree
+        mds.setDegree(DegreeType.MASTER);
+
+        // Abstracts
+        mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+        mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
+
+        // Subject
+        TextVO subject = new TextVO();
+        subject.setLanguage("de");
+        subject.setValue("wichtig,wissenschaftlich,spannend");
+        mds.setSubject(subject);
+
+        // Table of Contents
+        TextVO tableOfContents = new TextVO();
+        tableOfContents.setLanguage("de");
+        tableOfContents.setValue("1.Einleitung 2.Inhalt");
+        mds.setTableOfContents(tableOfContents);
+
+        // Location
+        mds.setLocation("IPP, Garching");
+
+        return mds;
+    }
+
+    /**
+     * @return
+     */
+    private EventVO createEvent()
+    {
+        EventVO event = new EventVO();
+        // Event.Title
+        event.setTitle(new TextVO("Weekly progress meeting", "en"));
+        // Event.AlternativeTitle
+        event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
+        // Event.StartDate
+        event.setStartDate("2004-11-11");
+        // Event.EndDate
+        event.setEndDate("2005-02-19");
+        // Event.Place
+        TextVO place = new TextVO();
+        place.setLanguage("de");
+        place.setValue("Köln");
+        event.setPlace(place);
+        // Event.InvitationStatus
+        event.setInvitationStatus(InvitationStatus.INVITED);
+        return event;
+    }
+
+    /**
+     * @return
+     */
+    private SourceVO createSource()
+    {
+        CreatorVO creator;
+        OrganizationVO organization;
+        TextVO name;
+        PublishingInfoVO pubInfo;
         SourceVO source = new SourceVO();
         // Source.Title
         source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
@@ -523,8 +546,9 @@ public abstract class TestBase
                 new TextVO("> and ' and ? are problematic characters in XML and therefore should be escaped.", "en"));
         source.getAlternativeTitles().add(
                 new TextVO(
-                        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \\, -, the _, the\n"
-                                + "~, the @ and the #)?", "en"));
+                        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the"
+                        + " \\, -, the _, the\n"
+                        + "~, the @ and the #)?", "en"));
         source.getAlternativeTitles().add(new TextVO("By the way, the Euro sign looks like this: €", "en"));
         // Source.Creator
         creator = new CreatorVO();
@@ -573,53 +597,82 @@ public abstract class TestBase
         sourceSourceCreator.getOrganization().setName(name);
         sourceSourceCreator.getOrganization().setIdentifier("ID-4711-0815");
         source.getSources().get(0).getCreators().add(sourceSourceCreator);
-        mds.getSources().add(source);
+        return source;
+    }
 
-        // Event
-        EventVO event = new EventVO();
-        // Event.Title
-        event.setTitle(new TextVO("Weekly progress meeting", "en"));
-        // Event.AlternativeTitle
-        event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
-        // Event.StartDate
-        event.setStartDate("2004-11-11");
-        // Event.EndDate
-        event.setEndDate("2005-02-19");
-        // Event.Place
-        TextVO place = new TextVO();
-        place.setLanguage("de");
-        place.setValue("Köln");
-        event.setPlace(place);
-        // Event.InvitationStatus
-        event.setInvitationStatus(InvitationStatus.INVITED);
-        mds.setEvent(event);
+    /**
+     * @return
+     */
+    private CreatorVO createCreator2()
+    {
+        CreatorVO creator;
+        OrganizationVO organization;
+        TextVO name;
+        creator = new CreatorVO();
+        // Creator.Role
+        creator.setRole(CreatorRole.CONTRIBUTOR);
+        // Source.Creator.Organization
+        organization = new OrganizationVO();
+        // Creator.Organization.Name
+        name = new TextVO();
+        name.setLanguage("en");
+        name.setValue("MPDL");
+        organization.setName(name);
+        // Creator.Organization.Address
+        organization.setAddress("Amalienstraße");
+        // Creator.Organization.Identifier
+        organization.setIdentifier("1a");
+        creator.setOrganization(organization);
+        return creator;
+    }
 
-        // Total Numeber of Pages
-        mds.setTotalNumberOfPages("999");
-
-        // Degree
-        mds.setDegree(DegreeType.MASTER);
-
-        // Abstracts
-        mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
-        mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
-
-        // Subject
-        TextVO subject = new TextVO();
-        subject.setLanguage("de");
-        subject.setValue("wichtig,wissenschaftlich,spannend");
-        mds.setSubject(subject);
-
-        // Table of Contents
-        TextVO tableOfContents = new TextVO();
-        tableOfContents.setLanguage("de");
-        tableOfContents.setValue("1.Einleitung 2.Inhalt");
-        mds.setTableOfContents(tableOfContents);
-
-        // Location
-        mds.setLocation("IPP, Garching");
-
-        return mds;
+    /**
+     * @return
+     */
+    private CreatorVO createCreator1()
+    {
+        CreatorVO creator;
+        creator = new CreatorVO();
+        // Creator.Role
+        creator.setRole(CreatorRole.AUTHOR);
+        // Creator.Person
+        PersonVO person = new PersonVO();
+        // Creator.Person.CompleteName
+        person.setCompleteName("Hans Meier");
+        // Creator.Person.GivenName
+        person.setGivenName("Hans");
+        // Creator.Person.FamilyName
+        person.setFamilyName("Meier");
+        // Creator.Person.AlternativeName
+        person.getAlternativeNames().add("Werner");
+        person
+                .getAlternativeNames()
+                .add(
+                        "These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", "
+                        + "\"&lt;\", \"&quot;\", \"&apos;\"");
+        person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+        // Creator.Person.Title
+        person.getTitles().add("Dr. (?)");
+        // Creator.Person.Pseudonym
+        person.getPseudonyms().add("<b>Shorty</b>");
+        person.getPseudonyms().add("<'Dr. Short'>");
+        // Creator.Person.Organization
+        OrganizationVO organization;
+        organization = new OrganizationVO();
+        // Creator.Person.Organization.Name
+        TextVO name = new TextVO();
+        name.setLanguage("en");
+        name.setValue("Vinzenzmurr");
+        organization.setName(name);
+        // Creator.Person.Organization.Address
+        organization.setAddress("<a ref=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
+        // Creator.Person.Organization.Identifier
+        organization.setIdentifier("ED-84378462846");
+        person.getOrganizations().add(organization);
+        // Creator.Person.Identifier
+        person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
+        creator.setPerson(person);
+        return creator;
     }
 
     /**
@@ -766,9 +819,9 @@ public abstract class TestBase
     /**
      * Searches the Java classpath for a given file name and gives back the file (or a FileNotFoundException).
      * 
-     * @param fileName
+     * @param fileName The name of the file
      * @return The file
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException Thrown if the file was not found.
      */
     public static File findFileInClasspath(String fileName) throws FileNotFoundException
     {
@@ -785,7 +838,7 @@ public abstract class TestBase
      * 
      * @param fileName Name of input file
      * @return Entire contents of filename as a String
-     * @throws IOException
+     * @throws IOException i/o exception
      */
     protected static String readFile(String fileName) throws IOException
     {
@@ -867,9 +920,8 @@ public abstract class TestBase
     /**
      * Assert that the XML is valid to the schema.
      * 
-     * @param xmlData
-     * @param schemaFileName
-     * @throws Exception
+     * @param xmlData The XML as string
+     * @throws Exception Any exception
      */
     public static void assertXMLValid(final String xmlData) throws Exception
     {
@@ -891,20 +943,20 @@ public abstract class TestBase
         Schema schema = schemas.get(nameSpace);
         
         // FIXME tendres: fix this here that it will run on the build-server!
-//        try
-//        {
-//            Validator validator = schema.newValidator();
-//            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-//            validator.validate(new SAXSource(new InputSource(in)));
-//        }
-//        catch (SAXParseException e)
-//        {
-//            StringBuffer sb = new StringBuffer();
-//            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
-//            sb.append("SAXParseException message: " + e.getMessage() + "\n");
-//            sb.append("Affected XML: \n" + xmlData);
-//            fail(sb.toString());
-//        }
+        try
+        {
+            Validator validator = schema.newValidator();
+            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
+            validator.validate(new SAXSource(new InputSource(in)));
+        }
+        catch (SAXParseException e)
+        {
+            StringBuffer sb = new StringBuffer();
+            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
+            sb.append("SAXParseException message: " + e.getMessage() + "\n");
+            sb.append("Affected XML: \n" + xmlData);
+            fail(sb.toString());
+        }
         
     }
 
@@ -1014,7 +1066,9 @@ public abstract class TestBase
                     logger.warn("Error reading xml schema: " + file);
                 }
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 logger.warn("Invalid xml schema " + file);
                 logger.debug("Stacktrace: ", e);
             }
@@ -1045,12 +1099,14 @@ public abstract class TestBase
     /**
      * Delivers the value of one distinct node in an <code>org.w3c.dom.Document</code>.
      * 
-     * @param document The <code>org.w3c.dom.Document</code>.
-     * @param xpath The xPath describing the node position.
-     * @return The value of the node.
-     * @throws TransformerException
+     * @param document The <code>org.w3c.dom.Document</code>
+     * @param xpathExpression The XPath expression as string
+     * 
+     * @return The value of the node
+     * 
+     * @throws TransformerException Thrown when the transformation failed
      */
-    protected String getValue( Document document, String xpathExpression ) throws TransformerException
+    protected String getValue(Document document, String xpathExpression) throws TransformerException
     {
         XPathFactory factory = XPathFactory.newInstance();
         XPath xPath = factory.newXPath();
@@ -1092,8 +1148,10 @@ public abstract class TestBase
      * Return the child of the node selected by the xPath.
      * 
      * @param node The node.
-     * @param xPath The xPath.
-     * @return The child of the node selected by the xPath.
+     * @param xpathExpression The XPath expression as string
+     * 
+     * @return The child of the node selected by the xPath
+     * 
      * @throws TransformerException If anything fails.
      */
     public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException
@@ -1102,9 +1160,10 @@ public abstract class TestBase
         XPath xPath = factory.newXPath();
         try
         {
-            return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+            return (Node) xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
     }
@@ -1113,7 +1172,7 @@ public abstract class TestBase
      * Return the list of children of the node selected by the xPath.
      * 
      * @param node The node.
-     * @param xPath The xPath.
+     * @param xpathExpression The xPath.
      * @return The list of children of the node selected by the xPath.
      * @throws TransformerException If anything fails.
      */
@@ -1123,9 +1182,10 @@ public abstract class TestBase
         XPath xPath = factory.newXPath();
         try
         {
-            return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+            return (NodeList) xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
     }
@@ -1140,7 +1200,7 @@ public abstract class TestBase
      * @throws Exception If anything fails.
      */
     public static String getAttributeValue(final Node node, final String xPath, final String attributeName)
-            throws Exception
+        throws Exception
     {
         if (node == null)
         {
@@ -1174,7 +1234,7 @@ public abstract class TestBase
      * @throws TransformerException
      */
     public static String getRootElementAttributeValue(final Document document, final String attributeName)
-            throws Exception
+        throws Exception
     {
         if (document == null)
         {
@@ -1220,10 +1280,9 @@ public abstract class TestBase
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         // serialize
-        DOMImplementation implementation= DOMImplementationRegistry.newInstance()
+        DOMImplementation implementation = DOMImplementationRegistry.newInstance()
             .getDOMImplementation("XML 3.0");
-        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS",
-        "3.0");
+        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
         LSSerializer serial = feature.createLSSerializer();
         LSOutput output = feature.createLSOutput();
         output.setByteStream(outputStream);
@@ -1266,7 +1325,7 @@ public abstract class TestBase
      * 
      * @param userHandle The userHandle of a user with the appropriate grants.
      * @return The XML of the created item with a file, given back by the framework.
-     * @throws Exception
+     * @throws Exception Any exception
      */
     protected String createItemWithFile(String userHandle) throws Exception
     {
