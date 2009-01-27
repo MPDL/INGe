@@ -57,20 +57,20 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public static enum SORT_CRITERIA
     {
-        TITLE ("escidoc.title", "/md-records/md-record/publication/title"),
-        GENRE ("escidoc.genre", "/md-records/md-record/publication/type"),
-        DATE ("escidoc.any-dates", ""),
-        CREATOR ("escidoc.complete-name", ""),
-        PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
-        MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
-        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
+        TITLE ("sort.escidoc.title", "/md-records/md-record/publication/title"),
+        GENRE ("sort.escidoc.genre", "/md-records/md-record/publication/type"),
+        DATE ("sort.escidoc.any-dates", ""),
+        CREATOR ("sort.escidoc.complete-name", ""),
+        PUBLISHING_INFO ("sort.escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
+        MODIFICATION_DATE ("sort.escidoc.last-modification-date", "/last-modification-date"),
+        EVENT_TITLE ("sort.escidoc.any-event", "/md-records/md-record/publication/event/title"),
         SOURCE_TITLE ("", ""),
         SOURCE_CREATOR("", ""),
         REVIEW_METHOD("", "/md-records/md-record/publication/review-method"),
         FILE("",""),
-        STATE("escidoc.version.status", "/properties/version/status"),
-        OWNER("escidoc.created-by.name", "/properties/created-by/title"),
-        COLLECTION("escidoc.context.name", "/properties/context/title");
+        STATE("sort.escidoc.version.status", "/properties/version/status"),
+        OWNER("sort.escidoc.created-by.name", "/properties/created-by/title"),
+        COLLECTION("sort.escidoc.context.name", "/properties/context/title");
         
         
         /**
