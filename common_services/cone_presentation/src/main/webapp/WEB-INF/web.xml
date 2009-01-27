@@ -53,6 +53,10 @@
 		<servlet-name>OptionsConeServlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.services.cone.web.OptionsConeServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>JsonConeServlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.cone.web.JsonConeServlet</servlet-class>
+	</servlet>
 
 	<!-- Servlet Mappings -->
 	<servlet-mapping>
@@ -68,6 +72,11 @@
 	<servlet-mapping>
 		<servlet-name>OptionsConeServlet</servlet-name>
 		<url-pattern>/options/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>JsonConeServlet</servlet-name>
+		<url-pattern>/json/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
