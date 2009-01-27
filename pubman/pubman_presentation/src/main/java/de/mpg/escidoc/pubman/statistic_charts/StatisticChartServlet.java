@@ -193,7 +193,10 @@ public class StatisticChartServlet extends HttpServlet
             sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
         
         }
-        Collections.sort(sortingListAllUsers, Collections.reverseOrder());
+        Collections.sort(sortingListAllUsers);
+        //take the newest values
+        if (sortingListAllUsers.size()>(numberOfMonths))
+            sortingListAllUsers = sortingListAllUsers.subList(sortingListAllUsers.size()-(numberOfMonths)-1, sortingListAllUsers.size());
         
         List<StatisticReportRecordVOPresentation> sortingListAnonymousUsers = new ArrayList<StatisticReportRecordVOPresentation>();
         for (StatisticReportRecordVO reportRec : reportListAnonymousUsers)
@@ -201,13 +204,15 @@ public class StatisticChartServlet extends HttpServlet
             sortingListAnonymousUsers.add(new StatisticReportRecordVOPresentation(reportRec));
         
         }
-        Collections.sort(sortingListAnonymousUsers, Collections.reverseOrder());
+        Collections.sort(sortingListAnonymousUsers);
+        if (sortingListAnonymousUsers.size()>(numberOfMonths))
+            sortingListAnonymousUsers = sortingListAnonymousUsers.subList(sortingListAnonymousUsers.size()-(numberOfMonths)-1, sortingListAnonymousUsers.size());
         
         //Create the dataset with 2 series for anonmyous and logged-in users.
         String loggedInUsersSeries = "Logged-in Users";
         String anonymousUsersSeries = "Anonymous Users";
         Calendar cal = Calendar.getInstance();
-        //cal.add(Calendar.MONTH, -(numberOfMonths-1));
+        cal.add(Calendar.MONTH, -(numberOfMonths-1));
 
         Iterator<StatisticReportRecordVOPresentation> iter = sortingListAllUsers.iterator();
         StatisticReportRecordVOPresentation currentAllUsersRecord = null;
@@ -218,8 +223,7 @@ public class StatisticChartServlet extends HttpServlet
         if (iterAnonymous.hasNext()) currentAnonymousUsersRecord = iterAnonymous.next();
         
         
-        List<Integer> anonymousRequestsList = new ArrayList<Integer>();
-        List<Integer> loggedInRequestsList = new ArrayList<Integer>();
+        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i=0; i<numberOfMonths ; i++)
         {
@@ -251,7 +255,7 @@ public class StatisticChartServlet extends HttpServlet
            dataset.addValue(allUserRequests-anonymousUserrequests, loggedInUsersSeries, xLabel );
            dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
            
-           cal.add(Calendar.MONTH, -1);   
+           cal.add(Calendar.MONTH, +1);   
         }
 
       
