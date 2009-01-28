@@ -74,7 +74,13 @@
 	.searchMenu {
 		margin-top: 2em;
 	}
-
+	
+	.searchMenu .quickSearchBtn {
+		float: left;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+/*
 	.quickSearchIcon {
 		margin-left: 0.64em;
 	}
@@ -89,11 +95,12 @@
 		margin-left: 0px;
 		margin-right: 0px;
 	}
+*/
 
 /*MAIN MENU*/
 
 	.mainMenu {
-		margin-top: 0.27em;
+		margin-top: 1.27em;
 		margin-bottom: 1.55em;
 		padding-left: 5.74em !important;
 	}

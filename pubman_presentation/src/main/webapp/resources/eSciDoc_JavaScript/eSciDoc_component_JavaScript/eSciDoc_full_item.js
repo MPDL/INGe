@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
@@ -81,9 +81,11 @@ function addFullItemFunctions() {
 	$('.showMultipleAuthors').click(function(){
 		$(this).parents('.itemBlock').find('.multipleAuthors').slideDown('normal');
 		$(this).parents('.itemBlock').find('.firstCreator').removeClass('noTopBorder');
+		$(this).parents('.itemBlock').find(':hidden').val('showPermanent');
 		$(this).hide();
 	});
 	$('.multipleAuthors').hide();
+	$('.showMultipleAuthors').each(function(i,elem){ if($(elem).parents('.itemBlock').find("input[type='hidden'][value='showPermanent']").length > 0) {$(elem).hide(); $(elem).parents('.itemBlock').find('.multipleAuthors').show(); $(elem).parents('.itemBlock').find('.firstCreator').removeClass('noTopBorder');}; });
 	
 	$('.checkAll').click(function(){ $(this).parents('.itemLine').find('.checkboxTripleGroup').find(':checkbox').attr('checked','true'); $(this).parents('.itemLine').find('.checkboxTripleGroup').find('span:hidden').show(); $(this).parents('.itemLine').find('.checkboxTripleGroup').find('.showMoreCheckboxes').hide(); });
 	$('.showMoreCheckboxes').click(function(){ $(this).hide(); $(this).siblings().show(); });

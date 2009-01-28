@@ -57,20 +57,21 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public static enum SORT_CRITERIA
     {
-        TITLE ("escidoc.title", "/md-records/md-record/publication/title"),
-        GENRE ("escidoc.genre", "/md-records/md-record/publication/type"),
-        DATE ("escidoc.any-dates", ""),
-        CREATOR ("escidoc.complete-name", ""),
-        PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
-        MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
-        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
-        SOURCE_TITLE ("escidoc.any-source", ""),
-        SOURCE_CREATOR("", ""),
-        REVIEW_METHOD("", "/md-records/md-record/publication/review-method"),
-        FILE("",""),
-        STATE("escidoc.version.status", "/properties/version/status"),
-        OWNER("escidoc.created-by.name", "/properties/created-by/title"),
-        COLLECTION("escidoc.context.name", "/properties/context/title");
+
+        TITLE ("sort.escidoc.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
+        GENRE ("sort.escidoc.genre", "/md-records/md-record/publication/type", OrderFilter.ORDER_ASCENDING),
+        DATE ("sort.escidoc.any-dates", "", OrderFilter.ORDER_DESCENDING),
+        CREATOR ("sort.escidoc.complete-name", "", OrderFilter.ORDER_ASCENDING),
+        PUBLISHING_INFO ("sort.escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher", OrderFilter.ORDER_ASCENDING),
+        MODIFICATION_DATE ("sort.escidoc.last-modification-date", "/last-modification-date", OrderFilter.ORDER_DESCENDING),
+        EVENT_TITLE ("sort.escidoc.any-event", "/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING),
+        SOURCE_TITLE ("", "", OrderFilter.ORDER_ASCENDING),
+        SOURCE_CREATOR("", "", OrderFilter.ORDER_ASCENDING),
+        REVIEW_METHOD("", "/md-records/md-record/publication/review-method", OrderFilter.ORDER_ASCENDING),
+        FILE("","", OrderFilter.ORDER_ASCENDING),
+        STATE("sort.escidoc.version.status", "/properties/version/status", OrderFilter.ORDER_ASCENDING),
+        OWNER("sort.escidoc.created-by.name", "/properties/created-by/title", OrderFilter.ORDER_ASCENDING),
+        COLLECTION("sort.escidoc.context.name", "/properties/context/title", OrderFilter.ORDER_ASCENDING);
         
         
         /**
@@ -84,15 +85,15 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         private String sortPath;
         
         /**
-         * An additional attribute that has to be set, indicating the sort order ("ascending" or "descending")
+         * An additional attribute indicating the default sort order ("ascending" or "descending")
          */
         private String sortOrder;
         
-        SORT_CRITERIA(String index, String sortPath)
+        SORT_CRITERIA(String index, String sortPath, String sortOrder)
         {
             this.setIndex(index);
             this.setSortPath(sortPath);
-            this.sortOrder="";
+            this.sortOrder=sortOrder;
         }
 
         /**
@@ -216,6 +217,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("STATE");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -237,6 +239,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("TITLE");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -258,6 +261,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("GENRE");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -279,6 +283,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("DATE");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -300,6 +305,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("CREATOR");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -321,6 +327,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         {
             setSelectedSortBy("FILE");
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -370,6 +377,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setCurrentPageNumber(1);
+            setSelectedSortOrder(SORT_CRITERIA.valueOf(getSelectedSortBy()).getSortOrder());
             redirect();
         }
         catch (Exception e)
@@ -526,13 +534,20 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     {
         sortBySelectItems = new ArrayList<SelectItem>();
         
+       
         //the last three should not be in if not logged in
         if (!loginHelper.isLoggedIn())
         {
             for (int i = 0; i< SORT_CRITERIA.values().length - 3; i++)
             {
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
-                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                
+                //only add if index/sorting path is available
+                if (getPageType().equals("SearchResult") && !sc.getIndex().equals("") || !getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))
+                {
+                    sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                }
+                
             }
         }
         else
@@ -540,7 +555,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             for (int i = 0; i< SORT_CRITERIA.values().length; i++)
             {
                 SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
-                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+              //only add if index/sorting path is available
+                if (getPageType().equals("SearchResult") && !sc.getIndex().equals("") || !getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))
+                {
+                    sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+                }
             }
             
         }

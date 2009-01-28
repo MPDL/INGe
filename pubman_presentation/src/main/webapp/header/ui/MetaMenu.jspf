@@ -40,7 +40,7 @@
 	</h:selectOneMenu>
 
 <%-- <h:commandLink styleClass="small_area0_p3 endline" title="Show gerneral help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" /> --%>
-	<h:commandLink styleClass="small_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 <%--
@@ -50,11 +50,11 @@
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 --%>
-	<h:commandLink styleClass="large_area0_p8 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
+	<h:commandLink styleClass="medium_area0_p8 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
-	<h:commandButton styleClass="small_txtBtn endline logButton" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
+	<h:commandButton styleClass="medium_txtBtn endline logButton" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 

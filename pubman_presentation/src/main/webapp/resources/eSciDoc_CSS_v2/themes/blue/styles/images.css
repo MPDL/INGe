@@ -61,55 +61,21 @@
 	/*SEARCH MENU*/
 	
 	.quickSearchIcon {
-		background-image: url('../images/All_Search_LensStart_23_Active.gif');
+		background-image: url('../images/All_Search_LensStart_15_Active.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
-	
+/*	
 	.quickSearchIcon:hover, .quickSearchIcon:focus {
-		background-image: url('../images/All_Search_LensStart_23_Hover.gif');
+		background-image: url('../images/All_Search_LensStart_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
 	
 	.quickSearchIcon:disabled {
-		background-image: url('../images/All_Search_LensStart_23_Deactivated.gif');
+		background-image: url('../images/All_Search_LensStart_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
-	}
-	
-	.advancedSearchIcon {
-/*
-		background-image: url('../images/All_Search_LensAdvaced_15_Active.gif');
-*/
-		background-repeat: no-repeat;
-		background-position: right;
-		position: absolute;
-	}
-	
-	.advancedSearchIcon:hover, .advancedSearchIcon:focus {
-/*
-		background-image: url('../images/All_Search_LensAdvaced_15_Hover.gif');
-*/
-		background-repeat: no-repeat;
-		background-position: right;
-		position: absolute;
-	}
-	
-	.advancedSearchIcon:disabled {
-/*
-		background-image: url('../images/All_Search_LensAdvaced_15_Deactivated.gif');
-*/
-		background-repeat: no-repeat;
-		background-position: right;
-		position: absolute;
-	}
-	
-/*	.organisationSearchIcon {
-		background-image: url('../images/15x15.gif');
-		background-repeat: no-repeat;
-		background-position: center center;
-		position: absolute;
 	}
 */
 	/*SORTING IMAGES FOR CONTENT MENU*/

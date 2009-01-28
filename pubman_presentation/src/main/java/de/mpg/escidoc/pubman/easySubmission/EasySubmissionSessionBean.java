@@ -39,8 +39,10 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
@@ -102,6 +104,16 @@ public class EasySubmissionSessionBean extends FacesBean
     
     private String genreBundle = "Genre_ARTICLE";
 
+    /**
+     * A creator bean that holds the data from the author copy&paste organizations
+     */
+    private CreatorBean authorCopyPasteOrganizationsCreatorBean;
+   
+    /**
+     * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
+     */
+    private String showAuthorCopyPaste;
+    
 	/**
      * Public constructor.
      */
@@ -109,6 +121,7 @@ public class EasySubmissionSessionBean extends FacesBean
     {
         this.currentSubmissionStep = ES_STEP1;
         this.importSourceRefresh = false;
+        initAuthorCopyPasteCreatorBean();
 
     }
     
@@ -252,5 +265,46 @@ public class EasySubmissionSessionBean extends FacesBean
 	public void setGenreBundle(String genreBundle) {
 		this.genreBundle = genreBundle;
 	}
+
+    public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean)
+    {
+        this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    public CreatorBean getAuthorCopyPasteOrganizationsCreatorBean()
+    {
+        return authorCopyPasteOrganizationsCreatorBean;
+    }
+
+    public void setShowAuthorCopyPaste(String showAuthorCopyPaste)
+    {
+        this.showAuthorCopyPaste = showAuthorCopyPaste;
+    }
+
+    public String getShowAuthorCopyPaste()
+    {
+        return showAuthorCopyPaste;
+    }
+    
+    /**
+     * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
+     */
+    public void initAuthorCopyPasteCreatorBean()
+    {
+        CreatorVO newVO = new CreatorVO();
+       
+        /*
+        newVO.setPerson(new PersonVO());
+        OrganizationVO newPersonOrganization = new OrganizationVO();
+        newPersonOrganization.setName(new TextVO());
+        newPersonOrganization.setAddress("");
+        newPersonOrganization.setIdentifier("");
+        newVO.getPerson().getOrganizations().add(newPersonOrganization);
+        */
+        
+        CreatorBean dummyCreatorBean = new CreatorBean(newVO);
+        this.authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
+        setShowAuthorCopyPaste("");
+    }
 
 }

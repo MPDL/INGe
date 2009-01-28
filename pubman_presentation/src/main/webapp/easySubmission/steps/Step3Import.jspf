@@ -82,7 +82,8 @@
 	<div class="full_area0 fullItem">
 		<div class="full_area0 itemBlock noTopBorder">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}"/>
+				<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}" rendered="#{EasySubmission.disableBibtexFields}"/>
+				<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}" rendered="#{EasySubmission.disableExternalFields}"/>
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">

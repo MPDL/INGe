@@ -142,7 +142,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         
         elementsPerPageSelectItems = new ArrayList<SelectItem>();
         elementsPerPageSelectItems.add(new SelectItem("10","10"));
-        elementsPerPageSelectItems.add(new SelectItem("25","25"));
+        elementsPerPageSelectItems.add(new SelectItem("25","25")); //--default: 25
         elementsPerPageSelectItems.add(new SelectItem("50","50"));
         elementsPerPageSelectItems.add(new SelectItem("100","100"));
         elementsPerPageSelectItems.add(new SelectItem("250","250"));
@@ -170,7 +170,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         }
         else
         {
-            setElementsPerPage(10);
+            setElementsPerPage(25);
         }
         
         String currentPNumber = getExternalContext().getRequestParameterMap().get(parameterPageNumber);
