@@ -65,7 +65,6 @@ public abstract class ConeServlet extends HttpServlet
     private static final Logger logger = Logger.getLogger(ConeServlet.class);
     private static final String DB_ERROR_MESSAGE = "Error querying database.";
     private static final String DEFAULT_ENCODING = "UTF-8";
-    private static final String CONTENT_TYPE = "text/plain";
     
     /**
      * {@inheritDoc}
@@ -198,7 +197,7 @@ public abstract class ConeServlet extends HttpServlet
         if (model != null)
         {
             String[] path = request.getPathInfo().split("/");
-            response.setContentType(CONTENT_TYPE);
+            response.setContentType(getContentType());
             String id = null;
             String lang = request.getParameter("lang");
             
@@ -241,7 +240,7 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    out.println(formatDetails(result));
+                    out.println(formatDetails(id, model, result));
                 }
             }
         }
@@ -266,7 +265,7 @@ public abstract class ConeServlet extends HttpServlet
 
         if (model != null)
         {
-            response.setContentType(CONTENT_TYPE);
+            response.setContentType(getContentType());
             String query = request.getParameter("q");
             String lang = request.getParameter("lang");
             
@@ -339,6 +338,7 @@ public abstract class ConeServlet extends HttpServlet
 
     protected abstract String formatQuery(List<Pair> pairs) throws IOException;
 
-    protected abstract String formatDetails(Map<String, List<LocalizedString>> triples) throws IOException;
+    protected abstract String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException;
     
+    protected abstract String getContentType();
 }

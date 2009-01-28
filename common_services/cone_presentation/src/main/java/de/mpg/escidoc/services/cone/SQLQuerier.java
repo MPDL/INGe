@@ -223,7 +223,14 @@ public class SQLQuerier implements Querier
             for (LocalizedString object : values.get(predicate))
             {
                 statement.setString(3, object.getValue());
-                statement.setString(4, object.getLanguage());
+                if (object.getLanguage() != null && "".equals(object.getLanguage()))
+                {
+                    statement.setString(4, null);
+                }
+                else
+                {
+                    statement.setString(4, object.getLanguage());
+                }
                 statement.executeUpdate();
             }
         }
@@ -281,6 +288,12 @@ public class SQLQuerier implements Querier
         connection.close();
     }
 
+    public static void main(String[] args) throws Exception
+    {
+        SQLQuerier querier = new SQLQuerier();
+        querier.delete("abc", "123");
+    }
+    
     /**
      * {@inheritDoc}
      */

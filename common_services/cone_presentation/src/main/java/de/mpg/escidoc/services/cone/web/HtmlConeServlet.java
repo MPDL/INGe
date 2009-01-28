@@ -33,8 +33,8 @@ package de.mpg.escidoc.services.cone.web;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,31 +52,32 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.RdfHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
- * Servlet to answer calls from PubMan for options generation.
+ * Servlet to answer calls from the JQuery Javascript API.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class OptionsConeServlet extends ConeServlet
+public class HtmlConeServlet extends ConeServlet
 {
 
-    private static final Logger logger = Logger.getLogger(OptionsConeServlet.class);
+    private static final Logger logger = Logger.getLogger(HtmlConeServlet.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
-    private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
     protected String getContentType()
     {
-        return "text/plain";
+        return "text/html";
     }
 
     /**
-     * Send explain output to client.
+     * Send explain output to the client.
      * 
      * @param response
      * 
@@ -90,7 +91,7 @@ public class OptionsConeServlet extends ConeServlet
         response.setContentType("text/xml");
         
         InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-        InputStream template = ResourceUtil.getResourceAsStream("explain/options_explain.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/html_explain.xsl");
         
         try
         {
@@ -104,84 +105,64 @@ public class OptionsConeServlet extends ConeServlet
             throw new IOException(e.getMessage());
         }
     }
-
+    
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an List&lt;Pair&gt; into an HTML list.
      * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
+     * @param pairs A list of key-value pairs
+     * @return A String formatted as HTML
      */
     protected String formatQuery(List<Pair> pairs) throws IOException
     {
         
-        StringWriter result = new StringWriter();
-        
-        if (pairs != null)
+        String result = RdfHelper.formatList(pairs);
+        StringWriter writer = new StringWriter();
+        try
         {
-            for (Pair pair : pairs)
-            {
-                String key = pair.getKey();
-                String value = pair.getValue();
-                result.append(key.substring(key.lastIndexOf(":") + 1));
-                result.append("|");
-                result.append(value);
-                result.append("\n");
-            }
+            Transformer transformer = TransformerFactory
+                    .newInstance()
+                    .newTransformer(
+                            new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/resultlist-html.xsl")));
+            transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
+            transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
-        
-        return result.toString();
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return writer.toString();
     }
 
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an Map of triples into RDF.
      * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
+     * @param triples The map of triples
+     * 
+     * @return A String formatted in HTML.
+     * 
+     * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples)
+        throws IOException
     {
         
-        StringWriter result = new StringWriter();
-        
-        result.append("{\n");
-        for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
+        String result = RdfHelper.formatMap(id, triples);
+        StringWriter writer = new StringWriter();
+        try
         {
-            String predicate = (String) iterator.next();
-            List<LocalizedString> objects = triples.get(predicate);
-            
-            result.append("\"");
-            result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
-            result.append("\" : \"");
-            if (objects.size() == 1)
-            {
-                result.append(objects.get(0).toString().replace("'", "\\'"));
-            }
-            else
-            {
-                result.append("{\n");
-                for (Iterator<LocalizedString> iterator2 = objects.iterator(); iterator2.hasNext();)
-                {
-                    LocalizedString object = (LocalizedString) iterator2.next();
-                    result.append("\"");
-                    result.append(object.toString().replace("'", "\\'"));
-                    result.append("\"");
-                    if (iterator2.hasNext())
-                    {
-                        result.append(",");
-                    }
-                    result.append("\n");
-                }
-                result.append("}");
-            }
-            result.append("\"");
-            if (iterator.hasNext())
-            {
-                result.append(",");
-            }
-            result.append("\n");
+            Transformer transformer = TransformerFactory
+                    .newInstance()
+                    .newTransformer(
+                            new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/" + model.getName() + "-html.xsl")));
+            transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
-        result.append("}");
-        return result.toString();
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return writer.toString();
     }
     
 }

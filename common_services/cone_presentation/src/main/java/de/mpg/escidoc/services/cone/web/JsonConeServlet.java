@@ -52,6 +52,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 
@@ -66,11 +67,17 @@ import de.mpg.escidoc.services.cone.util.Pair;
 public class JsonConeServlet extends ConeServlet
 {
 
-    private static final Logger logger = Logger.getLogger(JQueryConeServlet.class);
+    private static final Logger logger = Logger.getLogger(JsonConeServlet.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
+    @Override
+    protected String getContentType()
+    {
+        return "text/javascript";
+    }
+
     /**
      * Send explain output to client.
      * 
@@ -86,7 +93,7 @@ public class JsonConeServlet extends ConeServlet
         response.setContentType("text/xml");
         
         InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl");
         
         try
         {
@@ -109,9 +116,6 @@ public class JsonConeServlet extends ConeServlet
      */
     protected OutputStream format(String source) throws IOException
     {
-        
-     // Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 
         InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
         OutputStream result = new ByteArrayOutputStream();
@@ -179,7 +183,7 @@ public class JsonConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
     {
         
         StringWriter result = new StringWriter();

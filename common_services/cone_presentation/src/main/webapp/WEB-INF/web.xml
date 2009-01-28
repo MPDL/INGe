@@ -57,6 +57,14 @@
 		<servlet-name>JsonConeServlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.services.cone.web.JsonConeServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>HtmlConeServlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.cone.web.HtmlConeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RdfConeServlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.cone.web.RdfConeServlet</servlet-class>
+	</servlet>
 
 	<!-- Servlet Mappings -->
 	<servlet-mapping>
@@ -77,6 +85,16 @@
 	<servlet-mapping>
 		<servlet-name>JsonConeServlet</servlet-name>
 		<url-pattern>/json/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>HtmlConeServlet</servlet-name>
+		<url-pattern>/html/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RdfConeServlet</servlet-name>
+		<url-pattern>/rdf/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

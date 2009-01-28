@@ -30,9 +30,12 @@
 
 package de.mpg.escidoc.services.cone.web;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -52,27 +55,27 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.RdfHelper;
 
 /**
- * Servlet to answer calls from PubMan for options generation.
+ * Servlet to answer calls from the JQuery Javascript API.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class OptionsConeServlet extends ConeServlet
+public class RdfConeServlet extends ConeServlet
 {
 
-    private static final Logger logger = Logger.getLogger(OptionsConeServlet.class);
+    private static final Logger logger = Logger.getLogger(RdfConeServlet.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
-    private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
     protected String getContentType()
     {
-        return "text/plain";
+        return "application/xml";
     }
 
     /**
@@ -90,7 +93,7 @@ public class OptionsConeServlet extends ConeServlet
         response.setContentType("text/xml");
         
         InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-        InputStream template = ResourceUtil.getResourceAsStream("explain/options_explain.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl");
         
         try
         {
@@ -104,84 +107,36 @@ public class OptionsConeServlet extends ConeServlet
             throw new IOException(e.getMessage());
         }
     }
-
+    
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an List&lt;Pair&gt; into an HTML list.
      * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
+     * @param pairs A list of key-value pairs
+     * @return A String formatted as HTML
      */
     protected String formatQuery(List<Pair> pairs) throws IOException
     {
         
-        StringWriter result = new StringWriter();
+        String result = RdfHelper.formatList(pairs);
         
-        if (pairs != null)
-        {
-            for (Pair pair : pairs)
-            {
-                String key = pair.getKey();
-                String value = pair.getValue();
-                result.append(key.substring(key.lastIndexOf(":") + 1));
-                result.append("|");
-                result.append(value);
-                result.append("\n");
-            }
-        }
-        
-        return result.toString();
+        return result;
     }
 
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an Map of triples into RDF.
      * 
-     * @param result The RDF.
-     * @return A String formatted  in a JQuery readable format.
+     * @param triples The map of triples
+     * 
+     * @return A String formatted in HTML.
+     * 
+     * @throws IOException Any i/o exception
      */
     protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
     {
         
-        StringWriter result = new StringWriter();
+        String result = RdfHelper.formatMap(id, triples);
         
-        result.append("{\n");
-        for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
-        {
-            String predicate = (String) iterator.next();
-            List<LocalizedString> objects = triples.get(predicate);
-            
-            result.append("\"");
-            result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
-            result.append("\" : \"");
-            if (objects.size() == 1)
-            {
-                result.append(objects.get(0).toString().replace("'", "\\'"));
-            }
-            else
-            {
-                result.append("{\n");
-                for (Iterator<LocalizedString> iterator2 = objects.iterator(); iterator2.hasNext();)
-                {
-                    LocalizedString object = (LocalizedString) iterator2.next();
-                    result.append("\"");
-                    result.append(object.toString().replace("'", "\\'"));
-                    result.append("\"");
-                    if (iterator2.hasNext())
-                    {
-                        result.append(",");
-                    }
-                    result.append("\n");
-                }
-                result.append("}");
-            }
-            result.append("\"");
-            if (iterator.hasNext())
-            {
-                result.append(",");
-            }
-            result.append("\n");
-        }
-        result.append("}");
-        return result.toString();
+        return result;
     }
     
 }

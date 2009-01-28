@@ -52,6 +52,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 
@@ -71,6 +72,12 @@ public class JQueryConeServlet extends ConeServlet
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
+    @Override
+    protected String getContentType()
+    {
+        return "text/plain";
+    }
+
     /**
      * Send explain output to client.
      * 
@@ -109,9 +116,6 @@ public class JQueryConeServlet extends ConeServlet
      */
     protected OutputStream format(String source) throws IOException
     {
-        
-     // Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 
         InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
         OutputStream result = new ByteArrayOutputStream();
@@ -162,7 +166,7 @@ public class JQueryConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
     {
         
         StringWriter result = new StringWriter();
