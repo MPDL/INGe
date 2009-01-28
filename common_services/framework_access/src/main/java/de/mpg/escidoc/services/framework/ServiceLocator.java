@@ -415,6 +415,28 @@ public class ServiceLocator
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
+    
+    /**
+     * Gets the ScopeHandler service for  an authentificated user.
+     *
+     *@param userHandle The handle of the logged in user.
+     * @return A ScopeHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static ScopeHandler getScopeHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        if (publicScopeHandlerServiceLocator == null)
+        {
+            publicScopeHandlerServiceLocator = new ScopeHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicScopeHandlerServiceLocator.getScopeHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("ScopeHandler URL=" + url);
+            publicScopeHandlerServiceLocator.setScopeHandlerServiceEndpointAddress(url);
+        }
+        ScopeHandler handler = publicScopeHandlerServiceLocator.getScopeHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
 
     /**
      * Gets the AggregationDefinitionHandler service for an anonymous user.

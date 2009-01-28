@@ -128,6 +128,14 @@ public class PersonVO extends ValueObject implements Cloneable
     {
         this.organizations = organizations;
     }
+    
+    /**
+     * Delivers the size of the organization list
+     */
+    public int getOrganizationsSize()
+    {
+        return organizations.size();
+    }
 
     /**
      * Delivers the identifier in the Personennormdatei, provided by the Deutsche Nationalbibliothek.
