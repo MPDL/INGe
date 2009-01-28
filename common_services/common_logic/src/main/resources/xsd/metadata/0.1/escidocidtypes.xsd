@@ -65,7 +65,7 @@
    <xs:simpleContent>
     <xs:restriction base="dc:SimpleLiteral">
         <xs:simpleType>
-          <xs:restriction base="xs:string"/>
+          <xs:restriction base="xs:anyURI"/>
         </xs:simpleType>
         <xs:attribute ref="xml:lang" use="prohibited"/>
     </xs:restriction>
