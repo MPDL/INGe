@@ -20,6 +20,8 @@ public class GenreHandler extends ShortContentHandler
 	private LinkedHashMap<String, String> map = null;
 	private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
 	
+	String formID = "";
+	
 	public GenreHandler(String dir)
 	{
 		this.dir = dir;
@@ -92,7 +94,28 @@ public class GenreHandler extends ShortContentHandler
 					map = (LinkedHashMap<String, String>) defaultMap.clone();
 				}
 			}
-			if ("group".equals(name) || "field".equals(name))
+			
+			
+			if ("group".equals(name))
+			{
+				stack.push(attributes.getValue("id"));
+				String currentStack = "";
+				for (String element : stack) {
+					currentStack += element + "_";
+				}
+				
+				for (int i = 0; i < attributes.getLength(); i++) {
+					String key = currentStack + attributes.getQName(i);
+					String value = attributes.getValue(i);
+					
+					if("form-id".equals(attributes.getQName(i)))
+					{
+						this.formID = attributes.getValue(i);
+					}
+					map.put(key, value);
+				}
+			}
+			else if ("field".equals(name))
 			{
 				stack.push(attributes.getValue("id"));
 				String currentStack = "";
@@ -105,6 +128,7 @@ public class GenreHandler extends ShortContentHandler
 					String value = attributes.getValue(i);
 					map.put(key, value);
 				}
+				map.put(currentStack + "form-id", this.formID);
 			}
 		}
 		catch (Exception e) {
