@@ -306,5 +306,7 @@ public class EasySubmissionSessionBean extends FacesBean
         this.authorCopyPasteOrganizationsCreatorBean = dummyCreatorBean;
         setShowAuthorCopyPaste("");
     }
+    
+  
 
 }

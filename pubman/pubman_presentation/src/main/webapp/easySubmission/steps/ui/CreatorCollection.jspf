@@ -38,6 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 	<h:panelGroup layout="block" styleClass="free_area0 multipleAuthors">
+		<h:inputHidden value="#{EasySubmissionSessionBean.showAuthorCopyPaste}"></h:inputHidden>	
 <%-- Author copy&paste --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder multipleAuthors">
 				<b class="xLarge_area0_p8 endline labelLine clear">
