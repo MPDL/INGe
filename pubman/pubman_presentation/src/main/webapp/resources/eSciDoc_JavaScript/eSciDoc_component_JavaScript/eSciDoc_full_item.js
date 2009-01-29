@@ -93,8 +93,6 @@ function addFullItemFunctions() {
 	
 	$('.showMoreDates').click(function(){ $(this).hide(); $(this).siblings().show(); });
 	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
-	
-	$('.descriptionDetailLink').click(function(){ $(this).parents('.itemLine').find('.description').removeClass('description'); $(this).hide(); });
 }
 
 function installFullItem() {

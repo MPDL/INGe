@@ -73,11 +73,8 @@ All rights reserved. Use is subject to license terms.
 				<b class="xLarge_area0 endline labelLine">
 					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl description endline">
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{context.description}"/>
-				</span>
-				<span class="medium_area0_p8 lineToolSection">
-					<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
 				</span>
 			</div>
 		</div>

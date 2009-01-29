@@ -51,11 +51,8 @@
 			<b class="xLarge_area0 endline labelLine">
 				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl description endline">
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{lbl.submission_descEasySubmission}" />
-			</span>
-			<span class="medium_area0_p8 lineToolSection">
-				<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
 			</span>
 		</div>
 	</div>
@@ -82,11 +79,8 @@
 			<b class="xLarge_area0 endline labelLine">
 				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl description endline">
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{lbl.submission_descNewSubmission}" />
-			</span>
-			<span class="medium_area0_p8 lineToolSection">
-				<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
 			</span>
 		</div>
 	</div>
@@ -113,11 +107,8 @@
 			<b class="xLarge_area0 endline labelLine">
 				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl description endline">
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{lbl.submission_descImport}" />
-			</span>
-			<span class="medium_area0_p8 lineToolSection">
-				<a class="xTiny_marginLExcl descriptionDetailLink"><h:outputText value="#{lbl.submission_lblMoreDetails}" /></a>
 			</span>
 		</div>
 	</div>
