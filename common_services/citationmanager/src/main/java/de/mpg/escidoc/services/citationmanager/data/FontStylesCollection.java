@@ -40,6 +40,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 /**
@@ -175,8 +176,10 @@ public class FontStylesCollection implements Cloneable {
         
         digester.addSetNext(path, "addFontStyle");
 
-        FileInputStream input = new FileInputStream( xmlFileName );
-        FontStylesCollection fsc = (FontStylesCollection)digester.parse( input );
+//        FileInputStream input = new FileInputStream( xmlFileName );
+        FontStylesCollection fsc = (FontStylesCollection)digester.parse( 
+        		ResourceUtil.getResourceAsStream( xmlFileName )
+        );
         fsc.findDefaultFontStyle();
 
         return fsc;

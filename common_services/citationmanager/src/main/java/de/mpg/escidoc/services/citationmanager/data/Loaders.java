@@ -68,9 +68,11 @@ public class Loaders {
     	Utils.checkName(name);
 
         try {
-            pcs.setJasperDesign(JRXmlLoader.load( 
-            		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/CitationStyle.jrxml"
+            pcs.setJasperDesign(JRXmlLoader.load(
+            		ResourceUtil.getResourceAsStream(
+	            		ResourceUtil.getPathToCitationStyles()
+	            		+ name + "/CitationStyle.jrxml"
+	            		)
             ));
         }
         catch (JRException e) {
@@ -90,9 +92,11 @@ public class Loaders {
     	Utils.checkPcs(pcs);
         try {
             pcs.setJasperDesign(JRXmlLoader.load(
-            		ResourceUtil.CITATIONSTYLES_DIRECTORY 
-            		+ "/" + pcs.DEFAULT_STYLENAME 
-            		+ "/citation-style-test.jrxml"
+            		ResourceUtil.getResourceAsStream(
+	            		ResourceUtil.CITATIONSTYLES_DIRECTORY 
+	            		+ "/" + pcs.DEFAULT_STYLENAME 
+	            		+ "/citation-style-test.jrxml"
+            		)
             ));
         }
         catch (JRException e) {

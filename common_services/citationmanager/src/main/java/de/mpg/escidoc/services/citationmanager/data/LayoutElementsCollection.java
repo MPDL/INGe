@@ -42,6 +42,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 /**
@@ -232,8 +233,10 @@ public class LayoutElementsCollection implements Cloneable {
 //        digester.addSetNext("layoutElementsCollection/layoutElement", "addLayoutElement");
 
 
-        FileInputStream input = new FileInputStream(xmlFileName);
-        LayoutElementsCollection lec = (LayoutElementsCollection)digester.parse(input);
+//        FileInputStream input = new FileInputStream(xmlFileName);
+        LayoutElementsCollection lec = (LayoutElementsCollection)digester.parse(
+        		ResourceUtil.getResourceAsStream(xmlFileName)
+        );
 
         lec.fillEmptyNames();
         lec.generateIDs();

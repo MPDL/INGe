@@ -368,9 +368,11 @@ public class CitationStylesCollection implements Cloneable  {
     		//digester.addSetNext(cs, "addCitationStyle");
     		
     		
-    		FileInputStream input = new FileInputStream( xmlFileName );
+//    		FileInputStream input = new FileInputStream(xmlFileName);
 //    		CitationStylesCollection cscl = (CitationStylesCollection)digester.parse( input );
-    		CitationStyle cst = (CitationStyle)digester.parse( input );
+    		CitationStyle cst = (CitationStyle)digester.parse( 
+    				ResourceUtil.getResourceAsStream(xmlFileName) 
+    		);
     		
     		CitationStylesCollection cscl = new CitationStylesCollection();
     		cscl.addCitationStyle(cst);
