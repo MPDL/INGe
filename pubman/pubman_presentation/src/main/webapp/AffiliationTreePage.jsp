@@ -51,6 +51,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{AffiliationTreePage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
+			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<jsp:directive.include file="header/Header.jspf" />
@@ -94,6 +95,7 @@
 					</div>
 				<!-- end: content section -->
 				</div>
+			</div>
 			</tr:form>
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {

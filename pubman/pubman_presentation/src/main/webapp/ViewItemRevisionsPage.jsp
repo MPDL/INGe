@@ -52,6 +52,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText id="pageDummy" value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
+			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
 				<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
@@ -175,6 +176,7 @@
 					</div>
 				<!-- end: content section -->
 				</div>
+			</div>
 			</tr:form>
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {

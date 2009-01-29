@@ -53,6 +53,7 @@
 			<h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}"/>
 
 			<tr:form usesUpload="true">
+			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
 				<jsp:directive.include file="header/Header.jspf" />
@@ -236,6 +237,7 @@
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
+			</div>
 			</tr:form>
 			
 			</body>

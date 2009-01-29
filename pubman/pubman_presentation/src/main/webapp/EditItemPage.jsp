@@ -52,6 +52,7 @@
 
 			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
+			<div class="full wrapper">
 			<h:inputHidden value="#{EditItemSessionBean.offset}" id="offset"></h:inputHidden>
 			
 				<jsp:directive.include file="header/Header.jspf" />
@@ -147,6 +148,7 @@
 				<!-- end: content section -->
 				</div>
 			
+			</div>
 			</tr:form>
 			<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {

@@ -49,6 +49,7 @@
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{ErrorPage.beanName}" styleClass="noDisplay" />
 			<h:form id="form1">
+			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 
 				<!-- import header -->
@@ -115,7 +116,7 @@
 				<!-- end: content section -->
 				</div>
 
-
+				</div>
 				</h:form>
 				<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {
