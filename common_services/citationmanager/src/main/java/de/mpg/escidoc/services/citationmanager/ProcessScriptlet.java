@@ -179,7 +179,7 @@ public class ProcessScriptlet {
         String[] tokens = cs.getMdXPath().split("/");
         SCRIPTLET_XPATH_ROOT = tokens[ tokens.length - 1 ];    
         
-    	scriptletFunctions = ResourceUtil.getProperties("CitationStyles", "functions.properties");
+    	scriptletFunctions = ResourceUtil.getProperties(ResourceUtil.CITATIONSTYLES_DIRECTORY, "functions.properties");
     	Iterator iter = scriptletFunctions.keySet().iterator(); 
     	while (iter.hasNext()) 
     		scriptletBody += scriptletFunctions.getProperty((String)iter.next());
