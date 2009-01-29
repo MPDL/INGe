@@ -31,15 +31,15 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{genre.item_basic_display != 'true' && genre.item_basic_form_id != 'full-submission' && genre.item_basic_form_id != 'all' || genre.item_basic_display != 'false' && genre.item_basic_form_id != 'easy-submission'}">
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'full-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display != 'false' && genre.item_basic_form_id != 'easy-submission'}"/>
+		<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
 <%-- Genre --%>
-		<h:panelGroup layout="block" styleClass="labelLine clear" rendered="#{genre.item_basic_item_genre_display != 'false'}">
+		<h:panelGroup layout="block" styleClass="labelLine clear" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'full-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
@@ -52,7 +52,7 @@
 		</h:panelGroup>
 
 <%-- Title --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.item_basic_item_title_display != 'false'}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'full-submission' || genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/><span class="noDisplay">: </span>
 			</b>
@@ -66,7 +66,7 @@
 		</h:panelGroup>
 
 <%-- Alternative title --%>
-		<tr:iterator var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{genre.item_basic_item_title_alternative_display != 'false'}">
+		<tr:iterator var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
