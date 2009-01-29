@@ -115,7 +115,7 @@ public class ItemExportingTest extends TestBase
         {
             logger.debug(formatVO);
         }
-        assertEquals(3, exportFormatsVOList.size());
+        assertEquals(4, exportFormatsVOList.size());
         
 
     }
