@@ -325,8 +325,8 @@ public class CitationStylesCollection implements Cloneable  {
     		String v = cs + "/variables/variable";
     		digester.addCallMethod(v, "addVariable", 3);
     		digester.addCallParam(v, 0, "name");
-    		digester.addCallParam(v, 1, "xpath");
-    		digester.addCallParam(v, 2, "expression");
+    		digester.addCallParam(v, 1, "type");
+    		digester.addCallParam(v, 2);
     		
 	        //add predefined layout elements
 	        String le = cs + "/layout-elements/layout-element";
@@ -423,10 +423,10 @@ public class CitationStylesCollection implements Cloneable  {
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
 
-        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/AJP/CitationStyle.xml");
+        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/APA_revised/CitationStyle.xml");
         
         
-        csc.writeToXml("src/main/resources/CitationStyles/AJP/CitationStyleTestOutput.xml");
+        csc.writeToXml("src/main/resources/CitationStyles/CitationStyleTestOutput.xml");
 //        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles\\CitationStyle.xml");
 
 

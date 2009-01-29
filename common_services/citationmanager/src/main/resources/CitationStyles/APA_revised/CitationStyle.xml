@@ -20,28 +20,33 @@
 <citation-style name="APA_revised" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" md-xpath="//item/md-records/md-record">
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
-		<!-- variables which use xpath directly in DataSource NS-->
-		<variable name="authorsCount" xpath="string(count(publication/creator[@role='author']))" />
+		<!-- variables which use xpath directly in DataSource NS--> 
+		<variable name="authorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='author']))]]></variable> 
+		 
+		<variable name="editorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='editor']))]]></variable>  
 		
-		<variable name="editorsCount" xpath="string(count(publication/creator[@role='editor']))" />
+		<variable name="ed-postfix" type="expression"><![CDATA[Integer.parseInt(${editorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
 		
-		<variable name="ed-postfix" expression="Integer.parseInt(${editorsCount}) == 1 ? &quot; (Ed.)&quot; : &quot; (Eds.)&quot;" />
+		<variable name="genre" type="xpath"><![CDATA[publication/@type]]></variable>
 		
-		<variable name="genre" xpath="publication/@type" />
-		
-		<!-- Date block -->
-		<variable name="date" expression="( (${publication@type}.equals(&quot;manuscript&quot;) &amp;&amp; ${publication/created}) != null ? &quot; (&quot;. $P{REPORT_SCRIPTLET}.get_year(${publication/created}) .&quot;). &quot; : ${publication/issued} != null? &quot; (&quot;. $P{REPORT_SCRIPTLET}.get_year(${publication/issued}) .&quot;). &quot; : ${publication/published-online} != null || ${publication/dateAccepted} != null) ? &quot; (in press).&quot; : ${publication/modified} != null ? &quot; (in preparation).&quot; : &quot; (n.d.).&quot;" />
-		
-		
-		<variable name="hasPublication" xpath="not(publication)=false()" />
-		
+		<variable name="hasPublication" type="xpath"><![CDATA[not(publication)=false()]]></variable>
+
 <!--		<variable name="isBookArticleOrChapter" xpath="not(publication[@type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report'])=false()" />-->
 <!--		<variable name="isBookProceedingsThesis" xpath="not(publication[@type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
 <!--		<variable name="isJournalOrMagazineArticle" xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
 
-		<!-- variables which use java-like expressions with references to other variables defined above -->
+	<!-- Date block -->
+<!--		<variable name="date" type="expression"><![CDATA[( (${publication@type}.equals("manuscript") && ${publication/created}) != null ? " (". $P{REPORT_SCRIPTLET}.get_year(${publication/created}) ."). " : ${publication/issued} != null ? " (". $P{REPORT_SCRIPTLET}.get_year(${publication/issued}) ."). " : ${publication/published-online} != null || ${publication/dateAccepted} != null) ? " (in press)." : ${publication/modified} != null ? " (in preparation)." : " (n.d.)."]]></variable>-->
+		<variable name="date" type="expression">
+			<![CDATA[${publication/issued} != null ? ${publication/issued} : ${publication/published-online} != null ? ${publication/published-online} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]> 
+		</variable>
+		 
 		
-		<variable name="date" expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
+		<!-- doi and url should be revised after fixing of the bug: http://www.escidoc.org/jira/browse/DEV-578  -->
+<!--		<variable name="doi" xpath="(publication/identifier[contains(.,'doi')])[1]" />-->
+<!--		<variable name="url" xpath="(publication/identifier[contains(.,'http://') or contains(.,'www')])[1]" />-->
+		<variable name="doi" type="xpath"><![CDATA[(publication/identifier[@type='DOI'])[1]]]></variable>
+		<variable name="url" type="xpath"><![CDATA[(publication/identifier[@type='URI'])[1]]]></variable>
 		
 	</variables>
 
@@ -128,7 +133,8 @@
 		
 		<!-- "plain" layout elements -->
 		<!-- ??? -->
-		<layout-element name="year" ref="publication/issued" func="get_year">
+<!--		<layout-element name="year" ref="publication/issued" func="get_year">-->
+		<layout-element name="year" ref="date" func="get_year">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
@@ -137,6 +143,30 @@
 			<elements />
 		</layout-element>
 		
+		<layout-element name="published-online-and-external-locator">
+			<parameters>
+				<valid-if><![CDATA[${publication/issued}==null && ${publication/published-online}!=null]]></valid-if>
+				<starts-with value=". Published online " />
+				<delimiter value=". "/>
+			</parameters>
+			<elements>
+				<layout-element ref="publication/published-online" />
+				<layout-element ref="doi"/>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[${doi}==null && ${url}!=null]]></valid-if>
+						<starts-with value="Retrieved from "/>
+						<ends-with value=". "/>
+					</parameters>
+					<elements>
+						<layout-element ref="url"/>
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>
+		
+
+
 
 		<layout-element name="year-authors-are-presented">
 			<parameters>
@@ -299,28 +329,24 @@
 
 
 
-	<layout-element name="debugBlock">
+	<layout-element name="_debugBlock_">
 		<parameters>
+			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
-			<ends-with value=", citation: " />
 			<delimiter value=","/>
 		</parameters>
 		<elements>
-			<layout-element ref="publication/@type" >
+			<layout-element ref="../../@objid" >
 				<parameters>
-					<font-style ref="BOLD"/>
+					<starts-with value="OBJID:"/>
 				</parameters>
 				<elements/>
 			</layout-element>
+			<layout-element ref="publication/@type" />
 			<layout-element ref="publication/title" />
-			<layout-element ref="publication/issued" >
-				<parameters>
-					<starts-with value="issued:"/>
-				</parameters>
-				<elements/>
-			</layout-element>
-			<layout-element ref="(publication/abstract)[1]"/> 
-			<layout-element ref="(publication/abstract)[2]"/> 
+			<layout-element ref="publication/abstract[contains(.,'APA')]"/>
+			<layout-element ref="publication/subject" />
+			 
 <!--			<layout-element ref="isBookArticleOrChapter" /> -->
 <!--			<layout-element ref="isBookProceedingsThesis" /> -->
 <!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
@@ -406,6 +432,8 @@
 			<layout-element ref="volume-issue"/>
 			
 			<layout-element ref="start-page-end-page"/>
+			
+			<layout-element ref="published-online-and-external-locator"/>
 		
 		</elements>
 	</cs-layout-definition>
@@ -459,6 +487,8 @@
 			</layout-element>
 			
 			<layout-element ref="place-publisher"/>
+			
+			<layout-element ref="published-online-and-external-locator"/>
 		
 		</elements>
 	</cs-layout-definition>
@@ -511,6 +541,8 @@
 			</layout-element>
 			
 			<layout-element ref="place-publisher"/>
+			
+			<layout-element ref="published-online-and-external-locator"/>
 		
 		</elements>
 	</cs-layout-definition>

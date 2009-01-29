@@ -38,7 +38,6 @@ import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.rmi.RemoteException;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,10 +59,9 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
-
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
-/**
+/** 
  * Helper class for all test classes.
  *
  * @author Johannes M&uuml;ller (initial)
@@ -133,6 +131,7 @@ public class TestHelper
     			"escidoc.abstract=%22AJP:%22%20AND%20" + SEARCH_CONTEXT 
     	);
     }
+    
     	
     public static String getItemsFromFramework(String cql) throws Exception {
     	
@@ -141,8 +140,8 @@ public class TestHelper
     	
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion("1.1");
-        searchRetrieveRequest.setRecordPacking("xml");
         searchRetrieveRequest.setQuery(cql);
+        searchRetrieveRequest.setRecordPacking("xml");
         
         SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
         if (searchResult.getDiagnostics() != null)
@@ -158,10 +157,10 @@ public class TestHelper
 
         return transformToItemListAsString(searchResult);
         
-}        
-        
+    }
     
-
+ 
+    
     private static String transformToItemListAsString(SearchRetrieveResponseType searchResult) throws Exception
     {
     	String itemStringList = "";
@@ -182,7 +181,6 @@ public class TestHelper
             	    {
             	    	itemStringList += m.group(1);
 					} 
-//            	    itemStringList += str;
                 }
             }
         }
@@ -192,6 +190,7 @@ public class TestHelper
     }
      
     
+       
     
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
@@ -247,8 +246,6 @@ public class TestHelper
     			String location = headers[i].getValue();
     			int index = location.indexOf('=');
     			userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-    			//System.out.println("location: "+location);
-    			//System.out.println("handle: "+userHandle);
     		}
     	}
 

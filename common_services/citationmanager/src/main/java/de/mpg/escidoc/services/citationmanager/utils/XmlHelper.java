@@ -90,8 +90,8 @@ public class XmlHelper {
     public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
     
     // List of CDATA elemetns
-    public final static String CDATAElements = 
-    	"valid-if max-count max-length " + 					// CitationStyle definition
+    public final static String CDATAElements =  
+    	"valid-if max-count max-length variable " + 		// CitationStyle definition
     	"{http://purl.org/dc/terms/}bibliographicCitation" 	// Snippet output
     	;
 

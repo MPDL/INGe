@@ -28,22 +28,37 @@
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<!-- variables which use xpath directly in DataSource NS-->
-		<variable name="hasPublication" xpath="not(publication)=false()" />
-		<variable name="authorsCount"
-			xpath="string(count(publication/creator[@role='author']/person|organization))" />
-		<variable name="sourceEditorsCount"
-			xpath="string(count(publication/source/creator[@role='editor']/person|organization))" />
-		<variable name="bookEditorsCount" xpath="string(count(publication[@type='book']/creator[@role='editor']))" />
+		<variable name="hasPublication" type="xpath" >
+			<![CDATA[not(publication)=false()]]>
+		</variable>
+		<variable name="authorsCount" type="xpath">
+			<![CDATA[string(count(publication/creator[@role='author']/person|organization))]]>
+		</variable>
+			
+		<variable name="sourceEditorsCount" type="xpath">
+			<![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]>
+		</variable>
+		
+		<variable name="bookEditorsCount" type="xpath"> 
+			<![CDATA[string(count(publication[@type='book']/creator[@role='editor']))]]>
+		</variable>
 			
 		<!--
 			variables which use java-like expressions with references to other
 			variables defined above
 		-->
-		<variable name="date"
-			expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
-		<variable name="static_in" expression="&quot;in&quot;" />
+		<variable name="date" type="expression">
+			<![CDATA[${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]>
+		</variable>
+		
+		<variable name="static_in" type="expression">
+			<![CDATA["in"]]>
+		</variable>	 
 <!--		<variable name="static_in" xpath="'in'" />-->
-		<variable name="ed"	expression=" Integer.parseInt(${bookEditorsCount}) == 1 ? &quot; (ed)&quot; : &quot; (eds)&quot;" />
+
+		<variable name="ed" type="expression">
+					<![CDATA[ Integer.parseInt(${bookEditorsCount}) == 1 ? " (ed)" : " (eds)"]]>
+		</variable>
 
 	</variables>
 	
@@ -52,6 +67,56 @@
 		<!-- repeatable layout elements -->
 		<layout-element name="authors-MoreThan2"
 			ref="publication/creator[@role='author']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})!=2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="authors-Equal2"
+			ref="publication/creator[@role='author']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=" and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="authors">
+			<parameters>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="authors-Equal2" />
+				<layout-element ref="authors-MoreThan2" />
+			</elements>
+		</layout-element>	
+		
+		<layout-element name="editors-MoreThan2"
+			ref="publication/creator[@role='editor']/person|organization"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
@@ -139,6 +204,7 @@
 				<layout-element ref="family-name" />
 			</elements>
 		</layout-element>
+		
 		<layout-element name="book-editors">
 			<parameters>
 				<delimiter value="" />
@@ -299,7 +365,7 @@
 				<parameters>
 					<starts-with value="debug__" />
 					<ends-with value="__debug" />
-					<font-style ref="BOLD"/>
+					<font-style ref="BLUE"/>
 					<delimiter value=","/>
 				</parameters>
 				<elements>

@@ -38,6 +38,8 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
+
 
 /**
  * An instance of this class represents 
@@ -136,9 +138,12 @@ public class CitationStyle implements Cloneable {
 		this.variables = variables;
 	}
 
-    public void addVariable( String name, String xpath, String expression ) {
+    public void addVariable( String name, String type, String expression ) {
         if ( name !=null && !name.trim().equals("") )
-            variables.put(name, new String[] { xpath, expression });
+            variables.put(name, new String[] { 
+            		type.equals("xpath") ? expression : null,
+            		type.equals("expression") ? expression : null 
+            });
     }
 	
 	public LayoutElementsCollection getLayoutElements() {
@@ -264,16 +269,14 @@ public class CitationStyle implements Cloneable {
         		String name = iter.next();
         		Element variable = d.createElement("variable");
         		variable.setAttribute("name", name);
-        		String value = variables.get(name)[0];
-        		if ( value != null && !value.trim().equals(""))
-        		{
-        			variable.setAttribute("xpath", value);    				
-        		}
-        		value = variables.get(name)[1];
-        		if ( value != null && !value.trim().equals(""))
-        		{
-        			variable.setAttribute("expression", value);    				
-        		}
+        		String exp1 = variables.get(name)[0];
+        		String exp2 = variables.get(name)[1];
+        		variable.setAttribute("type",
+        				Utils.checkVal(exp1) ? "xpath" :
+        				Utils.checkVal(exp2) ? "expression" :
+        				null
+        		);
+        		variable.appendChild(d.createCDATASection(Utils.coalesce(new String[]{ exp1, exp2 })));
         		vs.appendChild(variable);
         	}
         	cs.appendChild(vs);

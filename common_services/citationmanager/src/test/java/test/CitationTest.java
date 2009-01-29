@@ -40,7 +40,7 @@ public class CitationTest {
 //	private final String dsFileName = "1.xml";  
 	
 	private String itemList;
-	
+	 
 	private CitationStyleHandler pcs = new ProcessCitationStyles();
 	
 	/**
@@ -61,15 +61,14 @@ public class CitationTest {
     {
 //    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
 //    	logger.info("Data Source:" + ds);
-//    	itemList = ResourceUtil.getResourceAsString(ds);
+//    	itemList = ResourceUtil.getResourceAsString("porverka.xml");
 //    	assertNotNull("Item list xml is not found:", ds);
     	
-//    	itemList = TestHelper.getItemListFromFramework(); 
-    	itemList = TestHelper.getItemsFromFramework_AJP();
+    	itemList = TestHelper.getItemsFromFramework_APA();
 		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
 //		logger.info("item list from framework:\n" + itemList);
 		   
-		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
+//		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
 
     }	
 	
@@ -185,7 +184,8 @@ public class CitationTest {
     	
     	
 //    	for (String cs : pcs.getStyles() )
-    	for (String cs : new String[]{"AJP"} )
+    	for (String cs : new String[]{"APA_revised"} )
+//    	for (String cs : new String[]{"AJP"} )
     	{
     		long start;
         	byte[] result;
@@ -200,17 +200,15 @@ public class CitationTest {
     	    	
 //        		logger.info("ItemList\n: " + itemList);
 //        		logger.info("Result\n: " + new String(result));
-        		
     	    	
     	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
     	    	assertTrue(format + " output should not be empty", result.length > 0);
-    	    	
     	    	
         		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
     	        logger.info(format + " length: " + result.length);
     	        logger.info(format + " is OK");
     	        
-    	        TestHelper.writeToFile(cs + "." + format, result);
+//    	        TestHelper.writeToFile(cs + "." + format, result);
     			
     		}
     		

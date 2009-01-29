@@ -23,6 +23,17 @@
     pdf-font-name="ARIAL.TTF"
     is-underline="false"
     is-strike-through="false"/>
+    
+  <font-style name="BLUE"
+    font-name="Arial"
+    font-size="12"
+    fore-color="blue"
+    back-color="white"
+    is-bold="false"
+    is-italic="false"
+    pdf-font-name="ARIAL.TTF"
+    is-underline="false"
+    is-strike-through="false"/>
 
   <font-style name="BOLD"
     fore-color="black"
