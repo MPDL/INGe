@@ -102,8 +102,10 @@
 							<div class="sideSection free_area0_p8">
 
 								<h2>Bug Tracking</h2>
-								We always try to deliver the very best system possible, but unfortunately no software development can avoid any errors.<br />
-								To be able to constantly improve our system, we need your help as our users. Please take a few minutes to report the occurred error and what lead to it to our development team.<br />
+								<span>
+									We always try to deliver the very best system possible, but unfortunately no software development can avoid any errors.<br />
+									To be able to constantly improve our system, we need your help as our users. Please take a few minutes to report the occurred error and what lead to it to our development team.<br />
+								</span>
 								
 							</div>		
 							

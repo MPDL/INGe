@@ -30,7 +30,6 @@
 
 <!-- BEGIN Copy&paste the News here -->				
 <h2><h:outputText value="#{lbl.Home_Header_News}"/></h2>
-<br />
-<b>2008-11-26</b><br />
-First PubMan 4.0 beta finished
+<h3>2008-11-26</h3>
+<span>First PubMan 4.0 beta finished</span>
 <!-- END Copy&paste the News here -->
