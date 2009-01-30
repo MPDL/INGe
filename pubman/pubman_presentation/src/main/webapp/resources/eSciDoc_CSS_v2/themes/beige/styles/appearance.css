@@ -517,6 +517,10 @@
 		border-color: #66852C;
 	}
 	
+	.infoMessageArea h2 {
+		color: #66852C;
+	}
+	
 	.errorMessageArea {
 		border-color: #C65D1F;
 	}

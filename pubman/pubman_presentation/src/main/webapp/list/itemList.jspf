@@ -144,7 +144,7 @@
  					<h:panelGroup styleClass="big_imgArea statusIcon releasedItem" rendered="#{item.isStateReleased and !item.isStateWithdrawn}" />
  					<h:panelGroup styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{item.isStateInRevision}" />
 					<span class="noDisplay">(</span>
- 					<h:outputLabel styleClass="medium_label endline messageWarn" rendered="#{item.isStateWithdrawn}">
+ 					<h:outputLabel styleClass="medium_label endline" rendered="#{item.isStateWithdrawn}">
  						<h:outputText value="#{item.itemPublicState}" />
  					</h:outputLabel>
  					<h:outputLabel styleClass="medium_label endline" rendered="#{!item.isStateWithdrawn}">
