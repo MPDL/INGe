@@ -158,7 +158,7 @@ public class JsonConeServlet extends ConeServlet
                 result.append(key.replace("\"", "\\\""));
                 result.append("\",\n");
                 
-                result.append("\t\tvalue : \"");
+                result.append("\t\t\"value\" : \"");
                 result.append(value.replace("\"", "\\\""));
                 result.append("\"\n");
                 
