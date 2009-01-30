@@ -374,7 +374,7 @@
 			</h:panelGroup>
 		</div>
 
-	<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" /></div>
+	<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" styleClass="mandatory"/></div>
 
 	</div>
 </div>
