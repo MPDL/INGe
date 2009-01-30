@@ -91,7 +91,7 @@
 		text-decoration: none;
 	}
 	
-	a:hover, a:focus, input:hover, input:focus {
+	a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
 		color: #382926;
 		text-decoration: none;
 	}
@@ -109,7 +109,7 @@
 		cursor: pointer;
 	}
 	
-	a:disabled, a.disabled {
+	a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.disabled {
 		cursor: default;
 		color: #827775;
 	}
@@ -241,7 +241,7 @@
 		}
 	}
 	
-	.pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
+	.pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 		color: #827775;
 	}
 	
