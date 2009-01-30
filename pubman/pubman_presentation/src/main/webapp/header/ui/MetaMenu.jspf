@@ -60,7 +60,6 @@
 
 
 	<h:outputLabel styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
-	<h:panelGroup styleClass="seperator" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 
 	<!-- meta Menu ends here -->
 </span>

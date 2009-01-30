@@ -36,7 +36,7 @@
 <link href="./resources/eSciDoc_CSS_v2/themes/contrast/styles/theme.css" id="contrastTheme" type="text/css" title="<h:outputText value='#{lbl.styleTheme_lblContrast}' />" rel="alternate stylesheet"/>
 <link href="./resources/eSciDoc_CSS_v2/themes/beige/styles/theme.css" id="beigeTheme" type="text/css" title="<h:outputText value='#{lbl.styleTheme_lblBeige}' />" rel="alternate stylesheet"/>
 <link href="./resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="<h:outputText value='#{lbl.styleTheme_lblBlue}' />" rel="stylesheet"/>
-<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
+<link rel="SHORTCUT ICON" href="./resources/pubman_favicon.ico"/>
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
 <meta http-equiv="expires" content="0"/>
