@@ -67,7 +67,7 @@
 									</parameter>
 								</parameters>
 								<return>
-									<type>String</type>
+									<type>text/plain</type>
 									<value>A "|" and newline - separated list of hits matching the given query.</value>
 								</return>
 							</method>
@@ -81,7 +81,7 @@
 									</parameter>
 								</parameters>
 								<return>
-									<type>JSON</type>
+									<type>text/javascript</type>
 									<value>A JSON object containing the details of the requested resource</value>
 								</return>
 							</method>
@@ -89,7 +89,7 @@
 						<samples>
 							<xsl:variable name="name" select="name"/>
 							<xsl:for-each select="samples/sample">
-								<sample description="{description}">../<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
+								<sample description="{description}">../options/<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
 										<xsl:if test="position() != 1">&amp;</xsl:if>
 										<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
 									</xsl:for-each>

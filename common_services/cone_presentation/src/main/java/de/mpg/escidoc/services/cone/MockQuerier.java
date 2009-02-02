@@ -16,7 +16,6 @@ package de.mpg.escidoc.services.cone;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,6 +24,8 @@ import java.util.Set;
 
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 
 /**
  * Mock implementation of the {@link Querier} interface.
@@ -245,13 +246,13 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String query) throws Exception
+    public TreeFragment details(String model, String id) throws Exception
     {
-        Map<String, List<LocalizedString>> resultSet = new HashMap<String, List<LocalizedString>>();
-        List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
+        TreeFragment resultSet = new TreeFragment(id);
+        List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
         triple1.add(THIS_IS_THE_TITLE);
         resultSet.put(DC_TITLE, triple1);
-        List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
+        List<LocalizedTripleObject> triple2 = new ArrayList<LocalizedTripleObject>();
         triple2.add(THIS_IS_THE_DESCRIPTION
                 .concat(THIS_IS_THE_DESCRIPTION)
                 .concat(THIS_IS_THE_DESCRIPTION)
@@ -263,12 +264,12 @@ public class MockQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String id, String lang) throws Exception
+    public TreeFragment details(String model, String id, String lang) throws Exception
     {
-        Map<String, List<LocalizedString>> resultSet = new HashMap<String, List<LocalizedString>>();
+        TreeFragment resultSet = new TreeFragment(id);
         if ("de".equals(lang))
         {
-            List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
+            List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
             triple1.add(DIES_IST_DER_TITEL);
             resultSet.put(DC_TITLE, triple1);
             List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
@@ -280,7 +281,7 @@ public class MockQuerier implements Querier
         }
         else
         {
-            List<LocalizedString> triple1 = new ArrayList<LocalizedString>();
+            List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
             triple1.add(THIS_IS_THE_TITLE);
             resultSet.put(DC_TITLE, triple1);
             List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
@@ -297,7 +298,7 @@ public class MockQuerier implements Querier
     /**
      * Empty implementation.
      */
-    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    public void create(String model, String id, TreeFragment values) throws Exception
     {
         // Do nothing here
     }

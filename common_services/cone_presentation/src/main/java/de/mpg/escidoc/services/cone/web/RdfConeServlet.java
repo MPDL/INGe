@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.
@@ -131,7 +132,7 @@ public class RdfConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, TreeFragment triples) throws IOException
     {
         
         String result = RdfHelper.formatMap(id, triples);

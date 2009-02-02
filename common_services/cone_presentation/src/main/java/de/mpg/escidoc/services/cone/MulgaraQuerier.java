@@ -16,9 +16,7 @@ package de.mpg.escidoc.services.cone;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +26,8 @@ import org.mulgara.query.Answer;
 
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -130,7 +130,7 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String id) throws Exception
+    public TreeFragment details(String model, String id) throws Exception
     {
         return details(model, id, null);
     }
@@ -138,8 +138,9 @@ public class MulgaraQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String id, String language) throws Exception
+    public TreeFragment details(String model, String id, String language) throws Exception
     {
+        TreeFragment resultMap = new TreeFragment(id);
         id = formatIdString(id);
         String query = "select $p $o from <rmi://" + mulgaraServer 
                 + ":" + mulgaraPort + DATABASE_NAME + model + "> where "
@@ -147,7 +148,6 @@ public class MulgaraQuerier implements Querier
         logger.debug("query: " + query);
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         Answer answer = interpreter.executeQuery(query);
-        Map<String, List<LocalizedString>> resultMap = new HashMap<String, List<LocalizedString>>();
         while (answer.next())
         {
             String predicate = answer.getObject(0).toString();
@@ -170,7 +170,7 @@ public class MulgaraQuerier implements Querier
                 }
                 else
                 {
-                    ArrayList<LocalizedString> newEntry = new ArrayList<LocalizedString>();
+                    ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
                     newEntry.add(new LocalizedString(object, lang));
                     resultMap.put(predicate, newEntry);
                 }
@@ -195,7 +195,7 @@ public class MulgaraQuerier implements Querier
         return query(model, query, null, Integer.parseInt(limitString));
     }
 
-    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    public void create(String model, String id, TreeFragment values) throws Exception
     {
         // TODO MF: Implement
     }

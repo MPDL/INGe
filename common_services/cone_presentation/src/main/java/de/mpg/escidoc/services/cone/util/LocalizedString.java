@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.cone.util;
 
+
 /**
  * A string with a language.
  * 
@@ -38,7 +39,7 @@ package de.mpg.escidoc.services.cone.util;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class LocalizedString implements CharSequence
+public class LocalizedString implements CharSequence, LocalizedTripleObject
 {
     private String value;
     private String language;
@@ -169,6 +170,16 @@ public class LocalizedString implements CharSequence
     public LocalizedString concat(LocalizedString other)
     {
         return new LocalizedString(this.value + other.value, this.language);
+    }
+
+    public String toRdf()
+    {
+        return RdfHelper.xmlEscape(getValue());
+    }
+
+    public String toJson()
+    {
+        return "\"" + getValue().replace("\"", "\\\"") + "\"";
     }
     
 }

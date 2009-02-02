@@ -33,8 +33,9 @@ package de.mpg.escidoc.services.cone.web;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,8 +49,8 @@ import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
 
 /**
  * Servlet to answer calls from various calls.
@@ -189,7 +190,11 @@ public abstract class ConeServlet extends HttpServlet
      * @param model The requested type of data, e.g. "journals", "languages"
      * @throws IOException
      */
-    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String modelName)
+    private void detailAction(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            PrintWriter out,
+            String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -201,13 +206,33 @@ public abstract class ConeServlet extends HttpServlet
             String id = null;
             String lang = request.getParameter("lang");
             
-            if ((id == null) && (path.length > 3))
+            if (path.length > 3)
             {
-                id = path[3];
+                int startPos = path[0].length() + path[1].length() + path[2].length() + 3;
+                id = request.getPathInfo().substring(startPos);
             }
-            else if ((id == null) && (path.length == 3))
+
+            try
             {
-                id = path[2];
+                URI uri = new URI(id);
+                if (!uri.isAbsolute())
+                {
+                    throw new URISyntaxException(id, "no urn");
+                }
+            }
+            catch (URISyntaxException e)
+            {
+
+                id = model.getIdentifierPrefix() + id;
+                
+                try
+                {
+                    new URI(id);
+                }
+                catch (URISyntaxException e2)
+                {
+                    reportMissingParameter("id", response);
+                }
             }
             
             if (id == null)
@@ -229,7 +254,7 @@ public abstract class ConeServlet extends HttpServlet
                 }
                 else
                 {
-                    Map<String, List<LocalizedString>> result = null;
+                    TreeFragment result = null;
                     
                     try
                     {
@@ -338,7 +363,7 @@ public abstract class ConeServlet extends HttpServlet
 
     protected abstract String formatQuery(List<Pair> pairs) throws IOException;
 
-    protected abstract String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException;
+    protected abstract String formatDetails(String id, Model model, TreeFragment triples) throws IOException;
     
     protected abstract String getContentType();
 }

@@ -41,7 +41,7 @@
 				CoNE
 			</name>
 			<interface>
-				JQuery
+				JSON
 			</interface>
 			<description>
 				Control of Named Entities
@@ -67,8 +67,8 @@
 									</parameter>
 								</parameters>
 								<return>
-									<type>text/plain</type>
-									<value>A "|" and newline - separated list of hits matching the given query.</value>
+									<type>text/javascript</type>
+									<value>A JSON (javascript) array of hits matching the given query.</value>
 								</return>
 							</method>
 							<method>
@@ -89,7 +89,7 @@
 						<samples>
 							<xsl:variable name="name" select="name"/>
 							<xsl:for-each select="samples/sample">
-								<sample description="{description}">../jquery/<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
+								<sample description="{description}">../json/<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
 										<xsl:if test="position() != 1">&amp;</xsl:if>
 										<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
 									</xsl:for-each>

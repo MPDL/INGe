@@ -41,58 +41,157 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
+				<style>
+					.label {
+						float:left;
+						width: 300px;
+						text-align: right;
+						padding: 4px;
+					}
+					
+					.value {
+						float: left;
+						width: 300px;
+						padding: 4px;
+					}
+					
+					.linebreak {
+						clear: both;
+					}
+				</style>
 			</head>
 			<body>
-				<h1 style="float: left">
-					<xsl:value-of select="dc:title"/><xsl:if test="degree != ''">, <xsl:value-of select="degree"/></xsl:if>
-				</h1>
-				<xsl:if test="photo != ''">
-					<img src="{photo}" alt="{dc:title}" height="100"/>
-				</xsl:if>
-				<h2>
-					<xsl:for-each select="ou">
-						<xsl:value-of select="."/><br/>
-					</xsl:for-each>
-				</h2>
-				<xsl:if test="position != ''">
-					<div>
-						Current position: <xsl:value-of select="position"/>
-					</div>
-				</xsl:if>
-				<xsl:if test="awards != ''">
-					<div>
-						Awards: <xsl:value-of select="awards"/>
-					</div>
-				</xsl:if>
-				<div>
-					Researcher ID: <xsl:value-of select="@rdf:about"/>
-				</div>
-				<xsl:if test="dcterms:identifier != ''">
-					<div>
-						Additional IDs: <xsl:for-each select="dcterms:identifier">
-							<xsl:if test="position() &gt; 1">, </xsl:if>
-							<xsl:value-of select="."/>
-						</xsl:for-each>
-					</div>
-				</xsl:if>
-				<xsl:if test="keyword != ''">
-					<div>
-						Research fields:
-						<ul>
-							<xsl:for-each select="keyword">
-								<li>
+				<table>
+					<tr>
+						<td colspan="2">
+							<h1 style="float: left">
+								<xsl:value-of select="dc:title"/><xsl:if test="degree != ''">, <xsl:value-of select="degree"/></xsl:if>
+							</h1>
+							<div class="linebreak">
+								<xsl:if test="photo != ''">
+									<img src="{photo}" alt="{dc:title}" height="100"/>
+								</xsl:if>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<h2 class="linebreak">
+								<xsl:for-each select="ou">
+									<xsl:value-of select="."/><br/>
+								</xsl:for-each>
+							</h2>
+						</td>
+					</tr>
+					<xsl:if test="position != ''">
+						<tr>
+							<td>
+								Current position:
+							</td>
+							<td>
+								<xsl:value-of select="position"/>
+							</td>
+						</tr>
+					</xsl:if>
+					<xsl:if test="awards != ''">
+						<tr>
+							<td>
+								Awards:
+							</td>
+							<td>
+								<xsl:value-of select="awards"/>
+							</td>
+						</tr>
+					</xsl:if>
+					<tr>
+						<td>
+							Researcher ID:
+						</td>
+						<td>
+							<xsl:value-of select="@rdf:about"/>
+						</td>
+					</tr>
+					<xsl:if test="dcterms:identifier != ''">
+						<tr>
+							<td>
+								Additional IDs:
+							</td>
+							<td>
+								<xsl:for-each select="dcterms:identifier">
+									<xsl:if test="position() &gt; 1">, </xsl:if>
 									<xsl:value-of select="."/>
-								</li>
-							</xsl:for-each>
-						</ul>
-					</div>
-				</xsl:if>
-				<xsl:if test="ddc != ''">
-					<div>
-						Subject: <xsl:value-of select="ddc"/>
-					</div>
-				</xsl:if>
-				<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{$citation-link}"></iframe>
+								</xsl:for-each>
+							</td>
+						</tr>
+					</xsl:if>
+					<xsl:if test="keyword != ''">
+						<tr>
+							<td>
+								Research fields:
+							</td>
+							<td>
+								<ul>
+									<xsl:for-each select="keyword">
+										<li>
+											<xsl:value-of select="."/>
+										</li>
+									</xsl:for-each>
+								</ul>
+							</td>
+						</tr>
+					</xsl:if>
+					<xsl:if test="ddc != ''">
+						<tr>
+							<td>
+								Subject:
+							</td>
+							<td>
+								<xsl:value-of select="ddc"/>
+							</td>
+						</tr>
+					</xsl:if>
+					<tr>
+						<td colspan="2" id="result">
+						
+						</td>
+					</tr>
+				</table>
+				<script type="text/javascript">
+					var xmlhttp;
+					
+					function requestDone()
+					{
+						if (xmlhttp.readyState == 4)
+						{
+							// if "OK"
+							if (xmlhttp.status == 200)
+							{
+								document.getElementById('result').innerHTML = xmlhttp.responseText;
+							}
+						}
+					}
+
+					if (!(navigator.appName.indexOf('MSIE') == -1))
+					{
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP")
+					}
+					else
+					{
+						xmlhttp=new XMLHttpRequest();
+					}
+					if (xmlhttp!=null)
+					{
+						xmlhttp.onreadystatechange = requestDone;
+						
+						var url = '<xsl:value-of select="$citation-link"/>';
+						var ampEsc = '&amp;';
+						var amp = ampEsc.substring(0,1);
+						url = url.replace(/&amp;/g, amp);
+
+						xmlhttp.open('GET', url, true);
+						xmlhttp.send(null);
+					}
+				</script>
 			</body>
 		</html>
 	</xsl:template>

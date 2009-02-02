@@ -31,9 +31,7 @@
 package de.mpg.escidoc.services.cone.util;
 
 import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Static Helper class for RDF formatting.
@@ -84,7 +82,7 @@ public class RdfHelper
         return result.toString();
     }
     
-    private static String xmlEscape(String value)
+    public static String xmlEscape(String value)
     {
         value = value.replace("&", "&amp;");
         value = value.replace("<", "&lt;");
@@ -101,93 +99,16 @@ public class RdfHelper
      * 
      * @return The RDF
      */
-    public static String formatMap(String id, Map<String, List<LocalizedString>> triples)
+    public static String formatMap(String id, TreeFragment triples)
     {
         
         StringWriter result = new StringWriter();
         
         result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"");
+        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n");
         
-        Map<String, String> namespaces = new HashMap<String, String>();
-        int counter = 0;
+        result.append(triples.toRdf());
         
-        if (triples != null)
-        {
-            for (String predicate : triples.keySet())
-            {
-                int lastSlash = predicate.lastIndexOf("/");
-                if (lastSlash >= 0)
-                {
-                    String namespace = predicate.substring(0, lastSlash + 1);
-                    
-                    if (!namespaces.containsKey(namespace))
-                    {
-                        counter++;
-                        String prefix = "ns" + counter;
-                        namespaces.put(namespace, prefix);
-                        
-                        result.append(" xmlns:" + prefix + "=\"" + namespace + "\"");
-                    }
-                }
-            }
-            
-            result.append(">\n");
-            result.append("\t<rdf:Description rdf:about=\"");
-            result.append(id);
-            result.append("\">\n");
-            
-            for (String predicate : triples.keySet())
-            {
-                int lastSlash = predicate.lastIndexOf("/");
-                String namespace = null;
-                String tagName = null;
-                String prefix = null;
-                if (lastSlash >= 0)
-                {
-                    namespace = predicate.substring(0, lastSlash + 1);
-                    prefix = namespaces.get(namespace);
-                    tagName = predicate.substring(lastSlash + 1);
-                }
-                else
-                {
-                    int lastColon = predicate.lastIndexOf(":");
-                    tagName = predicate.substring(lastColon + 1);
-                }
-                
-                List<LocalizedString> values = triples.get(predicate);
-                
-                for (LocalizedString value : values)
-                {
-                    result.append("\t\t<");
-                    if (namespace != null)
-                    {
-                        result.append(prefix);
-                        result.append(":");
-                    }
-                    result.append(tagName);
-                    
-                    if (value.getLanguage() != null && !"".equals(value.getLanguage()))
-                    {
-                        result.append(" xml:lang=\"");
-                        result.append(value.getLanguage());
-                        result.append("\"");
-                    }
-                    
-                    result.append(">");
-                    result.append(xmlEscape(value.getValue()));
-                    result.append("</");
-                    if (namespace != null)
-                    {
-                        result.append(prefix);
-                        result.append(":");
-                    }
-                    result.append(tagName);
-                    result.append(">\n");
-                }
-            }
-        }
-        result.append("\t</rdf:Description>\n");
         result.append("</rdf:RDF>\n");
         
         return result.toString();

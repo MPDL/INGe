@@ -19,6 +19,8 @@ import java.util.Map;
 
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 
 /**
  * Interface between the CoNE data storage and the presentation.
@@ -73,7 +75,7 @@ public interface Querier
      *         combination. E.g. there may be multiple alternative titles to a journal.
      * @throws Exception Any exception.
      */
-    public Map<String, List<LocalizedString>> details(String model, String id) throws Exception;
+    public TreeFragment details(String model, String id) throws Exception;
 
     /**
      * Retrieves details about an entity identified by the given id and returns the results in the given language.
@@ -86,7 +88,7 @@ public interface Querier
      *         combination. E.g. there may be multiple alternative titles to a journal.
      * @throws Exception Any exception.
      */
-    public Map<String, List<LocalizedString>> details(String model, String id, String lang) throws Exception;
+    public TreeFragment details(String model, String id, String lang) throws Exception;
     
     /**
      * Inserts a map of values into the database.
@@ -99,7 +101,7 @@ public interface Querier
      *         combination. E.g. there may be multiple alternative titles to a journal.
      * @throws Exception Any exception.
      */
-    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception;
+    public void create(String model, String id, TreeFragment values) throws Exception;
     
     /**
      * Deletes all entries from the database that fit the given model and id.

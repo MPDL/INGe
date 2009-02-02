@@ -63,24 +63,24 @@ public class PatternHelper
         
     }
     
-    public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, Map<String, List<LocalizedString>> poMap) throws Exception
+    public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap) throws Exception
     {
      
         Set<String> languages = new HashSet<String>();
         if (ModelList.getInstance().getModelByAlias(modelName).isLocalizedResultPattern())
         {
-            for (List<LocalizedString> objects : poMap.values())
+            for (List<LocalizedTripleObject> objects : poMap.values())
             {
-                for (LocalizedString object : objects)
+                for (LocalizedTripleObject object : objects)
                 {
-                    if (object.getLanguage() == null)
-                    {
-                        languages.add("");
-                    }
-                    else
-                    {
-                        languages.add(object.getLanguage());
-                    }
+//                    if (object.getLanguage() == null)
+//                    {
+//                        languages.add("");
+//                    }
+//                    else
+//                    {
+//                        languages.add(object.getLanguage());
+//                    }
                 }
             }
         }
@@ -110,9 +110,9 @@ public class PatternHelper
                         if (line.contains("<" + predicate + ">"))
                         {
                             strings = new ArrayList<String>();
-                            for (LocalizedString value : poMap.get(predicate))
+                            for (LocalizedTripleObject value : poMap.get(predicate))
                             {
-                                strings.add(line.replace("<" + predicate + ">", value));
+//                                strings.add(line.replace("<" + predicate + ">", value));
                             }
                         }
                     }
@@ -174,14 +174,14 @@ public class PatternHelper
                             if (line.contains("<" + predicate + ">"))
                             {
                                 strings = new ArrayList<String>();
-                                for (LocalizedString value : poMap.get(predicate))
+                                for (LocalizedTripleObject value : poMap.get(predicate))
                                 {
-                                    if (lang.equals(value.getLanguage())
-                                            || value.getLanguage() == null
-                                            || "".equals(value.getLanguage()))
-                                    {
-                                        strings.add(line.replace("<" + predicate + ">", value));
-                                    }
+//                                    if (lang.equals(value.getLanguage())
+//                                            || value.getLanguage() == null
+//                                            || "".equals(value.getLanguage()))
+//                                    {
+//                                        strings.add(line.replace("<" + predicate + ">", value));
+//                                    }
                                 }
                             }
                         }

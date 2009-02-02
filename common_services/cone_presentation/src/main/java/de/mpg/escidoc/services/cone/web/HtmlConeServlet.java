@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -142,7 +143,7 @@ public class HtmlConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples)
+    protected String formatDetails(String id, Model model, TreeFragment triples)
         throws IOException
     {
         
@@ -155,7 +156,7 @@ public class HtmlConeServlet extends ConeServlet
                     .newTransformer(
                             new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/" + model.getName() + "-html.xsl")));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=html&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
         catch (Exception e)

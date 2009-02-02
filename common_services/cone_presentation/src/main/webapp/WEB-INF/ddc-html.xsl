@@ -26,33 +26,29 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:escidoc="urn:escidoc:functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
 
 	<xsl:template match="/">
+		<xsl:apply-templates select="rdf:RDF/rdf:Description"/>
+	</xsl:template>
+
+	<xsl:template match="rdf:Description">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<title>CoNE - Control of Named Entities</title>
+				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 			</head>
 			<body>
-				<ul>
-					<xsl:for-each select="rdf:RDF/rdf:Description">
-						<li>
-							<a href="./{@rdf:about}"><xsl:value-of select="dc:title"/></a>
-						</li>
-					</xsl:for-each>
-				</ul>
+				<h1>
+					<xsl:value-of select="dc:title"/>
+				</h1>
+				<div>
+					Main identifier (DDC): <xsl:value-of select="dc:identifier"/>
+				</div>
 			</body>
 		</html>
 	</xsl:template>
-		
-	<!-- <xsl:function name="escidoc:url-encode">
-		<xsl:param name="value"/>
-
-		<xsl:value-of select="replace(replace(replace(replace($value, '/', '%2F'), ' ', '%20'), '=', '3D'), '&amp;', '%26')"/>
-		
-	</xsl:function> -->
 	
 </xsl:stylesheet>

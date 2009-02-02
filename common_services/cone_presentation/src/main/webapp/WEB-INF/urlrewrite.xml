@@ -14,7 +14,7 @@
 
 	<rule>
 		<from>^/explain/?$</from>
-		<to>/jquery/explain/</to>
+		<to>/html/explain/</to>
 	</rule>
 
 	<rule>
@@ -49,17 +49,17 @@
 
 	<rule>
 		<from>^/([a-zA-Z0-9]+)/(query|details|all)(.*)</from>
-		<to>/jquery/$1/$2$3</to>
+		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+):(.*)</from>
-		<to>/jquery/$1/$2:$3</to>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9:]+)$</from>
+		<to>/html/$1/$2</to>
 	</rule>
 
 	<rule>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+):(.*)</from>
-		<to>/$1/$2/details/$3:$4</to>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9:]+)$</from>
+		<to>/$1/$2/details/$3</to>
 	</rule>
 
 </urlrewrite>

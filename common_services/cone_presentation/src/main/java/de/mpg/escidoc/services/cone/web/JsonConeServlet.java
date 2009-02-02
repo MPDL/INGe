@@ -55,6 +55,8 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.
@@ -183,50 +185,9 @@ public class JsonConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, TreeFragment triples) throws IOException
     {
-        
-        StringWriter result = new StringWriter();
-        
-        result.append("{\n");
-        for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
-        {
-            String predicate = (String) iterator.next();
-            List<LocalizedString> objects = triples.get(predicate);
-            
-            result.append("\"");
-            result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
-            result.append("\" : \"");
-            if (objects.size() == 1)
-            {
-                result.append(objects.get(0).toString().replace("'", "\\'"));
-            }
-            else
-            {
-                result.append("{\n");
-                for (Iterator<LocalizedString> iterator2 = objects.iterator(); iterator2.hasNext();)
-                {
-                    LocalizedString object = (LocalizedString) iterator2.next();
-                    result.append("\"");
-                    result.append(object.toString().replace("'", "\\'"));
-                    result.append("\"");
-                    if (iterator2.hasNext())
-                    {
-                        result.append(",");
-                    }
-                    result.append("\n");
-                }
-                result.append("}");
-            }
-            result.append("\"");
-            if (iterator.hasNext())
-            {
-                result.append(",");
-            }
-            result.append("\n");
-        }
-        result.append("}");
-        return result.toString();
+        return triples.toJson();
     }
     
 }

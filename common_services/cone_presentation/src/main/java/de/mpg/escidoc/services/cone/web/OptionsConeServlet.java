@@ -52,6 +52,8 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 
 /**
  * Servlet to answer calls from PubMan for options generation.
@@ -138,7 +140,7 @@ public class OptionsConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(String id, Model model, Map<String, List<LocalizedString>> triples) throws IOException
+    protected String formatDetails(String id, Model model, TreeFragment triples) throws IOException
     {
         
         StringWriter result = new StringWriter();
@@ -147,7 +149,7 @@ public class OptionsConeServlet extends ConeServlet
         for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
         {
             String predicate = (String) iterator.next();
-            List<LocalizedString> objects = triples.get(predicate);
+            List<LocalizedTripleObject> objects = triples.get(predicate);
             
             result.append("\"");
             result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
@@ -159,9 +161,9 @@ public class OptionsConeServlet extends ConeServlet
             else
             {
                 result.append("{\n");
-                for (Iterator<LocalizedString> iterator2 = objects.iterator(); iterator2.hasNext();)
+                for (Iterator<LocalizedTripleObject> iterator2 = objects.iterator(); iterator2.hasNext();)
                 {
-                    LocalizedString object = (LocalizedString) iterator2.next();
+                    LocalizedTripleObject object = (LocalizedTripleObject) iterator2.next();
                     result.append("\"");
                     result.append(object.toString().replace("'", "\\'"));
                     result.append("\"");

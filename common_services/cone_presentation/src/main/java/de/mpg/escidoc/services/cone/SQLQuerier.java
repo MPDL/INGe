@@ -14,15 +14,15 @@
  */
 package de.mpg.escidoc.services.cone;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -30,8 +30,10 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.cone.util.LocalizedString;
+import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.PatternHelper;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -144,7 +146,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String id) throws Exception
+    public TreeFragment details(String model, String id) throws Exception
     {
         return details(model, id, null);
     }
@@ -152,11 +154,22 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public Map<String, List<LocalizedString>> details(String model, String id, String language) throws Exception
+    public TreeFragment details(String model, String id, String language) throws Exception
     {
         id = escape(id);
-        String query = "select distinct object, predicate, lang from triples where model = '"
-            + model + "' and " + "subject = '" + id + "'";
+        String query = "select distinct object, predicate, lang from triples where ";
+        
+        if (model == null)
+        {
+            query += " model is null";
+        }
+        else
+        {
+            query += " model = '" + model + "'";
+        }
+        
+        query += " and subject = '" + id + "'";
+        
         if (language == null)
         {
             language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
@@ -169,21 +182,40 @@ public class SQLQuerier implements Querier
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
-        Map<String, List<LocalizedString>> resultMap = new HashMap<String, List<LocalizedString>>();
+        TreeFragment resultMap = new TreeFragment(id);
         while (result.next())
         {
             String predicate = result.getString("predicate");
             String object = result.getString("object");
             String lang = result.getString("lang");
             
+            LocalizedTripleObject localizedTripleObject;
+            
+            try
+            {
+                URI uri = new URI(object);
+                if (uri.isAbsolute())
+                {
+                    localizedTripleObject = details(null, object, lang);
+                }
+                else
+                {
+                    localizedTripleObject = new LocalizedString(object, lang);
+                }
+            }
+            catch (URISyntaxException e)
+            {
+                localizedTripleObject = new LocalizedString(object, lang);
+            }
+            
             if (resultMap.containsKey(predicate))
             {
-                resultMap.get(predicate).add(new LocalizedString(object, lang));
+                resultMap.get(predicate).add(localizedTripleObject);
             }
             else
             {
-                ArrayList<LocalizedString> newEntry = new ArrayList<LocalizedString>();
-                newEntry.add(new LocalizedString(object, lang));
+                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+                newEntry.add(localizedTripleObject);
                 resultMap.put(predicate, newEntry);
             }
         }
@@ -206,7 +238,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public void create(String model, String id, Map<String, List<LocalizedString>> values) throws Exception
+    public void create(String model, String id, TreeFragment values) throws Exception
     {
         
         String query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
@@ -220,9 +252,17 @@ public class SQLQuerier implements Querier
             statement.setString(2, predicate);
             statement.setString(5, model);
             
-            for (LocalizedString object : values.get(predicate))
+            for (LocalizedTripleObject object : values.get(predicate))
             {
-                statement.setString(3, object.getValue());
+                if (object instanceof LocalizedString)
+                {
+                    statement.setString(3, ((LocalizedString) object).getValue());
+                }
+                else
+                {
+                    statement.setString(3, ((TreeFragment) object).getSubject());
+                    create(null, ((TreeFragment) object).getSubject(), (TreeFragment) object);
+                }
                 if (object.getLanguage() != null && "".equals(object.getLanguage()))
                 {
                     statement.setString(4, null);
@@ -288,12 +328,6 @@ public class SQLQuerier implements Querier
         connection.close();
     }
 
-    public static void main(String[] args) throws Exception
-    {
-        SQLQuerier querier = new SQLQuerier();
-        querier.delete("abc", "123");
-    }
-    
     /**
      * {@inheritDoc}
      */
