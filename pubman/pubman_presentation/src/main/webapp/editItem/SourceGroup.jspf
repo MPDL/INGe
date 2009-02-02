@@ -262,23 +262,19 @@
 					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup layout="block" rendered="#{!(genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'all')}">
-						<span class="xDouble_area0 tiny_marginRIncl">
-							<span class="xDouble_area0">
-								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional != 'true'}" />
-								<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
-							</span>
-							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
+					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_publisher_display == 'false' && genre.sources_source_publishing_info_publishing_info_publisher_form_id == 'all')}">
+						<span class="xDouble_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional != 'true'}" />
+							<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
 						</span>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" rendered="#{!(genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'all')}">
-						<span class="large_area0 xTiny_marginRIncl">
-							<span class="large_area0">
-								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_place_optional != 'true'}" />
-								<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
-							</span>
-							<h:inputText styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" />
+					<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'all')}">
+						<span class="large_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_place_optional != 'true'}" />
+							<h:outputText value="#{genre.sources_source_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter"/>
 						</span>
+						<h:inputText styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" />
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>

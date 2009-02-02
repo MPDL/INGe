@@ -74,39 +74,31 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup layout="block" rendered="#{!(genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'full-submission' || genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'all')}">
-					<span class="medium_area0 xTiny_marginRIncl">
-						<h:panelGroup styleClass="medium_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
-							<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
-						</h:panelGroup>
-						<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" />
-					</span>
+				<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'full-submission' || genre.events_event_place_display == 'false' && genre.events_event_place_form_id == 'all')}">
+					<h:panelGroup styleClass="medium_area0">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_place_optional != 'true'}" />
+						<h:outputText value="#{genre.events_event_place_label}"  converter="GenreLabelConverter"/>
+					</h:panelGroup>
+					<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'full-submission' || genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'all')}">
-					<span class="medium_area0 xTiny_marginRIncl">
-						<h:panelGroup styleClass="medium_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_start_date_optional != 'true'}" />
-							<h:outputText value="#{genre.events_event_start_date_label}"  converter="GenreLabelConverter"/>
-						</h:panelGroup>
-						<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{EditItem.pubItem.metadata.event.startDate}" />
-					</span>
+				<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'full-submission' || genre.events_event_start_date_display == 'false' && genre.events_event_start_date_form_id == 'all')}">
+					<h:panelGroup styleClass="medium_area0">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_start_date_optional != 'true'}" />
+						<h:outputText value="#{genre.events_event_start_date_label}"  converter="GenreLabelConverter"/>
+					</h:panelGroup>
+					<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{EditItem.pubItem.metadata.event.startDate}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'full-submission' || genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'all')}">
-					<span class="medium_area0 xTiny_marginRIncl">
-						<h:panelGroup styleClass="medium_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_end_date_optional != 'true'}" />
-							<h:outputText value="#{genre.events_event_end_date_label}"  converter="GenreLabelConverter"/>
-						</h:panelGroup>
-						<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{EditItem.pubItem.metadata.event.endDate}" />
-					</span>
+				<h:panelGroup styleClass="medium_area0 xTiny_marginRIncl" rendered="#{!(genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'full-submission' || genre.events_event_end_date_display == 'false' && genre.events_event_end_date_form_id == 'all')}">
+					<h:panelGroup styleClass="medium_area0">
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.events_event_end_date_optional != 'true'}" />
+						<h:outputText value="#{genre.events_event_end_date_label}"  converter="GenreLabelConverter"/>
+					</h:panelGroup>
+					<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{EditItem.pubItem.metadata.event.endDate}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'full-submission' || genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'all')}">
-					<span class="medium_area0 toLabelBottom">
-						<span class="medium_checkbox">
-							<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" />
-							<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{genre.events_event_invitation_status_label}" converter="GenreLabelConverter"/>
-						</span>
+				<h:panelGroup styleClass="medium_area0 toLabelBottom" rendered="#{!(genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'full-submission' || genre.events_event_invitation_status_display == 'false' && genre.events_event_invitation_status_form_id == 'all')}">
+					<span class="medium_checkbox">
+						<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" />
+						<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{genre.events_event_invitation_status_label}" converter="GenreLabelConverter"/>
 					</span>
 				</h:panelGroup>
 			</span>

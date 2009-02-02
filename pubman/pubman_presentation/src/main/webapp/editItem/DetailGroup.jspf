@@ -40,22 +40,20 @@
 
 <%-- Language of Publication --%>
 		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index" rendered="#{!(genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'full-submission' || genre.details_item_language_display == 'false' && genre.details_item_language_form_id == 'all')}">
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
-					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0 && !(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
-						<h:selectOneMenu styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
-							<f:selectItems value="#{EditItem.languageOptions}"/>
-						</h:selectOneMenu>
-					</span>
-					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addLang}" action="#{language.addItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}"/>
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeLang}" disabled="#{! language.moreThanOne}" action="#{language.removeItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}"/>
-					</span>
-				</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0 && genre.details_item_language_optional != 'true'}" /><h:outputText value="#{genre.details_item_language_item_language_label}" rendered="#{language.index == 0 && !(genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'full-submission' || genre.details_item_language_item_language_display == 'false' && genre.details_item_language_item_language_form_id == 'all')}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
+						<f:selectItems value="#{EditItem.languageOptions}"/>
+					</h:selectOneMenu>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addLang}" action="#{language.addItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeLang}" disabled="#{! language.moreThanOne}" action="#{language.removeItem}" rendered="#{genre.details_item_language_item_language_repeatable != 'false'}"/>
+				</span>
 			</h:panelGroup>
 		</tr:iterator>
 
@@ -65,41 +63,29 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional != 'true' || genre.details_item_details_dates_item_date_accepted_optional != 'true' || genre.details_item_details_dates_item_date_modified_optional != 'true' || genre.details_item_details_dates_item_date_created_optional != 'true' || genre.details_item_details_dates_item_date_submitted_optional != 'true' || genre.details_item_details_dates_item_published_online_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{genre.details_item_details_dates_item_date_issued_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'full-submission' || genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'full-submission' || genre.details_item_details_dates_item_published_online_display == 'false' && genre.details_item_details_dates_item_published_online_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{genre.details_item_details_dates_item_published_online_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'full-submission' || genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'full-submission' || genre.details_item_details_dates_item_date_accepted_display == 'false' && genre.details_item_details_dates_item_date_accepted_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{genre.details_item_details_dates_item_date_accepted_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'full-submission' || genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'full-submission' || genre.details_item_details_dates_item_date_submitted_display == 'false' && genre.details_item_details_dates_item_date_submitted_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{genre.details_item_details_dates_item_date_submitted_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'full-submission' || genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'full-submission' || genre.details_item_details_dates_item_date_modified_display == 'false' && genre.details_item_details_dates_item_date_modified_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{genre.details_item_details_dates_item_date_modified_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'full-submission' || genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
-						<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'full-submission' || genre.details_item_details_dates_item_date_created_display == 'false' && genre.details_item_details_dates_item_date_created_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{genre.details_item_details_dates_item_date_created_label}" converter="GenreLabelConverter"/>
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
 				</h:panelGroup>
 			</span>
 		</h:panelGroup>
@@ -125,17 +111,13 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup layout="block" rendered="#{!(genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'all')}">
-					<span class="xDouble_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{genre.details_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter" />
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
-					</span>
+				<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_publisher_display == 'false' && genre.details_publishing_info_publishing_info_publisher_form_id == 'all')}">
+					<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{genre.details_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter" />
+					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'all')}">
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{genre.details_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter" />
-						<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
-					</span>
+				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_place_display == 'false' && genre.details_publishing_info_publishing_info_place_form_id == 'all')}">
+					<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{genre.details_publishing_info_publishing_info_place_label}" converter="GenreLabelConverter" />
+					<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
 				</h:panelGroup>
 			</span>
 		</h:panelGroup>
@@ -177,15 +159,13 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup layout="block" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
-						<span class="large_area0 largeFormPush">
-							<h:outputLabel styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
-							<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}" >
-								<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
-							</h:selectOneMenu>
-						</span>
+					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
+						<h:outputLabel styleClass="large_label" value="#{genre.details_identifiers_item_identifier_type_label}" converter="GenreLabelConverter"/>
+						<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}" >
+							<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
+						</h:selectOneMenu>
 					</h:panelGroup>
-					<h:panelGroup layout="block" rendered="#{!(genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'full-submission' || genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'all')}">
+					<h:panelGroup rendered="#{!(genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'full-submission' || genre.details_identifiers_item_identifier_value_display == 'false' && genre.details_identifiers_item_identifier_value_form_id == 'all')}">
 						<h:outputLabel styleClass="xDouble_label" value="#{genre.details_identifiers_item_identifier_value_label}" converter="GenreLabelConverter"/>
 						<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 					</h:panelGroup>
@@ -203,30 +183,24 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_edition_optional != 'true' || genre.details_item_degree_optional != 'true' || genre.details_item_location_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:panelGroup layout="block" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'all')}">
-					<h:panelGroup layout="block" rendered="#{!(genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'all')}">
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{genre.details_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
-						</span>
+				<h:panelGroup rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'all')}">
+					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'full-submission' || genre.details_publishing_info_publishing_info_edition_display == 'false' && genre.details_publishing_info_publishing_info_edition_form_id == 'all')}">
+						<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{genre.details_publishing_info_publishing_info_edition_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
 					</h:panelGroup>
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_degree_display == 'false' && genre.details_item_degree_form_id == 'full-submission' || genre.details_item_degree_display == 'false' && genre.details_item_degree_form_id == 'all')}">
-					<h:panelGroup layout="block" rendered="#{!(genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'full-submission' || genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'all')}">
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
-							<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" >
-								<f:selectItems value="#{EditItem.degreeTypes}" />
-							</h:selectOneMenu>
-						</span>
+				<h:panelGroup rendered="#{!(genre.details_item_degree_display == 'false' && genre.details_item_degree_form_id == 'full-submission' || genre.details_item_degree_display == 'false' && genre.details_item_degree_form_id == 'all')}">
+					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'full-submission' || genre.details_item_degree_item_degree_display == 'false' && genre.details_item_degree_item_degree_form_id == 'all')}">
+						<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{genre.details_item_degree_label}" converter="GenreLabelConverter"/>
+						<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" >
+							<f:selectItems value="#{EditItem.degreeTypes}" />
+						</h:selectOneMenu>
 					</h:panelGroup>
 				</h:panelGroup>
-				<h:panelGroup layout="block" rendered="#{!(genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'full-submission' || genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'all')}">
-					<h:panelGroup layout="block" rendered="#{!(genre.details_item_location_item_location_display == 'false' && genre.details_item_location_item_location_form_id == 'full-submission' || genre.details_item_location_item_location_display == 'false' && genre.details_item_location_item_location_form_id == 'all')}">
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{genre.details_item_location_item_location_label}" converter="GenreLabelConverter"/>
-							<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" />
-						</span>
+				<h:panelGroup rendered="#{!(genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'full-submission' || genre.details_item_location_display == 'false' && genre.details_item_location_form_id == 'all')}">
+					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_location_item_location_display == 'false' && genre.details_item_location_item_location_form_id == 'full-submission' || genre.details_item_location_item_location_display == 'false' && genre.details_item_location_item_location_form_id == 'all')}">
+						<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{genre.details_item_location_item_location_label}" converter="GenreLabelConverter"/>
+						<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" />
 					</h:panelGroup>
 				</h:panelGroup>
 			</span>
