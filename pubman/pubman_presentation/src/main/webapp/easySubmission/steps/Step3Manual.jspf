@@ -99,14 +99,14 @@
 				</b>
 			</span>
 		</h:panelGroup>
-		<div class="full_area0 itemBlock">
+		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.item_basic_display == 'false' && genre.item_basic_form_id == 'easy-submission' || genre.item_basic_display == 'false' && genre.item_basic_form_id == 'all')}">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
 				<h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter"/>
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
 		<%-- Genre --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.item_basic_item_genre_display != 'false'}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'easy-submission' || genre.item_basic_item_genre_display == 'false' && genre.item_basic_item_genre_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
@@ -119,7 +119,7 @@
 				</h:panelGroup>
 		
 		<%-- Title --%>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{genre.item_basic_item_title_display != 'false'}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'easy-submission' || genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
@@ -128,7 +128,7 @@
 					</span>
 				</h:panelGroup>
 			</div>
-		</div>
+		</h:panelGroup>
 
 		<jsp:directive.include file="./ui/Files.jspf"/>
 		<jsp:directive.include file="./ui/Locators.jspf"/>
