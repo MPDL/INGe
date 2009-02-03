@@ -91,7 +91,6 @@ public class LocatorUploadBean extends FacesBean
         
         try
         {
-            @SuppressWarnings("unused")
             URL locatorURL = new URL(locator);
             for (int i = 0; i< this.fileTypes.length; i++)
             {
