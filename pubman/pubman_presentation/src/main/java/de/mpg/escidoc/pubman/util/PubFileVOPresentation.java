@@ -41,6 +41,8 @@ public class PubFileVOPresentation extends FacesBean
     private PubItemSimpleStatistics pubItemStatistics;
     private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
     private LoginHelper loginHelper;
+    //Used for upload locator as file
+    private boolean showProperties = false;
 
 
     /**
@@ -207,7 +209,14 @@ public class PubFileVOPresentation extends FacesBean
      */
     public String getContentCategoryAsXmlString()
     {
-        return this.file.getContentCategory().toLowerCase().replace("_", "-");
+        if (this.file.getContentCategory()!= null)
+        {
+            return this.file.getContentCategory().toLowerCase().replace("_", "-");
+        }
+        else
+        {
+            return null;
+        }
     }
     
     /**
@@ -462,5 +471,17 @@ public class PubFileVOPresentation extends FacesBean
                 fileID,
                 loginHelper.getAccountUser());
         return result;
+    }
+    
+
+
+    public boolean isShowProperties()
+    {
+        return this.showProperties;
+    }
+
+    public void setShowProperties(boolean showProperties)
+    {
+        this.showProperties = showProperties;
     }
 }

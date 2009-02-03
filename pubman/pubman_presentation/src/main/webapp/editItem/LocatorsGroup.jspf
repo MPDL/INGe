@@ -40,7 +40,8 @@
 		<tr:iterator var="locator" id="locatorUploads" value="#{EditItem.locators}" varStatus="index">
 
 <%-- Add locator --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator == null || locator.locator == '') && locator.index == 0 }" >
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.index == 0) && !locator.showProperties}" >
+
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblLocator}" rendered="#{genre.locators_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
@@ -52,7 +53,8 @@
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.index > 0) && !locator.showProperties}" >
+
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblNewLocator}"/><span class="noDisplay">: </span>
 				</b>
@@ -64,10 +66,20 @@
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!locator.showProperties}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btUploadLocator}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+				</span>
+			</h:panelGroup>
+
 
 <%-- Locator content category --%>
 			<h:panelGroup layout="block" rendered="#{!(genre.locators_component_content_category_display == 'false' && genre.locators_component_content_category_form_id == 'full-submission' || genre.locators_component_content_category_display == 'false' && genre.locators_component_content_category_form_id == 'all')}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.index == 0}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{((locator.locator != null && locator.locator != '') && locator.index == 0) && locator.showProperties}">
+
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_display != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
@@ -90,7 +102,7 @@
 			</h:panelGroup>
 
 <%-- Locator URL --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.showProperties}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -100,7 +112,7 @@
 			</h:panelGroup>
 
 <%-- Locator name, Locator visibility --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.showProperties}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span class="noDisplay">: </span>
 				</b>
@@ -122,7 +134,7 @@
 			</h:panelGroup>
 
 <%-- Locator description --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.showProperties}">
 				<h:panelGroup rendered="#{!(genre.locators_component_description_display == 'false' && genre.locators_component_description_form_id == 'full-submission' || genre.locators_component_description_display == 'false' && genre.locators_component_description_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_description_optional != 'true'}" /><span class="noDisplay"> </span>

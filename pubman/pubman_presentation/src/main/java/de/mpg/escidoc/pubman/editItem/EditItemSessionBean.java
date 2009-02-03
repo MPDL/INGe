@@ -83,9 +83,10 @@ public class EditItemSessionBean extends FacesBean
      */
     private String showAuthorCopyPaste;
     
+    private boolean showLocator = false;
+    
 
-
-	/**
+    /**
 	 * Public constructor.
 	 */
 	public EditItemSessionBean() 
@@ -113,6 +114,7 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
+		this.showLocator = false;
 		this.genreBundle = null;
 		this.offset="";
 		this.showAuthorCopyPaste = "";
@@ -276,6 +278,14 @@ public class EditItemSessionBean extends FacesBean
         this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
 
-	
+    public boolean getShowLocator()
+    {
+        return showLocator;
+    }
+
+    public void setShowLocator(boolean showLocator)
+    {
+        this.showLocator = showLocator;
+    }
 	
 }

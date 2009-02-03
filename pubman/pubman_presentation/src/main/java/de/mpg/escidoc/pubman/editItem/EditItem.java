@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -99,7 +99,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
@@ -189,8 +188,7 @@ public class EditItem extends FacesBean
     private CoreInputFile inputFile = new CoreInputFile();
     
     private String genreBundle = "Genre_ARTICLE";
-    
-    
+
     /**
      * Public constructor.
      */
@@ -342,7 +340,7 @@ public class EditItem extends FacesBean
        
     }
 
-    private void bindFiles()
+    void bindFiles()
     {
         List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
         List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
@@ -504,6 +502,7 @@ public class EditItem extends FacesBean
         XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
         return ctransforming.transformUploadResponseToFileURL(response);        
     }
+    
 
     public String addLanguage()
     {
@@ -1111,22 +1110,21 @@ public class EditItem extends FacesBean
         String contentURL;
         if (file != null || file.getLength()==0)
         {
-          contentURL = uploadFile(file);
-      	if(contentURL != null && !contentURL.trim().equals(""))
-      	{	
-      		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
-      		
-      		fileVO.getDefaultMetadata().setSize((int)file.getLength());
-              fileVO.setName(file.getFilename());
-              fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
-              fileVO.setMimeType(file.getContentType());
-              FormatVO formatVO = new FormatVO();
-              formatVO.setType("dcterms:IMT");
-              formatVO.setValue(file.getContentType());
-              fileVO.getDefaultMetadata().getFormats().add(formatVO);
-              fileVO.setContent(contentURL);
-      	}
-          //bindFiles();
+            contentURL = uploadFile(file);
+          	if(contentURL != null && !contentURL.trim().equals(""))
+          	{	
+          		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+          		
+          		  fileVO.getDefaultMetadata().setSize((int)file.getLength());
+                  fileVO.setName(file.getFilename());
+                  fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
+                  fileVO.setMimeType(file.getContentType());
+                  FormatVO formatVO = new FormatVO();
+                  formatVO.setType("dcterms:IMT");
+                  formatVO.setValue(file.getContentType());
+                  fileVO.getDefaultMetadata().getFormats().add(formatVO);
+                  fileVO.setContent(contentURL);
+          	}
         }
         else 
         {
@@ -1134,6 +1132,41 @@ public class EditItem extends FacesBean
             error(getMessage("ComponentEmpty"));
         }
     	return null;
+    }
+    
+    /**
+     * Uploads a file from a given locator.
+     */
+    public void uploadLocator()
+    {
+        int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
+        String locatorValue = this.getLocators().get(indexUpload).getLocator();
+        LocatorUploadBean locatorBean = new LocatorUploadBean();
+        URL locatorURL = null;
+
+        if (locatorBean.ckeckLocator(locatorValue))
+        {           
+            try
+            {
+                locatorURL = new URL(locatorValue);
+                locatorBean.fetchLocator(locatorURL);         
+            }
+            catch(Exception e)
+            {
+                logger.warn(e);
+            }
+        }
+        
+        if (locatorBean.getError()!= null)
+        {
+            //Reset locator
+            locatorBean.removeLocator();
+            List <PubFileVOPresentation> list = this.getLocators();
+            list.get(indexUpload).setLocator(locatorValue);
+            this.setLocators(list);
+
+            error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
+        }
     }
 
     /**
@@ -1204,6 +1237,7 @@ public class EditItem extends FacesBean
             newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
             this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
         }
+        //this.setShowLocator(false);
         return "loadEditItem";
     }
     
@@ -1213,15 +1247,24 @@ public class EditItem extends FacesBean
      */
     public String saveLocator()
     {
+        int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
         if(this.getEditItemSessionBean().getLocators() != null)
         {
             // set the name if it is not filled
-            if(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle() == null || this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
+            if(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle() == null 
+                    || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
             {
-                this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent()));
+                this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().setTitle
+                    (new TextVO(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent()));
                 //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
             }
+            //Set locator showProperties value
             
+            List <PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
+            PubFileVOPresentation pubFile = list.get(indexUpload);
+            pubFile.setShowProperties(true);
+            list.set(indexUpload, pubFile);
+            this.getEditItemSessionBean().setLocators(list);
         }
         return "loadEditItem";
     }
@@ -1991,6 +2034,14 @@ public class EditItem extends FacesBean
 		this.genreBundle = genreBundle;
 	}
     
-	
+    public boolean isShowLocator()
+    {
+        return this.getEditItemSessionBean().getShowLocator();
+    }
+
+    public void setShowLocator(boolean showLocator)
+    {
+        this.getEditItemSessionBean().setShowLocator(showLocator);
+    }
     
 }
