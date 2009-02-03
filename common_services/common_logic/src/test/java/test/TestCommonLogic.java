@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -33,13 +33,10 @@ package test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.metadata.MetadataTest;
 import test.referenceobjects.ReferenceObjectTest;
 import test.valueobjects.ValueObjectTest;
 import test.valueobjects.comparator.ComparatorTest;
 import test.xmltransforming.XmlTransformingTest;
-import test.xmltransforming.component.TransformPubItemTest;
-import test.xmltransforming.component.TransformStatisticReportTest;
 
 /**
  * Component test suite for common_logic.
@@ -54,7 +51,6 @@ import test.xmltransforming.component.TransformStatisticReportTest;
                     ,ValueObjectTest.class                                        
                     ,ComparatorTest.class
                     ,XmlTransformingTest.class
-                    ,MetadataTest.class
                     })
 public class TestCommonLogic
 {
