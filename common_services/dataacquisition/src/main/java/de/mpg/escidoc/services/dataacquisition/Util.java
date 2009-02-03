@@ -259,7 +259,7 @@ public class Util
     public String trimIdentifier(String sourceName, String identifier)
     {
         // Trim the identifier arXiv
-        if (sourceName.trim().toLowerCase().equals("arxiv") || sourceName.trim().toLowerCase().equals("arxiv(oai_dc)"))
+        if (sourceName.trim().toLowerCase().equals("arxiv"))
         {
             if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
             {
@@ -293,6 +293,15 @@ public class Util
             if (identifier.toLowerCase().startsWith("pmc", 0))
             {
                 identifier = identifier.substring(3);
+                return identifier.trim();
+            }
+        }
+        // Trim identifier for escidoc_QA
+        if (sourceName.trim().toLowerCase().equals("escidoc_qa"))
+        {
+            if (identifier.toLowerCase().startsWith("escidocqa", 0))
+            {
+                identifier = identifier.replace("qa", "");
                 return identifier.trim();
             }
         }

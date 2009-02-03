@@ -145,4 +145,43 @@
 		</FT-fetch-settings>
 	</Import-Source>
 	
+	<Import-Source name="eSciDoc_QA">
+		<dc:description>eSciDoc items on the QA server</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://qa-pubman.mpdl.mpg.de:8080/pubman</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<item-url>http://qa-pubman.mpdl.mpg.de:8080/pubman/item/escidoc:GETID</item-url>
+		<source-identifier>escidocQA</source-identifier>
+		<source-identifier-example>escidocQA:176137</source-identifier-example>
+		<harvest-protocol>http</harvest-protocol>
+		<retry-after>0</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<status>published</status>
+		
+		<!--Information about Metadata fetching -->
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:identifier>http://qa-pubman.mpdl.mpg.de:8080/search/SearchAndExport?cqlQuery=escidoc.any-identifier=%22escidoc:GETID%22%26exportFormat=BIBTEX</dc:identifier>
+				<dc:format>text/plain</dc:format>
+				<label>BibTex</label>
+				<name>bibtex</name>
+				<encoding>UTF-8</encoding>
+				<fileType>.bib</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://qa-pubman.mpdl.mpg.de:8080/search/SearchAndExport?cqlQuery=escidoc.any-identifier=%22escidoc:GETID%26%22exportFormat=ENDNOTE</dc:identifier>
+				<dc:format>text/plain</dc:format>
+				<label>EndNote</label>
+				<name>endnote</name>
+				<encoding>UTF-8</encoding>
+				<fileType>.txt</fileType>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		
+		<!--Information about data fetching-->
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
 </Import-Sources>

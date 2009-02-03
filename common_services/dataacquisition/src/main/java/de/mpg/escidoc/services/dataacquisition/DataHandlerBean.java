@@ -308,7 +308,13 @@ public class DataHandlerBean implements DataHandler
             if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
-                item = this.fetchEsciDocRecord(identifier);
+                item = this.fetchEjbRecord(identifier);
+                supportedProtocol = true;
+            }
+            if (importSource.getHarvestProtocol().toLowerCase().equals("http"))
+            {
+                this.logger.debug("Fetch record via http.");
+                item = this.fetchHttpRecord(importSource, md);
                 supportedProtocol = true;
             }
             if (!supportedProtocol)
@@ -666,7 +672,7 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private String fetchEsciDocRecord(String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    private String fetchEjbRecord(String identifier) throws IdentifierNotRecognisedException, RuntimeException
     {
         try
         {
@@ -682,6 +688,68 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
             throw new RuntimeException(e);
         }
+    }
+    
+    private String fetchHttpRecord(DataSourceVO importSource, MetadataVO md) throws IdentifierNotRecognisedException, RuntimeException, AccessException
+    {
+        String item = "";
+        URLConnection conn;
+        String charset = importSource.getEncoding();
+        InputStreamReader isReader;
+        BufferedReader bReader;
+        try
+        {
+            conn = md.getMdUrl().openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
+            {
+                case 503:
+                       //TODO
+                case 302:
+                    String alternativeLocation = conn.getHeaderField("Location");
+                    md.setMdUrl(new URL(alternativeLocation));
+                    importSource = this.sourceHandler.updateMdEntry(importSource, md);
+                    return fetchHttpRecord(importSource, md);
+                case 200:
+                    this.logger.info("Source responded with 200");
+                    break;
+                case 403:
+                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                default:
+                    throw new RuntimeException("An error occurred during importing from external system: "
+                            + responseCode + ": " + httpConn.getResponseMessage());
+            }
+//            String contentTypeHeader = conn.getHeaderField("Content-Type");
+//            String contentType = contentTypeHeader;
+//            if (contentType.contains(";"))
+//            {
+//                contentType = contentType.substring(0, contentType.indexOf(";"));
+//                if (contentTypeHeader.contains("encoding="))
+//                {
+//                    charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
+//                    this.logger.debug("Charset found: " + charset);
+//                }
+//            }
+            // Get itemXML
+            isReader = new InputStreamReader(md.getMdUrl().openStream(), charset);
+            bReader = new BufferedReader(isReader);
+            String line = "";
+            while ((line = bReader.readLine()) != null)
+            {
+                item += line + "\n";
+            }
+        }
+        catch (AccessException e)
+        {
+            this.logger.error("Access denied.", e);
+            throw new AccessException(importSource.getName());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return item;
     }
 
     /**
