@@ -96,11 +96,22 @@
 					</div>
 					<div class="full_area0">
 						<div class="full_area0 infoPage">
-							<span class="half_area0_p8 mainSection">
-
-								<jsp:directive.include file="home/ReleaseNotes.jspf" />
-								
-							</span>
+							<h:panelGroup  rendered="#{PubManSessionBean.locale=='en'}">
+								<span class="half_area0_p8 mainSection">
+									<jsp:directive.include file="home/ReleaseNotes_en.jspf"/>	
+					
+								</span>
+							</h:panelGroup>
+							<h:panelGroup  rendered="#{PubManSessionBean.locale=='de'}">
+								<span class="half_area0_p8 mainSection">
+									<jsp:directive.include file="home/ReleaseNotes_de.jspf"/>						
+								</span>
+							</h:panelGroup>
+							<h:panelGroup  rendered="#{PubManSessionBean.locale=='ja'}">
+								<span class="half_area0_p8 mainSection">
+									<jsp:directive.include file="home/ReleaseNotes_ja.jspf"/>						
+								</span>
+							</h:panelGroup>
 							
 							<div class="sideSection free_area0_p8">
 
