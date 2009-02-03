@@ -156,7 +156,8 @@ public class HtmlConeServlet extends ConeServlet
                     .newTransformer(
                             new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/" + model.getName() + "-html.xsl")));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=html&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
         catch (Exception e)
