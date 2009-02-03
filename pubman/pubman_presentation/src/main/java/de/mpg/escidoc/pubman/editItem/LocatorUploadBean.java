@@ -315,7 +315,7 @@ public class LocatorUploadBean extends FacesBean
         if (fileEnding.toLowerCase().equals(".doc")) return "application/msword";
         if (fileEnding.toLowerCase().equals(".xml")) return "application/xml";
         if (fileEnding.toLowerCase().equals(".jpg")) return "image/jpeg";
-        if (fileEnding.toLowerCase().equals(".pdf")) return "image/tiff";
+        if (fileEnding.toLowerCase().equals(".tiff")) return "image/tiff";
         if (fileEnding.toLowerCase().equals(".png")) return "image/png";       
         return "";
     }
