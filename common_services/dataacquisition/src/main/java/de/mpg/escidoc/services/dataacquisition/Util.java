@@ -31,12 +31,21 @@
 package de.mpg.escidoc.services.dataacquisition;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import noNamespace.SourceType;
+import noNamespace.SourcesDocument;
+import noNamespace.SourcesType;
+
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlOptions;
+import org.apache.xmlbeans.XmlString;
+import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
@@ -418,5 +427,78 @@ public class Util
             if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) {return false;}
             else {return true;}
         }
+    }
+    
+    /**
+     * Creates the source description xml
+     * @return xml as byte[]
+     */
+    public byte[] createUnapiSourcesXml ()
+    {
+        byte[] xml = null;
+        
+        Vector<DataSourceVO> sources;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+        
+        try
+        {
+            sources = sourceHandler.getSources();
+            SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
+            SourcesType xmlSources = xmlSourceDoc.addNewSources();
+            for (int i = 0; i < sources.size(); i++)
+            {
+                DataSourceVO source = sources.get(i);
+                SourceType xmlSource = xmlSources.addNewSource();
+                //Name
+                SimpleLiteral name = xmlSource.addNewName();
+                XmlString sourceName = XmlString.Factory.newInstance();
+                sourceName.setStringValue(source.getName());
+                name.set(sourceName);
+                //Base url
+                SimpleLiteral url = xmlSource.addNewIdentifier();
+                XmlString sourceUrl = XmlString.Factory.newInstance();
+                sourceUrl.setStringValue(source.getUrl().toExternalForm());
+                url.set(sourceUrl);
+                //Description
+                SimpleLiteral desc = xmlSource.addNewDescription();
+                XmlString sourceDesc = XmlString.Factory.newInstance();
+                sourceDesc.setStringValue(source.getDescription());
+                desc.set(sourceDesc);
+                //Identifier prefix
+                SimpleLiteral idPre = xmlSource.addNewIdentifierPrefix();
+                XmlString sourceidPre = XmlString.Factory.newInstance();
+                sourceidPre.setStringValue(source.getIdentifier());
+                idPre.set(sourceidPre);
+                //Identifier delimiter
+                SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
+                XmlString sourceidDel = XmlString.Factory.newInstance();
+                sourceidDel.setStringValue(":");
+                idDel.set(sourceidDel);
+                //Identifier example
+                SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
+                XmlString sourceidEx = XmlString.Factory.newInstance();
+                sourceidEx.setStringValue(source.getIdentifierExample());
+                idEx.set(sourceidEx);
+                //Disclaimer
+                // SimpleLiteral disclaim = xmlSource.addNewDisclaimer();
+                // XmlString sourceDisclaim = XmlString.Factory.newInstance();
+                // sourceDisclaim.setStringValue("Disclaimer will follow");
+                // disclaim.set(sourceDisclaim);
+            }
+            XmlOptions xOpts = new XmlOptions();
+            xOpts.setSavePrettyPrint();
+            xOpts.setSavePrettyPrintIndent(4);
+            xOpts.setUseDefaultNamespace();
+            xmlSourceDoc.save(baos, xOpts);
+        }
+        catch (IOException e)
+        {
+            this.logger.error("Error when creating outputXml.", e);
+            throw new RuntimeException();
+        }
+        
+        xml = baos.toByteArray();        
+        return xml;
     }
 }

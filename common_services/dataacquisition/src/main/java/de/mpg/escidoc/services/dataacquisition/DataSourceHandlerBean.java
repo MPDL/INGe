@@ -76,6 +76,7 @@ public class DataSourceHandlerBean
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                     sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
                     sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+                    sourceVO.setIdentifierExample(simpleLiteralTostring(source.getSourceIdentifierExample()));
                     // Metadata parameters
                     MDFetchSettingsType mdfs = source.getMDFetchSettings();
                     MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();

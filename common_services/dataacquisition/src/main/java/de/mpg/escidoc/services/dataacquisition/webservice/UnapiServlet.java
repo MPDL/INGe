@@ -203,42 +203,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
      */
     public byte[] unapi() throws RuntimeException
     {
-        Vector<DataSourceVO> sources;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try
-        {
-            sources = this.sourceHandler.getSources();
-            SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
-            SourcesType xmlSources = xmlSourceDoc.addNewSources();
-            for (int i = 0; i < sources.size(); i++)
-            {
-                DataSourceVO source = sources.get(i);
-                SourceType xmlSource = xmlSources.addNewSource();
-                SimpleLiteral name = xmlSource.addNewName();
-                XmlString sourceName = XmlString.Factory.newInstance();
-                sourceName.setStringValue(source.getName());
-                name.set(sourceName);
-                SimpleLiteral desc = xmlSource.addNewDescription();
-                XmlString sourceDesc = XmlString.Factory.newInstance();
-                sourceDesc.setStringValue(source.getDescription());
-                desc.set(sourceDesc);
-                // SimpleLiteral disclaim = xmlSource.addNewDisclaimer();
-                // XmlString sourceDisclaim = XmlString.Factory.newInstance();
-                // sourceDisclaim.setStringValue("Disclaimer will follow");
-                // disclaim.set(sourceDisclaim);
-            }
-            XmlOptions xOpts = new XmlOptions();
-            xOpts.setSavePrettyPrint();
-            xOpts.setSavePrettyPrintIndent(4);
-            xOpts.setUseDefaultNamespace();
-            xmlSourceDoc.save(baos, xOpts);
-        }
-        catch (IOException e)
-        {
-            this.logger.info("Error when creating outputXml.", e);
-            throw new RuntimeException();
-        }
-        return baos.toByteArray();
+        Util util = new Util();
+        return util.createUnapiSourcesXml();
     }
 
     /**

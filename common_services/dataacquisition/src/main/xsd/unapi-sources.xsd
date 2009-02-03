@@ -20,8 +20,16 @@
 		<xs:sequence>
 			<!-- The sources name -->
 			<xs:element name="name" type="dc:SimpleLiteral"/>
+			<!-- The sources url -->
+			<xs:element ref="dc:identifier"/>
 			<!-- The sources description -->
-			<xs:element name="description" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
+			<xs:element ref="dc:description" minOccurs="0" maxOccurs="1"/>
+			<!-- The sources identifier prefix -->
+			<xs:element name="identifier-prefix" type="dc:SimpleLiteral"/>
+			<!-- The sources identifier delimiter -->
+			<xs:element name="identifier-delimiter" type="dc:SimpleLiteral"/>
+			<!-- identifier example -->
+			<xs:element name="identifier-example" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
 			<!-- The sources disclaimer-->
 			<xs:element name="disclaimer" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>

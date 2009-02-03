@@ -51,7 +51,11 @@ public class DataSourceVO
     private int timeout;
     private int numberOfTries;
     private String status;
+    //Identifier prefix
     private String identifier;
+    private String identifierExample;
+    private String sourceOAIIdentifier;
+
     // Full text informations_______________________________
     private Vector<FullTextVO> ftFormats;
     private Vector<MetadataVO> mdFormats;
@@ -201,5 +205,25 @@ public class DataSourceVO
     public void setItemUrl(URL itemUrl)
     {
         this.itemUrl = itemUrl;
+    }
+
+    public String getSourceOAIIdentifier()
+    {
+        return this.sourceOAIIdentifier;
+    }
+
+    public void setSourceOAIIdentifier(String sourceOAIIdentifier)
+    {
+        this.sourceOAIIdentifier = sourceOAIIdentifier;
+    }
+    
+    public String getIdentifierExample()
+    {
+        return this.identifierExample;
+    }
+
+    public void setIdentifierExample(String identifierExample)
+    {
+        this.identifierExample = identifierExample;
     }
 }

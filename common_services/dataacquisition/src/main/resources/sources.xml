@@ -7,7 +7,8 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>		
 		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
-		<source-identifier>PMCID</source-identifier>
+		<source-identifier>pmcid</source-identifier>
+		<source-identifier-example>pmcid:2581620</source-identifier-example>
 		<source-oai_identifier>oai:pubmedcentral.nih.gov:</source-oai_identifier>
 		<harvest-protocol>OAI-PMH</harvest-protocol>
 		<retry-after>3</retry-after>
@@ -57,7 +58,8 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://arxiv.org/abs/GETID</item-url>
-		<source-identifier>arXiv</source-identifier>
+		<source-identifier>arxiv</source-identifier>
+		<source-identifier-example>arXiv:0902.0003</source-identifier-example>
 		<harvest-protocol>OAI-PMH</harvest-protocol>
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
@@ -118,6 +120,7 @@
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://localhost:8080/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoc</source-identifier>
+		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
