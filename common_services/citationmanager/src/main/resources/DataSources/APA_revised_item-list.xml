@@ -1,0 +1,2205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<escidocItemList:item-list xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.7"
+                           xmlns:mods-md="http://www.loc.gov/mods/v3"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:release="http://escidoc.de/core/01/properties/release/"
+                           xmlns:prop="http://escidoc.de/core/01/properties/"
+                           xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3"
+                           xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+                           xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
+                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                           xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                           xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.7"
+                           xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.6"
+                           xmlns:version="http://escidoc.de/core/01/properties/version/"
+                           xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"
+                           xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                           xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"
+                           xmlns:container="http://www.escidoc.de/schemas/container/0.7"
+                           xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6"
+                           xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7"
+                           xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7">
+    <escidocItem:item last-modification-date="2008-11-19T10:59:10.513Z" objid="escidoc:44120">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T10:59:05.361Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44120</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T10:59:10.513Z</version:date>
+                <version:status>released</version:status>
+
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44120:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T10:59:10.513Z</version:date>
+
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T10:59:09.985Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44120:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2007,). </span>. </span><span class="Italic">Poster session (testing APA generic poster). </span><span class="Default">Poster presented at Symposium, Kassel.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="poster">
+                    <publication:creator role="author">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Poster session (testing APA generic poster)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+                    <publication:event>
+                        <dc:title>Symposium</dc:title>
+                        <escidoc:start-date xsi:type="dcterms:W3CDTF"/>
+                        <escidoc:end-date xsi:type="dcterms:W3CDTF"/>
+                        <escidoc:place>Kassel</escidoc:place>
+
+                        <escidoc:invitation-status>invited</escidoc:invitation-status>
+                    </publication:event>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T10:57:50.944Z" objid="escidoc:44119">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T10:57:46.544Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44119</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T10:57:50.944Z</version:date>
+
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44119:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+
+                <version:date>2008-11-19T10:57:50.944Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T10:57:50.444Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44119:1</release:pid>
+            </prop:latest-release>
+
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
+    a {text-decoration: none}
+  </style>
+</head>
+<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td width="50%">&nbsp;</td><td align="center">
+
+<a name="JR_PAGE_ANCHOR_0_1"/>
+<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
+<tr>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
+</tr>
+</table>
+
+</td><td width="50%">&nbsp;</td></tr>
+</table>
+</body>
+</html>
+]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="conference-report">
+                    <publication:creator role="author">
+
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Report about a psychological conference (testing APA- generic conference report)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <publication:source type="proceedings">
+                        <dc:title>Proceedings of the Psychological Symposium</dc:title>
+                        <escidoc:volume/>
+                        <escidoc:issue/>
+                        <escidoc:start-page>234</escidoc:start-page>
+
+                        <escidoc:end-page>246</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T11:00:26.224Z" objid="escidoc:44121">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T11:00:22.008Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44121</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+
+                <version:date>2008-11-19T11:00:26.224Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44121:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:00:26.224Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T11:00:25.641Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44121:1</release:pid>
+
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
+    a {text-decoration: none}
+  </style>
+</head>
+<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td width="50%">&nbsp;</td><td align="center">
+
+<a name="JR_PAGE_ANCHOR_0_1"/>
+<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
+<tr>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
+</tr>
+</table>
+
+</td><td width="50%">&nbsp;</td></tr>
+</table>
+</body>
+</html>
+]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="courseware-lecture">
+
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Vorlesung im Strafrecht (testing APA-generic teaching)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+                    <publication:event>
+                        <dc:title>Vorlesung Strafrecht</dc:title>
+                        <escidoc:start-date xsi:type="dcterms:W3CDTF"/>
+                        <escidoc:end-date xsi:type="dcterms:W3CDTF"/>
+
+                        <escidoc:place>Munich</escidoc:place>
+                    </publication:event>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-28T09:37:48.869Z" objid="escidoc:53499">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-28T09:37:34.247Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:53499</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-28T09:37:48.869Z</version:date>
+
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:53499:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+
+                <version:date>2008-11-28T09:37:48.869Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-28T09:37:47.623Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:53499:1</release:pid>
+            </prop:latest-release>
+
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (1926). </span>. Unscharfe Suche test (ohne apple) DK. .</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="talk-at-event">
+                    <publication:creator role="author">
+
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>Despoina</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>External Organizations</escidoc:organization-name>
+                                <escidoc:address/>
+
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Unscharfe Suche test (ohne apple) DK </dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components>
+            <escidocComponents:component objid="escidoc:53500">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-11-28T09:37:33.025Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+
+                    <prop:pid>hdl:someHandle/test/escidoc:53499</prop:pid>
+                    <prop:content-category>ANY_FULLTEXT</prop:content-category>
+                    <prop:file-name>Rezept -without apples-(pubman testen).doc</prop:file-name>
+                    <prop:mime-type>application/msword</prop:mime-type>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="internal-managed"
+                                           xlink:href="http://qa-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:53499/components/component/escidoc:53500/content"
+                                           xlink:title="Rezept -without apples-(pubman testen).doc"
+                                           xlink:type="simple"/>
+                <escidocMetadataRecords:md-records>
+
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>Rezept -without apples-(pubman testen).doc</dc:title>
+                            <dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
+                            <dcterms:extent>20992</dcterms:extent>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2009-01-28T19:00:51.430Z" objid="escidoc:76874">
+        <escidocItem:properties>
+            <prop:creation-date>2009-01-28T19:00:49.023Z</prop:creation-date>
+            <srel:created-by objid="escidoc:30033"/>
+
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment>Release comment.</prop:public-status-comment>
+            <srel:context objid="escidoc:31013"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:76874</prop:pid>
+            <prop:version>
+
+                <version:number>1</version:number>
+                <version:date>2009-01-28T19:00:51.430Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:30033"/>
+                <version:comment>Release comment.</version:comment>
+                <version:pid>hdl:someHandle/test/escidoc:76874</version:pid>
+
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2009-01-28T19:00:51.430Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+
+                <release:date>2009-01-28T19:00:50.906Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:76874</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Enfield N., Levinson S. C. (Eds.). <span class="DisplayDateStatus"> (2006). </span>. Proceedings from: </span><span class="Italic">Roots of human sociality: Culture, cognition and interaction</span><span class="Default">. Oxford: Berg.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="proceedings">
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name>N.J. Enfield</escidoc:complete-name>
+                            <escidoc:family-name>Enfield</escidoc:family-name>
+                            <escidoc:given-name>N.J.</escidoc:given-name>
+
+                            <escidoc:organization>
+                                <escidoc:organization-name>Language and Cognition Group, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22011</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Multimodal Interaction, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22022</escidoc:identifier>
+
+                            </escidoc:organization>
+                            <escidoc:identifier>urn:cone:persons56</escidoc:identifier>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name>Stephen C. Levinson</escidoc:complete-name>
+                            <escidoc:family-name>Levinson</escidoc:family-name>
+
+                            <escidoc:given-name>Stephen C.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Language and Cognition Group, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22011</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Multimodal Interaction, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+
+                                <escidoc:identifier>escidoc:22022</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:identifier>urn:cone:persons127</escidoc:identifier>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Roots of human sociality: Culture, cognition and interaction</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+
+                    <dc:identifier xsi:type="eidt:EDOC">291041</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>Berg</dc:publisher>
+                        <escidoc:place>Oxford</escidoc:place>
+                    </publication:publishing-info>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+                    <publication:source type="series">
+
+                        <dc:title>Wenner-Gren International Symposium Series</dc:title>
+                        <escidoc:creator role="editor">
+                            <escidoc:person>
+                                <escidoc:complete-name>null Aiello</escidoc:complete-name>
+                                <escidoc:family-name>Aiello</escidoc:family-name>
+                                <escidoc:given-name>null</escidoc:given-name>
+                            </escidoc:person>
+
+                        </escidoc:creator>
+                        <escidoc:creator role="editor">
+                            <escidoc:person>
+                                <escidoc:complete-name>Leslie  C.</escidoc:complete-name>
+                                <escidoc:family-name> C.</escidoc:family-name>
+                                <escidoc:given-name>Leslie</escidoc:given-name>
+                            </escidoc:person>
+
+                        </escidoc:creator>
+                    </publication:source>
+                    <publication:event>
+                        <dc:title>Wenner-Gren Foundation for Anthropological Research, Symposium 134</dc:title>
+                        <escidoc:start-date xsi:type="dcterms:W3CDTF">2004-10-02</escidoc:start-date>
+                        <escidoc:end-date xsi:type="dcterms:W3CDTF">2004-10-09</escidoc:end-date>
+                        <escidoc:place>Duck [North Carolina]</escidoc:place>
+
+                    </publication:event>
+                    <publication:total-number-of-pages>544 p.</publication:total-number-of-pages>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T09:20:21.195Z" objid="escidoc:44115">
+        <escidocItem:properties>
+
+            <prop:creation-date>2008-11-19T09:20:16.622Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+
+            <prop:pid>hdl:someHandle/test/escidoc:44115</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T09:20:21.195Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+
+                <version:pid>hdl:someHandle/test/escidoc:44115:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T09:20:21.195Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+
+                <release:number>1</release:number>
+                <release:date>2008-11-19T09:20:20.687Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44115:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Deci D., &amp; Ryan R., <span class="DisplayDateStatus"> (1933). </span>. A motivational approach to self (testing APA proceedings). </span><span class="Italic">Nebraska Symposium on Motivation, 38</span><span class="Default">, 237-288.</span>]]></dcterms:bibliographicCitation>
+
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="conference-paper">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Deci</escidoc:family-name>
+
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Ryan</escidoc:family-name>
+                            <escidoc:given-name>R.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+
+                    <dc:title>A motivational approach to self (testing APA proceedings)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1933</dcterms:issued>
+                    <publication:source type="proceedings">
+
+                        <dc:title>Nebraska Symposium on Motivation</dc:title>
+                        <escidoc:creator role="editor">
+                            <escidoc:person>
+                                <escidoc:complete-name/>
+                                <escidoc:family-name>Dienstbier</escidoc:family-name>
+                                <escidoc:given-name>R.</escidoc:given-name>
+                                <escidoc:organization>
+
+                                    <escidoc:organization-name>test</escidoc:organization-name>
+                                    <escidoc:address/>
+                                    <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                                </escidoc:organization>
+                            </escidoc:person>
+                        </escidoc:creator>
+                        <escidoc:volume>38</escidoc:volume>
+
+                        <escidoc:issue/>
+                        <escidoc:start-page>237</escidoc:start-page>
+                        <escidoc:end-page>288</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>University of Nebraska Press</dc:publisher>
+                            <escidoc:place>Lincoln</escidoc:place>
+
+                            <escidoc:edition/>
+                        </escidoc:publishing-info>
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T09:22:53.975Z" objid="escidoc:44116">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T09:22:44.620Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44116</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T09:22:53.975Z</version:date>
+
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44116:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+
+                <version:date>2008-11-19T09:22:53.975Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T09:22:53.469Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44116:1</release:pid>
+            </prop:latest-release>
+
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Nottebohm F., &amp; Clark S., <span class="DisplayDateStatus"> (1926). </span>. Hemispheric differences (testing APA proceedings published regularly). </span><span class="Italic">Proceedings of the National Academy of Science, 89</span><span class="Default">, 1372-1375.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="conference-paper">
+                    <publication:creator role="author">
+
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Nottebohm</escidoc:family-name>
+                            <escidoc:given-name>F.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Clark</escidoc:family-name>
+
+                            <escidoc:given-name>S.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Hemispheric differences (testing APA proceedings published regularly)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <publication:source type="proceedings">
+                        <dc:title>Proceedings of the National Academy of Science</dc:title>
+                        <escidoc:volume>89</escidoc:volume>
+                        <escidoc:issue/>
+                        <escidoc:start-page>1372</escidoc:start-page>
+
+                        <escidoc:end-page>1375</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>National Academy of Science</dc:publisher>
+                            <escidoc:place>USA</escidoc:place>
+                            <escidoc:edition/>
+                        </escidoc:publishing-info>
+
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+
+    <escidocItem:item last-modification-date="2009-02-04T08:49:42.642Z" objid="escidoc:53497">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-28T09:29:42.460Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:53497:4</prop:pid>
+            <prop:version>
+                <version:number>4</version:number>
+                <version:date>2009-02-04T08:49:42.642Z</version:date>
+                <version:status>released</version:status>
+
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:53497:4</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>4</version:number>
+                <version:date>2009-02-04T08:49:42.642Z</version:date>
+
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>4</release:number>
+                <release:date>2009-02-04T08:49:41.594Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:53497:3</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (1928). </span>. Unscharfe Suche Test DK. Mushrooms in general. (256-275).</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="book-item">
+
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>Despoina</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>MPI for limnology, Max Planck Society</escidoc:organization-name>
+
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Unscharfe Suche Test DK</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1928</dcterms:issued>
+                    <publication:source type="book">
+                        <dc:title>Mushrooms in general</dc:title>
+                        <escidoc:volume/>
+                        <escidoc:issue/>
+
+                        <escidoc:start-page>256</escidoc:start-page>
+                        <escidoc:end-page>275</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>Beck</dc:publisher>
+                            <escidoc:place>Washington [etc.]</escidoc:place>
+                        </escidoc:publishing-info>
+
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components>
+
+            <escidocComponents:component objid="escidoc:53498">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-11-28T09:29:41.370Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>any-fulltext</prop:content-category>
+                    <prop:file-name>Rezept (pubman testen).doc</prop:file-name>
+
+                    <prop:mime-type>application/msword</prop:mime-type>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="internal-managed"
+                                           xlink:href="http://qa-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:53497/components/component/escidoc:53498/content"
+                                           xlink:title="Rezept (pubman testen).doc"
+                                           xlink:type="simple"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>Rezept (pubman testen).doc</dc:title>
+                            <dc:description/>
+
+                            <dc:format xsi:type="dcterms:IMT">application/msword</dc:format>
+                            <dcterms:extent>20992</dcterms:extent>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+
+    <escidocItem:item last-modification-date="2008-11-19T11:05:21.573Z" objid="escidoc:44125">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T11:05:17.254Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44125</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:05:21.573Z</version:date>
+                <version:status>released</version:status>
+
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44125:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:05:21.573Z</version:date>
+
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T11:05:20.945Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44125:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D. (Ed.)<span class="DisplayDateStatus"> (1928). </span>. </span><span class="Italic">Sample Journal (testing APA-generic journal). </span><span class="Default">&nbsp;Dresden: University Press.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="journal">
+                    <publication:creator role="editor">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Sample Journal (testing APA-generic journal)</dc:title>
+                    <dc:identifier xsi:type="eidt:ISSN">1243-5623</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>University Press</dc:publisher>
+
+                        <escidoc:place>Dresden </escidoc:place>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1928</dcterms:issued>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T09:00:11.064Z" objid="escidoc:44110">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T09:00:06.875Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44110</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T09:00:11.064Z</version:date>
+                <version:status>released</version:status>
+
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44110:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T09:00:11.064Z</version:date>
+
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T09:00:10.547Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44110:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Gibbs H., Karper B. (Eds.). <span class="DisplayDateStatus"> (1933). </span> </span><span class="Italic">Psychological interventions (testing APA edited book).</span><span class="Default">&nbsp;San Francisco: Jossey-Bass.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="book">
+                    <publication:creator role="editor">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Gibbs</escidoc:family-name>
+                            <escidoc:given-name>H.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Karper</escidoc:family-name>
+                            <escidoc:given-name>B.</escidoc:given-name>
+
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Psychological interventions (testing APA edited book)</dc:title>
+                    <publication:publishing-info>
+                        <dc:publisher>Jossey-Bass</dc:publisher>
+                        <escidoc:place>San Francisco</escidoc:place>
+                        <escidoc:edition/>
+
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1933-12-08</dcterms:issued>
+                    <publication:total-number-of-pages/>
+
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T09:40:00.253Z" objid="escidoc:44108">
+        <escidocItem:properties>
+
+            <prop:creation-date>2008-11-19T08:55:38.651Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+
+            <prop:pid>hdl:someHandle/test/escidoc:44108:2</prop:pid>
+            <prop:version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T09:40:00.253Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+
+                <version:pid>hdl:someHandle/test/escidoc:44108:2</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T09:40:00.253Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+
+                <release:number>2</release:number>
+                <release:date>2008-11-19T09:39:59.553Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44108:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Beck C., &amp; Sales B., <span class="DisplayDateStatus"> (2007). </span> </span><span class="Italic">Family mediation (testing APA book).</span><span class="Default">&nbsp;Washington, DC: American Psychological Association.</span>]]></dcterms:bibliographicCitation>
+
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="book">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Beck</escidoc:family-name>
+
+                            <escidoc:given-name>C.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Sales</escidoc:family-name>
+                            <escidoc:given-name>B.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+
+                    <dc:title>Family mediation (testing APA book)</dc:title>
+                    <publication:publishing-info>
+                        <dc:publisher>American Psychological Association</dc:publisher>
+                        <escidoc:place>Washington, DC</escidoc:place>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2009-02-03T08:17:10.591Z" objid="escidoc:44114">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T09:16:24.944Z</prop:creation-date>
+
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44114:2</prop:pid>
+
+            <prop:version>
+                <version:number>2</version:number>
+                <version:date>2009-02-03T08:17:10.591Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44114:2</version:pid>
+
+            </prop:version>
+            <prop:latest-version>
+                <version:number>2</version:number>
+                <version:date>2009-02-03T08:17:10.591Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>2</release:number>
+
+                <release:date>2009-02-03T08:17:06.019Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44114:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag/>
+                </local-tags>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Mazzeo J., Druesne B., &amp; Raffeld G., <span class="DisplayDateStatus"> (1973). </span>. </span><span class="Italic">Comparability of computer and (testing APA research report)</span><span class="Default">&nbsp;(Rep. No. 345/3).</span>]]></dcterms:bibliographicCitation>
+
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="report">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Mazzeo</escidoc:family-name>
+
+                            <escidoc:given-name>J.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Druesne</escidoc:family-name>
+                            <escidoc:given-name>B.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Raffeld</escidoc:family-name>
+                            <escidoc:given-name>G.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Comparability of computer and (testing APA research report)</dc:title>
+
+                    <dc:identifier xsi:type="eidt:OTHER">Rep. No. 345/3</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>Educational Testing Service</dc:publisher>
+                        <escidoc:place>Princeton</escidoc:place>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1973</dcterms:issued>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T11:02:53.011Z" objid="escidoc:44123">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T11:02:48.136Z</prop:creation-date>
+
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44123</prop:pid>
+
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:02:53.011Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44123:1</version:pid>
+
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:02:53.011Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+
+                <release:date>2008-11-19T11:02:52.477Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44123:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2008). </span>. Working paper on research progress (testing APA- generic working paper). .</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="paper">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Working paper on research progress (testing APA- generic working paper)</dc:title>
+
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF">2008-2</publication:published-online>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF"/>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2009-01-28T19:05:07.896Z" objid="escidoc:77039">
+        <escidocItem:properties>
+            <prop:creation-date>2009-01-28T19:05:05.220Z</prop:creation-date>
+
+            <srel:created-by objid="escidoc:30033"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment>Release comment.</prop:public-status-comment>
+            <srel:context objid="escidoc:31013"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:77039</prop:pid>
+
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2009-01-28T19:05:07.896Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:30033"/>
+                <version:comment>Release comment.</version:comment>
+                <version:pid>hdl:someHandle/test/escidoc:77039</version:pid>
+
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2009-01-28T19:05:07.896Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+
+                <release:date>2009-01-28T19:05:07.235Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:77039</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Dimroth C., Lambert M. (Eds.). <span class="DisplayDateStatus"> (2008). </span>. La structure informationelle chez les apprenants L2 [Special Issue].</span><span class="Italic">Acquisition et Interaction en Language Etrangère</span><span class="Default">, </span><span class="Italic">26</span><span class="Default">.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="issue">
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name>Christine Dimroth</escidoc:complete-name>
+                            <escidoc:family-name>Dimroth</escidoc:family-name>
+                            <escidoc:given-name>Christine</escidoc:given-name>
+
+                            <escidoc:organization>
+                                <escidoc:organization-name>Acquisition Group, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22008</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Information Structure in Language Acquisition, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22020</escidoc:identifier>
+
+                            </escidoc:organization>
+                            <escidoc:identifier>urn:cone:persons48</escidoc:identifier>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name>Monique Lambert</escidoc:complete-name>
+                            <escidoc:family-name>Lambert</escidoc:family-name>
+
+                            <escidoc:given-name>Monique</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>La structure informationelle chez les apprenants L2</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066">fr</dc:language>
+                    <dc:identifier xsi:type="eidt:EDOC">397373</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+
+                    <publication:source type="journal">
+                        <dc:title>Acquisition et Interaction en Language Etrangère</dc:title>
+                        <dcterms:alternative>AILE</dcterms:alternative>
+                        <escidoc:volume>26</escidoc:volume>
+                    </publication:source>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T09:40:41.813Z" objid="escidoc:44106">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T08:50:00.273Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44106:2</prop:pid>
+            <prop:version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T09:40:41.813Z</version:date>
+
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44106:2</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>2</version:number>
+
+                <version:date>2008-11-19T09:40:41.813Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>2</release:number>
+                <release:date>2008-11-19T09:40:41.125Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44106:1</release:pid>
+            </prop:latest-release>
+
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Harris M., Karper E., Stacks G., Hoffman D., DeNiro R., Cruz P., West S., et al.<span class="DisplayDateStatus"> (1934). </span>. An experimental evaluation of (testing APA article more than six authors). </span><span class="Italic">American Journal of Clinical Pathology</span><span class="Default">, </span><span class="Italic">68</span><span class="Default">843-856.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="article">
+                    <publication:creator role="author">
+
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Harris</escidoc:family-name>
+                            <escidoc:given-name>M.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Karper</escidoc:family-name>
+                            <escidoc:given-name>E.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+
+                            <escidoc:family-name>Stacks</escidoc:family-name>
+                            <escidoc:given-name>G.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Hoffman</escidoc:family-name>
+
+                            <escidoc:given-name>D.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>DeNiro</escidoc:family-name>
+                            <escidoc:given-name>R.</escidoc:given-name>
+
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Cruz</escidoc:family-name>
+                            <escidoc:given-name>P.</escidoc:given-name>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>West</escidoc:family-name>
+                            <escidoc:given-name>S.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>An experimental evaluation of (testing APA article more than six authors)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1934</dcterms:issued>
+                    <publication:source type="journal">
+                        <dc:title>American Journal of Clinical Pathology</dc:title>
+                        <escidoc:volume>68</escidoc:volume>
+
+                        <escidoc:issue/>
+                        <escidoc:start-page>843</escidoc:start-page>
+                        <escidoc:end-page>856</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>Williams &amp; Wilkins Co.</dc:publisher>
+
+                            <escidoc:place>Baltimore</escidoc:place>
+                            <escidoc:edition/>
+                        </escidoc:publishing-info>
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T08:42:49.499Z" objid="escidoc:44105">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T08:42:44.243Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44105</prop:pid>
+            <prop:version>
+
+                <version:number>2</version:number>
+                <version:date>2008-11-19T08:42:49.499Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44105:2</version:pid>
+            </prop:version>
+
+            <prop:latest-version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T08:42:49.499Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>2</release:number>
+                <release:date>2008-11-19T08:42:48.938Z</release:date>
+
+                <release:pid>hdl:someHandle/test/escidoc:44105:2</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Saywitz K., Mannarino A., Berliner L., &amp; Cohen J., <span class="DisplayDateStatus"> (1926). </span>. Treatment for sexually abused children (testing APA). </span><span class="Italic">American Psychologist</span><span class="Default">, </span><span class="Italic">55</span><span class="Default">1040-1049.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="article">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Saywitz</escidoc:family-name>
+                            <escidoc:given-name>K.</escidoc:given-name>
+                            <escidoc:organization>
+
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Mannarino</escidoc:family-name>
+                            <escidoc:given-name>A.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+
+                            <escidoc:family-name>Berliner</escidoc:family-name>
+                            <escidoc:given-name>L.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Cohen</escidoc:family-name>
+
+                            <escidoc:given-name>J.</escidoc:given-name>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Treatment for sexually abused children (testing APA)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <publication:source type="journal">
+                        <dc:title>American Psychologist</dc:title>
+                        <escidoc:volume>55</escidoc:volume>
+                        <escidoc:issue/>
+                        <escidoc:start-page>1040</escidoc:start-page>
+
+                        <escidoc:end-page>1049</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>American Psychological Association (PsycARTICLES)</dc:publisher>
+                            <escidoc:place>Washington</escidoc:place>
+                            <escidoc:edition/>
+                        </escidoc:publishing-info>
+
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+
+    <escidocItem:item last-modification-date="2008-11-19T08:45:06.902Z" objid="escidoc:44104">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T08:40:09.017Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44104:2</prop:pid>
+            <prop:version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T08:45:06.902Z</version:date>
+                <version:status>released</version:status>
+
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44104:2</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>2</version:number>
+                <version:date>2008-11-19T08:45:06.902Z</version:date>
+
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>2</release:number>
+                <release:date>2008-11-19T08:45:06.213Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44104:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Klimoski R., &amp; Palmer S., <span class="DisplayDateStatus"> (1934). </span>. The ADA and the hiring process (testing APA). </span><span class="Italic">Consulting Psychology Journal</span><span class="Default">, </span><span class="Italic">45</span><span class="Default">(2)10-36.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="article">
+                    <publication:creator role="author">
+                        <escidoc:person>
+
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Klimoski</escidoc:family-name>
+                            <escidoc:given-name>R.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Palmer</escidoc:family-name>
+                            <escidoc:given-name>S.</escidoc:given-name>
+
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>The ADA and the hiring process (testing APA)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1934</dcterms:issued>
+                    <publication:source type="journal">
+                        <dc:title>Consulting Psychology Journal</dc:title>
+                        <escidoc:volume>45</escidoc:volume>
+                        <escidoc:issue>2</escidoc:issue>
+                        <escidoc:start-page>10</escidoc:start-page>
+
+                        <escidoc:end-page>36</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T11:09:03.095Z" objid="escidoc:44128">
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T11:08:59.068Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:44128</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+
+                <version:date>2008-11-19T11:09:03.095Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:44128:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:09:03.095Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2008-11-19T11:09:02.588Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44128:1</release:pid>
+
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
+    a {text-decoration: none}
+  </style>
+</head>
+<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td width="50%">&nbsp;</td><td align="center">
+
+<a name="JR_PAGE_ANCHOR_0_1"/>
+<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
+<tr>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
+  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
+</tr>
+<tr valign="top">
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
+  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
+</tr>
+<tr valign="top">
+  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
+</tr>
+</table>
+
+</td><td width="50%">&nbsp;</td></tr>
+</table>
+</body>
+</html>
+]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="other">
+
+                    <publication:creator role="advisor">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Anything could be here (testing APA generic-other)</dc:title>
+                    <publication:publishing-info>
+                        <dc:publisher>any publisher</dc:publisher>
+
+                        <escidoc:place>Munich</escidoc:place>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1933</dcterms:issued>
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2009-01-28T18:57:58.034Z" objid="escidoc:76764">
+        <escidocItem:properties>
+            <prop:creation-date>2009-01-28T18:57:55.254Z</prop:creation-date>
+            <srel:created-by objid="escidoc:30033"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment>Release comment.</prop:public-status-comment>
+
+            <srel:context objid="escidoc:31013"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:76764</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2009-01-28T18:57:58.034Z</version:date>
+
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:30033"/>
+                <version:comment>Release comment.</version:comment>
+                <version:pid>hdl:someHandle/test/escidoc:76764</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+
+                <version:date>2009-01-28T18:57:58.034Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+                <release:number>1</release:number>
+                <release:date>2009-01-28T18:57:57.544Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:76764</release:pid>
+            </prop:latest-release>
+
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Mauth K., <span class="DisplayDateStatus"> (2002). </span> </span><span class="Italic">Morphology in speech comprehension.</span><span class="Default">&nbsp;Nijmegen: University of Nijmegen.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="thesis">
+                    <publication:creator role="author">
+
+                        <escidoc:person>
+                            <escidoc:complete-name>Kerstin Mauth</escidoc:complete-name>
+                            <escidoc:family-name>Mauth</escidoc:family-name>
+                            <escidoc:given-name>Kerstin</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22007</escidoc:identifier>
+
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Decoding Continuous Speech, MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:22019</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Morphology in speech comprehension</dc:title>
+
+                    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+                    <dc:identifier xsi:type="eidt:EDOC">27220</dc:identifier>
+                    <dc:identifier xsi:type="eidt:OTHER">http://webdoc.ubn.kun.nl/mono/m/mauth_k/morpinspc.pdf</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>University of Nijmegen</dc:publisher>
+                        <escidoc:place>Nijmegen</escidoc:place>
+
+                    </publication:publishing-info>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2002</dcterms:dateAccepted>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2002</dcterms:issued>
+                    <publication:source type="series">
+                        <dc:title>MPI Series in Psycholinguistics</dc:title>
+                        <escidoc:volume>vol. 19</escidoc:volume>
+                    </publication:source>
+
+                    <publication:total-number-of-pages>230 p.</publication:total-number-of-pages>
+                    <publication:degree>phd</publication:degree>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T11:08:07.614Z" objid="escidoc:44127">
+        <escidocItem:properties>
+
+            <prop:creation-date>2008-11-19T11:08:02.731Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+
+            <prop:pid>hdl:someHandle/test/escidoc:44127</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:08:07.614Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+
+                <version:pid>hdl:someHandle/test/escidoc:44127:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:08:07.614Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+
+                <release:number>1</release:number>
+                <release:date>2008-11-19T11:08:07.123Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44127:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2005). </span>. </span><span class="Italic">Manuscript on anything (testing APA-generic manuscript). </span><span class="Default">&nbsp;Unpublished Manuscript.</span>]]></dcterms:bibliographicCitation>
+
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="manuscript">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <dc:title>Manuscript on anything (testing APA-generic manuscript)</dc:title>
+                    <dcterms:created xsi:type="dcterms:W3CDTF">2005</dcterms:created>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF"/>
+
+                    <publication:total-number-of-pages/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-11-19T11:06:32.780Z" objid="escidoc:44126">
+
+        <escidocItem:properties>
+            <prop:creation-date>2008-11-19T11:06:28.369Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:13317"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+
+            <prop:pid>hdl:someHandle/test/escidoc:44126</prop:pid>
+            <prop:version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:06:32.780Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+
+                <version:pid>hdl:someHandle/test/escidoc:44126:1</version:pid>
+            </prop:version>
+            <prop:latest-version>
+                <version:number>1</version:number>
+                <version:date>2008-11-19T11:06:32.780Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release>
+
+                <release:number>1</release:number>
+                <release:date>2008-11-19T11:06:32.264Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:44126:1</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags/>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D. (Ed.). <span class="DisplayDateStatus"> (1928). </span>. </span><span class="Italic">Series on Atomic Physics (testing APA-generic series)</span><span class="Default">&nbsp;Canberra, Australia: Universitätsverlag.</span>]]></dcterms:bibliographicCitation>
+
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="series">
+                    <publication:creator role="editor">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Kanellopoulou</escidoc:family-name>
+
+                            <escidoc:given-name>D.</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>test</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+
+                    </publication:creator>
+                    <dc:title>Series on Atomic Physics (testing APA-generic series)</dc:title>
+                    <dc:identifier xsi:type="eidt:ISSN">1243-5623</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>Universitätsverlag</dc:publisher>
+                        <escidoc:place>Canberra, Australia</escidoc:place>
+                        <escidoc:edition/>
+
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">1928</dcterms:issued>
+                    <publication:total-number-of-pages/>
+
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+    </escidocItem:item>
+</escidocItemList:item-list>

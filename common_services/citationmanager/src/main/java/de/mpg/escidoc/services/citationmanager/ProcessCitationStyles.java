@@ -459,24 +459,34 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
         int eSize = elements.size();
         if ( eSize > 0) {
-        	boolean delim_ok = Utils.checkLen(delimiter); 
+        	boolean delim_ok = Utils.checkLen(delimiter) && eSize > 1; 
         	int i = 1;
+        	String eSo=null,eSc=null;
             for (LayoutElement e : elements) {
-            	String eS = "$V{" + e.getId() + "}"; 
+            	eSc = "$V{" + e.getId() + "}"; 
                 addLayoutElementToVariablesMap(cs, e);
                 // insert delimiter between elements
                 expr += 
-                	eS
-                	+
-                	(delim_ok && i<eSize? 
-            			" + ( !"+ eS +".trim().equals(\"\") ? \"" + delimiter + "\" : \"\")" 
-                			: 
-                		""
-                	)
+                	(delim_ok && i>1
+                			 ? 
+                			" ((!"+ eSc +".trim().equals(\"\") " +
+                			"  && !"+ eSo +".trim().equals(\"\")) " +
+                			"? \"" + delimiter + "\" : \"\") +" 
+                    			: 
+                    		""
+                    )
+                    +	
+                	eSc
                 	+ 
                 	(i<eSize ? " + " : "");
+                eSo = eSc;
                 i++;
             }
+//            if (delim_ok && delimiter.equals(", ") )
+//            {
+//            	
+//            	logger.info("expr="+expr);
+//            }
         } else if (le.getRef().length() > 0) {
         	String ref = le.getRef();
 //          In the case we can define complex MD handling, which is not supported with XPAth
@@ -546,8 +556,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
         // apply function  	
         String func = Utils.overParams(le.getFunc(), refLE != null ? refLE.getFunc() : null);
-        if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) ) 
-        	chunk = "($P{REPORT_SCRIPTLET}." + func + "(" + chunk + "))";
+        if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+        {
+        	chunk = "($P{REPORT_SCRIPTLET}." + func + "(" + chunk + "))";	
+        }
+        
         
         // startsWith
         p = Utils.overParams(pLE.getStartsWith(), pREF != null ? pREF.getStartsWith() : null);
@@ -655,8 +668,15 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             	  }
               }
 
-        		// avoid "null" parameters for non-repeatable elements
-        		expr = "$" + findRefLocation(ref) + "{" + ref + "} != null ? " + expr + " : \"\"";
+        	  // avoid "null" parameters for non-repeatable elements
+              String checkRef = "$" + findRefLocation(ref) + "{" + ref + "}";
+              func = le.getFunc();
+              if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+              {
+            	  checkRef = "($P{REPORT_SCRIPTLET}." + func + "(" + checkRef + "))";
+              }
+              
+              expr = checkRef + "!=null ? " + expr + " : \"\"";
         	}
         }
         

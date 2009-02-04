@@ -64,7 +64,7 @@ public class ResourceUtil
 	private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 	
     public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
-    public final static String RESOURCES_DIRECTORY_JAR = "";
+    public final static String RESOURCES_DIRECTORY_JAR = "resources/";
     public final static String CLASS_DIRECTORY = "target/classes/";
 
     
@@ -169,6 +169,7 @@ public class ResourceUtil
     public static String getPathToClasses() throws IOException
     {
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
+    	
 //    	logger.info(":" + ResourceUtil.class.getClassLoader().getResource(classString).getFile() );
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
         // jar context!!!
@@ -293,7 +294,7 @@ public class ResourceUtil
     {
     	InputStream is = ResourceUtil.getResourceAsStream(
     			ResourceUtil.getPathToResources()
-    			+ (path!=null && !path.trim().equals("") ? path + "/": "")
+    			+ path
     			+ fileName
     	); 
     	Properties props = new Properties();

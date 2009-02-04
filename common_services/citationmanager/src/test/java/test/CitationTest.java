@@ -34,7 +34,7 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
-//	private final String dsFileName = "APA_output.xml";  
+	private final String dsFileName = "APA_revised_item-list.xml";  
 //	private final String dsFileName = "item-list-tobias.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
 //	private final String dsFileName = "1.xml";  
@@ -50,7 +50,7 @@ public class CitationTest {
      * TODO endres: unittest is ignored because of com.topologi.schematron.SchtrnValidator's unusual
      *              relative path behavior. maven resource paths are not recognized.      
      * @throws IOException 
-     */
+     */ 
 
     /**
      * Get test item list from XML 
@@ -59,13 +59,13 @@ public class CitationTest {
     @Before
     public final void getItemList() throws Exception
     {
-//    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
-//    	logger.info("Data Source:" + ds);
-//    	itemList = ResourceUtil.getResourceAsString("porverka.xml");
-//    	assertNotNull("Item list xml is not found:", ds);
+    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
+    	logger.info("Data Source:" + ds);
+    	itemList = ResourceUtil.getResourceAsString(ds);
+    	assertNotNull("Item list xml is not found:", ds);
     	
-    	itemList = TestHelper.getItemsFromFramework_APA();
-		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+//    	itemList = TestHelper.getItemsFromFramework_APA();
+//		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
 //		logger.info("item list from framework:\n" + itemList);
 		   
 //		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
@@ -208,7 +208,7 @@ public class CitationTest {
     	        logger.info(format + " length: " + result.length);
     	        logger.info(format + " is OK");
     	        
-//    	        TestHelper.writeToFile(cs + "." + format, result);
+    	        TestHelper.writeToFile(cs + "." + format, result);
     			
     		}
     		

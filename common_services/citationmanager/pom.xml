@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
@@ -9,7 +10,7 @@
 	<artifactId>citationmanager</artifactId>
 	<packaging>ejb</packaging>
 	<name>citationmanager</name>
-	<version>1.0.18-SNAPSHOT</version> 
+	<version>1.0.18-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</connection>
@@ -19,13 +20,13 @@
 
 	<build>
 		<plugins>
-		 <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <configuration>
-          <ejbVersion>3.0</ejbVersion>
-        </configuration>
-          </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -39,6 +40,30 @@
 					<test>CitationTest</test>
 				</configuration>
 			</plugin>
+<!--			<plugin>-->
+<!--				<artifactId>maven-assembly-plugin</artifactId>-->
+<!--				<version>2.2-beta-2</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>create-executable-jar</id>-->
+<!--						<phase>package</phase>-->
+<!--						<goals>-->
+<!--							<goal>single</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<descriptorRefs>-->
+<!--								<descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--							</descriptorRefs>-->
+<!--							<archive>-->
+<!--								<manifest>-->
+<!--									<mainClass>de.mpg.escidoc.services.citationmanager.ProcessCitationStyles</mainClass>-->
+<!--								</manifest>-->
+<!--							</archive>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+
 		</plugins>
 		<resources>
 			<resource>
@@ -64,18 +89,12 @@
 	</build>
 
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>de.mpg.escidoc.services</groupId>-->
-<!--			<artifactId>framework_access</artifactId>-->
-<!--			<version>1.0.6-SNAPSHOT</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency> -->
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
@@ -207,8 +226,10 @@
 		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
-			<version>2.7.0</version>
-			<scope>test</scope>
+			<version>2.7.1</version>
+			<!--			Do not forget to change to the provided!!! -->
+						<scope>provided</scope>
+<!--			<scope>compile</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>serializer</groupId>

@@ -23,9 +23,13 @@
 		<!-- variables which use xpath directly in DataSource NS--> 
 		<variable name="authorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='author']))]]></variable> 
 		 
-		<variable name="editorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='editor']))]]></variable>  
-		
+		<variable name="editorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='editor']))]]></variable>
+		  
 		<variable name="ed-postfix" type="expression"><![CDATA[Integer.parseInt(${editorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
+		
+		<variable name="sourceEditorsCount" type="xpath"><![CDATA[string(count(publication/source/creator[@role='editor']))]]></variable>  
+				
+		<variable name="source-ed-postfix" type="expression"><![CDATA[Integer.parseInt(${sourceEditorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
 		
 		<variable name="genre" type="xpath"><![CDATA[publication/@type]]></variable>
 		
@@ -36,11 +40,40 @@
 <!--		<variable name="isJournalOrMagazineArticle" xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
 
 	<!-- Date block -->
-<!--		<variable name="date" type="expression"><![CDATA[( (${publication@type}.equals("manuscript") && ${publication/created}) != null ? " (". $P{REPORT_SCRIPTLET}.get_year(${publication/created}) ."). " : ${publication/issued} != null ? " (". $P{REPORT_SCRIPTLET}.get_year(${publication/issued}) ."). " : ${publication/published-online} != null || ${publication/dateAccepted} != null) ? " (in press)." : ${publication/modified} != null ? " (in preparation)." : " (n.d.)."]]></variable>-->
+<!--		<variable name="date" type="expression">-->
+<!--			<![CDATA[${publication/issued} != null ? ${publication/issued} : ${publication/published-online} != null ? ${publication/published-online} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]> -->
+<!--		</variable>-->
+		
 		<variable name="date" type="expression">
-			<![CDATA[${publication/issued} != null ? ${publication/issued} : ${publication/published-online} != null ? ${publication/published-online} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]> 
+			<![CDATA[
+				(${publication/@type}.equals("manuscript") && ${publication/created} != null) 
+				?
+				$P{REPORT_SCRIPTLET}.get_year(${publication/created})  
+				: 
+				${publication/issued} != null
+				? 
+				$P{REPORT_SCRIPTLET}.get_year(${publication/issued}) 
+				: 
+				${publication/published-online} != null 
+				? 
+				$P{REPORT_SCRIPTLET}.get_year(${publication/published-online}) 
+				: 
+				${publication/dateAccepted} != null 
+				? 
+				"in press" 
+				: 
+				${publication/dateSubmitted} != null 
+				? 
+				"submitted for publication" 
+				: 
+				${publication/modified} != null 
+				? 
+				"in preparation" 
+				:
+				"n.d."
+			]]>
 		</variable>
-		 
+
 		
 		<!-- doi and url should be revised after fixing of the bug: http://www.escidoc.org/jira/browse/DEV-578  -->
 <!--		<variable name="doi" xpath="(publication/identifier[contains(.,'doi')])[1]" />-->
@@ -58,7 +91,7 @@
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==1]]></valid-if>
 				<delimiter value=", " />
-				<ends-with value=", " />
+				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="family-name" />
@@ -69,6 +102,7 @@
 		<layout-element name="authors-MoreThan1LessOrEqual6" ref="publication/creator[@role='author']/person|organization" repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", &amp; " />
+				<internal-delimiter value=", " />
 			</parameters>
 			<elements position="last">
 				<layout-element ref="family-name" />
@@ -77,7 +111,7 @@
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>1 && Integer.parseInt(${authorsCount})<=6]]></valid-if>
 				<delimiter value=", " />
-				<ends-with value=", " />
+				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="family-name" />
@@ -89,7 +123,9 @@
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>6]]></valid-if>
 				<delimiter value=", " />
+				<internal-delimiter value=", " />
 				<ends-with value=", et al." />
+				<max-count value="6"/>
 			</parameters>
 			<elements>
 				<layout-element ref="family-name" />
@@ -112,6 +148,7 @@
 		<layout-element name="editor-list" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
 			<parameters>
 				<delimiter value=", " />
+				<internal-delimiter value=", "/>
 			</parameters>
 			<elements>
 				<layout-element ref="family-name" />
@@ -130,6 +167,64 @@
 			</elements>
 		</layout-element>
 
+		<layout-element name="editors-with-dot" ref="editors">
+			<parameters>
+				<ends-with value=". "/>
+			</parameters>
+			<elements/>
+		</layout-element>
+
+
+		<layout-element name="source-editors-MoreThan2"
+			ref="publication/source/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})!=2]]></valid-if>
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="source-editors-Equal2"
+			ref="publication/source/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=" and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})==2]]></valid-if>
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="source-editors">
+			<parameters>
+				<starts-with value=" In "/>
+				<ends-with value=","/>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="source-editors-Equal2" />
+				<layout-element ref="source-editors-MoreThan2" />
+				<layout-element ref="source-ed-postfix" />
+			</elements>
+		</layout-element>
 		
 		<!-- "plain" layout elements -->
 		<!-- ??? -->
@@ -188,7 +283,7 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="year-and-month-name" func="get_year">
+		<layout-element name="year-and-month-name">
 			<parameters>
 				<valid-if><![CDATA[${publication/issued}!=null]]></valid-if>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
@@ -312,6 +407,7 @@
 		<layout-element name="source-title" ref="publication/source/title">
 			<parameters>
 				<font-style ref="ITALIC" />
+				<starts-with value=" "/>
 			</parameters>
 			<elements />
 		</layout-element>
@@ -329,7 +425,7 @@
 
 
 
-	<layout-element name="_debugBlock_">
+	<layout-element name="__debugBlock__">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
@@ -429,9 +525,16 @@
 			
 			<layout-element ref="source-title" />
 			
-			<layout-element ref="volume-issue"/>
+			<layout-element>
+				<parameters>
+					<delimiter value=", "/>
+				</parameters>
+				<elements>
+					<layout-element ref="volume-issue"/>
+					<layout-element ref="start-page-end-page"/>
+				</elements>
+			</layout-element>
 			
-			<layout-element ref="start-page-end-page"/>
 			
 			<layout-element ref="published-online-and-external-locator"/>
 		
@@ -439,10 +542,10 @@
 	</cs-layout-definition>
 	
 
-	<!-- BOOK, THESIS -->
-	<cs-layout-definition name="book-or-thesis">
+	<!-- BOOK, THESIS, PROCEEDINGS -->
+	<cs-layout-definition name="book-or-thesis-or-proceedings">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("book") || ${genre}.equals("thesis")]]></valid-if>
+			<valid-if><![CDATA[${genre}.equals("book") || ${genre}.equals("thesis") || ${genre}.equals("proceedings")]]></valid-if>
 			<ends-with value="." />
 		</parameters>
 		<elements>
@@ -510,7 +613,7 @@
 			
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element name="editors">
+			<layout-element>
 				<parameters>
 					<valid-if><![CDATA[Integer.parseInt(${editorsCount})>0]]></valid-if>
 					<starts-with value="In "/>
@@ -547,10 +650,10 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- PROCEEDINGS PAPER -->
-	<cs-layout-definition name="proceedings-paper">
+	<!-- PROCEEDINGS PAPER, SOURCE==JOURNAL -->
+	<cs-layout-definition name="proceedings-paper-from-journal">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("conference-paper")]]></valid-if>
+			<valid-if><![CDATA[${genre}.equals("conference-paper") && ${publication/source/@type}.equals("journal")]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -565,26 +668,75 @@
 			
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element ref="source-title" />
-			
-			<layout-element name="volume">
+			<layout-element>
 				<parameters>
-					<starts-with value=", "/>
 					<font-style ref="ITALIC"/>
+					<delimiter value=", "/>
 				</parameters>
 				<elements>
+					<layout-element ref="publication/event/title" />
+					<layout-element ref="publication/event/place" />
 					<layout-element ref="publication/source/volume" />
 				</elements>
 			</layout-element>
 			
-			<layout-element>
+			<layout-element ref="start-page-end-page">
 				<parameters>
 					<starts-with value=", "/>
 				</parameters>
+				<elements/>
+			</layout-element>
+		</elements>
+	</cs-layout-definition>	
+	
+	<!-- PROCEEDINGS PAPER, SOURCE==(BOOK OR PROCEEDINGS) -->
+	<cs-layout-definition name="proceedings-paper-from-book-or-proceedings">
+		<parameters>
+			<valid-if><![CDATA[${genre}.equals("conference-paper") && (${publication/source/@type}.equals("book") || ${publication/source/@type}.equals("proceedings"))]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element ref="authors" />
+			
+			<layout-element ref="year-authors-are-presented"/>
+
+			<layout-element ref="title-with-dot"/>
+			
+			<layout-element ref="year-authors-are-not-presented"/>
+			
+			<layout-element ref="source-editors"/>
+			
+			<layout-element>
+				<parameters>
+					<font-style ref="ITALIC"/>
+					<delimiter value=". "/>
+					<ends-with value="."/>
+				</parameters>
 				<elements>
-					<layout-element ref="start-page-end-page" />
+					<layout-element ref="publication/event/title" />
+					<layout-element ref="publication/source/volume">
+						<parameters>
+							<starts-with value="Vol. "/>
+						</parameters>
+						<elements/>
+					</layout-element>
+					<layout-element ref="publication/source/title" />
+					<layout-element ref="start-page-end-page">
+						<parameters>
+							<starts-with value="(pp. "/>
+							<ends-with value=")"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+					
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="place-publisher"/>
+			
 		</elements>
 	
 	</cs-layout-definition>	
@@ -599,15 +751,7 @@
 		<elements>
 			<layout-element ref="debugBlock" />
 			
-			<layout-element name="editors-with-dot">
-				<parameters>
-					<valid-if><![CDATA[Integer.parseInt(${editorsCount})>0]]></valid-if>
-					<ends-with value=". "/>
-				</parameters>
-				<elements>
-					<layout-element ref="editors"/>
-				</elements>
-			</layout-element>
+			<layout-element ref="editors-with-dot" />
 
 			<layout-element ref="year-editors-are-presented"/>
 			
@@ -643,7 +787,7 @@
 		<elements>
 			<layout-element ref="debugBlock" />
 			
-			<layout-element ref="editors"/>
+			<layout-element ref="editors-with-dot"/> 
 			
 			<layout-element ref="year-editors-are-presented"/>
 			
@@ -685,51 +829,6 @@
 	
 	</cs-layout-definition>	
 	
-	<!-- PROCEEDINGS -->
-	<cs-layout-definition name="proceedings">
-		<parameters>
-			<valid-if><![CDATA[${genre}.equals("proceedings")]]></valid-if>
-			<delimiter value="" />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			<layout-element ref="debugBlock" />
-			
-			<layout-element name="editors-with-dot">
-				<parameters>
-					<valid-if><![CDATA[Integer.parseInt(${editorsCount})>0]]></valid-if>
-					<ends-with value=". "/>
-				</parameters>
-				<elements>
-					<layout-element ref="editors"/>
-				</elements>
-			</layout-element>
-
-			<layout-element ref="year-editors-are-presented"/>
-			
-			<layout-element>
-				<parameters>
-					<starts-with value=" Proceedings from: "/>
-					<ends-with value="." />
-				</parameters>
-				<elements>
-					<layout-element ref="publication/title">
-						<parameters>
-							<font-style ref="ITALIC"/>
-						</parameters>
-						<elements/>
-					</layout-element>
-				</elements>
-			</layout-element>
-			
-			<layout-element ref="year-editors-are-not-presented"/>
-			
-			<layout-element ref="place-publisher"/>
-			
-		</elements>
-	
-	</cs-layout-definition>
-	
 	<!-- SERIES -->
 	<cs-layout-definition name="series">
 		<parameters>
@@ -739,31 +838,18 @@
 		</parameters>
 		<elements>
 			<layout-element ref="debugBlock" />
-			
-			<layout-element name="editors-with-dot">
-				<parameters>
-					<valid-if><![CDATA[Integer.parseInt(${editorsCount})>0]]></valid-if>
-					<ends-with value=". "/>
-				</parameters>
-				<elements>
-					<layout-element ref="editors"/>
-				</elements>
-			</layout-element>
+
+			<layout-element ref="editors-with-dot"/>
 
 			<layout-element ref="year-editors-are-presented"/>
 			
-			<layout-element>
+			<layout-element ref="publication/title">
 				<parameters>
+					<font-style ref="ITALIC"/>
 					<starts-with value=" "/>
+					<ends-with value="."/>
 				</parameters>
-				<elements>
-					<layout-element ref="publication/title">
-						<parameters>
-							<font-style ref="ITALIC"/>
-						</parameters>
-						<elements/>
-					</layout-element>
-				</elements>
+				<elements/>
 			</layout-element>
 			
 			<layout-element ref="year-editors-are-not-presented"/>
@@ -886,7 +972,7 @@
 					<delimiter value=" "/>
 				</parameters>
 				<elements>
-					<layout-element ref="publication/title">
+					<layout-element ref="title-with-dot">
 						<parameters>
 							<font-style ref="ITALIC"/>
 						</parameters>
@@ -905,6 +991,7 @@
 			
 			<layout-element ref="year-authors-are-not-presented"/>
 
+			<layout-element ref="place-publisher"/>
 			
 		</elements>
 	
