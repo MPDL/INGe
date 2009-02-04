@@ -276,14 +276,8 @@
 									Publications
 								</h3>
 								<span class="seperator">&#160;</span>
-								<div class="free_area0 itemBlockContent endline">
+								<div class="free_area0 itemBlockContent endline publicationsArea">		
 									
-									<div class="free_area0 endline itemLine noTopBorder publicationsArea">
-										
-									</div>
-									
-
-
 								</div>
 							</div>				
 							
@@ -292,54 +286,7 @@
 					</div>
 				<!-- end: content section -->
 				</div>
-				
-
-				<script type="text/javascript">
-					/*
-				
-					var xmlhttp;
-					
-					function requestDone()
-					{
-						if (xmlhttp.readyState == 4)
-						{
-							// if "OK"
-							if (xmlhttp.status == 200)
-							{
-								document.getElementById('result').innerHTML = xmlhttp.responseText;
-							}
-						}
-						var item_link = '<xsl:value-of select="$item-link"/>';
-						
-					}
-
-					if (!(navigator.appName.indexOf('MSIE') == -1))
-					{
-						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP")
-					}
-					else
-					{
-						xmlhttp=new XMLHttpRequest();
-					}
-					if (xmlhttp!=null)
-					{
-						xmlhttp.onreadystatechange = requestDone;
-						
-						var url = '<xsl:value-of select="$citation-link"/>';
-						var ampEsc = '&amp;';
-						var amp = ampEsc.substring(0,1);
-						url = url.replace(/&amp;/g, amp);
-
-						xmlhttp.open('GET', url, true);
-						xmlhttp.send(null);
-					}
-					
-					*/
-				</script>
 			
-				
-				
-				
 			</body>
 		</html>
 	</xsl:template>
