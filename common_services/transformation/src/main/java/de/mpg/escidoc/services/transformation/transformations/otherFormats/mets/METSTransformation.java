@@ -1,5 +1,6 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
+import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 
 import java.io.ByteArrayOutputStream;
@@ -11,10 +12,14 @@ import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 
+import de.escidoc.schemas.container.x07.ContainerDocument;
+import de.escidoc.schemas.container.x07.ContainerDocument.Container;
+import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.toc.x06.TocDocument;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * This class provides METS transformation for a escidoc objects.
@@ -26,6 +31,7 @@ public class METSTransformation
     private WriteMETSData writeMETS = new WriteMETSData();
     private String baseURL = null;
     private Logger logger = Logger.getLogger(getClass());
+    private Login login = new Login();
 
     /**
      * Public Constructor METSTransformation.
@@ -48,7 +54,7 @@ public class METSTransformation
         try
         {
             // Create mets id out of escidoc id
-            String metsId = "123"; //TODO
+            String metsId = this.getItemIdentifier(escidocToc);
             this.getBaseUrl();
             // Create different METS sections
             this.createDmdSec(escidocToc);
@@ -74,7 +80,7 @@ public class METSTransformation
         catch (Exception e)
         {
             this.logger.error("Creation of METS document failed.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return baos.toByteArray();
     }
@@ -88,8 +94,26 @@ public class METSTransformation
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading the framework URL from properties.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
+    }
+    
+    private String getItemIdentifier(String escidocToc)
+    {
+        String id = null;
+        
+        try
+        {
+            TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
+            id = escidocTocDoc.getToc().getObjid();
+        }
+        catch (XmlException e)
+        {
+            this.logger.error("Creation of TOC document failed.", e);
+            throw new RuntimeException(e);
+        }
+        
+        return id;
     }
 
     /**
@@ -119,32 +143,33 @@ public class METSTransformation
                     containerId = containerId.split("/")[le];
                 }
             }
-            //TODO
-//            String xml = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieve(containerId);
-//            ContainerDocument cDoc = ContainerDocument.Factory.parse(xml);
-//            Container container = cDoc.getContainer();
-//            MdRecord[] mdrecords = container.getMdRecords().getMdRecordArray();
-//            for (MdRecord mdr : mdrecords)
-//            {
-//                if (mdr.getName().equals("escidoc"))
-//                {
+            String xml = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieve(containerId);
+            ContainerDocument cDoc = ContainerDocument.Factory.parse(xml);
+            Container container = cDoc.getContainer();
+            MdRecord[] mdrecords = container.getMdRecords().getMdRecordArray();
+            for (MdRecord mdr : mdrecords)
+            {
+                if (mdr.getName().equals("escidoc"))
+                {
 //                    XmlCursor modsCursor = mdr.newCursor();
 //                    String nsuri = "http://www.loc.gov/mods/v3";
 //                    String namespace = "declare namespace mods='" + nsuri + "';";
-//                    // modsCursor.selectPath(namespace+"./*/*");
+//                    //modsCursor.selectPath(namespace+"./*/*");
 //                    modsCursor.selectPath(namespace + "./mods:virr-book/mods:mods");
 //                    modsCursor.toNextSelection();
-//                    // System.out.println(modsCursor.xmlText());
+//                    System.out.println(modsCursor.xmlText());        
 //                    ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
-//                    mods = modsDoc.getMods();
-//                }
-//            }
+//                    System.out.println(mdr.xmlText());
+                    ModsDocument modsDoc = ModsDocument.Factory.parse(mdr.xmlText());
+                    mods = modsDoc.getMods();
+                }
+            }
             this.writeMETS.createDmdSec(mods, dmdId);
         }
         catch (Exception e)
         {
             this.logger.error("Creation of dmdSec for METS document failed.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -160,7 +185,6 @@ public class METSTransformation
         String url;
         String reference;
         String amdId = "amd1";
-        // TODO: Read this from properties
         owner = "Max Planck Institute for European Legal History ";
         logo = "http://www.mpier.uni-frankfurt.de/images/minerva_logo.gif ";
         url = "http://www.mpier.uni-frankfurt.de ";
@@ -236,7 +260,7 @@ public class METSTransformation
         catch (XmlException e)
         {
             this.logger.error("Creation of physical parts for METS document failed.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -316,7 +340,7 @@ public class METSTransformation
         catch (XmlException e)
         {
             this.logger.error("Creation of logical parts for METS document failed.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }

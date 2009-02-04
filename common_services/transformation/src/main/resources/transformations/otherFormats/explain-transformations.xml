@@ -2,12 +2,12 @@
 <Transformations xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/Transformation" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<Transformation>
 		<Source>
-			<Name>eSciDocToc</Name>
+			<Name>escidoc</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>mets</Name>
+			<Name>virr-mets</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>

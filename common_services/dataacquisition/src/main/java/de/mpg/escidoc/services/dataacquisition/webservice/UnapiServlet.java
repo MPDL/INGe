@@ -350,7 +350,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
     private String checkIdentifier(String identifier, String format)
     {
         identifier = identifier.toLowerCase().trim();
-        if (identifier.contains("escidoc:"))
+        if (identifier.contains("escidoc:") || identifier.contains("escidoctoc:"))
         {
             return this.idTypeEscidoc;
         }

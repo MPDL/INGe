@@ -308,7 +308,7 @@ public class DataHandlerBean implements DataHandler
             if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
-                item = this.fetchEjbRecord(identifier);
+                item = this.fetchEjbRecord(identifier, trgFormatName);
                 supportedProtocol = true;
             }
             if (importSource.getHarvestProtocol().toLowerCase().equals("http"))
@@ -672,11 +672,19 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private String fetchEjbRecord(String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    private String fetchEjbRecord(String identifier, String trgFormat) throws IdentifierNotRecognisedException, RuntimeException
     {
         try
         {
-            return ServiceLocator.getItemHandler().retrieve(identifier);
+            if (trgFormat.toLowerCase().equals("virr-mets"))
+            {
+                Login login = new Login();
+                return  ServiceLocator.getTocHandler(login.loginSysAdmin()).retrieve(identifier);
+            }
+            else
+            {
+                return ServiceLocator.getItemHandler().retrieve(identifier);
+            }           
         }
         catch (ItemNotFoundException e)
         {

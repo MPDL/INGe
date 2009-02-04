@@ -210,7 +210,7 @@ public class OtherFormatsTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
         
-        if (trgFormat.equals("mets"))
+        if (trgFormat.getName().equals("virr-mets"))
         {
             OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
             result = otherTrans.transformEscidocToMets(src, srcFormat, trgFormat, service);
