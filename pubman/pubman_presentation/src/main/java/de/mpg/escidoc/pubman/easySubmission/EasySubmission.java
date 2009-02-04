@@ -241,7 +241,7 @@ public class EasySubmission extends FacesBean
         this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation
-        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2))
+        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2) || this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
         {
             //this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem()
             // );
@@ -368,7 +368,16 @@ public class EasySubmission extends FacesBean
             }
         }
         // set the current submission step to step2
-        easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        if(contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1)
+        {
+        	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        }
+        else
+        {
+        	contextListSessionBean.getDepositorContextList().get(0).selectForEasySubmission();
+        	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+        	this.init();
+        }
         // set method to manual
         easySubmissionSessionBean.setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL);
         return "loadNewEasySubmission";
@@ -749,6 +758,13 @@ public class EasySubmission extends FacesBean
                     FormatVO formatVO = new FormatVO();
                     formatVO.setType("dcterms:IMT");
                     formatVO.setValue(file.getContentType());
+                    
+                    // correct several PDF Mime type errors manually
+                    if(file.getFilename() != null && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
+                    {
+                    	this.getFiles().get(indexUpload).getFile().setMimeType("application/pdf");
+                    	formatVO.setValue("application/pdf");
+                    }
 
                     this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getFormats().add(formatVO);
                     this.getFiles().get(indexUpload).getFile().setContent(contentURL);
