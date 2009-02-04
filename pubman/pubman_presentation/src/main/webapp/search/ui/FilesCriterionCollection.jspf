@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -38,47 +38,62 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
+    <tr:iterator var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" varStatus="index">
+
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<span class="large_area0 tiny_marginRIncl">
-					<span class="xLarge_checkbox">
-						<h:selectBooleanCheckbox id="fileCriterion_restrictedAccess" value="false" />
-						<h:outputLabel value="#{lbl.adv_search_fileRestrictedAccess}" for="fileCriterion_restrictedAccess" />
-					</span>
-					<span class="xLarge_checkbox">
-						<h:selectBooleanCheckbox id="fileCriterion_publicAvailable" value="false" />
-						<h:outputLabel value="#{lbl.adv_search_filePublicAvailable}" for="fileCriterion_publicAvailable" />
-					</span>
-				</span>
-				<span class="free_area0">
+				<span class="free_area0">  
+				    <span class="large_area0 tiny_marginRIncl">
+                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentAvailability}"/>
+                        
+                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
+                                <f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
+                            </h:selectOneMenu>
+                            
+                    </span>
+				    <span class="large_area0 tiny_marginRIncl">
+                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
+                        
+                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
+                                <f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
+                            </h:selectOneMenu>
+                            
+                    </span>
 					<span class="large_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
-<%--
-							<h:selectOneMenu styleClass="large_select replace" value=" !!!CONTENT CATEGORIES + 'all categories'!!! ">
-								<f:selectItems value="  " />
+						
+							<h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
+								<f:selectItems value="#{fileCriterionBean.contentCategories}" />
 							</h:selectOneMenu>
---%>
+							
 					</span>
 					<span class="large_checkbox toLabelInputBottom">
-						<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="false" />
+						<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{fileCriterionBean.fileCriterionVO.excludeCategory}" />
 						<h:outputLabel value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
 					</span>
 				</span>
 			</span>
+			<span class="large_area0_p8 lineToolSection">
+                    <tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
+                    <tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
+<%-- 
+                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+--%>
+            </span>
 		</h:panelGroup>
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 		<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-<%--
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value=" !!!PUT IN LOGIC OPERATOR PULLDOWN HERE!!! ">
-					<f:selectItems value=" !!!PUT IN LOGIC OPERATOR PULLDOWN VALUES HERE!!! "/>
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
+					<f:selectItems value="#{fileCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>		
---%>		
 		</h:panelGroup>
-
+ 
+       </tr:iterator>
+       
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>
 	</div>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderFiles}" /></a>

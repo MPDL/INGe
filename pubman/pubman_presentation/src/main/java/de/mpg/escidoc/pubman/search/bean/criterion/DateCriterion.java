@@ -168,8 +168,8 @@ public class DateCriterion extends Criterion
     }
     
     public  ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
-    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 	
     	
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 	
     	
     	if( isFromEmpty() == true ) {
     		// required field missing, return an empty criteria list

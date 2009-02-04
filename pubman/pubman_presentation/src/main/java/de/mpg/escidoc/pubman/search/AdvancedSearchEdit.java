@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.FileCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.GenreCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.IdentifierCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
@@ -65,8 +66,6 @@ public class AdvancedSearchEdit extends SearchResultList
     public static final String BEAN_NAME = "AdvancedSearchEdit";
     /** faces navigation string */
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
-    
-    private String languageString;
 
     // delegated internal collections
 	private AnyFieldCriterionCollection anyFieldCriterionCollection = null;
@@ -77,6 +76,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private SourceCriterionCollection sourceCriterionCollection = null;
     private EventCriterionCollection eventCriterionCollection = null;
     private IdentifierCriterionCollection identifierCriterionCollection = null;
+    private FileCriterionCollection fileCriterionCollection = null;
     private LanguageCriterionCollection languageCriterionCollection = null;
     
     private UIXIterator anyFieldCriterionIterator = new UIXIterator();
@@ -87,6 +87,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private UIXIterator eventCriterionIterator = new UIXIterator();
     private UIXIterator sourceCriterionIterator = new UIXIterator();
     private UIXIterator identifierCriterionIterator = new UIXIterator();
+    private UIXIterator fileCriterionIterator = new UIXIterator();
     private UIXIterator languageCriterionIterator = new UIXIterator();
     
     private String suggestConeUrl = null;
@@ -105,6 +106,7 @@ public class AdvancedSearchEdit extends SearchResultList
         sourceCriterionCollection = new SourceCriterionCollection();
         eventCriterionCollection = new EventCriterionCollection();
         identifierCriterionCollection = new IdentifierCriterionCollection();
+        fileCriterionCollection = new FileCriterionCollection();
         languageCriterionCollection = new LanguageCriterionCollection();
         
         this.init();
@@ -129,6 +131,7 @@ public class AdvancedSearchEdit extends SearchResultList
         sourceCriterionCollection = new SourceCriterionCollection();
         eventCriterionCollection = new EventCriterionCollection();
         identifierCriterionCollection = new IdentifierCriterionCollection();
+        fileCriterionCollection = new FileCriterionCollection();
         languageCriterionCollection = new LanguageCriterionCollection();
     }
 
@@ -147,6 +150,7 @@ public class AdvancedSearchEdit extends SearchResultList
         sourceCriterionCollection.clearAllForms();
         eventCriterionCollection.clearAllForms();
         identifierCriterionCollection.clearAllForms();
+        fileCriterionCollection.clearAllForms();
         languageCriterionCollection.clearAllForms();
         return null;
 	}
@@ -171,6 +175,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionList.addAll( sourceCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( eventCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( identifierCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( fileCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
     	
     	 //start the advanced search in the PubItemSearching interface
@@ -183,8 +188,11 @@ public class AdvancedSearchEdit extends SearchResultList
     		return "";
     	}
     	
+    	
+    	
     	// transform the criteria to searchCriteria
     	try {
+    	    
     		// transform first element
         	ArrayList<MetadataSearchCriterion> subset = transformToSearchCriteria( 
     				null, criterionList.get( 0 ) );
@@ -196,12 +204,14 @@ public class AdvancedSearchEdit extends SearchResultList
     			searchCriteria.addAll( sub );	
     		}
     		
-    		
-    		
-            //search only for items
-            searchCriteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
-                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
-            
+    		if(fileCriterionCollection.getFilledCriterion().size() == 0)
+    		{
+    		    //search only for items
+    		    searchCriteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
+                    "item", LogicalOperator.AND ) );  
+    		}
+  
+            // add the contentType to the query
             ArrayList<String> contentTypes = new ArrayList<String>();
             String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
             contentTypes.add( contentTypeIdPublication );
@@ -222,7 +232,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	
         return "";
     }
-    
+
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
     	( Criterion predecessor, Criterion transformMe ) throws TechnicalException {
     	
@@ -230,7 +240,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	if( predecessor == null ) {
     		ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
     		if( results.size() != 0 ) {
-    			// set the first logicaloperator as unset as there is no predecessor
+    			// set the first logicaloperator to connect it to the 'item' criteria
     			results.get( 0 ).setLogicalOperator( LogicalOperator.UNSET );
     		}
     		return results;
@@ -437,5 +447,25 @@ public class AdvancedSearchEdit extends SearchResultList
     public void setSuggestConeUrl(String suggestConeUrl)
     {
         this.suggestConeUrl = suggestConeUrl;
+    }
+    
+    public FileCriterionCollection getFileCriterionCollection()
+    {
+        return fileCriterionCollection;
+    }
+
+    public void setFileCriterionCollection(FileCriterionCollection fileCriterionCollection)
+    {
+        this.fileCriterionCollection = fileCriterionCollection;
+    }
+
+    public UIXIterator getFileCriterionIterator()
+    {
+        return fileCriterionIterator;
+    }
+
+    public void setFileCriterionIterator(UIXIterator fileCriterionIterator)
+    {
+        this.fileCriterionIterator = fileCriterionIterator;
     }
 }

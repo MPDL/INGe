@@ -80,6 +80,26 @@ public class InternationalizationHelper
         SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
     }
     
+    /**
+     * Enum for component visibility in the advanced search
+     * @author endres
+     *
+     */
+    public enum SelectComponentAvailability
+    {
+        SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS 
+    }
+    
+   /**
+    * Enum for component acccessability in the advanced search
+    * @author endres
+    *
+    */
+    public enum SelectComponentVisibility
+    {
+        SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC
+    }
+    
     Locale userLocale;
 
     public InternationalizationHelper()
@@ -477,4 +497,26 @@ public class InternationalizationHelper
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
+	
+	/**
+	 * Returns an array of SelectItems for the enum {@link SelectComponentAvailability}
+	 * @return array of SelectItems for SelectComponentAvailability
+	 */
+	public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry)
+	{
+	   InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
+	   return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+	}
+	
+	/**
+     * Returns an array of SelectItems for the enum {@link SelectComponentAccessability}
+     * @return array of SelectItems for SelectComponentAccessability
+     */
+    public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry)
+    {
+        InternationalizationHelper.SelectComponentVisibility[] values = InternationalizationHelper.SelectComponentVisibility.values();
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    
 }
