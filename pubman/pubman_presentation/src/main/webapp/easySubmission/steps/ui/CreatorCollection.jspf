@@ -52,11 +52,8 @@
 						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EasySubmission.overwriteCreators}" />	
 						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 					</span>
-					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />
 				</span>
 			</h:panelGroup>
-
-
 
 <%-- Copy&Paste Organisations for Authors --%>
 
@@ -91,7 +88,9 @@
 				</h:panelGroup>
 				</h:column>
 			</h:dataTable>
-		
+			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
+				<h:commandButton styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />
+			</h:panelGroup>
 	</h:panelGroup>
 	<h:dataTable styleClass="free_area0"  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
     	<h:column>
