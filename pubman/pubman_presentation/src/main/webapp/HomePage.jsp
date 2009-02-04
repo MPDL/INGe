@@ -96,6 +96,28 @@
 					</div>
 					<div class="full_area0">
 						<div class="full_area0 infoPage">
+							<!-- Main Content -->
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="true">
+								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
+							</h:panelGroup>
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="false">
+								<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
+							</h:panelGroup>
+
+							<!-- Side Panels -->
+							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="true">
+								<jsp:directive.include file="home/News.jspf" />
+							</h:panelGroup>
+							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="true">
+								<jsp:directive.include file="home/LastSubmitted.jspf" />
+							</h:panelGroup>
+							
+						</div>	
+					</div>
+
+<!-- Tut mir leid Rike aber ich hatte grad keinen Nerv mehr das jetzt noch irgendwie umzumodeln - ich hoffe/denke Du bekommst das schon hin!
+					<div class="full_area0">
+						<div class="full_area0 infoPage">
 							<h:panelGroup  rendered="#{PubManSessionBean.locale=='en'}">
 								<span class="half_area0_p8 mainSection">
 									<jsp:directive.include file="home/ReleaseNotes_en.jspf"/>	
@@ -119,7 +141,8 @@
 								
 							</div>		
 							
-						</div>	
+						</div>
+-->
 					</div>
 				<!-- 	<jsp:directive.include file="home/ReleaseNotes.jspf" />   -->
 				<!-- end: content section -->

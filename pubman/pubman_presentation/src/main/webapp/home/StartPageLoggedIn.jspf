@@ -1,0 +1,65 @@
+<jsp:scriptlet>
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+</jsp:scriptlet>
+
+<!-- BEGIN Copy&paste the ReleaseNotes here -->
+<h2>
+WELCOME TO PUBMAN - WHAT DO YOU WANT TO WORK ON TODAY?
+</h2>
+<span class="small_area0">&#160;</span>
+<span class="xDouble_area0">
+<h3>Submission</h3>
+<p>Enter a new Publication to PubMan?</p>
+... by using the <a>Easy Submission method</a><br />
+... by <a>Data Import</a><br />
+... by using the <a>Full Submission method</a><br />
+</span>
+<span class="small_area0">&#160;</span>
+<span class="xDouble_area0">
+<h3>My Items</h3>
+<p>Finish your data submissions or check if your items have been already released to the public...?</p>
+</span>
+<span class="small_area0">&#160;</span>
+<span class="xDouble_area0">
+<h3>QA Workspace</h3>
+<p>Fullfill your job as moderator.</p>
+</span>
+
+<h2>
+Help and further information
+</h2>
+<h3>Helpful videos</h3>
+<ul>
+	<li>video on <a>how to submit data</a></li>
+	<li>video on <a>usage of My items</a></li>
+	<li>video on <a>usage of QA workspace</a></li>
+</ul>
+
+
+<!-- END Copy&paste the ReleaseNotes here -->

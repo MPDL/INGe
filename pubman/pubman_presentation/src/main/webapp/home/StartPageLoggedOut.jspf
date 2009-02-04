@@ -1,0 +1,57 @@
+<jsp:scriptlet>
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+</jsp:scriptlet>
+
+<!-- BEGIN Copy&paste the ReleaseNotes here -->
+<h2>
+PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
+</h2>
+<p>PubMan supports scientists and institutes in the management and the digital curation of their publications.</p>
+<p>This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, customization and configuration options throughout the solution's features are of major importance.</p>
+<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan">(read more on CoLab)</a>
+<h3>Search for publications here</h3>
+<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+	<span class="quickSearchMenu">
+		<input class="large_txtInput quickSearchTextInput" type="text">
+	</span>
+	<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+</p>
+<br />
+<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
+<h2>
+Short PubMan Introduction Video
+</h2>
+<a href=""><img src="" class="huge"/></a>
+<h2>
+PubMan interfaces
+</h2>
+<span>Various technical interfaces are implemented and can be found under:</span>
+<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/PubMan_Interfaces</a>
+
+<!-- END Copy&paste the ReleaseNotes here -->
