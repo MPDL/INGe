@@ -161,35 +161,38 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
-     * Returns all Languages from Cone Service, with "de" and "en" at the first positions.
-     * @return all OLanguages from Cone Service, with "de" and "en" at the first positions
+     * Returns all Languages from Cone Service, with "de","en" and "ja" at the first positions.
+     * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
      */
     public static SelectItem[] getLanguageOptions()
     {
         Object[] coneLanguages = CommonUtils.getConeLanguages();
 
-        SelectItem[] options = new SelectItem[coneLanguages.length + 4];
+        SelectItem[] options = new SelectItem[coneLanguages.length + 5];
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (CommonUtils.localLang.equals("de"))
         {
             options[1] = new SelectItem("en", "en - Englisch");  
             options[2] = new SelectItem("de", "de - Deutsch");  
+            options[3] = new SelectItem("ja", "ja - Japanisch"); 
         }
         if (CommonUtils.localLang.equals("en"))
         {
             options[1] = new SelectItem("en", "en - English");  
             options[2] = new SelectItem("de", "de - German");  
+            options[3] = new SelectItem("ja", "ja - Japanese"); 
         }
         if (CommonUtils.localLang.equals("fr"))
         {
             options[1] = new SelectItem("en", "en - Anglais");  
             options[2] = new SelectItem("de", "de - Allemand");  
+            options[3] = new SelectItem("ja", "ja - Japonais"); 
         }
-        options[3] = new SelectItem("", NO_ITEM_SET);
+        options[4] = new SelectItem("", NO_ITEM_SET);
 
         for (int i = 0; i < coneLanguages.length; i++)
         {
-            options[i + 4] = new SelectItem(coneLanguages[i].toString().split(" - ")[0], coneLanguages[i].toString());  
+            options[i + 5] = new SelectItem(coneLanguages[i].toString().split(" - ")[0], coneLanguages[i].toString());  
         }
 
         return options;
