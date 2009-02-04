@@ -32,18 +32,22 @@ package de.mpg.escidoc.pubman.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -746,6 +750,23 @@ public class CommonUtils extends InternationalizedImpl
             return false;
         }
         return valid;
+    }
+    
+    public static Map<String, String> getDecodedUrlParameterMap(String query) throws UnsupportedEncodingException
+    {
+        String[] parameters = query.split("&");
+        Map<String, String> parameterMap = new HashMap<String, String>();
+        for( String param : parameters )
+        {
+            String[] keyValueParts = param.split("=");
+            if (keyValueParts.length==1)
+            {
+                keyValueParts = new String[]{keyValueParts[0],""};
+            }
+            parameterMap.put(keyValueParts[0], URLDecoder.decode(keyValueParts[1], "UTF-8"));
+            
+        }
+        return parameterMap;
     }
     
 }

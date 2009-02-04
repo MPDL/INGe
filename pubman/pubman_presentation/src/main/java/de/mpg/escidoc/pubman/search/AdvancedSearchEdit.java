@@ -221,7 +221,8 @@ public class AdvancedSearchEdit extends SearchResultList
             String cql = query.getCqlQuery();
             
             //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
+            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
+       
     	}
     	catch(Exception e ) {
     		logger.error("Could not transform advanced search criteria", e);

@@ -1,10 +1,15 @@
 package de.mpg.escidoc.pubman.search;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
@@ -12,6 +17,7 @@ import org.apache.axis.types.PositiveInteger;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
@@ -105,7 +111,26 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public void readOutParameters()
     {
-        String cql = getExternalContext().getRequestParameterMap().get(parameterCqlQuery);
+        HttpServletRequest request = (HttpServletRequest) getExternalContext().getRequest();
+        
+        // the following procedure is necessary because of the strange decoding in tomcat, when you fetch the 
+        // parameters with the getParameter method. Japanese characters are decoded to a ISO format and this
+        // messes up the characters. Therefore we take the complete query string, which is not decoded, extract the cql parameter
+        // and decode it with UrlDecode.
+        Map<String, String> paramMap = null;
+        try
+        {
+            paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
+        } catch (UnsupportedEncodingException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
+        String cql = paramMap.get(parameterCqlQuery);
+     
+        
         if (cql==null || cql.equals(""))
         {
             setCqlQuery("");
@@ -118,7 +143,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         
              
-        String searchType = getExternalContext().getRequestParameterMap().get(parameterSearchType);
+        String searchType = paramMap.get(parameterSearchType);
         if (searchType==null)
         {
             setSearchType("simple");
