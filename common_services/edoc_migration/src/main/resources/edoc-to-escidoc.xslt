@@ -134,7 +134,7 @@
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>private</prop:visibility>
 				<xsl:choose>
-					<xsl:when test="@viewftext='PUBLIC'">
+					<xsl:when test="not(@viewftext='PUBLIC')">
 						<prop:content-category>publisher-version</prop:content-category>						
 					</xsl:when>
 					<xsl:otherwise>
@@ -398,7 +398,7 @@
 			<!-- TOC -->
 			<xsl:apply-templates select="toc"/>
 			<!-- REVIEW METHOD -->
-			<xsl:apply-templates select="reviewType"/>
+			<xsl:apply-templates select="refereed"/>
 			<!-- SOURCE -->
 			<xsl:choose>
 				<xsl:when test="journaltitle">
@@ -622,20 +622,20 @@
 	
 	<!-- BOOK TEMPLATE -->	
 	<xsl:template name="createBook">
-		<!-- TITLE -->		
+		<!-- TITLE -->
 		<xsl:if test="booktitle">					
 			<xsl:attribute name="type" select="'book'"/>
 			<xsl:element name="dc:title">
-				<xsl:value-of select="booktitle"/>						
+				<xsl:value-of select="booktitle"/>
 			</xsl:element>		
-		</xsl:if>		
-		<!-- CREATOR -->	
-		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">				
+		</xsl:if>
+		<!-- CREATOR -->
+		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
 			<xsl:element name="e:creator">
 				<xsl:call-template name="createCreator"/>					
 			</xsl:element>
 		</xsl:for-each>
-		<xsl:apply-templates select="bookcorporatebody"/>		
+		<xsl:apply-templates select="bookcorporatebody"/>
 		<!-- VOLUME -->
 		<xsl:if test="not(exists(titleofseries))">
 			<xsl:apply-templates select="volume"/>
@@ -646,10 +646,10 @@
 		<xsl:apply-templates select="epage"/>
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
-		<!--NUMBER OF PAGES -->		
-		<xsl:if test="phydesc and exists(booktitle)"> 			
+		<!--NUMBER OF PAGES -->
+		<xsl:if test="phydesc and exists(booktitle)">
 			<xsl:call-template name="phydescSource"/>					
-		</xsl:if>		
+		</xsl:if>
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="e:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
@@ -1008,24 +1008,24 @@
 	
 	
 	<!-- REVIEW-METHOD TEMPLATE -->
-	<xsl:template match="reviewType">
+	<xsl:template match="refereed">
 		<xsl:choose>
 			<xsl:when test="../genre='Article' and exists(../journaltitle)">
 				<xsl:element name="mdp:review-method">
-					<xsl:value-of select="'peer review'"/>
+					<xsl:value-of>peer review</xsl:value-of>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="reviewType='joureview'">
+			<xsl:when test="refereed='joureview'">
 				<xsl:element name="mdp:review-method">
 					<xsl:value-of select="'peer'"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="reviewType='notrev'">
+			<xsl:when test="refereed='notrev'">
 				<xsl:element name="mdp:review-method">
 					<xsl:value-of select="'no review'"/>
 				</xsl:element>
 			</xsl:when>
-			<xsl:when test="reviewType='intrev'">
+			<xsl:when test="refereed='intrev'">
 				<xsl:element name="mdp:review-method">
 					<xsl:value-of select="'internal'"/>
 				</xsl:element>
