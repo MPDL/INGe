@@ -129,7 +129,7 @@
 				<structure name="file" ns="${xsd.metadata.file}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
 				<!-- Faces -->
-				<!-- <structure name="jhove" ns="http://hul.harvard.edu/ois/xml/ns/jhove" usage="optional" ordered="false" flexible="true"/>-->
+				<structure name="jhove" map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO" usage="optional" ordered="false" flexible="true"/>
 		
 		</collection>
 

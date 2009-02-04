@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+		xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
+	<escidocItem:properties>
+		<prop:creation-date>2009-02-02T18:10:33.24Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user42" />
+		<prop:public-status>released</prop:public-status>
+		<prop:public-status-comment>Release Comment.</prop:public-status-comment>
+		<srel:context objid="escidoc:2001" />
+		<srel:content-model objid="escidoc:faces40" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:pid>hdl:someHandle/test/escidoc:176155</prop:pid>
+		<prop:version objid="escidoc:176155:2">
+			<version:number>2</version:number>
+			<version:date>2009-02-02T18:13:00.853Z</version:date>
+			<version:status>released</version:status>
+			<srel:modified-by objid="escidoc:user42" />
+			<version:comment>Release Comment.</version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:176155</version:pid>
+		</prop:version>
+		<prop:latest-version objid="escidoc:176155:2">
+			<version:number>2</version:number>
+			<version:date>2009-02-02T18:13:00.853Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release objid="escidoc:176155:2">
+			<release:number>2</release:number>
+			<release:date>2009-02-02T18:12:58.790Z</release:date>
+			<release:pid>hdl:someHandle/test/escidoc:176155</release:pid>
+		</prop:latest-release>
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record name="escidoc">
+			<face-item>
+				<emotion>disgust</emotion>
+				<picture-group>a</picture-group>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">004</dc:identifier>
+				<age>70</age>
+				<age-group>old</age-group>
+				<gender>male</gender>
+			</face-item>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+	<escidocComponents:components>
+		<escidocComponents:component
+				objid="escidoc:176158">
+			<escidocComponents:properties>
+				<prop:creation-date>2009-02-02T18:10:33.154Z</prop:creation-date>
+				<srel:created-by objid="escidoc:user42" />
+				<prop:description>high resolution</prop:description>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>high resolution</prop:content-category>
+				<prop:file-name>004_o_m_d_a_high_resolution.jpg</prop:file-name>
+			</escidocComponents:properties>
+			<escidocComponents:content
+					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_high_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176158/content" storage="internal-managed"/>
+			<escidocMetadataRecords:md-records>
+				<escidocMetadataRecords:md-record name="escidoc">
+					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_high_resolution.jpg</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">high resolution</dc:description>
+						<file:content-category>high resolution</file:content-category>
+						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">1086756</dcterms:extent>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+				<escidocMetadataRecords:md-record name="technical-md">
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T19:12:49+01:00</date>
+						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176158/content">
+							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
+							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
+							<size>1099182</size>
+							<format>JPEG</format>
+							<version>1.02</version>
+							<status>Well-Formed and valid</status>
+							<sigMatch>
+								<module>JPEG-hul</module>
+							</sigMatch>
+							<messages>
+								<message offset="42" severity="info">Value offset not word-aligned: 195</message>
+							</messages>
+							<mimeType>image/jpeg</mimeType>
+							<profiles>
+								<profile>JFIF</profile>
+							</profiles>
+							<properties>
+								<property>
+									<name>JPEGMetadata</name>
+									<values arity="List" type="Property">
+										<property>
+											<name>CompressionType</name>
+											<values arity="Scalar" type="String">
+												<value>Huffman coding, Baseline DCT</value>
+											</values>
+										</property>
+										<property>
+											<name>Images</name>
+											<values arity="List" type="Property">
+												<property>
+													<name>Number</name>
+													<values arity="Scalar" type="Integer">
+														<value>1</value>
+													</values>
+												</property>
+												<property>
+													<name>Image</name>
+													<values arity="List" type="Property">
+														<property>
+															<name>NisoImageMetadata</name>
+															<values arity="Scalar" type="NISOImageMetadata">
+																<value>
+																	<mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+																		<mix:BasicImageParameters>
+																			<mix:Format>
+																				<mix:MIMEType>image/jpeg</mix:MIMEType>
+																				<mix:ByteOrder>big-endian</mix:ByteOrder>
+																				<mix:Compression>
+																					<mix:CompressionScheme>6</mix:CompressionScheme>
+																				</mix:Compression>
+																				<mix:PhotometricInterpretation>
+																					<mix:ColorSpace>6</mix:ColorSpace>
+																				</mix:PhotometricInterpretation>
+																			</mix:Format>
+																		</mix:BasicImageParameters>
+																		<mix:ImageCreation>
+																			<mix:ScanningSystemCapture>
+																				<mix:ScanningSystemHardware>
+																					<mix:ScannerManufacturer>SONY</mix:ScannerManufacturer>
+																				</mix:ScanningSystemHardware>
+																			</mix:ScanningSystemCapture>
+																		</mix:ImageCreation>
+																		<mix:ImagingPerformanceAssessment>
+																			<mix:SpatialMetrics>
+																				<mix:SamplingFrequencyUnit>2</mix:SamplingFrequencyUnit>
+																				<mix:XSamplingFrequency>300</mix:XSamplingFrequency>
+																				<mix:YSamplingFrequency>300</mix:YSamplingFrequency>
+																				<mix:ImageWidth>2835</mix:ImageWidth>
+																				<mix:ImageLength>3543</mix:ImageLength>
+																			</mix:SpatialMetrics>
+																			<mix:Energetics>
+																				<mix:BitsPerSample>8,8,8</mix:BitsPerSample>
+																				<mix:SamplesPerPixel>3</mix:SamplesPerPixel>
+																			</mix:Energetics>
+																		</mix:ImagingPerformanceAssessment>
+																	</mix:mix>
+																</value>
+															</values>
+														</property>
+														<property>
+															<name>RestartInterval</name>
+															<values arity="Scalar" type="Integer">
+																<value>355</value>
+															</values>
+														</property>
+														<property>
+															<name>Scans</name>
+															<values arity="Scalar" type="Integer">
+																<value>1</value>
+															</values>
+														</property>
+														<property>
+															<name>QuantizationTables</name>
+															<values arity="List" type="Property">
+																<property>
+																	<name>QuantizationTable</name>
+																	<values arity="Array" type="Property">
+																		<property>
+																			<name>Precision</name>
+																			<values arity="Scalar" type="String">
+																				<value>8-bit</value>
+																			</values>
+																		</property>
+																		<property>
+																			<name>DestinationIdentifier</name>
+																			<values arity="Scalar" type="Integer">
+																				<value>0</value>
+																			</values>
+																		</property>
+																	</values>
+																</property>
+															</values>
+														</property>
+														<property>
+															<name>XMP</name>
+															<values arity="Scalar" type="String">
+																<value>&lt;x:xmpmeta xmlns:x=&apos;adobe:ns:meta/&apos; x:xmptk=&apos;XMP toolkit 3.0-28, framework 1.6&apos;&gt;
+&lt;rdf:RDF xmlns:rdf=&apos;http://www.w3.org/1999/02/22-rdf-syntax-ns#&apos; xmlns:iX=&apos;http://ns.adobe.com/iX/1.0/&apos;&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:exif=&apos;http://ns.adobe.com/exif/1.0/&apos;&gt;
+  &lt;exif:ExposureTime&gt;10/6400&lt;/exif:ExposureTime&gt;
+  &lt;exif:FNumber&gt;71/10&lt;/exif:FNumber&gt;
+  &lt;exif:ExposureProgram&gt;1&lt;/exif:ExposureProgram&gt;
+  &lt;exif:ExifVersion&gt;0220&lt;/exif:ExifVersion&gt;
+  &lt;exif:DateTimeOriginal&gt;2005-12-15T11:32:48+01:00&lt;/exif:DateTimeOriginal&gt;
+  &lt;exif:DateTimeDigitized&gt;2005-12-15T11:32:48+01:00&lt;/exif:DateTimeDigitized&gt;
+  &lt;exif:CompressedBitsPerPixel&gt;8/1&lt;/exif:CompressedBitsPerPixel&gt;
+  &lt;exif:ExposureBiasValue&gt;0/10&lt;/exif:ExposureBiasValue&gt;
+  &lt;exif:MaxApertureValue&gt;33/16&lt;/exif:MaxApertureValue&gt;
+  &lt;exif:MeteringMode&gt;5&lt;/exif:MeteringMode&gt;
+  &lt;exif:LightSource&gt;255&lt;/exif:LightSource&gt;
+  &lt;exif:FocalLength&gt;281/10&lt;/exif:FocalLength&gt;
+  &lt;exif:FlashpixVersion&gt;0100&lt;/exif:FlashpixVersion&gt;
+  &lt;exif:ColorSpace&gt;1&lt;/exif:ColorSpace&gt;
+  &lt;exif:PixelXDimension&gt;2835&lt;/exif:PixelXDimension&gt;
+  &lt;exif:PixelYDimension&gt;3543&lt;/exif:PixelYDimension&gt;
+  &lt;exif:FileSource&gt;3&lt;/exif:FileSource&gt;
+  &lt;exif:SceneType&gt;1&lt;/exif:SceneType&gt;
+  &lt;exif:CustomRendered&gt;0&lt;/exif:CustomRendered&gt;
+  &lt;exif:ExposureMode&gt;1&lt;/exif:ExposureMode&gt;
+  &lt;exif:WhiteBalance&gt;1&lt;/exif:WhiteBalance&gt;
+  &lt;exif:SceneCaptureType&gt;0&lt;/exif:SceneCaptureType&gt;
+  &lt;exif:Contrast&gt;0&lt;/exif:Contrast&gt;
+  &lt;exif:Saturation&gt;0&lt;/exif:Saturation&gt;
+  &lt;exif:Sharpness&gt;0&lt;/exif:Sharpness&gt;
+  &lt;exif:ISOSpeedRatings&gt;
+   &lt;rdf:Seq&gt;
+    &lt;rdf:li&gt;64&lt;/rdf:li&gt;
+   &lt;/rdf:Seq&gt;
+  &lt;/exif:ISOSpeedRatings&gt;
+  &lt;exif:Flash rdf:parseType=&apos;Resource&apos;&gt;
+   &lt;exif:Fired&gt;True&lt;/exif:Fired&gt;
+   &lt;exif:Return&gt;0&lt;/exif:Return&gt;
+   &lt;exif:Mode&gt;1&lt;/exif:Mode&gt;
+   &lt;exif:Function&gt;False&lt;/exif:Function&gt;
+   &lt;exif:RedEyeMode&gt;False&lt;/exif:RedEyeMode&gt;
+  &lt;/exif:Flash&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:pdf=&apos;http://ns.adobe.com/pdf/1.3/&apos;&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:photoshop=&apos;http://ns.adobe.com/photoshop/1.0/&apos;&gt;
+  &lt;photoshop:History&gt;&lt;/photoshop:History&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:tiff=&apos;http://ns.adobe.com/tiff/1.0/&apos;&gt;
+  &lt;tiff:Make&gt;SONY&lt;/tiff:Make&gt;
+  &lt;tiff:Model&gt;DSC-F828&lt;/tiff:Model&gt;
+  &lt;tiff:Orientation&gt;1&lt;/tiff:Orientation&gt;
+  &lt;tiff:XResolution&gt;300/1&lt;/tiff:XResolution&gt;
+  &lt;tiff:YResolution&gt;300/1&lt;/tiff:YResolution&gt;
+  &lt;tiff:ResolutionUnit&gt;2&lt;/tiff:ResolutionUnit&gt;
+  &lt;tiff:YCbCrPositioning&gt;2&lt;/tiff:YCbCrPositioning&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:xap=&apos;http://ns.adobe.com/xap/1.0/&apos;&gt;
+  &lt;xap:CreateDate&gt;2005-12-15T11:32:48+01:00&lt;/xap:CreateDate&gt;
+  &lt;xap:ModifyDate&gt;2007-02-28T02:34:05+01:00&lt;/xap:ModifyDate&gt;
+  &lt;xap:MetadataDate&gt;2007-02-28T02:34:05+01:00&lt;/xap:MetadataDate&gt;
+  &lt;xap:CreatorTool&gt;Adobe Photoshop CS Windows&lt;/xap:CreatorTool&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:xapMM=&apos;http://ns.adobe.com/xap/1.0/mm/&apos;&gt;
+  &lt;xapMM:DocumentID&gt;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&lt;/xapMM:DocumentID&gt;
+ &lt;/rdf:Description&gt;
+ &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
+  xmlns:dc=&apos;http://purl.org/dc/elements/1.1/&apos;&gt;
+  &lt;dc:format&gt;image/jpeg&lt;/dc:format&gt;
+  &lt;dc:description&gt;
+   &lt;rdf:Alt&gt;
+    &lt;rdf:li xml:lang=&apos;x-default&apos;&gt;                               &lt;/rdf:li&gt;
+   &lt;/rdf:Alt&gt;
+  &lt;/dc:description&gt;
+ &lt;/rdf:Description&gt;
+&lt;/rdf:RDF&gt;
+&lt;/x:xmpmeta&gt;</value>
+															</values>
+														</property>
+													</values>
+												</property>
+											</values>
+										</property>
+										<property>
+											<name>ApplicationSegments</name>
+											<values arity="List" type="String">
+												<value>APP0</value>
+												<value>APP1</value>
+												<value>APP13</value>
+												<value>APP1</value>
+												<value>APP2</value>
+												<value>APP14</value>
+											</values>
+										</property>
+									</values>
+								</property>
+							</properties>
+						</repInfo>
+					</jhove>
+				</escidocMetadataRecords:md-record>
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+		<escidocComponents:component
+				objid="escidoc:176156">
+			<escidocComponents:properties>
+				<prop:creation-date>2009-02-02T18:10:33.012Z</prop:creation-date>
+				<srel:created-by objid="escidoc:user42" />
+				<prop:description>web resolution</prop:description>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>web resolution</prop:content-category>
+				<prop:file-name>004_o_m_d_a_web_resolution.jpg</prop:file-name>
+			</escidocComponents:properties>
+			<escidocComponents:content
+					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_web_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176156/content" storage="internal-managed"/>
+			<escidocMetadataRecords:md-records>
+				<escidocMetadataRecords:md-record name="escidoc">
+					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_web_resolution.jpg</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">web resolution</dc:description>
+						<file:content-category>web resolution</file:content-category>
+						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">59723</dcterms:extent>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+				<escidocMetadataRecords:md-record name="technical-md">
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T19:12:50+01:00</date>
+						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176156/content">
+							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
+							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
+							<size>60698</size>
+							<format>JPEG</format>
+							<version>1.02</version>
+							<status>Well-Formed and valid</status>
+							<sigMatch>
+								<module>JPEG-hul</module>
+							</sigMatch>
+							<messages>
+								<message offset="42" severity="info">Value offset not word-aligned: 195</message>
+							</messages>
+							<mimeType>image/jpeg</mimeType>
+							<profiles>
+								<profile>JFIF</profile>
+							</profiles>
+							<properties>
+								<property>
+									<name>JPEGMetadata</name>
+									<values arity="List" type="Property">
+										<property>
+											<name>CompressionType</name>
+											<values arity="Scalar" type="String">
+												<value>Huffman coding, Baseline DCT</value>
+											</values>
+										</property>
+										<property>
+											<name>Images</name>
+											<values arity="List" type="Property">
+												<property>
+													<name>Number</name>
+													<values arity="Scalar" type="Integer">
+														<value>1</value>
+													</values>
+												</property>
+												<property>
+													<name>Image</name>
+													<values arity="List" type="Property">
+														<property>
+															<name>NisoImageMetadata</name>
+															<values arity="Scalar" type="NISOImageMetadata">
+																<value>
+																	<mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+																		<mix:BasicImageParameters>
+																			<mix:Format>
+																				<mix:MIMEType>image/jpeg</mix:MIMEType>
+																				<mix:ByteOrder>big-endian</mix:ByteOrder>
+																				<mix:Compression>
+																					<mix:CompressionScheme>6</mix:CompressionScheme>
+																				</mix:Compression>
+																				<mix:PhotometricInterpretation>
+																					<mix:ColorSpace>6</mix:ColorSpace>
+																				</mix:PhotometricInterpretation>
+																			</mix:Format>
+																		</mix:BasicImageParameters>
+																		<mix:ImageCreation>
+																			<mix:ScanningSystemCapture>
+																				<mix:ScanningSystemHardware>
+																					<mix:ScannerManufacturer>SONY</mix:ScannerManufacturer>
+																				</mix:ScanningSystemHardware>
+																			</mix:ScanningSystemCapture>
+																		</mix:ImageCreation>
+																		<mix:ImagingPerformanceAssessment>
+																			<mix:SpatialMetrics>
+																				<mix:SamplingFrequencyUnit>2</mix:SamplingFrequencyUnit>
+																				<mix:XSamplingFrequency>300</mix:XSamplingFrequency>
+																				<mix:YSamplingFrequency>300</mix:YSamplingFrequency>
+																				<mix:ImageWidth>335</mix:ImageWidth>
+																				<mix:ImageLength>419</mix:ImageLength>
+																			</mix:SpatialMetrics>
+																			<mix:Energetics>
+																				<mix:BitsPerSample>8,8,8</mix:BitsPerSample>
+																				<mix:SamplesPerPixel>3</mix:SamplesPerPixel>
+																			</mix:Energetics>
+																		</mix:ImagingPerformanceAssessment>
+																	</mix:mix>
+																</value>
+															</values>
+														</property>
+														<property>
+															<name>RestartInterval</name>
+															<values arity="Scalar" type="Integer">
+																<value>42</value>
+															</values>
+														</property>
+														<property>
+															<name>Scans</name>
+															<values arity="Scalar" type="Integer">
+																<value>1</value>
+															</values>
+														</property>
+														<property>
+															<name>QuantizationTables</name>
+															<values arity="List" type="Property">
+																<property>
+																	<name>QuantizationTable</name>
+																	<values arity="Array" type="Property">
+																		<property>
+																			<name>Precision</name>
+																			<values arity="Scalar" type="String">
+																				<value>8-bit</value>
+																			</values>
+																		</property>
+																		<property>
+																			<name>DestinationIdentifier</name>
+																			<values arity="Scalar" type="Integer">
+																				<value>0</value>
+																			</values>
+																		</property>
+																	</values>
+																</property>
+															</values>
+														</property>
+														<property>
+															<name>XMP</name>
+															<values arity="Scalar" type="String">
+																<value>&lt;x:xmpmeta xmlns:x=&quot;adobe:ns:meta/&quot; x:xmptk=&quot;Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        &quot;&gt; &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt; &lt;rdf:Description rdf:about=&quot;&quot; xmlns:exif=&quot;http://ns.adobe.com/exif/1.0/&quot; xmlns:tiff=&quot;http://ns.adobe.com/tiff/1.0/&quot; xmlns:xap=&quot;http://ns.adobe.com/xap/1.0/&quot; xmlns:xapMM=&quot;http://ns.adobe.com/xap/1.0/mm/&quot; xmlns:stRef=&quot;http://ns.adobe.com/xap/1.0/sType/ResourceRef#&quot; xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:photoshop=&quot;http://ns.adobe.com/photoshop/1.0/&quot; exif:ExposureTime=&quot;10/6400&quot; exif:FNumber=&quot;71/10&quot; exif:ExposureProgram=&quot;1&quot; exif:ExifVersion=&quot;0220&quot; exif:DateTimeOriginal=&quot;2005-12-15T11:32:48+01:00&quot; exif:DateTimeDigitized=&quot;2005-12-15T11:32:48+01:00&quot; exif:CompressedBitsPerPixel=&quot;8/1&quot; exif:ExposureBiasValue=&quot;0/10&quot; exif:MaxApertureValue=&quot;33/16&quot; exif:MeteringMode=&quot;5&quot; exif:LightSource=&quot;255&quot; exif:FocalLength=&quot;281/10&quot; exif:FlashpixVersion=&quot;0100&quot; exif:ColorSpace=&quot;1&quot; exif:PixelXDimension=&quot;335&quot; exif:PixelYDimension=&quot;419&quot; exif:FileSource=&quot;3&quot; exif:SceneType=&quot;1&quot; exif:CustomRendered=&quot;0&quot; exif:ExposureMode=&quot;1&quot; exif:WhiteBalance=&quot;1&quot; exif:SceneCaptureType=&quot;0&quot; exif:Contrast=&quot;0&quot; exif:Saturation=&quot;0&quot; exif:Sharpness=&quot;0&quot; exif:NativeDigest=&quot;36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;75E5C73763A0AC516F06147F94EAA817&quot; tiff:Make=&quot;SONY&quot; tiff:Model=&quot;DSC-F828&quot; tiff:Orientation=&quot;1&quot; tiff:XResolution=&quot;3000000/10000&quot; tiff:YResolution=&quot;3000000/10000&quot; tiff:ResolutionUnit=&quot;2&quot; tiff:YCbCrPositioning=&quot;2&quot; tiff:NativeDigest=&quot;256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;A861E3FBEBE1CC54637EA52A332BA58A&quot; xap:CreateDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:ModifyDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:MetadataDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:CreatorTool=&quot;Adobe Photoshop CS3 Macintosh&quot; xapMM:DocumentID=&quot;uuid:EC3D717D0A87DD119C39868BEC2CCDB5&quot; xapMM:InstanceID=&quot;uuid:ED3D717D0A87DD119C39868BEC2CCDB5&quot; dc:format=&quot;image/jpeg&quot; photoshop:ColorMode=&quot;3&quot; photoshop:ICCProfile=&quot;sRGB IEC61966-2.1&quot; photoshop:History=&quot;&quot;&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired=&quot;True&quot; exif:Return=&quot;0&quot; exif:Mode=&quot;1&quot; exif:Function=&quot;False&quot; exif:RedEyeMode=&quot;False&quot;/&gt; &lt;xapMM:DerivedFrom stRef:instanceID=&quot;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&quot; stRef:documentID=&quot;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&quot;/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang=&quot;x-default&quot;&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
+															</values>
+														</property>
+													</values>
+												</property>
+											</values>
+										</property>
+										<property>
+											<name>ApplicationSegments</name>
+											<values arity="List" type="String">
+												<value>APP0</value>
+												<value>APP1</value>
+												<value>APP13</value>
+												<value>APP1</value>
+												<value>APP2</value>
+												<value>APP14</value>
+											</values>
+										</property>
+									</values>
+								</property>
+							</properties>
+						</repInfo>
+					</jhove>
+				</escidocMetadataRecords:md-record>
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+		<escidocComponents:component
+				objid="escidoc:176157">
+			<escidocComponents:properties>
+				<prop:creation-date>2009-02-02T18:10:33.086Z</prop:creation-date>
+				<srel:created-by objid="escidoc:user42" />
+				<prop:description>thumbnail</prop:description>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>thumbnail</prop:content-category>
+				<prop:file-name>004_o_m_d_a_thumbnail.jpg</prop:file-name>
+			</escidocComponents:properties>
+			<escidocComponents:content
+					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_thumbnail.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176157/content" storage="internal-managed"/>
+			<escidocMetadataRecords:md-records>
+				<escidocMetadataRecords:md-record name="escidoc">
+					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_thumbnail.jpg</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">thumbnail</dc:description>
+						<file:content-category>thumbnail</file:content-category>
+						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">30846</dcterms:extent>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+				<escidocMetadataRecords:md-record name="technical-md">
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T19:12:51+01:00</date>
+						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176157/content">
+							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
+							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
+							<size>31110</size>
+							<format>JPEG</format>
+							<version>1.02</version>
+							<status>Well-Formed and valid</status>
+							<sigMatch>
+								<module>JPEG-hul</module>
+							</sigMatch>
+							<messages>
+								<message offset="42" severity="info">Value offset not word-aligned: 195</message>
+							</messages>
+							<mimeType>image/jpeg</mimeType>
+							<profiles>
+								<profile>JFIF</profile>
+							</profiles>
+							<properties>
+								<property>
+									<name>JPEGMetadata</name>
+									<values arity="List" type="Property">
+										<property>
+											<name>CompressionType</name>
+											<values arity="Scalar" type="String">
+												<value>Huffman coding, Baseline DCT</value>
+											</values>
+										</property>
+										<property>
+											<name>Images</name>
+											<values arity="List" type="Property">
+												<property>
+													<name>Number</name>
+													<values arity="Scalar" type="Integer">
+														<value>1</value>
+													</values>
+												</property>
+												<property>
+													<name>Image</name>
+													<values arity="List" type="Property">
+														<property>
+															<name>NisoImageMetadata</name>
+															<values arity="Scalar" type="NISOImageMetadata">
+																<value>
+																	<mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+																		<mix:BasicImageParameters>
+																			<mix:Format>
+																				<mix:MIMEType>image/jpeg</mix:MIMEType>
+																				<mix:ByteOrder>big-endian</mix:ByteOrder>
+																				<mix:Compression>
+																					<mix:CompressionScheme>6</mix:CompressionScheme>
+																				</mix:Compression>
+																				<mix:PhotometricInterpretation>
+																					<mix:ColorSpace>6</mix:ColorSpace>
+																				</mix:PhotometricInterpretation>
+																			</mix:Format>
+																		</mix:BasicImageParameters>
+																		<mix:ImageCreation>
+																			<mix:ScanningSystemCapture>
+																				<mix:ScanningSystemHardware>
+																					<mix:ScannerManufacturer>SONY</mix:ScannerManufacturer>
+																				</mix:ScanningSystemHardware>
+																			</mix:ScanningSystemCapture>
+																		</mix:ImageCreation>
+																		<mix:ImagingPerformanceAssessment>
+																			<mix:SpatialMetrics>
+																				<mix:SamplingFrequencyUnit>2</mix:SamplingFrequencyUnit>
+																				<mix:XSamplingFrequency>300</mix:XSamplingFrequency>
+																				<mix:YSamplingFrequency>300</mix:YSamplingFrequency>
+																				<mix:ImageWidth>111</mix:ImageWidth>
+																				<mix:ImageLength>139</mix:ImageLength>
+																			</mix:SpatialMetrics>
+																			<mix:Energetics>
+																				<mix:BitsPerSample>8,8,8</mix:BitsPerSample>
+																				<mix:SamplesPerPixel>3</mix:SamplesPerPixel>
+																			</mix:Energetics>
+																		</mix:ImagingPerformanceAssessment>
+																	</mix:mix>
+																</value>
+															</values>
+														</property>
+														<property>
+															<name>RestartInterval</name>
+															<values arity="Scalar" type="Integer">
+																<value>14</value>
+															</values>
+														</property>
+														<property>
+															<name>Scans</name>
+															<values arity="Scalar" type="Integer">
+																<value>1</value>
+															</values>
+														</property>
+														<property>
+															<name>QuantizationTables</name>
+															<values arity="List" type="Property">
+																<property>
+																	<name>QuantizationTable</name>
+																	<values arity="Array" type="Property">
+																		<property>
+																			<name>Precision</name>
+																			<values arity="Scalar" type="String">
+																				<value>8-bit</value>
+																			</values>
+																		</property>
+																		<property>
+																			<name>DestinationIdentifier</name>
+																			<values arity="Scalar" type="Integer">
+																				<value>0</value>
+																			</values>
+																		</property>
+																	</values>
+																</property>
+															</values>
+														</property>
+														<property>
+															<name>XMP</name>
+															<values arity="Scalar" type="String">
+																<value>&lt;x:xmpmeta xmlns:x=&quot;adobe:ns:meta/&quot; x:xmptk=&quot;Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        &quot;&gt; &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt; &lt;rdf:Description rdf:about=&quot;&quot; xmlns:exif=&quot;http://ns.adobe.com/exif/1.0/&quot; xmlns:tiff=&quot;http://ns.adobe.com/tiff/1.0/&quot; xmlns:xap=&quot;http://ns.adobe.com/xap/1.0/&quot; xmlns:xapMM=&quot;http://ns.adobe.com/xap/1.0/mm/&quot; xmlns:stRef=&quot;http://ns.adobe.com/xap/1.0/sType/ResourceRef#&quot; xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:photoshop=&quot;http://ns.adobe.com/photoshop/1.0/&quot; exif:ExposureTime=&quot;10/6400&quot; exif:FNumber=&quot;71/10&quot; exif:ExposureProgram=&quot;1&quot; exif:ExifVersion=&quot;0220&quot; exif:DateTimeOriginal=&quot;2005-12-15T11:32:48+01:00&quot; exif:DateTimeDigitized=&quot;2005-12-15T11:32:48+01:00&quot; exif:CompressedBitsPerPixel=&quot;8/1&quot; exif:ExposureBiasValue=&quot;0/10&quot; exif:MaxApertureValue=&quot;33/16&quot; exif:MeteringMode=&quot;5&quot; exif:LightSource=&quot;255&quot; exif:FocalLength=&quot;281/10&quot; exif:FlashpixVersion=&quot;0100&quot; exif:ColorSpace=&quot;1&quot; exif:PixelXDimension=&quot;111&quot; exif:PixelYDimension=&quot;139&quot; exif:FileSource=&quot;3&quot; exif:SceneType=&quot;1&quot; exif:CustomRendered=&quot;0&quot; exif:ExposureMode=&quot;1&quot; exif:WhiteBalance=&quot;1&quot; exif:SceneCaptureType=&quot;0&quot; exif:Contrast=&quot;0&quot; exif:Saturation=&quot;0&quot; exif:Sharpness=&quot;0&quot; exif:NativeDigest=&quot;36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;4C412CE1E630B631712B04227A569184&quot; tiff:Make=&quot;SONY&quot; tiff:Model=&quot;DSC-F828&quot; tiff:Orientation=&quot;1&quot; tiff:XResolution=&quot;3000000/10000&quot; tiff:YResolution=&quot;3000000/10000&quot; tiff:ResolutionUnit=&quot;2&quot; tiff:YCbCrPositioning=&quot;2&quot; tiff:NativeDigest=&quot;256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;87339FC437AAF0AEFFD1AE0E7D30EE58&quot; xap:CreateDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:ModifyDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:MetadataDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:CreatorTool=&quot;Adobe Photoshop CS3 Macintosh&quot; xapMM:DocumentID=&quot;uuid:6F54FA054186DD11A7908A3170F4F3F0&quot; xapMM:InstanceID=&quot;uuid:7054FA054186DD11A7908A3170F4F3F0&quot; dc:format=&quot;image/jpeg&quot; photoshop:ColorMode=&quot;3&quot; photoshop:ICCProfile=&quot;sRGB IEC61966-2.1&quot; photoshop:History=&quot;&quot;&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired=&quot;True&quot; exif:Return=&quot;0&quot; exif:Mode=&quot;1&quot; exif:Function=&quot;False&quot; exif:RedEyeMode=&quot;False&quot;/&gt; &lt;xapMM:DerivedFrom stRef:instanceID=&quot;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&quot; stRef:documentID=&quot;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&quot;/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang=&quot;x-default&quot;&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
+															</values>
+														</property>
+													</values>
+												</property>
+											</values>
+										</property>
+										<property>
+											<name>ApplicationSegments</name>
+											<values arity="List" type="String">
+												<value>APP0</value>
+												<value>APP1</value>
+												<value>APP13</value>
+												<value>APP1</value>
+												<value>APP2</value>
+												<value>APP14</value>
+											</values>
+										</property>
+									</values>
+								</property>
+							</properties>
+						</repInfo>
+					</jhove>
+				</escidocMetadataRecords:md-record>
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+	</escidocComponents:components>
+	<relations:relations></relations:relations>
+</escidocItem:item>
+

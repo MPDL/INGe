@@ -170,7 +170,7 @@
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-extras</artifactId>
 			<version>1.1.5</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jibx</groupId>
@@ -230,5 +230,11 @@
 	      <version>8.7</version>
 	      <scope>test</scope>
 	    </dependency>
+	    <dependency>
+	      <groupId>dom4j</groupId>
+	      <artifactId>dom4j</artifactId>
+	      <version>1.6.1</version>
+	    </dependency>
+	    
 	</dependencies>
 </project>
