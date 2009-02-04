@@ -116,11 +116,11 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_LANGUAGE = "escidoc.language";
     /** Index for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
-    /** Index for component availability */
+    /** Index for component availability. */
     private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.valid-status";
-    /** Index for component visibility */
+    /** Index for component visibility. */
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
-    /** Index for component content category */
+    /** Index for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
 
     private ArrayList<String> searchIndexes = null;
@@ -403,27 +403,6 @@ public class MetadataSearchCriterion implements Serializable
      */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
-        // if ((this.type == CriterionType.DATE_ACCEPTED) || (this.type ==
-        // CriterionType.DATE_ANY)
-        // || (this.type == CriterionType.DATE_CREATED) || (this.type ==
-        // CriterionType.DATE_ISSUED)
-        // || (this.type == CriterionType.DATE_MODIFIED) || (this.type ==
-        // CriterionType.DATE_PUBLISHED_ONLINE)
-        // || (this.type == CriterionType.DATE_SUBMITTED))
-        // {
-        // QueryParser parserFrom = new QueryParser(this.searchTerms.get(0),
-        // booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
-        // QueryParser parserTo = new QueryParser(this.searchTerms.get(1),
-        // booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
-        // for (int i = 0; i < searchIndexes.size(); i++)
-        // {
-        // parserFrom.addCQLIndex(searchIndexes.get(i));
-        // parserTo.addCQLIndex(searchIndexes.get(i));
-        // }
-        // String cqlQuery = " ( (" + parserFrom.parse() + " and " +
-        // parserTo.parse() + " " + " ) )";
-        // return cqlQuery;
-        // }
 
         QueryParser parser = new QueryParser(this.searchTerm, booleanOperatorToString(this.cqlOperator));
         for (int i = 0; i < searchIndexes.size(); i++)
