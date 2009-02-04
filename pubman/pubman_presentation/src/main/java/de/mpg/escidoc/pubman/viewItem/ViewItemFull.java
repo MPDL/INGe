@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -98,6 +99,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -114,6 +116,31 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class ViewItemFull extends FacesBean
 {
+    
+    public class CreatorDisplay
+    {
+        private String formattedDisplay;
+        private String portfolioLink;
+        
+        public String getFormattedDisplay()
+        {
+            return formattedDisplay;
+        }
+        public void setFormattedDisplay(String formattedDisplay)
+        {
+            this.formattedDisplay = formattedDisplay;
+        }
+        public String getPortfolioLink()
+        {
+            return portfolioLink;
+        }
+        public void setPortfolioLink(String portfolioLink)
+        {
+            this.portfolioLink = portfolioLink;
+        }
+        
+    }
+    
     private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
     private static Logger logger = Logger.getLogger(ViewItemFull.class);
     final public static String BEAN_NAME = "ViewItemFull";
@@ -189,7 +216,7 @@ public class ViewItemFull extends FacesBean
     /**
      * The list of formatted creators in an ArrayList.
      */
-    private ArrayList<String> creatorArray;
+    private ArrayList<CreatorDisplay> creatorArray;
     
     /**
      * The list of formatted creators which are organizations in an ArrayList.
@@ -890,7 +917,7 @@ public class ViewItemFull extends FacesBean
     {
         StringBuffer creatorList = new StringBuffer();
         String formattedCreator = "";
-        this.creatorArray = new ArrayList<String>();
+        this.creatorArray = new ArrayList<CreatorDisplay>();
         this.creatorOrganizationsArray = new ArrayList<ViewItemCreatorOrganization>();
         // counter for organization array
         int counterOrganization = 0;
@@ -930,7 +957,19 @@ public class ViewItemFull extends FacesBean
             formattedCreator = formatter.formatCreator(creator, annotation.toString());
             if (creator.getPerson() != null)
             {
-                this.creatorArray.add(formattedCreator);
+                CreatorDisplay creatorDisplay = new CreatorDisplay();
+                creatorDisplay.setFormattedDisplay(formattedCreator);
+                if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getType() == IdType.CONE)
+                {
+                    try
+                    {
+                        creatorDisplay.setPortfolioLink(PropertyReader.getProperty("escidoc.cone.service.url") + "html/persons/" + creator.getPerson().getIdentifier().getId());
+                    }
+                    catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                this.creatorArray.add(creatorDisplay);
             }
             if (creator.getOrganization() != null)
             {
@@ -1685,12 +1724,12 @@ public class ViewItemFull extends FacesBean
 		this.affiliatedOrganizationsList = affiliatedOrganizationsList;
 	}
 
-	public ArrayList<String> getCreatorArray()
+	public ArrayList<CreatorDisplay> getCreatorArray()
 	{
 		return this.creatorArray;
 	}
 
-	public void setCreatorArray(ArrayList<String> creatorArray)
+	public void setCreatorArray(ArrayList<CreatorDisplay> creatorArray)
 	{
 		this.creatorArray = creatorArray;
 	}

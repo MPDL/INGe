@@ -101,7 +101,7 @@ public class ObjectFormatter extends InternationalizedImpl
                     creator.append(", " + creatorObject.getPerson().getGivenName());
                 }
             }
-            if(annotation != null)
+            if (annotation != null)
             {
                 creator.append(annotation);
             }
