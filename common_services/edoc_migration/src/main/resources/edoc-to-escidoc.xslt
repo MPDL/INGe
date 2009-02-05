@@ -577,17 +577,23 @@
 		<xsl:apply-templates select="journalabbreviation"/>
 		
 		<!-- VOLUME -->
-		<xsl:apply-templates select="volume"/>		
-		<xsl:if test="not(exists(issuetitle))">
-			<!-- ISSUE -->
+		<xsl:apply-templates select="volume"/>
+		
+		<xsl:choose>		
+			<xsl:when test="not(exists(issuetitle))">
+				<!-- ISSUE -->
+				<xsl:apply-templates select="issuenr"/>
+				<!-- START_PAGE -->
+				<xsl:apply-templates select="spage"/>
+				<!-- END-PAGE -->
+				<xsl:apply-templates select="epage"/>
+				<!-- SEQUENCE_NR -->
+				<xsl:apply-templates select="artnum"/>
+			</xsl:when>
+		<xsl:otherwise>
 			<xsl:apply-templates select="issuenr"/>
-			<!-- START_PAGE -->
-			<xsl:apply-templates select="spage"/>
-			<!-- END-PAGE -->
-			<xsl:apply-templates select="epage"/>
-			<!-- SEQUENCE_NR -->
-			<xsl:apply-templates select="artnum"/>
-		</xsl:if>	
+		</xsl:otherwise>	
+		</xsl:choose>
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
 			<xsl:element name="e:publishing-info">
@@ -717,6 +723,11 @@
 			<xsl:if test="editiondescrition">
 				<xsl:element name="e:volume">
 					<xsl:value-of select="editiondescription"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="issuenr">
+				<xsl:element name="e:issue">
+					<xsl:apply-templates select="issuenr"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="phydesc"> 
