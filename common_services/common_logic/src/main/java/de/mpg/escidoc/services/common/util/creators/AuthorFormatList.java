@@ -57,6 +57,7 @@ public final class AuthorFormatList
         new WesternFormat11(),
         new WesternFormat12(),
         new WesternFormat13(),
+        new WesternFormat14(),
         new OxfordJournalFormat(),
         new ScienceDirectFormat(),
         new BibTeXSpecialFormat1(),
