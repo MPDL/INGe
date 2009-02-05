@@ -36,10 +36,12 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * 
@@ -67,20 +69,25 @@ public class AffiliationDetailPage extends FacesBean
     {
 	    this.init();
 	    try
-        {
+	    {
             InitialContext initialContext = new InitialContext();
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             
-            AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
             String affiliationId = getFacesContext().getExternalContext().getRequestParameterMap().get("id");
             
-            OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
+            // TODO tendres: This admin login is neccessary because of bug 
+            // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
+            // If the org tree structure is fetched via search, this is obsolete
+            String userHandle = AdminHelper.getAdminUserHandle();
+            OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
             String ouXml = ouHandler.retrieve(affiliationId);
             AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
             this.affilitation = new AffiliationVOPresentation(affVO);
         }
         catch (Exception e)
         {
+            Login login = (Login) getSessionBean(Login.class);
+            login.forceLogout();
             error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         }
 
