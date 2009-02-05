@@ -108,46 +108,14 @@
 							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="true">
 								<jsp:directive.include file="home/News.jspf" />
 							</h:panelGroup>
-							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="true">
+							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="false">
 								<jsp:directive.include file="home/LastSubmitted.jspf" />
 							</h:panelGroup>
 							
 						</div>	
 					</div>
-
-<!-- Tut mir leid Rike aber ich hatte grad keinen Nerv mehr das jetzt noch irgendwie umzumodeln - ich hoffe/denke Du bekommst das schon hin!
-					<div class="full_area0">
-						<div class="full_area0 infoPage">
-							<h:panelGroup  rendered="#{PubManSessionBean.locale=='en'}">
-								<span class="half_area0_p8 mainSection">
-									<jsp:directive.include file="home/ReleaseNotes_en.jspf"/>	
-					
-								</span>
-							</h:panelGroup>
-							<h:panelGroup  rendered="#{PubManSessionBean.locale=='de'}">
-								<span class="half_area0_p8 mainSection">
-									<jsp:directive.include file="home/ReleaseNotes_de.jspf"/>						
-								</span>
-							</h:panelGroup>
-							<h:panelGroup  rendered="#{PubManSessionBean.locale=='ja'}">
-								<span class="half_area0_p8 mainSection">
-									<jsp:directive.include file="home/ReleaseNotes_ja.jspf"/>						
-								</span>
-							</h:panelGroup>
-							
-							<div class="sideSection free_area0_p8">
-
-								<jsp:directive.include file="home/News.jspf" />
-								
-							</div>		
-							
-						</div>
--->
 					</div>
-				<!-- 	<jsp:directive.include file="home/ReleaseNotes.jspf" />   -->
 				<!-- end: content section -->
-				</div>
-
 				</div>
 				</h:form>
 				<script type="text/javascript">
