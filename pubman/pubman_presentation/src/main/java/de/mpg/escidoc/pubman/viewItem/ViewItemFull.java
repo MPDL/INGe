@@ -1048,8 +1048,11 @@ public class ViewItemFull extends FacesBean
                 identifiers.append(": ");
                 if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
                 {
-                    identifiers.append("<a href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>"); 
-
+                    identifiers.append("<a href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                }
+                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.DOI)
+                {
+                    identifiers.append("<a href='http://dx.doi.org/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
                 }
                 else
                 {
