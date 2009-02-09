@@ -98,22 +98,9 @@
 									<h:outputText value="#{ErrorPage.detail}"/>
 								</pre>
 								
-							</span>
-							
-							<div class="sideSection free_area0_p8">
-<%-- ERROR TEXT STARTS HERE --%>
-								<h2>Bug Tracking</h2>
-								<span>
-									We always try to deliver the very best system possible, but unfortunately no software development can avoid any errors.<br />
-									To be able to constantly improve our system, we need your help as our users. Please take a few minutes to report the occurred error and what lead to it to our development team.<br />
-								</span>
-<%-- ERROR TEXT ENDS HERE --%>								
-							</div>		
-							
+							</span>					
 						</div>	
 					</div>
-				<!-- 	<jsp:directive.include file="home/ReleaseNotes.jspf" />   -->
-				<!-- end: content section -->
 				</div>
 
 				</div>
