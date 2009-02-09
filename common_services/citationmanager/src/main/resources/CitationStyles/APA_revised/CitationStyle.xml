@@ -145,10 +145,45 @@
 		</layout-element>
 
 		<!-- editors -->
-		<layout-element name="editor-list" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+		<layout-element name="editors-Equal1" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
 			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${editorsCount})==1]]></valid-if>
 				<delimiter value=", " />
-				<internal-delimiter value=", "/>
+				<internal-delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="family-name" />
+				<layout-element ref="given-name" func="get_initials"/>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="editors-MoreThan1LessOrEqual6" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", &amp; " />
+				<internal-delimiter value=", " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="family-name" />
+				<layout-element ref="given-name" func="get_initials"/>
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${editorsCount})>1 && Integer.parseInt(${editorsCount})<=6]]></valid-if>
+				<delimiter value=", " />
+				<internal-delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="family-name" />
+				<layout-element ref="given-name" func="get_initials"/>
+			</elements>
+		</layout-element>
+		
+		<layout-element name="editors-MoreThan6" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${editorsCount})>6]]></valid-if>
+				<delimiter value=", " />
+				<internal-delimiter value=", " />
+				<ends-with value=", et al." /> 
+				<max-count value="6"/>
 			</parameters>
 			<elements>
 				<layout-element ref="family-name" />
@@ -162,7 +197,9 @@
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element ref="editor-list" />
+				<layout-element ref="editors-Equal1" />
+				<layout-element ref="editors-MoreThan1LessOrEqual6" />
+				<layout-element ref="editors-MoreThan6" />
 				<layout-element ref="ed-postfix" />
 			</elements>
 		</layout-element>
@@ -425,7 +462,7 @@
 
 
 
-	<layout-element name="__debugBlock__">
+	<layout-element name="debugBlock">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
@@ -597,7 +634,7 @@
 	</cs-layout-definition>
 	
 	<!-- BOOK CHAPTER -->
-	<cs-layout-definition name="book-chapter">
+	<cs-layout-definition name="book-item">
 		<parameters>
 			<valid-if><![CDATA[${genre}.equals("book-item")]]></valid-if>
 			<ends-with value="." />
@@ -615,31 +652,28 @@
 			
 			<layout-element>
 				<parameters>
-					<valid-if><![CDATA[Integer.parseInt(${editorsCount})>0]]></valid-if>
 					<starts-with value="In "/>
-					<ends-with value=", "/>
+					<ends-with value="."/>
 				</parameters>
 				<elements>
 					<layout-element ref="editors"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element name="book-title">
-				<parameters>
-					<ends-with value=". "/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/source/title"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element>
-				<parameters>
-					<starts-with value="("/>
-					<ends-with value="). "/>
-				</parameters>
-				<elements>
-					<layout-element ref="start-page-end-page"/>
+					<layout-element name="book-title">
+						<parameters>
+							<font-style ref="ITALIC"/>
+						</parameters>
+						<elements>
+							<layout-element ref="publication/source/title"/>
+						</elements>
+					</layout-element>
+					<layout-element>
+						<parameters>
+							<starts-with value=" ("/>
+							<ends-with value=")"/>
+						</parameters>
+						<elements>
+							<layout-element ref="start-page-end-page"/>
+						</elements>
+					</layout-element>
 				</elements>
 			</layout-element>
 			
