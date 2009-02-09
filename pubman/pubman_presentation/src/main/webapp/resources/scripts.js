@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * f�r wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur F�rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -57,13 +57,19 @@ function changeSortCriteria()
 {
 	document.getElementById("form1:content:btnSortItemList").click();
 }
-/*
+
 function loadAbout() 
 {
 	// use the h:output tag to output the bean property
-	openCenteredWindow("http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan", 1360, 1040, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow("http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan", 1360, 1040, "About"); 
 }
-*/
+
+function loadBlog(url) 
+{
+	
+	openCenteredWindow(url, 900, 500, "Blog");
+}
+
 function loadHelp(url, anchor)
 {
 	// use the h:output tag to output the bean property
@@ -92,7 +98,7 @@ function openCenteredWindow(page, width, height, windowName)
 	
 	leftPos = Math.floor((bw-width)/2) + bl;
 	topPos = Math.floor((bh-height)/2) + bt;
-	
+
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open(page, windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 	newWindow.focus();
@@ -109,6 +115,7 @@ function openCenteredWindowTest(html, width, height, windowName)
 	
 	leftPos = Math.floor((bw-width)/2) + bl;
 	topPos = Math.floor((bh-height)/2) + bt;
+
 	
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open('', windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open

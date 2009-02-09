@@ -95,15 +95,14 @@ public class HomePage extends BreadcrumbPage
     
     public String getBlogBaseUrl()
     {
-        PropertyReader reader = new PropertyReader();
         String url = "";
         try
         {
-            url = reader.getProperty("pubman.blog.baseUrl");
+            url = PropertyReader.getProperty("pubman.blog.baseUrl");
         }
         catch (Exception e)
         {
-            this.logger.error("Could not read property: 'pubman.blog.baseUrl' from properties file.", e);
+            HomePage.logger.error("Could not read property: 'pubman.blog.baseUrl' from properties file.", e);
         }
 
         return url;

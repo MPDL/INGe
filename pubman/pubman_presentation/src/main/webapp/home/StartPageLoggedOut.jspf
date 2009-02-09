@@ -114,7 +114,7 @@
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
 	<br/><br/>
 	<h2>
-	Short PubMan Introduction Video
+	PubMan Introduction Video
 	</h2>
 	<a href="http://pubman.blogs.mpdl.mpg.de/"><img src="./images/screencast.jpg" class="large"/></a>
 	<br/><br/>
