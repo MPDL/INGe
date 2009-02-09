@@ -61,7 +61,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         TITLE ("sort.escidoc.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
         GENRE ("sort.escidoc.genre", "/md-records/md-record/publication/type", OrderFilter.ORDER_ASCENDING),
         DATE ("sort.escidoc.any-dates", "", OrderFilter.ORDER_DESCENDING),
-        CREATOR ("sort.escidoc.complete-name", "", OrderFilter.ORDER_ASCENDING),
+        CREATOR ("sort.escidoc.family-name", "", OrderFilter.ORDER_ASCENDING), //TODO: Change back to sort.escidoc.complete-name when complete name is filled!!
         PUBLISHING_INFO ("sort.escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher", OrderFilter.ORDER_ASCENDING),
         MODIFICATION_DATE ("sort.escidoc.last-modification-date", "/last-modification-date", OrderFilter.ORDER_DESCENDING),
         EVENT_TITLE ("sort.escidoc.any-event", "/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING),
