@@ -426,11 +426,13 @@ public class SearchBean implements Search
         {
             logger.info("Calling citationStyleHandler");
             exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
+            logger.info("Returning from citationStyleHandler");
         } 
         else if (formatType == FormatType.STRUCTURED)
         {
             logger.info("Calling structuredExportHandler");
             exportData = structuredExportHandler.getOutput(itemList, exportFormat);
+            logger.info("Returning from structuredExportHandler");
         } 
         else
         {
