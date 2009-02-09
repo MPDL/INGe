@@ -98,5 +98,11 @@ public class PubManSessionBean extends FacesBean
     {
         return (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
     }
+    
+    public boolean isLoggedIn()
+    {
+        LoginHelper loginHelper = this.getLoginHelper();
+        return loginHelper.getLoggedIn();
+    }
 	
 }

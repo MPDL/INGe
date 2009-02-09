@@ -50,7 +50,8 @@ public class Home extends FacesBean
 
     // Faces navigation string
     public final static String LOAD_HOME = "loadHome";
-    
+
+
     /**
      * Public constructor.
      */
@@ -68,4 +69,6 @@ public class Home extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
     }
+
+
 }

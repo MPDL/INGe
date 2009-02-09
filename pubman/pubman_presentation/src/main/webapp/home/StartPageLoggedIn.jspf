@@ -28,38 +28,183 @@
              */
 </jsp:scriptlet>
 
-<!-- BEGIN Copy&paste the ReleaseNotes here -->
-<h2>
-WELCOME TO PUBMAN - WHAT DO YOU WANT TO WORK ON TODAY?
-</h2>
-<span class="small_area0">&#160;</span>
-<span class="xDouble_area0">
-<h3>Submission</h3>
-<p>Enter a new Publication to PubMan?</p>
-... by using the <a>Easy Submission method</a><br />
-... by <a>Data Import</a><br />
-... by using the <a>Full Submission method</a><br />
-</span>
-<span class="small_area0">&#160;</span>
-<span class="xDouble_area0">
-<h3>My Items</h3>
-<p>Finish your data submissions or check if your items have been already released to the public...?</p>
-</span>
-<span class="small_area0">&#160;</span>
-<span class="xDouble_area0">
-<h3>QA Workspace</h3>
-<p>Fullfill your job as moderator.</p>
-</span>
+<!-- HOMEPAGE ENGLISH VERSION -->
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
+	<h2>
+		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
+	</h2>
+	<span class="small_area0">&nbsp;</span>
+    <span class="xDouble_area0"> 
+	<br/>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && HomePage.depositor}">
+	<h2>Submission</h2>      	
+          <b>Enter a new Publication to PubMan?</b><br/>
+	   ... by using the 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Easy Submission method"/>
+		</h:outputLink>
+		<br/>
+	  ... by 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Data Import"/>
+		</h:outputLink>
+		<br/>
+	  ... by using the 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Full Submission method"/>
+		</h:outputLink>
+    </span>
+	</h:panelGroup>
 
-<h2>
-Help and further information
-</h2>
-<h3>Helpful videos</h3>
-<ul>
-	<li>video on <a>how to submit data</a></li>
-	<li>video on <a>usage of My items</a></li>
-	<li>video on <a>usage of QA workspace</a></li>
-</ul>
+	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='en'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>My Items</h2>
+		Finish your data submissions or check if your items have been already released to the public...?
+	</span>
+	</h:panelGroup>
 
+	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='en'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>QA Workspace</h2>
+		Fullfill your job as moderator.
+	</span>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
+	<span class="full_area0 ">
+	<br/>
+		<h2>
+			Help and further information
+		</h2>
+		<b>Helpful videos</b>
+		<ul>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">how to submit data</a></li>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of My items</a></li>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of QA workspace</a></li>
+		</ul>
+	</span>
+	</h:panelGroup>
 
-<!-- END Copy&paste the ReleaseNotes here -->
+<!-- HOMEPAGE GERMAN VERSION -->
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
+	<h2>
+		WILLKOMMEN BEI PUBMAN - <br/>WAS M&Ouml;CHTEN SIE HEUTE TUN?
+	</h2>
+	<span class="small_area0">&nbsp;</span>
+    <span class="xDouble_area0"> 
+	<br/>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && HomePage.depositor}">
+	<h2>Eingabe</h2>      	
+          <b>Wollen Sie eine neue Publikation eingeben?</b><br/>
+	   ... benutzen Sie die 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Einfache Eingabe"/>
+		</h:outputLink>
+		<br/>
+	  ... den 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Daten Import"/>
+		</h:outputLink>
+		<br/>
+	  ... oder die 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Detaillierte Eingabe"/>
+		</h:outputLink>
+    </span>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='de'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>Meine Datens&auml;tze</h2>
+		Schlieﬂen Sie eine Eingabe ab, oder pr&uuml;fen Sie ob Ihre Publikationen bereits &ouml;ffentlich sichtbar sind...
+	</span>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='de'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>QA Bereich</h2>
+ 		Gehen Sie Ihrer Aufgabe als Moderator nach.
+	</span>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
+	<span class="full_area0 ">
+	<br/>
+		<h2>
+			Hilfe und weitere Informationen:
+		</h2>
+		<b>N&uuml;tzliche Videos</b>
+		<ul>
+			<li>video &uuml;ber <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">wie gebe ich Daten ein</a></li>
+			<li>video &uuml;ber <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">wie nutze ich meinen Arbeitsplatz</a></li>
+			<li>video &uuml;ber <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">wie nutze ich den QA Bereich</a></li>
+		</ul>
+	</span>
+	</h:panelGroup>
+
+<!-- HOMEPAGE JAPANESE VERSION -->
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
+	<h2>
+		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
+	</h2>
+	<span class="small_area0">&nbsp;</span>
+    <span class="xDouble_area0"> 
+	<br/>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && HomePage.depositor}">
+	<h2>Submission</h2>      	
+          <b>Enter a new Publication to PubMan?</b><br/>
+	   ... by using the 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Easy Submission method"/>
+		</h:outputLink>
+		<br/>
+	  ... by 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Data Import"/>
+		</h:outputLink>
+		<br/>
+	  ... by using the 
+		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+			<h:outputText value="Full Submission method"/>
+		</h:outputLink>
+    </span>
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='ja'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>My Items</h2>
+		Finish your data submissions or check if your items have been already released to the public...?
+	</span>
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='ja'}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<br/>
+		<h2>QA Workspace</h2>
+		Fullfill your job as moderator.
+	</span>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
+	<span class="full_area0 ">
+	<br/>
+		<h2>
+			Help and further information
+		</h2>
+		<b>Helpful videos</b>
+		<ul>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">how to submit data</a></li>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of My items</a></li>
+			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of QA workspace</a></li>
+		</ul>
+	</span>
+	</h:panelGroup>

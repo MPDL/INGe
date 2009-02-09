@@ -27,31 +27,100 @@
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+		<f:loadBundle var="lbl" basename="Label"/>
+		<f:loadBundle var="tip" basename="Tooltip"/>
 
-<!-- BEGIN Copy&paste the ReleaseNotes here -->
-<h2>
-PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
-</h2>
-<p>PubMan supports scientists and institutes in the management and the digital curation of their publications.</p>
-<p>This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, customization and configuration options throughout the solution's features are of major importance.</p>
-<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan">(read more on CoLab)</a>
-<h3>Search for publications here</h3>
-<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
-	<span class="quickSearchMenu">
-		<input class="large_txtInput quickSearchTextInput" type="text">
-	</span>
-	<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
-</p>
-<br />
-<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
-<h2>
-Short PubMan Introduction Video
-</h2>
-<a href=""><img src="" class="huge"/></a>
-<h2>
-PubMan interfaces
-</h2>
-<span>Various technical interfaces are implemented and can be found under:</span>
-<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/PubMan_Interfaces</a>
+<!-- HOMEPAGE ENGLISH VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
+	<h2>
+	PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
+	</h2>
+	<p>PubMan supports <b>scientists</b> and <b>institutes</b> in the management and the digital curation of their publications.</p>
+	<p>This solution addresses <b>all disciplines</b> and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, <b>customization</b> and <b>configuration</b> options throughout the solution's features are of major importance.</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(read more on CoLab)</a>
+	<br/><br/>
+	<h3>Search for publications here</h3>
+	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+		<span class="quickSearchMenu">
+			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+		</span>
+		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+	</p>
+	<br/>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
+	<br/><br/>
+	<h2>
+	Short PubMan Introduction Video
+	</h2>
+	<a href="This will link to PubMan Blog screencast entry"><img src="./images/screencast.jpg" class="large"/></a>
+	<br/><br/>
+	<h2>
+	PubMan Interfaces
+	</h2>
+	<span>Various technical interfaces are implemented and can be found under:</span>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+</h:panelGroup>
 
-<!-- END Copy&paste the ReleaseNotes here -->
+<!-- HOMEPAGE GERMAN VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
+	<h2>
+	PUBMAN - DIE ESCIDOC L&Ouml;SUNG F&Uuml;R PUBLIKATIONS&nbsp;MANAGEMENT
+	</h2>
+	<p>PubMan unterst&uuml;tzt <b>Wissenschaftler</b>  und <b>Institute</b> beim Management und der Konservierung digitaler Publikationen.</p>
+	<p>Diese Softwarel&ouml;sung adressiert <b>alle wissenschaftlichen Disziplinen</b> und legt dabei den Hauptfokus auf die Zielgruppen Wissenschaftler, Bibliothekare und IT Abteilungen. Aufgrund der heterogenen Grunds&auml;tze, Kulturen und Workflows an den Max-Planck-Instituten, sind <b>Anpassbarkeit</b> und <b>Konfigurierbarkeit</b> zentrale Themen bei der Entwicklung von PubMan. </p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(lesen Sie mehr auf CoLab)</a>
+	<br/><br/>
+	<h3>Suchen Sie hier nach Publikationen</h3>
+	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+		<span class="quickSearchMenu">
+			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+		</span>
+		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+	</p>
+	<br/>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder gehen Sie zur Organisationssuche</a>
+	<br/><br/>
+	<h2>
+	PubMan Einf&uuml;hrungsvideo
+	</h2>
+	<a href="http://pubman.blogs.mpdl.mpg.de/"><img src="./images/screencast.jpg" class="large"/></a>
+	<br/><br/>
+	<h2>
+	PubMan Schnittstellen
+	</h2>
+	<span>Eine Zusammenfassung aller technischen Schnittstellen finden Sie unter:</span>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+</h:panelGroup>
+
+<!-- HOMEPAGE JAPANESE VERSION -->
+<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
+	<h2>
+	PUBMAN - DIE ESCIDOC L&Ouml;SUNG F&Uuml;R PUBLIKATIONS&nbsp;MANAGEMENT
+	</h2>
+	<p>PubMan supports <b>scientists</b> and <b>institutes</b> in the management and the digital curation of their publications.</p>
+	<p>This solution addresses <b>all disciplines</b> and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, <b>customization</b> and <b>configuration</b> options throughout the solution's features are of major importance.</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(read more on CoLab)</a>
+	<br/><br/>
+	<h3>Search for publications here</h3>
+	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
+		<span class="quickSearchMenu">
+			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+		</span>
+		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+	</p>
+	<br/>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
+	<br/><br/>
+	<h2>
+	Short PubMan Introduction Video
+	</h2>
+	<a href="http://pubman.blogs.mpdl.mpg.de/"><img src="./images/screencast.jpg" class="large"/></a>
+	<br/><br/>
+	<h2>
+	PubMan Interfaces
+	</h2>
+	<span>Various technical interfaces are implemented and can be found under:</span>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+</h:panelGroup>

@@ -37,6 +37,8 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * BackingBean for HomePage.jsp.
@@ -49,7 +51,7 @@ public class HomePage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(HomePage.class);
     public static final String BEAN_NAME = "HomePage";
-
+    
     /**
      * Public constructor.
      */
@@ -89,6 +91,49 @@ public class HomePage extends BreadcrumbPage
     protected CommonSessionBean getSessionBean()
     {
         return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
+    }   
+    
+    public String getBlogBaseUrl()
+    {
+        PropertyReader reader = new PropertyReader();
+        String url = "";
+        try
+        {
+            url = reader.getProperty("pubman.blog.baseUrl");
+        }
+        catch (Exception e)
+        {
+            this.logger.error("Could not read property: 'pubman.blog.baseUrl' from properties file.", e);
+        }
+
+        return url;
     }
 
+    public String getBlogNewsUrl()
+    {
+        PropertyReader reader = new PropertyReader();
+        String url = "";
+        try
+        {
+            url = reader.getProperty("pubman.blog.news");
+        }
+        catch (Exception e)
+        {
+            this.logger.error("Could not read property: 'pubman.blog.news' from properties file.", e);
+        }
+
+        return url;
+    }
+    
+    public boolean isDepositor()
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        return loginHelper.getAccountUser().isDepositor();
+    }
+    
+    public boolean isModerator()
+    {
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        return loginHelper.getAccountUser().isModerator();
+    }
 }

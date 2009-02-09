@@ -97,20 +97,22 @@
 					<div class="full_area0">
 						<div class="full_area0 infoPage">
 							<!-- Main Content -->
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="true">
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn}">
 								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
 							</h:panelGroup>
-							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="false">
+							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{PubManSessionBean.loggedIn}">
 								<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
 							</h:panelGroup>
 
 							<!-- Side Panels -->
-							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="true">
-								<jsp:directive.include file="home/News.jspf" />
+							<h:panelGroup styleClass="free_area0_p8 sideSection">
+								<jsp:directive.include file="home/BlogIntegration.jspf" />
 							</h:panelGroup>
-							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="false">
+<!-- TODO: Exchange with lastsubmitted feed 
+							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="#{PubManSessionBean.loggedIn}">
 								<jsp:directive.include file="home/LastSubmitted.jspf" />
 							</h:panelGroup>
+-->
 							
 						</div>	
 					</div>

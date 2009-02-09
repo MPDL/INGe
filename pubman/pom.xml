@@ -493,6 +493,9 @@
 				<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
 				
+				<!-- Blog integration -->
+				<pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</pubman.blog.baseUrl>
+				<pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</pubman.blog.news>
 				
 			</properties>
 			
