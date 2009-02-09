@@ -64,7 +64,8 @@ public class ResourceUtil
 	private static final Logger logger = Logger.getLogger(ResourceUtil.class);
 	
     public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
-    public final static String RESOURCES_DIRECTORY_JAR = "resources/";
+//    public final static String RESOURCES_DIRECTORY_JAR = "resources/";
+    public final static String RESOURCES_DIRECTORY_JAR = "";
     public final static String CLASS_DIRECTORY = "target/classes/";
 
     
@@ -173,6 +174,8 @@ public class ResourceUtil
 //    	logger.info(":" + ResourceUtil.class.getClassLoader().getResource(classString).getFile() );
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
         // jar context!!!
+//        logger.info("result:" + result);
+//        logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
 //        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
         return 
         	result.indexOf(".jar!") == -1 ?
@@ -297,6 +300,14 @@ public class ResourceUtil
     			+ path
     			+ fileName
     	); 
+//    	logger.info(
+//    			"ResourceUtil.getPathToResources():" 
+//    			+ ResourceUtil.getPathToResources()
+//    			+ ";path:"
+//    			+ path
+//    			+ ";filename:"
+//    			+ fileName		
+//    	);
     	Properties props = new Properties();
     	props.load(is);
 		return props;
