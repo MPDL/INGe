@@ -26,13 +26,14 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
 	
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
 
 	<xsl:param name="citation-link"/>
 	<xsl:param name="item-link"/>
+	<xsl:param name="lang" select="'en'"/>
 
 	<xsl:template match="/">
 		<xsl:apply-templates select="rdf:RDF/rdf:Description"/>
@@ -42,9 +43,9 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
-				<link href="../../resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-				<link href="../../resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
-				<script type="text/javascript" language="JavaScript" src="../../js/jquery-1.2.6.min.js">;</script>
+				<link href="/cone/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+				<link href="/cone/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 				<script>
 					$(document).ready(function() {
 						var requestString = '<xsl:value-of select="$citation-link"/>';
@@ -101,7 +102,7 @@
 							</div>
 							<div id="headLine" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1>Researcher Portfolio</h1>
+								<h1><xsl:value-of select="escidoc:label('researcher_portfolio')"/></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -113,7 +114,7 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h6>This Researcher Portfolio is provided by the eSciDoc CONE service.</h6>
+								<h6><xsl:value-of select="escidoc:label('provided_by_cone')"/></h6>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
@@ -127,143 +128,150 @@
 								<span class="seperator">&#160;</span>
 								<span class="free_area0_p8 endline itemHeadline">
 									<h2>
-										<xsl:if test="degree != ''"><xsl:value-of select="degree"/></xsl:if> <xsl:value-of select="dc:title"/>
+										<xsl:if test="degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 									</h2>
 									<h3>
-										<xsl:for-each select="ou">
-											<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
+										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or xs:date(dc:end-date) &gt;= current-date()]">
+											<xsl:value-of select="escidoc:organization"/><xsl:if test="position() != last()">, </xsl:if> 
 										</xsl:for-each>
+										&#160;
 									</h3>
 								</span>
 								<div class="statusArea free_area0">
-									<xsl:if test="photo != ''">
-										<img src="{photo}" title="{dc:title}" height="100"/>
+									<xsl:if test="foaf:depiction != ''">
+										<img src="{foaf:depiction}" title="{dc:title}" width="120" />
 									</xsl:if>
+									&#160;
 								</div>
 							</div>
 							<div class="full_area0 itemBlock">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									Researcher Profile
+									<xsl:value-of select="escidoc:label('researcher_profile')"/>
 								</h3>
 								<span class="seperator">&#160;</span>
 								<div class="free_area0 itemBlockContent endline">
-									<xsl:if test="position != ''">	
+									<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or xs:date(dc:end-date) &gt;= current-date()]">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												Current Position<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="position"/>
+												<xsl:value-of select="escidoc:position-name"/>
+												<xsl:if test="escidoc:organization">
+													(<xsl:value-of select="escidoc:organization"/>)
+												</xsl:if>
+											</span>
+										</div>
+									</xsl:for-each>
+									<xsl:for-each select="escidoc:position/rdf:Description[xs:date(dc:end-date) &lt; current-date()]">	
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0 endline labelLine">
+												<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 xTiny_marginLExcl endline">
+												<xsl:value-of select="escidoc:position-name"/>
+												<xsl:if test="escidoc:organization">
+													(<xsl:value-of select="escidoc:organization"/>)
+												</xsl:if>
+											</span>
+										</div>
+									</xsl:for-each>
+									<xsl:if test="exists(escidoc:award)">
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0 endline labelLine">
+												<xsl:value-of select="escidoc:label('awards')"/><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 xTiny_marginLExcl endline">
+												<xsl:value-of select="escidoc:award"/>
 											</span>
 										</div>
 									</xsl:if>
-									<div class="free_area0 endline itemLine noTopBorder">
-										<b class="xLarge_area0 endline labelLine">
-											Affiliated Organisations<span class="noDisplay">: <br /></span>
-										</b>
-										<span class="xHuge_area0 xTiny_marginLExcl endline">
-											<xsl:for-each select="ou">
-												<xsl:number format="1. " />
-												<xsl:value-of select="."/><br/>
-											</xsl:for-each>
-										</span>
-									</div>
-									<xsl:if test="phone != ''">	
+									<xsl:if test="exists(foaf:tel)">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												Phone<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('phone')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="phone">
+												<xsl:for-each select="foaf:tel">
 													<xsl:value-of select="."/> <br />
 												</xsl:for-each>
 											</span>
 										</div>
 									</xsl:if>
-									<xsl:if test="email != ''">	
+									<xsl:if test="exists(foaf:email)">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												email<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('email')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="email">
+												<xsl:for-each select="foaf:email">
 													<xsl:value-of select="."/> <br />
 												</xsl:for-each>
 											</span>
 										</div>
 									</xsl:if>
-									<xsl:if test="url != ''">	
+									<xsl:if test="exists(foaf:homepage)">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												My Websites<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('homepages')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="url">
+												<xsl:for-each select="foaf:homepage/rdf:Description">
 													<a>
 														<xsl:attribute name="href">
-															<xsl:value-of select="rdf:Description/@rdf:about"/>
+															<xsl:value-of select="rdf:value"/>
 														</xsl:attribute>
 														<xsl:attribute name="title">
-															<xsl:value-of select="*/dc:description"/>
+															<xsl:value-of select="dc:description"/>
 														</xsl:attribute>
 														<xsl:attribute name="target">_blank</xsl:attribute>
-														<xsl:value-of select="*/dc:title"/>
+														<xsl:value-of select="dc:description"/>
 													</a>
 													<br />
 												</xsl:for-each>
 											</span>
 										</div>
 									</xsl:if>
-									<xsl:if test="awards != ''">
+									<xsl:if test="exists(dc:identifier)">
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												Awards<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('additional_ids')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="awards"/>
+												<xsl:for-each select="dc:identifier/rdf:Description">
+													<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
+													<xsl:value-of select="escidoc:idtype"/>: <xsl:value-of select="rdf:value"/>
+												</xsl:for-each>
 											</span>
 										</div>
 									</xsl:if>
 									<div class="free_area0 endline itemLine noTopBorder">
 										<b class="xLarge_area0 endline labelLine">
-											Researcher ID<span class="noDisplay">: </span>
+											<xsl:value-of select="escidoc:label('researcher_id')"/><span class="noDisplay">: </span>
 										</b>
 										<span class="xHuge_area0 xTiny_marginLExcl endline">
 											<xsl:value-of select="@rdf:about"/>
 										</span>
 									</div>
-									<xsl:if test="dcterms:identifier != ''">
+									<xsl:if test="exists(dc:subject)">
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												Additional IDs<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('research_fields')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="dcterms:identifier">
-													<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
-													<xsl:value-of select="."/>
-												</xsl:for-each>
+												<xsl:value-of select="dc:subject"/>
 											</span>
 										</div>
 									</xsl:if>
-									<xsl:if test="keyword != ''">
+									<xsl:if test="exists(dcterms:subject)">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
-												Research Fields<span class="noDisplay">: </span>
+												<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="keyword">
-													-<xsl:value-of select="."/> <br />
+												<xsl:for-each select="dcterms:subject">
+													-<xsl:text> </xsl:text><xsl:value-of select="dc:title"/> <br />
 												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="ddc != ''">	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												Subject<span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="ddc"/>
 											</span>
 										</div>
 									</xsl:if>
@@ -273,11 +281,11 @@
 							</div>
 							<div class="full_area0 itemBlock">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									Publications
+									<xsl:value-of select="escidoc:label('publications')"/>
 								</h3>
 								<span class="seperator">&#160;</span>
 								<div class="free_area0 itemBlockContent endline publicationsArea">		
-									
+									&#160;
 								</div>
 							</div>				
 							
@@ -290,5 +298,63 @@
 			</body>
 		</html>
 	</xsl:template>
+	
+	<xsl:variable name="labels">
+		<language id="en">
+			<label id="researcher_portfolio">Researcher Portfolio</label>
+			<label id="provided_by_cone">This Researcher Portfolio is provided by the eSciDoc CONE service.</label>
+			<label id="researcher_profile">Researcher Profile</label>
+			<label id="current_position">Current Position</label>
+			<label id="former_position">Former Position</label>
+			<label id="awards">Awards</label>
+			<label id="phone">Phone</label>
+			<label id="email">email</label>
+			<label id="homepages">Researcher Homepage(s)</label>
+			<label id="additional_ids">Additional IDs</label>
+			<label id="researcher_id">Researcher ID</label>
+			<label id="research_fields">Research Fields</label>
+			<label id="subject">Subject</label>
+			<label id="publications">Publications</label>
+		</language>
+		<language id="de">
+			<label id="researcher_portfolio">Forscher Portfolio</label>
+			<label id="provided_by_cone">Diese Forscher Portfolio wird von der eSciDoc CONE Service bereitgestellt</label>
+			<label id="researcher_profile">Forscherprofil</label>
+			<label id="current_position">Aktuelle Position</label>
+			<label id="former_position">Ehemalige Position</label>
+			<label id="awards">Auszeichnungen</label>
+			<label id="phone">Telefon</label>
+			<label id="email">E-Mail</label>
+			<label id="homepages">Forscher Homepage(s)</label>
+			<label id="additional_ids">Zusätzliche IDs</label>
+			<label id="researcher_id">Forscher ID</label>
+			<label id="research_fields">Forschungsgebiete</label>
+			<label id="subject">Subjekt</label>
+			<label id="publications">Veröffentlichungen</label>
+		</language>
+		<language id="ja">
+			<label id="researcher_portfolio">研究ポートフォリオ</label>
+			<label id="provided_by_cone">この研究ポートフォリオのeSciDoc円錐サービスが提供されています。</label>
+			<label id="researcher_profile">研究者プロフィール</label>
+			<label id="current_position">現在位置</label>
+			<label id="former_position">旧役職</label>
+			<label id="awards">賞</label>
+			<label id="phone">電話番号</label>
+			<label id="email">Eメール</label>
+			<label id="homepages">研究ホームページ</label>
+			<label id="additional_ids">追加のIDを</label>
+			<label id="researcher_id">研究者番号</label>
+			<label id="research_fields">研究分野</label>
+			<label id="subject">主題</label>
+			<label id="publications">出版物</label>
+		</language>
+
+	</xsl:variable>
+	
+	<xsl:function name="escidoc:label">
+		<xsl:param name="name"/>
+		<xsl:if test="not(exists($labels/language[@id = $lang]/label[@id = $name]))">### Label '<xsl:value-of select="$name"/>' nor found ###</xsl:if>
+		<xsl:value-of select="$labels/language[@id = $lang]/label[@id = $name]"/>
+	</xsl:function>
 	
 </xsl:stylesheet>

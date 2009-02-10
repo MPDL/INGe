@@ -14,8 +14,6 @@
  */
 package de.mpg.escidoc.services.cone;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +27,8 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.ModelList.Predicate;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
@@ -154,21 +154,34 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public TreeFragment details(String model, String id, String language) throws Exception
+    public TreeFragment details(String modelName, String id, String language) throws Exception
     {
-        id = escape(id);
-        String query = "select distinct object, predicate, lang from triples where ";
-        
-        if (model == null)
+        if (modelName != null)
         {
-            query += " model is null";
+            Model model = ModelList.getInstance().getModelByAlias(modelName);
+            return details(modelName, model.getPredicates(), id, language);
         }
         else
         {
-            query += " model = '" + model + "'";
+            throw new NullPointerException("Model name not provided");
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language) throws Exception
+    {
+
+        id = escape(id);
+        String query = "select distinct object, predicate, lang from triples where ";
+        
+        if (modelName != null)
+        {
+            query += " model = '" + modelName + "' and";
         }
         
-        query += " and subject = '" + id + "'";
+        query += " subject = '" + id + "'";
         
         if (language == null)
         {
@@ -176,7 +189,7 @@ public class SQLQuerier implements Querier
         }
         if (language != null && !"*".equals(language))
         {
-            query += "and (lang is null or lang = '" + language + "')";
+            query += " and (lang is null or lang = '" + language + "')";
         }
         logger.debug("query: " + query);
         Connection connection = dataSource.getConnection();
@@ -185,38 +198,49 @@ public class SQLQuerier implements Querier
         TreeFragment resultMap = new TreeFragment(id);
         while (result.next())
         {
-            String predicate = result.getString("predicate");
+            String predicateValue = result.getString("predicate");
             String object = result.getString("object");
             String lang = result.getString("lang");
             
-            LocalizedTripleObject localizedTripleObject;
-            
-            try
+            LocalizedTripleObject localizedTripleObject = null;
+
+            boolean found = false;
+            for (Predicate predicate : predicates)
             {
-                URI uri = new URI(object);
-                if (uri.isAbsolute())
+                if (predicate.getId().equals(predicateValue))
                 {
-                    localizedTripleObject = details(null, object, lang);
-                }
-                else
-                {
-                    localizedTripleObject = new LocalizedString(object, lang);
+                    if (predicate.isResource())
+                    {
+                        localizedTripleObject = details(predicate.getResourceModel(), object, language);
+                        localizedTripleObject.setLanguage(lang);
+                    }
+                    else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+                    {
+                        localizedTripleObject = details(null, predicate.getPredicates(), object, language);
+                        localizedTripleObject.setLanguage(lang);
+                    }
+                    else
+                    {
+                        localizedTripleObject = new LocalizedString(object, lang);
+                    }
+                    found = true;
+                    break;
                 }
             }
-            catch (URISyntaxException e)
+            if (!found)
             {
-                localizedTripleObject = new LocalizedString(object, lang);
+                throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
             }
             
-            if (resultMap.containsKey(predicate))
+            if (resultMap.containsKey(predicateValue))
             {
-                resultMap.get(predicate).add(localizedTripleObject);
+                resultMap.get(predicateValue).add(localizedTripleObject);
             }
             else
             {
                 ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
                 newEntry.add(localizedTripleObject);
-                resultMap.put(predicate, newEntry);
+                resultMap.put(predicateValue, newEntry);
             }
         }
         connection.close();
@@ -238,7 +262,7 @@ public class SQLQuerier implements Querier
     /**
      * {@inheritDoc}
      */
-    public void create(String model, String id, TreeFragment values) throws Exception
+    public void create(String modelName, String id, TreeFragment values) throws Exception
     {
         
         String query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
@@ -250,7 +274,7 @@ public class SQLQuerier implements Querier
         {
             statement.setString(1, id);
             statement.setString(2, predicate);
-            statement.setString(5, model);
+            statement.setString(5, modelName);
             
             for (LocalizedTripleObject object : values.get(predicate))
             {
@@ -275,46 +299,78 @@ public class SQLQuerier implements Querier
             }
         }
         
-        query = "insert into results (id, value, lang) values (?, ?, ?)";
-        statement = connection.prepareStatement(query);
-        
-        statement.setString(1, id);
-        
-        List<Pair> results = PatternHelper.buildObjectFromPattern(model, id, values);
-        
-        for (Pair pair : results)
+        if (modelName != null)
         {
-            if (pair.getValue() != null && !"".equals(pair.getValue()))
+            query = "insert into results (id, value, lang) values (?, ?, ?)";
+            statement = connection.prepareStatement(query);
+            
+            statement.setString(1, id);
+            
+            List<Pair> results = PatternHelper.buildObjectFromPattern(modelName, id, values);
+            
+            for (Pair pair : results)
             {
-                statement.setString(2, pair.getValue());
-                if (pair.getKey() != null && "".equals(pair.getKey()))
+                if (pair.getValue() != null && !"".equals(pair.getValue()))
                 {
-                    statement.setString(3, null);
+                    statement.setString(2, pair.getValue());
+                    if (pair.getKey() != null && "".equals(pair.getKey()))
+                    {
+                        statement.setString(3, null);
+                    }
+                    else
+                    {
+                        statement.setString(3, pair.getKey());
+                    }
+                    statement.executeUpdate();
                 }
-                else
-                {
-                    statement.setString(3, pair.getKey());
-                }
-                statement.executeUpdate();
             }
         }
-
+        
         connection.close();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void delete(String model, String id) throws Exception
+    public void delete(String modelName, String id) throws Exception
     {
+        Model model = ModelList.getInstance().getModelByAlias(modelName);
         
-        String query = "delete from triples where subject = ? and model = ?";
+        List<Predicate> predicates = model.getPredicates();
         
+        delete(predicates, id);
+    }
+    
+    public void delete(List<Predicate> predicates, String id) throws Exception
+    {
         Connection connection = dataSource.getConnection();
+
+        for (Predicate predicate : predicates)
+        {
+            if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+            {
+                String query = "select distinct object from triples where subject = ? and predicate = ?";
+                
+                PreparedStatement statement = connection.prepareStatement(query);
+                
+                statement.setString(1, id);
+                statement.setString(2, predicate.getId());
+                
+                ResultSet results = statement.executeQuery();
+                
+                while (results.next())
+                {
+                    String subId = results.getString("object");
+                    delete(predicate.getPredicates(), subId);
+                }
+            }
+        }
+        
+        String query = "delete from triples where subject = ?";
+        
         PreparedStatement statement = connection.prepareStatement(query);
         
         statement.setString(1, id);
-        statement.setString(2, model);
         
         statement.executeUpdate();
         
@@ -349,7 +405,14 @@ public class SQLQuerier implements Querier
             
             connection.close();
             
-            return model + maxId;
+            if (model == null)
+            {
+                return "genid:" + maxId;
+            }
+            else
+            {
+                return model + maxId;
+            }
         }
         else
         {

@@ -39,6 +39,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 
 /**
  * Helper class for result pattern.
@@ -63,6 +64,15 @@ public class PatternHelper
         
     }
     
+    /**
+     * Reads the result pattern from the {@link Model} and builds up results.
+     * 
+     * @param modelName A string representing the model.
+     * @param currentSubject The identifier of the resource.
+     * @param poMap The data.
+     * @return A list of {@link Pair} containing the results in different languages.
+     * @throws Exception Any exception.
+     */
     public static List<Pair> buildObjectFromPattern(String modelName, String currentSubject, TreeFragment poMap) throws Exception
     {
      
@@ -73,14 +83,14 @@ public class PatternHelper
             {
                 for (LocalizedTripleObject object : objects)
                 {
-//                    if (object.getLanguage() == null)
-//                    {
-//                        languages.add("");
-//                    }
-//                    else
-//                    {
-//                        languages.add(object.getLanguage());
-//                    }
+                    if (object.getLanguage() == null)
+                    {
+                        languages.add("");
+                    }
+                    else
+                    {
+                        languages.add(object.getLanguage());
+                    }
                 }
             }
         }
@@ -107,14 +117,7 @@ public class PatternHelper
                     
                     for (String predicate : poMap.keySet())
                     {
-                        if (line.contains("<" + predicate + ">"))
-                        {
-                            strings = new ArrayList<String>();
-                            for (LocalizedTripleObject value : poMap.get(predicate))
-                            {
-//                                strings.add(line.replace("<" + predicate + ">", value));
-                            }
-                        }
+                        strings.addAll(replacePattern(poMap, line, predicate));
                     }
                     
                     List<String> newResult = new ArrayList<String>();
@@ -167,25 +170,16 @@ public class PatternHelper
                     for (String line : patternPieces)
                     {
                         List<String> strings = new ArrayList<String>();
-                        strings.add(line);
                         
                         for (String predicate : poMap.keySet())
                         {
-                            if (line.contains("<" + predicate + ">"))
-                            {
-                                strings = new ArrayList<String>();
-                                for (LocalizedTripleObject value : poMap.get(predicate))
-                                {
-//                                    if (lang.equals(value.getLanguage())
-//                                            || value.getLanguage() == null
-//                                            || "".equals(value.getLanguage()))
-//                                    {
-//                                        strings.add(line.replace("<" + predicate + ">", value));
-//                                    }
-                                }
-                            }
+                            List<String> rep = replacePattern(poMap, line, predicate);
+                            strings.addAll(rep);
                         }
-                        
+                        if (strings.size() == 0)
+                        {
+                            strings.add(line);
+                        }
                         List<String> newResult = new ArrayList<String>();
                         for (String string : strings)
                         {
@@ -238,6 +232,40 @@ public class PatternHelper
             }
         }
         return results;
+    }
+
+    /**
+     * @param poMap
+     * @param line
+     * @param strings
+     * @param predicate
+     * @return
+     */
+    private static List<String> replacePattern(TreeFragment poMap, String line, String predicate)
+    {
+        List<String> strings = new ArrayList<String>();
+        if (line.contains("<" + predicate + ">"))
+        {
+            for (LocalizedTripleObject value : poMap.get(predicate))
+            {
+                strings.add(line.replace("<" + predicate + ">", value.toString()));
+            }
+        }
+        else if (line.contains("<" + predicate + "|"))
+        {
+            for (LocalizedTripleObject value : poMap.get(predicate))
+            {
+                if (value instanceof TreeFragment)
+                {
+                    TreeFragment treeValue = (TreeFragment) value;
+                    for (String subPredicate : treeValue.keySet())
+                    {
+                        strings.addAll(replacePattern(treeValue, line.replace("<" + predicate + "|", "<"), subPredicate));
+                    }
+                }
+            }
+        }
+        return strings;
     }
 
     /**

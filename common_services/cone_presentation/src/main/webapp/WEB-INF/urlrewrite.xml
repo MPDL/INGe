@@ -13,21 +13,25 @@
     -->
 
 	<rule>
+		<name>Default explain</name>
 		<from>^/explain/?$</from>
 		<to>/html/explain/</to>
 	</rule>
 
 	<rule>
+		<name>Output parameter style 1</name>
 		<from casesensitive="false">^/(.+)\?output=([a-zA-Z0-9]+)$</from>
 		<to>/$2/$1</to>
 	</rule>
 
 	<rule>
+		<name>Output parameter style 2</name>
 		<from casesensitive="false">^/(.+)\?output=([a-zA-Z0-9]+)&amp;(.+)$</from>
 		<to>/$2/$1?$3</to>
 	</rule>
 
 	<rule>
+		<name>Output parameter style 3</name>
 		<from casesensitive="false">^/(.+)\?(.+)&amp;output=([a-zA-Z0-9]+)(.*)$</from>
 		<to>/$3/$1?$2$4</to>
 	</rule>
@@ -38,28 +42,32 @@
 	</rule>
 
 	<rule>
+		<name>ID parameter style 1</name>
 		<from casesensitive="false">^/(.+)\?id=([^&amp;]+)&amp;(.+)$</from>
 		<to>/$1/$2?$3</to>
 	</rule>
 
 	<rule>
+		<name>ID parameter style 2</name>
 		<from casesensitive="false">^/(.+)\?(.+)&amp;id=([^&amp;]+)(.*)$</from>
 		<to>/$1/$3?$2$4</to>
 	</rule>
 
 	<rule>
+		<name>Default action</name>
 		<from>^/([a-zA-Z0-9]+)/(query|details|all)(.*)</from>
 		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9:]+)$</from>
-		<to>/html/$1/$2</to>
+		<name>Default details</name>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:]+)(\?.+)?$</from>
+		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9:]+)$</from>
-		<to>/$1/$2/details/$3</to>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:]+)(\?.+)?$</from>
+		<to>/$1/$2/details/$3$4</to>
 	</rule>
 
 </urlrewrite>

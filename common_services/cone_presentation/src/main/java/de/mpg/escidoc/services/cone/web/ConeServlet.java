@@ -295,7 +295,7 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    out.println(formatDetails(id, model, result));
+                    out.println(formatDetails(id, model, result, lang));
                 }
             }
         }
@@ -393,7 +393,7 @@ public abstract class ConeServlet extends HttpServlet
 
     protected abstract String formatQuery(List<Pair> pairs) throws IOException;
 
-    protected abstract String formatDetails(String id, Model model, TreeFragment triples) throws IOException;
+    protected abstract String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException;
     
     protected abstract String getContentType();
 }

@@ -116,9 +116,13 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             Map<String, String> namespaces = new HashMap<String, String>();
             int counter = 0;
 
-            result.append("<rdf:Description rdf:about=\"");
-            result.append(subject);
-            result.append("\"");
+            result.append("<rdf:Description");
+            if (!subject.startsWith("genid:"))
+            {
+                result.append(" rdf:about=\"");
+                result.append(subject);
+                result.append("\"");
+            }
             
             if (language != null && !"".equals(language))
             {
@@ -132,7 +136,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                 int lastSlash = predicate.lastIndexOf("/");
                 if (lastSlash >= 0)
                 {
-                    String namespace = predicate.substring(0, lastSlash + 1);
+                    String namespace = predicate.substring(0, lastSlash);
+                    if (!namespace.endsWith("#"))
+                    {
+                        namespace += "/";
+                    }
                     
                     if (!namespaces.containsKey(namespace))
                     {
@@ -155,7 +163,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                 String prefix = null;
                 if (lastSlash >= 0)
                 {
-                    namespace = predicate.substring(0, lastSlash + 1);
+                    namespace = predicate.substring(0, lastSlash);
+                    if (!namespace.endsWith("#"))
+                    {
+                        namespace += "/";
+                    }
                     prefix = namespaces.get(namespace);
                     tagName = predicate.substring(lastSlash + 1);
                 }

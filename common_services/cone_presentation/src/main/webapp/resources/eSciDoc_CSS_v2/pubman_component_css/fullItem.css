@@ -108,11 +108,11 @@
 }
 
 .itemBlock .itemBlockContent {
-	width: 66.74em;
+	width: 166.74em;
 }
 
 .itemBlock .itemLine {
-	width: 66.74em;
+	width: 166.74em;
 	padding-bottom: 0.74em;
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
@@ -141,7 +141,7 @@
 }
 
 .itemLine .creator {
-	width: 43.37em;
+	width: 143.37em;
 }
 
 .fullItem .listItemLine, .fullItem li {

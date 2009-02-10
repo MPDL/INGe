@@ -132,7 +132,7 @@ public class RdfConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples) throws IOException
+    protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         
         String result = RdfHelper.formatMap(id, triples);

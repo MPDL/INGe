@@ -39,7 +39,10 @@
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false"/>
 			<predicate name="SFX-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/>
-			<predicate name="Identifier" value="http://purl.org/dc/terms/identifier" multiple="true" mandatory="false" localized="false"/>
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false"/>
+				<predicate name="ID Type" value="http://escidoc.mpg.de/idtype" multiple="false" mandatory="true" localized="false"/>
+			</predicate>
 			<predicate name="Publisher" value="http://purl.org/dc/elements/1.1/publisher" multiple="false" mandatory="false" localized="false"/>
 			<predicate name="Publisher Place" value="http://purl.org/dc/terms/publisher" multiple="false" mandatory="false" localized="true"/>
 		</predicates>
@@ -113,30 +116,53 @@
 		</aliases>
 		<primary-identifier generate="true" prefix="urn:cone:">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
-			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false"/>
-			<predicate name="Cone-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/>
-			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false"/>
-			<predicate name="Surname" value="urn:cone:surname" multiple="false" mandatory="false" localized="false"/>
-			<predicate name="Given Name" value="urn:cone:givenname" multiple="false" mandatory="false" localized="false"/>
-			<predicate name="Photo-URL" value="urn:cone:photo" multiple="false" mandatory="false" localized="false"/>
-			<predicate name="Identifier" value="http://purl.org/dc/terms/identifier" multiple="true" mandatory="false" localized="false"/>
-			<predicate name="Researcher URL" value="urn:cone:url" multiple="true" mandatory="false" localized="true"/>
-			<predicate name="Keywords of research fields and interests" value="urn:cone:keyword" multiple="true" mandatory="false" localized="true"/>
-			<predicate name="Subject (DDC)" value="urn:cone:ddc" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="Degree" value="urn:cone:degree" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="Current position" value="urn:cone:position" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="Awards" value="urn:cone:awards" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="Organizational Unit" value="urn:cone:ou" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="Other affiliations" value="urn:cone:other-ou" multiple="false" mandatory="false" localized="true"/>
-			<predicate name="E-mail Address" value="urn:cone:email" multiple="true" mandatory="false" localized="false"/>
-			<predicate name="Telephone" value="urn:cone:phone" multiple="false" mandatory="false" localized="false"/>
+			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true"/>
+			<!-- <predicate name="Cone-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/> -->
+			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="true"/>
+			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/familyname" multiple="false" mandatory="true" localized="true"/>
+			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="true" localized="true"/>
+			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false"/>
+			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false"/>
+				<predicate name="ID Type" value="http://escidoc.mpg.de/idtype" multiple="false" mandatory="true" localized="false"/>
+			</predicate>
+			<predicate name="Researcher URL" value="http://xmlns.com/foaf/0.1/homepage" multiple="true" mandatory="false" localized="true" generateObject="true">
+				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false"/>
+				<predicate name="Description" value="http://purl.org/dc/elements/1.1/description" multiple="false" mandatory="true" localized="true"/>
+			</predicate>
+			<predicate name="Keywords of research fields and interests" value="http://purl.org/dc/elements/1.1/subject" multiple="false" mandatory="false" localized="true"/>
+			<predicate name="Subject (DDC)" value="http://purl.org/dc/terms/subject" multiple="true" mandatory="false" localized="true" resourceModel="ddc"/>
+			<predicate name="Degree" value="http://escidoc.mpg.de/degree" multiple="false" mandatory="false" localized="true"/>
+			<predicate name="Awards" value="http://escidoc.mpg.de/award" multiple="false" mandatory="false" localized="true"/>
+			<predicate name="Position" value="http://escidoc.mpg.de/position" multiple="true" mandatory="false" localized="true" generateObject="true">
+				<predicate name="Organization" value="http://escidoc.mpg.de/organization" multiple="false" mandatory="false" localized="true"/>
+				<predicate name="eSciDoc-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false"/>
+				<predicate name="Position Appellation" value="http://escidoc.mpg.de/position-name" multiple="false" mandatory="false" localized="true"/>
+				<predicate name="From" value="http://purl.org/dc/elements/1.1/start-date" multiple="false" mandatory="false" localized="false"/>
+				<predicate name="Until" value="http://purl.org/dc/elements/1.1/end-date" multiple="false" mandatory="false" localized="false"/>
+				<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/email" multiple="false" mandatory="false" localized="false"/>
+			</predicate>
+			<!-- <predicate name="Other affiliations" value="urn:cone:other-ou" multiple="false" mandatory="false" localized="true"/> -->
+			<predicate name="E-mail Address" value="http://xmlns.com/foaf/0.1/email" multiple="false" mandatory="false" localized="false"/>
+			<predicate name="Telephone" value="http://xmlns.com/foaf/0.1/tel" multiple="false" mandatory="false" localized="false"/>
+			<predicate name="Actual Status" value="http://escidoc.mpg.de/person-activity-status" multiple="false" mandatory="false" localized="false"/>
+			<predicate name="Last Modification Date" value="http://purl.org/dc/terms/modified" multiple="false" mandatory="true" localized="false"/>
+			<predicate name="Creation Date" value="http://purl.org/dc/terms/created" multiple="false" mandatory="true" localized="false"/>
+			<predicate name="Modified By" value="http://escidoc.mpg.de/modified-by" multiple="false" mandatory="true" localized="false"/>
+			<predicate name="Created By" value="http://escidoc.mpg.de/created-by" multiple="false" mandatory="true" localized="false"/>
 		</predicates>
 		<result>
 			<pattern>
-				&lt;http://purl.org/dc/elements/1.1/title&gt;
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+ (
+&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
+)
 			</pattern>
 			<pattern>
-				&lt;http://purl.org/dc/terms/alternative&gt;
+&lt;http://purl.org/dc/terms/alternative&gt;
+ (
+&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
+)
 			</pattern>
 		</result>
 		<description>Persons</description>

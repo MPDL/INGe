@@ -272,6 +272,7 @@
 				if ($currentResult) {
 					$input.val($currentResult.text());
 					$input.resultID = getResultID($currentResult.text());
+					$input.resultValue = $currentResult.text();
 					$results.hide();
 					
 					if (options.onSelect)

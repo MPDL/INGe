@@ -143,7 +143,7 @@ public class HtmlConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples)
+    protected String formatDetails(String id, Model model, TreeFragment triples, String lang)
         throws IOException
     {
         
@@ -158,6 +158,7 @@ public class HtmlConeServlet extends ConeServlet
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
+            transformer.setParameter("lang", lang);
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
         }
         catch (Exception e)

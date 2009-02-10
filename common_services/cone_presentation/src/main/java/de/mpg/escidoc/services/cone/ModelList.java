@@ -109,6 +109,7 @@ public class ModelList
     {
         private Set<Model> list = new HashSet<Model>();
         private Model currentService = null;
+        private Stack<List<Predicate>> predicateStack = new Stack<List<Predicate>>();
 
         @Override
         public void content(String uri, String localName, String name, String content)
@@ -144,9 +145,22 @@ public class ModelList
             {
                 currentService = new Model();
             }
-            else if ("models/model/predicates/predicate".equals(stack.toString()))
+            else if ("models/model/predicates".equals(stack.toString()))
             {
-                currentService.getPredicates().add(new Predicate(attributes.getValue("value"), Boolean.parseBoolean(attributes.getValue("multiple")), Boolean.parseBoolean(attributes.getValue("mandatory")), Boolean.parseBoolean(attributes.getValue("localized")), attributes.getValue("name")));
+                this.predicateStack.push(currentService.getPredicates());
+            }
+            else if ("predicate".equals(name))
+            {
+                Predicate predicate = new Predicate(
+                        attributes.getValue("value"),
+                        attributes.getValue("name"),
+                        Boolean.parseBoolean(attributes.getValue("multiple")),
+                        Boolean.parseBoolean(attributes.getValue("mandatory")),
+                        Boolean.parseBoolean(attributes.getValue("localized")),
+                        Boolean.parseBoolean(attributes.getValue("generateObject")),
+                        attributes.getValue("resourceModel"));
+                this.predicateStack.peek().add(predicate);
+                this.predicateStack.push(predicate.getPredicates());
             }
             else if ("models/model/primary-identifier".equals(stack.toString()))
             {
@@ -183,6 +197,10 @@ public class ModelList
                 currentService.setLocalizedResultPattern(localized);
                 currentService.setGlobalResultPattern(global);
                 list.add(currentService);
+            }
+            else if ("predicate".equals(name))
+            {
+                this.predicateStack.pop();
             }
             super.endElement(uri, localName, name);
         }
@@ -508,14 +526,46 @@ public class ModelList
         private boolean multiple;
         private boolean mandatory;
         private boolean localized;
+        private List<Predicate> predicates = new ArrayList<Predicate>();
+        private boolean generateObject = false;
+        private String resourceModel;
 
-        public Predicate(String id, boolean multiple, boolean mandatory, boolean localized, String name)
+        /**
+         * Constructor using all fields.
+         * 
+         * @param id The value of the predicate.
+         * @param multiple Flag that indicates that this predicate might occur more than once.
+         * @param mandatory Flag that indicates the this predicate must occur at least once.
+         * @param localized Flag that indicates that this predicate might occur in different languages.
+         * @param name The label of this predicate.
+         * @param generateObject Flag indicating that this predicate has sub-predicates that are not defined
+         * by a certain identifier.
+         * @param resourceModel Flag indicating if the object is an identifier to a stand-alone resourceModel. If so,
+         * this resourceModel won't be editable, but linked. Furthermore, it will not be deleted in case the
+         * current subject is deleted.
+         */
+        public Predicate(
+                String id,
+                String name,
+                boolean multiple,
+                boolean mandatory,
+                boolean localized,
+                boolean generateObject,
+                String resourceModel)
         {
             this.id = id;
+            
             this.multiple = multiple;
             this.mandatory = mandatory;
             this.localized = localized;
             this.name = name;
+            this.generateObject = generateObject;
+            this.resourceModel = resourceModel;
+        }
+        
+        public boolean isResource()
+        {
+            return (resourceModel != null);
         }
         
         public String getName()
@@ -562,6 +612,32 @@ public class ModelList
         {
             this.localized = localized;
         }
+
+        public List<Predicate> getPredicates()
+        {
+            return predicates;
+        }
+
+        public boolean isGenerateObject()
+        {
+            return generateObject;
+        }
+
+        public void setGenerateObject(boolean generateObject)
+        {
+            this.generateObject = generateObject;
+        }
+
+        public String getResourceModel()
+        {
+            return resourceModel;
+        }
+
+        public void setResourceModel(String resourceModel)
+        {
+            this.resourceModel = resourceModel;
+        }
+
 
     }
 }

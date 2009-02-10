@@ -168,7 +168,7 @@ public class JQueryConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples) throws IOException
+    protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         return triples.toJson();
     }
