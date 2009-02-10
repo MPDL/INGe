@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.easySubmission;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -300,7 +301,7 @@ public class EasySubmission extends FacesBean
     	
     	//Get informations about import sources if submission method = fetching import
     	EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
-        if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2)
+        if((this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2) || this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
     			&&this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT"))
     	{
     		//Call source initialization only once
@@ -407,10 +408,22 @@ public class EasySubmission extends FacesBean
                 contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
             }
         }
-        // set the current submission step to step2
-        easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
         // set method to import
         easySubmissionSessionBean.setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT);
+        
+        // set the current submission step to step2
+        if(contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1)
+        {
+        	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        }
+        // Skip Collection selection for Import & Easy Sub if only one Collection
+        else
+        {
+        	contextListSessionBean.getDepositorContextList().get(0).selectForEasySubmission();
+        	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+        	this.init();
+        }
+        
         return "loadNewEasySubmission";
     }
 
@@ -1164,7 +1177,20 @@ public class EasySubmission extends FacesBean
 
     public String loadStep2()
     {
-        this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+    	if(this.getContextListSessionBean().getDepositorContextList() != null && this.getContextListSessionBean().getDepositorContextList().size() > 1)
+        {
+    		this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        }
+    	else
+    	{
+    		try 
+    		{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+			} catch (Exception e) 
+			{
+				logger.error("could not find context to redirect to SubmissionPage.jsp in Easy Submssion", e);
+			}
+    	}
         return "loadNewEasySubmission";
     }
 
