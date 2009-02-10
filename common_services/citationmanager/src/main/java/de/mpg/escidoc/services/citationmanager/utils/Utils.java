@@ -180,5 +180,29 @@ public class Utils {
 	    		.matcher(what)
 	    		.replaceAll(replacement);
     }
+
     
+	/**
+	 * Joins the elements of the provided array into a single String containing the provided list of elements.
+	 * Separator will be put between the not null/empty elements  
+	 * @param arr is the list of the elements.
+	 * @param delimiter 
+	 * @return joined string
+	 */
+	public static String join(String[] arr, String delimiter)
+	{
+		if ( arr==null || arr.length == 0 ) return null;
+		StringBuffer sb = new StringBuffer();
+		if (delimiter==null) delimiter="";
+		for (int i=0, n=arr.length; i<n; i++ )
+		{
+			if (arr[i]==null || arr[i].trim().equals(""))
+				continue;
+			sb.append(arr[i]);
+			if (i<n-1) sb.append(delimiter);
+		}
+		String str = sb.toString().replaceAll(Pattern.quote(delimiter)+"$", "");
+		
+		return str;
+	}	
 }

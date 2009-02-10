@@ -459,34 +459,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
         int eSize = elements.size();
         if ( eSize > 0) {
-        	boolean delim_ok = Utils.checkLen(delimiter) && eSize > 1; 
-        	int i = 1;
-        	String eSo=null,eSc=null;
+        	// apply delimiters
+        	expr="$P{REPORT_SCRIPTLET}.join(new String[]{";
             for (LayoutElement e : elements) {
-            	eSc = "$V{" + e.getId() + "}"; 
-                addLayoutElementToVariablesMap(cs, e);
-                // insert delimiter between elements
-                expr += 
-                	(delim_ok && i>1
-                			 ? 
-                			" ((!"+ eSc +".trim().equals(\"\") " +
-                			"  && !"+ eSo +".trim().equals(\"\")) " +
-                			"? \"" + delimiter + "\" : \"\") +" 
-                    			: 
-                    		""
-                    )
-                    +	
-                	eSc
-                	+ 
-                	(i<eSize ? " + " : "");
-                eSo = eSc;
-                i++;
+            	addLayoutElementToVariablesMap(cs, e);
+            	expr += "$V{" + e.getId() + "},"; 
             }
-//            if (delim_ok && delimiter.equals(", ") )
-//            {
-//            	
-//            	logger.info("expr="+expr);
-//            }
+            expr = expr.substring(0, expr.length()-1) + "}, \""+ delimiter +"\")";
+//            logger.info("expr="+expr);
         } else if (le.getRef().length() > 0) {
         	String ref = le.getRef();
 //          In the case we can define complex MD handling, which is not supported with XPAth
