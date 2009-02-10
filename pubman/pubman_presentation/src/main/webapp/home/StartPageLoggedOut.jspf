@@ -44,9 +44,9 @@
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+			<input class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</p>
 	<br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
@@ -54,12 +54,18 @@
 	<h2>
 	Short PubMan Introduction Video
 	</h2>
-	<a href="This will link to PubMan Blog screencast entry"><img src="./images/screencast.jpg" class="large"/></a>
+	<a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank"><img src="./images/screencast.jpg" class="huge"/></a>
 	<br/><br/>
 	<h2>
 	PubMan Interfaces
 	</h2>
-	<span>Various technical interfaces are implemented and can be found under:</span>
+		<ul>
+			<li>Search&Export Service (allows user-/local specific queries of data for integration into local systems). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST interface</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">sample query</a>.</li>
+			<li>Data Acquisition Service with an <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI interface</a> (fetching data from external sources like arXiv)</li>
+			<li><a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.</li>
+			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
+		</ul>
+	<span>Further information on the interfaces can be found under:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
 
@@ -75,9 +81,9 @@
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+			<input class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
 	<br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder gehen Sie zur Organisationssuche</a>
@@ -85,19 +91,25 @@
 	<h2>
 	PubMan Einf&uuml;hrungsvideo
 	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/"><img src="./images/screencast.jpg" class="large"/></a>
+	<a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank"><img src="./images/screencast.jpg" class="huge"/></a>
 	<br/><br/>
 	<h2>
 	PubMan Schnittstellen
 	</h2>
-	<span>Eine Zusammenfassung aller technischen Schnittstellen finden Sie unter:</span>
+		<ul>
+			<li>Search&Export Service (Unterst&uuml;tzt Datenanfragen zur Integration in externe Systeme). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST Schnittstelle</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">Beispiel</a>.</li>
+			<li>Data Acquisition Service mit einer <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI Schnittstelle</a> (Datenimport aus externen Systemen wie arXiv)</li>
+			<li><a href="/validation/" target="_blank">Validation Service</a>:Validierung von XML Daten</li>
+			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Anfragen von kontrollierten Vokabularien wie Journal Namen oder Personen</li>
+		</ul>
+	<span>Weitere Informationen finden Sie unter:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
 
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PUBMAN - DIE ESCIDOC L&Ouml;SUNG F&Uuml;R PUBLIKATIONS&nbsp;MANAGEMENT
+	PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
 	</h2>
 	<p>PubMan supports <b>scientists</b> and <b>institutes</b> in the management and the digital curation of their publications.</p>
 	<p>This solution addresses <b>all disciplines</b> and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, <b>customization</b> and <b>configuration</b> options throughout the solution's features are of major importance.</p>
@@ -106,9 +118,9 @@
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<h:inputText styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+			<input class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<h:commandButton styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
 	<br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
@@ -116,11 +128,17 @@
 	<h2>
 	PubMan Introduction Video
 	</h2>
-	<a href="http://pubman.blogs.mpdl.mpg.de/"><img src="./images/screencast.jpg" class="large"/></a>
+	<a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank"><img src="./images/screencast.jpg" class="huge"/></a>
 	<br/><br/>
 	<h2>
 	PubMan Interfaces
 	</h2>
-	<span>Various technical interfaces are implemented and can be found under:</span>
+		<ul>
+			<li>Search&Export Service (allows user-/local specific queries of data for integration into local systems). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST interface</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">sample query</a>.</li>
+			<li>Data Acquisition Service with an <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI interface</a> (fetching data from external sources like arXiv)</li>
+			<li><a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.</li>
+			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
+		</ul>
+	<span>Further information on the interfaces can be found under:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
