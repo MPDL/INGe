@@ -115,7 +115,7 @@ public class EditItemSessionBean extends FacesBean
 		this.files.clear();
 		this.locators.clear();
 		this.showLocator = false;
-		this.genreBundle = null;
+		this.genreBundle = "";
 		this.offset="";
 		this.showAuthorCopyPaste = "";
 		

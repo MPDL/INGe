@@ -80,6 +80,7 @@ import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -322,7 +323,7 @@ public class EditItem extends FacesBean
         		pubItem.getMetadata().setGenre(Genre.ARTICLE);
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
         	}
-        	else
+        	else if(this.getEditItemSessionBean().getGenreBundle().trim().equals(""))
         	{
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
         	}
@@ -590,6 +591,16 @@ public class EditItem extends FacesBean
     {
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFilesAndLocators();
+        
+        //  cleanup item according to genre specific MD specification
+        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        try 
+        {
+			itemManager.cleanupItem();
+		} catch (Exception e) 
+		{
+			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+		}
         
         /*
          * FrM: Validation with validation point "default"
