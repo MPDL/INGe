@@ -34,13 +34,12 @@
 		<variable name="authorsCount" type="xpath">
 			<![CDATA[string(count(publication/creator[@role='author']/person|organization))]]>
 		</variable>
+		<variable name="editorsCount" type="xpath">
+			<![CDATA[string(count(publication/creator[@role='editor']/person|organization))]]>
+		</variable>
 			
 		<variable name="sourceEditorsCount" type="xpath">
 			<![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]>
-		</variable>
-		
-		<variable name="bookEditorsCount" type="xpath"> 
-			<![CDATA[string(count(publication[@type='book']/creator[@role='editor']))]]>
 		</variable>
 			
 		<!--
@@ -48,7 +47,13 @@
 			variables defined above
 		-->
 		<variable name="date" type="expression">
-			<![CDATA[${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]>
+			<![CDATA[
+				${publication/issued} != null ? 
+					${publication/issued} :
+					${publication/published-online} != null ? 
+						${publication/published-online} :
+				 		null
+			]]>
 		</variable>
 		
 		<variable name="static_in" type="expression">
@@ -57,7 +62,7 @@
 <!--		<variable name="static_in" xpath="'in'" />-->
 
 		<variable name="ed" type="expression">
-					<![CDATA[ Integer.parseInt(${bookEditorsCount}) == 1 ? " (ed)" : " (eds)"]]>
+					<![CDATA[ Integer.parseInt(${editorsCount}) == 1 ? " (ed)" : " (eds)"]]>
 		</variable>
 
 	</variables>
@@ -65,6 +70,7 @@
 	<!-- predefined layout elements which can be referenced in CSLDs -->
 	<layout-elements> 
 		<!-- repeatable layout elements -->
+		<!-- authors -->
 		<layout-element name="authors-MoreThan2"
 			ref="publication/creator[@role='author']/person|organization"
 			repeatable="yes">
@@ -115,6 +121,7 @@
 			</elements>
 		</layout-element>	
 		
+		<!-- editors -->
 		<layout-element name="editors-MoreThan2"
 			ref="publication/creator[@role='editor']/person|organization"
 			repeatable="yes">
@@ -126,17 +133,16 @@
 				<layout-element ref="family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${authorsCount})!=2]]></valid-if>
+				<valid-if><![CDATA[Integer.parseInt(${editorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
-				<ends-with value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="given-name" />
 				<layout-element ref="family-name" />
 			</elements>
 		</layout-element>
-		<layout-element name="authors-Equal2"
-			ref="publication/creator[@role='author']/person|organization"
+		<layout-element name="editors-Equal2"
+			ref="publication/creator[@role='editor']/person|organization"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
@@ -146,57 +152,7 @@
 				<layout-element ref="family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==2]]></valid-if>
-				<delimiter value=", " />
-				<ends-with value=", " />
-			</parameters>
-			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
-			</elements>
-		</layout-element>
-		<layout-element name="authors">
-			<parameters>
-				<delimiter value="" />
-			</parameters>
-			<elements>
-				<layout-element ref="authors-Equal2" />
-				<layout-element ref="authors-MoreThan2" />
-			</elements>
-		</layout-element>	
-		
-		
-		<layout-element name="book-editors-MoreThan2"
-			ref="publication[@type='book']/creator[@role='editor']/person|organization"
-			repeatable="yes">
-			<parameters position="last">
-				<delimiter value=", and " />
-			</parameters>
-			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
-			</elements>
-			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${bookEditorsCount})!=2]]></valid-if>
-				<delimiter value=", " />
-			</parameters>
-			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
-			</elements>
-		</layout-element>
-		<layout-element name="book-editors-Equal2"
-			ref="publication[@type='book']/creator[@role='editor']/person|organization"
-			repeatable="yes">
-			<parameters position="last">
-				<delimiter value=" and " />
-			</parameters>
-			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
-			</elements>
-			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${bookEditorsCount})==2]]></valid-if>
+				<valid-if><![CDATA[Integer.parseInt(${editorsCount})==2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
@@ -205,19 +161,39 @@
 			</elements>
 		</layout-element>
 		
-		<layout-element name="book-editors">
+		<layout-element name="editors">
 			<parameters>
 				<delimiter value="" />
 				<ends-with value=","/>
 			</parameters>
 			<elements>
-				<layout-element ref="book-editors-Equal2" />
-				<layout-element ref="book-editors-MoreThan2" />
+				<layout-element ref="editors-Equal2" />
+				<layout-element ref="editors-MoreThan2" />
 				<layout-element ref="ed" />
 			</elements>
-		</layout-element>	
+		</layout-element>
+			
+		<!-- creators -->
+		<layout-element name="creators">
+			<parameters/>
+			<elements>
+				<layout-element ref="authors">
+					<parameters>
+						<valid-if><![CDATA[Integer.parseInt(${authorsCount})>0]]></valid-if>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element ref="editors">
+					<parameters>
+						<valid-if><![CDATA[Integer.parseInt(${authorsCount})==0 && Integer.parseInt(${editorsCount})>0]]></valid-if>
+					</parameters>
+					<elements/>
+				</layout-element>
+			</elements>
+		</layout-element>
 		
 		
+		<!-- source-editors -->
 		<layout-element name="source-editors-MoreThan2"
 			ref="publication/source/creator[@role='editor']/person|organization"
 			repeatable="yes">
@@ -315,7 +291,7 @@
 		</layout-element>			
 
 		
-		<layout-element name="publishingInfoAndIssued">
+		<layout-element name="publishingInfoAndDate">
 				<parameters>
 					<delimiter value=", " />
 					<starts-with value=" (" />
@@ -324,11 +300,11 @@
 				<elements>
 					<layout-element ref="publication/publishing-info/publisher" />
 					<layout-element ref="publication/publishing-info/place" />
-					<layout-element ref="publication/issued" func="get_year" />
+					<layout-element ref="date" func="get_year" />
 				</elements>
 			</layout-element>
 
-			<layout-element name="editorsAndPublishingInfoAndIssued">
+			<layout-element name="editorsAndPublishingInfoAndDate">
 				<parameters>
 					<delimiter value=" "/>
 				</parameters>
@@ -339,7 +315,7 @@
 						</parameters>
 						<elements/>
 					</layout-element>
-					<layout-element ref="publishingInfoAndIssued" />
+					<layout-element ref="publishingInfoAndDate" />
 				</elements>
 			</layout-element>
 			
@@ -361,7 +337,7 @@
 			</layout-element>
 		
 				<!-- debug elements: -->
-			<layout-element name="debug">
+			<layout-element name="__debug__">
 				<parameters>
 					<starts-with value="debug__" />
 					<ends-with value="__debug" />
@@ -422,7 +398,7 @@
 			
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
+			<layout-element ref="creators" />
 						
 					<!-- JOURNAL ARTICLE, element "journal article"  -->
 			<layout-element ref="quoted_title"/>
@@ -462,7 +438,7 @@
 					</layout-element>
 				</elements>
 			</layout-element>
-			<layout-element ref="publication/issued" func="get_year">
+			<layout-element ref="date">
 				<parameters>
 					<starts-with value="(" />
 					<ends-with value=")" />
@@ -472,9 +448,9 @@
 		</elements>
 	</cs-layout-definition>
 
-	<cs-layout-definition name="BookHasAuthors">
+	<cs-layout-definition name="Book">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${authorsCount})>0 ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book")  ]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -482,32 +458,11 @@
 			
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
-						
-			<layout-element ref="title-italic"/>
-
-			<layout-element ref="publishingInfoAndIssued"/>
-						
-			<layout-element ref="edition" />
-			
-		</elements>
-	</cs-layout-definition>
-	
-	<cs-layout-definition name="BookHasEditorsAndHasNotAuthors">
-		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})>0 && Integer.parseInt(${authorsCount})==0 ]]></valid-if>
-			<delimiter value="" />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			
-			<layout-element ref="debug" />
-			
-			<layout-element ref="book-editors" />
+			<layout-element ref="creators" />
 						
 			<layout-element  ref="title-italic"/>
 
-			<layout-element ref="publishingInfoAndIssued"/>
+			<layout-element ref="publishingInfoAndDate"/>
 						
 			<layout-element ref="edition"/>
 		</elements>
@@ -524,7 +479,7 @@
 			
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
+			<layout-element ref="creators" />
 						
 			<layout-element  ref="publication/title">
 				<parameters>
@@ -550,7 +505,7 @@
 				</elements>
 			</layout-element>
 
-			<layout-element ref="editorsAndPublishingInfoAndIssued"/>
+			<layout-element ref="editorsAndPublishingInfoAndDate"/>
 			
 			<layout-element ref="vol"/>
 			
@@ -570,7 +525,7 @@
 
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" >
+			<layout-element ref="creators" >
 				<parameters>
 					<ends-with value="PhD-Thesis"/>
 				</parameters>
@@ -579,7 +534,7 @@
 
 			<layout-element ref="publication/publishing-info/publisher" />
 			
-			<layout-element ref="publication/issued" func="get_year" />
+			<layout-element ref="date" />
 						
 		</elements>
 	</cs-layout-definition>
@@ -594,7 +549,7 @@
 
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
+			<layout-element ref="creators" />
 
 			<layout-element ref="publication/identifier[contains(@type,'OTHER')]" >
 				<parameters>
@@ -603,7 +558,7 @@
 				<elements/>
 			</layout-element>
 			
-			<layout-element ref="publication/issued" func="get_year" />
+			<layout-element ref="date" />
 						
 		</elements>
 	</cs-layout-definition>	
@@ -618,7 +573,7 @@
 
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
+			<layout-element ref="creators" />
 
 			<layout-element ref="publication/event/title" >
 				<parameters>
@@ -629,7 +584,7 @@
 			
 			<layout-element ref="publication/event/place" />
 			
-			<layout-element ref="publication/issued" func="get_year" />
+			<layout-element ref="date" />
 						
 		</elements>
 	</cs-layout-definition>
@@ -643,7 +598,7 @@
 			
 			<layout-element ref="debug" />
 			
-			<layout-element ref="authors" />
+			<layout-element ref="creators" />
 
 			<layout-element  ref="publication/title">
 				<parameters>
@@ -670,7 +625,7 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="editorsAndPublishingInfoAndIssued"/>
+			<layout-element ref="editorsAndPublishingInfoAndDate"/>
 			
 			<layout-element ref="vol"/>
 			

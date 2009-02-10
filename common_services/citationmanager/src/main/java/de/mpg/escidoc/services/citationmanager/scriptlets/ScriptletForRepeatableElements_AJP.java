@@ -23,8 +23,9 @@ public String xmlEncode(String str) {
    return str;
 }
 public String cleanCit(String str) {
-   if (str!=null && str.length()>0) {
+   if (Utils.checkLen(str)) {
        str = str.replace("null", "");
+       str = str.replaceAll("<style[^>]*?>\\s*<[/]style\\s*>","");
 		str = Pattern.compile("[\n\r\t]+", Pattern.DOTALL).matcher(str).replaceAll(" ");
        str = str.replaceAll("\\s+", " ");
        str = str.replaceAll("([.]+\\s*[.]+)+",".");
@@ -37,11 +38,10 @@ public String cleanCit(String str) {
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
        str = str.replaceAll("([.]+\\s*<[/]?style[^>]*?>)\\s*[.]+","$1");
        str = str.replaceAll("\\s+(<[/]?style[^>]*?>)?\\s*([,.;:?!])","$1$2");
-       str = str.replaceAll("<style[^>]*?>\\s*<[/]style\\s*>","");
    }
    return Utils.checkVal(str) ? str: null;
 }
-public String mostRecentDateStatus(String[] dates) {String max = mostRecentDate(dates);return max.equals(dates[0]) ? "escidoc.published-online":max.equals(dates[1]) ? "escidoc.issued":max.equals(dates[2]) ? "escidoc.dateAccepted" :max.equals(dates[3]) ? "escidoc.dateSubmitted" :max.equals(dates[4]) ? "escidoc.modified":max.equals(dates[5]) ? "escidoc.created":""; }public String mostRecentDate(String[] dates) {List<String> list = Arrays.asList(dates);Collections.replaceAll(list, null, "");Collections.sort(list);return (String)list.get(list.size() - 1);}public String get_month(String str) {String[] sa = str.split("-");return sa.length >= 2 ? sa[1] : null; }public String get_year(String str) {return str != null ? str.split("-")[0] : null;}public String get_month_name(String str) {String m = get_month(str);if(m==null) return null;int mi = Integer.parseInt(m);return mi==1 ? "January":mi==2?"February":mi==3?"March":mi==4 ? "April": mi==5 ? "May": mi==6 ? "June": mi==7 ? "July":mi==8 ? "August": mi==9 ? "September": mi==10 ? "October":mi==11 ? "November":mi==12 ? "December":null; }    public String get_initials(String str) {StringTokenizer st = new StringTokenizer(str);String res = "";while (st.hasMoreElements( ))res += st.nextElement().toString().charAt(0) + ". ";return res.trim( );}public String get_day(String str) {String[] sa = str.split("-");return sa.length >= 3 ? sa[2] : null;}public String getCS_1_PLE_2() throws Exception {
+public String mostRecentDateStatus(String[] dates) {String max = mostRecentDate(dates);return max.equals(dates[0]) ? "escidoc.published-online":max.equals(dates[1]) ? "escidoc.issued":max.equals(dates[2]) ? "escidoc.dateAccepted" :max.equals(dates[3]) ? "escidoc.dateSubmitted" :max.equals(dates[4]) ? "escidoc.modified":max.equals(dates[5]) ? "escidoc.created":""; }public String mostRecentDate(String[] dates) {List<String> list = Arrays.asList(dates);Collections.replaceAll(list, null, "");Collections.sort(list);return (String)list.get(list.size() - 1);}public String get_month(String str) {String[] sa = str.split("-");return sa.length >= 2 ? sa[1] : null; }public String get_year(String str) {return str != null ? str.split("-")[0] : null;}public String get_month_name(String str) {String m = get_month(str);if(m==null) return null;int mi = Integer.parseInt(m);return mi==1 ? "January":mi==2?"February":mi==3?"March":mi==4 ? "April": mi==5 ? "May": mi==6 ? "June": mi==7 ? "July":mi==8 ? "August": mi==9 ? "September": mi==10 ? "October":mi==11 ? "November":mi==12 ? "December":null; }    public String get_initials(String str) {StringTokenizer st = new StringTokenizer(str);String res = "";while (st.hasMoreElements( ))res += st.nextElement().toString().charAt(0) + ". ";return res.trim( );}public String join(String[] arr, String delimiter){if ( arr==null || arr.length == 0 ) return null;StringBuffer sb = new StringBuffer();if (delimiter==null) delimiter="";for (int i=0, n=arr.length; i<n; i++ ){if (arr[i]==null || arr[i].trim().equals(""))continue;sb.append(arr[i]);if (i<n-1) sb.append(delimiter);}String str = sb.toString().replaceAll(Pattern.quote(delimiter)+"$", "");return str;}    public String get_day(String str) {String[] sa = str.split("-");return sa.length >= 3 ? sa[2] : null;}public String getCS_1_PLE_2() throws Exception {
 String result = "";
 String str = "";
 String last = "";
@@ -171,7 +171,7 @@ String str = "";
 String last = "";
 String delim = "";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
-JRXmlDataSource subDs = ds.subDataSource("md-record/publication[@type='book']/creator[@role='editor']/person|organization");
+JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='editor']/person|organization");
 JRDesignField field_default_0 = new JRDesignField();
 field_default_0.setDescription("given-name");
 field_default_0.setValueClass(String.class);
@@ -233,7 +233,7 @@ String str = "";
 String last = "";
 String delim = "";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
-JRXmlDataSource subDs = ds.subDataSource("md-record/publication[@type='book']/creator[@role='editor']/person|organization");
+JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='editor']/person|organization");
 JRDesignField field_default_0 = new JRDesignField();
 field_default_0.setDescription("given-name");
 field_default_0.setValueClass(String.class);
@@ -289,7 +289,7 @@ result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "";
 elems.clear();
 return result;
 }
-public String getCS_1_PLE_8() throws Exception {
+public String getCS_1_PLE_9() throws Exception {
 String result = "";
 String str = "";
 String last = "";
@@ -351,7 +351,7 @@ result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "";
 elems.clear();
 return result;
 }
-public String getCS_1_PLE_7() throws Exception {
+public String getCS_1_PLE_8() throws Exception {
 String result = "";
 String str = "";
 String last = "";
