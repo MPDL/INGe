@@ -189,30 +189,24 @@ public class ProcessSnippet {
 		{
 			// logger.info("iteration:" + i + "; pea:" +  pea[i]);
 			
-			Element snippetElement = doc.createElement(SNIPPET_ELEMENT_NAME);
-			snippetElement.setAttribute("xmlns:dcterms", SNIPPET_NS);
+			String citation = extractPureCitation(sb[i].toString());
+			//do not add citation element if it is empty 
+			if ( citation != null )
+			{
 			
-			addFrameworkPrefixUrl(doc, snippetElement, (Element)itemsArr[i]); 
-			
-			CDATASection snippetCDATASection = doc.createCDATASection(extractPureCitation(sb[i].toString()));
-			snippetElement.appendChild(snippetCDATASection);
-			
-			// insert snippetElement after dc:title
-//			NodeList nl = ((Element)itemsArr[i]).getElementsByTagName("profile:publication");
-//			Element publicationElement = (Element)nl.item( 0 );
-			
-//			nl = publicationElement.getElementsByTagName("dc:title"); 
-//			Element titleElement = (Element)nl.item( 0 );
-//			
-//			publicationElement.insertBefore(snippetElement, titleElement.getNextSibling());
-			
-			//OR add snippetElement as the last child of publicationElement  
-			//publicationElement.appendChild(snippetElement);
-			
-			NodeList nl = ((Element)itemsArr[i]).getElementsByTagName( pea[i] );
-			Element parentElement = (Element)nl.item( 0 );
-
-			parentElement.appendChild(snippetElement);
+				Element snippetElement = doc.createElement(SNIPPET_ELEMENT_NAME);
+				snippetElement.setAttribute("xmlns:dcterms", SNIPPET_NS);
+				
+				addFrameworkPrefixUrl(doc, snippetElement, (Element)itemsArr[i]); 
+				
+				CDATASection snippetCDATASection = doc.createCDATASection(citation);
+				snippetElement.appendChild(snippetCDATASection);
+				
+				NodeList nl = ((Element)itemsArr[i]).getElementsByTagName( pea[i] );
+				Element parentElement = (Element)nl.item( 0 );
+				
+				parentElement.appendChild(snippetElement);
+			}	
 
 			//add saved item
 			root.appendChild(itemsArr[i]);
@@ -275,8 +269,17 @@ public class ProcessSnippet {
 	    Matcher m = p.matcher(html);
 	    //omit first match, i.e. citation header
 	    m.find();
-	    //remove all <br/>
-	    String snippet = Utils.replaceAllTotal(m.find() ? m.group(1) : html, "<br/?>", "");
+	    String snippet = null;
+	    if (!m.find())
+	    {
+	    	return null;
+	    }
+	    else
+	    {
+		    //remove all <br/>
+	    	snippet = Utils.replaceAllTotal(m.group(1), "<br/?>", "");
+	    }
+	    
 	    return
 	    	convertToAdditionalCssClass(
 	    			convertStyledTextToCssClass(snippet)
