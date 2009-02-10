@@ -33,11 +33,11 @@
 	<h2>
 		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
 	</h2>
-	<span class="small_area0">&nbsp;</span>
-    <span class="xDouble_area0"> 
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && HomePage.depositor}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
 	<h2>Submission</h2>      	
           <b>Enter a new Publication to PubMan?</b><br/>
 	   ... by using the 
@@ -62,7 +62,11 @@
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>My Items</h2>
-		Finish your data submissions or check if your items have been already released to the public...?
+		...finish your data 
+		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+			<h:outputText value="submissions or check "/>
+		</h:outputLink>
+		if your items have been already realeased to the public.
 	</span>
 	</h:panelGroup>
 
@@ -71,7 +75,11 @@
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Workspace</h2>
-		Fullfill your job as moderator.
+		... 		
+		<h:outputLink value="#{ApplicationBean.appContext}QAWSPage.jsp">
+			<h:outputText value="moderate or edit"/>
+		</h:outputLink>
+		items entered for your context.
 	</span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
@@ -94,12 +102,12 @@
 	<h2>
 		WILLKOMMEN BEI PUBMAN - <br/>WAS M&Ouml;CHTEN SIE HEUTE TUN?
 	</h2>
-	<span class="small_area0">&nbsp;</span>
-    <span class="xDouble_area0"> 
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && HomePage.depositor}">
-	<h2>Eingabe</h2>      	
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
+	<h2>Dateneingabe</h2>      	
           <b>Wollen Sie eine neue Publikation eingeben?</b><br/>
 	   ... benutzen Sie die 
 		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
@@ -122,15 +130,24 @@
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>Meine Datens&auml;tze</h2>
-		Schlieﬂen Sie eine Eingabe ab, oder pr&uuml;fen Sie ob Ihre Publikationen bereits &ouml;ffentlich sichtbar sind...
+		...beenden Sie Ihre 
+		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+			<h:outputText value="Dateneingabe oder pr¸fen "/>
+		</h:outputLink>
+		Sie ob Ihre Items bereits ver&ouml;ffentlicht wurden.
 	</span>
 	</h:panelGroup>
+
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='de'}">
 	<span class="small_area0">&nbsp;</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Bereich</h2>
- 		Gehen Sie Ihrer Aufgabe als Moderator nach.
+		... 		
+		<h:outputLink value="#{ApplicationBean.appContext}QAWSPage.jsp">
+			<h:outputText value="¸berpr¸fen oder editieren"/>
+		</h:outputLink>
+		Sie Items aus Ihrem Kontext.
 	</span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
@@ -153,11 +170,11 @@
 	<h2>
 		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
 	</h2>
-	<span class="small_area0">&nbsp;</span>
-    <span class="xDouble_area0"> 
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && HomePage.depositor}">
+	<span class="small_area0">&nbsp;</span>
+	<span class="xDouble_area0"> 
 	<h2>Submission</h2>      	
           <b>Enter a new Publication to PubMan?</b><br/>
 	   ... by using the 
@@ -182,7 +199,11 @@
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>My Items</h2>
-		Finish your data submissions or check if your items have been already released to the public...?
+		...finish your data 
+		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+			<h:outputText value="submissions or check "/>
+		</h:outputLink>
+		if your items have been already realeased to the public.
 	</span>
 	</h:panelGroup>
 
@@ -191,7 +212,11 @@
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Workspace</h2>
-		Fullfill your job as moderator.
+		... 		
+		<h:outputLink value="#{ApplicationBean.appContext}QAWSPage.jsp">
+			<h:outputText value="moderate or edit"/>
+		</h:outputLink>
+		items entered for your context.
 	</span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
