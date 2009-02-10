@@ -462,7 +462,7 @@
 
 
 
-	<layout-element name="debugBlock">
+	<layout-element name="__debugBlock__">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>

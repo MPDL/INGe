@@ -184,7 +184,7 @@ public class CitationTest {
     	
     	
 //    	for (String cs : pcs.getStyles() )
-    	for (String cs : new String[]{"APA_revised"} )
+    	for (String cs : new String[]{"APA_revised", "AJP"} )
 //    	for (String cs : new String[]{"AJP"} )
     	{
     		long start;
