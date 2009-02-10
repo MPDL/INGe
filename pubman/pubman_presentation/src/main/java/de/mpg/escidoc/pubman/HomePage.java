@@ -98,7 +98,7 @@ public class HomePage extends BreadcrumbPage
         String url = "";
         try
         {
-
+            url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
         }
         catch (Exception e)
         {
@@ -113,11 +113,11 @@ public class HomePage extends BreadcrumbPage
         String url = "";
         try
         {
-            url = PropertyReader.getProperty("pubman.blog.news");
+            url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
         }
         catch (Exception e)
         {
-            HomePage.logger.error("Could not read property: 'pubman.blog.news' from properties file.", e);
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
         }
 
         return url;
