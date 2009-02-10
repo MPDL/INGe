@@ -129,6 +129,17 @@
 				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.publishingInfo == null || source.publishingInfo == ''}"/>
 				</span>
 			</div>
+
+	<%-- Sequence Number --%>
+			<h:panelGroup styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblPages}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.source.totalNumberOfPages}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{source.source.totalNumberOfPages == null || source.source.totalNumberOfPages == ''}"/>
+				</span>
+			</h:panelGroup>
 	
 	<%-- Volume / Issue --%>
 			<h:panelGroup styleClass="free_area0 endline itemLine">
