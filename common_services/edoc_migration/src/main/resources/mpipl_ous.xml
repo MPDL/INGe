@@ -47,7 +47,7 @@
 				<ou name="Phonological Learning for Speech Perception" id="escidoc:22023"/>
 				<ou name="The Dynamics of Multilingual Processing" id="escidoc:2204"/>
 				<ou name="Unification" id="escidoc:22025"/>
-				<ou name="Event representation" id="escidoc:22026"/>
+				<ou name="Event Representation" id="escidoc:22026"/>
 				<ou name="Gesture" id="escidoc:22027"/>
 				<ou name="Neurocognition of Language Processing" id="escidoc:22028"/>
 				<ou name="Pioneers of Island Melanesia" id="escidoc:22029"/>
@@ -60,12 +60,15 @@
 				<ou name="Technical Group" id="escidoc:22036"/>
 				<ou name="Library" id="escidoc:22037"/>
 				<ou name="Other Research" id="escidoc:22038"/>
+				<ou name="The Neurobiology of Language" id="escidoc:71624"/>
 			</ou>
 		</ou>
 		<ou name="external" id="escidoc:persistent22">
 			<ou name="IWTS" id="escidoc:22009"/>
 			<ou name="CSLM" id="escidoc:22039"/>
 			<ou name="Pioneer" id="escidoc:22040"/>
+			<ou name="FC Donders Centre for Cognitive Neuroimaging" id="escidoc:71625"/>
+			<ou name="Donders Institute for Brain, Cognition and Behaviour" id="escidoc:71626"/>
 		</ou>
 	</xsl:variable>
 </xsl:stylesheet>

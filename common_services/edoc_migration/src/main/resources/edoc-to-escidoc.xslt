@@ -343,10 +343,10 @@
 			<xsl:element name="dc:title">
 				<xsl:value-of select="title"/>
 			</xsl:element>
-			<!--ALTTITLE --> 
-			<xsl:apply-templates select="titlealt"/>
 			<!-- LANGUAGE -->
 			<xsl:apply-templates select="language"/>
+			<!--ALTTITLE --> 
+			<xsl:apply-templates select="titlealt"/>
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier"/>			
 			<!-- PUBLISHING-INFO -->
@@ -375,28 +375,6 @@
 			<xsl:apply-templates select="datesubmitted"/>
 			<xsl:apply-templates select="dateaccepted"/>			
 			<xsl:apply-templates select="datepublished"/>		
-			<!-- DEGREE -->	
-			<xsl:if test="genre='PhD-Thesis'">
-				<xsl:element name="publ:degree">	
-					<xsl:value-of select="'phd'"/>
-				</xsl:element>
-			</xsl:if>
-			<xsl:if test="genre='Habilitation'">
-				<xsl:element name="mdp:degree">	
-					<xsl:value-of select="'habilitation'"/>
-				</xsl:element>
-			</xsl:if>
-			<!-- EVENT -->
-			<xsl:if test="exists(nameofevent)">
-				<xsl:call-template name="createEvent"/>
-			</xsl:if>
-			<!-- ABSTRACT -->
-			<xsl:apply-templates select="abstract"/>
-			<!-- SUBJECT -->
-			<xsl:apply-templates select="discipline"/>
-			<xsl:apply-templates select="keywords"/>
-			<!-- TOC -->
-			<xsl:apply-templates select="toc"/>
 			<!-- REVIEW METHOD -->
 			<xsl:apply-templates select="refereed"/>
 			<!-- SOURCE -->
@@ -452,7 +430,11 @@
 					</xsl:element>
 				</xsl:element>
 			</xsl:if>
-			
+
+			<!-- EVENT -->
+			<xsl:if test="exists(nameofevent)">
+				<xsl:call-template name="createEvent"/>
+			</xsl:if>
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:if test="phydesc">
 				<xsl:choose>
@@ -472,6 +454,26 @@
 					</xsl:when>		
 				</xsl:choose>			
 			</xsl:if>
+			
+			<!-- DEGREE -->	
+			<xsl:if test="genre='PhD-Thesis'">
+				<xsl:element name="publ:degree">	
+					<xsl:value-of select="'phd'"/>
+				</xsl:element>
+			</xsl:if>
+			<xsl:if test="genre='Habilitation'">
+				<xsl:element name="mdp:degree">	
+					<xsl:value-of select="'habilitation'"/>
+				</xsl:element>
+			</xsl:if>
+			<!-- ABSTRACT -->
+			<xsl:apply-templates select="abstract"/>
+			<!-- SUBJECT -->
+			<xsl:apply-templates select="discipline"/>
+			<xsl:apply-templates select="keywords"/>
+			<!-- TOC -->
+			<xsl:apply-templates select="toc"/>
+
 			<!--end publication-->	
 		</xsl:element>				
 	</xsl:template>
@@ -579,21 +581,18 @@
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
 		
-		<xsl:choose>		
-			<xsl:when test="not(exists(issuetitle))">
-				<!-- ISSUE -->
-				<xsl:apply-templates select="issuenr"/>
-				<!-- START_PAGE -->
-				<xsl:apply-templates select="spage"/>
-				<!-- END-PAGE -->
-				<xsl:apply-templates select="epage"/>
-				<!-- SEQUENCE_NR -->
-				<xsl:apply-templates select="artnum"/>
-			</xsl:when>
-		<xsl:otherwise>
-			<xsl:apply-templates select="issuenr"/>
-		</xsl:otherwise>	
-		</xsl:choose>
+		<!-- ISSUE -->
+		<xsl:apply-templates select="issuenr"/>
+		<!-- START_PAGE -->
+		<xsl:apply-templates select="spage"/>
+		<!-- END-PAGE -->
+		<xsl:apply-templates select="epage"/>
+
+		<xsl:if test="not(exists(issuetitle))">
+			<!-- SEQUENCE_NR -->
+			<xsl:apply-templates select="artnum"/>
+		</xsl:if>
+
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
 			<xsl:element name="e:publishing-info">
@@ -618,10 +617,7 @@
 			</xsl:element>
 		</xsl:for-each>		
 		<xsl:apply-templates select="issuecorporatebody"/>
-		<!-- START_PAGE -->
-		<xsl:apply-templates select="spage"/>
-		<!-- END-PAGE -->
-		<xsl:apply-templates select="epage"/>
+
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>			
 	</xsl:template>
@@ -670,7 +666,7 @@
 	</xsl:template>	
 	
 	<xsl:template name="phydescSource">
-		<xsl:element name="e:total-number-of-pages">
+		<xsl:element name="e:sequence-number">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>	
@@ -828,7 +824,7 @@
 								</xsl:otherwise>
 							</xsl:choose>
 
-							<e:identifier>
+							<e:identifier xsi:type="eidt:cone">
 								<xsl:value-of select="$author/@id"/>
 							</e:identifier>
 
@@ -1022,22 +1018,22 @@
 	<xsl:template match="refereed">
 		<xsl:choose>
 			<xsl:when test="../genre='Article' and exists(../journaltitle)">
-				<xsl:element name="mdp:review-method">
-					<xsl:value-of>peer review</xsl:value-of>
+				<xsl:element name="publ:review-method">
+					<xsl:value-of select="'peer'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='joureview'">
-				<xsl:element name="mdp:review-method">
+				<xsl:element name="publ:review-method">
 					<xsl:value-of select="'peer'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='notrev'">
-				<xsl:element name="mdp:review-method">
+				<xsl:element name="publ:review-method">
 					<xsl:value-of select="'no review'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='intrev'">
-				<xsl:element name="mdp:review-method">
+				<xsl:element name="publ:review-method">
 					<xsl:value-of select="'internal'"/>
 				</xsl:element>
 			</xsl:when>

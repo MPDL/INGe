@@ -214,7 +214,11 @@ public class EDocImport extends DefaultHandler
 			input = input.replace("<", "&lt;");
 			input = input.replace("\"", "&quot;");
 		}
-		return input;
+		else
+		{
+		    return "";
+		}
+		return input.trim();
 	}
 
 	
