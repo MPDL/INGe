@@ -669,7 +669,7 @@ public class XmlTransformingBean implements XmlTransforming
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(itemListXml);
             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-            itemVOListWrapper = (ItemVOListWrapper)unmarshalledObject;
+            itemVOListWrapper = (ItemVOListWrapper) unmarshalledObject;
         }
         catch (JiBXException e)
         {

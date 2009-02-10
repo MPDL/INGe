@@ -52,7 +52,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 {
     private static Logger logger = Logger.getLogger(AuthorFormat.class);
 
-    protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìôç]+)";
+    protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìôçø]+)";
     //protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
     protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
     protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
