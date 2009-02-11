@@ -1895,6 +1895,30 @@ public class EasySubmission extends FacesBean
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().clear();
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().add(newAbstract);
     }
+    
+    /**
+     * returns the value of the first subject of the publication
+     * 
+     * @return String the value of the first subject of the publication
+     */
+    public String getSubject()
+    {
+        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects() == null
+                || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().size() < 1)
+        {
+            TextVO newSubject = new TextVO();
+            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().add(newSubject);
+        }
+        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().get(0).getValue();
+    }
+
+    public void setSubject(String publicationSubject)
+    {
+        TextVO newSubject = new TextVO();
+        newSubject.setValue(publicationSubject);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().clear();
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubjects().add(newSubject);
+    }
 
     public String getFreeKeywords()
     {

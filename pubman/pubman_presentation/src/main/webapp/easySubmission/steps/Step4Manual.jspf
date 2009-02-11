@@ -119,6 +119,16 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EasySubmission.freeKeywords}" cols="15" rows="3" />
 					</span>
 				</h:panelGroup>
+
+		<%-- Subject (List -> first element) --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'easy-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EasySubmission.subject}" cols="15" rows="3" />
+					</span>
+				</h:panelGroup>
 		
 		<%-- Abstract --%>		
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'easy-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
