@@ -36,7 +36,10 @@
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && HomePage.depositor}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<h2>Submission</h2>      	
           <b>Enter a new Publication to PubMan?</b><br/>
@@ -58,7 +61,10 @@
 	</h:panelGroup>
 
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='en'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>My Items</h2>
@@ -71,7 +77,10 @@
 	</h:panelGroup>
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='en'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Workspace</h2>
@@ -105,7 +114,10 @@
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && HomePage.depositor}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<h2>Dateneingabe</h2>      	
           <b>Wollen Sie eine neue Publikation eingeben?</b><br/>
@@ -126,7 +138,10 @@
     </span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='de'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>Meine Datens&auml;tze</h2>
@@ -139,7 +154,10 @@
 	</h:panelGroup>
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='de'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Bereich</h2>
@@ -173,7 +191,10 @@
 	<br/>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && HomePage.depositor}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<h2>Submission</h2>      	
           <b>Enter a new Publication to PubMan?</b><br/>
@@ -195,7 +216,10 @@
 	</h:panelGroup>
 
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='ja'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>My Items</h2>
@@ -208,7 +232,10 @@
 	</h:panelGroup>
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='ja'}">
-	<span class="small_area0">&nbsp;</span>
+	<span class="small_area0">
+		<br/><br/>
+		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+	</span>
 	<span class="xDouble_area0"> 
 	<br/>
 		<h2>QA Workspace</h2>
