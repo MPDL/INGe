@@ -155,7 +155,7 @@ public class StructuredExportIntegrationTest
 	    {
 	    	long start;
 //	    	String[] fl = export.getFormatsList();
-	    	String[] fl = new String[]{"BIBTEX","ENDNOTE"};
+	    	String[] fl = new String[]{"BIBTEX","ENDNOTE","XML"};
 	    	
 	    	for (String f : fl)
 	    	{
