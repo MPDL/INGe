@@ -81,6 +81,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 //import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -603,14 +604,14 @@ public class EditItem extends FacesBean
         bindUploadedFilesAndLocators();
         
         //  cleanup item according to genre specific MD specification
-        //GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
-//        try 
-//        {
-//			itemManager.cleanupItem();
-//		} catch (Exception e) 
-//		{
-//			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
-//		}
+        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        try 
+        {
+			this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+		} catch (Exception e) 
+		{
+			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+		}
         
         /*
          * FrM: Validation with validation point "default"
@@ -1110,7 +1111,7 @@ public class EditItem extends FacesBean
             }
             FormatVO formatVO = new FormatVO();
             formatVO.setType("dcterms:IMT");
-            formatVO.setValue(file.getContentType());
+            formatVO.setValue(fileVO.getMimeType());
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(contentURL);
         }
