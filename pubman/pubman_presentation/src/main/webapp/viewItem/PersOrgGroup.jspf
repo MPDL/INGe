@@ -47,9 +47,10 @@
 				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" >
 					<h:panelGroup styleClass="free_area0 creator">
 						<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
-					</h:panelGroup>
-					<h:panelGroup styleClass="free_area0 creator" rendered="#{creatorPerson.portfolioLink != null}">
-						<h:outputLink value="#{creatorPerson.portfolioLink}" target="_blank">Researcher Portfolio</h:outputLink>
+						<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
+							&#160;
+							<h:outputLink value="#{creatorPerson.portfolioLink}" target="_blank"><img src="images/researcher_portfolio.gif" border="0"/></h:outputLink>
+						</h:panelGroup>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>

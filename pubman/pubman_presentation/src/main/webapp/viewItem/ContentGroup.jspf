@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -36,7 +36,7 @@
 		<h:outputText value="#{lbl.EditItem_lblContent}" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.pubItem.metadata.subject != null || ViewItemFull.hasAbstracts}">
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.pubItem.metadata.freeKeywords != null || ViewItemFull.hasAbstracts}">
 
 <%-- Free keywords --%>
 		<div class="free_area0 endline itemLine noTopBorder">
@@ -44,8 +44,8 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.subject.value == null || ViewItemFull.pubItem.metadata.subject.value == ''}"/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.freeKeywords.value}"/>
+				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{ViewItemFull.pubItem.metadata.freeKeywords.value == null || ViewItemFull.pubItem.metadata.freeKeywords.value == ''}"/>
 			</span>
 		</div>
 

@@ -681,6 +681,7 @@ public class ItemControllerSessionBean extends FacesBean
             CreatorVO newCreator = new CreatorVO();
             // create a new Organization for this person
             PersonVO newPerson = new PersonVO();
+            newPerson.setIdentifier(new IdentifierVO());
             OrganizationVO newPersonOrganization = new OrganizationVO();
             newPerson.getOrganizations().add(newPersonOrganization);
             
@@ -735,6 +736,7 @@ public class ItemControllerSessionBean extends FacesBean
                 CreatorVO newSourceCreator = new CreatorVO();
                 // create a new Organization for this person
                 PersonVO newPerson = new PersonVO();
+                newPerson.setIdentifier(new IdentifierVO());
                 OrganizationVO newPersonOrganization = new OrganizationVO();
                 newPersonOrganization.setName(new TextVO());
                 newPerson.getOrganizations().add(newPersonOrganization);
@@ -765,9 +767,9 @@ public class ItemControllerSessionBean extends FacesBean
             newPubItem.getMetadata().getEvent().setPlace(new TextVO());
         }
         // add subject if needed to be able to bind uiComponents to it
-        if (newPubItem.getMetadata().getSubject() == null)
+        if (newPubItem.getMetadata().getFreeKeywords() == null)
         {
-            newPubItem.getMetadata().setSubject(new TextVO());
+            newPubItem.getMetadata().setFreeKeywords(new TextVO());
         }
         //add TOC if needed to be able to bind uiComponents to it
         if (newPubItem.getMetadata().getTableOfContents() == null)

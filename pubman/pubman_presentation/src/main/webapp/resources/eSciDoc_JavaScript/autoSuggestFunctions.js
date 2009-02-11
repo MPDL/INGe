@@ -35,6 +35,7 @@
 	var languageSuggestURL = '';
 	var journalSuggestURL = '';
 	var subjectSuggestURL = '';
+	var personSuggestURL = '';
 	var journalDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var journalSuggestCommonParentClass = 'sourceArea';
@@ -82,6 +83,37 @@
 		$(parent).find('.hiddenAutosuggestUploadBtn').click();
 	}
 
+	function getPersonDetails(details)
+	{
+		var parent = $input.parents('.' + personSuggestCommonParentClass);
+		var completeName = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
+		var chosenName = $input.resultValue;
+		if (chosenName.indexOf('(') >= 0)
+		{
+			chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.+)\s*$/, '$1');
+		}
+		var familyName = '';
+		var givenName = '';
+		if (chosenName.indexOf(',') >= 0)
+		{
+			familyName = chosenName.split(',')[0];
+			givenName = chosenName.split(',')[1];
+		}
+		else
+		{
+			familyName = chosenName;
+		}
+		var orgName = (typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization : null);
+		var orgId = (typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier : null);
+		var personId = $input.resultID;
+
+		fillField('familyName', familyName, parent);
+		fillField('givenName', givenName, parent);
+		fillField('personIdentifier', personId, parent);
+		fillField('orgName', orgName, parent);
+		fillField('orgIdentifier', orgId, parent);
+	}
+	
 	function fillField(name, value, commonParent)
 	{
 		$(commonParent).find('.' + name).val(value);
@@ -91,6 +123,14 @@
 	{
 		$input = $(this);
 		$.getJSON(journalDetailsBaseURL + this.resultID, getJournalDetails);
+	}
+	
+	function fillPersonFields()
+	{
+		$input = $(this);
+		$input.resultValue = this.resultValue;
+		$input.resultID = this.resultID;
+		$.getJSON(personDetailsBaseURL + this.resultID, getPersonDetails);
 	}
 	
 	function bindJournalSuggest()
@@ -133,4 +173,5 @@
 		
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[2] ); }   });
 		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
+		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 	};

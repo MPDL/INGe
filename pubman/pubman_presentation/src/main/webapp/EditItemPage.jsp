@@ -162,8 +162,11 @@
 				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/languages/query';
 				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/journals/query';
 				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/ddc/query';
+				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/persons/query';
 				journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/journals/details?id=';
+				personDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
+				personSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
 			</script>
 			</body>

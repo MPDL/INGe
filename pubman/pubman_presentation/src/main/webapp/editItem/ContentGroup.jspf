@@ -44,7 +44,7 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EditItem.pubItem.metadata.subject.value}" cols="15" rows="3" />
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea subjectSuggest" value="#{EditItem.pubItem.metadata.freeKeywords.value}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 

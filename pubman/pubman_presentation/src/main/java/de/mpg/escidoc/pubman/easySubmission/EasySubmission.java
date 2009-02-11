@@ -1896,22 +1896,22 @@ public class EasySubmission extends FacesBean
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().add(newAbstract);
     }
 
-    public String getSubject()
+    public String getFreeKeywords()
     {
-        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject() == null)
+        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords() == null)
         {
-            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setSubject(new TextVO());
+            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setFreeKeywords(new TextVO());
         }
-        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject().getValue();
+        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords().getValue();
     }
 
-    public void setSubject(String publicationSubject)
+    public void setFreeKeywords(String publicationSubject)
     {
-        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject() == null)
+        if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords() == null)
         {
-            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setSubject(new TextVO());
+            this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setFreeKeywords(new TextVO());
         }
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject().setValue(publicationSubject);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getFreeKeywords().setValue(publicationSubject);
     }
 
     /**
