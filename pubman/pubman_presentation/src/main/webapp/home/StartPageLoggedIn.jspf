@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            f�r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
@@ -147,7 +147,7 @@
 		<h2>Meine Datens&auml;tze</h2>
 		...beenden Sie Ihre 
 		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
-			<h:outputText value="Dateneingabe oder pr�fen "/>
+			<h:outputText value="Dateneingabe oder prüfen "/>
 		</h:outputLink>
 		Sie ob Ihre Items bereits ver&ouml;ffentlicht wurden.
 	</span>
@@ -163,7 +163,7 @@
 		<h2>QA Bereich</h2>
 		... 		
 		<h:outputLink value="#{ApplicationBean.appContext}QAWSPage.jsp">
-			<h:outputText value="�berpr�fen oder editieren"/>
+			<h:outputText value="überprüfen oder editieren"/>
 		</h:outputLink>
 		Sie Items aus Ihrem Kontext.
 	</span>
@@ -186,7 +186,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
+		PUBMANへようこそ - <br/>今日は何をしましょうか？
 	</h2>
 	<br/>
 	</h:panelGroup>
@@ -196,21 +196,21 @@
 		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
 	</span>
 	<span class="xDouble_area0"> 
-	<h2>Submission</h2>      	
-          <b>Enter a new Publication to PubMan?</b><br/>
-	   ... by using the 
+	<h2>新規登録</h2>      	
+          <b>新規文献をPubManへ入力する</b><br/>
+	   ... 
 		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Easy Submission method"/>
+			<h:outputText value="簡易登録"/>
 		</h:outputLink>
 		<br/>
-	  ... by 
+	  ... 
 		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Data Import"/>
+			<h:outputText value="データ・インポート"/>
 		</h:outputLink>
 		<br/>
-	  ... by using the 
+	  ... 
 		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Full Submission method"/>
+			<h:outputText value="詳細登録"/>
 		</h:outputLink>
     </span>
 	</h:panelGroup>
@@ -222,12 +222,12 @@
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
-		<h2>My Items</h2>
-		...finish your data 
+		<h2>登録資料一覧</h2>
+		...登録一覧から自身の登録分を
 		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
-			<h:outputText value="submissions or check "/>
-		</h:outputLink>
-		if your items have been already realeased to the public.
+			<h:outputText value="確認もしくは登録完了する"/>
+		</h:outputLink>。
+		まだ未公開の登録資料があれば、こちらからどうぞ。		
 	</span>
 	</h:panelGroup>
 
@@ -238,25 +238,25 @@
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
-		<h2>QA Workspace</h2>
-		... 		
+		<h2>管理画面</h2>
+		... 登録資料の
 		<h:outputLink value="#{ApplicationBean.appContext}QAWSPage.jsp">
-			<h:outputText value="moderate or edit"/>
+			<h:outputText value="内容確認もしくは修正"/>
 		</h:outputLink>
-		items entered for your context.
+		する。
 	</span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<span class="full_area0 ">
 	<br/>
 		<h2>
-			Help and further information
+			ヘルプ、追加情報
 		</h2>
-		<b>Helpful videos</b>
+		<b>紹介ビデオ</b>
 		<ul>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">how to submit data</a></li>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of My items</a></li>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">usage of QA workspace</a></li>
+			<li><a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">データの登録方法</a></li>
+			<li><a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">登録資料一覧の使い方</a></li>
+			<li><a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank">管理画面の使い方</a></li>
 		</ul>
 	</span>
 	</h:panelGroup>

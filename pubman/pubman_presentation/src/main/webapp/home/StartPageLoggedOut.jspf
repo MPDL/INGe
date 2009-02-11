@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            f�r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
@@ -109,13 +109,13 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
+	PUBMAN - 文献管理用ESCIDOCソリューション
 	</h2>
-	<p>PubMan supports <b>scientists</b> and <b>institutes</b> in the management and the digital curation of their publications.</p>
-	<p>This solution addresses <b>all disciplines</b> and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, <b>customization</b> and <b>configuration</b> options throughout the solution's features are of major importance.</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(read more on CoLab)</a>
+	<p>PubManは研究成果文献の管理とデジタル保存に関し、<b>科学者</b>および<b>研究機関</b>をサポートします。</p>
+	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、IT技術者を支援します。マックスプランク研究所および外部機関におけるさまざまな方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(詳細はCoLab上の説明をご覧ください)</a>
 	<br/><br/>
-	<h3>Search for publications here</h3>
+	<h3>文献検索</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
 			<input class="large_txtInput quickSearchTextInput" type="text">
@@ -123,22 +123,22 @@
 		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
 	<br/>
-	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
+	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/>
 	<h2>
-	PubMan Introduction Video
+	PubMan紹介ビデオ
 	</h2>
 	<a href="http://pubman.blogs.mpdl.mpg.de/" target="_blank"><img src="./images/screencast.jpg" class="huge"/></a>
 	<br/><br/>
 	<h2>
-	PubMan Interfaces
+	PubManインタフェース
 	</h2>
 		<ul>
-			<li>Search&Export Service (allows user-/local specific queries of data for integration into local systems). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST interface</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">sample query</a>.</li>
-			<li>Data Acquisition Service with an <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI interface</a> (fetching data from external sources like arXiv)</li>
-			<li><a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.</li>
-			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
+			<li>検索&エクスポートサービス （利用者ごと、ローカル環境固有の検索を実行し、ローカルシステムと連携可能） <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>データ取得サービス <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI インタフェース</a> （arXivのような外部システムからデータを取得）</li>
+			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
+			<li><a href="/cone/explain" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名などの固有辞書に対する検索</li>
 		</ul>
-	<span>Further information on the interfaces can be found under:</span>
+	<span>APIインタフェースについての詳細は以下をご覧ください:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
