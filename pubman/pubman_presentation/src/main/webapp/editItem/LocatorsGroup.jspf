@@ -142,7 +142,7 @@
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="xDouble_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
-							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3" />
+							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.description}" cols="15" rows="3" />
 						</span>
 					</span>
 				</h:panelGroup>
