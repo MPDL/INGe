@@ -80,7 +80,7 @@ import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+//import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -365,6 +365,16 @@ public class EditItem extends FacesBean
             if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
             {
                 PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
+                locatorpres.setShowProperties(true);
+                
+                //This is a small hack for locators generated out of Bibtex files
+                if (locatorpres.getLocator()==null)
+                {
+                    locatorpres.setLocator(locatorpres.getFile().getName());
+                    locatorpres.setShowProperties(false);
+                }
+                //And here it ends
+                
                 locators.add(locatorpres);
                 locatorCount ++;
             }
@@ -593,14 +603,14 @@ public class EditItem extends FacesBean
         bindUploadedFilesAndLocators();
         
         //  cleanup item according to genre specific MD specification
-        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
-        try 
-        {
-			itemManager.cleanupItem();
-		} catch (Exception e) 
-		{
-			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
-		}
+        //GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+//        try 
+//        {
+//			itemManager.cleanupItem();
+//		} catch (Exception e) 
+//		{
+//			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+//		}
         
         /*
          * FrM: Validation with validation point "default"
@@ -1248,7 +1258,6 @@ public class EditItem extends FacesBean
             newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
             this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
         }
-        //this.setShowLocator(false);
         return "loadEditItem";
     }
     
@@ -2044,15 +2053,5 @@ public class EditItem extends FacesBean
 	public void setGenreBundle(String genreBundle) {
 		this.genreBundle = genreBundle;
 	}
-    
-    public boolean isShowLocator()
-    {
-        return this.getEditItemSessionBean().getShowLocator();
-    }
-
-    public void setShowLocator(boolean showLocator)
-    {
-        this.getEditItemSessionBean().setShowLocator(showLocator);
-    }
     
 }

@@ -941,8 +941,11 @@ public class EasySubmission extends FacesBean
             byte[] result = this.transformer.transform(content.toString().getBytes("UTF-8"), source, target, "escidoc");
             PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
             itemVO.setContext(getItem().getContext());
-            this.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(itemVO));
-            this.setItem(new PubItemVOPresentation(itemVO));
+            
+            PubItemVOPresentation pubItemPres = new PubItemVOPresentation(itemVO);
+            this.getItemControllerSessionBean().setCurrentPubItem(pubItemPres);
+            this.setItem(pubItemPres);
+
         }
         catch (Exception e)
         {
@@ -1143,6 +1146,9 @@ public class EasySubmission extends FacesBean
                     return null;
                  }
             }
+            //clear editItem
+            this.getEditItemSessionBean().getFiles().clear();
+            this.getEditItemSessionBean().getLocators().clear();
         }
         
 
@@ -1154,11 +1160,9 @@ public class EasySubmission extends FacesBean
     		{
     			return null;
     		}
-    	}
-    	
-    	//clear editItem
-        this.getEditItemSessionBean().getFiles().clear();
-        this.getEditItemSessionBean().getLocators().clear();
+    	      //clear editItem
+            this.getEditItemSessionBean().getFiles().clear();
+    	}   	
     	return "loadEditItem";
     }
 

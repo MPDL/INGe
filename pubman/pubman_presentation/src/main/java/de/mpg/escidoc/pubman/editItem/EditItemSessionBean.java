@@ -82,9 +82,6 @@ public class EditItemSessionBean extends FacesBean
      * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
      */
     private String showAuthorCopyPaste;
-    
-    private boolean showLocator = false;
-    
 
     /**
 	 * Public constructor.
@@ -114,7 +111,6 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
-		this.showLocator = false;
 		this.genreBundle = "";
 		this.offset="";
 		this.showAuthorCopyPaste = "";
@@ -277,15 +273,4 @@ public class EditItemSessionBean extends FacesBean
     {
         this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
-
-    public boolean getShowLocator()
-    {
-        return showLocator;
-    }
-
-    public void setShowLocator(boolean showLocator)
-    {
-        this.showLocator = showLocator;
-    }
-	
 }
