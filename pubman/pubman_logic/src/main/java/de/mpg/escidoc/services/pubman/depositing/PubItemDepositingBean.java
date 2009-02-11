@@ -592,9 +592,9 @@ public class PubItemDepositingBean implements PubItemDepositing
             copiedPubItem.getMetadata().getAlternativeTitles().add((TextVO)title.clone());
         }
         // Copy the subject.
-        if (originalPubItem.getMetadata().getSubject() != null)
+        if (originalPubItem.getMetadata().getFreeKeywords() != null)
         {
-            copiedPubItem.getMetadata().setSubject((TextVO)originalPubItem.getMetadata().getSubject().clone());
+            copiedPubItem.getMetadata().setFreeKeywords((TextVO)originalPubItem.getMetadata().getFreeKeywords().clone());
         }
 
         ItemRelationVO relation = new ItemRelationVO();
