@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration-settings metadata-profile-version="1" xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform E:\Repository\04_Design\01_System\MetadataHandling\XML_Schema\escidoc_publication_display_profile.xsd">
 	<!--IMPORTANT INFORMATION
-		1. group name "source_details_1" changed to "source_volume_issue_pages", label changed to "g_source_volume_issue_pages"
-		2. group name "source_details_2" changed to "source_sequence_number", label changed to "g_source_sequence_number"
+		      1. group name "source_details_1" changed to "source_volume_issue_pages", label changed to "g_source_volume_issue_pages"
+		      2. group name "source_details_2" changed to "source_sequence_number", label changed to "g_source_sequence_number"
+		      
+		      3. Added labels in default configuration:
+		      <group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages">
+			      <group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method">
+				      <group id="item_degree" repeatable="false" display="true" optional="true" form-id="all" label="g_item_degree">
+					      <group id="item_location" repeatable="false" display="true" optional="true" form-id="all" label="g_item_location">
+						      <group id="item_language" repeatable="false" display="true" optional="true" form-id="all" label="g_item_language">
+							      <group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
+								      
+								      Probably this change will have no efect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
+								      
+								      4.  on purpose left language of publication in full submission displayed in genre courseware_lecture , TODO: check with SvM
+								      
+								      5. Language is always present in full submission
+								      
+								      6. Genre POSTER added, not in sync with Colab spec for identifiers, as probably Colab spec is not complete (added identifier fieldsin FS)
+								      
+								      7. General Rule: In ES alternative title of basic item metadata is many times not allowed. 
+								      As it is anyway optional display (add "+" sign and is part of the basic component)  it is not considered in the configuration at all.
+								      
+								      8. THIS CONFIGURATION DOES NOT YET DEAL WITH GENRE SPECIFIC LABELS
+								      SYNTAX FOR FIELDS IS. lowercase genre id _ standard label
+								      SYNTAX FOR GROUPS IS lowercase g_lowercase genreid_standard label
+								      
+								      9. DEFAULT 	setting and assumption is that default configuration is default for all forms and genres
+								      IN FUTURE RELEASES WE CAN CHECK IF DEFAULT CONFIGURATION CAN BE FORM-TYPE-SPECIFIC and can contain different default 
+								      settings for specificaly both easy and full submission 
+								      
+								      10. LOGIC for setting of OPTIONAL:
+								      *if the group-level setting optional='true' and the field-level setting optional='false': the group is optional, but when any of the group metadata is created, all fields that are marked with optional="false" must have a value provided (example: see group "sources" or "events",  "item_identifiers", "source_identifiers")
+								      *if the group-level setting optional="false" and the field-level setting optional ="false": there must be at least one metadata entry in this group
+								      **as minimum for fields which are marked with optional="false" (example: see group "creator_person_organization" ). 
+								      **when there are no fields marked with optional="false" then at least one metadata in this group must be populated. (example: item_details_dates group)
+								      
+								      11. changed repeatable for events (false), abstracts(true), languages (true)
+								      
+								      12. DISCREPANCY: functionally on source should not be totalNumberOfPages : this is in SourceVO and in XML schema for metadata, but it is not in functional description, not in this configuration and not in the GUI Genre table
 
-		3. Added labels in default configuration:
-				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages">
-				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method">
-				<group id="item_degree" repeatable="false" display="true" optional="true" form-id="all" label="g_item_degree">
-				<group id="item_location" repeatable="false" display="true" optional="true" form-id="all" label="g_item_location">
-				<group id="item_language" repeatable="false" display="true" optional="true" form-id="all" label="g_item_language">
-				<group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
-
-			  Probably this change will have no efect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
-
-		4.  on purpose left language of publication in full submission displayed in genre courseware_lecture , TODO: check with SvM
-
-		5. Language is always present in full submission
-
-        6. Genre POSTER added, not in sync with Colab spec for identifiers, as probably Colab spec is not complete (added identifier fieldsin FS)
-
-		7. General Rule: In ES alternative title of basic item metadata is many times not allowed. 
-           As it is anyway optional display (add "+" sign and is part of the basic component)  it is not considered in the configuration at all.
-
-        8. THIS CONFIGURATION DOES NOT YET DEAL WITH GENRE SPECIFIC LABELS
-			SYNTAX FOR FIELDS IS. lowercase genre id _ standard label
-			SYNTAX FOR GROUPS IS lowercase g_lowercase genreid_standard label
-
-        9. DEFAULT 	setting and assumption is that default configuration is default for all forms and genres
-            IN FUTURE RELEASES WE CAN CHECK IF DEFAULT CONFIGURATION CAN BE FORM-TYPE-SPECIFIC and can contain different default 
-			settings for specificaly both easy and full submission 
-
-      10. LOGIC for setting of OPTIONAL:
-			*if the group-level setting optional='true' and the field-level setting optional='false': the group is optional, but when any of the group metadata is created, all fields that are marked with optional="false" must have a value provided (example: see group "sources" or "events",  "item_identifiers", "source_identifiers")
-			*if the group-level setting optional="false" and the field-level setting optional ="false": there must be at least one metadata entry in this group
-             **as minimum for fields which are marked with optional="false" (example: see group "creator_person_organization" ). 
-			 **when there are no fields marked with optional="false" then at least one metadata in this group must be populated. (example: item_details_dates group)
-
-     11. changed repeatable for events (false), abstracts(true), languages (true)
-
-     12. DISCREPANCY: functionally on source should not be totalNumberOfPages : this is in SourceVO and in XML schema for metadata, but it is not in functional description, not in this configuration and not in the GUI Genre table
-
--->
+									 13. Added Source total number of pages
+								      
+								      -->
 	<configuration>
 		<default-configuration>
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
@@ -83,7 +85,7 @@
 				<field id="component_description" repeatable="false" display="true" optional="true" label="locator_description" class-attribute="files.description"/>
 			</group>
 			<group id="content" repeatable="false" display="true" optional="true" label="g_content" form-id="all">
-				<field id="item_subject" repeatable="true" display="true" label="item_subject" optional="true" class-attribute="metadata.subject"/>
+				<field id="item_subject" repeatable="true" display="true" label="item_subject" optional="true" class-attribute="metadata.subjects"/>
 				<field id="item_abstract" repeatable="true" display="true" label="item_abstract" optional="true" class-attribute="metadata.abstracts"/>
 			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
@@ -96,7 +98,7 @@
 					<field id="item_published-online" repeatable="false" display="true" optional="true" label="item_published-online" class-attribute="metadata.datePublishedOnline"/>
 				</group>
 				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all" class-attribute="metadata.publishingInfo">
-					<field id="publishing-info_publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true"  class-attribute="metadata.publishingInfo.publisher"/>
+					<field id="publishing-info_publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true" class-attribute="metadata.publishingInfo.publisher"/>
 					<field id="publishing-info_place" repeatable="false" display="true" label="publishing-info_place" optional="true" class-attribute="metadata.publishingInfo.place"/>
 					<field id="publishing-info_edition" repeatable="false" display="true" optional="true" label="publishing-info_edition" class-attribute="metadata.publishingInfo.edition"/>
 				</group>
@@ -117,7 +119,8 @@
 					<field id="item_location" repeatable="false" optional="true" display="true" label="item_location" class-attribute="metadata.location"/>
 				</group>
 				<group id="item_language" repeatable="true" display="true" optional="true" form-id="all" label="g_item_language" class-attribute="metadata.languages">
-					<field id="item_language" repeatable="true" optional="true" display="true" label="item_language" class-attribute="metadata.languages"/> <!-- was not certain on this one for class-attribute-->
+					<field id="item_language" repeatable="true" optional="true" display="true" label="item_language" class-attribute="metadata.languages"/>
+					<!-- was not certain on this one for class-attribute-->
 				</group>
 				<group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
 					<field id="item_table-of-contents" repeatable="false" optional="true" display="true" label="item_table-of-contents" class-attribute="metadata.tableOfContents"/>
@@ -158,6 +161,9 @@
 					<field id="publishing-info_publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true" class-attribute="metadata.sources.publishingInfo.publisher"/>
 					<field id="publishing-info_place" repeatable="false" display="true" label="publishing-info_place" optional="true" class-attribute="metadata.sources.publishingInfo.place"/>
 					<field id="publishing-info_edition" repeatable="false" display="true" optional="true" label="publishing-info_edition" class-attribute="metadata.sources.publishingInfo.edition"/>
+				</group>
+				<group id="source_total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_source_total_number_of_pages">
+					<field id="source_total-number-of-pages" repeatable="false" display="true" label="source_total-number-of-pages" optional="true" class-attribute="metadata.sources.totalNumberOfPages"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
 					<field id="source_volume" repeatable="false" display="true" optional="true" label="source_volume" class-attribute="metadata.sources.volume"/>
@@ -207,6 +213,7 @@
 					<field id="publishing-info_place" repeatable="false" display="true" label="publishing-info_place" optional="true"/>
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
 			</group>
@@ -236,6 +243,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
@@ -266,6 +274,7 @@
 					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
@@ -304,6 +313,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="all"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -333,6 +343,7 @@
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
@@ -361,6 +372,7 @@
 				<group id="source_basic" repeatable="false" display="false" optional="false" label="g_source_basic" form-id="easy-submission"/>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -396,6 +408,7 @@
 				</group>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="all"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -434,6 +447,7 @@
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -461,6 +475,7 @@
 				<group id="source_basic" repeatable="false" display="false" optional="true" label="g_source_basic" form-id="easy-submission"/>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
@@ -491,6 +506,7 @@
 				<group id="source_basic" repeatable="false" display="false" optional="true" label="g_source_basic" form-id="easy-submission"/>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
@@ -527,6 +543,7 @@
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -558,6 +575,7 @@
 				<group id="source_basic" repeatable="false" display="true" optional="true" label="g_source_basic" form-id="full-submission"/>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
@@ -615,6 +633,7 @@
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="all"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -664,6 +683,7 @@
 				<group id="source_basic" repeatable="false" display="false" optional="false" label="g_source_basic" form-id="easy-submission"/>
 				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
