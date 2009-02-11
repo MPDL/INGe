@@ -65,6 +65,7 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportPar
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 
 /**
@@ -445,4 +446,6 @@ public interface XmlTransforming
     public ResultVO transformToResult(String resultXml) throws TechnicalException;
     
     public ItemVOListWrapper transformToItemListWrapper(String itemListXml) throws TechnicalException;
+    
+    public ContainerVOListWrapper transformToContainerListWrapper(String containerListXml) throws TechnicalException;
 }

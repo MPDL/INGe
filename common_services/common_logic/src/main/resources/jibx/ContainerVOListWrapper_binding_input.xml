@@ -31,6 +31,9 @@
 	<!-- concrete mapping for ContainerVOListWrapper -->
 	<mapping name="container-list" ns="${xsd.soap.container.containerlist}"
 		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper">
+		<value style="attribute" name="limit" field="limit" usage="optional" />
+		<value style="attribute" name="offset" field="offset" usage="optional" />
+		<value style="attribute" name="number-of-records" field="numberOfRecords" usage="optional" />
 
 		<!-- Node: container-list.container(*) -->
 		<!-- Field: ContainerVOListWrapper.containerVOList [List<ContainerVO>] -->

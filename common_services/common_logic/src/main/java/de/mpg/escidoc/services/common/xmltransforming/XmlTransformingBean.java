@@ -724,7 +724,6 @@ public class XmlTransformingBean implements XmlTransforming
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(searchResultXml);
             searchResultVO = (SearchResultVO)uctx.unmarshalDocument(sr, "UTF-8");
-
         }
         catch (JiBXException e)
         {
@@ -1483,6 +1482,36 @@ public class XmlTransformingBean implements XmlTransforming
         List<? extends ContainerVO> contList = containerVOListWrapper.getContainerVOList();
 
         return contList;
+    }
+    
+    public ContainerVOListWrapper transformToContainerListWrapper(String containerListXml) throws TechnicalException
+    {
+        logger.debug("transformToPubItemListWrapper(String) - String itemList=\n" + containerListXml);
+        if (containerListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerListWrapper:containerList is null");
+        }
+        ContainerVOListWrapper containerVOListWrapper = null;
+        try
+        {
+            // unmarshal ItemVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_input", ContainerVOListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(containerListXml);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            containerVOListWrapper = (ContainerVOListWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(containerListXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+       return containerVOListWrapper;
     }
     
     
