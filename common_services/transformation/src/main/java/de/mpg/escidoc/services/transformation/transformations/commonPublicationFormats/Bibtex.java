@@ -493,7 +493,7 @@ public class Bibtex
                 // keywords
                 if (fields.get("keywords") != null)
                 {
-                    mds.setSubject(new TextVO(BibTexUtil.bibtexDecode(fields.get("keywords").toString())));
+                    mds.setFreeKeywords(new TextVO(BibTexUtil.bibtexDecode(fields.get("keywords").toString())));
                 }
 
                 // language
