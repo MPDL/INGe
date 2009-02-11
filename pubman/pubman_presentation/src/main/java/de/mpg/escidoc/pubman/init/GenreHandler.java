@@ -21,6 +21,7 @@ public class GenreHandler extends ShortContentHandler
 	private LinkedHashMap<String, String> defaultMap = new LinkedHashMap<String, String>();
 	
 	String formID = "";
+	String groupID = "";
 	
 	public GenreHandler(String dir)
 	{
@@ -103,17 +104,23 @@ public class GenreHandler extends ShortContentHandler
 				for (String element : stack) {
 					currentStack += element + "_";
 				}
-				
-				for (int i = 0; i < attributes.getLength(); i++) {
-					String key = currentStack + attributes.getQName(i);
-					String value = attributes.getValue(i);
-					
-					if("form-id".equals(attributes.getQName(i)))
+				if(!attributes.getValue("id").equals(this.groupID))
+				{
+					for (int i = 0; i < attributes.getLength(); i++) 
 					{
-						this.formID = attributes.getValue(i);
+						String key = currentStack + attributes.getQName(i);
+						String value = attributes.getValue(i);
+						
+						map.put(key, value);
+						
+						if("form-id".equals(attributes.getQName(i)))
+						{
+							this.formID = value;
+						}
 					}
-					map.put(key, value);
 				}
+				this.groupID = attributes.getValue("id");
+				this.formID = attributes.getValue("form-id");
 			}
 			else if ("field".equals(name))
 			{
