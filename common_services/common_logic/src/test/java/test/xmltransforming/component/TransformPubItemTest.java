@@ -430,9 +430,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         oc = null;
         try
         {
-            String s1 = expectedPubItem.getMetadata().getSubject().getValue();
+            String s1 = expectedPubItem.getMetadata().getFreeKeywords().getValue();
             logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
-            String s2 = savedItem.getMetadata().getSubject().getValue();
+            String s2 = savedItem.getMetadata().getFreeKeywords().getValue();
             logger.debug("s2: " + s2.length() + " chars, " + s2.getBytes("UTF-8").length + " bytes, ü = " + (s2.contains("ü")));
             oc = new ObjectComparator(expectedPubItem.getMetadata(), savedItem.getMetadata());
             assertEquals(0, oc.getDiffs().size());

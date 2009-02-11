@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects.publication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -147,7 +150,10 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     /**
      * Free keywords.
      */
-    private TextVO subject;
+    private TextVO freeKeywords;
+    
+    private List<TextVO> subjects = new ArrayList<TextVO>();
+    
     private TextVO tableOfContents;
     /**
      * The number of pages of the described item. Note: The pages of an item published in a bundle is part of the source
@@ -177,11 +183,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         super(other);
         for (TextVO altTitle : other.getAlternativeTitles())
         {
-            getAlternativeTitles().add((TextVO)altTitle.clone());
+            getAlternativeTitles().add((TextVO) altTitle.clone());
         }
         for (CreatorVO creator : other.getCreators())
         {
-            getCreators().add((CreatorVO)creator.clone());
+            getCreators().add((CreatorVO) creator.clone());
         }
         if (other.getDateAccepted() != null)
         {
@@ -211,35 +217,42 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         setDegree(other.getDegree());
         if (other.getEvent() != null)
         {
-            setEvent((EventVO)other.getEvent().clone());
+            setEvent((EventVO) other.getEvent().clone());
         }
         setGenre(other.getGenre());
         for (IdentifierVO identifier : other.getIdentifiers())
         {
-            getIdentifiers().add((IdentifierVO)identifier.clone());
+            getIdentifiers().add((IdentifierVO) identifier.clone());
         }
         getLanguages().addAll(other.getLanguages());
         setLocation(other.getLocation());
         if (other.getPublishingInfo() != null)
         {
-            setPublishingInfo((PublishingInfoVO)other.getPublishingInfo().clone());
+            setPublishingInfo((PublishingInfoVO) other.getPublishingInfo().clone());
         }
         setReviewMethod(other.getReviewMethod());
         for (SourceVO source : other.getSources())
         {
-            getSources().add((SourceVO)source.clone());
+            getSources().add((SourceVO) source.clone());
         }
-        if (other.getSubject() != null)
+        
+        if (other.getFreeKeywords() != null)
         {
-            setSubject((TextVO)other.getSubject().clone());
+            setFreeKeywords((TextVO) other.getFreeKeywords().clone());
         }
+
+        for (TextVO subject : other.getSubjects())
+        {
+            getSubjects().add((TextVO) subject.clone());
+        }
+        
         for (TextVO summary : other.getAbstracts())
         {
-            getAbstracts().add((TextVO)summary.clone());
+            getAbstracts().add((TextVO) summary.clone());
         }
         if (other.getTableOfContents() != null)
         {
-            setTableOfContents((TextVO)other.getTableOfContents().clone());
+            setTableOfContents((TextVO) other.getTableOfContents().clone());
         }
         setTotalNumberOfPages(other.getTotalNumberOfPages());
     }
@@ -329,11 +342,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-     * Free keywords.
+     * DDC keywords.
      */
-    public TextVO getSubject()
+    public List<TextVO> getSubjects()
     {
-        return subject;
+        return subjects;
     }
 
     /**
@@ -415,16 +428,6 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-     * Free keywords.
-     * 
-     * @param newVal
-     */
-    public void setSubject(TextVO newVal)
-    {
-        subject = newVal;
-    }
-
-    /**
      * Sets the table of contents of the item.
      * 
      * @param newVal
@@ -451,6 +454,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     @Override
     public MdsPublicationVO clone()
     {
+        super.clone();
         return new MdsPublicationVO(this);
     }
 
@@ -464,7 +468,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         {
             return false;
         }
-        MdsPublicationVO other = (MdsPublicationVO)obj;
+        MdsPublicationVO other = (MdsPublicationVO) obj;
         return equals(getTitle(), other.getTitle()) && equals(getAlternativeTitles(), other.getAlternativeTitles())
                 && equals(getCreators(), other.getCreators()) && equals(getDateAccepted(), other.getDateAccepted())
                 && equals(getDateCreated(), other.getDateCreated())
@@ -477,7 +481,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
                 && equals(getIdentifiers(), other.getIdentifiers()) && equals(getLanguages(), other.getLanguages())
                 && equals(getLocation(), other.getLocation()) && equals(getPublishingInfo(), other.getPublishingInfo())
                 && equals(getReviewMethod(), other.getReviewMethod()) && equals(getSources(), other.getSources())
-                && equals(getSubject(), other.getSubject()) && equals(getAbstracts(), other.getAbstracts())
+                && equals(getFreeKeywords(), other.getFreeKeywords())
+                && equals(getSubjects(), other.getSubjects()) && equals(getAbstracts(), other.getAbstracts())
                 && equals(getTableOfContents(), other.getTableOfContents())
                 && equals(getTotalNumberOfPages(), other.getTotalNumberOfPages());
     }
@@ -590,6 +595,16 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     public java.util.List<TextVO> getAbstracts()
     {
         return abstracts;
+    }
+
+    public TextVO getFreeKeywords()
+    {
+        return freeKeywords;
+    }
+
+    public void setFreeKeywords(TextVO freeKeywords)
+    {
+        this.freeKeywords = freeKeywords;
     }
 
     /**

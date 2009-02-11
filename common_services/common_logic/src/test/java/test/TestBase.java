@@ -325,7 +325,7 @@ public class TestBase
         String s1 = subject.getValue();
         logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = "
                 + (s1.contains("ü")));
-        mds.setSubject(subject);
+        mds.setFreeKeywords(subject);
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
         mds.setTableOfContents(toc);
@@ -486,7 +486,7 @@ public class TestBase
         TextVO subject = new TextVO();
         subject.setLanguage("de");
         subject.setValue("wichtig,wissenschaftlich,spannend");
-        mds.setSubject(subject);
+        mds.setFreeKeywords(subject);
 
         // Table of Contents
         TextVO tableOfContents = new TextVO();

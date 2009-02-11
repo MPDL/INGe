@@ -9,8 +9,7 @@
     xmlns:prop="${xsd.soap.common.prop}"
     xmlns:srel="${xsd.soap.common.srel}"
 	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	xmlns:release="${xsd.soap.common.release}">
     <escidocItem:properties>
         <prop:creation-date>2007-04-24T16:20:19.495Z</prop:creation-date>
         <srel:created-by objid="escidoc:user1" />
@@ -53,6 +52,10 @@
                     </escidoc:person>
                 </publication:creator>
                 <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
+                <dc:identifier>1234567890</dc:identifier>
+                <dcterms:DDC>000.000.000</dcterms:DDC>
+                <dcterms:DDC>000.000.001</dcterms:DDC>
+                <dcterms:DDC>000.100.001</dcterms:DDC>
             </escidocMetadataProfile:publication>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>

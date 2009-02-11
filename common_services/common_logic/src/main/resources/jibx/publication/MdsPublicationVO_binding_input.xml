@@ -240,9 +240,20 @@
 
 
 			<!-- Node: item.md-records.md-record.publication.subject -->
-			<!-- Field: PubItemVO.metadata.subject [TextVO] -->
-            <structure name="subject" ns="http://purl.org/dc/elements/1.1/" field="subject" usage="optional"/>
-
+			<!-- Field: PubItemVO.metadata.freeKeywords -->
+            <structure name="subject" ns="http://purl.org/dc/elements/1.1/" field="freeKeywords" usage="optional"/>
+            
+            <!-- Node: item.md-records.md-record.publication.DDC -->
+			<!-- Field: PubItemVO.metadata.subjects -->
+			<collection field="subjects"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+				<structure name="DDC" ns="http://purl.org/dc/terms/"
+					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
+						usage="optional" />
+					<value style="text" field="value" usage="optional" />
+				</structure>
+			</collection>
 
 			<!-- Node: item.md-records.md-record.publication.tableOfContents -->
 			<!-- Field: PubItemVO.metadata.tableOfContents [TextVO] -->
