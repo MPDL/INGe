@@ -239,24 +239,6 @@
 
 <%-- Source Details --%>
 
-	<%-- Source total number of pages --%>
-			<h:panelGroup layout="block" rendered="#{!(genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'all')}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!(genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'all')}">
-					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{genre.sources_source_volume_issue_pages_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<span class="large_area0">
-							<span class="large_area0">
-								<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_volume_optional != 'true'}" />
-								<h:outputText value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
-							</span>
-							<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.totalNumberOfPages}" />
-						</span>
-					</span>
-				</h:panelGroup>
-			</h:panelGroup>
-
 	<%-- Source details volume --%>
 			<h:panelGroup layout="block" rendered="#{!(genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_display == 'false' && genre.sources_source_volume_issue_pages_form_id == 'all')}">
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!(genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'all')}">
@@ -273,6 +255,22 @@
 						</span>
 					</span>
 				</h:panelGroup>
+			</h:panelGroup>
+
+	<%-- Source total number of pages --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'full-submission' || genre.sources_source_volume_issue_pages_source_volume_display == 'false' && genre.sources_source_volume_issue_pages_source_volume_form_id == 'all')}">
+						<span class="large_area0">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_edition_optional != 'true'}" />
+							<h:outputText value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
+						</span>
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.totalNumberOfPages}" />
+					</h:panelGroup>
+				</span>
 			</h:panelGroup>
 	<%-- Source details publisher, place --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'full-submission' || genre.sources_source_publishing_info_display == 'false' && genre.sources_source_publishing_info_form_id == 'all')}">
