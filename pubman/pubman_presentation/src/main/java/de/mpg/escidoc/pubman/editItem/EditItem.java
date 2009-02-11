@@ -777,6 +777,16 @@ public class EditItem extends FacesBean
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFilesAndLocators();
         
+        //  cleanup item according to genre specific MD specification
+        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        try 
+        {
+			this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+		} catch (Exception e) 
+		{
+			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+		}
+        
         ValidationReportVO report = null;
         try
         {
@@ -932,6 +942,16 @@ public class EditItem extends FacesBean
         
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFilesAndLocators();
+        
+        // cleanup item according to genre specific MD specification
+        GenreSecificItemManager itemManager = new GenreSecificItemManager(getPubItem(), GenreSecificItemManager.SUBMISSION_METHOD_FULL);
+        try 
+        {
+			this.item = (PubItemVOPresentation)itemManager.cleanupItem();
+		} catch (Exception e) 
+		{
+			throw new RuntimeException("Error while cleaning up item genre specifcly", e);
+		}
         
         ValidationReportVO report = null;
 
