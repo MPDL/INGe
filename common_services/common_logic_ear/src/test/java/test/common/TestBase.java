@@ -463,7 +463,7 @@ public class TestBase
         event.setTitle(new TextVO("Un bôn vín fràn\uc3a7ais", "fr"));
         // subject
         TextVO subject = new TextVO("This is the subject. Betreffs fußen auf Gerüchten für Äonen.", "de");
-        mds.setSubject(subject);
+        mds.setFreeKeywords(subject);
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
         mds.setTableOfContents(toc);
@@ -649,7 +649,7 @@ public class TestBase
         TextVO subject = new TextVO();
         subject.setLanguage("de");
         subject.setValue("wichtig,wissenschaftlich,spannend");
-        mds.setSubject(subject);
+        mds.setFreeKeywords(subject);
         // Table of Contents
         TextVO tableOfContents = new TextVO();
         tableOfContents.setLanguage("de");

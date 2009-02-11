@@ -204,7 +204,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         assertEquals("999", md.getTotalNumberOfPages());
         assertEquals(DegreeType.MASTER, md.getDegree());
         assertTrue(2 == md.getAbstracts().size());
-        assertEquals(new TextVO("wichtig,wissenschaftlich,spannend", "jp"), md.getSubject());
+        assertEquals(new TextVO("wichtig,wissenschaftlich,spannend", "jp"), md.getFreeKeywords());
         assertEquals(new TextVO("1.Einleitung 2.Inhalt", "fr"), md.getTableOfContents());
         assertEquals("IPP, Garching", md.getLocation());
     }
