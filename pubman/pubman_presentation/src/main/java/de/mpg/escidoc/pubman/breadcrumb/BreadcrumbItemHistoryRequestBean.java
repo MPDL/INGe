@@ -11,8 +11,6 @@ public class BreadcrumbItemHistoryRequestBean extends FacesBean
     
     private static Logger logger = Logger.getLogger(BreadcrumbItemHistoryRequestBean.class);
     
-    private BreadcrumbItem breadCrumbItem = null;
-    
     public BreadcrumbItemHistoryRequestBean()
     {
         

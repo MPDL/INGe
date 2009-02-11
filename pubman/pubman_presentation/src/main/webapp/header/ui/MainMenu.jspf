@@ -32,40 +32,41 @@
 
 <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp" rendered="#{PubManRequestBean.requestedPage != 'HomePage'}">
+	
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'HomePage'}">
 		<h:outputText value="#{lbl.mainMenu_lnkHome}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkHome}" rendered="#{PubManRequestBean.requestedPage == 'HomePage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkHome}" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'HomePage'}" />
 
 <%-- start should replace the following later --%>
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_myItems}" value="#{ApplicationBean.appContext}MyItemsPage.jsp" rendered="false">
 		<h:outputText value="MY ITEMS" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
 <%-- stop should replace the following later --%>
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_depWorkspace}" value="#{ApplicationBean.appContext}DepositorWSPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'DepositorWSPage'}">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_depWorkspace}" value="#{ApplicationBean.appContext}DepositorWSPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'DepositorWSPage'}">
 		<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and PubManRequestBean.requestedPage == 'DepositorWSPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'DepositorWSPage'}" />
 
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'QAWSPage'}">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_QAWSPage}" value="#{ApplicationBean.appContext}QAWSPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'QAWSPage'}">
 		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0 and PubManRequestBean.requestedPage == 'QAWSPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0 and BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'QAWSPage'}" />
 
 
 
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CreateItemPage' and PubManRequestBean.requestedPage != 'SubmissionPage' and PubManRequestBean.requestedPage != 'EditItemPage' and PubManRequestBean.requestedPage != 'EasySubmissionPage'}">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'CreateItemPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'SubmissionPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'EditItemPage' and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'EasySubmissionPage'}">
 		<h:outputText value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (PubManRequestBean.requestedPage == 'CreateItemPage' || PubManRequestBean.requestedPage == 'SubmissionPage' || PubManRequestBean.requestedPage == 'EditItemPage' || PubManRequestBean.requestedPage == 'EasySubmissionPage')}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lblSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'CreateItemPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'SubmissionPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'EditItemPage' || BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'EasySubmissionPage')}" />
 
 
 	
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'CartItemsPage'}" >
 		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
 		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
 	</h:outputLink>
-	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}">
+	<h:panelGroup styleClass="free_area0 xTiny_marginRIncl" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'CartItemsPage'}">
 		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
 		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
 	</h:panelGroup>

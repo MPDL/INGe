@@ -33,6 +33,10 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 public class AffiliationBean extends FacesBean
 {
+    private static final long serialVersionUID = 1L;
+
+    public static final String BEAN_NAME = "AffiliationBean";
+    
     private static Logger logger = Logger.getLogger(AffiliationBean.class);
     public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
     private TreeModel tree;
