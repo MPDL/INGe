@@ -84,6 +84,7 @@ public class StructuredExport implements StructuredExportHandler {
 	    		put( "ENDNOTE",	"eSciDoc_to_EndNote.xsl"	);  
 	    		put( "BIBTEX", 	"eSciDoc_to_BibTeX.xsl"			);  
 	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
+	    		put( "XML", 	null				);  
 	    	}  
     	};	
 	public StructuredExport()
@@ -111,6 +112,12 @@ public class StructuredExport implements StructuredExportHandler {
 			HashMap<String, String> fh = getFormatsHash();
 			if ( !fh.containsKey(exportFormat) ) 
 				throw new StructuredExportManagerException("Format: " + exportFormat + " is not supported");
+			
+			//return itemList XML in case of XML export
+			if ( "XML".equals(exportFormat) )
+			{
+				return itemList.getBytes();
+			}
 			
 			// xml source
 			javax.xml.transform.Source xmlSource =

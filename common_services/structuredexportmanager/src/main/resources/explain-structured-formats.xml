@@ -45,6 +45,15 @@
 		</output-format>
 		<dc:creator>jkurt</dc:creator>
 	</export-format>
+	<export-format type="structured" context="PubMan">
+		<dc:title>eSciDoc XML Export Format</dc:title>
+		<dc:identifier>XML</dc:identifier>
+		<output-format>
+			<dc:title>xml</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		</output-format>
+		<dc:creator>jkurt</dc:creator>
+	</export-format>
 	<export-format type="structured" context="Faces">
 		<dc:title>CSV Export Format</dc:title>
 		<dc:identifier>CSV</dc:identifier>

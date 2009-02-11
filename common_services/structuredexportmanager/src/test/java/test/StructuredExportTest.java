@@ -69,6 +69,7 @@ public class StructuredExportTest
 				{  
 		    		put("ENDNOTE", "src/test/resources/escidoc_44161_1.xml");  
 		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+		    		put("XML", null);  
 //		    		put("CSV", "src/test/resources/faces_item-list.xml");  
 //		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
