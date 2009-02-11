@@ -587,7 +587,7 @@ public class TestBase
         // Subject
         name.setValue("wichtig,wissenschaftlich,spannend");
         name.setLanguage("de");
-        mds.setSubject(name);
+        mds.setFreeKeywords(name);
 
         // Table of Contents
         name.setValue("1.Einleitung 2.Inhalt");
