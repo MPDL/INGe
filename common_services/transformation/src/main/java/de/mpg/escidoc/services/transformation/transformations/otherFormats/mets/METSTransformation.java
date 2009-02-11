@@ -89,7 +89,7 @@ public class METSTransformation
     {
         try
         {
-            this.baseURL = PropertyReader.getProperty("escidoc.framework_access.framework.url.");
+            this.baseURL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         }
         catch (Exception e)
         {
