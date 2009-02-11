@@ -48,6 +48,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.BibTexUtil;
 import de.mpg.escidoc.services.common.util.creators.Author;
 import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -71,7 +72,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class Bibtex
 {
     private final Logger logger = Logger.getLogger(Bibtex.class);
- 
+
     /**
      * Public constructor
      */
@@ -508,13 +509,20 @@ public class Bibtex
                             new TextVO(BibTexUtil.bibtexDecode(fields.get("language").toString())));
                 }
 
-                // url
+                // url is now mapped to locator
                 if (fields.get("url") != null)
                 {
-                    mds.getIdentifiers().add(
-                            new IdentifierVO(
-                                    IdentifierVO.IdType.URI,
-                                    BibTexUtil.bibtexDecode(fields.get("url").toString())));
+//                    mds.getIdentifiers().add(
+//                            new IdentifierVO(
+//                                    IdentifierVO.IdType.URI,
+//                                    BibTexUtil.bibtexDecode(fields.get("url").toString())));
+                    
+                    FileVO locator = new FileVO();
+                    locator.setName(BibTexUtil.bibtexDecode(fields.get("url").toString()));
+                    locator.setStorage(FileVO.Storage.EXTERNAL_URL);
+                    locator.setVisibility(FileVO.Visibility.PUBLIC);
+
+                    itemVO.getFiles().add(locator);
                 }
 
             }
