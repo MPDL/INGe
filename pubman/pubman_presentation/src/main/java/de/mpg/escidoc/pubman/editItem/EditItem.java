@@ -70,6 +70,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
+import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
@@ -162,6 +163,7 @@ public class EditItem extends FacesBean
     private TitleCollection titleCollection;
     private TitleCollection eventTitleCollection;
     private ContentAbstractCollection contentAbstractCollection;
+    private ContentSubjectCollection contentSubjectCollection;
     private CreatorCollection creatorCollection;
     private IdentifierCollection identifierCollection;
     private SourceCollection sourceCollection;
@@ -236,6 +238,7 @@ public class EditItem extends FacesBean
         this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
         this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
         this.contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
+        this.contentSubjectCollection = new ContentSubjectCollection(this.getPubItem().getMetadata().getSubjects());
         this.creatorCollection = new CreatorCollection(this.getPubItem().getMetadata().getCreators());
         this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
         this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
@@ -920,6 +923,7 @@ public class EditItem extends FacesBean
         this.titleCollection = null;
         this.eventTitleCollection = null;
         this.contentAbstractCollection = null;
+        this.contentSubjectCollection = null;
         this.creatorCollection = null;
         this.identifierCollection = null;
         this.sourceCollection = null;
@@ -1726,7 +1730,16 @@ public class EditItem extends FacesBean
         this.contentAbstractCollection = contentAbstractCollection;
     }
 
-    public CreatorCollection getCreatorCollection()
+    public ContentSubjectCollection getContentSubjectCollection() {
+		return contentSubjectCollection;
+	}
+
+	public void setContentSubjectCollection(
+			ContentSubjectCollection contentSubjectCollection) {
+		this.contentSubjectCollection = contentSubjectCollection;
+	}
+
+	public CreatorCollection getCreatorCollection()
     {
         return this.creatorCollection;
     }

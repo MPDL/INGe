@@ -48,6 +48,22 @@
 			</span>
 		</h:panelGroup>
 
+<%-- Subject (List) --%>		
+		<tr:iterator var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{subject.value}" cols="15" rows="3" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
 <%-- Abstract --%>		
 		<tr:iterator var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
