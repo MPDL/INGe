@@ -60,7 +60,7 @@
 			function checkOutputFormat()
 			{
 				var efv = document.form.exportFormat.value;
-				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "APA_revised" || efv == "AJP" ); 
+				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" ); 
 			}				
 		</script>
 	</head>
@@ -74,7 +74,7 @@
 		<form name="form" method="post" action="rest">
 			<div class="editItemSingleCol">
 				<label class="colLbl">This is the CQL search query:</label><br/>
-				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=&#34;test&#34;"></input>
+				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=&#34;test&#34; and escidoc.content-model.objid=escidoc:persistent4"></input>
 			</div>
 			<div class="editItemSingleCol">
                 <label class="colLbl">Add a sorting key here:</label><br/>
@@ -93,7 +93,7 @@
             </div>
             <div class="editItemSingleCol">
                 <label class="colLbl">Define the maximum records (all records as default):</label><br/>
-                <input type="text" size="10" name="maximumRecords" value=""></input>
+                <input type="text" size="10" name="maximumRecords" value="50"></input>
             </div>
 			<div class="editItemSingleCol">
 				<label class="colLbl"><strong>Info:</strong> You can find
@@ -112,11 +112,10 @@
 				<label class="colLbl">Choose an Export format:</label><br/>
 				<select size="1" name="exportFormat" onchange="checkOutputFormat()" style="width:120px">
 					<option value="APA">APA</option>
-					<option value="APA_revised">APA_revised</option>
-					<option value="AJP">AJP</option>
+<!--					<option value="AJP">AJP</option>-->
 					<option value="ENDNOTE">EndNote</option>
 					<option value="BIBTEX">BibTeX</option>
-					<option value="XML">XML</option>
+					<option value="XML">eSciDoc XML</option>
 				</select>
 			</div>
 			<div class="editItemSingleCol">
