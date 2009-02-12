@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
@@ -39,7 +40,10 @@ import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
  */
 public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
+    
     public static String BEAN_NAME = "SearchRetrieverRequestBean";
+    
+    private Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
     
     /**
      * The HTTP-GET parameter name for the cql query
@@ -100,6 +104,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         catch (NamingException e)
         {
+            logger.error("Error when trying to find search service.", e);
             error("Did not find Search service");
         }
     }
@@ -123,8 +128,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
         } catch (UnsupportedEncodingException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("Error during reading GET parameters.", e);
         }
         
         
@@ -190,6 +194,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         catch (Exception e)
         {
            error("Error in search!");
+           logger.error("Error during search. ", e);
         }
         
         return pubItemList;

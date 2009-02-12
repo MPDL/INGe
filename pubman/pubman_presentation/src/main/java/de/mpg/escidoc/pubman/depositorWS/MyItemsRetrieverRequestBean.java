@@ -84,6 +84,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
                 login.loginLogout();
             }
             catch (Exception e){
+                logger.error("Error during redirection.",e);
                 error("Could not redirect to login!");
             }
            
@@ -282,6 +283,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             }
             catch (Exception e)
             {
+               logger.error("Error during redirection.",e);
                error("Could not redirect");
             }
             return "";

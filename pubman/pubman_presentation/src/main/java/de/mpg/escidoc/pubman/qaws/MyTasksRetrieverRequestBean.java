@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
+
+import org.apache.log4j.Logger;
 
 import de.escidoc.core.x01.structuralRelations.AffiliationDocument.Affiliation;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
@@ -40,7 +41,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 {
     public static String BEAN_NAME = "MyTasksRetrieverRequestBean";
-    
+    private static Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
     private int numberOfRecords;
     
     /**
@@ -92,6 +93,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         catch (Exception e)
         {
+            logger.error("Error in retrieving organizations", e);
             error ("Couldn't retrieve all organizational units for the filter menu");
         }
         initSelectionMenu();
@@ -205,6 +207,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         catch (Exception e)
         {
+            logger.error("Error in retrieving items", e);
             error("Error in retrieving items");
             numberOfRecords = 0;
         }
@@ -231,6 +234,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         catch (Exception e)
         {
+            logger.error("Error in retrieving organizations", e);
             error ("Couldn't retrieve all organizational units for the filter menu");
         }
         
