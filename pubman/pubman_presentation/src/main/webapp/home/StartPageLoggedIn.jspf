@@ -122,19 +122,19 @@
 	<h2>Dateneingabe</h2>      	
           <b>Wollen Sie eine neue Publikation eingeben?</b><br/>
 	   ... benutzen Sie die 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Einfache Eingabe"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... den 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Daten Import"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+			<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... oder die 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Detaillierte Eingabe"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+			<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+		</h:commandLink>
     </span>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='de'}">
