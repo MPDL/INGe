@@ -131,6 +131,20 @@ public class ServiceLocator
         }
         return url;
     }
+    
+    public static String getFrameworkUrl(String propKey) throws ServiceException, URISyntaxException
+    {
+        String url;
+        try
+        {
+            url = PropertyReader.getProperty(propKey);
+        }
+        catch (IOException e)
+        {
+            throw new ServiceException(e);
+        }
+        return url;
+    }
 
     /**
      * Gets the UserManagementWrapper service for an authentificated user.
