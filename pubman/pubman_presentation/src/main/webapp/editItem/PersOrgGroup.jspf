@@ -164,7 +164,7 @@
 								<h:inputText styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}"/>
 							</span>
 						</h:panelGroup>
-						<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.creator.person.identifier.id}"/>
+						<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>

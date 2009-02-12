@@ -43,6 +43,7 @@ import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -335,4 +336,27 @@ public class CreatorBean extends FacesBean
         return this.i18nHelper.getSelectItemsCreatorType(false);
     }
 
+    public String getIdentifierValue()
+    {
+        if (isPersonType() && getCreator() != null && getCreator().getPerson() != null && getCreator().getPerson().getIdentifier() != null)
+        {
+            return getCreator().getPerson().getIdentifier().getId();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public void setIdentifierValue(String newValue)
+    {
+        if (isPersonType() && getCreator() != null && getCreator().getPerson() != null)
+        {
+            if (getCreator().getPerson().getIdentifier() == null)
+            {
+                getCreator().getPerson().setIdentifier(new IdentifierVO());
+            }
+            getCreator().getPerson().getIdentifier().setId(newValue);
+        }
+    }
 }
