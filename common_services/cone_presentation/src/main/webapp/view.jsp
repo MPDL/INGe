@@ -9,11 +9,54 @@
 <%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Predicate" %>
 <%@ page import="de.mpg.escidoc.services.cone.util.LocalizedString" %>
+<%@ page import="de.mpg.escidoc.services.cone.util.TreeFragment" %>
+<%@ page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject" %>
+<%@ page import="java.io.StringWriter" %>
+<%!
+
+	String uri;
+	TreeFragment results;
+	ModelList.Model model;
+
+	private String printPredicates(List<Predicate> predicates, TreeFragment resultNode) throws Exception
+	{
+	    StringWriter writer = new StringWriter();
+	    
+	    writer.append("<ul>");
+    	for (Predicate predicate : predicates)
+    	{
+    	    if (resultNode.get(predicate.getId()) != null)
+    	    {
+    	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
+    	        
+	    	    for (LocalizedTripleObject node : nodeList)
+	    	    {
+	    	    
+	    	        writer.append("<li><b>");
+		    	    writer.append(predicate.getName());
+		    	    writer.append("</b>:");
+		    	    if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
+		    	    {
+		    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
+		    	    }
+		    	    else
+		    	    {
+		    	        writer.append(node.toString());
+		    	    }
+		    	    writer.append("</li>");
+	    	    }
+    	    }
+    	}
+    	writer.append("</ul>");
+    	return writer.toString();
+	}
+
+%>
 <%
-	String uri = request.getParameter("uri");
+	uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
-	Map<String, List<LocalizedString>> results = new HashMap<String, List<LocalizedString>>();
-	ModelList.Model model = null;
+	results = new TreeFragment();
+
 	if (modelName != null && !"".equals(modelName))
 	{
 	    model = ModelList.getInstance().getModelByAlias(modelName);
@@ -26,7 +69,6 @@
 	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -50,24 +92,9 @@
 				<% } %>
 			</h3>
 
-			<ul>
-				<% if (model != null) { %>
-					<% for (Predicate predicate : model.getPredicates()) { %>
-						<% if (results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0) { %>
-							<li><%= predicate.getName() %>
-								<ul>
-									<% for (LocalizedString object : results.get(predicate.getId())) { %>
-										<li><%= object %>
-										<% if (object.getLanguage() != null) { %>
-											(<%= object.getLanguage() %>)
-										<% } %>
-										</li>
-									<% } %>
-								</ul>
-							</li>
-						<% } %>
-					<% } %>
-				<% } %>
-			</ul>
+			<% if (model != null) { %>
+				<%= printPredicates(model.getPredicates(), results) %>
+			<% } %>
+
 	</body>
 </html>

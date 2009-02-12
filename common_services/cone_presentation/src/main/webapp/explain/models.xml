@@ -38,7 +38,6 @@
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false"/>
-			<predicate name="SFX-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#/value" multiple="false" mandatory="true" localized="false"/>
 				<predicate name="ID Type" value="http://escidoc.mpg.de/idtype" multiple="false" mandatory="true" localized="false"/>

@@ -37,36 +37,38 @@
 	</rule>
 
 	<rule>
+		<name>ID parameter style 1</name>
 		<from casesensitive="false">^/(.+)\?id=([^&amp;]+)$</from>
 		<to>/$1/$2</to>
 	</rule>
 
 	<rule>
-		<name>ID parameter style 1</name>
+		<name>ID parameter style 2</name>
 		<from casesensitive="false">^/(.+)\?id=([^&amp;]+)&amp;(.+)$</from>
 		<to>/$1/$2?$3</to>
 	</rule>
 
 	<rule>
-		<name>ID parameter style 2</name>
+		<name>ID parameter style 3</name>
 		<from casesensitive="false">^/(.+)\?(.+)&amp;id=([^&amp;]+)(.*)$</from>
 		<to>/$1/$3?$2$4</to>
 	</rule>
 
 	<rule>
-		<name>Default action</name>
+		<name>Default action 1</name>
 		<from>^/([a-zA-Z0-9]+)/(query|details|all)(.*)</from>
 		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
-		<name>Default details</name>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:]+)(\?.+)?$</from>
+		<name>Default action 2</name>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\.]+)(\?.+)?$</from>
 		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:]+)(\?.+)?$</from>
+		<name>Default details</name>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\.]+)(\?.+)?$</from>
 		<to>/$1/$2/details/$3$4</to>
 	</rule>
 

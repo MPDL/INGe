@@ -128,7 +128,7 @@
 								<span class="seperator">&#160;</span>
 								<span class="free_area0_p8 endline itemHeadline">
 									<h2>
-										<xsl:if test="degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
+										<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 									</h2>
 									<h3>
 										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or xs:date(dc:end-date) &gt;= current-date()]">

@@ -106,7 +106,7 @@
 	                counter++;
 	            }
 	        }
-	        else
+	        else if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 	        {
 	            if (predicate.isGenerateObject())
                 {
@@ -121,11 +121,11 @@
 	            {
 	                out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"/>");
 	            }
-	            if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-                {
-                    
-                    out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
-                }
+//	              if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+//                {
+//                    
+//                    out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
+//                }
 	            out.append("</li>");
 	        }
 	        out.append("</ul>");
