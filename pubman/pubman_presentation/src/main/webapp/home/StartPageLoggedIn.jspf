@@ -27,7 +27,7 @@
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
-
+<jsp:directive.page pageEncoding="UTF-8" />
 <!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
