@@ -52,7 +52,19 @@
 					${publication/issued} :
 					${publication/published-online} != null ? 
 						${publication/published-online} :
-				 		null
+						${publication/@type}.equals("manuscript") ?
+						(
+							${publication/dateAccepted} != null ?
+								${publication/dateAccepted} :
+								${publication/dateSubmitted} != null ?
+									${publication/dateSubmitted} :
+									${publication/modified} != null ?
+										${publication/modified} :
+											${publication/created} != null ?
+												${publication/created} :
+												null 
+						) :
+						null
 			]]>
 		</variable>
 		
@@ -337,7 +349,7 @@
 			</layout-element>
 		
 				<!-- debug elements: -->
-			<layout-element name="__debug__">
+			<layout-element name="debug">
 				<parameters>
 					<starts-with value="debug__" />
 					<ends-with value="__debug" />

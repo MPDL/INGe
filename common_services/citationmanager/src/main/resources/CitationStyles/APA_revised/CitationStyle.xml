@@ -64,9 +64,9 @@
 				: 
 				${publication/dateSubmitted} != null 
 				? 
-				"submitted for publication" 
+				"Submitted for publication" 
 				: 
-				${publication/modified} != null 
+				(${publication/modified}  != null || ${publication/created} != null) 
 				? 
 				"in preparation" 
 				:
@@ -252,8 +252,8 @@
 		</layout-element>
 		<layout-element name="source-editors">
 			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})>0]]></valid-if>
 				<starts-with value=" In "/>
-				<ends-with value=","/>
 				<delimiter value="" />
 			</parameters>
 			<elements>
@@ -266,7 +266,28 @@
 		<!-- "plain" layout elements -->
 		<!-- ??? -->
 <!--		<layout-element name="year" ref="publication/issued" func="get_year">-->
-		<layout-element name="year" ref="date" func="get_year">
+
+		<layout-element name="year" ref="date">
+			<parameters>
+				<valid-if><![CDATA[ !${date}.equals("Submitted for publication") ]]></valid-if>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+				<starts-with value=" (" />
+				<ends-with value="). " />
+			</parameters>
+			<elements />
+		</layout-element>
+
+		<layout-element name="submitted" ref="date">
+			<parameters>
+				<valid-if><![CDATA[ ${date}.equals("Submitted for publication") ]]></valid-if>
+				<starts-with value=" " />
+				<ends-with value="." />
+			</parameters>
+			<elements />
+		</layout-element>
+
+
+		<layout-element name="year" ref="date">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
@@ -462,7 +483,7 @@
 
 
 
-	<layout-element name="__debugBlock__">
+	<layout-element name="debugBlock">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
@@ -483,38 +504,43 @@
 <!--			<layout-element ref="isBookArticleOrChapter" /> -->
 <!--			<layout-element ref="isBookProceedingsThesis" /> -->
 <!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
-<!--			<layout-element ref="publication/published-online" > -->
-<!--				<parameters>-->
-<!--					<starts-with value="published-online:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			<layout-element ref="publication/dateAccepted" > -->
-<!--				<parameters>-->
-<!--					<starts-with value="dateAccepted:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element>  -->
-<!--			<layout-element ref="publication/dateSubmitted">-->
-<!--				<parameters>-->
-<!--					<starts-with value="dateSubmitted:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			  -->
-<!--			<layout-element ref="publication/published-online" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="published-online:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			 -->
-<!--			<layout-element ref="publication/created" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="created:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
+			<layout-element ref="publication/issued" > 
+				<parameters>
+					<starts-with value="issued:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="publication/published-online" > 
+				<parameters>
+					<starts-with value="published-online:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="publication/dateAccepted" > 
+				<parameters>
+					<starts-with value="dateAccepted:"/>
+				</parameters>
+				<elements/>
+			</layout-element>  
+			<layout-element ref="publication/dateSubmitted">
+				<parameters>
+					<starts-with value="dateSubmitted:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="publication/modified" >
+				<parameters>
+					<starts-with value="modified:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			 
+			<layout-element ref="publication/created" >
+				<parameters>
+					<starts-with value="created:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
 		</elements>
 	</layout-element>		
 	
@@ -574,6 +600,8 @@
 			
 			
 			<layout-element ref="published-online-and-external-locator"/>
+			
+			<layout-element ref="submitted"/>
 		
 		</elements>
 	</cs-layout-definition>
@@ -602,7 +630,7 @@
 			
 			<layout-element name="year-editors-or-authors-are-presented">
 				<parameters>
-					<valid-if><![CDATA[${publication/issued}!=null && (Integer.parseInt(${authorsCount})>0 || Integer.parseInt(${editorsCount})>0)]]></valid-if>
+					<valid-if><![CDATA[ Integer.parseInt(${authorsCount})>0 || Integer.parseInt(${editorsCount})>0 ]]></valid-if>
 				</parameters>
 				<elements>
 					<layout-element ref="year" />
@@ -629,6 +657,8 @@
 			<layout-element ref="place-publisher"/>
 			
 			<layout-element ref="published-online-and-external-locator"/>
+			
+			<layout-element ref="submitted"/>
 		
 		</elements>
 	</cs-layout-definition>
@@ -680,6 +710,8 @@
 			<layout-element ref="place-publisher"/>
 			
 			<layout-element ref="published-online-and-external-locator"/>
+			
+			<layout-element ref="submitted"/>
 		
 		</elements>
 	</cs-layout-definition>
@@ -741,12 +773,18 @@
 			
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element ref="source-editors"/>
+			<layout-element ref="source-editors">
+				<parameters>
+					<ends-with value=","/>
+				</parameters>
+				<elements/>
+			</layout-element>
 			
 			<layout-element>
 				<parameters>
 					<font-style ref="ITALIC"/>
 					<delimiter value=". "/>
+					<starts-with value=" "/>
 					<ends-with value="."/>
 				</parameters>
 				<elements>
@@ -770,6 +808,8 @@
 			</layout-element>
 			
 			<layout-element ref="place-publisher"/>
+			
+			<layout-element ref="submitted"/>
 			
 		</elements>
 	
@@ -805,6 +845,8 @@
 			
 			<layout-element ref="volume-issue"/>
 			
+			<layout-element ref="submitted"/>
+			
 		</elements>
 	
 	</cs-layout-definition>
@@ -833,6 +875,8 @@
 			
 			<layout-element ref="place-publisher"/>
 			
+			<layout-element ref="submitted"/>
+			
 		</elements>
 	
 	</cs-layout-definition>
@@ -859,6 +903,7 @@
 			
 			<layout-element ref="place-publisher"/>
 			
+			<layout-element ref="submitted"/>
 		</elements>
 	
 	</cs-layout-definition>	
@@ -900,6 +945,8 @@
 			</layout-element>
 			
 			<layout-element ref="place-publisher"/>
+			
+			<layout-element ref="submitted"/>
 			
 		</elements>
 	
@@ -945,6 +992,8 @@
 					<layout-element ref="publication/event/place"/>
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="submitted"/>
 
 		</elements>
 	
@@ -979,6 +1028,8 @@
 					<layout-element ref="publication/event/place"/>
 				</elements>
 			</layout-element>
+			
+			<layout-element ref="submitted"/>
 
 		</elements>
 	
@@ -1027,20 +1078,22 @@
 
 			<layout-element ref="place-publisher"/>
 			
+			<layout-element ref="submitted"/>
+			
 		</elements>
 	
 	</cs-layout-definition>
 	
 <!--	Test CSLD: -->
-	<cs-layout-definition name="notMatched">
-		<parameters>
-			<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>
-		</parameters>
-		<elements>
-			
-			<layout-element ref="debugBlock" />
-		
-		</elements>
-	</cs-layout-definition>
+<!--	<cs-layout-definition name="notMatched">-->
+<!--		<parameters>-->
+<!--			<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
+<!--		</parameters>-->
+<!--		<elements>-->
+<!--			--> 
+<!--			<layout-element ref="debugBlock" />-->
+<!--		-->
+<!--		</elements>-->
+<!--	</cs-layout-definition>-->
 
 </citation-style>
