@@ -177,6 +177,8 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator abstractIterator = new UIXIterator();
     
+    private UIXIterator subjectIterator = new UIXIterator();
+    
     private UIXIterator eventAltTitleIterator = new UIXIterator();
     
     private UIXIterator sourceIterator = new UIXIterator();
@@ -2146,6 +2148,16 @@ public class ViewItemFull extends FacesBean
 		this.unapiURLview = unapiURLview;
 	}
 	
+	
+	
+	public UIXIterator getSubjectIterator() {
+		return subjectIterator;
+	}
+
+	public void setSubjectIterator(UIXIterator subjectIterator) {
+		this.subjectIterator = subjectIterator;
+	}
+
 	public String addToBasket()
 	{
 	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);

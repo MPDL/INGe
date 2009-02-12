@@ -49,6 +49,18 @@
 			</span>
 		</div>
 
+<%-- DDC Subject --%>
+		<tr:iterator var="subject" value="#{ViewItemFull.pubItem.metadata.subjects}" binding="#{ViewItemFull.subjectIterator}" varStatus="index">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText value="#{lbl.EditItem_lblDDCSubject}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
 <%-- Abstract --%>
 		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
