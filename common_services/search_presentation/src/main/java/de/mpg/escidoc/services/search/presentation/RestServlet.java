@@ -139,8 +139,9 @@ public class RestServlet extends HttpServlet
 
             if (se.isStructuredFormat(exportFormat))
             {
-                outputFormat = FileFormatVO.TEXT_NAME;
-            } else
+                outputFormat = "XML".equalsIgnoreCase(exportFormat) ? "xml" : FileFormatVO.TEXT_NAME;
+            } 
+            else
             // citation style
             {
                 outputFormat = req.getParameter("outputFormat");
@@ -285,7 +286,8 @@ public class RestServlet extends HttpServlet
      */
     private String getFileExtension(final String outputFormat)
     {
-        return "." + (outputFormat.trim().equals("snippet") ? "xml" : outputFormat);
+    	String of = outputFormat.trim();
+        return "." + ( "snippet".equals(of) ? "xml" : outputFormat);
     }
 
     /**

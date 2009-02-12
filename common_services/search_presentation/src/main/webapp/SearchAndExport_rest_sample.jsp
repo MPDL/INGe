@@ -116,6 +116,7 @@
 					<option value="AJP">AJP</option>
 					<option value="ENDNOTE">EndNote</option>
 					<option value="BIBTEX">BibTeX</option>
+					<option value="XML">XML</option>
 				</select>
 			</div>
 			<div class="editItemSingleCol">
