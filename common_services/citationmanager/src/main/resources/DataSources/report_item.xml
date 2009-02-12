@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:54850"  last-modification-date="2008-10-20T12:56:09.461Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2008-10-20T12:38:56.508Z</prop:creation-date><srel:created-by   objid="escidoc:user2" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:persistent3" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:54850:2</prop:pid>        <prop:version   objid="escidoc:54850:2">
+    	<version:number >2</version:number>    	<version:date >2008-10-20T12:56:09.461Z</version:date>    	<version:status >released</version:status>    	<srel:modified-by   objid="escidoc:user2" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:54850:2</version:pid>    	    </prop:version>
+
+    <prop:latest-version   objid="escidoc:54850:2">
+    	<version:number >2</version:number>    	<version:date >2008-10-20T12:56:09.461Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:54850:2">
+    		<release:number >2</release:number>	    	<release:date >2008-10-20T12:56:08.890Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:54850:1</release:pid>	    		    </prop:latest-release>
+
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="report">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Smith</escidoc:family-name>
+
+      <escidoc:given-name>Jonny</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>ftOOzbHTGKtDpNzd</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:17159</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Test of report</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">be</dc:language>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:OTHER">12345</dc:identifier>
+  <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Publisher</dc:publisher>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Place</escidoc:place>
+
+    <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Edition</escidoc:edition>
+  </publication:publishing-info>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2003</dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Title</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Family name</escidoc:family-name>
+        <escidoc:given-name>Given name</escidoc:given-name>
+
+        <escidoc:organization>
+          <escidoc:organization-name>External Organizations</escidoc:organization-name>
+          <escidoc:address></escidoc:address>
+          <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+        </escidoc:organization>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Volume</escidoc:volume>
+
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Issue</escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">10</escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">100</escidoc:sequence-number>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Publisher</dc:publisher>
+
+      <escidoc:place>Place</escidoc:place>
+      <escidoc:edition>Edition</escidoc:edition>
+    </escidoc:publishing-info>
+  </publication:source>
+  <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Title</dc:title>
+    <escidoc:start-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></escidoc:start-date>
+
+    <escidoc:end-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></escidoc:end-date>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Place</escidoc:place>
+  </publication:event>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">Total no. of pages</publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">Abstract</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">free keywords</dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">Table of content</dcterms:tableOfContents>
+
+  <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">library signature</publication:location>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:66081"  last-modification-date="2008-10-24T11:00:21.599Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2008-10-24T11:00:19.584Z</prop:creation-date><srel:created-by   objid="escidoc:25133" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment >Release comment.</prop:public-status-comment>    <srel:context   objid="escidoc:23756" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:66081</prop:pid>        <prop:version   objid="escidoc:66081:1">
+    	<version:number >1</version:number>    	<version:date >2008-10-24T11:00:21.599Z</version:date>    	<version:status >released</version:status>    	<srel:modified-by   objid="escidoc:25133" />    
+    	<version:comment >Release comment.</version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:66081</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:66081:1">
+    	<version:number >1</version:number>    	<version:date >2008-10-24T11:00:21.599Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:66081:1">
+    		<release:number >1</release:number>	    	<release:date >2008-10-24T11:00:21.226Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:66081</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<mdp:publication xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>K. H. Kho</e:complete-name>
+                     <e:family-name>Kho</e:family-name>
+                     <e:given-name>K. H.</e:given-name>
+                  </e:person>
+               </publ:creator>
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>Peter Indefrey</e:complete-name>
+                     <e:family-name>Indefrey</e:family-name>
+                     <e:given-name>Peter</e:given-name>
+                     <e:organization>
+                        <e:organization-name>Acquisition Group, MPI for Psycholinguistics, Max Planck Society</e:organization-name>
+                        <e:identifier>escidoc:55196</e:identifier>
+                     </e:organization>
+                     <e:organization>
+                        <e:organization-name>Unification, MPI for Psycholinguistics, Max Planck Society</e:organization-name>
+                        <e:identifier>escidoc:55262</e:identifier>
+                     </e:organization>
+                  </e:person>
+               </publ:creator>
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>Peter Hagoort</e:complete-name>
+                     <e:family-name>Hagoort</e:family-name>
+                     <e:given-name>Peter</e:given-name>
+                     <e:organization>
+                        <e:organization-name>Production Group, MPI for Psycholinguistics, Max Planck Society</e:organization-name>
+                        <e:identifier>escidoc:55198</e:identifier>
+                     </e:organization>
+                     <e:organization>
+                        <e:organization-name>Unification, MPI for Psycholinguistics, Max Planck Society</e:organization-name>
+                        <e:identifier>escidoc:55262</e:identifier>
+                     </e:organization>
+                  </e:person>
+               </publ:creator>
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>C. W. M. van Veelen</e:complete-name>
+                     <e:family-name>van Veelen</e:family-name>
+                     <e:given-name>C. W. M.</e:given-name>
+                  </e:person>
+               </publ:creator>
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>P. C. van Rijen</e:complete-name>
+                     <e:family-name>van Rijen</e:family-name>
+                     <e:given-name>P. C.</e:given-name>
+                  </e:person>
+               </publ:creator>
+               <publ:creator xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+                  <e:person xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                     <e:complete-name>N. F. Ramsey</e:complete-name>
+                     <e:family-name>Ramsey</e:family-name>
+                     <e:given-name>N. F.</e:given-name>
+                  </e:person>
+               </publ:creator>
+               <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Unimpaired sentence comprehension after anterior temporal cortex resection</dc:title>
+               <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/">en</dc:language>
+               <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:EDOC">328504</dc:identifier>
+               <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">Functional imaging studies have demonstrated involvement of the anterior temporal cortex in sentence comprehension. It is unclear, however, whether the anterior temporal cortex is essential for this function. We studied two aspects of sentence comprehension, namely syntactic and prosodic comprehension in temporal lobe epilepsy patients who were candidates for resection of the anterior temporal lobe. METHODS: Temporal lobe epilepsy patients (n=32) with normal (left) language dominance were tested on syntactic and prosodic comprehension before and after removal of the anterior temporal cortex. The prosodic comprehension test was also compared with performance of healthy control subjects (n=47) before surgery. RESULTS: Overall, temporal lobe epilepsy patients did not differ from healthy controls in syntactic and prosodic comprehension before surgery. They did perform less well on an affective prosody task. Post-operative testing revealed that syntactic and prosodic comprehension did not change after removal of the anterior temporal cortex. DISCUSSION: The unchanged performance on syntactic and prosodic comprehension after removal of the anterior temporal cortex suggests that this area is not indispensable for sentence comprehension functions in temporal epilepsy patients. Potential implications for the postulated role of the anterior temporal lobe in the healthy brain are discussed.</dcterms:abstract>
+               <publ:source xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="journal">
+                  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Neuropsychologia</dc:title>
+               </publ:source>
+            </mdp:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						<escidocComponents:component 
+  objid="escidoc:66084">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T11:00:19.449Z</prop:creation-date>	<srel:created-by   objid="escidoc:25133" />   
+		        <prop:visibility >private</prop:visibility>	    <prop:content-category >any-fulltext</prop:content-category>        <prop:file-name >Kho_neuropsychologia_unimpaired.pdf</prop:file-name>            <prop:mime-type >application/pdf</prop:mime-type>    	</escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="Kho_neuropsychologia_unimpaired.pdf" xlink:href="/ir/item/escidoc:66081/components/component/escidoc:66084/content" storage="internal-managed"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Kho_neuropsychologia_unimpaired.pdf</dc:title>
+                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:URI">http://edoc.mpg.de/get.epl?fid=38911&amp;did=328504&amp;ver=0</dc:identifier>
+                     <file:content-category>any-fulltext</file:content-category>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+                     <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">261841</dcterms:extent>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: USER</dc:format>
+                  </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+<escidocComponents:component 
+  objid="escidoc:66082">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T11:00:19.27Z</prop:creation-date>	<srel:created-by   objid="escidoc:25133" />   
+		        <prop:visibility >private</prop:visibility>	    <prop:content-category >any-fulltext</prop:content-category>        <prop:file-name >Kho_neuropsychologia_unimpaired.pdf</prop:file-name>            <prop:mime-type >application/pdf</prop:mime-type>    	</escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="Kho_neuropsychologia_unimpaired.pdf" xlink:href="/ir/item/escidoc:66081/components/component/escidoc:66082/content" storage="internal-managed"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Kho_neuropsychologia_unimpaired.pdf</dc:title>
+                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:URI">http://edoc.mpg.de/get.epl?fid=38910&amp;did=328504&amp;ver=0</dc:identifier>
+                     <file:content-category>any-fulltext</file:content-category>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+                     <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">261841</dcterms:extent>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: INSTITUT</dc:format>
+                  </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+<escidocComponents:component 
+  objid="escidoc:66085">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T11:00:19.542Z</prop:creation-date>	<srel:created-by   objid="escidoc:25133" />   
+		        <prop:visibility >private</prop:visibility>	    <prop:content-category >any-fulltext</prop:content-category>        <prop:file-name >Kho_neuropsychologia_unimpaired.pdf</prop:file-name>        </escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="Kho_neuropsychologia_unimpaired.pdf" xlink:href="http://edoc.mpg.de/get.epl?fid=38911&amp;did=328504&amp;ver=0" storage="external-url"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Kho_neuropsychologia_unimpaired.pdf</dc:title>
+                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:URI">http://edoc.mpg.de/get.epl?fid=38911&amp;did=328504&amp;ver=0</dc:identifier>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: USER</dc:format>
+                  </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+<escidocComponents:component 
+  objid="escidoc:66083">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T11:00:19.396Z</prop:creation-date>	<srel:created-by   objid="escidoc:25133" />   
+		        <prop:visibility >private</prop:visibility>	    <prop:content-category >any-fulltext</prop:content-category>        <prop:file-name >Kho_neuropsychologia_unimpaired.pdf</prop:file-name>        </escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="Kho_neuropsychologia_unimpaired.pdf" xlink:href="http://edoc.mpg.de/get.epl?fid=38910&amp;did=328504&amp;ver=0" storage="external-url"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+                     <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Kho_neuropsychologia_unimpaired.pdf</dc:title>
+                     <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:URI">http://edoc.mpg.de/get.epl?fid=38910&amp;did=328504&amp;ver=0</dc:identifier>
+                     <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">eDoc_access: INSTITUT</dc:format>
+                  </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:62103"  last-modification-date="2008-10-28T09:02:58.083Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2008-10-24T07:50:06.822Z</prop:creation-date><srel:created-by   objid="escidoc:60112" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:59254" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:62103:10</prop:pid>        <prop:version   objid="escidoc:62103:10">
+    	<version:number >10</version:number>    	<version:date >2008-10-28T09:02:58.083Z</version:date>    	<version:status >released</version:status>    	<srel:modified-by   objid="escidoc:60112" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:62103:10</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:62103:10">
+    	<version:number >10</version:number>    	<version:date >2008-10-28T09:02:58.083Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:62103:10">
+    		<release:number >10</release:number>	    	<release:date >2008-10-28T09:02:57.193Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:62103:3</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="paper">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Dubiner</escidoc:family-name>
+      <escidoc:given-name>Moshe</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>Demo Organizational Unit</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Working Paper Test DK</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">he</dc:language>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI">arXiv:0810.4188</dc:identifier>
+  <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Publishing Co</dc:publisher>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Dresden und Leipzig</escidoc:place>
+    <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">6.</escidoc:edition>
+  </publication:publishing-info>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2005</dcterms:issued>
+  <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">internal</publication:review-method>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">  We consider the problem of finding high dimensional approximate nearest
+neighbors. Suppose there are d independent rare features, each having its own
+independent statistics. A point x will have x_{i}=0 denote the absence of
+feature i, and x_{i}=1 its existence. Sparsity means that usually x_{i}=0.
+Distance between points is a variant of the Hamming distance. Dimensional
+reduction converts the sparse heterogeneous problem into a lower dimensional
+full homogeneous problem. However we will see that the converted problem can be
+much harder to solve than the original problem. Instead we suggest a direct
+approach. It consists of T tries. In try t we rearrange the coordinates in
+decreasing order of (1-r_{t,i})\frac{p_{i,11}}{p_{i,01}+p_{i,10}}
+\ln\frac{1}{p_{i,1*}} where 0&lt;r_{t,i}&lt;1 are uniform pseudo-random numbers, and
+the p&apos;s are the coordinate&apos;s statistical parameters. The points are
+lexicographically ordered, and each is compared to its neighbors in that order.
+  We analyze a generalization of this algorithm, show that it is optimal in
+some class of algorithms, and estimate the necessary number of tries to
+success. It is governed by an information like function, which we call
+bucketing forest information. Any doubts whether it is &quot;information&quot; are
+dispelled by another paper, where unrestricted bucketing information is
+defined.
+</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">cs.IT math.IT</dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">Subjects: 	Information Theory (cs.IT)
+MSC classes: 	68P10, 68W20 (Primary)
+Cite as: 	arXiv:0810.4188v1 [cs.IT]</dcterms:tableOfContents>
+  <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:location>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						<escidocComponents:component 
+  objid="escidoc:62105">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T07:50:06.748Z</prop:creation-date>	<srel:created-by   objid="escidoc:60112" />   
+		<prop:description >We consider the problem of finding high dimensional approximate nearest neighbors. Suppose there are d independent rare features, each having its own independent statistics. A point x will have x_{i}=0 denote the absence of feature i, and x_{i}=1 its existence. Sparsity means that usually x_{i}=0. Distance between points is a variant of the Hamming distance. Dimensional reduction converts the sparse heterogeneous problem into a lower dimensional full homogeneous problem. However we will see that the converted problem can be much harder to solve than the original problem. Instead we suggest a direct approach. It consists of T tries. In try t we rearrange the coordinates in decreasing order of (1-r_{t,i})\frac{p_{i,11}}{p_{i,01}+p_{i,10}} \ln\frac{1}{p_{i,1*}} where 0&lt;r_{t,i}&lt;1 are uniform pseudo-random numbers, and the p&apos;s are the coordinate&apos;s statistical parameters. The points are lexicographically ordered, and each is compared to its neighbors in that order.
+We analyze a generalization of this algorithm, show that it is optimal in some class of algorithms, and estimate the necessary number of tries to success. It is governed by an information like function, which we call bucketing forest information. Any doubts whether it is &quot;information&quot; are dispelled by another paper, where unrestricted bucketing information is defined.</prop:description>		        <prop:valid-status >valid</prop:valid-status>	    <prop:visibility >public</prop:visibility>	    <prop:content-category >ABSTRACT</prop:content-category>        <prop:file-name >http://arxiv.org/list/cs.IT/recent</prop:file-name>        </escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="http://arxiv.org/list/cs.IT/recent" xlink:href="http://arxiv.org/list/cs.IT/recent" storage="external-url"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://arxiv.org/list/cs.IT/recent</dc:title>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We consider the problem of finding high dimensional approximate nearest neighbors. Suppose there are d independent rare features, each having its own independent statistics. A point x will have x_{i}=0 denote the absence of feature i, and x_{i}=1 its existence. Sparsity means that usually x_{i}=0. Distance between points is a variant of the Hamming distance. Dimensional reduction converts the sparse heterogeneous problem into a lower dimensional full homogeneous problem. However we will see that the converted problem can be much harder to solve than the original problem. Instead we suggest a direct approach. It consists of T tries. In try t we rearrange the coordinates in decreasing order of (1-r_{t,i})\frac{p_{i,11}}{p_{i,01}+p_{i,10}} \ln\frac{1}{p_{i,1*}} where 0&lt;r_{t,i}&lt;1 are uniform pseudo-random numbers, and the p&apos;s are the coordinate&apos;s statistical parameters. The points are lexicographically ordered, and each is compared to its neighbors in that order.
+We analyze a generalization of this algorithm, show that it is optimal in some class of algorithms, and estimate the necessary number of tries to success. It is governed by an information like function, which we call bucketing forest information. Any doubts whether it is &quot;information&quot; are dispelled by another paper, where unrestricted bucketing information is defined.</dc:description>
+          </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+<escidocComponents:component 
+  objid="escidoc:62104">
+  <escidocComponents:properties   >
+
+	<prop:creation-date>2008-10-24T07:50:06.697Z</prop:creation-date>	<srel:created-by   objid="escidoc:60112" />   
+		<prop:description >Data downloaded from arXiv at 2008-10-24 09:48</prop:description>		        <prop:valid-status >valid</prop:valid-status>	    <prop:visibility >private</prop:visibility>	    <prop:content-category >TABLE_OF_CONTENTS</prop:content-category>        <prop:file-name >0810.4188.pdf</prop:file-name>            <prop:mime-type >application/pdf</prop:mime-type>    	</escidocComponents:properties>
+  <escidocComponents:content 
+  		xmlns:xlink="http://www.w3.org/1999/xlink"  		xlink:type="simple" xlink:title="0810.4188.pdf" xlink:href="/ir/item/escidoc:62103/components/component/escidoc:62104/content" storage="internal-managed"/>
+   <escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">0810.4188.pdf</dc:title>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Data downloaded from arXiv at 2008-10-24 09:48</dc:description>
+            <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">application/pdf</dc:format>
+            <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">212653</dcterms:extent>
+          </file:file>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records> </escidocComponents:component>
+
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<escidocItemList:item-list xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.7"
+                           xmlns:mods-md="http://www.loc.gov/mods/v3"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:release="http://escidoc.de/core/01/properties/release/"
+                           xmlns:prop="http://escidoc.de/core/01/properties/"
+                           xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3"
+                           xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+                           xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
+                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                           xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                           xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.7"
+                           xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.6"
+                           xmlns:version="http://escidoc.de/core/01/properties/version/"
+                           xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"
+                           xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                           xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"
+                           xmlns:container="http://www.escidoc.de/schemas/container/0.7"
+                           xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6"
+                           xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7"
+                           xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7">
+    <escidocItem:item last-modification-date="2008-10-30T14:33:55.497Z" objid="escidoc:37240">
+        <escidocItem:properties>
+            <srel:context objid="escidoc:37227"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:pid>hdl:someHandle/test/escidoc:37240:4</prop:pid>
+            <prop:content-model-specific>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Gros, A., Hovestadt, T., &amp; Poethke, H. J. <span class="DisplayDateStatus"> (2008). </span> Evolution of sex-biased dispersal: the role of sex-specific dispersal costs, demographic stochasticity, and inbreeding. </span><span class="Italic">Ecological Modelling, 219</span><span class="Default">, 226-233.<br/></span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="article">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Gros</escidoc:family-name>
+                            <escidoc:given-name>Andreas</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Max Planck Digital Library</escidoc:organization-name>
+                                <escidoc:address>Amalienstr. 33
+80799 Munich</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Hovestadt</escidoc:family-name>
+                            <escidoc:given-name>Thomas</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>University of Würzburg</escidoc:organization-name>
+                                <escidoc:address>Fieldstation Fabrikschleichach
+Glashüttenstr. 5
+96181 Rauhenebrach</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Poethke</escidoc:family-name>
+                            <escidoc:given-name>Hans Joachim</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>University of Würzburg</escidoc:organization-name>
+                                <escidoc:address>Fieldstation Fabrikschleichach
+Glashüttenstr. 5
+96181 Rauhenebrach</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Evolution of sex-biased dispersal: the role of sex-specific dispersal costs, demographic stochasticity, and inbreeding</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+                    <dc:identifier xsi:type="eidt:ISSN">0304-3800</dc:identifier>
+                    <publication:publishing-info>
+                        <dc:publisher>Elsevier B.V.</dc:publisher>
+                        <escidoc:place/>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2008-05-03</dcterms:dateSubmitted>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2008-08-21</dcterms:dateAccepted>
+                    <publication:published-online xsi:type="dcterms:W3CDTF">2008-10-14</publication:published-online>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+                    <publication:review-method>peer</publication:review-method>
+                    <publication:source type="journal">
+                        <dc:title>Ecological Modelling</dc:title>
+                        <escidoc:volume>219</escidoc:volume>
+                        <escidoc:issue/>
+                        <escidoc:start-page>226</escidoc:start-page>
+                        <escidoc:end-page>233</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <dc:identifier xsi:type="eidt:ISSN">0304-3800</dc:identifier>
+                    </publication:source>
+                    <publication:total-number-of-pages>8</publication:total-number-of-pages>
+                    <dcterms:abstract>Inbreeding avoidance and asymmetric competition over resources have both been identified as factors favoring the evolution of sex-biased dispersal. It has also been recognized that sex-specific costs of dispersal would select for sex-biased dispersal, but there is little quantitative information on this aspect. In this paper we explore (i) the quantitative relationship between cost-asymmetry and a bias in dispersal, (ii) the influence of demographic stochasticity on this effect, and (iii) how inbreeding and cost-asymmetry interact in their effect on sex-specific dispersal. We adjust an existing analytical model to account for sex-specific costs of dispersal. Based on numerical calculations we predict a severe bias in dispersal already for small differences in dispersal costs. We corroborate these predictions in individual-based simulations, but show that demographic stochasticity generally leads to more balanced dispersal. In combination with inbreeding, cost asymmetries will usually determine which of the two sexes becomes the more dispersive.</dcterms:abstract>
+                    <dc:subject>Asymmetric dispersal costs; Kin-selection; Numerical model; Individual-based simulations</dc:subject>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components>
+            <escidocComponents:component objid="escidoc:37241">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-10-24T14:22:36.206Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>PRE_PRINT</prop:content-category>
+                    <prop:file-name>ecomod_5277_final.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="internal-managed"
+                                           xlink:href="http://coreservice.mpdl.mpg.de:8080/ir/item/escidoc:37240/components/component/escidoc:37241/content"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>ecomod_5277_final.pdf</dc:title>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>214037</dcterms:extent>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+            <escidocComponents:component objid="escidoc:37242">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-10-24T14:22:36.294Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>PUBLISHER_VERSION</prop:content-category>
+                    <prop:file-name>http://dx.doi.org/10.1016/j.ecolmodel.2008.08.014</prop:file-name>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="external-url"
+                                           xlink:href="http://dx.doi.org/10.1016/j.ecolmodel.2008.08.014"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>http://dx.doi.org/10.1016/j.ecolmodel.2008.08.014</dc:title>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+    <escidocItem:item last-modification-date="2008-10-30T14:08:38.481Z" objid="escidoc:37237">
+        <escidocItem:properties>
+            <srel:context objid="escidoc:37227"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:pid>hdl:someHandle/test/escidoc:37237:3</prop:pid>
+            <prop:content-model-specific>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Gros, A., Poethke, H. J., &amp; Hovestadt, T. <span class="DisplayDateStatus"> (2006). </span> Evolution of local adaptations in dispersal strategies. </span><span class="Italic">Oikos, 114</span><span class="Default">(3), 544-552.<br/></span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    type="article">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Gros</escidoc:family-name>
+                            <escidoc:given-name>Andreas</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Max Planck Digital Library</escidoc:organization-name>
+                                <escidoc:address>Amalienstr. 33
+80799 Munich</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Poethke</escidoc:family-name>
+                            <escidoc:given-name>Hans Joachim</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>University of Würzburg</escidoc:organization-name>
+                                <escidoc:address>Fieldstation Fabrikschleichach
+Glashüttenstr. 5
+
+96181 Rauhenebrach</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Hovestadt</escidoc:family-name>
+                            <escidoc:given-name>Thomas</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>University of Würzburg</escidoc:organization-name>
+                                <escidoc:address>Fieldstation Fabrikschleichach
+Glashüttenstr. 5
+
+96181 Rauhenebrach</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Evolution of local adaptations in dispersal strategies</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+                    <publication:publishing-info>
+                        <dc:publisher>Nordic Ecological Society</dc:publisher>
+                        <escidoc:place>Lund, Sweden</escidoc:place>
+                        <escidoc:edition/>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2006-03-17</dcterms:dateAccepted>
+                    <publication:published-online xsi:type="dcterms:W3CDTF">2006-05-18</publication:published-online>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+                    <publication:review-method>peer</publication:review-method>
+                    <publication:source type="journal">
+                        <dc:title>Oikos</dc:title>
+                        <escidoc:volume>114</escidoc:volume>
+                        <escidoc:issue>3</escidoc:issue>
+                        <escidoc:start-page>544</escidoc:start-page>
+                        <escidoc:end-page>552</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:publishing-info>
+                            <dc:publisher>Nordic Ecological Society</dc:publisher>
+                            <escidoc:place>Lund</escidoc:place>
+                            <escidoc:edition/>
+                        </escidoc:publishing-info>
+                        <dc:identifier xsi:type="eidt:ISSN">0030-1299</dc:identifier>
+                    </publication:source>
+                    <publication:total-number-of-pages>8</publication:total-number-of-pages>
+                    <dcterms:abstract>The optimal probability and distance of dispersal largely depend on the risk to end up 
+in unsuitable habitat. This risk is highest close to the habitat’s edge and consequently, 
+optimal dispersal probability and distance should decline towards the habitat’s border. 
+This selection should lead to the emergence of spatial gradients in dispersal strategies. 
+However, gene flow caused by dispersal itself is counteracting local adaptation. Using 
+an individual based model we investigate the evolution of local adaptations of dispersal 
+probability and distance within a single, circular, habitat patch. We compare evolved 
+dispersal probabilities and distances for six different dispersal kernels (two negative 
+exponential kernels, two skewed kernels, nearest neighbour dispersal and global 
+dispersal) in patches of different size. For all kernels a positive correlation between 
+patch size and dispersal probability emerges. However, a minimum patch size is 
+necessary to allow for local adaptation of dispersal strategies within patches. Beyond 
+this minimum patch area the difference in mean dispersal distance between center and 
+edge increases linearly with patch radius, but the intensity of local adaptation depends 
+on the dispersal kernel. Except for global and nearest neighbour dispersal, the evolved 
+spatial pattern are qualitatively similar for both, mean dispersal probability and 
+distance. We conclude, that inspite of the gene-flow originating from dispersal local 
+adaptation of dispersal strategies is possible if a habitat is of sufficient size. This 
+presumably holds for any realistic type of dispersal kernel.</dcterms:abstract>
+                    <dc:subject>evolution, dispersal, plants</dc:subject>
+                    <dcterms:tableOfContents/>
+                    <publication:location/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components>
+            <escidocComponents:component objid="escidoc:37239">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-10-24T14:00:20.312Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>PUBLISHER_VERSION</prop:content-category>
+                    <prop:file-name>http://dx.doi.org/10.1111/j.2006.0030-1299.14909.x</prop:file-name>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="external-url"
+                                           xlink:href="http://dx.doi.org/10.1111/j.2006.0030-1299.14909.x"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>http://dx.doi.org/10.1111/j.2006.0030-1299.14909.x</dc:title>
+                            <dc:description/>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+            <escidocComponents:component objid="escidoc:37238">
+                <escidocComponents:properties>
+                    <prop:creation-date>2008-10-24T14:00:20.225Z</prop:creation-date>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>PRE_PRINT</prop:content-category>
+                    <prop:file-name>oikos_O14909.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
+                </escidocComponents:properties>
+                <escidocComponents:content storage="internal-managed"
+                                           xlink:href="http://coreservice.mpdl.mpg.de:8080/ir/item/escidoc:37237/components/component/escidoc:37238/content"/>
+                <escidocMetadataRecords:md-records>
+                    <escidocMetadataRecords:md-record name="escidoc">
+                        <file:file xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                   xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                   xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                   xmlns:dcterms="http://purl.org/dc/terms/"
+                                   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                   xmlns:dc="http://purl.org/dc/elements/1.1/">
+                            <dc:title>oikos_O14909.pdf</dc:title>
+                            <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+                            <dcterms:extent>241711</dcterms:extent>
+                        </file:file>
+                    </escidocMetadataRecords:md-record>
+                </escidocMetadataRecords:md-records>
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+</escidocItemList:item-list>

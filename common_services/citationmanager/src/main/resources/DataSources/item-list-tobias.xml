@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.7" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.7" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+  <escidocItem:item objid="escidoc:12719" last-modification-date="2008-09-22T12:35:09.458Z">
+    <escidocItem:properties>
+      <srel:context objid="escidoc:persistent3"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:content-model-specific/>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="book">
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <dc:title xml:lang="en">PubMan: The first of all.</dc:title>
+        </escidocMetadataProfile:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocRelations:relations>
+      <escidocRelations:relation objid="escidoc:12714" predicate="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf"/>
+    </escidocRelations:relations>
+  </escidocItem:item>
+  <escidocItem:item objid="escidoc:12721" last-modification-date="2008-09-22T12:35:12.311Z">
+    <escidocItem:properties>
+      <srel:context objid="escidoc:persistent3"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:content-model-specific/>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="book">
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <dc:title xml:lang="en">This is a revision.</dc:title>
+        </escidocMetadataProfile:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocRelations:relations>
+      <escidocRelations:relation objid="escidoc:12720" predicate="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf"/>
+    </escidocRelations:relations>
+  </escidocItem:item>
+  <escidocItem:item objid="escidoc:13390" last-modification-date="2008-09-22T13:13:40.272Z">
+    <escidocItem:properties>
+      <srel:context objid="escidoc:persistent3"/>
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:content-model-specific/>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="book">
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+              <escidoc:family-name>Meier</escidoc:family-name>
+              <escidoc:given-name>Hans</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+                <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
+          <dc:title xml:lang="en">This is a revision.</dc:title>
+        </escidocMetadataProfile:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+    <escidocRelations:relations>
+      <escidocRelations:relation objid="escidoc:13389" predicate="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf"/>
+    </escidocRelations:relations>
+  </escidocItem:item>
+</escidocItemList:item-list>
