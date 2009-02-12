@@ -185,8 +185,9 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         }
         catch (Exception e)
         {
-          error("Error in retrieving items");
-          numberOfRecords = 0; 
+            logger.error("Error in retrieving items", e);
+            error("Error in retrieving items");
+            numberOfRecords = 0; 
         }
         return returnList;
 
