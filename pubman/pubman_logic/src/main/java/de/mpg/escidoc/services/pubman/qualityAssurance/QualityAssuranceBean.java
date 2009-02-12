@@ -179,9 +179,12 @@ public class QualityAssuranceBean implements QualityAssurance
             filterParam.getFilterList().add(roleFilter);
             FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
             filterParam.getFilterList().add(typeFilter);
+            
+            /*
             PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
             filterParam.getFilterList().add(statusFilter);
-
+            */
+            
             // ... and transform filter to xml
             String filterString = xmlTransforming.transformToFilterTaskParam(filterParam);
 
