@@ -51,7 +51,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText value="#{SubmissionPage.beanName}" styleClass="noDisplay" />
+			<h:outputText value="#{EasySubmissionPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
@@ -85,9 +85,9 @@
 				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/languages/query';
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/query';
 				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/ddc/query';
-				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/persons/query';
+				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/query';
 				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/details?id=';
-				personDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/persons/details?id=';
+				personDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
