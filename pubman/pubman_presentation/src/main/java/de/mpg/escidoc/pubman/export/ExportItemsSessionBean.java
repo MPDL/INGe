@@ -206,10 +206,9 @@ public class ExportItemsSessionBean extends FacesBean
     {
         if ( 
         		fileFormat == null || fileFormat.trim().equals("")
-        		//  ENDNOTE fileForamt is always TXT
-//        		|| getExportFormatName().equals("ENDNOTE")
-//        		|| getExportFormatName().equals("BIBTEX")
-        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
+        		|| getExportFormatName().equals("ENDNOTE")
+        		|| getExportFormatName().equals("BIBTEX")
+//        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
         )
         	fileFormat = FileFormatVO.TEXT_NAME;
         
