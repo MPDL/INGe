@@ -349,7 +349,7 @@
 			</layout-element>
 		
 				<!-- debug elements: -->
-			<layout-element name="debug">
+			<layout-element name="__debug__">
 				<parameters>
 					<starts-with value="debug__" />
 					<ends-with value="__debug" />

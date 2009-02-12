@@ -34,10 +34,7 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
-	private final String dsFileName = "APA_revised_item-list.xml";  
-//	private final String dsFileName = "item-list-tobias.xml";  
-//	private final String dsFileName = "mpi-psl.xml";  
-//	private final String dsFileName = "1.xml";  
+	private final String dsFileName = "APA_revised_item-list-despoina.xml";  
 	
 	private String itemList;
 	 
@@ -65,7 +62,7 @@ public class CitationTest {
     	assertNotNull("Item list xml is not found:", ds);
     	
 //    	itemList = TestHelper.getItemsFromFramework_APA();
-//		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+//		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 //		logger.info("item list from framework:\n" + itemList);
 		   
 //		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
@@ -89,7 +86,6 @@ public class CitationTest {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
     public final void testExplainStuff() throws Exception {
     	
     	String explain = pcs.explainStyles();
@@ -117,7 +113,6 @@ public class CitationTest {
      * @throws IOException 
      */
     @Test
-    @Ignore
     public final void testDataSourceValidation() throws IOException{
     	
     	//TODO: always recent schema should be provided
@@ -146,7 +141,6 @@ public class CitationTest {
      * @throws CitationStyleManagerException 
      */
     @Test
-    @Ignore
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
     	
@@ -184,14 +178,13 @@ public class CitationTest {
     	
     	
 //    	for (String cs : pcs.getStyles() )
-    	for (String cs : new String[]{"APA_revised", "AJP"} )
-//    	for (String cs : new String[]{"AJP"} )
+    	for (String cs : new String[]{"APA", "AJP"} )
     	{
     		long start;
         	byte[] result;
     		for ( String format : 
-//    				pcs.getOutputFormats(cs)
-    				new String[]{"pdf"}
+    				pcs.getOutputFormats(cs)
+//    				new String[]{"snippet", "pdf"}
     		) {
         		logger.info("Test Citation Style: " + cs);
     			

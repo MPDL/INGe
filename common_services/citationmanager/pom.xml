@@ -40,29 +40,29 @@
 					<test>CitationTest</test>
 				</configuration>
 			</plugin>
-<!--			<plugin>-->
-<!--				<artifactId>maven-assembly-plugin</artifactId>-->
-<!--				<version>2.2-beta-2</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>create-executable-jar</id>-->
-<!--						<phase>package</phase>-->
-<!--						<goals>-->
-<!--							<goal>single</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<descriptorRefs>-->
-<!--								<descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--							</descriptorRefs>-->
-<!--							<archive>-->
-<!--								<manifest>-->
-<!--									<mainClass>de.mpg.escidoc.services.citationmanager.ProcessCitationStyles</mainClass>-->
-<!--								</manifest>-->
-<!--							</archive>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-2</version>
+				<executions>
+					<execution>
+						<id>create-executable-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<archive>
+								<manifest>
+									<mainClass>de.mpg.escidoc.services.citationmanager.ProcessCitationStyles</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 		<resources>
@@ -228,8 +228,8 @@
 			<artifactId>xalan</artifactId>
 			<version>2.7.1</version>
 			<!--			Do not forget to change to the provided!!! -->
-						<scope>provided</scope>
-<!--			<scope>compile</scope>-->
+<!--						<scope>provided</scope>-->
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>serializer</groupId>
