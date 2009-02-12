@@ -50,7 +50,7 @@
 		<dc:identifier>XML</dc:identifier>
 		<output-format>
 			<dc:title>xml</dc:title>
-			<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
 		</output-format>
 		<dc:creator>jkurt</dc:creator>
 	</export-format>
