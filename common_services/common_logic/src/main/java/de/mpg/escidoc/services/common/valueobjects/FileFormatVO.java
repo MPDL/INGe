@@ -68,6 +68,9 @@ public class FileFormatVO extends ValueObject
     
     public static final String SNIPPET_NAME = "snippet";
     public static final String SNIPPET_MIMETYPE = "application/xml";
+    
+    public static final String XML_NAME = "xml";
+    public static final String XML_MIMETYPE = "application/xml";
 
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
@@ -91,13 +94,14 @@ public class FileFormatVO extends ValueObject
         // if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
         // by default
         return
-            name.equals(TEXT_NAME)        ? TEXT_MIMETYPE    : 
-            name.equals(PDF_NAME)         ? PDF_MIMETYPE    : 
-            name.equals(RTF_NAME)         ? RTF_MIMETYPE    : 
-            name.equals(HTML_NAME)        ? HTML_MIMETYPE    : 
-            name.equals(ODT_NAME)        ? ODT_MIMETYPE    : 
-            name.equals(SNIPPET_NAME)    ? SNIPPET_MIMETYPE    : 
-                                          DEFAULT_MIMETYPE; 
+        TEXT_NAME.equals(name) ? TEXT_MIMETYPE : 
+        	PDF_NAME.equals(name) ? PDF_MIMETYPE : 
+        		RTF_NAME.equals(name) ? RTF_MIMETYPE : 
+        			HTML_NAME.equals(name) ? HTML_MIMETYPE : 
+        				ODT_NAME.equals(name) ? ODT_MIMETYPE : 
+        					SNIPPET_NAME.equals(name) ? SNIPPET_MIMETYPE : 
+        						XML_NAME.equals(name) ? XML_MIMETYPE : 
+        							DEFAULT_MIMETYPE; 
     }
 
     // workaround to find out whether the output format is presented  
