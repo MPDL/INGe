@@ -35,6 +35,7 @@ public class CitationTest {
 	private XmlHelper xh = new XmlHelper();
 	
 	private final String dsFileName = "APA_revised_item-list.xml";  
+//	private final String dsFileName = "bad_snippet.xml";  
 	
 	private String itemList;
 	 
@@ -74,7 +75,6 @@ public class CitationTest {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
     public final void testGetStyles() throws Exception {
     	logger.info("List of citation styles: " );
     	for (String s : pcs.getStyles() )
@@ -174,6 +174,7 @@ public class CitationTest {
     	
 //    	for (String cs : pcs.getStyles() )
     	for (String cs : new String[]{"APA", "AJP"} )
+//    		for (String cs : new String[]{"APA"} )
     	{
     		long start;
         	byte[] result;
