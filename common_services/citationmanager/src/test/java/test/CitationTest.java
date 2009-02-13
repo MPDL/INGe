@@ -113,13 +113,12 @@ public class CitationTest {
      * @throws IOException 
      */
     @Test
+    @Ignore
     public final void testDataSourceValidation() throws IOException{
     	
     	//TODO: always recent schema should be provided
 		long start = 0;
-		String dsName = ResourceUtil.getUriToResources() 
-			+ ResourceUtil.DATASOURCES_DIRECTORY 
-			+ "item-list-inga.xml";
+		String dsName = ResourceUtil.getPathToDataSources() + dsFileName;
 	      
         try {
         	start = System.currentTimeMillis();
@@ -148,9 +147,7 @@ public class CitationTest {
     	{
     		logger.info("Validate Citation Style: " + cs);
         	String csName = 
-        		ResourceUtil.getUriToResources()
-        		+ ResourceUtil.CITATIONSTYLES_DIRECTORY
-        		+ cs + "/CitationStyle.xml";  
+        		 ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xml";;
         	logger.info("CitationStyle URI: " + csName);
         	long start = 0;
         	try {
@@ -164,8 +161,6 @@ public class CitationTest {
         	}
         	logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
     	}
-    		
-	
     }
 
 
