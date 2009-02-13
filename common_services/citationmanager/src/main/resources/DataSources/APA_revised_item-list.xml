@@ -85,7 +85,7 @@
                     <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
 
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-01</dcterms:issued>
                     <publication:event>
                         <dc:title>Symposium</dc:title>
                         <escidoc:start-date xsi:type="dcterms:W3CDTF"/>
@@ -217,13 +217,13 @@
                         </escidoc:person>
                     </publication:creator>
                     <dc:title>Report about a psychological conference (testing APA- generic conference report)</dc:title>
-                    <dcterms:created xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:created xsi:type="dcterms:W3CDTF">1952</dcterms:created>
                     <dcterms:modified xsi:type="dcterms:W3CDTF"/>
                     <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
 
                     <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF"/>
                     <publication:source type="proceedings">
                         <dc:title>Proceedings of the Psychological Symposium</dc:title>
                         <escidoc:volume/>
@@ -443,9 +443,9 @@
                     <dcterms:modified xsi:type="dcterms:W3CDTF"/>
                     <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
 
-                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">1985-03</dcterms:dateAccepted>
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF"/>
                     <publication:total-number-of-pages/>
                     <dc:subject/>
                     <dcterms:tableOfContents/>
@@ -579,7 +579,7 @@
                         <dc:publisher>Berg</dc:publisher>
                         <escidoc:place>Oxford</escidoc:place>
                     </publication:publishing-info>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+                    <dcterms:created xsi:type="dcterms:W3CDTF">2006</dcterms:created>
                     <publication:source type="series">
 
                         <dc:title>Wenner-Gren International Symposium Series</dc:title>
@@ -683,10 +683,10 @@
                     <dc:title>A motivational approach to self (testing APA proceedings)</dc:title>
                     <dcterms:created xsi:type="dcterms:W3CDTF"/>
                     <dcterms:modified xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">1933</dcterms:dateSubmitted>
                     <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1933</dcterms:issued>
+                    
                     <publication:source type="proceedings">
 
                         <dc:title>Nebraska Symposium on Motivation</dc:title>
@@ -794,12 +794,11 @@
                     </publication:creator>
                     <dc:title>Hemispheric differences (testing APA proceedings published regularly)</dc:title>
                     <dcterms:created xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:modified xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF">1926</dcterms:modified>
                     <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
                     <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
 
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1926</dcterms:issued>
                     <publication:source type="proceedings">
                         <dc:title>Proceedings of the National Academy of Science</dc:title>
                         <escidoc:volume>89</escidoc:volume>
@@ -890,9 +889,9 @@
                     <dcterms:modified xsi:type="dcterms:W3CDTF"/>
 
                     <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">1928</dcterms:dateAccepted>
                     <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1928</dcterms:issued>
+                  
                     <publication:source type="book">
                         <dc:title>Mushrooms in general</dc:title>
                         <escidoc:volume/>
@@ -1302,8 +1301,8 @@
                     <dcterms:modified xsi:type="dcterms:W3CDTF"/>
                     <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
                     <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
-                    <publication:published-online xsi:type="dcterms:W3CDTF"/>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF">1973</dcterms:issued>
+                    <publication:published-online xsi:type="dcterms:W3CDTF">2005</publication:published-online>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF"/>
                     <publication:total-number-of-pages/>
                     <dc:subject/>
                     <dcterms:tableOfContents/>
