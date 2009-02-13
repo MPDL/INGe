@@ -60,6 +60,7 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -292,20 +293,21 @@ public class StatisticChartServlet extends HttpServlet
             dataset,                  // data
             PlotOrientation.VERTICAL, // orientation
             true,                     // include legend
-            true,                     // tooltips?
+            false,                     // tooltips?
             false                     // URLs?
         );
 
 
         // set the background color for the chart
         chart.setBackgroundPaint(Color.white);
+        
 
         // get a reference to the plot for further customisation
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setBackgroundPaint(Color.lightGray);
-        plot.setDomainGridlinePaint(Color.white);
+        plot.setBackgroundPaint(new Color(0xf5,0xf5,0xf5));
+        plot.setDomainGridlinePaint(Color.gray);
         plot.setDomainGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.gray);
         
         
         // set the range axis to display integers only
@@ -314,16 +316,25 @@ public class StatisticChartServlet extends HttpServlet
         rangeAxis.setLowerBound(0);
         // disable bar outlines...
         StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
+        renderer.setBarPainter(new StandardBarPainter());
         renderer.setDrawBarOutline(false);
 
         // set up gradient paints for series
+        /*
         GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
                 0.0f, 0.0f, new Color(0, 0, 64));
-        renderer.setSeriesPaint(1, gp0);
-       
         GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.red,
                 0.0f, 0.0f, new Color(64, 0, 0));
-        renderer.setSeriesPaint(0, gp1);
+       */
+        Color series1Color = new Color(0xfa, 0x80, 0x72);
+        Color series2Color = new Color(0x64, 0x95, 0xed);
+        renderer.setSeriesPaint(1, series1Color);
+        renderer.setSeriesPaint(0, series2Color);
+        
+        //remove shadow
+        renderer.setShadowVisible(false);
+        //
+        
         
         //Labels in bars
         /*
