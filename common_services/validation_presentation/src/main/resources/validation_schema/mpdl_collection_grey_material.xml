@@ -366,6 +366,10 @@
 		<value>image/naplps</value>
 		<value>image/png</value>
 		<value>image/prs.btif</value>
+		
+		<!-- Added -->
+		<value>image/svg+xml</value>
+		
 		<value>image/tiff</value>
 		<value>image/vnd.dwg</value>
 		<value>image/vnd.dxf</value>
