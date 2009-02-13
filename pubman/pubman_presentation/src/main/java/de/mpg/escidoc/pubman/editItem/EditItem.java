@@ -442,7 +442,7 @@ public class EditItem extends FacesBean
         {
             for(int i = 0; i < this.getFiles().size(); i++)
             {
-                this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
+            	this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
             }
         }
         // add the locators
@@ -457,7 +457,7 @@ public class EditItem extends FacesBean
                     this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
                     //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
                 }
-                
+                this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
                 this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
             }
         }
@@ -885,7 +885,7 @@ public class EditItem extends FacesBean
     {
         // examine if the user came from the view Item Page or if he started a new submission
         String navString = "";
-        if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
+        if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getVersionNumber() > 0)
         {
             navString = ViewItemFull.LOAD_VIEWITEM;
         }
@@ -910,7 +910,16 @@ public class EditItem extends FacesBean
             }
             
         }
-        
+        else
+    	{
+    		try 
+    		{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("faces/SubmissionPage.jsp");
+			} catch (Exception e) 
+			{
+				logger.error("Cancel error: could not find context to redirect to SubmissionPage.jsp in Full Submssion", e);
+			}
+    	}
         return navString;
     }
     
