@@ -171,10 +171,12 @@ public class ResourceUtil
     {
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
     	
+        logger.info("classString:" + classString);
+    	
 //    	logger.info(":" + ResourceUtil.class.getClassLoader().getResource(classString).getFile() );
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
         // jar context!!!
-//        logger.info("result:" + result);
+        logger.info("result:" + result);
 //        logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
 //        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
         return 
@@ -191,7 +193,7 @@ public class ResourceUtil
      */
     public static String getPathToResources() throws IOException
     {
-//    	logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
+    	logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
         return
 //    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
         	getPathToClasses();
