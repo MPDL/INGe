@@ -190,7 +190,7 @@ public class PersonVO extends ValueObject implements Cloneable
         PersonVO vo = new PersonVO();
         if (getIdentifier() != null)
         {
-            vo.setIdentifier((IdentifierVO)getIdentifier().clone());
+            vo.setIdentifier((IdentifierVO) getIdentifier().clone());
         }
         vo.setCompleteName(getCompleteName());
         vo.setFamilyName(getFamilyName());
@@ -201,7 +201,7 @@ public class PersonVO extends ValueObject implements Cloneable
         }
         for (OrganizationVO organization : getOrganizations())
         {
-            vo.getOrganizations().add((OrganizationVO)organization.clone());
+            vo.getOrganizations().add((OrganizationVO) organization.clone());
         }
         for (String pseudonym : getPseudonyms())
         {
@@ -226,7 +226,7 @@ public class PersonVO extends ValueObject implements Cloneable
         {
             return false;
         }
-        PersonVO vo = (PersonVO)o;
+        PersonVO vo = (PersonVO) o;
         return equals(getFamilyName(), vo.getFamilyName()) && equals(getGivenName(), vo.getGivenName())
                 && equals(getCompleteName(), vo.getCompleteName()) && equals(getIdentifier(), vo.getIdentifier())
                 && equals(getAlternativeNames(), vo.getAlternativeNames())
