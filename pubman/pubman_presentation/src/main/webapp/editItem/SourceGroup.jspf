@@ -158,14 +158,15 @@
 									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_persons_person_family_name_optional != 'true'}" />
 									<h:outputText value="#{genre.sources_source_person_organization_source_persons_person_family_name_label}" converter="GenreLabelConverter"/>
 								</h:panelGroup>
-								<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}" />
+								<h:inputText styleClass="double_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}" />
 							</h:panelGroup>
 							<h:panelGroup styleClass="double_area0" rendered="#{!(genre.sources_source_person_organization_source_persons_person_given_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_given_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_persons_person_given_name_display == 'false' && genre.sources_source_person_organization_source_persons_person_given_name_form_id == 'all')}">
 								<h:panelGroup styleClass="double_area0">
 									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_persons_person_given_name_optional != 'true'}" />
 									<h:outputText value="#{genre.sources_source_person_organization_source_persons_person_given_name_label}" converter="GenreLabelConverter"/>
 								</h:panelGroup>
-								<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}" />
+								<h:inputText styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}" />
+								<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
 							</h:panelGroup>
 						</span>
 					</h:panelGroup>
@@ -183,7 +184,8 @@
 										<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_person_organization_source_organizations_organization_name_optional != 'true'}" />
 										<h:outputText value="#{genre.sources_source_person_organization_source_organizations_organization_name_label}" converter="GenreLabelConverter" />
 									</h:panelGroup>
-									<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}" />
+									<h:inputText styleClass="quad_txtInput orgName" value="#{persOrga.name.value}" />
+									<h:inputText styleClass="noDisplay orgIdentifier" value="#{persOrga.identifier}"/>
 								</span>
 								<span class="large_area0_p8 lineToolSection">
 									<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />

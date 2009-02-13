@@ -39,12 +39,15 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
@@ -73,7 +76,7 @@ public class SourceBean extends FacesBean
     /**
      * The list of formatted creators in an ArrayList.
      */
-    private ArrayList<String> sourceCreatorArray;
+    private ArrayList<CreatorDisplay> sourceCreatorArray;
 
     /**
      * The list of formatted creators which are organizations in an ArrayList.
@@ -186,7 +189,7 @@ public class SourceBean extends FacesBean
     {
         StringBuffer creatorList = new StringBuffer();
         String formattedCreator = "";
-        this.sourceCreatorArray = new ArrayList<String>();
+        this.sourceCreatorArray = new ArrayList<CreatorDisplay>();
         this.sourceCreatorOrganizationsArray = new ArrayList<ViewItemCreatorOrganization>();
         // counter for organization array
         int counterOrganization = 0;
@@ -227,7 +230,19 @@ public class SourceBean extends FacesBean
                 formattedCreator = formatter.formatCreator(creator, annotation.toString());
                 if (creator.getPerson() != null)
                 {
-                    this.sourceCreatorArray.add(formattedCreator);
+                    CreatorDisplay creatorDisplay = new CreatorDisplay();
+                    creatorDisplay.setFormattedDisplay(formattedCreator);
+                    if (creator.getPerson() != null && creator.getPerson().getIdentifier() != null && (creator.getPerson().getIdentifier().getType() == IdType.CONE || creator.getPerson().getIdentifier().getId().startsWith("urn:cone:")))
+                    {
+                        try
+                        {
+                            creatorDisplay.setPortfolioLink(PropertyReader.getProperty("escidoc.cone.service.url") + "html/persons/" + creator.getPerson().getIdentifier().getId());
+                        }
+                        catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    this.sourceCreatorArray.add(creatorDisplay);
                 }
                 if (creator.getOrganization() != null)
                 {
@@ -427,15 +442,17 @@ public class SourceBean extends FacesBean
 		this.sourceAffiliatedOrganizationsList = sourceAffiliatedOrganizationsList;
 	}
 
-	public ArrayList<String> getSourceCreatorArray() {
-		return this.sourceCreatorArray;
-	}
+	public ArrayList<CreatorDisplay> getSourceCreatorArray()
+    {
+        return sourceCreatorArray;
+    }
 
-	public void setSourceCreatorArray(ArrayList<String> sourceCreatorArray) {
-		this.sourceCreatorArray = sourceCreatorArray;
-	}
+    public void setSourceCreatorArray(ArrayList<CreatorDisplay> sourceCreatorArray)
+    {
+        this.sourceCreatorArray = sourceCreatorArray;
+    }
 
-	public ArrayList<ViewItemCreatorOrganization> getSourceCreatorOrganizationsArray() {
+    public ArrayList<ViewItemCreatorOrganization> getSourceCreatorOrganizationsArray() {
 		return this.sourceCreatorOrganizationsArray;
 	}
 

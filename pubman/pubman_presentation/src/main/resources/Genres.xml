@@ -147,14 +147,14 @@
 					<group id="source_persons" repeatable="true" display="true" optional="true" label="g_source_persons" form-id="all" class-attribute="metadata.sources.creators.person">
 						<field id="person_family-name" display="true" label="person_family-name" optional="false" repeatable="false" class-attribute="metadata.sources.creators.person.familyName"/>
 						<field id="person_given-name" display="true" label="person_given-name" optional="true" repeatable="false" class-attribute="metadata.sources.creators.person.givenName"/>
-						<field id="person_identifier_type" display="false" label="person_identifier_type" optional="true" repeatable="false" class-attribute="metadata.sources.creators.person.identifier.type"/>
-						<field id="person_identifier_value" display="false" label="person_identifier_value" optional="true" repeatable="false" class-attribute="metadata.sources.creators.person.identifier.id"/>
+						<field id="person_identifier_type" display="true" label="person_identifier_type" optional="true" repeatable="false" class-attribute="metadata.sources.creators.person.identifier.type"/>
+						<field id="person_identifier_value" display="true" label="person_identifier_value" optional="true" repeatable="false" class-attribute="metadata.sources.creators.person.identifier.id"/>
 					</group>
 					<group id="source_organizations" repeatable="true" display="true" optional="true" label="g_source_organizations" form-id="all" class-attribute="metadata.sources.creators.organization">
 						<field id="organization_name" display="true" label="organization_name" optional="false" repeatable="false" class-attribute="metadata.sources.creators.organization.name"/>
 						<field id="organization_address" display="true" label="organization_address" optional="true" repeatable="false" class-attribute="metadata.sources.creators.organization.address"/>
-						<field id="organization_identifier_type" display="false" label="organization_identifier_type" optional="true" repeatable="false" class-attribute="metadata.sources.creators.organization.identifier.type"/>
-						<field id="organization_identifier_value" display="false" label="organization_identifier_value" optional="false" repeatable="false" class-attribute="metadata.sources.creators.organization.identifier.id"/>
+						<field id="organization_identifier_type" display="true" label="organization_identifier_type" optional="true" repeatable="false" class-attribute="metadata.sources.creators.organization.identifier.type"/>
+						<field id="organization_identifier_value" display="true" label="organization_identifier_value" optional="false" repeatable="false" class-attribute="metadata.sources.creators.organization.identifier.id"/>
 					</group>
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="all" class-attribute="metadata.sources.publishingInfo">

@@ -34,7 +34,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -81,6 +80,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -116,30 +116,6 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class ViewItemFull extends FacesBean
 {
-    
-    public class CreatorDisplay
-    {
-        private String formattedDisplay;
-        private String portfolioLink;
-        
-        public String getFormattedDisplay()
-        {
-            return formattedDisplay;
-        }
-        public void setFormattedDisplay(String formattedDisplay)
-        {
-            this.formattedDisplay = formattedDisplay;
-        }
-        public String getPortfolioLink()
-        {
-            return portfolioLink;
-        }
-        public void setPortfolioLink(String portfolioLink)
-        {
-            this.portfolioLink = portfolioLink;
-        }
-        
-    }
     
     private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
     private static Logger logger = Logger.getLogger(ViewItemFull.class);
