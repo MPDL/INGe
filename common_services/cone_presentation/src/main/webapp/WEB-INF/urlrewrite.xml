@@ -62,13 +62,13 @@
 
 	<rule>
 		<name>Default action 2</name>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\.]+)(\?.+)?$</from>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\._]+)(\?.+)?$</from>
 		<to>/html/$1/$2$3</to>
 	</rule>
 
 	<rule>
 		<name>Default details</name>
-		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\.]+)(\?.+)?$</from>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+:[a-zA-Z0-9:/\-\._]+)(\?.+)?$</from>
 		<to>/$1/$2/details/$3$4</to>
 	</rule>
 

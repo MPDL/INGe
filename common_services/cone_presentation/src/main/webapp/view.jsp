@@ -34,7 +34,7 @@
 	    	    
 	    	        writer.append("<li><b>");
 		    	    writer.append(predicate.getName());
-		    	    writer.append("</b>:");
+		    	    writer.append("</b>: ");
 		    	    if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
 		    	    {
 		    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));

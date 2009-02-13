@@ -168,29 +168,30 @@
 	            	        objects.add(new LocalizedString(paramValue, langValue));
 	            	    }
 	            	}
+	            	else if (predicate.isGenerateObject())
+	            	{
+            	        try
+            	        {
+            	        	String generatedObject = querier.createUniqueIdentifier(null);
+            	        	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+    	            	    {
+    	            	        TreeFragment fragment = new TreeFragment(generatedObject, langValue);
+    	            	        objects.add(fragment);
+    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + ":" + i + ":");
+    	            	    }
+    	            	    else
+    	            	    {
+    	            	        objects.add(new LocalizedString(paramValue, langValue));
+    	            	    }
+            	        }
+            	        catch (Exception e)
+            	        {
+            	            throw new RuntimeException(e);
+            	        }
+	            	}
 	            	else
 	            	{
-	            	    if (predicate.isGenerateObject())
-	            	    {
-	            	        try
-	            	        {
-	            	        	String generatedObject = querier.createUniqueIdentifier(null);
-	            	        	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-	    	            	    {
-	    	            	        TreeFragment fragment = new TreeFragment(generatedObject, langValue);
-	    	            	        objects.add(fragment);
-	    	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + ":" + i + ":");
-	    	            	    }
-	    	            	    else
-	    	            	    {
-	    	            	        objects.add(new LocalizedString(paramValue, langValue));
-	    	            	    }
-	            	        }
-	            	        catch (Exception e)
-	            	        {
-	            	            throw new RuntimeException(e);
-	            	        }
-	            	    }
+	            	    objects.add(new LocalizedString(paramValue, langValue));
 	            	}
 	            }
             }

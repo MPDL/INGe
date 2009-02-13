@@ -278,15 +278,20 @@ public class SQLQuerier implements Querier
             
             for (LocalizedTripleObject object : values.get(predicate))
             {
-                if (object instanceof LocalizedString)
+                if (object instanceof LocalizedString && !"".equals(((LocalizedString) object).getValue()))
                 {
                     statement.setString(3, ((LocalizedString) object).getValue());
                 }
-                else
+                else if (object instanceof TreeFragment)
                 {
                     statement.setString(3, ((TreeFragment) object).getSubject());
                     create(null, ((TreeFragment) object).getSubject(), (TreeFragment) object);
                 }
+                else
+                {
+                    continue;
+                }
+                
                 if (object.getLanguage() != null && "".equals(object.getLanguage()))
                 {
                     statement.setString(4, null);

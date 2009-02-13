@@ -131,7 +131,8 @@
 										<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 									</h2>
 									<h3>
-										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or xs:date(dc:end-date) &gt;= current-date()]">
+										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
+											<xsl:sort select="escidoc:organization"/>
 											<xsl:value-of select="escidoc:organization"/><xsl:if test="position() != last()">, </xsl:if> 
 										</xsl:for-each>
 										&#160;
@@ -150,7 +151,8 @@
 								</h3>
 								<span class="seperator">&#160;</span>
 								<div class="free_area0 itemBlockContent endline">
-									<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or xs:date(dc:end-date) &gt;= current-date()]">	
+									<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
+										<xsl:sort select="escidoc:organization"/>
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
 												<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
@@ -163,7 +165,8 @@
 											</span>
 										</div>
 									</xsl:for-each>
-									<xsl:for-each select="escidoc:position/rdf:Description[xs:date(dc:end-date) &lt; current-date()]">	
+									<xsl:for-each select="escidoc:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
+										<xsl:sort select="dc:end-date" order="descending"/>	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
 												<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
@@ -269,8 +272,8 @@
 												<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="dcterms:subject">
-													-<xsl:text> </xsl:text><xsl:value-of select="dc:title"/> <br />
+												<xsl:for-each select="dcterms:subject/rdf:Description">
+													-<xsl:text> </xsl:text><xsl:value-of select="dc:identifier"/> - <xsl:value-of select="dc:title"/> <br />
 												</xsl:for-each>
 											</span>
 										</div>

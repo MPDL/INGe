@@ -189,7 +189,9 @@
 		</predicates>
 		<result>
 			<pattern>
-				&lt;http://purl.org/dc/elements/1.1/title&gt;
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
 			</pattern>
 		</result>
 		<description>DDC Subjects</description>
