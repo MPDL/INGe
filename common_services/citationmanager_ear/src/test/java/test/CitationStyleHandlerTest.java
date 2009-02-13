@@ -95,8 +95,8 @@ public class CitationStyleHandlerTest {
 //        itemList = ResourceUtil.getResourceAsString(dsName);
     	
         itemList = TestHelper.getItemListFromFramework();
-		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
-//		logger.info("item list from framework:\n" + itemList);
+		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
+		logger.info("item list from framework:\n" + itemList);
         
     }
     
