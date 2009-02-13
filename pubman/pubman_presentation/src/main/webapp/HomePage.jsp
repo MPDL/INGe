@@ -104,10 +104,10 @@
 								<jsp:directive.include file="home/StartPageLoggedIn.jspf" />
 							</h:panelGroup>
 
-							<!-- Side Panels 
+							<!-- Side Panels -->
 							<h:panelGroup styleClass="free_area0_p8 sideSection">
 								<jsp:directive.include file="home/BlogIntegration.jspf" />
-							</h:panelGroup>-->
+							</h:panelGroup>
 <!-- TODO: Exchange with lastsubmitted feed 
 							<h:panelGroup styleClass="sideSection free_area0_p8" rendered="#{PubManSessionBean.loggedIn}">
 								<jsp:directive.include file="home/LastSubmitted.jspf" />
