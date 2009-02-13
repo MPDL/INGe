@@ -1054,7 +1054,11 @@ public class ViewItemFull extends FacesBean
                 }
                 else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.DOI)
                 {
-                    identifiers.append("<a href='http://dx.doi.org/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                    identifiers.append("<a target='_blank' href='http://dx.doi.org/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                }
+                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.EDOC)
+                {
+                    identifiers.append("<a target='_blank' href='http://edoc.mpg.de/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
                 }
                 else
                 {
