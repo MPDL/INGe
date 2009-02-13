@@ -52,8 +52,7 @@
 		var place = (typeof details.http_purl_org_dc_terms_publisher != 'undefined' ? details.http_purl_org_dc_terms_publisher : null);
 		
 		var identifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
-				(typeof details.http_purl_org_dc_elements_1_1_identifier == 'object' ?
-						details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
+				details.http_purl_org_dc_elements_1_1_identifier : null);
 
 		var allAltTitles = '';
 		if((typeof(altTitle)=='object') && (altTitle != null) ){
@@ -66,14 +65,36 @@
 		}
 		
 		var allIDs = '';
+		
+		
+		
 		if((typeof(identifier)=='object') && (identifier != null)){
-			allIDs = identifier[0];
-			for(var i=1; i<altTitle.length; i++) {
-				allIDs = allIDs + autopasteDelimiter + identifier[i];
+			for(var i = 0; i<identifier.length; i++) {
+				
+				var identifierType = identifier[i]['http_escidoc_mpg_de_idtype'];
+				var identifierValue = identifier[i]['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
+
+				if (i > 0)
+				{
+					allIDs += autopasteDelimiter;
+				}
+				if (typeof identifierType != 'undefined' && identifierType != null)
+				{
+					allIDs += identifierType + '|';
+				}
+				allIDs += identifierValue;
 			}
 		} else {
-			allIDs = identifier;
+			var identifierType = identifier['http_escidoc_mpg_de_idtype'];
+			var identifierValue = identifier['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
+			if (typeof identifierType != 'undefined' && identifierType != null)
+			{
+				allIDs += identifierType + '|';
+			}
+			allIDs += identifierValue;
 		}
+		
+		
 		
 		fillField('journalSuggest', title, parent);
 		fillField('sourceAltTitlePasteField', allAltTitles, parent);
@@ -90,14 +111,14 @@
 		var chosenName = $input.resultValue;
 		if (chosenName.indexOf('(') >= 0)
 		{
-			chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.+)\s*$/, '$1');
+			chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.*\S)\s*$/, '$1');
 		}
 		var familyName = '';
 		var givenName = '';
 		if (chosenName.indexOf(',') >= 0)
 		{
-			familyName = chosenName.split(',')[0];
-			givenName = chosenName.split(',')[1];
+			familyName = chosenName.split(',')[0].replace(/^\s*(.*\S)\s*$/, '$1');
+			givenName = chosenName.split(',')[1].replace(/^\s*(.*\S)\s*$/, '$1');
 		}
 		else
 		{
@@ -116,6 +137,7 @@
 	
 	function fillField(name, value, commonParent)
 	{
+		
 		$(commonParent).find('.' + name).val(value);
 	}
 	

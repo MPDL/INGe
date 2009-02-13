@@ -166,7 +166,7 @@
 				journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/journals/details?id=';
 				personDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
-				personSuggestCommonParentClass = 'itemLine';
+				personSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
 			</script>
 			</body>

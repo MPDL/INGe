@@ -147,7 +147,7 @@
 							<h:outputText value="#{genre.creator_person_organization_creator_persons_person_family_name_label}"  converter="GenreLabelConverter"/>
 						</h:panelGroup>
 						<h:inputText styleClass="double_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}" />
-						<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.creator.person.identifier.id}"/>
+						<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
 					</span>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}">

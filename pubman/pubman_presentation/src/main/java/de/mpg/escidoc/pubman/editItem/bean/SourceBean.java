@@ -276,7 +276,15 @@ public class SourceBean extends FacesBean
             // Id has a type
             else if (idParts.length == 2)
             {
-                IdentifierVO idVO = new IdentifierVO(IdType.valueOf(idParts[0]), idParts[1].trim());
+                IdType idType = IdType.OTHER;
+                try
+                {
+                    idType = IdType.valueOf(idParts[0].toUpperCase().replace("-", "_"));
+                }
+                catch (Exception e) {
+                    // Not recognized as legal id type.
+                }
+                IdentifierVO idVO = new IdentifierVO(idType, idParts[1].trim());
                 list.add(idVO);
             }
         }

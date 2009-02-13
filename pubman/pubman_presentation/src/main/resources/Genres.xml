@@ -59,14 +59,14 @@
 					<group id="persons" repeatable="true" display="true" optional="true" label="g_persons" form-id="all" class-attribute="metadata.creators.person">
 						<field id="person_family-name" display="true" label="person_family-name" optional="false" repeatable="false" class-attribute="metadata.creators.person.familyName"/>
 						<field id="person_given-name" display="true" label="person_given-name" optional="true" repeatable="false" class-attribute="metadata.creators.person.givenName"/>
-						<field id="person_identifier_type" display="false" label="person_identifier_type" optional="true" repeatable="false" class-attribute="metadata.creators.person.identifier.type"/>
-						<field id="person_identifier_value" display="false" label="person_identifier_value" optional="true" repeatable="false" class-attribute="metadata.creators.person.identifier.id"/>
+						<field id="person_identifier_type" display="true" label="person_identifier_type" optional="true" repeatable="false" class-attribute="metadata.creators.person.identifier.type"/>
+						<field id="person_identifier_value" display="true" label="person_identifier_value" optional="true" repeatable="false" class-attribute="metadata.creators.person.identifier.id"/>
 					</group>
 					<group id="organizations" repeatable="true" display="true" optional="true" label="g_organizations" form-id="all" class-attribute="metadata.creators.organization">
 						<field id="organization_name" display="true" label="organization_name" optional="false" repeatable="false" class-attribute="metadata.creators.organization.name"/>
 						<field id="organization_address" display="true" label="organization_address" optional="true" repeatable="false" class-attribute="metadata.creators.organization.address"/>
-						<field id="organization_identifier_type" display="false" label="organization_identifier_type" optional="true" repeatable="false" class-attribute="metadata.creators.organization.identifier.type"/>
-						<field id="organization_identifier_value" display="false" label="organization_identifier_value" optional="false" repeatable="false" class-attribute="metadata.creators.organization.identifier.id"/>
+						<field id="organization_identifier_type" display="true" label="organization_identifier_type" optional="true" repeatable="false" class-attribute="metadata.creators.organization.identifier.type"/>
+						<field id="organization_identifier_value" display="true" label="organization_identifier_value" optional="false" repeatable="false" class-attribute="metadata.creators.organization.identifier.id"/>
 						<!-- the organization identifier is not optional in case organization name is entered. This is the logic behind the upper setting -->
 					</group>
 				</group>
@@ -215,7 +215,7 @@
 				</group>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
-				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
+				<!-- <group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/> -->
 			</group>
 		</genre>
 		<genre id="BOOK" label="ENUM_GENRE_BOOK">

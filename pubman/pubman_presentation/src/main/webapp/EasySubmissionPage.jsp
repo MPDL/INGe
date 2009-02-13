@@ -86,12 +86,11 @@
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/query';
 				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/ddc/query';
 				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/query';
-				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/details?id=';
+				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/details?id=';
 				personDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
-				bindSuggests();
 			</script>
 			</body>
 		</html>
