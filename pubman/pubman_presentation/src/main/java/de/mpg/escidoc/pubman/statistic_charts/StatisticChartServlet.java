@@ -78,7 +78,7 @@ import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
  */
 public class StatisticChartServlet extends HttpServlet
 {
-    
+
     private static final String CONTENT_TYPE = "image/png";
     
     private static final String numberOfMonthsParameterName = "months";
@@ -87,6 +87,8 @@ public class StatisticChartServlet extends HttpServlet
     
     private static final String typeParameterName = "type";
     
+    private static final String languageParameterName = "lang";
+    
     private Logger logger = Logger.getLogger(StatisticChartServlet.class);
 
     private String id;
@@ -94,6 +96,8 @@ public class StatisticChartServlet extends HttpServlet
     private int numberOfMonths;
     
     private String type;
+
+    private String language;
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -110,6 +114,16 @@ public class StatisticChartServlet extends HttpServlet
         else
         {
             numberOfMonths = Integer.parseInt(numberOfMonthsString);
+        }
+        
+        String lang = request.getParameter(languageParameterName);
+        if (lang == null)
+        {
+            this.language = "en";
+        }
+        else
+        {
+            this.language = lang;
         }
            
         
@@ -210,8 +224,17 @@ public class StatisticChartServlet extends HttpServlet
             sortingListAnonymousUsers = sortingListAnonymousUsers.subList(sortingListAnonymousUsers.size()-(numberOfMonths)-1, sortingListAnonymousUsers.size());
         
         //Create the dataset with 2 series for anonmyous and logged-in users.
+        
         String loggedInUsersSeries = "Logged-in Users";
         String anonymousUsersSeries = "Anonymous Users";
+        
+        if (this.language.equals("de"))
+        {
+            loggedInUsersSeries = "Eingeloggte Nutzer";
+            anonymousUsersSeries = "Anonyme Nutzer";
+        }
+        
+        
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -(numberOfMonths-1));
 
