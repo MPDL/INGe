@@ -191,8 +191,10 @@ public class ResourceUtil
      */
     public static String getPathToResources() throws IOException
     {
+//    	logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
         return
-    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
+//    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
+        	getPathToClasses();
     }
     
     
@@ -277,9 +279,9 @@ public class ResourceUtil
 	public static String getUriToResources() throws IOException
 	{
 		return 
-			getPathToClasses().equals(RESOURCES_DIRECTORY_JAR) ?
-					RESOURCES_DIRECTORY_JAR : 
-					RESOURCES_DIRECTORY_LOCAL;
+		RESOURCES_DIRECTORY_JAR.equals(getPathToClasses()) ?
+			RESOURCES_DIRECTORY_JAR : 
+			RESOURCES_DIRECTORY_LOCAL;
 	}     
 	
 	
@@ -300,14 +302,6 @@ public class ResourceUtil
     			+ path
     			+ fileName
     	); 
-//    	logger.info(
-//    			"ResourceUtil.getPathToResources():" 
-//    			+ ResourceUtil.getPathToResources()
-//    			+ ";path:"
-//    			+ path
-//    			+ ";filename:"
-//    			+ fileName		
-//    	);
     	Properties props = new Properties();
     	props.load(is);
 		return props;
