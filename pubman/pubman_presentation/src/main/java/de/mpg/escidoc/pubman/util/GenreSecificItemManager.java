@@ -90,13 +90,6 @@ public class GenreSecificItemManager
 					baseKey = mapKey.replace("class_attribute", "");
 					fullClassAttribute = map.get(mapKey);
 					
-					if(fullClassAttribute.equals("metadata.publishingInfo.place"))
-					{
-						System.out.println("metadata.publishingInfo.place");
-						System.out.println("");
-						
-					}
-					
 					// check if the property should be available in this genre or not
 					if(map.get(baseKey + "display").equals("false") && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(baseKey + "form_id").equals(GenreSecificItemManager.SUBMISSION_METHOD_ALL)))
 					{
