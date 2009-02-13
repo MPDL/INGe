@@ -151,8 +151,8 @@ public class StatisticChartServlet extends HttpServlet
     
     
     /**
-     * Retrieves statistic data from the framework and creates the dataset for the visualisation.
-     *
+     * Retrieves statistic data from the framework and creates the dataset for the visualisation and the given months. 
+     * If there was no request in a month, a dataset with value "0" is added.
      * @return The dataset.
      */
     private CategoryDataset createDataset() throws Exception{
@@ -284,7 +284,7 @@ public class StatisticChartServlet extends HttpServlet
     private JFreeChart createChart(CategoryDataset dataset) {
 
         
-        // create the chart...
+        // create the chart
         JFreeChart chart = ChartFactory.createStackedBarChart(
             null,       // chart title
             "",               // domain axis label
@@ -296,22 +296,19 @@ public class StatisticChartServlet extends HttpServlet
             false                     // URLs?
         );
 
-        // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
-        // set the background color for the chart...
+        // set the background color for the chart
         chart.setBackgroundPaint(Color.white);
 
-        // get a reference to the plot for further customisation...
+        // get a reference to the plot for further customisation
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setDomainGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.white);
         
-        //plot from oldest to newest date
-      
         
-        // set the range axis to display integers only...
+        // set the range axis to display integers only
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setLowerBound(0);
@@ -319,7 +316,7 @@ public class StatisticChartServlet extends HttpServlet
         StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
 
-        // set up gradient paints for series...
+        // set up gradient paints for series
         GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
                 0.0f, 0.0f, new Color(0, 0, 64));
         renderer.setSeriesPaint(1, gp0);
@@ -341,74 +338,14 @@ public class StatisticChartServlet extends HttpServlet
         //setCategorySummary(dataset);
 
 
+        //rotate labels on x-axis
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(
                         Math.PI / 6.0));
 
-        // OPTIONAL CUSTOMISATION COMPLETED.
         return chart;
-        
-        
-        
-        
-        
-        
-        /*
-        
-        CategoryAxis categoryAxis = new CategoryAxis("Month");
-        categoryAxis.setCategoryLabelPositions(
-                CategoryLabelPositions.createUpRotationLabelPositions(
-                        Math.PI / 6.0));
-        //categoryAxis.setMaximumCategoryLabelWidthRatio(10.0f);
-        ValueAxis valueAxis = new NumberAxis("Item Retrievals");
-        valueAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-
-        CategoryPlot plot = new CategoryPlot(dataset, 
-                                             categoryAxis,
-                                             valueAxis,
-                                             new LayeredBarRenderer());
-        
-        plot.setOrientation(PlotOrientation.VERTICAL);
-        plot.setBackgroundPaint(Color.lightGray);
-        plot.setDomainGridlinePaint(Color.white);
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.white);
-        
-        JFreeChart chart = new JFreeChart(plot);
-        chart.getLegend().setVisible(true);
-
-        // set the background color for the chart...
-        chart.setBackgroundPaint(Color.white);
-
-        LayeredBarRenderer renderer = (LayeredBarRenderer) plot.getRenderer();
-        
-        renderer.setDrawBarOutline(false);
-        // we can set each series bar width individually or let the renderer manage a standard view.
-        // the width is set in percentage, where 1.0 is the maximum (100%).
-        renderer.setSeriesBarWidth(0, 1);
-        renderer.setSeriesBarWidth(1, 1);
-//        renderer.setSeriesBarWidth(2, 0.4);
-        
-        
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
-                0.0f, 0.0f, new Color(0, 0, 64));
-        renderer.setSeriesPaint(0, gp0);
-       
-        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.red,
-                0.0f, 0.0f, new Color(64, 0, 0));
-        renderer.setSeriesPaint(1, gp1);
-
-        renderer.setItemMargin(0.01);
-        
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setCategoryMargin(0.25);
-        domainAxis.setUpperMargin(0.05);
-        domainAxis.setLowerMargin(0.05);
-        
-        return chart;
-*/
 
     }
     
