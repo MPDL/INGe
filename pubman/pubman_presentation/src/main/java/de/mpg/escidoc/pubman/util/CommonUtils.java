@@ -746,7 +746,7 @@ public class CommonUtils extends InternationalizedImpl
         }
         catch (MalformedURLException e)
         {
-            logger.warn("URI: " + "is no valid URL", e);
+            logger.warn("URI: " + id.getId() + "is no valid URL", e);
             return false;
         }
         return valid;

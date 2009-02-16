@@ -95,7 +95,7 @@ public class LocatorUploadBean extends FacesBean
             for (int i = 0; i< this.fileTypes.length; i++)
             {
                 String fileType = this.fileTypes[i];
-                if (locator.endsWith(fileType))
+                if (locator.toLowerCase().endsWith(fileType))
                 {
                     this.type = fileType;
                     String[] splitArr = locator.split(new String("\u002F"));

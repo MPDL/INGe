@@ -81,7 +81,7 @@ import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-//import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
