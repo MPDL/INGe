@@ -112,6 +112,10 @@
                 {
                     out.append("<li><input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
                 }
+                else if (predicate.isResource())
+                {
+                    out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"/>");
+                }
                 else
                 {
                     out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"/>");

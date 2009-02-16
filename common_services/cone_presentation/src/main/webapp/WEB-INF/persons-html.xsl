@@ -34,6 +34,8 @@
 	<xsl:param name="citation-link"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
+	
+	<xsl:variable name="defaultLang" select="'en'"/>
 
 	<xsl:template match="/">
 		<xsl:apply-templates select="rdf:RDF/rdf:Description"/>
@@ -47,10 +49,12 @@
 				<link href="/cone/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
 				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 				<script>
+				
+					var ampEsc = '&amp;';
+					var amp = ampEsc.substring(0,1);
+				
 					$(document).ready(function() {
 						var requestString = '<xsl:value-of select="$citation-link"/>';
-						var ampEsc = '&amp;';
-						var amp = ampEsc.substring(0,1);
 						requestString = requestString.replace(/&amp;/g, amp);
 						
 						$.get(requestString, function(itemList){
@@ -63,25 +67,25 @@
 							
 							for(var i=0; itemList.getElementsByTagName('escidocItem:item').length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
-								element = '';
-								element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0]).text() + '</span>';
-							
 								itemURL = '';
 								itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
+							
+								element = '';
+								element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0]).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
 								
-								publicationTitle = '';
-								publicationTitle = $.trim($(allItems[i].getElementsByTagName('dc:title')[0]).text());
-								var elementParts = element.split(publicationTitle);
-								if(elementParts.length == 2){
-									element = elementParts[0] + '<a href="' + itemURL + '" target="_blank" >' + publicationTitle + '</a>' + elementParts[1];
-								}
+								//publicationTitle = '';
+								//publicationTitle = $.trim($(allItems[i].getElementsByTagName('dc:title')[0]).text());
+								//var elementParts = element.split(publicationTitle);
+								//if(elementParts.length == 2){
+								//	element = elementParts[0] + '<a href="' + itemURL + '" target="_blank" >' + publicationTitle + '</a>' + elementParts[1];
+								//}
 								
 								$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
 								$('.publicationsArea').append(element);
 								
-								if ($('.publicationsArea:last-child').find('span.Italic').length == 1) {
-									$('.publicationsArea:last-child').find('span.Italic').replaceWith("<i>" + $('.publicationsArea:last-child').find('span.Italic').text() + "</i>");
-								};
+								//if ($('.publicationsArea:last-child').find('span.Italic').length == 1) {
+								//	$('.publicationsArea:last-child').find('span.Italic').replaceWith("<i>" + $('.publicationsArea:last-child').find('span.Italic').text() + "</i>");
+								//};
 								$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
 									$(elem).replaceWith($(elem).html());
 								});
@@ -89,6 +93,26 @@
 							
 						});
 					});
+					
+					function changeLanguage(element)
+					{
+						var queryString = location.search;
+						
+						if (queryString == null || queryString == '')
+						{
+							queryString = '?lang=' + element.options[element.selectedIndex].value;
+						}
+						else if (queryString.indexOf('?lang=') <xsl:text disable-output-escaping="yes">></xsl:text>= 0 || queryString.indexOf(amp + 'lang=') <xsl:text disable-output-escaping="yes">></xsl:text>= 0)
+						{
+							var regExp = new RegExp('(\\?|' + amp + ')lang=[^' + amp + ']+', 'g');
+							queryString = queryString.replace(regExp, '$1lang=' + element.options[element.selectedIndex].value);
+						}
+						else
+						{
+							queryString += amp + 'lang=' + element.options[element.selectedIndex].value;
+						}
+						location.href = location.pathname + queryString;
+					}
 				</script>
 			</head>
 			<body>
@@ -126,6 +150,27 @@
 									&#160;
 								</span>
 								<span class="seperator">&#160;</span>
+								<span style="text-align: right;float: right;">
+									<xsl:comment>
+										<xsl:if test="not(exists($labels/language[@id = $lang]))">
+											<span style="color: red"><xsl:value-of select="escidoc:label('language_not_provided')"/></span>
+										</xsl:if>
+									</xsl:comment>
+									<select onchange="changeLanguage(this)">
+										<xsl:for-each select="$labels/language">
+											<xsl:sort select="@label"/>
+											<option value="{@id}">
+												<xsl:if test="@id = $lang">
+													<xsl:attribute name="selected"/>
+												</xsl:if>
+												<xsl:value-of select="@label"/>
+											</option>
+										</xsl:for-each>
+										<xsl:if test="not(exists($labels/language[@id = $lang]))">
+											<option selected=""><xsl:value-of select="$lang"/></option>
+										</xsl:if>
+									</select>
+								</span>
 								<span class="free_area0_p8 endline itemHeadline">
 									<h2>
 										<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
@@ -306,9 +351,10 @@
 	</xsl:template>
 	
 	<xsl:variable name="labels">
-		<language id="en">
+		<language id="en" label="English">
 			<label id="researcher_portfolio">Researcher Portfolio</label>
 			<label id="provided_by_cone">This Researcher Portfolio is provided by the eSciDoc CONE service.</label>
+			<label id="language_not_provided">The selected language is not supported by this service.</label>
 			<label id="researcher_profile">Researcher Profile</label>
 			<label id="current_position">Current Position</label>
 			<label id="former_position">Former Position</label>
@@ -322,9 +368,10 @@
 			<label id="subject">Subject</label>
 			<label id="publications">Publications</label>
 		</language>
-		<language id="de">
+		<language id="de" label="Deutsch">
 			<label id="researcher_portfolio">Forscher Portfolio</label>
 			<label id="provided_by_cone">Diese Forscher Portfolio wird von der eSciDoc CONE Service bereitgestellt</label>
+			<label id="language_not_provided">Die gewählte Sprache wird von diesem Service nicht unterstützt.</label>
 			<label id="researcher_profile">Forscherprofil</label>
 			<label id="current_position">Aktuelle Position</label>
 			<label id="former_position">Ehemalige Position</label>
@@ -338,9 +385,10 @@
 			<label id="subject">Subjekt</label>
 			<label id="publications">Veröffentlichungen</label>
 		</language>
-		<language id="ja">
+		<language id="ja" label="日本語 ">
 			<label id="researcher_portfolio">研究ポートフォリオ</label>
 			<label id="provided_by_cone">この研究ポートフォリオのeSciDoc円錐サービスが提供されています。</label>
+			<label id="language_not_provided">このサービスは、選択した言語でサポートされていません。</label>
 			<label id="researcher_profile">研究者プロフィール</label>
 			<label id="current_position">現在位置</label>
 			<label id="former_position">旧役職</label>
@@ -359,8 +407,20 @@
 	
 	<xsl:function name="escidoc:label">
 		<xsl:param name="name"/>
-		<xsl:if test="not(exists($labels/language[@id = $lang]/label[@id = $name]))">### Label '<xsl:value-of select="$name"/>' nor found ###</xsl:if>
-		<xsl:value-of select="$labels/language[@id = $lang]/label[@id = $name]"/>
+		<xsl:choose>
+			<xsl:when test="not(exists($labels/language[@id = $lang]))">
+				<xsl:choose>
+					<xsl:when test="not(exists($labels/language[@id = $defaultLang]/label[@id = $name]))">### Label '<xsl:value-of select="$name"/>' nor found ###</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$labels/language[@id = $defaultLang]/label[@id = $name]"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="not(exists($labels/language[@id = $lang]/label[@id = $name]))">### Label '<xsl:value-of select="$name"/>' nor found ###</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$labels/language[@id = $lang]/label[@id = $name]"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:function>
 	
 </xsl:stylesheet>

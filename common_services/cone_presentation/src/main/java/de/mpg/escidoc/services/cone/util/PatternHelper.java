@@ -33,13 +33,13 @@ package de.mpg.escidoc.services.cone.util;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Helper class for result pattern.
@@ -117,7 +117,17 @@ public class PatternHelper
                     
                     for (String predicate : poMap.keySet())
                     {
-                        strings.addAll(replacePattern(poMap, line, predicate));
+                        List<String> newStrings = new ArrayList<String>();
+                        
+                        for (String string : strings)
+                        {
+                            List<String> rep = replacePattern(poMap, string, predicate, "");
+                            newStrings.addAll(rep);
+                        }
+                        if (newStrings.size() > 0)
+                        {
+                            strings = newStrings;
+                        }
                     }
                     
                     List<String> newResult = new ArrayList<String>();
@@ -170,15 +180,21 @@ public class PatternHelper
                     for (String line : patternPieces)
                     {
                         List<String> strings = new ArrayList<String>();
+                        strings.add(line);
                         
                         for (String predicate : poMap.keySet())
                         {
-                            List<String> rep = replacePattern(poMap, line, predicate);
-                            strings.addAll(rep);
-                        }
-                        if (strings.size() == 0)
-                        {
-                            strings.add(line);
+                            List<String> newStrings = new ArrayList<String>();
+                            
+                            for (String string : strings)
+                            {
+                                List<String> rep = replacePattern(poMap, string, predicate, lang);
+                                newStrings.addAll(rep);
+                            }
+                            if (newStrings.size() > 0)
+                            {
+                                strings = newStrings;
+                            }
                         }
                         List<String> newResult = new ArrayList<String>();
                         for (String string : strings)
@@ -218,14 +234,20 @@ public class PatternHelper
                     {
                         for (String string : result)
                         {
-                            results.add(new Pair(lang, string));
+                            if (!"".equals(string))
+                            {
+                                results.add(new Pair(lang, string));
+                            }
                         }
                     }
                     else
                     {
                         for (String string : result)
                         {
-                            results.add(new Pair(null, string));
+                            if (!"".equals(string))
+                            {
+                                results.add(new Pair(null, string));
+                            }
                         }
                     }
                 }
@@ -241,27 +263,42 @@ public class PatternHelper
      * @param predicate
      * @return
      */
-    private static List<String> replacePattern(TreeFragment poMap, String line, String predicate)
+    private static List<String> replacePattern(TreeFragment poMap, String line, String predicate, String lang)
     {
         List<String> strings = new ArrayList<String>();
         if (line.contains("<" + predicate + ">"))
         {
             for (LocalizedTripleObject value : poMap.get(predicate))
             {
-                strings.add(line.replace("<" + predicate + ">", value.toString()));
+                try
+                {
+                    if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || ("".equals(lang) && value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default"))))
+                    {
+                        strings.add(line.replace("<" + predicate + ">", value.toString()));
+                    }
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         else if (line.contains("<" + predicate + "|"))
         {
             for (LocalizedTripleObject value : poMap.get(predicate))
             {
-                if (value instanceof TreeFragment)
+                try
                 {
-                    TreeFragment treeValue = (TreeFragment) value;
-                    for (String subPredicate : treeValue.keySet())
+                    if (value instanceof TreeFragment && lang.equals(value.getLanguage()) || "".equals(value.getLanguage()) || ("".equals(lang) && value.getLanguage().equals(PropertyReader.getProperty("escidoc.cone.language.default"))))
                     {
-                        strings.addAll(replacePattern(treeValue, line.replace("<" + predicate + "|", "<"), subPredicate));
+                        TreeFragment treeValue = (TreeFragment) value;
+                        for (String subPredicate : treeValue.keySet())
+                        {
+                            strings.addAll(replacePattern(treeValue, line.replace("<" + predicate + "|", "<"), subPredicate, lang));
+                        }
                     }
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
         }

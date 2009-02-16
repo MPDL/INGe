@@ -153,15 +153,15 @@
 		<result>
 			<pattern>
 &lt;http://purl.org/dc/elements/1.1/title&gt;
- (
-&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
-)
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;}: (
+OR{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;}:)
 			</pattern>
 			<pattern>
 &lt;http://purl.org/dc/terms/alternative&gt;
- (
-&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
-)
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;}: (
+OR{&lt;http://purl.org/dc/terms/alternative&gt;}:&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;
+AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://escidoc.mpg.de/position|http://escidoc.mpg.de/organization&gt;}:)
 			</pattern>
 		</result>
 		<description>Persons</description>
