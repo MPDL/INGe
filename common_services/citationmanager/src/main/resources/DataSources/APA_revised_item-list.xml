@@ -52,7 +52,6 @@
             <prop:content-model-specific>
 
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2007,). </span>. </span><span class="Italic">Poster session (testing APA generic poster). </span><span class="Default">Poster presented at Symposium, Kassel.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -136,61 +135,6 @@
 
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
-<head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style type="text/css">
-    a {text-decoration: none}
-  </style>
-</head>
-<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr><td width="50%">&nbsp;</td><td align="center">
-
-<a name="JR_PAGE_ANCHOR_0_1"/>
-<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
-<tr>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
-</tr>
-</table>
-
-</td><td width="50%">&nbsp;</td></tr>
-</table>
-</body>
-</html>
-]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -275,61 +219,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
-<head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style type="text/css">
-    a {text-decoration: none}
-  </style>
-</head>
-<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr><td width="50%">&nbsp;</td><td align="center">
-
-<a name="JR_PAGE_ANCHOR_0_1"/>
-<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
-<tr>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
-</tr>
-</table>
-
-</td><td width="50%">&nbsp;</td></tr>
-</table>
-</body>
-</html>
-]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -412,7 +301,6 @@
 
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (1926). </span>. Unscharfe Suche test (ohne apple) DK. .</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -522,7 +410,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Enfield N., Levinson S. C. (Eds.). <span class="DisplayDateStatus"> (2006). </span>. Proceedings from: </span><span class="Italic">Roots of human sociality: Culture, cognition and interaction</span><span class="Default">. Oxford: Berg.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
 
@@ -645,7 +532,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Deci D., &amp; Ryan R., <span class="DisplayDateStatus"> (1933). </span>. A motivational approach to self (testing APA proceedings). </span><span class="Italic">Nebraska Symposium on Motivation, 38</span><span class="Default">, 237-288.</span>]]></dcterms:bibliographicCitation>
 
             </prop:content-model-specific>
         </escidocItem:properties>
@@ -758,7 +644,6 @@
 
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Nottebohm F., &amp; Clark S., <span class="DisplayDateStatus"> (1926). </span>. Hemispheric differences (testing APA proceedings published regularly). </span><span class="Italic">Proceedings of the National Academy of Science, 89</span><span class="Default">, 1372-1375.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -858,7 +743,6 @@
                 <local-tags>
                     <local-tag/>
                 </local-tags>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (1928). </span>. Unscharfe Suche Test DK. Mushrooms in general. (256-275).</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -982,7 +866,6 @@
             <prop:content-model-specific>
 
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D. (Ed.)<span class="DisplayDateStatus"> (1928). </span>. </span><span class="Italic">Sample Journal (testing APA-generic journal). </span><span class="Default">&nbsp;Dresden: University Press.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1065,7 +948,6 @@
             <prop:content-model-specific>
 
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Gibbs H., Karper B. (Eds.). <span class="DisplayDateStatus"> (1933). </span> </span><span class="Italic">Psychological interventions (testing APA edited book).</span><span class="Default">&nbsp;San Francisco: Jossey-Bass.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1154,7 +1036,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Beck C., &amp; Sales B., <span class="DisplayDateStatus"> (2007). </span> </span><span class="Italic">Family mediation (testing APA book).</span><span class="Default">&nbsp;Washington, DC: American Psychological Association.</span>]]></dcterms:bibliographicCitation>
 
             </prop:content-model-specific>
         </escidocItem:properties>
@@ -1246,7 +1127,6 @@
                 <local-tags>
                     <local-tag/>
                 </local-tags>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Mazzeo J., Druesne B., &amp; Raffeld G., <span class="DisplayDateStatus"> (1973). </span>. </span><span class="Italic">Comparability of computer and (testing APA research report)</span><span class="Default">&nbsp;(Rep. No. 345/3).</span>]]></dcterms:bibliographicCitation>
 
             </prop:content-model-specific>
         </escidocItem:properties>
@@ -1345,7 +1225,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2008). </span>. Working paper on research progress (testing APA- generic working paper). .</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
 
@@ -1421,7 +1300,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Dimroth C., Lambert M. (Eds.). <span class="DisplayDateStatus"> (2008). </span>. La structure informationelle chez les apprenants L2 [Special Issue].</span><span class="Italic">Acquisition et Interaction en Language Etrangère</span><span class="Default">, </span><span class="Italic">26</span><span class="Default">.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
 
@@ -1508,7 +1386,6 @@
 
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Harris M., Karper E., Stacks G., Hoffman D., DeNiro R., Cruz P., West S., et al.<span class="DisplayDateStatus"> (1934). </span>. An experimental evaluation of (testing APA article more than six authors). </span><span class="Italic">American Journal of Clinical Pathology</span><span class="Default">, </span><span class="Italic">68</span><span class="Default">843-856.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1646,7 +1523,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Saywitz K., Mannarino A., Berliner L., &amp; Cohen J., <span class="DisplayDateStatus"> (1926). </span>. Treatment for sexually abused children (testing APA). </span><span class="Italic">American Psychologist</span><span class="Default">, </span><span class="Italic">55</span><span class="Default">1040-1049.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1761,7 +1637,6 @@
             <prop:content-model-specific>
 
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Klimoski R., &amp; Palmer S., <span class="DisplayDateStatus"> (1934). </span>. The ADA and the hiring process (testing APA). </span><span class="Italic">Consulting Psychology Journal</span><span class="Default">, </span><span class="Italic">45</span><span class="Default">(2)10-36.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1854,61 +1729,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<html>
-<head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <style type="text/css">
-    a {text-decoration: none}
-  </style>
-</head>
-<body text="#000000" link="#000000" alink="#000000" vlink="#000000">
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr><td width="50%">&nbsp;</td><td align="center">
-
-<a name="JR_PAGE_ANCHOR_0_1"/>
-<table style="width: 595px" cellpadding="0" cellspacing="0" border="0" bgcolor="white">
-<tr>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 533px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 1px; height: 1px;"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 20px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 12px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-  <td style="text-align: center;"><span class="Bold">Citation Style: APA_revised</span></td>
-  <td colspan="2"><img alt="" src="nullpx" style="width: 31px; height: 32px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 5px;"/></td>
-</tr>
-<tr valign="top">
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-  <td colspan="3" bgcolor="#000000"><img alt="" src="nullpx" border="0"/></td>
-  <td><img alt="" src="nullpx" style="width: 30px; height: 1px;"/></td>
-</tr>
-<tr valign="top">
-  <td colspan="5"><img alt="" src="nullpx" style="width: 595px; height: 771px;"/></td>
-</tr>
-</table>
-
-</td><td width="50%">&nbsp;</td></tr>
-</table>
-</body>
-</html>
-]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -1990,7 +1810,6 @@
 
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Mauth K., <span class="DisplayDateStatus"> (2002). </span> </span><span class="Italic">Morphology in speech comprehension.</span><span class="Default">&nbsp;Nijmegen: University of Nijmegen.</span>]]></dcterms:bibliographicCitation>
             </prop:content-model-specific>
         </escidocItem:properties>
         <escidocMetadataRecords:md-records>
@@ -2075,7 +1894,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D., <span class="DisplayDateStatus"> (2005). </span>. </span><span class="Italic">Manuscript on anything (testing APA-generic manuscript). </span><span class="Default">&nbsp;Unpublished Manuscript.</span>]]></dcterms:bibliographicCitation>
 
             </prop:content-model-specific>
         </escidocItem:properties>
@@ -2151,7 +1969,6 @@
             </prop:latest-release>
             <prop:content-model-specific>
                 <local-tags/>
-                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Kanellopoulou D. (Ed.). <span class="DisplayDateStatus"> (1928). </span>. </span><span class="Italic">Series on Atomic Physics (testing APA-generic series)</span><span class="Default">&nbsp;Canberra, Australia: Universitätsverlag.</span>]]></dcterms:bibliographicCitation>
 
             </prop:content-model-specific>
         </escidocItem:properties>

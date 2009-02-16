@@ -135,17 +135,18 @@ public class ProcessScriptlet {
         "   if (Utils.checkLen(str)) {\n" +
 //        "System.out.println(\"before:\" + str);\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--1:\" + str);\n}" +
+        // remove nulls
         "       str = str.replace(\"null\", \"\");\n" +
-        // remove empty styled text:
-        "       str = str.replaceAll(\"<style[^>]*?>\\\\s*<[/]style\\\\s*>\",\"\");\n" +
+        // replace all \s with blank, new line as well everywhere in citation
 		"		str = Pattern.compile(\"[\\n\\r\\t]+\", Pattern.DOTALL).matcher(str).replaceAll(\" \");\n" +
-		"       str = str.replaceAll(\"\\\\s+\", \" \");\n" +
-		"       str = str.replaceAll(\"([.]+\\\\s*[.]+)+\",\".\");\n" +
-		"       str = str.replaceAll(\"([,]+\\\\s*[,]+)+\",\",\");\n" +
-		"       str = str.replaceAll(\"([;]+\\\\s*[;]+)+\",\";\");\n" +
-		"       str = str.replaceAll(\"([:]+\\\\s*[:]+)+\",\":\");\n" +
-		"       str = str.replaceAll(\"([?]+\\\\s*[?]+)+\",\"?\");\n" +
-		"       str = str.replaceAll(\"([!]+\\\\s*[!]+)+\",\"!\");\n" +
+        // remove empty styled text:
+        "       str = str.replaceAll(\"<style[^>]*?>\\\\s*<[/]style[^>]*?>\",\"\");\n" +
+        // remove empty snippet tags:
+		"       str = str.replaceAll(\"&lt;span.*?&gt;\\\\s*&lt;/span&gt;\",\"\");\n" +
+		// replace all duplicated punctuations with the only one
+		"       str = str.replaceAll(\"(([.,;:?!])+\\\\s*\\\\2+)+\",\"$2\");\n" +
+		// remove all \s before punctuations
+		"       str = str.replaceAll(\"\\\\s+([.,;:?!])\",\"$1\");\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {testString(str);\n}" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--2:\" + str);\n}" +
 //				next 2: ( 2007 ) to (2007) 		
@@ -154,15 +155,14 @@ public class ProcessScriptlet {
 //        "if ( str.indexOf(\"( 2008\")!=-1 ) {testString(str);\n}" +
 //        "System.out.println(\"before1:\" + str);\n" +
 //		"System.out.println(\"before2:\" + str);\n" +
-////		"       str = str.replaceAll(\"([,.;:?!])(\\\\s*<style.*?\\\\>)?[ ,.;:?!]+\",\"$1$2\");\n" +
 //		"       str = str.replaceAll(\"([,.;:?!])+(\\\\s)+(\\\\<[/]?style.*?\\\\>)(\\\\s)+([,.;:?!])+\",\"$1$2$3\");\n" +
 //		"System.out.println(\"before3:\" + str);\n" +
 //        "System.out.println(\"after:\" + str);\n" +
         // remove hanging punctuations round the style 
-		"       str = str.replaceAll(\"([.]+\\\\s*<[/]?style[^>]*?>)\\\\s*[.]+\",\"$1\");\n" +
+		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*<[/]?style[^>]*?>)\\\\s*\\\\2+\",\"$1\");\n" +
 		"       str = str.replaceAll(\"\\\\s+(<[/]?style[^>]*?>)?\\\\s+\",\"$1 \");\n" +
 		// snippet clean up
-		"       str = str.replaceAll(\"([.]+\\\\s*&lt;[/]?span\\\\s*&gt;)\\\\s*[.]+\",\"$1\");\n" +
+		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*&lt;[/]?span\\\\s*&gt;)\\\\s*\\\\2+\",\"$1\");\n" +
 		"       str = str.replaceAll(\"\\\\s+(&lt;[/]?span\\\\s*&gt;)\\\\s+\",\"$1 \");\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--3:\" + str);\n}" +
         "   }\n" +

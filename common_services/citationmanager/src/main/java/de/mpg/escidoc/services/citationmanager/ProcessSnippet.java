@@ -145,6 +145,7 @@ public class ProcessSnippet {
 			//simple variant
 			itemsArr[i] = root.removeChild(itemElements.item(0));
 		}
+		
 
 		// set up exporter
 		JRExporter exporter = new JRHtmlExporter( );
@@ -187,7 +188,6 @@ public class ProcessSnippet {
 		//append metadata with snippets in sb [] 
 		for ( int i = 0; i < length; i++ )
 		{
-			// logger.info("iteration:" + i + "; pea:" +  pea[i]);
 			
 			String citation = extractPureCitation(sb[i].toString());
 			//do not add citation element if it is empty 
@@ -206,10 +206,12 @@ public class ProcessSnippet {
 				Element parentElement = (Element)nl.item( 0 );
 				
 				parentElement.appendChild(snippetElement);
-			}	
-
+				
+			}
+			
 			//add saved item
 			root.appendChild(itemsArr[i]);
+
 		}
 
 		XmlHelper.output(doc, os);
@@ -218,9 +220,6 @@ public class ProcessSnippet {
 	
 	
 	private void addFrameworkPrefixUrl(Document doc, Element snippetElement, Element item) throws IOException {
-
-		
-		
 
 		
 		String fw_url = null;
@@ -309,7 +308,6 @@ public class ProcessSnippet {
 		for ( String str : toBeRemoved ) 
 		{
 			regexp = "(<span.*?)" + str + "(.*?>)";
-			//logger.info(regexp);
 			m = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html);
 			m.find();
 			html = m.replaceAll("$1$2");
@@ -328,7 +326,6 @@ public class ProcessSnippet {
 		}; 
 		
 		regexp = "<span.*?style\\s*=\\s*?\"(.+?)\".*?>";
-		//logger.info(regexp);
 		String targetHtml = html;
 		m = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html);
 		while (m.find())
@@ -340,7 +337,6 @@ public class ProcessSnippet {
 			for ( String[] attr : attrs ) 
 			{
 				regexp2 = attr[0] + "\\s*;";
-				//logger.info(regexp2);
 				m2 = Pattern.compile(regexp2, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(style);
 				if ( m2.find() )
 				{
