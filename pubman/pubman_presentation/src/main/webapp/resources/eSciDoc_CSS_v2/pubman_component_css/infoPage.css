@@ -39,8 +39,12 @@
 	padding-top: 0px;
 }
 
-.infoPage .mainSection * {
+.infoPage .mainSection *, .infoPage .mainSection li {
 	font-size: 118%;
+}
+
+.infoPage .mainSection * * {
+	font-size: 100%;
 }
 
 .infoPage .sideSection * {
