@@ -27,6 +27,7 @@
 			<xs:enumeration value="staatsexamen"/>
 			<xs:enumeration value="phd"/>
 			<xs:enumeration value="habilitation"/>
+			<xs:enumeration value="bachelor"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -120,6 +121,7 @@
 			<xs:enumeration value="advisor"/>
 			<xs:enumeration value="contributor"/>
 			<xs:enumeration value="publisher"/>
+			<xs:enumeration value="honoree"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
