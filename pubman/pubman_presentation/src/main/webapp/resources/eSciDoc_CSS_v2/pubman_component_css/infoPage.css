@@ -39,8 +39,12 @@
 	padding-top: 0px;
 }
 
-.infoPage .mainSection *, .infoPage .sideSection * {
+.infoPage .mainSection * {
 	font-size: 118%;
+}
+
+.infoPage .sideSection * {
+	font-size: 117%;
 }
 
 .infoPage .mainSection ul {
@@ -78,6 +82,6 @@
 	border-top-width: 0.10em !important;
 }
 
-.infoPage .sideSection h3 {
-	margin-bottom: 0em;
+.infoPage .sideSection a {
+	font-weight: bold;
 }
