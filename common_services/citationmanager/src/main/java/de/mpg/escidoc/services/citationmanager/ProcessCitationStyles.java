@@ -460,12 +460,18 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         int eSize = elements.size();
         if ( eSize > 0) {
         	// apply delimiters
-        	expr="$P{REPORT_SCRIPTLET}.join(new String[]{";
+        	String tmp_expr = "$P{REPORT_SCRIPTLET}.join(new String[]{";
             for (LayoutElement e : elements) {
             	addLayoutElementToVariablesMap(cs, e);
-            	expr += "$V{" + e.getId() + "},"; 
+            	tmp_expr += "$V{" + e.getId() + "},"; 
             }
-            expr = expr.substring(0, expr.length()-1) + "}, \""+ delimiter +"\")";
+            tmp_expr = tmp_expr.substring(0, tmp_expr.length()-1) + "}, \""+ delimiter +"\")";
+            //create new tmp variable to spend less time during zero length checking
+//            String tmp_expr_name =  "tmpField_" + le.getId();
+//            addJRVariable(tmp_expr_name, tmp_expr);
+//            expr = "$V{" + tmp_expr_name + "}";
+            expr = tmp_expr;
+            
 //            logger.info("expr="+expr);
         } else if (le.getRef().length() > 0) {
         	String ref = le.getRef();
@@ -557,7 +563,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         }
         
         // apply zero length checking
-        expr = !isRepeatable ? String.format(checkLen, expr, chunk) : chunk;	
+        expr = !isRepeatable ? String.format(checkLen, expr, chunk) : chunk;
 //        expr = chunk;	
         
         // maxLength
@@ -1188,14 +1194,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	private void fillReportToOutputStream(String citationStyle, OutputStream os, String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException   {
 
 
-//		long start;
-//		start = System.currentTimeMillis();
+		//long start;
+		//start = System.currentTimeMillis();
 
 		ByteArrayInputStream bais = new ByteArrayInputStream(itemList.getBytes("UTF-8"));
 		BufferedInputStream bis = new BufferedInputStream(bais);
 
 		Document document = JRXmlUtils.parse(bis);
-//		logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
+	//	logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
 		
 
 		String csj = 
@@ -1220,23 +1226,29 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
 		
-		// generate snippet export 
+		// generate snippet export
+		//start = System.currentTimeMillis();
 		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
 		{
 			ProcessSnippet psn = new ProcessSnippet();
 			psn.export(document, params, jr, os);
+			//logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
 			return;
 		}
 		
-		JasperPrint jasperPrint = JasperFillManager.fillReport(
+		
+		//all other exports
+		//start = System.currentTimeMillis();
+		JasperPrint jasperPrint= JasperFillManager.fillReport(
 				jr,
 				params,
 				new JRXmlDataSource(document, jr.getQuery().getText())
 		);
-
-//		logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
 		
-//		start = System.currentTimeMillis();
+		//logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
+
+		
+		//start = System.currentTimeMillis();
 
 		JRExporter exporter = null;    
 		
@@ -1266,10 +1278,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, os);
 		
 
-		
 		exporter.exportReport();
 
-		//		logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
+		//logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
 
 
 	}
