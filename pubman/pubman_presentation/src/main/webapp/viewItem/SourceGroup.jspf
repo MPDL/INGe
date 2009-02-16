@@ -89,7 +89,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount <= 0 && ViewItemFull.sourceCreatorOrganizationsIterator.rowCount <=0}"/>
-					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index">
+					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index" rows="0">
 						<h:panelGroup styleClass="free_area0 creator">
 							<h:outputText value="#{sourceCreatorPerson.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{sourceCreatorPerson.portfolioLink != null}">
@@ -115,7 +115,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
-					<tr:iterator var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index">
+					<tr:iterator var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index" rows="0">
 						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 						<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>						
