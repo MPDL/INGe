@@ -54,7 +54,7 @@ public class MetadataSearchCriterion implements Serializable
      */
     public enum BooleanOperator
     {
-        EQUALS, GREATER_THAN_EQUALS, LESS_THAN_EQUALS
+        EQUALS, GREATER_THAN_EQUALS, LESS_THAN_EQUALS, GREATER
     }
 
     /** The cql AND constant. */
@@ -63,10 +63,11 @@ public class MetadataSearchCriterion implements Serializable
     protected static final String CQL_OR = "or";
     /** The cql NOT constant. */
     protected static final String CQL_NOT = "not";
-
+    
     private static final String BOOLEAN_EQUALS = "=";
     private static final String BOOLEAN_GREATER_THAN_EQUALS = ">=";
     private static final String BOOLEAN_LESS_THAN_EQUALS = "<=";
+    private static final String BOOLEAN_GREATER = ">";
 
     /** Index for the content-type. */
     private static final String INDEX_CONTENT_TYPE = "escidoc.content-model.objid";
@@ -117,11 +118,15 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
     /** Index for component availability. */
-    private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.valid-status";
+    private static final String INDEX_COMPONENT_ACCESSIBILITY = "escidoc.component.creation-date";
     /** Index for component visibility. */
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
     /** Index for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
+    
+    
+    /** String to be used to represent an empty search term. */
+    private static final String EMPTY_SEARCH_TERM = "''";
 
     private ArrayList<String> searchIndexes = null;
     private String searchTerm = null;
@@ -129,6 +134,52 @@ public class MetadataSearchCriterion implements Serializable
     private BooleanOperator cqlOperator = null;
     private ArrayList<CriterionType> typeList = null;
 
+    
+    /**
+     * Constructor with criterion type and empty search term. The search term is empty, because
+     * this criterion shall be used to verify if a index is present.
+     * 
+     * @param type
+     *            the type of a criteria
+     * @throws TechnicalException
+     *             if creation of object fails
+     */
+    public MetadataSearchCriterion(CriterionType type) throws TechnicalException
+    {
+        typeList = new ArrayList<CriterionType>();
+
+        this.searchTerm = EMPTY_SEARCH_TERM;
+
+        this.searchIndexes = setIndexByEnum(type);
+        this.logicalOperator = LogicalOperator.UNSET;
+        this.cqlOperator = BooleanOperator.GREATER;
+        this.typeList.add(type);
+    }
+    
+    /**
+     * Constructor with criterion type, logical operator and empty search term. The search term is empty, because
+     * this criterion shall be used to verify if a index is present.
+     * 
+     * @param type
+     *            the type of a criteria
+     * @param operator
+     *            logical operator
+     * @throws TechnicalException
+     *             if creation of object fails
+     */
+    public MetadataSearchCriterion(CriterionType type, LogicalOperator operator) throws TechnicalException
+    {
+        typeList = new ArrayList<CriterionType>();
+
+        this.searchTerm = EMPTY_SEARCH_TERM;
+
+        this.searchIndexes = setIndexByEnum(type);
+        this.logicalOperator = operator;
+        this.cqlOperator = BooleanOperator.GREATER;
+        this.typeList.add(type);
+    }
+    
+    
     /**
      * Constructor with criterion type and search term.
      * 
@@ -285,6 +336,8 @@ public class MetadataSearchCriterion implements Serializable
                 return BOOLEAN_GREATER_THAN_EQUALS;
             case LESS_THAN_EQUALS:
                 return BOOLEAN_LESS_THAN_EQUALS;
+            case GREATER:
+                return BOOLEAN_GREATER;
             default:
                 throw new TechnicalException("Unsupported enum");
         }
