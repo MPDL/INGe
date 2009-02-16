@@ -118,6 +118,7 @@ public class Util
         if (formatName.toLowerCase().equals("mets")) { return "application/xml"; } 
         if (formatName.toLowerCase().equals("pdf")) { return "application/pdf"; } 
         if (formatName.toLowerCase().equals("ps")) { return "application/gzip"; } 
+        if (formatName.toLowerCase().equals("esidoc-fulltext")) { return "unknown"; } 
         
         return "";
     }
@@ -296,7 +297,7 @@ public class Util
                 return identifier.trim();
             }
         }
-        // Trim identifier for escidoc_QA
+        // Trim identifier for escidoc_qa
         if (sourceName.trim().toLowerCase().equals("escidoc_qa"))
         {
             if (identifier.toLowerCase().startsWith("escidocqa", 0))
@@ -509,5 +510,42 @@ public class Util
         
         xml = baos.toByteArray();        
         return xml;
+    }
+    
+    /**
+     * Extracts out of a url the escidoc import source name.
+     * @param sourceName
+     * @return
+     */
+    public String trimSourceName(String sourceName, String identifier)
+    {
+        if (identifier.startsWith("http://dev-pubman.mpdl.mpg.de:8080/"))
+        {
+            sourceName = "escidocdev";
+        }
+        if (identifier.startsWith("http://qa-pubman.mpdl.mpg.de:8080/"))
+        {
+            sourceName = "escidocqa";
+        }
+        if (identifier.startsWith("http://test-pubman.mpdl.mpg.de/"))
+        {
+            sourceName = "escidoctest";
+        }
+        if (identifier.startsWith("http://pubman.mpdl.mpg.de/"))
+        {
+            sourceName = "escidocprod";
+        }        
+        return sourceName;
+    }
+    
+    /**
+     * EsciDoc Identifier can consist of the citation URL, like.
+     * http://pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. This method extracts the identifier from the URL
+     * @param identifier
+     */
+    public String setEsciDocIdentifier(String identifier)
+    {
+        String[] extracts = identifier.split("/");
+        return extracts[extracts.length - 1];
     }
 }

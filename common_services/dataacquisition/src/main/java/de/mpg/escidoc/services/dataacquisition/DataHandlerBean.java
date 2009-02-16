@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
@@ -48,6 +49,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -55,6 +57,10 @@ import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
@@ -128,7 +134,13 @@ public class DataHandlerBean implements DataHandler
         
         try
         {             
-            identifier = this.util.trimIdentifier(sourceName, identifier);           
+            if (sourceName.toLowerCase().equals("escidoc"))
+            {
+                //necessary for escidoc sources
+                sourceName = this.util.trimSourceName(sourceName, identifier);
+                identifier = this.util.setEsciDocIdentifier(identifier);
+            }
+            identifier = this.util.trimIdentifier(sourceName, identifier);
             importSource = this.sourceHandler.getSourceByName(sourceName);
             String fetchType = this.getFetchingType(importSource, trgFormatName, trgFormatType, trgFormatEncoding);
 
@@ -203,6 +215,12 @@ public class DataHandlerBean implements DataHandler
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
     {
+        if (sourceName.toLowerCase().equals("escidoc"))
+        {
+            //necessary for escidoc sources
+            sourceName = this.util.trimSourceName(sourceName, identifier);
+            identifier = this.util.setEsciDocIdentifier(identifier);
+        }
         identifier = this.util.trimIdentifier(sourceName, identifier);
         DataSourceVO importSource = new DataSourceVO();
         importSource = this.sourceHandler.getSourceByName(sourceName);
@@ -308,7 +326,7 @@ public class DataHandlerBean implements DataHandler
             if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
-                item = this.fetchEjbRecord(identifier, trgFormatName);
+                item = this.fetchEjbRecord(importSource, md, identifier);
                 supportedProtocol = true;
             }
             if (importSource.getHarvestProtocol().toLowerCase().equals("http"))
@@ -476,9 +494,18 @@ public class DataHandlerBean implements DataHandler
                 fulltext.setFtUrl(new URL(fulltext.getFtUrl().toString().replaceAll(this.regex, identifier.trim())));
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
                 
-                in = this.fetchFile(importSource, fulltext);
-                this.setFileProperties(fulltext);
+                //escidoc file
+                if (importSource.getHarvestProtocol().equals("ejb"))
+                {
+                    in = this.fetchEjbFile(importSource, fulltext, identifier);
+                }
+                //other file
+                else
+                {
+                    in = this.fetchFile(importSource, fulltext);                    
+                }
                 
+                this.setFileProperties(fulltext);
                 // If only one file => return it in fetched format
                 if (formats.length == 1)
                 {
@@ -672,19 +699,24 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private String fetchEjbRecord(String identifier, String trgFormat) throws IdentifierNotRecognisedException, RuntimeException
+    private String fetchEjbRecord(DataSourceVO importSource, MetadataVO md, String identifier) throws IdentifierNotRecognisedException, RuntimeException
     {
         try
         {
-            if (trgFormat.toLowerCase().equals("virr-mets"))
+            if (importSource.getName().toLowerCase().equals("escidoc"))
+            {
+                return ServiceLocator.getItemHandler().retrieve(identifier);
+            }  
+            if (importSource.getName().toLowerCase().equals("escidocdev") || importSource.getName().toLowerCase().equals("escidocqa") 
+                    || importSource.getName().toLowerCase().equals("escidocprod") || importSource.getName().toLowerCase().equals("escidoctest"))
+            {
+                return ServiceLocator.getItemHandlerByUrl(md.getMdUrl().toString()).retrieve(identifier);
+            } 
+            if (md.getName().toLowerCase().equals("virr-mets"))
             {
                 Login login = new Login();
                 return  ServiceLocator.getTocHandler(login.loginSysAdmin()).retrieve(identifier);
-            }
-            else
-            {
-                return ServiceLocator.getItemHandler().retrieve(identifier);
-            }           
+            }   
         }
         catch (ItemNotFoundException e)
         {
@@ -696,8 +728,93 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
             throw new RuntimeException(e);
         }
+        
+        return null;
     }
     
+    /**
+     * Fetches a eSciDoc Record from eSciDoc system.
+     * 
+     * @param identifier of the item
+     * @return itemXML as String
+     * @throws IdentifierNotRecognisedException
+     * @throws RuntimeException
+     */
+    private byte[] fetchEjbFile(DataSourceVO importSource, FullTextVO ft, String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    {
+        String itemXML = "";
+        String coreservice ="";
+        URLConnection contentUrl = null;
+        XmlTransforming xmlTransforming = new XmlTransformingBean();
+        byte[] input = null;
+        
+        try
+        {
+            if (importSource.getName().toLowerCase().equals("escidoc"))
+            {
+                itemXML = ServiceLocator.getItemHandler().retrieve(identifier);  
+                coreservice = ServiceLocator.getFrameworkUrl();
+            }  
+            if (importSource.getName().toLowerCase().equals("escidocdev") 
+                    || importSource.getName().toLowerCase().equals("escidocqa") || importSource.getName().toLowerCase().equals("escidocprod"))
+            {
+                itemXML = ServiceLocator.getItemHandlerByUrl(ft.getFtUrl().toString()).retrieve(identifier);
+                coreservice = ft.getFtUrl().toString();
+            }  
+            
+            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(itemXML));
+            contentUrl = new URL( coreservice + itemVO.getFiles().get(0).getContent()).openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
+            {
+                case 503:
+                    //request was not processed by source
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    throw new FormatNotAvailableException(ft.getFtLabel());
+                case 302:
+                    String alternativeLocation = contentUrl.getHeaderField("Location");
+                    ft.setFtUrl(new URL(alternativeLocation));
+                    return fetchEjbFile(importSource, ft, identifier);
+                case 200:
+                    this.logger.info("Source responded with 200.");
+                    GetMethod method = new GetMethod(coreservice + itemVO.getFiles().get(0).getContent());
+                    HttpClient client = new HttpClient();
+                    client.executeMethod(method);
+                    input = method.getResponseBody();
+                    httpConn.disconnect();
+                    break;
+                case 403:
+                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                default:
+                    throw new RuntimeException("An error occurred during importing from external system: "
+                                + responseCode + ": " + httpConn.getResponseMessage());
+           } 
+        }
+        
+        catch (ItemNotFoundException e)
+        {
+            this.logger.error("Item with identifier " + identifier + " was not found.", e);
+            throw new IdentifierNotRecognisedException(e);
+        }
+        catch (Exception e)
+        {
+            this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
+            throw new RuntimeException(e);
+        }
+        
+        return input;
+    }
+    
+    /**
+     * Fetches a record via http protocol.
+     * @param importSource
+     * @param md
+     * @return
+     * @throws IdentifierNotRecognisedException
+     * @throws RuntimeException
+     * @throws AccessException
+     */
     private String fetchHttpRecord(DataSourceVO importSource, MetadataVO md) throws IdentifierNotRecognisedException, RuntimeException, AccessException
     {
         String item = "";
@@ -713,7 +830,9 @@ public class DataHandlerBean implements DataHandler
             switch (responseCode)
             {
                 case 503:
-                       //TODO
+                    //request was not processed by source
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    throw new FormatNotAvailableException(md.getMdLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     md.setMdUrl(new URL(alternativeLocation));
@@ -728,17 +847,6 @@ public class DataHandlerBean implements DataHandler
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
             }
-//            String contentTypeHeader = conn.getHeaderField("Content-Type");
-//            String contentType = contentTypeHeader;
-//            if (contentType.contains(";"))
-//            {
-//                contentType = contentType.substring(0, contentType.indexOf(";"));
-//                if (contentTypeHeader.contains("encoding="))
-//                {
-//                    charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
-//                    this.logger.debug("Charset found: " + charset);
-//                }
-//            }
             // Get itemXML
             isReader = new InputStreamReader(md.getMdUrl().openStream(), charset);
             bReader = new BufferedReader(isReader);
@@ -761,8 +869,134 @@ public class DataHandlerBean implements DataHandler
     }
 
     /**
+     * Retrieves the content of a component from different escidoc instances.
+     * @param identifier
+     * @param url
+     * @return content of a component as byte[]
+     */
+    public byte[] retrieveComponentContent (String identifier, String url)
+    {
+        String coreservice = "";
+        URLConnection contentUrl;
+        byte [] input = null;
+        
+        String sourceName = this.util.trimSourceName("escidoc", identifier);
+        DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
+
+        if (sourceName.toLowerCase().equals("escidoc"))
+        {
+            try
+            {
+                coreservice = ServiceLocator.getFrameworkUrl();
+            }
+            catch (Exception e)
+            {
+                this.logger.error("Framework Access threw an exception.",e);
+                return null;
+            }
+        }  
+        if (sourceName.toLowerCase().equals("escidocdev") || sourceName.equals("escidocqa") 
+                || sourceName.toLowerCase().equals("escidocprod") || sourceName.toLowerCase().equals("escidoctest"))
+        {
+            //escidoc source has only one dummy ft record
+            FullTextVO ft = source.getFtFormats().get(0);
+            coreservice = ft.getFtUrl().toString();
+        }  
+
+        try
+        {
+            contentUrl = new URL( coreservice + url).openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
+            {
+                case 503:
+                    //request was not processed by source
+                    this.logger.warn("Component content could not be fetched." );
+                    throw new RuntimeException("Component content could not be fetched. (503)");
+                case 200:
+                    this.logger.info("Source responded with 200.");
+                    GetMethod method = new GetMethod(coreservice + url);
+                    HttpClient client = new HttpClient();
+                    client.executeMethod(method);
+                    input = method.getResponseBody();
+                    httpConn.disconnect();
+                    break;
+                case 403:
+                    throw new AccessException("Access to component content is restricted.");
+                default:
+                    throw new RuntimeException("An error occurred during importing from external system: "
+                                + responseCode + ": " + httpConn.getResponseMessage());
+            } 
+        }
+        catch (Exception e)
+        {
+            this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
+            throw new RuntimeException(e);
+            //TODO
+        }
+        
+        return input;
+    }
+    
+    /**
+     * Fetches a file via http protocol.
+     * @param importSource
+     * @param ft
+     * @return fetched file as byte[]
+     * @throws IdentifierNotRecognisedException
+     * @throws RuntimeException
+     * @throws AccessException
+     */
+    private byte[] fetchHttpFile(DataSourceVO importSource, FullTextVO ft) throws IdentifierNotRecognisedException, RuntimeException, AccessException
+    {
+        URLConnection conn;
+        byte[] input = null;
+        
+        try
+        {
+            conn = ft.getFtUrl().openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
+            {
+                case 503:
+                    //request was not processed by source
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    throw new FormatNotAvailableException(ft.getFtLabel());
+                case 302:
+                    String alternativeLocation = conn.getHeaderField("Location");
+                    ft.setFtUrl(new URL(alternativeLocation));
+                    return fetchHttpFile(importSource, ft);
+                case 200:
+                    this.logger.info("Source responded with 200.");
+                    GetMethod method = new GetMethod(ft.getFtUrl().toString());
+                    HttpClient client = new HttpClient();
+                    client.executeMethod(method);
+                    input = method.getResponseBody();
+                    httpConn.disconnect();
+                    break;
+                case 403:
+                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                default:
+                    throw new RuntimeException("An error occurred during importing from external system: "
+                            + responseCode + ": " + httpConn.getResponseMessage());
+            }
+        }
+        catch (AccessException e)
+        {
+            this.logger.error("Access denied.", e);
+            throw new AccessException(importSource.getName());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return input;
+    }
+    
+    /**
      * Decide which kind of data has to be fetched.
-     * 
      * @param source
      * @param format
      * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}

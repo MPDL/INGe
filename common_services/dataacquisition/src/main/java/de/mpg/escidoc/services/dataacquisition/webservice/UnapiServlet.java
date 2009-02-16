@@ -289,6 +289,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         String id = tmp[1];
         String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
         String idType = this.checkIdentifier(identifier, format);
+        Util util = new Util();
         
         try
         {
@@ -305,7 +306,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
             }
             if (idType.equals(this.idTypeEscidoc))
             {
-                id = this.setEsciDocIdentifier(identifier);
+                id = util.setEsciDocIdentifier(identifier);
                 sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
                 this.filename = id;
                 return this.dataHandler.doFetch(sourceName, id, format);
@@ -361,17 +362,6 @@ public class UnapiServlet extends HttpServlet implements Unapi
             return this.idTypeUrl;
         }
         return this.idTypeUri;
-    }
-
-    /**
-     * EsciDoc Identifier can consist of the citation URL, like.
-     * http://pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. This method extracts the identifier from the URL
-     * @param identifier
-     */
-    private String setEsciDocIdentifier(String identifier)
-    {
-        String[] extracts = identifier.split("/");
-        return extracts[extracts.length - 1];
     }
 
     private void resetValues()

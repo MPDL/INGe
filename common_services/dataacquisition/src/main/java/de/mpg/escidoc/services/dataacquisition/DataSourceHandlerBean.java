@@ -123,7 +123,8 @@ public class DataSourceHandlerBean
                             MetadataVO md = sourceVO.getMdFormats().get(i);
                             if (md.isMdDefault())
                             {
-                                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), this.transformationFormat))
+                                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), this.transformationFormat) 
+                                        || (this.transformationFormat.toLowerCase().equals(md.getName().toLowerCase())))
                                 { sourceVec.add(sourceVO); }
                             }
                         }
@@ -131,7 +132,7 @@ public class DataSourceHandlerBean
                     else
                     { 
                         sourceVec.add(sourceVO); 
-                       }
+                    }
                 }
             }
         }
