@@ -41,6 +41,8 @@ public class CitationTest {
 	private String itemList;
 	 
 	private CitationStyleHandler pcs = new ProcessCitationStyles();
+
+	private int itemsNumber;
 	
 	/**
      * Tests CitationStyle.xml (APA by default)
@@ -67,6 +69,8 @@ public class CitationTest {
 //		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 //		logger.info("item list from framework:\n" + itemList);
 		   
+    	itemsNumber =  TestHelper.getItemsNumber(ds);
+    	
 //		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
 
     }	
@@ -181,7 +185,7 @@ public class CitationTest {
         	byte[] result;
     		for ( String format : 
     				pcs.getOutputFormats(cs)
-//    				new String[]{"snippet", "pdf"}
+//    				new String[]{/*"snippet"/*,*/ "pdf"}
     		) {
         		logger.info("Test Citation Style: " + cs);
     			
@@ -194,11 +198,11 @@ public class CitationTest {
     	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
     	    	assertTrue(format + " output should not be empty", result.length > 0);
     	    	
-        		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+        		logger.info("Number of proceeded items: " + itemsNumber);
     	        logger.info(format + " length: " + result.length);
     	        logger.info(format + " is OK");
     	        
-    	        TestHelper.writeToFile(cs + "." + format, result);
+//    	        TestHelper.writeToFile(cs + "." + format, result);
     			
     		}
     		

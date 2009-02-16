@@ -44,6 +44,13 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 import org.apache.axis.encoding.Base64;
 import org.apache.axis.message.MessageElement;
@@ -55,6 +62,7 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -261,6 +269,16 @@ public class TestHelper
     	FileOutputStream fos = new FileOutputStream(fileName);
     	fos.write(content);
     	fos.close();
+    }
+    
+    
+    protected static int getItemsNumber(String itemListUri) throws Exception
+    {
+    	Document doc = JRXmlUtils.parse(itemListUri);
+		 XPathFactory factory = XPathFactory.newInstance();
+		 XPath xpath = factory.newXPath();
+		 Double result = (Double) xpath.evaluate("count(/item-list/item)", doc, XPathConstants.NUMBER);
+    	return result.intValue();
     }
 
 }
