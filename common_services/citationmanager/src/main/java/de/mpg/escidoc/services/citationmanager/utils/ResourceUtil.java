@@ -152,13 +152,12 @@ public class ResourceUtil
         InputStream fileIn = getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
-        String result = "";
-        
+        StringBuffer result = new StringBuffer();
         while ((line = br.readLine()) != null)
         {
-        	result += line + "\n";
+        	result.append(line).append("\n");
         }
-        return result;
+        return result.toString();
     }
     
     /**
@@ -196,8 +195,8 @@ public class ResourceUtil
     {
 //    	logger.info("context:"+ResourceUtil.class.getClassLoader().getResource("."));
         return
-//    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
-        	getPathToClasses();
+    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
+//        	getPathToClasses();
     }
     
     
