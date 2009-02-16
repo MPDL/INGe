@@ -115,6 +115,17 @@
     </xs:restriction>
    </xs:simpleContent>
   </xs:complexType>
+  
+  <xs:complexType name="ZDB">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
 
   <xs:complexType name="OTHER">
    <xs:simpleContent>
