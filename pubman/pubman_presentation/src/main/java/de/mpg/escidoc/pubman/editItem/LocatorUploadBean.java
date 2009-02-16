@@ -236,8 +236,6 @@ public class LocatorUploadBean extends FacesBean
                 fileVO.getDefaultMetadata().getFormats().add(formatVO);
                 fileVO.setContent(contentURL);
                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-                //TODO
-                fileVO.setDescription("TODO");
                 
                 //The initinally created empty file has to be deleted
                 this.removeEmptyFile();
