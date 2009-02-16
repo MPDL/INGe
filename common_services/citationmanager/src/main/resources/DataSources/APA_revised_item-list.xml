@@ -19,6 +19,7 @@
                            xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6"
                            xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7"
                            xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7">
+						    
     <escidocItem:item last-modification-date="2008-11-19T10:59:10.513Z" objid="escidoc:44120">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T10:59:05.361Z</prop:creation-date>
@@ -102,6 +103,8 @@
 
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
+	  
+	
     <escidocItem:item last-modification-date="2008-11-19T10:57:50.944Z" objid="escidoc:44119">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T10:57:46.544Z</prop:creation-date>
@@ -186,6 +189,7 @@
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
+	
     <escidocItem:item last-modification-date="2008-11-19T11:00:26.224Z" objid="escidoc:44121">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T11:00:22.008Z</prop:creation-date>
@@ -1353,6 +1357,8 @@
 
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
+	
+	
     <escidocItem:item last-modification-date="2008-11-19T09:40:41.813Z" objid="escidoc:44106">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T08:50:00.273Z</prop:creation-date>
@@ -1490,6 +1496,7 @@
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
+	
     <escidocItem:item last-modification-date="2008-11-19T08:42:49.499Z" objid="escidoc:44105">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T08:42:44.243Z</prop:creation-date>
@@ -2018,4 +2025,5 @@
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
+
 </escidocItemList:item-list>

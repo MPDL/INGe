@@ -27,17 +27,16 @@ public String cleanCit(String str) {
        str = str.replace("null", "");
 		str = Pattern.compile("[\n\r\t]+", Pattern.DOTALL).matcher(str).replaceAll(" ");
        str = str.replaceAll("<style[^>]*?>\\s*<[/]style[^>]*?>","");
-       str = str.replaceAll("&lt;span.*?&gt;\\s*&lt;/span&gt;","");
-       str = str.replaceAll("(([.,;:?!])+\\s*\\2+)+","$2");
-       str = str.replaceAll("\\s+([.,;:?!])","$1");
+       str = str.replaceAll("\\[span.*?\\]\\s*\\[/span\\]","");
+       str = str.replaceAll("(\\s*([.,:?!])+)+","$2");
        str = str.replaceAll("([({<\\[])\\s+(.*)","$1$2");
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
        str = str.replaceAll("(([.,;?!])+\\s*<[/]?style[^>]*?>)\\s*\\2+","$1");
        str = str.replaceAll("\\s+(<[/]?style[^>]*?>)?\\s+","$1 ");
        str = str.replaceAll("\\s*(<[/]?style[^>]*?>)\\s*([.,;?!])","$1$2");
-       str = str.replaceAll("(([.,;?!])+\\s*&lt;[/]?span\\s*&gt;)\\s*\\2+","$1");
-       str = str.replaceAll("\\s+(&lt;[/]?span\\s*&gt;)\\s+","$1 ");
-       str = str.replaceAll("\\s*(&lt;[/]?span\\s*&gt;)\\s*([.,;?!])","$1$2");
+       str = str.replaceAll("(([.,;?!])+\\s*\\[[/]?span\\s*\\])\\s*\\2+","$1");
+       str = str.replaceAll("\\s+(\\[[/]?span\\s*\\])\\s+","$1 ");
+       str = str.replaceAll("\\s*(\\[[/]?span\\s*\\])\\s*([.,;?!])","$1$2");
    }
    return Utils.checkVal(str) ? str: null;
 }

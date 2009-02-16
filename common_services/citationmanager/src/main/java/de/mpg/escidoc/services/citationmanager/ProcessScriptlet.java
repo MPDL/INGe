@@ -142,18 +142,25 @@ public class ProcessScriptlet {
         // remove empty styled text:
         "       str = str.replaceAll(\"<style[^>]*?>\\\\s*<[/]style[^>]*?>\",\"\");\n" +
         // remove empty snippet tags:
-		"       str = str.replaceAll(\"&lt;span.*?&gt;\\\\s*&lt;/span&gt;\",\"\");\n" +
-		// replace all duplicated punctuations with the only one
-		"       str = str.replaceAll(\"(([.,;:?!])+\\\\s*\\\\2+)+\",\"$2\");\n" +
-		// remove all \s before punctuations
-		"       str = str.replaceAll(\"\\\\s+([.,;:?!])\",\"$1\");\n" +
+//        "System.out.println(\"--1:\" + str);\n" +
+		"       str = str.replaceAll(\"\\\\[span.*?\\\\]\\\\s*\\\\[/span\\\\]\",\"\");\n" +
+		// replace all duplicated punctuations with the only one (";" are excluded due to xml entities)
+//        "System.out.println(\"--2:\" + str);\n" +
+//		"       str = str.replaceAll(\"(([.,:;?!])+\\\\s*\\\\2)+\",\"$2\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*([.,:?!])+)+\",\"$2\");\n" +
+		
+		// remove all \s before punctuations (";" are excluded due to xml entities)
+//        "System.out.println(\"--3:\" + str);\n" +
+//		"       str = str.replaceAll(\"\\\\s+([.,:;?!])\",\"$1\");\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {testString(str);\n}" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--2:\" + str);\n}" +
 //				next 2: ( 2007 ) to (2007) 		
+//        "System.out.println(\"--4:\" + str);\n" +
 		"       str = str.replaceAll(\"([({<\\\\[])\\\\s+(.*)\",\"$1$2\");\n" + 
+//        "System.out.println(\"--5:\" + str);\n" +
 		"       str = str.replaceAll(\"(.*)\\\\s+([\\\\]>})])\",\"$1$2\");\n" + 
 //        "if ( str.indexOf(\"( 2008\")!=-1 ) {testString(str);\n}" +
-//        "System.out.println(\"before1:\" + str);\n" +
+//        "System.out.println(\"uge kaputt:\" + str);\n" +
 //		"System.out.println(\"before2:\" + str);\n" +
 //		"       str = str.replaceAll(\"([,.;:?!])+(\\\\s)+(\\\\<[/]?style.*?\\\\>)(\\\\s)+([,.;:?!])+\",\"$1$2$3\");\n" +
 //		"System.out.println(\"before3:\" + str);\n" +
@@ -163,9 +170,9 @@ public class ProcessScriptlet {
 		"       str = str.replaceAll(\"\\\\s+(<[/]?style[^>]*?>)?\\\\s+\",\"$1 \");\n" +
 		"       str = str.replaceAll(\"\\\\s*(<[/]?style[^>]*?>)\\\\s*([.,;?!])\",\"$1$2\");\n" +
 		// snippet clean up
-		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*&lt;[/]?span\\\\s*&gt;)\\\\s*\\\\2+\",\"$1\");\n" +
-		"       str = str.replaceAll(\"\\\\s+(&lt;[/]?span\\\\s*&gt;)\\\\s+\",\"$1 \");\n" +
-		"       str = str.replaceAll(\"\\\\s*(&lt;[/]?span\\\\s*&gt;)\\\\s*([.,;?!])\",\"$1$2\");\n" +
+		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*\\\\[[/]?span\\\\s*\\\\])\\\\s*\\\\2+\",\"$1\");\n" +
+		"       str = str.replaceAll(\"\\\\s+(\\\\[[/]?span\\\\s*\\\\])\\\\s+\",\"$1 \");\n" +
+		"       str = str.replaceAll(\"\\\\s*(\\\\[[/]?span\\\\s*\\\\])\\\\s*([.,;?!])\",\"$1$2\");\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--3:\" + str);\n}" +
 //        "System.out.println(\"after2:\" + str);\n" +
         "   }\n" +

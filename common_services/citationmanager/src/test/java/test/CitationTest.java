@@ -202,7 +202,7 @@ public class CitationTest {
     	        logger.info(format + " length: " + result.length);
     	        logger.info(format + " is OK");
     	        
-//    	        TestHelper.writeToFile(cs + "." + format, result);
+    	        TestHelper.writeToFile(cs + "." + format, result);
     			
     		}
     		

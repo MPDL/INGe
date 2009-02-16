@@ -62,8 +62,8 @@ public class FontStyle implements Cloneable{
     private String cssClass;		//Alternative class name for css
     private boolean isPdfEmbedded;  
     
-    public static final String CSS_CLASS_REPORT_TAG = "\"&lt;span class=\\\"%s\\\"&gt;\"+%s+\"&lt;/span&gt;\"";
-    public static final String CSS_CLASS_REGEXP = "&lt;span class=&quot;(\\w+?)&quot;&gt;(.*?)&lt;/span&gt;";
+    public static final String CSS_CLASS_REPORT_TAG = "\"[span class=\\\"%s\\\"]\"+%s+\"[/span]\"";
+    public static final String CSS_CLASS_REGEXP = "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
     public static final String CSS_CLASS_SUBST = "<span class=\"$1\">$2</span>";
     
     /**

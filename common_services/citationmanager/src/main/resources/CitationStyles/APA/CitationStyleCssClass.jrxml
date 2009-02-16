@@ -189,7 +189,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_13" class="java.lang.String">
-		<variableExpression><![CDATA[$V{date}!=null ? "&lt;span class=\"DisplayDateStatus\"&gt;"+((!$V{date}.equals("Submitted for publication")) ? ((!($V{date}).trim().equals("") ? " (" + $V{date} + "). " : "")) : "")+"&lt;/span&gt;" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{date}!=null ? "[span class=\"DisplayDateStatus\"]"+((!$V{date}.equals("Submitted for publication")) ? ((!($V{date}).trim().equals("") ? " (" + $V{date} + "). " : "")) : "")+"[/span]" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_17_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_13}!=null ? (!($V{CS_1_PLE_13}).trim().equals("") ? $V{CS_1_PLE_13} : "") : ""]]></variableExpression>
@@ -633,7 +633,7 @@
 		<variableExpression><![CDATA[($P{REPORT_SCRIPTLET}.get_month_name($F{publication/issued}))!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/issued}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.get_month_name(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/issued})))) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_19" class="java.lang.String">
-		<variableExpression><![CDATA["&lt;span class=\"DisplayDateStatus\"&gt;"+(($F{publication/issued}!=null) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_19_P_default_E_1},$V{CS_1_PLE_19_P_default_E_2}}, ", ")).trim().equals("") ? " (" + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_19_P_default_E_1},$V{CS_1_PLE_19_P_default_E_2}}, ", ") + "). " : "")) : "")+"&lt;/span&gt;"]]></variableExpression>
+		<variableExpression><![CDATA["[span class=\"DisplayDateStatus\"]"+(($F{publication/issued}!=null) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_19_P_default_E_1},$V{CS_1_PLE_19_P_default_E_2}}, ", ")).trim().equals("") ? " (" + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_19_P_default_E_1},$V{CS_1_PLE_19_P_default_E_2}}, ", ") + "). " : "")) : "")+"[/span]"]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_20_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_19}!=null ? (!($V{CS_1_PLE_19}).trim().equals("") ? $V{CS_1_PLE_19} : "") : ""]]></variableExpression>
