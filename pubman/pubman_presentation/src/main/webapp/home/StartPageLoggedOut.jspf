@@ -49,7 +49,7 @@
 		</span>
 		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</p>
-	<br/>
+	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
 	<br/><br/>
 	<h2>
@@ -86,7 +86,7 @@
 		</span>
 		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
-	<br/>
+	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder gehen Sie zur Organisationssuche</a>
 	<br/><br/>
 	<h2>
@@ -123,7 +123,7 @@
 		</span>
 		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
-	<br/>
+	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>
 	<br/><br/>
 	<h2>
