@@ -154,6 +154,10 @@
 	margin-right: 0.82em !important;
 }
 
+.fullItem .citationBlock {
+	margin-bottom: 0.46em;
+}
+
 .fullItem .lineToolSection, .fullItem .sectionToolSection {
 	padding-top: 0px;
 	padding-bottom: 0px;
