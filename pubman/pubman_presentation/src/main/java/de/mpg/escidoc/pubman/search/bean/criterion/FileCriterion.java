@@ -73,15 +73,13 @@ public class FileCriterion extends Criterion
           if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_NO_COMPONENTS.toString()))
           {
               MetadataSearchCriterion criterion = 
-              new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY,
-                      "valid", MetadataSearchCriterion.LogicalOperator.NOT);
+              new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.NOT);
               criterions.add(criterion);
           }
           else if(this.componentAvailability.equals(InternationalizationHelper.SelectComponentAvailability.SELECT_HAS_COMPONENTS.toString()))
           {
               MetadataSearchCriterion criterion = 
-                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY,
-                          "valid", MetadataSearchCriterion.LogicalOperator.AND);
+                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_ACCESSABILITY, MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
           }
       }
