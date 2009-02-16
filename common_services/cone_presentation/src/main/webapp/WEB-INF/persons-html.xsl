@@ -64,7 +64,7 @@
 							for(var i=0; itemList.getElementsByTagName('escidocItem:item').length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
 								element = '';
-								element = '<span class="xHuge_area0 xTiny_marginLExcl endline">' + $(allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0]).text() + '</span>';
+								element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0]).text() + '</span>';
 							
 								itemURL = '';
 								itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
