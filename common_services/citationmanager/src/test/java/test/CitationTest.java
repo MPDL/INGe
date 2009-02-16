@@ -35,6 +35,7 @@ public class CitationTest {
 	private XmlHelper xh = new XmlHelper();
 	
 	private final String dsFileName = "APA_revised_item-list.xml";  
+//	private final String dsFileName = "APA_output-long.xml";  
 //	private final String dsFileName = "bad_snippet.xml";  
 	
 	private String itemList;

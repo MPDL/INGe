@@ -34,8 +34,10 @@ public String cleanCit(String str) {
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
        str = str.replaceAll("(([.,;?!])+\\s*<[/]?style[^>]*?>)\\s*\\2+","$1");
        str = str.replaceAll("\\s+(<[/]?style[^>]*?>)?\\s+","$1 ");
+       str = str.replaceAll("\\s*(<[/]?style[^>]*?>)\\s*([.,;?!])","$1$2");
        str = str.replaceAll("(([.,;?!])+\\s*&lt;[/]?span\\s*&gt;)\\s*\\2+","$1");
        str = str.replaceAll("\\s+(&lt;[/]?span\\s*&gt;)\\s+","$1 ");
+       str = str.replaceAll("\\s*(&lt;[/]?span\\s*&gt;)\\s*([.,;?!])","$1$2");
    }
    return Utils.checkVal(str) ? str: null;
 }

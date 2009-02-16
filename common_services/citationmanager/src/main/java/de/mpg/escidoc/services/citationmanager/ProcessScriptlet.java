@@ -161,10 +161,13 @@ public class ProcessScriptlet {
         // remove hanging punctuations round the style 
 		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*<[/]?style[^>]*?>)\\\\s*\\\\2+\",\"$1\");\n" +
 		"       str = str.replaceAll(\"\\\\s+(<[/]?style[^>]*?>)?\\\\s+\",\"$1 \");\n" +
+		"       str = str.replaceAll(\"\\\\s*(<[/]?style[^>]*?>)\\\\s*([.,;?!])\",\"$1$2\");\n" +
 		// snippet clean up
 		"       str = str.replaceAll(\"(([.,;?!])+\\\\s*&lt;[/]?span\\\\s*&gt;)\\\\s*\\\\2+\",\"$1\");\n" +
 		"       str = str.replaceAll(\"\\\\s+(&lt;[/]?span\\\\s*&gt;)\\\\s+\",\"$1 \");\n" +
+		"       str = str.replaceAll(\"\\\\s*(&lt;[/]?span\\\\s*&gt;)\\\\s*([.,;?!])\",\"$1$2\");\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--3:\" + str);\n}" +
+//        "System.out.println(\"after2:\" + str);\n" +
         "   }\n" +
         "   return Utils.checkVal(str) ? str: null;\n" +
         "}\n";

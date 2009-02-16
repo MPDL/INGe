@@ -153,9 +153,10 @@ public class ResourceUtil
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
         String result = "";
+        
         while ((line = br.readLine()) != null)
         {
-            result += line + "\n";
+        	result += line + "\n";
         }
         return result;
     }

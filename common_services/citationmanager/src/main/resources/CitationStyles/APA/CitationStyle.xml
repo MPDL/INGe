@@ -17,7 +17,12 @@
 		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
 		Use is subject to license terms.
 	-->
-<citation-style name="APA" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" md-xpath="//item/md-records/md-record">
+<citation-style name="APA" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" 
+	md-xpath="//item/md-records/md-record"
+>
+<!--<citation-style name="APA" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" -->
+<!--	md-xpath="//item[@objid='escidoc:37178']/md-records/md-record"-->
+<!-->-->
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<!-- variables which use xpath directly in DataSource NS--> 
