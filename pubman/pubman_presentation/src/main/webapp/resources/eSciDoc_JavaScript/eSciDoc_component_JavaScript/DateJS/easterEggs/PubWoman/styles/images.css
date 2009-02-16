@@ -116,6 +116,26 @@
 		background-position: right;
 	}
 
+/*START PAGE*/
+
+	.myItemsIcon {
+		background-image: url('../images/PM_Startpage_MyItems.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.qaWSIcon {
+		background-image: url('../images/PM_Startpage_QA.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.submIcon {
+		background-image: url('../images/PM_Startpage_Submission.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
 /*EXTENDED PAGINATOR*/
 
 	/*RANGE SELECTOR*/

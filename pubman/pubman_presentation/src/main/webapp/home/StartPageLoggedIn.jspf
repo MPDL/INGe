@@ -37,8 +37,7 @@
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && HomePage.depositor}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<h2>Submission</h2>      	
@@ -62,8 +61,7 @@
 
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='en'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
@@ -78,8 +76,7 @@
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='en'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
@@ -115,8 +112,7 @@
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && HomePage.depositor}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<h2>Dateneingabe</h2>      	
@@ -139,8 +135,7 @@
 	</h:panelGroup>
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='de'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
@@ -155,8 +150,7 @@
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='de'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
@@ -192,8 +186,7 @@
 	</h:panelGroup>
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && HomePage.depositor}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_Submission.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<h2>新規登録</h2>      	
@@ -217,8 +210,7 @@
 
 	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='ja'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_MyItems.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
@@ -233,8 +225,7 @@
 
 	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='ja'}">
 	<span class="small_area0">
-		<br/><br/>
-		<img src="./images/PM_Startpage_QA.gif" class="xSmall"/>
+		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
 	<span class="xDouble_area0"> 
 	<br/>
