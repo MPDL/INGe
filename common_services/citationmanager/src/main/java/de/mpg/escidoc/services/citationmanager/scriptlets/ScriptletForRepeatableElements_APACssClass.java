@@ -28,7 +28,13 @@ public String cleanCit(String str) {
 		str = Pattern.compile("[\n\r\t]+", Pattern.DOTALL).matcher(str).replaceAll(" ");
        str = str.replaceAll("<style[^>]*?>\\s*<[/]style[^>]*?>","");
        str = str.replaceAll("\\[span.*?\\]\\s*\\[/span\\]","");
-       str = str.replaceAll("(\\s*([.,:?!])+)+","$2");
+       str = str.replaceAll("(\\s*[.]+)+",".");
+       str = str.replaceAll("(\\s*[,]+)+",",");
+       str = str.replaceAll("(\\s*[:]+)+",":");
+       str = str.replaceAll("(\\s*[?]+)+","?");
+       str = str.replaceAll("(\\s*[!]+)+","!");
+       str = str.replaceAll("(\\s*[;]+)+",";");
+       str = str.replaceAll("[?]\\s*[.]","?");
        str = str.replaceAll("([({<\\[])\\s+(.*)","$1$2");
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
        str = str.replaceAll("(([.,;?!])+\\s*<[/]?style[^>]*?>)\\s*\\2+","$1");

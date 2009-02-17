@@ -144,10 +144,19 @@ public class ProcessScriptlet {
         // remove empty snippet tags:
 //        "System.out.println(\"--1:\" + str);\n" +
 		"       str = str.replaceAll(\"\\\\[span.*?\\\\]\\\\s*\\\\[/span\\\\]\",\"\");\n" +
-		// replace all duplicated punctuations with the only one (";" are excluded due to xml entities)
+		// replace all duplicated punctuations with the only one
 //        "System.out.println(\"--2:\" + str);\n" +
 //		"       str = str.replaceAll(\"(([.,:;?!])+\\\\s*\\\\2)+\",\"$2\");\n" +
-		"       str = str.replaceAll(\"(\\\\s*([.,:?!])+)+\",\"$2\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[.]+)+\",\".\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[,]+)+\",\",\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[:]+)+\",\":\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[?]+)+\",\"?\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[!]+)+\",\"!\");\n" +
+		"       str = str.replaceAll(\"(\\\\s*[;]+)+\",\";\");\n" +
+		// punctuation combinations: 
+		// ?. => ?
+		"       str = str.replaceAll(\"[?]\\\\s*[.]\",\"?\");\n" +
+		
 		
 		// remove all \s before punctuations (";" are excluded due to xml entities)
 //        "System.out.println(\"--3:\" + str);\n" +

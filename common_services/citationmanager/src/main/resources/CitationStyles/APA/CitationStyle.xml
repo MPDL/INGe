@@ -599,7 +599,6 @@
 				</elements>
 			</layout-element>
 			
-			
 			<layout-element ref="published-online-and-external-locator"/>
 			
 			<layout-element ref="submitted"/>
