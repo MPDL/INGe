@@ -258,7 +258,6 @@
 		<layout-element name="source-editors">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})>0]]></valid-if>
-				<starts-with value=" In "/>
 				<delimiter value="" />
 			</parameters>
 			<elements>
@@ -346,17 +345,31 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="year-and-month-name">
+		<layout-element name="year-and-month-name-issued">
 			<parameters>
 				<valid-if><![CDATA[${publication/issued}!=null]]></valid-if>
-				<font-style ref="DISPLAY_DATE_STATUS"/>
-				<starts-with value=" (" />
-				<ends-with value="). " />
 				<delimiter value=", "/>
 			</parameters>
 			<elements >
 				<layout-element ref="publication/issued" func="get_year"/>
 				<layout-element ref="publication/issued" func="get_month_name"/>
+			</elements>
+		</layout-element>
+
+		<layout-element name="year-and-month-name">
+			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+				<starts-with value=" (" />
+				<ends-with value="). " />
+			</parameters>
+			<elements >
+				<layout-element ref="year-and-month-name-issued" />
+				<layout-element ref="date" >
+					<parameters>
+						<valid-if><![CDATA[${publication/issued}==null]]></valid-if>
+					</parameters>
+					<elements/>
+				</layout-element>
 			</elements>
 		</layout-element>
 
@@ -404,14 +417,14 @@
 		
 		<layout-element name="title-with-dot" ref="publication/title">
 			<parameters>
+				<starts-with value=" " />
 				<ends-with value=". " />
 			</parameters>
 			<elements />
 		</layout-element>
 
-		<layout-element name="title-with-dot-italic" ref="publication/title">
+		<layout-element name="title-with-dot-italic" ref="title-with-dot">
 			<parameters>
-				<ends-with value=". " />
 				<font-style ref="ITALIC"/>
 			</parameters>
 			<elements />
@@ -481,8 +494,8 @@
 				<delimiter value=": " />
 			</parameters>
 			<elements>
-				<layout-element ref="publication/publishing-info/place" />
-				<layout-element ref="publication/publishing-info/publisher" />
+				<layout-element ref="publication/source/publishing-info/place" />
+				<layout-element ref="publication/source/publishing-info/publisher" />
 			</elements>
 		</layout-element>
 
@@ -686,11 +699,16 @@
 			
 			<layout-element>
 				<parameters>
-					<starts-with value="In "/>
+					<starts-with value=" In "/>
 					<ends-with value="."/>
 				</parameters>
 				<elements>
-					<layout-element ref="editors"/>
+					<layout-element ref="source-editors">
+						<parameters>
+							<ends-with value=", "/>
+						</parameters>
+						<elements/>
+					</layout-element>
 					<layout-element name="book-title">
 						<parameters>
 							<font-style ref="ITALIC"/>
@@ -701,7 +719,7 @@
 					</layout-element>
 					<layout-element>
 						<parameters>
-							<starts-with value=" ("/>
+							<starts-with value=" (pp. "/>
 							<ends-with value=")"/>
 						</parameters>
 						<elements>
@@ -779,6 +797,7 @@
 			
 			<layout-element ref="source-editors">
 				<parameters>
+					<starts-with value=" In "/>
 					<ends-with value=","/>
 				</parameters>
 				<elements/>
@@ -890,7 +909,7 @@
 		<parameters>
 			<valid-if><![CDATA[${genre}.equals("manuscript")]]></valid-if>
 			<delimiter value="" />
-			<ends-with value=" Unpublished Manuscript." />
+			<ends-with value=". Unpublished Manuscript." />
 		</parameters>
 		<elements>
 			<layout-element ref="debugBlock" />
@@ -956,7 +975,7 @@
 	
 	</cs-layout-definition>
 	
-	<!-- TALK-AT-EVENT, POSTER, PAPER -->
+	<!-- TALK-AT-EVENT, PAPER -->
 	<cs-layout-definition name="talk-at-event-or-or-paper">
 		<parameters>
 			<valid-if><![CDATA[
@@ -1024,7 +1043,7 @@
 			<layout-element name="event-title-and-place">
 				<parameters>
 					<valid-if><![CDATA[${publication/event/title}!=null]]></valid-if>
-					<starts-with value="Poster presented at "/>
+					<starts-with value=" Poster presented at "/>
 					<delimiter value=", "/>
 				</parameters>
 				<elements>

@@ -34,7 +34,6 @@ public String cleanCit(String str) {
        str = str.replaceAll("(\\s*[?]+)+","?");
        str = str.replaceAll("(\\s*[!]+)+","!");
        str = str.replaceAll("(\\s*[;]+)+",";");
-       str = str.replaceAll("[?]\\s*[.]","?");
        str = str.replaceAll("([({<\\[])\\s+(.*)","$1$2");
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
        str = str.replaceAll("(([.,;?!])+\\s*<[/]?style[^>]*?>)\\s*\\2+","$1");

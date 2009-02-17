@@ -155,7 +155,7 @@ public class ProcessScriptlet {
 		"       str = str.replaceAll(\"(\\\\s*[;]+)+\",\";\");\n" +
 		// punctuation combinations: 
 		// ?. => ?
-		"       str = str.replaceAll(\"[?]\\\\s*[.]\",\"?\");\n" +
+//		"       str = str.replaceAll(\"[?]\\\\s*[.]\",\"?\");\n" +
 		
 		
 		// remove all \s before punctuations (";" are excluded due to xml entities)
