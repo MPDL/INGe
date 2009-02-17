@@ -156,7 +156,8 @@
 									<span class="noDisplay"></span>
 								</b>
 								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}">
+									<span class="free_area0 endline itemLine noTopBorder">
+									<h:panelGroup styleClass="free_area0" rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' && genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}">
 										<span class="double_area0 xTiny_marginRIncl">
 											<h:panelGroup styleClass="double_area0">
 												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_family_name_optional != 'true'}" />
@@ -165,7 +166,7 @@
 											<h:inputText styleClass="double_txtInput personSuggest familyName" value="#{creatorBean.creator.person.familyName}"/>
 										</span>
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}">
+									<h:panelGroup styleClass="free_area0" rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}">
 										<span class="double_area0">
 											<h:panelGroup styleClass="double_area0">
 												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
@@ -174,6 +175,7 @@
 											<h:inputText styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}"/>
 										</span>
 									</h:panelGroup>
+									</span>
 									<h:inputText styleClass="noDisplay personIdentifier" value="#{creatorBean.identifierValue}"/>
 								</span>
 							</h:panelGroup>
