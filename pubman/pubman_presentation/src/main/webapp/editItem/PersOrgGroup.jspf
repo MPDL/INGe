@@ -254,8 +254,8 @@
 								<tr:commandButton text=" " shortDesc="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 							</h:panelGroup>
 						</h:panelGroup>
-					</h:column>
-				</div>
+					</div>
+				</h:column>
 			</h:dataTable>
 			<a class="free_area0 collapse">
 				<h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " />
