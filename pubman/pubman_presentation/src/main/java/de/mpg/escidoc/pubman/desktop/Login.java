@@ -250,6 +250,7 @@ public class Login extends FacesBean
         String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
         if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
         
+        //Use double URL encoding here because the login mechanism gives back the decoded URL parameters.
         String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage(), "UTF-8"),"UTF-8");
         return url;
     }
