@@ -57,6 +57,27 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.overlayDev {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_dev.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.overlayTest {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_test.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.overlayQA {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_qa.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
 
 	/*SEARCH MENU*/
 	
