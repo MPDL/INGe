@@ -67,28 +67,35 @@
 							
 							for(var i=0; itemList.getElementsByTagName('escidocItem:item').length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
-								itemURL = '';
-								itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
-							
-								element = '';
-								element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0]).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
+							var citation = allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0];
 								
-								//publicationTitle = '';
-								//publicationTitle = $.trim($(allItems[i].getElementsByTagName('dc:title')[0]).text());
-								//var elementParts = element.split(publicationTitle);
-								//if(elementParts.length == 2){
-								//	element = elementParts[0] + '<a href="' + itemURL + '" target="_blank" >' + publicationTitle + '</a>' + elementParts[1];
-								//}
+								if (typeof citation!= 'undefined')
+								{
+									itemURL = '';
+									itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
 								
-								$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
-								$('.publicationsArea').append(element);
-								
-								//if ($('.publicationsArea:last-child').find('span.Italic').length == 1) {
-								//	$('.publicationsArea:last-child').find('span.Italic').replaceWith("<i>" + $('.publicationsArea:last-child').find('span.Italic').text() + "</i>");
-								//};
-								$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
-									$(elem).replaceWith($(elem).html());
-								});
+									element = '';
+									
+									
+									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
+									
+									//publicationTitle = '';
+									//publicationTitle = $.trim($(allItems[i].getElementsByTagName('dc:title')[0]).text());
+									//var elementParts = element.split(publicationTitle);
+									//if(elementParts.length == 2){
+									//	element = elementParts[0] + '<a href="' + itemURL + '" target="_blank" >' + publicationTitle + '</a>' + elementParts[1];
+									//}
+									
+									$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
+									$('.publicationsArea').append(element);
+									
+									//if ($('.publicationsArea:last-child').find('span.Italic').length == 1) {
+									//	$('.publicationsArea:last-child').find('span.Italic').replaceWith("<i>" + $('.publicationsArea:last-child').find('span.Italic').text() + "</i>");
+									//};
+									$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
+										$(elem).replaceWith($(elem).html());
+									});
+								}
 							}
 							
 						});

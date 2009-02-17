@@ -91,7 +91,7 @@
 	                out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" size=\"50\"/>");
 	                if (predicate.isLocalized())
 	                {
-	                    out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"/>");
+	                    out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
 	                }
 	                out.append("<input type=\"button\" value=\"delete\" onclick=\"remove(this)\"/>");
 	                
@@ -406,8 +406,22 @@
 				element.form.submit();
 				
 			}
-		
+
+			function bindSuggest(element, model)
+			{
+				$('.' + element).suggest("/cone/jquery/" + model + "/query", {onSelect: fillId});
+			};
+
+			function fillId()
+			{
+				alert(this.resultID);
+			}
+			
 		</script>
+		<script type="text/javascript" src="/cone/js/jquery-1.2.6.min.js">;</script>
+		<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
+		<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
+		<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
 	</head>
 	<body>
 		<h2>CoNE - Edit Entry</h2>
@@ -462,7 +476,6 @@
 			{
 			    out.append(uri);
 			}
-			
 			%>
 
 			<% if (model != null) { %>
