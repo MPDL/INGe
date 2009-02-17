@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -37,7 +37,8 @@
 			<h:outputText value="#{lbl.ViewItemMedium_lblPublishingInfo}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.publishingInfo}"/>
+			<h:outputText value="#{item.publishingInfo}" />
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfo==null || item.publishingInfo==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -46,6 +47,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.eventTitle}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.eventTitle==null || item.eventTitle==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -54,6 +56,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.sourceGenre}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceGenre==null || item.sourceGenre==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -62,6 +65,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.sourceTitle}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceTitle==null || item.sourceTitle==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -73,6 +77,7 @@
 			<h:outputText value=" (" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
 			<h:outputText value="#{item.firstSource.issue}"/>
 			<h:outputText value=")" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource==null || (item.firstSource.volume==null and item.firstSource.issue==null) || (item.firstSource.volume=='' and item.firstSource.issue=='')}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -81,6 +86,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.startEndPageSource}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.startEndPageSource==null || item.startEndPageSource==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -89,6 +95,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.firstSource.sequenceNumber}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource.sequenceNumber==null || item.firstSource.sequenceNumber==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
@@ -97,6 +104,7 @@
 		</span>
 		<span class="xHuge_area0 endline">
 			<h:outputText value="#{item.publishingInfoSource}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfoSource==null || item.publishingInfoSource==''}"/>
 		</span>
 	</div>
 	<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{item.furtherSources > 0}">
