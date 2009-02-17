@@ -283,21 +283,22 @@ public class UnapiServlet extends HttpServlet implements Unapi
     public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
             SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException
     {
+        String trimmedId ="";
         this.filename = identifier;
-        String[] tmp = identifier.split(":");
+        String[] tmp = identifier.split(":", 2);
         String sourceId = tmp[0];
-        String id = tmp[1];
+        String fullId = tmp[1];
+
         String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
-        String idType = this.checkIdentifier(identifier, format);
-        Util util = new Util();
+        String idType = this.checkIdentifier(trimmedId, format);
         
         try
         {
             if (idType.equals(this.idTypeUri))
             {
-                if (sourceName != null)
+                if (sourceId != null)
                 {
-                    return this.dataHandler.doFetch(sourceName, id, format);
+                    return this.dataHandler.doFetch(sourceName, fullId, format);
                 }
             }
             if (idType.equals(this.idTypeUrl))
@@ -306,12 +307,12 @@ public class UnapiServlet extends HttpServlet implements Unapi
             }
             if (idType.equals(this.idTypeEscidoc))
             {
-                id = util.setEsciDocIdentifier(identifier);
-                sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
-                this.filename = id;
-                return this.dataHandler.doFetch(sourceName, id, format);
+                //id = util.setEsciDocIdentifier(identifier);
+                //sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
+                this.filename = trimmedId;
+                return this.dataHandler.doFetch(sourceName, trimmedId, format);
             }
-            if (idType.equals(this.idTypeUnknown) || sourceName == null)
+            if (idType.equals(this.idTypeUnknown) || sourceId == null)
             {
                 this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
                 throw new IdentifierNotRecognisedException();
@@ -351,7 +352,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
     private String checkIdentifier(String identifier, String format)
     {
         identifier = identifier.toLowerCase().trim();
-        if (identifier.contains("escidoc:") || identifier.contains("escidoctoc:"))
+        if (identifier.contains("escidoc:") || identifier.contains("escidoctoc:") || identifier.contains("escidocdev:")
+                || identifier.contains("escidocqa:") || identifier.contains("escidoctest:") || identifier.contains("escidocprod:"))
         {
             return this.idTypeEscidoc;
         }

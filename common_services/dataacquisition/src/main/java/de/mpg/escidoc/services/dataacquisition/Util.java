@@ -539,13 +539,17 @@ public class Util
     }
     
     /**
-     * EsciDoc Identifier can consist of the citation URL, like.
+     * EsciDoc Identifier can consist of the citation URL, like:
      * http://pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. This method extracts the identifier from the URL
      * @param identifier
      */
     public String setEsciDocIdentifier(String identifier)
     {
-        String[] extracts = identifier.split("/");
-        return extracts[extracts.length - 1];
+        if (identifier.contains("/"))
+        {
+            String[] extracts = identifier.split("/");
+            return extracts[extracts.length - 1];
+        }
+        else return "escidoc:" + identifier;
     }
 }

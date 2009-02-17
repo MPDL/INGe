@@ -161,7 +161,7 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://dev-pubman:8080/pubman/item/escidoc:GETID</item-url>
-		<source-identifier>escidocqa</source-identifier>
+		<source-identifier>escidocdev</source-identifier>
 		<source-identifier-example>escidocqa:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
 		<retry-after>0</retry-after>
