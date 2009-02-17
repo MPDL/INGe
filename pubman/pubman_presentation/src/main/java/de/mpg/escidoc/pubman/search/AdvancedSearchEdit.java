@@ -178,18 +178,13 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionList.addAll( fileCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
     	
-    	 //start the advanced search in the PubItemSearching interface
-        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
-    	
     	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
     	
     	if( criterionList.size() == 0 ) {
     		error(getMessage("search_NoCriteria"));
     		return "";
     	}
-    	
-    	
-    	
+    	   	
     	// transform the criteria to searchCriteria
     	try {
     	    
