@@ -71,7 +71,11 @@
 				? 
 				"in preparation" 
 				:
+				!(${publication/@type}.equals("journal") || ${publication/@type}.equals("series"))
+				? 
 				"n.d."
+				:
+				null
 			]]>
 		</variable>
 

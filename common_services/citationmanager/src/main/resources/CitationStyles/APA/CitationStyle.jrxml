@@ -156,7 +156,11 @@
 				? 
 				"in preparation" 
 				:
-				"n.d."]]></variableExpression>
+				!($F{publication/@type}.equals("journal") || $F{publication/@type}.equals("series"))
+				? 
+				"n.d."
+				:
+				null]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{../../@objid}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid})) : "") : ""]]></variableExpression>
