@@ -94,6 +94,7 @@
 	</h:panelGroup>
 	<h:dataTable styleClass="free_area0"  var="creatorBean" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}">
     	<h:column>
+		<div class="suggestAnchor">
 <%-- Creator role --%>
 		<h:panelGroup rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EasySubmission.creatorCollection.creatorManager.objectDM.rowIndex == 0}">
@@ -231,6 +232,7 @@
 					<tr:commandButton text=" " styleClass="min_imgBtn sectionTool add" action="#{EasySubmission.creatorCollection.creatorManager.addObject}" rendered="#{genre.creator_person_organization_repeatable != 'false'}"/>
 				</h:panelGroup>
 			</h:panelGroup>
+			</div>
         </h:column>
 		</h:dataTable>	
 	</div>

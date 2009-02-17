@@ -89,7 +89,7 @@
 				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/details?id=';
 				personDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
-				personSuggestCommonParentClass = 'itemBlock';
+				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
 			</script>
 			</body>
