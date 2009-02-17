@@ -89,9 +89,11 @@
 									$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
 									$('.publicationsArea').append(element);
 									
-									//if ($('.publicationsArea:last-child').find('span.Italic').length == 1) {
-									//	$('.publicationsArea:last-child').find('span.Italic').replaceWith("<i>" + $('.publicationsArea:last-child').find('span.Italic').text() + "</i>");
-									//};
+									var italics = $('.publicationsArea:last-child').find('span.Italic');
+									
+									if (italics.length != 0) {
+										italics.replaceWith("<i>" + italics.html() + "</i>");
+									};
 									$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
 										$(elem).replaceWith($(elem).html());
 									});
@@ -360,7 +362,7 @@
 	<xsl:variable name="labels">
 		<language id="en" label="English">
 			<label id="researcher_portfolio">Researcher Portfolio</label>
-			<label id="provided_by_cone">This Researcher Portfolio is provided by the eSciDoc CONE service.</label>
+			<label id="provided_by_cone">This Researcher Portfolio is provided by the eSciDoc CoNE service.</label>
 			<label id="language_not_provided">The selected language is not supported by this service.</label>
 			<label id="researcher_profile">Researcher Profile</label>
 			<label id="current_position">Current Position</label>
@@ -377,7 +379,7 @@
 		</language>
 		<language id="de" label="Deutsch">
 			<label id="researcher_portfolio">Forscher Portfolio</label>
-			<label id="provided_by_cone">Diese Forscher Portfolio wird von der eSciDoc CONE Service bereitgestellt</label>
+			<label id="provided_by_cone">Diese Forscher Portfolio wird von der eSciDoc CoNE Service bereitgestellt</label>
 			<label id="language_not_provided">Die gewählte Sprache wird von diesem Service nicht unterstützt.</label>
 			<label id="researcher_profile">Forscherprofil</label>
 			<label id="current_position">Aktuelle Position</label>

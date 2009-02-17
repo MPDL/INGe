@@ -88,10 +88,23 @@
 	                {
 	                    out.append("text");
 	                }
-	                out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" size=\"50\"/>");
+	                out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" size=\"50\"");
+					if (predicate.isResource())
+					{
+						out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
+					}
+					out.append("/>");
+					if (predicate.isResource())
+					{
+						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+					}
+
 	                if (predicate.isLocalized())
 	                {
 	                    out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
+						out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
+						out.append("/>");
+						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages')</script>");
 	                }
 	                out.append("<input type=\"button\" value=\"delete\" onclick=\"remove(this)\"/>");
 	                
@@ -114,7 +127,11 @@
                 }
                 else if (predicate.isResource())
                 {
-                    out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"/>");
+                    out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"");
+	                out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
+	                out.append("/>");
+	                out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+
                 }
                 else
                 {
@@ -123,7 +140,10 @@
 
 	            if (predicate.isLocalized())
 	            {
-	                out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"/>");
+	                out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
+					out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
+					out.append("/>");
+					out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages')</script>");
 	            }
 //	              if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 //                {
@@ -407,14 +427,26 @@
 				
 			}
 
-			function bindSuggest(element, model)
+			function bindSuggest(element, model, cutId)
 			{
-				$('.' + element).suggest("/cone/jquery/" + model + "/query", {onSelect: fillId});
+				if (typeof cutId != 'undefined' && cutId)
+				{
+					$('.' + element).suggest("/cone/jquery/" + model + "/query?lang=en", {onSelect: fillSmallId});
+				}
+				else
+				{
+					$('.' + element).suggest("/cone/jquery/" + model + "/query?lang=en", {onSelect: fillId});
+				}
 			};
 
+			function fillSmallId()
+			{
+				$(this).val(this.resultID.substring(this.resultID.indexOf(':') + 1));
+			}
+			
 			function fillId()
 			{
-				alert(this.resultID);
+				$(this).val(this.resultID);
 			}
 			
 		</script>
@@ -476,6 +508,7 @@
 			{
 			    out.append(uri);
 			}
+			
 			%>
 
 			<% if (model != null) { %>
