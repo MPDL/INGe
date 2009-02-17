@@ -394,7 +394,6 @@
 
 				</div>
 			</h:panelGroup>
-		</div>
 
 	<div class="free_area0 xTiny_marginLIncl"><h:outputText value="* #{msg.mandatoryField}" styleClass="mandatory"/></div>
 
@@ -402,7 +401,7 @@
 </div>
 <div class="full_area0 formButtonArea">	
 	<h:commandLink title="#{tip.easy_submission_btnBack}" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
-	<h:commandLink title="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 endline activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
 	<h:commandLink title="#{tip.easy_submission_btnAddDetails}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadPreview}"><h:outputText value="#{lbl.easy_submission_btnAddDetails}" /></h:commandLink>
 </div>
 
