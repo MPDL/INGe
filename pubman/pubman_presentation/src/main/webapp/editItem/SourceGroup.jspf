@@ -149,7 +149,7 @@
 						</h:panelGroup>
 		
 			<%-- Source creator person family name, Creator person given name --%>
-						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_person_organization_source_persons_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'all')}">
+						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType && !(genre.sources_source_person_organization_source_persons_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'full-submission' || genre.sources_source_person_organization_select_roles_creator_type_display == 'false' && genre.sources_source_person_organization_source_persons_form_id == 'all')}">				
 							<b class="xLarge_area0_p8 endline labelLine clear">
 								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 							</b>
