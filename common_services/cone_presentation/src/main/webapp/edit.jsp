@@ -104,7 +104,7 @@
 	                    out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
 						out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
 						out.append("/>");
-						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages')</script>");
+						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages', true)</script>");
 	                }
 	                out.append("<input type=\"button\" value=\"delete\" onclick=\"remove(this)\"/>");
 	                
@@ -143,7 +143,7 @@
 	                out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
 					out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
 					out.append("/>");
-					out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages')</script>");
+					out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages', true)</script>");
 	            }
 //	              if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 //                {
@@ -441,7 +441,7 @@
 
 			function fillSmallId()
 			{
-				$(this).val(this.resultID.substring(this.resultID.indexOf(':') + 1));
+				$(this).val(this.resultID.substring(this.resultID.lastIndexOf(':') + 1));
 			}
 			
 			function fillId()
@@ -454,6 +454,7 @@
 		<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 		<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
 		<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
+		<link type="text/css" rel="stylesheet" href="/cone/resources/eSciDoc_CSS_v2/main.css"/>
 	</head>
 	<body>
 		<h2>CoNE - Edit Entry</h2>

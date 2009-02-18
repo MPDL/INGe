@@ -21,6 +21,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -49,6 +50,8 @@ public class SQLQuerier implements Querier
     private static final String ESCIDOC_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
     private static final Logger logger = Logger.getLogger(SQLQuerier.class);
     private DataSource dataSource = null;
+    
+    private Stack<String> idStack = new Stack<String>();
 
     /**
      * Default constructor initializing the {@link DataSource}.
@@ -209,9 +212,11 @@ public class SQLQuerier implements Querier
             {
                 if (predicate.getId().equals(predicateValue))
                 {
-                    if (predicate.isResource())
+                    if (predicate.isResource() && !(idStack.contains(id)))
                     {
+                        idStack.push(id);
                         localizedTripleObject = details(predicate.getResourceModel(), object, language);
+                        idStack.pop();
                         localizedTripleObject.setLanguage(lang);
                     }
                     else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
@@ -244,7 +249,6 @@ public class SQLQuerier implements Querier
             }
         }
         connection.close();
-        logger.info("Result: " + resultMap);
         return resultMap;
     }
 
