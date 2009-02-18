@@ -81,7 +81,7 @@ function addFullItemFunctions() {
 	$('.showMultipleAuthors').click(function(){
 		$(this).parents('.itemBlock').find('.multipleAuthors').slideDown('normal');
 		$(this).parents('.itemBlock').find('.firstCreator').removeClass('noTopBorder');
-		$(this).parents('.itemBlock').find(':hidden').val('showPermanent');
+		$(this).parents('.itemBlock').find('.multipleAuthors').find(':hidden').val('showPermanent');
 		$(this).hide();
 	});
 	$('.multipleAuthors').hide();
