@@ -22,8 +22,8 @@ CDDL HEADER END
 
 
 Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
@@ -31,24 +31,30 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
-<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
+<tr:iterator value="#{ItemVersionListSessionBean.versionList}" var="versionEntry" varStatus="index">
 	<li class="full_area0 listItem">
-		<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
-			<span class="huge_area0_p8 endline labelLine">
-				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/><br class="noDisplay" /></b>
-				<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
-			</span>
-			<span class="xHuge_area0 endline">
-				<h:outputText value="#{eventEntry.formattedDate}"/>
-			</span>
-		</div>
-		<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
-			<span class="huge_area0_p8 endline labelLine">
-				<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>
-			</span>
-			<span class="xHuge_area0 endline">
-				<h:outputText value="#{eventEntry.formattedComment}" />
-			</span>
-		</div>
+
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
+		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index">
+
+			<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
+				<span class="huge_area0_p8 endline labelLine">
+					<br class="noDisplay" />
+					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
+				</span>
+				<span class="xHuge_area0 endline">
+					<h:outputText value="#{eventEntry.formattedDate}"/>
+				</span>
+			</div>
+	
+			<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
+				<span class="huge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>
+				</span>
+				<span class="xHuge_area0 endline">
+					<h:outputText value="#{eventEntry.formattedComment}" />
+				</span>
+			</div>
+		</tr:iterator>
 	</li>
 </tr:iterator>

@@ -138,6 +138,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             }
             else
             {
+                //the selected version status filter
                 Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
                 filter.getFilterList().add(0,f3);
                 
