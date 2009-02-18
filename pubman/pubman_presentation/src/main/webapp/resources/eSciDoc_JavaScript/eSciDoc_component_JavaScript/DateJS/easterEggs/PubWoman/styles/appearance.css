@@ -77,9 +77,13 @@
 */
 /*GENERAL*/
 	body {
-		background-color: #F3EDF4;
+		background-color: #8D3996;
 		color: #445140;
 		line-height: 160%;
+	}
+	
+	body .wrapper {
+		background-color: #F3EDF4;
 	}
 	
 	input, button, textarea, select {
@@ -101,7 +105,7 @@
 	}
 	
 	input[type="text"], textarea, select {
-		border: 1px solid #8D3996;
+		border: 1px solid #b3b7b2;
 	}
 	
 	a:hover, a:focus {

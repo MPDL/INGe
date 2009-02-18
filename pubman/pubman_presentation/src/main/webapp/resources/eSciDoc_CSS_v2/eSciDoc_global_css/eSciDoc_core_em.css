@@ -52,6 +52,8 @@
 		}
 		body .wrapper {
 			margin: 0 auto 0 auto;
+			width: 84.10em;
+			overflow: hidden;
 		}
 		.noDisplay {
 			display: none !important;
