@@ -51,9 +51,11 @@
 				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" />
 			</span>
 		</div>
-	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-		<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
-	</div>
+		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+			<span class="xHuge_area0 xLarge_marginLIncl endline">
+				<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
+			</span>
+		</div>	
 	</li>
 	<h:panelGroup rendered="#{ViewItemStatistics.filesAvailable}">
 		<li class="full_area0 listItem">
@@ -100,8 +102,10 @@
 						<h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" />
 					</span>
 				</div>
-				<div class="free_area0_p0 small_marginLIncl endline listItemLine">	
-					<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
+				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+					<span class="xHuge_area0 xLarge_marginLIncl endline">
+						<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
+					</span>
 				</div>	
 			</tr:iterator>	
 		</li>
