@@ -29,13 +29,6 @@
 */ 
 package de.mpg.escidoc.pubman.editItem;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,18 +36,12 @@ import java.net.URLConnection;
 import java.rmi.AccessException;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -71,38 +58,61 @@ public class LocatorUploadBean extends FacesBean
 {
     private static final long serialVersionUID = 1L;
     
-    private String[] fileTypes = new String[]{".pdf", ".rtf", ".doc", ".xml", ".jpg", ".bmp", ".png"};
-    private Logger logger = Logger.getLogger(LocatorUploadBean.class);
-    private String type;
-    private String name;
-    private String locator;
+    private Logger logger = Logger.getLogger(LocatorUploadBean.class);    
+    private String type;                                                // File MimeType
+    private String name;                                                // File Name
+    private String locator;                                             // File Location
+    private int size;                                                   // File Size
     public EditItem editItem = new EditItem();
-    String error = null;
+    String error = null;                                                // Error Message
 
     /**
-     * Check if a locator is a valid URL referring to a valid file type.
+     * Executes a HEAD request to the locator.
      * @param locator
-     * @return true if valid, else false
+     * @return true if locator is accessible
      */
     public boolean ckeckLocator(String locator)
     {
-        boolean check = false;
         this.locator = locator;
+        URLConnection conn = null;
+        byte[] input = null;
+        String mimeType = null;
+        String fileName = null;
+        URL locatorURL = null;
         
         try
         {
-            URL locatorURL = new URL(locator);
-            for (int i = 0; i< this.fileTypes.length; i++)
+            locatorURL = new URL(locator);         
+            conn = locatorURL.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
             {
-                String fileType = this.fileTypes[i];
-                if (locator.toLowerCase().endsWith(fileType))
-                {
-                    this.type = fileType;
-                    String[] splitArr = locator.split(new String("\u002F"));
-                    this.name = splitArr[splitArr.length-1];
-                    return true;
-                }
-            }
+             case 503:
+                 this.error = getMessage("errorLocatorServiceUnavailable");
+                 return false;
+             case 302:
+                 this.error = getMessage("errorLocatorServiceUnavailable");
+                 return false;
+             case 200:
+                 this.logger.info("Source responded with 200.");
+                 break;
+             case 403:
+                 this.error = getMessage("errorLocatorAccessDenied");
+                 this.logger.warn("Access to url " + locator + " is restricted.");
+                 return false;
+             default:
+                 this.error = getMessage("errorLocatorTechnicalException");
+                 this.logger.warn("An error occurred during importing from external system: "
+                                + responseCode + ": " + httpConn.getResponseMessage() + ".");
+                 return false;
+             }
+        }
+        catch (AccessException e)
+        {
+            this.logger.error("Access denied.", e);
+            this.error = getMessage("errorLocatorAccessDenied");
+            return false;
         }
         catch (MalformedURLException e)
         {
@@ -110,22 +120,45 @@ public class LocatorUploadBean extends FacesBean
             this.logger.warn("Invalid locator URL:" + locator, e);
             return false;
         }
-        
-        String types = "";
-        for (int i = 0; i< this.fileTypes.length; i++)
+        catch (Exception e)
         {
-            types += this.fileTypes[i] + " "; 
+            this.error = getMessage("errorLocatorTechnicalException");
+            return false;          
         }
-        this.error = getMessage("errorLocatorInvalidType").replace("$1", types);
-        return check;
+
+        //Get Content Type
+        mimeType = conn.getHeaderField("Content-Type");
+        if (mimeType != null)
+        {
+            this.setType(mimeType);
+        }
+        //Get File Name
+        fileName = conn.getHeaderField("file-name");
+        if (fileName != null)
+        {
+            this.setName(fileName);
+        }        
+        //Get File Length
+        try
+        {
+            this.setSize(Integer.parseInt(conn.getHeaderField("Content-Length")));
+        }
+        catch(NumberFormatException e)
+        {
+            input = this.fetchLocator(locatorURL);
+            if (input != null)
+            {
+                this.setSize(input.length);
+            }
+        }       
+        return true;
     }
     
     /**
-     * Fetch the file, the locator URL points to.
+     * Executes a GET request to the locator.
      * @param locator
-     * @throws IOException
      */
-    public void fetchLocator(URL locator) throws Exception
+    private byte[] fetchLocator(URL locator)
     {   
         byte[] input= null;
         URLConnection conn = null;
@@ -137,12 +170,6 @@ public class LocatorUploadBean extends FacesBean
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
-                case 503:
-                    this.error = getMessage("errorLocatorServiceUnavailable");
-                    break;
-                case 302:
-                    this.error = getMessage("errorLocatorServiceUnavailable");
-                    break;
                 case 200:
                     this.logger.info("Source responded with 200.");
                     
@@ -153,88 +180,36 @@ public class LocatorUploadBean extends FacesBean
                     input = method.getResponseBody();
                     httpConn.disconnect();
                     break;
-                case 403:
-                    this.error = getMessage("errorLocatorAccessDenied");
-                    throw new AccessException("Access to url " + locator + " is restricted.");
-                default:
-                    this.error = getMessage("errorLocatorTechnicalException");
-                    throw new RuntimeException("An error occurred during importing from external system: "
-                            + responseCode + ": " + httpConn.getResponseMessage() + ".");
             }
-        }
-        catch (AccessException e)
-        {
-            this.logger.error("Access denied.", e);
-            this.error = getMessage("errorLocatorAccessDenied");
-            throw new AccessException(locator.toString());
         }
         catch (Exception e)
         {
             this.error = getMessage("errorLocatorTechnicalException");
-            throw new RuntimeException(e);           
+            return null;           
         }
         
-        this.locatorUploaded(input);
+        return input;
     }
     
     /**
-     * Uploads a file to the staging servlet and returns the corresponding URL.
-     * 
-     * @param Inputstream The file to upload
-     * @param mimetype The mimetype of the file
-     * @param userHandle The userhandle to use for upload
-     * @return The URL of the uploaded file.
-     * @throws Exception If anything goes wrong...
+     * Populates the FileVO.
      */
-    private URL uploadLocator(InputStream inputStr, String mimetype, String userHandle) throws Exception
+    public void locatorUploaded()
     {
-        // Prepare the HttpMethod.
-        String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-        method.setRequestEntity(new InputStreamRequestEntity(inputStr));
-        method.setRequestHeader("Content-Type", mimetype);
-        method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-        // Execute the method with HttpClient.
-        HttpClient client = new HttpClient();
-        client.executeMethod(method);
-        String response = method.getResponseBodyAsString();
-        InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
-        return ctransforming.transformUploadResponseToFileURL(response);        
-    }
-    
-    /**
-     * Converts a inputStream into a FileVO and updates the context.
-     * @param input
-     */
-    //private void locatorUploaded(InputStream input)
-    private void locatorUploaded(byte[] input)
-    {
-      
-      LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
-        
-      String contentURL;
-      if (input != null )
-      {
         try
         {
-            ByteArrayInputStream inStream = new ByteArrayInputStream(input);
-            contentURL = uploadLocator(inStream, this.getMimetype(this.type), loginHelper.getESciDocUserHandle()).toString();
-            if(contentURL != null && !contentURL.trim().equals(""))
-            {    
                 FileVO fileVO = new FileVO();
                 fileVO.getMetadataSets().add(new MdsFileVO());
-                fileVO.getDefaultMetadata().setSize(input.length);
+                fileVO.getDefaultMetadata().setSize(this.getSize());
                 fileVO.setName(this.name);
                 fileVO.getDefaultMetadata().setTitle(new TextVO(this.name));
-                fileVO.setMimeType(this.getMimetype(this.type));
+                fileVO.setMimeType(this.getType());
 
                 FormatVO formatVO = new FormatVO();
                 formatVO.setType("dcterms:IMT");
-                formatVO.setValue(this.getMimetype(this.type));
+                formatVO.setValue(this.getType());
                 fileVO.getDefaultMetadata().getFormats().add(formatVO);
-                fileVO.setContent(contentURL);
+                fileVO.setContent(this.getLocator());
                 fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                 
                 //The initinally created empty file has to be deleted
@@ -248,20 +223,12 @@ public class LocatorUploadBean extends FacesBean
                 this.editItem.getEditItemSessionBean().setFiles(list);
 
                 this.removeLocator();
-            }
         }
         catch (Exception e)
         {
             this.logger.error(e);
             this.error= getMessage("errorLocatorUploadFW");
         }
-      }
-      else 
-      {
-          this.logger.error("Empty component.");
-          this.error = getMessage("errorLocatorTechnicalException");
-      }
-
     }
     
     private void removeEmptyFile()
@@ -306,18 +273,6 @@ public class LocatorUploadBean extends FacesBean
         }
     }
     
-    private String getMimetype(String fileEnding)
-    {
-        if (fileEnding.toLowerCase().equals(".pdf")) return "application/pdf";
-        if (fileEnding.toLowerCase().equals(".rtf")) return "application/rtf";
-        if (fileEnding.toLowerCase().equals(".doc")) return "application/msword";
-        if (fileEnding.toLowerCase().equals(".xml")) return "application/xml";
-        if (fileEnding.toLowerCase().equals(".jpg")) return "image/jpeg";
-        if (fileEnding.toLowerCase().equals(".tiff")) return "image/tiff";
-        if (fileEnding.toLowerCase().equals(".png")) return "image/png";       
-        return "";
-    }
-    
     public String getType()
     {
         return this.type;
@@ -348,13 +303,23 @@ public class LocatorUploadBean extends FacesBean
         this.error = error;
     }
     
-    public String[] getFileTypes()
+    public int getSize()
     {
-        return this.fileTypes;
+        return this.size;
     }
 
-    public void setFileTypes(String[] fileTypes)
+    public void setSize(int size)
     {
-        this.fileTypes = fileTypes;
+        this.size = size;
     }
+    public String getLocator()
+    {
+        return this.locator;
+    }
+
+    public void setLocator(String locator)
+    {
+        this.locator = locator;
+    }
+
 }

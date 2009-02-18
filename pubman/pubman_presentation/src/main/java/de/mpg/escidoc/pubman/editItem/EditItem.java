@@ -1197,19 +1197,10 @@ public class EditItem extends FacesBean
         int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
         String locatorValue = this.getLocators().get(indexUpload).getLocator();
         LocatorUploadBean locatorBean = new LocatorUploadBean();
-        URL locatorURL = null;
 
         if (locatorBean.ckeckLocator(locatorValue))
         {           
-            try
-            {
-                locatorURL = new URL(locatorValue);
-                locatorBean.fetchLocator(locatorURL);         
-            }
-            catch(Exception e)
-            {
-                logger.warn(e);
-            }
+            locatorBean.locatorUploaded();         
         }
         
         if (locatorBean.getError()!= null)
