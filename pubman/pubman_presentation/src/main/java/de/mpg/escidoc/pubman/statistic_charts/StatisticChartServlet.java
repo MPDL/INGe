@@ -135,7 +135,7 @@ public class StatisticChartServlet extends HttpServlet
        
             CategoryDataset dataset = createDataset();
             JFreeChart chart = createChart(dataset);
-            BufferedImage img = chart.createBufferedImage(500, 250);
+            BufferedImage img = chart.createBufferedImage(450, 250);
             byte[] image = new KeypointPNGEncoderAdapter().encode(img);
             
             response.setContentType(CONTENT_TYPE);

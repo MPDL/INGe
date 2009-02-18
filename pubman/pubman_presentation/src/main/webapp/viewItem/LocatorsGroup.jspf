@@ -44,7 +44,7 @@
 
 <%-- Locator URL --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -58,7 +58,7 @@
 
 <%-- Locator visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -69,7 +69,7 @@
 
 <%-- Locator content category --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileCategory}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -79,7 +79,7 @@
 
 <%-- Locator description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">

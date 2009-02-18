@@ -71,6 +71,7 @@
 
 .fullItem .itemBlockSubHeader {
 	float: left;
+	white-space: nowrap;
 }
 
 /*BODY*/
