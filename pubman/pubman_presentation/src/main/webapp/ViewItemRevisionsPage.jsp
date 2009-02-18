@@ -161,12 +161,28 @@
 									<h:panelGroup styleClass="seperator" />
 								</span>
 							</div>
-							<div class="full_area0 listItem">
-								<div class="free_area0 itemHeader">
-									<span class="free_area0_p6 endline itemHeadline">
-										<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
-									</span>
-								</div>
+							<div class="full_area0 itemHeader">
+								<h:panelGroup styleClass="xLarge_area0 endline" >
+									&#160;
+								</h:panelGroup>
+									<h:panelGroup styleClass="seperator" />
+								<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
+									<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
+								</h:panelGroup>	
+								<h:panelGroup layout="block" styleClass="medium_area0_p4 statusArea" >
+									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />
+									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl pendingItem" rendered="#{ViewItemFull.isStatePending}" />
+									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl submittedItem" rendered="#{ViewItemFull.isStateSubmitted}" />
+									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
+									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
+									<h:outputText styleClass="noDisplay" value="Item is " />
+									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
+										<h:outputText value="#{ViewItemFull.itemPublicState}" />
+									</h:outputLabel>
+									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
+										<h:outputText value="#{ViewItemFull.itemState}" />
+									</h:outputLabel>
+								</h:panelGroup>
 							</div>
 
 							<jsp:directive.include file="revisions/ViewRevisions.jspf"/>

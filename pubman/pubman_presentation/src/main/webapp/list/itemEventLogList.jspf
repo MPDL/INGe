@@ -32,29 +32,35 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
 <tr:iterator value="#{ItemVersionListSessionBean.versionList}" var="versionEntry" varStatus="index">
-	<li class="full_area0 listItem">
 
-		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
+	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
+		</h3>
+		<h:panelGroup styleClass="seperator" />
+		<div class="free_area0 itemBlockContent endline">
+
 		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index">
 
-			<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
-				<span class="huge_area0_p8 endline labelLine">
-					<br class="noDisplay" />
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
-				</span>
-				<span class="xHuge_area0 endline">
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedDate}"/>
 				</span>
 			</div>
-	
-			<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
-				<span class="huge_area0_p8 endline labelLine">
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>
-				</span>
-				<span class="xHuge_area0 endline">
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedComment}" />
 				</span>
 			</div>
+
 		</tr:iterator>
-	</li>
+		</div>
+	</h:panelGroup>
+		
 </tr:iterator>

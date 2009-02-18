@@ -33,6 +33,5 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:outputText value="#{ReleaseHistory.dummy}"/>
-<ol>
-	<jsp:directive.include file="../list/itemVersionList.jspf"/>
-</ol>
+
+<jsp:directive.include file="../list/itemVersionList.jspf"/>

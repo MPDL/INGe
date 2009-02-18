@@ -32,164 +32,94 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<ol>
-	<li class="full_area0 listItem">
-		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-			<span class="huge_area0_p8 endline labelLine">
-				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblItemRetrievals}"/><br class="noDisplay" /></b>
-				<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.statistics_lblItemRetrievals}"/>
+	</h3>
+	<h:panelGroup styleClass="seperator" />
+	<div class="free_area0 itemBlockContent endline">
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" /><span class="noDisplay"> </span>
 			</span>
-			<span class="xHuge_area0 endline">
-				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" />
-			</span>
-		</div>
-		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-			<span class="huge_area0_p8 endline labelLine">
-				<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
-			</span>
-			<span class="xHuge_area0 endline">
-				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" />
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.statistics_lblAllUsers}" />
 			</span>
 		</div>
-		<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-			<span class="xHuge_area0 xLarge_marginLIncl endline">
-				<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" /><span class="noDisplay">: </span>
 			</span>
-		</div>	
-	</li>
-	<h:panelGroup rendered="#{ViewItemStatistics.filesAvailable}">
-		<li class="full_area0 listItem">
-			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-				<span class="huge_area0_p8 endline labelLine">
-					<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblDownloads}"/><br class="noDisplay" /></b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
+		</div>
+	</div>
+</h:panelGroup>
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.filesAvailable}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.statistics_lblDownloads}"/>
+	</h3>
+	<h:panelGroup styleClass="seperator" />
+	<div class="free_area0 itemBlockContent endline">
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<span class="noDisplay"> </span>
+			</span>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<b><h:outputText value="#{lbl.statistics_lblAllFiles}"/></b>
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.statistics_lblAllUsers}" />
+			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" />
+			</span>
+		</div>
+
+		<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">
+			<div class="free_area0 endline itemLine noTopBorder">
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
 				</span>
-				<span class="xHuge_area0 endline">
-					&#160
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<b><h:outputText value="#{lbl.statistics_lblFile} #{file.file.name}"/></b>
 				</span>
 			</div>
-			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-				<span class="huge_area0_p8 endline labelLine">
-					<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblAllFiles}"/><br class="noDisplay" /></b>
-					<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /><span class="noDisplay">: </span>
 				</span>
-				<span class="xHuge_area0 endline">
-					<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" />
-				</span>
-			</div>
-			<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-				<span class="huge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
-				</span>
-				<span class="xHuge_area0 endline">
-					<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" />
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.statistics_lblAllUsers}" />
 				</span>
 			</div>
-			<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">
-				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine">
-						<b class="itemBlockSubHeader"><h:outputText value="#{lbl.statistics_lblFile} #{file.file.name}"/><br class="noDisplay" /></b>
-						<h:outputText value="#{lbl.statistics_lblAllUsers}" /><span class="noDisplay">: </span>
-					</span>
-					<span class="xHuge_area0 endline">
-						<h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" />
-					</span>
-				</div>
-				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-					<span class="huge_area0_p8 endline labelLine">
-						<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /><span class="noDisplay">: </span>
-					</span>
-					<span class="xHuge_area0 endline">
-						<h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" />
-					</span>
-				</div>
-				<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-					<span class="xHuge_area0 xLarge_marginLIncl endline">
-						<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
-					</span>
-				</div>	
-			</tr:iterator>	
-		</li>
-	</h:panelGroup>
-</ol>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<span class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /><span class="noDisplay">: </span>
+				</span>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.statistics_lblAnonymousUsers}" />
+				</span>
+			</div>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
+			</div>
+		</tr:iterator>
 
-
-
-
-
-
-
-
-<%-- 
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
-	<f:subview id="ViewItemStatisitcs">
-
-		
-		<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemStatisticsPage.previousPageURI}">
-			<h:outputText value="#{lbl.statistics_btnBack}" styleClass="statisticsBackLink"/>
-		</h:outputLink>
-		
-		<h1 class="bottomSpace">
-			<h:outputText id="valOrientationText" value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" />
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Statistics');return false"/>
-		</h1>
-
-		
-		
-		
-		<table class="statisticTable">
-			<tr>
-				<th class="statisticTableLeftCol"> </th>
-				
-				<th><h:outputText value="#{lbl.statistics_lblAllUsers}" /></th>
-				
-				<th><h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /></th>
-			</tr>
-			
-			
-			<tr>
-				<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblItemRetrievals}" styleClass="itemStatisticHeader"/></td>
-				
-				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" /></td>
-				
-				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" /></td>
-			</tr>
-		
-			<h:panelGroup rendered ="#{ViewItemStatistics.filesAvailable}">
-			
-				<tr>
-					<td class="statisticTableLeftCol">&#160;</td>
-					
-					<td>&#160;</td>
-					
-					<td>&#160;</td>
-				</tr>
-			
-				<tr>
-					<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblAllFiles}" styleClass="itemStatisticHeader"/></td>
-					
-					<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" /></td>
-					
-					<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /></td>
-				</tr>
-				
-			
-			
-				<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">	
-					<tr>
-						<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblFile} " styleClass="itemStatisticHeader"/><h:outputText value="#{file.file.name}" /></td>
-						
-						<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /></td>
-						
-						<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /></td>
-					</tr>	
-				</tr:iterator>	
-		
-		</h:panelGroup>
-		</table>
-		<br/>
-		<h:outputText value="#{lbl.statistics_lblInfo}"/>
-		
-	</f:subview>
-</div>
-
---%>
+	</div>
+</h:panelGroup>
