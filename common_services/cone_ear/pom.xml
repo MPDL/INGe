@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
@@ -10,13 +11,13 @@
 	<name>cone_ear</name>
 	<packaging>ear</packaging>
 	<version>1.0.7-SNAPSHOT</version>
-
+	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -79,8 +80,6 @@
 								true
 							</includeInApplicationXml>
 						</jarModule>
-
-						
 						<jarModule>
 							<groupId>commons-beanutils</groupId>
 							<artifactId>commons-beanutils</artifactId>
@@ -119,6 +118,13 @@
 						<jarModule>
 							<groupId>jsf-facelets</groupId>
 							<artifactId>jsf-facelets</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>urlrewrite</groupId>
+							<artifactId>urlrewrite</artifactId>
 							<includeInApplicationXml>
 								true
 							</includeInApplicationXml>
@@ -162,7 +168,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -215,50 +221,56 @@
 			<version>2.0-beta</version>
 			<scope>compile</scope>
 		</dependency>
-
-	    <dependency>
-	    	<groupId>commons-beanutils</groupId>
-	    	<artifactId>commons-beanutils</artifactId>
-	    	<version>1.7.0</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>commons-digester</groupId>
-	    	<artifactId>commons-digester</artifactId>
-	    	<version>1.8</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-api</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-impl</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-ui</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
-	    	<groupId>jsf-facelets</groupId>
-	    	<artifactId>jsf-facelets</artifactId>
-	    	<version>1.1.13</version>
-	    	<scope>provided</scope>
-	    </dependency>
-	    <dependency>
+	
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.8</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>richfaces</groupId>
+			<artifactId>richfaces-api</artifactId>
+			<version>3.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>richfaces</groupId>
+			<artifactId>richfaces-impl</artifactId>
+			<version>3.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>richfaces</groupId>
+			<artifactId>richfaces-ui</artifactId>
+			<version>3.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>jsf-facelets</groupId>
+			<artifactId>jsf-facelets</artifactId>
+			<version>1.1.13</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.1-407.jdbc3</version>
-		</dependency>  
-</dependencies>
-
+		</dependency>
+		<dependency>
+			<groupId>urlrewrite</groupId>
+			<artifactId>urlrewrite</artifactId>
+			<version>3.1.0</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	
 	<profiles>
 		<profile>
 			<id>jboss40</id>
