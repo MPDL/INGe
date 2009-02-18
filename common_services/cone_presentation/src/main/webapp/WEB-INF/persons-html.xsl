@@ -395,18 +395,18 @@
 			<label id="publications">Veröffentlichungen</label>
 		</language>
 		<language id="ja" label="日本語 ">
-			<label id="researcher_portfolio">研究ポートフォリオ</label>
-			<label id="provided_by_cone">この研究ポートフォリオのeSciDoc円錐サービスが提供されています。</label>
-			<label id="language_not_provided">このサービスは、選択した言語でサポートされていません。</label>
+			<label id="researcher_portfolio">研究者総覧</label>
+			<label id="provided_by_cone">この研究総覧はeSciDoc CoNEサービスにより提供されています。</label>
+			<label id="language_not_provided">このサービスでは指定された言語に対応していません。</label>
 			<label id="researcher_profile">研究者プロフィール</label>
-			<label id="current_position">現在位置</label>
+			<label id="current_position">現職</label>
 			<label id="former_position">旧役職</label>
-			<label id="awards">賞</label>
+			<label id="awards">受賞歴</label>
 			<label id="phone">電話番号</label>
 			<label id="email">Eメール</label>
-			<label id="homepages">研究ホームページ</label>
-			<label id="additional_ids">追加のIDを</label>
-			<label id="researcher_id">研究者番号</label>
+			<label id="homepages">ホームページ</label>
+			<label id="additional_ids">関連ID</label>
+			<label id="researcher_id">研究者ID</label>
 			<label id="research_fields">研究分野</label>
 			<label id="subject">主題</label>
 			<label id="publications">出版物</label>
