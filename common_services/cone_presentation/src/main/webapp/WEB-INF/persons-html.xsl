@@ -395,8 +395,8 @@
 			<label id="publications">Veröffentlichungen</label>
 		</language>
 		<language id="ja" label="日本語 ">
-			<label id="researcher_portfolio">研究者総覧</label>
-			<label id="provided_by_cone">この研究総覧はeSciDoc CoNEサービスにより提供されています。</label>
+			<label id="researcher_portfolio">研究者ポートフォリオ</label>
+			<label id="provided_by_cone">研究者ポートフォリオはeSciDoc CoNEサービスにより提供されています。</label>
 			<label id="language_not_provided">このサービスでは指定された言語に対応していません。</label>
 			<label id="researcher_profile">研究者プロフィール</label>
 			<label id="current_position">現職</label>
