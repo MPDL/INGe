@@ -112,7 +112,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
                         }
                         else
                         {
-                            response.sendError(404, "Identifier not recognized");
+                            response.sendError(404, "Identifier " + identifier + " not recognized");
                         }
                     }
                     else
@@ -122,7 +122,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
                             byte[] data = this.unapi(identifier, format);
                             if (data == null)
                             {
-                                response.sendError(404, "Identifier not recognized");
+                                response.sendError(404, "Identifier " + identifier + " not recognized");
                             }
                             else
                             {
@@ -147,7 +147,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
                         {
                             this.resetValues();
                             this.logger.error("Item with identifier " + identifier + " was not found.", e);
-                            response.sendError(404, "Identifier not recognized");
+                            response.sendError(404, "Identifier " + identifier + " not recognized");
                         }
                         catch (SourceNotAvailableException e)
                         {

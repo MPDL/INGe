@@ -297,15 +297,6 @@ public class Util
                 return identifier.trim();
             }
         }
-        // Trim identifier for escidoc_qa
-        if (sourceName.trim().toLowerCase().equals("escidoc_qa"))
-        {
-            if (identifier.toLowerCase().startsWith("escidocqa", 0))
-            {
-                identifier = identifier.replace("qa", "");
-                return identifier.trim();
-            }
-        }
         return identifier.trim();
     }
     
