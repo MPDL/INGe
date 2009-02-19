@@ -333,7 +333,7 @@
 										<!-- copy over the jboss service descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy over the property file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${project.build.directory}/jboss/server/conf" />
 									</tasks>
 								</configuration>
 							</execution>
