@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -60,7 +61,7 @@ public class ItemVersionListSessionBean extends FacesBean
     
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
-   
+    private UIXIterator eventIterator = new UIXIterator();
     
     /**
      * Public constructor.
@@ -151,6 +152,16 @@ public class ItemVersionListSessionBean extends FacesBean
     public void setEventLogList(List<EventLogEntryVOPresentation> eventLogList)
     {
         this.eventLogList = eventLogList;
+    }
+
+    public void setEventIterator(UIXIterator eventIterator)
+    {
+        this.eventIterator = eventIterator;
+    }
+
+    public UIXIterator getEventIterator()
+    {
+        return eventIterator;
     }
     
     

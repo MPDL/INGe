@@ -122,6 +122,7 @@ function install_javascripts() {
 	installDateTextbox();
 	installSelectReplacement();
 	bindSuggests();
+	resizeToFull();
 }
 
 /*INCLUDES EXTERNAL JAVASCRIPTS*/

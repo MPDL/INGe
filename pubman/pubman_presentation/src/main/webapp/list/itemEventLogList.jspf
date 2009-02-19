@@ -40,16 +40,24 @@ All rights reserved. Use is subject to license terms.
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index">
+		<tr:iterator value="#{versionEntry.eventLogEntries}" var="eventEntry" varStatus="index" binding="#{ItemVersionListSessionBean.eventIterator}">
 
-			<div class="free_area0 endline itemLine">
+			<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{eventEntry.formattedDate}"/>
 				</span>
-			</div>
+			</h:panelGroup>
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ItemVersionListSessionBean.eventIterator.rowIndex != 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{eventEntry.formattedDate}"/>
+				</span>
+			</h:panelGroup>
 			<div class="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>

@@ -53,6 +53,7 @@
 		body .wrapper {
 			margin: 0 auto 0 auto;
 			width: 84.10em;
+			height: 100%;
 			overflow: hidden;
 		}
 		.noDisplay {
