@@ -258,10 +258,10 @@ public class LocatorUploadBean extends FacesBean
     public void removeLocator()
     {
         List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getLocators();
-        for (int i =0; i< list.size(); i++)
+        for (int i =0; i < list.size(); i++)
         {
-            PubFileVOPresentation locator = list.get(i);
-            if (locator.getFile().getContent().equals(this.locator))
+            PubFileVOPresentation locatorPres = list.get(i);
+            if (locatorPres.getFile().getContent().equals(this.locator))
             {
                 List <PubFileVOPresentation> listClean = this.editItem.getEditItemSessionBean().getLocators();
                 listClean.remove(i);
