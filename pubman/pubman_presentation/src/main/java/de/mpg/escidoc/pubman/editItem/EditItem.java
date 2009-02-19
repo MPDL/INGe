@@ -650,7 +650,10 @@ public class EditItem extends FacesBean
             }
             else if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
             {
-             // redirect to the view item page afterwards (if no error occured)
+            	// set the isSubmission flag to false
+                this.getEditItemSessionBean().setIsSubmission(false);
+                
+                // redirect to the view item page afterwards (if no error occured)
                 try 
                 {
                     info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
@@ -729,7 +732,9 @@ public class EditItem extends FacesBean
         }
         else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
+            // set the isSubmission flag to false
+            this.getEditItemSessionBean().setIsSubmission(false);
+        	info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
         }
         
         // initialize viewItem
@@ -819,7 +824,9 @@ public class EditItem extends FacesBean
             }
             else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
-                getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+                // set the isSubmission flag to false
+                this.getEditItemSessionBean().setIsSubmission(false);
+            	getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
@@ -838,7 +845,9 @@ public class EditItem extends FacesBean
             }
             else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
-                getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+                // set the isSubmission flag to false
+                this.getEditItemSessionBean().setIsSubmission(false);
+            	getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
@@ -885,6 +894,10 @@ public class EditItem extends FacesBean
     {
         // examine if the user came from the view Item Page or if he started a new submission
         String navString = "";
+        
+        //set the isSubmission flag to false
+        this.getEditItemSessionBean().setIsSubmission(false);
+        
         if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getVersionNumber() > 0)
         {
             navString = ViewItemFull.LOAD_VIEWITEM;
@@ -1033,7 +1046,9 @@ public class EditItem extends FacesBean
             }
             else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
-                getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+                // set the isSubmission flag to false
+                this.getEditItemSessionBean().setIsSubmission(false);
+            	getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
@@ -1053,7 +1068,9 @@ public class EditItem extends FacesBean
             }
             else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
-                getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+                // set the isSubmission flag to false
+                this.getEditItemSessionBean().setIsSubmission(false);
+            	getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED);
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);

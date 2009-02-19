@@ -82,6 +82,11 @@ public class EditItemSessionBean extends FacesBean
      * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
      */
     private String showAuthorCopyPaste;
+    
+    /**
+     * Flag for the GUI to detect if the edit item page is called for a submission or for an editing process
+     */
+    private boolean isSubmission = false;
 
     /**
 	 * Public constructor.
@@ -273,4 +278,12 @@ public class EditItemSessionBean extends FacesBean
     {
         this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
+
+	public boolean getIsSubmission() {
+		return isSubmission;
+	}
+
+	public void setIsSubmission(boolean isSubmission) {
+		this.isSubmission = isSubmission;
+	}
 }
