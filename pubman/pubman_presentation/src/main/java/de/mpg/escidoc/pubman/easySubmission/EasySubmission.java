@@ -385,6 +385,10 @@ public class EasySubmission extends FacesBean
         }
         // set method to manual
         easySubmissionSessionBean.setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL);
+        
+        // set the current submission method for edit item to easy submission (for GUI purpose)
+        this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_EASY_SUBMISSION);
+        
         return "loadNewEasySubmission";
     }
     
@@ -426,6 +430,9 @@ public class EasySubmission extends FacesBean
         	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
         	this.init();
         }
+        
+        // set the current submission method for edit item to import (for GUI purpose)
+        this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
         
         return "loadNewEasySubmission";
     }

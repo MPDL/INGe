@@ -83,10 +83,14 @@ public class EditItemSessionBean extends FacesBean
      */
     private String showAuthorCopyPaste;
     
+    public static final String SUBMISSION_METHOD_FULL_SUBMISSION = "FULL_SUBMISSION";
+    public static final String SUBMISSION_METHOD_EASY_SUBMISSION = "EASY_SUBMISSION";
+    public static final String SUBMISSION_METHOD_IMPORT = "IMPORT";
+    
     /**
      * Flag for the GUI to detect if the edit item page is called for a submission or for an editing process
      */
-    private boolean isSubmission = false;
+    private String currentSubmission = "";
 
     /**
 	 * Public constructor.
@@ -279,11 +283,11 @@ public class EditItemSessionBean extends FacesBean
         this.showAuthorCopyPaste = showAuthorCopyPaste;
     }
 
-	public boolean getIsSubmission() {
-		return isSubmission;
+	public String getCurrentSubmission() {
+		return currentSubmission;
 	}
 
-	public void setIsSubmission(boolean isSubmission) {
-		this.isSubmission = isSubmission;
+	public void setCurrentSubmission(String currentSubmission) {
+		this.currentSubmission = currentSubmission;
 	}
 }

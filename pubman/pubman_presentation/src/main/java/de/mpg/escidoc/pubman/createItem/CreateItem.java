@@ -100,8 +100,8 @@ public class CreateItem extends FacesBean
         // first clear the EditItemSessionBean
         this.getEditItemSessionBean().clean();
         
-        // set the isSubmission flag to true
-        this.getEditItemSessionBean().setIsSubmission(true);
+        // set the current submission method for edit item to full submission (for GUI purpose)
+        this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
         
         
         // if there is only one context for this user we can skip the CreateItem-Dialog and
