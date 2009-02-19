@@ -65,7 +65,8 @@ public class TestMetadataSearchQuery
         MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.TITLE, "test"));
         String query = msq.getCqlQuery();
-        String expected = " ( escidoc.any-title=\"test\" )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        // ( escidoc.any-title=\"test\" )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) 
+        String expected = "( ( escidoc.any-title=\"test\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -84,7 +85,7 @@ public class TestMetadataSearchQuery
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.LANGUAGE, "de", LogicalOperator.OR));
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.GENRE, "journal", LogicalOperator.NOT));
         String query = msq.getCqlQuery();
-        String expected = " ( escidoc.any-title=\"test\" )  and  ( escidoc.created-by.objid=\"user1234\" )  or  ( escidoc.language=\"de\" )  not  ( escidoc.any-genre=\"journal\" )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.any-title=\"test\" )  and  ( escidoc.created-by.objid=\"user1234\" )  or  ( escidoc.language=\"de\" )  not  ( escidoc.any-genre=\"journal\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -105,7 +106,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = " (  ( escidoc.dateAccepted>=\"2008\\-05\\-15\" and escidoc.dateAccepted<=\"2008\\-10\\-08\" )  )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( (  ( escidoc.dateAccepted>=\"2008\\-05\\-15\" and escidoc.dateAccepted<=\"2008\\-10\\-08\" )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -127,7 +128,7 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = " ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( (escidoc.component.visibility=\"argument\" or escidoc.component.creation-date=\"argument\" or escidoc.component.content-category=\"argument\") ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
@@ -147,7 +148,73 @@ public class TestMetadataSearchQuery
         
         String query = msq.getCqlQuery();
         logger.debug(query);
-        String expected = " ( escidoc.component.creation-date>\"''\" )  and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.component.creation-date>\"''\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        assertNotNull(query);
+        assertEquals(expected, query);
+        
+    }
+    
+    @Test
+    public void testMetadataQueryWithSubCriteria() throws Exception
+    {
+        logger.info("Testing simple metadata search query transformation with dates and boolean operators");
+        
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        contentTypes.add("escidoc:persistent4");
+        MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
+        
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
+        
+        MetadataSearchCriterion crit = new MetadataSearchCriterion(CriterionType.COMPONENT_VISIBILITY, "test2", LogicalOperator.OR);
+        
+        MetadataSearchCriterion crit2 = new MetadataSearchCriterion(CriterionType.ANY, "subtest1", LogicalOperator.AND);
+        MetadataSearchCriterion crit3 = new MetadataSearchCriterion(CriterionType.ANY, "subtest2", LogicalOperator.OR);
+        
+        MetadataSearchCriterion crit4 = new MetadataSearchCriterion(CriterionType.ANY, "subsubtest1", LogicalOperator.AND);
+        MetadataSearchCriterion crit5 = new MetadataSearchCriterion(CriterionType.ANY, "subsubtest2", LogicalOperator.OR);
+        
+        crit2.addSubCriteria(crit4);
+        crit2.addSubCriteria(crit5);
+        
+        crit.addSubCriteria(crit2);
+        crit.addSubCriteria(crit3);
+          
+        msq.addCriterion(crit);
+        
+        String query = msq.getCqlQuery();
+        logger.debug(query);
+        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  or  ( escidoc.metadata=\"subsubtest2\" )  )  or  ( escidoc.metadata=\"subtest2\" )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        assertNotNull(query);
+        assertEquals(expected, query);
+        
+    }
+    
+    @Test
+    public void testMetadataQueryWithSubCriteriaRightTree() throws Exception
+    {
+        logger.info("Testing simple metadata search query transformation with dates and boolean operators");
+        
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        contentTypes.add("escidoc:persistent4");
+        MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
+        
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COMPONENT_ACCESSABILITY, "test1"));
+        
+        MetadataSearchCriterion crit = new MetadataSearchCriterion(CriterionType.COMPONENT_VISIBILITY, "test2", LogicalOperator.OR);
+        
+        MetadataSearchCriterion crit2 = new MetadataSearchCriterion(CriterionType.ANY, "subtest1", LogicalOperator.AND);
+        
+        MetadataSearchCriterion crit4 = new MetadataSearchCriterion(CriterionType.ANY, "subsubtest1", LogicalOperator.AND);
+        
+        crit2.addSubCriteria(crit4);
+        
+        crit.addSubCriteria(crit2);
+          
+        msq.addCriterion(crit);
+        
+        String query = msq.getCqlQuery();
+        logger.debug(query);
+        String expected = "( ( escidoc.component.creation-date=\"test1\" )  or  ( escidoc.component.visibility=\"test2\" ) and (  ( escidoc.metadata=\"subtest1\" ) and (  ( escidoc.metadata=\"subsubtest1\" )  )  ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         

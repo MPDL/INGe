@@ -180,6 +180,10 @@ public class MetadataSearchQuery extends SearchQuery
         }
         
         StringBuffer buffer = new StringBuffer();
+        
+        // parenthesis to separate the criteria from the content type
+        buffer.append("(");
+        
         if (searchCriteria.size() != 0)
         {
             buffer.append(searchCriteria.get(0).generateCqlQuery());
@@ -191,6 +195,8 @@ public class MetadataSearchQuery extends SearchQuery
             buffer.append(" " + searchCriteria.get(i).getLogicalOperatorAsString() + " ");
             buffer.append(searchCriteria.get(i).generateCqlQuery());
         }
+        buffer.append(")");
+        
         // then add the content type nodes
         for (int i = 0; i < contentTypes.size(); i++)
         {

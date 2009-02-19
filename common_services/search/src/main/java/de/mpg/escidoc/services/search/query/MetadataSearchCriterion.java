@@ -6,6 +6,7 @@ package de.mpg.escidoc.services.search.query;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
@@ -27,6 +28,9 @@ public class MetadataSearchCriterion implements Serializable
 {
     /** Serializable identifier. */
     private static final long serialVersionUID = 1L;
+    
+    /** subcriteria for this criterion. */
+    private ArrayList<MetadataSearchCriterion> subCriteria = new ArrayList<MetadataSearchCriterion>();
 
     /** Criteria types for the search criterion. */
     public enum CriterionType
@@ -102,7 +106,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for the published online date. */
     private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.published-online";
     /** Index for topics. */
-    private static final String INDEX_TOPIC = "escidoc.any-topic";
+    private static final String INDEX_TOPIC = "escidoc.subject";
     /** Index for sources. */
     private static final String INDEX_SOURCE = "escidoc.any-source";
     /** Index for events. */
@@ -456,15 +460,25 @@ public class MetadataSearchCriterion implements Serializable
      */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
-
         QueryParser parser = new QueryParser(this.searchTerm, booleanOperatorToString(this.cqlOperator));
         for (int i = 0; i < searchIndexes.size(); i++)
         {
             parser.addCQLIndex(searchIndexes.get(i));
         }
         String cqlQuery = " ( " + parser.parse() + " ) ";
+        
+        if(!subCriteria.isEmpty())
+        {
+            cqlQuery = cqlQuery + subCriteria.get(0).getLogicalOperatorAsString() + " ( ";
+            cqlQuery = cqlQuery + subCriteria.get(0).generateCqlQuery();
+            for( int i = 1; i < subCriteria.size(); i++ )
+            {   
+                cqlQuery = cqlQuery + " " + subCriteria.get(i).getLogicalOperatorAsString() + " "
+                    + subCriteria.get(i).generateCqlQuery();
+            }
+            cqlQuery = cqlQuery + " ) ";
+        }
         return cqlQuery;
-
     }
 
     public ArrayList<String> getSearchIndexes()
@@ -498,14 +512,15 @@ public class MetadataSearchCriterion implements Serializable
     }
 
     /**
-     * Return the logical operator as string.
+     * Return the last logical operator as string. If there are sub criteria 
+     * for this criteria, take the logicoperator from the last subcriteria in the list. 
      * 
      * @return logical operator as string
      * @throws TechnicalException
      *             if type is unknown
      */
     public String getLogicalOperatorAsString() throws TechnicalException
-    {
+    {       
         switch (this.logicalOperator)
         {
             case AND:
@@ -538,5 +553,27 @@ public class MetadataSearchCriterion implements Serializable
     public void setLogicalOperator(LogicalOperator operator)
     {
         this.logicalOperator = operator;
+    }
+    
+    /**
+     * Adds a subCriteria to this criteria.
+     * @param criterion sub criteria
+     */
+    public void addSubCriteria(MetadataSearchCriterion criterion)
+    {
+        subCriteria.add(criterion);
+    }
+    
+    /**
+     * Adds a subCriteria to this criteria.
+     * @param criterion sub criteria
+     */
+    public void addSubCriteria(ArrayList<MetadataSearchCriterion> criteria)
+    {
+        subCriteria.addAll(criteria);
+    }
+    public ArrayList<MetadataSearchCriterion> getSubCriteriaList() 
+    {
+        return this.subCriteria;
     }
 }
