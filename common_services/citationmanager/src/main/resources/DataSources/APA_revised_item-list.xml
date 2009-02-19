@@ -19,7 +19,216 @@
                            xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6"
                            xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7"
                            xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7">
-						    
+	
+<escidocItem:item objid="escidoc:193171" last-modification-date="2009-02-17T09:39:11.586Z">
+    <escidocItem:properties>
+      <prop:creation-date>2009-02-16T14:39:18.967Z</prop:creation-date>
+      <srel:created-by objid="escidoc:60112"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:59254"/>
+
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:someHandle/test/escidoc:193171:3</prop:pid>
+      <prop:version>
+        <version:number>3</version:number>
+        <version:date>2009-02-17T09:39:11.586Z</version:date>
+        <version:status>released</version:status>
+
+        <srel:modified-by objid="escidoc:60112"/>
+        <version:comment/>
+        <version:pid>hdl:someHandle/test/escidoc:193171:3</version:pid>
+      </prop:version>
+      <prop:latest-version>
+        <version:number>3</version:number>
+        <version:date>2009-02-17T09:39:11.586Z</version:date>
+
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>3</release:number>
+        <release:date>2009-02-17T09:38:49.647Z</release:date>
+        <release:pid>hdl:someHandle/test/escidoc:193171:1</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="book-item">
+          <publication:creator role="author">
+
+            <escidoc:person>
+              <escidoc:complete-name/>
+              <escidoc:family-name>Kastens</escidoc:family-name>
+              <escidoc:given-name>Karin</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Library,MPI for Psychlinguistics</escidoc:organization-name>
+                <escidoc:address/>
+
+                <escidoc:identifier/>
+              </escidoc:organization>
+              <escidoc:identifier>urn:cone:persons100</escidoc:identifier>
+            </escidoc:person>
+          </publication:creator>
+          <dc:title>NEK Test Book Chapter</dc:title>
+          <dcterms:alternative>Men's and women's gender role journeys: Metaphor for healing, transition, and transformation</dcterms:alternative>
+
+          <dcterms:created xsi:type="dcterms:W3CDTF"></dcterms:created>
+          <dcterms:modified xsi:type="dcterms:W3CDTF"></dcterms:modified>
+          <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+          <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+          <publication:published-online xsi:type="dcterms:W3CDTF"></publication:published-online>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">1992</dcterms:issued>
+          <publication:source type="book">
+            <dc:title>Gender issues across the life cycle</dc:title>
+
+            <escidoc:creator role="editor">
+              <escidoc:person>
+                <escidoc:complete-name/>
+                <escidoc:family-name>Wainrib</escidoc:family-name>
+                <escidoc:given-name>B. R.</escidoc:given-name>
+                <escidoc:organization>
+                  <escidoc:organization-name>External Organizations</escidoc:organization-name>
+
+                  <escidoc:address/>
+                  <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+                </escidoc:organization>
+                <escidoc:identifier></escidoc:identifier>
+              </escidoc:person>
+            </escidoc:creator>
+            <escidoc:volume/>
+            <escidoc:issue/>
+
+            <escidoc:start-page>107</escidoc:start-page>
+            <escidoc:end-page>123</escidoc:end-page>
+            <escidoc:sequence-number/>
+            <escidoc:total-number-of-pages/>
+            <escidoc:publishing-info>
+              <dc:publisher>Springer</dc:publisher>
+              <escidoc:place>New York</escidoc:place>
+
+              <escidoc:edition/>
+            </escidoc:publishing-info>
+          </publication:source>
+          <publication:total-number-of-pages/>
+          <dc:subject></dc:subject>
+          <dcterms:DDC></dcterms:DDC>
+          <dcterms:tableOfContents></dcterms:tableOfContents>
+        </escidocMetadataProfile:publication>
+      </escidocMetadataRecords:md-record>
+
+    </escidocMetadataRecords:md-records>
+  </escidocItem:item>
+						   
+<escidocItem:item objid="escidoc:193159" last-modification-date="2009-02-17T10:44:30.625Z">
+    <escidocItem:properties>
+      <prop:creation-date>2009-02-16T13:54:03.948Z</prop:creation-date>
+      <srel:created-by objid="escidoc:60112"/>
+      <prop:public-status>released</prop:public-status>
+      <prop:public-status-comment/>
+      <srel:context objid="escidoc:59254"/>
+
+      <srel:content-model objid="escidoc:persistent4"/>
+      <prop:lock-status>unlocked</prop:lock-status>
+      <prop:pid>hdl:someHandle/test/escidoc:193159:2</prop:pid>
+      <prop:version>
+        <version:number>2</version:number>
+        <version:date>2009-02-17T10:44:30.625Z</version:date>
+        <version:status>released</version:status>
+
+        <srel:modified-by objid="escidoc:60112"/>
+        <version:comment/>
+        <version:pid>hdl:someHandle/test/escidoc:193159:2</version:pid>
+      </prop:version>
+      <prop:latest-version>
+        <version:number>2</version:number>
+        <version:date>2009-02-17T10:44:30.625Z</version:date>
+
+      </prop:latest-version>
+      <prop:latest-release>
+        <release:number>2</release:number>
+        <release:date>2009-02-17T10:44:21.479Z</release:date>
+        <release:pid>hdl:someHandle/test/escidoc:193159:1</release:pid>
+      </prop:latest-release>
+      <prop:content-model-specific>
+
+        <local-tags>
+          <local-tag/>
+        </local-tags>
+      </prop:content-model-specific>
+    </escidocItem:properties>
+    <escidocMetadataRecords:md-records>
+      <escidocMetadataRecords:md-record name="escidoc">
+        <escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="poster">
+          <publication:creator role="author">
+
+            <escidoc:person>
+              <escidoc:complete-name/>
+              <escidoc:family-name>Kastens</escidoc:family-name>
+              <escidoc:given-name>Karin</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>Library,MPI for Psychlinguistics</escidoc:organization-name>
+                <escidoc:address/>
+
+                <escidoc:identifier/>
+              </escidoc:organization>
+              <escidoc:identifier>urn:cone:persons100</escidoc:identifier>
+            </escidoc:person>
+          </publication:creator>
+          <dc:title>nek test poster</dc:title>
+          <dcterms:created xsi:type="dcterms:W3CDTF"/>
+          <dcterms:modified xsi:type="dcterms:W3CDTF">2009-02-16</dcterms:modified>
+
+          <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"/>
+          <dcterms:dateAccepted xsi:type="dcterms:W3CDTF"/>
+          <publication:published-online xsi:type="dcterms:W3CDTF"/>
+          <dcterms:issued xsi:type="dcterms:W3CDTF"/>
+          <publication:source type="proceedings">
+            <dc:title>Title of proceedings</dc:title>
+            <escidoc:creator role="editor">
+              <escidoc:person>
+
+                <escidoc:complete-name/>
+                <escidoc:family-name>Quatschkopf</escidoc:family-name>
+                <escidoc:given-name>Max</escidoc:given-name>
+                <escidoc:identifier/>
+              </escidoc:person>
+            </escidoc:creator>
+            <escidoc:volume>V</escidoc:volume>
+
+            <escidoc:issue/>
+            <escidoc:start-page/>
+            <escidoc:end-page/>
+            <escidoc:sequence-number/>
+            <escidoc:total-number-of-pages/>
+            <escidoc:publishing-info>
+              <dc:publisher>MPDL</dc:publisher>
+              <escidoc:place>Munich</escidoc:place>
+
+            </escidoc:publishing-info>
+          </publication:source>
+          <publication:event>
+            <dc:title>Event title</dc:title>
+            <escidoc:start-date xsi:type="dcterms:W3CDTF">2009-02-15</escidoc:start-date>
+            <escidoc:end-date xsi:type="dcterms:W3CDTF">2009-02-16</escidoc:end-date>
+            <escidoc:place>Munich</escidoc:place>
+
+          </publication:event>
+          <publication:total-number-of-pages>1</publication:total-number-of-pages>
+          <dc:subject/>
+          <dcterms:DDC/>
+          <dcterms:tableOfContents/>
+        </escidocMetadataProfile:publication>
+      </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
+
+  </escidocItem:item>
+						   
     <escidocItem:item last-modification-date="2008-11-19T10:59:10.513Z" objid="escidoc:44120">
         <escidocItem:properties>
             <prop:creation-date>2008-11-19T10:59:05.361Z</prop:creation-date>
@@ -104,6 +313,7 @@
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
 	  
+	<!--
 	
     <escidocItem:item last-modification-date="2008-11-19T10:57:50.944Z" objid="escidoc:44119">
         <escidocItem:properties>
@@ -2025,5 +2235,5 @@
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
     </escidocItem:item>
-
+  -->
 </escidocItemList:item-list>

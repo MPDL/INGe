@@ -27,9 +27,9 @@
 		<variable name="editorsCount" type="xpath"><![CDATA[string(count(publication/creator[@role='editor']))]]></variable>
 		  
 		<variable name="ed-postfix" type="expression"><![CDATA[Integer.parseInt(${editorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
-		
-		<variable name="sourceEditorsCount" type="xpath"><![CDATA[string(count(publication/source/creator[@role='editor']))]]></variable>  
-				
+
+		<variable name="sourceEditorsCount" type="xpath"><![CDATA[string(count(publication/source/creator[@role='editor']))]]></variable>
+		  
 		<variable name="source-ed-postfix" type="expression"><![CDATA[Integer.parseInt(${sourceEditorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
 		
 		<variable name="genre" type="xpath"><![CDATA[publication/@type]]></variable>
@@ -92,26 +92,28 @@
 	<layout-elements>
 
 		<!-- authors -->
-		<layout-element name="authors-Equal1" ref="publication/creator[@role='author']/person|organization" repeatable="yes">
+		<layout-element name="authors-Equal1" ref="publication/creator[@role='author']" repeatable="yes">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==1]]></valid-if>
 				<delimiter value=", " />
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
-		<layout-element name="authors-MoreThan1LessOrEqual6" ref="publication/creator[@role='author']/person|organization" repeatable="yes">
+		<layout-element name="authors-MoreThan1LessOrEqual6" ref="publication/creator[@role='author']" repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", &amp; " />
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>1 && Integer.parseInt(${authorsCount})<=6]]></valid-if>
@@ -119,12 +121,13 @@
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
-		<layout-element name="authors-MoreThan6" ref="publication/creator[@role='author']/person|organization" repeatable="yes">
+		<layout-element name="authors-MoreThan6" ref="publication/creator[@role='author']" repeatable="yes">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${authorsCount})>6]]></valid-if>
 				<delimiter value=", " />
@@ -133,8 +136,9 @@
 				<max-count value="6"/>
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
@@ -150,26 +154,28 @@
 		</layout-element>
 
 		<!-- editors -->
-		<layout-element name="editors-Equal1" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+		<layout-element name="editors-Equal1" ref="publication/creator[@role='editor']" repeatable="yes">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${editorsCount})==1]]></valid-if>
 				<delimiter value=", " />
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
-		<layout-element name="editors-MoreThan1LessOrEqual6" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+		<layout-element name="editors-MoreThan1LessOrEqual6" ref="publication/creator[@role='editor']" repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", &amp; " />
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${editorsCount})>1 && Integer.parseInt(${editorsCount})<=6]]></valid-if>
@@ -177,12 +183,13 @@
 				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
-		<layout-element name="editors-MoreThan6" ref="publication/creator[@role='editor']/person|organization" repeatable="yes">
+		<layout-element name="editors-MoreThan6" ref="publication/creator[@role='editor']" repeatable="yes">
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${editorsCount})>6]]></valid-if>
 				<delimiter value=", " />
@@ -191,8 +198,9 @@
 				<max-count value="6"/>
 			</parameters>
 			<elements>
-				<layout-element ref="family-name" />
-				<layout-element ref="given-name" func="get_initials"/>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
 		
@@ -218,41 +226,45 @@
 
 
 		<layout-element name="source-editors-MoreThan2"
-			ref="publication/source/creator[@role='editor']/person|organization"
+			ref="publication/source/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
-		<layout-element name="source-editors-Equal2"
-			ref="publication/source/creator[@role='editor']/person|organization"
+		<layout-element name="source-editors-person-Equal2"
+			ref="publication/source/creator[@role='editor']/person"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
 				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})==2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="source-editors">
@@ -266,6 +278,8 @@
 				<layout-element ref="source-ed-postfix" />
 			</elements>
 		</layout-element>
+		
+		
 		
 		<!-- "plain" layout elements -->
 		<!-- ??? -->
@@ -604,10 +618,11 @@
 
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element ref="source-title" />
+			<layout-element ref="source-title"/>
 			
 			<layout-element>
 				<parameters>
+					<starts-with value=", "/>
 					<delimiter value=", "/>
 				</parameters>
 				<elements>
