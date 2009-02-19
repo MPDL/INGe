@@ -47,6 +47,7 @@
 		body {
 			padding: 0px;
 			margin: 0px;
+			overflow-y: scroll;
 			/*margin-left: 17px;
 			margin-right: 17px;*/
 		}
@@ -658,6 +659,7 @@
 				overflow: hidden;
 				margin: 0px;
 				margin-right: 0.09em;
+				white-space: nowrap;
 				float: left;
 			}
 			

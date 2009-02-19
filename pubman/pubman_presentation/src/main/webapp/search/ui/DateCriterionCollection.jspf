@@ -90,33 +90,33 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="medium_area0 xTiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
-					<span class="free_area0 checkboxTripleGroup">
-						<span class="medium_checkbox xTiny_marginRIncl">
+					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<span class="free_area0 checkboxDoubleGroup">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
 						</span>
-						<span class="medium_checkbox xTiny_marginRIncl">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
 						</span>
-						<span class="medium_checkbox xTiny_marginRIncl">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
 						</span>
-						<span class="medium_checkbox xTiny_marginRIncl">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
 						</span>
-						<span class="medium_checkbox xTiny_marginRIncl">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
 						</span>
-						<span class="medium_checkbox xTiny_marginRIncl">
+						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
 						</span>
-						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
 			</h:panelGroup>

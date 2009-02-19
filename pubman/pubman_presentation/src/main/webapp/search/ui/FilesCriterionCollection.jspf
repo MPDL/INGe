@@ -46,31 +46,31 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="free_area0">  
-				    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentAvailability}"/>
+				    <span class="medium_area0 xTiny_marginRIncl">
+                        <h:outputLabel styleClass="medium_label" value="#{lbl.adv_search_fileComponentAvailability}"/>
                         
-                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
+                            <h:selectOneMenu styleClass="medium_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
                                 <f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
                             </h:selectOneMenu>
                             
                     </span>
-				    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
+				    <span class="medium_area0 xTiny_marginRIncl">
+                        <h:outputLabel styleClass="medium_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
                         
-                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
+                            <h:selectOneMenu styleClass="medium_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
                                 <f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
                             </h:selectOneMenu>
                             
                     </span>
-					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
+					<span class="medium_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="medium_label" value="#{lbl.adv_search_fileContentCategory}"/>
 						
-							<h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
+							<h:selectOneMenu styleClass="medium_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
 								<f:selectItems value="#{fileCriterionBean.contentCategories}" />
 							</h:selectOneMenu>
 							
 					</span>
-					<span class="large_checkbox toLabelInputBottom">
+					<span class="medium_checkbox toLabelInputBottom">
 						<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{fileCriterionBean.fileCriterionVO.excludeCategory}" />
 						<h:outputLabel value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
 					</span>

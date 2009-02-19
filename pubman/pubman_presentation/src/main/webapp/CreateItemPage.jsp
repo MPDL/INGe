@@ -89,7 +89,17 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu lower line starts here -->										
-									&#160;
+									<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+									</h:commandLink>
+									<h:outputText styleClass="seperator void" />
+									<span>
+										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+									</span>
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+										<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+									</h:commandLink>
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->

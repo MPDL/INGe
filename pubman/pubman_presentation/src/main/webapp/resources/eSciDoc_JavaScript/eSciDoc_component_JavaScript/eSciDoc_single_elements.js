@@ -171,6 +171,10 @@ $(window).resize(function(){
 	  resizeToFull();
 });
 
+$('body').resize(function(){
+	  resizeToFull();
+});
+
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
