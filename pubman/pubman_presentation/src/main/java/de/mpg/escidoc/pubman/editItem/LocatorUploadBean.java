@@ -128,6 +128,10 @@ public class LocatorUploadBean extends FacesBean
 
         //Get Content Type
         mimeType = conn.getHeaderField("Content-Type");
+        if (mimeType.contains(";"))
+        {
+            mimeType = mimeType.substring(0, mimeType.indexOf(";"));
+        }
         if (mimeType != null)
         {
             this.setType(mimeType);
@@ -143,7 +147,7 @@ public class LocatorUploadBean extends FacesBean
         {
             this.setSize(Integer.parseInt(conn.getHeaderField("Content-Length")));
         }
-        catch(NumberFormatException e)
+        catch (NumberFormatException e)
         {
             input = this.fetchLocator(locatorURL);
             if (input != null)
@@ -156,11 +160,12 @@ public class LocatorUploadBean extends FacesBean
     
     /**
      * Executes a GET request to the locator.
-     * @param locator
+     * @param locato
+     * @return byte[]
      */
     private byte[] fetchLocator(URL locator)
     {   
-        byte[] input= null;
+        byte[] input = null;
         URLConnection conn = null;
         
         try
@@ -168,7 +173,7 @@ public class LocatorUploadBean extends FacesBean
             conn = locator.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
-            switch (responseCode)
+            switch(responseCode)
             {
                 case 200:
                     this.logger.info("Source responded with 200.");
@@ -204,6 +209,7 @@ public class LocatorUploadBean extends FacesBean
                 fileVO.setName(this.name);
                 fileVO.getDefaultMetadata().setTitle(new TextVO(this.name));
                 fileVO.setMimeType(this.getType());
+                fileVO.setName(this.getLocator());
 
                 FormatVO formatVO = new FormatVO();
                 formatVO.setType("dcterms:IMT");
@@ -227,14 +233,14 @@ public class LocatorUploadBean extends FacesBean
         catch (Exception e)
         {
             this.logger.error(e);
-            this.error= getMessage("errorLocatorUploadFW");
+            this.error = getMessage("errorLocatorUploadFW");
         }
     }
     
     private void removeEmptyFile()
     {
         List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
-        for (int i =0; i< list.size(); i++)
+        for (int i = 0; i < list.size(); i++)
         {
             PubFileVOPresentation file = list.get(i);
             if (file.getFile().getContent() == null || file.getFile().getContent().equals(""))
