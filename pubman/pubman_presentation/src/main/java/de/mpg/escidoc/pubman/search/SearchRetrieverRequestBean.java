@@ -43,7 +43,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     
     public static String BEAN_NAME = "SearchRetrieverRequestBean";
     
-    private Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
+    private static Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
     
     /**
      * The HTTP-GET parameter name for the cql query

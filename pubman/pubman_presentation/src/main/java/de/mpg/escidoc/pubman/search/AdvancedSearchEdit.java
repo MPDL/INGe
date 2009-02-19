@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
@@ -167,6 +168,7 @@ public class AdvancedSearchEdit extends SearchResultList
         
         // collect VO's from internal collections
         // we have to ensure, that no empty criterions are moved to the criterionVOList
+        
         criterionList.addAll( anyFieldCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( personCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( organizationCriterionCollection.getFilledCriterion() );
@@ -184,6 +186,9 @@ public class AdvancedSearchEdit extends SearchResultList
     		error(getMessage("search_NoCriteria"));
     		return "";
     	}
+    	
+    	// add the default criterion to the top of the list
+    	criterionList.add(0, new ObjectCriterion());
     	   	
     	// transform the criteria to searchCriteria
     	try {
@@ -192,18 +197,24 @@ public class AdvancedSearchEdit extends SearchResultList
         	ArrayList<MetadataSearchCriterion> subset = transformToSearchCriteria( 
     				null, criterionList.get( 0 ) );
     		searchCriteria.addAll( subset );
+    		ArrayList<MetadataSearchCriterion> currentList = searchCriteria;
     		for( int i = 1; i < criterionList.size(); i++ ) {
     			
-    			ArrayList<MetadataSearchCriterion> sub = transformToSearchCriteria( 
+    			ArrayList<MetadataSearchCriterion> newCriteria = transformToSearchCriteria( 
     					criterionList.get( i - 1 ), criterionList.get( i ) );
-    			searchCriteria.addAll( sub );	
-    		}
-    		
-    		if(fileCriterionCollection.getFilledCriterion().size() == 0)
-    		{
-    		    //search only for items
-    		    searchCriteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
-                    "item", LogicalOperator.AND ) );  
+    			
+    			Class c = criterionList.get(i).getClass();
+    			Class d = criterionList.get(i-1).getClass();
+    			if( c.equals(d) )
+    			{
+    			    currentList.addAll(newCriteria);
+    			}
+    			else
+    			{
+    			    currentList.get(currentList.size()-1).addSubCriteria(newCriteria);
+    			    currentList = currentList.get(currentList.size()-1).getSubCriteriaList();
+    			}
+    			//searchCriteria.addAll( sub );	
     		}
   
             // add the contentType to the query
@@ -228,7 +239,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	
         return "";
     }
-
+      
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
     	( Criterion predecessor, Criterion transformMe ) throws TechnicalException {
     	
@@ -236,7 +247,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	if( predecessor == null ) {
     		ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
     		if( results.size() != 0 ) {
-    			// set the first logicaloperator to connect it to the 'item' criteria
+    			// set the first logicaloperator to unset
     			results.get( 0 ).setLogicalOperator( LogicalOperator.UNSET );
     		}
     		return results;

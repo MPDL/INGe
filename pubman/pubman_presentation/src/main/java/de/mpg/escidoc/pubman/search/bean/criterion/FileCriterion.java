@@ -62,11 +62,6 @@ public class FileCriterion extends Criterion
     {
        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 
        
-       MetadataSearchCriterion itemCriteria = 
-           new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
-                   "item");
-           criterions.add(itemCriteria);
-       
       // component availability
       if(this.componentAvailability != null)
       {
