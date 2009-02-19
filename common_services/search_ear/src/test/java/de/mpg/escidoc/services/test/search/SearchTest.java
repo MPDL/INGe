@@ -15,8 +15,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ 
-                    TestMetadataSearch.class,
-                    TestSearchAndExport.class
+//                    TestMetadataSearch.class,
+//                    TestSearchAndExport.class
 //					 BracketsTest.class
 //                     ,ConstantsTest.class
 //                     ,ExpressionsTest.class                    
