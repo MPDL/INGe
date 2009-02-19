@@ -30,7 +30,11 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Fragment class for the corresponding Header-JSP.
@@ -41,6 +45,10 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  */
 public class Header extends FacesBean
 {
+    private static String LOGO_DEV = "overlayDev";
+    private static String LOGO_QA = "overlayQA";
+    private static String LOGO_TEST = "overlayTest";
+    
     /**
      * Public constructor.
      */
@@ -57,5 +65,36 @@ public class Header extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
+    }
+    
+    /**
+     * Getter for the logo definition f the type of the server. E.g a dev
+     * server gets another logo than an demo server.
+     * @return  logo definition
+     */
+    public String getServerLogo() 
+    {
+        String serverLogo = "";
+        try
+        {
+            String type = PropertyReader.getProperty("escidoc.systemtype");
+            if(type.equals("dev"))
+            {
+                serverLogo = LOGO_DEV;
+            }
+            else if(type.equals("test"))
+            {
+                serverLogo = LOGO_TEST;
+            }
+            else if(type.equals("qa"))
+            {
+                serverLogo = LOGO_QA;
+            }
+            return serverLogo.toString();        
+        } 
+        catch (Exception e)
+        {
+            return "";
+        }
     }
 }

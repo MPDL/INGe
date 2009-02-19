@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -57,7 +57,7 @@
 	<div class="full_area0 LogoNSearch">
 		<h:outputLink title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
 			<span class="xTiny_marginLExcl huge_area0 headerLogo">
-				<span class="huge_area0 themePark"></span>
+				<h:panelGroup styleClass="huge_area0 themePark #{Header.serverLogo}"></h:panelGroup>
 			</span>
 		</h:outputLink>
 

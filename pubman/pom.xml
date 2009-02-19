@@ -496,6 +496,9 @@
 				<!-- Blog integration -->
 				<escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
 				<escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
+    
+                <!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
+                <escidoc.systemtype>workstation</escidoc.systemtype>
 				
 			</properties>
 			
@@ -607,6 +610,9 @@
                 <!-- Blog integration -->
                 <escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
                 <escidoc.pubman.blog.news>http://pubman.blogs.mpdl.mpg.de/feed/</escidoc.pubman.blog.news>
+                
+                <!-- defines the type of the target system; the logo on the homepage changes on 'dev', 'test' and 'qa' -->
+                <escidoc.systemtype>dev</escidoc.systemtype>
     
 			</properties>
 				<distributionManagement>
