@@ -65,7 +65,7 @@ public class GenreSecificItemManager
 		// First get the Genre of the item
 		String genre = "";
 		ResourceBundle genreBundle = null;
-		ArrayList<String> keyList = new ArrayList<String>();
+		List<Object> objs = new ArrayList<Object>();
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		if(this.pubItem != null && this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getGenre() != null)
 		{
@@ -93,7 +93,7 @@ public class GenreSecificItemManager
 					// check if the property should be available in this genre or not
 					if(map.get(baseKey + "display").equals("false") && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(baseKey + "form_id").equals(GenreSecificItemManager.SUBMISSION_METHOD_ALL)))
 					{
-						List<Object> obj = this.getMappedObject(javaObject, fullClassAttribute);
+						objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
 						
 					}
 					
@@ -122,7 +122,7 @@ public class GenreSecificItemManager
 				{
 					for(Object subObjectElement : (ArrayList)subObject)
 					{
-						List subResult = getMappedObject(subObjectElement, mappingString);
+						List<Object> subResult = getMappedObject(subObjectElement, mappingString);
 						result.addAll(subResult);
 					}
 				}
@@ -157,12 +157,14 @@ public class GenreSecificItemManager
 						{
 							method = javaObjectToNullify.getClass().getMethod("clear", new Class[]{});
 							method.invoke(javaObjectToNullify, new Object[]{});
+							result.add(method);
 						}
 					}
 					else
 					{
 						method = baseObject.getClass().getMethod("set" + renamedAttribute, new Class[]{javaObjectToNullify.getClass()});
 						method.invoke(baseObject, new Object[]{null});
+						result.add(method);
 					}
 				}
 				//result.add(subObject);
