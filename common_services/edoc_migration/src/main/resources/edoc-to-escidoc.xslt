@@ -107,6 +107,8 @@
 	</xsl:template>
 
 	<xsl:template match="record/metadata">
+		<xsl:param name="filename"/>
+		<xsl:param name="access"/>
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<xsl:element name="srel:context">
@@ -121,26 +123,106 @@
 				</mdr:md-record>
 			</xsl:element>	
 			<xsl:element name="ec:components">
-				<xsl:for-each select="basic/fturl">
-					<xsl:call-template name="createComponent"/>
+				<xsl:for-each select="basic/fturl">					
+					<!-- duplicate filenames -->
+					<xsl:variable name="filename" select="@filename"/>
+								
+					<xsl:choose>
+						<xsl:when test="following-sibling::fturl/@filename=$filename">	
+						<!-- test if filename is double -->							
+							<xsl:variable name="access"/>
+							<xsl:choose>
+								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='USER' or following-sibling::fturl[@filename=$filename]/@viewftext='USER' or @viewftext='USER'">
+									<xsl:variable name="access">USER</xsl:variable>
+									<!-- <xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]"> -->
+									<xsl:call-template name="createComponent">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>								
+									</xsl:call-template>
+									<xsl:call-template name="createLocator">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>
+									</xsl:call-template>
+								</xsl:when>
+								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='INSTITUTE' or following-sibling::fturl[@filename=$filename]/@viewftext='INSTITUTE' or @viewftext='INSTITUTE'">
+									<xsl:variable name="access">INSTITUTE</xsl:variable>
+									<xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>								
+									</xsl:apply-templates>
+									<xsl:call-template name="createLocator">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>
+									</xsl:call-template>
+								</xsl:when>
+								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or following-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or @viewftext='PUBLIC'">
+									<xsl:variable name="access">PUBLIC</xsl:variable>
+									<xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>								
+									</xsl:apply-templates>
+									<xsl:call-template name="createLocator">
+										<xsl:with-param name="filename" select="$filename"/>
+										<xsl:with-param name="access" select="$access"/>
+									</xsl:call-template>
+								</xsl:when>
+								<xsl:otherwise>
+									<!-- ERROR -->
+									<!-- <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> -->
+								</xsl:otherwise>
+							</xsl:choose>
+							
+						</xsl:when>
+						<xsl:when test="preceding-sibling::fturl/@filename=$filename"></xsl:when>
+						<xsl:otherwise>
+							<!-- no double filename -->
+							<xsl:call-template name="createComponent">
+								<xsl:with-param name="filename" select="$filename"/>
+								<xsl:with-param name="access" select="$access"/>
+							</xsl:call-template>
+							<xsl:call-template name="createLocator">
+								<xsl:with-param name="filename" select="$filename"/>
+								<xsl:with-param name="access" select="$access"/>
+							</xsl:call-template>
+						</xsl:otherwise>
+					</xsl:choose>	
+						
+							
 				</xsl:for-each>				
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
 	
+	<xsl:template match="fturl">
+		<xsl:param name="filename"/>
+		<xsl:param name="access"/>		
+		<xsl:call-template name="createComponent">
+			<xsl:with-param name="filename" select="$filename"/>
+			<xsl:with-param name="access" select="$access"/>
+		</xsl:call-template>
+	</xsl:template>
+	
 	<xsl:template name="createComponent">
+		<xsl:param name="filename"/>
+		<xsl:param name="access"/>
+		<!-- FILE -->
 		<xsl:element name="ec:component">
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
-				<prop:visibility>private</prop:visibility>
 				<xsl:choose>
-					<xsl:when test="not(@viewftext='PUBLIC')">
-						<prop:content-category>publisher-version</prop:content-category>						
+					<xsl:when test="$access='USER' or $access='INSTITUTE'">
+						<prop:visibility>private</prop:visibility>
+						<prop:content-category>publisher-version</prop:content-category>
+					</xsl:when>
+					<xsl:when test="$access='PUBLIC'">
+						<prop:visibility>public</prop:visibility>
+						<prop:content-category>any-fulltext</prop:content-category>
 					</xsl:when>
 					<xsl:otherwise>
-						<prop:content-category>any-fulltext</prop:content-category>						
+						<!-- ERROR -->
+						<!--  <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> -->
 					</xsl:otherwise>
-				</xsl:choose>
+				</xsl:choose>				
 				<prop:mime-type>application/pdf</prop:mime-type>
 			</ec:properties>
 			<xsl:element name="ec:content">					
@@ -149,28 +231,31 @@
 			</xsl:element>				
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
-					<xsl:element name="file:file">
+					<xsl:element name="file:file">						
 						<xsl:element name="dc:title">
 							<xsl:value-of select="@filename"/>
-						</xsl:element>
-						<xsl:element name="dc:identifier">
-							<xsl:attribute name="xsi:type" select="'eidt:URI'"/>
-							<xsl:value-of select="."/>
-						</xsl:element>
+						</xsl:element>											
 						<xsl:element name="file:content-category">any-fulltext</xsl:element>
 						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 						<dcterms:extent><xsl:value-of select="@size"/></dcterms:extent>
-						<xsl:element name="dc:format">
-							<xsl:value-of select="concat('eDoc_access: ', @viewftext)"/>
+						<xsl:element name="dc:rights">
+							<xsl:value-of select="concat('eDoc_access: ', $access)"/>
 						</xsl:element>
 					</xsl:element>
 				</mdr:md-record>
 			</xsl:element>
 		</xsl:element>	
+		
+	</xsl:template>
+	
+	<xsl:template name="createLocator">
+		<xsl:param name="filename"/>
+		<xsl:param name="access"/>
+		<!-- LOCATOR -->
 		<xsl:element name="ec:component">
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
-				<prop:visibility>private</prop:visibility>
+				<prop:visibility>public</prop:visibility>
 				<prop:content-category>any-fulltext</prop:content-category>
 			</ec:properties>
 			<xsl:element name="ec:content">		
@@ -180,16 +265,24 @@
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
 					<xsl:element name="file:file">
-						<xsl:element name="dc:title">
-							<xsl:value-of select="@filename"/>
-						</xsl:element>
-						<xsl:element name="dc:identifier">
-							<xsl:attribute name="xsi:type" select="'eidt:URI'"/>
-							<xsl:value-of select="."/>
-						</xsl:element>
-						<xsl:element name="dc:format">
-							<xsl:value-of select="concat('eDoc_access: ', @viewftext)"/>
-						</xsl:element>
+						<xsl:choose>
+							<xsl:when test="$access='USER'">
+								<xsl:element name="dc:title">restricted access to full text (selected user)</xsl:element>
+								<xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element>
+							</xsl:when>
+							<xsl:when test="$access='INSTITUTE'">
+								<xsl:element name="dc:title">restricted access to full text (institute-wide)</xsl:element>
+								<xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element>	
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<xsl:element name="dc:title">
+									<xsl:value-of select="@filename"/>
+								</xsl:element>
+							</xsl:when>
+							<xsl:otherwise>
+							<!-- ERROR -->
+							</xsl:otherwise>
+						</xsl:choose>						
 					</xsl:element>
 				</mdr:md-record>
 			</xsl:element>
