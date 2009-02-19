@@ -45,8 +45,11 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class Header extends FacesBean
 {
+    /** Logo for dev environment. */
     private static String LOGO_DEV = "overlayDev";
+    /** Logo for qa environment. */
     private static String LOGO_QA = "overlayQA";
+    /** Logo for test environment. */
     private static String LOGO_TEST = "overlayTest";
     
     /**
