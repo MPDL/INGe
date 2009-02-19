@@ -168,7 +168,7 @@
 								</xsl:when>
 								<xsl:otherwise>
 									<!-- ERROR -->
-									<!-- <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> -->
+									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/>
 								</xsl:otherwise>
 							</xsl:choose>
 							
@@ -220,7 +220,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<!-- ERROR -->
-						<!--  <xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> -->
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> 
 					</xsl:otherwise>
 				</xsl:choose>				
 				<prop:mime-type>application/pdf</prop:mime-type>
