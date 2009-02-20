@@ -68,9 +68,10 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class Util
 {
 
-    Transformation transformer;
+    private Transformation transformer;
     private final Logger logger = Logger.getLogger(Util.class);
-    
+    private final String internalFormat = "escidoc";
+
     /**
      * Public constructor.
      */
@@ -83,13 +84,12 @@ public class Util
         }
         catch (NamingException e)
         {
-           this.logger.warn(e);
+            this.logger.warn(e);
         }
         
     }
     
     /**
-     * 
      * @param formatName
      * @return
      */
@@ -99,39 +99,36 @@ public class Util
     }
     
     /**
-     * 
+     * Default is application/xml
      * @param formatName
      * @return
      */
     public String getDefaultMimeType (String formatName)
     {
-        if (formatName.toLowerCase().equals("escidoc")) { return "application/xml"; }          
-        if (formatName.toLowerCase().equals("arxiv")) { return "application/xml"; } 
-        if (formatName.toLowerCase().equals("pmc")) { return "application/xml"; } 
         if (formatName.toLowerCase().equals("apa")) { return "text/html"; }      
-        if (formatName.toLowerCase().equals("ajp")) { return "text/html"; }    
-        if (formatName.toLowerCase().equals("apa(snippet)")) { return "application/xml"; }     
-        if (formatName.toLowerCase().equals("ajp(snippet)")) { return "application/xml"; }      
+        if (formatName.toLowerCase().equals("ajp")) { return "text/html"; }       
         if (formatName.toLowerCase().equals("endnote")) { return "text/plain"; } 
         if (formatName.toLowerCase().equals("bibtex")) { return "text/plain"; } 
         if (formatName.toLowerCase().equals("coins")) { return "text/plain"; } 
-        if (formatName.toLowerCase().equals("mets")) { return "application/xml"; } 
         if (formatName.toLowerCase().equals("pdf")) { return "application/pdf"; } 
         if (formatName.toLowerCase().equals("ps")) { return "application/gzip"; } 
         if (formatName.toLowerCase().equals("esidoc-fulltext")) { return "unknown"; } 
         
-        return "";
+        return "application/xml";
     }
     
     /**
      * This operation return the Metadata Object of the format to fetch from the source.
      * 
      * @param source
-     * @param format
+     * @param trgFormatName
+     * @param trgFormatType
+     * @param trgFormatEndcoding
      * @return Metadata Object of the format to fetch
      * @throws FormatNotAvailableException 
      */
-    public MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName, String trgFormatType, String trgFormatEndcoding)
+    public MetadataVO getMdObjectToFetch(DataSourceVO source, String trgFormatName, 
+            String trgFormatType, String trgFormatEndcoding)
     {
         MetadataVO sourceMd = null;
         DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
@@ -146,7 +143,7 @@ public class Util
             { fetchMd = false; }
             if (!sourceMd.getMdFormat().trim().toLowerCase().equals(trgFormatType.trim().toLowerCase()))
             { fetchMd = false; }
-            if((!sourceMd.getEncoding().equals("*")) && (!trgFormatEndcoding.equals("*")))
+            if ((!sourceMd.getEncoding().equals("*")) && (!trgFormatEndcoding.equals("*")))
             {
                 if (!sourceMd.getEncoding().toLowerCase().trim().equals(trgFormatEndcoding.toLowerCase().trim())) 
                 {
@@ -155,11 +152,12 @@ public class Util
             }
             
             if (fetchMd)
-            {return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
+            { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
         }
         
         // Second: check which format can be transformed into the given format
-        Format[] possibleFormats = this.transformer.getSourceFormats(new Format (trgFormatName, trgFormatType, trgFormatEndcoding));
+        Format[] possibleFormats = this.transformer.getSourceFormats(
+                new Format(trgFormatName, trgFormatType, trgFormatEndcoding));
         
         for (int i = 0; i < source.getMdFormats().size(); i++)
         {
@@ -173,16 +171,17 @@ public class Util
                 { fetchMd = false; }
                 if (!sourceMd.getMdFormat().trim().toLowerCase().equals(possibleFormat.getType().toLowerCase()))
                 { fetchMd = false; }
-                if((!sourceMd.getEncoding().equals("*")) && (!possibleFormat.getEncoding().equals("*")))
+                if ((!sourceMd.getEncoding().equals("*")) && (!possibleFormat.getEncoding().equals("*")))
                 {
-                    if (!sourceMd.getEncoding().toLowerCase().trim().equals(possibleFormat.getEncoding().toLowerCase().trim())) 
+                    if (!sourceMd.getEncoding().toLowerCase().trim().equals(
+                            possibleFormat.getEncoding().toLowerCase().trim())) 
                     {
                         fetchMd = false;
                     }
                 }
                     
                 if (fetchMd)
-                {return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
+                { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
             }
         }
         return null;
@@ -191,17 +190,21 @@ public class Util
     /**
      * Checks if a target format can be transformed from escidoc format.
      * Will be more dynamic in future! This part of arxiv hack for natasa ;)
+     * @param trgFormatName
+     * @param trgFormatType
+     * @param trgFormatEncoding
      * @return
      */
     public boolean checkEscidocTransform(String trgFormatName, String trgFormatType, String trgFormatEncoding)
     {
         Format target = new Format (trgFormatName, trgFormatType, trgFormatEncoding);
-        Format escidoc = new Format ("escidoc", "application/xml", "UTF-8");
+        Format escidoc = new Format (this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
+                this.getDefaultEncoding(this.getInternalFormat()));
         Format[] formats;
 
         formats = this.transformer.getTargetFormats(escidoc);
         
-        for (int i = 0; i< formats.length; i++)
+        for (int i = 0; i < formats.length; i++)
         {
             if (this.isFormatEqual(target, formats[i]))
             {
@@ -217,10 +220,13 @@ public class Util
      * This operation return the Fulltext Object of the format to fetch from the source.
      * 
      * @param source
-     * @param format
+     * @param formatName
+     * @param formatType
+     * @param formatEncoding
      * @return Fulltext Object of the format to fetch
      */
-    public FullTextVO getFtObjectToFetch(DataSourceVO source, String formatName, String formatType, String formatEncoding)
+    public FullTextVO getFtObjectToFetch(DataSourceVO source, String formatName, 
+            String formatType, String formatEncoding)
     {
         FullTextVO ft = null;
         
@@ -233,7 +239,7 @@ public class Util
             { fetchMd = false; }
             if (!ft.getFtFormat().trim().toLowerCase().equals(formatType.trim().toLowerCase()))
             { fetchMd = false; }
-            if((!ft.getEncoding().equals("*")) && (!formatEncoding.equals("*")))
+            if ((!ft.getEncoding().equals("*")) && (!formatEncoding.equals("*")))
             {
                 if (!ft.getEncoding().toLowerCase().trim().equals(formatEncoding.toLowerCase().trim())) 
                 {
@@ -242,17 +248,15 @@ public class Util
             }
             
             if (fetchMd)
-            {return ft;}
+            { return ft; }
             else 
-            {ft = null;}
+            { ft = null; }
         }
         return ft;
     }
     
     /**
-     * For a more flexible interface for handling user input. This is the only source specific method, which should be
-     * updated when a new source is specified for import
-     * 
+     * For a more flexible user input handling.
      * @param sourceName
      * @param identifier
      * @return a trimed identifier
@@ -296,31 +300,43 @@ public class Util
                 identifier = identifier.substring(3);
                 return identifier.trim();
             }
+            if (identifier.toLowerCase().startsWith("pmc:", 0))
+            {
+                identifier = identifier.substring(4);
+                return identifier.trim();
+            }
+        }
+        // Trim identifier for SPIRES
+        if (sourceName.trim().toLowerCase().equals("spires"))
+        {
+            //If identifier is DOI, the identifier has to be enhanced
+            if ((!identifier.toLowerCase().startsWith("arxiv")) && (!identifier.toLowerCase().startsWith("hep")))
+            {
+                identifier = "FIND+DOI+" + identifier;
+            }
         }
         return identifier.trim();
     }
     
     /**
-     * 
      * @param fetchFormats
-     * @return
+     * @return Vector of Metadata Value Objects
      */
     public Vector<MetadataVO> getTransformFormats(Vector<MetadataVO> fetchFormats)
     {
         Vector<MetadataVO> allFormats = new Vector<MetadataVO>();
 
-        for (int i =0; i< fetchFormats.size(); i++)
+        for (int i = 0; i < fetchFormats.size(); i++)
         {
             MetadataVO md = fetchFormats.get(i);
             Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
             Format [] formats = this.transformer.getTargetFormats(format);
             
-            for (int x=0; x<formats.length; x++)
+            for (int x = 0; x < formats.length; x++)
             {
                 Format formatTrans = formats[x];
-                MetadataVO mdTrans = new MetadataVO ();
-                mdTrans.setName(formatTrans.getName()+ "_"+ formatTrans.getType());
-                // To be tested: mdTrans.setMdLabel(formatTrans.getName()+ "_"+ formatTrans.getType());                        
+                MetadataVO mdTrans = new MetadataVO();
+                mdTrans.setName(formatTrans.getName() + "_" + formatTrans.getType());               
                 mdTrans.setMdFormat(formatTrans.getType());
                 mdTrans.setEncoding(formatTrans.getEncoding());
                 
@@ -336,15 +352,14 @@ public class Util
      * In this context escidoc acts like a transition format for all other formats.
      * @return
      */
-    public Vector<MetadataVO> getTransformationsWithEscidocTransition ()
-    {
+    public Vector<MetadataVO> getTransformationsWithEscidocTransition()
+    {        
         Format[] formatsArr;
-        Vector<MetadataVO> formatsV = new Vector<MetadataVO>();
-        
-        Format escidoc = new Format ("escidoc", "application/xml", "UTF-8");
-        
+        Vector<MetadataVO> formatsV = new Vector<MetadataVO>();       
+        Format escidoc = new Format (this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
+                this.getDefaultEncoding(this.getInternalFormat()));      
         formatsArr = this.transformer.getTargetFormats(escidoc);
-        for (int i =0; i< formatsArr.length; i++)
+        for (int i = 0; i < formatsArr.length; i++)
         {
             Format format = formatsArr[i];
             MetadataVO md = new MetadataVO();
@@ -357,6 +372,38 @@ public class Util
         }
 
         return formatsV;
+    }
+    
+    /**
+     * Checks if a format can use escidoc as transition format.
+     * @param metadataV
+     * @return
+     */
+    public boolean checkEscidocTransition (Vector<MetadataVO> metadataV, String identifier)
+    {
+        if (identifier.toLowerCase().contains(this.getInternalFormat()))
+        {
+            //Transition not possible for escidoc source
+            return false;
+        }
+        else
+        {
+            for (int i = 0; i < metadataV.size(); i++)
+            {
+                MetadataVO md = metadataV.get(i);
+                Format format = new Format (md.getName(), md.getMdFormat(), md.getEncoding());
+                Format[] trgFormats = this.transformer.getTargetFormats(format);
+                for (int x = 0; x < trgFormats.length; x++)
+                {
+                    Format trgFormat = trgFormats[x];
+                    if (trgFormat.getName().toLowerCase().equals(this.getInternalFormat()))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     
     /**
@@ -400,11 +447,12 @@ public class Util
      */
     public boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2)
     {
-        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) {return false;}
-        if (!src1.getMdFormat().toLowerCase().trim().equals(src2.getMdFormat().toLowerCase().trim())) {return false;}
-        if(!src1.getEncoding().equals("*") || !src2.getEncoding().equals("*"))
+        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) { return false;}
+        if (!src1.getMdFormat().toLowerCase().trim().equals(src2.getMdFormat().toLowerCase().trim())) { return false;}
+        if (!src1.getEncoding().equals("*") || !src2.getEncoding().equals("*"))
         {
-            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) {return false;}
+            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            { return false;}
         }
         return true;
     }
@@ -417,16 +465,18 @@ public class Util
      */
     public boolean isFormatEqual(Format src1, Format src2)
     {
-        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) {return false;}
-        if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) {return false;}
+        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) { return false;}
+        if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) { return false;}
         if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
         {
             return true;
         }
         else 
         {
-            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) {return false;}
-            else {return true;}
+            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            { return false;}
+            else 
+            { return true;}
         }
     }
     
@@ -434,7 +484,7 @@ public class Util
      * Creates the source description xml
      * @return xml as byte[]
      */
-    public byte[] createUnapiSourcesXml ()
+    public byte[] createUnapiSourcesXml()
     {
         byte[] xml = null;
         
@@ -476,11 +526,15 @@ public class Util
                 XmlString sourceidDel = XmlString.Factory.newInstance();
                 sourceidDel.setStringValue(":");
                 idDel.set(sourceidDel);
-                //Identifier example
-                SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
-                XmlString sourceidEx = XmlString.Factory.newInstance();
-                sourceidEx.setStringValue(source.getIdentifierExample());
-                idEx.set(sourceidEx);
+              //Identifier example
+//                Vector<String> examples = source.getIdentifierExample();
+//                for (String example : examples)
+//                {                   
+//                    SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
+//                    XmlString sourceidEx = XmlString.Factory.newInstance();
+//                    sourceidEx.setStringValue(example);
+//                    idEx.set(sourceidEx);
+//                }               
                 //Disclaimer
                 // SimpleLiteral disclaim = xmlSource.addNewDisclaimer();
                 // XmlString sourceDisclaim = XmlString.Factory.newInstance();
@@ -496,7 +550,7 @@ public class Util
         catch (IOException e)
         {
             this.logger.error("Error when creating outputXml.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         
         xml = baos.toByteArray();        
@@ -506,7 +560,8 @@ public class Util
     /**
      * Extracts out of a url the escidoc import source name.
      * @param sourceName
-     * @return
+     * @param identifier
+     * @return trimmed sourceName as String
      */
     public String trimSourceName(String sourceName, String identifier)
     {
@@ -533,6 +588,7 @@ public class Util
      * EsciDoc Identifier can consist of the citation URL, like:
      * http://pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. This method extracts the identifier from the URL
      * @param identifier
+     * @return escidoc identifier as String
      */
     public String setEsciDocIdentifier(String identifier)
     {
@@ -541,6 +597,22 @@ public class Util
             String[] extracts = identifier.split("/");
             return extracts[extracts.length - 1];
         }
-        else return "escidoc:" + identifier;
+        else             
+        {
+            if (!identifier.startsWith("escidoc:"))
+            {
+                return this.getInternalFormat()+ ":" + identifier;
+            }
+            else
+            {
+                return identifier;
+            }
+        }
+    }
+    
+    
+    public String getInternalFormat()
+    {
+        return this.internalFormat;
     }
 }
