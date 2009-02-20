@@ -2,19 +2,16 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.15-SNAPSHOT</version>
+		<version>1.0.14-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>dataacquisition_ear</name>
-	<version>1.0.10-SNAPSHOT</version>
+	<version>1.0.9-SNAPSHOT</version>
 	<scm>
-	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/dataacquisition_ear</url>
-  </scm>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>
@@ -243,7 +240,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.16-SNAPSHOT</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -297,14 +294,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.10-SNAPSHOT</version>
+			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.10-SNAPSHOT</version>
+			<version>1.0.9-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -312,7 +309,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>

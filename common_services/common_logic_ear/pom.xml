@@ -2,14 +2,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.15-SNAPSHOT</version>
+		<version>1.0.14-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_logic_ear</artifactId>
 	<name>common_logic_ear</name>
 	<packaging>ear</packaging>
-	<version>1.1.12-SNAPSHOT</version>
+	<version>1.1.11-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic_ear</connection>
@@ -135,13 +135,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.16-SNAPSHOT</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.13-SNAPSHOT</version>
+			<version>1.1.12-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
