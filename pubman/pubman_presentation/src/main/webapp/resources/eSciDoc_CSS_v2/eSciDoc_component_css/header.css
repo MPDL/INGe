@@ -40,6 +40,7 @@
 
 	.metaMenu .logButton, .metaMenu button, .metaMenu select, .metaMenu label, .metaMenu div, .metaMenu span, .metaMenu a  {
 		float: right;
+		white-space: nowrap;
 		text-decoration: none;
 	}
 
@@ -64,6 +65,10 @@
 
 	.searchMenu {
 		float: right;
+	}
+	
+	.searchMenu * {
+		white-space: nowrap;
 	}
 
 	.quickSearchIcon {
