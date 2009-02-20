@@ -30,8 +30,8 @@
       <xs:element name="total-number-of-pages" type="dc:SimpleLiteral" minOccurs="0"/>
       <xs:element name="degree" type="escidoc:DegreeEnum" minOccurs="0"/>
       <xs:element ref="dcterms:abstract" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="dc:subject" minOccurs="0"/>
-      <xs:element ref="dcterms:subject" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="dcterms:subject" minOccurs="0"/>
+      <xs:element ref="dc:subject" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element ref="dcterms:tableOfContents" minOccurs="0"/>
       <xs:element name="location" type="dc:SimpleLiteral" minOccurs="0"/>
     </xs:sequence>
