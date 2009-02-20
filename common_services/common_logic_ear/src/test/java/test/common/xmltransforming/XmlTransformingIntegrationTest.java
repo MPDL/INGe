@@ -60,7 +60,7 @@ import test.common.xmltransforming.integration.TransformTocTest;
 //                     TransformAffiliationIntegrationTest.class,
 //                     TransformPubCollectionIntegrationTest.class,
 //                     TransformPubItemIntegrationTest.class,
-                     TransformPubItemResultListIntegrationTest.class
+//                     TransformPubItemResultListIntegrationTest.class
 //                     TransformPubItemVersionListIntegrationTest.class,
 //                     TransformSchindlMayrIntegrationTest.class,
 //                     TransformFileUrlTest.class,
