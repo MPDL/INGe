@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -125,15 +124,20 @@ public class XmlComparator
                     if (!attributes.getQName(i).startsWith("xmlns:"))
                     {
                         String namespace = getNamespaces().get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-                        String tagName = attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
+                        String attributeName = attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
                         
-                        if (!"schemaLocation".equals(tagName) || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace))
+                        if (!"schemaLocation".equals(attributeName) || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace))
                         {
-                            attributeMap.put( namespace + ":" + tagName , attributes.getValue(i));
+                            attributeMap.put( namespace + ":" + attributeName , attributes.getValue(i));
                         }
                     }
                 }
-                else
+                // TODO MF: Hack for md-record/@name
+                else if ("name".equals(attributes.getQName(i)) && "md-record".equals(name.substring(name.indexOf(":") + 1)))
+                {
+                    // Do nothing
+                }
+                else 
                 {
                     attributeMap.put(attributes.getQName(i), attributes.getValue(i));
                 }
@@ -199,12 +203,18 @@ public class XmlComparator
                         }
                     }
                 }
+                // TODO MF: Hack for md-record/@name
+                else if ("name".equals(attributes.getQName(i)) && "md-record".equals(name.substring(name.indexOf(":") + 1)))
+                {
+                    // Do nothing
+                }
                 else
                 {
                     attributeMap.put(attributes.getQName(i), attributes.getValue(i));
                 }
                 
             }
+            
             if (name.contains(":"))
             {
                 xmlNode = new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(name.substring(0, name.indexOf(":"))));

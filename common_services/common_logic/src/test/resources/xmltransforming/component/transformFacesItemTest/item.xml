@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocItem:item
-		xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
+		xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155:2" last-modification-date="2009-02-02T18:13:00.853Z">
 	<escidocItem:properties>
-		<prop:creation-date>2009-02-02T18:10:33.24Z</prop:creation-date>
+		<prop:creation-date>2009-02-02T18:10:33.241Z</prop:creation-date>
 		<srel:created-by objid="escidoc:user42" />
 		<prop:public-status>released</prop:public-status>
 		<prop:public-status-comment>Release Comment.</prop:public-status-comment>
@@ -27,7 +27,9 @@
 			<release:date>2009-02-02T18:12:58.790Z</release:date>
 			<release:pid>hdl:someHandle/test/escidoc:176155</release:pid>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+			<local-tags/>
+		</prop:content-model-specific>
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
@@ -66,8 +68,8 @@
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
-					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
-						<date>2009-02-02T19:12:49+01:00</date>
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-20T23:00:00.000Z" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T18:12:49.000Z</date>
 						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176158/content">
 							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
 							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
@@ -315,8 +317,8 @@
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
-					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
-						<date>2009-02-02T19:12:50+01:00</date>
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21T23:00:00.000Z" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T18:12:49.000Z</date>
 						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176156/content">
 							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
 							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
@@ -484,8 +486,8 @@
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
-					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-21" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
-						<date>2009-02-02T19:12:51+01:00</date>
+					<jhove xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" date="2008-02-20T23:00:00.000Z" name="Jhove" release="1.1" xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/1.5/jhove.xsd">
+						<date>2009-02-02T18:12:49.000Z</date>
 						<repInfo uri="http://dev-coreservice.mpdl.mpg.de:8080/ir/item/escidoc:176155/components/component/escidoc:176157/content">
 							<reportingModule date="2007-02-13" release="1.2">JPEG-hul</reportingModule>
 							<lastModified>1970-01-01T01:00:00+01:00</lastModified>
@@ -630,6 +632,5 @@
 			</escidocMetadataRecords:md-records>
 		</escidocComponents:component>
 	</escidocComponents:components>
-	<relations:relations></relations:relations>
 </escidocItem:item>
 

@@ -1,5 +1,5 @@
 <escidocItem:item
-	objid="escidoc:375"
+	objid="escidoc:375:2"
 	last-modification-date="2007-04-24T16:20:26.823Z" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
     xmlns:dcterms="http://purl.org/dc/terms/"
@@ -17,7 +17,7 @@
         <srel:context objid="escidoc:persistent3" />
         <srel:content-model objid="escidoc:persistent4" />        
         <prop:lock-status>unlocked</prop:lock-status>
-        <prop:version>
+        <prop:version objid="escidoc:375:2">
             <version:number>1</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
             <version:status>released</version:status>
@@ -25,11 +25,11 @@
             <version:comment>Current version comment</version:comment>
         	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>
         </prop:version>
-        <prop:latest-version>
+        <prop:latest-version objid="escidoc:375:3">
             <version:number>1</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
         </prop:latest-version>
-        <prop:latest-release>
+        <prop:latest-release objid="escidoc:375:1">
             <release:number>1</release:number>
             <release:date>2007-04-24T16:20:26.823Z</release:date>
             <release:pid>hdl:someHandle/test/escidoc:375</release:pid>            

@@ -34,33 +34,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.dom4j.Element;
 import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import test.XmlComparator;
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.util.ObjectComparator;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
@@ -115,6 +97,41 @@ public class TransformFacesItemTest extends XmlTransformingTestBase
         
         assertNotNull("JHove metadata is empty", element.asXML());
         
+    }
+    
+    /**
+     * Test method for checking the identity of a Faces Item after being transformed to an item(VO) and back.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testRountripTransformFacesItem() throws Exception
+    {
+        logger.info("### testRountripTransformFacesItem ###");
+
+        // read PubItemXml from test resources
+        String releasedFacesItemXML = readFile(SAVED_ITEM_FILE);
+
+        // transform the item into XML
+        ItemVO itemVO = xmlTransforming.transformToItem(releasedFacesItemXML);
+        logger.debug("Transformed item(VO):\n" + itemVO);
+
+        assertNotNull("ObjId lost.", itemVO.getVersion().getObjectId());
+        
+        String roundtrippedFacesItem = xmlTransforming.transformToItem(itemVO);
+
+        // compare metadata before and after roundtripping
+        XmlComparator oc = null;
+        try
+        {
+            oc = new XmlComparator(releasedFacesItemXML, roundtrippedFacesItem);
+            assertTrue(oc.getErrors().toString() + "\n\nXML1:\n" + releasedFacesItemXML + "\n\nXML2:\n" + roundtrippedFacesItem, oc.equal());
+        }
+        catch (AssertionError e)
+        {
+            logger.error(oc);
+            throw (e);
+        }
     }
 
 }

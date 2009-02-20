@@ -53,7 +53,7 @@
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 			usage="optional" />
 			
-		<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="pictureGroup"
+		<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="identifier"
 			usage="optional" />
 			
 		<value style="element" name="age" field="age" usage="optional" />

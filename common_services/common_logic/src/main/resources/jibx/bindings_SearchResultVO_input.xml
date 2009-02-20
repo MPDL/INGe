@@ -75,6 +75,8 @@
 	<include path="RelationVO_binding.xml" />
 	<include path="ItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />
+<!--	<include path="ItemRO_binding.xml" />-->
+	<include path="ReferenceObject_binding.xml" />
 	
 	<!-- Add. for Container -->
 	<include path="ContainerVO_binding_input.xml" />

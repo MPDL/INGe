@@ -369,6 +369,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         ItemVO itemVO = xmlTransforming.transformToItem(releasedPubItemXML);
         logger.debug("Transformed item(VO):\n" + itemVO);
 
+        assertNotNull("ObjId lost.", itemVO.getVersion().getObjectId());
+        
         String roundtrippedPubItem = xmlTransforming.transformToItem(itemVO);
 
         // compare metadata before and after roundtripping

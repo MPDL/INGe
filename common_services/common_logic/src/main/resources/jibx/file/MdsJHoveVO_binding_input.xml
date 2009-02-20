@@ -33,6 +33,12 @@
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsJHoveVO"
 		ordered="false" allow-repeats="true">
 
+		<value style="attribute" name="name" field="name" usage="optional"/>
+		
+		<value style="attribute" name="release" field="release" usage="optional"/>
+		
+		<value style="attribute" name="date" field="dateAttribute" usage="optional"/>
+
 		<value name="date" field="date" usage="optional"/>
 
 		<structure
