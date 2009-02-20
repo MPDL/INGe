@@ -356,12 +356,12 @@
           <configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
         </configuration>
       </plugin>
-			 <plugin>
-                <!-- JavaNCSS - A Source Measurement Suite for Java
-                    http://www.kclee.de/clemens/java/javancss/ -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javancss-maven-plugin</artifactId>
-            </plugin>
+<!--			 <plugin>-->
+<!--                 JavaNCSS - A Source Measurement Suite for Java-->
+<!--                    http://www.kclee.de/clemens/java/javancss/ -->
+<!--                <groupId>org.codehaus.mojo</groupId>-->
+<!--                <artifactId>javancss-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <plugin>
                 <!-- A Java package dependency analyzer that generates
                       design quality metrics http://clarkware.com/software/JDepend.html -->
