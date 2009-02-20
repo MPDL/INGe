@@ -46,7 +46,6 @@
 			<version:number>1</version:number>
 			<version:date>2007-07-16T11:12:22.064Z</version:date>
 			<version:status>pending</version:status>
-			<version:valid-status>valid</version:valid-status>
 		</prop:version>
 		<prop:latest-version>
 			<version:number>1</version:number>

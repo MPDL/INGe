@@ -46,18 +46,15 @@
 			<version:number>1</version:number>
 			<version:date>2007-07-16T11:12:22.064Z</version:date>
 			<version:status>pending</version:status>
-			<version:valid-status>valid</version:valid-status>
 		</prop:version>
 		<prop:latest-version>
 			<version:number>1</version:number>
 			<version:date>2007-07-16T11:12:22.064Z</version:date>
 		</prop:latest-version>
-
 		<prop:content-model-specific></prop:content-model-specific>
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-		>
+		xmlns:xlink="http://www.w3.org/1999/xlink">
 		<escidocMetadataRecords:md-record xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
 			<escidocMetadataProfile:publication xmlns:publication="${xsd.metadata.publication}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
 				xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="article">
