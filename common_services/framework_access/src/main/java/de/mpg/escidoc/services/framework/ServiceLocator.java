@@ -328,17 +328,15 @@ public class ServiceLocator
      * @throws URISyntaxException 
      */
     public static ItemHandler getItemHandlerByUrl(String frameworkUrl) throws ServiceException, URISyntaxException
-    {
-            publicItemHandlerServiceLocator = null;
-            publicItemHandlerServiceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-            String url = frameworkUrl + FRAMEWORK_PATH + "/" + publicItemHandlerServiceLocator.getItemHandlerServiceWSDDServiceName();
-            Logger.getLogger(ServiceLocator.class).info("publicItemHandlerServiceLocator URL=" + url);
-            publicItemHandlerServiceLocator.setItemHandlerServiceEndpointAddress(url);
+    {       
+        publicItemHandlerServiceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+        String url = frameworkUrl + FRAMEWORK_PATH + "/" + publicItemHandlerServiceLocator.getItemHandlerServiceWSDDServiceName();
+        Logger.getLogger(ServiceLocator.class).info("publicItemHandlerServiceLocator URL=" + url);
+        publicItemHandlerServiceLocator.setItemHandlerServiceEndpointAddress(url);
             
-            System.out.println("Fetching URL: " + url);
-
         ItemHandler handler = publicItemHandlerServiceLocator.getItemHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
+        publicItemHandlerServiceLocator = null;
         return handler;
     }
     
