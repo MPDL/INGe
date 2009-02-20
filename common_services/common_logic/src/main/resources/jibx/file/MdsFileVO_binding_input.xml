@@ -82,6 +82,11 @@
 			<value style="element" name="extent" ns="http://purl.org/dc/terms/"
 				field="size" usage="optional" />
 
+			<!-- Node: file.rights -->
+			<!-- Field: MdsFileVO.rights [String] -->
+			<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/"
+				field="rights" usage="optional" />
+
 <!--		</structure>-->
 	</mapping>
 </binding>

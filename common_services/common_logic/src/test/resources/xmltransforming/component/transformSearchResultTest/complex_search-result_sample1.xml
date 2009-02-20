@@ -221,7 +221,7 @@
                     <publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
                     <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">the abstract of the item</dcterms:abstract>
                     <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">another abstract</dcterms:abstract>
-                    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">The subject of the item</dc:subject>
+                    <dcterms:subject xmlns:dc="http://purl.org/dc/elements/1.1/">The subject of the item</dcterms:subject>
                     <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">the table of contents of the item</dcterms:tableOfContents>
                     <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">Linnemann Buecherei Paderborn</publication:location>
                 </escidocMetadataProfile:publication>

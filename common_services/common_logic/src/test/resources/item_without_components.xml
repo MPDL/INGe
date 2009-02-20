@@ -140,7 +140,7 @@
 				<publication:degree>master</publication:degree>
 				<dcterms:abstract xml:lang="de">Dies ist die Zusammenfassung der Veröffentlichung.</dcterms:abstract>
 				<dcterms:abstract xml:lang="en">This is the summary of the publication.</dcterms:abstract>
-				<dc:subject>wichtig,wissenschaftlich,spannend</dc:subject>
+				<dcterms:subject>wichtig,wissenschaftlich,spannend</dcterms:subject>
 				<dcterms:tableOfContents>1.Einleitung 2.Inhalt</dcterms:tableOfContents>
 				<publication:location>IPP, Garching</publication:location>
 			</md-profile-escidoc:publication>

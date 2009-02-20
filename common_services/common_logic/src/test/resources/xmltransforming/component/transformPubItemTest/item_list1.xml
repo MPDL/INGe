@@ -158,7 +158,7 @@
                         complexes. We also describe the fibrations of this model structure and show that the model structure is monoidal. We point out that this model structure is necessarily different from others model structures known
                         until now, like the injective model structure and the locally free model structure.
                     </dcterms:abstract>
-                    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Estimators for local non-Gaussianities</dc:subject>
+                    <dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
                     <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
                         Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis (Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus,
                         2000) and apozygoty (Khokhlov, 1967) are also used to designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al., 2004). There are

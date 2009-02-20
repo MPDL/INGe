@@ -44,7 +44,7 @@
 				</publication:creator>
 				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test FrM 1</dc:title>
 				<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-12-31</dcterms:dateSubmitted>
-				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
+				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
 				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>

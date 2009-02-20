@@ -20,6 +20,8 @@ public class MdsFileVO extends MetadataSetVO
 
     private int size;
     
+    private String rights;
+    
     /**
      * Default constructor.
      */
@@ -41,6 +43,7 @@ public class MdsFileVO extends MetadataSetVO
         this.description = other.description;
         this.contentCategory = other.contentCategory;
         this.formats = other.formats;
+        this.rights = other.rights;
     }
     
     public int getSize()
@@ -81,6 +84,16 @@ public class MdsFileVO extends MetadataSetVO
     public List<FormatVO> getFormats()
     {
         return formats;
+    }
+
+    public String getRights()
+    {
+        return rights;
+    }
+
+    public void setRights(String rights)
+    {
+        this.rights = rights;
     }
 
 }

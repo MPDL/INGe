@@ -102,7 +102,7 @@
 			<!-- Field: PubItemVO.version [ItemRO] -->
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
 			
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
@@ -132,7 +132,7 @@
 			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
 			
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
@@ -142,7 +142,7 @@
 			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
 			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
 			
-				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 
 				<value style="element" name="number" ns="${xsd.soap.common.release}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.release}" get-method="getModificationDateForXml" usage="optional" />

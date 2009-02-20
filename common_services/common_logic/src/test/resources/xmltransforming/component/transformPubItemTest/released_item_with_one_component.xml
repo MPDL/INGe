@@ -1,5 +1,5 @@
 <escidocItem:item
-	objid="escidoc:375:2"
+	objid="escidoc:375"
 	last-modification-date="2007-04-24T16:20:26.823Z" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
     xmlns:dcterms="http://purl.org/dc/terms/"
@@ -18,7 +18,7 @@
         <srel:content-model objid="escidoc:persistent4" />        
         <prop:lock-status>unlocked</prop:lock-status>
         <prop:version objid="escidoc:375:2">
-            <version:number>1</version:number>
+            <version:number>2</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
             <version:status>released</version:status>
             <srel:modified-by objid="escidoc:user1" />
@@ -26,7 +26,7 @@
         	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>
         </prop:version>
         <prop:latest-version objid="escidoc:375:3">
-            <version:number>1</version:number>
+            <version:number>3</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
         </prop:latest-version>
         <prop:latest-release objid="escidoc:375:1">
@@ -53,10 +53,9 @@
                 </publication:creator>
                 <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
                 <dc:identifier>1234567890</dc:identifier>
-                <dc:subject>My, free, keywords</dc:subject>
-                <dcterms:DDC>000.000.000</dcterms:DDC>
-                <dcterms:DDC>000.000.001</dcterms:DDC>
-                <dcterms:DDC>000.100.001</dcterms:DDC>
+                <dcterms:subject>My, free, keywords</dcterms:subject>
+                <dc:subject>000.000.000</dc:subject>
+                <dc:subject>000.000.001</dc:subject>
             </escidocMetadataProfile:publication>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
@@ -83,6 +82,7 @@
 						<file:content-category>any-fulltext</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
+						<dc:rights>eDoc_access: USER</dc:rights>
 					</file:file>
             	</escidocMetadataRecords:md-record>
             </escidocMetadataRecords:md-records>

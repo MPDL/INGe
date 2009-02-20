@@ -74,7 +74,7 @@
 					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
 					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no-review</publication:review-method>
 					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
-					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
+					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
 					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
 					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no local signature</publication:location>
 				</escidocMetadataProfile:publication>
@@ -130,7 +130,7 @@
 					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
 						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">my source</dc:title>
 					</publication:source>
-					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
+					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
 					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
 			</escidocMetadataRecords:md-record>

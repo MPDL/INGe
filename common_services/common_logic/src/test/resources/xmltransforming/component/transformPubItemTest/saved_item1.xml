@@ -61,7 +61,7 @@
                 <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
                 <publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-03-04</publication:published-online>                
                 <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>                
-                <dc:subject xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dc:subject>
+                <dcterms:subject xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dcterms:subject>
                 <dcterms:tableOfContents xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
             </escidocMetadataProfile:publication>
         </escidocMetadataRecords:md-record>
