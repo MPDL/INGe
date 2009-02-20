@@ -30,13 +30,13 @@
 		<fieldDescription><![CDATA[publication/modified]]></fieldDescription>
 	</field>
 	<field name="editorsCount" class="java.lang.String">
-		<fieldDescription><![CDATA[string(count(publication/creator[@role='editor']/person|organization))]]></fieldDescription>
+		<fieldDescription><![CDATA[string(count(publication/creator[@role='editor']))]]></fieldDescription>
 	</field>
 	<field name="sourceEditorsCount" class="java.lang.String">
-		<fieldDescription><![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]></fieldDescription>
+		<fieldDescription><![CDATA[string(count(publication/source/creator[@role='editor']))]]></fieldDescription>
 	</field>
 	<field name="authorsCount" class="java.lang.String">
-		<fieldDescription><![CDATA[string(count(publication/creator[@role='author']/person|organization))]]></fieldDescription>
+		<fieldDescription><![CDATA[string(count(publication/creator[@role='author']))]]></fieldDescription>
 	</field>
 	<field name="hasPublication" class="java.lang.String">
 		<fieldDescription><![CDATA[not(publication)=false()]]></fieldDescription>
@@ -51,16 +51,16 @@
 		<fieldDescription><![CDATA[debug]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_2" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/creator[@role='author']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author'])>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_1" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/creator[@role='author']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author'])>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_5" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/creator[@role='editor']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_4" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/creator[@role='editor']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
 	<field name="publication/title" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/title]]></fieldDescription>
@@ -93,10 +93,10 @@
 		<fieldDescription><![CDATA[publication/source[@type='book']/title]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_9" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/source/creator[@role='editor']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/source/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_PLE_8" class="java.lang.String">
-		<fieldDescription><![CDATA[count(publication/source/creator[@role='editor']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/source/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
 	<field name="publication/identifier[contains(@type,&apos;OTHER&apos;)]" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/identifier[contains(@type,'OTHER')]]]></fieldDescription>
@@ -139,7 +139,7 @@
 						null]]></variableExpression>
 	</variable>
 	<variable name="ed" class="java.lang.String">
-		<variableExpression><![CDATA[Integer.parseInt($F{editorsCount}) == 1 ? " (ed)" : " (eds)"]]></variableExpression>
+		<variableExpression><![CDATA[$P{REPORT_SCRIPTLET}.toInt($F{editorsCount}) == 1 ? " (ed)" : " (eds)"]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{../../@objid}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid})) : "") : ""]]></variableExpression>
@@ -148,13 +148,13 @@
 		<variableExpression><![CDATA[$F{debug}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{debug}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{debug})) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_2" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_2}).trim().equals("true") ? ((Integer.parseInt($F{authorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_2()) + ", ") : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_2}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_2()) + ", ") : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_3_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_2}!=null ? (!($V{CS_1_PLE_2}).trim().equals("") ? $V{CS_1_PLE_2} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_1" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_1}).trim().equals("true") ? ((Integer.parseInt($F{authorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_1()) + ", ") : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_1}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_1()) + ", ") : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_3_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_1}!=null ? (!($V{CS_1_PLE_1}).trim().equals("") ? $V{CS_1_PLE_1} : "") : ""]]></variableExpression>
@@ -163,16 +163,16 @@
 		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_3_P_default_E_1},$V{CS_1_PLE_3_P_default_E_2}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_3_P_default_E_1},$V{CS_1_PLE_3_P_default_E_2}}, "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_7_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_3}!=null ? ((Integer.parseInt($F{authorsCount})>0) ? ((!($V{CS_1_PLE_3}).trim().equals("") ? $V{CS_1_PLE_3} : "")) : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_3}!=null ? (($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})>0) ? ((!($V{CS_1_PLE_3}).trim().equals("") ? $V{CS_1_PLE_3} : "")) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_5" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_5}).trim().equals("true") ? ((Integer.parseInt($F{editorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_5())) : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_5}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{editorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_5())) : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_6_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_5}!=null ? (!($V{CS_1_PLE_5}).trim().equals("") ? $V{CS_1_PLE_5} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_4" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_4}).trim().equals("true") ? ((Integer.parseInt($F{editorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_4())) : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_4}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{editorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_4())) : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_6_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
@@ -184,7 +184,7 @@
 		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_6_P_default_E_1},$V{CS_1_PLE_6_P_default_E_2},$V{CS_1_PLE_6_P_default_E_3}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_6_P_default_E_1},$V{CS_1_PLE_6_P_default_E_2},$V{CS_1_PLE_6_P_default_E_3}}, "") + "," : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_7_P_default_E_2" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_6}!=null ? ((Integer.parseInt($F{authorsCount})==0 && Integer.parseInt($F{editorsCount})>0) ? ((!($V{CS_1_PLE_6}).trim().equals("") ? $V{CS_1_PLE_6} : "")) : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_6}!=null ? (($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})==0 && $P{REPORT_SCRIPTLET}.toInt($F{editorsCount})>0) ? ((!($V{CS_1_PLE_6}).trim().equals("") ? $V{CS_1_PLE_6} : "")) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_7" class="java.lang.String">
 		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_7_P_default_E_1},$V{CS_1_PLE_7_P_default_E_2}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_7_P_default_E_1},$V{CS_1_PLE_7_P_default_E_2}}, " ") : "")]]></variableExpression>
@@ -271,13 +271,13 @@
 		<variableExpression><![CDATA[(($F{publication/source[@type='book']/title}!=null) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_4_P_default_E_2}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_4_P_default_E_2}}, " ") : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_9" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_9}).trim().equals("true") ? ((Integer.parseInt($F{sourceEditorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_9())) : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_9}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{sourceEditorsCount})==2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_9())) : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_10_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_9}!=null ? (!($V{CS_1_PLE_9}).trim().equals("") ? $V{CS_1_PLE_9} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_8" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_8}).trim().equals("true") ? ((Integer.parseInt($F{sourceEditorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_8())) : "") : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{tmpField_CS_1_PLE_8}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}.toInt($F{sourceEditorsCount})!=2) ? ((($P{REPORT_SCRIPTLET}).getCS_1_PLE_8())) : "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_10_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{tmpField_CS_1_PLE_8}!=null ? (!($V{CS_1_PLE_8}).trim().equals("") ? $V{CS_1_PLE_8} : "") : ""]]></variableExpression>

@@ -220,12 +220,13 @@ public class ProcessScriptlet {
      * @return true if func in scriptletFunctionsTable, false - otherwise
      * @throws CitationStyleManagerException
      */
-    public static boolean isInScriptletFunctionsTable(String func) throws CitationStyleManagerException {
-        if ( func==null || func.trim().equals("") || scriptletFunctions==null )
-            return false;
-        if (scriptletFunctions.containsKey(func)) 
-        	return true;
-        throw new CitationStyleManagerException("Unknown function:<" + func +">");
+    public static boolean isInScriptletFunctionsTable(String func) 
+//    throws CitationStyleManagerException 
+    {
+        if ( !Utils.checkVal(func) || scriptletFunctions==null )
+        	return false;
+        return scriptletFunctions.containsKey(func);
+//        throw new CitationStyleManagerException("Unknown function:<" + func +">");
     }
 
     private static String getWhileFooterChunk(String pos, int maxCount) {
@@ -361,8 +362,14 @@ public class ProcessScriptlet {
 
             // Function handling
             String func = e.getFunc();
-            if ( isInScriptletFunctionsTable( func ) )
-                chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
+            if ( Utils.checkVal( func ) )
+            {
+            	if ( isInScriptletFunctionsTable( func ) )
+            		chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
+            	else
+            		throw new CitationStyleManagerException("Unknown function:<" + func +">");
+            }
+
 
             // starts&endsWith (xmlEncoded!)
             startsWith = Utils.xmlEncode(ep.getStartsWith(), 1);
@@ -759,7 +766,7 @@ public class ProcessScriptlet {
     private static String getXPath(LayoutElement le) {
         String ref = le.getRef();
 //      String rep = le.getRepeatable();
-        if (ref!=null && ref.length()>0) {
+        if ( Utils.checkLen(ref) ) {
 //          if (rep!=null && rep.length()>0 && rep.equals("yes")) {
 //              return ref;
 //          } else if (findInFieldsMap(ref)) {

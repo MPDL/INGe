@@ -542,10 +542,16 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
         // apply function  	
         String func = Utils.overParams(le.getFunc(), refLE != null ? refLE.getFunc() : null);
-        if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+        if ( Utils.checkVal( func ) )
         {
-        	chunk = "($P{REPORT_SCRIPTLET}." + func + "(" + chunk + "))";	
-        }
+        	if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+        		{
+        			chunk = "($P{REPORT_SCRIPTLET}." + func + "(" + chunk + "))";	
+        		}
+        	else
+        		throw new CitationStyleManagerException("Unknown function:<" + func +">");
+        }	
+
         
         
         // startsWith
@@ -657,11 +663,13 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	  // avoid "null" parameters for non-repeatable elements
               String checkRef = "$" + findRefLocation(ref) + "{" + ref + "}";
               func = le.getFunc();
-              if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+              if ( Utils.checkVal( func ) )
               {
-            	  checkRef = "($P{REPORT_SCRIPTLET}." + func + "(" + checkRef + "))";
-              }
-              
+	              if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) )
+	            	  checkRef = "($P{REPORT_SCRIPTLET}." + func + "(" + checkRef + "))";
+	              else
+	            	  throw new CitationStyleManagerException("Unknown function:<" + func +">");
+              }    
               expr = checkRef + "!=null ? " + expr + " : \"\"";
         	}
         }
@@ -706,13 +714,16 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			if (findInVariablesMap(name))
 			{
 				m.appendReplacement(sb, "\\$V\\{"+ name +"\\}");
+			} 
+			else if ( ProcessScriptlet.isInScriptletFunctionsTable (name) )
+			{
+				m.appendReplacement(sb, "\\$P\\{REPORT_SCRIPTLET\\}\\."+ name );
 			}
 			else 
 			{
 				m.appendReplacement(sb, "\\$F\\{"+ name +"\\}");
 				addJRField(name);
 			}
-			
 		}
 		m.appendTail(sb);
 		
@@ -774,6 +785,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	// if found, use ple instead of le
 			if (ple != null) 
 			{
+				
+				// the code further is only applicable to 
+				// the sub-elements of non-repeatable elements.
+				//TODO: repeatable elements!!!
 		        if (!findInVariablesMap(ple.getId())) 
 		        {
 					addLayoutElementToVariablesMap(cs, ple);
@@ -797,7 +812,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         			}
         			ps.createMethodForScriptlet(le, csc, fsc);
         		}	
-        		expr = applyParameters(le, "(($P{REPORT_SCRIPTLET}).get" + le.getId() + "())", true);
+        		expr = applyParameters(le, "(($P{REPORT_SCRIPTLET}).get" + le.getId() + "())", isRepeatable);
         	}
         	// not repeatable: normal
         	else {
@@ -822,7 +837,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //        	le = oldLe;
         }
         // le has no ref
-        else {
+        else 
+        {
         	expr = applyElements(cs, le, delimiter);
         	expr = applyParameters(le, expr, false);
         }
@@ -838,6 +854,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	
     	CitationStyle cs = csc.getCitationStyleByName(name);
     	Utils.checkCondition(cs == null, "Cannot find citation style:" + name);
+    	
+    	//create ProcessScriptlet class before the 
+        //LEs processing
+        if (!hasCssClasses)
+        {
+        	//
+        	fsc.removeCssClass();
+        	ps = new ProcessScriptlet(cs);
+        }
+        else
+        {
+        	ps = new ProcessScriptlet(cs, CSS_CLASS_POSTFIX);
+        }    	
         
         // add special variables defined in cs XML
         HashMap<String, String[]> vars = cs.getVariables();   
@@ -865,18 +894,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //      fsc.removeCssClass();
       
         
-    	//create ProcessScriptlet class before the 
-        //LEs processing
-        if (!hasCssClasses)
-        {
-        	//
-        	fsc.removeCssClass();
-        	ps = new ProcessScriptlet(cs);
-        }
-        else
-        {
-        	ps = new ProcessScriptlet(cs, CSS_CLASS_POSTFIX);
-        }
         
         
         //generate result citation variable

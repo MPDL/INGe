@@ -32,14 +32,14 @@
 			<![CDATA[not(publication)=false()]]>
 		</variable>
 		<variable name="authorsCount" type="xpath">
-			<![CDATA[string(count(publication/creator[@role='author']/person|organization))]]>
+			<![CDATA[string(count(publication/creator[@role='author']))]]>
 		</variable>
 		<variable name="editorsCount" type="xpath">
-			<![CDATA[string(count(publication/creator[@role='editor']/person|organization))]]>
+			<![CDATA[string(count(publication/creator[@role='editor']))]]>
 		</variable>
 			
 		<variable name="sourceEditorsCount" type="xpath">
-			<![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]>
+			<![CDATA[string(count(publication/source/creator[@role='editor']))]]>
 		</variable>
 			
 		<!--
@@ -74,7 +74,7 @@
 <!--		<variable name="static_in" xpath="'in'" />-->
 
 		<variable name="ed" type="expression">
-					<![CDATA[ Integer.parseInt(${editorsCount}) == 1 ? " (ed)" : " (eds)"]]>
+					<![CDATA[ ${toInt}(${editorsCount}) == 1 ? " (ed)" : " (eds)"]]>
 		</variable>
 
 	</variables>
@@ -84,43 +84,47 @@
 		<!-- repeatable layout elements -->
 		<!-- authors -->
 		<layout-element name="authors-MoreThan2"
-			ref="publication/creator[@role='author']/person|organization"
+			ref="publication/creator[@role='author']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${authorsCount})!=2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${authorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
 				<ends-with value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="authors-Equal2"
-			ref="publication/creator[@role='author']/person|organization"
+			ref="publication/creator[@role='author']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${authorsCount})==2]]></valid-if>
 				<delimiter value=", " />
 				<ends-with value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="authors">
@@ -135,41 +139,45 @@
 		
 		<!-- editors -->
 		<layout-element name="editors-MoreThan2"
-			ref="publication/creator[@role='editor']/person|organization"
+			ref="publication/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${editorsCount})!=2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${editorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="editors-Equal2"
-			ref="publication/creator[@role='editor']/person|organization"
+			ref="publication/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${editorsCount})==2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${editorsCount})==2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		
@@ -191,13 +199,13 @@
 			<elements>
 				<layout-element ref="authors">
 					<parameters>
-						<valid-if><![CDATA[Integer.parseInt(${authorsCount})>0]]></valid-if>
+						<valid-if><![CDATA[${toInt}(${authorsCount})>0]]></valid-if>
 					</parameters>
 					<elements/>
 				</layout-element>
 				<layout-element ref="editors">
 					<parameters>
-						<valid-if><![CDATA[Integer.parseInt(${authorsCount})==0 && Integer.parseInt(${editorsCount})>0]]></valid-if>
+						<valid-if><![CDATA[${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})>0]]></valid-if>
 					</parameters>
 					<elements/>
 				</layout-element>
@@ -207,41 +215,45 @@
 		
 		<!-- source-editors -->
 		<layout-element name="source-editors-MoreThan2"
-			ref="publication/source/creator[@role='editor']/person|organization"
+			ref="publication/source/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})!=2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})!=2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="source-editors-Equal2"
-			ref="publication/source/creator[@role='editor']/person|organization"
+			ref="publication/source/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
 			</parameters>
 			<elements position="last">
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 			<parameters>
-				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})==2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})==2]]></valid-if>
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="given-name" />
-				<layout-element ref="family-name" />
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/given-name" />
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		<layout-element name="source-editors">
