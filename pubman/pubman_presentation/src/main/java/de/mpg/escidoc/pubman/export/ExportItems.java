@@ -77,7 +77,7 @@ public class ExportItems extends FacesBean
     public SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
 //    public SelectItemGroup CITATIONSTYLES_GROUP = new SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
 //    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, CITATIONSTYLES_GROUP};
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, EXPORTFORMAT_APA/*, EXPORTFORMAT_AJP*/};
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP};
     public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
     public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
     public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
