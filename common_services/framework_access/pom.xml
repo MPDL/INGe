@@ -2,17 +2,17 @@
   <parent>
     <artifactId>common_services</artifactId>
     <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0.15-SNAPSHOT</version>
+    <version>1.0.15</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>framework_access</artifactId>
   <name>framework_access</name>
-  <version>1.0.16-SNAPSHOT</version>
+  <version>1.0.16</version>
   <scm>
-    <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/</url>
+    <connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.15/framework_access</connection>
+    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.15/framework_access</developerConnection>
+    <url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.15</url>
   </scm>
   <build>
     <plugins>
