@@ -110,7 +110,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PUBMAN - 文献管理用ESCIDOCソリューション
+	PubMan - 文献管理用eSciDocソリューション
 	</h2>
 	<p>PubManは研究成果文献の管理とデジタル保存に関し、<b>科学者</b>および<b>研究機関</b>をサポートします。</p>
 	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、IT技術者を支援します。マックスプランク研究所および外部機関におけるさまざまな方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
@@ -135,7 +135,7 @@
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス （利用者ごと、ローカル環境固有の検索を実行し、ローカルシステムと連携可能） <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>検索&エクスポートサービス （利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です） <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI インタフェース</a> （arXivのような外部システムからデータを取得）</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/explain" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名などの固有辞書に対する検索</li>

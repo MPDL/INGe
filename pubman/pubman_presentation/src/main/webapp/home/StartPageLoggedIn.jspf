@@ -128,7 +128,7 @@
 		</h:commandLink>
 		<br/>
 	  ... oder die 
-		<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+		<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 			<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:commandLink>
     </span>
@@ -202,7 +202,7 @@
 		</h:commandLink>
 		<br/>
 	  ... 
-		<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+		<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 			<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:commandLink>
     </span>
