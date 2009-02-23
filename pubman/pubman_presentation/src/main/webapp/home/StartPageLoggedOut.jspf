@@ -36,11 +36,12 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-	PUBMAN - THE ESCIDOC SOLUTION FOR PUBLICATION&nbsp;MANAGEMENT
+	PubMan - an eSciDoc solution for publication data management 
 	</h2>
-	<p>PubMan supports <b>scientists</b> and <b>institutes</b> in the management and the digital curation of their publications.</p>
-	<p>This solution addresses <b>all disciplines</b> and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, <b>customization</b> and <b>configuration</b> options throughout the solution's features are of major importance.</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(read more on CoLab)</a>
+	<p>PubMan supports research organizations in the management, dissemination and re-use of <b>publications and supplementary material</b>.
+		The solution PubMan is a component of the eResearch infrastructure of the Max Planck Society and is based on the service-oriented architecture of eSciDoc.
+	</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(Read more...) </a>
 	<br/><br/>
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -73,11 +74,12 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-	PUBMAN - DIE ESCIDOC L&Ouml;SUNG F&Uuml;R PUBLIKATIONS&nbsp;MANAGEMENT
+	PubMan - eine eSciDoc Lösung für Publikationsdaten-Management 
 	</h2>
-	<p>PubMan unterst&uuml;tzt <b>Wissenschaftler</b>  und <b>Institute</b> beim Management und der Konservierung digitaler Publikationen.</p>
-	<p>Diese Softwarel&ouml;sung adressiert <b>alle wissenschaftlichen Disziplinen</b> und legt dabei den Hauptfokus auf die Zielgruppen Wissenschaftler, Bibliothekare und IT Abteilungen. Aufgrund der heterogenen Grunds&auml;tze, Kulturen und Workflows an den Max-Planck-Instituten, sind <b>Anpassbarkeit</b> und <b>Konfigurierbarkeit</b> zentrale Themen bei der Entwicklung von PubMan. </p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(lesen Sie mehr auf CoLab)</a>
+	<p>PubMan unterstützt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von <b>Publikationen und Supplementary Material</b>.
+		Die Anwendung PubMan ist eine Komponente der eResearch Infrastruktur der Max-Planck-Gesellschaft und basiert auf der service-orientierten Architektur von eSciDoc.
+	</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(Lesen Sie mehr...) </a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
