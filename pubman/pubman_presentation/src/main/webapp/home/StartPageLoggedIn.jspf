@@ -180,7 +180,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-		PUBMANへようこそ - <br/>今日は何をしましょうか？
+		PubManへようこそ <!-- -<br/>今日は何をしましょうか？ -->
 	</h2>
 	<br/>
 	</h:panelGroup>
@@ -190,21 +190,21 @@
 	</span>
 	<span class="xDouble_area0"> 
 	<h2>新規登録</h2>      	
-          <b>新規文献をPubManへ入力する</b><br/>
+          <b>文献資料をPubManへ登録する</b><br/>
 	   ... 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="簡易登録"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="データ・インポート"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+			<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="詳細登録"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+			<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+		</h:commandLink>
     </span>
 	</h:panelGroup>
 
@@ -219,7 +219,7 @@
 		<h:outputLink value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 			<h:outputText value="確認もしくは登録完了する"/>
 		</h:outputLink>。
-		まだ未公開の登録資料があれば、こちらからどうぞ。		
+		登録済みで未公開状態の資料を公開する。
 	</span>
 	</h:panelGroup>
 
