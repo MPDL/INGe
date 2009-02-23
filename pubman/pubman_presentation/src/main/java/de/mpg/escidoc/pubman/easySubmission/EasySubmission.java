@@ -1115,14 +1115,15 @@ public class EasySubmission extends FacesBean
                         {
                             FileVO file = fetchedFileList.get(i);
                             if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
-                            {                               
-                                FileVO newFile = new FileVO();
-                                byte[] content = dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
-                                LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
-                                ByteArrayInputStream in = new ByteArrayInputStream(content);
-                                URL fileURL;
+                            {     
                                 try
                                 {
+                                    FileVO newFile = new FileVO();
+                                    byte[] content = dataHandler.retrieveComponentContent(this.getServiceID(), file.getContent());
+                                    LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
+                                    ByteArrayInputStream in = new ByteArrayInputStream(content);
+                                    URL fileURL;
+
                                     fileURL = this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());
                                     if (fileURL != null && !fileURL.toString().trim().equals("") && file.getVisibility().equals(FileVO.Visibility.PUBLIC))
                                     {   hasFile = true;                    
@@ -1142,7 +1143,7 @@ public class EasySubmission extends FacesBean
                                         newFile.getDefaultMetadata().setSize(content.length);
                                         if (file.getDescription()!= null)
                                         {
-                                            newFile.getDefaultMetadata().setDescription(file.getDescription() + " File downloaded from "+ service + " at " + CommonUtils.currentDate());
+                                            newFile.getDefaultMetadata().setDescription(file.getDescription() + " Data downloaded from "+ service + " at " + CommonUtils.currentDate());
                                         }
                                         else
                                         {
@@ -1155,9 +1156,9 @@ public class EasySubmission extends FacesBean
                                 }
                                 catch (Exception e)
                                 {
-                                    logger.error("Error uploading file content to repository", e);              
-                                    error(getMessage("easy_submission_import_from_external_service_error"));                
-                                    return null;
+                                    logger.error("Error fetching file from coreservice", e);              
+//                                    error(getMessage("easy_submission_import_from_external_service_error"));                
+//                                    return null;                                   
                                 }    
                             }
                             else if  (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL) && file.getVisibility().equals(FileVO.Visibility.PUBLIC))
