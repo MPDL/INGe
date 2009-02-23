@@ -322,7 +322,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
     @Override
     public void setObjectId(String objectId)
     {
-        if (objectId != null && objectId.contains(":") && objectId.substring(objectId.indexOf(":")).contains(":"))
+        if (objectId != null && objectId.contains(":") && objectId.substring(objectId.indexOf(":") + 1).contains(":"))
         {
             super.setObjectId(objectId.substring(0, objectId.lastIndexOf(":")));
             setVersionNumber(Integer.parseInt(objectId.substring(objectId.lastIndexOf(":") + 1)));
