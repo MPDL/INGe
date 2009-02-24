@@ -112,10 +112,10 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PubMan - 文献管理用eSciDocソリューション
+	PubMan - eSciDoc文献管理ソリューション
 	</h2>
-	<p>PubManは研究成果文献の管理とデジタル保存に関し、<b>科学者</b>および<b>研究機関</b>をサポートします。</p>
-	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、IT技術者を支援します。マックスプランク研究所および外部機関におけるさまざまな方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
+	<p>PubManは研究成果文献の管理とデジタル保存および発信に関し、<b>科学者</b>および<b>研究機関</b>を支援するソリューションとして開発されました。</p>
+	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、技術者を支援します。研究機関における方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(詳細はCoLab上の説明をご覧ください)</a>
 	<br/><br/>
 	<h3>文献検索</h3>
@@ -137,11 +137,11 @@
 	PubManインタフェース
 	</h2>
 		<ul>
-			<li>検索&エクスポートサービス （利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です） <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
-			<li>データ取得サービス <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI インタフェース</a> （arXivのような外部システムからデータを取得）</li>
+			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
+			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
-			<li><a href="/cone/explain" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名などの固有辞書に対する検索</li>
+			<li><a href="/cone/explain" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
 		</ul>
-	<span>APIインタフェースについての詳細は以下をご覧ください:</span>
+	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 </h:panelGroup>
