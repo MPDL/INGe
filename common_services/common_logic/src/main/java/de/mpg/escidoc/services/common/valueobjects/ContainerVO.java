@@ -121,6 +121,7 @@ public class ContainerVO extends ValueObject implements Searchable
             this.getMembers().add(member);
         }
         this.setLockStatus(other.getLockStatus());
+        this.setState(other.getState());
         for (MetadataSetVO mds : other.getMetadataSets())
         {
             this.getMetadataSets().add(mds.clone());
