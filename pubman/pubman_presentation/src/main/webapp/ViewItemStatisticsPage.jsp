@@ -113,6 +113,9 @@
 								&#160;
 								<!-- Subheadline ends here -->
 							</div>
+							<div class="subHeader">
+								<h:outputText value="#{msg.StatisticsUpdatedDaily}"/>
+							</div>
 						</div>
 					</div>			
 					<div class="full_area0">
