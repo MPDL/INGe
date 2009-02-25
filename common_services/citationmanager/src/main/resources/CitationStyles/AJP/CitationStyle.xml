@@ -48,23 +48,43 @@
 		-->
 		<variable name="date" type="expression">
 			<![CDATA[
-				${publication/issued} != null ? 
-					${publication/issued} :
-					${publication/published-online} != null ? 
-						${publication/published-online} :
-						${publication/@type}.equals("manuscript") ?
-						(
-							${publication/dateAccepted} != null ?
-								${publication/dateAccepted} :
-								${publication/dateSubmitted} != null ?
-									${publication/dateSubmitted} :
-									${publication/modified} != null ?
-										${publication/modified} :
-											${publication/created} != null ?
-												${publication/created} :
-												null 
-						) :
-						null
+				${get_year}(
+					${publication/issued} != null ? 
+						${publication/issued} :
+						${publication/published-online} != null ? 
+							${publication/published-online} :
+							${publication/@type}.equals("manuscript") ?
+							(
+								${publication/dateAccepted} != null ?
+									${publication/dateAccepted} :
+									${publication/dateSubmitted} != null ?
+										${publication/dateSubmitted} :
+										${publication/modified} != null ?
+											${publication/modified} :
+												${publication/created} != null ?
+													${publication/created} :
+													null 
+							) :
+							null
+				)
+			]]>
+		</variable>
+		
+<!--		master, diploma, magister, staatsexamen, phd, habilitation, bachelor -->
+		<variable name="degree" type="expression">
+			<![CDATA[
+				${publication/degree} != null ? 
+				(
+					${publication/degree}.equals("master") ? "Master" :
+					${publication/degree}.equals("diploma") ? "Diploma" :
+					${publication/degree}.equals("magister") ? "Magister" :
+					${publication/degree}.equals("staatsexamen") ? "Staatsexamen" :
+					${publication/degree}.equals("phd") ? "PhD Thesis" :
+					${publication/degree}.equals("habilitation") ? "Habilitation" :
+					${publication/degree}.equals("bachelor") ? "Bachelor" :
+					null
+				) : null
+		
 			]]>
 		</variable>
 		
@@ -283,6 +303,16 @@
 			<elements/>
 		</layout-element>
 		
+		<layout-element name="start-page-end-page">
+			<parameters>
+				<delimiter value="-"/>
+			</parameters>
+			<elements>
+				<layout-element ref="publication/source/start-page" />
+				<layout-element ref="publication/source/end-page" />
+			</elements>
+		</layout-element>
+		
 		
 		<layout-element name="pp-with-total-number-of-pages"> 
 			<parameters>
@@ -290,45 +320,50 @@
 			</parameters>
 			<elements>
 				<layout-element ref="publication/total-number-of-pages" />
-				<layout-element>
+				<layout-element ref="start-page-end-page">
 					<parameters>
 						<valid-if><![CDATA[${publication/total-number-of-pages}==null]]></valid-if>
-						<delimiter value="-" />
 					</parameters>
-					<elements>
-						<layout-element ref="publication/source/start-page" />
-						<layout-element ref="publication/source/end-page" />
-					</elements>
+					<elements/>
 				</layout-element>			
 			</elements>
 		</layout-element>			
 
-		<layout-element name="pp"> 
+		<layout-element name="pp" ref="start-page-end-page"> 
 			<parameters>
 				<starts-with value="pp. "/>
-				<delimiter value="-" />
 			</parameters>
-			<elements>
-				<layout-element ref="publication/source/start-page" />
-				<layout-element ref="publication/source/end-page" />
-			</elements>
+			<elements/>
 		</layout-element>			
 
 		
-		<layout-element name="publishingInfoAndDate">
-				<parameters>
-					<delimiter value=", " />
-					<starts-with value=" (" />
-					<ends-with value=")" />
-				</parameters>
-				<elements>
-					<layout-element ref="publication/publishing-info/publisher" />
-					<layout-element ref="publication/publishing-info/place" />
-					<layout-element ref="date" func="get_year" />
-				</elements>
+			<layout-element name="publishingInfoAndDate">
+					<parameters>
+						<delimiter value=", " />
+						<starts-with value=" (" />
+						<ends-with value=")" />
+					</parameters>
+					<elements>
+						<layout-element ref="publication/publishing-info/publisher" />
+						<layout-element ref="publication/publishing-info/place" />
+						<layout-element ref="date" />
+					</elements>
+			</layout-element>
+			
+			<layout-element name="sourcePublishingInfoAndDate">
+					<parameters>
+						<delimiter value=", " />
+						<starts-with value=" (" />
+						<ends-with value=")" />
+					</parameters>
+					<elements>
+						<layout-element ref="publication/source/publishing-info/publisher" />
+						<layout-element ref="publication/source/publishing-info/place" />
+						<layout-element ref="date" />
+					</elements>
 			</layout-element>
 
-			<layout-element name="editorsAndPublishingInfoAndDate">
+			<layout-element name="sourceEditorsAndPublishingInfoAndDate">
 				<parameters>
 					<delimiter value=" "/>
 				</parameters>
@@ -339,7 +374,7 @@
 						</parameters>
 						<elements/>
 					</layout-element>
-					<layout-element ref="publishingInfoAndDate" />
+					<layout-element ref="sourcePublishingInfoAndDate" />
 				</elements>
 			</layout-element>
 			
@@ -448,15 +483,9 @@
 						</parameters>
 						<elements />
 					</layout-element>
-					<layout-element ref="publication/source/start-page">
+					<layout-element ref="start-page-end-page">
 						<parameters>
 							<starts-with value=", " />
-						</parameters>
-						<elements />
-					</layout-element>
-					<layout-element ref="publication/source/end-page">
-						<parameters>
-							<starts-with value="-" />
 						</parameters>
 						<elements />
 					</layout-element>
@@ -464,7 +493,7 @@
 			</layout-element>
 			<layout-element ref="date">
 				<parameters>
-					<starts-with value="(" />
+					<starts-with value=" (" />
 					<ends-with value=")" />
 				</parameters>
 				<elements />
@@ -529,7 +558,7 @@
 				</elements>
 			</layout-element>
 
-			<layout-element ref="editorsAndPublishingInfoAndDate"/>
+			<layout-element ref="sourceEditorsAndPublishingInfoAndDate"/>
 			
 			<layout-element ref="vol"/>
 			
@@ -549,12 +578,9 @@
 
 			<layout-element ref="debug" />
 			
-			<layout-element ref="creators" >
-				<parameters>
-					<ends-with value="PhD-Thesis"/>
-				</parameters>
-				<elements/>
-			</layout-element>
+			<layout-element ref="creators"/>
+			
+			<layout-element ref="degree"/>
 
 			<layout-element ref="publication/publishing-info/publisher" />
 			
@@ -649,7 +675,7 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="editorsAndPublishingInfoAndDate"/>
+			<layout-element ref="sourceEditorsAndPublishingInfoAndDate"/>
 			
 			<layout-element ref="vol"/>
 			
