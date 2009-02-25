@@ -28,7 +28,7 @@
 		  
 		<variable name="ed-postfix" type="expression"><![CDATA[${toInt}(${editorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
 
-		<variable name="sourceEditorsCount" type="xpath"><![CDATA[string(count(publication/source/creator[@role='editor']))]]></variable>
+		<variable name="sourceEditorsCount" type="xpath"><![CDATA[string(count(publication/source[1]/creator[@role='editor']))]]></variable>
 		  
 		<variable name="source-ed-postfix" type="expression"><![CDATA[${toInt}(${sourceEditorsCount}) == 1 ? " (Ed.)" : " (Eds.)"]]></variable>
 		
@@ -229,7 +229,7 @@
 
 
 		<layout-element name="source-editors-MoreThan2"
-			ref="publication/source/creator[@role='editor']"
+			ref="publication/source[1]/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=", and " />
@@ -249,8 +249,8 @@
 				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
-		<layout-element name="source-editors-person-Equal2"
-			ref="publication/source/creator[@role='editor']/person"
+		<layout-element name="source-editors-Equal2"
+			ref="publication/source[1]/creator[@role='editor']"
 			repeatable="yes">
 			<parameters position="last">
 				<delimiter value=" and " />
@@ -270,6 +270,7 @@
 				<layout-element ref="person/given-name" func="get_initials"/>
 			</elements>
 		</layout-element>
+		
 		<layout-element name="source-editors">
 			<parameters>
 				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>0]]></valid-if>
@@ -453,8 +454,8 @@
 				<delimiter value="-" />
 			</parameters>
 			<elements>
-				<layout-element ref="publication/source/start-page" />
-				<layout-element ref="publication/source/end-page" />
+				<layout-element ref="publication/source[1]/start-page" />
+				<layout-element ref="publication/source[1]/end-page" />
 			</elements>
 		</layout-element>
 		
@@ -464,13 +465,13 @@
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element ref="publication/source/volume">
+				<layout-element ref="publication/source[1]/volume">
 					<parameters>
 						<font-style ref="ITALIC"/>
 					</parameters>
 					<elements/>
 				</layout-element>
-				<layout-element ref="publication/source/issue">
+				<layout-element ref="publication/source[1]/issue">
 					<parameters>
 						<starts-with value="("/>
 						<ends-with value=")"/>
@@ -497,12 +498,23 @@
 			</elements>
 		</layout-element>
 		
-		<layout-element name="source-title" ref="publication/source/title">
+		<layout-element name="source-title" ref="publication/source[1]/title">
 			<parameters>
 				<font-style ref="ITALIC" />
 				<starts-with value=" "/>
 			</parameters>
 			<elements />
+		</layout-element>
+		
+		<layout-element name="source-place-publisher">
+			<parameters>
+				<starts-with value=" " />
+				<delimiter value=": " />
+			</parameters>
+			<elements>
+				<layout-element ref="publication/source[1]/publishing-info/place" />
+				<layout-element ref="publication/source[1]/publishing-info/publisher" />
+			</elements>
 		</layout-element>
 		
 		<layout-element name="place-publisher">
@@ -511,8 +523,8 @@
 				<delimiter value=": " />
 			</parameters>
 			<elements>
-				<layout-element ref="publication/source/publishing-info/place" />
-				<layout-element ref="publication/source/publishing-info/publisher" />
+				<layout-element ref="publication/publishing-info/place" />
+				<layout-element ref="publication/publishing-info/publisher" />
 			</elements>
 		</layout-element>
 
@@ -732,7 +744,7 @@
 							<font-style ref="ITALIC"/>
 						</parameters>
 						<elements>
-							<layout-element ref="publication/source/title"/>
+							<layout-element ref="publication/source[1]/title"/>
 						</elements>
 					</layout-element>
 					<layout-element>
@@ -747,7 +759,7 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="place-publisher"/>
+			<layout-element ref="source-place-publisher"/>
 			
 			<layout-element ref="published-online-and-external-locator"/>
 			
@@ -759,7 +771,7 @@
 	<!-- PROCEEDINGS PAPER, SOURCE==JOURNAL -->
 	<cs-layout-definition name="proceedings-paper-from-journal">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("conference-paper") && ${publication/source/@type}.equals("journal")]]></valid-if>
+			<valid-if><![CDATA[${genre}.equals("conference-paper") && ${publication/source[1]/@type}.equals("journal")]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -782,7 +794,7 @@
 				<elements>
 					<layout-element ref="publication/event/title" />
 					<layout-element ref="publication/event/place" />
-					<layout-element ref="publication/source/volume" />
+					<layout-element ref="publication/source[1]/volume" />
 				</elements>
 			</layout-element>
 			
@@ -798,7 +810,7 @@
 	<!-- PROCEEDINGS PAPER, SOURCE==(BOOK OR PROCEEDINGS) -->
 	<cs-layout-definition name="proceedings-paper-from-book-or-proceedings">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("conference-paper") && (${publication/source/@type}.equals("book") || ${publication/source/@type}.equals("proceedings"))]]></valid-if>
+			<valid-if><![CDATA[${genre}.equals("conference-paper") && (${publication/source[1]/@type}.equals("book") || ${publication/source[1]/@type}.equals("proceedings"))]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -829,13 +841,13 @@
 				</parameters>
 				<elements>
 					<layout-element ref="publication/event/title" />
-					<layout-element ref="publication/source/volume">
+					<layout-element ref="publication/source[1]/volume">
 						<parameters>
 							<starts-with value="Vol. "/>
 						</parameters>
 						<elements/>
 					</layout-element>
-					<layout-element ref="publication/source/title" />
+					<layout-element ref="publication/source[1]/title" />
 				</elements>
 			</layout-element>
 
@@ -847,7 +859,7 @@
 				<elements/>
 			</layout-element>
 			
-			<layout-element ref="place-publisher"/>
+			<layout-element ref="source-place-publisher"/>
 			
 			<layout-element ref="submitted"/>
 			
@@ -922,6 +934,7 @@
 	</cs-layout-definition>
 	
 	<!-- UNPUBLISHED MANUSCRIPT -->
+<!--Author, A. A., & Author, B. (Year of Publication). Title of manuscript. Unpublished manuscript.	-->
 	<cs-layout-definition name="manuscript">
 		<parameters>
 			<valid-if><![CDATA[${genre}.equals("manuscript")]]></valid-if>
@@ -939,9 +952,6 @@
 
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element ref="source-title" />
-			
-			<layout-element ref="place-publisher"/>
 			
 			<layout-element ref="submitted"/>
 		</elements>
@@ -980,7 +990,7 @@
 					<ends-with value=")."/>
 				</parameters>
 				<elements>
-					<layout-element ref="publication/source/volume"/>
+					<layout-element ref="publication/source[1]/volume"/>
 				</elements>
 			</layout-element>
 			
