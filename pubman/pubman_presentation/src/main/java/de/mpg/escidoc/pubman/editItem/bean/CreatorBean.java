@@ -47,6 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation.
@@ -350,13 +351,21 @@ public class CreatorBean extends FacesBean
     
     public void setIdentifierValue(String newValue)
     {
-        if (isPersonType() && getCreator() != null && getCreator().getPerson() != null)
+        if (newValue != null && !"".equals(newValue))
         {
-            if (getCreator().getPerson().getIdentifier() == null)
+            if (isPersonType() && getCreator() != null && getCreator().getPerson() != null)
             {
-                getCreator().getPerson().setIdentifier(new IdentifierVO());
+                if (getCreator().getPerson().getIdentifier() == null)
+                {
+                    getCreator().getPerson().setIdentifier(new IdentifierVO());
+                }
+                getCreator().getPerson().getIdentifier().setId(newValue);
+                getCreator().getPerson().getIdentifier().setType(IdType.CONE);
             }
-            getCreator().getPerson().getIdentifier().setId(newValue);
+        }
+        else
+        {
+            getCreator().getPerson().setIdentifier(null);
         }
     }
 }
