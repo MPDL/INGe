@@ -948,6 +948,9 @@ public class JiBXHelper
             case URN:
                 s = IDTYPES_NAMESPACE_PREFIX + "URN";
                 break;
+            case CONE:
+                s = IDTYPES_NAMESPACE_PREFIX + "CONE";
+                break;
         }
         return s;
     }
