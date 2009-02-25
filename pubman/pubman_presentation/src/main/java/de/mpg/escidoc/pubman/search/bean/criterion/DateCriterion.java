@@ -169,26 +169,23 @@ public class DateCriterion extends Criterion
     
     public  ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
     	
-        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 	
-    	
-    	if( isFromEmpty() == true ) {
-    		// required field missing, return an empty criteria list
-    	}
-    	else if( isToEmpty() == true ) {
-    			Date currentDate = new Date();   //actual date
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    			
-                MetadataDateSearchCriterion criterion = 
-                    new MetadataDateSearchCriterion( getCriterionsList(), from, 
-                            dateFormat.format(currentDate)); 	
-                criterions.add(criterion);
-    	}
-    	else 
+        ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 
+        
+        String fromQuery = null;
+        String toQuery = null;
+        
+        if(!isFromEmpty())
+        {
+            fromQuery = from;
+        }
+    	if(!isToEmpty())
     	{
-    	    MetadataDateSearchCriterion criterion = 
-                new MetadataDateSearchCriterion( getCriterionsList(), from, to );
-    	    criterions.add(criterion);
+    	    toQuery = to;
     	}
+        
+    	MetadataDateSearchCriterion criterion = 
+    	    new MetadataDateSearchCriterion( getCriterionsList(), fromQuery, toQuery );
+    	criterions.add(criterion);
     	
 	   	return criterions;
 	} 
