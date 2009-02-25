@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
+import de.mpg.escidoc.pubman.HomePage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
@@ -774,30 +775,16 @@ public class ViewItemFull extends FacesBean
             PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
             pilsb.setHasChanged();
             
-            if (bhsb.getPreviousItem()!=null){
-                try
-                {
-                    getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
-                }
-                catch (IOException e)
-                {
-                   logger.error("Could not redirect to last breadcrumb!");
-                }  
-            }
-          
             
-            
-            /*
-            if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
+            try
             {
-                this.showMessageDepositorWS(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
+                getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
             }
-            else if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(
-                    SearchResultList.LOAD_SEARCHRESULTLIST))
+            catch (IOException e)
             {
-                this.showMessageSearchResultList(SearchResultList.MESSAGE_SUCCESSFULLY_DELETED);
-            }
-            */
+               logger.error("Could not redirect to last breadcrumb!");
+               return "loadHome";
+            }  
             
         }
         return retVal;
