@@ -467,11 +467,24 @@ public class MetadataSearchCriterion implements Serializable
         }
         String cqlQuery = " ( " + parser.parse() + " ) ";
         
-        if(!subCriteria.isEmpty())
+        cqlQuery = cqlQuery + getCqlQueryFromSubCriteria();
+        return cqlQuery;
+    }
+    
+    /**
+     * Get the cql query from all the subcriteria.
+     * @return  cql query
+     * @throws TechnicalException  if a technical problem occurs
+     * @throws ParseException  if parsing went wrong
+     */
+    protected String getCqlQueryFromSubCriteria() throws TechnicalException, ParseException
+    {
+        String cqlQuery = "";
+        if (!subCriteria.isEmpty())
         {
             cqlQuery = cqlQuery + subCriteria.get(0).getLogicalOperatorAsString() + " ( ";
             cqlQuery = cqlQuery + subCriteria.get(0).generateCqlQuery();
-            for( int i = 1; i < subCriteria.size(); i++ )
+            for (int i = 1; i < subCriteria.size(); i++)
             {   
                 cqlQuery = cqlQuery + " " + subCriteria.get(i).getLogicalOperatorAsString() + " "
                     + subCriteria.get(i).generateCqlQuery();

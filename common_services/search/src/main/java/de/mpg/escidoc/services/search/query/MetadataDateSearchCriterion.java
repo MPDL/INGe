@@ -59,6 +59,10 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         throws TechnicalException
     {
         super(types, from);
+        if (from == null && to == null) 
+        {
+            throw new TechnicalException("Invalid query. Either 'from' or 'to' should have a value.");
+        }
         toField = to;
     }
     
@@ -89,30 +93,54 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
             if (i == (getSearchIndexes().size() - 1))
             {
                
-                buffer.append(createCqlFragment(this.getSearchTerm(), this.toField, getSearchIndexes().get(i)));
+                buffer.append(createCqlFragment(getSearchIndexes().get(i)));
             }
             else 
             {
-                buffer.append(createCqlFragment(this.getSearchTerm(), this.toField, getSearchIndexes().get(i)));
+                buffer.append(createCqlFragment(getSearchIndexes().get(i)));
                 buffer.append(" " + CQL_OR + " ");
             }
         }
         buffer.append(" ) ");
+        buffer.append(getCqlQueryFromSubCriteria());
         return buffer.toString();
     }
     
-    private String createCqlFragment(String searchFrom, String searchTo, String index) 
+    private String createCqlFragment(String index) 
         throws ParseException, TechnicalException
     {
-        QueryParser parserFrom = new QueryParser(getSearchTerm(),
-                booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
-        QueryParser parserTo = new QueryParser(this.toField, booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
+        String fromQuery = null;
+        String toQuery = null;
+        if (getSearchTerm() != null)
+        {
+            QueryParser parserFrom = new QueryParser(getSearchTerm(),
+                    booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
+            parserFrom.addCQLIndex(index);
+            fromQuery = parserFrom.parse();
+        }
+        if (this.toField != null)
+        {
+            QueryParser parserTo = new QueryParser(this.toField, 
+                    booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
+            parserTo.addCQLIndex(index);
+            toQuery = parserTo.parse();
+        }
+        
         StringBuffer buffer = new StringBuffer();
         
-        parserFrom.addCQLIndex(index);
-        parserTo.addCQLIndex(index);
-      
-        buffer.append(" ( " + parserFrom.parse() + " " + CQL_AND + " " + parserTo.parse() + " ) ");
+        if (fromQuery == null) 
+        {
+            buffer.append(" ( " + toQuery + " ) ");
+        }
+        else if (toQuery == null)
+            
+        {
+            buffer.append(" ( " + fromQuery + " ) ");
+        }
+        else
+        {
+            buffer.append(" ( " + fromQuery + " " + CQL_AND + " " + toQuery + " ) ");
+        }
         return buffer.toString();
     }
 }
