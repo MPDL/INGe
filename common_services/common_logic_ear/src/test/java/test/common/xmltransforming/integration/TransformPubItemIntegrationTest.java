@@ -35,6 +35,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -204,7 +205,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         assertEquals("999", md.getTotalNumberOfPages());
         assertEquals(DegreeType.MASTER, md.getDegree());
         assertTrue(2 == md.getAbstracts().size());
-        assertEquals(new TextVO("wichtig,wissenschaftlich,spannend", "jp"), md.getFreeKeywords());
+        assertEquals(new TextVO("wichtig,wissenschaftlich,spannend","jp"), md.getSubjects().get(0));
         assertEquals(new TextVO("1.Einleitung 2.Inhalt", "fr"), md.getTableOfContents());
         assertEquals("IPP, Garching", md.getLocation());
     }
@@ -899,7 +900,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.info("PubItemVO transformed to item(XML) for create: " + pubItemXMLPreCreate);
         logger.debug("ContentItem() (item after transformation from PubItemVO) =\n" + toString(getDocument(pubItemXMLPreCreate, false), false));
         // create the item in the framework
-        String usrHandle = loginLibrarian();
+        String usrHandle = loginSystemAdministrator();
         ItemHandler ihr = ServiceLocator.getItemHandler(usrHandle);
         logger.debug("ItemHandlerRemote successfully obtained.");
         String pubItemXMLPostCreate = ihr.create(pubItemXMLPreCreate);

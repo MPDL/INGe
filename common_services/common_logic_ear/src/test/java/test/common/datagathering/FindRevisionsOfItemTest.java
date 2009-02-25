@@ -57,7 +57,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class FindRevisionsOfItemTest extends TestBase
 {
-    private static final String ITEM_WITHOUT_COMPONENTS = "test/item_without_components.xml";
+    private static String TEST_FILE_ROOT = "xmltransforming/integration/transformPubItemIntegrationTest/";
+    private static String ITEM_WITHOUT_COMPONENTS_FILE = TEST_FILE_ROOT + "item_without_components.xml";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
     private Logger logger = Logger.getLogger(getClass());
@@ -90,7 +91,7 @@ public class FindRevisionsOfItemTest extends TestBase
 
         // Create two revisions
         // revision 1
-        String source = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_WITHOUT_COMPONENTS));
+        String source = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_WITHOUT_COMPONENTS_FILE));
         String sourceId1 = getObjid(source);
         String sourceMd = getLastModificationDate(source);
         // add relation source 1 -- isRevisionOf --> target
@@ -103,7 +104,7 @@ public class FindRevisionsOfItemTest extends TestBase
         ServiceLocator.getItemHandler(userHandle).addContentRelations(sourceId1, param);
         logger.debug(sourceId1 + " isRevisionOf " + pubItem.getVersion().getObjectId());
         // revision 2
-        source = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_WITHOUT_COMPONENTS));
+        source = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_WITHOUT_COMPONENTS_FILE));
         String sourceId2 = getObjid(source);
         sourceMd = getLastModificationDate(source);
         // add relation source 1 -- isRevisionOf --> target

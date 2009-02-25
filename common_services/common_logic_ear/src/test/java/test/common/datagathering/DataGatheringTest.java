@@ -42,7 +42,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CreateOrganizationsTest.class
-                    //,FindRevisionsOfItemTest.class
+                    ,FindRevisionsOfItemTest.class
                     })
 public class DataGatheringTest
 {
