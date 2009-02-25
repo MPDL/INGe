@@ -63,6 +63,7 @@ import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
@@ -70,6 +71,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
+import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
@@ -766,6 +768,25 @@ public class ViewItemFull extends FacesBean
         if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE))
         {
             info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            
+            //redirect to last breadcrumb, if available
+            BreadcrumbItemHistorySessionBean bhsb = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
+            PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            pilsb.setHasChanged();
+            
+            if (bhsb.getPreviousItem()!=null){
+                try
+                {
+                    getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
+                }
+                catch (IOException e)
+                {
+                   logger.error("Could not redirect to last breadcrumb!");
+                }  
+            }
+          
+            
+            
             /*
             if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
             {
@@ -777,6 +798,7 @@ public class ViewItemFull extends FacesBean
                 this.showMessageSearchResultList(SearchResultList.MESSAGE_SUCCESSFULLY_DELETED);
             }
             */
+            
         }
         return retVal;
     }

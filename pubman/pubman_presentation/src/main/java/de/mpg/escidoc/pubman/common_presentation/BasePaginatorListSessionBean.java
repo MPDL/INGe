@@ -214,7 +214,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     
     /**
      * Compares the parameters from the current request with the ones from the last request.
-     * Returns true if parameters have changed or if there are more/less parameters since the last request.
+     * Returns true if parameters have changed or if there are more/less parameters since the last request. This is done in order to avoid the list update if only e.g. a new menu should be displayed.
      * @return
      */
     private boolean parametersChanged()
