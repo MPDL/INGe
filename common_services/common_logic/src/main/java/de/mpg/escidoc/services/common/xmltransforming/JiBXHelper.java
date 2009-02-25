@@ -894,7 +894,7 @@ public class JiBXHelper
             catch (IllegalArgumentException e)
             {
                 throw new WrongEnumException(
-                        "dentifierTypeEnum value ('xsi:type' attribute of 'identifier' element) is '" + enumValue
+                        "IdentifierTypeEnum value ('xsi:type' attribute of 'identifier' element) is '" + enumValue
                                 + "'.");
             }
         }

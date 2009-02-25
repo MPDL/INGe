@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
@@ -95,6 +96,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVO = getPubItemWithoutFiles();
 
+        IdentifierVO ident = new IdentifierVO(IdType.CONE, "123");
+        pubItemVO.getMetadata().getCreators().get(0).getPerson().setIdentifier(ident);
+        
         pubItemVO.getMetadata().setTitle(new TextVO("<blink>organisation</blink>"));
 
         // add file to PubItemVO
@@ -115,6 +119,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
 
         // transform the item(XML) back to a PubItemVO
         PubItemVO roundtrippedPubItemVO = xmlTransforming.transformToPubItem(pubItemXML);
+        
+        assertEquals(IdType.CONE, roundtrippedPubItemVO.getMetadata().getCreators().get(0).getPerson().getIdentifier().getType());
+        
         // compare with original PubItemVO
         ObjectComparator oc = new ObjectComparator(pubItemVO, roundtrippedPubItemVO);
         for (String diff : oc.getDiffs())
