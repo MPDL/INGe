@@ -33,7 +33,6 @@
 
 <h:panelGroup rendered="#{!(genre.sources_display == 'false' && genre.sources_form_id == 'full-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
 	<h:panelGroup layout="block" id="editSource"/>
-	<div id="editSource"></div>
 	<h:dataTable styleClass="free_area0" var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}">
 	    <h:column>
 		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
