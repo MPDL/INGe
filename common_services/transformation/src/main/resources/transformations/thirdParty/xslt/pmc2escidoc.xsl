@@ -150,7 +150,7 @@
 								<xsl:value-of select="pm:name/pm:surname"/>
 							</xsl:element>
 							<xsl:element name="e:given-name">
-								<xsl:value-of select="pm:name/pm:givennames"/>
+								<xsl:value-of select="pm:name/pm:given-names"/>
 							</xsl:element>
 							<xsl:if test="pm:xref">
 								<xsl:call-template name="createOrganization"/>
@@ -165,7 +165,7 @@
 								<xsl:value-of select="pm:name/pm:surname"/>
 							</xsl:element>
 							<xsl:element name="e:given-name">
-								<xsl:value-of select="pm:name/pm:givennames"/>
+								<xsl:value-of select="pm:name/pm:given-names"/>
 							</xsl:element>
 							<xsl:if test="pm:xref">
 								<xsl:call-template name="createOrganization"/>
@@ -185,7 +185,7 @@
 			
 			<xsl:choose>
 				<xsl:when test="../../../pm:aff[@id=$orgaRef]">
-					<xsl:variable name="orgaName" select="substring($orgaString1, 3)"/>
+					<xsl:variable name="orgaName" select="substring($orgaString1, 2)"/>
 					<xsl:element name="e:organization">
 						<!--name-->
 						<xsl:element name="e:organization-name">
@@ -206,7 +206,7 @@
 					</xsl:element>		
 				</xsl:when>
 				<xsl:when test="../../pm:aff[@id=$orgaRef]">
-					<xsl:variable name="orgaName" select="substring($orgaString2, 3)"/>
+					<xsl:variable name="orgaName" select="substring($orgaString2, 2)"/>
 					<xsl:element name="e:organization">
 						<!--name-->
 						<xsl:element name="e:organization-name">
