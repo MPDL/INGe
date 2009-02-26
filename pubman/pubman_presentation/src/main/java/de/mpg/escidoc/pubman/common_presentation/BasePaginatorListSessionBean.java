@@ -17,6 +17,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * This abstract bean class is used to manage lists with one or two paginators. It can work together with different BaseListRetrieverRequestBeans that are responsible
  * to retrieve the list elements. On a jsp page, at first the BaseListRetrieverRequestBean has to be initialized. It then automatically updates the list in this bean (by calling update) whenever necessary and reads
  * required GET parameters (via readOutParamaters()). This bean has to be managed in the session scope of JSF.
+ * The list only refreshes if any GET parameters have changed or new parameters have been added. If you want to refresh the list anyway, please call the hasChanged method.
  * 
  *
  * @author Markus Haarlaender (initial creation)
