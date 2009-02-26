@@ -276,12 +276,11 @@
 				</group>
 				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
 				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="full-submission">
+				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
 					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_volume" repeatable="false" display="false" optional="true" label="source_volume"/>
-					<field id="source_issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
 				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
 				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
@@ -369,15 +368,7 @@
 			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
 				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
 			</group>
-			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="false" optional="false" label="g_source_basic" form-id="easy-submission"/>
-				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
-				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
-				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
-				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
-				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
-			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
 		</genre>
 		<genre id="CONFERENCE_REPORT" label="ENUM_GENRE_CONFERENCE_REPORT">
 			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="easy-submission">
@@ -393,26 +384,19 @@
 				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_item_language"/>
 				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_item_toc"/>
 			</group>
-			<group id="events" repeatable="false" display="true" optional="true" form-id="full-submission" label="g_events">
+			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events">
 				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
 				<field id="event_title_alternative" repeatable="true" display="false" optional="true" label="event_title_alternative"/>
-				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
 				<field id="event_start-date" repeatable="false" display="false" optional="true" label="event_start-date"/>
 				<field id="event_end-date" repeatable="false" display="false" optional="true" label="event_end-date"/>
 			</group>
-			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="true" label="g_source_basic" form-id="full-submission"/>
-				<group id="source_basic" repeatable="false" display="true" optional="true" label="g_source_basic" form-id="easy-submission">
-					<field id="source_title_alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
+				<group id="source_sequence_number" repeatable="false" display="true" optional="true" label="g_source_sequence_number" form-id="full-submission">
+					<field id="source_sequence-number" repeatable="false" display="false" optional="true" label="source_sequence_number" class-attribute="metadata.sources.sequenceNumber"/>
 				</group>
-				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
-				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
-				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
-				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="all"/>
-				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
 			</group>
 		</genre>
 		<genre id="POSTER" label="ENUM_GENRE_POSTER">
@@ -440,18 +424,11 @@
 			<group id="events" repeatable="false" display="true" optional="true" form-id="easy-submission" label="g_events">
 				<field id="event_invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
 			</group>
-			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
-				<group id="source_basic" repeatable="false" display="true" optional="true" label="g_source_basic" form-id="full-submission"/>
-				<group id="source_basic" repeatable="false" display="false" optional="true" label="g_source_basic" form-id="easy-submission"/>
-				<group id="source_person_organization" repeatable="true" display="false" optional="true" label="g_source_person_organization" form-id="easy-submission"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
 				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
-				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
-				<group id="source_total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_source_total_number_of_pages"/>
-				<group id="source_volume_issue_pages" repeatable="false" display="false" optional="true" label="g_source_volume_issue_pages" form-id="easy-submission"/>
-				<group id="source_sequence_number" repeatable="false" display="false" optional="true" label="g_source_sequence_number" form-id="easy-submission"/>
-				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
 			</group>
 		</genre>
 		<genre id="COURSEWARE_LECTURE" label="ENUM_GENRE_ COURSEWARE_LECTURE">
