@@ -54,14 +54,6 @@ public class DateCriterionBean extends CriterionBean
 			dateCriterionVO.setDateType(new ArrayList<DateType>());
 		}
 		
-		//set to-date default to current date
-		if (dateCriterionVO.getTo()==null || dateCriterionVO.getTo().trim().equals(""))
-		{
-		    
-		    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-		    dateCriterionVO.setTo(formater.format(new Date()));
-		}
-		
 		for (DateType date : dateCriterionVO.getDateType())
 		{
 			if (DateType.ACCEPTED.equals(date))
