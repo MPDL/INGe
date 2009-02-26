@@ -392,15 +392,17 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	<xsl:template match="e:person">			
 		<xsl:variable name="role" select="../@role"/>	
 		<xsl:choose>		
-		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0">	
-			<xsl:call-template name="roleLabel"/>					
-		</xsl:when>
-		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0 and count(../parent::pub:source)=1">	
-			<xsl:value-of select="concat($role, ' : ')"/>				
-		</xsl:when>
+			<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0">	
+				<xsl:call-template name="roleLabel"/>					
+			</xsl:when>
+			<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0 and count(../parent::pub:source)=1">	
+				<xsl:value-of select="concat($role, ' : ')"/>				
+			</xsl:when>
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="concat(e:family-name, ', ', e:given-name, '')"/>		
+		<xsl:variable name="familyname" select="func:texString(normalize-space(e:family-name),1)"/>
+		<xsl:variable name="givenname" select="func:texString(normalize-space(e:given-name),1)"/>
+		<xsl:value-of select="concat($familyname, ', ', $givenname, '')"/>		
 		<!-- AND-connection of persons -->		
 		<xsl:choose>		
 			<xsl:when test="exists(../following-sibling::pub:creator[@role=$role])">
