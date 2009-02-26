@@ -1156,9 +1156,7 @@ public class EasySubmission extends FacesBean
                                 }
                                 catch (Exception e)
                                 {
-                                    logger.error("Error fetching file from coreservice", e);              
-//                                    error(getMessage("easy_submission_import_from_external_service_error"));                
-//                                    return null;                                   
+                                    logger.error("Error fetching file from coreservice", e);                                                
                                 }    
                             }
                             else if  (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL) && file.getVisibility().equals(FileVO.Visibility.PUBLIC))
@@ -1218,8 +1216,8 @@ public class EasySubmission extends FacesBean
               return null;
          }
          //clear editItem
-         this.getEditItemSessionBean().getFiles().clear();
-         this.getEditItemSessionBean().getLocators().clear();
+//         this.getEditItemSessionBean().getFiles().clear();
+//         this.getEditItemSessionBean().getLocators().clear();
         }
         
 
@@ -1231,9 +1229,11 @@ public class EasySubmission extends FacesBean
     	{
     	    return null;
     	}
-    	      //clear editItem
-            this.getEditItemSessionBean().getFiles().clear();
-    	}   	
+      //clear editItem
+      //this.getEditItemSessionBean().getFiles().clear();
+      }   	
+      this.getEditItemSessionBean().getFiles().clear();
+      this.getEditItemSessionBean().getLocators().clear();
       return "loadEditItem";
     }
 

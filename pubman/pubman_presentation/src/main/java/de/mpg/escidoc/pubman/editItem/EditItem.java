@@ -1214,20 +1214,23 @@ public class EditItem extends FacesBean
         int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
         String locatorValue = this.getLocators().get(indexUpload).getLocator();
         LocatorUploadBean locatorBean = new LocatorUploadBean();
+        boolean check = locatorBean.ckeckLocator(locatorValue);
 
-        if (locatorBean.ckeckLocator(locatorValue))
+        if (check)
         {           
             locatorBean.locatorUploaded();         
         }
         
         if (locatorBean.getError()!= null)
         {
-            //Reset locator
-            locatorBean.removeLocator();
-            List <PubFileVOPresentation> list = this.getLocators();
-            list.get(indexUpload).setLocator(locatorValue);
-            this.setLocators(list);
-
+            if (check)
+            {
+                //Reset locator if it was already added to list
+                locatorBean.removeLocator();
+                List <PubFileVOPresentation> list = this.getLocators();
+                list.get(indexUpload).setLocator(locatorValue);
+                this.setLocators(list);
+            }
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
     }
@@ -1311,16 +1314,19 @@ public class EditItem extends FacesBean
     {
         int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
         if(this.getEditItemSessionBean().getLocators() != null)
-        {
-            // set the name if it is not filled
-            if(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle() == null 
+        {            
+            //Set empty MetadataSet if none exists
+            if(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata() == null)
+            {
+                this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadataSets().add(new MdsFileVO());
+            }
+            //Set file name if not filled
+            if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle() == null 
                     || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
             {
                 this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().setTitle
                     (new TextVO(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent()));
-                //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
             }
-            //Set locator showProperties value
             
             List <PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
             PubFileVOPresentation pubFile = list.get(indexUpload);
