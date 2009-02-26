@@ -1143,7 +1143,7 @@ public class EasySubmission extends FacesBean
                                         newFile.getDefaultMetadata().setSize(content.length);
                                         if (file.getDescription()!= null)
                                         {
-                                            newFile.getDefaultMetadata().setDescription(file.getDescription() + " Data downloaded from "+ service + " at " + CommonUtils.currentDate());
+                                            newFile.getDefaultMetadata().setDescription(file.getDescription() + " File downloaded from "+ service + " at " + CommonUtils.currentDate());
                                         }
                                         else
                                         {
