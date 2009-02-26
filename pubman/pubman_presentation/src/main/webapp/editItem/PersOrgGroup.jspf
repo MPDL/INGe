@@ -32,7 +32,7 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:panelGroup layout="block" id="editPerson" styleClass="full_area0 itemBlock noTopBorder" rendered="#{!(genre.creator_person_organization_display == 'false' && genre.creator_person_organization_form_id == 'full-submission' || genre.creator_person_organization_display == 'false' && genre.creator_person_organization_form_id == 'all')}">
-	<h:panelGroup layout="block" id="editPersonInner" styleClass="full_area0 itemBlock" rendered="#{!(genre.creator_person_organization_creator_display == 'false' && genre.creator_person_organization_creator_form_id == 'full-submission' || genre.creator_person_organization_creator_display == 'false' && genre.creator_person_organization_creator_form_id == 'all')}">
+	<h:panelGroup layout="block" id="editPersonInner" styleClass="full_area0" rendered="#{!(genre.creator_person_organization_creator_display == 'false' && genre.creator_person_organization_creator_form_id == 'full-submission' || genre.creator_person_organization_creator_display == 'false' && genre.creator_person_organization_creator_form_id == 'all')}">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{genre.creator_person_organization_label}" converter="GenreLabelConverter"/>
 		</h3>
