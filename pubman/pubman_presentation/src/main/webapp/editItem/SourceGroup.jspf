@@ -314,7 +314,7 @@
 					</div>
 		
 			<%-- Source details identifier --%>
-					<h:dataTable styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{genre.sources_source_identifiers_display != 'false' && genre.sources_source_identifiers_form_id != 'easy-submission'}">
+					<h:dataTable styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'full-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
 						<h:column>
 						<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
