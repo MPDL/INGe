@@ -192,18 +192,18 @@
 						<dcterms:abstract>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:abstract" />
 						</dcterms:abstract>
-						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class != ''">
-							<dc:subject>
-								<xsl:call-template name="msc">
-									<xsl:with-param name="code"
-										select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class" />
-								</xsl:call-template>
-							</dc:subject>
-						</xsl:if>
+						
 						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories != ''">
-							<dc:subject>
+							<dcterms:subject>
 								<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />
-							</dc:subject>
+								<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class != ''">
+									<xsl:text>, </xsl:text>							
+									<xsl:call-template name="msc">
+										<xsl:with-param name="code"
+											select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class" />
+									</xsl:call-template>							
+								</xsl:if>
+							</dcterms:subject>
 						</xsl:if>
 						<dcterms:tableOfContents></dcterms:tableOfContents>
 						<publication:location></publication:location>
