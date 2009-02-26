@@ -259,7 +259,15 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
         if (context==null)
         {
-            setSelectedContext((String)getContextSelectItems().get(0).getValue());
+            //select first context as default, iv available
+            if (getContextSelectItems().size()>1)
+            {
+                setSelectedContext((String)getContextSelectItems().get(1).getValue());
+            }
+            else
+            {
+                setSelectedContext((String)getContextSelectItems().get(0).getValue());
+            }
         }
         else
         {
