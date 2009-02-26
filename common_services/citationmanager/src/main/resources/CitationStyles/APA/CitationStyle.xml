@@ -227,42 +227,14 @@
 			<elements/>
 		</layout-element>
 
-
-		<layout-element name="source-editors-MoreThan2"
+		<!-- source-editors -->
+		<layout-element name="source-editors-Equal1"
 			ref="publication/source[1]/creator[@role='editor']"
 			repeatable="yes">
-			<parameters position="last">
-				<delimiter value=", and " />
-			</parameters>
-			<elements position="last">
-				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
-				<layout-element ref="person/given-name" func="get_initials"/>
-			</elements>
 			<parameters>
-				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})!=2]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})==1]]></valid-if>
 				<delimiter value=", " />
-			</parameters>
-			<elements>
-				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
-				<layout-element ref="person/given-name" func="get_initials"/>
-			</elements>
-		</layout-element>
-		<layout-element name="source-editors-Equal2"
-			ref="publication/source[1]/creator[@role='editor']"
-			repeatable="yes">
-			<parameters position="last">
-				<delimiter value=" and " />
-			</parameters>
-			<elements position="last">
-				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
-				<layout-element ref="person/given-name" func="get_initials"/>
-			</elements>
-			<parameters>
-				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})==2]]></valid-if>
-				<delimiter value=", " />
+				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="organization/organization-name" />
@@ -271,14 +243,55 @@
 			</elements>
 		</layout-element>
 		
+		<layout-element name="source-editors-MoreThan1LessOrEqual6" 
+        	ref="publication/source[1]/creator[@role='editor']"
+        	repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", &amp; " />
+				<internal-delimiter value=", " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
+			</elements>
+			
+			<parameters>
+				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>1 && ${toInt}(${sourceEditorsCount})<=6]]></valid-if>
+				<delimiter value=", " />
+				<internal-delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
+			</elements>
+		</layout-element>		
+		
+		<layout-element name="source-editors-MoreThan6" ref="publication/source[1]/creator[@role='editor']" repeatable="yes">
+			<parameters>
+				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>6]]></valid-if>
+				<delimiter value=", " />
+				<internal-delimiter value=", " />
+				<ends-with value=", et al." /> 
+				<max-count value="6"/>
+			</parameters>
+			<elements>
+				<layout-element ref="organization/organization-name" />
+				<layout-element ref="person/family-name" />
+				<layout-element ref="person/given-name" func="get_initials"/>
+			</elements>	
+		</layout-element>	
+		
 		<layout-element name="source-editors">
 			<parameters>
 				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>0]]></valid-if>
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element ref="source-editors-Equal2" />
-				<layout-element ref="source-editors-MoreThan2" />
+				<layout-element ref="source-editors-Equal1" />
+				<layout-element ref="source-editors-MoreThan1LessOrEqual6" />
+				<layout-element ref="source-editors-MoreThan6" />
 				<layout-element ref="source-ed-postfix" />
 			</elements>
 		</layout-element>
