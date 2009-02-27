@@ -425,7 +425,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:when>		
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="e:organization-name"/>
+		<xsl:value-of select="func:texString(e:organization-name,1)"/>
 		<!-- AND-connection of orgas -->		
 		<xsl:variable name="role" select="../@role"/>
 		<xsl:choose>		
