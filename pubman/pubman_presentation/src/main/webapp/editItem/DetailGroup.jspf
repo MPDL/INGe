@@ -60,7 +60,7 @@
 <%-- Dates --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_details_dates_display == 'false' && genre.details_item_details_dates_form_id == 'full-submission' || genre.details_item_details_dates_display == 'false' && genre.details_item_details_dates_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional != 'true' || genre.details_item_details_dates_item_date_accepted_optional != 'true' || genre.details_item_details_dates_item_date_modified_optional != 'true' || genre.details_item_details_dates_item_date_created_optional != 'true' || genre.details_item_details_dates_item_date_submitted_optional != 'true' || genre.details_item_details_dates_item_published_online_optional != 'true'}" /><span class="noDisplay"> </span>
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
@@ -106,7 +106,7 @@
 		</h:panelGroup>
 
 <%-- Publisher, Place --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id != 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id != 'full-submission')}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
@@ -156,7 +156,7 @@
 		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index" rendered="#{!(genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">

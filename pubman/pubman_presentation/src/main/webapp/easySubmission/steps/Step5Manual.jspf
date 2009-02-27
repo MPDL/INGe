@@ -134,7 +134,7 @@
 		<%-- Dates --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_item_details_dates_display == 'false' && genre.details_item_details_dates_form_id == 'easy-submission' || genre.details_item_details_dates_display == 'false' && genre.details_item_details_dates_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_item_date_issued_optional != 'true' || genre.details_item_details_dates_item_date_accepted_optional != 'true' || genre.details_item_details_dates_item_date_modified_optional != 'true' || genre.details_item_details_dates_item_date_created_optional != 'true' || genre.details_item_details_dates_item_date_submitted_optional != 'true' || genre.details_item_details_dates_item_published_online_optional != 'true'}" /><span class="noDisplay"> </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_item_details_dates_optional != 'true'}" /><span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
 						<h:panelGroup rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'easy-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' && genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
