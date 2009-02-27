@@ -211,4 +211,10 @@ public class MulgaraQuerier implements Querier
         return null;
     }
 
+    public List<String> getAllIds(String modelName) throws Exception
+    {
+     // TODO MF: Implement
+        return null;
+    }
+
 }

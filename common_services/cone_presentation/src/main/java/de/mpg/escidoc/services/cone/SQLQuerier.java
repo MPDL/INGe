@@ -33,7 +33,7 @@ import de.mpg.escidoc.services.cone.ModelList.Predicate;
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
 import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.PatternHelper;
+import de.mpg.escidoc.services.cone.util.ModelHelper;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -91,17 +91,15 @@ public class SQLQuerier implements Querier
         }
 
         String[] searchStringsWithWildcards = formatSearchString(searchString);
-        String query = "select id, value, lang"
-                + " from results where id in (select subject from vw_search where model = '" + model + "' and";
+        String subQuery = "select id from matches where model = '" + model + "'";
         for (int i = 0; i < searchStringsWithWildcards.length; i++)
         {
-            if (i > 0)
-            {
-                query += " and";
-            }
-            query += " object ilike '" + searchStringsWithWildcards[i] + "'";
+            subQuery += " and";
+            subQuery += " value ilike '" + searchStringsWithWildcards[i] + "'";
         }
-        query += ")";
+        String query = "select distinct r1.id, r1.value, r1.lang"
+                + " from results r1 where id in (" + subQuery;
+        query += ") and (lang = '" + language + "' or (lang is null and '" + language + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         query += " order by value, id";
         if (limit > 0)
         {
@@ -123,10 +121,7 @@ public class SQLQuerier implements Querier
             String value = result.getString("value");
             String lang = result.getString("lang");
             Pair pair = new Pair(id, value);
-            if ((lang == null || language == null || lang.equals(language)) && !resultSet.contains(pair))
-            {
-                resultSet.add(pair);
-            }
+            resultSet.add(pair);
         }
         connection.close();
         logger.debug("Result: " + resultSet);
@@ -234,18 +229,21 @@ public class SQLQuerier implements Querier
             }
             if (!found)
             {
-                throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
-            }
-            
-            if (resultMap.containsKey(predicateValue))
-            {
-                resultMap.get(predicateValue).add(localizedTripleObject);
+                logger.error("Predicate '" + predicateValue + "' not found in model '" + modelName + "'");
+                //throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
             }
             else
             {
-                ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
-                newEntry.add(localizedTripleObject);
-                resultMap.put(predicateValue, newEntry);
+                if (resultMap.containsKey(predicateValue))
+                {
+                    resultMap.get(predicateValue).add(localizedTripleObject);
+                }
+                else
+                {
+                    ArrayList<LocalizedTripleObject> newEntry = new ArrayList<LocalizedTripleObject>();
+                    newEntry.add(localizedTripleObject);
+                    resultMap.put(predicateValue, newEntry);
+                }
             }
         }
         connection.close();
@@ -296,7 +294,7 @@ public class SQLQuerier implements Querier
                     continue;
                 }
                 
-                if (object.getLanguage() != null && "".equals(object.getLanguage()))
+                if (object.getLanguage() == null || "".equals(object.getLanguage()))
                 {
                     statement.setString(4, null);
                 }
@@ -315,7 +313,32 @@ public class SQLQuerier implements Querier
             
             statement.setString(1, id);
             
-            List<Pair> results = PatternHelper.buildObjectFromPattern(modelName, id, values);
+            List<Pair> results = ModelHelper.buildObjectFromPattern(modelName, id, values);
+            
+            for (Pair pair : results)
+            {
+                if (pair.getValue() != null && !"".equals(pair.getValue()))
+                {
+                    statement.setString(2, pair.getValue());
+                    if (pair.getKey() != null && "".equals(pair.getKey()))
+                    {
+                        statement.setString(3, null);
+                    }
+                    else
+                    {
+                        statement.setString(3, pair.getKey());
+                    }
+                    statement.executeUpdate();
+                }
+            }
+            
+            query = "insert into matches (id, value, lang, model) values (?, ?, ?, ?)";
+            statement = connection.prepareStatement(query);
+            
+            statement.setString(1, id);
+            statement.setString(4, modelName);
+            
+            results = ModelHelper.buildMatchStringFromModel(modelName, id, values);
             
             for (Pair pair : results)
             {
@@ -383,11 +406,14 @@ public class SQLQuerier implements Querier
         
         statement.executeUpdate();
         
-        query = "delete from results where id = ?";
-                
+        query = "delete from results where id = ?"; 
         statement = connection.prepareStatement(query);
         statement.setString(1, id);
-
+        statement.executeUpdate();
+        
+        query = "delete from matches where id = ?";
+        statement = connection.prepareStatement(query);
+        statement.setString(1, id);
         statement.executeUpdate();
         
         connection.close();
@@ -428,6 +454,25 @@ public class SQLQuerier implements Querier
             connection.close();
             throw new Exception("'max_id not found in properties table'");
         }
+    }
+
+    public List<String> getAllIds(String modelName) throws Exception
+    {
+        String query = "select distinct subject from triples where model = ?";
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        
+        statement.setString(1, modelName);
+        
+        ResultSet resultSet = statement.executeQuery();
+        
+        List<String> results = new ArrayList<String>();
+        while (resultSet.next())
+        {
+            results.add(resultSet.getString("subject"));
+        }
+        connection.close();
+        return results;
     }
     
 }

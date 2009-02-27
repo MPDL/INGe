@@ -112,7 +112,8 @@ public interface Querier
      */
     public void delete(String model, String id) throws Exception;
     
-    
     public String createUniqueIdentifier(String model) throws Exception;
 
+    public List<String> getAllIds(String model) throws Exception;
+    
 }

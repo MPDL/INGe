@@ -158,6 +158,7 @@ public class ModelList
                         Boolean.parseBoolean(attributes.getValue("mandatory")),
                         Boolean.parseBoolean(attributes.getValue("localized")),
                         Boolean.parseBoolean(attributes.getValue("generateObject")),
+                        Boolean.parseBoolean(attributes.getValue("searchable")),
                         attributes.getValue("resourceModel"));
                 this.predicateStack.peek().add(predicate);
                 this.predicateStack.push(predicate.getPredicates());
@@ -174,28 +175,6 @@ public class ModelList
         {
             if ("models/model".equals(stack.toString()))
             {
-                boolean localized = false;
-                boolean global = false;
-                for (String pattern : currentService.getResultPattern())
-                {
-                    for (Predicate predicate : currentService.getPredicates())
-                    {
-                        if (predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
-                        {
-                            localized = true;
-                        }
-                        else if (!predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
-                        {
-                            global = true;
-                        }
-                    }
-                    if (localized && global)
-                    {
-                        break;
-                    }
-                }
-                currentService.setLocalizedResultPattern(localized);
-                currentService.setGlobalResultPattern(global);
                 list.add(currentService);
             }
             else if ("predicate".equals(name))
@@ -203,6 +182,82 @@ public class ModelList
                 this.predicateStack.pop();
             }
             super.endElement(uri, localName, name);
+        }
+
+        @Override
+        public void endDocument() throws SAXException
+        {
+            super.endDocument();
+            
+            Stack<String> stack = new Stack<String>();
+            
+            for (Model model : list)
+            {
+                stack.push(model.getName());
+                setI18nFlags(model, model.getPredicates(), stack);
+                stack.pop();
+            }
+        }
+
+        /**
+         * @param model
+         */
+        private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> stack)
+        {
+            for (Predicate predicate : predicates)
+            {
+                for (String pattern : model.getResultPattern())
+                {
+                    if (predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                    {
+                        model.setLocalizedResultPattern(true);
+                    }
+                    else if (!predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                    {
+                        model.setGlobalResultPattern(true);
+                    }
+                }
+                
+                if (predicate.isSearchable())
+                {
+                    if (predicate.isLocalized())
+                    {
+                        model.setLocalizedMatches(true);
+                    }
+                    else
+                    {
+                        model.setGlobalMatches(true);
+                    }
+                }
+                
+                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+                {
+                    setI18nFlags(model, predicate.getPredicates(), stack);
+                }
+                else if (predicate.isResource())
+                {
+                    try
+                    {
+                        for (Model nextModel : list)
+                        {
+                            if (nextModel.getName().equals(predicate.getResourceModel()))
+                            {
+                                if (!(stack.contains(nextModel.getName())))
+                                {
+                                    stack.push(nextModel.getName());
+                                    setI18nFlags(model, nextModel.getPredicates(), stack);
+                                    stack.pop();
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
         }
 
         public Set<Model> getList()
@@ -309,7 +364,8 @@ public class ModelList
         private List<String> resultPattern = new ArrayList<String>();
         private boolean localizedResultPattern;
         private boolean globalResultPattern;
-
+        private boolean localizedMatches;
+        private boolean globalMatches;
         /**
          * Default constructor.
          */
@@ -468,6 +524,49 @@ public class ModelList
         {
             this.globalResultPattern = globalResultPattern;
         }
+        
+        public boolean isLocalizedMatches()
+        {
+            return localizedMatches;
+        }
+
+        public void setLocalizedMatches(boolean localizedMatches)
+        {
+            this.localizedMatches = localizedMatches;
+        }
+
+        public boolean isGlobalMatches()
+        {
+            return globalMatches;
+        }
+
+        public void setGlobalMatches(boolean globalMatches)
+        {
+            this.globalMatches = globalMatches;
+        }
+
+        /**
+         * Find a predicate by id.
+         * 
+         * @param predicateId the id of the predicate. If the id is null, a {@link NullPointerException} is thrown.
+         * 
+         * @return null if there is no predicate with the given id, the according predicate otherwise.
+         */
+        public Predicate getPredicate(String predicateId)
+        {
+            if (predicateId == null)
+            {
+                throw new NullPointerException("Empty predicate name");
+            }
+            for (Predicate predicate : getPredicates())
+            {
+                if (predicateId.equals(predicate.getId()))
+                {
+                    return predicate;
+                }
+            }
+            return null;
+        }
 
         /**
          * Compares to other objects.
@@ -529,6 +628,7 @@ public class ModelList
         private List<Predicate> predicates = new ArrayList<Predicate>();
         private boolean generateObject = false;
         private String resourceModel;
+        private boolean searchable;
 
         /**
          * Constructor using all fields.
@@ -540,6 +640,7 @@ public class ModelList
          * @param name The label of this predicate.
          * @param generateObject Flag indicating that this predicate has sub-predicates that are not defined
          * by a certain identifier.
+         * @param searchable Flag that indicates that this predicate shall be found when querying this model.
          * @param resourceModel Flag indicating if the object is an identifier to a stand-alone resourceModel. If so,
          * this resourceModel won't be editable, but linked. Furthermore, it will not be deleted in case the
          * current subject is deleted.
@@ -551,6 +652,7 @@ public class ModelList
                 boolean mandatory,
                 boolean localized,
                 boolean generateObject,
+                boolean searchable,
                 String resourceModel)
         {
             this.id = id;
@@ -560,12 +662,36 @@ public class ModelList
             this.localized = localized;
             this.name = name;
             this.generateObject = generateObject;
+            this.searchable = searchable;
             this.resourceModel = resourceModel;
         }
         
         public boolean isResource()
         {
             return (resourceModel != null);
+        }
+        
+        /**
+         * Find a sub predicate by id.
+         * 
+         * @param predicateId the id of the sub predicate. If the id is null, a {@link NullPointerException} is thrown.
+         * 
+         * @return null if there is no sub predicate with the given id, the according sub predicate otherwise.
+         */
+        public Predicate getPredicate(String predicateId)
+        {
+            if (predicateId == null)
+            {
+                throw new NullPointerException("Empty predicate name");
+            }
+            for (Predicate predicate : getPredicates())
+            {
+                if (predicateId.equals(predicate.getId()))
+                {
+                    return predicate;
+                }
+            }
+            return null;
         }
         
         public String getName()
@@ -636,6 +762,16 @@ public class ModelList
         public void setResourceModel(String resourceModel)
         {
             this.resourceModel = resourceModel;
+        }
+
+        public void setSearchable(boolean searchable)
+        {
+            this.searchable = searchable;
+        }
+        
+        public boolean isSearchable()
+        {
+            return searchable;
         }
 
 

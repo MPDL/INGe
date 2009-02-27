@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO Description
+ * A representation of a tree-like structure built of s-p-o triples.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -103,6 +103,8 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
 
     /**
      * Display this object as RDF/XML.
+     * 
+     * @return The object as RDF
      */
     public String toRdf()
     {
@@ -213,6 +215,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         }
     }
 
+    /**
+     * Display this object as JSON object.
+     * 
+     * @return The object as JSON
+     */
     public String toJson()
     {
         if (size() == 0)

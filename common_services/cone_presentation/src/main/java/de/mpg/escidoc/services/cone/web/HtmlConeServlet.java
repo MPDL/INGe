@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.cone.web;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -151,10 +152,20 @@ public class HtmlConeServlet extends ConeServlet
         StringWriter writer = new StringWriter();
         try
         {
+            File xsltFile = null;
+            try
+            {
+                xsltFile = ResourceUtil.getResourceAsFile("WEB-INF/" + model.getName() + "-html.xsl");
+            }
+            catch (FileNotFoundException fnfe)
+            {
+                logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
+                xsltFile = ResourceUtil.getResourceAsFile("WEB-INF/generic-html.xsl");
+            }
             Transformer transformer = TransformerFactory
                     .newInstance()
                     .newTransformer(
-                            new StreamSource(ResourceUtil.getResourceAsStream("WEB-INF/" + model.getName() + "-html.xsl")));
+                            new StreamSource(xsltFile));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
             transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));

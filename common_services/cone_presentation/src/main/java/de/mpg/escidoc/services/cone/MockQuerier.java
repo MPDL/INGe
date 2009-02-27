@@ -319,4 +319,12 @@ public class MockQuerier implements Querier
         return "mock" + new Date().getTime();
     }
 
+    /**
+     * Empty implementation.
+     */
+    public List<String> getAllIds(String modelName) throws Exception
+    {
+        return null;
+    }
+    
 }

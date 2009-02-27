@@ -389,11 +389,44 @@ public abstract class ConeServlet extends HttpServlet
         response.getWriter().println("Error: Parameter '" + param + "' is missing.");
     }
 
-    protected abstract void explain(HttpServletResponse response) throws FileNotFoundException, TransformerFactoryConfigurationError, IOException;
+    /**
+     * Explain action to be implemented by a format servlet.
+     * 
+     * @param response The HTTP response piped through.
+     * @throws FileNotFoundException From XSLT transformation.
+     * @throws TransformerFactoryConfigurationError From XSLT transformation.
+     * @throws IOException From XSLT transformation.
+     */
+    protected abstract void explain(HttpServletResponse response)
+        throws FileNotFoundException, TransformerFactoryConfigurationError, IOException;
 
+    /**
+     * Format the results of the query action.
+     * 
+     * @param pairs The results
+     * @return A string that displays the given results in the current format.
+     * @throws IOException From XSLT transformation.
+     */
     protected abstract String formatQuery(List<Pair> pairs) throws IOException;
 
-    protected abstract String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException;
+    /**
+     * Format the results of the details action.
+     * 
+     * @param id The id of the object.
+     * @param model The current model.
+     * @param triples The structure of the current object.
+     * @param lang The selected language.
+     * 
+     * @return A string that displays the given results in the current format.
+     * @throws IOException From XSLT transformation.
+     */
+    protected abstract String formatDetails(String id, Model model, TreeFragment triples, String lang)
+        throws IOException;
     
+    /**
+     * An implementing servlet should return the "Content-Type" header value of its format (e.g. "text/html"). 
+     * 
+     * @return The content type as string.
+     */
     protected abstract String getContentType();
 }
