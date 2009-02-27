@@ -260,7 +260,7 @@
 			</div>
 		</h:panelGroup>
 
-		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.events_display == 'false' && genre.sources_form_id == 'easy-submission' || genre.events_display == 'false' && genre.events_form_id == 'all')}">
+		<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.events_display == 'false' && genre.events_form_id == 'easy-submission' || genre.events_display == 'false' && genre.events_form_id == 'all')}">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
 				<h:outputText value="#{genre.events_label}" converter="GenreLabelConverter"/>
 			</h3>
