@@ -29,64 +29,76 @@
 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
-<%@ page import="de.mpg.escidoc.services.cone.ModelList" %>
-<%@ page import="de.mpg.escidoc.services.framework.PropertyReader" %>
-<%@ page import="java.net.URLEncoder" %>
-<%@ page import="org.apache.axis.encoding.Base64" %>
-<%@ page import="de.mpg.escidoc.services.framework.ServiceLocator" %>
-<%@ page import="de.escidoc.www.services.aa.UserAccountHandler" %>
-<%@ page import="de.mpg.escidoc.services.common.valueobjects.AccountUserVO" %>
-<%@ page import="de.mpg.escidoc.services.common.XmlTransforming" %>
-<%@ page import="de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean" %>
-<%@ page import="java.util.List" %>
-<%@ page import="de.mpg.escidoc.services.common.valueobjects.GrantVO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%
-
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
-
-	XmlTransforming xmlTransforming = new XmlTransformingBean();
-
-	if (request.getParameter("eSciDocUserHandle") != null)
-	{
-	    String userHandle = new String(Base64.decode(request.getParameter("eSciDocUserHandle")), "UTF-8");
-	    UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(userHandle);
-	    String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-	    
-        AccountUserVO accountUser = xmlTransforming.transformToAccountUser(xmlUser);
-        // add the user handle to the transformed account user
-        accountUser.setHandle(userHandle);
-        
-        String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
-        List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
-        
-        for (GrantVO grant : grants)
-        {
-            accountUser.getGrants().add(grant);
-            if ("escidoc:role-administrator".equals(grant.getRole()))
-            {
-        		request.getSession().setAttribute("logged_in", Boolean.TRUE);
-            }
-        }
-	}
 %>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>CoNE - Control of Named Entities</title>
-	</head>
+
+<%@page import="java.util.List"%>
+<%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
+<%@page import="de.mpg.escidoc.services.cone.ModelList"%>
+<%@page import="java.util.Set"%>
+<%@page import="de.mpg.escidoc.services.cone.Querier"%>
+<%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%><html xmlns="http://www.w3.org/1999/xhtml">
+	<jsp:include page="header.jsp"/>
 	<body>
-		<h2>CoNE - Control of Named Entities</h2>
-		<ul>
-			<li><a href="search.jsp">Search</a></li>
-			<li><a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a></li>
-			<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-				<% for (Model model : ModelList.getInstance().getList()) { %>
-					<li><a href="edit.jsp?model=<%= model.getName() %>">Enter new <%= model.getName() %></a></li>
-				<% } %>
+		<jsp:include page="navigation.jsp"/>
+		<%
+			Set<Model> modelList = ModelList.getInstance().getList();
+			Querier querier = QuerierFactory.newQuerier();
+		%>
+		<table align="center">
+			<tr>
+				<th align="right">Model \ Format</th>
+				<th width="150">HTML</th>
+				<th width="150">RDF/XML</th>
+				<th width="150">Json</th>
+				<th width="150">JQuery</th>
+				<th width="150">Options</th>
+			</tr>
+			<% for (Model model : modelList) {
+				List<String> ids = querier.getAllIds(model.getName());
+				%>
+				<tr>
+					<th align="right"><%= model.getName() %>: <%= model.getDescription() %></th>
+					<td align="center">
+						<a href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+						/
+						<a href="/cone/html/<%= model.getName() %>/all">all</a>
+						/
+						<a href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+					</td>
+					<td align="center">
+						<a href="/cone/rdf/<%= model.getName() %>/query?q=a">query</a>
+						/
+						<a href="/cone/rdf/<%= model.getName() %>/all">all</a>
+						/
+						<a href="/cone/rdf/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+					</td>
+					<td align="center">
+						<a href="/cone/json/<%= model.getName() %>/query?q=a">query</a>
+						/
+						<a href="/cone/json/<%= model.getName() %>/all">all</a>
+						/
+						<a href="/cone/json/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+					</td>
+					<td align="center">
+						<a href="/cone/jquery/<%= model.getName() %>/query?q=a">query</a>
+						/
+						<a href="/cone/jquery/<%= model.getName() %>/all">all</a>
+						/
+						<a href="/cone/jquery/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+					</td>
+					<td align="center">
+						<a href="/cone/options/<%= model.getName() %>/query?q=a">query</a>
+						/
+						<a href="/cone/options/<%= model.getName() %>/all">all</a>
+						/
+						<a href="/cone/options/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+					</td>
+				</tr>
 			<% } %>
-		</ul>
+		</table>
 	</body>
 </html>

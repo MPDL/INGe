@@ -100,30 +100,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>CoNE - View Entry</title>
-	</head>
+	<jsp:include page="header.jsp"/>
 	<body>
-		<h2>CoNE - View Entry</h2>
-			<a href="index.jsp">Home</a>
-			<% if (request.getSession().getAttribute("latestSearch") != null) { %>
-				<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
-			<% } else { %>
-				<a href="search.jsp">Search</a>
+		<jsp:include page="navigation.jsp"/>
+		<a href="index.jsp">Home</a>
+		<% if (request.getSession().getAttribute("latestSearch") != null) { %>
+			<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
+		<% } else { %>
+			<a href="search.jsp">Search</a>
+		<% } %>
+		<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+			<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">Edit</a>
+		<% } %>
+		<h3><%= modelName %>:
+			<% if (uri != null) { %>
+				<%= uri %>
 			<% } %>
-			<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-				<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">Edit</a>
-			<% } %>
-			<h3><%= modelName %>:
-				<% if (uri != null) { %>
-					<%= uri %>
-				<% } %>
-			</h3>
+		</h3>
 
-			<% if (model != null) { %>
-				<%= printPredicates(model.getPredicates(), results) %>
-			<% } %>
+		<% if (model != null) { %>
+			<%= printPredicates(model.getPredicates(), results) %>
+		<% } %>
 
 	</body>
 </html>

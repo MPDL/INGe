@@ -82,15 +82,10 @@
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>CoNE - Search entries</title>
-	</head>
+	<jsp:include page="header.jsp"/>
 	<body>
+		<jsp:include page="navigation.jsp"/>
 		<form name="searchform" action="search.jsp" accept-charset="UTF-8" method="post">
-			<h2>CoNE - Search entries</h2>
-			<a href="index.jsp">Home</a>
-			<br/>
 			<center>
 				<select size="1" name="model">
 					<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
@@ -105,7 +100,7 @@
 					<option value="en" <% if ("en".equals(request.getParameter("lang"))) { %>selected<% } %>>english</option>
 					<option value="fr" <% if ("fr".equals(request.getParameter("lang"))) { %>selected<% } %>>french</option>
 				</select>
-				<input type="submit" value="Search"/>
+				<input type="submit" value="Search" class="searchMenu"/>
 			</center>
 			<% if (results != null) { %>
 				<br/>
