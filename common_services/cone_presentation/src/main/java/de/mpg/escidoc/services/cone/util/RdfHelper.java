@@ -101,16 +101,22 @@ public class RdfHelper
      */
     public static String formatMap(String id, TreeFragment triples)
     {
-        
-        StringWriter result = new StringWriter();
-        
-        result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n");
-        
-        result.append(triples.toRdf());
-        
-        result.append("</rdf:RDF>\n");
-        
-        return result.toString();
+        if (triples != null)
+        {
+	        StringWriter result = new StringWriter();
+	        
+	        result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+	        result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n");
+	        
+	        result.append(triples.toRdf());
+	        
+	        result.append("</rdf:RDF>\n");
+	        
+	        return result.toString();
+        }
+        else
+        {
+        	return "";
+        }
     }
 }

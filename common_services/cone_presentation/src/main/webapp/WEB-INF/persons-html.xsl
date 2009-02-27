@@ -47,6 +47,11 @@
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<link href="/cone/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
 				<link href="/cone/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
+				<style type="text/css">
+					.Italic {
+						font-style:italic;
+					}
+				</style>
 				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 				<script>
 				
@@ -73,27 +78,12 @@
 								{
 									itemURL = '';
 									itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
-								
-									element = '';
-									
-									
+
 									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
-									
-									//publicationTitle = '';
-									//publicationTitle = $.trim($(allItems[i].getElementsByTagName('dc:title')[0]).text());
-									//var elementParts = element.split(publicationTitle);
-									//if(elementParts.length == 2){
-									//	element = elementParts[0] + '<a href="' + itemURL + '" target="_blank" >' + publicationTitle + '</a>' + elementParts[1];
-									//}
 									
 									$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
 									$('.publicationsArea').append(element);
-									
-									var italics = $('.publicationsArea:last-child').find('span.Italic');
-									
-									if (italics.length != 0) {
-										italics.replaceWith("<i>" + italics.html() + "</i>");
-									};
+
 									$('.publicationsArea:last-child').find('span.Default').each(function(k, elem){
 										$(elem).replaceWith($(elem).html());
 									});
