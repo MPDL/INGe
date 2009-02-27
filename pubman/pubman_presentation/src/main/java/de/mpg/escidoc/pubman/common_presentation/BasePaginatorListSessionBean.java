@@ -424,13 +424,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             }
             else 
             {
-            error("The given page number is not valid");
+            error(getMessage("listError_goTo"));
             }
             
         }
         catch (Exception e)
         {
-            error("The given page is not valid");
+            error(getMessage("listError_goTo"));
         }
         
       
@@ -461,13 +461,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
             }
             else 
             {
-            error("The given page number is not valid");
+                error(getMessage("listError_goTo"));
             }
             
         }
         catch (Exception e)
         {
-            error("The given page is not valid");
+            error(getMessage("listError_goTo"));
         }
         
        
