@@ -113,6 +113,7 @@ public class EasySubmissionSessionBean extends FacesBean
      * Stores a string from a hidden input field (set by javascript) that indicates whether the author copy&paste elements are to be displayed or not.
      */
     private String showAuthorCopyPaste;
+    private String creatorParseString;
     
 	/**
      * Public constructor.
@@ -286,7 +287,16 @@ public class EasySubmissionSessionBean extends FacesBean
         return showAuthorCopyPaste;
     }
     
-    /**
+    
+    public String getCreatorParseString() {
+		return creatorParseString;
+	}
+
+	public void setCreatorParseString(String creatorParseString) {
+		this.creatorParseString = creatorParseString;
+	}
+
+	/**
      * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.
      */
     public void initAuthorCopyPasteCreatorBean()

@@ -2264,12 +2264,12 @@ public class EasySubmission extends FacesBean
     
     public void setCreatorParseString(String creatorParseString)
     {
-        this.creatorParseString = creatorParseString;
+        this.getEasySubmissionSessionBean().setCreatorParseString(creatorParseString);
     }
 
     public String getCreatorParseString()
     {
-        return creatorParseString;
+        return this.getEasySubmissionSessionBean().getCreatorParseString();
     }
     
     public String addCreatorString()
