@@ -12,10 +12,16 @@ def parse_resource_file( filename )
          next if line =~ /^\s*#/
          next if line =~ /^\s*$/
          if line =~ /^\s*([\w\.\-]+)\s*=\s*(.+)$/
+	    key, val = $1, $2
             if resource[ $1 ]
-               puts "#{filename}:#{$.}: Warining: duplicate resource: #{ $1 }"
+               puts "#{filename}:#{$.}: Warining: duplicate resource: #{ key }"
             end
-            resource[ $1 ] = $2.strip
+	    val.strip!
+	    if val.empty? or val == "\\"
+	       puts "#{filename}:#{$.}: Warning: empty value: #{ key }"
+	    else 
+               resource[ key ] = val
+	    end
          else
             puts "#{filename}:#{$.}: Warining: unknown line: #{line}"
          end
