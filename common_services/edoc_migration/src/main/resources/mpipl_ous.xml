@@ -30,7 +30,7 @@
 	<xsl:variable name="organizational-units">
 		<ou name="Max Planck Society" id="escidoc:persistent13">
 			<ou name="MPI for Psycholinguistics" alias="MPI für Psycholinguistik" id="escidoc:22007">
-				<ou name="Acquisition Group" id="escidoc:22008"/>
+				<ou name="Language Acquisition Group" id="escidoc:22008"/>
 				<ou name="Comprehension Group" id="escidoc:22010"/>
 				<ou name="Language and Cognition Group" id="escidoc:22011"/>
 				<ou name="Production Group" id="escidoc:22012"/>
@@ -38,8 +38,8 @@
 				<ou name="Adaptive Listening" id="escidoc:22014"/>
 				<ou name="Communication before Language" id="escidoc:22015"/>
 				<ou name="Comparative Cognitive Anthropology" id="escidoc:22016"/>
-				<ou name="Evolutionary Models of Language Change" id="escidoc:22017"/>
-				<ou name="Categories and Concepts across Language and Cognition" id="escidoc:22018"/>
+				<ou name="Evolutionary Processes in Language and Culture" id="escidoc:22017"/>
+				<ou name="Categories across Language and Cognition" id="escidoc:22018"/>
 				<ou name="Decoding Continuous Speech" id="escidoc:22019"/>
 				<ou name="Information Structure in Language Acquisition" id="escidoc:22020"/>
 				<ou name="Language in Action" id="escidoc:22021"/>
@@ -61,11 +61,15 @@
 				<ou name="Library" id="escidoc:22037"/>
 				<ou name="Other Research" id="escidoc:22038"/>
 				<ou name="The Neurobiology of Language" id="escidoc:71624"/>
+				<ou name="Language and Genetics" id="escidoc:211019"/>
+				<ou name="Mechanisms and Representations in Comprehending Speech" id="escidoc:211020"/>
 			</ou>
 		</ou>
 		<ou name="external" id="escidoc:persistent22">
 			<ou name="IWTS" id="escidoc:22009"/>
-			<ou name="CSLM" id="escidoc:22039"/>
+			<ou name="Interfacultaire Werkgroep Taal- en Spraakgedrag" id="escidoc:22009"/>
+			<ou name="CLSM" id="escidoc:22039"/>
+			<ou name="Center for Language Studies" id="escidoc:22039"/>
 			<ou name="Pioneer" id="escidoc:22040"/>
 			<ou name="FC Donders Centre for Cognitive Neuroimaging" id="escidoc:71625"/>
 			<ou name="Donders Institute for Brain, Cognition and Behaviour" id="escidoc:71626"/>

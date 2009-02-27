@@ -227,7 +227,7 @@ public class PubManImport extends Thread
         HttpClient httpClient = new HttpClient();
         PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/item/" + id + "/assign-version-pid");
         postMethod.addRequestHeader("Cookie", "escidocCookie=" + userHandle);
-        String body = "<param last-modification-date=\"" + lastModificationDate + "\"><url>http://localhost:8080/album/core/ir/item/" + id + "</url></param>";
+        String body = "<param last-modification-date=\"" + lastModificationDate + "\"><url>http://qa-pubman.mpdl.mpg.de:8080/faces/item/" + id + "</url></param>";
 
         postMethod.setRequestEntity(new StringRequestEntity(body));
         httpClient.executeMethod(postMethod);

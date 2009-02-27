@@ -147,13 +147,13 @@ public class EDocImport extends DefaultHandler
     					}
     					newXml.append("\" creatorType=\"individual\">\n");
     					newXml.append("<creatorini>");	
-    					newXml.append(escape(authors.get(i).getInitial()));
+    					newXml.append(escape(authors.get(i).getInitial()).trim());
     					newXml.append("</creatorini>\n");
     					newXml.append("<creatornfamily>");
-    					newXml.append(escape(authors.get(i).getSurname()));
+    					newXml.append(escape(authors.get(i).getSurname()).trim());
     					newXml.append("</creatornfamily>\n");
     					newXml.append("<creatorngiven>");
-    					newXml.append(escape(authors.get(i).getGivenName()));
+    					newXml.append(escape(authors.get(i).getGivenName()).trim());
     					newXml.append("</creatorngiven>\n");
     					newXml.append("</creator>\n");
     				}
@@ -218,7 +218,7 @@ public class EDocImport extends DefaultHandler
 		{
 		    return "";
 		}
-		return input.trim();
+		return input;
 	}
 
 	

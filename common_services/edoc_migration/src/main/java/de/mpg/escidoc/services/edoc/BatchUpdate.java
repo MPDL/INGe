@@ -30,9 +30,6 @@
 
 package de.mpg.escidoc.services.edoc;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.StringTokenizer;
@@ -49,6 +46,8 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -63,7 +62,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class CreatePurgeScript2
+public class BatchUpdate
 {
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
@@ -77,33 +76,103 @@ public class CreatePurgeScript2
     {
         CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         
-        String userHandle = loginUser(args[0], args[1]);
+        String userHandle = loginUser("import_user", "haydn");
         
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
+        //String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
+        //String filter = "<param><filter>escidoc:100220</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
 
         PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/items/filter");
-        postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-        postMethod.setRequestBody(filter);
+//        
+//        postMethod.setRequestBody(filter);
+//        
+//        httpClient.executeMethod(postMethod);
         
-        httpClient.executeMethod(postMethod);
-        String response = postMethod.getResponseBodyAsString();
+        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:101409");
+        getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+        httpClient.executeMethod(getMethod);
+        
+        String response = getMethod.getResponseBodyAsString();
         logger.info("...done!");
         
-        FileWriter xmlData = new FileWriter("xmlData.xml");
-        xmlData.write(response);
-        xmlData.close();
-        //System.out.println(response);
+        System.out.println(response);
         
-        logger.info("Transforming result...");
-        XSLTTransform transform = new XSLTTransform();
-        File stylesheet = new File("src/main/resources/itemlist2purgescript.xslt");
-        FileOutputStream outputStream = new FileOutputStream("purge.sh");
-        transform.transform(response, stylesheet, outputStream);
-        logger.info("...done!");
+        while (response.contains("<escidocItem:item"))
+        {
+            
+            int startPos = response.indexOf("<escidocItem:item");
+            int endPos = response.indexOf("</escidocItem:item>");
+
+            String item = response.substring(startPos, endPos + 19);
+            
+            response = response.substring(endPos + 19);
+            
+            startPos = item.indexOf("xlink:href=\"");
+            endPos = item.indexOf("\"", startPos + 12);
+            
+            String objId = item.substring(startPos + 12, endPos);
+
+            System.out.print(objId);
+            
+            if (item.contains("xsi:type=\"\""))
+            {
+                item = item.replaceAll("xsi:type=\"\"", "xsi:type=\"eidt:CONE\"");
+            
+                PutMethod putMethod = new PutMethod(CORESERVICES_URL + objId);
+                
+                putMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+                putMethod.setRequestEntity(new StringRequestEntity(item));
+                
+                httpClient.executeMethod(putMethod);
+                
+                String result = putMethod.getResponseBodyAsString();
+                
+                //System.out.println(item);
+
+                startPos = result.indexOf("last-modification-date=\"");
+                endPos = result.indexOf("\"", startPos + 24);
+                String modDate = result.substring(startPos + 24, endPos);
+                //System.out.println("modDate: " + modDate);
+                String param = "<param last-modification-date=\"" + modDate + "\"><url>http://qa-pubman.mpdl.mpg.de:8080/faces/item/" + objId.substring(4) + "</url></param>";
+                postMethod = new PostMethod(CORESERVICES_URL + objId + "/assign-version-pid");
+                postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+                postMethod.setRequestEntity(new StringRequestEntity(param));
+                httpClient.executeMethod(postMethod);
+                result = postMethod.getResponseBodyAsString();
+                //System.out.println("Result: " + result);
+                
+                startPos = result.indexOf("last-modification-date=\"");
+                endPos = result.indexOf("\"", startPos + 24);
+                modDate = result.substring(startPos + 24, endPos);
+                //System.out.println("modDate: " + modDate);
+                param = "<param last-modification-date=\"" + modDate + "\"><comment>Repaired identifier</comment></param>";
+                postMethod = new PostMethod(CORESERVICES_URL + objId + "/submit");
+                postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+                postMethod.setRequestEntity(new StringRequestEntity(param));
+                httpClient.executeMethod(postMethod);
+                result = postMethod.getResponseBodyAsString();
+                //System.out.println("Result: " + result);
+                
+                startPos = result.indexOf("last-modification-date=\"");
+                endPos = result.indexOf("\"", startPos + 24);
+                modDate = result.substring(startPos + 24, endPos);
+                //System.out.println("modDate: " + modDate);
+                param = "<param last-modification-date=\"" + modDate + "\"><comment>Repaired identifier</comment></param>";
+                postMethod = new PostMethod(CORESERVICES_URL + objId + "/release");
+                postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+                postMethod.setRequestEntity(new StringRequestEntity(param));
+                httpClient.executeMethod(postMethod);
+                result = postMethod.getResponseBodyAsString();
+                //System.out.println("Result: " + result);
+                System.out.println("...changed");
+            }
+            else
+            {
+                System.out.println("...not affected");
+            }
+        }
         
-        logger.info("Finished!");
     }
     
 
@@ -173,5 +242,4 @@ public class CreatePurgeScript2
         }
         return userHandle;
     }
-
 }

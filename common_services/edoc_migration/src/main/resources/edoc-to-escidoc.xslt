@@ -65,6 +65,7 @@
 	
 	<xsl:param name="useAuthorList" select="false()"/>
 	<xsl:param name="removeSpacesInInitials" select="true()"/>
+	<xsl:param name="createLocatorsForPublicComponents" select="false()"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>
@@ -90,6 +91,9 @@
 		</xsl:variable>
 	
 	<xsl:template match="/*">
+	
+		<xsl:call-template name="validation"/>
+	
 		<item-list>
 			<xsl:apply-templates select="record/metadata"/>		
 		</item-list>
@@ -107,15 +111,19 @@
 	</xsl:template>
 
 	<xsl:template match="record/metadata">
-		<xsl:param name="filename"/>
-		<xsl:param name="access"/>
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
 				</xsl:element>
 				<srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>
-				<xsl:element name="prop:content-model-specific"/>
+				<xsl:element name="prop:content-model-specific">
+					<xsl:if test="../MPGyearbook = '2009'">
+						<local-tags>
+							<local-tag>Yearbook 2009</local-tag>
+						</local-tags>
+					</xsl:if>
+				</xsl:element>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
@@ -126,67 +134,36 @@
 				<xsl:for-each select="basic/fturl">					
 					<!-- duplicate filenames -->
 					<xsl:variable name="filename" select="@filename"/>
-								
+						
 					<xsl:choose>
-						<xsl:when test="following-sibling::fturl/@filename=$filename">	
-						<!-- test if filename is double -->							
-							<xsl:variable name="access"/>
-							<xsl:choose>
-								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='USER' or following-sibling::fturl[@filename=$filename]/@viewftext='USER' or @viewftext='USER'">
-									<xsl:variable name="access">USER</xsl:variable>
-									<!-- <xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]"> -->
-									<xsl:call-template name="createComponent">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>								
-									</xsl:call-template>
-									<xsl:call-template name="createLocator">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>
-									</xsl:call-template>
-								</xsl:when>
-								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='INSTITUTE' or following-sibling::fturl[@filename=$filename]/@viewftext='INSTITUTE' or @viewftext='INSTITUTE'">
-									<xsl:variable name="access">INSTITUTE</xsl:variable>
-									<xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>								
-									</xsl:apply-templates>
-									<xsl:call-template name="createLocator">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>
-									</xsl:call-template>
-								</xsl:when>
-								<xsl:when test="preceding-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or following-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or @viewftext='PUBLIC'">
-									<xsl:variable name="access">PUBLIC</xsl:variable>
-									<xsl:apply-templates select="preceding-sibling::fturl[@filename=$filename][1]">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>								
-									</xsl:apply-templates>
-									<xsl:call-template name="createLocator">
-										<xsl:with-param name="filename" select="$filename"/>
-										<xsl:with-param name="access" select="$access"/>
-									</xsl:call-template>
-								</xsl:when>
-								<xsl:otherwise>
-									<!-- ERROR -->
-									<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/>
-								</xsl:otherwise>
-							</xsl:choose>
+						<xsl:when test="not(preceding-sibling::fturl/@filename = $filename)">
+							<xsl:variable name="access">
+								<xsl:choose>
+									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='USER' or @viewftext='USER'">USER</xsl:when>
+									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='INSTITUT' or @viewftext='INSTITUT'">INSTITUT</xsl:when>
+									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='MPG' or @viewftext='MPG'">MPG</xsl:when>
+									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or @viewftext='PUBLIC'">PUBLIC</xsl:when>
+									<xsl:otherwise>
+										<!-- ERROR -->
+										<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', @viewftext, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:variable>
 							
-						</xsl:when>
-						<xsl:when test="preceding-sibling::fturl/@filename=$filename"></xsl:when>
-						<xsl:otherwise>
-							<!-- no double filename -->
 							<xsl:call-template name="createComponent">
 								<xsl:with-param name="filename" select="$filename"/>
 								<xsl:with-param name="access" select="$access"/>
 							</xsl:call-template>
-							<xsl:call-template name="createLocator">
-								<xsl:with-param name="filename" select="$filename"/>
-								<xsl:with-param name="access" select="$access"/>
-							</xsl:call-template>
-						</xsl:otherwise>
+							
+						</xsl:when>
 					</xsl:choose>	
-						
+					
+					<xsl:if test="$createLocatorsForPublicComponents or @viewftext != 'PUBLIC'">
+						<xsl:call-template name="createLocator">
+							<xsl:with-param name="filename" select="$filename"/>
+							<xsl:with-param name="access" select="@viewftext"/>
+						</xsl:call-template>
+					</xsl:if>						
 							
 				</xsl:for-each>				
 			</xsl:element>
@@ -194,11 +171,9 @@
 	</xsl:template>
 	
 	<xsl:template match="fturl">
-		<xsl:param name="filename"/>
-		<xsl:param name="access"/>		
 		<xsl:call-template name="createComponent">
-			<xsl:with-param name="filename" select="$filename"/>
-			<xsl:with-param name="access" select="$access"/>
+			<xsl:with-param name="filename" select="@filename"/>
+			<xsl:with-param name="access" select="@viewftext"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -210,7 +185,7 @@
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<xsl:choose>
-					<xsl:when test="$access='USER' or $access='INSTITUTE'">
+					<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
 						<prop:visibility>private</prop:visibility>
 						<prop:content-category>publisher-version</prop:content-category>
 					</xsl:when>
@@ -220,7 +195,7 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<!-- ERROR -->
-						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level ', $access, ' of fulltext is not supported at eSciDoc'))"/> 
+						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/> 
 					</xsl:otherwise>
 				</xsl:choose>				
 				<prop:mime-type>application/pdf</prop:mime-type>
@@ -256,7 +231,7 @@
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>public</prop:visibility>
-				<prop:content-category>any-fulltext</prop:content-category>
+				<prop:content-category>supplementary-material</prop:content-category>
 			</ec:properties>
 			<xsl:element name="ec:content">		
 				<xsl:attribute name="xlink:href" select="."/>
@@ -270,8 +245,12 @@
 								<xsl:element name="dc:title">restricted access to full text (selected user)</xsl:element>
 								<xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element>
 							</xsl:when>
-							<xsl:when test="$access='INSTITUTE'">
+							<xsl:when test="$access='INSTITUT'">
 								<xsl:element name="dc:title">restricted access to full text (institute-wide)</xsl:element>
+								<xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element>	
+							</xsl:when>
+							<xsl:when test="$access='MPG'">
+								<xsl:element name="dc:title">restricted access to full text (MPS-wide)</xsl:element>
 								<xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element>	
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
@@ -891,9 +870,9 @@
 		<xsl:choose>
 			<xsl:when test="@creatorType='individual'">
 				<xsl:choose>
-					<xsl:when test="$authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]">
+					<xsl:when test="$authors/authors/author[aliases/alias[lower-case(familyname) = lower-case($creatornfamily) and lower-case(givenname) = lower-case($creatorngiven)]]">
 						
-						<xsl:variable name="author" select="$authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]"/>
+						<xsl:variable name="author" select="$authors/authors/author[aliases/alias[lower-case(familyname) = lower-case($creatornfamily) and lower-case(givenname) = lower-case($creatorngiven)]]"/>
 						
 						<e:person>
 							<xsl:choose>
@@ -917,9 +896,11 @@
 								</xsl:otherwise>
 							</xsl:choose>
 
-							<e:identifier xsi:type="eidt:cone">
-								<xsl:value-of select="$author/@id"/>
-							</e:identifier>
+							<xsl:if test="$author/cone/@display = 'true'">
+								<e:identifier xsi:type="eidt:cone">
+									<xsl:value-of select="$author/@id"/>
+								</e:identifier>
+							</xsl:if>
 
 							<xsl:variable name="author-organizational-units">
 								<ous>
@@ -946,13 +927,13 @@
 							
 							<xsl:variable name="collection" select="../../../docaff/collection"/>
 
-							<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and count($author-organizational-units/ous/ou[@name = $collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou]) = 0">
+							<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and count($author-organizational-units/ous/ou[lower-case(@name) = lower-case($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)]) = 0">
 								<e:organization>
 									<e:organization-name>
-										<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+										<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 									</e:organization-name>
 									<e:identifier>
-										<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+										<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 									</e:identifier>
 								</e:organization>
 							</xsl:if>
@@ -1003,13 +984,13 @@
 									
 									<xsl:variable name="collection" select="../../../docaff/collection"/>
 
-									<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and not(../../../docaff/affiliation/*[. = $collection])">
+									<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
 										<e:organization>
 											<e:organization-name>
-												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 											</e:organization-name>
 											<e:identifier>
-												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 											</e:identifier>
 										</e:organization>
 									</xsl:if>
@@ -1043,13 +1024,13 @@
 									
 									<xsl:variable name="collection" select="../../../docaff/collection"/>
 
-									<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and not(../../../docaff/affiliation/*[. = $collection])">
+									<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
 										<e:organization>
 											<e:organization-name>
-												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 											</e:organization-name>
 											<e:identifier>
-												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 											</e:identifier>
 										</e:organization>
 									</xsl:if>
@@ -1279,6 +1260,62 @@
 		<xsl:element name="dc:language">
 			<xsl:value-of select="$languages/language[$lang-label=@name][1]/@abbrev"/>
 		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="validation">
+	
+		<xsl:variable name="collectionsWithoutOuMatch">
+			<xsl:copy-of select="/edoc/record/docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]"/>
+		</xsl:variable>
+		<xsl:variable name="recordsWithoutOuMatch">
+			<xsl:value-of select="/edoc/record[docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>
+		</xsl:variable>
+		<xsl:if test="$collectionsWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $collectionsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch))"/>
+		</xsl:if>
+		
+		<xsl:variable name="affiliationsWithoutOuMatch">
+			<xsl:copy-of select="/edoc/record/docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]"/>
+		</xsl:variable>
+		<xsl:variable name="recordsWithoutOuMatch2">
+			<xsl:value-of select="/edoc/record[docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>
+		</xsl:variable>
+		<xsl:if test="$affiliationsWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $affiliationsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch2))"/>
+		</xsl:if>
+		
+		<xsl:variable name="mappingWithoutOuMatch">
+			<xsl:copy-of select="$collection-mapping/mapping/escidoc-ou[not(. = $organizational-units//ou/@name)]"/>
+		</xsl:variable>
+		<xsl:if test="$mappingWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('OU mappings [', $mappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>
+		</xsl:if>
+		
+		<xsl:variable name="authorOuMappingWithoutOuMatch">
+			<xsl:value-of select="$authors/authors/author/departments/department[not(. = $organizational-units//ou/@name)]"/>
+		</xsl:variable>
+		<xsl:if test="$authorOuMappingWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthorOU' ), concat('OU mappings [', $authorOuMappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>
+		</xsl:if>
+		
+		<!-- Uncomment this to find out which authors are not mapped. -->
+		<!-- <xsl:variable name="authorsWithoutMatch">
+			<xsl:for-each select="//creator">
+				<xsl:sort select="creatornfamily"/>
+				<xsl:sort select="creatorngiven"/>
+				<xsl:variable name="creatornfamily" select="creatornfamily"/>
+				<xsl:variable name="creatorngiven" select="creatorngiven"/>
+				<xsl:if test="not($authors/authors/author[aliases/alias[lower-case(familyname) = lower-case($creatornfamily) and lower-case(givenname) = lower-case($creatorngiven)]])">
+					<xsl:value-of select="creatornfamily"/>, <xsl:value-of select="creatorngiven"/><xsl:text>
+</xsl:text>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:variable>
+		
+		<xsl:if test="$authorsWithoutMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthor' ), concat('Authors ', $authorsWithoutMatch, ' do not match any mapped author.'))"/>
+		</xsl:if> -->
+	
 	</xsl:template>
 	
 </xsl:stylesheet>

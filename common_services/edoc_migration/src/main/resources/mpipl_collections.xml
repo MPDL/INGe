@@ -29,12 +29,24 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
 	<xsl:variable name="collection-mapping">
 		<mapping>
+			<edoc-collection>Language Acquisition</edoc-collection>
+			<escidoc-ou>Language Acquisition Group</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Acquisition Group</edoc-collection>
+			<escidoc-ou>Language Acquisition Group</escidoc-ou>
+		</mapping>
+		<mapping>
 			<edoc-collection>Adaptive Listening</edoc-collection>
 			<escidoc-ou>Adaptive Listening</escidoc-ou>
 		</mapping>
 		<mapping>
+			<edoc-collection>Language and Cognition Group</edoc-collection>
+			<escidoc-ou>Categories across Language and Cognition</escidoc-ou>
+		</mapping>
+		<mapping>
 			<edoc-collection>Categories and concepts across language and cognition</edoc-collection>
-			<escidoc-ou>Categories and Concepts across Language and Cognition</escidoc-ou>
+			<escidoc-ou>Categories across Language and Cognition</escidoc-ou>
 		</mapping>
 		<mapping>
 			<edoc-collection>Communication Before Language</edoc-collection>
@@ -53,8 +65,8 @@
 			<escidoc-ou>Event Representation</escidoc-ou>
 		</mapping>
 		<mapping>
-			<edoc-collection>Evolutionary Models of Language Change</edoc-collection>
-			<escidoc-ou>Evolutionary Models of Language Change</escidoc-ou>
+			<edoc-collection>Evolutionary Processes in Language Change</edoc-collection>
+			<escidoc-ou>Evolutionary Processes in Language and Culture</escidoc-ou>
 		</mapping>
 		<mapping>
 			<edoc-collection>Gesture</edoc-collection>
@@ -63,6 +75,14 @@
 		<mapping>
 			<edoc-collection>Information Structure in Language Acquisition</edoc-collection>
 			<escidoc-ou>Information Structure in Language Acquisition</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Language and Genetics</edoc-collection>
+			<escidoc-ou>Language and Genetics</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Language in Action</edoc-collection>
+			<escidoc-ou>Language in Action</escidoc-ou>
 		</mapping>
 		<mapping>
 			<edoc-collection>Island Melanesia</edoc-collection>
@@ -110,6 +130,10 @@
 		</mapping>
 		<mapping>
 			<edoc-collection>The Neurobiology of Language</edoc-collection>
+			<escidoc-ou>The Neurobiology of Language</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Unification</edoc-collection>
 			<escidoc-ou>Unification</escidoc-ou>
 		</mapping>
 		<mapping>
