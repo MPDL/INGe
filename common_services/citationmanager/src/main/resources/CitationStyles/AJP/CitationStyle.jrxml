@@ -131,14 +131,9 @@
 	<variable name="degree" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/degree} != null ? 
 				(
-					$F{publication/degree}.equals("master") ? "Master" :
-					$F{publication/degree}.equals("diploma") ? "Diploma" :
-					$F{publication/degree}.equals("magister") ? "Magister" :
-					$F{publication/degree}.equals("staatsexamen") ? "Staatsexamen" :
-					$F{publication/degree}.equals("phd") ? "PhD Thesis" :
-					$F{publication/degree}.equals("habilitation") ? "Habilitation" :
-					$F{publication/degree}.equals("bachelor") ? "Bachelor" :
-					null
+					$F{publication/degree}.equals("phd") ? 
+					"PhD Thesis" :
+					$F{publication/degree}
 				) : null]]></variableExpression>
 	</variable>
 	<variable name="date" class="java.lang.String">

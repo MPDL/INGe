@@ -75,16 +75,10 @@
 			<![CDATA[
 				${publication/degree} != null ? 
 				(
-					${publication/degree}.equals("master") ? "Master" :
-					${publication/degree}.equals("diploma") ? "Diploma" :
-					${publication/degree}.equals("magister") ? "Magister" :
-					${publication/degree}.equals("staatsexamen") ? "Staatsexamen" :
-					${publication/degree}.equals("phd") ? "PhD Thesis" :
-					${publication/degree}.equals("habilitation") ? "Habilitation" :
-					${publication/degree}.equals("bachelor") ? "Bachelor" :
-					null
+					${publication/degree}.equals("phd") ? 
+					"PhD Thesis" :
+					${publication/degree}
 				) : null
-		
 			]]>
 		</variable>
 		
