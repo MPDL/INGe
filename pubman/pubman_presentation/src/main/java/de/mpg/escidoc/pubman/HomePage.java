@@ -93,22 +93,12 @@ public class HomePage extends BreadcrumbPage
         return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
     }   
     
+    /**
+     * Reads the blog URL from the properties file.
+     * Needed for blogintegration on homepage
+     * @return blodUrl as String
+     */
     public String getBlogBaseUrl()
-    {
-        String url = "";
-        try
-        {
-            url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
-        }
-        catch (Exception e)
-        {
-            HomePage.logger.error("Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
-        }
-
-        return url;
-    }
-
-    public String getBlogNewsUrl()
     {
         String url = "";
         try
