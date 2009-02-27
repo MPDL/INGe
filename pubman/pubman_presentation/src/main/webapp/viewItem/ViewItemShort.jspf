@@ -48,7 +48,7 @@
 			<h:outputText value="#{lbl.ViewItemShort_lblDates}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.latestDate}"/>&#160;
+			<h:outputText value="#{item.datesAsString}"/>&#160;
 		</span>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
