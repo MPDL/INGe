@@ -303,23 +303,23 @@
 											<xsl:value-of select="@rdf:about"/>
 										</span>
 									</div>
-									<xsl:if test="exists(dc:subject)">
+									<xsl:if test="exists(dcterms:subject)">
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
 												<xsl:value-of select="escidoc:label('research_fields')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="dc:subject"/>
+												<xsl:value-of select="dcterms:subject"/>
 											</span>
 										</div>
 									</xsl:if>
-									<xsl:if test="exists(dcterms:subject)">	
+									<xsl:if test="exists(dc:subject)">	
 										<div class="free_area0 endline itemLine noTopBorder">
 											<b class="xLarge_area0 endline labelLine">
 												<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="dcterms:subject/rdf:Description">
+												<xsl:for-each select="dc:subject/rdf:Description">
 													-<xsl:text> </xsl:text><xsl:value-of select="dc:identifier"/> - <xsl:value-of select="dc:title"/> <br />
 												</xsl:for-each>
 											</span>

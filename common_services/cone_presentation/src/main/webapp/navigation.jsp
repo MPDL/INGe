@@ -70,8 +70,12 @@
 %>
 <h2>CoNE - Control of Named Entities</h2>
 <span>
-	<a href="index.jsp">Home</a>
-	<span class="nav"><a href="search.jsp">Search</a></span>
+	<span class="nav"><a href="index.jsp">Home</a></span>
+	<span class="nav"><% if (request.getSession().getAttribute("latestSearch") != null) { %>
+		<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
+	<% } else { %>
+		<a href="search.jsp">Search</a>
+	<% } %></span>
 	<span class="nav"><a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a></span>
 	<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
 		<% for (Model model : ModelList.getInstance().getList()) { %>

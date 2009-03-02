@@ -45,7 +45,7 @@
 
 	List<String> models = new ArrayList<String>();
 	
-	models.add("mimetypes");
+	models.add("persons");
 	
 	for (String modelName : models)
 	{

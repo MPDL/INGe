@@ -12,11 +12,11 @@
     	Rules defined for CoNE 
     -->
 
-	<rule>
-		<name>Default explain</name>
-		<from>^/explain/?$</from>
-		<to>/html/explain/</to>
-	</rule>
+<!--	<rule>-->
+<!--		<name>Default explain</name>-->
+<!--		<from>^/explain/?$</from>-->
+<!--		<to>/html/explain/</to>-->
+<!--	</rule>-->
 
 	<rule>
 		<name>Output parameter style 1</name>

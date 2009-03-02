@@ -48,6 +48,10 @@
 			Set<Model> modelList = ModelList.getInstance().getList();
 			Querier querier = QuerierFactory.newQuerier();
 		%>
+		<p>
+			The purpose of this service is to provide methods to deal with controlled lists of named 
+			entities to assure data quality and facilitate data access and data entry.
+		</p>
 		<table align="center">
 			<tr>
 				<th align="right">Model \ Format</th>

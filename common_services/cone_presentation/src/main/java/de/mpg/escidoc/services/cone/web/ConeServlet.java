@@ -126,11 +126,11 @@ public abstract class ConeServlet extends HttpServlet
 
         logger.debug("Querying for '" + model + "'");
         
-        if ("explain".equals(model))
-        {
-            explain(response);
-        }
-        else if ("query".equals(action))
+//        if ("explain".equals(model))
+//        {
+//            explain(response);
+//        }
+        if ("query".equals(action))
         {
             try
             {

@@ -321,7 +321,7 @@
     }
 	else if (request.getParameter("delete") != null)
 	{
-	    //querier.delete(modelName, uri);
+	    querier.delete(modelName, uri);
 	    if (request.getSession().getAttribute("latestSearch") != null)
 	    {
 	        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
@@ -398,12 +398,6 @@
 				<input type="hidden" name="uri" value="<%= uri %>"/>
 			<% } %>
 			<input type="hidden" name="model" value="<%= modelName %>"/>
-			<a href="index.jsp">Home</a>
-			<% if (request.getSession().getAttribute("latestSearch") != null) { %>
-				<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
-			<% } else { %>
-				<a href="search.jsp">Search</a>
-			<% } %>
 			<h3><%= modelName %>:
 				<% if (uri != null) { %>
 					<%= uri %>
@@ -436,6 +430,7 @@
             	}
                 else
                 {
+                    out.append(model.getIdentifierPrefix());
                     out.append("<input type=\"text\" name=\"cone_identifier\" value=\"\" size=\"50\"/>");
                 }
             }
