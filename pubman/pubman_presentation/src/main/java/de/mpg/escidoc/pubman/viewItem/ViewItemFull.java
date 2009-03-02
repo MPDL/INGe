@@ -238,8 +238,8 @@ public class ViewItemFull extends FacesBean
     private boolean isWorkflowStandard;
     private boolean isWorkflowSimple;
     private boolean isStateInRevision;
-    
-   
+    private boolean hasRevision;
+
     /**
      * Public constructor.
      */
@@ -333,6 +333,25 @@ public class ViewItemFull extends FacesBean
             ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
             this.isDepositor = this.loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
             //isDepositor = loginHelper.getAccountUser().isDepositor();
+            
+            //Check if item has revisions
+            try
+            {
+                List revisions = this.getItemControllerSessionBean().retrieveRevisions(this.pubItem); 
+                if (revisions != null && revisions.size() > 0)
+                {
+                    this.setHasRevision(true);
+                }
+                else
+                {
+                    this.setHasRevision(false);
+                }
+            }
+            catch (Exception e1)
+            {
+                this.setHasRevision(false);
+                logger.warn("Could not retrieve list of revisions.", e1);
+            }
             
             this.isOwner = true;
             if (this.pubItem.getOwner() != null)
@@ -2136,9 +2155,7 @@ public class ViewItemFull extends FacesBean
 	public void setUnapiURLview(String unapiURLview) {
 		this.unapiURLview = unapiURLview;
 	}
-	
-	
-	
+
 	public UIXIterator getSubjectIterator() {
 		return subjectIterator;
 	}
@@ -2146,6 +2163,16 @@ public class ViewItemFull extends FacesBean
 	public void setSubjectIterator(UIXIterator subjectIterator) {
 		this.subjectIterator = subjectIterator;
 	}
+
+    public boolean getHasRevision()
+    {
+        return this.hasRevision;
+    }
+
+    public void setHasRevision(boolean hasRevision)
+    {
+        this.hasRevision = hasRevision;
+    }
 
 	public String addToBasket()
 	{
