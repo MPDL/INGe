@@ -206,7 +206,7 @@
 .listItem .collapse, .listItem .expand {
 	line-height: normal;
 	padding-left: 1.36em;
-	margin-left: -1.92em;
+	margin-left: -0.65em;
 }
 
 .listItem td .statusIcon {
