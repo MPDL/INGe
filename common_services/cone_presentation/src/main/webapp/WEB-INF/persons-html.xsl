@@ -204,10 +204,12 @@
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<xsl:value-of select="escidoc:position-name"/>
 												<xsl:if test="escidoc:organization">
-													(<xsl:for-each select="escidoc:organization">
+													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
+													<xsl:for-each select="escidoc:organization">
 														<xsl:value-of select="."/>
 														<xsl:if test="position() != last()">, </xsl:if>
-													</xsl:for-each>)
+													</xsl:for-each>
+													<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
 												</xsl:if>
 											</span>
 										</div>
@@ -221,7 +223,12 @@
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<xsl:value-of select="escidoc:position-name"/>
 												<xsl:if test="escidoc:organization">
-													(<xsl:value-of select="escidoc:organization"/>)
+													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
+													<xsl:for-each select="escidoc:organization">
+														<xsl:value-of select="."/>
+														<xsl:if test="position() != last()">, </xsl:if>
+													</xsl:for-each>
+													<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
 												</xsl:if>
 											</span>
 										</div>
