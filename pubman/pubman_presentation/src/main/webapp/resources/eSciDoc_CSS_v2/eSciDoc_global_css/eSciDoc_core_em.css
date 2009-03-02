@@ -50,7 +50,7 @@
 			/*margin-left: 17px;
 			margin-right: 17px;*/
 		}
-		html, body {
+		html, body, form {
 			height: 100%;
 		}
 		body .wrapper {
