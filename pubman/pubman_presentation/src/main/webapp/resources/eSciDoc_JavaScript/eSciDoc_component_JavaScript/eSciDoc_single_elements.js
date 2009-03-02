@@ -164,7 +164,8 @@ raiseBunny();
 /*SET Page Size 100%*/
 
 function resizeToFull() {
-	if($(window).height() > $('.wrapper').height()) $('.wrapper').height($(window).height());
+/*	if($(window).height() > $('.wrapper').height()) $('.wrapper').height($(window).height());
+*/
 }
 
 $(window).resize(function(){
