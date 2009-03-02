@@ -48,8 +48,18 @@
 			else
 				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
 			
+			
+			var mouseOverResults = false;
+			
+			$results.bind("mouseenter",function(){
+				mouseOverResults = true;
+			}.bind("mouseleave",function(){
+				mouseOverResults = false;
+			}
 			$input.blur(function(){
-				$results.hide();
+				if(!mouseOverResults) {
+					$results.hide();
+				}
 			});
 
 			function resetPosition() {
