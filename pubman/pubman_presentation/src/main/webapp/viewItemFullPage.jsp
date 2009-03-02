@@ -114,7 +114,7 @@
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestVersion and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestVersion and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/>
 									
-									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and !ViewItemFull.isInBasket}"/>
+									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and !ViewItemFull.isInBasket}"/>
 									<h:outputText id="lnkAddToBasketDisabled" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
 									
