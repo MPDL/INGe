@@ -65,7 +65,7 @@
 			<li>Search&Export Service (allows user-/local specific queries of data for integration into local systems). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST interface</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">sample query</a>.</li>
 			<li>Data Acquisition Service with an <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI interface</a> (fetching data from external sources like arXiv)</li>
 			<li><a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.</li>
-			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
+			<li><a href="/cone/" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
 		</ul>
 	<span>Further information on the interfaces can be found under:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
@@ -103,7 +103,7 @@
 			<li>Search&Export Service (Unterst&uuml;tzt Datenanfragen zur Integration in externe Systeme). <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST Schnittstelle</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">Beispiel</a>.</li>
 			<li>Data Acquisition Service mit einer <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI Schnittstelle</a> (Datenimport aus externen Systemen wie arXiv)</li>
 			<li><a href="/validation/" target="_blank">Validation Service</a>:Validierung von XML Daten</li>
-			<li><a href="/cone/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Anfragen von kontrollierten Vokabularien wie Journal Namen oder Personen</li>
+			<li><a href="/cone/" target="_blank">Control of Named Entities Service (CoNE)</a>: Anfragen von kontrollierten Vokabularien wie Journal Namen oder Personen</li>
 		</ul>
 	<span>Weitere Informationen finden Sie unter:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
@@ -140,7 +140,7 @@
 			<li>検索&エクスポートサービス: 利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。 <a href="/pubman/faces/../../search/SearchAndExport_info.jsp" target="_blank">REST インタフェース</a>; <a href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp" target="_blank">検索実行例</a></li>
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
-			<li><a href="/cone/explain" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
+			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
 		</ul>
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
