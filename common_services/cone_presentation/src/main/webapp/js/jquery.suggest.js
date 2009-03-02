@@ -47,6 +47,10 @@
 				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
 				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
+			
+			$input.blur(function(){
+				$results.hide();
+			});
 
 			function resetPosition() {
 				// requires jquery.dimension plugin
@@ -202,7 +206,8 @@
 						e.preventDefault(); 
 						e.stopPropagation();
 						selectCurrentResult();
-					});
+					})
+					;
 							
 			}
 			
