@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.16-SNAPSHOT</version>
+		<version>1.0.16</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>search</artifactId>
 	<name>search</name>
 	<packaging>ejb</packaging>
-	<version>1.0.13-SNAPSHOT</version>
+	<version>1.0.13</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/search</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/search</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.16/search</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.16/search</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.16</url>
 	</scm>
 
 	<build>
@@ -70,19 +70,19 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.14-SNAPSHOT</version>
+			<version>1.1.14</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.20-SNAPSHOT</version>
+			<version>1.0.20</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.17-SNAPSHOT</version>
+			<version>1.0.17</version>
 			<scope>compile</scope>
 	</dependency>
 		<dependency>
