@@ -41,10 +41,10 @@
 
 
 <%-- start has to be reworked anyway --%>
-					<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" shortDesc="#{tip.Breadcrumb_itemPage}" rendered="#{!item.isLast && item.defaultAction == null}">
+					<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
 						<tr:outputText value="#{item.pageLabel}" />
 					</tr:goLink>
-					<tr:commandLink action="#{item.executeDefaultAction}" shortDesc="#{tip.Breadcrumb_action}" rendered="#{!item.isLast && item.defaultAction != null}">
+					<tr:commandLink action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
 						<tr:outputText value="#{item.pageLabel}" />
 					</tr:commandLink>
 					<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
