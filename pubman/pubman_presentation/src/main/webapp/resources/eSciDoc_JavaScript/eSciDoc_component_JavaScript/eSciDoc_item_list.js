@@ -85,7 +85,6 @@ function addItemListFunctions() {
 								}
 							}
 							);
-							resizeToFull();
 						}
 				)
 			});
@@ -102,7 +101,6 @@ function addItemListFunctions() {
 									$(parentElement).find('.headerSwitchView').find('.collapse').hide();
 								}
 							});
-							resizeToFull();
 						}
 				)
 			});
