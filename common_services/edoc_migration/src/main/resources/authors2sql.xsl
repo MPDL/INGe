@@ -3,8 +3,8 @@
 
 	<xsl:output method="text" encoding="UTF-8"/>
 
-	<xsl:include href="E:/common_services/edoc_migration/src/main/resources/mpipl_ous.xml"/>
-	<xsl:include href="E:/common_services/edoc_migration/src/main/resources/mpipl_authors.xml"/>
+	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_ous.xml"/>
+	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_authors.xml"/>
 	
 	<xsl:template match="/">
 	
@@ -15,7 +15,7 @@
 			insert into triples values ('<xsl:value-of select="$id"/>', 'http://purl.org/dc/elements/1.1/title', '<xsl:value-of select="familyname"/>, <xsl:value-of select="givenname"/>', null, 'persons');
 			insert into triples values ('<xsl:value-of select="$id"/>', 'http://xmlns.com/foaf/0.1/familyname', '<xsl:value-of select="familyname"/>', null, 'persons');
 			insert into triples values ('<xsl:value-of select="$id"/>', 'http://xmlns.com/foaf/0.1/givenname', '<xsl:value-of select="givenname"/>', null, 'persons');
-			<xsl:for-each select="aliases/alias">
+			<xsl:for-each select="aliases/alias[familyname != ../../familyname or givenname != ../../givenname]">
 				insert into triples values ('<xsl:value-of select="$id"/>', 'http://purl.org/dc/terms/alternative', '<xsl:value-of select="familyname"/>, <xsl:value-of select="givenname"/>', null, 'persons');
 			</xsl:for-each>
 			<xsl:for-each select="departments/department">

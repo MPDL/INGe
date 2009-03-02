@@ -89,7 +89,7 @@ public class BatchUpdate
 //        
 //        httpClient.executeMethod(postMethod);
         
-        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:101409");
+        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:100220");
         getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
         httpClient.executeMethod(getMethod);
         
