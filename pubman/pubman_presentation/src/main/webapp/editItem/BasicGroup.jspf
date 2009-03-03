@@ -81,7 +81,7 @@
 			</h:panelGroup>
 		</tr:iterator>	
 	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display != 'false' && genre.item_basic_form_id != 'easy-submission'}"/></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup}  #{lbl.EditItem_lblBasic}" /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  " /><h:outputText value="#{genre.item_basic_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_display != 'false' && genre.item_basic_form_id != 'easy-submission'}"/></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}    #{lbl.EditItem_lblBasic}" /></a>
 </h:panelGroup>
