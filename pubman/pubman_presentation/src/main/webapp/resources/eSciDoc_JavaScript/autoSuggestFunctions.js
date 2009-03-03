@@ -107,6 +107,7 @@
 	function getPersonDetails(details)
 	{
 		var parent = $input.parents('.' + personSuggestCommonParentClass);
+		
 		var completeName = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
 		var chosenName = $input.resultValue;
 		if (chosenName.indexOf('(') >= 0)
@@ -133,6 +134,16 @@
 		fillField('personIdentifier', personId, parent);
 		fillField('orgName', orgName, parent);
 		fillField('orgIdentifier', orgId, parent);
+	}
+	
+	function removeConeId(element)
+	{
+		var $input = $(element);
+		var parent = $input.parents('.' + personSuggestCommonParentClass);
+		if ($(parent).find('.personIdentifier').val() != '')
+		{
+			fillField('personIdentifier', '', parent);
+		}
 	}
 	
 	function fillField(name, value, commonParent)

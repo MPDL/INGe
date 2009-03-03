@@ -75,7 +75,8 @@ public class SessionTimeoutFilter implements Filter
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
             ServletException
     {
-        if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
+        if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
+        {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             
@@ -83,13 +84,8 @@ public class SessionTimeoutFilter implements Filter
             {
                 String homePage = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
                 
-                logger.debug("httpServletRequest.getRequestedSessionId(): " + httpServletRequest.getRequestedSessionId());
-                logger.debug(httpServletRequest.getContextPath());
-                logger.debug(httpServletRequest.getPathInfo());
-                logger.debug(httpServletRequest.getLocalAddr());
-                logger.debug(httpServletRequest.getQueryString());
-                
-                if (httpServletRequest.getRequestedSessionId() != null
+                if (!"/viewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
+                        && httpServletRequest.getRequestedSessionId() != null
                         && httpServletRequest.getParameter("expired") == null
                         && httpServletRequest.getParameter("logout") == null
                         && !httpServletRequest.isRequestedSessionIdValid())
