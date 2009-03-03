@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -66,7 +66,11 @@
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
 					<h:panelGroup styleClass="free_area0 creator">
-						<h:outputText value="#{creatorPerson}" escape="false"/>
+						<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
+						<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
+							&#160;
+							<h:outputLink value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank"><img src="images/researcher_portfolio.gif" border="0"/></h:outputLink>
+						</h:panelGroup>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
