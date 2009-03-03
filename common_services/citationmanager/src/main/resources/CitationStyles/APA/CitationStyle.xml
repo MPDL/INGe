@@ -628,10 +628,16 @@
 		-->
 	</cs-layout-definition>
 	
-	<!-- JOURNAL ARTICLE -->
-	<cs-layout-definition name="journal-article">
+	<!-- JOURNAL ARTICLE, (OTHER OR CONFERENCE-REPORT)+source.genre=journal -->
+	<cs-layout-definition name="journal-article-or-other-with-source-journal-or-conference-report-with-source-journal">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("article")]]></valid-if>
+			<valid-if><![CDATA[
+				${genre}.equals("article") 
+				|| ( 
+					(${genre}.equals("other") || ${genre}.equals("conference-report")) 
+					&& ${publication/source[1]/@type}.equals("journal") 
+					)  
+			]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -667,10 +673,15 @@
 	</cs-layout-definition>
 	
 
-	<!-- BOOK, THESIS, PROCEEDINGS -->
-	<cs-layout-definition name="book-or-thesis-or-proceedings">
+	<!-- BOOK, THESIS, PROCEEDINGS, OTHER without source -->
+	<cs-layout-definition name="book-or-thesis-or-proceedings-or-other-without-source">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("book") || ${genre}.equals("thesis") || ${genre}.equals("proceedings")]]></valid-if>
+			<valid-if><![CDATA[
+				${genre}.equals("book") 
+				|| ${genre}.equals("thesis") 
+				|| ${genre}.equals("proceedings")
+				|| ( ${genre}.equals("other") && ${publication/source[1]/@type}==null )  
+			]]></valid-if>
 			<ends-with value="." />
 		</parameters>
 		<elements>
@@ -723,10 +734,17 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- BOOK CHAPTER -->
-	<cs-layout-definition name="book-item">
+	<!-- BOOK CHAPTER, OTHER+source==book, CONFERENCE REPORT +source==book or source==proceedings -->
+	<cs-layout-definition name="book-item-or-other-with-source-book-or-conference-report-with-source-book-or-preceedings">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("book-item")]]></valid-if>
+			<valid-if><![CDATA[
+				${genre}.equals("book-item")
+				|| ( ${genre}.equals("other") && ${publication/source[1]/@type}.equals("book") )  
+				|| ( 
+					${genre}.equals("conference-report") 
+					&& (${publication/source[1]/@type}.equals("book") || ${publication/source[1]/@type}.equals("proceedings")) 
+				   )  
+			]]></valid-if>
 			<ends-with value="." />
 		</parameters>
 		<elements>
@@ -784,7 +802,9 @@
 	<!-- PROCEEDINGS PAPER, SOURCE==JOURNAL -->
 	<cs-layout-definition name="proceedings-paper-from-journal">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("conference-paper") && ${publication/source[1]/@type}.equals("journal")]]></valid-if>
+			<valid-if><![CDATA[
+				${genre}.equals("conference-paper") && "journal".equals(${publication/source[1]/@type})
+			]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -823,7 +843,10 @@
 	<!-- PROCEEDINGS PAPER, SOURCE==(BOOK OR PROCEEDINGS) -->
 	<cs-layout-definition name="proceedings-paper-from-book-or-proceedings">
 		<parameters>
-			<valid-if><![CDATA[${genre}.equals("conference-paper") && (${publication/source[1]/@type}.equals("book") || ${publication/source[1]/@type}.equals("proceedings"))]]></valid-if>
+			<valid-if><![CDATA[
+				${genre}.equals("conference-paper") 
+				&& ("book".equals(${publication/source[1]/@type}) || "proceedings".equals(${publication/source[1]/@type}))
+			]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -1146,6 +1169,7 @@
 		</elements>
 	
 	</cs-layout-definition>
+	
 	
 <!--	Test CSLD: -->
 <!--	<cs-layout-definition name="notMatched">-->

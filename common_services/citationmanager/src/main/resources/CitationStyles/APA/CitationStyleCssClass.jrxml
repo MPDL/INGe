@@ -86,6 +86,9 @@
 	<field name="publication/source[1]/end-page" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/source[1]/end-page]]></fieldDescription>
 	</field>
+	<field name="publication/source[1]/@type" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/source[1]/@type]]></fieldDescription>
+	</field>
 	<field name="tmpField_CS_1_PLE_5" class="java.lang.String">
 		<fieldDescription><![CDATA[count(publication/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
@@ -121,9 +124,6 @@
 	</field>
 	<field name="publication/event/place" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/event/place]]></fieldDescription>
-	</field>
-	<field name="publication/source[1]/@type" class="java.lang.String">
-		<fieldDescription><![CDATA[publication/source[1]/@type]]></fieldDescription>
 	</field>
 	<field name="(publication/identifier)[1]" class="java.lang.String">
 		<fieldDescription><![CDATA[(publication/identifier)[1]]]></fieldDescription>
@@ -730,19 +730,32 @@
 		<variableExpression><![CDATA[(($F{hasPublication}.equals("false")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ")).trim().equals("") ? "## Citaion style layout is not defined for metadata record: " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("article")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6},$V{CS_1_CSLD_2_P_default_E_7},$V{CS_1_CSLD_2_P_default_E_8},$V{CS_1_CSLD_2_P_default_E_9}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6},$V{CS_1_CSLD_2_P_default_E_7},$V{CS_1_CSLD_2_P_default_E_8},$V{CS_1_CSLD_2_P_default_E_9}}, "") + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{genre}.equals("article") 
+				|| ( 
+					($F{genre}.equals("other") || $F{genre}.equals("conference-report")) 
+					&& $F{publication/source[1]/@type}.equals("journal") 
+					)) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6},$V{CS_1_CSLD_2_P_default_E_7},$V{CS_1_CSLD_2_P_default_E_8},$V{CS_1_CSLD_2_P_default_E_9}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6},$V{CS_1_CSLD_2_P_default_E_7},$V{CS_1_CSLD_2_P_default_E_8},$V{CS_1_CSLD_2_P_default_E_9}}, "") + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("book") || $F{genre}.equals("thesis") || $F{genre}.equals("proceedings")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_2},$V{CS_1_CSLD_3_P_default_E_3},$V{CS_1_CSLD_3_P_default_E_4},$V{CS_1_CSLD_3_P_default_E_5},$V{CS_1_CSLD_3_P_default_E_6},$V{CS_1_CSLD_3_P_default_E_7},$V{CS_1_CSLD_3_P_default_E_8},$V{CS_1_CSLD_3_P_default_E_9}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_2},$V{CS_1_CSLD_3_P_default_E_3},$V{CS_1_CSLD_3_P_default_E_4},$V{CS_1_CSLD_3_P_default_E_5},$V{CS_1_CSLD_3_P_default_E_6},$V{CS_1_CSLD_3_P_default_E_7},$V{CS_1_CSLD_3_P_default_E_8},$V{CS_1_CSLD_3_P_default_E_9}}, " ") + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{genre}.equals("book") 
+				|| $F{genre}.equals("thesis") 
+				|| $F{genre}.equals("proceedings")
+				|| ( $F{genre}.equals("other") && $F{publication/source[1]/@type}==null )) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_2},$V{CS_1_CSLD_3_P_default_E_3},$V{CS_1_CSLD_3_P_default_E_4},$V{CS_1_CSLD_3_P_default_E_5},$V{CS_1_CSLD_3_P_default_E_6},$V{CS_1_CSLD_3_P_default_E_7},$V{CS_1_CSLD_3_P_default_E_8},$V{CS_1_CSLD_3_P_default_E_9}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_2},$V{CS_1_CSLD_3_P_default_E_3},$V{CS_1_CSLD_3_P_default_E_4},$V{CS_1_CSLD_3_P_default_E_5},$V{CS_1_CSLD_3_P_default_E_6},$V{CS_1_CSLD_3_P_default_E_7},$V{CS_1_CSLD_3_P_default_E_8},$V{CS_1_CSLD_3_P_default_E_9}}, " ") + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_4" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("book-item")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_2},$V{CS_1_CSLD_4_P_default_E_3},$V{CS_1_CSLD_4_P_default_E_4},$V{CS_1_CSLD_4_P_default_E_5},$V{CS_1_CSLD_4_P_default_E_6},$V{CS_1_CSLD_4_P_default_E_7},$V{CS_1_CSLD_4_P_default_E_8},$V{CS_1_CSLD_4_P_default_E_9}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_2},$V{CS_1_CSLD_4_P_default_E_3},$V{CS_1_CSLD_4_P_default_E_4},$V{CS_1_CSLD_4_P_default_E_5},$V{CS_1_CSLD_4_P_default_E_6},$V{CS_1_CSLD_4_P_default_E_7},$V{CS_1_CSLD_4_P_default_E_8},$V{CS_1_CSLD_4_P_default_E_9}}, " ") + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{genre}.equals("book-item")
+				|| ( $F{genre}.equals("other") && $F{publication/source[1]/@type}.equals("book") )  
+				|| ( 
+					$F{genre}.equals("conference-report") 
+					&& ($F{publication/source[1]/@type}.equals("book") || $F{publication/source[1]/@type}.equals("proceedings")) 
+				   )) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_2},$V{CS_1_CSLD_4_P_default_E_3},$V{CS_1_CSLD_4_P_default_E_4},$V{CS_1_CSLD_4_P_default_E_5},$V{CS_1_CSLD_4_P_default_E_6},$V{CS_1_CSLD_4_P_default_E_7},$V{CS_1_CSLD_4_P_default_E_8},$V{CS_1_CSLD_4_P_default_E_9}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_4_P_default_E_1},$V{CS_1_CSLD_4_P_default_E_2},$V{CS_1_CSLD_4_P_default_E_3},$V{CS_1_CSLD_4_P_default_E_4},$V{CS_1_CSLD_4_P_default_E_5},$V{CS_1_CSLD_4_P_default_E_6},$V{CS_1_CSLD_4_P_default_E_7},$V{CS_1_CSLD_4_P_default_E_8},$V{CS_1_CSLD_4_P_default_E_9}}, " ") + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_5" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("conference-paper") && $F{publication/source[1]/@type}.equals("journal")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_5_P_default_E_1},$V{CS_1_CSLD_5_P_default_E_2},$V{CS_1_CSLD_5_P_default_E_3},$V{CS_1_CSLD_5_P_default_E_4},$V{CS_1_CSLD_5_P_default_E_5},$V{CS_1_CSLD_5_P_default_E_6},$V{CS_1_CSLD_5_P_default_E_7}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_5_P_default_E_1},$V{CS_1_CSLD_5_P_default_E_2},$V{CS_1_CSLD_5_P_default_E_3},$V{CS_1_CSLD_5_P_default_E_4},$V{CS_1_CSLD_5_P_default_E_5},$V{CS_1_CSLD_5_P_default_E_6},$V{CS_1_CSLD_5_P_default_E_7}}, "") + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{genre}.equals("conference-paper") && "journal".equals($F{publication/source[1]/@type})) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_5_P_default_E_1},$V{CS_1_CSLD_5_P_default_E_2},$V{CS_1_CSLD_5_P_default_E_3},$V{CS_1_CSLD_5_P_default_E_4},$V{CS_1_CSLD_5_P_default_E_5},$V{CS_1_CSLD_5_P_default_E_6},$V{CS_1_CSLD_5_P_default_E_7}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_5_P_default_E_1},$V{CS_1_CSLD_5_P_default_E_2},$V{CS_1_CSLD_5_P_default_E_3},$V{CS_1_CSLD_5_P_default_E_4},$V{CS_1_CSLD_5_P_default_E_5},$V{CS_1_CSLD_5_P_default_E_6},$V{CS_1_CSLD_5_P_default_E_7}}, "") + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_6" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("conference-paper") && ($F{publication/source[1]/@type}.equals("book") || $F{publication/source[1]/@type}.equals("proceedings"))) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_3},$V{CS_1_CSLD_6_P_default_E_4},$V{CS_1_CSLD_6_P_default_E_5},$V{CS_1_CSLD_6_P_default_E_6},$V{CS_1_CSLD_6_P_default_E_7},$V{CS_1_CSLD_6_P_default_E_8},$V{CS_1_CSLD_6_P_default_E_9},$V{CS_1_CSLD_6_P_default_E_10}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_3},$V{CS_1_CSLD_6_P_default_E_4},$V{CS_1_CSLD_6_P_default_E_5},$V{CS_1_CSLD_6_P_default_E_6},$V{CS_1_CSLD_6_P_default_E_7},$V{CS_1_CSLD_6_P_default_E_8},$V{CS_1_CSLD_6_P_default_E_9},$V{CS_1_CSLD_6_P_default_E_10}}, "") + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{genre}.equals("conference-paper") 
+				&& ("book".equals($F{publication/source[1]/@type}) || "proceedings".equals($F{publication/source[1]/@type}))) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_3},$V{CS_1_CSLD_6_P_default_E_4},$V{CS_1_CSLD_6_P_default_E_5},$V{CS_1_CSLD_6_P_default_E_6},$V{CS_1_CSLD_6_P_default_E_7},$V{CS_1_CSLD_6_P_default_E_8},$V{CS_1_CSLD_6_P_default_E_9},$V{CS_1_CSLD_6_P_default_E_10}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_3},$V{CS_1_CSLD_6_P_default_E_4},$V{CS_1_CSLD_6_P_default_E_5},$V{CS_1_CSLD_6_P_default_E_6},$V{CS_1_CSLD_6_P_default_E_7},$V{CS_1_CSLD_6_P_default_E_8},$V{CS_1_CSLD_6_P_default_E_9},$V{CS_1_CSLD_6_P_default_E_10}}, "") + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_7" class="java.lang.String">
 		<variableExpression><![CDATA[(($F{genre}.equals("issue")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_7_P_default_E_1},$V{CS_1_CSLD_7_P_default_E_2},$V{CS_1_CSLD_7_P_default_E_3},$V{CS_1_CSLD_7_P_default_E_4},$V{CS_1_CSLD_7_P_default_E_5},$V{CS_1_CSLD_7_P_default_E_6},$V{CS_1_CSLD_7_P_default_E_7},$V{CS_1_CSLD_7_P_default_E_8}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_7_P_default_E_1},$V{CS_1_CSLD_7_P_default_E_2},$V{CS_1_CSLD_7_P_default_E_3},$V{CS_1_CSLD_7_P_default_E_4},$V{CS_1_CSLD_7_P_default_E_5},$V{CS_1_CSLD_7_P_default_E_6},$V{CS_1_CSLD_7_P_default_E_7},$V{CS_1_CSLD_7_P_default_E_8}}, "") + "." : "")) : "")]]></variableExpression>
