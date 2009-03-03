@@ -410,12 +410,6 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername>mail.mpisoc.mpg.de</escidoc.pubman_presentation.email.mailservername>
-				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
-				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
-				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
-				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
-
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
@@ -552,12 +546,6 @@
 				<escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
-
-				<escidoc.pubman_presentation.email.mailservername>mail.mpisoc.mpg.de</escidoc.pubman_presentation.email.mailservername>
-                <escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
-                <escidoc.pubman_presentation.email.withauthentication>true</escidoc.pubman_presentation.email.withauthentication>
-                <escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
-                <escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
