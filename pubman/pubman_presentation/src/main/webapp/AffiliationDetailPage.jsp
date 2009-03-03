@@ -61,7 +61,7 @@
 									<h1><h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}"/></h1>
 									<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AffiliationDetailPage.hasMessages}"/>
 									<div class="formField">
-										<h:outputText value="#{AffiliationDetailPage.description}"/>
+										<h:outputText value="#{AffiliationDetailPage.description}" escape="false"/>
 									</div>
 									<br/>
 									<tr:iterator var="identifier" value="#{AffilitationDetailPage.affiliation.defaultMetadata.identifiers}">

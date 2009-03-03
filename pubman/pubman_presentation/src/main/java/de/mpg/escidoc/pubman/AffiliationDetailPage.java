@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * f�r wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur F�rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -34,7 +34,6 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
@@ -54,12 +53,11 @@ import de.mpg.escidoc.services.pubman.util.AdminHelper;
  */
 public class AffiliationDetailPage extends FacesBean
 {
+    private static final long serialVersionUID = 1L;
     public static String BEAN_NAME = "AffiliationDetailPage";
     
 	private static Logger logger = Logger.getLogger(AffiliationDetailPage.class);
-
 	private AffiliationVOPresentation affilitation;
-
     private XmlTransforming xmlTransforming;
 
 	/**
@@ -81,7 +79,7 @@ public class AffiliationDetailPage extends FacesBean
             String userHandle = AdminHelper.getAdminUserHandle();
             OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
             String ouXml = ouHandler.retrieve(affiliationId);
-            AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
+            AffiliationVO affVO = this.xmlTransforming.transformToAffiliation(ouXml);
             this.affilitation = new AffiliationVOPresentation(affVO);
         }
         catch (Exception e)
@@ -90,15 +88,10 @@ public class AffiliationDetailPage extends FacesBean
             login.forceLogout();
             error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         }
-
-    
 	}
 
 	
-	public void init()
-    {
-		
-	}
+	public void init(){}
 
 
     public void setAffilitation(AffiliationVOPresentation affilitation)
@@ -109,14 +102,24 @@ public class AffiliationDetailPage extends FacesBean
 
     public AffiliationVOPresentation getAffilitation()
     {
-        return affilitation;
+        return this.affilitation;
     }
     
     public String getDescription()
     {
-        if (affilitation!=null && affilitation.getDefaultMetadata()!=null && affilitation.getDefaultMetadata().getDescriptions().size()>0)
-            return affilitation.getDefaultMetadata().getDescriptions().get(0);
-        else
-            return "";
+        String desc = "";
+        if (this.affilitation!=null && this.affilitation.getDefaultMetadata()!=null)
+        {
+            for (int i=0; i< this.affilitation.getDefaultMetadata().getDescriptions().size(); i++)
+            {
+                String tmp = this.affilitation.getDefaultMetadata().getDescriptions().get(i);
+                if (tmp != null)
+                {
+                    desc += tmp + "<br/><br/>";
+                }
+            }
+        }           
+        return desc;
     }
+    
 }
