@@ -82,10 +82,6 @@
 		text-decoration: none;
 	}
 	
-	.quickSearchCheckBoxMenu input {
-		margin-left: -0.09em;
-	}
-	
 	.advancedSearchMenu, .organisationSearchMenu {
 		text-align: right;
 		padding-top: 0em;
