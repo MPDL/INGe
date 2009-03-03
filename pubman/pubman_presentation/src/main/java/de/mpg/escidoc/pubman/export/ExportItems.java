@@ -91,6 +91,7 @@ public class ExportItems extends FacesBean
     public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
     public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
     public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED = "exportItems_RecipientsAreNotDefined";
+    public static final String MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS = "exportItems_UnknownRecipients";
     public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
     public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
     
@@ -340,7 +341,15 @@ public class ExportItems extends FacesBean
             }
             catch (TechnicalException e)
             {
-                logger.error("Could not ser the export formats." + "\n" + e.toString());
+                logger.error("Could not send the export formats." + "\n" + e.toString());
+                //normal 
+                Throwable ecc = e.getCause().getCause();
+                if ( ecc != null && ecc instanceof com.sun.mail.smtp.SMTPAddressFailedException )
+                {
+                	error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
+                	return null;                	
+                }
+                
                 ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
