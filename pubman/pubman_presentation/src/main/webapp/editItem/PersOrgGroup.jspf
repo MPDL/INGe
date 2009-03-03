@@ -51,7 +51,7 @@
 						<span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
+						<h:outputText styleClass="quad_area0" value="#{lbl.submission_lblAuthorCopyPaste}" />
 						<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EditItemSessionBean.creatorParseString}" cols="15" rows="3" />
 						<span class="large_checkbox">
 							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItemSessionBean.overwriteCreators}" />
