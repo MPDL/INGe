@@ -53,9 +53,10 @@
 			
 			$results.bind("mouseenter",function(){
 				mouseOverResults = true;
-			}.bind("mouseleave",function(){
+			});
+			$results.bind("mouseleave",function(){
 				mouseOverResults = false;
-			}
+			});
 			$input.blur(function(){
 				if(!mouseOverResults) {
 					$results.hide();
