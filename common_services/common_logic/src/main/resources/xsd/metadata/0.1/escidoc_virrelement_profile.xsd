@@ -12,7 +12,7 @@
   <xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/mods/xml.xsd"/> 
  
   <xs:element name="virrelement" type="VirrelementType"/>
-  <!-- A Structural Element is one of the following types -->
+  <!-- A Virrelement is one of the following types -->
   <!--*******************************
     VolumeType
     ********************************
@@ -43,6 +43,18 @@
     PageType
     ********************************
     * identifier
+    * relatedItem
+    * part
+    
+    *******************************
+    StructuralElementType
+    ********************************
+    * genre
+    * titleInfo
+    * numeration
+    * name
+    * originInfo
+    * subject
     * relatedItem
     * part
     
@@ -83,6 +95,7 @@
 			<xs:enumeration value="volume"/>
 			<xs:enumeration value="multivolume"/>
 			<xs:enumeration value="page"/>
+			<xs:enumeration value="stuctural-element"/>
 		</xs:restriction>
 	</xs:simpleType>  
 	
