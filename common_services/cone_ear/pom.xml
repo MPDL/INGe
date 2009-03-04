@@ -123,6 +123,13 @@
 							</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+							<groupId>postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
 							<groupId>urlrewrite</groupId>
 							<artifactId>urlrewrite</artifactId>
 							<includeInApplicationXml>
@@ -140,6 +147,21 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<source>1.5</source>
+							<target>1.5</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<executions>
 					<execution>
@@ -149,7 +171,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-							<test>TestCommonLogicIntegration</test>
+<!--							<test>RetrieveTest</test>-->
 						</configuration>
 					</execution>
 				</executions>
@@ -262,6 +284,7 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.1-407.jdbc3</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>urlrewrite</groupId>
@@ -269,6 +292,12 @@
 			<version>3.1.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+	      <groupId>commons-httpclient</groupId>
+	      <artifactId>commons-httpclient</artifactId>
+	      <version>3.1</version>
+	      <scope>test</scope>
+	    </dependency>
 	</dependencies>
 	
 	<profiles>
@@ -395,7 +424,7 @@
 										<!-- copy over the jboss service descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/cone.properties" todir="${project.build.directory}/jboss/server/conf" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -405,4 +434,8 @@
 			</build>
 		</profile>
 	</profiles>
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
 </project>
