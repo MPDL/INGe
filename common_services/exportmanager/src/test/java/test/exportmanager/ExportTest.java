@@ -72,6 +72,7 @@ public class ExportTest
 	     * @throws Exception
 	     */
 	    @Before
+	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void getItemLists() throws Exception
 	    {
 	    	FileOutputStream fos;
@@ -99,6 +100,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
+	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExplainExport() throws Exception
 	    {
 	    	String result = export.explainFormatsXML();  
@@ -126,6 +128,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
+	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExportsToArchives() throws Exception
 	    {
 	    	logger.info("heapMaxSize = " + Runtime.getRuntime().maxMemory());
@@ -175,6 +178,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
+	    @Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExports() throws Exception
 	    {
 	    	
