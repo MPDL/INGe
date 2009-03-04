@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile virr, volume
+
+    </xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
+  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+  <xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/mods/xml.xsd"/> 
+ 
+  <xs:element name="virrelement" type="StructuralElementType"/>
+  <!-- A Structural Element is one of the following types -->
+  <!--*******************************
+    VolumeType
+    ********************************
+    * genre
+    * titleInfo
+    * name
+    * originInfo
+    * note
+    * subject
+    * recordInfo
+    * identifier
+    * relatedItem
+    * part
+    
+  *******************************
+    MultivolumeType
+    ********************************
+    * genre
+    * titleInfo
+    * name
+    * originInfo
+    * note
+    * subject
+    * recordInfo
+    * identifier
+    
+   *******************************
+    PageType
+    ********************************
+    * identifier
+    * relatedItem
+    * part
+    
+  <!--*******************************
+    StructuralElementType
+    ********************************-->
+    	<xs:complexType name="StructuralElementType">
+    		<xs:sequence>
+			<xs:element ref="mods:titleInfo" minOccurs="0" maxOccurs="unbounded"/><!-- title, subtitle,... -->
+			<xs:element ref="mods:name" minOccurs="0" maxOccurs="unbounded"/><!-- creator normed, creator inverted, creator display -->
+			<xs:element name="genre" type="VirrelementGenreEnum" minOccurs="0"/>
+			<xs:element ref="mods:originInfo" maxOccurs="unbounded" minOccurs="0"/><!-- date issued, numeration -->
+			<xs:element ref="mods:language"/>
+			<xs:element ref="mods:language"/>
+			<xs:element ref="mods:note" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="mods:subject" minOccurs="0" maxOccurs="unbounded"/><!-- subject, law type, legislature original, legislature display -->
+			<xs:element ref="mods:relatedItem" minOccurs="0" maxOccurs="unbounded"/><!-- continuation -->
+			<xs:element ref="mods:identifier" minOccurs="0"/>
+			<xs:element ref="mods:location" minOccurs="0"/>
+			<xs:element ref="mods:part" minOccurs="0"/><!-- order -->
+			<xs:element ref="mods:recordInfo" minOccurs="0" maxOccurs="unbounded"/><!-- identifier -->			
+			<xs:element name="numeration" minOccurs="0" type="dc:SimpleLiteral"/>
+			<xs:element name="start-page" type="dc:SimpleLiteral" minOccurs="0"/><!-- ??? maybe not needed -->
+			<xs:element name="end-page" type="dc:SimpleLiteral" minOccurs="0"/><!-- ??? maybe not needed -->			
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute name="type" type="VirrelementTypeEnum" use="required"/>
+	</xs:complexType>
+	
+	
+	<!-- ************************************
+		ViRR ENUM TYPES
+	****************************************-->
+
+	<xs:simpleType name="VirrelementTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Possible item types for virr element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="volume"/>
+			<xs:enumeration value="multivolume"/>
+			<xs:enumeration value="page"/>
+		</xs:restriction>
+	</xs:simpleType>  
+	
+	<xs:simpleType name="VirrelementGenreEnum">
+		<xs:annotation>
+			<xs:documentation>Possible genre types for virr element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="section"/>
+			<xs:enumeration value="supplement"/>
+			<xs:enumeration value="corrigendum"/>
+			<xs:enumeration value="acknowledgements"/>
+			<xs:enumeration value="cover"/>
+			<xs:enumeration value="introduction"/>
+			<xs:enumeration value="errata"/>
+			<xs:enumeration value="leaflet"/>
+			<xs:enumeration value="law"/>
+			<xs:enumeration value="illustration"/>
+			<xs:enumeration value="imprint"/>
+			<xs:enumeration value="index"/>
+			<xs:enumeration value="table-of-contents"/>
+			<xs:enumeration value="chapter"/>
+			<xs:enumeration value="empty-page"/>
+			<xs:enumeration value="trailer-record"/>
+			<xs:enumeration value="portrait"/>
+			<xs:enumeration value="title-page"/>
+			<xs:enumeration value="preface"/>
+			<xs:enumeration value="dedication"/>
+			<xs:enumeration value="other"/>
+			<xs:enumeration value="list-of-abbreviations"/>
+			<xs:enumeration value="addenda"/>
+			<xs:enumeration value="appendix"/>
+			<xs:enumeration value="announcement"/>
+			<xs:enumeration value="annotations"/>
+			<xs:enumeration value="address"/>
+			<xs:enumeration value="article"/>
+			<xs:enumeration value="essay"/>
+			<xs:enumeration value="index-of-authors"/>
+			<xs:enumeration value="contribution"/>
+			<xs:enumeration value="proof-of-ownership"/>
+			<xs:enumeration value="bibliography"/>
+			<xs:enumeration value="letter"/>
+			<xs:enumeration value="chronological-index"/>
+			<xs:enumeration value="entry"/>
+			<xs:enumeration value="poetry"/>
+			<xs:enumeration value="handwritten-notes"/>
+			<xs:enumeration value="illustration-description"/>
+			<xs:enumeration value="index-of-illustrations"/>
+			<xs:enumeration value="interpretation"/>
+			<xs:enumeration value="map"/>
+			<xs:enumeration value="kolophon"/>
+			<xs:enumeration value="composition"/>
+			<xs:enumeration value="curriculum-vita"/>
+			<xs:enumeration value="references"/>
+			<xs:enumeration value="obituary"/>
+			<xs:enumeration value="index-of-places"/>
+			<xs:enumeration value="city-map"/>
+			<xs:enumeration value="index-of-persons"/>
+			<xs:enumeration value="review"/>
+			<xs:enumeration value="statistic"/>
+			<xs:enumeration value="stamp"/>
+			<xs:enumeration value="table"/>
+			<xs:enumeration value="table-description"/>
+			<xs:enumeration value="index-of-tables"/>
+			<xs:enumeration value="index-of-themes"/>
+			<xs:enumeration value="frontispiece"/>
+			<xs:enumeration value="publishers-advert"/>
+			<xs:enumeration value="pretitle-page"/>
+			<xs:enumeration value="advertisement"/>
+			<xs:enumeration value="title-page-inbetween"/>
+		</xs:restriction>
+	</xs:simpleType>  
+</xs:schema>
+
