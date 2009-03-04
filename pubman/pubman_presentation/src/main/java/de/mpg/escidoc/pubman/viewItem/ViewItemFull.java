@@ -293,7 +293,7 @@ public class ViewItemFull extends FacesBean
                 {
                     HttpSession session = (HttpSession) getFacesContext().getExternalContext().getSession(false);
                     getViewItemSessionBean().itemChanged();
-                    pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null, PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(), request.getHeader("referer"), request.getRemoteHost());
+                    //pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null, PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(), request.getHeader("referer"), request.getRemoteHost());
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
             }
