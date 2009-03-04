@@ -46,6 +46,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
@@ -107,6 +108,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -238,7 +240,8 @@ public class ViewItemFull extends FacesBean
     private boolean isWorkflowStandard;
     private boolean isWorkflowSimple;
     private boolean isStateInRevision;
-    private boolean hasRevision;
+    //private boolean hasRevision;
+    private PubItemSimpleStatistics pubManStatistics;
 
     /**
      * Public constructor.
@@ -268,7 +271,9 @@ public class ViewItemFull extends FacesBean
             InitialContext initialContext = new InitialContext();
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.pubManStatistics = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
         }
+        
         catch (NamingException ne)
         {
             throw new RuntimeException("Validation service not initialized", ne);
@@ -286,7 +291,9 @@ public class ViewItemFull extends FacesBean
                 //if it is a new item reset ViewItemSessionBean
                 if(getItemControllerSessionBean().getCurrentPubItem()==null || !pubItem.getVersion().getObjectIdAndVersion().equals(getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectIdAndVersion()))
                 {
+                    HttpSession session = (HttpSession) getFacesContext().getExternalContext().getSession(false);
                     getViewItemSessionBean().itemChanged();
+                    pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null, PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(), request.getHeader("referer"), request.getRemoteHost());
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
             }
@@ -334,6 +341,7 @@ public class ViewItemFull extends FacesBean
             this.isDepositor = this.loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
             //isDepositor = loginHelper.getAccountUser().isDepositor();
             
+            /*
             //Check if item has revisions
             try
             {
@@ -352,6 +360,7 @@ public class ViewItemFull extends FacesBean
                 this.setHasRevision(false);
                 logger.warn("Could not retrieve list of revisions.", e1);
             }
+            */
             
             this.isOwner = true;
             if (this.pubItem.getOwner() != null)
@@ -2164,6 +2173,7 @@ public class ViewItemFull extends FacesBean
 		this.subjectIterator = subjectIterator;
 	}
 
+	/*
     public boolean getHasRevision()
     {
         return this.hasRevision;
@@ -2173,7 +2183,7 @@ public class ViewItemFull extends FacesBean
     {
         this.hasRevision = hasRevision;
     }
-
+	*/
 	public String addToBasket()
 	{
 	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
