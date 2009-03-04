@@ -78,6 +78,7 @@
 	    {
 	        results = querier.query(request.getParameter("model"), request.getParameter("searchterm"));
 	    }
+		querier.release();
 	}
 %>
 

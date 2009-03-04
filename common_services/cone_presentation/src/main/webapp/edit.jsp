@@ -452,3 +452,6 @@
 		</form>
 	</body>
 </html>
+<%
+	querier.release();
+%>

@@ -77,7 +77,7 @@ public class JQueryConeServlet extends ConeServlet
     @Override
     protected String getContentType()
     {
-        return "text/plain";
+        return "text/plain;charset=" + DEFAULT_ENCODING;
     }
 
     /**

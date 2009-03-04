@@ -317,6 +317,7 @@ public class ModelHelper
                     {
                         Querier querier = QuerierFactory.newQuerier();
                         TreeFragment treeFragment = querier.details(predicate.getResourceModel(), value.toString(), lang);
+                        querier.release();
                         Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                         for (String subPredicateName : treeFragment.keySet())
                         {
@@ -417,6 +418,7 @@ public class ModelHelper
                             TreeFragment treeFragment = querier.details(predicate.getResourceModel(), value.toString(), lang);
                             Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                             result.append(getMatchString(newModel.getPredicates(), treeFragment, lang));
+                            querier.release();
                         }
                         else if (value instanceof LocalizedString)
                         {

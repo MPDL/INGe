@@ -75,7 +75,7 @@ public class HtmlConeServlet extends ConeServlet
     @Override
     protected String getContentType()
     {
-        return "text/html";
+        return "text/html;charset=" + DEFAULT_ENCODING;
     }
 
     /**

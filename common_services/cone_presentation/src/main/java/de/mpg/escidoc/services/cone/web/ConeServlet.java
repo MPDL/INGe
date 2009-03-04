@@ -179,6 +179,7 @@ public abstract class ConeServlet extends HttpServlet
 
         if (model != null)
         {
+            response.setContentType(getContentType());
             String lang = request.getParameter("lang");
             Querier querier = QuerierFactory.newQuerier();
             
@@ -201,9 +202,9 @@ public abstract class ConeServlet extends HttpServlet
                     logger.error(DB_ERROR_MESSAGE, e);
                 }
    
-                response.getWriter().println(formatQuery(result));
+                response.getWriter().print(formatQuery(result));
             }
-
+            querier.release();
         }
         else
         {
@@ -295,8 +296,9 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    out.println(formatDetails(id, model, result, lang));
+                    out.print(formatDetails(id, model, result, lang));
                 }
+                querier.release();
             }
         }
         else
@@ -356,8 +358,9 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    response.getWriter().println(formatQuery(result));
+                    response.getWriter().print(formatQuery(result));
                 }
+                querier.release();
             }
         }
         else

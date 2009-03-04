@@ -274,4 +274,42 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     {
         return subject;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o)
+    {
+        if (o == null)
+        {
+            return false;
+        }
+        else if (!(o instanceof TreeFragment))
+        {
+            return false;
+        }
+        else if (language == null && ((TreeFragment) o).getLanguage() != null)
+        {
+            return false;
+        }
+        else if (language != null && !language.equals(((TreeFragment) o).getLanguage()))
+        {
+            return false;
+        }
+        else if (subject == null && ((TreeFragment) o).getSubject() != null)
+        {
+            return false;
+        }
+        else if (subject != null && !subject.equals(((TreeFragment) o).getSubject()))
+        {
+            return false;
+        }
+        else
+        {
+            return super.equals(o);
+        }
+    }
+    
+    
 }

@@ -116,4 +116,5 @@ public interface Querier
 
     public List<String> getAllIds(String model) throws Exception;
     
+    public void release() throws Exception;
 }

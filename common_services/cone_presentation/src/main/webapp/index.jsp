@@ -106,3 +106,6 @@
 		</table>
 	</body>
 </html>
+<%
+	querier.release();
+%>

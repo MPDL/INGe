@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.Connection"%>
 <%@page import="java.util.ArrayList"%><%--
 
  CDDL HEADER START
@@ -45,7 +46,7 @@
 
 	List<String> models = new ArrayList<String>();
 	
-	models.add("persons");
+	models.add("journals");
 	
 	for (String modelName : models)
 	{
@@ -64,4 +65,6 @@
 	}
 	
 	out.println("...finished");
+
+	querier.release();
 %>

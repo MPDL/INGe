@@ -195,26 +195,46 @@ public class MulgaraQuerier implements Querier
         return query(model, query, null, Integer.parseInt(limitString));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void create(String model, String id, TreeFragment values) throws Exception
     {
         // TODO MF: Implement
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void delete(String model, String id) throws Exception
     {
         // TODO MF: Implement
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String createUniqueIdentifier(String model) throws Exception
     {
         // TODO MF: Implement
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<String> getAllIds(String modelName) throws Exception
     {
      // TODO MF: Implement
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void release() throws Exception
+    {
+        // TODO MF: Implement
     }
 
 }

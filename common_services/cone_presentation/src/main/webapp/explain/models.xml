@@ -47,11 +47,11 @@
 		</predicates>
 		<result>
 			<pattern>
-				&lt;http://purl.org/dc/elements/1.1/title&gt;
-				OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
-				&lt;http://purl.org/dc/elements/1.1/publisher&gt;
-				AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
-				&lt;http://purl.org/dc/terms/publisher&gt;
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+OR{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:; 
+&lt;http://purl.org/dc/elements/1.1/publisher&gt;
+AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/terms/publisher&gt;}:, 
+&lt;http://purl.org/dc/terms/publisher&gt;
 			</pattern>
 		</result>
 		<samples>

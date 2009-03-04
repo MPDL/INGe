@@ -76,7 +76,7 @@ public class RdfConeServlet extends ConeServlet
     @Override
     protected String getContentType()
     {
-        return "application/xml";
+        return "application/xml;charset=" + DEFAULT_ENCODING;
     }
 
     /**
