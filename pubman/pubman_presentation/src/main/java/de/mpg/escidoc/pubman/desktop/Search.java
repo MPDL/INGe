@@ -100,12 +100,20 @@ public class Search extends FacesBean
             
             
         }
-        catch (Exception e)
+        catch( de.mpg.escidoc.services.search.parser.ParseException e) 
         {
-            error("Error in search query!");
+            logger.error("Search criteria includes some lexical error", e);
+            error(getMessage("search_ParseError"));
+            return "";
         }
-        return "";
-           
+        catch(Exception e ) 
+        {
+            logger.error("Technical problem while retrieving the search results", e);
+            error(getMessage("search_TechnicalError"));
+            return "";
+        }
+  
+        return "";           
     }
     
 

@@ -34,6 +34,8 @@ import java.util.ArrayList;
 
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import bibtex.parser.ParseException;
+
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
@@ -230,8 +232,17 @@ public class AdvancedSearchEdit extends SearchResultList
             getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
        
     	}
-    	catch(Exception e ) {
-    		logger.error("Could not transform advanced search criteria", e);
+    	catch( de.mpg.escidoc.services.search.parser.ParseException e) 
+    	{
+    	    logger.error("Search criteria includes some lexical error", e);
+            error(getMessage("search_ParseError"));
+            return "";
+    	}
+    	catch(Exception e ) 
+    	{
+    		logger.error("Technical problem while retrieving the search results", e);
+    		error(getMessage("search_TechnicalError"));
+            return "";
     	}
     
     	
