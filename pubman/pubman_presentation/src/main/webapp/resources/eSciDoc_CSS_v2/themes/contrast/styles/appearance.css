@@ -331,9 +331,15 @@
 		background-color: #99C8E9;
 	}
 	
+	.fullItem {
+		background-color: #ffffff;
+	}
+
+/*	
 	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
 		background-color: #ffffff;
 	}
+*/	
 	
 		/*ITEM HEADER*/
 		

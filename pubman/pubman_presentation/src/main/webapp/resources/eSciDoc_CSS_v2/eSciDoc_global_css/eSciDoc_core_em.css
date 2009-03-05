@@ -32,6 +32,10 @@
 
 /*FOR TESTING PURPOSES*/
 
+	* {
+		min-height: 0px;
+	}
+
 	body {
 	/*
 		background-image: url('../../images/unit.gif');
@@ -62,6 +66,7 @@
 		
 		body .wrapper {
 			margin: 0 auto 0 auto;
+			padding-bottom: 2.19em;
 			overflow: hidden;
 			width: 84.10em;
 		}

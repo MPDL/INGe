@@ -331,10 +331,15 @@
 		background-color: #AFCCD5;
 	}
 	
+	.fullItem {
+		background-color: #ffffff;
+	}
+
+/*	
 	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
 		background-color: #ffffff;
 	}
-	
+*/	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
