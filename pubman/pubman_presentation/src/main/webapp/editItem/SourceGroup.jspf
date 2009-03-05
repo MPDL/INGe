@@ -44,7 +44,7 @@
 		<%-- Source genre --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'full-submission' || genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" >
@@ -60,7 +60,7 @@
 		<%-- Source title --%>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'full-submission' || genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
@@ -316,7 +316,7 @@
 						<h:column>
 						<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
-								&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true'}" /><h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+								&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{(genre.sources_source_identifiers_source_identifier_type_optional != 'true' || genre.sources_source_identifiers_source_identifier_value_optional != 'true') && genre.sources_source_identifiers_optional != 'true'}" /><h:outputText value="#{genre.sources_source_identifiers_label}" rendered="#{EditItem.sourceCollection.sourceManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 							</b>
 							<span class="xHuge_area0 xTiny_marginLExcl endline">
 								<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' && genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
