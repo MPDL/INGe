@@ -142,6 +142,14 @@
 								
 							<!-- content menu ends here -->
 							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateInRevision}">
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered = "#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateSubmitted}">
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered = "#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
+							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
