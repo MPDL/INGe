@@ -386,7 +386,7 @@
 		<xsl:apply-templates select="pm:kwd"/>
 	</xsl:template>
 	<xsl:template match="pm:kwd">
-		<xsl:element name="dc:subject">
+		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
