@@ -76,9 +76,27 @@
 			</h:panelGroup>
 
 
+<%-- Locator URL --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{((locator.locator != null && locator.locator != '') && locator.index == 0) && locator.showProperties}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{locator.locator}" />
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{((locator.locator != null && locator.locator != '') && locator.index > 0) && locator.showProperties}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{locator.locator}" />
+				</span>
+			</h:panelGroup>
+
 <%-- Locator content category --%>
 			<h:panelGroup layout="block" rendered="#{!(genre.locators_component_content_category_display == 'false' && genre.locators_component_content_category_form_id == 'full-submission' || genre.locators_component_content_category_display == 'false' && genre.locators_component_content_category_form_id == 'all')}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{((locator.locator != null && locator.locator != '') && locator.index == 0) && locator.showProperties}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.showProperties}">
 
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_display != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
@@ -89,26 +107,6 @@
 	       				</h:selectOneMenu>
 					</span>
 				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator != null && locator.locator != '') && locator.index > 0 && genre.locators_component_content_category_display != 'false'}">
-					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
-					</b>
-					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-						<h:selectOneMenu styleClass="double_select replace" value="#{locator.file.contentCategory}" >
-	        				<f:selectItems value="#{EditItem.contentCategories}" />
-	       				</h:selectOneMenu>
-					</span>
-				</h:panelGroup>
-			</h:panelGroup>
-
-<%-- Locator URL --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{(locator.locator != null && locator.locator != '') && locator.showProperties}">
-				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{locator.locator}" />
-				</span>
 			</h:panelGroup>
 
 <%-- Locator name, Locator visibility --%>

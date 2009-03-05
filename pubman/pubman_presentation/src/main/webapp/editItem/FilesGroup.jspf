@@ -92,41 +92,40 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File content category --%>
+<%-- Real filename --%>
 			<h:panelGroup rendered="#{component.index == 0}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<span class="noDisplay"> </span>
 					</b>
-					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-						<h:selectOneMenu styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
-							<f:selectItems value="#{EditItem.contentCategories}" />
-						</h:selectOneMenu>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText value="#{component.file.name}" />
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{component.index > 0}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{component.size > 0 && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
-						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+						&#160;<span class="noDisplay"> </span>
 					</b>
-					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-						<h:selectOneMenu styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
-							<f:selectItems value="#{EditItem.contentCategories}" />
-						</h:selectOneMenu>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText value="#{component.file.name}" />
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
 
-<%-- Real filename --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
+<%-- File content category --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<span class="noDisplay"> </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{component.file.name}" />
+				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
+						<f:selectItems value="#{EditItem.contentCategories}" />
+					</h:selectOneMenu>
 				</span>
 			</h:panelGroup>
+
 
 <%-- Filename, File visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
