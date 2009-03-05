@@ -495,9 +495,9 @@
 		</elements>
 	</cs-layout-definition>
 
-	<cs-layout-definition name="Book">
+	<cs-layout-definition name="Book-or-Proceedings">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("book")  ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book") || ${publication/@type}.equals("proceedings")  ]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -607,9 +607,9 @@
 		</elements>
 	</cs-layout-definition>	
 	
-	<cs-layout-definition name="Proceedings">
+	<cs-layout-definition name="conference-paper">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("proceedings") ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("conference-paper") ]]></valid-if>
 			<delimiter value=", " />
 			<ends-with value="." />
 		</parameters>

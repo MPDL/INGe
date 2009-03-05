@@ -233,13 +233,11 @@
 			repeatable="yes">
 			<parameters>
 				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})==1]]></valid-if>
-				<delimiter value=", " />
-				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
 				<layout-element ref="person/given-name" func="get_initials"/>
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>
 		
@@ -247,24 +245,22 @@
         	ref="publication/source[1]/creator[@role='editor']"
         	repeatable="yes">
 			<parameters position="last">
-				<delimiter value=", &amp; " />
-				<internal-delimiter value=", " />
+				<delimiter value=" &amp; " />
 			</parameters>
 			<elements position="last">
 				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
 				<layout-element ref="person/given-name" func="get_initials"/>
+				<layout-element ref="person/family-name" />
 			</elements>
 			
 			<parameters>
 				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>1 && ${toInt}(${sourceEditorsCount})<=6]]></valid-if>
 				<delimiter value=", " />
-				<internal-delimiter value=", " />
 			</parameters>
 			<elements>
 				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
 				<layout-element ref="person/given-name" func="get_initials"/>
+				<layout-element ref="person/family-name" />
 			</elements>
 		</layout-element>		
 		
@@ -272,14 +268,13 @@
 			<parameters>
 				<valid-if><![CDATA[${toInt}(${sourceEditorsCount})>6]]></valid-if>
 				<delimiter value=", " />
-				<internal-delimiter value=", " />
 				<ends-with value=", et al." /> 
 				<max-count value="6"/>
 			</parameters>
 			<elements>
 				<layout-element ref="organization/organization-name" />
-				<layout-element ref="person/family-name" />
 				<layout-element ref="person/given-name" func="get_initials"/>
+				<layout-element ref="person/family-name" />
 			</elements>	
 		</layout-element>	
 		
@@ -634,7 +629,7 @@
 			<valid-if><![CDATA[
 				${genre}.equals("article") 
 				|| ( 
-					(${genre}.equals("other") || ${genre}.equals("conference-report")) 
+					(${genre}.equals("other") || ${genre}.equals("conference-report") || ${genre}.equals("conference-paper")) 
 					&& ${publication/source[1]/@type}.equals("journal") 
 					)  
 			]]></valid-if>
@@ -734,14 +729,14 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- BOOK CHAPTER, OTHER+source==book, CONFERENCE REPORT +source==book or source==proceedings -->
-	<cs-layout-definition name="book-item-or-other-with-source-book-or-conference-report-with-source-book-or-preceedings">
+	<!-- BOOK CHAPTER, OTHER+source==book, CONFERENCE REPORT or PAPER +source==book or source==proceedings -->
+	<cs-layout-definition name="book-item-or-other-with-source-book-or-conference-report-or-paper-with-source-book-or-preceedings">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book-item")
 				|| ( ${genre}.equals("other") && ${publication/source[1]/@type}.equals("book") )  
 				|| ( 
-					${genre}.equals("conference-report") 
+					( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") )  
 					&& (${publication/source[1]/@type}.equals("book") || ${publication/source[1]/@type}.equals("proceedings")) 
 				   )  
 			]]></valid-if>
@@ -799,109 +794,6 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- PROCEEDINGS PAPER, SOURCE==JOURNAL -->
-	<cs-layout-definition name="proceedings-paper-from-journal">
-		<parameters>
-			<valid-if><![CDATA[
-				${genre}.equals("conference-paper") && "journal".equals(${publication/source[1]/@type})
-			]]></valid-if>
-			<delimiter value="" />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			<layout-element ref="debugBlock" />
-			
-			<layout-element ref="authors" />
-			
-			<layout-element ref="year-authors-are-presented"/>
-
-			<layout-element ref="title-with-dot"/>
-			
-			<layout-element ref="year-authors-are-not-presented"/>
-			
-			<layout-element>
-				<parameters>
-					<font-style ref="ITALIC"/>
-					<delimiter value=", "/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/title" />
-					<layout-element ref="publication/event/place" />
-					<layout-element ref="publication/source[1]/volume" />
-				</elements>
-			</layout-element>
-			
-			<layout-element ref="start-page-end-page">
-				<parameters>
-					<starts-with value=", "/>
-				</parameters>
-				<elements/>
-			</layout-element>
-		</elements>
-	</cs-layout-definition>	
-	
-	<!-- PROCEEDINGS PAPER, SOURCE==(BOOK OR PROCEEDINGS) -->
-	<cs-layout-definition name="proceedings-paper-from-book-or-proceedings">
-		<parameters>
-			<valid-if><![CDATA[
-				${genre}.equals("conference-paper") 
-				&& ("book".equals(${publication/source[1]/@type}) || "proceedings".equals(${publication/source[1]/@type}))
-			]]></valid-if>
-			<delimiter value="" />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			<layout-element ref="debugBlock" />
-			
-			<layout-element ref="authors" />
-			
-			<layout-element ref="year-authors-are-presented"/>
-
-			<layout-element ref="title-with-dot"/>
-			
-			<layout-element ref="year-authors-are-not-presented"/>
-			
-			<layout-element ref="source-editors">
-				<parameters>
-					<starts-with value=" In "/>
-					<ends-with value=","/>
-				</parameters>
-				<elements/>
-			</layout-element>
-			
-			<layout-element>
-				<parameters>
-					<font-style ref="ITALIC"/>
-					<delimiter value=". "/>
-					<starts-with value=" "/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/title" />
-					<layout-element ref="publication/source[1]/volume">
-						<parameters>
-							<starts-with value="Vol. "/>
-						</parameters>
-						<elements/>
-					</layout-element>
-					<layout-element ref="publication/source[1]/title" />
-				</elements>
-			</layout-element>
-
-			<layout-element ref="start-page-end-page">
-				<parameters>
-					<starts-with value=" (pp. "/>
-					<ends-with value=")."/>
-				</parameters>
-				<elements/>
-			</layout-element>
-			
-			<layout-element ref="source-place-publisher"/>
-			
-			<layout-element ref="submitted"/>
-			
-		</elements>
-	
-	</cs-layout-definition>	
 	
 	<!-- ISSUE -->
 	<cs-layout-definition name="issue">
@@ -1106,7 +998,7 @@
 			<layout-element name="event-title-and-place">
 				<parameters>
 					<valid-if><![CDATA[${publication/event/title}!=null]]></valid-if>
-					<starts-with value=" Poster presented at "/>
+					<starts-with value=" Poster presented at the "/>
 					<delimiter value=", "/>
 				</parameters>
 				<elements>
