@@ -111,10 +111,15 @@
 		/*margin-left: -0.09em;*/
 	}
 
+/*SUB-HEADER SECTION*/
+	.subHeaderSection {
+		margin-bottom: 0.46em;
+	}
+
 /*BREADCRUMB*/
 
 	.breadcrumb {
-		margin-top: -0.46em;
+		margin-bottom: -0.74em;
 	}
 
 	.breadcrumb ol {
@@ -133,12 +138,12 @@
 
 	.headLine {
 		margin: 0px;
-		margin-top: 0.46em;
+		line-height: normal;
 	}
 	
 	.headLine h1 {
 		margin: 0px;
-		margin-bottom: 0.46em;
+		line-height: normal;
 	}
 
 /*CONTENT MENU*/
