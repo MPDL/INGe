@@ -192,6 +192,9 @@ public class EditItem extends FacesBean
     private CoreInputFile inputFile = new CoreInputFile();
     
     private String genreBundle = "Genre_ARTICLE";
+    
+    // Flag for the binding method to avoid unnecessary binding
+    private boolean bindFilesAndLocators = true;
 
     /**
      * Public constructor.
@@ -436,34 +439,39 @@ public class EditItem extends FacesBean
     private void bindUploadedFilesAndLocators()
     {
         // first clear the file list
-        this.getPubItem().getFiles().clear();
-        // add the files
-        if(this.getFiles() != null && this.getFiles().size() > 0)
+    	if(this.bindFilesAndLocators == true)
         {
-            for(int i = 0; i < this.getFiles().size(); i++)
-            {
-            	this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
-            }
+    		this.getPubItem().getFiles().clear();
+        
+	        // add the files
+	        if(this.getFiles() != null && this.getFiles().size() > 0)
+	        {
+	            for(int i = 0; i < this.getFiles().size(); i++)
+	            {
+	            	this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
+	            }
+	        }
+	        // add the locators
+	        if(this.getLocators() != null && this.getLocators().size() > 0)
+	        {
+	            for(int i = 0; i < this.getLocators().size(); i++)
+	            {
+	                
+	                //add name from content if not available
+	                if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
+	                {
+	                    this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
+	                    //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
+	                }
+	                this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
+	                this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
+	            }
+	        }
         }
-        // add the locators
-        if(this.getLocators() != null && this.getLocators().size() > 0)
-        {
-            for(int i = 0; i < this.getLocators().size(); i++)
-            {
-                
-                //add name from content if not available
-                if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
-                {
-                    this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
-                    //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
-                }
-                this.getLocators().get(i).getFile().getDefaultMetadata().setDescription(this.getLocators().get(i).getFile().getDescription());
-                this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
-            }
-        }
-        // finally clean the session bean
-        /*this.getEditItemSessionBean().getFiles().clear();
-        this.getEditItemSessionBean().getLocators().clear();*/
+    	else
+    	{
+    		this.bindFilesAndLocators = true;
+    	}
     }
     
     /**
@@ -1521,7 +1529,8 @@ public class EditItem extends FacesBean
         getPubItem().writeBackLocalTags(null);
         if (getPubItem().getVersion().getState().equals(State.RELEASED))
         {
-            return saveAndAccept();
+            this.bindFilesAndLocators = false;
+        	return saveAndAccept();
             /*
             try 
             {
@@ -1539,7 +1548,8 @@ public class EditItem extends FacesBean
         }
         else
         {
-            save();
+        	this.bindFilesAndLocators = false;
+        	save();
         }
        
         return null;
