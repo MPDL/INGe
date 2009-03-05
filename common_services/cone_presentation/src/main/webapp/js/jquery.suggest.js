@@ -51,6 +51,9 @@
 			
 			var mouseOverResults = false;
 			
+			$results.mouseover(function(){
+				mouseOverResults = true;
+			});
 			$results.bind("mouseenter",function(){
 				mouseOverResults = true;
 			});
