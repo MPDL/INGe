@@ -53,13 +53,17 @@
 		html, body, form {
 			height: 100%;
 		}
-		body .wrapper {
-			margin: 0 auto 0 auto;
-			width: 84.10em;
+		
+		html>body .wrapper {
 			min-height: 100%;
 			height: auto !important;
 			height: 100%;
+		}
+		
+		body .wrapper {
+			margin: 0 auto 0 auto;
 			overflow: hidden;
+			width: 84.10em;
 		}
 		.noDisplay {
 			display: none !important;
