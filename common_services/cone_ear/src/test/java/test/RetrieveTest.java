@@ -30,7 +30,6 @@
 
 package test;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -41,7 +40,6 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -103,6 +101,31 @@ public class RetrieveTest
         
         String result = getResponseAsString(method);
 
+        assertTrue("Response does not contain <html :" + result, result.contains("<html"));
+        assertTrue("Response does not contain <li>:" + result, result.contains("<li>"));
+        
+        logger.debug("Result: " + result);
+
+    }
+
+    @Test
+    public void testDetailAction() throws Exception
+    {
+        logger.debug("Query: " + serviceUrl + "jquery/persons/all");
+        GetMethod method = new GetMethod(serviceUrl + "jquery/persons/all");
+        client.executeMethod(method);
+        String result = getResponseAsString(method);
+        String line = result.split("\\n")[0];
+        String id = line.split("\\|")[1];
+        
+        logger.debug("Query: " + serviceUrl + "rdf/persons/details/" + id);
+        method = new GetMethod(serviceUrl + "rdf/persons/details/" + id);
+        client.executeMethod(method);
+        
+        assertTrue("Request did not return 200 Ok status, but " + method.getStatusCode(), method.getStatusCode() == 200);
+        
+        result = getResponseAsString(method);
+        
         logger.debug("Result: " + result);
 
     }
