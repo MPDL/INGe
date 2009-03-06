@@ -158,9 +158,9 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup rendered="#{!(genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'easy-submission' || genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'all')}">
-						<span class="large_area0">
+						<span class="xDouble_area0 tiny_marginRIncl">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
-							<h:outputLabel styleClass="large_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
+							<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
 						</span>
 						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" />
 					</h:panelGroup>
