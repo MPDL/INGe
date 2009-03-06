@@ -109,9 +109,14 @@
 		var parent = $input.parents('.' + personSuggestCommonParentClass);
 		
 		var completeName = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
+		
 		var chosenName = $input.resultValue;
+		var orgName = null;
+		var orgId = null;
+		
 		if (chosenName.indexOf('(') >= 0)
 		{
+			orgName = chosenName.substring(chosenName.indexOf('(') + 1, chosenName.indexOf(')')).replace(/^\s*(.*\S)\s*$/, '$1');
 			chosenName = chosenName.substring(0, chosenName.indexOf('(')).replace(/^\s*(.*\S)\s*$/, '$1');
 		}
 		var familyName = '';
@@ -125,8 +130,43 @@
 		{
 			familyName = chosenName;
 		}
-		var orgName = (typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization : null);
-		var orgId = (typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier : null);
+		if (orgName != null)
+		{
+			if (typeof details.http_escidoc_mpg_de_position != 'undefined'
+				&& typeof details.http_escidoc_mpg_de_position.length != 'undefined')
+			{
+				for (var i = 0; i < details.http_escidoc_mpg_de_position.length; i++)
+				{
+					if (details.http_escidoc_mpg_de_position[i].http_escidoc_mpg_de_organization == orgName
+						&& typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined')
+					{
+						orgId = details.http_escidoc_mpg_de_position[i].http_purl_org_dc_elements_1_1_identifier;
+						break;
+					}
+				}
+			}
+			else if (typeof details.http_escidoc_mpg_de_position != 'undefined'
+				&& typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined'
+				&& typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined'
+				&& details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization == orgName)
+			{
+				orgId = details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier;
+			}
+		}
+		else
+		{
+			if (typeof details.http_escidoc_mpg_de_position != 'undefined'
+				&& typeof details.http_escidoc_mpg_de_position.length != 'undefined')
+			{
+				orgName = (typeof details.http_escidoc_mpg_de_position[0].http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position[0].http_escidoc_mpg_de_organization : null);
+				orgId = (typeof details.http_escidoc_mpg_de_position[0].http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position[0].http_purl_org_dc_elements_1_1_identifier : null);
+			}
+			else if (typeof details.http_escidoc_mpg_de_position != 'undefined')
+			{
+				orgName = (typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization : null);
+				orgId = (typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier : null);
+			}
+		}
 		var personId = $input.resultID;
 
 		fillField('familyName', familyName, parent);
@@ -148,7 +188,7 @@
 	
 	function fillField(name, value, commonParent)
 	{
-		
+
 		$(commonParent).find('.' + name).val(value);
 	}
 	
