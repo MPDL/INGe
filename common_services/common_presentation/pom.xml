@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.17</version>
+		<version>1.0.18-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_presentation</artifactId>
 	<packaging>jar</packaging>
 	<name>common_presentation</name>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.17/common_presentation</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.17/common_presentation</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.17</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_presentation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_presentation</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
