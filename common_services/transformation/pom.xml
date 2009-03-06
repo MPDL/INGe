@@ -2,17 +2,17 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.17-SNAPSHOT</version>
+		<version>1.0.17</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>transformation</artifactId>
 	<name>transformation</name>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<scm>
-	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</connection>
-    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/transformation</developerConnection>
-    <url>https://zim02.gwdg.de/repos/common/transformation</url>
+	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.17/transformation</connection>
+    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.17/transformation</developerConnection>
+    <url>https://zim02.gwdg.de/repos/common/transformation/tags/common_services-1.0.17/transformation</url>
   </scm>
 	<build>
 		<plugins>
@@ -106,18 +106,18 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.15-SNAPSHOT</version>
+			<version>1.1.15</version>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.21-SNAPSHOT</version>
+			<version>1.0.21</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.18-SNAPSHOT</version>
+			<version>1.0.18</version>
 			<scope>compile</scope>
 		</dependency>
       	<dependency>
