@@ -86,6 +86,14 @@
 	border-top-width: 0.10em !important;
 }
 
+.infoPage .sideSection .gfc-resultsHeader {
+	border: 0px;
+}
+
+.infoPage .sideSection .gf-result{
+	margin-top: 1.2em;
+} 
+
 .infoPage .sideSection a {
 	font-weight: bold;
 }

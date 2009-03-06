@@ -48,12 +48,10 @@
   google.setOnLoadCallback(initialize);
 </script>
 
-<p>	
-
 	<h2>
 		<h:outputText id="rssFeedName" value="#{lbl.Home_Header_News}" escape="false"/>
 	</h2>
 	<div id="feedControl" style="font-size: 0.4em"></div>
-</p>
+
 
 
