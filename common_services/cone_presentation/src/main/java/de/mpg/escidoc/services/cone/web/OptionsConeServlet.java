@@ -142,48 +142,7 @@ public class OptionsConeServlet extends ConeServlet
      */
     protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
-        
-        StringWriter result = new StringWriter();
-        
-        result.append("{\n");
-        for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
-        {
-            String predicate = (String) iterator.next();
-            List<LocalizedTripleObject> objects = triples.get(predicate);
-            
-            result.append("\"");
-            result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
-            result.append("\" : \"");
-            if (objects.size() == 1)
-            {
-                result.append(objects.get(0).toString().replace("'", "\\'"));
-            }
-            else
-            {
-                result.append("{\n");
-                for (Iterator<LocalizedTripleObject> iterator2 = objects.iterator(); iterator2.hasNext();)
-                {
-                    LocalizedTripleObject object = (LocalizedTripleObject) iterator2.next();
-                    result.append("\"");
-                    result.append(object.toString().replace("'", "\\'"));
-                    result.append("\"");
-                    if (iterator2.hasNext())
-                    {
-                        result.append(",");
-                    }
-                    result.append("\n");
-                }
-                result.append("}");
-            }
-            result.append("\"");
-            if (iterator.hasNext())
-            {
-                result.append(",");
-            }
-            result.append("\n");
-        }
-        result.append("}");
-        return result.toString();
+        return triples.toJson();
     }
     
 }
