@@ -99,12 +99,12 @@
 			<!-- Node: organizational-unit.organization-details.start-date -->
 			<!-- Field: AffiliationVO.startDate [Date] -->
 			<value style="element" name="start-date" ns="${xsd.metadata.organization}"
-				set-method="setStartDateAsString" usage="optional" />
+				field="startDate" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.end-date -->
 			<!-- Field: AffiliationVO.endDate [Date] -->
 			<value style="element" name="end-date" ns="${xsd.metadata.organization}"
-				set-method="setEndDateAsString" usage="optional" />
+				field="endDate" usage="optional" />
 
 		</structure>
 	</mapping>

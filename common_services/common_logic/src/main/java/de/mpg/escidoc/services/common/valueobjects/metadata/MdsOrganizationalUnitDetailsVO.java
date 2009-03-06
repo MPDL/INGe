@@ -36,8 +36,8 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
 
     private String type;
     
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     
     
     
@@ -63,10 +63,11 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
         this.alternativeNames = other.alternativeNames;
         this.identifiers = other.identifiers;
         this.coordinates = other.coordinates;
-        this.startDate = other.startDate;
-        this.endDate = other.endDate;
+        this.setStartDate(other.getStartDate());
+        this.setEndDate(other.getEndDate());
     }
 
+    /*
     public void setStartDateAsString(String date) throws Exception
     {
         if (date == null || "".equals(date))
@@ -92,6 +93,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
             setEndDate(sdf.parse(date));
         }
     }
+    */
     
     public String getCity()
     {
@@ -148,26 +150,6 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
         return alternativeNames;
     }
 
-    public Date getStartDate()
-    {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate)
-    {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate()
-    {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate)
-    {
-        this.endDate = endDate;
-    }
-
     public String getType()
     {
         return type;
@@ -176,6 +158,26 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     public void setType(String type)
     {
         this.type = type;
+    }
+
+    public void setStartDate(String startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    public String getStartDate()
+    {
+        return startDate;
+    }
+
+    public void setEndDate(String endDate)
+    {
+        this.endDate = endDate;
+    }
+
+    public String getEndDate()
+    {
+        return endDate;
     }
     
 }
