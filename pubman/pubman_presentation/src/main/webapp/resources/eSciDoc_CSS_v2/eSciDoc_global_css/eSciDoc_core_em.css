@@ -94,6 +94,9 @@
 		label {
 			padding-top: 0.28em;
 		}
+		select {
+			border-width: 0.09em;;
+		}
 	/*BASE ELEMENTS*/
 		/*HEADER*/
 			/*H1*/

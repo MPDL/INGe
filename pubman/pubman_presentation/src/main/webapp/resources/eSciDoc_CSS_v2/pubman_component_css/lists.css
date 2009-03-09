@@ -39,6 +39,10 @@
 	border-bottom-style: solid; 
 }
 
+.itemList input {
+	border-width: 0px;
+}
+
 .itemList .seperator {
 	width: 0.09em;
 	margin: 0px;

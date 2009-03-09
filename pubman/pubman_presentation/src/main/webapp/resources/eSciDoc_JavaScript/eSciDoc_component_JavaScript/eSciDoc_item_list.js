@@ -43,7 +43,15 @@ function addItemListFunctions() {
 						function(j,elem){
 							$(elem).show();
 						});
-			})
+				$(ele).find('.listItem').hover(
+						function () {
+							$(this).addClass('listBackground');
+					    }, 
+					    function () {
+					    	$(this).removeClass('listBackground');
+					    }
+					);
+			});
 
 	$('.checkboxSelectButton').click(function(){$(this).siblings('.selectMenu').show();});
 	$('.checkBoxCloseSelectButton').click(function(){$(this).parent().hide();});
@@ -104,7 +112,6 @@ function addItemListFunctions() {
 						}
 				)
 			});
-	
 }
 
 function installItemList() {

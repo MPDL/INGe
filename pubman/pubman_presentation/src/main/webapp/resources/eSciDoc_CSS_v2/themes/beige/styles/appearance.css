@@ -104,8 +104,9 @@
 		cursor: pointer;
 	}
 	
-	input[type="text"], textarea, select {
-		border: 1px solid #515151;
+	input, textarea, select {
+		border-style: solid;
+		border-color: #515151;
 	}
 	
 	a:hover, a:focus {
@@ -331,7 +332,7 @@
 		background-color: #ACC6CF;
 	}
 	
-	.fullItem {
+	.fullItem, .listBackground {
 		background-color: #ffffff;
 	}
 
