@@ -223,20 +223,25 @@
 		padding-left: 20px;
 	}
 	
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .pageBrowser .backward {
+			padding-left: 0px;
+		}
+	/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .pageBrowser .backward {
+			padding-left: 0px;
+		}
+	
 	.pageBrowser .backward:hover, .pageBrowser .backward:focus {
 		background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: left;
-		padding-right: 0px;
-		padding-left: 20px;
 	}
 	
 	.pageBrowser .backward:disabled {
 		background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: left;
-		padding-right: 0px;
-		padding-left: 20px;
 	}
 	
 	.pageBrowser .forward {
@@ -247,20 +252,25 @@
 		padding-left: 0px;
 	}
 	
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .pageBrowser .forward {
+			padding-right: 2px;
+		}
+	/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .pageBrowser .forward {
+			padding-right: 2px;
+		}
+	
 	.pageBrowser .forward:hover, .pageBrowser .forward:focus {
 		background-image: url('../images/All_Paginator_ArrowNext_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: right;
-		padding-right: 20px;
-		padding-left: 0px;
 	}
 	
 	.pageBrowser .forward:disabled {
 		background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: right;
-		padding-right: 20px;
-		padding-left: 0px;
 	}
 	
 	.pageBrowser .skipToLast {
