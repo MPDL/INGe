@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:annotation>
-    <xs:documentation xml:lang="en">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
 
     eSciDoc metadata profile virr, volume
 
     </xs:documentation>
-  </xs:annotation>
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
-  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
-  <xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/mods/xml.xsd"/> 
- 
-  <xs:element name="virrelement" type="VirrelementType"/>
-  <!-- A Virrelement is one of the following types -->
-  <!--*******************************
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd"/>
+	<xs:element name="virrelement" type="VirrelementType"/>
+	<!-- A Virrelement is one of the following types -->
+	<!--*******************************
     VolumeType
     ********************************
     * genre
@@ -58,35 +57,39 @@
     * relatedItem
     * part
     
-  <!--*******************************
+  *******************************
     VirrelementType
     ********************************-->
-    	<xs:complexType name="VirrelementType">
-    		<xs:sequence>
-			<xs:element ref="mods:titleInfo" minOccurs="0" maxOccurs="unbounded"/><!-- title, subtitle,... -->
-			<xs:element ref="mods:name" minOccurs="0" maxOccurs="unbounded"/><!-- creator normed, creator inverted, creator display -->
+	<xs:complexType name="VirrelementType">
+		<xs:sequence>
+			<xs:element name="titleInfo" type="mods:titleInfoType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- title, subtitle,... -->
+			<xs:element name="name" type="mods:nameType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- creator normed, creator inverted, creator display -->
 			<xs:element name="genre" type="VirrelementGenreEnum" minOccurs="0"/>
-			<xs:element ref="mods:originInfo" maxOccurs="unbounded" minOccurs="0"/><!-- date issued, numeration -->
-			<xs:element ref="mods:language"/>
-			<xs:element ref="mods:physicalDescription" minOccurs="0"/>
-			<xs:element ref="mods:note" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="mods:subject" minOccurs="0" maxOccurs="unbounded"/><!-- subject, law type, legislature original, legislature display -->
-			<xs:element ref="mods:relatedItem" minOccurs="0" maxOccurs="unbounded"/><!-- continuation -->
-			<xs:element ref="mods:identifier" minOccurs="0"/>
-			<xs:element ref="mods:location" minOccurs="0"/>
-			<xs:element ref="mods:part" minOccurs="0"/><!-- order -->
-			<xs:element ref="mods:recordInfo" minOccurs="0" maxOccurs="unbounded"/><!-- identifier -->			
-			<xs:element name="numeration" minOccurs="0" type="dc:SimpleLiteral"/>			
+			<xs:element name="originInfo" type="mods:originInfoType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- date issued, numeration -->
+			<xs:element name="language" type="mods:languageType"/>
+			<xs:element name="physicalDescirption" type="mods:physicalDescriptionType" minOccurs="0"/>
+			<xs:element name="note" type="mods:noteType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="subject" type="mods:subjectType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- subject, law type, legislature original, legislature display -->
+			<xs:element name="relatedItem" type="mods:relatedItemType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- continuation -->
+			<xs:element name="identifier" type="mods:identifierType" minOccurs="0"/>
+			<xs:element name="location" type="mods:locationType" minOccurs="0"/>
+			<xs:element name="part" type="mods:partType" minOccurs="0"/>
+			<!-- order -->
+			<xs:element name="recordInfo" type="mods:recordInfoType" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- identifier -->
+			<xs:element name="numeration" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute ref="xml:lang" use="optional"/>
 		<xs:attribute name="type" type="VirrelementTypeEnum" use="required"/>
 	</xs:complexType>
-	
-	
 	<!-- ************************************
 		ViRR ENUM TYPES
 	****************************************-->
-
 	<xs:simpleType name="VirrelementTypeEnum">
 		<xs:annotation>
 			<xs:documentation>Possible item types for virr element</xs:documentation>
@@ -97,8 +100,7 @@
 			<xs:enumeration value="page"/>
 			<xs:enumeration value="stuctural-element"/>
 		</xs:restriction>
-	</xs:simpleType>  
-	
+	</xs:simpleType>
 	<xs:simpleType name="VirrelementGenreEnum">
 		<xs:annotation>
 			<xs:documentation>Possible genre types for virr element</xs:documentation>
@@ -167,6 +169,5 @@
 			<xs:enumeration value="advertisement"/>
 			<xs:enumeration value="title-page-inbetween"/>
 		</xs:restriction>
-	</xs:simpleType>  
+	</xs:simpleType>
 </xs:schema>
-
