@@ -30,13 +30,13 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.18-SNAPSHOT</version>
+		<version>1.0.18</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition_presentation</artifactId>
 	<name>dataacquisition_presentation</name>
-	<version>1.0.13-SNAPSHOT</version>
+	<version>1.0.13</version>
 	<packaging>war</packaging>
 
 
@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.13-SNAPSHOT</version>
+			<version>1.0.13</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
