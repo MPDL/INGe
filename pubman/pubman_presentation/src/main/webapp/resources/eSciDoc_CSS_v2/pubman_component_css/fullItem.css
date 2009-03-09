@@ -39,6 +39,11 @@
 	border-bottom-style: solid;
 }
 
+.fullItem table, .fullItem td, .fullItem tr, .fullItem th {
+	margin: 0px;
+	padding: 0px;
+} 
+
 .fullItem .seperator {
 	width: 0.09em;
 	border-top-width: 1.3em;

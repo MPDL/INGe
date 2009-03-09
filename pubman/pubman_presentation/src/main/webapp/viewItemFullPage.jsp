@@ -223,7 +223,7 @@
 							</div>
 							<h:panelGroup layout="block" styleClass="full_area0 itemBlock visibility" rendered="#{!ViewItemFull.isStateWithdrawn}">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									<h:outputText value=" " />
+									&#160;
 								</h3>
 								<h:panelGroup styleClass="seperator" />
 								<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
