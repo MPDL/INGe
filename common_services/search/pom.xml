@@ -9,12 +9,12 @@
 	<artifactId>search</artifactId>
 	<name>search</name>
 	<packaging>ejb</packaging>
-	<version>1.0.15-SNAPSHOT</version>
+	<version>1.0.15</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/search</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/search</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/search-1.0.15</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/search-1.0.15</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/search-1.0.15</url>
 	</scm>
 
 	<build>
