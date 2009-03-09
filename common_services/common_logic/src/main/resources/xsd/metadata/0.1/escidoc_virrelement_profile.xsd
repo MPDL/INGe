@@ -70,7 +70,7 @@
 			<xs:element name="originInfo" type="mods:originInfoType" minOccurs="0" maxOccurs="unbounded"/>
 			<!-- date issued, numeration -->
 			<xs:element name="language" type="mods:languageType"/>
-			<xs:element name="physicalDescirption" type="mods:physicalDescriptionType" minOccurs="0"/>
+			<xs:element name="physicalDescription" type="mods:physicalDescriptionType" minOccurs="0"/>
 			<xs:element name="note" type="mods:noteType" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="subject" type="mods:subjectType" minOccurs="0" maxOccurs="unbounded"/>
 			<!-- subject, law type, legislature original, legislature display -->
