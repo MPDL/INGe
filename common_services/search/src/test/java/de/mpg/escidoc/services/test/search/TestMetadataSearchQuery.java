@@ -85,7 +85,7 @@ public class TestMetadataSearchQuery
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.LANGUAGE, "de", LogicalOperator.OR));
         msq.addCriterion(new MetadataSearchCriterion(CriterionType.GENRE, "journal", LogicalOperator.NOT));
         String query = msq.getCqlQuery();
-        String expected = "( ( escidoc.any-title=\"test\" )  and  ( escidoc.created-by.objid=\"user1234\" )  or  ( escidoc.language=\"de\" )  not  ( escidoc.any-genre=\"journal\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        String expected = "( ( escidoc.any-title=\"test\" )  and  ( escidoc.created-by.objid=\"user1234\" )  or  ( escidoc.language=\"de\" )  not  ( escidoc.publication.type=\"journal\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
         assertEquals(expected, query);
         
