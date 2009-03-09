@@ -97,6 +97,9 @@
 		select {
 			border-width: 0.09em;;
 		}
+		input[type="file"] {
+			border-width: 0.09em;
+		}
 	/*BASE ELEMENTS*/
 		/*HEADER*/
 			/*H1*/
