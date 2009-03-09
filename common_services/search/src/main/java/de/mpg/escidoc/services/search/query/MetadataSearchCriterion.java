@@ -90,7 +90,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for organization pids. */
     private static final String INDEX_ORGANIZATION_PIDS = "escidoc.any-organization-pids";
     /** Index for genre. */
-    private static final String INDEX_GENRE = "escidoc.any-genre";
+    private static final String INDEX_GENRE = "escidoc.publication.type";
     /** Index for dates. */
     private static final String INDEX_DATE_ANY = "escidoc.any-dates";
     /** Index for creation date. */
