@@ -8,7 +8,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>search_presentation</artifactId>
 	<name>search_presentation</name>
-	<version>1.0.15-SNAPSHOT</version>
+	<version>1.0.15</version>
 	<packaging>war</packaging>
 	
 	<scm>
