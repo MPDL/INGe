@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:mods=""http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:mods=""http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -7,9 +7,7 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>		
 	<xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd"/>
 	<xs:element name="virrelement" type="VirrelementType"/>
 	<!-- A Virrelement is one of the following types -->
