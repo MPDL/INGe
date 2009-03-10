@@ -573,6 +573,7 @@ public class ItemControllerSessionBean extends FacesBean
             ContextVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
             
             newItem.setContext(context.getReference());
+            this.setCurrentPubItem(new PubItemVOPresentation(newItem));
             
             if (logger.isDebugEnabled())
             {
@@ -592,6 +593,7 @@ public class ItemControllerSessionBean extends FacesBean
             }
 
             newItem.setContext(null);
+            this.setCurrentPubItem(new PubItemVOPresentation(newItem));
             
             return CreateItem.LOAD_CREATEITEM;
         }
