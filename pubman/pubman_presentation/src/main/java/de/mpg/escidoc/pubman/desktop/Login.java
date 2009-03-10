@@ -186,6 +186,38 @@ public class Login extends FacesBean
 
         return "";
     }
+    
+    /**
+     * method for brutal logout if authantication errors occur in the framework
+     *
+     * @return String navigation string for loading the login error page
+     */
+    public String forceLogout(String itemID)
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        try
+        {
+            fc.getExternalContext().redirect(
+                    ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL() + "?itemId=" + itemID);      
+            //fc.getExternalContext().redirect(getLoginUrlFromCurrentBreadcrumb());
+           
+        }
+        catch (IOException e)
+        { 
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (ServiceException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+        catch (URISyntaxException e)
+        {
+            logger.error("Could not redirect to Fremework login page", e);
+        }
+
+        return "";
+    }
 
     // Getters and Setters
     public String getBtnLoginLogout()

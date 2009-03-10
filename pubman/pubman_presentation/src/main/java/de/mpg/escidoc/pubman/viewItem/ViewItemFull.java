@@ -52,6 +52,8 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -69,6 +71,7 @@ import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
@@ -297,16 +300,16 @@ public class ViewItemFull extends FacesBean
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
             }
-//            catch (AuthorizationException e)
-//            {
-//                Login login = (Login)getSessionBean(Login.class);
-//                login.forceLogout();
-//            }
-//            catch (AuthenticationException e)
-//            {
-//                Login login = (Login)getSessionBean(Login.class);
-//                login.forceLogout();
-//            }
+            catch (AuthorizationException e)
+            {
+                Login login = (Login)getSessionBean(Login.class);
+                login.forceLogout(itemID);
+            }
+            catch (AuthenticationException e)
+            {
+                Login login = (Login)getSessionBean(Login.class);
+                login.forceLogout(itemID);
+            }
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
