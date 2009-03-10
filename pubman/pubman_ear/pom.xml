@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>4.1.4-SNAPSHOT</version>
+		<version>4.1.4</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>4.1.4-SNAPSHOT</version>
+	<version>4.1.4</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-4.1.4/pubman_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-4.1.4/pubman_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/pubman-4.1.4/pubman_ear</url>
 	</scm>
 
 	<build>
@@ -476,14 +476,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>4.1.4-SNAPSHOT</version>
+			<version>4.1.4</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>4.1.4-SNAPSHOT</version>
+			<version>4.1.4</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
