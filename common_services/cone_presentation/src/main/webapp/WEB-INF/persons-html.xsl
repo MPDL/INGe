@@ -55,6 +55,23 @@
 				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.2.6.min.js">;</script>
 				<script>
 				
+				/*START SOLUTION FOR getElementsByTagName FOR NS-XML*/
+				function getElementsByTagName(tagName, ns, prefix, scope){
+					var elementListForReturn = scope.getElementsByTagName(prefix+':'+tagName);
+					if(elementListForReturn.length == 0){
+						elementListForReturn = scope.getElementsByTagName(tagName);
+						if(elementListForReturn.length == 0){
+							elementListForReturn = scope.getElementsByTagName('ns:'+tagName);
+							if(!(elementListForReturn.length != 0 || !document.getElementsByTagNameNS)){
+								elementListForReturn = scope.getElementsByTagNameNS(ns, tagName);
+							}
+						}
+					}     
+				
+					return elementListForReturn;
+				   }
+				   /*STOP SOLUTION FOR getElementsByTagName FOR NS-XML*/
+				
 					var ampEsc = '&amp;';
 					var amp = ampEsc.substring(0,1);
 				
@@ -63,21 +80,21 @@
 						requestString = requestString.replace(/&amp;/g, amp);
 						
 						$.get(requestString, function(itemList){
-							var allItems = itemList.getElementsByTagName('escidocItem:item');
+							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList);
 							
 							var element = '';
 							var itemURL = '';
 							var publicationTitle = '';
 							
 							
-							for(var i=0; itemList.getElementsByTagName('escidocItem:item').length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
+							for(var i=0; getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList).length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
-							var citation = allItems[i].getElementsByTagName('dcterms:bibliographicCitation')[0];
+								var citation = getElementsByTagName('bibliographicCitation', 'http://purl.org/dc/terms/', 'dcterms', allItems[i])[0];
 								
 								if (typeof citation!= 'undefined')
 								{
 									itemURL = '';
-									itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(allItems[i].getElementsByTagName('prop:latest-release')[0].getElementsByTagName('release:number')[0]).text());
+									itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + ':' + $(getElementsByTagName('number', 'http://escidoc.de/core/01/properties/release/', 'release', getElementsByTagName('latest-release', 'http://escidoc.de/core/01/properties/', 'prop', allItems[i])[0])[0]).text());
 
 									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
 									
