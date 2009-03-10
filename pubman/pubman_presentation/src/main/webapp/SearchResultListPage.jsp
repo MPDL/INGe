@@ -98,13 +98,13 @@
 											<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 										<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportSelectedDownload}" />
 										<h:outputText styleClass="seperator" />
 										<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportSelectedEmail}"/>
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 									<!-- content menu lower line starts here -->
 										<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 											<h:outputText value="#{lbl.List_lblBibList}" />
@@ -117,7 +117,7 @@
 										<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 									<!-- content menu lower line ends here -->
 									</h:panelGroup>
-									<h:panelGroup layout="block" styleClass="sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
+									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 									<!-- content menu lower line starts here -->
 										<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
 										<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >

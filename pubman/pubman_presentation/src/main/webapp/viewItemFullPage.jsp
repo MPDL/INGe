@@ -83,7 +83,7 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
 								<!-- content menu upper line ends here -->
 								</div>
-								<h:panelGroup layout="block" styleClass="sub action" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
 								<!-- content menu lower line starts here -->										
 									<h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}" value="#{lbl.actionMenu_lnkEdit}" rendered="#{!ViewItemFull.isStateWithdrawn and ((ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner) || (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator)}"/>
 									
@@ -129,7 +129,7 @@
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
 									<!--
 									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{ViewItemFull.exportDisplay}"/>
 									<h:outputText styleClass="seperator" />

@@ -142,6 +142,7 @@
 	
 	.headLine h1 {
 		margin: 0px;
+		margin-bottom: 0.28em;
 		line-height: normal;
 	}
 
@@ -154,11 +155,11 @@
 		margin-top: 0em;
 		padding-top: 1.46em;
 	}
-
+/*
 	.contentMenu .sub {
 		height: 1.6em;
 	}
-	
+*/	
 	.bibList ,.gridList {
 		padding-left: 1.36em;
 	}
