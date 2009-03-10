@@ -33,11 +33,12 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <%--<h:outputText value="#{RevisionList.dummy}"/>--%>
-<ol>
-	<h:panelGroup rendered="#{PubItemListSessionBean.totalNumberOfElements>0}">
+
+<h:panelGroup rendered="#{PubItemListSessionBean.totalNumberOfElements>0}">
+	<ol>
 		<jsp:directive.include file="../list/itemRevisionsList.jspf"/>
-	</h:panelGroup>
-	<h:panelGroup rendered="#{PubItemListSessionBean.totalNumberOfElements==0}">
-		<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}"/>
-	</h:panelGroup>
-</ol>
+	</ol>
+</h:panelGroup>
+<h:panelGroup styleClass="free_area0_p8 xLarge_marginLIncl" rendered="#{PubItemListSessionBean.totalNumberOfElements==0}">
+	<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}"/>
+</h:panelGroup>
