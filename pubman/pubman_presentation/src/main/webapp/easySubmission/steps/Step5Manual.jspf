@@ -215,7 +215,7 @@
 						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 							
 							<b class="xLarge_area0_p8 endline labelLine clear">
-								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true'}" /><h:outputText value="#{genre.details_identifiers_label}" converter="GenreLabelConverter" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+								&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' && (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" converter="GenreLabelConverter" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
 							</b>
 							
 							<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -346,7 +346,7 @@
 			<%-- Source genre --%>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'easy-submission' || genre.sources_source_basic_source_genre_display == 'false' && genre.sources_source_basic_source_genre_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_genre_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}">
@@ -358,7 +358,7 @@
 			<%-- Source title --%>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'easy-submission' || genre.sources_source_basic_source_title_display == 'false' && genre.sources_source_basic_source_title_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_optional != 'true' && genre.sources_source_basic_optional != 'true' && genre.sources_source_basic_source_title_optional != 'true'}" /><h:outputText value="#{genre.sources_source_basic_source_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{EasySubmission.sourceTitle}" cols="15" rows="3" />
