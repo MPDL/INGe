@@ -34,7 +34,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public void init()
     {
-        // No initialization needed
+    	// no init needed
     }
     
     
@@ -110,4 +110,10 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     {
         return "ViewItemRevisionsPage.jsp";
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
 }

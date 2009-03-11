@@ -174,4 +174,10 @@ public class SearchResultListPage extends BreadcrumbPage
         return (SearchResultListSessionBean)getSessionBean(SearchResultListSessionBean.class);
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

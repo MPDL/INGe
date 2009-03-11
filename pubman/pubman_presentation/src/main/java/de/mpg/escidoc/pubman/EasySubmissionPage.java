@@ -74,4 +74,10 @@ public class EasySubmissionPage extends BreadcrumbPage
     	EasySubmission easySubmission = (EasySubmission)getRequestBean(EasySubmission.class);
     	return easySubmission.getClass().getMethod("newEasySubmission", null);
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
 }

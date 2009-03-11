@@ -58,6 +58,12 @@ public class BreadcrumbItem extends FacesBean
     
     // Method for default action.
     private Method defaultAction;
+    
+    /**
+     * Flag for marking the page as directly related to a single item (e.g. EditItemPage).
+     * These pages must be handled a little bit different in some cases (e.g. deletion of an item)
+     */
+    private boolean isItemSpecific = false;
 
     /**
      * Default constructor.
@@ -70,11 +76,12 @@ public class BreadcrumbItem extends FacesBean
      * Public constructor(with two parameters, the value to display and the page name that should be displayed).
      * You may only use one of the public static final BreadcrumbItem's defined above.
      */
-    public BreadcrumbItem(String displayValue, String page, Method defaultAction)
+    public BreadcrumbItem(String displayValue, String page, Method defaultAction, boolean isItemSpecific)
     {
         this.displayValue = displayValue;
         this.page = page;
         this.defaultAction = defaultAction;
+        this.isItemSpecific = isItemSpecific;
     }
 
     /**
@@ -154,6 +161,14 @@ public class BreadcrumbItem extends FacesBean
 			
 		}
 		return null;
+	}
+
+	public boolean isItemSpecific() {
+		return isItemSpecific;
+	}
+
+	public void setItemSpecific(boolean isItemSpecific) {
+		this.isItemSpecific = isItemSpecific;
 	}
 	
 }

@@ -143,4 +143,10 @@ public class ViewItemFullPage extends BreadcrumbPage
         return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
+
 }

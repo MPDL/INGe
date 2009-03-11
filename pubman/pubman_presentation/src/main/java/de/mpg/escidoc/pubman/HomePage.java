@@ -124,4 +124,10 @@ public class HomePage extends BreadcrumbPage
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         return loginHelper.getAccountUser().isModerator();
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
 }

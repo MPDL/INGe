@@ -121,4 +121,10 @@ public class AffiliationSearchResultListPage extends BreadcrumbPage
         return (CommonSessionBean) getBean(CommonSessionBean.class);
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

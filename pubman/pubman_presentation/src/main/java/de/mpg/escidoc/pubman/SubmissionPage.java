@@ -67,4 +67,10 @@ public class SubmissionPage extends BreadcrumbPage
  
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

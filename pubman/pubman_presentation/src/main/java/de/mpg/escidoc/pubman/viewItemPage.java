@@ -138,4 +138,10 @@ public class viewItemPage extends BreadcrumbPage
     {
         return (ViewItem)getBean(ViewItem.class);
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
 }

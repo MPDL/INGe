@@ -86,4 +86,9 @@ public class ViewItemReleaseHistoryPage extends BreadcrumbPage
         return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
 }

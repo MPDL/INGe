@@ -139,4 +139,10 @@ public class QAWSPage extends BreadcrumbPage
             
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

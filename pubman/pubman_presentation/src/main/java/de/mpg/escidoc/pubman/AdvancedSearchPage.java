@@ -63,4 +63,10 @@ public class AdvancedSearchPage extends BreadcrumbPage
         super.init();
     }
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

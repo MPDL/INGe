@@ -193,7 +193,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         }
         else
         {
-            return new BreadcrumbItem("HomePage", "HomePage", null);
+            return new BreadcrumbItem("HomePage", "HomePage", null, false);
         }
     }
 
@@ -204,7 +204,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
 		}
 		else
 		{
-			return new BreadcrumbItem("HomePage", "HomePage", null);
+			return new BreadcrumbItem("HomePage", "HomePage", null, false);
 		}
 	}
 	
@@ -220,7 +220,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         }
         else
         {
-            return new BreadcrumbItem("HomePage", "HomePage", null).getDisplayValue();
+            return new BreadcrumbItem("HomePage", "HomePage", null, false).getDisplayValue();
         }
 	}
 

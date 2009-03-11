@@ -118,4 +118,10 @@ public class AffiliationTreePage extends BreadcrumbPage
 		return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
 	}
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
+
 }

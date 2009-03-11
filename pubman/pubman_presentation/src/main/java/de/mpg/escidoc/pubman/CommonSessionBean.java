@@ -88,5 +88,10 @@ public class CommonSessionBean extends BreadcrumbPage
 			return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
 		}
 	}
+	@Override
+	public boolean isItemSpecific() {
+		return false;
+	}
+	
 
 }

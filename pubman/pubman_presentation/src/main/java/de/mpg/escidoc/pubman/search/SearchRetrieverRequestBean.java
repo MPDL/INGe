@@ -96,7 +96,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public void init()
     {
-        try
+    	try
         {
             InitialContext initialContext = new InitialContext();
             this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
@@ -279,4 +279,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
         
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
 }

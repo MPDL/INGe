@@ -61,7 +61,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     
     public MyItemsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
+    	super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
         logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        
@@ -95,7 +95,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public void init()
     {
-        checkLogin();
+    	checkLogin();
     }
 
     @Override
@@ -330,8 +330,10 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     {
         return "DepositorWSPage.jsp";
     }
-    
-   
-    
-  
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
 }

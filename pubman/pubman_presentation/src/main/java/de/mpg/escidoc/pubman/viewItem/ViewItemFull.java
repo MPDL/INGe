@@ -809,7 +809,15 @@ public class ViewItemFull extends FacesBean
             
             try
             {
-                getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
+                for(int i = bhsb.getBreadcrumbItemHistory().size()-1; i > 0; i--)
+                {
+                	if(bhsb.getBreadcrumbItemHistory().get(i-1).isItemSpecific() == false)
+                	{
+                		getFacesContext().getExternalContext().redirect(bhsb.getBreadcrumbItemHistory().get(i-1).getPage());
+                		return retVal;
+                	}
+                }
+            	
             }
             catch (IOException e)
             {

@@ -76,7 +76,7 @@ public abstract class BreadcrumbPage extends FacesBean
 			logger.error("Error getting default action", e);
 		}
         BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-        breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction));
+        breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, isItemSpecific()));
         previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
         
         UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation");
@@ -99,6 +99,7 @@ public abstract class BreadcrumbPage extends FacesBean
         }
     }
 
+    
     public String getPreviousPageURI()
     {
     	return previousItem.getPage();
@@ -126,4 +127,8 @@ public abstract class BreadcrumbPage extends FacesBean
     {
     	return null;
     }
+
+
+	public abstract boolean isItemSpecific();
+    
 }

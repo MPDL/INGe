@@ -56,7 +56,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public void init()
     {
-       //no additional initialization needed
+    	// no init needed
     }
 
     @Override
@@ -194,7 +194,10 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         exportItemsBean.updateExportFormats();
         
     }
-    
-    
-    
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return false;
+	}
 }

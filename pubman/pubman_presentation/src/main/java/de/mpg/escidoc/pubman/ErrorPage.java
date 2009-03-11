@@ -257,4 +257,12 @@ public class ErrorPage extends BreadcrumbPage
         this.exception = exception;
         this.init();
     }
+
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
+
+	
 }

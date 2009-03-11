@@ -114,4 +114,11 @@ public class EditItemPage extends BreadcrumbPage
 		return Navigation.class.getMethod("newSubmission", null);
 	}
 
+	@Override
+	public boolean isItemSpecific() 
+	{
+		return true;
+	}
+
+	
 }
