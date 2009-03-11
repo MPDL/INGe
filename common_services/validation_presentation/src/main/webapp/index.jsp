@@ -43,7 +43,7 @@
 		<p>
 			The eSciDoc Validation Service checks XML metadata for syntactical and semantical correctness.
 			This is done by a <a href="http://www.schematron.com/" target="_blank">Schematron</a> validation based on a given 
-			validation template that is selected by the validation schema id and the given validation point. 
+			validation template that is selected by the validation schema id and the given validation point <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Services_ValidationService">[more]</a>.
 		</p>
 		<p>
 			There are several ways to access the service. Below are links to the REST frontend and the SOAP frontend.
