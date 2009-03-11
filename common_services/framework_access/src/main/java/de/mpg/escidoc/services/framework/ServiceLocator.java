@@ -507,7 +507,7 @@ public class ServiceLocator
             publicStatisticDataHandlerServiceLocator = new StatisticDataHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("StatisticDataHandler URL=" + url);
-            publicStatisticDataHandlerServiceLocator.setStatisticDataHandlerServiceWSDDServiceName(url);
+            publicStatisticDataHandlerServiceLocator.setStatisticDataHandlerServiceEndpointAddress(url);
         }
         StatisticDataHandler handler = publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
@@ -528,7 +528,7 @@ public class ServiceLocator
             publicStatisticDataHandlerServiceLocator = new StatisticDataHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("StatisticDataHandler URL=" + url);
-            publicStatisticDataHandlerServiceLocator.setStatisticDataHandlerServiceWSDDServiceName(url);
+            publicStatisticDataHandlerServiceLocator.setStatisticDataHandlerServiceEndpointAddress(url);
         }
         StatisticDataHandler handler = publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
