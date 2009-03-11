@@ -50,7 +50,7 @@
 		%>
 		<p>
 			The purpose of this service is to provide methods to deal with controlled lists of named 
-			entities to assure data quality and facilitate data access and data entry.
+			entities to assure data quality and facilitate data access and data entry <a href="http://colab.mpdl.mpg.de/mediawiki/Service_for_Control_of_Named_Entities">[more]</a>.
 		</p>
 		<table align="center">
 			<tr>

@@ -108,9 +108,9 @@ public class OptionsConeServlet extends ConeServlet
     }
 
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an Map&lt;String, String> into a simple |-separated list.
      * 
-     * @param result The RDF.
+     * @param pairs The list.
      * @return A String formatted  in a JQuery readable format.
      */
     protected String formatQuery(List<Pair> pairs) throws IOException
@@ -135,9 +135,9 @@ public class OptionsConeServlet extends ConeServlet
     }
 
     /**
-     * Formats an Map&lt;String, String> into a JQuery readable list.
+     * Formats an TreeFragment into a JSON object.
      * 
-     * @param result The RDF.
+     * @param result The JSON.
      * @return A String formatted  in a JQuery readable format.
      */
     protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException

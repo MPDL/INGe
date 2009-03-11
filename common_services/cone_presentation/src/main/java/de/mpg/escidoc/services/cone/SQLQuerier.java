@@ -99,7 +99,8 @@ public class SQLQuerier implements Querier
         }
         String query = "select distinct r1.id, r1.value, r1.lang"
                 + " from results r1 where id in (" + subQuery;
-        query += ") and (lang = '" + language + "' or (lang is null and '" + language + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += ") and (lang = '" + language + "' or (lang is null and '" + language +
+            "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
         query += " order by value, id";
         if (limit > 0)
         {

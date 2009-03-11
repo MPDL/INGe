@@ -395,7 +395,7 @@
 		</language>
 		<language id="de" label="Deutsch">
 			<label id="researcher_portfolio">Forscher Portfolio</label>
-			<label id="provided_by_cone">Diese Forscher Portfolio wird von der eSciDoc CoNE Service bereitgestellt</label>
+			<label id="provided_by_cone">Dieses Forscher Portfolio wird vom eSciDoc CoNE Service bereitgestellt</label>
 			<label id="language_not_provided">Die gewählte Sprache wird von diesem Service nicht unterstützt.</label>
 			<label id="researcher_profile">Forscherprofil</label>
 			<label id="current_position">Aktuelle Position</label>
