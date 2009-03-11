@@ -1133,8 +1133,9 @@ public class ItemControllerSessionBean extends FacesBean
                 for (int j = (creator.getPerson().getOrganizations().size() - 1); j >= 0; j--)
                 {
                     if (creator.getPerson() != null
-                            && (creator.getPerson().getOrganizations().get(j).getName() == null || creator.getPerson()
-                                    .getOrganizations().get(j).getName().getValue().length() == 0))
+                            && (creator.getPerson().getOrganizations().get(j).getName() == null ||
+                                    creator.getPerson().getOrganizations().get(j).getName().getValue() == null ||
+                                    creator.getPerson().getOrganizations().get(j).getName().getValue().length() == 0))
                     {
                         creator.getPerson().getOrganizations().remove(j);
                     }
