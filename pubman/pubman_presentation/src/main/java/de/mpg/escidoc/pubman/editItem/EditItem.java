@@ -330,7 +330,7 @@ public class EditItem extends FacesBean
         		pubItem.getMetadata().setGenre(Genre.ARTICLE);
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
         	}
-        	else if(this.getEditItemSessionBean().getGenreBundle().trim().equals(""))
+        	else // if(this.getEditItemSessionBean().getGenreBundle().trim().equals(""))
         	{
         		this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
         	}
