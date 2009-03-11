@@ -220,6 +220,7 @@
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<xsl:value-of select="escidoc:position-name"/>
+												<xsl:text> </xsl:text>
 												<xsl:if test="escidoc:organization">
 													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
 													<xsl:for-each select="escidoc:organization">
@@ -239,6 +240,7 @@
 											</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<xsl:value-of select="escidoc:position-name"/>
+												<xsl:text> </xsl:text>
 												<xsl:if test="escidoc:organization">
 													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
 													<xsl:for-each select="escidoc:organization">
