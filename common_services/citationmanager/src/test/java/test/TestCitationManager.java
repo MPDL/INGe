@@ -10,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
@@ -28,26 +29,27 @@ import static org.junit.Assert.*;
  * @author endres 
  *
  */
-public class CitationTest {
+public class TestCitationManager {
 	
-	private Logger logger = Logger.getLogger(getClass());
+	private static Logger logger = Logger.getLogger(TestCitationManager.class);
 	
 	private XmlHelper xh = new XmlHelper();
 	
-	private final String dsFileName = "APA_revised_item-list.xml";  
-//	private final String dsFileName = "APA_output-long.xml";  
+	private final static String dsFileName = "APA_revised_item-list.xml";  
+//	private final String dsFileName = "MPIPL.xml";  
+//	private final static String dsFileName = "APA_output-long.xml";  
 //	private final String dsFileName = "bad_snippet.xml";  
 	
-	private String itemList;
+	private static String itemList;
 	 
 	private CitationStyleHandler pcs = new ProcessCitationStyles();
 
-	private int itemsNumber;
+	private static int itemsNumber;
 	
 	/**
      * Tests CitationStyle.xml (APA by default)
      * TODO: At the moment only the Validation method is being tested, 
-     * 		 Citation Style Processing will tested by ProcessCitationStyleTest later  
+     * 		 Citation Style Processing will tested by TestCitationStylesSubstantial later  
      * TODO endres: unittest is ignored because of com.topologi.schematron.SchtrnValidator's unusual
      *              relative path behavior. maven resource paths are not recognized.      
      * @throws IOException 
@@ -57,19 +59,20 @@ public class CitationTest {
      * Get test item list from XML 
      * @throws Exception 
      */
-    @Before
-    public final void getItemList() throws Exception
+    @BeforeClass 
+    public static void getItemList() throws Exception
     {
     	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
     	logger.info("Data Source:" + ds);
     	itemList = ResourceUtil.getResourceAsString(ds);
     	assertNotNull("Item list xml is not found:", ds);
+    	itemsNumber =  TestHelper.getItemsNumber(ds);
     	
-//    	itemList = TestHelper.getItemsFromFramework_APA();
+////    	itemList = TestHelper.getItemsFromFramework_APA();
+//    	itemList = TestHelper.getTestItemListFromFramework();
 //		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 //		logger.info("item list from framework:\n" + itemList);
 		   
-    	itemsNumber =  TestHelper.getItemsNumber(ds);
     	
 //		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
 
@@ -178,14 +181,15 @@ public class CitationTest {
     	
     	
 //    	for (String cs : pcs.getStyles() )
-    	for (String cs : new String[]{"APA", "AJP"} )
-//    		for (String cs : new String[]{"APA"} )
+//    	for (String cs : new String[]{"AJP",/*"AJP"*/} )
+    		for (String cs : new String[]{"APA"} )
     	{
     		long start;
         	byte[] result;
     		for ( String format : 
-    				pcs.getOutputFormats(cs)
-//    				new String[]{/*"snippet"/*,*/ "pdf"}
+//    				pcs.getOutputFormats(cs)
+    				new String[]{/*"snippet"/*,*/ "pdf"}
+//    		new String[]{"snippet"}
     		) {
         		logger.info("Test Citation Style: " + cs);
     			

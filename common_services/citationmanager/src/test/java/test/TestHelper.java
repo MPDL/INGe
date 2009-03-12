@@ -35,9 +35,12 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +68,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -86,43 +90,29 @@ public class TestHelper
 //	public static final String USER_NAME = "test_dep_scientist"; 
 //	public static final String USER_PASSWD = "verdi"; 
 	public static final String USER_NAME = "citman_user"; 
-	public static final String USER_PASSWD = "citman_user"; 
-	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22"; 
+	public static final String USER_PASSWD = "citman_user";
+	public static final String CONTEXT = "Citation Style Testing Context";
+	public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
 	
- 
-    /**
-     * Get itemList from the current Framework instance
-     * @param fileName
-     * @throws IOException 
-     * @throws URISyntaxException 
-     * @throws ServiceException 
-     */
-    public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
+	
+
+	
+
+    
+    public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
     	
-    	String userHandle = loginUser(USER_NAME, USER_PASSWD); 
-        ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-        // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        String filter = 
-        	"<param>" +
-        		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-        		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>";
-        	
-// take one item:        	
-//    	"<param>" +
-//		//items
-//			"<filter name=\"http://purl.org/dc/elements/1.1/identifier\">" +  
-//				"<id>escidoc:23004</id>" + 
-//			" </filter>" +
-//		"</param>";
-        
-        return ch.retrieveItems(filter);
-    
+    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
+    		"<param>" +
+    		// escidoc content model
+//            "<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
+    		"<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL + "</filter>" +
+    		"<filter name=\"/properties/context/title\">" + CONTEXT + "</filter>" +
+//    		"<filter name=\"/properties/public-status\">pending</filter>" +
+    		"</param>"
+    	);	
     }
-     
+    
     
     public static String getItemsFromFramework_APA() throws Exception {
     	
@@ -138,33 +128,6 @@ public class TestHelper
     	getItemsFromFramework(
     			"escidoc.abstract=%22AJP:%22%20AND%20" + SEARCH_CONTEXT 
     	);
-    }
-    
-    	
-    public static String getItemsFromFramework(String cql) throws Exception {
-    	
-//    	http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
-    	
-    	
-        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-        searchRetrieveRequest.setVersion("1.1");
-        searchRetrieveRequest.setQuery(cql);
-        searchRetrieveRequest.setRecordPacking("xml");
-        
-        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
-        if (searchResult.getDiagnostics() != null)
-        {
-            // something went wrong
-            for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
-            {
-                    logger.warn(diagnostic.getUri());
-                    logger.warn(diagnostic.getMessage());
-                    logger.warn(diagnostic.getDetails());
-            }
-        }
-
-        return transformToItemListAsString(searchResult);
-        
     }
     
  
@@ -198,7 +161,50 @@ public class TestHelper
     }
      
     
-       
+  
+    
+    protected static void writeToFile(String fileName, byte[] content) throws IOException
+    {
+    	FileOutputStream fos = new FileOutputStream(fileName);
+    	fos.write(content);
+    	fos.close();
+    }
+    
+    
+    protected static int getItemsNumber(String itemListUri) throws Exception
+    {
+    	Document doc = JRXmlUtils.parse(itemListUri);
+		 XPathFactory factory = XPathFactory.newInstance();
+		 XPath xpath = factory.newXPath();
+		 Double result = (Double) xpath.evaluate("count(/item-list/item)", doc, XPathConstants.NUMBER);
+    	return result.intValue();
+    }
+
+    
+    public static Properties getTestProperties(String csName) throws FileNotFoundException, IOException 
+    {
+    	String path_to_props = 
+    		ResourceUtil.getPathToCitationStyles() 
+			+ csName
+			+ "/test.properties"; 
+    	logger.info("path_to_props:" + path_to_props);
+    	InputStream is = ResourceUtil.getResourceAsStream(path_to_props); 
+    	Properties props = new Properties();
+		props.load(is);
+		
+		return props;
+    }
+        
+    
+    public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
+    {
+    	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
+    	String userHandle = loginUser(USER, PASSWD); 
+    	logger.info("Retrieve filter:" + filter);
+    	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
+    	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
+    	return ch.retrieveItems(filter);
+    }
     
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
@@ -262,23 +268,75 @@ public class TestHelper
     		throw new ServiceException("User not logged in.");
     	}
     	return userHandle;
-    }    
-    
-    protected static void writeToFile(String fileName, byte[] content) throws IOException
-    {
-    	FileOutputStream fos = new FileOutputStream(fileName);
-    	fos.write(content);
-    	fos.close();
     }
-    
-    
-    protected static int getItemsNumber(String itemListUri) throws Exception
-    {
-    	Document doc = JRXmlUtils.parse(itemListUri);
-		 XPathFactory factory = XPathFactory.newInstance();
-		 XPath xpath = factory.newXPath();
-		 Double result = (Double) xpath.evaluate("count(/item-list/item)", doc, XPathConstants.NUMBER);
-    	return result.intValue();
-    }
+    public static String getItemsFromFramework(String cql) throws Exception {
+    	
+//    	http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
+    	
+    	
+        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+        searchRetrieveRequest.setVersion("1.1");
+        searchRetrieveRequest.setQuery(cql);
+        searchRetrieveRequest.setRecordPacking("xml");
+        
+        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
+        if (searchResult.getDiagnostics() != null)
+        {
+            // something went wrong
+            for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
+            {
+                    logger.warn(diagnostic.getUri());
+                    logger.warn(diagnostic.getMessage());
+                    logger.warn(diagnostic.getDetails());
+            }
+        }
 
+        return transformToItemListAsString(searchResult);
+        
+    }
+    
+    /**
+     * Get itemList from the current Framework instance on hand of CONTENT_MODEL, CONTEXT, all released
+     * and writes to <code>DataSource/fileName</code>  
+     * @throws Exception
+     */
+    public static void getCitationStyleTestCollectionFromFramework(String fileName) throws Exception {
+    	String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
+    			"<param>" 
+    			+  "<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL +"</filter>"
+    			+  "<filter name=\"/properties/context/title\">" + CONTEXT +"</filter>"
+    			+  "<filter name=\"/properties/public-status\">released</filter>"
+    		    + "</param>"
+    	);    	
+    	writeToFile(ResourceUtil.getPathToDataSources() + fileName, itemList.getBytes());
+    }
+    
+
+    /**
+     * Get itemList from the current Framework instance on hand of CONTENT_MODEL 
+     * @param fileName
+     * @throws IOException 
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     */
+    public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
+    {
+    	return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, 
+        	"<param>" +
+        		// escidoc content model
+        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
+        		// records limit	
+        		"<limit>" + ITEMS_LIMIT + "</limit>" +
+        	"</param>"
+        	
+// take one item:        	
+//    	"<param>" +
+//		//items
+//			"<filter name=\"http://purl.org/dc/elements/1.1/identifier\">" +  
+//				"<id>escidoc:23004</id>" + 
+//			" </filter>" +
+//		"</param>";
+    	);	
+    }    
 }
+
