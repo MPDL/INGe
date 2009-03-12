@@ -36,7 +36,8 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<test>CitationTest</test>
+					<skip>false</skip>
+					<test>TestCitationManagerSuite</test>
 				</configuration>
 			</plugin>
 <!--			<plugin>-->
