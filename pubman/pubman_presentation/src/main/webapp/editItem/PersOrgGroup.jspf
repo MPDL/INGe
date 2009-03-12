@@ -169,7 +169,7 @@
 									<h:panelGroup styleClass="free_area0" rendered="#{!(genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_given_name_display == 'false' && genre.creator_person_organization_creator_persons_person_given_name_form_id == 'all')}">
 										<span class="double_area0">
 											<h:panelGroup styleClass="double_area0">
-												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
+												<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_persons_person_given_name_optional != 'true'}" />
 												<h:outputText value="#{genre.creator_person_organization_creator_persons_person_given_name_label}" converter="GenreLabelConverter"/>
 											</h:panelGroup>
 											<h:inputText styleClass="double_txtInput givenName" value="#{creatorBean.creator.person.givenName}" onchange="removeConeId(this)"/>
