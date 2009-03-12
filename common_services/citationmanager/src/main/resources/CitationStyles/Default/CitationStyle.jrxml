@@ -24,6 +24,7 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+<!--	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Cyberbit.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>-->
 
 	<queryString language="xPath"><![CDATA["/record"]]></queryString>
 

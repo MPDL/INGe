@@ -84,6 +84,89 @@
     is-strike-through="false"
     css-class="DisplayDateStatus"
     />
+<!--  <font-style name="NORMAL"-->
+<!--    def="true"-->
+<!--    font-name="Arial"-->
+<!--    font-size="12"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="false"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"/>-->
+<!---->
+<!--  <font-style name="ARIAL14"-->
+<!--    font-name="Arial"-->
+<!--    font-size="14"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="false"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"/>-->
+<!--    -->
+<!--  <font-style name="BLUE"-->
+<!--    font-name="Arial"-->
+<!--    font-size="12"-->
+<!--    fore-color="blue"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="false"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"/>-->
+<!---->
+<!--  <font-style name="BOLD"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="true"-->
+<!--    is-italic="false"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"/>-->
+<!---->
+<!--  <font-style name="ITALIC"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="true"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"/>-->
+<!---->
+<!--  <font-style name="UNDERLINE_ITALIC"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="true"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="true"-->
+<!--    is-strike-through="false"/>-->
+<!---->
+<!--  <font-style name="BOLD_ITALIC"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="true"-->
+<!--    is-italic="true"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="true"-->
+<!--    is-strike-through="false"/>-->
+<!--    -->
+<!--  <font-style name="DISPLAY_DATE_STATUS"-->
+<!--    def="true"-->
+<!--    font-name="Arial"-->
+<!--    font-size="12"-->
+<!--    fore-color="black"-->
+<!--    back-color="white"-->
+<!--    is-bold="false"-->
+<!--    is-italic="false"-->
+<!--    pdf-font-name="Cyberbit.ttf"-->
+<!--    is-underline="false"-->
+<!--    is-strike-through="false"-->
+<!--    css-class="DisplayDateStatus"-->
+<!--    />-->
     
 
 </font-styles-collection>
