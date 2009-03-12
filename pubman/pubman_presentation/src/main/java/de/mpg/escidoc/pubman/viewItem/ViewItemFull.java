@@ -2211,6 +2211,14 @@ public class ViewItemFull extends FacesBean
         return "";
 	}
 	
+	public String removeFromBasket()
+	{
+	    PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
+	    pssb.getStoredPubItems().remove(this.pubItem.getVersion().getObjectIdAndVersion());
+	    info(getMessage("basket_SingleRemovedSuccessfully"));
+	    return "";
+	}
+	
 	public boolean getIsInBasket()
 	{
 	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
