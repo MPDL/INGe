@@ -143,12 +143,12 @@
 							<!-- content menu ends here -->
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateInRevision}">
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}" rendered = "#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
-								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_inRevision} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="subHeader" rendered = "#{ViewItemFull.isStateSubmitted}">
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.version.lastMessage}" rendered = "#{ViewItemFull.pubItem.version.lastMessage != null and ViewItemFull.pubItem.version.lastMessage != ''}"/>
-								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.version.lastMessage == null || ViewItemFull.pubItem.version.lastMessage == ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{ViewItemFull.pubItem.publicStatusComment}" rendered = "#{ViewItemFull.pubItem.publicStatusComment != null and ViewItemFull.pubItem.publicStatusComment != ''}"/>
+								<h:outputText value="#{msg.ViewItemFull_submitted} #{lbl.lbl_noEntry}" rendered = "#{ViewItemFull.pubItem.publicStatusComment == null || ViewItemFull.pubItem.publicStatusComment == ''}"/>
 							</h:panelGroup>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
