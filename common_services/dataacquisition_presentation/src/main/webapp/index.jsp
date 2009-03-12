@@ -41,6 +41,9 @@
 		<p>
 			The eSciDoc DataAcquisition Service is a interface for harvesting data from external servers.</br>
 		</p>
+		<p>
+			<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Services_DataAcquisitionHandler">[more]</a>
+		</p>
 		<ul>
 			<b>The four steps to fetch data:</b>
 				<p>
@@ -75,5 +78,7 @@
 					   The format has to be set to "url". The response will be a zip file of the fetched content. The view option for url identifiers is disabled.
 				</p>
 		</ul>
+
+
 	</body>
 </html>
