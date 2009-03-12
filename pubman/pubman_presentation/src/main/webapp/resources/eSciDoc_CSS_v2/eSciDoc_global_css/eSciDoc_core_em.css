@@ -212,6 +212,10 @@
 				padding: 0px;
 				background-position: center center;
 			}
+			
+			.min_imgBtn, .std_imgBtn, .big_imgBtn {
+				cursor: pointer;
+			}
 		
 			.min_imgBtn, .min_imgArea {
 				width: 1.37em;
@@ -235,6 +239,7 @@
 				display: inline;
 				margin-right: 0.09em;
 				float: left;
+				cursor: pointer;
 			}
 			
 			.xTiny_txtBtn {
