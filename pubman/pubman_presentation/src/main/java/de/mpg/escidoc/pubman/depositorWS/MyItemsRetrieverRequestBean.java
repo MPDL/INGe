@@ -61,7 +61,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     
     public MyItemsRetrieverRequestBean()
     {
-    	super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
+    	super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
         logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
        

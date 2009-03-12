@@ -28,13 +28,18 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
      * the corresponding PaginatorListBean and manages the update of the lists and the retrieval of GET-parameters in the right phase of the
      * JSF lifecycle.
      * @param plb A corresponding PaginatorListBean with the same ListElementType and FilterType as used in the implementation of this class.
+     * @param refreshAlways Set this flag to true if the list should be refreshed any time the page is called, not only if a get parameter has changed.
      */
-    public BaseListRetrieverRequestBean (BasePaginatorListSessionBean<ListElementType, FilterType> plb)
+    public BaseListRetrieverRequestBean (BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways)
     {
         super.init();
         this.setBasePaginatorListSessionBean(plb);
         getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
         getBasePaginatorListSessionBean().setPageType(getType());
+        if (refreshAlways)
+        {
+            getBasePaginatorListSessionBean().setHasChanged();
+        }
         init();
 
         if (getFacesContext().getRenderResponse()){

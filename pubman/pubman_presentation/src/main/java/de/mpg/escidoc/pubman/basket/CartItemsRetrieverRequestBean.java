@@ -38,7 +38,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
     public CartItemsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     
     public RevisionsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), true);
     }
     
     @Override

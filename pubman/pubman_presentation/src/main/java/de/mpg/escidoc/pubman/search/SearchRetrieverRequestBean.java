@@ -77,7 +77,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     
     public SearchRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
+        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
     }
     
     @Override
