@@ -169,11 +169,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final String TASK_HTML = "html";
     private static final String TASK_XML = "xml";
     private static final String TASK_ODT = "odt";    
+    private static final String TASK_TXT = "txt";    
     private static final String TASK_VALIDATE_DS = "validate-ds";
     private static final String TASK_VALIDATE_CS = "validate-cs";
     
     // Output Formats enum
-    public static enum OutFormats { rtf, pdf, html, odt, snippet }; 
+    public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
     
 
 
@@ -1286,6 +1287,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			case odt:
 				exporter = new JROdtExporter();
 				break;
+			case txt:
+				exporter = new JRTextExporter();    
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
+				break;
 			default: 	
 				throw new CitationStyleManagerException (
 						"Output format " + outFormat + " is not supported");
@@ -1453,34 +1460,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 	}
 	
-	
-	public byte[] getTextOutput(JasperReport jr, Document document, String xpath) throws JRException, CitationStyleManagerException  {
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
-		Map params = new HashMap();
-		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
-
-		
-		JasperPrint jasperPrint = JasperFillManager.fillReport(
-				jr,
-				params,
-				new JRXmlDataSource(document, xpath)
-		);
-
-		JRExporter exporter = new JRTextExporter();    
-		
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
-        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
-        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
-		
-		
-		exporter.exportReport();
-		
-		return baos.toByteArray();
-		
-	}
 	
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#isCitationStyle(java.lang.String)
