@@ -40,6 +40,9 @@
 		<h1>
 			eSciDoc SearchAndExport Service
 		</h1>
+		<p>
+		The SearchAndExport interface is a REST interface, with which one can extract data from PubMan <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Services_Search%26Export">[more]</a>. 
+		</p>
 		<ul>
 			<li>
 				<a href="SearchAndExport_info.jsp">REST Interface</a>
