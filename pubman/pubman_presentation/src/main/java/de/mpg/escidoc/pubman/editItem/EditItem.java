@@ -225,6 +225,12 @@ public class EditItem extends FacesBean
         super.init();
         
         this.genreBundle = this.getEditItemSessionBean().getGenreBundle();
+        
+        // ensure that at least the genre article is available (JSF lifecycle problems...)
+        if(this.genreBundle == null || this.genreBundle.trim().equals(""))
+        {
+        	this.genreBundle = "Genre_ARTICLE";
+        }
     	
         this.fileTable = new CoreTable();
 
