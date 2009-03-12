@@ -51,6 +51,10 @@
 			<dc:title>snippet</dc:title>
 			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
 		</output-format>
+		<output-format>
+			<dc:title>txt</dc:title>
+			<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+		</output-format>
 		<dc:creator>vmakarenko</dc:creator>
 	</export-format>
 	<export-format type="layout" context="PubMan">
