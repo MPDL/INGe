@@ -36,8 +36,8 @@
 	<namespace prefix="metadata" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
 	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
 	
-	<!-- concrete mapping for MdsFaceVO -->
-	<mapping name="FacesAlbum"
+	<!-- concrete mapping for MdsFaceVO -->	
+	<mapping name="faces-album"
 		class="de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
 		ordered="false"
