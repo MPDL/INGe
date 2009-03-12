@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user-account:user-account  xmlns:user-account="http://www.escidoc.de/schemas/useraccount/0.5"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:148097"  last-modification-date="2009-01-15T10:59:28.240Z" >
+ <user-account:properties>
+    <prop:creation-date>2009-01-15T10:58:10.438Z</prop:creation-date>    <srel:created-by   objid="escidoc:user42" />     <srel:modified-by   objid="escidoc:user42" />    <prop:email>citman_user@email</prop:email>
+    <prop:name>citman_user</prop:name>
+    <prop:login-name>citman_user</prop:login-name>
+    <prop:active>true</prop:active>
+    <prop:organizational-units>
+    <srel:organizational-unit   objid="escidoc:persistent13" />
+    </prop:organizational-units>
+    </user-account:properties>
+</user-account:user-account>

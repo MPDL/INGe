@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grants:current-grants
+ xmlns:grants="http://www.escidoc.de/schemas/grants/0.4"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"    last-modification-date="2009-01-15T10:59:28.240Z" > 
+<grants:grant   objid="escidoc:200113"> 
+    <grants:properties>
+        <prop:creation-date>2009-02-19T13:24:33.542Z</prop:creation-date>        <srel:created-by   objid="escidoc:user42" />    <srel:role   objid="escidoc:role-administrator" />    <srel:assigned-on   objid="escidoc:149035" />    </grants:properties>
+</grants:grant><grants:grant   objid="escidoc:148098"> 
+    <grants:properties>
+        <prop:creation-date>2009-01-15T10:58:27.075Z</prop:creation-date>        <srel:created-by   objid="escidoc:user42" />    <srel:role   objid="escidoc:role-depositor" />    <srel:assigned-on   objid="escidoc:149035" />    </grants:properties>
+</grants:grant><grants:grant   objid="escidoc:148099"> 
+    <grants:properties>
+        <prop:creation-date>2009-01-15T10:58:35.189Z</prop:creation-date>        <srel:created-by   objid="escidoc:user42" />    <srel:role   objid="escidoc:role-md-editor" />    <srel:assigned-on   objid="escidoc:149035" />    </grants:properties>
+</grants:grant><grants:grant   objid="escidoc:148100"> 
+    <grants:properties>
+        <prop:creation-date>2009-01-15T10:58:44.468Z</prop:creation-date>        <srel:created-by   objid="escidoc:user42" />    <srel:role   objid="escidoc:role-moderator" />    <srel:assigned-on   objid="escidoc:149035" />    </grants:properties>
+</grants:grant></grants:current-grants>

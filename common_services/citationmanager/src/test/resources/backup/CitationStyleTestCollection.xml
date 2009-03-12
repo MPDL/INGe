@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?><il:item-list xmlns:il="http://www.escidoc.de/schemas/itemlist/0.7" xmlns:xml="http://www.w3.org/XML/1998/namespace" limit="1000" offset="0" number-of-records="12"><escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149182"  last-modification-date="2009-01-15T15:56:14.806Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T14:37:26.284Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149182:8</prop:pid>        <prop:version   objid="escidoc:149182:8">
+    	<version:number >8</version:number>    	<version:date >2009-01-15T15:56:14.806Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149182:8</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149182:8">
+    	<version:number >8</version:number>    	<version:date >2009-01-15T15:56:14.806Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149182:8">
+    		<release:number >8</release:number>	    	<release:date >2009-01-15T15:56:14.231Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149182:3</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="thesis">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Bäumel</escidoc:family-name>
+      <escidoc:given-name>S.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A perfect example for a thesis.THESIS</dc:title>
+  <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+  <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Universität Greifswald</dc:publisher>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:place>
+  </publication:publishing-info>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: S. Bäumel, PhD-Thesis, Universität Greifswald, 2008.</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">Commentar </dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:244274"  last-modification-date="2009-03-11T14:42:08.072Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-03-11T14:40:55.636Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>submitted</prop:public-status>    <prop:public-status-comment >Status changed to submitted for Item escidoc:244274.</prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149182:8</prop:pid>        <prop:version   objid="escidoc:244274:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T14:42:08.072Z</version:date>    	<version:status >submitted</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment >Status changed to submitted for Item escidoc:244274.</version:comment>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:244274:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T14:42:08.072Z</version:date>    </prop:latest-version>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+				        <local-tags>
+					           <local-tag></local-tag>
+				        </local-tags>
+			     </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="thesis">
+					           <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+						              <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							                 <escidoc:complete-name></escidoc:complete-name>
+							                 <escidoc:family-name>Bäumel</escidoc:family-name>
+							                 <escidoc:given-name>S.</escidoc:given-name>
+							                 <escidoc:organization>
+								                    <escidoc:organization-name>test</escidoc:organization-name>
+								                    <escidoc:address></escidoc:address>
+								                    <escidoc:identifier>escidoc:persistent22
+								</escidoc:identifier>
+							                 </escidoc:organization>
+						              </escidoc:person>
+					           </publication:creator>
+					           <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A perfect example for a thesis.THESIS
+					</dc:title>
+					           <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					           <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+						              <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Universität
+							Greifswald</dc:publisher>
+						              <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:place>
+					           </publication:publishing-info>
+					           <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+					           <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+					           <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+					           <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+					           <publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF"></publication:published-online>
+					           <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+						2008</dcterms:issued>
+					           <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+					           <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: S.
+						Bäumel, PhD-Thesis, Universität Greifswald, 2008.
+					</dcterms:abstract>
+					           <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+					           <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">
+						Commentar </dcterms:tableOfContents>
+				        </escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149179"  last-modification-date="2009-02-19T13:48:20.864Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T14:05:13.15Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149179:5</prop:pid>        <prop:version   objid="escidoc:149179:5">
+    	<version:number >5</version:number>    	<version:date >2009-02-19T13:48:20.864Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149179:5</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149179:5">
+    	<version:number >5</version:number>    	<version:date >2009-02-19T13:48:20.864Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149179:5">
+    		<release:number >5</release:number>	    	<release:date >2009-02-19T13:48:19.738Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149179:1</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Grote</escidoc:family-name>
+      <escidoc:given-name>Rainer</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Kraus</escidoc:family-name>
+      <escidoc:given-name>Dieter</escidoc:given-name>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Fälle zu den GrundrechtenBOOK</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">de</dc:language>
+  <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Beck</dc:publisher>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">München</escidoc:place>
+    <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">3.</escidoc:edition>
+  </publication:publishing-info>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: Rainer Grote and Dieter Kraus, Fälle zu den Grundrechten. (Beck, München, 2008), 3. ed. </dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">PLEASE NOTE: GENRE SPECIFIC SUBMISSION DOES NOT CONTAIN PUBLISHER; PLACE AND EDITION INFORMATION FOR BOOKS. ITEM NEEDS TO BE EDITED ACCORDINGLY AFTER PROBLEM IS FIXED.</dc:subject>
+  <dcterms:DDC xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:DDC>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149183"  last-modification-date="2009-01-15T16:04:44.897Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T14:52:37.308Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149183:2</prop:pid>        <prop:version   objid="escidoc:149183:2">
+    	<version:number >2</version:number>    	<version:date >2009-01-15T16:04:44.897Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149183:2</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149183:2">
+    	<version:number >2</version:number>    	<version:date >2009-01-15T16:04:44.897Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149183:2">
+    		<release:number >2</release:number>	    	<release:date >2009-01-15T16:04:44.440Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149183:1</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book-item">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Knözinger</escidoc:family-name>
+      <escidoc:given-name>H.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Taglauer</escidoc:family-name>
+      <escidoc:given-name>E.</escidoc:given-name>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Spreading and Wetting.BOOKCHAPTER</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">en</dc:language>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Handbook of Heterogenous Catalysis</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Ertl</escidoc:family-name>
+        <escidoc:given-name>G.</escidoc:given-name>
+        <escidoc:organization>
+          <escidoc:organization-name>External Organizations</escidoc:organization-name>
+          <escidoc:address></escidoc:address>
+          <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+        </escidoc:organization>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Knötzinger</escidoc:family-name>
+        <escidoc:given-name>H.</escidoc:given-name>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Schüth</escidoc:family-name>
+        <escidoc:given-name>F.</escidoc:given-name>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Weikamp</escidoc:family-name>
+        <escidoc:given-name>J.</escidoc:given-name>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:volume>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">555</escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">571</escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Wiley-VCH</dc:publisher>
+      <escidoc:place>Weinheim</escidoc:place>
+      <escidoc:edition></escidoc:edition>
+    </escidoc:publishing-info>
+  </publication:source>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">16</publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: H. Knözinger and E. Taglauer, &quot;Spreading and Wetting&quot;, in Handbook of Heterogeneous Catalysis, edited by G. Ertl, H. Knözinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), Vol.1, pp. 555-571. </dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">PLEASE NOTE: SOURCE VOLUME IS MISSING. PLEASE EDIT ITEM WHEN PROBLEM IS FIXED.</dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149255"  last-modification-date="2009-02-20T09:18:24.265Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T16:22:57.111Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment >wet</prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149255:7</prop:pid>        <prop:version   objid="escidoc:149255:7">
+    	<version:number >7</version:number>    	<version:date >2009-02-20T09:18:24.265Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment >wet</version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149255:7</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149255:7">
+    	<version:number >7</version:number>    	<version:date >2009-02-20T09:18:24.265Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149255:7">
+    		<release:number >7</release:number>	    	<release:date >2009-02-20T09:18:23.045Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149255:4</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="talk-at-event">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Knözinger</escidoc:family-name>
+      <escidoc:given-name>H.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Taglauer</escidoc:family-name>
+      <escidoc:given-name>E.</escidoc:given-name>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">It&apos;s raining todayTALK </dc:title>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Acta Anatomica</dc:title>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:volume>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+    <escidoc:total-number-of-pages xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:total-number-of-pages>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">S. Karger</dc:publisher>
+      <escidoc:place>Basel</escidoc:place>
+    </escidoc:publishing-info>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">0001-5180</dc:identifier>
+  </publication:source>
+  <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">9th Symposium on Rain.</dc:title>
+    <escidoc:start-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2006</escidoc:start-date>
+    <escidoc:end-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></escidoc:end-date>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Garching</escidoc:place>
+  </publication:event>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">555</publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: H. Knözinger and E. Taglauer, &quot;It&apos;s raining today&quot;, (Wiley-VCH, Weinheim, 2008), pp. 555.</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">PLEASE NOTE: AJP CITATION = GENERIC WITHOUT SOURCE</dc:subject>
+  <dcterms:DDC xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:DDC>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149256"  last-modification-date="2009-02-20T09:21:13.021Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T16:29:20.589Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149256:8</prop:pid>        <prop:version   objid="escidoc:149256:8">
+    	<version:number >8</version:number>    	<version:date >2009-02-20T09:21:13.021Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149256:8</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149256:8">
+    	<version:number >8</version:number>    	<version:date >2009-02-20T09:21:13.021Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149256:8">
+    		<release:number >8</release:number>	    	<release:date >2009-02-20T09:21:11.874Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149256:1</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="conference-paper">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Knözinger</escidoc:family-name>
+      <escidoc:given-name>H.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Taglauer</escidoc:family-name>
+      <escidoc:given-name>E.</escidoc:given-name>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">It&apos;s raining today - update PROCEEDINGS PAPER</dc:title>
+  <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:DOI">doi:10.1017/q.knozler.2008.01.27</dc:identifier>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008-01-28</publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:issued>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="proceedings">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Heterogeneous Catalysis</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name> Ertl</escidoc:family-name>
+        <escidoc:given-name>G.</escidoc:given-name>
+        <escidoc:organization>
+          <escidoc:organization-name>External Organizations</escidoc:organization-name>
+          <escidoc:address></escidoc:address>
+          <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+        </escidoc:organization>
+        <escidoc:identifier></escidoc:identifier>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name> Knözinger</escidoc:family-name>
+        <escidoc:given-name>H.</escidoc:given-name>
+        <escidoc:identifier></escidoc:identifier>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name> Schüth</escidoc:family-name>
+        <escidoc:given-name>F.</escidoc:given-name>
+        <escidoc:identifier></escidoc:identifier>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name> Weikamp</escidoc:family-name>
+        <escidoc:given-name>J.</escidoc:given-name>
+        <escidoc:identifier></escidoc:identifier>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:volume>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+    <escidoc:total-number-of-pages xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:total-number-of-pages>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Wiley-VCH</dc:publisher>
+      <escidoc:place>Weinheim</escidoc:place>
+      <escidoc:edition></escidoc:edition>
+    </escidoc:publishing-info>
+  </publication:source>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">555</publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: H. Knözinger and E. Taglauer, &quot;It&apos;s raining today&quot;, in Heterogeneous Catalysis, edited by G. Ertl, H. Knözinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), Vol.1, pp. 555. </dcterms:abstract>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">APA: Knötzinger, H., &amp; Taglauer, E. (2008). It&apos;s raining today. In G. Ertl, H. Knözinger, F. Schüth, &amp; J. Weikamp (Eds.), Heterogenous Catalysis (pp. 555-589). Weinheim: Wiley- VCH.</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">AJP CITATION = GENERIC WITH SOURCE
+APA= please note that rule might need correction, so that periodical and non periodical procedings will be covered. This one is a non periodical.</dc:subject>
+  <dcterms:DDC xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:DDC>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:244320"  last-modification-date="2009-03-11T14:54:26.921Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-03-11T14:52:00.661Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>submitted</prop:public-status>    <prop:public-status-comment >Status changed to submitted for Item escidoc:244320.</prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149182:8</prop:pid>        <prop:version   objid="escidoc:244320:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T14:54:26.921Z</version:date>    	<version:status >submitted</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment >Status changed to submitted for Item escidoc:244320.</version:comment>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:244320:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T14:54:26.921Z</version:date>    </prop:latest-version>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+				        <local-tags>
+					           <local-tag></local-tag>
+				        </local-tags>
+			     </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="thesis">
+					           <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+						              <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							                 <escidoc:complete-name></escidoc:complete-name>
+							                 <escidoc:family-name>Bäumel</escidoc:family-name>
+							                 <escidoc:given-name>S.</escidoc:given-name>
+							                 <escidoc:organization>
+								                    <escidoc:organization-name>test</escidoc:organization-name>
+								                    <escidoc:address></escidoc:address>
+								                    <escidoc:identifier>escidoc:persistent22
+								</escidoc:identifier>
+							                 </escidoc:organization>
+						              </escidoc:person>
+					           </publication:creator>
+					           <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A perfect example for a thesis.THESIS
+					</dc:title>
+					           <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					           <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+						              <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Universität
+							Greifswald</dc:publisher>
+						              <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:place>
+					           </publication:publishing-info>
+					           <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+					           <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+					           <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+					           <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+					           <publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF"></publication:published-online>
+					           <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+						2008</dcterms:issued>
+					           <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+					           <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: S.
+						Bäumel, PhD-Thesis, Universität Greifswald, 2008.
+					</dcterms:abstract>
+					           <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+					           <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">
+						Commentar </dcterms:tableOfContents>
+				        </escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149184"  last-modification-date="2009-02-19T13:54:10.408Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T15:02:20.038Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment >dd</prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149184:5</prop:pid>        <prop:version   objid="escidoc:149184:5">
+    	<version:number >5</version:number>    	<version:date >2009-02-19T13:54:10.408Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment >dd</version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149184:5</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149184:5">
+    	<version:number >5</version:number>    	<version:date >2009-02-19T13:54:10.408Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149184:5">
+    		<release:number >5</release:number>	    	<release:date >2009-02-19T13:54:09.310Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149184:3</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="proceedings">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Hirsch</escidoc:family-name>
+      <escidoc:given-name>T. M.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Müller</escidoc:family-name>
+      <escidoc:given-name>H. W.</escidoc:given-name>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">The meaning of life as it should be.PROCEEDINGS</dc:title>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="series">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Despoina Series</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Despoina</escidoc:family-name>
+        <escidoc:given-name>KK</escidoc:given-name>
+        <escidoc:organization>
+          <escidoc:organization-name>External Organizations</escidoc:organization-name>
+          <escidoc:address></escidoc:address>
+          <escidoc:identifier></escidoc:identifier>
+        </escidoc:organization>
+        <escidoc:identifier></escidoc:identifier>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Vol3</escidoc:volume>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+    <escidoc:total-number-of-pages xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">To3</escidoc:total-number-of-pages>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Pub1</dc:publisher>
+      <escidoc:place></escidoc:place>
+    </escidoc:publishing-info>
+  </publication:source>
+  <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">   
+ <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"> IPP Summer University for Plasma Physics</dc:title>
+    <escidoc:start-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2006</escidoc:start-date>
+    <escidoc:end-date xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></escidoc:end-date>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Garching</escidoc:place>
+  </publication:event>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: T. M. Hirsch and H. W. Müller, presented at the IPP Summer University for Plasma Physics, Garching, 2006. </dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+  <dcterms:DDC xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:DDC>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149181"  last-modification-date="2009-02-19T14:12:31.941Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T14:29:27.589Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149181:6</prop:pid>        <prop:version   objid="escidoc:149181:6">
+    	<version:number >6</version:number>    	<version:date >2009-02-19T14:12:31.941Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149181:6</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149181:6">
+    	<version:number >6</version:number>    	<version:date >2009-02-19T14:12:31.941Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149181:6">
+    		<release:number >6</release:number>	    	<release:date >2009-02-19T14:12:30.943Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149181:3</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Behrisch</escidoc:family-name>
+      <escidoc:given-name>R.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Eckstein</escidoc:family-name>
+      <escidoc:given-name>W.</escidoc:given-name>
+      <escidoc:identifier></escidoc:identifier>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</dc:title>
+  <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Springer Verlag</dc:publisher>
+    <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Berlin</escidoc:place>
+    <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:edition>
+  </publication:publishing-info>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: R. Behrisch and W. Eckstein (eds), Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies. (Springer Verlag, Berlin, 2007).</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">ITEM MODIFIED (PUBLISHER AND PLACE ADDED)</dc:subject>
+  <dcterms:DDC xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:DDC>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149180"  last-modification-date="2009-01-15T15:56:53.727Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T14:22:08.453Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149180:4</prop:pid>        <prop:version   objid="escidoc:149180:4">
+    	<version:number >4</version:number>    	<version:date >2009-01-15T15:56:53.727Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149180:4</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149180:4">
+    	<version:number >4</version:number>    	<version:date >2009-01-15T15:56:53.727Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149180:4">
+    		<release:number >4</release:number>	    	<release:date >2009-01-15T15:56:53.261Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149180:3</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name>Naujoks</escidoc:family-name>
+      <escidoc:given-name>D.</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">en</dc:language>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: D. Naujoks (ed), Plasma-Material Interaction in Controlled Fusion. (Springer, Berlin, 2006). </dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">PLEASE NOTE: GENRE SPECIFIC SUBMISSION DOES NOT CONTAIN PUBLISHER; PLACE AND EDITION INFORMATION FOR BOOKS. ITEM NEEDS TO BE EDITED ACCORDINGLY AFTER PROBLEM IS FIXED. </dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:244366"  last-modification-date="2009-03-11T15:08:49.511Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-03-11T15:07:37.669Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment >Status changed to released for Item escidoc:244366.</prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149182:8</prop:pid>        <prop:version   objid="escidoc:244366:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T15:08:49.511Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment >Status changed to released for Item escidoc:244366.</version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:244366:1</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:244366:1">
+    	<version:number >1</version:number>    	<version:date >2009-03-11T15:08:49.511Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:244366:1">
+    		<release:number >1</release:number>	    	<release:date >2009-03-11T15:08:20.459Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:244366:1</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+				        <local-tags>
+					           <local-tag></local-tag>
+				        </local-tags>
+			     </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="thesis">
+					           <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+						              <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							                 <escidoc:complete-name></escidoc:complete-name>
+							                 <escidoc:family-name>Bäumel</escidoc:family-name>
+							                 <escidoc:given-name>S.</escidoc:given-name>
+							                 <escidoc:organization>
+								                    <escidoc:organization-name>test</escidoc:organization-name>
+								                    <escidoc:address></escidoc:address>
+								                    <escidoc:identifier>escidoc:persistent22
+								</escidoc:identifier>
+							                 </escidoc:organization>
+						              </escidoc:person>
+					           </publication:creator>
+					           <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">A perfect example for a thesis.THESIS
+					</dc:title>
+					           <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					           <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+						              <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Universität
+							Greifswald</dc:publisher>
+						              <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:place>
+					           </publication:publishing-info>
+					           <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+					           <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+					           <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+					           <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+					           <publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF"></publication:published-online>
+					           <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+						2008</dcterms:issued>
+					           <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+					           <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: S.
+						Bäumel, PhD-Thesis, Universität Greifswald, 2008.
+					</dcterms:abstract>
+					           <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+					           <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">
+						Commentar </dcterms:tableOfContents>
+				        </escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+<escidocItem:item
+	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	        xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:149178"  last-modification-date="2009-01-16T09:02:16.244Z" >
+ 	<escidocItem:properties      >
+<prop:creation-date>2009-01-15T13:55:07.063Z</prop:creation-date><srel:created-by   objid="escidoc:148097" />    <prop:public-status>released</prop:public-status>    <prop:public-status-comment ></prop:public-status-comment>    <srel:context   objid="escidoc:149035" />    <srel:content-model   objid="escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:149178:6</prop:pid>        <prop:version   objid="escidoc:149178:6">
+    	<version:number >6</version:number>    	<version:date >2009-01-16T09:02:16.244Z</version:date>    	<version:status >released</version:status>    	 <srel:modified-by   objid="escidoc:148097" />    
+    	<version:comment ></version:comment>    		    	<version:pid >hdl:someHandle/test/escidoc:149178:6</version:pid>    	    </prop:version>
+    <prop:latest-version   objid="escidoc:149178:6">
+    	<version:number >6</version:number>    	<version:date >2009-01-16T09:02:16.244Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release   objid="escidoc:149178:6">
+    		<release:number >6</release:number>	    	<release:date >2009-01-16T09:02:14.663Z</release:date>	    		    		<release:pid >hdl:someHandle/test/escidoc:149178:4</release:pid>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+      <local-tags>
+        <local-tag></local-tag>
+      </local-tags>
+    </prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+  >
+<escidocMetadataRecords:md-record name="escidoc"
+       >
+  
+<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name> Hickel</escidoc:family-name>
+      <escidoc:given-name>Tilmann</escidoc:given-name>
+      <escidoc:organization>
+        <escidoc:organization-name>test</escidoc:organization-name>
+        <escidoc:address></escidoc:address>
+        <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+      </escidoc:organization>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name> Uijttewaal</escidoc:family-name>
+      <escidoc:given-name>Matthe</escidoc:given-name>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name> Grabowski</escidoc:family-name>
+      <escidoc:given-name>Blazej</escidoc:given-name>
+    </escidoc:person>
+  </publication:creator>
+  <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+    <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <escidoc:complete-name></escidoc:complete-name>
+      <escidoc:family-name> Neugebauer</escidoc:family-name>
+      <escidoc:given-name>Jörg</escidoc:given-name>
+    </escidoc:person>
+  </publication:creator>
+  <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE</dc:title>
+  <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">en</dc:language>
+  <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+  <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+  <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+  <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+  <publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+  <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+  <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
+  <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="journal">
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Journal of Physics: Condensed Matter</dc:title>
+    <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+      <escidoc:person>
+        <escidoc:complete-name></escidoc:complete-name>
+        <escidoc:family-name>Naujoks</escidoc:family-name>
+        <escidoc:given-name>D.</escidoc:given-name>
+        <escidoc:organization>
+          <escidoc:organization-name>External Organizations</escidoc:organization-name>
+          <escidoc:address></escidoc:address>
+          <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+        </escidoc:organization>
+      </escidoc:person>
+    </escidoc:creator>
+    <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">20</escidoc:volume>
+    <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">6</escidoc:issue>
+    <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">28</escidoc:start-page>
+    <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">35</escidoc:end-page>
+    <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+    <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+      <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">IOP Pub.</dc:publisher>
+      <escidoc:place>London?</escidoc:place>
+      <escidoc:edition></escidoc:edition>
+    </escidoc:publishing-info>
+  </publication:source>
+  <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">7</publication:total-number-of-pages>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">AJP: Tilmann Hickel, Matthe Uijttewaal, Blazej Grabowski, and Jörg Neugebauer, &quot;Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloys,&quot; Journal of Physics: Condensed Matter 20 (6), 28-35 (2008). </dcterms:abstract>
+  <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">APA: Hickel, T., Uijttewaal, M., Grabowski, B., &amp; Neugebauer, J. (2008). Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloys. Journal of Physics: Condensed Matter, 20(6), 28-35</dcterms:abstract>
+  <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:subject>
+  <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+</escidocMetadataProfile:publication>
+
+</escidocMetadataRecords:md-record>
+
+
+</escidocMetadataRecords:md-records>
+ 	
+ 	<escidocComponents:components 
+   >
+		
+						
+				</escidocComponents:components>
+
+ 	 	<relations:relations 
+  >
+</relations:relations> 	</escidocItem:item>
+
+</il:item-list>
