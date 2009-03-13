@@ -136,7 +136,7 @@ public class ProcessScriptlet {
 //        "System.out.println(\"before:\" + str);\n" +
 //        "if ( str.indexOf(\"Working paper on research progress\")!=-1 ) {System.out.println(\"--1:\" + str);\n}" +
         // remove nulls
-        "       str = str.replace(\"null\", \"\");\n" +
+//        "       str = str.replace(\"null\", \"\");\n" +
         // replace all \s with blank, new line as well everywhere in citation
 		"		str = Pattern.compile(\"[\\n\\r\\t]+\", Pattern.DOTALL).matcher(str).replaceAll(\" \");\n" +
         // remove empty styled text:

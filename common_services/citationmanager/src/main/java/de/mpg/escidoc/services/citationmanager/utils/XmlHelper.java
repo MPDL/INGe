@@ -29,15 +29,12 @@
 
 package de.mpg.escidoc.services.citationmanager.utils;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -49,12 +46,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import net.sf.saxon.event.SaxonOutputKeys;
+
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
@@ -67,8 +64,6 @@ import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-
-import net.sf.saxon.event.SaxonOutputKeys;
 
 /**
 *

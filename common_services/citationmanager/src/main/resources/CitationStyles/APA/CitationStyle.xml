@@ -34,11 +34,9 @@
 		
 		<variable name="genre" type="xpath"><![CDATA[publication/@type]]></variable>
 		
+		<variable name="source-type" type="xpath"><![CDATA[publication/source[1]/@type]]></variable>
+		
 		<variable name="hasPublication" type="xpath"><![CDATA[not(publication)=false()]]></variable>
-
-<!--		<variable name="isBookArticleOrChapter" xpath="not(publication[@type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report'])=false()" />-->
-<!--		<variable name="isBookProceedingsThesis" xpath="not(publication[@type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
-<!--		<variable name="isJournalOrMagazineArticle" xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />-->
 
 	<!-- Date block -->
 <!--		<variable name="date" type="expression">-->
@@ -299,7 +297,7 @@
 
 		<layout-element name="year" ref="date">
 			<parameters>
-				<valid-if><![CDATA[ !${date}.equals("Submitted for publication") ]]></valid-if>
+				<valid-if><![CDATA[ !"Submitted for publication".equals(${date}) ]]></valid-if>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
 				<ends-with value="). " />
@@ -309,22 +307,13 @@
 
 		<layout-element name="submitted" ref="date">
 			<parameters>
-				<valid-if><![CDATA[ ${date}.equals("Submitted for publication") ]]></valid-if>
+				<valid-if><![CDATA[ "Submitted for publication".equals(${date}) ]]></valid-if>
 				<starts-with value=" " />
 				<ends-with value="." />
 			</parameters>
 			<elements />
 		</layout-element>
 
-
-		<layout-element name="year" ref="date">
-			<parameters>
-				<font-style ref="DISPLAY_DATE_STATUS"/>
-				<starts-with value=" (" />
-				<ends-with value="). " />
-			</parameters>
-			<elements />
-		</layout-element>
 		
 		<layout-element name="published-online-and-external-locator">
 			<parameters>
@@ -538,13 +527,14 @@
 
 
 
-	<layout-element name="__debugBlock__">
+	<layout-element name="debugBlock">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
 			<delimiter value=","/>
 		</parameters>
 		<elements>
+		
 			<layout-element ref="../../@objid" >
 				<parameters>
 					<starts-with value="OBJID:"/>
@@ -624,13 +614,13 @@
 	</cs-layout-definition>
 	
 	<!-- JOURNAL ARTICLE, (OTHER OR CONFERENCE-REPORT)+source.genre=journal -->
-	<cs-layout-definition name="journal-article-or-other-with-source-journal-or-conference-report-with-source-journal">
+	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("article") 
 				|| ( 
 					(${genre}.equals("other") || ${genre}.equals("conference-report") || ${genre}.equals("conference-paper")) 
-					&& ${publication/source[1]/@type}.equals("journal") 
+					&& "journal".equals(${source-type})
 					)  
 			]]></valid-if>
 			<delimiter value="" />
@@ -668,14 +658,15 @@
 	</cs-layout-definition>
 	
 
-	<!-- BOOK, THESIS, PROCEEDINGS, OTHER without source -->
-	<cs-layout-definition name="book-or-thesis-or-proceedings-or-other-without-source">
+	<!-- BOOK, THESIS, PROCEEDINGS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
+	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book") 
 				|| ${genre}.equals("thesis") 
-				|| ${genre}.equals("proceedings")
-				|| ( ${genre}.equals("other") && ${publication/source[1]/@type}==null )  
+				|| ${genre}.equals("proceedings") 
+				|| ( ( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") ) && !( "journal".equals(${source-type}) || "book".equals(${source-type}) || "proceedings".equals(${source-type}) ) )
+				|| ( ${genre}.equals("other") && ${source-type}==null )  
 			]]></valid-if>
 			<ends-with value="." />
 		</parameters>
@@ -729,15 +720,16 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- BOOK CHAPTER, OTHER+source==book, CONFERENCE REPORT or PAPER +source==book or source==proceedings -->
-	<cs-layout-definition name="book-item-or-other-with-source-book-or-conference-report-or-paper-with-source-book-or-preceedings">
+	<!-- BOOK CHAPTER, COURSEWARE-LECTURE(TEACHING), OTHER+source==book, CONFERENCE REPORT or PAPER +source==book or source==proceedings  -->
+	<cs-layout-definition name="book-item-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book-item")
-				|| ( ${genre}.equals("other") && ${publication/source[1]/@type}.equals("book") )  
+				|| ${genre}.equals("courseware-lecture")
+				|| ( ${genre}.equals("other") && "book".equals(${source-type}) )  
 				|| ( 
 					( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") )  
-					&& (${publication/source[1]/@type}.equals("book") || ${publication/source[1]/@type}.equals("proceedings")) 
+					&& ("book".equals(${source-type}) || "proceedings".equals(${source-type})) 
 				   )  
 			]]></valid-if>
 			<ends-with value="." />
