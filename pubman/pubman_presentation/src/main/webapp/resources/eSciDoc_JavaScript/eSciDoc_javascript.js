@@ -138,7 +138,7 @@ function include_javascripts() {
 		included = true;
 		include_javascripts();
 	} else {
-			addEvent(window, 'load', install_javascripts);
+			addEvent(window, 'load', function(){window.setTimeout('install_javascripts()', 1);});
 		}
 }
 
