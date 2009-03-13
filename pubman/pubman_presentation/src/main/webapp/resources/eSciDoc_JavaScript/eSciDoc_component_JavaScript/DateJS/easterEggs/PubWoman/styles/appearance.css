@@ -62,13 +62,13 @@
 	/*GENERAL*/
 		/*FONT RELATED*/
 		body, label, input, button, input.numberLabel, h3, h6, a {
-			font-family: "Comic Sans MS", Trebuchet, "Trebuchet MS", sans-serif;
+			font-family: Trebuchet, "Trebuchet MS", sans-serif;
 		}
 		input[type="text"], textarea, select {
 			font-family: "Times New Roman", serif;
 		}
 		h1, h2, h4, h5 {
-			font-family: "Comic Sans MS", "Myriad Pro Condesed", "Arial Narrow", sans-serif;
+			font-family: "Comic Sans MS", "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 		}
 /*
 *
