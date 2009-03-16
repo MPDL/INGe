@@ -73,13 +73,13 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{!( (EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'IMPORT') )}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub" rendered="#{!( (EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'IMPORT') )}">
 								<!-- content menu lower line starts here -->										
 									&#160;
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{( (EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'IMPORT') )}" >
+								<h:panelGroup layout="block" styleClass="free_area0 sub" rendered="#{( (EditItemSessionBean.currentSubmission  == 'EASY_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'FULL_SUBMISSION') || (EditItemSessionBean.currentSubmission  == 'IMPORT') )}" >
 									<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EditItemSessionBean.currentSubmission  != 'EASY_SUBMISSION'}">
 										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>

@@ -71,7 +71,7 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="sub">
+								<div class="free_area0 sub">
 								<!-- content menu lower line starts here -->										
 									<!--<h:commandLink id="lnkEditLocalTags" action="loadEditLocalTags" value="#{lbl.actionMenu_lnkEditLocalTags}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/> -->
 										<!-- Rendering condition for edit local tag:								

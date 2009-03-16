@@ -87,7 +87,7 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="sub">
+								<div class="free_area0 sub">
 								<!-- content menu lower line starts here -->										
 									<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>

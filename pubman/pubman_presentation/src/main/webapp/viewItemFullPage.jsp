@@ -74,7 +74,7 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<h:panelGroup layout="block" styleClass="contentMenu" rendered="#{ViewItemFull.pubItem != null}">
 							<!-- content menu starts here -->
-								<div class="sub">
+								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
 									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.linkForActionsView}" rendered="#{ViewItemSessionBean.subMenu != 'ACTIONS'}" ><h:outputText value="#{lbl.ViewItemFull_lblItemActions}"/></h:outputLink>
 									<h:outputText styleClass="free_area0" value="#{lbl.ViewItemFull_lblItemActions}" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}" />
@@ -120,7 +120,7 @@
 									
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>

@@ -74,7 +74,7 @@
 							<h:panelGroup rendered="#{PubItemListSessionBean.partListSize>0}"> 
 								<div class="contentMenu">
 								<!-- content menu starts here -->
-									<div class="sub">
+									<div class="free_area0 sub">
 									<!-- content menu upper line starts here -->
 										<h:commandLink styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
 										<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
@@ -89,7 +89,7 @@
 									<!-- content menu upper line ends here -->
 									</div>
 									<!-- content menu lower line starts here -->
-									<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 										<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 												 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 										</h:selectOneMenu>

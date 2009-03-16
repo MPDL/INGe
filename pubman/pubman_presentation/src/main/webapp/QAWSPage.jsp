@@ -72,7 +72,7 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="contentMenu">
 							<!-- content menu starts here -->
-								<div class="sub">
+								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
 									<h:commandLink styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
@@ -90,7 +90,7 @@
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
 									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
@@ -122,7 +122,7 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 50em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
 									<h:selectOneMenu styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
