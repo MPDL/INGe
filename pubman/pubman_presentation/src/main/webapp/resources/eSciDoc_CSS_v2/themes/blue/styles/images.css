@@ -496,6 +496,12 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.fixSuccessMessageBlockBtn {
+		background-image: url('../images/All_DropDown_CrossClose_15_Success.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
 
 	.files {
 		background-image: url('../images/All_Attached_ClipAttached_15_Static.gif');

@@ -546,7 +546,7 @@
 		z-index: 100;
 	}
 	
-	.fixErrorMessageBlockBtn {
+	.fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
 		background-color: #ffffff;
 	}
