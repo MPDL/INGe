@@ -153,15 +153,17 @@
 	
 	.contentMenu .action {
 		overflow: visible;
+		clear: left;
 	}
 
-	.contentMenu span {
+	.contentMenu * {
 		float: left;
 	}
 
 	.contentMenu input, .contentMenu a {
 		float: left;
 		text-decoration: none;
+		white-space: nowrap;
 	}
 
 	.contentMenu .seperator  {

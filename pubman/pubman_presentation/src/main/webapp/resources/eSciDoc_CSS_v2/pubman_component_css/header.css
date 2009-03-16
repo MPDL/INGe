@@ -160,6 +160,26 @@
 		height: 1.6em;
 	}
 */	
+	.contentMenu .action {
+		padding: 0px;
+		margin: 0px;
+	}
+	
+		/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .contentMenu .action {
+			margin-top: -1.28em;
+		}
+		* html .contentMenu .ieFilter {
+			width: 50em;
+		}
+		/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .contentMenu .action {
+			margin-top: -1.28em;
+		}
+		*:first-child+html .ieFilter {
+			width: 50em;
+		}
+
 	.bibList ,.gridList {
 		padding-left: 1.36em;
 	}

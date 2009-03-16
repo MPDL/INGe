@@ -114,6 +114,7 @@
 	filter: alpha(opacity=0);
 	*/
 	cursor: pointer !important;
+	border: auto !important;
 }
 
 .fileSection .fileLabel {
