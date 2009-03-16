@@ -106,7 +106,7 @@
 		</h:panelGroup>
 
 <%-- Publisher, Place --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission')}">
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'full-submission' || genre.details_publishing_info_display == 'false' && genre.details_publishing_info_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_publishing_info_publishing_info_publisher_optional != 'true' || genre.details_publishing_info_publishing_info_place_optional != 'true'}" /><span class="noDisplay"> </span>
 			</b>
