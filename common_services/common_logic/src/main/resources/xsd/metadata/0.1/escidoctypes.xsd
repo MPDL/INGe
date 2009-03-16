@@ -65,7 +65,7 @@
 	<xs:complexType name="PublishingInfoType">
 		<xs:sequence>
 			<xs:element ref="dc:publisher"/>
-			<xs:element name="place" type="dc:SimpleLiteral" minOccurs="0"/>
+			<xs:element name="place" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="edition" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
