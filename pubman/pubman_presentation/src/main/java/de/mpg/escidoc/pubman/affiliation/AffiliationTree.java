@@ -96,6 +96,7 @@ public class AffiliationTree extends FacesBean
     {
         affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
                 .retrieveTopLevelAffiliations());
+        affiliationSelectItems = null;
         timestamp = new Date().getTime();
         return getMessage("Affiliations_reloaded");
     }
