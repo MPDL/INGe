@@ -108,14 +108,22 @@
 	direction: rtl;
 }
 
-.fileSection .fileInput {
+.fileSection .fileInput input {
 	/*
 	opacity: 0;
 	filter: alpha(opacity=0);
 	*/
-	cursor: pointer !important;
-	border: auto !important;
+	border-width: 0.0em;
 }
+
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+	* html .fileSection .fileInput input {
+		border-width: 0.10em;
+	}
+	/*REPLACEMENT HACK FOR IE 7*/
+	*:first-child+html .fileSection .fileInput input {
+		border-width: 0.10em;
+	}
 
 .fileSection .fileLabel {
 	text-align: center;
