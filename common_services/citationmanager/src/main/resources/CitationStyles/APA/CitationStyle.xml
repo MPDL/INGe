@@ -18,7 +18,7 @@
 		Use is subject to license terms.
 	-->
 <citation-style name="APA" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" 
-	md-xpath="//item/md-records/md-record"> 
+	md-xpath="//item/md-records/md-record">  
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<!-- variables which use xpath directly in DataSource NS--> 
@@ -74,6 +74,46 @@
 				"n.d."
 				:
 				null
+			]]>
+		</variable>
+		
+		<variable name="date-for-thesis" type="expression">
+			<![CDATA[
+				${publication/issued} != null
+				? 
+				${get_year}(${publication/issued}) 
+				: 
+				${publication/dateAccepted} != null 
+				? 
+				${get_year}(${publication/dateAccepted}) 
+				:
+				${publication/published-online} != null 
+				? 
+				${get_year}(${publication/published-online}) 
+				:
+				null
+			]]>
+		</variable>
+				
+		<variable name="date-for-talk-at-event" type="expression">
+			<![CDATA[
+				${publication/event/start-date} != null
+				? 
+				${get_year}(${publication/event/start-date}) 
+				:
+				${date} 
+			]]>
+		</variable>		
+
+		<variable name="degree" type="expression">
+			<![CDATA[
+				${publication/degree} != null ? 
+				(
+					(
+						${publication/degree}.equals("phd") ? 
+							"PhD" : ${publication/degree}
+					) + " thesis"
+				) : null
 			]]>
 		</variable>
 
@@ -295,6 +335,7 @@
 		<!-- ??? -->
 <!--		<layout-element name="year" ref="publication/issued" func="get_year">-->
 
+		
 		<layout-element name="year" ref="date">
 			<parameters>
 				<valid-if><![CDATA[ !"Submitted for publication".equals(${date}) ]]></valid-if>
@@ -304,6 +345,25 @@
 			</parameters>
 			<elements />
 		</layout-element>
+		
+		<layout-element name="year-for-thesis" ref="date-for-thesis">
+			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+				<starts-with value=" (" />
+				<ends-with value="). " />
+			</parameters>
+			<elements />
+		</layout-element>
+		
+		<layout-element name="year-for-talk-at-event" ref="date-for-talk-at-event">
+			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+				<starts-with value=" (" />
+				<ends-with value="). " />
+			</parameters>
+			<elements />
+		</layout-element>
+		
 
 		<layout-element name="submitted" ref="date">
 			<parameters>
@@ -527,7 +587,7 @@
 
 
 
-	<layout-element name="debugBlock">
+	<layout-element name="__debugBlock__">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
@@ -658,13 +718,11 @@
 	</cs-layout-definition>
 	
 
-	<!-- BOOK, THESIS, PROCEEDINGS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
+	<!-- BOOK, THESIS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
 	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book") 
-				|| ${genre}.equals("thesis") 
-				|| ${genre}.equals("proceedings") 
 				|| ( ( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") ) && !( "journal".equals(${source-type}) || "book".equals(${source-type}) || "proceedings".equals(${source-type}) ) )
 				|| ( ${genre}.equals("other") && ${source-type}==null )  
 			]]></valid-if>
@@ -720,12 +778,174 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<!-- BOOK CHAPTER, COURSEWARE-LECTURE(TEACHING), OTHER+source==book, CONFERENCE REPORT or PAPER +source==book or source==proceedings  -->
+	
+	<!-- PROCEEDINGS -->
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Proceedings-->
+	<cs-layout-definition name="proceedings">
+		<parameters>
+			<valid-if><![CDATA[ ${genre}.equals("proceedings") ]]></valid-if>
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element name="only-authors">
+				<parameters>
+					<valid-if><![CDATA[${toInt}(${authorsCount})>0 && ${toInt}(${editorsCount})==0]]></valid-if>
+					<ends-with value="."/>
+				</parameters>
+				<elements>
+					<layout-element ref="authors"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="editors">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${editorsCount})>0 ]]></valid-if>
+					<ends-with value="."/>
+				</parameters>
+				<elements>
+					<layout-element ref="editors"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="year-editors-or-authors-are-presented">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 || ${toInt}(${editorsCount})>0 ]]></valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="year" />
+				</elements>
+			</layout-element>
+			
+			<layout-element ref="publication/title">
+				<parameters>
+					<ends-with value="." />
+					<font-style ref="ITALIC" />
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element name="year-editors-and-authors-are-not-presented">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})==0 ]]></valid-if>
+				</parameters>
+				<elements>
+					<layout-element ref="year" />
+				</elements>
+			</layout-element>
+			
+			<layout-element >
+				<parameters>
+					<starts-with value=" Proceedings from: "/>
+					<ends-with value="."/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/title">
+						<parameters>
+							<font-style ref="ITALIC"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+				</elements>
+			</layout-element>
+			
+			<layout-element ref="place-publisher"/>
+			
+			<layout-element ref="published-online-and-external-locator"/>
+			
+			<layout-element ref="submitted"/>
+		
+		</elements>
+	</cs-layout-definition>
+	
+	<!-- THESIS, in print or accepted --> 
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Thesis -->
+	<cs-layout-definition name="thesis-in-print-or-accepted">
+		<parameters>
+			<valid-if><![CDATA[ ${genre}.equals("thesis") && (${publication/issued}!=null || ${publication/dateAccepted}!=null) ]]></valid-if>
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element ref="authors"/>
+			
+			<layout-element ref="year-for-thesis"/>
+						
+			<layout-element ref="publication/title">
+				<parameters>
+					<ends-with value="." />
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element name="degree-place-publisher">
+				<parameters>
+					<delimiter value=", " />
+				</parameters>
+				<elements>
+					<layout-element ref="degree" />
+					<layout-element ref="publication/publishing-info/publisher" />
+					<layout-element ref="publication/publishing-info/place" />
+				</elements>
+			</layout-element>
+				
+		</elements>
+	</cs-layout-definition>
+
+	<!-- THESIS, published online --> 
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Thesis -->
+	<cs-layout-definition name="thesis-published-online">
+		<parameters>
+			<valid-if><![CDATA[ ${genre}.equals("thesis") && ${publication/published-online}!=null ]]></valid-if>
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element ref="authors"/>
+			
+			<layout-element ref="year-for-thesis" />
+			
+			<layout-element ref="publication/title">
+				<parameters>
+					<font-style ref="ITALIC"/>
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element name="degree-place-publisher-year">
+				<parameters>
+					<starts-with value="("/>
+					<ends-with value=")."/>
+					<delimiter value=", " />
+				</parameters>
+				<elements>
+					<layout-element ref="degree" />
+					<layout-element ref="publication/publishing-info/publisher" />
+					<layout-element ref="publication/publishing-info/place" />
+					<layout-element ref="date-for-thesis" />
+				</elements>
+			</layout-element>
+				
+			<layout-element ref="url">
+				<parameters>
+					<valid-if><![CDATA[${url}!=null]]></valid-if>
+					<starts-with value=" Retrieved from "/>
+					<ends-with value=". "/>
+				</parameters>
+				<elements/>
+			</layout-element>
+		
+		</elements>
+	</cs-layout-definition>
+
+	
+	<!-- BOOK CHAPTER, OTHER+source==book, CONFERENCE REPORT or PAPER +source==book or source==proceedings  -->
 	<cs-layout-definition name="book-item-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book-item")
-				|| ${genre}.equals("courseware-lecture")
 				|| ( ${genre}.equals("other") && "book".equals(${source-type}) )  
 				|| ( 
 					( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") )  
@@ -922,12 +1142,82 @@
 	
 	</cs-layout-definition>
 	
-	<!-- TALK-AT-EVENT, PAPER -->
-	<cs-layout-definition name="talk-at-event-or-or-paper">
+	<!-- TALK-AT-EVENT, COURSEWARE-LECTURE(TEACHING) -->
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Talk_at_event -->
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Lecture.2F_Courseware_.28Teaching.29 -->
+	<cs-layout-definition name="talk-at-event-or-courseware-lecture">
 		<parameters>
 			<valid-if><![CDATA[
 					${genre}.equals("talk-at-event")
-				||	${genre}.equals("paper")
+					|| ${genre}.equals("courseware-lecture")
+				]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="debugBlock" />
+			
+			<layout-element ref="authors"/>
+			
+			<layout-element name="year-authors-are-presented" ref="year-for-talk-at-event">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 ]]></valid-if>
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element ref="title-with-dot"/>
+			
+			<layout-element name="year-authors-are-not-presented" ref="year-for-talk-at-event">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})==0 ]]></valid-if>
+				</parameters>
+				<elements />
+			</layout-element>
+
+			<layout-element name="event-title">
+				<parameters>
+					<starts-with value=" "/>
+					<ends-with value="."/>
+					<font-style ref="ITALIC"/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/title"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="event-place">
+				<parameters>
+					<starts-with value=" "/>
+					<ends-with value=","/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/place"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="dates-of-event">
+				<parameters>
+					<starts-with value=" "/>
+					<delimiter value=" - "/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/start-date"/>
+					<layout-element ref="publication/event/end-date"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element ref="submitted"/>
+
+		</elements>
+	
+	</cs-layout-definition>
+	
+	<!-- PAPER -->
+	<cs-layout-definition name="paper">
+		<parameters>
+			<valid-if><![CDATA[
+					${genre}.equals("paper")
 				]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
@@ -970,6 +1260,7 @@
 	</cs-layout-definition>
 	
 	<!-- POSTER  -->
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Poster -->
 	<cs-layout-definition name="poster">
 		<parameters>
 			<valid-if><![CDATA[${genre}.equals("poster")]]></valid-if>
@@ -977,6 +1268,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
+		
 			<layout-element ref="debugBlock" />
 			
 			<layout-element ref="authors"/>
