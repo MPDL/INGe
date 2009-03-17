@@ -32,27 +32,63 @@
 	xmlns:prop="${xsd.soap.common.prop}">
 	<xsl:output method="text" encoding="UTF-8" indent="yes" />
 	<xsl:template match="/">
-		<xsl:value-of select="'filename,person ID,age,age group,gender,emotion,picture group'" />
-		<xsl:for-each
-			select="//escidocItem:item/escidocComponents:components/escidocComponents:component">
-			<xsl:variable name="md"
-				select="../../escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/face-item" />
+		
+		<xsl:variable name="all-lines" >
+			<line>
+				<xsl:value-of select="'filename,person ID,age,age group,gender,emotion,picture group'" />
+			</line>		
+			<xsl:for-each
+				select="//escidocItem:item/escidocComponents:components/escidocComponents:component">
+				<xsl:variable name="md"
+					select="../../escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/face-item" />
+				<xsl:variable name="class-name">
+					<xsl:call-template name="generate-class-name">
+						<xsl:with-param name="file-name" select="escidocComponents:properties/prop:file-name"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="line" select="
+					fn:replace(
+						concat(
+							$class-name
+							, ',', $md/dc:identifier
+							, ',', $md/age
+							, ',', $md/age-group
+							, ',', $md/gender
+							, ',', $md/emotion
+							, ',', $md/picture-group
+						),
+						'[\t\r\n]', 
+						'',
+						's'
+					)" />
+				<line id="{$class-name}">
+					<xsl:value-of select="$line"/>
+				</line>	
+			</xsl:for-each>
+		</xsl:variable>
+		
+		<xsl:variable name="lines">
+			<xsl:for-each select="$all-lines/line">
+				<xsl:sort select="@id"/>
+				<xsl:if test="not(preceding-sibling::line/@id=./@id)">
+						<xsl:copy-of select="."/>
+				</xsl:if>
+			</xsl:for-each>	
+  		</xsl:variable>			
+		
+		<xsl:for-each select="$lines/line">
+			<xsl:value-of select="."/>
 			<xsl:text>&#10;</xsl:text>
-			<xsl:value-of select="
-				fn:replace(
-					concat(
-						escidocComponents:properties/prop:file-name
-						, ',', $md/dc:identifier
-						, ',', $md/age
-						, ',', $md/age-group
-						, ',', $md/gender
-						, ',', $md/emotion
-						, ',', $md/picture-group
-					),
-					'[\t\r\n]', 
-					'',
-					's'
-				)" />
 		</xsl:for-each>
+
 	</xsl:template>
+	
+	<xsl:template name="generate-class-name">
+		<xsl:param name="file-name"/>
+		<xsl:variable name="a" select="substring-before($file-name, '_web_resolution.jpg')"/>
+		<xsl:variable name="b" select="substring-before($file-name, '_high_resolution.jpg')"/>
+		<xsl:variable name="c" select="substring-before($file-name, '_thumbnail.jpg')"/>
+		<xsl:value-of select="concat($a, $b, $c)"/>
+	</xsl:template>
+	
 </xsl:stylesheet>
