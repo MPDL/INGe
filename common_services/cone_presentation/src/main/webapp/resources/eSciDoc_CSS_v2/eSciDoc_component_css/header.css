@@ -31,7 +31,7 @@
 */
 
 @media print {
-	#header {
+	.header {
 		display: none;
 	}
 }
@@ -40,6 +40,7 @@
 
 	.metaMenu .logButton, .metaMenu button, .metaMenu select, .metaMenu label, .metaMenu div, .metaMenu span, .metaMenu a  {
 		float: right;
+		white-space: nowrap;
 		text-decoration: none;
 	}
 
@@ -65,6 +66,10 @@
 	.searchMenu {
 		float: right;
 	}
+	
+	.searchMenu * {
+		white-space: nowrap;
+	}
 
 	.quickSearchIcon {
 		float: left;
@@ -75,10 +80,6 @@
 		float: left;
 		display: inline;
 		text-decoration: none;
-	}
-	
-	.quickSearchCheckBoxMenu input {
-		margin-left: -0.09em;
 	}
 	
 	.advancedSearchMenu, .organisationSearchMenu {
@@ -152,15 +153,17 @@
 	
 	.contentMenu .action {
 		overflow: visible;
+		clear: left;
 	}
 
-	.contentMenu span {
+	.contentMenu * {
 		float: left;
 	}
 
 	.contentMenu input, .contentMenu a {
 		float: left;
 		text-decoration: none;
+		white-space: nowrap;
 	}
 
 	.contentMenu .seperator  {

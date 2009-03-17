@@ -65,10 +65,10 @@
 			font-family: Trebuchet, "Trebuchet MS", sans-serif;
 		}
 		input[type="text"], textarea, select {
-			font-family: "Times New Roman", serif;
+			font-family: "Times New Roman", "MS Mincho", serif;
 		}
 		h1, h2, h4, h5 {
-			font-family: "Myriad Pro Condesed", "Arial Narrow", sans-serif;
+			font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 		}
 /*
 *
@@ -77,9 +77,13 @@
 */
 /*GENERAL*/
 	body {
-		background-color: #EDF4F6;
+		background-color: #E0EDF1;
 		color: #524240;
 		line-height: 160%;
+	}
+	
+	body .wrapper {
+		background-color: #EDF4F6;
 	}
 	
 	input, button, textarea, select {
@@ -99,13 +103,14 @@
 	input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		cursor: pointer;
 	}
-	
-	input[type="text"], textarea, select {
-		border: 1px solid #388097;
+
+	input, textarea, select {
+		border-style: solid;
+		border-color: #524240;
 	}
 	
 	a:hover, a:focus {
-		text-decoration: underline;
+	/*	text-decoration: underline; */
 		cursor: pointer;
 	}
 	
@@ -251,7 +256,7 @@
 	border-style: solid;
 	border-color: #BAB4B3;
 }
-*/
+
 .infoPage .mainSection h2 {
 	border-style: solid;
 	border-color: #BAB4B3;
@@ -261,7 +266,7 @@
 	border-style: solid;
 	border-color: #BAB4B3;
 }
-	
+*/	
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/
@@ -280,7 +285,7 @@
 	
 	.listHeader a {
 		font-weight: bold;
-		line-height:100%;
+		line-height: normal;
 	}
 	
 		/*SELECT MENU*/
@@ -327,10 +332,15 @@
 		background-color: #AFCCD5;
 	}
 	
+	.fullItem, .listBackground {
+		background-color: #ffffff;
+	}
+
+/*	
 	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
 		background-color: #ffffff;
 	}
-	
+*/	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
@@ -385,6 +395,7 @@
 	
 	.affHover {
 		background-color: #73A6B6;
+		color: #FFFFFF;
 	}
 	
 	.add, .remove {
@@ -534,7 +545,7 @@
 		z-index: 100;
 	}
 	
-	.fixErrorMessageBlockBtn {
+	.fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
 		background-color: #ffffff;
 	}

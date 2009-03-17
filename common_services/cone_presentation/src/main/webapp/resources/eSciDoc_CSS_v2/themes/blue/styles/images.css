@@ -57,6 +57,27 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.overlayDev {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_dev.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.overlayTest {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_test.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.overlayQA {
+		background: inherit;
+		background-image: url('../images/logo_pubman_overlay_qa.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
 
 	/*SEARCH MENU*/
 	
@@ -113,6 +134,26 @@
 		background-image: url('../images/All_Sorting_TriangleDescending_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: right;
+	}
+	
+/*START PAGE*/
+
+	.myItemsIcon {
+		background-image: url('../images/PM_Startpage_MyItems.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.qaWSIcon {
+		background-image: url('../images/PM_Startpage_QA.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.submIcon {
+		background-image: url('../images/PM_Startpage_Submission.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
 	}
 
 /*EXTENDED PAGINATOR*/
@@ -181,20 +222,25 @@
 		padding-left: 20px;
 	}
 	
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .pageBrowser .backward {
+			padding-left: 0px;
+		}
+	/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .pageBrowser .backward {
+			padding-left: 0px;
+		}
+	
 	.pageBrowser .backward:hover, .pageBrowser .backward:focus {
 		background-image: url('../images/All_Paginator_ArrowPrevious_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: left;
-		padding-right: 0px;
-		padding-left: 20px;
 	}
 	
 	.pageBrowser .backward:disabled {
 		background-image: url('../images/All_Paginator_ArrowPrevious_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: left;
-		padding-right: 0px;
-		padding-left: 20px;
 	}
 	
 	.pageBrowser .forward {
@@ -205,20 +251,25 @@
 		padding-left: 0px;
 	}
 	
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+		* html .pageBrowser .forward {
+			padding-right: 2px;
+		}
+	/*REPLACEMENT HACK FOR IE 7*/
+		*:first-child+html .pageBrowser .forward {
+			padding-right: 2px;
+		}
+	
 	.pageBrowser .forward:hover, .pageBrowser .forward:focus {
 		background-image: url('../images/All_Paginator_ArrowNext_15_Hover.gif');
 		background-repeat: no-repeat;
 		background-position: right;
-		padding-right: 20px;
-		padding-left: 0px;
 	}
 	
 	.pageBrowser .forward:disabled {
 		background-image: url('../images/All_Paginator_ArrowNext_15_Deactivated.gif');
 		background-repeat: no-repeat;
 		background-position: right;
-		padding-right: 20px;
-		padding-left: 0px;
 	}
 	
 	.pageBrowser .skipToLast {
@@ -442,6 +493,12 @@
 	
 	.fixErrorMessageBlockBtn {
 		background-image: url('../images/All_DropDown_CrossClose_15_Error.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.fixSuccessMessageBlockBtn {
+		background-image: url('../images/All_DropDown_CrossClose_15_Success.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}

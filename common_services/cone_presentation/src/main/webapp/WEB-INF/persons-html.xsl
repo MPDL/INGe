@@ -132,245 +132,259 @@
 				</script>
 			</head>
 			<body>
-			
-				<div id="content" class="full_area0 clear">
-				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
-					<div class="clear">
-						<div id="headerSection">
-							<div class="clear free_area0">
-								&#160;
+				<div class="full wrapper">
+					<div class="full_area0 header clear">
+					<!-- start: header section -->
+						<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
+							<!-- logo alternate area starts here -->
+							<div class="free_area0 small_marginLExcl logoAlternate">
+								<a href="" >
+									<span>eSciDoc.</span>
+									<span>CoNE</span>
+								</a>
 							</div>
-							<div id="headLine" class="clear headLine">
-								<!-- Headline starts here -->
-								<h1><xsl:value-of select="escidoc:label('researcher_portfolio')"/></h1>
-								<!-- Headline ends here -->
-							</div>
-						</div>
-						<div id="subHeaderSection" class="small_marginLIncl">
-							<div class="contentMenu">
-								<div class="sub">
-									&#160;
-								</div>
-							</div>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-								<h6><xsl:value-of select="escidoc:label('provided_by_cone')"/></h6>
-								<!-- Subheadline ends here -->
-							</div>
-						</div>
+							<!-- logo alternate area starts here -->
+							<!-- meta Menu starts here -->
+							<xsl:comment>
+								<xsl:if test="not(exists($labels/language[@id = $lang]))">
+									<span class="free_area0 messageError"><xsl:value-of select="escidoc:label('language_not_provided')"/></span>
+								</xsl:if>
+							</xsl:comment>
+							<select class="medium_select endline replace" onchange="changeLanguage(this)">
+								<xsl:for-each select="$labels/language">
+									<xsl:sort select="@label"/>
+									<option value="{@id}">
+										<xsl:if test="@id = $lang">
+											<xsl:attribute name="selected"/>
+										</xsl:if>
+										<xsl:value-of select="@label"/>
+									</option>
+								</xsl:for-each>
+								<xsl:if test="not(exists($labels/language[@id = $lang]))">
+									<option selected=""><xsl:value-of select="$lang"/></option>
+								</xsl:if>
+							</select>
+							<!-- meta Menu ends here -->
+						</span>
+					<!-- end: header section -->
 					</div>
-					<div class="full_area0">
-						<div class="full_area0 fullItem">
-							<div class="full_area0 itemHeader">
-								<span class="xLarge_area0 endline">
+					<div id="content" class="full_area0 clear">
+					<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+						<div class="clear">
+							<div id="headerSection">
+								<div class="clear free_area0">
 									&#160;
-								</span>
-								<span class="seperator">&#160;</span>
-								<span style="text-align: right;float: right;">
-									<xsl:comment>
-										<xsl:if test="not(exists($labels/language[@id = $lang]))">
-											<span style="color: red"><xsl:value-of select="escidoc:label('language_not_provided')"/></span>
-										</xsl:if>
-									</xsl:comment>
-									<select onchange="changeLanguage(this)">
-										<xsl:for-each select="$labels/language">
-											<xsl:sort select="@label"/>
-											<option value="{@id}">
-												<xsl:if test="@id = $lang">
-													<xsl:attribute name="selected"/>
-												</xsl:if>
-												<xsl:value-of select="@label"/>
-											</option>
-										</xsl:for-each>
-										<xsl:if test="not(exists($labels/language[@id = $lang]))">
-											<option selected=""><xsl:value-of select="$lang"/></option>
-										</xsl:if>
-									</select>
-								</span>
-								<span class="free_area0_p8 endline itemHeadline">
-									<h2>
-										<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
-									</h2>
-									<h3>
-										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]/escidoc:organization">
-											<xsl:sort select="."/>
-											<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
-										</xsl:for-each>
+								</div>
+								<div id="headLine" class="clear headLine">
+									<!-- Headline starts here -->
+									<h1><xsl:value-of select="escidoc:label('researcher_portfolio')"/></h1>
+									<!-- Headline ends here -->
+								</div>
+							</div>
+							<div id="subHeaderSection" class="small_marginLIncl">
+								<div class="contentMenu">
+									<div class="sub">
 										&#160;
-									</h3>
-								</span>
-								<div class="statusArea free_area0">
-									<xsl:if test="foaf:depiction != ''">
-										<img src="{foaf:depiction}" title="{dc:title}" width="120" />
-									</xsl:if>
-									&#160;
-								</div>
-							</div>
-							<div class="full_area0 itemBlock">
-								<h3 class="xLarge_area0_p8 endline blockHeader">
-									<xsl:value-of select="escidoc:label('researcher_profile')"/>
-								</h3>
-								<span class="seperator">&#160;</span>
-								<div class="free_area0 itemBlockContent endline">
-									<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
-										<xsl:sort select="escidoc:organization[0]"/>
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="escidoc:position-name"/>
-												<xsl:text> </xsl:text>
-												<xsl:if test="escidoc:organization">
-													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
-													<xsl:for-each select="escidoc:organization">
-														<xsl:value-of select="."/>
-														<xsl:if test="position() != last()">, </xsl:if>
-													</xsl:for-each>
-													<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
-												</xsl:if>
-											</span>
-										</div>
-									</xsl:for-each>
-									<xsl:for-each select="escidoc:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
-										<xsl:sort select="dc:end-date" order="descending"/>	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="escidoc:position-name"/>
-												<xsl:text> </xsl:text>
-												<xsl:if test="escidoc:organization">
-													<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
-													<xsl:for-each select="escidoc:organization">
-														<xsl:value-of select="."/>
-														<xsl:if test="position() != last()">, </xsl:if>
-													</xsl:for-each>
-													<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
-												</xsl:if>
-											</span>
-										</div>
-									</xsl:for-each>
-									<xsl:if test="exists(escidoc:award)">
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('awards')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="escidoc:award"/>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="exists(foaf:tel)">	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('phone')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="foaf:tel">
-													<xsl:value-of select="."/> <br />
-												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="exists(foaf:email)">	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('email')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="foaf:email">
-													<xsl:value-of select="."/> <br />
-												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="exists(foaf:homepage)">	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('homepages')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="foaf:homepage/rdf:Description">
-													<a>
-														<xsl:attribute name="href">
-															<xsl:value-of select="rdf:value"/>
-														</xsl:attribute>
-														<xsl:attribute name="title">
-															<xsl:value-of select="dc:description"/>
-														</xsl:attribute>
-														<xsl:attribute name="target">_blank</xsl:attribute>
-														<xsl:value-of select="dc:description"/>
-													</a>
-													<br />
-												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="exists(dc:identifier)">
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('additional_ids')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="dc:identifier/rdf:Description">
-													<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
-													<xsl:value-of select="escidoc:idtype"/>: <xsl:value-of select="rdf:value"/>
-												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-									<div class="free_area0 endline itemLine noTopBorder">
-										<b class="xLarge_area0 endline labelLine">
-											<xsl:value-of select="escidoc:label('researcher_id')"/><span class="noDisplay">: </span>
-										</b>
-										<span class="xHuge_area0 xTiny_marginLExcl endline">
-											<xsl:value-of select="@rdf:about"/>
-										</span>
 									</div>
-									<xsl:if test="exists(dcterms:subject)">
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('research_fields')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:value-of select="dcterms:subject"/>
-											</span>
-										</div>
-									</xsl:if>
-									<xsl:if test="exists(dc:subject)">	
-										<div class="free_area0 endline itemLine noTopBorder">
-											<b class="xLarge_area0 endline labelLine">
-												<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
-											</b>
-											<span class="xHuge_area0 xTiny_marginLExcl endline">
-												<xsl:for-each select="dc:subject/rdf:Description">
-													-<xsl:text> </xsl:text><xsl:value-of select="dc:identifier"/> - <xsl:value-of select="dc:title"/> <br />
-												</xsl:for-each>
-											</span>
-										</div>
-									</xsl:if>
-
-
+								</div>
+								<div class="subHeader" >
+									<!-- Subheadline starts here -->
+								<!-- <h6><xsl:value-of select="escidoc:label('provided_by_cone')"/></h6> -->
+									<!-- Subheadline ends here -->
 								</div>
 							</div>
-							<div class="full_area0 itemBlock">
-								<h3 class="xLarge_area0_p8 endline blockHeader">
-									<xsl:value-of select="escidoc:label('publications')"/>
-								</h3>
-								<span class="seperator">&#160;</span>
-								<div class="free_area0 itemBlockContent endline publicationsArea">		
-									&#160;
+						</div>
+						<div class="full_area0">
+							<div class="full_area0 fullItem">
+								<div class="full_area0 itemHeader noTopBorder">
+									<span class="xLarge_area0 endline">
+										&#160;
+									</span>
+									<span class="seperator">&#160;</span>
+									<span class="free_area0_p8 endline itemHeadline">
+										<h2>
+											<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
+										</h2>
+										<h3>
+											<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]/escidoc:organization">
+												<xsl:sort select="."/>
+												<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
+											</xsl:for-each>
+											&#160;
+										</h3>
+									</span>
+									<div class="statusArea free_area0">
+										<xsl:if test="foaf:depiction != ''">
+											<img src="{foaf:depiction}" title="{dc:title}" width="120" />
+										</xsl:if>
+										&#160;
+									</div>
 								</div>
-							</div>				
+								<div class="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										<xsl:value-of select="escidoc:label('researcher_profile')"/>
+									</h3>
+									<span class="seperator">&#160;</span>
+									<div class="free_area0 itemBlockContent endline">
+										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
+											<xsl:sort select="escidoc:organization[0]"/>
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:value-of select="escidoc:position-name"/>
+													<xsl:text> </xsl:text>
+													<xsl:if test="escidoc:organization">
+														<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
+														<xsl:for-each select="escidoc:organization">
+															<xsl:value-of select="."/>
+															<xsl:if test="position() != last()">, </xsl:if>
+														</xsl:for-each>
+														<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
+													</xsl:if>
+												</span>
+											</div>
+										</xsl:for-each>
+										<xsl:for-each select="escidoc:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
+											<xsl:sort select="dc:end-date" order="descending"/>	
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:value-of select="escidoc:position-name"/>
+													<xsl:text> </xsl:text>
+													<xsl:if test="escidoc:organization">
+														<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
+														<xsl:for-each select="escidoc:organization">
+															<xsl:value-of select="."/>
+															<xsl:if test="position() != last()">, </xsl:if>
+														</xsl:for-each>
+														<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
+													</xsl:if>
+												</span>
+											</div>
+										</xsl:for-each>
+										<xsl:if test="exists(escidoc:award)">
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('awards')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:value-of select="escidoc:award"/>
+												</span>
+											</div>
+										</xsl:if>
+										<xsl:if test="exists(foaf:tel)">	
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('phone')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:for-each select="foaf:tel">
+														<xsl:value-of select="."/> <br />
+													</xsl:for-each>
+												</span>
+											</div>
+										</xsl:if>
+										<xsl:if test="exists(foaf:email)">	
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('email')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:for-each select="foaf:email">
+														<xsl:value-of select="."/> <br />
+													</xsl:for-each>
+												</span>
+											</div>
+										</xsl:if>
+										<xsl:if test="exists(foaf:homepage)">	
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('homepages')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:for-each select="foaf:homepage/rdf:Description">
+														<a>
+															<xsl:attribute name="href">
+																<xsl:value-of select="rdf:value"/>
+															</xsl:attribute>
+															<xsl:attribute name="title">
+																<xsl:value-of select="dc:description"/>
+															</xsl:attribute>
+															<xsl:attribute name="target">_blank</xsl:attribute>
+															<xsl:value-of select="dc:description"/>
+														</a>
+														<br />
+													</xsl:for-each>
+												</span>
+											</div>
+										</xsl:if>
+										<xsl:if test="exists(dc:identifier)">
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('additional_ids')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:for-each select="dc:identifier/rdf:Description">
+														<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
+														<xsl:value-of select="escidoc:idtype"/>: <xsl:value-of select="rdf:value"/>
+													</xsl:for-each>
+												</span>
+											</div>
+										</xsl:if>
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0 endline labelLine">
+												<xsl:value-of select="escidoc:label('researcher_id')"/><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 xTiny_marginLExcl endline">
+												<xsl:value-of select="@rdf:about"/>
+											</span>
+										</div>
+										<xsl:if test="exists(dcterms:subject)">
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('research_fields')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:value-of select="dcterms:subject"/>
+												</span>
+											</div>
+										</xsl:if>
+										<xsl:if test="exists(dc:subject)">	
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0 endline labelLine">
+													<xsl:value-of select="escidoc:label('subject')"/><span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<xsl:for-each select="dc:subject/rdf:Description">
+														-<xsl:text> </xsl:text><xsl:value-of select="dc:identifier"/> - <xsl:value-of select="dc:title"/> <br />
+													</xsl:for-each>
+												</span>
+											</div>
+										</xsl:if>
+	
+	
+									</div>
+								</div>
+								<div class="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										<xsl:value-of select="escidoc:label('publications')"/>
+									</h3>
+									<span class="seperator">&#160;</span>
+									<div class="free_area0 itemBlockContent endline publicationsArea">		
+										&#160;
+									</div>
+								</div>				
+								
+							</div>
 							
 						</div>
-						
+					<!-- end: content section -->
 					</div>
-				<!-- end: content section -->
 				</div>
-			
 			</body>
 		</html>
 	</xsl:template>
