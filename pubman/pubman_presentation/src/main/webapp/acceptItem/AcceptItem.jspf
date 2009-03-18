@@ -37,7 +37,7 @@
 	</h:panelGroup>
 		<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-		<b><h:outputText value="#{AcceptItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
+		<b><h:outputText id="txtItemTitle" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/></b>
 	</h:panelGroup>
 </div>
 <div class="full_area0 itemBlock">
@@ -48,26 +48,26 @@
 	<div class="free_area0 itemBlockContent endline">
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AcceptItem_lblPublication}" /><span class="noDisplay">: </span>
+				<h:outputText id="lblPublication" value="#{lbl.AcceptItem_lblPublication}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{AcceptItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
+				<h:outputText id="txtItemVersion" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AcceptItem_lblCreator}" /><span class="noDisplay">: </span>
+				<h:outputText id="lblCreators" value="#{lbl.AcceptItem_lblCreator}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{AcceptItem.creators}" />
+				<h:outputText id="txtCreators" value="#{AcceptItem.creators}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AcceptItem_lblComment}" />&#160;<span class="noDisplay">: </span>
+				<h:outputText id="lblComment" value="#{lbl.AcceptItem_lblComment}" />&#160;<span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{AcceptItem.acceptanceComment}" cols="15" rows="3" ></h:inputTextarea>
+				<h:inputTextarea id="acceptanceComment" styleClass="quad_txtArea inputTxtArea" value="#{AcceptItem.acceptanceComment}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 		</div>
 	</div>

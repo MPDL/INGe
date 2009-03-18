@@ -34,16 +34,16 @@
 <f:subview id="Header">
 
 <!-- start: skip link navigation -->
-	<h:outputLink styleClass="skipLink" title="#{tip.skip_to_mainMenu}" value="#mainMenuSkipLinkAnchor">
+	<h:outputLink id="lnkSkipMainMenu" styleClass="skipLink" title="#{tip.skip_to_mainMenu}" value="#mainMenuSkipLinkAnchor">
 		<h:outputText value="#{lbl.skip_to_mainMenu}"/>
 	</h:outputLink>
-	<h:outputLink styleClass="skipLink" title="#{tip.skip_to_pageContent}" value="#contentSkipLinkAnchor">
+	<h:outputLink id="lnkSkipContent" styleClass="skipLink" title="#{tip.skip_to_pageContent}" value="#contentSkipLinkAnchor">
 		<h:outputText value="#{lbl.skip_to_pageContent}"/>
 	</h:outputLink>
-	<h:outputLink styleClass="skipLink" title="#{tip.skip_to_searchMenu}" value="#searchMenuSkipLinkAnchor">
+	<h:outputLink id="lnkSkipSearchMenu" styleClass="skipLink" title="#{tip.skip_to_searchMenu}" value="#searchMenuSkipLinkAnchor">
 		<h:outputText value="#{lbl.skip_to_searchMenu}"/>
 	</h:outputLink>
-	<h:outputLink styleClass="skipLink" title="#{tip.skip_to_metaMenu}" value="#metaMenuSkipLinkAnchor">
+	<h:outputLink id="lnkSkipMetaMenu" styleClass="skipLink" title="#{tip.skip_to_metaMenu}" value="#metaMenuSkipLinkAnchor">
 		<h:outputText value="#{lbl.skip_to_metaMenu}"/>
 	</h:outputLink>
 <!-- end: skip link navigation -->
@@ -55,7 +55,7 @@
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
 
 	<div class="full_area0 LogoNSearch">
-		<h:outputLink title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
+		<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
 			<span class="xTiny_marginLExcl huge_area0 headerLogo">
 				<h:panelGroup styleClass="huge_area0 themePark #{Header.serverLogo}"></h:panelGroup>
 			</span>
