@@ -35,12 +35,6 @@
 	<field name="source-type" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/source[1]/@type]]></fieldDescription>
 	</field>
-	<field name="publication/event/start-date" class="java.lang.String">
-		<fieldDescription><![CDATA[publication/event/start-date]]></fieldDescription>
-	</field>
-	<field name="date" class="java.lang.String">
-		<fieldDescription><![CDATA[date]]></fieldDescription>
-	</field>
 	<field name="sourceEditorsCount" class="java.lang.String">
 		<fieldDescription><![CDATA[string(count(publication/source[1]/creator[@role='editor']))]]></fieldDescription>
 	</field>
@@ -131,6 +125,9 @@
 	<field name="publication/source[1]/publishing-info/publisher" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/source[1]/publishing-info/publisher]]></fieldDescription>
 	</field>
+	<field name="publication/event/start-date" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/event/start-date]]></fieldDescription>
+	</field>
 	<field name="publication/event/place" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/event/place]]></fieldDescription>
 	</field>
@@ -145,13 +142,6 @@
 	</variable>
 	<variable name="most-recent-date.status" class="java.lang.String">
 		<variableExpression><![CDATA[$P{REPORT_SCRIPTLET}.mostRecentDateStatus(new String[]{ $F{publication/published-online}, $F{publication/issued}, $F{publication/dateAccepted}, $F{publication/dateSubmitted}, $F{publication/modified}, $F{publication/created} })]]></variableExpression>
-	</variable>
-	<variable name="date-for-talk-at-event" class="java.lang.String">
-		<variableExpression><![CDATA[$F{publication/event/start-date} != null
-				? 
-				$P{REPORT_SCRIPTLET}.get_year($F{publication/event/start-date}) 
-				:
-				$F{date}]]></variableExpression>
 	</variable>
 	<variable name="date" class="java.lang.String">
 		<variableExpression><![CDATA[($F{publication/@type}.equals("manuscript") && $F{publication/created} != null) 
@@ -245,7 +235,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_14" class="java.lang.String">
-		<variableExpression><![CDATA[$F{date}!=null ? "[span class=\"DisplayDateStatus\"]"+((!"Submitted for publication".equals($V{date})) ? ((!(($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) + "). " : "")) : "")+"[/span]" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{date}!=null ? "[span class=\"DisplayDateStatus\"]"+((!"Submitted for publication".equals($V{date})) ? ((!($V{date}).trim().equals("") ? " (" + $V{date} + "). " : "")) : "")+"[/span]" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_19_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_14}!=null ? (!($V{CS_1_PLE_14}).trim().equals("") ? $V{CS_1_PLE_14} : "") : ""]]></variableExpression>
@@ -323,7 +313,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_18}!=null ? (!($V{CS_1_PLE_18}).trim().equals("") ? $V{CS_1_PLE_18} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_17" class="java.lang.String">
-		<variableExpression><![CDATA[$F{date}!=null ? (("Submitted for publication".equals($V{date})) ? ((!(($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).trim().equals("") ? " " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) + "." : "")) : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{date}!=null ? (("Submitted for publication".equals($V{date})) ? ((!($V{date}).trim().equals("") ? " " + $V{date} + "." : "")) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_9" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_17}!=null ? (!($V{CS_1_PLE_17}).trim().equals("") ? $V{CS_1_PLE_17} : "") : ""]]></variableExpression>
@@ -694,8 +684,20 @@
 	<variable name="CS_1_CSLD_12_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
 	</variable>
+	<variable name="CS_1_PLE_16_P_default_E_1_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[($P{REPORT_SCRIPTLET}.get_year($F{publication/event/start-date}))!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/event/start-date}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.get_year(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/event/start-date})))) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_PLE_16_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[(($F{publication/event/start-date} != null) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_1_P_default_E_1}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_1_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_PLE_16_P_default_E_2_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$V{date}!=null ? (!($V{date}).trim().equals("") ? $V{date} : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_PLE_16_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[(($F{publication/event/start-date} == null) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_2_P_default_E_1}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_2_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
+	</variable>
 	<variable name="CS_1_PLE_16" class="java.lang.String">
-		<variableExpression><![CDATA[$V{date-for-talk-at-event}!=null ? "[span class=\"DisplayDateStatus\"]"+(!($V{date-for-talk-at-event}).trim().equals("") ? " (" + $V{date-for-talk-at-event} + "). " : "")+"[/span]" : ""]]></variableExpression>
+		<variableExpression><![CDATA["[span class=\"DisplayDateStatus\"]"+(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_1},$V{CS_1_PLE_16_P_default_E_2}}, " ")).trim().equals("") ? " (" + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_16_P_default_E_1},$V{CS_1_PLE_16_P_default_E_2}}, " ") + "). " : "")+"[/span]"]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_12_P_default_E_3" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_16}!=null ? (($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})>0) ? ((!($V{CS_1_PLE_16}).trim().equals("") ? $V{CS_1_PLE_16} : "")) : "") : ""]]></variableExpression>
@@ -779,7 +781,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_21}!=null ? (!($V{CS_1_PLE_21}).trim().equals("") ? $V{CS_1_PLE_21} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_22_P_default_E_2" class="java.lang.String">
-		<variableExpression><![CDATA[$F{date}!=null ? (($F{publication/issued}==null) ? ((!(($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) : "")) : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{date}!=null ? (($F{publication/issued}==null) ? ((!($V{date}).trim().equals("") ? $V{date} : "")) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_22" class="java.lang.String">
 		<variableExpression><![CDATA["[span class=\"DisplayDateStatus\"]"+(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_22_P_default_E_1},$V{CS_1_PLE_22_P_default_E_2}}, " ")).trim().equals("") ? " (" + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_22_P_default_E_1},$V{CS_1_PLE_22_P_default_E_2}}, " ") + "). " : "")+"[/span]"]]></variableExpression>

@@ -94,16 +94,6 @@
 				null
 			]]>
 		</variable>
-				
-		<variable name="date-for-talk-at-event" type="expression">
-			<![CDATA[
-				${publication/event/start-date} != null
-				? 
-				${get_year}(${publication/event/start-date}) 
-				:
-				${date} 
-			]]>
-		</variable>		
 
 		<variable name="degree" type="expression">
 			<![CDATA[
@@ -355,13 +345,43 @@
 			<elements />
 		</layout-element>
 		
-		<layout-element name="year-for-talk-at-event" ref="date-for-talk-at-event">
+		
+<!--		<variable name="date-for-talk-at-event" type="expression">-->
+<!--			-->
+<!--			<![CDATA[-->
+<!--				${publication/event/start-date} != null-->
+<!--				? -->
+<!--				${get_year}(${publication/event/start-date}) -->
+<!--				:-->
+<!--				${date} -->
+<!--			]]>-->
+<!--		</variable>-->
+		
+					
+		<layout-element name="year-for-talk-at-event">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
 				<ends-with value="). " />
 			</parameters>
-			<elements />
+			<elements>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[${publication/event/start-date} != null]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="publication/event/start-date" func="get_year"/>
+					</elements>
+				</layout-element>
+				<layout-element>
+					<parameters>
+						<valid-if><![CDATA[${publication/event/start-date} == null]]></valid-if>
+					</parameters>
+					<elements>
+						<layout-element ref="date" />
+					</elements>
+				</layout-element>
+			</elements>
 		</layout-element>
 		
 
@@ -808,6 +828,7 @@
 					<layout-element ref="editors"/>
 				</elements>
 			</layout-element>
+			
 			
 			<layout-element name="year-editors-or-authors-are-presented">
 				<parameters>
