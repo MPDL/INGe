@@ -34,30 +34,30 @@
 	<!-- meta Menu starts here -->
 
 	<!-- Language -->
-	<h:selectOneMenu value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="#{tip.Home_Header_Language}">
+	<h:selectOneMenu id="cboSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="#{tip.Home_Header_Language}">
 		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
 	</h:selectOneMenu>
 
 	<!-- Help -->
-	<h:commandLink styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Blog -->
-	<h:commandLink styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkBlog}" onclick="loadBlog('#{HomePage.blogBaseUrl}');return false" value="#{lbl.mainMenu_lnkBlog}" />
+	<h:commandLink id="lnkBlog" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkBlog}" onclick="loadBlog('#{HomePage.blogBaseUrl}');return false" value="#{lbl.mainMenu_lnkBlog}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- About -->
-	<h:commandLink styleClass="medium_area0_p8 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
+	<h:commandLink id="lnkAbout" styleClass="medium_area0_p8 endline" title="#{tip.about}" onclick="loadAbout();return false" value="#{lbl.about}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- LogIn, LogOut -->
-	<h:commandButton styleClass="medium_txtBtn endline logButton" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
+	<h:commandButton id="lnkLoginLogout" styleClass="medium_txtBtn endline logButton" action="#{Login.loginLogout}" value="#{LoginHelper.loginLogoutLabel}" immediate="true" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 
-	<h:outputLabel styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
+	<h:outputLabel id="txtAccountUserName" styleClass="free_area0_p8 endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
 
 	<!-- meta Menu ends here -->
 </span>
