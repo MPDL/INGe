@@ -15,6 +15,7 @@
 package de.mpg.escidoc.services.cone;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -58,9 +59,20 @@ public class SQLQuerier implements Querier
      */
     public SQLQuerier() throws Exception
     {
-        InitialContext context = new InitialContext();
-        dataSource = (DataSource) context.lookup("Cone");
-        connection = dataSource.getConnection();
+        //InitialContext context = new InitialContext();
+        //dataSource = (DataSource) context.lookup("Cone");
+        
+        Class.forName("org.postgresql.Driver");
+        connection = DriverManager.getConnection("jdbc:postgresql://" +
+                PropertyReader.getProperty("escidoc.cone.database.server.name") +
+                ":" +
+                PropertyReader.getProperty("escidoc.cone.database.server.port") +
+                "/" +
+                PropertyReader.getProperty("escidoc.cone.database.name"),
+                PropertyReader.getProperty("escidoc.cone.database.user.name"),
+                PropertyReader.getProperty("escidoc.cone.database.user.password"));
+        
+        //connection = dataSource.getConnection();
     }
 
     /**
