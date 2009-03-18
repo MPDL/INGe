@@ -34,7 +34,7 @@
 	<!-- meta Menu starts here -->
 
 	<!-- Language -->
-	<h:selectOneMenu id="cboSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="#{tip.Home_Header_Language}">
+	<h:selectOneMenu id="selSelectLocale" value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="#{tip.Home_Header_Language}">
 		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 		<f:selectItem itemValue="ja" itemLabel="#{lbl.ENUM_LANGUAGE_JA}"/>
