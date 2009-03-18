@@ -726,6 +726,7 @@
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("article") 
+				|| ${genre}.equals("paper") 
 				|| ( 
 					(${genre}.equals("other") || ${genre}.equals("conference-report") || ${genre}.equals("conference-paper")) 
 					&& "journal".equals(${source-type})
@@ -1253,52 +1254,6 @@
 				<elements>
 					<layout-element ref="publication/event/start-date"/>
 					<layout-element ref="publication/event/end-date"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element ref="submitted"/>
-
-		</elements>
-	
-	</cs-layout-definition>
-	
-	<!-- PAPER -->
-	<cs-layout-definition name="paper">
-		<parameters>
-			<valid-if><![CDATA[
-					${genre}.equals("paper")
-				]]></valid-if>
-			<delimiter value="" />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			<layout-element ref="debugBlock" />
-			
-			<layout-element ref="authors"/>
-
-			<layout-element ref="year-authors-are-presented"/>
-			
-			<layout-element ref="title-with-dot"/>
-			
-			<layout-element ref="year-authors-are-not-presented"/>
-
-			<layout-element name="event-title">
-				<parameters>
-					<starts-with value=" "/>
-					<ends-with value="."/>
-					<font-style ref="ITALIC"/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/title"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element name="event-place">
-				<parameters>
-					<starts-with value=" "/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/place"/>
 				</elements>
 			</layout-element>
 			
