@@ -767,11 +767,12 @@
 	</cs-layout-definition>
 	
 
-	<!-- BOOK, THESIS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
+	<!-- BOOK, PROCEEDINGS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
 	<cs-layout-definition name="book-etc">
 		<parameters>
 			<valid-if><![CDATA[
 				${genre}.equals("book") 
+				|| ${genre}.equals("proceedings") 
 				|| ( ( ${genre}.equals("conference-report") || ${genre}.equals("conference-paper") ) && !( "journal".equals(${source-type}) || "book".equals(${source-type}) || "proceedings".equals(${source-type}) ) )
 				|| ( ${genre}.equals("other") && ${source-type}==null )  
 			]]></valid-if>
@@ -827,88 +828,7 @@
 		</elements>
 	</cs-layout-definition>
 	
-	
-	<!-- PROCEEDINGS -->
-	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Proceedings-->
-	<cs-layout-definition name="proceedings">
-		<parameters>
-			<valid-if><![CDATA[ ${genre}.equals("proceedings") ]]></valid-if>
-			<ends-with value="." />
-		</parameters>
-		<elements>
-			<layout-element ref="debugBlock" />
-			
-			<layout-element name="only-authors">
-				<parameters>
-					<valid-if><![CDATA[${toInt}(${authorsCount})>0 && ${toInt}(${editorsCount})==0]]></valid-if>
-					<ends-with value="."/>
-				</parameters>
-				<elements>
-					<layout-element ref="authors"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element name="editors">
-				<parameters>
-					<valid-if><![CDATA[ ${toInt}(${editorsCount})>0 ]]></valid-if>
-					<ends-with value="."/>
-				</parameters>
-				<elements>
-					<layout-element ref="editors"/>
-				</elements>
-			</layout-element>
-			
-			
-			<layout-element name="year-editors-or-authors-are-presented">
-				<parameters>
-					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 || ${toInt}(${editorsCount})>0 ]]></valid-if>
-				</parameters>
-				<elements>
-					<layout-element ref="year" />
-				</elements>
-			</layout-element>
-			
-			<layout-element ref="publication/title">
-				<parameters>
-					<ends-with value="." />
-					<font-style ref="ITALIC" />
-				</parameters>
-				<elements />
-			</layout-element>
-			
-			<layout-element name="year-editors-and-authors-are-not-presented">
-				<parameters>
-					<valid-if><![CDATA[ ${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})==0 ]]></valid-if>
-				</parameters>
-				<elements>
-					<layout-element ref="year" />
-				</elements>
-			</layout-element>
-			
-			<layout-element >
-				<parameters>
-					<starts-with value=" Proceedings from: "/>
-					<ends-with value="."/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/title">
-						<parameters>
-							<font-style ref="ITALIC"/>
-						</parameters>
-						<elements/>
-					</layout-element>
-				</elements>
-			</layout-element>
-			
-			<layout-element ref="place-publisher"/>
-			
-			<layout-element ref="published-online-and-external-locator"/>
-			
-			<layout-element ref="submitted"/>
 		
-		</elements>
-	</cs-layout-definition>
-	
 	<!-- THESIS, in print or accepted --> 
 	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Thesis -->
 	<cs-layout-definition name="thesis-in-print-or-accepted">
@@ -1141,7 +1061,6 @@
 			<layout-element ref="title-with-dot-italic"/>
 
 			<layout-element ref="year-authors-are-not-presented"/>
-			
 			
 			<layout-element ref="submitted"/>
 		</elements>
