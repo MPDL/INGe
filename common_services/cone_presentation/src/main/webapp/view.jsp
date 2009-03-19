@@ -51,32 +51,46 @@
 	{
 	    StringWriter writer = new StringWriter();
 	    
-	    writer.append("<ul>");
     	for (Predicate predicate : predicates)
     	{
+			
     	    if (resultNode.get(predicate.getId()) != null)
     	    {
     	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
     	        
 	    	    for (LocalizedTripleObject node : nodeList)
 	    	    {
-	    	    
-	    	        writer.append("<li><b>");
-		    	    writer.append(predicate.getName());
-		    	    writer.append("</b>: ");
-		    	    if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
-		    	    {
-		    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
-		    	    }
-		    	    else
-		    	    {
-		    	        writer.append(node.toString());
-		    	    }
-		    	    writer.append("</li>");
+	    	        writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
+	    	        
+	    			writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+	    			writer.append(predicate.getName());
+	    			writer.append("<span class=\"noDisplay\">: </span></b>");
+	    			writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+	    			writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+	    			
+   			        if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
+   		    	    {
+   			         	writer.append("<span class=\"xDouble_area0\">");
+		    	        writer.append("&#160;");
+		    	     	writer.append("</span>");
+   			         	writer.append("</span>");
+   			         	writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
+   		    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
+   		    	     	writer.append("</span>");
+   		    	    }
+   		    	    else
+   		    	    {
+   		    	     	writer.append("<span class=\"xDouble_area0\">");
+   		    	        writer.append(node.toString());
+   		    	     	writer.append("</span>");
+   		    	     	writer.append("</span>");
+   		    	    }
+	    			
+	    			writer.append("</span>");
+	    			writer.append("</span>");	    	    
 	    	    }
     	    }
     	}
-    	writer.append("</ul>");
     	return writer.toString();
 	}
 
@@ -103,25 +117,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
-		<jsp:include page="navigation.jsp"/>
-		<a href="index.jsp">Home</a>
-		<% if (request.getSession().getAttribute("latestSearch") != null) { %>
-			<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
-		<% } else { %>
-			<a href="search.jsp">Search</a>
-		<% } %>
-		<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-			<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">Edit</a>
-		<% } %>
-		<h3><%= modelName %>:
-			<% if (uri != null) { %>
-				<%= uri %>
-			<% } %>
-		</h3>
+		<div class="full wrapper">
+			<jsp:include page="navigation.jsp"/>
+			<div id="content" class="full_area0 clear">
+			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+				<div class="clear">
+					<div id="headerSection">
+						<div id="headLine" class="clear headLine">
+							<!-- Headline starts here -->
+							<h1>
+								View <%= modelName %>
+								<% if (uri != null) { %>
+									<%= uri %>
+								<% } %>
+							</h1>
+							<!-- Headline ends here -->
+							
+						</div>
+					</div>
+					<div class="small_marginLIncl subHeaderSection">
+						<div class="contentMenu">
+							<div class="free_area0 sub">
+								<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+									<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
+										Edit Entity
+									</a>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="full_area0">
+					<div class="full_area0 fullItem">
+						<div class="full_area0 itemBlock noTopBorder">
+							<h3 class="xLarge_area0_p8 endline blockHeader">
+								Data
+							</h3>
+							<span class="seperator"></span>
+							<div class="free_area0 itemBlockContent endline">
 
-		<% if (model != null) { %>
-			<%= printPredicates(model.getPredicates(), results) %>
-		<% } %>
 
+								<% if (model != null) { %>
+									<%= printPredicates(model.getPredicates(), results) %>
+								<% } %>
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

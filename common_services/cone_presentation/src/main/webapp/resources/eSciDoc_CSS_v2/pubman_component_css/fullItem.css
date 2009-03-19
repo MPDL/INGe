@@ -186,6 +186,7 @@
 
 .formButtonArea {
 	margin-top: 0.10em;
+	margin-bottom: 0.10em;
 }
 
 .fullItem .toTextAreaBottom {
@@ -207,3 +208,7 @@
 .largeFormPush {
 	margin-right: 2.36em;
 }
+
+.fullItem .singleItem {
+	margin-bottom: 0.19em;
+} 

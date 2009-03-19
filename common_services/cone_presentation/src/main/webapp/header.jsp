@@ -8,58 +8,33 @@
 
 			function remove(element)
 			{
-				var parent = element.parentNode;
-				var listSize = parent.parentNode.getElementsByTagName('li').length;
+				var parent = $(element).parents(".singleItem");
+				var listSize = $(parent).parent().find(".singleItem").length;
 				if (listSize > 1)
 				{
-					parent.parentNode.removeChild(parent);
+					$(parent).remove();
 				}
 				else
 				{
-					parent.getElementsByTagName('input')[0].value = '';
-					parent.getElementsByTagName('input')[1].value = '';
-					parent.removeChild(element);
+					$(parent).find("input[type='text']").each(function(){ $(this).val('');});
+					$(element).remove();
 				}
 			}
 
 			function add(element, predicate, hidden, lang)
 			{
-				var parent = element.parentNode;
-				var ul = parent.getElementsByTagName('ul')[0];
+				var parent = $(element).parents('.itemLine');
+				var singleItem = $(parent).find('.singleItem')[0];
+				var lineToolSection = $(parent).find('.lineToolSection');
 
-				if (ul.getElementsByTagName('li').length == 1 && ul.getElementsByTagName('li')[0].getElementsByTagName('input').length == 1)
-				{
-					var newButton = document.createElement('input');
-					newButton.value = 'delete';
-					newButton.type = 'button';
-					newButton.onclick = new Function('remove(this)');
-					ul.getElementsByTagName('li')[0].appendChild(newButton);
-				}
-				
-				var li = document.createElement("li");
-				ul.appendChild(li);
-				
-				var input = document.createElement('input');
-				input.name = predicate;
-				input.type = 'hidden';
-				input.value = '';
-				li.appendChild(input);
-
-				if (lang)
-				{
-					var inputLang = document.createElement('input');
-					inputLang.name = predicate + '_lang';
-					inputLang.type = 'hidden';
-					inputLang.size = '3';
-					inputLang.value = '';
-					li.appendChild(inputLang);
-				}
-				
-//				var button = document.createElement('input');
-//				button.value = 'delete';
-//				button.type = 'button';
-//				button.onclick = new Function('remove(this)');
-//				li.appendChild(button);
+				var newItem = $(singleItem).clone().empty();
+					newItem.append('<input name="'+ predicate +'" value="" type="hidden">');
+					if (lang)
+					{
+						newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
+					}
+					
+				$(lineToolSection).before(newItem);
 
 				element.form.submit();
 				

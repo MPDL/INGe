@@ -85,39 +85,95 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
-		<jsp:include page="navigation.jsp"/>
-		<form name="searchform" action="search.jsp" accept-charset="UTF-8" method="post">
-			<center>
-				<select size="1" name="model">
-					<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
-							<option value="<%= model.getName() %>" <%= (model.getName().equals(request.getParameter("model")) ? "selected" : "") %>
-							<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
-					<% } %>
-				</select>
-				<input type="text" name="searchterm" value="<%= (request.getParameter("searchterm") != null ? request.getParameter("searchterm") : "") %>" size="50"/>
-				<select size="1" name="lang">
-					<option value="">--</option>
-					<option value="de" <% if ("de".equals(request.getParameter("lang"))) { %>selected<% } %>>german</option>
-					<option value="en" <% if ("en".equals(request.getParameter("lang"))) { %>selected<% } %>>english</option>
-					<option value="fr" <% if ("fr".equals(request.getParameter("lang"))) { %>selected<% } %>>french</option>
-				</select>
-				<input type="submit" value="Search" class="searchMenu"/>
-			</center>
-			<% if (results != null) { %>
-				<br/>
-				<% if (results.size() == 0) { %>
-					No results found
-				<% } else { %>
-					<% for (Pair pair : results) { %>
-						<%= pair.getValue() %> (<%= pair.getKey() %>).
-						<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">View</a>
-						<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-							| <a href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
-						<% } %>
-						<br/>
-					<% } %>
-				<% } %>
-			<% } %>
-		</form>
+		<div class="full wrapper">
+			<jsp:include page="navigation.jsp"/>
+			<div id="content" class="full_area0 clear">
+			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+				<form name="searchform" action="search.jsp" accept-charset="UTF-8" method="post">
+					<div class="clear">
+						<div id="headerSection">
+							<div id="headLine" class="clear headLine">
+								<!-- Headline starts here -->
+								<h1>CoNE - Search</h1>
+								<!-- Headline ends here -->
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 formButtonArea">
+						<input type="submit" value="Search" class="free_txtBtn activeButton endline" />
+					</div>
+					<div class="full_area0">
+						<div class="full_area0 fullItem">
+							<div class="full_area0 itemBlock noTopBorder">
+								<h3 class="xLarge_area0_p8 endline blockHeader">
+									Search term
+								</h3>
+								<span class="seperator"></span>
+								<div class="free_area0 itemBlockContent endline">
+									<div class="free_area0 endline itemLine firstline noTopBorder">
+										<select class="medium_select xSmall_marginLExcl" size="1" name="model">
+											<% for (ModelList.Model model : ModelList.getInstance().getList()) { %>
+													<option value="<%= model.getName() %>" <%= (model.getName().equals(request.getParameter("model")) ? "selected" : "") %>
+													<% if (model.getName().equals(request.getParameter("model"))) { %>selected<% } %>><%= model.getName() %></option>
+											<% } %>
+										</select>
+										<input type="text" class="half_txtInput" name="searchterm" value="<%= (request.getParameter("searchterm") != null ? request.getParameter("searchterm") : "") %>" />
+										<select class="small_select" size="1" name="lang">
+											<option value="">--</option>
+											<option value="de" <% if ("de".equals(request.getParameter("lang"))) { %>selected<% } %>>german</option>
+											<option value="en" <% if ("en".equals(request.getParameter("lang"))) { %>selected<% } %>>english</option>
+											<option value="fr" <% if ("fr".equals(request.getParameter("lang"))) { %>selected<% } %>>french</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<% if (results != null) { %>
+							<div class="full_area0 itemBlock">
+								<h3 class="xLarge_area0_p8 endline blockHeader">
+									Search results
+								</h3>
+								<span class="seperator"></span>
+								<div class="free_area0 itemBlockContent endline">
+									<div class="free_area0 endline itemLine noTopBorder">
+										<% if (results.size() == 0) { %>
+											<div class="free_area0 endline itemLine noTopBorder">
+												<b class="xLarge_area0_p8 endline labelLine clear">
+													&#160;<span class="noDisplay">: </span>
+												</b>
+												<span class="xHuge_area0 xTiny_marginLExcl endline">
+													<span class="xHuge_area0">No results found</span>
+												</span>
+											</div>
+										<% } else { %>
+											<% int i = 0; %>
+											<% for (Pair pair : results) { %>
+												<% if(i == 0) { %>
+													<div class="free_area0 endline itemLine noTopBorder">
+												<% } else { %>
+													<div class="free_area0 endline itemLine">
+												<% }; i++; %>
+													<b class="xHuge_area0 large_marginLIncl endline clear">
+														<a href="view.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>"><%= pair.getValue() %></a>
+													</b>
+													<span class="large_area0_p8 lineToolSection">
+														<% if (request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+															<a class="free_txtBtn groupBtn sectionTool" href="edit.jsp?model=<%= request.getParameter("model") %>&amp;uri=<%= pair.getKey() %>">Edit</a>
+														<% } %>
+													</span>
+												</div>
+											<% } %>
+										<% } %>
+									</div>
+								</div>
+							</div>
+							<% } %>
+						</div>
+					</div>
+					<div class="full_area0 formButtonArea">
+						<input type="submit" value="Search" class="free_txtBtn activeButton endline" />
+					</div>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>

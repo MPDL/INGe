@@ -68,18 +68,44 @@
 	    }
 	}
 %>
-<h2>CoNE - Control of Named Entities</h2>
-<span>
-	<span class="nav"><a href="index.jsp">Home</a></span>
-	<span class="nav"><% if (request.getSession().getAttribute("latestSearch") != null) { %>
-		<a href="<%= request.getSession().getAttribute("latestSearch") %>">Back to Search</a>
-	<% } else { %>
-		<a href="search.jsp">Search</a>
-	<% } %></span>
-	<span class="nav"><a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a></span>
-	<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
-		<% for (Model model : ModelList.getInstance().getList()) { %>
-			<span class="nav"><a href="edit.jsp?model=<%= model.getName() %>">Enter new <%= model.getName() %></a></span>
+<div class="full_area0 header clear">
+<!-- start: header section -->
+	<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
+		<!-- logo alternate area starts here -->
+		<div class="free_area0 small_marginLExcl logoAlternate">
+			<a href="" >
+				<span>eSciDoc.</span>
+				<span>CoNE</span>
+			</a>
+		</div>
+		<!-- logo alternate area starts here -->
+		<!-- meta Menu starts here -->
+			<!-- CoLab -->
+			<a class="medium_area0_p8 endline" href="http://colab.mpdl.mpg.de/mediawiki/Service_for_Control_of_Named_Entities">About</a>
+			<span class="seperator"></span>
+
+			<!-- Login -->
+		
+				<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+				<span class="seperator"></span>
+		
+			<!-- Log out -->
+
+		<!-- meta Menu ends here -->
+	</span>
+	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
+		<a href="index.jsp" class="free_area0 xTiny_marginRIncl">Home</a>
+
+		<% if (request.getSession().getAttribute("latestSearch") != null) { %>
+			<a href="<%= request.getSession().getAttribute("latestSearch") %>" class="free_area0 xTiny_marginRIncl">Back to Search</a>
+		<% } else { %>
+			<a href="search.jsp" class="free_area0 xTiny_marginRIncl">Search</a>
 		<% } %>
-	<% } %>
-</span>
+
+		<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+			<a href="select.jsp" class="free_area0 xTiny_marginRIncl">Enter New Entity</a>
+		<% } %>
+		
+	</div>
+<!-- end: header section -->
+</div>

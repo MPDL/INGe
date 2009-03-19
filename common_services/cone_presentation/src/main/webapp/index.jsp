@@ -43,67 +43,117 @@
 <%@page import="de.mpg.escidoc.services.cone.QuerierFactory"%><html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
-		<jsp:include page="navigation.jsp"/>
-		<%
-			Set<Model> modelList = ModelList.getInstance().getList();
-			Querier querier = QuerierFactory.newQuerier();
-		%>
-		<p>
-			The purpose of this service is to provide methods to deal with controlled lists of named 
-			entities to assure data quality and facilitate data access and data entry <a href="http://colab.mpdl.mpg.de/mediawiki/Service_for_Control_of_Named_Entities">[more]</a>.
-		</p>
-		<table align="center">
-			<tr>
-				<th align="right">Model \ Format</th>
-				<th width="150">HTML</th>
-				<th width="150">RDF/XML</th>
-				<th width="150">Json</th>
-				<th width="150">JQuery</th>
-				<th width="150">Options</th>
-			</tr>
-			<% for (Model model : modelList) {
-				List<String> ids = querier.getAllIds(model.getName());
-				%>
-				<tr>
-					<th align="right"><%= model.getName() %>: <%= model.getDescription() %></th>
-					<td align="center">
-						<a href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
-						/
-						<a href="/cone/html/<%= model.getName() %>/all">all</a>
-						/
-						<a href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
-					</td>
-					<td align="center">
-						<a href="/cone/rdf/<%= model.getName() %>/query?q=a">query</a>
-						/
-						<a href="/cone/rdf/<%= model.getName() %>/all">all</a>
-						/
-						<a href="/cone/rdf/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
-					</td>
-					<td align="center">
-						<a href="/cone/json/<%= model.getName() %>/query?q=a">query</a>
-						/
-						<a href="/cone/json/<%= model.getName() %>/all">all</a>
-						/
-						<a href="/cone/json/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
-					</td>
-					<td align="center">
-						<a href="/cone/jquery/<%= model.getName() %>/query?q=a">query</a>
-						/
-						<a href="/cone/jquery/<%= model.getName() %>/all">all</a>
-						/
-						<a href="/cone/jquery/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
-					</td>
-					<td align="center">
-						<a href="/cone/options/<%= model.getName() %>/query?q=a">query</a>
-						/
-						<a href="/cone/options/<%= model.getName() %>/all">all</a>
-						/
-						<a href="/cone/options/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
-					</td>
-				</tr>
-			<% } %>
-		</table>
+		<div class="full wrapper">
+			<jsp:include page="navigation.jsp"/>
+			<div id="content" class="full_area0 clear">
+			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+				<div class="clear">
+					<div id="headerSection">
+						<div id="headLine" class="clear headLine">
+							<!-- Headline starts here -->
+							<h1>CoNE - Control of Named Entities</h1>
+							<!-- Headline ends here -->
+						</div>
+					</div>
+				</div>
+				<div class="full_area0">
+					<%
+						Set<Model> modelList = ModelList.getInstance().getList();
+						Querier querier = QuerierFactory.newQuerier();
+					%>
+					<div class="full_area0 fullItem">
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">
+							About
+						</h3>
+						<span class="seperator"></span>
+						<div class="free_area0 itemBlockContent endline">
+							<span class="free_area0_p8 endline firstLine noTopBorder">
+									The purpose of this service is to provide methods to deal with controlled lists of named 
+									entities to assure data quality and facilitate data access and data entry.
+							</span>
+						</div>
+					</div>
+					<% for (Model model : modelList) {
+							List<String> ids = querier.getAllIds(model.getName());
+							%>
+						<div class="full_area0 itemBlock">
+							<h3 class="xLarge_area0_p8 endline blockHeader">
+								<% String modelName = model.getName(); %>
+								<%= modelName %>
+							</h3>
+							<span class="seperator"></span>
+							<div class="free_area0 itemBlockContent endline">
+								<span class="free_area0 endline itemLine firstLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Description<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<%= model.getDescription() %>
+									</span>
+								</span>
+								<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+									<span class="large_area0_p8 lineToolSection">
+										<a class="min_imgBtn add sectionTool" href="edit.jsp?model=<%= modelName %>" class="free_area0 xTiny_marginRIncl" title="add new <%= modelName %>">&#160;</a>
+									</span>
+								<% } %>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										HTML<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+									</span>
+								</span>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										RDF/XML<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+									</span>
+								</span>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										JSON<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+									</span>
+								</span>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										jQuery<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+									</span>
+								</span>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Options<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.get(0) %>">details</a>
+									</span>
+								</span>
+							</div>
+						</div>
+					<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
 <%

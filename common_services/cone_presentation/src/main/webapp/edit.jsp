@@ -64,51 +64,18 @@
 	{
     	StringWriter out = new StringWriter();
     
-    	out.append("<ul>");
-    	
 	    for (Predicate predicate : predicates)
 	    {
-	        out.append("<li>");
-	        out.append(predicate.getName());
+	        out.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
+	        
+			out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
 	        if (predicate.isMandatory())
 	        {
-	            out.append("*");
+	            out.append("<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
 	        }
-	        if (predicate.isMultiple())
-	        {
-	            out.append("<input type=\"button\" value=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-	            if (predicate.isGenerateObject())
-	            {
-	                out.append(", true");
-	            }
-	            else
-	            {
-	                out.append(", false");
-	            }
-	            if (predicate.isLocalized())
-	            {
-	                out.append(", true");
-	            }
-	            else
-	            {
-	                out.append(", false");
-	            }
-	            out.append(")\"/>");
-	        }
-	        else if (predicate.isLocalized())
-	        {
-	            out.append("<input type=\"button\" value=\"add different language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-	            if (predicate.isGenerateObject())
-	            {
-	                out.append(", true");
-	            }
-	            else
-	            {
-	                out.append(", false");
-	            }
-	            out.append(", true)\"/>");
-	        }
-	        out.append("<ul>");
+	        out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
+	        out.append("</b>");
+	        out.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
 
 	        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
 	        {
@@ -116,21 +83,22 @@
 	            for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            {
 	                
-	                out.append("<li><input type=\"");
+	                out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"");
 	                if (predicate.isGenerateObject())
 	                {
-	                    out.append("hidden");
+	                    out.append("hidden\" class=\"noDisplay");
 	                }
 	                else
 	                {
-	                    out.append("text");
+	                    out.append("text\" class=\"xLarge_txtInput");
 	                }
-	                out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" size=\"50\"");
+	                
 					if (predicate.isResource())
 					{
-						out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
+						out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
 					}
-					out.append("/>");
+					out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" ");
+					out.append(" />");
 					if (predicate.isResource())
 					{
 						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
@@ -138,20 +106,60 @@
 
 	                if (predicate.isLocalized())
 	                {
-	                    out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
-						out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
+	                    out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
+						out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
 						out.append("/>");
 						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages', true)</script>");
 	                }
-	                out.append("<input type=\"button\" value=\"delete\" onclick=\"remove(this)\"/>");
+	                
+	                if (predicate.isMultiple())
+	    	        {
+	    	            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+	    	            if (predicate.isGenerateObject())
+	    	            {
+	    	                out.append(", true");
+	    	            }
+	    	            else
+	    	            {
+	    	                out.append(", false");
+	    	            }
+	    	            if (predicate.isLocalized())
+	    	            {
+	    	                out.append(", true");
+	    	            }
+	    	            else
+	    	            {
+	    	                out.append(", false");
+	    	            }
+	    	            out.append(")\"/>");
+	    	        }
+	    	        else if (predicate.isLocalized())
+	    	        {
+	    	            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+	    	            if (predicate.isGenerateObject())
+	    	            {
+	    	                out.append(", true");
+	    	            }
+	    	            else
+	    	            {
+	    	                out.append(", false");
+	    	            }
+	    	            out.append(", true)\"/>");
+	    	        }
+	                
+	                if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
+	                {
+		                out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove\" value=\" \" onclick=\"remove(this)\"/>");
+	                }
+	                
+	                out.append("</span>");
 	                
 	                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 	                {
-	                    
+	                    out.append("<span class=\"free_area0 large_negMarginLExcl\">");
 	                    out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":"));
+	                    out.append("</span>");
 	                }
-	                
-	                out.append("</li>");
 	                
 	                counter++;
 	            }
@@ -160,25 +168,25 @@
 	        {
 	            if (predicate.isGenerateObject())
                 {
-                    out.append("<li><input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
+                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
                 }
                 else if (predicate.isResource())
                 {
-                    out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"");
-	                out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
+                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
+	                out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
 	                out.append("/>");
 	                out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 
                 }
                 else
                 {
-                    out.append("<li><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" size=\"50\"/>");
+                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" />");
                 }
 
 	            if (predicate.isLocalized())
 	            {
-	                out.append("<input type=\"text\" size=\"3\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
-					out.append(" class=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
+	                out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
+					out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
 					out.append("/>");
 					out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages', true)</script>");
 	            }
@@ -187,13 +195,48 @@
 //                    
 //                    out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
 //                }
-	            out.append("</li>");
+
+				if (predicate.isMultiple())
+		        {
+		            out.append("<input type=\"button\" class=\"free_txtBtn groupBtn\" value=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+		            if (predicate.isGenerateObject())
+		            {
+		                out.append(", true");
+		            }
+		            else
+		            {
+		                out.append(", false");
+		            }
+		            if (predicate.isLocalized())
+		            {
+		                out.append(", true");
+		            }
+		            else
+		            {
+		                out.append(", false");
+		            }
+		            out.append(")\"/>");
+		            out.append("</span>");
+		        }
+		        else if (predicate.isLocalized())
+		        {
+		            out.append("<input type=\"button\" class=\"free_txtBtn groupBtn\" value=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+		            if (predicate.isGenerateObject())
+		            {
+		                out.append(", true");
+		            }
+		            else
+		            {
+		                out.append(", false");
+		            }
+		            out.append(", true)\"/>");
+		        }
+
+	            out.append("</span>");
 	        }
-	        out.append("</ul>");
-	        out.append("</li>");
+
+	        out.append("</span>");
 	    }
-	    
-	    out.append("</ul>");
 	    return out.toString();
 	}
 	
@@ -391,65 +434,122 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
-		<jsp:include page="navigation.jsp"/>
-		<form name="editform" action="edit.jsp" accept-charset="UTF-8" method="post">
-			<input type="hidden" name="form" value="true"/>
-			<% if (uri != null) { %>
-				<input type="hidden" name="uri" value="<%= uri %>"/>
-			<% } %>
-			<input type="hidden" name="model" value="<%= modelName %>"/>
-			<h3><%= modelName %>:
-				<% if (uri != null) { %>
-					<%= uri %>
-				<% } else { %>
-					New entry
-				<% } %>
-			</h3>
-
-			<% if (messages.size() > 0) { %>
-				<% for (String message : messages) { %>
-					<p style="color: green"><%= message %></p>
-				<% } %>
-			<% } %>
-
-			<% if (errors.size() > 0) { %>
-				<ul>
-					<% for (String error : errors) { %>
-						<li style="color: red"><b>Error: </b><%= error %></li>
+		<div class="full wrapper">
+			<jsp:include page="navigation.jsp"/>
+			<div id="content" class="full_area0 clear">
+			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+				<form name="editform" action="edit.jsp" accept-charset="UTF-8" method="post">
+					<input type="hidden" name="form" value="true"/>
+					<% if (uri != null) { %>
+						<input type="hidden" name="uri" value="<%= uri %>"/>
 					<% } %>
-				</ul>
-			<% } %>
+					<input type="hidden" name="model" value="<%= modelName %>"/>
+					<div class="clear">
+						<div id="headerSection">
+							<div id="headLine" class="clear headLine">
+								<!-- Headline starts here -->
+								<h1>
+									<% if (uri != null) { %>
+										Edit <%= modelName %>
+									<% } else { %>
+										New <%= modelName %>
+									<% } %>
+								</h1>
+								<!-- Headline ends here -->
+							</div>
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+								<div class="free_area0 sub">
+									&nbsp;
+								</div>
+							</div>
+							<div class="subHeader">
+								<% if (messages.size() > 0) { %>
+									<ul class="singleMessage">
+									<% for (String message : messages) { %>
+										<li class="messageStatus"><%= message %></li>
+									<% } %>
+									</ul>
+								<% } %>
+								<% if (errors.size() > 0) { %>
+									<ul>
+										<% for (String error : errors) { %>
+											<li class="messageError"><b>Error: </b><%= error %></li>
+										<% } %>
+									</ul>
+								<% } %>
+								&nbsp;
+							</div>
+						</div>
+					</div>
+					<div class="full_area0">
+						<div class="full_area0 fullItem">
+							<% if (uri != null) { %>
+							<div class="full_area0 itemHeader">
+								<span class="xLarge_area0 endline">
+									&nbsp;
+								</span>
+								<span class="seperator"></span>
+								<span class="free_area0_p8 endline itemHeadline">
+									<b>
+										<%= modelName %>:<%= uri %>
+									</b>
+								</span>
+							</div>
+							<% } %>
+							<div class="full_area0 itemBlock">
+								<h3 class="xLarge_area0_p8 endline blockHeader">
+									Data
+								</h3>
+								<span class="seperator"></span>
+								<div class="free_area0 itemBlockContent endline">
+									<span class="free_area0 endline itemLine noTopBorder">
+										<b class="xLarge_area0_p8 endline labelLine clear">
+											Cone-ID<span class="noDisplay">: </span>
+										</b>
+										<span class="xHuge_area0 endline">
+											<%
+											if (uri == null)
+								            {
+								                if (model.isGenerateIdentifier())
+								                {
+								                    out.append("<label class=\"quad_label\">Will be generated</label>");
+								            	}
+								                else
+								                {
+								                    out.append("<label class=\"free_area0\">"+model.getIdentifierPrefix()+"</label>");
+								                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"\" />");
+								                }
+								            }
+											else
+											{
+											    out.append("<label class=\"quad_label\">"+uri+"</label>");
+											}
+											
+											%>
+										</span>
+									</span>
+									<% if (model != null) { %>
+										<%= displayPredicates(model, results, uri, model.getPredicates(), "") %>
+									<% } %>	
+								</div>
+								<div class="free_area0 xTiny_marginLIncl">
+									<span class="mandatory">* mandatory fiefd</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 formButtonArea">
+						<% if (uri != null) { %>
+							<input class="free_txtBtn activeButton" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
+						<% } %>
+						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save"/>
 
-			Cone-ID: <%
-			
-			if (uri == null)
-            {
-                if (model.isGenerateIdentifier())
-                {
-                    out.append("Will be generated");
-            	}
-                else
-                {
-                    out.append(model.getIdentifierPrefix());
-                    out.append("<input type=\"text\" name=\"cone_identifier\" value=\"\" size=\"50\"/>");
-                }
-            }
-			else
-			{
-			    out.append(uri);
-			}
-			
-			%>
-
-			<% if (model != null) { %>
-				<%= displayPredicates(model, results, uri, model.getPredicates(), "") %>
-			<% } %>
-
-			<% if (uri != null) { %>
-				<input type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
-			<% } %>
-			<input type="submit" name="save" value="Save"/>
-		</form>
+					</div>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
 <%
