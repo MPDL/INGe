@@ -127,9 +127,6 @@
 							<!-- Headline starts here -->
 							<h1>
 								View <%= modelName %>
-								<% if (uri != null) { %>
-									<%= uri %>
-								<% } %>
 							</h1>
 							<!-- Headline ends here -->
 							
@@ -155,6 +152,16 @@
 							</h3>
 							<span class="seperator"></span>
 							<div class="free_area0 itemBlockContent endline">
+								<% if (uri != null) { %>
+									<span class="free_area0 endline itemLine noTopBorder">
+										<b class="xLarge_area0_p8 endline labelLine clear">
+											URI<span class="noDisplay">: </span>
+										</b>
+										<span class="xHuge_area0 endline">
+											<%= uri %>
+										</span>
+									</span>
+								<% } %>
 
 
 								<% if (model != null) { %>

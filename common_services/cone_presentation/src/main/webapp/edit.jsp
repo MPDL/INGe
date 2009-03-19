@@ -198,7 +198,7 @@
 
 				if (predicate.isMultiple())
 		        {
-		            out.append("<input type=\"button\" class=\"free_txtBtn groupBtn\" value=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+				    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
 		            if (predicate.isGenerateObject())
 		            {
 		                out.append(", true");
@@ -220,7 +220,7 @@
 		        }
 		        else if (predicate.isLocalized())
 		        {
-		            out.append("<input type=\"button\" class=\"free_txtBtn groupBtn\" value=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+		            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
 		            if (predicate.isGenerateObject())
 		            {
 		                out.append(", true");
@@ -542,7 +542,7 @@
 					</div>
 					<div class="full_area0 formButtonArea">
 						<% if (uri != null) { %>
-							<input class="free_txtBtn activeButton" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
+							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
 						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save"/>
 
