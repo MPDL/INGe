@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 
@@ -68,175 +68,192 @@
 	    {
 	        out.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
 	        
-			out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
-	        if (predicate.isMandatory())
-	        {
-	            out.append("<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
-	        }
-	        out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
-	        out.append("</b>");
-	        out.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+				out.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+	        		if (predicate.isMandatory())
+	        		{
+	        	    	out.append("<span class=\"mandatory\" title=\"Pflichtfeld\">*</span>");
+	        		}
+	        		out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
+	        	out.append("</b>");
+	        	out.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
 
-	        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
-	        {
-	            int counter = 0;
-	            for (LocalizedTripleObject object : results.get(predicate.getId()))
-	            {
-	                
-	                out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"");
-	                if (predicate.isGenerateObject())
-	                {
-	                    out.append("hidden\" class=\"noDisplay");
-	                }
-	                else
-	                {
-	                    out.append("text\" class=\"xLarge_txtInput");
-	                }
-	                
-					if (predicate.isResource())
-					{
-						out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
-					}
-					out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" ");
-					out.append(" />");
-					if (predicate.isResource())
-					{
-						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
-					}
+			        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
+			        {
+	    		        int counter = 0;
+	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
+	            		{                
+			                out.append("<span class=\"xDouble_area0 singleItem endline\">");
+			                	out.append("<input type=\"");
+				                if (predicate.isGenerateObject())
+			    	            {
+	    		    	            out.append("hidden\" class=\"noDisplay");
+	        		    	    }
+	            		    	else
+		            		    {
+		                		    out.append("text\" class=\"xLarge_txtInput");
+		    	            	}
+		                
+								if (predicate.isResource())
+								{
+									out.append(" " + prefix + predicate.getId().replaceAll("[/:.]", "_"));
+								}
+								out.append("\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"" + object + "\" ");
+								out.append(" />");
 
-	                if (predicate.isLocalized())
-	                {
-	                    out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
-						out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
-						out.append("/>");
-						out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages', true)</script>");
-	                }
-	                
-	                if (predicate.isMultiple())
-	    	        {
-	    	            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-	    	            if (predicate.isGenerateObject())
-	    	            {
-	    	                out.append(", true");
-	    	            }
-	    	            else
-	    	            {
-	    	                out.append(", false");
-	    	            }
-	    	            if (predicate.isLocalized())
-	    	            {
-	    	                out.append(", true");
-	    	            }
-	    	            else
-	    	            {
-	    	                out.append(", false");
-	    	            }
-	    	            out.append(")\"/>");
-	    	        }
-	    	        else if (predicate.isLocalized())
-	    	        {
-	    	            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-	    	            if (predicate.isGenerateObject())
-	    	            {
-	    	                out.append(", true");
-	    	            }
-	    	            else
-	    	            {
-	    	                out.append(", false");
-	    	            }
-	    	            out.append(", true)\"/>");
-	    	        }
-	                
-	                if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
-	                {
-		                out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove\" value=\" \" onclick=\"remove(this)\"/>");
-	                }
-	                
-	                out.append("</span>");
-	                
-	                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-	                {
-	                    out.append("<span class=\"free_area0 large_negMarginLExcl\">");
-	                    out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":"));
-	                    out.append("</span>");
-	                }
-	                
-	                counter++;
-	            }
-	        }
-	        else if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
-	        {
-	            if (predicate.isGenerateObject())
-                {
-                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
-                }
-                else if (predicate.isResource())
-                {
-                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
-	                out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
-	                out.append("/>");
-	                out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+								if (predicate.isResource())
+								{
+									out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+								}
 
-                }
-                else
-                {
-                    out.append("<span class=\"xDouble_area0 singleItem endline\"><input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" />");
-                }
+			            	    if (predicate.isLocalized())
+				                {
+				                    out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
+									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
+									out.append("/>");
+									out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages', true)</script>");
+	                			}
+		                
+			                	if (predicate.isMultiple())
+			    		        {
+		    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+	    			    	        if (predicate.isGenerateObject())
+	    		    	    	    {
+	    	    	    	    	    out.append(", true");
+	    	        	    		}
+		    	        	    	else
+		    	            		{
+	    		               			out.append(", false");
+		    		            	}
+			    	    	        if (predicate.isLocalized())
+		    		        	    {
+			    		                out.append(", true");
+		    			            }
+	    			    	        else
+	    		    	    	    {
+	    	    	    	    	    out.append(", false");
+	    	        	    		}
+			    	            	out.append(")\"/>");
+				    	        }
+				    	        else
+				    	        {
+			    		            if (predicate.isLocalized())
+			    		        	{
+	    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+	    	    		    	    	if (predicate.isGenerateObject())
+	    	        		    		{
+	    	            				    out.append(", true");
+	    	            				}
+				    	            	else
+				    	            	{
+	    				                	out.append(", false");
+	    				            	}
+	    	    			        	out.append(", true)\"/>");
+			    		        	}
+	    	        			}
+	                
+			        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
+			            	    {
+				            	    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove\" value=\" \" onclick=\"remove(this)\"/>");
+	        		        	}
+	                
+		            	    out.append("</span>");
+	                
+			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+			                {
+	    		                out.append("<span class=\"free_area0 large_negMarginLExcl\">");
+	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":" + counter + ":"));
+	            		        out.append("</span>");
+	            	    	}
+	                
+	                		counter++;
+	            		}
+	            	}
+			        else
+			        {
+	    		        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
+	        			{
+	            			out.append("<span class=\"xDouble_area0 singleItem endline\">");
+	            				if (predicate.isGenerateObject())
+	                			{
+    		            		    out.append("<input type=\"hidden\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"/>");
+        		        		}
+		        		        else 
+		            		    {
+	    	            		    if (predicate.isResource())
+	    		            		{
+    	    		            		out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\"");
+		    	    		        	out.append(" class=\"xLarge_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\"");
+			        		    	    out.append("/>");
+		    	        		    	out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+	    	    	        		}
+	    	    	    	    	else
+    	    	    	    		{
+        	    	    			    out.append("<input type=\"text\" class=\"xLarge_txtInput\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "\" value=\"\" />");
+            	    				}
+			    	            }
 
-	            if (predicate.isLocalized())
-	            {
-	                out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
-					out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
-					out.append("/>");
-					out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages', true)</script>");
-	            }
-//	              if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-//                {
-//                    
-//                    out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
-//                }
+					            if (predicate.isLocalized())
+					            {
+	    				            out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
+									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
+									out.append("/>");
+									out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages', true)</script>");
+		            			}
+			            
+//			            	  	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
+//      		          		{
+//          	          
+//	          		          	out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
+//  	            		  	}
 
-				if (predicate.isMultiple())
-		        {
-				    out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-		            if (predicate.isGenerateObject())
-		            {
-		                out.append(", true");
-		            }
-		            else
-		            {
-		                out.append(", false");
-		            }
-		            if (predicate.isLocalized())
-		            {
-		                out.append(", true");
-		            }
-		            else
-		            {
-		                out.append(", false");
-		            }
-		            out.append(")\"/>");
-		            out.append("</span>");
-		        }
-		        else if (predicate.isLocalized())
-		        {
-		            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
-		            if (predicate.isGenerateObject())
-		            {
-		                out.append(", true");
-		            }
-		            else
-		            {
-		                out.append(", false");
-		            }
-		            out.append(", true)\"/>");
-		        }
-
-	            out.append("</span>");
-	        }
-
+								if (predicate.isMultiple())
+					        	{
+							    	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+				    	        	if (predicate.isGenerateObject())
+		    		    	    	{
+		        		    		    out.append(", true");
+		            				}
+			            			else
+			            			{
+				                		out.append(", false");
+				    	        	}
+			            	
+			    	    	    	if (predicate.isLocalized())
+			        	    		{
+		    	        			    out.append(", true");
+			            			}
+			    	        		else
+			        	    		{
+			        	        		out.append(", false");
+		    	       	 			}
+		        	   		 		out.append(")\"/>");
+			        			}
+					        	else
+					        	{
+					        	    if (predicate.isLocalized())
+		    			    		{
+		        			    		out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+			            				if (predicate.isGenerateObject())
+			        	   				{
+			            	   				out.append(", true");
+				           				}
+			  		         			else
+			    		        		{
+		    	    		    	   		out.append(", false");
+		        	    				}
+		            					out.append(", true)\"/>");
+		        					}
+					        	}
+	
+				            out.append("</span>");
+	        			}
+	    		   	}
+		        
+		        out.append("</span>");
+		        
 	        out.append("</span>");
 	    }
+
 	    return out.toString();
 	}
 	
@@ -545,7 +562,6 @@
 							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
 						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save"/>
-
 					</div>
 				</form>
 			</div>

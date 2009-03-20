@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 
@@ -62,44 +62,39 @@
 	    	    {
 	    	        writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
 	    	        
-	    			writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
-	    			writer.append(predicate.getName());
-	    			if (node.getLanguage() != null && !"".equals(node.getLanguage()))
-	    			{
-		    			writer.append(" (");
-		    			writer.append(node.getLanguage());
-		    			writer.append(")");
-	    			}
-	    			writer.append("<span class=\"noDisplay\">: </span></b>");
-	    			writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
-	    			writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+	    				writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+	    					writer.append(predicate.getName());
+	    					writer.append("<span class=\"noDisplay\">: </span>");
+	    				writer.append("</b>");
+	    				writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+	    					
 	    			
-   			        if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
-   		    	    {
-   			         	writer.append("<span class=\"xDouble_area0\">");
-		    	        writer.append("&#160;");
-		    	     	writer.append("</span>");
-   			         	writer.append("</span>");
-   			         	writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
-   		    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
-   		    	     	writer.append("</span>");
-   		    	    }
-   		    	    else
-   		    	    {
-   		    	     	writer.append("<span class=\"xDouble_area0\">");
-   		    	        writer.append(node.toString());
-   		    	     	writer.append("</span>");
-   		    	     	writer.append("</span>");
-   		    	    }
-	    			
+   			        		if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
+   		    	    		{
+   			        		 	writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+   			 		        		writer.append("<span class=\"xDouble_area0\">");
+		        				    	writer.append("&#160;");
+		   				     		writer.append("</span>");
+		   				     	writer.append("</span>");
+   		  				       	writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
+   					    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node));
+   	    				     	writer.append("</span>");
+  		    			   	}
+   		    				else
+   		    				{
+   		    				 	writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+   		    	     				writer.append("<span class=\"xDouble_area0\">");
+   		    							writer.append(node.toString());
+   		    	    				writer.append("</span>");
+   		    	    			writer.append("</span>");
+   		    				}
+	    				writer.append("</span>");
 	    			writer.append("</span>");
-	    			writer.append("</span>");	    	    
 	    	    }
     	    }
     	}
     	return writer.toString();
 	}
-
 %>
 <%
 	uri = request.getParameter("uri");
