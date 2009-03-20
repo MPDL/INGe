@@ -9,7 +9,7 @@
 	<artifactId>cone_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>cone_presentation</name>
-	<version>1.0.17-SNAPSHOT</version>
+	<version>1.0.17</version>
 	<url>http://maven.apache.org</url>
 	<build>
 		<plugins>
@@ -138,4 +138,10 @@
 	<dependencyManagement>
 		<dependencies />
 	</dependencyManagement>
+
+  <scm>
+    <connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/cone_presentation-1.0.17</connection>
+    <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/cone_presentation-1.0.17</developerConnection>
+    <url>https://zim02.gwdg.de/repos/common/cone_presentation/tags/cone_presentation-1.0.17</url>
+  </scm>
 </project>
