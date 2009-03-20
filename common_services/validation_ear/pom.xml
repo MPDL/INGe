@@ -2,18 +2,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.20</version>
+		<version>1.0.21-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>validation_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>validation_ear</name>
-	<version>1.0.20</version>
+	<version>1.0.21-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.20/validation_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/common_services-1.0.20/validation_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.20</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/validation_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	<build>
 		<plugins>
@@ -270,27 +270,27 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.21</version>
+			<version>1.0.22-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.22</version>
+			<version>1.0.23-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.24</version>
+			<version>1.0.25-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.18</version>
+			<version>1.1.19-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
