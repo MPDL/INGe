@@ -64,6 +64,12 @@
 	    	        
 	    			writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
 	    			writer.append(predicate.getName());
+	    			if (node.getLanguage() != null && !"".equals(node.getLanguage()))
+	    			{
+		    			writer.append(" (");
+		    			writer.append(node.getLanguage());
+		    			writer.append(")");
+	    			}
 	    			writer.append("<span class=\"noDisplay\">: </span></b>");
 	    			writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
 	    			writer.append("<span class=\"xDouble_area0 singleItem endline\">");

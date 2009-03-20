@@ -97,6 +97,11 @@ public class SQLQuerier implements Querier
      */
     public List<Pair> query(String model, String searchString, String language, int limit) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+        
         if (language == null)
         {
             language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
@@ -168,6 +173,11 @@ public class SQLQuerier implements Querier
      */
     public TreeFragment details(String modelName, String id, String language) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         if (modelName != null)
         {
             Stack<String> idStack = new Stack<String>();
@@ -201,6 +211,11 @@ public class SQLQuerier implements Querier
      */
     public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack, Connection connection) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         id = escape(id);
         String query = "select distinct object, predicate, lang from triples where ";
         
@@ -298,6 +313,11 @@ public class SQLQuerier implements Querier
      */
     public void create(String modelName, String id, TreeFragment values) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         String query = "select count(subject) as cnt from triples where subject = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, id);
@@ -436,7 +456,11 @@ public class SQLQuerier implements Querier
     
     public void delete(List<Predicate> predicates, String id) throws Exception
     {
-        
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         String query = "select distinct object from triples where subject = ? and predicate = ?";
         PreparedStatement statement = connection.prepareStatement(query);
 
@@ -487,6 +511,11 @@ public class SQLQuerier implements Querier
      */
     public synchronized String createUniqueIdentifier(String model) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         String query = "select value from properties where name = 'max_id'";
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery(query);
@@ -522,6 +551,11 @@ public class SQLQuerier implements Querier
 
     public List<String> getAllIds(String modelName) throws Exception
     {
+        if (connection.isClosed())
+        {
+            throw new RuntimeException("Connection was already closed.");
+        }
+
         String query = "select distinct subject from triples where model = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, modelName);
@@ -550,7 +584,7 @@ public class SQLQuerier implements Querier
      */
     public void release() throws Exception
     {
-        connection.close();
+        //connection.close();
     }
     
     

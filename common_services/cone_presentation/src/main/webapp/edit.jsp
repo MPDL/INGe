@@ -552,6 +552,3 @@
 		</div>
 	</body>
 </html>
-<%
-	querier.release();
-%>
