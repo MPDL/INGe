@@ -214,7 +214,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.0.17-SNAPSHOT</version>
+			<version>1.0.18-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
