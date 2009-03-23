@@ -245,6 +245,7 @@ public class ViewItemFull extends FacesBean
     private boolean isStateInRevision;
     //private boolean hasRevision;
     private PubItemSimpleStatistics pubManStatistics;
+    private boolean isPublicStateReleased;
 
     /**
      * Public constructor.
@@ -385,6 +386,7 @@ public class ViewItemFull extends FacesBean
             this.isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
             this.isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
             this.isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+            this.isPublicStateReleased = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.RELEASED.toString());
             
             try
             {
@@ -2357,6 +2359,16 @@ public class ViewItemFull extends FacesBean
 
     	return "";
 
+    }
+
+    public void setPublicStateReleased(boolean isPublicStateReleased)
+    {
+        this.isPublicStateReleased = isPublicStateReleased;
+    }
+
+    public boolean getIsPublicStateReleased()
+    {
+        return isPublicStateReleased;
     }
     
 }    

@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -132,7 +132,7 @@
 					</span>
 				</h:panelGroup>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
 					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
