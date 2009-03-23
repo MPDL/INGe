@@ -25,7 +25,7 @@
 			{
 				var parent = $(element).parents('.itemLine');
 				var singleItem = $(parent).find('.singleItem')[0];
-				var lineToolSection = $(parent).find('.lineToolSection');
+				var lastItem = $(parent).find('.singleItem:last');
 
 				var newItem = $(singleItem).clone().empty();
 					newItem.append('<input name="'+ predicate +'" value="" type="hidden">');
@@ -34,7 +34,7 @@
 						newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
 					}
 					
-				$(lineToolSection).before(newItem);
+				$(lastItem).after(newItem);
 
 				element.form.submit();
 				
