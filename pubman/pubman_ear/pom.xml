@@ -231,7 +231,7 @@
                                 true
                             </includeInApplicationXml>
                         </jarModule>
-                        
+
                         <jarModule>
                             <groupId>commons-digester</groupId>
                             <artifactId>commons-digester</artifactId>
@@ -572,12 +572,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-           <groupId>xmlbeans</groupId>
-           <artifactId>escidoc-toc</artifactId>
-           <version>1.0.0</version>
-           <scope>compile</scope>
-       </dependency> 
-       <dependency>
+            <groupId>xmlbeans</groupId>
+            <artifactId>escidoc-toc</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>xmlbeans</groupId>
             <artifactId>mods_3.2</artifactId>
             <version>3.2</version>
@@ -601,7 +601,7 @@
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
             <version>1.8</version>
@@ -643,9 +643,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-          <groupId>jfree</groupId>
-          <artifactId>jfreechart</artifactId>
-          <version>1.0.12</version>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.12</version>
         </dependency>
         <dependency>
             <groupId>jfree</groupId>
@@ -725,7 +725,8 @@
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
+                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
+                                            out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
                                         </copy>
 
@@ -744,6 +745,166 @@
                 </plugins>
             </build>
         </profile>
-    </profiles>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-container</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-container</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <wait>false</wait>
+                            <container>
+                                <containerId>jboss42x</containerId>
+                                <zipUrlInstaller>
+                                    <url>${cargo.jboss.url}</url>
+                                    <installDir>${cargo.install.dir}</installDir>
+                                </zipUrlInstaller>
+                            </container>
+                            <configuration>
+                                <type>existing</type>
+                                <home>${project.build.directory}/jboss/server</home>
+                                <properties>
+                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                    <cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+                                    <cargo.logging>${cargo.log}</cargo.logging>
+                                    <cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
+                                    <cargo.jboss.configuration>default</cargo.jboss.configuration>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>launch-selenium</id>
+                                <phase>integration-test</phase>
+                                <configuration>
+                                    <tasks>
+                                        <taskdef resource="selenium-ant.properties">
+                                            <classpath refid="maven.plugin.classpath" />
+                                        </taskdef>
+                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180"
+                                            port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>ant</groupId>
+                                <artifactId>ant-nodeps</artifactId>
+                                <version>1.6.5</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.openqa.selenium.server</groupId>
+                                <artifactId>selenium-server</artifactId>
+                                <version>1.0-beta-1</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>selenium-maven-plugin</artifactId>
+                        <version>1.0-beta-1</version>
+                        <executions>
+                            <execution>
+                                <id>start-selenium</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start-server</goal>
+                                </goals>
+                                <configuration>
+                                    <background>true</background>
+                                    <port>6666</port>
+                                    <logOutput>true</logOutput>
+                                    <multiWindow>true</multiWindow>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>surefire-it</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>none</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <include>**/selenium/*Test.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
+                </plugins>
+            </build>
+        </profile>
+        <!--    <profile>-->
+        <!--        <id>selenium-ie</id>-->
+        <!--        <activation>-->
+        <!--            <os>-->
+        <!--                <family>windows</family>-->
+        <!--            </os>-->
+        <!--        </activation>-->
+        <!--        <build>-->
+        <!--            <plugins>-->
+        <!--                <plugin>-->
+        <!--                    <artifactId>maven-antrun-plugin</artifactId>-->
+        <!--                    <executions>-->
+        <!--                        <execution>-->
+        <!--                            <id>launch-selenium</id>-->
+        <!--                            <phase>integration-test</phase>-->
+        <!--                            <configuration>-->
+        <!--                                <tasks>-->
+        <!--                                    <taskdef resource="selenium-ant.properties">-->
+        <!--                                        <classpath refid="maven.plugin.classpath"/>-->
+        <!--                                    </taskdef>-->
+        <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
+        <!--                                              browser="*firefox" timeoutInSeconds="180" port="5555"-->
+        <!--                                              results="${project.build.directory}/selenium-firefox-results.html"-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
+        <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
+        <!--                                              browser="*iexplore" timeoutInSeconds="180" port="5555"-->
+        <!--                                              results="${project.build.directory}/selenium-ie-results.html"-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
+        <!--                                </tasks>-->
+        <!--                            </configuration>-->
+        <!--                            <goals>-->
+        <!--                                <goal>run</goal>-->
+        <!--                            </goals>-->
+        <!--                        </execution>-->
+        <!--                    </executions>-->
+        <!--                </plugin>-->
+        <!--            </plugins>-->
+        <!--        </build>-->
+        <!--    </profile>-->
+    </profiles>
 </project>
