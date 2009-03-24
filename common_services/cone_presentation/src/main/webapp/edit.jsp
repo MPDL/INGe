@@ -247,6 +247,45 @@
 	
 				            out.append("</span>");
 	        			}
+	    		        else if (predicate.isMultiple())
+			        	{
+	    		            out.append("<span class=\"xDouble_area0 singleItem endline\">");
+						    	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+			    	        	if (predicate.isGenerateObject())
+	    		    	    	{
+	        		    		    out.append(", true");
+	            				}
+		            			else
+		            			{
+			                		out.append(", false");
+			    	        	}
+		            	
+		    	    	    	if (predicate.isLocalized())
+		        	    		{
+	    	        			    out.append(", true");
+		            			}
+		    	        		else
+		        	    		{
+		        	        		out.append(", false");
+	    	       	 			}
+	        	   		 		out.append(")\"/>");
+	        	   		 	out.append("</span>");
+	        			}
+			        	else if (predicate.isLocalized())
+   			    		{
+			        	    out.append("<span class=\"xDouble_area0 singleItem endline\">");
+	       			    		out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'");
+	            				if (predicate.isGenerateObject())
+	        	   				{
+	            	   				out.append(", true");
+		           				}
+	  		         			else
+	    		        		{
+	   	    		    	   		out.append(", false");
+	       	    				}
+	           					out.append(", true)\"/>");
+	           				out.append("</span>");
+       					}
 	    		   	}
 		        
 		        out.append("</span>");
