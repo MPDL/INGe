@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -45,12 +45,15 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -58,8 +61,12 @@ import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
+import de.mpg.escidoc.services.validation.util.CacheTriple;
+import de.mpg.escidoc.services.validation.util.CacheTuple;
+import de.mpg.escidoc.services.validation.xmltransforming.ConeContentHandler;
 
 /**
  * Class to deal with validation schemas.
@@ -94,7 +101,7 @@ public final class ValidationSchemaCache
     /**
      * XSLT Transformer cache.
      */
-    private Map<XsltCacheTriple, Transformer> xsltCache = new HashMap<XsltCacheTriple, Transformer>();
+    private Map<CacheTriple, Transformer> xsltCache = new HashMap<CacheTriple, Transformer>();
 
     /**
      * Enable caching of XSLT Transformer objects.
@@ -111,7 +118,7 @@ public final class ValidationSchemaCache
     /**
      * Common XML transforming functionalities.
      */
-    XmlTransforming xmlTransforming;
+    private XmlTransforming xmlTransforming;
     
     /**
      * XSLT transformer factory.
@@ -140,10 +147,12 @@ public final class ValidationSchemaCache
     public static ValidationSchemaCache getInstance() throws TechnicalException
     {
 
+        //System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+        
         if (instance == null)
         {
             instance = new ValidationSchemaCache();
-            factory = TransformerFactory.newInstance();
+            factory = new net.sf.saxon.TransformerFactoryImpl();
             factory.setURIResolver(new LocalURIResolver());
         }
         return instance;
@@ -151,10 +160,10 @@ public final class ValidationSchemaCache
     }
 
     /**
-     * Retrieve the precompiled schematron validation schema according to the given context and content-type.
+     * Retrieve the precompiled schematron validation schema according to the given schemaName and content-type.
      *
-     * @param context The escidoc context id.
-     * @param contentType The escidoc content-type.
+     * @param schemaName The escidoc schemaName id.
+     * @param contentModel The escidoc content-type.
      * @param validationPoint The escidoc validation point.
      * @return The validation schema as xml.
      * @throws TechnicalException Mostly SQL exeptions.
@@ -203,7 +212,7 @@ public final class ValidationSchemaCache
             {
                 connection.close();
                 throw new ValidationSchemaNotFoundException(
-                        "No schema for context=" + context + ", content-type=" + contentType
+                        "No schema for schemaName=" + context + ", content-type=" + contentType
                         + " and validationPoint=" + validationPoint);
             }
         }
@@ -222,10 +231,10 @@ public final class ValidationSchemaCache
     }
 
     /**
-     * Retrieve the precompiled schematron validation schema according to the given context and content-type.
+     * Retrieve the precompiled schematron validation schema according to the given schemaName and content-type.
      *
-     * @param context The escidoc context id.
-     * @param contentType The escidoc content-type.
+     * @param schemaName The escidoc schemaName id.
+     * @param contentModel The escidoc content-type.
      * @param validationPoint The escidoc validation point.
      * @return The validation schema as xml.
      * @throws TechnicalException Mostly SQL exeptions.
@@ -237,7 +246,7 @@ public final class ValidationSchemaCache
             final String validationPoint) throws TechnicalException, ValidationSchemaNotFoundException
     {
 
-        XsltCacheTriple triple = new XsltCacheTriple(context, contentType, validationPoint);
+        CacheTriple triple = new CacheTriple(context, contentType, validationPoint);
 
         if (xsltCacheEnabled && xsltCache.containsKey(triple))
         {
@@ -265,17 +274,17 @@ public final class ValidationSchemaCache
 
 
     /**
-     * Retrieve the precompiled schematron validation schema according to the given context and content-type.
+     * Retrieve the precompiled schematron validation schema according to the given schemaName and content model.
      *
-     * @param context The escidoc context id.
-     * @param contentType The escidoc content-type.
+     * @param schemaName The escidoc schemaName id.
+     * @param contentModel The escidoc content model.
      * @return The validation schema as xml.
      * @throws TechnicalException Mostly SQL exeptions.
      * @throws ValidationSchemaNotFoundException Schema was not found in the database.
      */
     public String getValidationSchema(
-            final String context,
-            final String contentType)
+            final String schemaName,
+            final String contentModel)
         throws TechnicalException, ValidationSchemaNotFoundException
     {
 
@@ -288,8 +297,8 @@ public final class ValidationSchemaCache
         {
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, contentType);
-            pstmt.setString(2, context);
+            pstmt.setString(1, contentModel);
+            pstmt.setString(2, schemaName);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next())
@@ -325,22 +334,115 @@ public final class ValidationSchemaCache
             throw new TechnicalException("Error getting schema from database", sqle);
         }
     }
+    
+    /**
+     * Retrieve the precompiled schematron validation schema according to the given schemaName and content model.
+     *
+     * @param schemaName The escidoc schemaName id.
+     * @param contentModel The escidoc content model.
+     * @return The validation schema as xml.
+     * @throws TechnicalException Mostly SQL exeptions.
+     * @throws ValidationSchemaNotFoundException Schema was not found in the database.
+     */
+    public void setValidationSchema(
+            final String schemaName,
+            final String contentModel,
+            final String content)
+        throws TechnicalException, ValidationSchemaNotFoundException
+    {
 
+        String sql = "SELECT schema_content FROM escidoc_validation_schema"
+                + " WHERE id_content_type_ref = ? and id_context_ref = ?";
+
+        Connection connection = getConnection();
+
+        try
+        {
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, contentModel);
+            pstmt.setString(2, schemaName);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next())
+            {
+                if (rs.next())
+                {
+                    connection.close();
+                    throw new TechnicalException("More than one schema was found in the database");
+                }
+                else
+                {
+                    // Update
+                    sql = "UPDATE escidoc_validation_schema SET schema_content = ?"
+                        + " WHERE id_content_type_ref = ? and id_context_ref = ?";
+
+                    pstmt = connection.prepareStatement(sql);
+                    pstmt.setString(1, content);
+                    pstmt.setString(2, contentModel);
+                    pstmt.setString(3, schemaName);
+                    pstmt.executeUpdate();
+                }
+            }
+            else
+            {
+                // Insert
+                sql = "INSERT INTO escidoc_validation_schema " +
+                		"(id_content_type_ref, id_context_ref, schema_content) VALUES (?, ?, ?)";
+
+                pstmt = connection.prepareStatement(sql);
+                pstmt.setString(1, contentModel);
+                pstmt.setString(2, schemaName);
+                pstmt.setString(3, content);
+                pstmt.executeUpdate();
+            }
+        }
+        catch (SQLException sqle)
+        {
+            try
+            {
+                connection.close();
+            }
+            catch (Exception e)
+            {
+                LOGGER.error("Error trying to close the connection", e);
+            }
+            throw new TechnicalException("Error getting schema from database", sqle);
+        }
+        finally
+        {
+            try
+            {
+                connection.close();
+            }
+            catch (Exception e)
+            {
+                LOGGER.error("Error trying to close the connection", e);
+            }
+        }
+    }
     /**
      * Update the cache from the main repository.
      * @throws TechnicalException Any unmanaged exception.
      */
     public void refreshCache() throws TechnicalException
     {
-        refreshCache(lastRefreshDate);
+        try
+        {
+            refreshCache(lastRefreshDate);
+        }
+        catch (Exception e)
+        {
+            throw new TechnicalException("Error refreshing validation schema cache", e);
+        }
     }
 
     /**
      * Update the cache from the main repository.
      * @param lastRefresh refresh all contents that are older than this date.
-     * @throws TechnicalException Any unmanaged exception.
+     * @throws Exception Any unmanaged exception.
      */
-    public void refreshCache(Date lastRefresh) throws TechnicalException
+    public void refreshCache(Date lastRefresh) throws Exception
     {
 
         Date actualDate = new Date();
@@ -376,18 +478,39 @@ public final class ValidationSchemaCache
             }
         }
 
-        // TODO FrM: Implementation
+        // Retrieve changed validation schemas from external source
+        retrieveNewSchemas(lastRefresh);
+        
+        
         precompileAll();
-        xsltCache = new HashMap<XsltCacheTriple, Transformer>();
+        xsltCache = new HashMap<CacheTriple, Transformer>();
 
         this.lastRefreshDate = actualDate;
+    }
+
+    private void retrieveNewSchemas(Date lastRefresh) throws Exception
+    {
+        String externalSourceName = PropertyReader.getProperty("escidoc.validation.source.classname");
+
+            Class<?> cls = Class.forName(externalSourceName);
+            ValidationSchemaSource source = (ValidationSchemaSource) cls.newInstance();
+            Map<CacheTuple, String> newSchemas = source.retrieveNewSchemas(lastRefresh);
+            
+            if (newSchemas != null)
+            {
+                for (CacheTuple id : newSchemas.keySet())
+                {
+                    LOGGER.info("Creating/updating validation schema: cm=" + id.getContentModel() + "; name=" + id.getSchemaName());
+                    setValidationSchema(id.getSchemaName(), id.getContentModel(), newSchemas.get(id));
+                }
+            }
     }
 
     /**
      * Precompile a validation schema.
      *
-     * @param context The escidoc context id.
-     * @param contentType The escidoc content-type.
+     * @param schemaName The escidoc schemaName id.
+     * @param contentModel The escidoc content-type.
      * @throws TechnicalException Any exception
      * @throws ValidationSchemaNotFoundException Validation schema not found in database.
      */
@@ -452,7 +575,7 @@ public final class ValidationSchemaCache
      * @throws TechnicalException Any Exception.
      * @throws SQLException Might be thrown by the database.
      */
-    private void transformSchema(final String schema, final String context, final String contentType, String metadataVersion)
+    private void transformSchema(String schema, final String context, final String contentType, String metadataVersion)
         throws TechnicalException, SQLException
     {
         String sql;
@@ -466,6 +589,8 @@ public final class ValidationSchemaCache
         pstmt.setString(2, contentType);
         pstmt.executeUpdate();
 
+        schema = insertConeContent(schema);
+        
         // Get phases
         StringWriter phaseList = XsltTransforming.transform(schema, getPhaseTemplate(), null);
         String[] phases = phaseList.toString().split("\n");
@@ -491,7 +616,7 @@ public final class ValidationSchemaCache
             pstmt.executeUpdate();
 
             // Remove existing transformers from the cache
-            XsltCacheTriple triple = new XsltCacheTriple(context, contentType, phases[i].trim());
+            CacheTriple triple = new CacheTriple(context, contentType, phases[i].trim());
             if (xsltCache.containsKey(triple))
             {
                 xsltCache.remove(triple);
@@ -500,6 +625,21 @@ public final class ValidationSchemaCache
         }
         connection.close();
 
+    }
+
+    private String insertConeContent(String schema)
+    {
+        try
+        {
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            InputSource inputSource = new InputSource(new StringReader(schema));
+            ConeContentHandler contentHandler = new ConeContentHandler();
+            parser.parse(inputSource, contentHandler);
+            return contentHandler.getResult();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -635,7 +775,7 @@ public final class ValidationSchemaCache
      */
     public void clearCache() throws TechnicalException
     {
-        xsltCache = new HashMap<XsltCacheTriple, Transformer>();
+        xsltCache = new HashMap<CacheTriple, Transformer>();
         Connection connection = getConnection();
         try
         {
@@ -695,7 +835,14 @@ public final class ValidationSchemaCache
         }
 
         // Call update method without last-modification-date
-        refreshCache(null);
+        try
+        {
+            refreshCache(null);
+        }
+        catch (Exception e)
+        {
+            throw new TechnicalException("Error creating validation cache", e);
+        }
 
     }
 
@@ -732,11 +879,10 @@ public final class ValidationSchemaCache
             Context ctx = new InitialContext();
             xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new TechnicalException("Error getting xmlTransforming bean.", e);
         }
-        // Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
 
     public Date getLastRefreshDate()
@@ -747,72 +893,6 @@ public final class ValidationSchemaCache
     public void setLastRefreshDate(final Date lastRefreshDate)
     {
         this.lastRefreshDate = lastRefreshDate;
-    }
-
-    /**
-     *
-     * Identifier class for XSLT transformer cache.
-     *
-     */
-    class XsltCacheTriple
-    {
-        private String context;
-        private String contentType;
-        private String validationPoint;
-        private int hash = 1;
-
-        /**
-         * Constructor.
-         * @param context Context.
-         * @param contentType Content-Type.
-         * @param validationPoint Validation Point.
-         */
-        XsltCacheTriple(final String context, final String contentType, final String validationPoint)
-        {
-            this.context = context;
-            this.contentType = contentType;
-            this.validationPoint = validationPoint;
-            this.hash = (context + contentType + validationPoint).length();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean equals(final Object other)
-        {
-            if (this.context != null
-                    && this.contentType != null
-                    && this.validationPoint != null
-                    && other instanceof XsltCacheTriple)
-            {
-                return (this.context.equals(((XsltCacheTriple) other).context)
-                        && this.contentType.equals(((XsltCacheTriple) other).contentType)
-                        && this.validationPoint.equals(((XsltCacheTriple) other).validationPoint));
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String toString()
-        {
-            return "[" + context + "|" + contentType  + "|" + validationPoint + "]";
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int hashCode()
-        {
-            return hash;
-        }
     }
     
     public String getValidationSchemaId(String context) throws Exception

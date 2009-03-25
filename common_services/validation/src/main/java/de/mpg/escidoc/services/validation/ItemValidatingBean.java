@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -59,8 +59,8 @@ import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming
  * Validate item data against a given validation schema.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */
 @Stateless
@@ -73,7 +73,6 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * Logger for this class.
      */
-    @SuppressWarnings("unused")
     private static final Logger LOGGER = Logger.getLogger(ItemValidatingBean.class);
 
     /**
@@ -177,8 +176,9 @@ public class ItemValidatingBean implements ItemValidating
                 .getValidationSchemaId(context);
             
             return validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
-            }
-        catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             throw new TechnicalException("Error getting validation schema", e);
         }
     }
@@ -219,7 +219,8 @@ public class ItemValidatingBean implements ItemValidating
     
             return result.toString();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new TechnicalException("Error getting validation schema", e);
         }
     }
@@ -231,15 +232,15 @@ public class ItemValidatingBean implements ItemValidating
             ValidationSchemaNotFoundException,
             TechnicalException
     {
-    	if (itemVO instanceof ItemVO)
-    	{
-    		return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem((ItemVO)itemVO), "default"));
-    	}
-    	else
-    	{
-    		// TODO: Implementation for other content models.
-    		return null;
-    	}
+        if (itemVO instanceof ItemVO)
+        {
+            return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem((ItemVO)itemVO), "default"));
+        }
+        else
+        {
+            // TODO: Implementation for other content models.
+            return null;
+        }
     }
 
     /**
@@ -257,7 +258,7 @@ public class ItemValidatingBean implements ItemValidating
         if (itemVO instanceof ItemVO)
         {
             return transformXmlToValidationReport(
-                    validateItemXml(xmlTransforming.transformToItem((ItemVO)itemVO), validationPoint));
+                    validateItemXml(xmlTransforming.transformToItem((ItemVO) itemVO), validationPoint));
         }
         else
         {

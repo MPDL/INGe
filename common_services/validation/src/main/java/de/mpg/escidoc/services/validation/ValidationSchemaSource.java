@@ -1,4 +1,5 @@
 /*
+*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -25,26 +26,24 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
+
+package de.mpg.escidoc.services.validation;
+
+import java.util.Date;
+import java.util.Map;
+
+import de.mpg.escidoc.services.validation.util.CacheTuple;
 
 /**
- * ItemValidatingWebService.java
+ * TODO Description
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-package de.mpg.escidoc.services.validation.webservice;
-
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
-public interface ItemValidatingWebService extends Remote
+public interface ValidationSchemaSource
 {
-    public String validateItemXml(String itemXml, String validationPoint) throws RemoteException;
-
-    public String validateItemXml(String itemXml) throws RemoteException;
-    
-    public String validateItemXmlBySchema(String itemXml, String validationPoint, String validationSchema) throws RemoteException;
-
-    public void refreshValidationSchemaCache() throws RemoteException;
+    public Map<CacheTuple, String> retrieveNewSchemas(Date lastUpdate) throws Exception;
 }

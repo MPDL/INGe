@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -41,6 +41,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.TransformerFactoryImpl;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -59,7 +61,7 @@ public final class XsltTransforming
      /**
      * XSLT transformer factory.
      */
-    private static TransformerFactory factory = TransformerFactory.newInstance();
+    private static TransformerFactory factory = new TransformerFactoryImpl();
 
     /**
      * Logger for this class.
