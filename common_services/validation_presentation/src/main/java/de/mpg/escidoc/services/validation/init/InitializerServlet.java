@@ -21,7 +21,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -41,6 +41,8 @@ import javax.servlet.http.HttpServlet;
 public class InitializerServlet extends HttpServlet
 {
 
+    Thread refreshTask;
+    
     /**
      * {@inheritDoc}
      */
@@ -48,7 +50,24 @@ public class InitializerServlet extends HttpServlet
     public final void init() throws ServletException
     {
         super.init();
-        Initializer.initializeDatabase();
+        Thread thread = new Initializer();
+        thread.start();
+        
+        refreshTask = new RefreshTask();
+        refreshTask.start();
+        
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#destroy()
+     */
+    @Override
+    public void destroy()
+    {
+        super.destroy();
+        refreshTask.terminate();
+    }
+
+    
+    
 }

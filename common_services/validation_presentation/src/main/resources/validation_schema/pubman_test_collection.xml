@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -45,6 +45,7 @@
 	<iso:ns prefix="prop" uri="http://escidoc.de/core/01/properties/"/>
 	<iso:ns prefix="file" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"/>
 	<iso:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+	<iso:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
    
 	
 	<!-- Validation points -->
@@ -63,6 +64,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="ddc_keywords"/>
 	
 	</iso:phase>
 	
@@ -100,6 +102,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="ddc_keywords"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -117,6 +120,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="ddc_keywords"/>
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
@@ -138,6 +142,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="ddc_keywords"/>
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
@@ -146,293 +151,12 @@
 
 	<!-- Mime-Types -->
 	<iso:let name="mimeTypes">
-		<value>application/EDI-Consent</value>
-		<value>application/EDI-X12</value>
-		<value>application/EDIFACT</value>
-		<value>application/activemessage</value>
-		<value>application/andrew-inset</value>
-		<value>application/applefile</value>
-		<value>application/atomicmail</value>
-		<value>application/cals-1840</value>
-		<value>application/commonground</value>
-		<value>application/cybercash</value>
-		<value>application/dca-rft</value>
-		<value>application/dec-dx</value>
-		<value>application/eshop</value>
-		
-		<!-- Added -->
-		<value>application/gzip</value>
-		
-		<value>application/hyperstudio</value>
-		<value>application/iges</value>
-		<value>application/mac-binhex40</value>
-		<value>application/mac-compactpro</value>
-		<value>application/macwriteii</value>
-		<value>application/marc</value>
-		<value>application/mathematica</value>
-		<value>application/msword</value>
-		<value>application/news-message-id</value>
-		<value>application/news-transmission</value>
-		<value>application/octet-stream</value>
-		<value>application/oda</value>
-		<value>application/pdf</value>
-		<value>application/pgp-encrypted</value>
-		<value>application/pgp-keys</value>
-		<value>application/pgp-signature</value>
-		<value>application/pkcs10</value>
-		<value>application/pkcs7-mime</value>
-		<value>application/pkcs7-signature</value>
-		<value>application/postscript</value>
-		<value>application/prs.alvestrand.titrax-sheet</value>
-		<value>application/prs.cww</value>
-		<value>application/prs.nprend</value>
-		<value>application/remote-printing</value>
-		<value>application/riscos</value>
-		<value>application/rtf</value>
-		<value>application/set-payment</value>
-		<value>application/set-payment-initiation</value>
-		<value>application/set-registration</value>
-		<value>application/set-registration-initiation</value>
-		<value>application/sgml</value>
-		<value>application/sgml-open-catalog</value>
-		<value>application/slate</value>
-		<value>application/smil</value>
-		
-		<!-- Added -->
-		<value>application/x-tar</value>
-		
-		<value>application/vemmi</value>
-		<value>application/vnd.3M.Post-it-Notes</value>
-		<value>application/vnd.FloGraphIt</value>
-		<value>application/vnd.acucobol</value>
-		<value>application/vnd.anser-web-certificate-issue-initiation</value>
-		<value>application/vnd.anser-web-funds-transfer-initiation</value>
-		<value>application/vnd.audiograph</value>
-		<value>application/vnd.businessobjects</value>
-		<value>application/vnd.claymore</value>
-		<value>application/vnd.comsocaller</value>
-		<value>application/vnd.dna</value>
-		<value>application/vnd.dxr</value>
-		<value>application/vnd.ecdis-update</value>
-		<value>application/vnd.ecowin.chart</value>
-		<value>application/vnd.ecowin.filerequest</value>
-		<value>application/vnd.ecowin.fileupdate</value>
-		<value>application/vnd.ecowin.series</value>
-		<value>application/vnd.ecowin.seriesrequest</value>
-		<value>application/vnd.ecowin.seriesupdate</value>
-		<value>application/vnd.enliven</value>
-		<value>application/vnd.epson.salt</value>
-		<value>application/vnd.fdf</value>
-		<value>application/vnd.ffsns</value>
-		<value>application/vnd.framemaker</value>
-		<value>application/vnd.fujitsu.oasys</value>
-		<value>application/vnd.fujitsu.oasys2</value>
-		<value>application/vnd.fujitsu.oasys3</value>
-		<value>application/vnd.fujitsu.oasysgp</value>
-		<value>application/vnd.fujitsu.oasysprs</value>
-		<value>application/vnd.fujixerox.docuworks</value>
-		<value>application/vnd.hp-HPGL</value>
-		<value>application/vnd.hp-PCL</value>
-		<value>application/vnd.hp-PCLXL</value>
-		<value>application/vnd.hp-hps</value>
-		<value>application/vnd.ibm.MiniPay</value>
-		<value>application/vnd.ibm.modcap</value>
-		<value>application/vnd.intercon.formnet</value>
-		<value>application/vnd.intertrust.digibox</value>
-		<value>application/vnd.intertrust.nncp</value>
-		<value>application/vnd.is-xpr</value>
-		<value>application/vnd.japannet-directory-service</value>
-		<value>application/vnd.japannet-jpnstore-wakeup</value>
-		<value>application/vnd.japannet-payment-wakeup</value>
-		<value>application/vnd.japannet-registration</value>
-		<value>application/vnd.japannet-registration-wakeup</value>
-		<value>application/vnd.japannet-setstore-wakeup</value>
-		<value>application/vnd.japannet-verification</value>
-		<value>application/vnd.japannet-verification-wakeup</value>
-		<value>application/vnd.koan</value>
-		<value>application/vnd.lotus-1-2-3</value>
-		<value>application/vnd.lotus-approach</value>
-		<value>application/vnd.lotus-freelance</value>
-		<value>application/vnd.lotus-organizer</value>
-		<value>application/vnd.lotus-screencam</value>
-		<value>application/vnd.lotus-wordpro</value>
-		<value>application/vnd.meridian-slingshot</value>
-		<value>application/vnd.mif</value>
-		<value>application/vnd.minisoft-hp3000-save</value>
-		<value>application/vnd.mitsubishi.misty-guard.trustweb</value>
-		<value>application/vnd.ms-artgalry</value>
-		<value>application/vnd.ms-asf</value>
-		<value>application/vnd.ms-excel</value>
-		<value>application/vnd.ms-powerpoint</value>
-		<value># application/powerpoint</value>
-		<value>application/vnd.ms-project</value>
-		<value>application/vnd.ms-tnef</value>
-		<value>application/vnd.ms-works</value>
-		<value>application/vnd.music-niff</value>
-		<value>application/vnd.musician</value>
-		<value>application/vnd.netfpx</value>
-		<value>application/vnd.noblenet-directory</value>
-		<value>application/vnd.noblenet-sealer</value>
-		<value>application/vnd.noblenet-web</value>
-		<value>application/vnd.novadigm.EDM</value>
-		<value>application/vnd.novadigm.EDX</value>
-		<value>application/vnd.novadigm.EXT</value>
-		<value>application/vnd.osa.netdeploy</value>
-		<value>application/vnd.powerbuilder6</value>
-		<value>application/vnd.powerbuilder6-s</value>
-		<value>application/vnd.rapid</value>
-		<value>application/vnd.seemail</value>
-		<value>application/vnd.shana.informed.formtemplate</value>
-		<value>application/vnd.shana.informed.interchange</value>
-		<value>application/vnd.shana.informed.package</value>
-		<value>application/vnd.stardivision.calc</value>
-		<value>application/vnd.stardivision.chart</value>
-		<value>application/vnd.stardivision.draw</value>
-		<value>application/vnd.stardivision.impress</value>
-		<value>application/vnd.stardivision.math</value>
-		<value>application/vnd.stardivision.mesage</value>
-		<value>application/vnd.stardivision.writer</value>
-		<value>application/vnd.stardivision.writer</value>
-		<value>application/vnd.street-stream</value>
-		<value>application/vnd.svd</value>
-		<value>application/vnd.swiftview-ics</value>
-		<value>application/vnd.truedoc</value>
-		<value>application/vnd.visio</value>
-		<value>application/vnd.webturbo</value>
-		<value>application/vnd.wrq-hp3000-labelled</value>
-		<value>application/vnd.wt.stf</value>
-		<value>application/vnd.xara</value>
-		<value>application/vnd.yellowriver-custom-menu</value>
-		<value>application/wita</value>
-		<value>application/wordperfect5.1</value>
-		<value>application/x-bcpio</value>
-		<value>application/x-bzip2</value>
-		<value>application/x-cdlink</value>
-		<value>application/x-chess-pgn</value>
-		<value>application/x-compress</value>
-		<value>application/x-cpio</value>
-		<value>application/x-csh</value>
-		<value>application/x-director</value>
-		<value>application/x-dvi</value>
-		<value>application/x-futuresplash</value>
-		<value>application/x-gtar</value>
-		<value>application/x-gzip</value>
-		<value>application/x-hdf</value>
-		<value>application/x-javascript</value>
-		<value>application/x-koan</value>
-		<value>application/x-latex</value>
-		<value>application/x-netcdf</value>
-		<value>application/x-rpm</value>
-		<value>application/x-sh</value>
-		<value>application/x-shar</value>
-		<value>application/x-shockwave-flash</value>
-		<value>application/x-stuffit</value>
-		<value>application/x-sv4cpio</value>
-		<value>application/x-sv4crc</value>
-		<value>application/x-tar</value>
-		<value>application/x-tcl</value>
-		<value>application/x-tex</value>
-		<value>application/x-texinfo</value>
-		<value>application/x-troff</value>
-		<value>application/x-troff-man</value>
-		<value>application/x-troff-me</value>
-		<value>application/x-troff-ms</value>
-		<value>application/x-ustar</value>
-		<value>application/x-wais-source</value>
-		<value>application/x400-bp</value>
-		<value>application/xml</value>
-		<value>application/zip</value>
-		<value>audio/32kadpcm</value>
-		<value>audio/basic</value>
-		<value>audio/midi</value>
-		<value>audio/mpeg</value>
-		<value>audio/vnd.qcelp</value>
-		<value>audio/x-aiff</value>
-		<value>audio/x-pn-realaudio</value>
-		<value>audio/x-realaudio</value>
-		<value>audio/x-wav</value>
-		<value>chemical/x-pdb</value>
-		<value>image/cgm</value>
-		<value>image/g3fax</value>
-		<value>image/gif</value>
-		<value>image/x-icon</value>
-		<value>image/ief</value>
-		<value>image/jpeg</value>
-		<value>image/naplps</value>
-		<value>image/png</value>
-		<value>image/prs.btif</value>
-		
-		<!-- Added -->
-		<value>image/svg+xml</value>
-		
-		<value>image/tiff</value>
-		<value>image/vnd.dwg</value>
-		<value>image/vnd.dxf</value>
-		<value>image/vnd.fpx</value>
-		<value>image/vnd.net-fpx</value>
-		<value>image/vnd.svf</value>
-		<value>image/vnd.xiff</value>
-		<value>image/x-cmu-raster</value>
-		<value>image/x-portable-anymap</value>
-		<value>image/x-portable-bitmap</value>
-		<value>image/x-portable-graymap</value>
-		<value>image/x-portable-pixmap</value>
-		<value>image/x-rgb</value>
-		<value>image/x-xbitmap</value>
-		<value>image/x-xpixmap</value>
-		<value>image/x-xwindowdump</value>
-		<value>message/delivery-status</value>
-		<value>message/disposition-notification</value>
-		<value>message/external-body</value>
-		<value>message/http</value>
-		<value>message/news</value>
-		<value>message/partial</value>
-		<value>message/rfc822</value>
-		<value>model/iges</value>
-		<value>model/mesh</value>
-		<value>model/vnd.dwf</value>
-		<value>model/vrml</value>
-		<value>multipart/alternative</value>
-		<value>multipart/appledouble</value>
-		<value>multipart/byteranges</value>
-		<value>multipart/digest</value>
-		<value>multipart/encrypted</value>
-		<value>multipart/form-data</value>
-		<value>multipart/header-set</value>
-		<value>multipart/mixed</value>
-		<value>multipart/parallel</value>
-		<value>multipart/related</value>
-		<value>multipart/report</value>
-		<value>multipart/signed</value>
-		<value>multipart/voice-message</value>
-		<value>text/css</value>
-		<value>text/directory</value>
-		<value>text/enriched</value>
-		<value>text/plain</value>
-		<value>text/prs.lines.tag</value>
-		<value>text/rfc822-headers</value>
-		<value>text/richtext</value>
-		<value>text/rtf</value>
-		<value>text/sgml</value>
-		<value>text/tab-separated-values</value>
-		<value>text/uri-list</value>
-		<value>text/vnd.abc</value>
-		<value>text/vnd.flatland.3dml</value>
-		<value>text/vnd.fmi.flexstor</value>
-		<value>text/vnd.in3d.3dml</value>
-		<value>text/vnd.in3d.spot</value>
-		<value>text/vnd.latex-z</value>
-		<value>text/x-setext</value>
-		<value>text/xml</value>
-		<value>video/mpeg</value>
-		<value>video/quicktime</value>
-		<value>video/vnd.motorola.video</value>
-		<value>video/vnd.motorola.videop</value>
-		<value>video/vnd.vivo</value>
-		<value>video/x-msvideo</value>
-		<value>video/x-sgi-movie</value>
-		<value>x-conference/x-cooltalk</value>
-		<value>text/html</value>
+		<?cone escidocmimetypes?>
+	</iso:let>
+
+	<!-- DDC -->
+	<iso:let name="ddcSubjects">
+		<?cone ddc?>
 	</iso:let>
 	
 	<!-- Validation rules -->
@@ -610,7 +334,14 @@
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="component_mimeType" id="component_mimeType">
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
+			<iso:assert test="not(exists($mimeTypes/rdf:RDF) or not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/rdf:RDF/rdf:Description/dc:title">MimeTypeNotValid</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
+	<iso:pattern name="ddc_keywords" id="ddc_keywords">
+		<iso:rule context="escidocMetadataProfile:publication/dc:subject">
+			<iso:assert test="not(exists($ddcSubjects/rdf:RDF) or . = $ddcSubjects/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
