@@ -421,24 +421,21 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation</artifactId>
-            <version>1.0.22</version>
+            <version>1.0.23-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.18-SNAPSHOT</version>
-            <scope>compile</scope>
-            <type>war</type>
-        </dependency>
+            <version>1.0.18-SNAPSHOT</version>            <scope>compile</scope>            <type>war</type>        </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition_presentation</artifactId>
@@ -462,7 +459,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search</artifactId>
-            <version>1.0.18</version>
+            <version>1.0.19-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
