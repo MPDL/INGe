@@ -31,10 +31,10 @@
 		<ou name="Max Planck Society" id="escidoc:persistent13">
 			<ou name="MPI for Psycholinguistics" alias="MPI für Psycholinguistik" id="escidoc:22007">
 				<ou name="Language Acquisition Group" id="escidoc:22008"/>
-				<ou name="Comprehension Group" id="escidoc:22010"/>
+				<ou name="Language Comprehension Group" id="escidoc:22010"/>
 				<ou name="Language and Cognition Group" id="escidoc:22011"/>
-				<ou name="Production Group" id="escidoc:22012"/>
-				<ou name="Production Group Levelt" id="escidoc:22013"/>
+				<ou name="Language Production Group" id="escidoc:22012"/>
+				<ou name="Language Production Group Levelt" id="escidoc:22013"/>
 				<ou name="Adaptive Listening" id="escidoc:22014"/>
 				<ou name="Communication before Language" id="escidoc:22015"/>
 				<ou name="Comparative Cognitive Anthropology" id="escidoc:22016"/>

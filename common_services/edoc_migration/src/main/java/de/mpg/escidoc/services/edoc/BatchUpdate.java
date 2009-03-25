@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -80,20 +80,19 @@ public class BatchUpdate
         
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
-        //String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
-        //String filter = "<param><filter>escidoc:100220</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
-
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
+ 
         PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/items/filter");
-//        
-//        postMethod.setRequestBody(filter);
-//        
-//        httpClient.executeMethod(postMethod);
         
-        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:100220");
-        getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-        httpClient.executeMethod(getMethod);
+        postMethod.setRequestBody(filter);
         
-        String response = getMethod.getResponseBodyAsString();
+        httpClient.executeMethod(postMethod);
+        
+//        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/ir/item/escidoc:100220");
+//        getMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+//        httpClient.executeMethod(getMethod);
+        
+        String response = postMethod.getResponseBodyAsString();
         logger.info("...done!");
         
         System.out.println(response);
@@ -115,9 +114,9 @@ public class BatchUpdate
 
             System.out.print(objId);
             
-            if (item.contains("xsi:type=\"\""))
+            if (item.contains("xsi:type=\"eidt:cone\""))
             {
-                item = item.replaceAll("xsi:type=\"\"", "xsi:type=\"eidt:CONE\"");
+                item = item.replaceAll("xsi:type=\"eidt:cone\"", "xsi:type=\"eidt:CONE\"");
             
                 PutMethod putMethod = new PutMethod(CORESERVICES_URL + objId);
                 
