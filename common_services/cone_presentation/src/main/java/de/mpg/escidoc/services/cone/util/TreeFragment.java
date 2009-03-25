@@ -101,6 +101,27 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         this.language = language;
     }
 
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean hasValue()
+    {
+        for (String element : this.keySet())
+        {
+            List<LocalizedTripleObject> list = this.get(element);
+            for (LocalizedTripleObject object : list)
+            {
+                if (object.hasValue())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Display this object as RDF/XML.
      * 

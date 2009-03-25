@@ -42,6 +42,8 @@ public interface LocalizedTripleObject
 {
     public String getLanguage();
     
+    public boolean hasValue();
+    
     public void setLanguage(String language);
     
     public String toRdf();

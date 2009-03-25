@@ -131,6 +131,14 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject
     /**
      * {@inheritDoc}
      */
+    public boolean hasValue()
+    {
+        return (value != null && !"".equals(value));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public String toString()
     {
         return value;

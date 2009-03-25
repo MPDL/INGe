@@ -378,9 +378,28 @@
                 	errors.add("\"" + predicate.getName() + "\" must not have multiple values.");
                 }
             }
-            if (!model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && objects.size() == 0)
+            if (!model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory())
             {
-                errors.add("\"" + predicate.getName() + "\" is mandatory.");
+                if (objects.size() == 0)
+                {
+                	errors.add("\"" + predicate.getName() + "\" is mandatory.");
+                }
+                else
+                {
+                    boolean empty = true;
+                    for (LocalizedTripleObject object : objects)
+                    {
+                        if (object.hasValue())
+                        {
+                            empty = false;
+                            break;
+                        }
+                    }
+                    if (empty)
+                    {
+                        errors.add("\"" + predicate.getName() + "\" is mandatory.");
+                    }
+                }
             }
             results.put(predicate.getId(), objects);
         }
