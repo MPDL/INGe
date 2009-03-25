@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mets:mets ID="escidoc:139621" xmlns:mets="http://www.loc.gov/METS/">
-    <mets:dmdSec ID="dmd4">
+    <mets:dmdSec ID="dmd0">
         <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
             <mets:xmlData>
-                <v3:mods xmlns:v3="http://www.loc.gov/mods/v3" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
-                    <v3:genre>table</v3:genre>
-                </v3:mods>
+                <mods version="3.2" xmlns="http://www.loc.gov/mods/v3" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:version="http://escidoc.de/core/01/properties/version/">
+                    <genre authority="MAB2-051/1-3">u</genre>
+                    <titleInfo>
+                        <title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichniß und vollständigen Reg.</title>
+                        <subTitle/>
+                    </titleInfo>
+                    <titleInfo type="uniform">
+                        <title>Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlichen Corporis evangelicorum</title>
+                    </titleInfo>
+                    <originInfo>
+                        <dateIssued encoding="w3cdtf" keyDate="yes">1752</dateIssued>
+                        <place>
+                            <placeTerm type="text">Regenspurg</placeTerm>
+                        </place>
+                    </originInfo>
+                    <language>
+                        <languageTerm type="text">ger</languageTerm>
+                    </language>
+                    <relatedItem type="host">
+                        <identifier type="local">69448</identifier>
+                    </relatedItem>
+                    <part order="3" type="host">
+                        <detail>
+                            <number>3</number>
+                        </detail>
+                    </part>
+                    <recordInfo>
+                        <recordIdentifier source="MPIER catalog">69452</recordIdentifier>
+                    </recordInfo>
+                    <identifier type="local">69452</identifier>
+                    <location>
+                        <physicalLocation>MPI für Europäische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
+                    </location>
+                    <name type="personal">
+                        <displayForm xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Schauroth, Eberhard Christian Wilhelm von</displayForm>
+                        <role>
+                            <roleTerm authority="marcrelator" type="code">edt</roleTerm>
+                        </role>
+                    </name>
+                </mods>
             </mets:xmlData>
         </mets:mdWrap>
     </mets:dmdSec>
@@ -110,6 +147,18 @@
             <mets:xmlData>
                 <v3:mods xmlns:v3="http://www.loc.gov/mods/v3" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
                     <v3:genre>table</v3:genre>
+                </v3:mods>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:dmdSec ID="dmd5">
+        <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+            <mets:xmlData>
+                <v3:mods xmlns:v3="http://www.loc.gov/mods/v3" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                    <v3:genre>chapter</v3:genre>
+                    <v3:titleInfo>
+                        <v3:title>TestKapitel 3</v3:title>
+                    </v3:titleInfo>
                 </v3:mods>
             </mets:xmlData>
         </mets:mdWrap>
@@ -17964,6 +18013,7 @@
             <mets:div ID="logstruct3" DMDID="dmd3" TYPE="chapter" LABEL="Test Kapitel 2">
                 <mets:div ID="logstruct4" DMDID="dmd4" TYPE="table"/>
             </mets:div>
+            <mets:div ID="logstruct5" DMDID="dmd5" TYPE="chapter" LABEL="TestKapitel 3"/>
         </mets:div>
     </mets:structMap>
     <mets:structLink>
