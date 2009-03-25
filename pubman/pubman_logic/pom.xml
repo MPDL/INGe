@@ -65,7 +65,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.22</version>
+			<version>1.0.23-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
