@@ -16,7 +16,9 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
  */
 public abstract class CriterionBean extends FacesBean
 {
-	protected boolean collapsed = false;
+    private static final long serialVersionUID = 1L;
+    
+    protected boolean collapsed = false;
 	private String logicOperator;
 	
     public SelectItem LOGIC_AND = new SelectItem("And", this.getLabel("adv_search_logicop_and"));

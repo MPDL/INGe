@@ -51,6 +51,7 @@ public class OrganizationCriterionBean extends CriterionBean
 	public String clearCriterion()
 	{
 		organizationCriterionVO.setSearchString("");
+		organizationCriterionVO.setAffiliation(null);
 		
 		// navigation refresh
 		return null;

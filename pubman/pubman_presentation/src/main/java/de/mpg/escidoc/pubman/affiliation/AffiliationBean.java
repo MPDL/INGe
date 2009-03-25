@@ -161,7 +161,7 @@ public class AffiliationBean extends FacesBean
         {
             if (cache != null && cache instanceof OrganizationCriterion)
             {
-                ((OrganizationCriterion) cache).setSearchString("\"" + selectedAffiliation.getName() + "\"");
+                ((OrganizationCriterion) cache).setAffiliation(selectedAffiliation);
             }
             return "displaySearchPage";
         }

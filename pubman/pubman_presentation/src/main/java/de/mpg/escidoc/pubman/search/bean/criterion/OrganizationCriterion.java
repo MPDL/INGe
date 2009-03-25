@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 
 import java.util.ArrayList;
 
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
@@ -48,6 +50,9 @@ public class OrganizationCriterion extends Criterion
     /**
      * constructor.
      */
+    
+    AffiliationVOPresentation affiliation = null;
+    
     public OrganizationCriterion()
     {
         super();
@@ -58,9 +63,53 @@ public class OrganizationCriterion extends Criterion
      */
     public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
     	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
-    	MetadataSearchCriterion criterion = 
-			new MetadataSearchCriterion( CriterionType.ORGANIZATION, getSearchString() );
-    	criterions.add( criterion );
+    	if(getAffiliation() != null)
+        {
+            MetadataSearchCriterion criterion = 
+                new MetadataSearchCriterion( CriterionType.ORGANIZATION_PIDS, getAffiliation().getReference().getObjectId());
+            criterions.add( criterion );
+        }
+    	else if(isSearchStringEmpty() != true)
+    	{
+    	    MetadataSearchCriterion criterion = 
+    	        new MetadataSearchCriterion( CriterionType.ORGANIZATION, getSearchString() );
+    	    criterions.add( criterion );
+    	}
 	   	return criterions;
 	}
+
+    /**
+     * @return the affiliation
+     */
+    public AffiliationVOPresentation getAffiliation()
+    {
+        return affiliation;
+    }
+    
+    public String getAffiliationName()
+    {
+        if(affiliation == null) 
+        {
+            return "";
+        }
+        else 
+        {
+            return affiliation.getName(); 
+        }
+    }
+    
+    public boolean getAffiliationEmpty() 
+    {
+        return (affiliation == null); 
+    }
+
+    /**
+     * @param affiliation the affiliation to set
+     */
+    public void setAffiliation(AffiliationVOPresentation affiliation)
+    {
+        this.affiliation = affiliation;
+    }
+    
+    
 }
