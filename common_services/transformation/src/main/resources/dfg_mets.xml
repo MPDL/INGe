@@ -155,6 +155,15 @@
         <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
             <mets:xmlData>
                 <v3:mods xmlns:v3="http://www.loc.gov/mods/v3" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                    <v3:genre>map</v3:genre>
+                </v3:mods>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:dmdSec ID="dmd6">
+        <mets:mdWrap MIMETYPE="text/xml" MDTYPE="MODS">
+            <mets:xmlData>
+                <v3:mods xmlns:v3="http://www.loc.gov/mods/v3" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
                     <v3:genre>chapter</v3:genre>
                     <v3:titleInfo>
                         <v3:title>TestKapitel 3</v3:title>
@@ -18012,8 +18021,9 @@
             <mets:div ID="logstruct2" DMDID="dmd2" TYPE="chapter" LABEL="Test Kapitel 1"/>
             <mets:div ID="logstruct3" DMDID="dmd3" TYPE="chapter" LABEL="Test Kapitel 2">
                 <mets:div ID="logstruct4" DMDID="dmd4" TYPE="table"/>
+                <mets:div ID="logstruct5" DMDID="dmd5" TYPE="map"/>
             </mets:div>
-            <mets:div ID="logstruct5" DMDID="dmd5" TYPE="chapter" LABEL="TestKapitel 3"/>
+            <mets:div ID="logstruct6" DMDID="dmd6" TYPE="chapter" LABEL="TestKapitel 3"/>
         </mets:div>
     </mets:structMap>
     <mets:structLink>
@@ -18035,5 +18045,7 @@
         <mets:smLink xlink:from="logstruct4" xlink:to="physical_30" xmlns:xlink="http://www.w3.org/1999/xlink"/>
         <mets:smLink xlink:from="logstruct4" xlink:to="physical_31" xmlns:xlink="http://www.w3.org/1999/xlink"/>
         <mets:smLink xlink:from="logstruct4" xlink:to="physical_32" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <mets:smLink xlink:from="logstruct5" xlink:to="physical_18" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+        <mets:smLink xlink:from="logstruct5" xlink:to="physical_19" xmlns:xlink="http://www.w3.org/1999/xlink"/>
     </mets:structLink>
 </mets:mets>
