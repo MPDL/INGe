@@ -487,7 +487,7 @@ public class SearchBean implements Search
                 {
                     String searchResultItem = messages[0].getAsString();
                     logger.debug("Search result: " + searchResultItem);
-                    AffiliationVO itemResult = xmlTransforming.transformToAffiliation(searchResultItem);
+                    AffiliationVO itemResult = (AffiliationVO) xmlTransforming.transformToSearchResult(searchResultItem);
                     resultList.add(itemResult);
 
                 }
