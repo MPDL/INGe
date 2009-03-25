@@ -1,23 +1,40 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
+import gov.loc.mets.DivType;
 import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
 import de.escidoc.schemas.container.x07.ContainerDocument;
 import de.escidoc.schemas.container.x07.ContainerDocument.Container;
+import de.escidoc.schemas.item.x07.ItemDocument;
 import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
+import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
-import de.escidoc.schemas.toc.x06.TocDocument;
+import de.mpg.escidoc.metadataprofile.schema.x01.virrelement.VirrelementDocument;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -32,6 +49,11 @@ public class METSTransformation
     private String baseURL = null;
     private Logger logger = Logger.getLogger(getClass());
     private Login login = new Login();
+    
+    //idCounters
+    private int dmdIdCounter = 0;
+    private int divCounter = 1;
+    private String currentLogicalMetsDivId;
 
     /**
      * Public Constructor METSTransformation.
@@ -47,20 +69,23 @@ public class METSTransformation
      * @return MetsDocument
      * @throws RuntimeException
      */
-    public byte[] transformToMETS(String escidocToc) throws RuntimeException
+    public byte[] transformToMETS(String escidocTocItem) throws RuntimeException
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         InputStream in = null;
         try
         {
             // Create mets id out of escidoc id
-            String metsId = this.getItemIdentifier(escidocToc);
+            ItemDocument itemDoc = ItemDocument.Factory.parse(escidocTocItem);
+            String metsId = itemDoc.getItem().getObjid();
             this.getBaseUrl();
+            
             // Create different METS sections
-            this.createDmdSec(escidocToc);
-            this.createAmdSec(escidocToc);
-            this.createPhysicals(escidocToc);
-            this.createLogicals(escidocToc);
+            TocDocument tocDoc = getTocDoc(itemDoc);
+            this.createDmdSec(tocDoc);
+            this.createAmdSec(tocDoc);
+            this.createPhysicals(tocDoc);
+            this.createLogicals(tocDoc);
             // Create METS document out of these sections
             XmlOptions xOpts = new XmlOptions();
             xOpts.setSavePrettyPrint();
@@ -98,40 +123,22 @@ public class METSTransformation
         }
     }
     
-    private String getItemIdentifier(String escidocToc)
-    {
-        String id = null;
-        
-        try
-        {
-            TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
-            id = escidocTocDoc.getToc().getObjid();
-        }
-        catch (XmlException e)
-        {
-            this.logger.error("Creation of TOC document failed.", e);
-            throw new RuntimeException(e);
-        }
-        
-        return id;
-    }
+   
 
     /**
-     * Gets the escidoc:toc values for mets dmd section (from the book container).
+     * Gets the escidoc:toc values for the first mets dmd section (from the book container).
      * 
-     * @param escidocToc
+     * @param escidocTocItem
      * @throws RuntimeException
      */
-    private void createDmdSec(String escidocToc) throws RuntimeException
+    private void createDmdSec(TocDocument tocDoc) throws RuntimeException
     {
-        String dmdId = "dmd1";
         String containerId = null;
         ModsType mods = null;
         try
         {
-            TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
             // Dummy root div
-            Div div = escidocTocDoc.getToc().getToc().getDiv();
+            Div div = tocDoc.getToc().getDiv();
             Div[] children = div.getDivArray();
             for (int i = 0; i < children.length; i++)
             {
@@ -164,7 +171,7 @@ public class METSTransformation
                     mods = modsDoc.getMods();
                 }
             }
-            this.writeMETS.createDmdSec(mods, dmdId);
+            this.writeMETS.createDmdSec(mods, "dmd" + String.valueOf(dmdIdCounter++));
         }
         catch (Exception e)
         {
@@ -178,7 +185,7 @@ public class METSTransformation
      * 
      * @param escidocToc
      */
-    private void createAmdSec(String escidocToc)
+    private void createAmdSec(TocDocument tocDoc)
     {
         String owner;
         String logo;
@@ -198,7 +205,7 @@ public class METSTransformation
      * @param escidocToc
      * @throws RuntimeException
      */
-    private void createPhysicals(String escidocToc) throws RuntimeException
+    private void createPhysicals(TocDocument tocDoc) throws RuntimeException
     {
         int divId = 1;
         this.writeMETS.createStructMap(this.writeMETS.getTypePHYSICAL(), null);
@@ -208,9 +215,9 @@ public class METSTransformation
         this.writeMETS.createFileGroup(this.writeMETS.getFileGrpMAX());
         try
         {
-            TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
+            
             // Dummy root div
-            Div div = escidocTocDoc.getToc().getToc().getDiv();
+            Div div = tocDoc.getToc().getDiv();
             Div[] children = div.getDivArray();
             Div physical = null;
             for (int i = 0; i < children.length; i++)
@@ -257,7 +264,7 @@ public class METSTransformation
                 divId++;
             }
         }
-        catch (XmlException e)
+        catch (Exception e)
         {
             this.logger.error("Creation of physical parts for METS document failed.", e);
             throw new RuntimeException(e);
@@ -265,24 +272,18 @@ public class METSTransformation
     }
 
     /**
-     * Gets the escidoc:toc values for mets logical structMap.
+     * Creates the logical part of the struct map
      * 
      * @param escidocToc @ throws RuntimeException
      * @throws RuntimeException
      */
-    public void createLogicals(String escidocToc) throws RuntimeException
+    private void createLogicals(TocDocument tocDoc) throws RuntimeException
     {
-        int divId = 1;
-        Div currentDiv;
-        Div[] currentChilds;
-        Div childX;
-        Div[] childChildren;
-        TocDocument escidocTocDoc;
+        
         try
         {
-            escidocTocDoc = TocDocument.Factory.parse(escidocToc);
             // Dummy root div
-            Div div = escidocTocDoc.getToc().getToc().getDiv();
+            Div div = tocDoc.getToc().getDiv();
             Div[] children = div.getDivArray();
             Div logical = null;
             for (int i = 0; i < children.length; i++)
@@ -293,54 +294,105 @@ public class METSTransformation
                 }
             }
             // Create the root element for the logical structMap
-            Div logRoot = logical.getDivArray()[0];
+            Div logRoot = logical.getDivArray(0);
             this.writeMETS.createStructMap(this.writeMETS.getTypeLOGICAL(), logRoot.getTYPE());
-            // this.writeMETS.createStructLink();
-            //
-            // currentDiv = log_root;
-            // currentChilds = currentDiv.getDivArray();
-            //
-            // for(int i=0; i< currentChilds.length; i++){
-            // childX = currentChilds[i];
-            // //Add all divs to the structMap
-            // this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childX.getID()},
-            // childX.getORDER()+"", childX.getORDERLABEL(), "log"+divId, childX.getTYPE(), false);
-            // if (childX.getPtrArray().length >0)
-            // {
-            // //create a structLink
-            // for (int y=0; y<childX.getPtrArray().length;y++){
-            // System.out.println(childX.getPtrArray()[y].getHref());
-            // this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
-            // }
-            // }
-            //
-            // divId ++;
-            // //Add all childs to the structMap
-            // while(childX.getDivArray().length > 0)
-            // {
-            // childChildren = childX.getDivArray();
-            // for (int x=0; x < childChildren.length; x++ ){
-            // this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childChildren[x].getID()},
-            // childChildren[x].getORDER()+"", childChildren[x].getORDERLABEL(), divId+"", childChildren[x].getTYPE(),
-            // true);
-            // if (childX.getPtrArray().length >0)
-            // {
-            // //create a structLink
-            // for (int y=0; y<childX.getPtrArray().length;y++){
-            // System.out.println(childX.getPtrArray()[y].getHref());
-            // this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
-            // }
-            // }
-            // childX =childChildren[x];
-            // divId ++;
-            // }
-            // }
-            // }
+            this.writeMETS.createStructLink();
+            
+            for(Div childDiv : logRoot.getDivArray())
+            {
+                createLogicalStructMapRec(childDiv, this.writeMETS.getCurrentDiv());
+            }
         }
-        catch (XmlException e)
+        catch (Exception e)
         {
             this.logger.error("Creation of logical parts for METS document failed.", e);
             throw new RuntimeException(e);
         }
+    }
+    
+    /**
+     * Recursive helper method in order to create the logical part of the METS struct map from the escidoc TOC.
+     * @param tocDiv
+     * @param metsDivParent
+     */
+    private void createLogicalStructMapRec(Div tocDiv, DivType metsDivParent)
+    {
+        if(tocDiv.getTYPE().equals("structural-element"))
+        {
+            
+            XmlObject[] metadataChildren = tocDiv.selectChildren(new QName("http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement","virrelement"));
+            if (metadataChildren.length>0)
+            {
+                DivType metsDivNew = metsDivParent.addNewDiv();
+                currentLogicalMetsDivId = "logstruct" + divCounter++;
+                metsDivNew.setID(currentLogicalMetsDivId);
+                try
+                {
+                    XmlObject virrElementChild = metadataChildren[0];
+                    VirrelementDocument virrMetadataDoc = VirrelementDocument.Factory.parse(virrElementChild.getDomNode());
+                    ModsType mods = virrMetadataDoc.getVirrelement().getMods();
+                    String dmdId = "dmd" + String.valueOf(dmdIdCounter++);
+                    this.writeMETS.createDmdSec(mods, dmdId);
+                    List<String> dmdList = new ArrayList<String>();
+                    dmdList.add(dmdId);
+                    metsDivNew.setDMDID(dmdList);
+                    metsDivNew.setTYPE(mods.getGenreArray(0).getStringValue());
+                    
+                    if (mods.getTitleInfoArray().length > 0 && mods.getTitleInfoArray(0).getTitleArray().length > 0)
+                    {
+                        metsDivNew.setLABEL(mods.getTitleInfoArray(0).getTitleArray(0));
+                    }
+                       
+                }
+                catch (XmlException e)
+                {
+                    logger.error("Error while parsing structural metadata of TOC div",e);
+                }
+                
+                
+                for(Div childDiv : tocDiv.getDivArray())
+                {
+                    createLogicalStructMapRec(childDiv, metsDivNew);
+                }
+            }
+        }
+        else if(tocDiv.getTYPE().equals("page"))
+        {
+            this.writeMETS.addStructLink(currentLogicalMetsDivId, tocDiv.getPtrArray(0).getHref());
+            
+        }
+        
+        
+        
+    }
+    
+    
+    /**
+     * Retrieves the toc as the component of the item
+     * @return
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException
+     * @throws IOException 
+     * @throws XmlException 
+     * @throws XmlException
+     * @throws IOException
+     */
+    private TocDocument getTocDoc(ItemDocument itemTocDoc)
+    {
+        try
+        {
+            String tocHref = itemTocDoc.getItem().getComponents().getComponentArray(0).getContent().getHref();
+            URL tocUrl = new URL(ServiceLocator.getFrameworkUrl() + tocHref);
+            TocDocument toc = TocDocument.Factory.parse(tocUrl);
+            return toc;
+        }
+        catch (Exception e)
+        {
+            this.logger.error("Could not retrieve or parse TOC Document from component.", e);
+            throw new RuntimeException(e);
+        }
+       
     }
 }

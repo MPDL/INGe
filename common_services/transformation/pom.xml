@@ -126,10 +126,16 @@
       		<version>1.0.0</version>
       		<scope>compile</scope>
     	</dependency>
+    	 <dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-allin1</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
     	<dependency>
 			<groupId>xmlbeans</groupId>
-			<artifactId>mods_3.2</artifactId>
-			<version>3.2</version>
+			<artifactId>mods_3.3</artifactId>
+			<version>3.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -138,6 +144,13 @@
 			<version>1.7</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>virr_ap</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>escidoc-container</artifactId>
@@ -156,6 +169,7 @@
 			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>

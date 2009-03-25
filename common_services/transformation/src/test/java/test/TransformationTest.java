@@ -1,12 +1,19 @@
 package test;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -19,6 +26,7 @@ public class TransformationTest
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
     @Test
+    @Ignore
     public void test() throws Exception
     {
         
@@ -64,5 +72,29 @@ public class TransformationTest
         }
         
         this.logger.debug("Transformation Tests succeeded");
+    }
+    
+     @Test
+    public void test2() throws Exception
+    {
+        ItemHandler ih = ServiceLocator.getItemHandler();
+        String itemXml = ih.retrieve("escidoc:139621");
+        
+        Format escidocFormat = new Format("escidoc", "application/xml", "UTF-8");
+        Format metsFormat = new Format("virr-mets", "application/xml", "UTF-8");
+        
+        byte[] result = trans.transform(itemXml.getBytes(), escidocFormat, metsFormat, "escidoc");
+        
+        
+        File f = new File("src/main/resources/dfg_mets.xml");
+        OutputStream fileStream = new FileOutputStream(f);
+        fileStream.write(result);
+        fileStream.flush();
+        fileStream.close();
+        
+        logger.info(new String(result));
+        
+        
+        
     }
 }

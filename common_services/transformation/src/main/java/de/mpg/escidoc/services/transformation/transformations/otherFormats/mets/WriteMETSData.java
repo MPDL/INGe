@@ -54,6 +54,8 @@ public class WriteMETSData
     private String fileGrpMAX = "MAX";
     private String typePHYSICAL = "physical";
     private String typeLOGICAL = "logical";
+    
+  
 
     /**
      * Public constructor for class WriteMetsData.
@@ -202,7 +204,7 @@ public class WriteMETSData
         if (type.equals(this.typePHYSICAL))
         {
             this.physRoot = this.structMap.addNewDiv();
-            this.physRoot.setID("physstruct1");
+            this.physRoot.setID("physstruct0");
             List<String> amd = new ArrayList<String>();
             amd.add(this.amdSec.getID());
             List<String> dmd = new ArrayList<String>();
@@ -215,7 +217,7 @@ public class WriteMETSData
         else
         {
             this.logRoot = this.structMap.addNewDiv();
-            this.logRoot.setID("logstruct1");
+            this.logRoot.setID("logstruct0");
             List<String> amd = new ArrayList<String>();
             amd.add(this.amdSec.getID());
             List<String> dmd = new ArrayList<String>();
@@ -315,6 +317,7 @@ public class WriteMETSData
     public MetsDocument getMetsDoc(String metsId)
     {
         this.mets.setID(metsId);
+        /*
         this.mets.setDmdSecArray(0, this.dmdSec);
         if (this.amdSec != null)
         {
@@ -325,6 +328,7 @@ public class WriteMETSData
             this.mets.setFileSec(this.fileSec);
         }
         this.metsDoc.setMets(this.mets);
+       */
         return this.metsDoc;
     }
 
@@ -376,5 +380,15 @@ public class WriteMETSData
     public void setTypeLOGICAL(String typeLOGICAL)
     {
         this.typeLOGICAL = typeLOGICAL;
+    }
+
+    public void setCurrentDiv(DivType currentDiv)
+    {
+        this.currentDiv = currentDiv;
+    }
+
+    public DivType getCurrentDiv()
+    {
+        return currentDiv;
     }
 }
