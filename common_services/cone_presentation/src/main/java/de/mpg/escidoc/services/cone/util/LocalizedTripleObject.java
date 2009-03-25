@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -40,13 +40,39 @@ package de.mpg.escidoc.services.cone.util;
  */
 public interface LocalizedTripleObject
 {
+    /**
+     * Get the language of this element.
+     * 
+     * @return The iso 639-2 code of the language. If the element has no language, "" or null is returned.
+     */
     public String getLanguage();
     
-    public boolean hasValue();
-    
+    /**
+     * Set the language of this element.
+     * 
+     * @param language The iso 639-2 code of the language. If the element has no language,
+     * language should be set to null.
+     */
     public void setLanguage(String language);
     
+    /**
+     * Check if this object has useful content.
+     * 
+     * @return true if either this element has a value or a sub-element of it.
+     */
+    public boolean hasValue();
+    
+    /**
+     * Display this object as RDF/XML.
+     * 
+     * @return The object as RDF
+     */
     public String toRdf();
     
+    /**
+     * Display this object as JSON object.
+     * 
+     * @return The object as JSON
+     */
     public String toJson();
 }

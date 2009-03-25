@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -367,6 +367,24 @@
 										</xsl:if>
 	
 	
+									</div>
+								</div>
+								<div class="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+									<span class="seperator">&#160;</span>
+									<div class="free_area0 endline itemLine noTopBorder">
+										<b class="xLarge_area0 endline labelLine">&#160;</b>
+										<span class="xHuge_area0 xTiny_marginLExcl endline">
+											<a>
+												<xsl:attribute name="href">http://www.worldcat.org/search?q=au%3A<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/></xsl:attribute>
+												WorldCat
+											</a>
+											&#160;&#160;
+											<a>
+												<xsl:attribute name="href">http://scholar.google.de/scholar?q=autor%3A%22<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/>%22</xsl:attribute>
+												Google Scholar
+											</a>
+										</span>
 									</div>
 								</div>
 								<div class="full_area0 itemBlock">

@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -123,9 +123,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     }
 
     /**
-     * Display this object as RDF/XML.
-     * 
-     * @return The object as RDF
+     * {@inheritDoc}
      */
     public String toRdf()
     {
@@ -237,9 +235,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     }
 
     /**
-     * Display this object as JSON object.
-     * 
-     * @return The object as JSON
+     * {@inheritDoc}
      */
     public String toJson()
     {
