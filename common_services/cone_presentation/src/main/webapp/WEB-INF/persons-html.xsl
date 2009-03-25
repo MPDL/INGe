@@ -370,21 +370,27 @@
 									</div>
 								</div>
 								<div class="full_area0 itemBlock">
-									<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+									<h3 class="xLarge_area0_p8 endline blockHeader">External references</h3>
 									<span class="seperator">&#160;</span>
-									<div class="free_area0 endline itemLine noTopBorder">
-										<b class="xLarge_area0 endline labelLine">&#160;</b>
-										<span class="xHuge_area0 xTiny_marginLExcl endline">
-											<a>
-												<xsl:attribute name="href">http://www.worldcat.org/search?q=au%3A<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/></xsl:attribute>
-												WorldCat
-											</a>
-											&#160;&#160;
-											<a>
-												<xsl:attribute name="href">http://scholar.google.de/scholar?q=autor%3A%22<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/>%22</xsl:attribute>
-												Google Scholar
-											</a>
-										</span>
+									<div class="free_area0 itemBlockContent endline">
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0 endline labelLine">WorldCat</b>
+											<span class="xHuge_area0 xTiny_marginLExcl endline">
+												<a>
+													<xsl:attribute name="href">http://www.worldcat.org/search?q=au%3A<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/></xsl:attribute>
+													Search for <xsl:value-of select="dc:title"/>
+												</a>
+											</span>
+										</div>
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0 endline labelLine">Google Scholar</b>
+											<span class="xHuge_area0 xTiny_marginLExcl endline">
+												<a>
+													<xsl:attribute name="href">http://scholar.google.de/scholar?q=autor%3A%22<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/>%22</xsl:attribute>
+													Search for <xsl:value-of select="dc:title"/>
+												</a>
+											</span>
+										</div>
 									</div>
 								</div>
 								<div class="full_area0 itemBlock">
