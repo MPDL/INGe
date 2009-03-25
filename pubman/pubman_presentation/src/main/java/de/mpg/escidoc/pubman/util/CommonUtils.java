@@ -180,17 +180,31 @@ public class CommonUtils extends InternationalizedImpl
             options[2] = new SelectItem("de", "de - Deutsch");  
             options[3] = new SelectItem("ja", "ja - Japanisch"); 
         }
-        if (CommonUtils.localLang.equals("en"))
+        else if (CommonUtils.localLang.equals("en"))
         {
             options[1] = new SelectItem("en", "en - English");  
             options[2] = new SelectItem("de", "de - German");  
             options[3] = new SelectItem("ja", "ja - Japanese"); 
         }
-        if (CommonUtils.localLang.equals("fr"))
+        else if (CommonUtils.localLang.equals("fr"))
         {
             options[1] = new SelectItem("en", "en - Anglais");  
             options[2] = new SelectItem("de", "de - Allemand");  
             options[3] = new SelectItem("ja", "ja - Japonais"); 
+        }
+        else if (CommonUtils.localLang.equals("ja"))
+        {
+            options[1] = new SelectItem("en", "en - 英語");
+            options[2] = new SelectItem("de", "de - ドイツ語");
+            options[3] = new SelectItem("ja", "ja - 日本語");
+        }
+        else
+        {
+            logger.error("Language not supported: " + CommonUtils.localLang);
+            // Using english as default
+            options[1] = new SelectItem("en", "en - English");  
+            options[2] = new SelectItem("de", "de - German");  
+            options[3] = new SelectItem("ja", "ja - Japanese");
         }
         options[4] = new SelectItem("", NO_ITEM_SET);
 
@@ -213,9 +227,9 @@ public class CommonUtils extends InternationalizedImpl
         InputStreamReader isReader;
         BufferedReader bReader;
         CommonUtils.localLang = Locale.getDefault().getLanguage();
-        if (!(localLang.equals("en")||localLang.equals("de")||localLang.equals("fr")))
+        if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("fr") || localLang.equals("ja")))
         {
-            localLang ="en";
+            localLang = "en";
         }
         
         try

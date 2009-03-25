@@ -1951,27 +1951,27 @@ public class EditItem extends FacesBean
         for (Author author : authorList)
         {
             CreatorBean creatorBean = creatorManager.createNewObject();
-            creatorBean.getCreator().getPerson().setFamilyName(author.getSurname());
-          
-            if(author.getGivenName() == null || author.getGivenName().equals(""))
+            if (author.getPrefix() != null && !"".equals(author.getPrefix()))
             {
-                creatorBean.getCreator().getPerson().setGivenName(author.getPrefix());
+                creatorBean.getCreator().getPerson().setFamilyName(author.getPrefix() + " " + author.getSurname());
             }
             else
             {
-                creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
+                creatorBean.getCreator().getPerson().setFamilyName(author.getSurname());
             }
+            creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
+
             creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
             creatorBean.getCreator().setType(CreatorType.PERSON);
             
             //set organization
-            if (orgs!=null && orgs.size()>0)
+            if (orgs != null && orgs.size() > 0)
             {
                 creatorBean.getPersonOrganisationManager().getObjectList().clear();
                // creatorBean.getPersonOrganisationManager().getDataListFromVO().clear();
                 for (OrganizationVO orgVO : orgs)
                 {
-                    OrganizationVO newOrgVO = (OrganizationVO)orgVO.clone();
+                    OrganizationVO newOrgVO = (OrganizationVO) orgVO.clone();
                     creatorBean.getPersonOrganisationManager().getObjectList().add(newOrgVO);
                     //creatorBean.getPersonOrganisationManager().getDataListFromVO().add(newOrgVO);
                     
@@ -1988,8 +1988,15 @@ public class EditItem extends FacesBean
         try
         {
             EditItemSessionBean eisb = getEditItemSessionBean();
-            List<OrganizationVO> orgs = eisb.getAuthorCopyPasteOrganizationsCreatorBean().getPersonOrganisationManager().getObjectList();
-            EditItem.parseCreatorString(eisb.getCreatorParseString(), getCreatorCollection(), orgs, eisb.getOverwriteCreators());
+            List<OrganizationVO> orgs = eisb
+                .getAuthorCopyPasteOrganizationsCreatorBean()
+                .getPersonOrganisationManager()
+                .getObjectList();
+            EditItem.parseCreatorString(
+                    eisb.getCreatorParseString(),
+                    getCreatorCollection(),
+                    orgs,
+                    eisb.getOverwriteCreators());
             eisb.initAuthorCopyPasteCreatorBean();
 
             return null;

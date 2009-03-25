@@ -36,31 +36,51 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.task.SiteMapTask;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
-public class InitializerServlet extends HttpServlet {
+public class InitializerServlet extends HttpServlet
+{
     
-    Logger logger = Logger.getLogger(InitializerServlet.class);
+    private static final Logger logger = Logger.getLogger(InitializerServlet.class);
 
+    SiteMapTask siteMapTask;
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void init() throws ServletException {
-        
-        
-        
+    public void init() throws ServletException
+    {
+
         //initialize report definitions for statistics
         try
         {
             InitialContext initialContext = new InitialContext();
-            PubItemSimpleStatistics statistics = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+            PubItemSimpleStatistics statistics =
+                (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
             statistics.initReportDefinitionsInFramework();
             
+            siteMapTask = new SiteMapTask();
+            siteMapTask.start();
             
         }
         catch (Exception e)
         {
-           logger.debug("Problem with initializing statistics system");
+            logger.error("Problem with initializing statistics system", e);
         }
         
+    }
+
+    /* (non-Javadoc)
+     * @see javax.servlet.GenericServlet#destroy()
+     */
+    @Override
+    public void destroy()
+    {
+        super.destroy();
+        logger.info("Signalled to terminate Sitemap creation task.");
+        siteMapTask.terminate();
     }
 
 }
