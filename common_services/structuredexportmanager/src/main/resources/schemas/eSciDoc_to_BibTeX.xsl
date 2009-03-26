@@ -94,12 +94,12 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
 				<xsl:choose>
-					<xsl:when test="mdp:degree='master'">
+					<xsl:when test="pub:degree='master'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'masterthesis'"/>
 						</xsl:call-template>						
 					</xsl:when>
-					<xsl:when test="mdp:degree='phd'">
+					<xsl:when test="pub:degree='phd'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'phdthesis'"/>
 						</xsl:call-template>						
