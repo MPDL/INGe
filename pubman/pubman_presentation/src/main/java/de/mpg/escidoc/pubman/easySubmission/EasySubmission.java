@@ -67,6 +67,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.editItem.LocatorUploadBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
@@ -119,24 +120,19 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 public class EasySubmission extends FacesBean
 {
     public static final String BEAN_NAME = "EasySubmission";
-    private static Logger logger = Logger.getLogger(EasySubmission.class);
-    
+    private static Logger logger = Logger.getLogger(EasySubmission.class);    
 
     //Import Service
-    private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();
-    private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();       
+    private DataSourceHandlerBean dataSourceHandler = new DataSourceHandlerBean();    
     // Transformation Service
     private Transformation transformer = null;
     // XML Transforming Service
     private XmlTransforming xmlTransforming = null;
     // Validation Service
     private ItemValidating itemValidating = null;
+    
     private HtmlSelectOneRadio radioSelect;
     private HtmlSelectOneMenu dateSelect;
-    private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
-    
-    private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
-
 
 	// constants for the submission method
     public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
@@ -155,9 +151,6 @@ public class EasySubmission extends FacesBean
     public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[]{this.DATE_CREATED, this.DATE_SUBMITTED, this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, 
     														 this.DATE_PUBLISHED_ONLINE, this.DATE_MODIFIED};
         
-    public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-    public SelectItem[] FULLTEXT_OPTIONS;
-
 	public final String INTERNAL_MD_FORMAT = "escidoc";
 
     // Faces navigation string
@@ -173,16 +166,20 @@ public class EasySubmission extends FacesBean
     private UploadedFile uploadedBibTexFile;
     private boolean fromEasySubmission = false;
 
-    //Import from external service
+    //Import 
     private boolean fulltext = true;
+    private Vector<DataSourceVO> dataSources = new Vector<DataSourceVO>();   
+    private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
+    private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
+    private HtmlSelectOneMenu sourceSelect = new HtmlSelectOneMenu();
+    public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+    public SelectItem[] FULLTEXT_OPTIONS;
     private final String FULLTEXT_NONE = "NONE";
     private final String FULLTEXT_ALL = "ALL";
     private final String FULLTEXT_DEFAULT ="FORMAT";
-    private final String pubsys ="eSciDoc";
-    
-    /**
-     * the ID for the object to fetch by the external service
-     */
+    public SelectItem[] REFERENCE_OPTIONS;
+    private final String REFERENCE_FILE= "FILE";
+    private final String REFERENCE_LOCATOR = "LOCATOR";
     private String serviceID;
    
     private String creatorParseString;
@@ -284,6 +281,7 @@ public class EasySubmission extends FacesBean
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
                 this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
             }
+            
         }
         if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4))
         {
@@ -326,7 +324,7 @@ public class EasySubmission extends FacesBean
     		getItem().getMetadata().setGenre(Genre.ARTICLE);
     	}
     	
-    	
+    	this.setBibTexInfo(); 
     }
 
     public String selectSubmissionMethod()
@@ -946,11 +944,36 @@ public class EasySubmission extends FacesBean
                 warn(getMessage("easy_submission_bibtex_empty_file"));
                 return null;
             }
+            //Transform from bibtex to escidoc pubItem
             Format source = new Format ("bibtex", "text/plain", "*");
             Format target = new Format ("escidoc", "application/xml", "UTF-8");
             byte[] result = this.transformer.transform(content.toString().getBytes("UTF-8"), source, target, "escidoc");
             PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
             itemVO.setContext(getItem().getContext());
+                
+            //Check if reference has to be uploaded as file
+            if (this.getEasySubmissionSessionBean().getRadioSelectReference().getValue().equals(this.getREFERENCE_FILE()))
+            {
+                LocatorUploadBean locatorBean = new LocatorUploadBean();
+                Vector<FileVO> locators = locatorBean.getLocators(itemVO);
+                //Check if item has locators
+                if (locators != null && locators.size() > 0)
+                {
+                    //Upload the locators as file
+                    for (int i = 0; i< locators.size(); i++)
+                    {
+                        //Add files to item
+                        FileVO uploadedLocator = locatorBean.uploadLocatorAsFile(locators.get(i));
+                        if (uploadedLocator != null)
+                        {
+                            //remove locator
+                            itemVO.getFiles().remove(i);
+                            //add file
+                            itemVO.getFiles().add(uploadedLocator);
+                        }
+                    }
+                }
+            }
             
             PubItemVOPresentation pubItemPres = new PubItemVOPresentation(itemVO);
             this.getItemControllerSessionBean().setCurrentPubItem(pubItemPres);
@@ -1201,6 +1224,7 @@ public class EasySubmission extends FacesBean
                    this.getItemControllerSessionBean().getCurrentPubItem().getFiles().addAll(itemVO.getFiles());
                    //Reset info for next call
                    this.setImportSourcesInfo();
+                   this.setBibTexInfo();
              }
              catch(TechnicalException e)
              {
@@ -1566,7 +1590,6 @@ public class EasySubmission extends FacesBean
         DataSourceVO currentSource = null;
         currentSource = this.dataSourceHandler.getSourceByName(this.sourceSelect.getSubmittedValue().toString());   
         
-        //Create dummy currentSource, because we not really fetch from pubsys
         if (currentSource == null){
             currentSource = new DataSourceVO();
         }
@@ -1591,6 +1614,7 @@ public class EasySubmission extends FacesBean
             this.getEasySubmissionSessionBean().setCurrentFTLabel("");
         }
 
+        //This has to be set, because escidoc does not have a default fetching format for full texts
         if (currentSource.getName().toLowerCase().equals("escidoc"))
         {
             this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(new SelectItem[]{new SelectItem(this.FULLTEXT_ALL,getLabel("easy_submission_lblFulltext_all")) , 
@@ -1615,6 +1639,13 @@ public class EasySubmission extends FacesBean
         return "loadNewEasySubmission";
     }
 
+    private void setBibTexInfo()
+    {        
+        this.getEasySubmissionSessionBean().setREFERENCE_OPTIONS(new SelectItem[]{new SelectItem(this.REFERENCE_FILE, getLabel("easy_submission_lblReference_file")), 
+                new SelectItem(this.REFERENCE_LOCATOR, getLabel("easy_submission_lblReference_locator"))});
+
+        this.getEasySubmissionSessionBean().getRadioSelectReference().setSubmittedValue(this.REFERENCE_LOCATOR);
+    }
     
     /**
      * This method selects the import method 'fetch metadata from external systems'
@@ -1634,6 +1665,7 @@ public class EasySubmission extends FacesBean
      */
     public String selectImportBibtex()
     {
+        this.setBibTexInfo();
     	this.setFulltext(false);  
     	this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
     	return "loadNewEasySubmission";
@@ -2326,6 +2358,37 @@ public class EasySubmission extends FacesBean
 		this.radioSelectFulltext = radioSelectFulltext;
 	}
 	
+    public HtmlSelectOneRadio getRadioSelectReference()
+    {
+        return this.radioSelectReference;
+    }
+
+    public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
+    {
+        this.radioSelectReference = radioSelectReference;
+    }
+	
+    public SelectItem[] getREFERENCE_OPTIONS()
+    {
+        return this.REFERENCE_OPTIONS;
+    }
+
+    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
+    {
+        this.REFERENCE_OPTIONS = reference_options;
+    }
+
+    public String getREFERENCE_FILE()
+    {
+        return this.REFERENCE_FILE;
+    }
+
+    public String getREFERENCE_LOCATOR()
+    {
+        return this.REFERENCE_LOCATOR;
+    }
+
+    
 	/*
 	public void chooseSourceGenre(ValueChangeEvent event)
     {

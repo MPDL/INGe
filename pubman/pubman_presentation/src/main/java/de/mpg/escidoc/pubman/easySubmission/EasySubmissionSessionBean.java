@@ -95,13 +95,17 @@ public class EasySubmissionSessionBean extends FacesBean
     //For import service
     private String currentExternalServiceType = "";
     private String currentFTLabel = "";
+
     private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
+    private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
 
 
 	private boolean importSourceRefresh = false;
     public SelectItem[] FULLTEXT_OPTIONS;
     public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
-    
+    public SelectItem[] REFERENCE_OPTIONS;
+
+
     private String genreBundle = "Genre_ARTICLE";
 
     /**
@@ -258,6 +262,16 @@ public class EasySubmissionSessionBean extends FacesBean
 	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
 		this.radioSelectFulltext = radioSelectFulltext;
 	}
+	
+    public HtmlSelectOneRadio getRadioSelectReference()
+    {
+        return radioSelectReference;
+    }
+
+    public void setRadioSelectReference(HtmlSelectOneRadio radioSelectReference)
+    {
+        this.radioSelectReference = radioSelectReference;
+    }
 
 	public String getGenreBundle() {
 		return genreBundle;
@@ -295,6 +309,17 @@ public class EasySubmissionSessionBean extends FacesBean
 	public void setCreatorParseString(String creatorParseString) {
 		this.creatorParseString = creatorParseString;
 	}
+	
+    
+    public SelectItem[] getREFERENCE_OPTIONS()
+    {
+        return this.REFERENCE_OPTIONS;
+    }
+
+    public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
+    {
+        this.REFERENCE_OPTIONS = reference_options;
+    }
 
 	/**
      * (Re)-initializes the PersonOPrganisationManager that manages the author copy&paste organizations.

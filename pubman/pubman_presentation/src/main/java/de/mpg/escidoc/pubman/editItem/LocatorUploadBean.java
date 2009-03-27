@@ -35,17 +35,20 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import de.escidoc.schemas.components.x07.ComponentDocument.Component.Content.Storage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Class to handle the file upload of locators. 
@@ -142,6 +145,10 @@ public class LocatorUploadBean extends FacesBean
         {
             this.setName(fileName);
         }        
+        else
+        {
+            this.setName(locatorURL.toString());
+        }
         //Get File Length
         try
         {
@@ -206,7 +213,6 @@ public class LocatorUploadBean extends FacesBean
                 FileVO fileVO = new FileVO();
                 fileVO.getMetadataSets().add(new MdsFileVO());
                 fileVO.getDefaultMetadata().setSize(this.getSize());
-                fileVO.setName(this.name);
                 fileVO.getDefaultMetadata().setTitle(new TextVO(this.name));
                 fileVO.setMimeType(this.getType());
                 fileVO.setName(this.getLocator());
@@ -277,6 +283,73 @@ public class LocatorUploadBean extends FacesBean
                 }
             }
         }
+    }
+    
+    /**
+     * 
+     * @param item
+     * @return
+     */
+    public Vector<FileVO> getLocators (PubItemVO item)
+    {
+        Vector<FileVO> locators = new Vector<FileVO>();
+        
+        List <FileVO> files = item.getFiles();
+        for (int i =0; i< files.size(); i++)
+        {
+            FileVO currentFile = files.get(i);
+            if (currentFile.getStorage() == FileVO.Storage.EXTERNAL_URL)
+            {
+                locators.add(currentFile);
+            }
+        }
+        
+        return locators;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public FileVO uploadLocatorAsFile (FileVO locator)
+    {
+        FileVO fileVO = null;
+        
+        boolean check = this.ckeckLocator(locator.getName());
+
+        if (check)
+        {           
+            try
+            {
+                    fileVO = new FileVO();
+                    fileVO.getMetadataSets().add(new MdsFileVO());
+                    fileVO.getDefaultMetadata().setSize(this.getSize());
+                    fileVO.getDefaultMetadata().setTitle(new TextVO(this.name));
+                    fileVO.setMimeType(this.getType());
+                    fileVO.setName(this.getLocator());
+
+                    FormatVO formatVO = new FormatVO();
+                    formatVO.setType("dcterms:IMT");
+                    formatVO.setValue(this.getType());
+                    fileVO.getDefaultMetadata().getFormats().add(formatVO);
+                    fileVO.setContent(this.getLocator());
+                    fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+
+            }
+            catch (Exception e)
+            {
+                this.logger.error(e);
+                this.error = getMessage("errorLocatorUploadFW");
+            }        
+        }
+        
+        if (this.getError()!= null)
+        {
+            error(getMessage("errorLocatorMain").replace("$1", this.getError()));
+            return null;
+        }
+        
+        return fileVO;
     }
     
     public String getType()

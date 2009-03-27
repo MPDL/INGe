@@ -384,7 +384,8 @@ public class EditItem extends FacesBean
                 if (locatorpres.getLocator()==null)
                 {
                     locatorpres.setLocator(locatorpres.getFile().getName());
-                    locatorpres.setShowProperties(false);
+                    locatorpres.getFile().getMetadataSets().add(new MdsFileVO());
+                    locatorpres.getFile().getDefaultMetadata().setTitle(new TextVO(locatorpres.getFile().getName()));
                 }
                 //And here it ends
                 
