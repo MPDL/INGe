@@ -41,7 +41,10 @@
 	<p>PubMan supports research organizations in the management, dissemination and re-use of <b>publications and supplementary material</b>.
 		The solution PubMan is a component of the eResearch infrastructure of the Max Planck Society and is based on the service-oriented architecture of eSciDoc.
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(Read more...) </a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Read more</b></a>
+	<h:outputText value="|"/>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
+
 	<br/><br/>
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -79,7 +82,9 @@
 	<p>PubMan unterstützt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von <b>Publikationen und Supplementary Material</b>.
 		Die Anwendung PubMan ist eine Komponente der eResearch Infrastruktur der Max-Planck-Gesellschaft und basiert auf der service-orientierten Architektur von eSciDoc.
 	</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(Lesen Sie mehr...) </a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Lesen Sie mehr </b></a>
+	<h:outputText value="|"/>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
 	<br/><br/>
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
@@ -116,7 +121,9 @@
 	</h2>
 	<p>PubManは研究成果文献の管理とデジタル保存および発信に関し、<b>科学者</b>および<b>研究機関</b>を支援するソリューションとして開発されました。</p>
 	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、技術者を支援します。研究機関における方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank">(詳細はCoLab上の説明をご覧ください)</a>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳細はCoLab上の説明をご覧ください</b></a>
+	<h:outputText value="|"/>
+    <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
 	<br/><br/>
 	<h3>文献検索</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
