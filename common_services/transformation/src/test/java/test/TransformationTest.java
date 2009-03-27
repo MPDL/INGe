@@ -26,7 +26,6 @@ public class TransformationTest
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
     @Test
-    @Ignore
     public void test() throws Exception
     {
         
@@ -74,7 +73,8 @@ public class TransformationTest
         this.logger.debug("Transformation Tests succeeded");
     }
     
-     @Test
+    @Test
+    @Ignore
     public void test2() throws Exception
     {
         ItemHandler ih = ServiceLocator.getItemHandler();
