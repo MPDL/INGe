@@ -45,6 +45,11 @@
                         </webModule>
                         <webModule>
                             <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>syndication_presentation</artifactId>
+                            <contextRoot>/syndication</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>validation_presentation</artifactId>
                             <contextRoot>/validation</contextRoot>
                         </webModule>
@@ -467,6 +472,13 @@
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search_presentation</artifactId>
             <version>1.0.17</version>
+            <scope>compile</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>syndication_presentation</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
