@@ -715,7 +715,7 @@ public class DataHandlerBean implements DataHandler
             if (md.getName().toLowerCase().equals("virr-mets"))
             {
                 Login login = new Login();
-                return  ServiceLocator.getTocHandler(login.loginSysAdmin()).retrieve(identifier);
+                return  ServiceLocator.getItemHandler(login.loginSysAdmin()).retrieve(identifier);
             }   
         }
         catch (ItemNotFoundException e)
