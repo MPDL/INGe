@@ -31,20 +31,6 @@
 		<load-on-startup>100</load-on-startup>
 	</servlet>
 
-<!--  
-	<servlet>
-		<servlet-name>InitializerServlet</servlet-name>
-		<display-name>InitializerServlet</display-name>
-		<servlet-class>de.mpg.escidoc.services.validation.init.InitializerServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>RESTServlet</servlet-name>
-		<display-name>REST Servlet</display-name>
-		<servlet-class>de.mpg.escidoc.services.validation.webservice.RestServlet</servlet-class>
-	</servlet>
--->	
 	<!-- Initializer Servlet -->
 	<servlet>
 		<servlet-name>Syndication Servlet</servlet-name>
@@ -53,7 +39,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>Syndication Servlet</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/feed/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
