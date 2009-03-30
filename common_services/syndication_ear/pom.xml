@@ -10,6 +10,7 @@
 	<artifactId>syndication_ear</artifactId>
 	<version>1.0.3-SNAPSHOT</version>
 	<name>syndication_ear</name>
+	<packaging>ear</packaging>
 	<url>http://maven.apache.org</url>
 
 	<scm>
@@ -24,11 +25,16 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<displayName>structuredexportmanager_ear</displayName>
-					<description>structuredexportmanager_ear integration testing ear</description>
+					<displayName>syndication_ear</displayName>
+					<description>syndication_ear integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<version>5</version>
 					<modules>
+						<jarModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>framework_access</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 						<jarModule>
 							<groupId>axis</groupId>
 							<artifactId>axis</artifactId>
