@@ -5,7 +5,7 @@
 	<parent> 
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.14-SNAPSHOT</version>
+		<version>1.0.21-SNAPSHOT</version>
 	</parent>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>syndication</artifactId>
@@ -94,18 +94,18 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.11-SNAPSHOT</version>
+			<version>1.0.19-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.15-SNAPSHOT</version>
+			<version>1.0.22-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.12-SNAPSHOT</version>
+			<version>1.1.19-SNAPSHOT</version>
 		</dependency>		
 	</dependencies>
 </project>
