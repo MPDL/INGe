@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.search_lblAdvancedSearch}" /></h1>
+								<h1><h:outputText id="lblAdvancedSearch" value="#{lbl.search_lblAdvancedSearch}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -108,8 +108,8 @@
 						</div>
 					</div>
 					<div class="full_area0 formButtonArea">
-							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}"/>						
-							<h:commandLink styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}"/>
+							<h:commandLink id="lnkAdvancedSearchClearAll" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}"/>						
+							<h:commandLink id="lnkAdvancedSearchStartSearch" styleClass="free_area1_p8 activeButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}"/>
 						</div>
 				<!-- end: content section -->
 				</div>
