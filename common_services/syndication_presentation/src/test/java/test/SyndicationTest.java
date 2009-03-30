@@ -51,6 +51,7 @@ import org.junit.Test;
 
 import com.sun.syndication.io.FeedException;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.Syndication;
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.SyndicationHandler;
@@ -137,14 +138,19 @@ public class SyndicationTest
     	long start;
     	String result;
     	
-    	uri = "http://localhost:8080/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
+    	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
+    	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
+    	
+//    	uri = "http://localhost:8080/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
+    	uri = pubman_url + "/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
     	start = System.currentTimeMillis();
     	result = new String(sh.getFeed(uri));  
     	logger.info("Processing time: " + (System.currentTimeMillis() - start) );
     	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
 //    	Utils.writeToFile("result_rss_093.xml", result);    	
     	
-    	uri = "http://localhost:8080/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
+//    	uri = "http://localhost:8080/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
+    	uri = pubman_url + "/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
     	start = System.currentTimeMillis();
     	result = new String(sh.getFeed(uri));  
 		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
