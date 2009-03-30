@@ -31,8 +31,8 @@
 -->
 
 <!--
-	PubMan feeders Initial creation: vmakarenko $Author:$ $Revision:$
-	$LastChangedDate:$
+	PubMan feeders Initial creation: vmakarenko $Author$ $Revision$
+	$LastChangedDate$
 -->
 <feeds xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
