@@ -46,16 +46,24 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
 							<groupId>net.sf.saxon</groupId>
 							<artifactId>saxon</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<ejbModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>common_logic</artifactId>
+                        </ejbModule>						
 						<webModule>
                             <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>syndication_presentation</artifactId>
                             <contextRoot>/syndication</contextRoot>
                         </webModule>
-
 					</modules>
 				</configuration>
 			</plugin>
@@ -300,6 +308,22 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.0.22-SNAPSHOT</version>
-		</dependency>		
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>commons-digester</groupId>-->
+<!--			<artifactId>commons-digester</artifactId>-->
+<!--			<version>1.8</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_logic</artifactId>
+			<version>1.1.19-SNAPSHOT</version>
+			<classifier>ejb</classifier>
+		</dependency>
 	</dependencies>
 </project>
