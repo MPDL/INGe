@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
+		<tr:iterator id="genreCriterion" var="genreCriterionBean" value="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.genreCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.genreCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -119,8 +119,8 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
 --%>
@@ -205,8 +205,8 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
 --%>
@@ -215,7 +215,7 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{genreCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selGenreCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{genreCriterionBean.logicOperator}">
 					<f:selectItems value="#{genreCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>

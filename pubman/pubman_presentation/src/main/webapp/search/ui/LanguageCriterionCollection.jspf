@@ -38,22 +38,22 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" varStatus="index">
+		<tr:iterator id="languageCriterion" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{languageCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<h:outputLabel id="lblLanguageTerm" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
+					<h:inputText id="languageSuggest" styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu id="selLanguageOptions" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
 --%>
@@ -64,15 +64,15 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<h:outputLabel id="lblLanguageTerm" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
+					<h:inputText id="languageSuggest" styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu id="selLanguageOptions" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
 --%>
@@ -81,7 +81,7 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size != (languageCriterionIterator.rowIndex + 1)}">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>

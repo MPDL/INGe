@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-    <tr:iterator var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" varStatus="index">
+    <tr:iterator id="fileCriterion" var="fileCriterionBean" value="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.fileCriterionIterator}" varStatus="index">
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" >
 			<b class="xLarge_area0_p8 endline labelLine clear">
@@ -49,35 +49,35 @@
 				    <span class="large_area0 tiny_marginRIncl">
                         <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentAvailability}"/>
                         
-                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
+                            <h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentAvailability}">
                                 <f:selectItems value="#{fileCriterionBean.componentAvailabilityOptions}" />
                             </h:selectOneMenu>
                             
                     </span>
 				    <span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
+                        <h:outputLabel id="lblComponentVisibilityOptions" styleClass="large_label" value="#{lbl.adv_search_fileComponentVisibility}"/>
                         
-                            <h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
+                            <h:selectOneMenu id="selComponentVisibilityOptions" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.componentVisibility}">
                                 <f:selectItems value="#{fileCriterionBean.componentVisibilityOptions}" />
                             </h:selectOneMenu>
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
+						<h:outputLabel id="lblContentCategories" styleClass="large_label" value="#{lbl.adv_search_fileContentCategory}"/>
 						
-							<h:selectOneMenu styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
+							<h:selectOneMenu id="selContentCategories" styleClass="large_select replace" value="#{fileCriterionBean.fileCriterionVO.contentCategory}">
 								<f:selectItems value="#{fileCriterionBean.contentCategories}" />
 							</h:selectOneMenu>
 							<span class="large_checkbox">
 								<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{fileCriterionBean.fileCriterionVO.excludeCategory}" />
-								<h:outputLabel value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
+								<h:outputLabel id="lblFileCriterion_excludeCategory" value="#{lbl.adv_search_fileExcludeCategory}" for="fileCriterion_excludeCategory" />
 							</span>	
 					</span>
 				</span>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-                    <tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
-                    <tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
+                    <tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.addObject}" />
+                    <tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.size == 1}" action="#{AdvancedSearchEdit.fileCriterionCollection.fileCriterionManager.removeObject}"/>
 <%-- 
                     <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
@@ -86,7 +86,7 @@
 
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 		<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selFileCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{fileCriterionBean.logicOperator}">
 					<f:selectItems value="#{fileCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>		
 		</h:panelGroup>

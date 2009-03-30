@@ -38,19 +38,19 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" varStatus="index">
+		<tr:iterator id="personCriterion" var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.personCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:outputLabel id="lblSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:inputText id="searchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
 --%>
@@ -61,12 +61,12 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:outputLabel id="lblSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:inputText id="searchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
 --%>
@@ -78,7 +78,7 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText id="lblAllCreatorRoles" value="#{lbl.adv_search_btAll}" /></a>
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />
@@ -130,7 +130,7 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{personCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selPersonCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{personCriterionBean.logicOperator}">
 					<f:selectItems value="#{personCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>

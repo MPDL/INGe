@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-		<tr:iterator var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
+		<tr:iterator id="dateCriterion" var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.dateCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -46,17 +46,17 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="double_label" for="startDate" value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="startDate" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+						<h:outputLabel id="lblStartDateFirst" styleClass="double_label" for="startDateFirst" value="#{lbl.adv_search_lblFrom}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDateFirst" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
 					</span>
 					<span class="double_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="double_label" for="endDate" value="#{lbl.adv_search_lblTo}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="endDate" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+						<h:outputLabel id="lblEndDateFirst" styleClass="double_label" for="endDateFirst" value="#{lbl.adv_search_lblTo}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDateFirst" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
@@ -68,17 +68,17 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="double_area0 xTinx_marginRIncl">
-						<h:outputLabel styleClass="double_label" for="startDates" value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="startDates" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+						<h:outputLabel id="lblStartDatesFollowing" styleClass="double_label" for="startDatesFollowing" value="#{lbl.adv_search_lblFrom}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDatesFollowing" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
 					</span>
 					<span class="double_area0 xTinx_marginRIncl">
-						<h:outputLabel styleClass="double_label" for="endDates" value="#{lbl.adv_search_lblTo}" />
-						<h:inputText styleClass="double_txtInput dateJSInput" id="endDates" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+						<h:outputLabel id="lblEndDatesFollowing" styleClass="double_label" for="endDatesFollowing" value="#{lbl.adv_search_lblTo}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDatesFollowing" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 --%>
@@ -90,31 +90,31 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText id="lblAllDates" value="#{lbl.adv_search_btAll}" /></a>
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
+							<h:outputLabel id="lblDateCriterionBean_searchPublishedPrint" value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
+							<h:outputLabel id="lblDateCriterionBean_searchPublishedOnline" value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
+							<h:outputLabel id="lblDateCriterionBean_searchAccepted" value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
+							<h:outputLabel id="lblDateCriterionBean_searchSubmitted" value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
+							<h:outputLabel id="lblDateCriterionBean_searchModified" value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
 							<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
-							<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
+							<h:outputLabel id="lblDateCriterionBean_searchCreated" value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
@@ -122,7 +122,7 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{dateCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selDateCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{dateCriterionBean.logicOperator}">
 					<f:selectItems value="#{dateCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>

@@ -38,19 +38,19 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{eventCriterionIterator}" varStatus="index">
+		<tr:iterator id="eventCriterion" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{eventCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{eventCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
+					<h:outputLabel id="lblSearchStringFirst" styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText id="searchStringFirst" styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
@@ -61,12 +61,12 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
+					<h:outputLabel id="lblSearchStringFollowing" styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText id="searchStringFollowing" styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
@@ -75,7 +75,7 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selEventCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{eventCriterionBean.logicOperator}">
 					<f:selectItems value="#{eventCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>
