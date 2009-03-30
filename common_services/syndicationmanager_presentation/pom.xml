@@ -12,8 +12,8 @@
 	<packaging>war</packaging>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndication_presentation</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/syndication_presentation</developerConnection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndicationmanager_presentation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/syndicationmanager_presentation</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	<build>
