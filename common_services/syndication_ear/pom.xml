@@ -54,10 +54,12 @@
 							<artifactId>saxon</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-						<ejbModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>syndication</artifactId>
-						</ejbModule>
+						<webModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>syndication_presentation</artifactId>
+                            <contextRoot>/syndication</contextRoot>
+                        </webModule>
+
 					</modules>
 				</configuration>
 			</plugin>
@@ -91,7 +93,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-							<test>SyndicationIntegrationTest</test>
+							<test>SyndicationServiceTest</test>
 						</configuration>
 					</execution>
 				</executions>
@@ -251,13 +253,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>syndication</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
-			<scope>compile</scope>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
 			<version>1.0</version>
@@ -292,5 +287,23 @@
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 		</dependency>
+		<dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>syndication_presentation</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>war</type>
+        </dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>framework_access</artifactId>
+			<version>1.0.22-SNAPSHOT</version>
+		</dependency>		
 	</dependencies>
 </project>
