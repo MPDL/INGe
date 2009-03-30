@@ -140,6 +140,7 @@ public class SyndicationTest
     	
     	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
     	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
+    	logger.info("pubman base url:" + pubman_url);
     	
 //    	uri = "http://localhost:8080/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
     	uri = pubman_url + "/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
