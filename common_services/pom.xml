@@ -186,12 +186,14 @@
     <module>search_presentation</module>
     <module>search_ear</module>
     <module>cone_ear</module>
-	<module>cone_presentation</module>
+    <module>cone_presentation</module>
 	<module>dataacquisition</module>
 	<module>dataacquisition_presentation</module>
 	<module>dataacquisition_ear</module>
    	<module>exportmanager</module>
    	<module>transformation</module>
+	<module>syndication_ear</module>
+        <module>syndication_presentation</module>
     
   </modules>
 

@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.14-SNAPSHOT</version>
+		<version>1.0.21-SNAPSHOT</version>
 	</parent>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>syndication_ear</artifactId>
@@ -38,16 +38,6 @@
 						<jarModule>
 							<groupId>axis</groupId>
 							<artifactId>axis</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>org.jibx</groupId>
-							<artifactId>jibx-run</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>stax</groupId>
-							<artifactId>stax</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
@@ -240,7 +230,7 @@
 										<!-- copy over the jboss service descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy over the property file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
 									</tasks>
 								</configuration>
 							</execution>
