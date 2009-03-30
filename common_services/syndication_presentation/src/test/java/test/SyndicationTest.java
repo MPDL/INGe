@@ -33,14 +33,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.TreeMap;
- 
+
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
@@ -54,7 +49,6 @@ import com.sun.syndication.io.FeedException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.syndication.Syndication;
 import de.mpg.escidoc.services.syndication.SyndicationException;
-import de.mpg.escidoc.services.syndication.SyndicationHandler;
 import de.mpg.escidoc.services.syndication.Utils;
 
 /**
@@ -131,6 +125,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
+    @Ignore
     public void checkGetFeed() throws SyndicationException, IOException, URISyntaxException, FeedException
     {
 
