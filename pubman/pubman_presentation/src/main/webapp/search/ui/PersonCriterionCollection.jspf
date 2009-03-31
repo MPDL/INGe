@@ -45,7 +45,7 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel id="lblSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText id="searchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
