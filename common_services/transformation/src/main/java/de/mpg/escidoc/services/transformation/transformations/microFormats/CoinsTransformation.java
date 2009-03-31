@@ -90,9 +90,8 @@ public class CoinsTransformation
             PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(source));
             coins = this.getCOinS(itemVO);
         }
-         //TODO
         catch (Exception e) 
-        { throw new RuntimeException(); }
+        { throw new RuntimeException(e); }
         return coins;
     }
 

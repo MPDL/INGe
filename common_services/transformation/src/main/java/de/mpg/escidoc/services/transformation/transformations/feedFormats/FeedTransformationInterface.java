@@ -87,7 +87,7 @@ public class FeedTransformationInterface implements Transformation
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for feeds.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         transType = transDoc.getTransformations();
         TransformationType[] transformations = transType.getTransformationArray();
@@ -143,7 +143,7 @@ public class FeedTransformationInterface implements Transformation
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for feeds.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
          
         transType = transDoc.getTransformations();
@@ -220,7 +220,7 @@ public class FeedTransformationInterface implements Transformation
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for common publication formats.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         
         transType = transDoc.getTransformations();

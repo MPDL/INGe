@@ -2,13 +2,13 @@ package test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -21,22 +21,31 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class TransformationTest
 {
-    TransformationBean trans = new TransformationBean();
+    private TransformationBean trans;
     Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
+    
+    /**
+     * Initializes the {@link TransformationBean}.
+     */
+    @Before
+    public void initTransformation()
+    {
+        trans = new TransformationBean();
+    }
+
     
     @Test
     public void test() throws Exception
     {
-        
         try{
 
             this.logger.debug("Check sources xml:");
-            this.trans.getSourceFormatsAsXml();
+            this.logger.debug(this.trans.getSourceFormatsAsXml());
             this.logger.debug("-----OK");
             
             this.logger.debug("Check target xml for escidoc item:");
-            this.trans.getTargetFormatsAsXml("eSciDoc", "application/xml", "*");
+            this.logger.debug(this.trans.getTargetFormatsAsXml("eSciDoc", "application/xml", "*"));
             this.logger.debug("-----OK");
             
             this.logger.debug("Check target xml for escidocToc item:");
@@ -45,7 +54,7 @@ public class TransformationTest
             
             this.logger.debug("Check source xml for escidoc item:");
             Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc", "application/xml", "UTF-8"));
-            this.util.createFormatsXml(tmp);
+            this.logger.debug(this.util.createFormatsXml(tmp));
             this.logger.debug("-----OK");
             
             this.logger.debug("Check Transformation");
@@ -70,7 +79,7 @@ public class TransformationTest
             throw new Exception(e);
         }
         
-        this.logger.debug("Transformation Tests succeeded");
+        this.logger.info("Transformation Tests succeeded");
     }
     
     @Test

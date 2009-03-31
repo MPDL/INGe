@@ -114,4 +114,26 @@ public class Format implements Serializable
     {
         this.encoding = encoding;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        else if (!(other instanceof Format))
+        {
+            return false;
+        }
+        else
+        {
+            return (this.name == null ? ((Format)other).name == null : this.name.equals(((Format) other).name))
+                    && (this.type == null ? ((Format)other).type == null : this.type.equals(((Format) other).type))
+                    && (this.encoding == null ? ((Format)other).encoding == null : this.encoding.equals(((Format) other).encoding));
+        }
+    }
 }

@@ -87,7 +87,7 @@ public class MicroTransformationInterface implements de.mpg.escidoc.services.tra
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for micro formats.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         transType = transDoc.getTransformations();
         TransformationType[] transformations = transType.getTransformationArray();
@@ -143,7 +143,7 @@ public class MicroTransformationInterface implements de.mpg.escidoc.services.tra
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for micro formats.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         
         transType = transDoc.getTransformations();
@@ -251,7 +251,7 @@ public class MicroTransformationInterface implements de.mpg.escidoc.services.tra
         catch (Exception e)
         {
             this.logger.error("An error occurred while reading transformations.xml for common publication formats.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         
         transType = transDoc.getTransformations();

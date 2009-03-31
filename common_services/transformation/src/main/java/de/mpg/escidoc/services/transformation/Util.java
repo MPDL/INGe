@@ -101,8 +101,7 @@ public class Util
         }
         catch (IOException e)
         {
-            //TODO
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return baos.toString();
     }
