@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.AccessException;
@@ -56,9 +55,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
@@ -71,7 +70,6 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -125,9 +123,10 @@ public class DataHandlerBean implements DataHandler
     /**
      * {@inheritDoc}
      */
-    public byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws SourceNotAvailableException,
-            AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, 
-            RuntimeException, FormatNotAvailableException
+    public byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType, 
+            String trgFormatEncoding) throws SourceNotAvailableException, AccessException, 
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, 
+            FormatNotAvailableException
     {
         byte[] fetchedData = null;
         DataSourceVO importSource = new DataSourceVO();
@@ -146,7 +145,8 @@ public class DataHandlerBean implements DataHandler
 
             if (fetchType.equals(this.fetchTypeTEXTUALDATA))
             {
-                fetchedData = this.fetchTextualData(importSource, identifier, trgFormatName, trgFormatType, trgFormatEncoding).getBytes("UTF-8");
+                fetchedData = this.fetchTextualData(importSource, identifier, trgFormatName, 
+                        trgFormatType, trgFormatEncoding).getBytes("UTF-8");
             }
             if (fetchType.equals(this.fetchTypeFILEDATA))
             {
@@ -155,10 +155,12 @@ public class DataHandlerBean implements DataHandler
             }
             if (fetchType.equals(this.fetchTypeESCIDOCTRANS))
             {
-                fetchedData = this.fetchTextualData(importSource, identifier, "escidoc", "application/xml", "UTF-8").getBytes("UTF-8");
+                fetchedData = this.fetchTextualData(importSource, identifier, "escidoc", "application/xml", "UTF-8")
+                    .getBytes("UTF-8");
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-                fetchedData = transformer.transform(fetchedData, "escidoc", "application/xml", "UTF-8", trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
+                fetchedData = transformer.transform(fetchedData, "escidoc", "application/xml", "UTF-8", 
+                        trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
                 this.setContentType(trgFormatType);
                 this.setFileEnding(null);
             }
@@ -182,7 +184,7 @@ public class DataHandlerBean implements DataHandler
         }
         catch (FormatNotRecognisedException e)
         {
-            throw new FormatNotRecognisedException (e);
+            throw new FormatNotRecognisedException(e);
         }
         catch (FormatNotAvailableException e)
         {
@@ -227,9 +229,10 @@ public class DataHandlerBean implements DataHandler
         Format[] formatsF = new Format[formats.length];
         Format format;
         
-        for (int i = 0; i< formats.length; i++)
+        for (int i = 0; i < formats.length; i++)
         {
-            format = new Format(formats[i], this.util.getDefaultMimeType(formats[i]), this.util.getDefaultEncoding(formats[i]));
+            format = new Format(formats[i], this.util.getDefaultMimeType(formats[i]), 
+                    this.util.getDefaultEncoding(formats[i]));
             formatsF[i] = format;
         }
         
@@ -247,14 +250,15 @@ public class DataHandlerBean implements DataHandler
         String enc;
         
         //check if the format is in the name
-        if (formatName.contains(new String("\u005F")))
+        if (formatName.contains(new String("\u005F")) && !formatName.equals("oai_dc"))
         {
             String[] typeArr = formatName.split(new String("\u005F"));
             formatName = typeArr[0];
             type = typeArr[1];
             enc = "*";
         }
-        else{
+        else
+        {
             type = this.util.getDefaultMimeType(formatName);
             enc = this.util.getDefaultEncoding(formatName);
         }
@@ -281,7 +285,7 @@ public class DataHandlerBean implements DataHandler
         catch (IOException e)
         {
             this.logger.error("An error occurred while accessing sources.xml.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return explainXML;
     }
@@ -298,10 +302,12 @@ public class DataHandlerBean implements DataHandler
      * @throws AccessException
      * @throws FormatNotSupportedException
      */
-    private String fetchTextualData(DataSourceVO importSource, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding)
-        throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException, FormatNotAvailableException, FormatNotRecognisedException
+    private String fetchTextualData(DataSourceVO importSource, String identifier, String trgFormatName, 
+            String trgFormatType, String trgFormatEncoding) 
+            throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException, 
+            FormatNotAvailableException, FormatNotRecognisedException
     {
-        String item= null;
+        String item = null;
         boolean supportedProtocol = false;
         ProtocolHandler protocolHandler = new ProtocolHandler();
         
@@ -346,10 +352,10 @@ public class DataHandlerBean implements DataHandler
             {               
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-                Format srcFormat = new Format (md.getName(), md.getMdFormat(),"*");
-                Format trgFormat = new Format (trgFormatName, trgFormatType, trgFormatEncoding);
+                Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
+                Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
-                item = new String (transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
+                item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
                 this.setItemUrl(new URL(importSource.getItemUrl().toString().replace("GETID", identifier)));
             }
             
@@ -487,7 +493,8 @@ public class DataHandlerBean implements DataHandler
             for (int i = 0; i < formats.length; i++)
             {
                 Format format = formats[i];
-                fulltext = this.util.getFtObjectToFetch(importSource, format.getName(), format.getType(), format.getEncoding());
+                fulltext = this.util.getFtObjectToFetch(importSource, format.getName(), format.getType(), 
+                        format.getEncoding());
                 // Replace regex with identifier
                 String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding());
                 fulltext.setFtUrl(new URL(decoded));
@@ -534,7 +541,7 @@ public class DataHandlerBean implements DataHandler
         catch (SourceNotAvailableException e)
         {
             this.logger.error("Import Source " + importSource + " not available.", e);
-            throw new SourceNotAvailableException();
+            throw new SourceNotAvailableException(e);
         }
         catch (FormatNotAvailableException e)
         {
@@ -660,10 +667,10 @@ public class DataHandlerBean implements DataHandler
                             + responseCode + ": " + httpConn.getResponseMessage());
             }
             String contentTypeHeader = conn.getHeaderField("Content-Type");
-            String contentType = contentTypeHeader;
-            if (contentType.contains(";"))
+            this.setContentType(contentTypeHeader);
+            if (this.getContentType().contains(";"))
             {
-                contentType = contentType.substring(0, contentType.indexOf(";"));
+                this.setContentType(this.getContentType().substring(0, this.getContentType().indexOf(";")));
                 if (contentTypeHeader.contains("encoding="))
                 {
                     charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
@@ -699,7 +706,8 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private String fetchEjbRecord(DataSourceVO importSource, MetadataVO md, String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    private String fetchEjbRecord(DataSourceVO importSource, MetadataVO md, String identifier) 
+        throws IdentifierNotRecognisedException, RuntimeException
     {
         try
         {
@@ -707,8 +715,10 @@ public class DataHandlerBean implements DataHandler
             {
                 return ServiceLocator.getItemHandler().retrieve(identifier);
             }  
-            if (importSource.getName().toLowerCase().equals("escidocdev") || importSource.getName().toLowerCase().equals("escidocqa") 
-                    || importSource.getName().toLowerCase().equals("escidocprod") || importSource.getName().toLowerCase().equals("escidoctest"))
+            if (importSource.getName().toLowerCase().equals("escidocdev") 
+                    || importSource.getName().toLowerCase().equals("escidocqa") 
+                    || importSource.getName().toLowerCase().equals("escidocprod") 
+                    || importSource.getName().toLowerCase().equals("escidoctest"))
             {
                 return ServiceLocator.getItemHandlerByUrl(md.getMdUrl().toString()).retrieve(identifier);
             } 
@@ -740,10 +750,11 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private byte[] fetchEjbFile(DataSourceVO importSource, FullTextVO ft, String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    private byte[] fetchEjbFile(DataSourceVO importSource, FullTextVO ft, String identifier) 
+        throws IdentifierNotRecognisedException, RuntimeException
     {
         String itemXML = "";
-        String coreservice ="";
+        String coreservice = "";
         URLConnection contentUrl = null;
         XmlTransforming xmlTransforming = new XmlTransformingBean();
         byte[] input = null;
@@ -756,21 +767,22 @@ public class DataHandlerBean implements DataHandler
                 coreservice = ServiceLocator.getFrameworkUrl();
             }  
             if (importSource.getName().toLowerCase().equals("escidocdev") 
-                    || importSource.getName().toLowerCase().equals("escidocqa") || importSource.getName().toLowerCase().equals("escidocprod"))
+                    || importSource.getName().toLowerCase().equals("escidocqa") 
+                    || importSource.getName().toLowerCase().equals("escidocprod"))
             {
                 itemXML = ServiceLocator.getItemHandlerByUrl(ft.getFtUrl().toString()).retrieve(identifier);
                 coreservice = ft.getFtUrl().toString();
             }  
             
             PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(itemXML));
-            contentUrl = new URL( coreservice + itemVO.getFiles().get(0).getContent()).openConnection();
+            contentUrl = new URL(coreservice + itemVO.getFiles().get(0).getContent()).openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(ft.getFtLabel());
                 case 302:
                     String alternativeLocation = contentUrl.getHeaderField("Location");
@@ -789,7 +801,7 @@ public class DataHandlerBean implements DataHandler
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                                 + responseCode + ": " + httpConn.getResponseMessage());
-           } 
+            } 
         }
         
         catch (ItemNotFoundException e)
@@ -815,7 +827,8 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws AccessException
      */
-    private String fetchHttpRecord(DataSourceVO importSource, MetadataVO md) throws IdentifierNotRecognisedException, RuntimeException, AccessException
+    private String fetchHttpRecord(DataSourceVO importSource, MetadataVO md) 
+        throws IdentifierNotRecognisedException, RuntimeException, AccessException
     {
         String item = "";
         URLConnection conn;
@@ -831,7 +844,7 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(md.getMdLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
@@ -874,7 +887,7 @@ public class DataHandlerBean implements DataHandler
      * @param url
      * @return content of a component as byte[]
      */
-    public byte[] retrieveComponentContent (String identifier, String url)
+    public byte[] retrieveComponentContent(String identifier, String url)
     {
         String coreservice = "";
         URLConnection contentUrl;
@@ -891,7 +904,7 @@ public class DataHandlerBean implements DataHandler
             }
             catch (Exception e)
             {
-                this.logger.error("Framework Access threw an exception.",e);
+                this.logger.error("Framework Access threw an exception.", e);
                 return null;
             }
         }  
@@ -905,14 +918,14 @@ public class DataHandlerBean implements DataHandler
 
         try
         {
-            contentUrl = new URL( coreservice + url).openConnection();
+            contentUrl = new URL(coreservice + url).openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Component content could not be fetched." );
+                    this.logger.warn("Component content could not be fetched.");
                     throw new RuntimeException("Component content could not be fetched. (503)");
                 case 200:
                     this.logger.info("Source responded with 200.");
@@ -933,7 +946,6 @@ public class DataHandlerBean implements DataHandler
         {
             this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
             throw new RuntimeException(e);
-            //TODO
         }
         
         return input;
@@ -948,7 +960,8 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws AccessException
      */
-    private byte[] fetchHttpFile(DataSourceVO importSource, FullTextVO ft) throws IdentifierNotRecognisedException, RuntimeException, AccessException
+    private byte[] fetchHttpFile(DataSourceVO importSource, FullTextVO ft) 
+        throws IdentifierNotRecognisedException, RuntimeException, AccessException
     {
         URLConnection conn;
         byte[] input = null;
@@ -962,7 +975,7 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file." );
+                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(ft.getFtLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
@@ -999,9 +1012,11 @@ public class DataHandlerBean implements DataHandler
      * Decide which kind of data has to be fetched.
      * @param source
      * @param format
-     * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}
+     * @return type of data to be fetched {TEXTUALDATA, FILEDATA, ESCIDOCTRANS, UNKNOWN}
      */
-    private String getFetchingType(DataSourceVO source, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws FormatNotAvailableException
+    private String getFetchingType(DataSourceVO source, String trgFormatName, 
+            String trgFormatType, String trgFormatEncoding) 
+            throws FormatNotAvailableException
     {
         //Native metadata format
         if (this.util.getMdObjectToFetch(source, trgFormatName, trgFormatType, trgFormatEncoding) != null)
@@ -1023,7 +1038,8 @@ public class DataHandlerBean implements DataHandler
         {
             InitialContext initialContext = new InitialContext();
             Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-            Format[] trgFormats = transformer.getTargetFormats(new Format(trgFormatName, trgFormatType, trgFormatEncoding));
+            Format[] trgFormats = transformer.getTargetFormats(
+                    new Format(trgFormatName, trgFormatType, trgFormatEncoding));
             if (trgFormats.length > 0)
             {
                 return this.fetchTypeTEXTUALDATA;

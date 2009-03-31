@@ -3,7 +3,6 @@ package de.mpg.escidoc.services.dataacquisition.webservice;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.AccessException;
 import java.util.Vector;
@@ -15,14 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import noNamespace.FormatType;
 import noNamespace.FormatsDocument;
 import noNamespace.FormatsType;
-import noNamespace.SourceType;
-import noNamespace.SourcesDocument;
-import noNamespace.SourcesType;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
-import org.apache.xmlbeans.XmlString;
-import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
@@ -129,14 +123,15 @@ public class UnapiServlet extends HttpServlet implements Unapi
                                 response.setContentType(this.dataHandler.getContentType());
                                 if (!this.view)
                                 {
-                                    if (this.dataHandler.getFileEnding()!= null)
+                                    if (this.dataHandler.getFileEnding() != null)
                                     {
-                                    response.setHeader("Content-disposition", "attachment; filename=" + this.filename
-                                            + this.dataHandler.getFileEnding());
+                                        response.setHeader("Content-disposition", "attachment; filename=" 
+                                                + this.filename + this.dataHandler.getFileEnding());
                                     }
                                     else
                                     {
-                                        response.setHeader("Content-disposition", "attachment; filename=" + this.filename);
+                                        response.setHeader("Content-disposition", "attachment; filename=" 
+                                                + this.filename);
                                     }
                                 }
                                 response.setStatus(200);
@@ -237,7 +232,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         //get transformable formats
         metadataV.addAll(util.getTransformFormats(metadataV));
         //get transformable formats via escidoc format
-        if (!identifier.toLowerCase().contains("escidoc"))
+        if (util.checkEscidocTransition(metadataV, identifier))
         {
             metadataV.addAll(util.getTransformationsWithEscidocTransition());
         }
@@ -272,7 +267,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         catch (IOException e)
         {
             this.logger.info("Error when creating output xml.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return baos.toByteArray();
     }
@@ -281,9 +276,10 @@ public class UnapiServlet extends HttpServlet implements Unapi
      * {@inheritDoc}
      */
     public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException
+            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, 
+            AccessException, FormatNotAvailableException
     {
-        String trimmedId ="";
+        String trimmedId = "";
         this.filename = identifier;
         String[] tmp = identifier.split(":", 2);
         String sourceId = tmp[0];
@@ -307,8 +303,6 @@ public class UnapiServlet extends HttpServlet implements Unapi
             }
             if (idType.equals(this.idTypeEscidoc))
             {
-                //id = util.setEsciDocIdentifier(identifier);
-                //sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
                 this.filename = trimmedId;
                 return this.dataHandler.doFetch(sourceName, trimmedId, format);
             }
@@ -338,11 +332,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         {
             throw new FormatNotAvailableException(e.getMessage());
         }
-        catch (RuntimeException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
             throw new RuntimeException(e);
         }

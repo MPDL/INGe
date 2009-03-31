@@ -53,8 +53,9 @@ public class DataSourceVO
     private String status;
     //Identifier prefix
     private String identifier;
-    private String identifierExample;
     private String sourceOAIIdentifier;
+    
+    private Vector<String> identifierExample;
 
     // Full text informations_______________________________
     private Vector<FullTextVO> ftFormats;
@@ -217,13 +218,13 @@ public class DataSourceVO
         this.sourceOAIIdentifier = sourceOAIIdentifier;
     }
     
-    public String getIdentifierExample()
-    {
-        return this.identifierExample;
-    }
-
-    public void setIdentifierExample(String identifierExample)
+    public void setIdentifierExample(Vector<String> identifierExample)
     {
         this.identifierExample = identifierExample;
+    }
+    
+    public Vector<String> getIdentifierExample()
+    {
+        return this.identifierExample;
     }
 }

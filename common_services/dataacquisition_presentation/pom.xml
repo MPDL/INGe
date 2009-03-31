@@ -21,7 +21,7 @@
 	CDDL HEADER END
 	
 	
-	Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+	Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 	für wissenschaftlich-technische Information mbH and Max-Planck-
 	Gesellschaft zur Förderung der Wissenschaft e.V.
 	All rights reserved. Use is subject to license terms.
@@ -57,7 +57,7 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
 			<version>1.0.16-SNAPSHOT</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

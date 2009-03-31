@@ -336,7 +336,15 @@ public class Util
             {
                 Format formatTrans = formats[x];
                 MetadataVO mdTrans = new MetadataVO();
-                mdTrans.setName(formatTrans.getName() + "_" + formatTrans.getType());               
+                //Hack needed for unapi zotero interface
+                if (!formatTrans.getName().toLowerCase().equals("bibtex"))
+                {
+                    mdTrans.setName(formatTrans.getName() + "_" + formatTrans.getType());
+                }        
+                else
+                {
+                    mdTrans.setName(formatTrans.getName());
+                }
                 mdTrans.setMdFormat(formatTrans.getType());
                 mdTrans.setEncoding(formatTrans.getEncoding());
                 
@@ -363,10 +371,17 @@ public class Util
         {
             Format format = formatsArr[i];
             MetadataVO md = new MetadataVO();
-            md.setName(format.getName() + "_" + format.getType());
+            //Hack needed for unapi zotero interface
+            if (!format.getName().toLowerCase().equals("bibtex"))
+            {
+                md.setName(format.getName() + "_" + format.getType());
+            }
+            else
+            {
+                md.setName(format.getName());
+            }
             md.setMdFormat(format.getType());
             md.setEncoding(format.getEncoding());
-            //md.setMdLabel(format.getName() + "_" + format.getType());
             
             formatsV.add(md);
         }
@@ -526,7 +541,8 @@ public class Util
                 XmlString sourceidDel = XmlString.Factory.newInstance();
                 sourceidDel.setStringValue(":");
                 idDel.set(sourceidDel);
-              //Identifier example
+                //Identifier example
+                //Friederike: Have to update jar file first!
 //                Vector<String> examples = source.getIdentifierExample();
 //                for (String example : examples)
 //                {                   

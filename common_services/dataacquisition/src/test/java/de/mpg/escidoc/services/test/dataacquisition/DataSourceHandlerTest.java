@@ -12,21 +12,28 @@ import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
  *
  * @author Friederike Kleinfercher (initial creation)
  */
-public class DataSourceHandlerTest {
+public class DataSourceHandlerTest 
+{
 
     
-    private Logger LOGGER = Logger.getLogger(DataSourceHandlerTest.class);
+    private Logger logger = Logger.getLogger(DataSourceHandlerTest.class);
 
     @Test
-    public void SourcesTest() throws Exception
+    /**
+     * This method tests the retrieval of sources from the sources xml.
+     * @throws Exception
+     */
+    public void sourcesTest() throws Exception
     {
-        this.LOGGER.info("Testing processing of sources.xml");
+        this.logger.info("Testing processing of sources.xml");
         
         DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
+        sourceHandler.getSources();
+        this.logger.info("Retrieval of all sources successful");
         sourceHandler.getSourceByIdentifier("arXiv");
-        this.LOGGER.info("Retrieval of source by identifier (arXiv) successful");
+        this.logger.info("Retrieval of source by identifier (arXiv) successful");
         sourceHandler.getSourceByName("eSciDoc");
-        this.LOGGER.info("Retrieval of source by name (eSciDoc) successful");
+        this.logger.info("Retrieval of source by name (eSciDoc) successful");
         
     }
     

@@ -57,8 +57,7 @@ public class ProtocolHandler
      * Public constructor for the protocolHandler class.
      */
     public ProtocolHandler()
-    {
-        
+    {       
     }
     
     /**

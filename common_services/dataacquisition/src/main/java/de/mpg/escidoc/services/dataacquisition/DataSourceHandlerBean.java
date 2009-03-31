@@ -1,12 +1,10 @@
 package de.mpg.escidoc.services.dataacquisition;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.XmlException;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.FTFetchSettingType;
@@ -33,6 +31,7 @@ public class DataSourceHandlerBean
     private ThirdPartyTransformation thirdPartyTransformer = null;
     private static final Logger LOGGER = Logger.getLogger(DataHandlerBean.class);
     private String transformationFormat = null;
+    private final String sourceXmlPath ="resources/sources.xml";
 
     /**
      * Public constructor for DataSourceHandlerBean class.
@@ -50,18 +49,23 @@ public class DataSourceHandlerBean
     public Vector<DataSourceVO> getSources()throws RuntimeException
     {
         Vector<DataSourceVO> sourceVec = new Vector<DataSourceVO>();
+        
         try
         {
             ClassLoader cl = this.getClass().getClassLoader();
             java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
+            //System.out.println(this.sourceDoc);
             this.thirdPartyTransformer = new ThirdPartyTransformation();
             this.sourceType = this.sourceDoc.getImportSources();
             ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-            for (ImportSourceType source : sources)
+            for (int i =0; i< sources.length; i++)
             {
+                ImportSourceType source = sources[i];
                 Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
                 Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
+                Vector<String> examplesVec = new Vector<String>();
+
                 String status = simpleLiteralTostring(source.getStatus());
                 if (status.toLowerCase().trim().equals("published"))
                 {   DataSourceVO sourceVO = new DataSourceVO();
@@ -72,11 +76,19 @@ public class DataSourceHandlerBean
                     sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
                     sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
                     sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
-                    sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                     sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
-                    sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
-                    sourceVO.setIdentifierExample(simpleLiteralTostring(source.getSourceIdentifierExample()));
+                    if (source.getItemUrl() != null)
+                    {
+                        sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+                    }                    
+//                    SimpleLiteral[] examples = source.getSourceIdentifierExampleArray();
+//                    for (SimpleLiteral example : examples)
+//                    {
+//                        examplesVec.add(simpleLiteralTostring(example));
+//                    }
+//                    sourceVO.setIdentifierExample(examplesVec); 
+                    //TODO oai identifier
                     // Metadata parameters
                     MDFetchSettingsType mdfs = source.getMDFetchSettings();
                     MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -118,12 +130,13 @@ public class DataSourceHandlerBean
                     // Check if a transformation for the default MD format is possible
                     if (this.transformationFormat != null)
                     {
-                        for (int i = 0; i < sourceVO.getMdFormats().size(); i++)
+                        for (int x = 0; x < sourceVO.getMdFormats().size(); x++)
                         {
-                            MetadataVO md = sourceVO.getMdFormats().get(i);
+                            MetadataVO md = sourceVO.getMdFormats().get(x);
                             if (md.isMdDefault())
                             {
-                                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), this.transformationFormat) 
+                                if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), 
+                                        this.transformationFormat) 
                                         || (this.transformationFormat.toLowerCase().equals(md.getName().toLowerCase())))
                                 { sourceVec.add(sourceVO); }
                             }
@@ -136,18 +149,14 @@ public class DataSourceHandlerBean
                 }
             }
         }
-        catch (XmlException e)
-        {
-            LOGGER.error("Parsing sources.xml caused an error", e); throw new RuntimeException();
-        }
         catch (MalformedURLException e)
         {
-            LOGGER.error("Processing the source URL caused an error", e); throw new RuntimeException();
+            LOGGER.error("Processing the source URL caused an error", e); throw new RuntimeException(e);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         return sourceVec;
     }
@@ -176,11 +185,12 @@ public class DataSourceHandlerBean
         DataSourceVO sourceVO = new DataSourceVO();
         Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
         Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
+        Vector<String> examplesVec = new Vector<String>();
         boolean found = false;
         try
         {
             ClassLoader cl = this.getClass().getClassLoader();
-            java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
+            java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
             this.sourceType = this.sourceDoc.getImportSources();
             ImportSourceType[] sources = this.sourceType.getImportSourceArray();
@@ -204,7 +214,16 @@ public class DataSourceHandlerBean
                 sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                 sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                 sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
-                sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+                if (source.getItemUrl() != null)
+                {
+                    sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
+                }   
+//                SimpleLiteral[] examples = source.getSourceIdentifierExampleArray();
+//                for (SimpleLiteral example : examples)
+//                {
+//                    examplesVec.add(simpleLiteralTostring(example));
+//                }
+//                sourceVO.setIdentifierExample(examplesVec);    
                 // Metadata parameters
                 MDFetchSettingsType mdfs = source.getMDFetchSettings();
                 MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -249,20 +268,15 @@ public class DataSourceHandlerBean
                 sourceVO.setFtFormats(fulltextVec);
             }
         }
-        catch (XmlException e)
-        {
-            LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
-        }
         catch (MalformedURLException e)
         {
             LOGGER.error("Processing the source URL caused an error", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         // this.printSourceXML(sourceVO);
         if (found)
@@ -287,18 +301,13 @@ public class DataSourceHandlerBean
         try
         {
             ClassLoader cl = this.getClass().getClassLoader();
-            java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
+            java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
         }
-        catch (XmlException e)
+        catch (Exception e)
         {
             LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         this.sourceType = this.sourceDoc.getImportSources();
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
@@ -329,18 +338,13 @@ public class DataSourceHandlerBean
         try
         {
             ClassLoader cl = this.getClass().getClassLoader();
-            java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml");
+            java.io.InputStream in = cl.getResourceAsStream(this.sourceXmlPath);
             this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
         }
-        catch (XmlException e)
+        catch (Exception e)
         {
             LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
-        }
-        catch (IOException e)
-        {
-            LOGGER.error("Parsing sources.xml caused an error", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         this.sourceType = this.sourceDoc.getImportSources();
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
