@@ -214,5 +214,37 @@
 	<!--			com.sun.faces.application.WebappLifecycleListener-->
 	<!--		</listener-class>-->
 	<!--	</listener>-->
+	
+		<!-- Start SWORD -->
+	<context-param>
+	    <param-name>server-class</param-name>
+	    <param-value>de.mpg.escidoc.pubman.sword.PubManSwordServer</param-value>
+  	</context-param>
+    <context-param>
+	    <param-name>authentication-method</param-name>
+	    <param-value>Basic</param-value>
+	    <description>
+	      The type of authentication used : [Basic|None]
+	    </description>
+  	</context-param>
+	<servlet>
+		<servlet-name>servicedocument</servlet-name>
+		<servlet-class>de.mpg.escidoc.pubman.sword.PubManServiceDocumentServlet</servlet-class>
+    </servlet>															
+    <servlet-mapping>
+    	<servlet-name>servicedocument</servlet-name>
+    	<url-pattern>/sword/servicedocument</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+    	<servlet-name>deposit</servlet-name>
+    	<servlet-class>de.mpg.escidoc.pubman.sword.PubManDepositServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>deposit</servlet-name>
+    	<url-pattern>/sword/deposit</url-pattern>
+  	</servlet-mapping>
+  	 <!-- End SWORD -->
+	
 </web-app>
 

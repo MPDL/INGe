@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -32,6 +32,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
 	version="1.2"> 
 
+	<managed-bean>
+		<managed-bean-name>SwordUtil</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.sword.SwordUtil</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>PaginatorControlSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.ui.PaginatorControlSessionBean</managed-bean-class>

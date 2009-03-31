@@ -92,6 +92,7 @@
 				</span>
 			</h:panelGroup>
 
+
 <%-- Real filename --%>
 			<h:panelGroup rendered="#{component.index == 0}">
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">

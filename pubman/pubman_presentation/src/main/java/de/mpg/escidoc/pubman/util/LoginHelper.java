@@ -203,7 +203,7 @@ public class LoginHelper extends FacesBean
      * @param userHandle user handle that is given back from FIZ framework (is needed here to call framework methods)
      * @throws ServletException, ServiceException, TechnicalException
      */
-    private void fetchAccountUser(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException, TechnicalException, URISyntaxException
+    public void fetchAccountUser(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException, TechnicalException, URISyntaxException
     {
         // Call FrameWork method
         XmlTransformingBean transforming = new XmlTransformingBean();
