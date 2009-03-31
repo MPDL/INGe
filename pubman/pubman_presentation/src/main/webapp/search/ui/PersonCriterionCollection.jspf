@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -46,7 +46,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblPersonSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="searchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:inputText id="personSearchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
@@ -61,12 +61,12 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel id="lblSearchString" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText id="searchString" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+					<h:outputLabel id="lblPersonSearchStringMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:inputText id="personSearchStringMultiple" styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
 --%>

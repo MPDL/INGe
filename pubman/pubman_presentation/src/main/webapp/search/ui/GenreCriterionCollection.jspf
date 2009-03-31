@@ -134,79 +134,79 @@
 					<a class="large_area0 tiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
 					<span class="free_area0 checkboxDoubleGroup">
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticles" value="#{genreCriterionBean.searchArticle}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchArticlesMultiple" value="#{genreCriterionBean.searchArticle}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_article}" for="genreCriterionBean_searchArticles" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchBooks" value="#{genreCriterionBean.searchBook}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBooksMultiple" value="#{genreCriterionBean.searchBook}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_book}" for="genreCriterionBean_searchBooks" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItems" value="#{genreCriterionBean.searchBookItem}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItemsMultiple" value="#{genreCriterionBean.searchBookItem}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_book_item}" for="genreCriterionBean_searchBookItems" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLectures" value="#{genreCriterionBean.searchCoursewareLecture}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLecturesMultiple" value="#{genreCriterionBean.searchCoursewareLecture}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_courseware_lecture}" for="genreCriterionBean_searchCoursewareLectures" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePapers" value="#{genreCriterionBean.searchConferencePaper}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePapersMultiple" value="#{genreCriterionBean.searchConferencePaper}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conference_paper}" for="genreCriterionBean_searchConferencePapers" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReports" value="#{genreCriterionBean.searchConferenceReport}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReportsMultiple" value="#{genreCriterionBean.searchConferenceReport}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_conference_report}" for="genreCriterionBean_searchConferenceReports" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchIssues" value="#{genreCriterionBean.searchIssue}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchIssuesMultiple" value="#{genreCriterionBean.searchIssue}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_issue}" for="genreCriterionBean_searchIssues" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchJournals" value="#{genreCriterionBean.searchJournal}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchJournalsMultiple" value="#{genreCriterionBean.searchJournal}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_journal}" for="genreCriterionBean_searchJournals" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscripts" value="#{genreCriterionBean.searchManuscript}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscriptsMultiple" value="#{genreCriterionBean.searchManuscript}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_manuscript}" for="genreCriterionBean_searchManuscripts" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchPapers" value="#{genreCriterionBean.searchPaper}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPapersMultiple" value="#{genreCriterionBean.searchPaper}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_paper}" for="genreCriterionBean_searchPapers" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchPosters" value="#{genreCriterionBean.searchPoster}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchPostersMultiple" value="#{genreCriterionBean.searchPoster}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_poster}" for="genreCriterionBean_searchPosters" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedingss" value="#{genreCriterionBean.searchProceedings}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedingsMultiple" value="#{genreCriterionBean.searchProceedings}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_proceedings}" for="genreCriterionBean_searchProceedingss" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchReports" value="#{genreCriterionBean.searchReport}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchReportsMultiple" value="#{genreCriterionBean.searchReport}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_report}" for="genreCriterionBean_searchReports" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchSeriess" value="#{genreCriterionBean.searchSeries}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchSeriesMultiple" value="#{genreCriterionBean.searchSeries}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_series}" for="genreCriterionBean_searchSeriess" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEvents" value="#{genreCriterionBean.searchTalkAtEvent}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEventsMultiple" value="#{genreCriterionBean.searchTalkAtEvent}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_talk_at_event}" for="genreCriterionBean_searchTalkAtEvents" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesiss" value="#{genreCriterionBean.searchThesis}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchThesisMultiple" value="#{genreCriterionBean.searchThesis}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_thesis}" for="genreCriterionBean_searchThesiss" />
 						</span>
 						<span class="large_checkbox tiny_marginRIncl">
-							<h:selectBooleanCheckbox id="genreCriterionBean_searchOthers" value="#{genreCriterionBean.searchOther}" />
+							<h:selectBooleanCheckbox id="genreCriterionBean_searchOthersMultiple" value="#{genreCriterionBean.searchOther}" />
 							<h:outputLabel value="#{lbl.adv_search_lblChkGenre_other}" for="genreCriterionBean_searchOthers" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size == 1}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
 --%>

@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -64,15 +64,15 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel id="lblLanguageTerm" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText id="languageSuggest" styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu id="selLanguageOptions" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+					<h:outputLabel id="lblLanguageTermMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
+					<h:inputText id="languageSuggestMultiple" styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
-					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddMultiple" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveMultiple" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
 --%>
