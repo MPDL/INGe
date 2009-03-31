@@ -17,7 +17,13 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 
 
 /**
- * Unit test for simple App.
+ * 
+ * Integration JUnit test for PubMan Syndication Service
+ * 
+ * @author vmakarenko (initial creation)
+ * @author $Author:$ (last modification)
+ * @version $Revision:$ $LastChangedDate:$
+ * 
  */
 public class SyndicationServiceTest 
 {
@@ -32,12 +38,14 @@ public class SyndicationServiceTest
     	long start;
     	String result;
     	
+    	
     	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
     	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
     	logger.info("pubman base url:" + pubman_url);
+
+    	//Thread.sleep(1000L * 60);
     	
-//    	uri = "http://localhost:8080/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
-    	uri = pubman_url + "/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
+    	uri = pubman_url + "/syndication/feed/rss_2.0/releases";
     	start = System.currentTimeMillis();
     	result =  performGetFeed( uri ); 
     	assertTrue( result!= null );
@@ -45,7 +53,6 @@ public class SyndicationServiceTest
     	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
 //    	Utils.writeToFile("result_rss_093.xml", result);    	
     	
-//    	uri = "http://localhost:8080/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
     	uri = pubman_url + "/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
     	start = System.currentTimeMillis();
     	result =  performGetFeed( uri );
@@ -57,6 +64,14 @@ public class SyndicationServiceTest
     	
     }    
     
+    
+    /**
+     * Call Syndication Cervice via HTTP request  
+     * 
+     * @param url
+     * @return
+     * @throws Exception
+     */
     private String performGetFeed(String url) throws Exception 
 	{
     	
@@ -77,7 +92,9 @@ public class SyndicationServiceTest
 	        	logger.error(getInputStreamAsString( stream ));
 	        	return null;
 	        }
-	        else if ( (content = conn.getContent( )) != null && content instanceof InputStream )
+	        else if ( 
+	        		(content = conn.getContent( )) != null && content instanceof InputStream 
+	        )
 	            content = getInputStreamAsString( (InputStream)content );
 	        else
 	        {
@@ -89,18 +106,6 @@ public class SyndicationServiceTest
 	        
 			return (String)content;
 	}
-    
-	/**
-     * Get a resource as String.
-     *
-     * @param fileName The path and name of the file relative from the working directory.
-     * @return The resource as String.
-     * @throws IOException Thrown if the resource cannot be located.
-     */
-//    public String getResourceAsString(final String fileName) throws IOException
-//    {
-//        return getInputStreamAsString(getResourceAsStream(fileName));
-//    }    
     
     /**
      * Get an InputStream as String.
@@ -120,28 +125,6 @@ public class SyndicationServiceTest
     	}
     	return result.toString();
     }  
-    /**
-     * Get a resource as InputStream.
-     *
-     * @param fileName The path and name of the file relative from the working directory.
-     * @return The resource as InputStream.
-     * @throws FileNotFoundException Thrown if the resource cannot be located.
-     */
-//    public InputStream getResourceAsStream(final String fileName) throws FileNotFoundException
-//    {
-//        InputStream fileIn = null;
-//        
-//        File file = new File(fileName);
-//        if (file.exists())
-//        {
-//        	fileIn = new FileInputStream(fileName);
-//        }
-//        else
-//	    {
-//	    	fileIn = getClass().getClassLoader().getResourceAsStream(fileName);
-//	    }
-//	    return fileIn;
-//        
-//    }	    
+    
     
 }

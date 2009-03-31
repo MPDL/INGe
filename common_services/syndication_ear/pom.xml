@@ -30,6 +30,22 @@
                     <resourcesDir>target/classes/in_ear</resourcesDir>
                     <version>5</version>
                     <modules>
+                        <ejbModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>common_logic</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>search</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>structuredexportmanager</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>citationmanager</artifactId>
+                        </ejbModule>
                         <jarModule>
                             <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>framework_access</artifactId>
@@ -50,20 +66,11 @@
                             <artifactId>commons-beanutils</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
-                        <ejbModule>
-                            <groupId>de.mpg.escidoc.services</groupId>
-                            <artifactId>common_logic</artifactId>
-                        </ejbModule>
                         <jarModule>
                             <groupId>net.sf.saxon</groupId>
                             <artifactId>saxon</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
-                        <webModule>
-                            <groupId>de.mpg.escidoc.services</groupId>
-                            <artifactId>syndication_presentation</artifactId>
-                            <contextRoot>/syndication</contextRoot>
-                        </webModule>
                         <jarModule>
                             <groupId>org.jibx</groupId>
                             <artifactId>jibx-run</artifactId>
@@ -74,6 +81,31 @@
                             <artifactId>stax</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
+                        <jarModule>
+                            <groupId>jasperreports</groupId>
+                            <artifactId>jasperreports</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
+                        <jarModule>
+							<groupId>org.dspace</groupId>
+							<artifactId>cql-java</artifactId>                        
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
+                        <jarModule>
+							<groupId>wss4j</groupId>
+							<artifactId>wss4j</artifactId>                        
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
+                        <webModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>syndication_presentation</artifactId>
+                            <contextRoot>/syndication</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>search_presentation</artifactId>
+                            <contextRoot>/search</contextRoot>
+                        </webModule>
                     </modules>
                 </configuration>
             </plugin>
@@ -302,17 +334,15 @@
             <version>8.7</version>
         </dependency>
         <dependency>
-            <groupId>de.mpg.escidoc.services</groupId>
-            <artifactId>syndication_presentation</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-            <scope>compile</scope>
-            <type>war</type>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>commons-beanutils</groupId>
+        	<artifactId>commons-beanutils</artifactId>
+        	<version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
@@ -327,9 +357,57 @@
             <type>ejb</type>
         </dependency>
         <dependency>
-        	<groupId>commons-beanutils</groupId>
-        	<artifactId>commons-beanutils</artifactId>
-        	<version>1.7.0</version>
+        	<groupId>de.mpg.escidoc.services</groupId>
+        	<artifactId>search_presentation</artifactId>
+        	<version>1.0.18-SNAPSHOT</version>
+        	<scope>test</scope>
+        	<type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>syndication_presentation</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>test</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+        	<groupId>de.mpg.escidoc.services</groupId>
+        	<artifactId>search</artifactId>
+        	<version>1.0.19-SNAPSHOT</version>
+            <scope>test</scope>
+        	<type>ejb</type>
+        </dependency>
+        <dependency>
+        	<groupId>de.mpg.escidoc.services</groupId>
+        	<artifactId>structuredexportmanager</artifactId>
+        	<version>1.0.22-SNAPSHOT</version>
+            <scope>test</scope>
+        	<type>ejb</type>
+        </dependency>
+        <dependency>
+        	<groupId>de.mpg.escidoc.services</groupId>
+        	<artifactId>citationmanager</artifactId>
+        	<version>1.0.25-SNAPSHOT</version>
+            <scope>test</scope>
+        	<type>ejb</type>
+        </dependency>
+        <dependency>
+        	<groupId>jasperreports</groupId>
+        	<artifactId>jasperreports</artifactId>
+        	<version>2.0.1-patched</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.dspace</groupId>
+        	<artifactId>cql-java</artifactId>
+        	<version>1.3</version>
+        	<scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>wss4j</groupId>
+        	<artifactId>wss4j</artifactId>
+        	<version>1.5.1</version>
+        	<scope>test</scope>
         </dependency>
     </dependencies>
 </project>
