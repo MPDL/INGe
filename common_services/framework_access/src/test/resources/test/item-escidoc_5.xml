@@ -19,7 +19,7 @@
 		<escidocItem:context xlink:type="simple"
 			xlink:title="A simple Context" xlink:href="/ir/context/escidoc:ex1" />
 		<escidocItem:content-model xlink:type="simple" xlink:title="ct"
-			xlink:href="/cmm/content-model/escidoc:ex4" />
+			xlink:href="/cmm/content-model/escidoc:persistent6" />
 		<escidocItem:lock-status>unlocked</escidocItem:lock-status>
 		<escidocItem:version xlink:type="simple"
 			xlink:title="This Version" xlink:href="/ir/item/escidoc:5:1">
