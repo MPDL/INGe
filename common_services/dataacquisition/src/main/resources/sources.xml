@@ -67,8 +67,8 @@
 				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/pubmedschema.xsd</dc:description>
 				<dc:identifier>http://www.biomedcentral.com/oai/2.0/?verb=GetRecord%26identifier=oai:biomedcentral.com:GETID%26metadataPrefix=pubmed</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>pubmed</label>
-				<name>pubmed</name>
+				<label>bmc</label>
+				<name>bmc</name>
 				<encoding>UTF-8</encoding>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
