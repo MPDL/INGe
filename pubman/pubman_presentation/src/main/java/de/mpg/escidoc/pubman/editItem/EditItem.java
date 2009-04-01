@@ -172,7 +172,8 @@ public class EditItem extends FacesBean
     private List<ListItem> languages = null;
     
     private UploadedFile uploadedFile;
-    
+    private String locatorUpload;
+
     private UIXIterator fileIterator = new UIXIterator();
     private UIXIterator pubLangIterator = new UIXIterator();
     private UIXIterator identifierIterator = new UIXIterator();
@@ -378,7 +379,6 @@ public class EditItem extends FacesBean
             if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
             {
                 PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
-                locatorpres.setShowProperties(true);
                 
                 //This is a small hack for locators generated out of Bibtex files
                 if (locatorpres.getLocator()==null)
@@ -1226,10 +1226,8 @@ public class EditItem extends FacesBean
      */
     public void uploadLocator()
     {
-        int indexUpload = this.getEditItemSessionBean().getLocators().size()-1;
-        String locatorValue = this.getLocators().get(indexUpload).getLocator();
         LocatorUploadBean locatorBean = new LocatorUploadBean();
-        boolean check = locatorBean.ckeckLocator(locatorValue);
+        boolean check = locatorBean.ckeckLocator(this.getLocatorUpload());
 
         if (check)
         {           
@@ -1238,14 +1236,14 @@ public class EditItem extends FacesBean
         
         if (locatorBean.getError()!= null)
         {
-            if (check)
-            {
-                //Reset locator if it was already added to list
-                locatorBean.removeLocator();
-                List <PubFileVOPresentation> list = this.getLocators();
-                list.get(indexUpload).setLocator(locatorValue);
-                this.setLocators(list);
-            }
+//            if (check)
+//            {
+//                //Reset locator if it was already added to list
+//                locatorBean.removeLocator();
+//                List <PubFileVOPresentation> list = this.getLocators();
+//                list.get(indexUpload).setLocator(locatorValue);
+//                this.setLocators(list);
+//            }
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
     }
@@ -1345,7 +1343,6 @@ public class EditItem extends FacesBean
             
             List <PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
             PubFileVOPresentation pubFile = list.get(indexUpload);
-            pubFile.setShowProperties(true);
             list.set(indexUpload, pubFile);
             this.getEditItemSessionBean().setLocators(list);
         }
@@ -2133,6 +2130,16 @@ public class EditItem extends FacesBean
 
 	public void setGenreBundle(String genreBundle) {
 		this.genreBundle = genreBundle;
-	}
+	}	
+    
+    public String getLocatorUpload()
+    {
+        return locatorUpload;
+    }
+
+    public void setLocatorUpload(String locatorUpload)
+    {
+        this.locatorUpload = locatorUpload;
+    }
     
 }

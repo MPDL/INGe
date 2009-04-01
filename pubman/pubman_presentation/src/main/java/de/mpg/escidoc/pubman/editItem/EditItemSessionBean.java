@@ -157,6 +157,8 @@ public class EditItemSessionBean extends FacesBean
     	}
     }
     
+    
+    
     /**
      * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
      */

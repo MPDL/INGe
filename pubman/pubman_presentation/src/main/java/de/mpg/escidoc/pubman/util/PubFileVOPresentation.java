@@ -41,8 +41,6 @@ public class PubFileVOPresentation extends FacesBean
     private PubItemSimpleStatistics pubItemStatistics;
     private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
     private LoginHelper loginHelper;
-    //Used for upload locator as file
-    private boolean showProperties = false;
 
 
     /**
@@ -471,17 +469,5 @@ public class PubFileVOPresentation extends FacesBean
                 fileID,
                 loginHelper.getAccountUser());
         return result;
-    }
-    
-
-
-    public boolean isShowProperties()
-    {
-        return this.showProperties;
-    }
-
-    public void setShowProperties(boolean showProperties)
-    {
-        this.showProperties = showProperties;
     }
 }

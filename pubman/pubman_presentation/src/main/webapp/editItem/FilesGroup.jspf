@@ -39,59 +39,45 @@
 	<div class="free_area0 itemBlockContent endline">
 		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
 
-<%-- Add File --%>
+<%-- Add File from local system--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
-					<%-- 
-					<span class="quad_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
-						<span class="xDouble_area0 tiny_marginRIncl">
-							<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
-						</span>
-						<span class="large_area0 large_negMarginRIncl">
-							<span class="large_area0 fileInputPositioner">
-								<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
-							</span>
-						</span>
-						<h:outputLabel styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
-					</span>
-					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
-			
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
 					<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
-					<%--
-					<span class="quad_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
-						<span class="xDouble_area0 tiny_marginRIncl">
-							<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
-						</span>
-						<span class="large_area0 large_negMarginRIncl">
-							<span class="large_area0 fileInputPositioner" >
-								<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
-							</span>
-						</span>
-						<label class="large_label endline fileLabel groupBtn"><h:outputText value="#{lbl.EditItem_btChooseFile}"/></label>
-					</span>
-					--%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
 
+<%-- Add File from url--%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.size == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btUpload}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+				</span>
+			</h:panelGroup>
 
 <%-- Real filename --%>
 			<h:panelGroup rendered="#{component.index == 0}">

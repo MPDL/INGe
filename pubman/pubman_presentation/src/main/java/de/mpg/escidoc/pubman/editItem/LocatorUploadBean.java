@@ -229,11 +229,8 @@ public class LocatorUploadBean extends FacesBean
                 
                 List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
                 PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
-                pubFile.setShowProperties(true);
                 list.add(pubFile);
                 this.editItem.getEditItemSessionBean().setFiles(list);
-
-                this.removeLocator();
         }
         catch (Exception e)
         {
