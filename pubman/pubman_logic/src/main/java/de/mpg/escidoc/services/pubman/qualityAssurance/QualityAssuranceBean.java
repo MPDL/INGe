@@ -175,7 +175,7 @@ public class QualityAssuranceBean implements QualityAssurance
             // Create filter
             FilterTaskParamVO filterParam = new FilterTaskParamVO();
 
-            RoleFilter roleFilter = filterParam.new RoleFilter("Moderator", user.getReference());
+            RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-moderator", user.getReference());
             filterParam.getFilterList().add(roleFilter);
             FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
             filterParam.getFilterList().add(typeFilter);
