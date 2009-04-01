@@ -90,7 +90,7 @@ public class RetrievePubCollectionTest extends TestBase
 
         // Create filter
         FilterTaskParamVO filterParam = new FilterTaskParamVO();
-        RoleFilter roleFilter = filterParam.new RoleFilter("Depositor", user.getReference());
+        RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
         filterParam.getFilterList().add(roleFilter);
 
         // ... and transform filter to xml
@@ -160,7 +160,7 @@ public class RetrievePubCollectionTest extends TestBase
 
         // Create filter
         FilterTaskParamVO filterParam = new FilterTaskParamVO();
-        RoleFilter roleFilter = filterParam.new RoleFilter("Depositor", user.getReference());
+        RoleFilter roleFilter = filterParam.new RoleFilter("escidoc:role-depositor", user.getReference());
         filterParam.getFilterList().add(roleFilter);
         FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
         filterParam.getFilterList().add(typeFilter);
