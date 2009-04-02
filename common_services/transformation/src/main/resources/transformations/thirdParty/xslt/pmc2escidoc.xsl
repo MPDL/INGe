@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 <!-- 
-	Transformations from eDoc Item to eSciDoc PubItem 
+	Transformations from PubMedCentral to eSciDoc PubItem 
 	Author: Julia Kurt (initial creation) 
 	$Author: kurt $ (last changed)
 	$Revision: 747 $ 
