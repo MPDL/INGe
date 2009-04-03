@@ -1,17 +1,50 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
 package de.mpg.escidoc.pubman.sword;
 
-
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import javax.naming.NamingException;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.purl.sword.base.Collection;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDAuthenticationException;
+import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
 import org.purl.sword.base.SWORDException;
 import org.purl.sword.base.Service;
@@ -19,17 +52,21 @@ import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
 import org.purl.sword.base.ServiceLevel;
 import org.purl.sword.base.Workspace;
-import org.purl.sword.server.SWORDServer;
 import org.w3.atom.Author;
 import org.w3.atom.Content;
 import org.w3.atom.Generator;
-import org.w3.atom.InvalidMediaTypeException;
 import org.w3.atom.Source;
+import org.w3.atom.Summary;
 import org.w3.atom.Title;
 
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.validation.ItemInvalidException;
 
 /**
  * Main class to provide SWORD Server functionality.
@@ -41,27 +78,30 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  */
 public class PubManSwordServer
 {
-
-        /** A counter to count submissions, so the response to a deposito can increment */
-        private static int counter = 0;
+        private Logger log = Logger.getLogger(PubManSwordServer.class);
         private AccountUserVO currentUser;
+        private String baseURL = "";
 
 
         /**
-         * Provides Service Document
+         * Provides Service Document.
+         * @param ServiceDocumentRequest
+         * @return ServiceDocument
          * @throws SWORDAuthenticationException 
+         * @throws URISyntaxException 
+         * @throws IOException 
          */
-        public ServiceDocument doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException 
+        public ServiceDocument doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException
         {
             SwordUtil util = new SwordUtil();
             Vector<Collection> collections = new Vector<Collection>();
-            
-            this.currentUser = util.checkUser(sdr);
-            
-            if (this.currentUser==null)
-            {
-                throw new SWORDAuthenticationException("Bad credentials");
-            }
+//            
+//            this.currentUser = util.checkUser(sdr);
+//            
+//            if (this.currentUser==null)
+//            {
+//                throw new SWORDAuthenticationException("Bad credentials");
+//            }
             
             //Get collections due to logged in user
             collections = util.getDepositCollection(this.currentUser);
@@ -87,53 +127,83 @@ public class PubManSwordServer
         
         
         /**
-         * 
+         * Process the deposit.
+         * @param deposit
+         * @param collection
+         * @return DepositResponse
+         * @throws SWORDAuthenticationException
+         * @throws SWORDException
+         * @throws URISyntaxException 
+         * @throws IOException 
+         * @throws SWORDContentTypeException 
          */
-        public DepositResponse doDeposit(Deposit deposit) throws SWORDAuthenticationException, SWORDException 
+        public DepositResponse doDeposit(Deposit deposit, String collection) throws SWORDAuthenticationException, SWORDException, IOException, URISyntaxException, SWORDContentTypeException 
         {
             SwordUtil util = new SwordUtil();
             PubItemVO depositItem = null;
+            DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
+            PubManDepositServlet depositServlet = new PubManDepositServlet();
+            SWORDEntry se = new SWORDEntry();
+            this.baseURL = PropertyReader.getProperty("escidoc.pubman.instance.url");
 
             try
             {
                 //generated item
-                depositItem = util.readZipFile(deposit.getFile());
-                //deposited
-                depositItem = util.doDeposit(this.currentUser, depositItem);
+                depositItem = util.readZipFile(deposit.getFile(), this.currentUser);                
+                //deposit item
+                ContextRO context = new ContextRO();
+                context.setObjectId(collection);
+                depositItem.setContext(context);
+                util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));
+                if (!deposit.isNoOp())
+                {
+                    depositItem = util.doDeposit(this.currentUser, depositItem);
+                }
+                if (depositItem == null)
+                {
+                    throw new SWORDException("Creation of Publication Item failed.");
+                }
+                if (!deposit.isNoOp() && depositItem.getVersion().getState().equals(State.RELEASED))
+                {
+                     dr = new DepositResponse(Deposit.CREATED);
+                }
+                else
+                {
+                    dr = new DepositResponse(Deposit.ACCEPTED);
+                }
             }
-            catch (NamingException e)
+            catch (ContentStreamNotFoundException e)
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.log.error("No metadata File was found");
+                depositServlet.setError("No metadata File was found.");
+                dr.setHttpResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+                return dr;
             }
-            catch (TechnicalException e)
+            catch (SWORDContentTypeException e)
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.log.error(e);
+                depositServlet.setError("Unsupported File Format.");
+                dr.setHttpResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+                return dr;
+            }
+            catch (ItemInvalidException e)
+            {
+                this.log.error(e);
+                depositServlet.setError("Invalis Item: " + e.getMessage());
+                dr.setHttpResponse(HttpServletResponse.SC_NOT_ACCEPTABLE);
+                return dr;
             }
             catch (Exception e)
             {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                this.log.error(e);
+                dr.setHttpResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                return dr;
             }
-            
-            // Handle the deposit
-            if (!deposit.isNoOp()) 
-            {
-                counter++;
-            }
-            DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
-            SWORDEntry se = new SWORDEntry();
-            
+
+
             Title title = new Title();
             title.setContent(depositItem.getMetadata().getTitle().getValue());
             se.setTitle(title);
-            
-            //TODO: not sure what category is
-            se.addCategory("Category");
-            
-            se.setId(depositItem.getPid());
-            
              
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             TimeZone utc = TimeZone.getTimeZone("UTC");
@@ -141,49 +211,63 @@ public class PubManSwordServer
             String milliFormat = sdf.format(new Date());
             se.setUpdated(milliFormat);
                 
-//            Summary s = new Summary();
-//            s.setContent(filenames.toString());
-//            se.setSummary(s);
+            Summary s = new Summary();
+            Vector <String> filenames = util.getFileNames();
+            String filename = "";
+            for (int i = 0; i< filenames.size(); i++)
+            {
+                if (filename.equals(""))
+                {
+                    filename = filenames.get(i);    
+                }
+                else
+                {
+                    filename = filename + " ," + filenames.get(i);    
+                }                           
+            }   
+            s.setContent(filename);
+            se.setSummary(s);
             
-            Author author = new Author();
-            //TODO
-            author.setName(depositItem.getMetadata().getCreators().get(0).getPerson().getCompleteName());
-            se.addAuthors(author);     
+            //Add the author names
+            for (int i=0; i< depositItem.getMetadata().getCreators().size(); i++)
+            {
+                Author author = new Author();
+                if (depositItem.getMetadata().getCreators().get(i).getPerson().getCompleteName() != null)
+                {
+                    author.setName(depositItem.getMetadata().getCreators().get(i).getPerson().getCompleteName());
+                }
+                else
+                {
+                    String name = depositItem.getMetadata().getCreators().get(i).getPerson().getGivenName() + ", " +
+                        depositItem.getMetadata().getCreators().get(i).getPerson().getFamilyName();
+                    author.setName(name);
+                }
+                se.addAuthors(author);     
+            }           
             
             Source source = new Source();
             Generator generator = new Generator();
-            //TODO
-            generator.setContent("PubMan");
+            generator.setContent(this.baseURL);
             source.setGenerator(generator);
             se.setSource(source);
-            
-            Content content = new Content();
-            try 
+
+            //Only set content if item was really created
+            if (! deposit.isNoOp())
             {
-                content.setType("application/zip");
-            } 
-            catch (InvalidMediaTypeException e1) 
-            {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+                Content content = new Content();
+                content.setSource(this.baseURL + "/pubman/item/" + depositItem.getVersion().getObjectId());
+                se.setContent(content);
             }
-            
-            content.setSource("TODO: Source");
-            se.setContent(content);
-            
-            se.setTreatment("TODO: Treatment");
+
+            se.setTreatment("Zip archives recognised as content packages are opened and the individual files contained in them are stored. All other files are stored as is.");
             
 //            if (deposit.isVerbose()) 
 //            {
 //                se.setVerboseDescription("I've done a lot of hard work to get this far!");
 //            }
             
-            se.setNoOp(deposit.isNoOp());
-            
-            se.setFormatNamespace("TODO: FormatNamespace");
-            
-            //If a user has multiple contexts to deposit how do i know which???
-            
+            se.setNoOp(deposit.isNoOp());            
+            se.setFormatNamespace("http://www.loc.gov/METS/");      
             dr.setEntry(se);
             
             return dr;
@@ -194,7 +278,6 @@ public class PubManSwordServer
         {
             return this.currentUser;
         }
-
 
         public void setCurrentUser(AccountUserVO currentUser)
         {

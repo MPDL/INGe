@@ -1,8 +1,37 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
 package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -16,51 +45,62 @@ import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.HttpHeaders;
 import org.purl.sword.base.SWORDAuthenticationException;
-import org.purl.sword.base.SWORDException;
+import org.purl.sword.base.SWORDContentTypeException;
 
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
- * DepositServlet
- * 
+ * DepositServlet for the PubMan SWORD interface.
  * @author Friederike Kleinfercher
  */
 public class PubManDepositServlet extends HttpServlet 
 {
 
     private static final long serialVersionUID = 1L;
-   
-    private PubManSwordServer pubMan;
+    private Logger logger = Logger.getLogger(PubManDepositServlet.class);
     private String collection;
+    PubManSwordServer pubMan;
+    private String error = "";
 
-   private static Logger logger = Logger.getLogger(PubManDepositServlet.class);
-
-
-   /** 
-    * Process the Get request. This will return an unimplemented response.
+/** 
+    * Process the GET request. This will return an unimplemented response.
     */
-   protected void doGet(HttpServletRequest request,
-         HttpServletResponse response) throws ServletException, IOException
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    {
-      // Send a '501 Not Implemented'
       response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
+   }
+   
+   /** 
+    * Process the PUT request. 
+    * @param HttpServletRequest
+    * @param HttpServletResponse
+    * @throws ServletException
+    * @throws IOException
+    */
+   protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+   {
+      this.doPost(request, response);
    }
 
    /**
-    * Process a post request.
+    * Process a POST request.
+    * @param HttpServletRequest
+    * @param HttpServletResponse
+    * @throws ServletException
+    * @throws IOException
     */
    protected void doPost(HttpServletRequest request,
          HttpServletResponse response) throws ServletException, IOException
   {
       this.pubMan = new PubManSwordServer();
-      Deposit deposit = new Deposit();
-      Date date = new Date();
-      AccountUserVO user = null;
       SwordUtil util = new SwordUtil();
-      logger.debug("Starting deposit processing at " + date.toString() + " by " + request.getRemoteAddr());
+      Deposit deposit = new Deposit();
+      AccountUserVO user = null;
+
+      this.logger.debug("Starting deposit processing by " + request.getRemoteAddr());
 
       // AUTHENTIFICATION -----------------------------------------------------------------
-      String usernamePassword = getUsernamePassword(request);
+      String usernamePassword = this.getUsernamePassword(request);
       if ((usernamePassword != null) && (!usernamePassword.equals(""))) 
       {
          int p = usernamePassword.indexOf(":");
@@ -83,10 +123,39 @@ public class PubManDepositServlet extends HttpServlet
       // DEPOSIT --------------------------------------------------------------------------
       try {
 
-            deposit.setFile(request.getInputStream());
+            //Check if login was successfull
+            if (this.pubMan.getCurrentUser() == null)
+            {
+                this.logger.info("User: " + deposit.getUsername() + " not recognized.");
+                response.sendError(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION, "User: " + deposit.getUsername() + " not recognized.");
+                this.pubMan.setCurrentUser(null);
+                return;
+            }
           
-            // Set the X-Format-Namespace header
-            deposit.setFormatNamespace(request.getHeader(HttpHeaders.X_FORMAT_NAMESPACE));
+            this.collection = request.getParameter("collection");
+            //Check if collection was provided
+            if (this.collection == null || this.collection.equals(""))
+            {
+                this.logger.info("No collection provided in request.");
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No collection provided in request.");
+                this.pubMan.setCurrentUser(null);
+                return;
+            }
+            //Check if user has depositing rights for this collection
+            else
+            {
+                if (!util.checkCollection(this.collection, user))
+                {
+                   this.logger.error("User: " + deposit.getUsername() + 
+                            " does not have depositing rights for collection " + this.collection +".");
+                   response.sendError(HttpServletResponse.SC_FORBIDDEN, "User: " + deposit.getUsername() + 
+                           " does not have depositing rights for collection " + this.collection +".");
+                   this.pubMan.setCurrentUser(null);
+                   return;
+                }
+            }
+            
+            deposit.setFile(request.getInputStream());
 
             // Set the X-No-Op header
             String noop = request.getHeader(HttpHeaders.X_NO_OP);
@@ -98,75 +167,46 @@ public class PubManDepositServlet extends HttpServlet
                deposit.setNoOp(false);
             }
 
-//            // Set the X-Verbose header
+            // Set the X-Verbose header
 //            String verbose = request.getHeader(HttpHeaders.X_VERBOSE);
-//            if ((verbose != null) && (verbose.equals("true"))) {
+//            if ((verbose != null) && (verbose.equals("true"))) 
+//            {
 //               deposit.setVerbose(true);
-//            } else {
+//            } 
+//            else 
+//            {
 //               deposit.setVerbose(false);
 //            }
-
-            // Set the slug
-            String slug = request.getHeader(HttpHeaders.SLUG);
-            if (slug != null) 
-            {
-               deposit.setSlug(slug);
-            }
-
-            // Set the content disposition
-            deposit.setContentDisposition(request.getHeader(HttpHeaders.CONTENT_DISPOSITION));
-
-            // Set the IP address
-            deposit.setIPAddress(request.getRemoteAddr());
-
-            // Set the deposit location
-            // Set link to pubItem
-            deposit.setLocation("TODO: Location");
-
-            // Set the content type
-            deposit.setContentType(request.getContentType());
-
-            // Set the content length
-            String cl = request.getHeader(HttpHeaders.CONTENT_LENGTH);
-            if ((cl != null) && (!cl.equals(""))) {
-               deposit.setContentLength(Integer.parseInt(cl));	
-            }
-
+            
             // Get the DepositResponse
-            DepositResponse dr = this.pubMan.doDeposit(deposit);
-
+            DepositResponse dr = this.pubMan.doDeposit(deposit, this.collection);
+            
             // Print out the Deposit Response
             response.setStatus(dr.getHttpResponse());
-            // response.setContentType("application/atomserv+xml");
             response.setContentType("application/xml");
             PrintWriter out = response.getWriter();
             out.write(dr.marshall());
             out.flush();
-         
+          
       } 
       catch (SWORDAuthenticationException sae) 
       {
-          //TODO
+          response.sendError(HttpServletResponse.SC_FORBIDDEN, this.getError());
+          this.logger.error(sae.toString());
       } 
-      catch (SWORDException se) 
+      catch (SWORDContentTypeException e)
       {
-         // Throw a HTTP 500
-         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
-         // Is there an appropriate error header to return?
-         if (se.getErrorCode() != null) 
-         {
-            response.setHeader(HttpHeaders.X_ERROR_CODE, se.getErrorCode());
-         }
-         logger.error(se.toString());
-      } 
-      catch (IOException ioe) 
+          response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, this.getError());
+          this.logger.error("Internal error.", e);
+      }
+      catch (Exception ioe) 
       {
-         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-         logger.error(ioe.toString());
+         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, this.getError());
+         this.logger.error(ioe.toString());
       } 
+      this.pubMan.setCurrentUser(null);
     }
-
+   
    /**
     * Utiliy method to return the username and password (separated by a colon ':')
     * 
@@ -174,29 +214,43 @@ public class PubManDepositServlet extends HttpServlet
     * @return The username and password combination
     */
    private String getUsernamePassword(HttpServletRequest request) {
-      try 
-      {
+      try {
          String authHeader = request.getHeader("Authorization");
-         if (authHeader != null) 
-         {
+         if (authHeader != null) {
             StringTokenizer st = new StringTokenizer(authHeader);
-            if (st.hasMoreTokens()) 
-            {
+            if (st.hasMoreTokens()) {
                String basic = st.nextToken();
-               if (basic.equalsIgnoreCase("Basic")) 
-               {
+               if (basic.equalsIgnoreCase("Basic")) {
                   String credentials = st.nextToken();
                   String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
                   return userPass;
                }
             }
          }
-      } 
-      catch (Exception e) 
-      {
-         logger.debug(e.toString());
+      } catch (Exception e) {
+         this.logger.debug(e.toString());
       }
       return null;
    }
+   
 
+   public PubManSwordServer getPubMan()
+    {
+        return this.pubMan;
+    }
+
+    public void setPubMan(PubManSwordServer pubMan)
+    {
+        this.pubMan = pubMan;
+    }
+
+    public String getError()
+    {
+        return this.error;
+    }
+
+    public void setError(String error)
+    {
+        this.error = error;
+    }
 }

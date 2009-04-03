@@ -1,3 +1,33 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
 package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
@@ -11,31 +41,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
-import org.purl.sword.base.HttpHeaders;
+import org.purl.sword.base.Deposit;
 import org.purl.sword.base.SWORDAuthenticationException;
-import org.purl.sword.base.SWORDException;
 import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
-import org.purl.sword.server.SWORDServer;
+
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 
 /**
  * The servlet to provide a servicedocument for Pubman.
- * 
  * @author Friederike Kleinfercher
  */
 public class PubManServiceDocumentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private Logger log = Logger.getLogger(PubManServiceDocumentServlet.class);
 
-    /** The repository */
-    private PubManSwordServer myRepository;
-    
-    /** Authentication type. */
-    private String authN;
-    
-    /** Logger */
-    private static Logger log = Logger.getLogger(PubManServiceDocumentServlet.class);
+    private PubManSwordServer swordServer;
+
     
     /** 
      * Initialise the servlet. 
@@ -43,52 +67,62 @@ public class PubManServiceDocumentServlet extends HttpServlet {
     public void init() {
         // Instantiate the correct SWORD Server class
         String className = getServletContext().getInitParameter("server-class");
-        if (className == null) {
-            log.fatal("Unable to read value of 'sword-server-class' from Servlet context");
-        } else {
-            try {
-                myRepository = (PubManSwordServer)Class.forName(className).newInstance();
-                log.info("Using " + className + " as the SWORDServer");
-            } catch (Exception e) {
-                log.fatal("Unable to instantiate class from 'sword-server-class': " + className);
+        if (className == null) 
+        {
+            this.log.fatal("Unable to read value of 'sword-server-class' from Servlet context");
+        } 
+        else 
+        {
+            try 
+            {
+                this.swordServer = (PubManSwordServer)Class.forName(className).newInstance();
+            } 
+            catch (Exception e) 
+            {
+                this.log.fatal("Unable to instantiate class from 'sword-server-class': " + className);
             }
         }
-        
-        // Set the authentication method
-        authN = getServletContext().getInitParameter("authentication-method");
-        if ((authN == null) || (authN == "")) {
-            authN = "None";
-        }
-        log.info("Authentication type set to: " + authN);
     }
     
     /**
-     * Process the get request. 
+     * Process the GET request. 
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
      */
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException
     {
         // Create the ServiceDocumentRequest
         ServiceDocumentRequest sdr = new ServiceDocumentRequest();
+        PubManSwordServer pubMan = new PubManSwordServer();
+        SwordUtil util = new SwordUtil();
+        AccountUserVO user = null;
         
-        // Are there any authentication details?
-        String usernamePassword = getUsernamePassword(request);
+        String usernamePassword = this.getUsernamePassword(request);
         if ((usernamePassword != null) && (!usernamePassword.equals(""))) 
         {
             int p = usernamePassword.indexOf(":");
             if (p != -1) {
                 sdr.setUsername(usernamePassword.substring(0, p));
                 sdr.setPassword(usernamePassword.substring(p+1));
+                user = util.getAccountUser(sdr.getUsername(), sdr.getPassword());
+                pubMan.setCurrentUser(user);
             } 
         } 
-
-        // Set the IP address
-        sdr.setIPAddress(request.getRemoteAddr());
+        else
+        {
+            String s = "Basic realm=\"SWORD\"";
+            response.setHeader("WWW-Authenticate", s);
+            response.setStatus(401);
+            return;
+        }
         
-        // Get the ServiceDocument
         try 
         {
-            ServiceDocument sd = this.myRepository.doServiceDocument(sdr);
+            ServiceDocument sd = this.swordServer.doServiceDocument(sdr);
+            pubMan.setCurrentUser(null);
             
             // Print out the Service Document
             response.setContentType("application/xml");
@@ -100,16 +134,16 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         {
             response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
             response.setStatus(401);
+            pubMan.setCurrentUser(null);
         }
     }
    
     /** 
-     * Process the post request. This will return an unimplemented response. 
+     * Process the POST request. This will return an unimplemented response. 
      */
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException
     {
-        // Send a '501 Not Implemented'
         response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
     }
     
@@ -120,35 +154,22 @@ public class PubManServiceDocumentServlet extends HttpServlet {
      * @return The username and password combination
      */
     private String getUsernamePassword(HttpServletRequest request) {
-        try {
-            String authHeader = request.getHeader("Authorization");
-            if (authHeader != null) {
-                StringTokenizer st = new StringTokenizer(authHeader);
-                if (st.hasMoreTokens()) {
-                    String basic = st.nextToken();
-                    if (basic.equalsIgnoreCase("Basic")) {
-                        String credentials = st.nextToken();
-                        String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
-                        return userPass;
-                    }
+       try {
+          String authHeader = request.getHeader("Authorization");
+          if (authHeader != null) {
+             StringTokenizer st = new StringTokenizer(authHeader);
+             if (st.hasMoreTokens()) {
+                String basic = st.nextToken();
+                if (basic.equalsIgnoreCase("Basic")) {
+                   String credentials = st.nextToken();
+                   String userPass = new String(Base64.decodeBase64(credentials.getBytes()));
+                   return userPass;
                 }
-            }
-        } catch (Exception e) {
-            log.debug(e.toString());
-        }
-        return null;
-    }
-    
-    /**
-     * Utility method to deicde if we are using HTTP Basic authentication
-     * 
-     * @return if HTTP Basic authentication is in use or not
-     */
-    private boolean authenticateWithBasic() {
-        if (authN.equalsIgnoreCase("Basic")) {
-            return true;
-        } else {
-            return false;
-        }
+             }
+          }
+       } catch (Exception e) {
+          this.log.debug(e.toString());
+       }
+       return null;
     }
 }
