@@ -430,7 +430,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -444,7 +444,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>structuredexportmanager</artifactId>
-            <version>1.0.21</version>
+            <version>1.0.22-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
