@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -218,6 +219,12 @@ public class ViewItemFull extends FacesBean
     
     /**The url used for the citation*/
     private String citationURL;
+    
+    /**The url of the Coreservice for file downloads*/
+    private String fwUrl;
+    
+    /**Version and ObjectId of the item*/
+    private String itemPattern;
 
     /**unapi*/
 	private String unapiURLdownload;
@@ -268,6 +275,15 @@ public class ViewItemFull extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String itemID = "";
+        
+        // populate the core service Url
+        try {
+			this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		} catch (IOException ioE) {
+			throw new RuntimeException("Could  not read the Property file for property 'escidoc.framework_access.framework.url'", ioE);
+		} catch (URISyntaxException uE) {
+			throw new RuntimeException("Syntax of property 'escidoc.framework_access.framework.url' not correct", uE);
+		}
         
         // Try to get the validation service
         try
@@ -409,14 +425,14 @@ public class ViewItemFull extends FacesBean
             {
                 String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
                 
-                String itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", getPubItem().getVersion().getObjectIdAndVersion());
+                this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", getPubItem().getVersion().getObjectIdAndVersion());
                 
                 
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
-                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
+                if (this.itemPattern.startsWith("/")) this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
                 
                 // MF: Removed exclusion of pending items here
-                this.citationURL = pubmanUrl + itemPattern;
+                this.citationURL = pubmanUrl + this.itemPattern;
                 
             }
             catch (Exception e)
@@ -2370,5 +2386,21 @@ public class ViewItemFull extends FacesBean
     {
         return isPublicStateReleased;
     }
+
+	public String getFwUrl() {
+		return fwUrl;
+	}
+
+	public void setFwUrl(String fwUrl) {
+		this.fwUrl = fwUrl;
+	}
+
+	public String getItemPattern() {
+		return itemPattern;
+	}
+
+	public void setItemPattern(String itemPattern) {
+		this.itemPattern = itemPattern;
+	}
     
 }    
