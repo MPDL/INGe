@@ -18,7 +18,6 @@
   >
 <escidocMetadataRecords:md-record name="escidoc"
        >
-  
 <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="thesis">
   <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
     <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">

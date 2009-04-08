@@ -60,6 +60,7 @@ import javax.xml.transform.TransformerException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -67,6 +68,8 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.base.JRBaseParameter;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -82,6 +85,7 @@ import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRProperties;
@@ -198,7 +202,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     public ProcessScriptlet ps = null;
 
     
-	
 	public ProcessCitationStyles() {
 
 			// get main component properties
@@ -342,7 +345,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         //logger.info(name + ", " + expr);
         JRDesignField field = new JRDesignField();
         field.setName(name);
+        
+        
         String jre = translateToJRExpression(expr);
+//        String jre = "\"" + name + "\"";
+        
+        
         field.setDescription(jre);
         //logger.info("field: " + name + ", expr: " + jre);
         field.setValueClass(String.class);
@@ -385,7 +393,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         expression.setValueClass(String.class);
         String jre = translateToJRExpression(expr);
         //logger.info("variable: " + name + ", expr: " + jre);
+        
         expression.setText(translateToJRExpression(jre));
+//        expression.setText("\"" + name + "\"");
+        
         variable.setExpression(expression);
 
         dataSet.addVariable(variable);
@@ -467,11 +478,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             	tmp_expr += "$V{" + e.getId() + "},"; 
             }
             tmp_expr = tmp_expr.substring(0, tmp_expr.length()-1) + "}, \""+ delimiter +"\")";
+            expr = tmp_expr;
             //create new tmp variable to spend less time during zero length checking
-//            String tmp_expr_name =  "tmpField_" + le.getId();
+//            String tmp_expr_name =  "tmpVariable_" + le.getId();
 //            addJRVariable(tmp_expr_name, tmp_expr);
 //            expr = "$V{" + tmp_expr_name + "}";
-            expr = tmp_expr;
             
 //            logger.info("expr="+expr);
         } else if (le.getRef().length() > 0) {
@@ -621,15 +632,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		// 1) create a special field to check 
         		// whether the repeatable element is not empty
         		String chk_field = "tmpField_" + le.getId();
-//        		String XPath = "count(" + MD_XML_ROOT_XPATH + "/" + ref + ")>0";
         		String XPath = "count(" + ref + ")>0";
         		// 2) add field
         		try { 
-					addJRField(chk_field, XPath);
-				} catch (JRException e) {
-					// TODO Auto-generated catch block
-					throw new CitationStyleManagerException(e);
-				}
+        			addJRField(chk_field, XPath);
+        		} catch (JRException e) {
+        			// TODO Auto-generated catch block
+        			throw new CitationStyleManagerException(e);
+        		}
 				// 3) if the field is empty, do not output anything
 				expr = "(($F{" + chk_field + "}).trim().equals(\"true\") ? " + expr + " : \"\")";  
 //        		// SECOND SCENARIO
@@ -802,7 +812,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			else
         	
         	// repeatable!!! - produce Scriptlet
-        	if (isRepeatable) {
+        	if (isRepeatable) 
+        	{
         		// check whether we have already created 
         		// method for le in scriptlet and reference in JRFields
         		if ( !findInFieldsMap("tmpField_" + le.getId()) )
@@ -818,9 +829,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	// not repeatable: normal
         	else {
         		// field in fieldsMap
-        		if (findInFieldsMap(ref)) {
+        		if (findInFieldsMap(ref)) 
+        		{
         			// we ignore elements if they are defined
         			expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
+//        			expr = applyParameters(le, "$F{" + ref + "}", false);
         		}
         		// variable in variablesMap
         		else if (findInVariablesMap(ref)) {
@@ -831,6 +844,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		else {
         			addJRField(ref);
         			expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
+//        			expr = applyParameters(le, "$F{" + ref + "}", false);
         			//throw new CitationStyleManagerException("Bad reference: " + ref);
         		}
         	}
@@ -1212,14 +1226,16 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	private void fillReportToOutputStream(String citationStyle, OutputStream os, String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException   {
 
 
-		//long start;
-		//start = System.currentTimeMillis();
+		long start;
+		start = System.currentTimeMillis();
 
+    	JRProperties.setProperty(JRProperties.COMPILER_KEEP_JAVA_FILE, String.valueOf(KEEP_COMPILER_KEEP_JAVA_FILE));
+    	
 		ByteArrayInputStream bais = new ByteArrayInputStream(itemList.getBytes("UTF-8"));
 		BufferedInputStream bis = new BufferedInputStream(bais);
 
 		Document document = JRXmlUtils.parse(bis);
-	//	logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
+		logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
 		
 
 		String csj = 
@@ -1243,30 +1259,31 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //		Map<String, > params = new HashMap();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
+//  	REPORT_MAX_COUNT limits the number of the items for processing
+		//	params.put(JRParameter.REPORT_MAX_COUNT, 100); 
+		
 		
 		// generate snippet export
-		//start = System.currentTimeMillis();
+		start = System.currentTimeMillis();
 		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
 		{
 			ProcessSnippet psn = new ProcessSnippet();
 			psn.export(document, params, jr, os);
-			//logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
+			logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
 			return;
 		}
 		
-		
 		//all other exports
-		//start = System.currentTimeMillis();
+		start = System.currentTimeMillis();
 		JasperPrint jasperPrint= JasperFillManager.fillReport(
 				jr,
 				params,
 				new JRXmlDataSource(document, jr.getQuery().getText())
 		);
 		
-		//logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
-
+		logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
 		
-		//start = System.currentTimeMillis();
+		start = System.currentTimeMillis();
 
 		JRExporter exporter = null;    
 		
@@ -1300,14 +1317,15 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, os);
-		
 
 		exporter.exportReport();
+		
 
-		//logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
-
+		logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
+		
 
 	}
+	
 	
 	/**
 	 * View report in different output formats
@@ -1453,10 +1471,23 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			throw new CitationStyleManagerException( "Output format: " + outFormat + " is not supported" );
 		}
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	
-		fillReportToOutputStream(citationStyle, baos, ouf, itemList);
+
 		
-		return baos.toByteArray();
+		long start = System.currentTimeMillis();
+		byte[] result = null;
+		
+		fillReportToOutputStream(citationStyle, baos, ouf, itemList);
+		result = baos.toByteArray();
+		logger.info("export total: " + (System.currentTimeMillis() - start));
+		
+//		start = System.currentTimeMillis();
+//		if ("pdf".equals(outFormat))
+//		{
+//			result = fillReportToByteArray(citationStyle, outFormat, itemList);
+//		}
+//		logger.info("export total (2): " + (System.currentTimeMillis() - start));
+		
+		return result;
 		
 	}
 	

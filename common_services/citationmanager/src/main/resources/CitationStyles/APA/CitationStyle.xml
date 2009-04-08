@@ -39,9 +39,6 @@
 		<variable name="hasPublication" type="xpath"><![CDATA[not(publication)=false()]]></variable>
 
 	<!-- Date block -->
-<!--		<variable name="date" type="expression">-->
-<!--			<![CDATA[${publication/issued} != null ? ${publication/issued} : ${publication/published-online} != null ? ${publication/published-online} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null]]> -->
-<!--		</variable>-->
 		
 		<variable name="date" type="expression">
 			<![CDATA[
@@ -654,9 +651,6 @@
 			<layout-element ref="publication/abstract[contains(.,'APA')]"/>
 			<layout-element ref="publication/subject" />
 			 
-<!--			<layout-element ref="isBookArticleOrChapter" /> -->
-<!--			<layout-element ref="isBookProceedingsThesis" /> -->
-<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
 			<layout-element ref="publication/issued" > 
 				<parameters>
 					<starts-with value="issued:"/>
@@ -736,7 +730,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors" />
 
@@ -779,7 +773,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -837,7 +831,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -871,7 +865,7 @@
 			<valid-if><![CDATA[ ${genre}.equals("thesis") && ${publication/published-online}!=null ]]></valid-if>
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -925,7 +919,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -985,7 +979,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="editors-with-dot" />
 
@@ -1023,7 +1017,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="editors-with-dot"/> 
 			
@@ -1052,7 +1046,7 @@
 			<ends-with value=". Unpublished Manuscript." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -1075,7 +1069,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 
 			<layout-element ref="editors-with-dot"/>
 
@@ -1124,7 +1118,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 			
@@ -1192,7 +1186,7 @@
 		</parameters>
 		<elements>
 		
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 
@@ -1239,7 +1233,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<layout-element ref="debugBlock" />
+<!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
 

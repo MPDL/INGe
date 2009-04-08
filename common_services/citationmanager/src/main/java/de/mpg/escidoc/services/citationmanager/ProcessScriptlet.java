@@ -75,13 +75,14 @@ public class ProcessScriptlet {
 
     private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
 //    private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
+
+    public final static boolean DEBUG = false; 
 	
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
     // TODO: should be moved directly to the CS definition
     public static String SCRIPTLET_XPATH_ROOT = null; 
     public final static String SCRIPTLETS_JAVA_DIRECTORY = "src/main/java/";
     private String scriptletClassName = null;
-    
     
 
 //  table of special functions which can be applied in layout-elements (@func="funcname")
@@ -105,8 +106,15 @@ public class ProcessScriptlet {
 
         "public class %s extends JRDefaultScriptlet {\n" +
         "private ArrayList<String[]> elems = new ArrayList<String[]>();\n" +
-        "private long cTime = 0;\n" +
 
+//<-- debug   
+        ( DEBUG ?   
+        	"private long cTime = 0;\n" +
+        	"public String getCTime() {" +
+        		"return cTime + \"\";" +
+        	"}" : ""
+        ) +
+//>-- debug        
         "private String insertDelimiter(String left, String delim, String right) {\n" +
         "    String result;\n" +
         "    return (delim!=null && delim.length()>0 &&\n" +
@@ -256,17 +264,23 @@ public class ProcessScriptlet {
         wf +=
         "for(int i=0; i<es; i++) {\n" +
             "String[] elem = (String[])elems.get(i);\n" +
-            "result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:\"\") : \"\";\n" +
+//            "result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:\"\") : \"\";\n" +
+            "result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:\"\") : \"\");\n" +
          "}\n" +
          "elems.clear();\n" +
 
 //      debug <---
+         ( DEBUG ?  
+         
 //         "System.err.println(\"Scriptlet time for \" + XPath + \": \" + (System.currentTimeMillis() - start));\n" +
-//         "cTime+=System.currentTimeMillis() - start;" +
+        	"cTime+=System.currentTimeMillis() - start;" 
 //         "System.err.println(\"Complete time: \" + cTime);\n" +
+        	: ""
+         ) +
 //       debug --->
 
-         "return result;\n}\n";
+//         "return result;\n}\n";
+        "return result.toString();\n}\n";
         return wf;
     }
 
@@ -348,16 +362,19 @@ public class ProcessScriptlet {
             String fieldN = "field_" + position + "_" + i;
 
 //            chunkDef += chunkN + " = " + de + ";";
-            chunkDef += chunkN + " = (String)subDs.getFieldValue(" + fieldN + ");";
+            chunkDef += chunkN + " = xmlEncode((String)subDs.getFieldValue(" + fieldN + "));";
 
 //          xmlEncode for value!
-            chunkDef += chunkN + " = xmlEncode(" + chunkN + ");";
+//            chunkDef += chunkN + " = xmlEncode(" + chunkN + ");";
 
 //          debug <---
-//          chunkDef += "System.out.println(\"Debug (field,value)=(\" + " + fieldN + ".getDescription() + \",\" + " + chunkN +" + \")\");";
+            if (DEBUG)
+            {
+            	//chunkDef += "System.out.println(\"Debug (field,value)=(\" + " + fieldN + ".getDescription() + \",\" + " + chunkN +" + \")\");";
+            }
 //          debug --->
 
-
+            
             chunkDef += chunkN + " = " + chunkN + "!=null && " + chunkN + ".length()>0 ? " + chunkN + " : \"\";";
 
             // Function handling
@@ -374,13 +391,15 @@ public class ProcessScriptlet {
             // starts&endsWith (xmlEncoded!)
             startsWith = Utils.xmlEncode(ep.getStartsWith(), 1);
             endsWith = Utils.xmlEncode(ep.getEndsWith(), 1);
-            chunkDef += chunkN + " = " +
-                chunkN + ".length()>0 ? (" +
-                (Utils.checkLen(startsWith) ? "\"" + startsWith + "\" + " : "") +
-                chunkN +
-                (Utils.checkLen(endsWith) ? " + \"" + endsWith + "\"" : "") +
-                ") : \"\"; ";
-
+            if (Utils.checkLen(startsWith + endsWith))
+            {
+	            chunkDef += chunkN + " = " +
+	                chunkN + ".length()>0 ? (" +
+	                (Utils.checkLen(startsWith) ? "\"" + startsWith + "\" + " : "") +
+	                chunkN +
+	                (Utils.checkLen(endsWith) ? " + \"" + endsWith + "\"" : "") +
+	                ") : \"\"; ";
+            }
 
             // maxLength handling
             int maxLength = ep.getMaxLength();
@@ -410,12 +429,16 @@ public class ProcessScriptlet {
 
 
 //          FontsStyles Handling  
-            chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
+//            chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
             FontStyle fs = fsc.getFontStyleByName(fontStyleRef);
-            chunkDef += chunkN + " = " +
-//              String.format(fsc.getFontStyleByName(ep.getFontStyleRef()).toStyle(), chunkN) + ";\n";
-               fs.applyStyle( fs.applyCssClass( chunkN ) ) + ";\n";
+            if ( Utils.checkVal( fs.getCssClass() ) )
+            {
+	            chunkDef += chunkN + " = " +
+	//              String.format(fsc.getFontStyleByName(ep.getFontStyleRef()).toStyle(), chunkN) + ";\n";
+	               fs.applyStyle( fs.applyCssClass( chunkN ) ) + ";";
+            }
             
+            chunkDef += "\n";
 
 //          debug <---
 //          System.out.println(ep.getFontStyleRef());
@@ -618,14 +641,18 @@ public class ProcessScriptlet {
 
     private String getHeaderChunk(String name, String xPath) {
         String h = "public String get" + name + "() throws Exception {\n" +
-        "String result = \"\";\n" +
+        "StringBuffer result = new StringBuffer();\n" +
+//        "String result = \"\";\n" +
         "String str = \"\";\n" +
         "String last = \"\";\n" +
         "String delim = \"\";\n" +
 
 //      debug <---
-//        "long start = System.currentTimeMillis();\n" +
-//        "String XPath = \""+ xPath + "\";\n" +
+        ( DEBUG ? 
+        		"long start = System.currentTimeMillis();\n" +
+        		"String XPath = \""+ xPath + "\";\n"
+        		: ""
+        ) +
 //      debug --->
 
         "JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue(\"REPORT_DATA_SOURCE\"));\n" +
