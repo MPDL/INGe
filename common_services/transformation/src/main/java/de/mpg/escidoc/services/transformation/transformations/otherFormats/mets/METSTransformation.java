@@ -167,8 +167,9 @@ public class METSTransformation
 //                    System.out.println(modsCursor.xmlText());        
 //                    ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
 //                    System.out.println(mdr.xmlText());
-                    ModsDocument modsDoc = ModsDocument.Factory.parse(mdr.xmlText());
-                    mods = modsDoc.getMods();
+                    VirrelementDocument virrElementDoc= VirrelementDocument.Factory.parse(mdr.xmlText());
+                    //ModsDocument modsDoc = ModsDocument.Factory.parse(mdr.xmlText());
+                    mods = virrElementDoc.getVirrelement().getMods();
                 }
             }
             this.writeMETS.createDmdSec(mods, "dmd" + String.valueOf(dmdIdCounter++));
