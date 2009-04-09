@@ -475,19 +475,19 @@
 		</xsl:choose>		
 	</xsl:template>
 	<xsl:template match="Y1">
-		<xsl:element name="dcterms:created">
+		<xsl:element name="dcterms:issued">
 			<xsl:call-template name="parseDate"/>
 		</xsl:element>
 		
 	</xsl:template>
 	<xsl:template match="PY">
-		<xsl:element name="dcterms:created">
+		<xsl:element name="dcterms:issued">
 			<xsl:call-template name="parseDate"/>
 		</xsl:element>
 		
 	</xsl:template>
 	<xsl:template match="Y2">
-		<xsl:element name="dcterms:created">
+		<xsl:element name="dcterms:issued">
 			<xsl:call-template name="parseDate"/>
 		</xsl:element>
 		
