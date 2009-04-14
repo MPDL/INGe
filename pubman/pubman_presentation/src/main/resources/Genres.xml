@@ -323,10 +323,7 @@
 				<field id="item_title_alternative" repeatable="true" display="false" optional="true" label="item_title_alternative"/>
 			</group>
 			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
-				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
-					<field id="publishing-info_place" repeatable="false" display="false" label="publishing-info_place" optional="true"/>
-					<field id="publishing-info_edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
-				</group>
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
 				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_total_number_of_pages"/>
 				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
 				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission" label="g_review_method"/>
