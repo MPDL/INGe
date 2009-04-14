@@ -24,8 +24,11 @@
 			<xs:element name="content-category" type="dc:SimpleLiteral"/>
 			<!-- e.g. to tag attached file as full text, as supplementary material and/or as administrative file; the content is free -->			
 			<xs:element ref="dc:format" minOccurs="0" maxOccurs="unbounded"/>
-			<!-- MIME-Type: e.g. image/jpeg, text/xml,... -->
-			<xs:element ref="dc:rights" minOccurs="0"/>
+			<!-- MIME-Type: e.g. image/jpeg, text/xml,... -->			
+			<xs:element ref="dcterms:available" minOccurs="0"/>
+			<xs:element ref="dcterms:dateCopyrighted" minOccurs="0"/>
+			<xs:element ref="dc:rights" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dcterms:license" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
