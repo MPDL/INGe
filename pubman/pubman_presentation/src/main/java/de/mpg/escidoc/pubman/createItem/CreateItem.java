@@ -54,9 +54,19 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
  */
 public class CreateItem extends FacesBean
 {
+    
+    public enum SubmissionMethod
+    {
+        FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION
+    }
+    
     public static final String BEAN_NAME = "CreateItem";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CreateItem.class);
+    
+    private String target = EditItem.LOAD_EDITITEM;
+    
+    private SubmissionMethod method = SubmissionMethod.FULL_SUBMISSION;
     
     // Faces navigation string
     public final static String LOAD_CREATEITEM = "loadCreateItem";
@@ -81,7 +91,7 @@ public class CreateItem extends FacesBean
     
     public String confirmSelection()
     {
-        return EditItem.LOAD_EDITITEM;
+        return target;
     }
 
     /**
@@ -91,6 +101,10 @@ public class CreateItem extends FacesBean
      */
     public String newSubmission()
     {
+        
+        target = EditItem.LOAD_EDITITEM;
+        method = SubmissionMethod.FULL_SUBMISSION;
+        
         String navigateTo = "";
     	if (logger.isDebugEnabled())
         {
@@ -209,5 +223,37 @@ public class CreateItem extends FacesBean
 	public List<PubContextVOPresentation> getCurrentCollectionList() {
 		return getSessionBean().getDepositorContextList();
 	}
+
+    /**
+     * @return the target
+     */
+    public String getTarget()
+    {
+        return target;
+    }
+
+    /**
+     * @param target the target to set
+     */
+    public void setTarget(String target)
+    {
+        this.target = target;
+    }
+
+    /**
+     * @return the method
+     */
+    public SubmissionMethod getMethod()
+    {
+        return method;
+    }
+
+    /**
+     * @param method the method to set
+     */
+    public void setMethod(SubmissionMethod method)
+    {
+        this.method = method;
+    }
 
 }

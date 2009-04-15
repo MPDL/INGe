@@ -225,7 +225,8 @@ public class SiteMapTask extends Thread
             {
                 sleep(retrievalTimeout * 1000);
             }
-            catch (InterruptedException e) {
+            catch (InterruptedException e)
+            {
                 logger.info("Sitemap task interrupted.");
             }
             

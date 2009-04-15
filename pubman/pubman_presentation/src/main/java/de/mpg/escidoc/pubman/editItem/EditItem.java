@@ -1108,7 +1108,7 @@ public class EditItem extends FacesBean
               try
               {
                   // upload the file
-                  LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
+                  LoginHelper loginHelper = (LoginHelper) this.getSessionBean(LoginHelper.class);
 
                   
                   URL url = null;

@@ -256,7 +256,7 @@
 	<managed-bean>
 		<managed-bean-name>AffiliationTree</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationTree</managed-bean-class>
-		<managed-bean-scope>application</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationBean</managed-bean-name>
@@ -556,6 +556,21 @@
     <managed-bean>
         <managed-bean-name>Header</managed-bean-name>
         <managed-bean-class>de.mpg.escidoc.pubman.desktop.Header</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>MultipleImport</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.MultipleImport</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ImportWorkspace</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportWorkspace</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ImportItemDetails</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportItemDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

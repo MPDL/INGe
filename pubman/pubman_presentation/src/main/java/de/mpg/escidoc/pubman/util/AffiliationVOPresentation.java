@@ -62,7 +62,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         if (children == null)
         {
             children = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
-                    .getSessionMap().get("ItemControllerSessionBean")).retrieveChildAffiliations(this);
+                    .getSessionMap().get("ItemControllerSessionBean")).searchChildAffiliations(this);
         }
         return children;
     }

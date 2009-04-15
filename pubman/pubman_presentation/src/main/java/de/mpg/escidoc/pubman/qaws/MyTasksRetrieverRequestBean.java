@@ -84,7 +84,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     {
         //affiliationMap = new HashMap<String, AffiliationVOPresentation>();
         checkLogin();
-        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
         try
         {
             orgUnitSelectItems = affTree.getAffiliationSelectItems();
@@ -176,7 +176,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             
             if (!getSelectedOrgUnit().toLowerCase().equals("all"))
             {
-                AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+                AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
                 addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
             }
             
@@ -342,7 +342,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String getSelectedOrgUnitLabel()
     {
-        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
         return affTree.getAffiliationMap().get(getSelectedOrgUnit()).getNamePath();
     
     }
@@ -403,7 +403,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         orgUnitSelectItems = new ArrayList<SelectItem>();
         orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
         
-        AffiliationTree affTree = (AffiliationTree) getApplicationBean(AffiliationTree.class);
+        AffiliationTree affTree = (AffiliationTree) getSessionBean(AffiliationTree.class);
         
         List<AffiliationVOPresentation> topLevelAffs = affTree.getAffiliations();
         try

@@ -89,6 +89,8 @@ import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -1764,16 +1766,33 @@ public class ItemControllerSessionBean extends FacesBean
     }
 
     /**
-     * TODO MF: Implement this when bug http://www.escidoc.org/issueManagement/show_bug.cgi?id=699 is fixed.
-     * 
      * Returns all top-level affiliations.
      * 
      * @return all top-level affiliations
      * @throws Exception if framework access fails
      */
-    public ArrayList<AffiliationVO> searchTopLevelAffiliations() throws Exception
+    public List<AffiliationVO> searchTopLevelAffiliations() throws Exception
     {
-        return null;
+
+        PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.objid=e* not escidoc.parent.objid>\"''\")");
+        OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
+        return results.getResults();
+    }
+
+    /**
+     * Returns all child affiliations of a given affiliation.
+     * 
+     * @param parentAffiliation The parent affiliation
+     * 
+     * @return all child affiliations
+     * @throws Exception if framework access fails
+     */
+    public List<AffiliationVOPresentation> searchChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
+    {
+
+        PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");
+        OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
+        return CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
     }
     
     /**

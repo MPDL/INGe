@@ -67,7 +67,7 @@ public class AffiliationTree extends FacesBean
     {
         affiliationMap = new HashMap<String, AffiliationVOPresentation>();
         affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-                .retrieveTopLevelAffiliations());
+                .searchTopLevelAffiliations());
         timestamp = new Date().getTime();
     }
 
@@ -95,7 +95,7 @@ public class AffiliationTree extends FacesBean
     public String getResetMessage() throws Exception
     {
         affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean()
-                .retrieveTopLevelAffiliations());
+                .searchTopLevelAffiliations());
         affiliationSelectItems = null;
         timestamp = new Date().getTime();
         return getMessage("Affiliations_reloaded");

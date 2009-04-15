@@ -60,7 +60,7 @@ public class AffiliationBean extends FacesBean
 
     public TreeModel getTree()
     {
-        if (timestamp < ((AffiliationTree) getApplicationBean(AffiliationTree.class)).getTimestamp())
+        if (timestamp < ((AffiliationTree) getSessionBean(AffiliationTree.class)).getTimestamp())
         {
             tree = new ChildPropertyTreeModel(getAffiliations(), "children");
             List<SortCriterion> sortList = new ArrayList<SortCriterion>();
@@ -256,7 +256,7 @@ public class AffiliationBean extends FacesBean
 
     public List<AffiliationVOPresentation> getAffiliations()
     {
-        return ((AffiliationTree) getApplicationBean(AffiliationTree.class)).getAffiliations();
+        return ((AffiliationTree) getSessionBean(AffiliationTree.class)).getAffiliations();
     }
     
     /**

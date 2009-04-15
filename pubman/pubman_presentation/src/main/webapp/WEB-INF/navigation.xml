@@ -319,4 +319,22 @@
 			/LocalTagsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadMultipleImport</from-outcome>
+			<to-view-id>
+			/NewMultipleImport.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadMultipleImportForm</from-outcome>
+			<to-view-id>
+			/MultipleImportForm.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
