@@ -491,10 +491,14 @@
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 				
 				<!-- Import database -->
-				<escidoc.import.database.driver.class>org.postgresql.Driver</escidoc.import.database.driver.class>
-				<escidoc.import.database.server.name>localhost</escidoc.import.database.server.name>
-				<escidoc.import.database.server.port>5432</escidoc.import.database.server.port>
-				<escidoc.import.database.name>pubman_import_log</escidoc.import.database.name>
+				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
+				<escidoc.import.database.server.name></escidoc.import.database.server.name>
+				<escidoc.import.database.server.port></escidoc.import.database.server.port>
+				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
+				<!--<escidoc.import.database.connection.url>jdbc:postgresql://$1:$2/$3</escidoc.import.database.connection.url>-->
+				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
+				
+				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
 				
 				<!-- unAPI -->
 				<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
