@@ -27,7 +27,7 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
-package de.mpg.escidoc.pubman.editItem;
+package de.mpg.escidoc.pubman.easySubmission;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean
     private static final long serialVersionUID = 1L;
     
     private Logger logger = Logger.getLogger(LocatorUploadBean.class);  
-    public EditItem editItem = new EditItem();
+    public EasySubmission easySubmission = new EasySubmission();
     String error = null;                                                // Error Message
 
     
@@ -80,12 +80,12 @@ public class LocatorUploadBean extends FileLocatorUploadBean
                 
                 //The initinally created empty file has to be deleted
                 this.removeEmptyFile();
-                int index = this.editItem.getEditItemSessionBean().getFiles().size();
+                int index = this.easySubmission.getFiles().size();
                 
-                List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
+                List <PubFileVOPresentation> list = this.easySubmission.getFiles();
                 PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
                 list.add(pubFile);
-                this.editItem.getEditItemSessionBean().setFiles(list);
+                this.easySubmission.setFiles(list);
         }
         catch (Exception e)
         {
@@ -96,15 +96,15 @@ public class LocatorUploadBean extends FileLocatorUploadBean
     
     public void removeEmptyFile()
     {
-        List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getFiles();
+        List <PubFileVOPresentation> list = this.easySubmission.getFiles();
         for (int i = 0; i < list.size(); i++)
         {
             PubFileVOPresentation file = list.get(i);
             if (file.getFile().getContent() == null || file.getFile().getContent().equals(""))
             {
-                List <PubFileVOPresentation> listClean = this.editItem.getEditItemSessionBean().getFiles();
+                List <PubFileVOPresentation> listClean = this.easySubmission.getFiles();
                 listClean.remove(i);
-                this.editItem.getEditItemSessionBean().setFiles(listClean);
+                this.easySubmission.setFiles(listClean);
             }
         }
     }
@@ -114,15 +114,15 @@ public class LocatorUploadBean extends FileLocatorUploadBean
      */
     public void removeLocator()
     {
-        List <PubFileVOPresentation> list = this.editItem.getEditItemSessionBean().getLocators();
+        List <PubFileVOPresentation> list = this.easySubmission.getLocators();
         for (int i =0; i < list.size(); i++)
         {
             PubFileVOPresentation locatorPres = list.get(i);
             if (locatorPres.getFile().getContent().equals(super.locator))
             {
-                List <PubFileVOPresentation> listClean = this.editItem.getEditItemSessionBean().getLocators();
+                List <PubFileVOPresentation> listClean = this.easySubmission.getLocators();
                 listClean.remove(i);
-                this.editItem.getEditItemSessionBean().setLocators(listClean);
+                this.easySubmission.setLocators(listClean);
                 
                 //Make sure at least one locator exists
                 if (listClean.size() == 0)
@@ -130,7 +130,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean
                     FileVO newLocator = new FileVO();
                     newLocator.getMetadataSets().add(new MdsFileVO());
                     newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-                    this.editItem.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));  
+                    this.easySubmission.getLocators().add(new PubFileVOPresentation(0, newLocator, true));  
                 }
             }
         }

@@ -68,7 +68,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.pubman.editItem.LocatorUploadBean;
+import de.mpg.escidoc.pubman.easySubmission.LocatorUploadBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
@@ -203,6 +203,8 @@ public class EasySubmission extends FacesBean
     
     /** pub context name. */
     private String contextName = null;
+    
+    private String locatorUpload;
     
 
     /**
@@ -2628,4 +2630,41 @@ public class EasySubmission extends FacesBean
     {
         this.contextName = contextName;
     }
+	
+	/**
+     * Uploads a file from a given locator.
+     */
+    public void uploadLocator()
+    {
+        LocatorUploadBean locatorBean = new LocatorUploadBean();
+        boolean check = locatorBean.ckeckLocator(this.getLocatorUpload());
+
+        if (check)
+        {           
+            locatorBean.locatorUploaded();         
+        }
+        
+        if (locatorBean.getError()!= null)
+        {
+//            if (check)
+//            {
+//                //Reset locator if it was already added to list
+//                locatorBean.removeLocator();
+//                List <PubFileVOPresentation> list = this.getLocators();
+//                list.get(indexUpload).setLocator(locatorValue);
+//                this.setLocators(list);
+//            }
+            error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
+        }
+    }
+
+	public String getLocatorUpload() {
+		return locatorUpload;
+	}
+
+	public void setLocatorUpload(String locatorUpload) {
+		this.locatorUpload = locatorUpload;
+	}
+	
+	
 }

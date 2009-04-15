@@ -95,7 +95,19 @@
 				</span>
 			</h:panelGroup>
 		</h:panelGroup>
-
+<%-- Add File from url--%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.size == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText styleClass="quad_txtInput" value="#{EasySubmission.locatorUpload}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btUpload}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EasySubmission.uploadLocator}" />
+				</span>
+			</h:panelGroup>
 <%-- Real filename --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
