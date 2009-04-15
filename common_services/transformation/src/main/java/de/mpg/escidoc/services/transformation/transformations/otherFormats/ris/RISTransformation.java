@@ -107,9 +107,9 @@ public class RISTransformation implements Transformation{
             String input = new String(arg0, "UTF-8"); //ris item in xml
             StringWriter result = new StringWriter();
             if(arg1.getName().equalsIgnoreCase("RIS")){
-            	String source = new String(arg0,"UTF-8");
+            	String risSource = new String(arg0,"UTF-8");
             	RISImport ris = new RISImport();
-            	output = ris.transformRIS2XML(source);
+            	output = ris.transformRIS2XML(risSource);
             	TransformerFactory factory = TransformerFactory.newInstance();
         		Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
         		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
