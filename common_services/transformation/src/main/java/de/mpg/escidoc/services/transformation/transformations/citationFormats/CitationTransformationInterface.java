@@ -37,6 +37,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
@@ -56,7 +57,7 @@ public class CitationTransformationInterface implements Transformation
 
     private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
     
-    private final String EXPLAIN_FILE_PATH ="resources/transformations/citations/";
+    private final String EXPLAIN_FILE_PATH ="transformations/citations/";
     private final String EXPLAIN_FILE_NAME="explain-transformations.xml";
 
     private Util util;
@@ -78,10 +79,10 @@ public class CitationTransformationInterface implements Transformation
         TransformationsDocument transDoc = null;
         TransformationsType transType = null;
           
-        ClassLoader cl = this.getClass().getClassLoader();
-        java.io.InputStream in = cl.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+        java.io.InputStream in;
         try
         {
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -134,10 +135,10 @@ public class CitationTransformationInterface implements Transformation
         TransformationsDocument transDoc = null;
         TransformationsType transType = null;
        
-        ClassLoader cl = this.getClass().getClassLoader();
-        java.io.InputStream in = cl.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+        java.io.InputStream in;
         try
         {
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)
@@ -257,10 +258,10 @@ public class CitationTransformationInterface implements Transformation
         TransformationsDocument transDoc = null;
         TransformationsType transType = null;
       
-        ClassLoader cl = this.getClass().getClassLoader();
-        java.io.InputStream in = cl.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+        java.io.InputStream in;
         try
         {
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)

@@ -65,7 +65,7 @@ public class ThirdPartyTransformation
 {
     private final Logger logger = Logger.getLogger(ThirdPartyTransformation.class);
     
-    private final String METADATA_XSLT_LOCATION ="resources/transformations/thirdParty/xslt";
+    private final String METADATA_XSLT_LOCATION ="transformations/thirdParty/xslt";
     private static Properties properties;
     
     /**

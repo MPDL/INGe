@@ -47,7 +47,7 @@ public class RISTransformation implements Transformation{
     public Format[] getSourceFormats(Format targetFormat) throws RuntimeException{
     	if (ESCIDOC_FORMAT.getName().equals(targetFormat.getName()) && ESCIDOC_FORMAT.getType().equals(targetFormat.getType()))
         {
-            return new Format[]{ENDNOTE_FORMAT, WOS_FORMAT, RIS_FORMAT};
+            return new Format[]{WOS_FORMAT, RIS_FORMAT};
         }
         else
         {
@@ -72,7 +72,7 @@ public class RISTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException{
-    	if (ENDNOTE_FORMAT.equals(sourceFormat) || WOS_FORMAT.equals(sourceFormat) || RIS_FORMAT.equals(sourceFormat))
+    	if (WOS_FORMAT.equals(sourceFormat) || RIS_FORMAT.equals(sourceFormat))
         {
             return new Format[]{ESCIDOC_FORMAT};
         }

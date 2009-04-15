@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsType;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -55,7 +56,7 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
 {
     private final Logger logger = Logger.getLogger(ThirdPartyTransformationInterface.class);
     
-    private final String EXPLAIN_FILE_PATH ="resources/transformations/thirdParty/";
+    private final String EXPLAIN_FILE_PATH ="transformations/thirdParty/";
     private final String EXPLAIN_FILE_NAME="explain-transformations.xml";
     
     private Util util;
@@ -134,10 +135,10 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
         TransformationsDocument transDoc = null;
         TransformationsType transType = null;
         
-        ClassLoader cl = this.getClass().getClassLoader();
-        java.io.InputStream in = cl.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
+        java.io.InputStream in;
         try
         {
+            in = ResourceUtil.getResourceAsStream(this.EXPLAIN_FILE_PATH + this.EXPLAIN_FILE_NAME);
             transDoc = TransformationsDocument.Factory.parse(in);
         }
         catch (Exception e)

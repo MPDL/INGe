@@ -36,6 +36,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
+import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
+
 /**
  * This class handle URIs in XSLT stylesheets such as xsl:import.
  * In a jar the stylesheet can only be loaded as InputStream.
@@ -78,9 +81,14 @@ public class LocalURIResolver implements URIResolver
             altBase = "";
         }
 
-        ClassLoader cl = this.getClass().getClassLoader();
-        Source source = new StreamSource(cl.getResourceAsStream(this.base + altBase + "/" + href));
-
-        return source;
+        java.io.InputStream in;
+        try
+        {
+            Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
+            return source;
+        }
+        catch (Exception e) {
+            throw new TransformerException(e);
+        }
     }
 }
