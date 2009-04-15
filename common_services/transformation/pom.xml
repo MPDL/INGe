@@ -19,8 +19,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<source>1.5</source>
+					<target>1.5</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -31,18 +31,18 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<targetPath>resources</targetPath>
-				<filtering>false</filtering>
-				<directory>${basedir}/src/main/resources</directory>
-			</resource>
-			<resource>
-				<targetPath>test/resources</targetPath>
-				<filtering>false</filtering>
-				<directory>${basedir}/src/test/resources</directory>
-			</resource>
-		</resources>
+<!--		<resources>-->
+<!--			<resource>-->
+<!--				<targetPath>resources</targetPath>-->
+<!--				<filtering>false</filtering>-->
+<!--				<directory>${basedir}/src/main/resources</directory>-->
+<!--			</resource>-->
+<!--			<resource>-->
+<!--				<targetPath>test/resources</targetPath>-->
+<!--				<filtering>false</filtering>-->
+<!--				<directory>${basedir}/src/test/resources</directory>-->
+<!--			</resource>-->
+<!--		</resources>-->
 	</build>
 	<dependencies>
 		<dependency>
@@ -188,17 +188,5 @@
 			<version>3.9.0</version>
       		<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>xbean</artifactId>
-			<version>2.4.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>xbean_xpath</artifactId>
-			<version>2.4.0</version>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
+		<dependency>			<groupId>xmlbeans</groupId>			<artifactId>xbean</artifactId>			<version>2.4.0</version>			<scope>compile</scope>		</dependency>		<dependency>			<groupId>xmlbeans</groupId>			<artifactId>xbean_xpath</artifactId>			<version>2.4.0</version>			<scope>compile</scope>		</dependency>	</dependencies>
 </project>
