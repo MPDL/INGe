@@ -1,0 +1,48 @@
+
+<escidocItem:item xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"	
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:prop="http://escidoc.de/core/01/properties/"
+    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
+	<escidocItem:properties>
+		<srel:context objid="$1" />
+		<srel:content-model objid="$2" />
+		<prop:content-model-specific/>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record name="escidoc">
+            $3
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+	<escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7">
+		<escidocComponents:component>
+			<escidocComponents:properties xmlns:xlink="http://www.w3.org/1999/xlink">
+				<prop:description>$4</prop:description>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>original-data</prop:content-category>
+				<prop:file-name>$5</prop:file-name>
+				<prop:mime-type>text/plain</prop:mime-type>
+			</escidocComponents:properties>
+			<escidocComponents:content xlink:type="simple" storage="internal-managed">$6</escidocComponents:content>
+			<escidocMetadataRecords:md-records>
+				<escidocMetadataRecords:md-record name="escidoc">
+					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<dc:title>$5</dc:title>
+						<dc:description>$4</dc:description>
+						<dc:identifier xsi:type="eidt:OTHER">$7</dc:identifier>
+						<file:content-category>original-data</file:content-category>
+						<dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+						<dc:format>$8</dc:format>
+						<dcterms:extent>$9</dcterms:extent>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+	</escidocComponents:components>
+</escidocItem:item>
