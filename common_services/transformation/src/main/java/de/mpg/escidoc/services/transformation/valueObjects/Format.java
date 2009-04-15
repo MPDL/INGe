@@ -136,9 +136,40 @@ public class Format implements Serializable
         }        
         else        
         {            
-            return (this.name == null ? ((Format)other).name == null : this.name.equals(((Format) other).name))                    
-                && (this.type == null ? ((Format)other).type == null : this.type.equals(((Format) other).type))                    
-                && (this.encoding == null ? ((Format)other).encoding == null : this.encoding.equals(((Format) other).encoding));        
+            return (this.name == null ? ((Format)other).name == null : this.name.equalsIgnoreCase(((Format) other).name))                    
+                && (this.type == null ? ((Format)other).type == null : this.type.equalsIgnoreCase(((Format) other).type))                    
+                && (this.encoding == null ? ((Format)other).encoding == null : this.encoding.equalsIgnoreCase(((Format) other).encoding));        
          }
+    }
+    
+    /**     
+     * * {@inheritDoc}     
+     * */   
+    public boolean matches(Format other)    
+    {        
+        if (other == null)        
+        {            
+            return false;        
+        }       
+        else if ((this.name == null ? other.name == null : this.name.equalsIgnoreCase(other.name))                    
+            && (this.type == null ? other.type == null : this.type.equalsIgnoreCase(other.type))) 
+        {            
+            if (this.encoding == null)
+            {
+                return false;
+            }
+            else if (this.encoding.equalsIgnoreCase(other.encoding) || "*".equals(other.encoding))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }

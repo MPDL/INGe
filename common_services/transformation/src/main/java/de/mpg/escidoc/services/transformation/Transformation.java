@@ -70,7 +70,8 @@ public interface Transformation
     public Format[] getSourceFormats() throws RuntimeException;
     
     /**
-     * Get all possible source formats for a target format. 
+     * Get all possible source formats for a target format.
+     * 
      * @param Format : the target format
      * @return Format[]: list of possible source formats as value object
      * @throws RuntimeException
