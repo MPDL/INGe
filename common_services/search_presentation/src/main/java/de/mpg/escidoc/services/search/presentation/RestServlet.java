@@ -29,6 +29,8 @@
 
 package de.mpg.escidoc.services.search.presentation;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -44,6 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
@@ -74,6 +77,23 @@ public class RestServlet extends HttpServlet
     @EJB
     private Search itemContainerSearch;
 
+    /** Counter for the concurrent searches*/
+    private static int searchCounter = 0;
+    
+    /** Max number of the simultaneous concurrent searches*/
+    private static final int MAX_SEARCHES_NUMBER = 30;
+    
+    
+    private static ProcessCitationStyles pcs;
+    private static StructuredExport se;
+    
+    
+    public RestServlet()
+    {
+        pcs = new ProcessCitationStyles();
+        se = new StructuredExport();
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -95,6 +115,7 @@ public class RestServlet extends HttpServlet
         String language = null;
         String exportFormat = null;
         String outputFormat = null;
+        boolean isCitationStyle = false;
         try
         {
             String qs = req.getQueryString();
@@ -123,8 +144,6 @@ public class RestServlet extends HttpServlet
             exportFormat = req.getParameter("exportFormat");
             exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim();
 
-            ProcessCitationStyles pcs = new ProcessCitationStyles();
-            StructuredExport se = new StructuredExport();
             if (exportFormat.equals(""))
             {
                 // TODO: move default values to services
@@ -160,6 +179,21 @@ public class RestServlet extends HttpServlet
                 }
             }
 
+            //check the max number of the concurrent searches
+            if (pcs.isCitationStyle(exportFormat))
+            {
+            	isCitationStyle = true;
+            	LOGGER.debug("Number of the concurrent searches 1:" + searchCounter);
+            	if( searchCounter > MAX_SEARCHES_NUMBER )
+            	{
+                    resp.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, "Too many Search&Export requests");
+                    return;
+            	}
+            	searchCounter++;
+            }
+            
+            
+            
             String index = null;
 
             // transform language selector to enum
@@ -205,13 +239,15 @@ public class RestServlet extends HttpServlet
                 if (sortOrder.contains("descending"))
                 {
                     query.setSortOrder(SortingOrder.DESCENDING);
-                } else
+                } 
+                else
                 {
                     query.setSortOrder(SortingOrder.ASCENDING);
                 }
 
             }
-
+            
+            
             // query the search service
             ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
 
@@ -231,14 +267,21 @@ public class RestServlet extends HttpServlet
 
             resp.setContentLength(result.length);
 
-            for (byte b : result)
-            {
-                os.write(b);
-            }
+        	ByteArrayInputStream bais = new ByteArrayInputStream( result );
+        	BufferedInputStream bis = new BufferedInputStream( bais );
+        	byte[] ba = new byte[2048];
+        	int len;
+        	while ( (len = bis.read( ba ))!=-1 )
+        	{
+        		os.write(ba, 0, len);
+        	}            
             os.close();
-
-        } catch (NamingException ne)
+            
+            decreaseCounter(isCitationStyle);
+        } 
+        catch (NamingException ne)
         {
+            decreaseCounter(isCitationStyle);
             try
             {
                 handleException(ne, resp);
@@ -250,6 +293,7 @@ public class RestServlet extends HttpServlet
             }
         } catch (TechnicalException te)
         {
+            decreaseCounter(isCitationStyle);
             try
             {
                 handleException(te, resp);
@@ -259,8 +303,10 @@ public class RestServlet extends HttpServlet
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        } catch (Exception e)
+        } 
+        catch (Exception e)
         {
+        	decreaseCounter(isCitationStyle);        	
             throw new ServletException(e);
         }
     }
@@ -311,6 +357,16 @@ public class RestServlet extends HttpServlet
     private boolean checkVal(String str)
     {
         return !(str == null || str.trim().equals(""));
+    }
+    
+    //Decrease counter of the maximum allowed searches  
+    private void decreaseCounter(boolean flag)
+    {
+    	if (flag)
+    	{
+			searchCounter--;
+			LOGGER.debug("Number of the concurrent searches 2:" + searchCounter);
+    	}
     }
 
 }
