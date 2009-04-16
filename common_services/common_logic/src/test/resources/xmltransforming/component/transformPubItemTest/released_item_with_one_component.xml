@@ -82,7 +82,10 @@
 						<file:content-category>any-fulltext</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
+						<dcterms:available>2010-01-01</dcterms:available>
+						<dcterms:dateCopyrighted>2009</dcterms:dateCopyrighted>
 						<dc:rights>eDoc_access: USER</dc:rights>
+						<dcterms:license>CC-LICENSE</dcterms:license>
 					</file:file>
             	</escidocMetadataRecords:md-record>
             </escidocMetadataRecords:md-records>

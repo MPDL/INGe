@@ -82,11 +82,26 @@
 			<value style="element" name="extent" ns="http://purl.org/dc/terms/"
 				field="size" usage="optional" />
 
+			<!-- Node: file.available -->
+			<!-- Field: MdsFileVO.embargoUntil [String] -->
+			<value style="element" name="available" ns="http://purl.org/dc/terms/"
+				field="embargoUntil" usage="optional" />
+				
+			<!-- Node: file.dateCopyrighted -->
+			<!-- Field: MdsFileVO.copyrightDate [String] -->
+			<value style="element" name="dateCopyrighted" ns="http://purl.org/dc/terms/"
+				field="copyrightDate" usage="optional" />
+				
 			<!-- Node: file.rights -->
 			<!-- Field: MdsFileVO.rights [String] -->
 			<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/"
 				field="rights" usage="optional" />
 
+			<!-- Node: file.license -->
+			<!-- Field: MdsFileVO.license [String] -->
+			<value style="element" name="license" ns="http://purl.org/dc/terms/"
+				field="license" usage="optional" />
+				
 <!--		</structure>-->
 	</mapping>
 </binding>

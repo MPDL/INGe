@@ -1,6 +1,7 @@
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
@@ -20,7 +21,10 @@ public class MdsFileVO extends MetadataSetVO
 
     private int size;
     
+    private String embargoUntil;
+    private String copyrightDate;
     private String rights;
+    private String license;
     
     /**
      * Default constructor.
@@ -43,7 +47,11 @@ public class MdsFileVO extends MetadataSetVO
         this.description = other.description;
         this.contentCategory = other.contentCategory;
         this.formats = other.formats;
+        this.size = other.size;
+        this.embargoUntil = other.embargoUntil;
+        this.copyrightDate = other.copyrightDate;
         this.rights = other.rights;
+        this.license = other.license;
     }
     
     public int getSize()
@@ -94,6 +102,54 @@ public class MdsFileVO extends MetadataSetVO
     public void setRights(String rights)
     {
         this.rights = rights;
+    }
+
+    /**
+     * @return the embargoUntil
+     */
+    public String getEmbargoUntil()
+    {
+        return embargoUntil;
+    }
+
+    /**
+     * @param embargoUntil the embargoUntil to set
+     */
+    public void setEmbargoUntil(String embargoUntil)
+    {
+        this.embargoUntil = embargoUntil;
+    }
+
+    /**
+     * @return the copyrightDate
+     */
+    public String getCopyrightDate()
+    {
+        return copyrightDate;
+    }
+
+    /**
+     * @param copyrightDate the copyrightDate to set
+     */
+    public void setCopyrightDate(String copyrightDate)
+    {
+        this.copyrightDate = copyrightDate;
+    }
+
+    /**
+     * @return the license
+     */
+    public String getLicense()
+    {
+        return license;
+    }
+
+    /**
+     * @param license the license to set
+     */
+    public void setLicense(String license)
+    {
+        this.license = license;
     }
 
 }
