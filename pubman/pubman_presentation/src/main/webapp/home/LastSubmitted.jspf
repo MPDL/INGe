@@ -32,6 +32,9 @@
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
+<h2>
+	<h:outputText id="lastSubmittedFeed" value="#{lbl.Home_Header_LastItems}" escape="false"/>
+</h2>
 <!-- TODO: Exchange this with lastsubmitted feed -->
 
 
