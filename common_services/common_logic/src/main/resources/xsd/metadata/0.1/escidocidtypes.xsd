@@ -3,6 +3,7 @@
            xmlns:dc="http://purl.org/dc/elements/1.1/"
            targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
            xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+           xmlns:elit="http://escidoc.mpg.de/metadataprofile/schema/0.1/licensetypes"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified">
 
@@ -128,6 +129,25 @@
   </xs:complexType>
 
   <xs:complexType name="OTHER">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+
+        eSciDoc license types
+
+    </xs:documentation>
+  </xs:annotation>
+
+   <xs:complexType name="CC-LICENSE" xmlns:elit="http://escidoc.mpg.de/metadataprofile/schema/0.1/licensetypes">
    <xs:simpleContent>
     <xs:restriction base="dc:SimpleLiteral">
         <xs:simpleType>
