@@ -117,6 +117,72 @@
    </xs:simpleContent>
   </xs:complexType>
   
+  <xs:complexType name="URI">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="PII">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="PMID">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ARXIV">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="PMC">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
+  <xs:complexType name="BMC">
+   <xs:simpleContent>
+    <xs:restriction base="dc:SimpleLiteral">
+        <xs:simpleType>
+          <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+        <xs:attribute ref="xml:lang" use="prohibited"/>
+    </xs:restriction>
+   </xs:simpleContent>
+  </xs:complexType>
+  
   <xs:complexType name="ZDB">
    <xs:simpleContent>
     <xs:restriction base="dc:SimpleLiteral">
