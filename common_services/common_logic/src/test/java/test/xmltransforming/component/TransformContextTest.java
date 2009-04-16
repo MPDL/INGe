@@ -245,6 +245,7 @@ public class TransformContextTest extends TestBase
         adminDescriptor.setTemplateItem(new ItemRO("escidoc:123"));
         adminDescriptor.setValidationSchema("publication");
         adminDescriptor.setWorkflow(PublicationAdminDescriptorVO.Workflow.STANDARD);
+        adminDescriptor.setContactEmail("pubman@mpdl.mpg.de");
         return expected;
     }
 

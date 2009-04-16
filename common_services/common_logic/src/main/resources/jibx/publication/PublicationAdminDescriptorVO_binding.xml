@@ -61,5 +61,7 @@
 			field="workflow"
 			usage="optional" />
 
+		<value style="element" name="contact-email" field="contactEmail" usage="optional" />
+
 	</mapping>
 </binding>

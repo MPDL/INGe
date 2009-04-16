@@ -42,6 +42,7 @@ u.tschida@zim.mpg.de for any questions.</prop:description>
 				<template-item>escidoc:123</template-item>
 				<validation-schema>publication</validation-schema>
 				<workflow>standard</workflow>
+				<contact-email>pubman@mpdl.mpg.de</contact-email>
 			</pubman-admin-descriptor>
 
 		</context:admin-descriptor>

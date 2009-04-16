@@ -61,6 +61,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     private String visibilityOfReferences;
     
     private Workflow workflow;
+    
+    private String contactEmail;
 
     public List<MdsPublicationVO.Genre> getAllowedGenres()
     {
@@ -110,6 +112,22 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     public void setWorkflow(Workflow workflow)
     {
         this.workflow = workflow;
+    }
+
+    /**
+     * @return the contactEmail
+     */
+    public String getContactEmail()
+    {
+        return contactEmail;
+    }
+
+    /**
+     * @param contactEmail the contactEmail to set
+     */
+    public void setContactEmail(String contactEmail)
+    {
+        this.contactEmail = contactEmail;
     }
     
 }
