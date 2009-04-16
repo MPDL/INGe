@@ -69,6 +69,10 @@
 		.noDisplay {
 			display: none !important;
 		}
+		.pointer {
+			cursor: pointer;
+		}
+		
 		.browserSupport * {
 			float: left;
 		}
