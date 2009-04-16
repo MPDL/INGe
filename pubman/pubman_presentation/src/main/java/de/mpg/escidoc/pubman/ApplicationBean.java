@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 import javax.faces.context.FacesContext;
@@ -40,6 +41,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * ApplicationBean which stores all application wide values.
@@ -137,6 +139,28 @@ public class ApplicationBean extends FacesBean
             throw new PubManVersionNotAvailableException(e);
         }
     }
+    
+    /**
+     * Provides the escidoc instance string.
+     *
+     * @return the escidoc instance
+     * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
+     */
+    public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException 
+    {
+        try
+        {
+            return PropertyReader.getProperty("escidoc.pubman.instance.url");
+        } catch (IOException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        }
+        
+    }
+    
 
     /**
      * Returns the current application context.
