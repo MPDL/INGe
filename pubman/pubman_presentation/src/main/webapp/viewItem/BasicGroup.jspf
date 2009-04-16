@@ -49,6 +49,28 @@
 				</h:outputLink>	
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
+			<span class="large_area0_p8 lineToolSection">
+				<h:graphicImage title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="min_imgArea sectionTool pointer" url="http://www.informaworld.com/images/bookmarks/citeulike.gif" onclick="citeULikeLink();"/>
+				<script type="text/javascript">
+					function citeULikeLink() {
+						window.open('http://www.citeulike.org/posturl?url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
+					}
+				</script>
+				<h:graphicImage title="#{lbl.ViewItemFull_lblSocialBookmarking_Connotea}" styleClass="min_imgArea sectionTool pointer" url="http://www.connotea.org/icon.png" onclick="connoteaLink();"/>
+				<script type="text/javascript">
+					function connoteaLink() {
+						window.open('http://www.connotea.org/addpopup?continue=confirm&uri='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&usertitle='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>'),'add','toolbar=no,width=720,height=755,scrollbars,resizable');
+					}
+				</script>
+				<h:graphicImage title="#{lbl.ViewItemFull_lblSocialBookmarking_Delicious}" styleClass="min_imgArea sectionTool pointer" url="http://static.delicious.com/img/delicious.small.gif" onclick="deliciousLink();"/>
+				<script type="text/javascript">
+					function deliciousLink() {
+						window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent('<h:outputText value="#{ViewItemFull.citationURL}"/>')+'&amp;title='+encodeURIComponent('<h:outputText value="#{lbl.ViewItemFull_lblSocialBookmarkingDescription}"/> <h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>'), 'delicious','toolbar=no,width=550,height=550');
+						return false;
+					}
+				</script>
+				
+			</span>
 		</div>
 
 <%-- Genre --%>
