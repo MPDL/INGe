@@ -451,7 +451,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 				
 				<!-- Sitemaps -->
-				<escidoc.pubman.sitemap.task.interval>180</escidoc.pubman.sitemap.task.interval>
+				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
 				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
 				<escidoc.pubman.sitemap.retrieve.items>100</escidoc.pubman.sitemap.retrieve.items>
 				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
@@ -609,6 +609,22 @@
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de:8080/cone/</escidoc.cone.service.url>
+				
+				<!-- Import database -->
+				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
+				<escidoc.import.database.server.name></escidoc.import.database.server.name>
+				<escidoc.import.database.server.port></escidoc.import.database.server.port>
+				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
+				<!--<escidoc.import.database.connection.url>jdbc:postgresql://$1:$2/$3</escidoc.import.database.connection.url>-->
+				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
+				
+				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
+								
+				<!-- Sitemaps -->
+				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
+				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
+				<escidoc.pubman.sitemap.retrieve.items>100</escidoc.pubman.sitemap.retrieve.items>
+				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 				
 				<!-- unAPI -->
 				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/view/unapi/</escidoc.unapi.view.server>
