@@ -496,7 +496,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search_presentation</artifactId>
-            <version>1.0.17</version>
+            <version>1.0.18-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
