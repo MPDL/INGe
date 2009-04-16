@@ -44,12 +44,12 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink value="#{ViewItemFull.citationURL}">
-					<h:outputText value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}"/>
+				<h:outputLink value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}">
+					<h:outputText value="#{ViewItemFull.citationURL}"/>
 				</h:outputLink>	
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
-			<span class="large_area0_p8 lineToolSection">
+			<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{!ViewItemFull.isStatePending}">
 				<h:graphicImage title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="min_imgArea sectionTool pointer" url="http://www.informaworld.com/images/bookmarks/citeulike.gif" onclick="citeULikeLink();"/>
 				<script type="text/javascript">
 					function citeULikeLink() {
@@ -69,8 +69,7 @@
 						return false;
 					}
 				</script>
-				
-			</span>
+			</h:panelGroup>
 		</div>
 
 <%-- Genre --%>
