@@ -58,7 +58,11 @@
 					<h:selectBooleanCheckbox value="#{MultipleImport.rollback}"/>
 					<h:outputText value="#{lbl.multipleImport_checkboxRollback}"/>
 					<br/>
-					<h:selectBooleanCheckbox value="#{MultipleImport.something}"/>
+					<h:selectOneRadio value="#{MultipleImport.duplicateStrategy}">
+						<f:selectItem itemValue="1" itemLabel="#{lbl.multipleImport_dont_check_duplicates}"/>
+						<f:selectItem itemValue="2" itemLabel="#{lbl.multipleImport_dont_import_duplicates}"/>
+						<f:selectItem itemValue="3" itemLabel="#{lbl.multipleImport_dont_import_anything}"/>
+					</h:selectOneRadio>
 					<h:outputText value="#{lbl.multipleImport_checkboxSomething}"/>
 					<br/>
 					<h:inputText value="#{MultipleImport.name}"/>

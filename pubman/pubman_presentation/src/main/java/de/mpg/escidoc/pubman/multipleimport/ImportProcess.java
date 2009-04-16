@@ -31,7 +31,6 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.InputStream;
-import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
 
@@ -44,7 +43,6 @@ import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -71,6 +69,11 @@ public class ImportProcess extends Thread
 {
     private static final Logger logger = Logger.getLogger(ImportProcess.class);
     
+    public enum DuplicateStrategy
+    {
+        NO_CHECK, CHECK, ROLLBACK
+    }
+    
     private ImportLog log;
     private InputStream inputStream;
     private Transformation transformation;
@@ -84,6 +87,12 @@ public class ImportProcess extends Thread
     private FormatProcessor formatProcessor;
     private String fileName;
     
+    private boolean rollback;
+    private DuplicateStrategy duplicateStrategy;
+    
+    private boolean failed = false;
+    
+    
     private static final Format ESCIDOC_FORMAT = new Format("eSciDoc", "application/xml", "utf-8");
     
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
@@ -93,7 +102,15 @@ public class ImportProcess extends Thread
     
     private String name;
     
-    public ImportProcess(String name, String fileName, InputStream inputStream, Format format, ContextRO escidocContext, AccountUserVO user, ResourceBundle bundle)
+    public ImportProcess(
+            String name,
+            String fileName,
+            InputStream inputStream,
+            Format format,
+            ContextRO escidocContext,
+            AccountUserVO user,
+            boolean rollback,
+            int duplicateStrategy)
     {
         
         log = new ImportLog("import", user.getReference().getObjectId(), format.getName());
@@ -104,8 +121,27 @@ public class ImportProcess extends Thread
         log.startItem("import_process_started");
         log.finishItem();
         
+        DuplicateStrategy strategy;
+        if (duplicateStrategy == 1)
+        {
+            strategy = DuplicateStrategy.NO_CHECK;
+        }
+        else if (duplicateStrategy == 2)
+        {
+            strategy = DuplicateStrategy.CHECK;
+        }
+        else if (duplicateStrategy == 3)
+        {
+            strategy = DuplicateStrategy.ROLLBACK;
+        }
+        else
+        {
+            throw new RuntimeException("Invalid value " + duplicateStrategy + " for DuplicateStrategy");
+        }
+            
+        
         // Initialize
-        initialize(name, fileName, inputStream, format, escidocContext, user);
+        initialize(name, fileName, inputStream, format, escidocContext, user, rollback, strategy);
         
         log.setPercentage(7);
         
@@ -132,7 +168,9 @@ public class ImportProcess extends Thread
             InputStream inputStream,
             Format format,
             ContextRO escidocContext,
-            AccountUserVO user)
+            AccountUserVO user,
+            boolean rollback,
+            DuplicateStrategy duplicateStrategy)
     {
         log.startItem("import_process_initialize");
         try
@@ -148,6 +186,8 @@ public class ImportProcess extends Thread
             this.user = user;
             this.transformation = new TransformationBean();
             this.inputStream = inputStream;
+            this.rollback = rollback;
+            this.duplicateStrategy = duplicateStrategy;
             
             InitialContext context = new InitialContext();
             this.itemValidating = (ItemValidating) context.lookup(ItemValidating.SERVICE_NAME);
@@ -241,18 +281,36 @@ public class ImportProcess extends Thread
 
     private void fail()
     {
+        this.failed = true;
+        
         log.finishItem();
         log.startItem(ErrorLevel.FATAL, "import_process_failed");
         log.finishItem();
+        
+        if (this.rollback)
+        {
+            log.setStatus(Status.ROLLBACK);
+            rollback();
+        }
+        
         log.close();
     }
     
+    private void rollback()
+    {
+        log.startItem(ErrorLevel.FINE, "import_process_rollback");
+        log.finishItem();
+        log.deleteAll();
+        log.startItem(ErrorLevel.FINE, "import_process_rollback_successful");
+        log.finishItem();
+    }
+
     /**
      * {@inheritDoc}
      */
     public void run()
     {
-        if (!log.isDone())
+        if (!failed)
         {
             log.startItem("import_process_import_item");
            
@@ -266,7 +324,7 @@ public class ImportProcess extends Thread
             
             int counter = 0;
             
-            while (this.formatProcessor.hasNext())
+            while (this.formatProcessor.hasNext() && !failed)
             {
                 try
                 {
@@ -277,7 +335,7 @@ public class ImportProcess extends Thread
     
                     String singleItem = this.formatProcessor.next();
                     
-                    if (log.isDone())
+                    if (failed)
                     {
                         return;
                     }
@@ -285,10 +343,6 @@ public class ImportProcess extends Thread
                     if (singleItem != null && !"".equals(singleItem.trim()))
                     {
                         prepareItem(singleItem);
-                        if (log.isDone())
-                        {
-                            return;
-                        }
                     }
                     counter++;
                     
@@ -302,7 +356,17 @@ public class ImportProcess extends Thread
                     log.startItem(ErrorLevel.ERROR, "import_process_item_error");
                     log.addDetail(ErrorLevel.ERROR, e);
                     log.finishItem();
+                    
+                    if (this.rollback)
+                    {
+                        fail();
+                    }
                 }
+            }
+            
+            if (failed)
+            {
+                return;
             }
             
             log.startItem("import_process_preparation_finished");
@@ -314,7 +378,7 @@ public class ImportProcess extends Thread
             
             for (ImportLogItem item : log.getItems())
             {
-                if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null)
+                if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !failed)
                 {
                     try
                     {
@@ -343,37 +407,45 @@ public class ImportProcess extends Thread
                         log.startItem(ErrorLevel.ERROR, "import_process_item_error");
                         log.addDetail(ErrorLevel.ERROR, e);
                         log.finishItem();
+                        
+                        if (this.rollback)
+                        {
+                            fail();
+                        }
                     }
                 }
             }
             
-            log.startItem("import_process_finished");
-            log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
-            log.finishItem();
-            
-            try
-            {     
-                log.startItem("import_process_archive_log");
-                log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
-                
-                // Store log in repository
-                String taskItemXml = createTaskItemXml();
-                ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
-                String savedTaskItemXml = itemHandler.create(taskItemXml);
-                
-                log.setPercentage(100);
-                
-                logger.debug(savedTaskItemXml);
-                
-            }
-            catch (Exception e)
+            if (!failed)
             {
-                logger.error("Error during import", e);
-                
+                log.startItem("import_process_finished");
+                log.addDetail(ErrorLevel.FINE, "import_process_import_finished");
                 log.finishItem();
-                log.startItem(ErrorLevel.ERROR, "import_process_error");
-                log.addDetail(ErrorLevel.ERROR, e);
-                fail();
+                
+                try
+                {     
+                    log.startItem("import_process_archive_log");
+                    log.addDetail(ErrorLevel.FINE, "import_process_build_task_item");
+                    
+                    // Store log in repository
+                    String taskItemXml = createTaskItemXml();
+                    ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
+                    String savedTaskItemXml = itemHandler.create(taskItemXml);
+                    
+                    log.setPercentage(100);
+                    
+                    logger.debug(savedTaskItemXml);
+                    
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error during import", e);
+                    
+                    log.finishItem();
+                    log.startItem(ErrorLevel.ERROR, "import_process_error");
+                    log.addDetail(ErrorLevel.ERROR, e);
+                    fail();
+                }
             }
         }
     }
@@ -508,10 +580,32 @@ public class ImportProcess extends Thread
                 pubItemVO.setContext(escidocContext);
                 pubItemVO.getLocalTags().add("multiple_import");
                 pubItemVO.getLocalTags().add(log.getMessage());
-                
                 log.setItemVO(pubItemVO);
                 
-                log.suspendItem();
+                if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK)
+                {
+                    log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates");
+                    boolean duplicatesDetected = checkDuplicates();
+                    if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK)
+                    {
+                        this.rollback = true;
+                        fail();
+                    }
+                    else if (duplicatesDetected)
+                    {
+                        log.addDetail(ErrorLevel.WARNING, "import_process_no_import");
+                        log.finishItem();
+                    }
+                    else
+                    {
+                        log.suspendItem();
+                    }
+                        
+                }
+                else
+                {
+                    log.suspendItem();
+                }
 
             }
             else
@@ -540,6 +634,11 @@ public class ImportProcess extends Thread
             log.finishItem();
         }
         
+    }
+
+    private boolean checkDuplicates()
+    {
+        return false;
     }
 
 }

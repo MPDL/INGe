@@ -49,7 +49,7 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
  */
 public class DeleteProcess extends Thread
 {
-    private static final Logger logger = Logger.getLogger(ImportProcess.class);
+    private static final Logger logger = Logger.getLogger(DeleteProcess.class);
     
     private ImportLog log;
     private PubItemDepositing pubItemDepositing;
@@ -114,9 +114,9 @@ public class DeleteProcess extends Thread
                 }
                 catch (Exception e)
                 {
-                    log.addDetail(ErrorLevel.ERROR, "import_process_delete_failed");
-                    log.addDetail(ErrorLevel.ERROR, e);
-                    throw new RuntimeException(e);
+                    log.addDetail(ErrorLevel.WARNING, "import_process_delete_failed");
+                    log.addDetail(ErrorLevel.WARNING, e);
+                    log.finishItem();
                 }
                 counter++;
                 log.setPercentage(85 * counter / itemCount + 10);

@@ -45,9 +45,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
@@ -1288,7 +1285,8 @@ public class ImportLog
         {
             fc.getExternalContext().redirect("ImportWorkspace.jsp");
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
         return null;
@@ -1310,7 +1308,32 @@ public class ImportLog
         {
             fc.getExternalContext().redirect("ImportWorkspace.jsp");
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * JSF action to submit/release all items of an import from the repository.
+     * 
+     * @return Always null.
+     */
+    public String submitAll()
+    {
+        this.connection = getConnection();
+        SubmitProcess submitProcess = new SubmitProcess(this);
+        submitProcess.start();
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            fc.getExternalContext().redirect("ImportWorkspace.jsp");
+        }
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
         

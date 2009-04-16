@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.pubman.multipleimport;
 
-import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javax.faces.component.UIComponent;
@@ -47,6 +46,8 @@ import de.mpg.escidoc.pubman.createItem.CreateItem.SubmissionMethod;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -67,6 +68,8 @@ public class MultipleImport extends FacesBean
     public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
     public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
     
+    public static final Format ESCIDOC_FORMAT = new Format("escidoc", "application/xml", "UTF-8");
+    
     public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
     public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
     public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
@@ -83,7 +86,7 @@ public class MultipleImport extends FacesBean
     private String name;
     
     private boolean rollback = true;
-    private boolean something = false;
+    private int duplicateStrategy = 3;
     
     private Converter formatConverter = new Converter()
     {
@@ -123,11 +126,20 @@ public class MultipleImport extends FacesBean
     
     public MultipleImport()
     {
-        importFormats.put("Endnote", ENDNOTE_FORMAT);
-        importFormats.put("BibTeX", BIBTEX_FORMAT);
-        importFormats.put("eDoc", EDOC_FORMAT);
-        importFormats.put("RIS", RIS_FORMAT);
-        importFormats.put("WoS", WOS_FORMAT);
+        
+        Transformation transformation = new TransformationBean();
+        
+        Format[] formats = transformation.getSourceFormats(ESCIDOC_FORMAT);
+        
+        for (Format format : formats)
+        {
+            importFormats.put(format.getName(), format);
+        }
+//        importFormats.put("Endnote", ENDNOTE_FORMAT);
+//        importFormats.put("BibTeX", BIBTEX_FORMAT);
+//        importFormats.put("eDoc", EDOC_FORMAT);
+//        importFormats.put("RIS", RIS_FORMAT);
+//        importFormats.put("WoS", WOS_FORMAT);
     }
         
     public String uploadFile()
@@ -164,9 +176,9 @@ public class MultipleImport extends FacesBean
     {
 
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        InternationalizationHelper i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class); 
+        InternationalizationHelper i18nHelper = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
         
-        importProcess = new ImportProcess(name, uploadedImportFile.getFilename(), uploadedImportFile.getInputStream(), format, context.getReference(), loginHelper.getAccountUser(), ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()));
+        importProcess = new ImportProcess(name, uploadedImportFile.getFilename(), uploadedImportFile.getInputStream(), format, context.getReference(), loginHelper.getAccountUser(), rollback, duplicateStrategy);
         importProcess.start();
             
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -312,19 +324,19 @@ public class MultipleImport extends FacesBean
     }
 
     /**
-     * @return the something
+     * @return the duplicateStrategy
      */
-    public boolean getSomething()
+    public int getDuplicateStrategy()
     {
-        return something;
+        return duplicateStrategy;
     }
 
     /**
-     * @param something the something to set
+     * @param duplicateStrategy the duplicateStrategy to set
      */
-    public void setSomething(boolean something)
+    public void setDuplicateStrategy(int duplicateStrategy)
     {
-        this.something = something;
+        this.duplicateStrategy = duplicateStrategy;
     }
 
     /**

@@ -61,6 +61,8 @@ public class InitializerServlet extends HttpServlet
                 (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
             statistics.initReportDefinitionsInFramework();
             
+            new ImportDatabaseInitializer();
+            
             siteMapTask = new SiteMapTask();
             siteMapTask.start();
             

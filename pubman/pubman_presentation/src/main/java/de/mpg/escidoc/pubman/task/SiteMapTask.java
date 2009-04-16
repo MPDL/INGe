@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman.task;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,33 +40,23 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlbeans.impl.xb.ltgfmt.TestCase.Files;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.TopLevelAffiliationFilter;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
- * TODO Description
+ * Thread that creates Sitemap files.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -106,7 +95,6 @@ public class SiteMapTask extends Thread
         
         try
         {
-            
             logger.info("Starting to create Sitemap.");
             
             InitialContext context = new InitialContext();
@@ -132,14 +120,18 @@ public class SiteMapTask extends Thread
 
             changeFile();
             
-            work();
+            int alreadyWritten = addViewItemPages();
+            addOUSearchResultPages(alreadyWritten);
+            
+            finishSitemap();
             
             String appPath;
             try
             {
                 appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp").getAbsolutePath();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 logger.error("EditItemPage.jsp was not found in web root, terminating sitemap task", e);
                 return;
             }
@@ -160,7 +152,8 @@ public class SiteMapTask extends Thread
                 indexFileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                         + "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
                         + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-                        + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
+                        + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
+                        + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
                 
                 for (int i = 0; i < files.size(); i++)
                 {
@@ -199,7 +192,7 @@ public class SiteMapTask extends Thread
 
     }
 
-    private void work()
+    private int addViewItemPages()
     {
         
         
@@ -216,7 +209,7 @@ public class SiteMapTask extends Thread
 
             firstRecord += maxItemsPerRetrieve;
             
-            if (firstRecord % maxItemsPerFile == 0)
+            if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0)
             {
                 changeFile();
             }
@@ -231,9 +224,47 @@ public class SiteMapTask extends Thread
             }
             
         }
-        while (firstRecord < totalRecords);
+        while (firstRecord <= totalRecords);
 
-        finishSitemap();
+        return totalRecords;
+    }
+
+    private void addOUSearchResultPages(int alreadyWritten)
+    {
+        
+        changeFile();
+        
+        int firstRecord = 0;
+        int totalRecords = 0;
+        
+        //fileWriter.write("<ul>");
+        do
+        {
+
+            
+            OrgUnitsSearchResult ouSearchResult = getOUs(firstRecord);
+            totalRecords = ouSearchResult.getTotalNumberOfResults().intValue();
+            addOUsToSitemap(ouSearchResult);
+    
+            firstRecord += maxItemsPerRetrieve;
+            
+            if (firstRecord <= totalRecords && firstRecord % maxItemsPerFile == 0)
+            {
+                changeFile();
+            }
+            
+            try
+            {
+                sleep(retrievalTimeout * 1000);
+            }
+            catch (InterruptedException e)
+            {
+                logger.info("Sitemap task interrupted.");
+            }
+            
+        }
+        while (firstRecord <= totalRecords);
+
     }
     
     private void changeFile()
@@ -269,14 +300,39 @@ public class SiteMapTask extends Thread
     {
         SearchQuery itemQuery = new PlainCqlQuery("(escidoc.content-model.objid=" + contentModel + ")");
         itemQuery.setStartRecord(firstRecord + "");
-        itemQuery.setMaximumRecords("100");
+        itemQuery.setMaximumRecords(maxItemsPerRetrieve + "");
         try
         {
             ItemContainerSearchResult itemSearchResult = search.searchForItemContainer(itemQuery);
             return itemSearchResult;
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             logger.error("Error getting items", e);
+            return null;
+        }
+    }
+
+    /**
+     * @param contentModels
+     * @param orgUnit
+     * @return
+     * @throws TechnicalException
+     * @throws Exception
+     */
+    private OrgUnitsSearchResult getOUs(int firstRecord)
+    {
+        SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
+        ouQuery.setStartRecord(firstRecord + "");
+        ouQuery.setMaximumRecords(maxItemsPerRetrieve + "");
+        try
+        {
+            OrgUnitsSearchResult ouSearchResult = search.searchForOrganizationalUnits(ouQuery);
+            return ouSearchResult;
+        }
+        catch (Exception e)
+        {
+            logger.error("Error getting ous", e);
             return null;
         }
     }
@@ -286,9 +342,10 @@ public class SiteMapTask extends Thread
         try
         {
             fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            		+ "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
-            		+ "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-            		+ "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
+                    + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
+                    + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+                    + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
+                    + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
         }
         catch (Exception e)
         {
@@ -304,7 +361,6 @@ public class SiteMapTask extends Thread
             if (result instanceof ItemVO)
             {
                 PubItemVO pubItemVO = new PubItemVO((ItemVO) result);
-                TextVO title = pubItemVO.getMetadata().getTitle();
                 try
                 {
                     fileWriter.write("\t<url>\n\t\t<loc>");
@@ -332,6 +388,32 @@ public class SiteMapTask extends Thread
         }
     }
     
+    private void addOUsToSitemap(OrgUnitsSearchResult searchResult)
+    {
+        List<AffiliationVO> results = searchResult.getResults();
+        for (AffiliationVO result : results)
+        {
+
+            try
+            {
+                fileWriter.write("\t<url>\n\t\t<loc>");
+                fileWriter.write(instanceUrl);
+                fileWriter.write(contextPath);
+                fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
+                fileWriter.write(result.getReference().getObjectId());
+                fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
+                fileWriter.write(contentModel);
+                fileWriter.write("%22)&amp;searchType=org");
+                fileWriter.write("</loc>\n\t</url>\n");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    
     private void finishSitemap()
     {
         try
@@ -346,6 +428,9 @@ public class SiteMapTask extends Thread
         }
     }
 
+    /**
+     * Signals this thread to finish itself.
+     */
     public void terminate()
     {
         logger.info("Sitemap creation task signalled to terminate.");
@@ -353,7 +438,7 @@ public class SiteMapTask extends Thread
     }
     
     /**
-     * @param args
+     * @param args String arguments
      */
     public static void main(String[] args)
     {
