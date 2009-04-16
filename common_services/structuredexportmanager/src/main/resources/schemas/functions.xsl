@@ -30,6 +30,13 @@
 	
 	<xsl:variable name="entities">
 
+
+		<!-- Escaping of " -->
+		<replacement>
+			<with>{"}</with>
+			<replace>&#x0022;</replace>
+		</replacement>
+
 		<replacement>
 			<with>\\acute{e}</with>
 			<replace>&#xe9;</replace>
@@ -1583,12 +1590,6 @@
 		<replacement>
 			<with>{\\v a}</with>
 			<replace>&#x01ce;</replace>
-		</replacement>
-
-		<!-- Escaping of " -->
-		<replacement>
-			<with>{"}</with>
-			<replace>&#x0022;</replace>
 		</replacement>
 
 		<!--<replacement><with>{\\_}</with>
