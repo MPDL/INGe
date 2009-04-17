@@ -190,7 +190,7 @@ public class MicroTransformationInterface implements de.mpg.escidoc.services.tra
         byte[] result = null;
         boolean supported = false;
         
-        if (srcFormat.getName().toLowerCase().equals("escidoc"))
+        if (srcFormat.getName().toLowerCase().startsWith("escidoc"))
         {
             result = this.escidocTransform(src, srcFormat, trgFormat, service);
             supported = true;
