@@ -192,7 +192,7 @@ public class CommonTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
         
-        if (srcFormat.getName().toLowerCase().equals("escidoc"))
+        if (srcFormat.getName().toLowerCase().startsWith("escidoc"))
         {
             result = this.escidocTransform(src, srcFormat, trgFormat, service);
             supported = true;
@@ -205,8 +205,8 @@ public class CommonTransformationInterface implements Transformation
        
         if (!supported)
         {
-            this.logger.warn("Transformation not supported: /n " + srcFormat.getName() + ", " + srcFormat.getType() 
-                    + ", " + srcFormat.getEncoding() + "/n" + trgFormat.getName() + ", " + trgFormat.getType() 
+            this.logger.warn("Transformation not supported: \n " + srcFormat.getName() + ", " + srcFormat.getType() 
+                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
                     + ", " + trgFormat.getEncoding());
             throw new TransformationNotSupportedException();
         }

@@ -38,12 +38,12 @@
 	</Transformation>
 	<Transformation>
 		<Source>
-			<Name>eSciDoc-publication-item</Name>
+			<Name>spires</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>

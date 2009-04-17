@@ -45,7 +45,7 @@ public class TransformationTest
             this.logger.debug("-----OK");
             
             this.logger.debug("Check target xml for escidoc item:");
-            this.logger.debug(this.trans.getTargetFormatsAsXml("eSciDoc", "application/xml", "*"));
+            this.logger.debug(this.trans.getTargetFormatsAsXml("eSciDoc-publication-item", "application/xml", "*"));
             this.logger.debug("-----OK");
             
             this.logger.debug("Check target xml for escidocToc item:");
@@ -53,7 +53,7 @@ public class TransformationTest
             this.logger.debug("-----OK");
             
             this.logger.debug("Check source xml for escidoc item:");
-            Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc", "application/xml", "UTF-8"));
+            Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc-publication-item", "application/xml", "UTF-8"));
             this.logger.debug(this.util.createFormatsXml(tmp));            this.logger.debug("-----OK");
             
             this.logger.debug("Check Transformation");
@@ -69,7 +69,7 @@ public class TransformationTest
                 stringBuilder.append(line + "\n");
             }
             new String(this.trans.transform( stringBuilder.toString().getBytes("UTF-8"), 
-                    "escidoc", "application/xml", "UTF-8", "endnote", "text/plain", "UTF-8", "escidoc"));
+                    "eSciDoc-publication-item-list", "application/xml", "UTF-8", "endnote", "text/plain", "UTF-8", "escidoc"));
             this.logger.debug("-----OK");
         }
         catch (Exception e)
