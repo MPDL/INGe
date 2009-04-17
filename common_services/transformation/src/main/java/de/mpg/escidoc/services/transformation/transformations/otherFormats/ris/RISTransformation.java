@@ -21,7 +21,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class RISTransformation implements Transformation{
 	
 	 private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
-	 private static final Format ESCIDOC_FORMAT = new Format("eSciDoc", "application/xml", "*");
+	 private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
 	 private static final Format WOS_FORMAT = new Format("WoS", "text/plain", "UTF-8");
 	 private static final Format RIS_FORMAT = new Format("RIS", "text/plain", "UTF-8");
 

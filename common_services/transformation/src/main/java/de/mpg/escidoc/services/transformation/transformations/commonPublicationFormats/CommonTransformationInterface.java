@@ -253,7 +253,7 @@ public class CommonTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
 
-        if (trgFormat.getName().toLowerCase().equals("escidoc"))
+        if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
         {       
             result = this.commonTrans.transformBibtexToEscidoc(src, srcFormat, trgFormat, service);
             if (result != null)
