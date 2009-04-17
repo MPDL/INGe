@@ -2,8 +2,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
-	<link href="/cone/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-	<link href="/cone/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
+	<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
 	<script type="text/javascript">
 
 			function remove(element)
