@@ -133,6 +133,7 @@ public class ViewItemFull extends FacesBean
     public static final String PARAMETERNAME_MENU_VIEW = "view";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
+    public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
     
     public boolean isDepositor = false;
     public boolean isModerator = false;
@@ -343,8 +344,6 @@ public class ViewItemFull extends FacesBean
         if (subMenu!=null){
             getViewItemSessionBean().setSubMenu(subMenu);
         }
-        
-        
         
         //check if arriving from easy submission
         //EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
@@ -2375,6 +2374,21 @@ public class ViewItemFull extends FacesBean
 
     	return "";
 
+    }
+    
+    /**
+     *This method returns the contact email address of the moderator strored in the item's context. If it is empty the pubman support address will be returned.
+     * @return the moderator's email address (if available, otherwise pubman support address)
+     */
+    public String getModeratorContactEmail()
+    {
+    	String contactEmail = "";
+    	contactEmail = this.getContext().getAdminDescriptor().getContactEmail();
+    	if(contactEmail == null || contactEmail.trim().equals(""))
+    	{
+    		contactEmail = ALTERNATIVE_MODERATOR_EMAIL;
+    	}
+    	return contactEmail;
     }
 
     public void setPublicStateReleased(boolean isPublicStateReleased)

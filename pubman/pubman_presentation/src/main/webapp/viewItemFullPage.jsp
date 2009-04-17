@@ -199,8 +199,8 @@
 								</span>
 							</div>
 							<div class="full_area0 itemHeader">
-								<h:panelGroup styleClass="xLarge_area0 endline" >
-									&#160;
+								<h:panelGroup styleClass="xLarge_area0 endline blockHeader" >
+									&#160;	
 								</h:panelGroup>
 									<h:panelGroup styleClass="seperator" />
 								<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
@@ -223,7 +223,7 @@
 							</div>
 							<h:panelGroup layout="block" styleClass="full_area0 itemBlock visibility" rendered="#{!ViewItemFull.isStateWithdrawn}">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									&#160;
+									<h:outputLink value="mailto:#{ViewItemFull.moderatorContactEmail}?subject=#{ViewItemFull.pubItem.version.objectIdAndVersion}" rendered="#{ViewItemFull.isLoggedIn}"><h:outputText value="#{lbl.ViewItem_lnkModeratorEmail}" /></h:outputLink>
 								</h3>
 								<h:panelGroup styleClass="seperator" />
 								<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
