@@ -143,8 +143,8 @@ public class Format implements Serializable
     }
     
     /**     
-     * * {@inheritDoc}     
-     * */   
+     * Returns true if this format is contained in the other format.
+     */   
     public boolean matches(Format other)    
     {        
         if (other == null)        

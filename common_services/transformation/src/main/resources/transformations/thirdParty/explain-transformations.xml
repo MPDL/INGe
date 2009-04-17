@@ -7,7 +7,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
@@ -19,7 +19,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
@@ -31,14 +31,14 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
 	<Transformation>
 		<Source>
-			<Name>spires</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>

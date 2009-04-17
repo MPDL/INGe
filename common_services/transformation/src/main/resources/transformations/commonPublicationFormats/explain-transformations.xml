@@ -2,7 +2,7 @@
 <Transformations xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/Transformation" xmlns:dc="http://purl.org/dc/elements/1.1/">
 	<Transformation>
 		<Source>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item-list</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>
@@ -14,7 +14,7 @@
 	</Transformation>
 	<Transformation>
 		<Source>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item-list</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Source>
@@ -31,7 +31,7 @@
 			<Encoding>*</Encoding>
 		</Source>
 		<Target>
-			<Name>eSciDoc</Name>
+			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>

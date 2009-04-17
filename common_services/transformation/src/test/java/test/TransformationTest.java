@@ -54,12 +54,11 @@ public class TransformationTest
             
             this.logger.debug("Check source xml for escidoc item:");
             Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc", "application/xml", "UTF-8"));
-            this.logger.debug(this.util.createFormatsXml(tmp));
-            this.logger.debug("-----OK");
+            this.logger.debug(this.util.createFormatsXml(tmp));            this.logger.debug("-----OK");
             
             this.logger.debug("Check Transformation");
             ClassLoader cl = this.getClass().getClassLoader();
-            InputStream in = cl.getResourceAsStream("test/resources/testFiles/escidocItem.xml");
+            InputStream in = cl.getResourceAsStream("testFiles/escidocItem.xml");
             
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
             StringBuilder stringBuilder = new StringBuilder();
@@ -95,7 +94,7 @@ public class TransformationTest
         byte[] result = trans.transform(itemXml.getBytes(), escidocFormat, metsFormat, "escidoc");
         
         
-        File f = new File("src/main/resources/dfg_mets.xml");
+        File f = new File("dfg_mets.xml");
         OutputStream fileStream = new FileOutputStream(f);
         fileStream.write(result);
         fileStream.flush();

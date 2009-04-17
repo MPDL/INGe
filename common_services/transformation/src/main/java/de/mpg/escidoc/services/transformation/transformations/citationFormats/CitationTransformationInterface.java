@@ -193,7 +193,7 @@ public class CitationTransformationInterface implements Transformation
         try
         {   
             CitationTransformation citeTrans = new CitationTransformation();
-            if (srcFormat.getName().toLowerCase().equals("escidoc"))
+            if (srcFormat.getName().toLowerCase().equals("eSciDoc-publication-item-list"))
             {
                 if (trgFormat.getName().toLowerCase().equals("apa"))
                 {
