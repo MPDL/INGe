@@ -614,7 +614,7 @@
 				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
 				<escidoc.import.database.server.name></escidoc.import.database.server.name>
 				<escidoc.import.database.server.port></escidoc.import.database.server.port>
-				<escidoc.import.database.name>../server/default/data/hypersonic/localDB</escidoc.import.database.name>
+				<escidoc.import.database.name>/usr/share/jboss/server/default/data/hypersonic/localDB</escidoc.import.database.name>
 				<!--<escidoc.import.database.connection.url>jdbc:postgresql://$1:$2/$3</escidoc.import.database.connection.url>-->
 				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 				
