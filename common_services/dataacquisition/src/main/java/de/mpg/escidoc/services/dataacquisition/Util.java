@@ -70,7 +70,7 @@ public class Util
 
     private Transformation transformer;
     private final Logger logger = Logger.getLogger(Util.class);
-    private final String internalFormat = "escidoc";
+    private final String internalFormat = "eSciDoc-publication-item";
 
     /**
      * Public constructor.
@@ -391,6 +391,7 @@ public class Util
     
     /**
      * Checks if a format can use escidoc as transition format.
+     * 
      * @param metadataV
      * @return
      */

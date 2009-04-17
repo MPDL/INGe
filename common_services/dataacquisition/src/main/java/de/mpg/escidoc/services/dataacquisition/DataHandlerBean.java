@@ -155,11 +155,11 @@ public class DataHandlerBean implements DataHandler
             }
             if (fetchType.equals(this.fetchTypeESCIDOCTRANS))
             {
-                fetchedData = this.fetchTextualData(importSource, identifier, "escidoc", "application/xml", "UTF-8")
+                fetchedData = this.fetchTextualData(importSource, identifier, "eSciDoc-publication-item", "application/xml", "UTF-8")
                     .getBytes("UTF-8");
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-                fetchedData = transformer.transform(fetchedData, "escidoc", "application/xml", "UTF-8", 
+                fetchedData = transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", "UTF-8", 
                         trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
                 this.setContentType(trgFormatType);
                 this.setFileEnding(null);
