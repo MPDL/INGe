@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServlet;
 public class InitializerServlet extends HttpServlet
 {
 
-    Thread refreshTask;
+    RefreshTask refreshTask;
     
     /**
      * {@inheritDoc}

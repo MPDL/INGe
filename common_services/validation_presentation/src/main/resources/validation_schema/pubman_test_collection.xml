@@ -54,7 +54,8 @@
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
-		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="publication_creator_role_required"/>
+		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="creator_required"/>
@@ -83,7 +84,8 @@
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="creator_required"/>
-		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="publication_creator_role_required"/>
+		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 	</iso:phase>
@@ -94,7 +96,8 @@
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="creator_required"/>
-		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="publication_creator_role_required"/>
+		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
@@ -110,7 +113,8 @@
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
-		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="publication_creator_role_required"/>
+		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="creator_required"/>
@@ -132,7 +136,8 @@
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
 		<iso:active pattern="source_title_required"/>
-		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="publication_creator_role_required"/>
+		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="creator_required"/>
@@ -177,10 +182,17 @@
 		</iso:rule>
 	</iso:pattern>
 	 
-	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
-	<iso:pattern name="creator_role_required" id="creator_role_required">
-		<iso:rule context="publication:source">
-			<iso:assert test="escidoc:creator/@role != '' or not(escidoc:creator/escidoc:person/escidoc:family-name != '' or escidoc:creator/escidoc:person/escidoc:given-name != '' or escidoc:creator//escidoc:organization/escidoc:organization-name != '' or escidoc:creator//escidoc:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
+	<!-- if any fields at "Publication creator" are filled, "role" has to be filled also. -->
+	<iso:pattern name="publication_creator_role_required" id="publication_creator_role_required">
+		<iso:rule context="publication:creator">
+			<iso:assert test="(@role != '') or not(escidoc:person/escidoc:family-name != '' or escidoc:person/escidoc:given-name != '' or escidoc:organization/escidoc:organization-name != '' or escidoc:person/escidoc:organization/escidoc:organization-name != '' or escidoc:organization/escidoc:address != '' or escidoc:person/escidoc:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	 
+	<!-- if any fields at "Source creator" are filled, "role" has to be filled also. -->
+	<iso:pattern name="source_creator_role_required" id="source_creator_role_required">
+		<iso:rule context="escidoc:creator">
+			<iso:assert test="(@role != '') or not(escidoc:person/escidoc:family-name != '' or escidoc:person/escidoc:given-name != '' or escidoc:organization/escidoc:organization-name != '' or escidoc:person/escidoc:organization/escidoc:organization-name != '' or escidoc:organization/escidoc:address != '' or escidoc:person/escidoc:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
@@ -334,14 +346,14 @@
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="component_mimeType" id="component_mimeType">
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(exists($mimeTypes/rdf:RDF) or not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/rdf:RDF/rdf:Description/dc:title">MimeTypeNotValid</iso:assert>
+			<iso:assert test="not(exists($mimeTypes/rdf:RDF)) or not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/rdf:RDF/rdf:Description/dc:title">MimeTypeNotValid</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="ddc_keywords" id="ddc_keywords">
 		<iso:rule context="escidocMetadataProfile:publication/dc:subject">
-			<iso:assert test="not(exists($ddcSubjects/rdf:RDF) or . = $ddcSubjects/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
+			<iso:assert test="not(exists($ddcSubjects/rdf:RDF)) or . = '' or . = $ddcSubjects/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
