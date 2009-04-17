@@ -952,7 +952,7 @@ public class EasySubmission extends FacesBean
             }
             //Transform from bibtex to escidoc pubItem
             Format source = new Format ("bibtex", "text/plain", "*");
-            Format target = new Format ("escidoc", "application/xml", "UTF-8");
+            Format target = new Format ("eSciDoc-publication-item", "application/xml", "UTF-8");
             byte[] result = this.transformer.transform(content.toString().getBytes("UTF-8"), source, target, "escidoc");
             PubItemVO itemVO = this.xmlTransforming.transformToPubItem(new String(result));
             itemVO.setContext(getItem().getContext());

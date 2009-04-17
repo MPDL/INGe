@@ -93,7 +93,7 @@ public class ImportProcess extends Thread
     private boolean failed = false;
     
     
-    private static final Format ESCIDOC_FORMAT = new Format("eSciDoc", "application/xml", "utf-8");
+    private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "utf-8");
     
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
     private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");

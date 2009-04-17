@@ -68,7 +68,7 @@ public class MultipleImport extends FacesBean
     public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
     public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
     
-    public static final Format ESCIDOC_FORMAT = new Format("escidoc", "application/xml", "UTF-8");
+    public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item", "application/xml", "UTF-8");
     
     public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
     public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
