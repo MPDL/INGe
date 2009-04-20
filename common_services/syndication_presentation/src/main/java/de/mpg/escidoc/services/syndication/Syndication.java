@@ -131,21 +131,38 @@ public class Syndication implements SyndicationHandler
 	 */
 	public byte[] getFeed(String uri) throws SyndicationException, IOException, URISyntaxException, FeedException 
 	{
-		 
-		Feed f = feeds.matchFeedByUri(uri);
+		Writer writer = new StringWriter();
+        getFeed( uri, writer );
+		return writer.toString().getBytes();
+	}
+	
+	/**
+	 * Returns the generated Feed as <code>java.io.Writer</code>  
+	 * @param uri is Feed url 
+	 * @param writer is output <code>java.io.Writer</code> 
+	 * @throws SyndicationException
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 * @throws FeedException
+	 */
+	public void getFeed(String uri, Writer writer) throws SyndicationException, IOException, URISyntaxException, FeedException 
+	{
+		Utils.checkName(uri, "Url is not defined");
+		Utils.checkCondition(writer == null, "Empty writer");
+		
+		Feed f = feeds.matchFeedByUri( uri );
 		if ( f == null ) 
 			throw new SyndicationException("The feed for uri: " + uri + "has not been found");
-
+		
 		// make clone of the feed in order to hold instant feeds unchanged  
 		Feed cf = (Feed)f.clone();
 		
-		cf.populateEntries(uri);
+		cf.populateEntries( uri );
 		
-		Writer writer = new StringWriter();
-        SyndFeedOutput output = new SyndFeedOutput();
-        output.output(cf, writer);
-        
-		return writer.toString().getBytes();
+		SyndFeedOutput output = new SyndFeedOutput();
+		
+        output.output( cf, writer );
+		
 	}
-
+	
 }
