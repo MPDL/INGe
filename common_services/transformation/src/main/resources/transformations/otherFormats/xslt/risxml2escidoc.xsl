@@ -153,7 +153,7 @@
 					<xsl:call-template name="createEntry">
 						<xsl:with-param name="gen" select="'thesis'"/>
 					</xsl:call-template>
-				</xsl:when>
+				</xsl:when>				
 				<xsl:otherwise>
 					<xsl:call-template name="createEntry">
 						<xsl:with-param name="gen" select="'other'"/>
