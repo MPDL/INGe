@@ -161,6 +161,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
+    @Ignore
     public void checkOrganizationalUnitFeed() throws Exception
     {
     	
