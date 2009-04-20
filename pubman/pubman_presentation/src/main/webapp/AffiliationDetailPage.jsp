@@ -60,13 +60,31 @@
 								<div class="affDetails">
 									<h1><h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}"/></h1>
 									<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AffiliationDetailPage.hasMessages}"/>
-									<div class="formField">
-										<h:outputText value="#{AffiliationDetailPage.description}" escape="false"/>
-									</div>
+						
+						            <!-- title -->
+									<tr:outputText id="detailsTitle" value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/>  
+									
 									<br/>
-									<tr:iterator var="identifier" value="#{AffilitationDetailPage.affiliation.defaultMetadata.identifiers}">
-										<tr:outputText value="#{identifier.typeString} : #{identifier.id}"/>
-									</tr:iterator>
+									
+									<!-- alternative titles -->
+									<tr:iterator id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
+                                        <tr:outputText value="#{alternative} "/>    
+                                    </tr:iterator>
+                                    
+                                    <br/>
+                                    
+                                    <!-- descriptions -->
+                                    <tr:iterator id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
+                                        <tr:outputText value="#{description} "/>    
+                                    </tr:iterator>
+                                    
+                                    <br/>
+                                    
+                                    <!-- city -->
+                                    <tr:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
+                                    
+                                    <!-- country -->
+                                    <tr:outputText id="detailsCountry" value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}"/>
 								</div>
 							</h:form>
 						</div>

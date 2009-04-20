@@ -57,7 +57,7 @@ public class AffiliationDetailPage extends FacesBean
     public static String BEAN_NAME = "AffiliationDetailPage";
     
 	private static Logger logger = Logger.getLogger(AffiliationDetailPage.class);
-	private AffiliationVOPresentation affilitation;
+	private AffiliationVOPresentation affiliation;
     private XmlTransforming xmlTransforming;
 
 	/**
@@ -80,7 +80,7 @@ public class AffiliationDetailPage extends FacesBean
             OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
             String ouXml = ouHandler.retrieve(affiliationId);
             AffiliationVO affVO = this.xmlTransforming.transformToAffiliation(ouXml);
-            this.affilitation = new AffiliationVOPresentation(affVO);
+            this.affiliation = new AffiliationVOPresentation(affVO);
         }
         catch (Exception e)
         {
@@ -94,25 +94,42 @@ public class AffiliationDetailPage extends FacesBean
 	public void init(){}
 
 
-    public void setAffilitation(AffiliationVOPresentation affilitation)
+    public void setAffiliation(AffiliationVOPresentation affilitation)
     {
-        this.affilitation = affilitation;
+        this.affiliation = affilitation;
     }
 
 
-    public AffiliationVOPresentation getAffilitation()
+    public AffiliationVOPresentation getAffiliation()
     {
-        return this.affilitation;
+        return this.affiliation;
     }
     
     public String getDescription()
     {
         String desc = "";
-        if (this.affilitation!=null && this.affilitation.getDefaultMetadata()!=null)
+        if (this.affiliation!=null && this.affiliation.getDefaultMetadata()!=null)
         {
-            for (int i=0; i< this.affilitation.getDefaultMetadata().getDescriptions().size(); i++)
+            for (int i=0; i< this.affiliation.getDefaultMetadata().getDescriptions().size(); i++)
             {
-                String tmp = this.affilitation.getDefaultMetadata().getDescriptions().get(i);
+                String tmp = this.affiliation.getDefaultMetadata().getDescriptions().get(i);
+                if (tmp != null)
+                {
+                    desc += tmp + "<br/><br/>";
+                }
+            }
+        }           
+        return desc;
+    }
+    
+    public String getAlternativeTitle()
+    {
+        String desc = "";
+        if (this.affiliation!=null && this.affiliation.getDefaultMetadata()!=null)
+        {
+            for (int i=0; i< this.affiliation.getDefaultMetadata().getAlternativeNames().size(); i++)
+            {
+                String tmp = this.affiliation.getDefaultMetadata().getAlternativeNames().get(i);
                 if (tmp != null)
                 {
                     desc += tmp + "<br/><br/>";
