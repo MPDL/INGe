@@ -602,10 +602,12 @@ public class Feed extends SyndFeedImpl
 				// not the md-record since no transformation md-record -> XML is implemented
 				// 2) CDATA is used for atom/rss compatibility
 				// TODO: resolve the issues
+				String itemXml = replaceXmlHeader(xt.transformToItem( pi ));
+				logger.info(itemXml);
 				scont.setValue(
 						contentIsEncoded() ? 
-							xt.transformToItem( pi ) :
-							String.format(CDATA, xt.transformToItem( pi ))
+								itemXml :
+							String.format(CDATA, itemXml)
 				);
 				if ("atom_0.3".equals(getFeedType()))
 					scont.setMode(Content.XML);
@@ -714,12 +716,24 @@ public class Feed extends SyndFeedImpl
 	}
 	
 	/**
+	 * Removes xml header 
+	 * @param xml
+	 * @return 
+	 */
+	private String replaceXmlHeader(String xml) 
+	{
+		return xml.replaceFirst("<\\?xml version=\"1\\.0\" encoding=\"UTF-8\"\\?>", ""); 
+	}
+
+
+	/**
 	 * Check the encoding status of the <code>feedType</code>. 
 	 * @return <code>true</code> for all RSS feeds, <code>false</code> otherwise 
 	 */
 	private boolean contentIsEncoded()
 	{
-		return getFeedType().contains("rss_");
+//		return getFeedType().contains("rss_");
+		return true;
 	}
 	
 	/**
