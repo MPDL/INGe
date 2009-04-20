@@ -125,6 +125,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
+    @Ignore
     public void checkRecentReleasesFeed() throws Exception
     {
 
