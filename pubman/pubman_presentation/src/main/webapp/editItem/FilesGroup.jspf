@@ -114,21 +114,34 @@
 			</h:panelGroup>
 
 
-<%-- Filename, File visibility --%>
+<%-- Filename --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
-						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
+					<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
+						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
+						<h:inputText styleClass="quad_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
 					</h:panelGroup>
-					<h:panelGroup styleClass="large_area0 endline" rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'full-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
-						<h:outputLabel styleClass="large_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_visibility_display != 'false'}"/>
-						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}" rendered="#{genre.files_component_visibility_display != 'false'}">
+				</span>
+			</h:panelGroup>
+
+<%-- File visibility, Embargo Date --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl endline" rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'full-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
+						<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_visibility_display != 'false'}"/>
+						<h:selectOneMenu styleClass="xDouble_select" value="#{component.file.visibility}" rendered="#{genre.files_component_visibility_display != 'false'}">
 							<f:selectItems value="#{EditItem.visibilities}" />
-						</h:selectOneRadio>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="true">
+						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Embargo Date"/></label>
+						<h:inputText styleClass="large_txtInput dateJSBox" value=""/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>
@@ -150,6 +163,19 @@
 						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
 						<h:inputText styleClass="large_txtInput" value="#{component.mimeType}" />
 					</span>
+				</span>
+			</h:panelGroup>
+
+<%-- File Licence --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="quad_area0" rendered="true">
+						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Licensing Info"/></label>
+						<h:inputText styleClass="quad_txtInput" value=""/>
+					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>

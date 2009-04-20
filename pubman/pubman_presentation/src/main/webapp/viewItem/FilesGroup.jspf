@@ -56,13 +56,14 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File visibility --%>
+<%-- File visibility, Embargo Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} Embargo Date here)" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
@@ -98,6 +99,19 @@
 				</span>
 			</h:panelGroup>
 
+<%-- File License --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLink value="#" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="License URL here" rendered="true"/></h:outputLink>
+				</span>
+				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="false">
+					<h:graphicImage styleClass="sectionTool" url="http://i.creativecommons.org/l/by/3.0/80x15.png" />
+				</h:panelGroup>
+			</h:panelGroup>
+
 <%-- File fulltext searchhits --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{file.showSearchHits}">
 				<b class="xLarge_area0_p8 endline labelLine">
@@ -115,7 +129,6 @@
 					</tr:iterator>
 				</span>
 			</h:panelGroup>
-			
 	
 		</tr:iterator>
 
