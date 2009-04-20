@@ -52,10 +52,11 @@ public class RISImport{
     	String[] itemList = getItemListFromString(file, "ER\\s -");    	// extract items to array
     	List<List<Pair>> items = new ArrayList();
     	if(itemList!=null && itemList.length>1){ //transform items to XML
-    		for(int i = 0; i < itemList.length-1; i++){
-    			List<Pair> item = getItemPairs(getItemFromString(itemList[i], "([A-Z0-9]{2})  - ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
-    			items.add(item);    			
-    		}   
+    		
+    		for (String item : itemList) {
+    			List<Pair> itemPairs = getItemPairs(getItemFromString(item, "([A-Z0-9]{2})  - ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
+    			items.add(itemPairs);  
+			}
     		result = transformItemListToXML(items); 
     		
     	}else if(itemList!=null && itemList.length==1){
@@ -93,14 +94,14 @@ public class RISImport{
      * @param string
      * @return
      */
-    public List<String> getItemFromString(String string, String pattern){    	
+    public List<String> getItemFromString(String string, String patternString){    	
     	   	
     	//Pattern p = Pattern.compile("([A-Z0-9]{2})  - ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))");     	
-    	Pattern p = Pattern.compile(pattern);
-    	Matcher m = p.matcher(string);
+    	Pattern pattern = Pattern.compile(patternString);
+    	Matcher matcher = pattern.matcher(string);
     	List<String> strArr = new ArrayList();
-    	while(m.find()){
-    		strArr.add(m.group());
+    	while(matcher.find()){
+    		strArr.add(matcher.group());
     	}
     	return strArr;
     }
@@ -113,8 +114,8 @@ public class RISImport{
     public String[] getItemListFromString(String string, String pattern){
     	
     	//String s[] = string.split("ER\\s -");
-    	String s[] = string.split(pattern);
-    	return s;
+    	String itemList[] = string.split(pattern);
+    	return itemList;
     }
     
     /**
@@ -125,12 +126,11 @@ public class RISImport{
     public List<Pair> getItemPairs(List<String> lines){
     	
     	List<Pair> pairList = new ArrayList();    	
-    	if(lines !=null){
-    		for(int i = 0; i < lines.size()-1; i++){
-    			String line = (String)lines.get(i); 
+    	if(lines !=null){    		
+    		for (String line : lines) {
     			Pair pair = createRISPairByString(line);
     			pairList.add(pair);
-    		}
+			}
     	}    	
     	return pairList;
     }
@@ -174,10 +174,10 @@ public class RISImport{
     	String xml = "<item-list>";
     	
     	if(itemList != null && itemList.size() > 0){
-    		for(int i = 0; i < itemList.size()-1; i++){
-    			List<Pair> item = (List<Pair>)itemList.get(i);
+    		
+    		for (List<Pair> item : itemList) {
     			xml = xml + "\n" + transformItemToXML(item);
-    		}
+			}
     	}
     	xml = xml + "</item-list>";
     	return xml;
@@ -191,10 +191,10 @@ public class RISImport{
     public String transformItemSubelementsToXML(List<Pair> item){
     	String xml = "";
     	if(item != null && item.size() > 0){    		
-    		for(int i = 0; i < item.size()-1; i++){
-    			Pair p = (Pair)item.get(i);
-    			xml = xml + createXMLElement(p.getKey(),escape(p.getValue()));
-    		}    			
+    		  	
+    		for (Pair pair : item) {
+    			xml = xml + createXMLElement(pair.getKey(),escape(pair.getValue()));
+			}
     	}
     	return xml;
     }
