@@ -117,7 +117,7 @@ public class SyndicationTest
     }
     
     /**
-     * Check feed generation
+     * Check feed generation - Recent Releases
      * 
      * @throws SyndicationException
      * @throws IOException
@@ -125,8 +125,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-    @Ignore
-    public void checkGetFeed() throws SyndicationException, IOException, URISyntaxException, FeedException
+    public void checkRecentReleasesFeed() throws Exception
     {
 
     	String uri;
@@ -137,21 +136,52 @@ public class SyndicationTest
     	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
     	logger.info("pubman base url:" + pubman_url);
     	
-//    	uri = "http://localhost:8080/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
-    	uri = pubman_url + "/syndication/feed/rss_0.93/publications/organization/escidoc:persistent22";
-    	start = System.currentTimeMillis();
-    	result = new String(sh.getFeed(uri));  
-    	logger.info("Processing time: " + (System.currentTimeMillis() - start) );
-    	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
-//    	Utils.writeToFile("result_rss_093.xml", result);    	
+    	for(String ft: sh.getFeedFormatList(sh.getFeedList()[0]))
+    	{
+        	uri = pubman_url + "/syndication/feed/" + ft + "/releases";
+        	logger.info("URL: " + uri );
+        	start = System.currentTimeMillis();
+        	result = new String(sh.getFeed(uri));  
+        	logger.info("Processing time: " + (System.currentTimeMillis() - start) );
+        	assertTrue("Empty Feed",  Utils.checkVal(result) );
+        	logger.info("GENERATED FEED:\n" + result );
+//        	Utils.writeToFile("result_" + ft + ".xml", result);    	
+    	}
     	
-//    	uri = "http://localhost:8080/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
-    	uri = pubman_url + "/syndication/feed/atom_1.0/publications/organization/escidoc:persistent22";
-    	start = System.currentTimeMillis();
-    	result = new String(sh.getFeed(uri));  
-		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
-    	logger.info("URI: " + uri + "\n" + "GENERATED FEED:\n" + result );
-//    	Utils.writeToFile("result_atom_10.xml", result);
+    	
+    }
+    
+    /**
+     * Check feed generation - Organizational Unit Recent Releases
+     * 
+     * @throws SyndicationException
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws FeedException
+     */
+    @Test
+    public void checkOrganizationalUnitFeed() throws Exception
+    {
+    	
+    	String uri;
+    	long start;
+    	String result;
+    	
+    	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
+    	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
+    	logger.info("pubman base url:" + pubman_url);
+    	
+    	for(String ft: sh.getFeedFormatList(sh.getFeedList()[1]))
+    	{
+    		uri = pubman_url + "/syndication/feed/" + ft + "/publications/organization/escidoc:persistent22";
+    		logger.info("URL: " + uri );
+    		start = System.currentTimeMillis();
+    		result = new String(sh.getFeed(uri));  
+    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
+    		assertTrue("Empty Feed",  Utils.checkVal(result) );
+    		logger.info("GENERATED FEED:\n" + result );
+//        	Utils.writeToFile("result_" + ft + ".xml", result);    	
+    	}
     	
     	
     }
@@ -161,6 +191,7 @@ public class SyndicationTest
      * @throws Exception
      */
     @Test
+    @Ignore
     public final void testOrganizationalUnitList() throws Exception     
 	{ 
     	 TreeMap<String, String> outm = Utils.getOrganizationUnitTree(); 
@@ -181,6 +212,5 @@ public class SyndicationTest
     	
 	}
 
- 
-    
+
 }
