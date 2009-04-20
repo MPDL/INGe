@@ -51,6 +51,8 @@ public class ViewItemOrganization
     private String organizationIdentifier;
     // the html code of the organization info page popup window
     private String organizationInfoPage;
+    /** the link to the corresponding AffiliationDetailPage */
+    
 
     public String getOrganizationAddress()
     {
@@ -96,6 +98,8 @@ public class ViewItemOrganization
     {
         return organizationInfoPage;
     }
+    
+    
 
     // the information page (popup window)
     public void setOrganizationInfoPage(String organizationName, String organizationAddress)
@@ -109,5 +113,14 @@ public class ViewItemOrganization
                 + CommonUtils.htmlEscape(organizationName)
                 + "</p><p style=font-family:verdana,arial;font-size:12px>"
                 + CommonUtils.htmlEscape(addr) + "</p></body></html>'";
+    }
+
+    public boolean getHasOrganizationalIdentifier()
+    {
+        if(this.organizationIdentifier == null || this.organizationIdentifier.equals(""))
+        {
+            return false;
+        }
+        else return true;
     }
 }

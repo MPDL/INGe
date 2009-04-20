@@ -929,6 +929,7 @@ public class ViewItemFull extends FacesBean
                             viewOrganization.setOrganizationAddress(tempOrganizationList.get(j).getAddress());
                             viewOrganization.setOrganizationIdentifier(tempOrganizationList.get(j).getIdentifier());
                             viewOrganization.setPosition(new Integer(affiliationPosition).toString());
+                         
                             if(tempOrganizationList.get(j).getName() != null)
                             {
                                 viewOrganization.setOrganizationInfoPage(tempOrganizationList.get(j).getName().getValue(),

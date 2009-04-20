@@ -117,7 +117,13 @@
 					<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount <= 0}"/>
 					<tr:iterator var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index" rows="0">
 						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
-						<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
+						<h:panelGroup styleClass="free_area0 affiliation">
+                        <h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
+                        <h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
+                            &#160;
+                            <h:outputLink value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 800, 400, 'Details');return false" target="_blank"><img src="images/affiliation_history.gif" border="0"/></h:outputLink>
+                        </h:panelGroup>
+                        </h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>						
 					</tr:iterator>					
 				</span>
