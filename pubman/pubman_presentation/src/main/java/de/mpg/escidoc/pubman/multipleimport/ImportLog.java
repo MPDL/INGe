@@ -144,6 +144,8 @@ public class ImportLog
     private String message;
     private String context;
     
+    private Workflow workflow;
+    
     private List<ImportLogItem> items = new ArrayList<ImportLogItem>();
 
     private ImportLogItem currentItem = null;
@@ -1330,7 +1332,31 @@ public class ImportLog
     public String submitAll()
     {
         this.connection = getConnection();
-        SubmitProcess submitProcess = new SubmitProcess(this);
+        SubmitProcess submitProcess = new SubmitProcess(this, false);
+        submitProcess.start();
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
+        {
+            fc.getExternalContext().redirect("ImportWorkspace.jsp");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * JSF action to submit/release all items of an import from the repository.
+     * 
+     * @return Always null.
+     */
+    public String submitAndReleaseAll()
+    {
+        this.connection = getConnection();
+        SubmitProcess submitProcess = new SubmitProcess(this, true);
         submitProcess.start();
         
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -1364,21 +1390,29 @@ public class ImportLog
     
     private Workflow getWorkflow()
     {
-        try
+        if (this.workflow == null)
         {
-            ContextVO contextVO;
-            ContextHandler contextHandler = ServiceLocator.getContextHandler();
-            InitialContext context = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
-            
-            String contextXml = contextHandler.retrieve(this.context);
-            contextVO = xmlTransforming.transformToContext(contextXml);
+            try
+            {
+                ContextVO contextVO;
+                ContextHandler contextHandler = ServiceLocator.getContextHandler();
+                InitialContext context = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+                
+                String contextXml = contextHandler.retrieve(this.context);
+                contextVO = xmlTransforming.transformToContext(contextXml);
+        
+                this.workflow = contextVO.getAdminDescriptor().getWorkflow();
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return this.workflow;
+    }
     
-            Workflow workflow = contextVO.getAdminDescriptor().getWorkflow();
-            return workflow;
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public boolean getSimpleWorkflow()
+    {
+        return (getWorkflow() == Workflow.SIMPLE);
     }
 }

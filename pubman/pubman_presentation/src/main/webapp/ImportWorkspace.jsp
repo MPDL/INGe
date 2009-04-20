@@ -115,8 +115,12 @@
 													<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 												</tr:commandLink>
 												/
-												<tr:commandLink action="#{import.submitAll}">
+												<tr:commandLink action="#{import.submitAll}" rendered="#{}">
 													<h:outputText value="#{lbl.import_workspace_submit_items}"/>
+												</tr:commandLink>
+												/
+												<tr:commandLink action="#{import.submitAndReleaseAll}">
+													<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 												</tr:commandLink>
 											</h:panelGroup>
 										</td>

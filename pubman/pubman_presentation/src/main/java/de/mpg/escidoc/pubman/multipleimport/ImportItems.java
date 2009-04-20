@@ -46,17 +46,31 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 public class ImportItems extends FacesBean
 {
     private int importId = 0;
+    private int page = 0;
+    private int itemsPerPage = 0;
     private String userid = null;
     private ImportLog log = null;
     
     public ImportItems()
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        
         String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
         if (idString != null)
         {
             this.importId = Integer.parseInt(idString);
         }
+        String pageString = facesContext.getExternalContext().getRequestParameterMap().get("page");
+        if (pageString != null)
+        {
+            this.page = Integer.parseInt(pageString);
+        }
+        String itemsPerPageString = facesContext.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+        if (itemsPerPageString != null)
+        {
+            this.itemsPerPage = Integer.parseInt(itemsPerPageString);
+        }
+        
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         if (loginHelper.getAccountUser() != null)
         {
@@ -73,4 +87,37 @@ public class ImportItems extends FacesBean
         }
         return this.log;
     }
+
+    /**
+     * @return the page
+     */
+    public int getPage()
+    {
+        return page;
+    }
+
+    /**
+     * @param page the page to set
+     */
+    public void setPage(int page)
+    {
+        this.page = page;
+    }
+
+    /**
+     * @return the itemsPerPage
+     */
+    public int getItemsPerPage()
+    {
+        return itemsPerPage;
+    }
+
+    /**
+     * @param itemsPerPage the itemsPerPage to set
+     */
+    public void setItemsPerPage(int itemsPerPage)
+    {
+        this.itemsPerPage = itemsPerPage;
+    }
+    
 }

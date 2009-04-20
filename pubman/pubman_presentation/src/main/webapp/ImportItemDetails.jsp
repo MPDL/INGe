@@ -41,7 +41,7 @@
 			
 		<div>
 			
-			<tr:iterator var="detail" value="#{ImportItemDetails.details}">
+			<tr:iterator var="detail" value="#{ImportItemDetails.details}" rows="0">
 				<h:panelGroup>
 					
 					<h:outputText value="#{detail.status}"/>

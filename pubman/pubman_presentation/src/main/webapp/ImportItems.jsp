@@ -27,6 +27,12 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
+<!-- 
+	Use the following GET parameter:
+	- id: The id of the current import (required)
+	- page: The current page of items (optional, default 0)
+	- itemsPerPage: The number of items that should be displayed (optional, default 0, show all)
+ -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 
 	<jsp:output doctype-root-element="html"
@@ -39,7 +45,7 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 			
-		<tr:iterator var="item" value="#{ImportItems.import.items}">
+		<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
 			
 			<div>
 	

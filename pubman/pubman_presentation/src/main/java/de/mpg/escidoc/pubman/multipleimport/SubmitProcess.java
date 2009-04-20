@@ -74,12 +74,15 @@ public class SubmitProcess extends Thread
     private ItemHandler itemHandler;
     private ContextHandler contextHandler;
     private AccountUserVO user;
+    private boolean alsoRelease;
     
     private Map<String, ContextVO> contexts = new HashMap<String, ContextVO>();
     
-    public SubmitProcess(ImportLog log)
+    public SubmitProcess(ImportLog log, boolean alsoRelease)
     {
         this.log = log;
+        this.alsoRelease = alsoRelease;
+        
         this.log.reopen();
         this.log.setPercentage(5);
         this.log.startItem("import_process_submit_items");
@@ -139,39 +142,36 @@ public class SubmitProcess extends Thread
                     
                     String itemXml = itemHandler.retrieve(item.getItemId());
                     PubItemVO itemVO = xmlTransforming.transformToPubItem(itemXml);
-                    ContextRO contextRO = itemVO.getContext();
-                    ContextVO contextVO;
-                    if (this.contexts.containsKey(contextRO.getObjectId()))
-                    {
-                        contextVO = this.contexts.get(contextRO.getObjectId());
-                    }
-                    else
-                    {
-                        log.addDetail(ErrorLevel.FINE, "import_process_retrieve_context");
-                        String contextXml = contextHandler.retrieve(contextRO.getObjectId());
-                        contextVO = xmlTransforming.transformToContext(contextXml);
-                        this.contexts.put(contextVO.getReference().getObjectId(), contextVO);
-                    }
-                    log.addDetail(ErrorLevel.FINE, "import_process_choose_workflow");
-                    Workflow workflow = contextVO.getAdminDescriptor().getWorkflow();
+//                    ContextRO contextRO = itemVO.getContext();
+//                    ContextVO contextVO;
+//                    if (this.contexts.containsKey(contextRO.getObjectId()))
+//                    {
+//                        contextVO = this.contexts.get(contextRO.getObjectId());
+//                    }
+//                    else
+//                    {
+//                        log.addDetail(ErrorLevel.FINE, "import_process_retrieve_context");
+//                        String contextXml = contextHandler.retrieve(contextRO.getObjectId());
+//                        contextVO = xmlTransforming.transformToContext(contextXml);
+//                        this.contexts.put(contextVO.getReference().getObjectId(), contextVO);
+//                    }
+//                    log.addDetail(ErrorLevel.FINE, "import_process_choose_workflow");
+//                    Workflow workflow = contextVO.getAdminDescriptor().getWorkflow();
+//                    
+//                    log.addDetail(ErrorLevel.FINE, "Workflow is " + workflow.toString());
                     
-                    log.addDetail(ErrorLevel.FINE, "Workflow is " + workflow.toString());
-                    
-                    if (workflow == Workflow.STANDARD)
-                    {
-                        log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
-                        pubItemDepositing.submitPubItem(itemVO, "Batch submit from import " + log.getMessage(), user);
-                        log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
-                    }
-                    else if (workflow == Workflow.SIMPLE)
+                    if (this.alsoRelease)
                     {
                         log.addDetail(ErrorLevel.FINE, "import_process_submit_release_item");
                         pubItemDepositing.submitAndReleasePubItem(itemVO, "Batch submit/release from import " + log.getMessage(), user);
                         log.addDetail(ErrorLevel.FINE, "import_process_submit_release_successful");
+                        
                     }
                     else
                     {
-                        throw new RuntimeException("Workflow " + workflow.toString() + " not recognized");
+                        log.addDetail(ErrorLevel.FINE, "import_process_submit_item");
+                        pubItemDepositing.submitPubItem(itemVO, "Batch submit from import " + log.getMessage(), user);
+                        log.addDetail(ErrorLevel.FINE, "import_process_submit_successful");
                     }
 
                     log.finishItem();
