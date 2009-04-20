@@ -37,8 +37,5 @@
 	<%@ include file="ui/DateCriterionCollection.jspf"%>
 	<%@ include file="ui/GenreCriterionCollection.jspf"%>
 	<%@ include file="ui/OrganizationCriterionCollection.jspf"%>
-	<%@ include file="ui/EventCriterionCollection.jspf"%>
-	<%@ include file="ui/SourceCriterionCollection.jspf"%>
-	<%@ include file="ui/IdentifierCriterionCollection.jspf"%>
 	<%@ include file="ui/FilesCriterionCollection.jspf"%>
-	<%@ include file="ui/LanguageCriterionCollection.jspf"%>
+	<%@ include file="ui/ContentDetailsCollection.jspf"%>
