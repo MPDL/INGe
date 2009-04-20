@@ -42,55 +42,112 @@
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
-			<html>
+			<html xmlns="http://www.w3.org/1999/xhtml">
 				<head>
-					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-					<link rel="SHORTCUT ICON" href="./images/escidoc.ico" />
-					<meta http-equiv="pragma" content="no-cache" />
-					<meta http-equiv="cache-control" content="no-cache" />
-					<meta http-equiv="expires" content="0" />
-					<!-- FrM: Moved JS sources to external file -->
-					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+
+					<title><h:outputText value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/></title>
+					<jsp:directive.include file="header/ui/StandardImports.jspf" />
+	
 				</head>
-				<body>
-					<h:outputText id="pageDummy" value="#{AffiliationDetailPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
-					<div id="page_margins">
-						<div id="page">
-							<h:form id="form1">
-								<div class="affDetails">
-									<h1><h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}"/></h1>
-									<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AffiliationDetailPage.hasMessages}"/>
-						
-						            <!-- title -->
-									<tr:outputText id="detailsTitle" value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/>  
-									
-									<br/>
-									
-									<!-- alternative titles -->
-									<tr:iterator id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
-                                        <tr:outputText value="#{alternative} "/>    
-                                    </tr:iterator>
-                                    
-                                    <br/>
-                                    
-                                    <!-- descriptions -->
-                                    <tr:iterator id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
-                                        <tr:outputText value="#{description} "/>    
-                                    </tr:iterator>
-                                    
-                                    <br/>
-                                    
-                                    <!-- city -->
-                                    <tr:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
-                                    
-                                    <!-- country -->
-                                    <tr:outputText id="detailsCountry" value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}"/>
+				<body lang="#{InternationalizationHelper.locale}">
+					<h:outputText id="pageDummy" value="#{AffiliationDetailPage.beanName}" styleClass="noDisplay" />
+					<h:form id="form1">
+					<div class="full wrapper">
+						<div id="content" class="full_area0 clear">
+							<div id="contentSkipLinkAnchor" class="clear headLine">
+								<h1><h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}" /></h1>
+							</div>
+							<h:messages errorClass="messageError" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AffiliationDetailPage.hasMessages}"/>
+							<div class="full_area0 fullItem">
+								<!-- title -->
+								<div class="full_area0 itemHeader noTopBorder">
+									<h:panelGroup styleClass="xLarge_area0 endline blockHeader" >
+										&#160;	
+									</h:panelGroup>
+										<h:panelGroup styleClass="seperator" />
+									<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
+										<b><tr:outputText id="detailsTitle" value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/></b>
+									</h:panelGroup>
 								</div>
-							</h:form>
+								<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										<h:outputText value="#{lbl.AffiliationDetailDetails}" />
+									</h3>
+									<h:panelGroup styleClass="seperator"></h:panelGroup>
+									<div class="free_area0 itemBlockContent endline">
+										<!-- alternative titles -->
+										<div class="free_area0 endline itemLine  noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												<h:outputText value="#{lbl.AffiliationDetailAlternativeTitle}" /><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+												<tr:iterator id="detailsAltTitles" var="alternative" value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
+			                                        <tr:outputText styleClass="xHuge_area0 endline" value="#{alternative} "/>    
+			                                    </tr:iterator>
+											</span>
+										</div>
+										<!-- city & country -->
+										<div class="free_area0 endline itemLine  noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												<h:outputText value="#{lbl.AffiliationDetailLocation}" /><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+												<tr:outputText id="detailsCity" value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, "/>
+	                                    		<tr:outputText id="detailsCountry" value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}"/>
+											</span>
+										</div>
+										<!-- descriptions -->
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												<h:outputText value="#{lbl.AffiliationDetailDescription}" /><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+												 <tr:iterator id="detailsDescription" var="description" value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
+			                                        <tr:outputText styleClass="xHuge_area0 endline" value="#{description} "/>    
+			                                    </tr:iterator>
+											</span>
+										</div>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="false">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										<h:outputText value="#{lbl.AffiliationDetailSuccessors}" />
+									</h3>
+									<h:panelGroup styleClass="seperator"></h:panelGroup>
+									<div class="free_area0 itemBlockContent endline">
+										<!-- any field -->
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												<h:outputText value="label" /><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+			                                    <h:outputText styleClass="xHuge_area0 endline" value="value"/>    
+											</span>
+										</div>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="false">
+									<h3 class="xLarge_area0_p8 endline blockHeader">
+										<h:outputText value="#{lbl.AffiliationDetailPredecessors}" />
+									</h3>
+									<h:panelGroup styleClass="seperator"></h:panelGroup>
+									<div class="free_area0 itemBlockContent endline">
+										<!-- any field -->
+										<div class="free_area0 endline itemLine noTopBorder">
+											<b class="xLarge_area0_p8 endline labelLine clear">
+												<h:outputText value="label" /><span class="noDisplay">: </span>
+											</b>
+											<span class="xHuge_area0 endline">
+			                                    <h:outputText styleClass="xHuge_area0 endline" value="value"/>    
+											</span>
+										</div>
+									</div>
+								</h:panelGroup>
+							</div>
 						</div>
 					</div>
+					</h:form>
 				</body>
 			</html>
-		
 	</f:view>
 </jsp:root>
