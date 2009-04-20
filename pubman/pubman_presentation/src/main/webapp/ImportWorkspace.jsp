@@ -115,7 +115,7 @@
 													<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 												</tr:commandLink>
 												/
-												<tr:commandLink action="#{import.submitAll}" rendered="#{}">
+												<tr:commandLink action="#{import.submitAll}" rendered="#{!import.simpleWorkflow}">
 													<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 												</tr:commandLink>
 												/

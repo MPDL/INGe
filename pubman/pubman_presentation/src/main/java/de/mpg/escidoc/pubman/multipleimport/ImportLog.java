@@ -988,6 +988,7 @@ public class ImportLog
                 result.setStartDate(resultSet.getTimestamp("startdate"));
                 result.setStatus(Status.valueOf(resultSet.getString("status")));
                 result.setStoredId(id);
+                result.setContext(resultSet.getString("context"));
                 result.setUser(resultSet.getString("userid"));
                 result.setMessage(resultSet.getString("name"));
                 result.percentage = resultSet.getInt("percentage");
