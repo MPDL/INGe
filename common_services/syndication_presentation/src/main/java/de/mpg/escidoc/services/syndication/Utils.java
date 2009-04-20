@@ -526,7 +526,7 @@ public class Utils {
     {
         DocumentBuilder db = createDocumentBuilder();
     	return db.parse(
-    			new ByteArrayInputStream(xml.getBytes()), "UTF-8"
+    			new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8" 
     	); 
     }    
     
