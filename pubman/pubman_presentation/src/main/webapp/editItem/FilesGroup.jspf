@@ -141,7 +141,7 @@
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="true">
 						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Embargo Date"/></label>
-						<h:inputText styleClass="large_txtInput dateJSBox" value=""/>
+						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value=""/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>
@@ -166,8 +166,24 @@
 				</span>
 			</h:panelGroup>
 
-<%-- File Licence --%>
+<%-- Copyright Statement, Copyright Date, File Licence --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="Rights" /><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
+						<h:outputLabel styleClass="xDouble_label">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" />
+							<h:outputText value="Copyright Statement" />
+						</h:outputLabel>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="" cols="15" rows="3" rendered="true"/>
+					</h:panelGroup>
+					<span class="large_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="Copyright Date" />
+						<h:inputText id="fileLicenseDate" styleClass="large_txtInput dateJSInput" value="" />
+					</span>
+				</span>
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>

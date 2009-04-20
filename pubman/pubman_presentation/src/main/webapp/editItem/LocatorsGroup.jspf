@@ -126,6 +126,35 @@
 						</span>
 					</span>
 				</h:panelGroup>
+			</h:panelGroup>
+
+<%-- Copyright Statement, Copyright Date, Licence --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="Rights" /><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
+						<h:outputLabel styleClass="xDouble_label">
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" />
+							<h:outputText value="Copyright Statement" />
+						</h:outputLabel>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="" cols="15" rows="3" rendered="true"/>
+					</h:panelGroup>
+					<span class="large_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="Copyright Date" />
+						<h:inputText id="locatorLicenseDate" styleClass="large_txtInput dateJSInput" value="" />
+					</span>
+				</span>
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:panelGroup styleClass="quad_area0" rendered="true">
+						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Licensing Info"/></label>
+						<h:inputText styleClass="quad_txtInput" value=""/>
+					</h:panelGroup>
+				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}" rendered="#{genre.locators_repeatable != 'false'}"/>	
 					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>

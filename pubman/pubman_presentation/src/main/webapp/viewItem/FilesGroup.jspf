@@ -99,6 +99,26 @@
 				</span>
 			</h:panelGroup>
 
+<%-- Copyright Date --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="Copyright Date"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="Copyright Date here" rendered="true"/>
+				</span>
+			</h:panelGroup>
+
+<%-- Copyright Info --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="Copyright Info"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="Copyright Info here" rendered="true"/>
+				</span>
+			</h:panelGroup>
+
 <%-- File License --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
