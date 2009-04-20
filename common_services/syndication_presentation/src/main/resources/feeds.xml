@@ -111,7 +111,7 @@ There are following limitations for the feeds:
 				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
 				should be removed after fixing of the transformation problem with some testing items 
 			-->
-			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.public-status=released and escidoc.context.objid&lt;&gt;escidoc:persistent3</query>
+			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.public-status=released</query>
 			<sortKeys>escidoc.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
