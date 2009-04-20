@@ -30,13 +30,10 @@
 
 package de.mpg.escidoc.pubman.multipleimport;
 
-import java.util.List;
+import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
-import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
  * TODO Description
@@ -46,34 +43,34 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ImportWorkspace extends FacesBean
+public class ImportItems extends FacesBean
 {
-    List<ImportLog> imports = null;
-    public ImportWorkspace()
+    private int importId = 0;
+    private String userid = null;
+    private ImportLog log = null;
+    
+    public ImportItems()
     {
-        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        AccountUserVO user = loginHelper.getAccountUser();
-        
-        if (user != null)
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
+        if (idString != null)
         {
-            imports = ImportLog.getImportLogs("import", user, SortColumn.STATUS, SortDirection.ASCENDING, false, false);
+            this.importId = Integer.parseInt(idString);
+        }
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        if (loginHelper.getAccountUser() != null)
+        {
+            this.userid = loginHelper.getAccountUser().getReference().getObjectId();
         }
     }
-
-    /**
-     * @return the imports
-     */
-    public List<ImportLog> getImports()
+    
+    public ImportLog getImport()
     {
-        return imports;
+        if (this.log == null && this.importId != 0 && this.userid != null)
+        {
+            
+            this.log = ImportLog.getImportLog(this.importId, true, false);
+        }
+        return this.log;
     }
-
-    /**
-     * @param imports the imports to set
-     */
-    public void setImports(List<ImportLog> imports)
-    {
-        this.imports = imports;
-    }
-
 }

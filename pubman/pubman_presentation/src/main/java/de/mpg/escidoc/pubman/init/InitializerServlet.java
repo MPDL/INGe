@@ -61,15 +61,33 @@ public class InitializerServlet extends HttpServlet
                 (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
             statistics.initReportDefinitionsInFramework();
             
+        }
+        catch (Exception e)
+        {
+            logger.error("Problem with initializing statistics system", e);
+        }
+        
+        //initialize import database
+        try
+        {
             new ImportDatabaseInitializer();
             
+        }
+        catch (Exception e)
+        {
+            logger.error("Problem with initializing import database", e);
+        }
+        
+        //initialize google sitemap creation
+        try
+        {
             siteMapTask = new SiteMapTask();
             siteMapTask.start();
             
         }
         catch (Exception e)
         {
-            logger.error("Problem with initializing statistics system", e);
+            logger.error("Problem with google sitemap creation", e);
         }
         
     }

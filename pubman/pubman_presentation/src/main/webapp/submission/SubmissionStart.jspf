@@ -113,31 +113,33 @@
 		</div>
 	</div>
 </div>
-<div class="full_area0 itemHeader">
-	<span class="xLarge_area0 endline">
-		&#160;
-	</span>
-	<span class="seperator"></span>
-	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-				<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-			</h:commandLink>
-		</b>
-	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent endline">		
-		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+	<div class="full_area0 itemHeader">
+		<span class="xLarge_area0 endline">
+			&#160;
+		</span>
+		<span class="seperator"></span>
+		<span class="free_area0_p8 endline itemHeadline">
+			<b>
+				<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				</h:commandLink>
 			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.submission_descMultipleImport}" />
-			</span>
+		</span>
+	</div>
+	<div class="full_area0 itemBlock noTopBorder">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			&#160;
+		</h3>
+		<div class="free_area0 itemBlockContent endline">		
+			<div class="free_area0 endline itemLine firstLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{lbl.submission_descMultipleImport}" />
+				</span>
+			</div>
 		</div>
 	</div>
-</div>
+</h:panelGroup>

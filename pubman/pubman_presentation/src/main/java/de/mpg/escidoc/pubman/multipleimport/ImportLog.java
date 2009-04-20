@@ -45,13 +45,19 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.www.services.om.ContextHandler;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Class that describes an import process.
@@ -1338,5 +1344,41 @@ public class ImportLog
         }
         
         return null;
+    }
+    
+    /**
+     * @return the itemLink
+     */
+    public String getLogLink()
+    {
+        return "ImportData.jsp?id=" + getStoredId();
+    }
+    
+    /**
+     * @return the itemLink
+     */
+    public String getItemsLink()
+    {
+        return "ImportItems.jsp?id=" + getStoredId();
+    }
+    
+    private Workflow getWorkflow()
+    {
+        try
+        {
+            ContextVO contextVO;
+            ContextHandler contextHandler = ServiceLocator.getContextHandler();
+            InitialContext context = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+            
+            String contextXml = contextHandler.retrieve(this.context);
+            contextVO = xmlTransforming.transformToContext(contextXml);
+    
+            Workflow workflow = contextVO.getAdminDescriptor().getWorkflow();
+            return workflow;
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

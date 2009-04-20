@@ -573,4 +573,14 @@
         <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportItemDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ImportData</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportData</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ImportItems</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportItems</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

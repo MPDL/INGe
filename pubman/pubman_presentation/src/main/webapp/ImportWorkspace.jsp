@@ -73,6 +73,9 @@
 								<th>
 									<h:outputText value="#{lbl.import_workspace_remove}"/>
 								</th>
+								<th>
+									Link
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -117,37 +120,16 @@
 												</tr:commandLink>
 											</h:panelGroup>
 										</td>
+										<td>
+											<h:outputLink value="#{import.logLink}">
+												Import
+											</h:outputLink>
+											/
+											<h:outputLink value="#{import.itemsLink}">
+												Items
+											</h:outputLink>
+										</td>
 									</tr>
-									<tr:iterator var="item" rows="0" value="#{import.items}">
-										<tr>
-											<td>
-												<h:outputText value="#{item.status}"/>
-												/
-												<h:outputText value="#{item.errorLevel}"/>
-											</td>
-											<td>
-												<h:outputText value="#{item.localizedMessage}" rendered="#{item.itemId == null}"/>
-												<h:outputLink value="#{item.link}" rendered="#{item.itemId != null}">
-													<h:outputText value="#{item.localizedMessage}"/>
-												</h:outputLink>
-											</td>
-											<td>
-												<h:outputText value="#{item.format}"/>
-											</td>
-											<td>
-												<h:outputText value="#{item.startDateFormatted}"/>
-											</td>
-											<td>
-												<h:outputText value="#{item.endDateFormatted}"/>
-											</td>
-											<td>
-												<h:outputLink value="#{item.detailsLink}">
-													Details
-												</h:outputLink>
-											</td>
-											<td>&#160;</td>
-										</tr>
-									</tr:iterator>
 								</h:panelGroup>
 							</tr:iterator>
 						</tbody>
