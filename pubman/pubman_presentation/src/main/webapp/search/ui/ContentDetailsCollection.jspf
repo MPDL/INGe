@@ -168,7 +168,7 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
-			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size != (languageCriterionIterator.rowIndex + 1)}">
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
 				<h:selectOneMenu id="selLanguageCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
@@ -179,6 +179,34 @@
 <%-- Local Tags --%>
 
 	<%-- pls use a copy of the event section in this file as basis for implementation --%>
+	<tr:iterator id="localTagCriterion" var="localTagCriterionBean" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{localTagCriterionIterator}" varStatus="index">
+
+            <h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+                <b class="xLarge_area0_p8 endline labelLine clear">
+                    &#160;<span class="noDisplay"> </span>
+                </b>
+                <span class="xHuge_area0 xTiny_marginLExcl endline">
+                    <h:outputLabel id="lblSearchStringFollowing" styleClass="quad_label" value="#{lbl.adv_search_lbHeaderLocalTag}" />
+                    <h:inputText id="searchStringFollowing" styleClass="quad_txtInput" value="#{localTagCriterionBean.localTagCriterionVO.searchString}" />
+                </span>
+                <span class="large_area0_p8 lineToolSection">
+                    <tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
+                    <tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
+<%-- 
+                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
+--%>
+                </span>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+            <h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size != (localTagCriterionIterator.rowIndex + 1)}">
+                <h:selectOneMenu id="selLocalTagCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{LocalTagCriterionBean.logicOperator}">
+                    <f:selectItems value="#{localTagCriterionBean.logicOptions}"/>
+                </h:selectOneMenu>              
+            </h:panelGroup>
+
+        </tr:iterator>
+	
 	
 
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderContentDetails}" /></a>

@@ -43,6 +43,7 @@ import de.mpg.escidoc.pubman.search.bean.FileCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.GenreCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.IdentifierCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.LocalTagCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
@@ -81,6 +82,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private IdentifierCriterionCollection identifierCriterionCollection = null;
     private FileCriterionCollection fileCriterionCollection = null;
     private LanguageCriterionCollection languageCriterionCollection = null;
+    private LocalTagCriterionCollection localTagCriterionCollection = null;
     
     private UIXIterator anyFieldCriterionIterator = new UIXIterator();
     private UIXIterator personCriterionIterator = new UIXIterator();
@@ -92,6 +94,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private UIXIterator identifierCriterionIterator = new UIXIterator();
     private UIXIterator fileCriterionIterator = new UIXIterator();
     private UIXIterator languageCriterionIterator = new UIXIterator();
+    private UIXIterator localTagCriterionIterator = new UIXIterator();
     
     private String suggestConeUrl = null;
    /**
@@ -111,6 +114,7 @@ public class AdvancedSearchEdit extends SearchResultList
         identifierCriterionCollection = new IdentifierCriterionCollection();
         fileCriterionCollection = new FileCriterionCollection();
         languageCriterionCollection = new LanguageCriterionCollection();
+        localTagCriterionCollection = new LocalTagCriterionCollection();
         
         this.init();
         
@@ -136,6 +140,7 @@ public class AdvancedSearchEdit extends SearchResultList
         identifierCriterionCollection = new IdentifierCriterionCollection();
         fileCriterionCollection = new FileCriterionCollection();
         languageCriterionCollection = new LanguageCriterionCollection();
+        localTagCriterionCollection = new LocalTagCriterionCollection();
     }
 
     /**
@@ -155,6 +160,7 @@ public class AdvancedSearchEdit extends SearchResultList
         identifierCriterionCollection.clearAllForms();
         fileCriterionCollection.clearAllForms();
         languageCriterionCollection.clearAllForms();
+        localTagCriterionCollection.clearAllForms();
         return null;
 	}
 	
@@ -181,6 +187,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionList.addAll( identifierCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( fileCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( localTagCriterionCollection.getFilledCriterion() );
     	
     	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
     	
@@ -485,5 +492,37 @@ public class AdvancedSearchEdit extends SearchResultList
     public void setFileCriterionIterator(UIXIterator fileCriterionIterator)
     {
         this.fileCriterionIterator = fileCriterionIterator;
+    }
+
+    /**
+     * @return the localTagCriterionCollection
+     */
+    public LocalTagCriterionCollection getLocalTagCriterionCollection()
+    {
+        return localTagCriterionCollection;
+    }
+
+    /**
+     * @param localTagCriterionCollection the localTagCriterionCollection to set
+     */
+    public void setLocalTagCriterionCollection(LocalTagCriterionCollection localTagCriterionCollection)
+    {
+        this.localTagCriterionCollection = localTagCriterionCollection;
+    }
+
+    /**
+     * @return the localTagCriterionIterator
+     */
+    public UIXIterator getLocalTagCriterionIterator()
+    {
+        return localTagCriterionIterator;
+    }
+
+    /**
+     * @param localTagCriterionIterator the localTagCriterionIterator to set
+     */
+    public void setLocalTagCriterionIterator(UIXIterator localTagCriterionIterator)
+    {
+        this.localTagCriterionIterator = localTagCriterionIterator;
     }
 }
