@@ -41,9 +41,8 @@
   {     
       var feedControl = new google.feeds.FeedControl();
       //QuickSearch does not work with hidden field (no idea why!!!) therefor i have to put url static.
-      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanInstanceUrl}"/>'+'/syndication/feed/rss_2.0/releases', "");
-      feedControl.setNumEntries(4);
-      feedControl.setLinkTarget(google.feeds.LINK_TARGET_BLANK); 
+      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanInstanceUrl}"/>'+'/syndication/feed/atom_1.0/releases', "");
+      feedControl.setNumEntries(4); 
       feedControl.draw(document.getElementById("feedControl2"));
   }
   google.setOnLoadCallback(initialize);
