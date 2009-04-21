@@ -106,7 +106,7 @@
 
 							<!-- Side Panels -->
 							<h:panelGroup styleClass="free_area0_p8 sideSection">
-								<jsp:directive.include file="home/LastSubmitted.jspf" />
+								<jsp:directive.include file="home/LastReleased.jspf" />
 							</h:panelGroup>
 							<h:panelGroup styleClass="free_area0_p8 sideSection">
 								<jsp:directive.include file="home/BlogIntegration.jspf" />
