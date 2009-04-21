@@ -170,8 +170,8 @@
 						</span>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="true">
-						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Embargo Date"/></label>
-						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value=""/>
+						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblFileEmbargo}"/></label>
+						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.embargoUntil}"/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>
@@ -187,7 +187,7 @@
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
 							<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter"/>
 						</span>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.description}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.description}" cols="15" rows="3" />
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
@@ -199,19 +199,19 @@
 <%-- Copyright Statement, Copyright Date, File Licence --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="Rights" /><span class="noDisplay">:</span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.easy_submission_lblRights}" /><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
 						<h:outputLabel styleClass="xDouble_label">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" />
-							<h:outputText value="Copyright Statement" />
+							<h:outputText value="#{lbl.easy_submission_lblCopyrightStatement}" />
 						</h:outputLabel>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="" cols="15" rows="3" rendered="true"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="Copyright Date" />
-						<h:inputText id="fileLicenseDate" styleClass="large_txtInput dateJSInput" value="" />
+						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.easy_submission_lblCopyrightDate}" />
+						<h:inputText id="fileLicenseDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.copyrightDate}" />
 					</span>
 				</span>
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -219,8 +219,8 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
-						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Licensing Info"/></label>
-						<h:inputText styleClass="quad_txtInput" value=""/>
+						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/></label>
+						<h:inputText styleClass="quad_txtInput" value="#{component.file.defaultMetadata.license}"/>
 					</h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
