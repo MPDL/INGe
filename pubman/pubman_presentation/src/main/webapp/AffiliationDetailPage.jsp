@@ -107,6 +107,17 @@
 			                                    </tr:iterator>
 											</span>
 										</div>
+										<!-- identifiers -->
+                                        <div class="free_area0 endline itemLine noTopBorder">
+                                            <b class="xLarge_area0_p8 endline labelLine clear">
+                                                <h:outputText value="#{lbl.AffiliationDetailIdentifier}" /><span class="noDisplay">: </span>
+                                            </b>
+                                            <span class="xHuge_area0 endline">
+                                                 <tr:iterator id="detailsIdentifier" var="identifier" value="#{AffiliationDetailPage.affiliation.defaultMetadata.identifiers}">
+                                                    <tr:outputText styleClass="xHuge_area0 endline" value="#{identifier.id} "/>    
+                                                </tr:iterator>
+                                            </span>
+                                        </div>
 									</div>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="false">

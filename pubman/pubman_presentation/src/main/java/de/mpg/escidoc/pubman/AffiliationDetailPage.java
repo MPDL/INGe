@@ -103,40 +103,5 @@ public class AffiliationDetailPage extends FacesBean
     public AffiliationVOPresentation getAffiliation()
     {
         return this.affiliation;
-    }
-    
-    public String getDescription()
-    {
-        String desc = "";
-        if (this.affiliation!=null && this.affiliation.getDefaultMetadata()!=null)
-        {
-            for (int i=0; i< this.affiliation.getDefaultMetadata().getDescriptions().size(); i++)
-            {
-                String tmp = this.affiliation.getDefaultMetadata().getDescriptions().get(i);
-                if (tmp != null)
-                {
-                    desc += tmp + "<br/><br/>";
-                }
-            }
-        }           
-        return desc;
-    }
-    
-    public String getAlternativeTitle()
-    {
-        String desc = "";
-        if (this.affiliation!=null && this.affiliation.getDefaultMetadata()!=null)
-        {
-            for (int i=0; i< this.affiliation.getDefaultMetadata().getAlternativeNames().size(); i++)
-            {
-                String tmp = this.affiliation.getDefaultMetadata().getAlternativeNames().get(i);
-                if (tmp != null)
-                {
-                    desc += tmp + "<br/><br/>";
-                }
-            }
-        }           
-        return desc;
-    }
-    
+    }    
 }
