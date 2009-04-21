@@ -52,8 +52,8 @@ public class WriteMETSData
     private String fileGrpDEFAULT = "DEFAULT";
     private String fileGrpMIN = "MIN";
     private String fileGrpMAX = "MAX";
-    private String typePHYSICAL = "physical";
-    private String typeLOGICAL = "logical";
+    private String typePHYSICAL = "PHYSICAL";
+    private String typeLOGICAL = "LOGICAL";
     
   
 
