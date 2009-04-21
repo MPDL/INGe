@@ -38,7 +38,7 @@ public class MetadataSearchCriterion implements Serializable
         TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
         SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
-        COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY
+        COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG
     };
 
     /**
@@ -127,7 +127,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_COMPONENT_VISIBILITY = "escidoc.component.visibility";
     /** Index for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
-    
+    /** Index for local tags. */
+    private static final String INDEX_LOCAL_TAG = "escidoc.content-model-specific.local-tags.local-tag";
     
     /** String to be used to represent an empty search term. */
     private static final String EMPTY_SEARCH_TERM = "''";
@@ -442,6 +443,9 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case COMPONENT_CONTENT_CATEGORY:
                 indexes.add(INDEX_COMPONENT_CONTENT_CATEGORY);
+                break;
+            case LOCAL_TAG:
+                indexes.add(INDEX_LOCAL_TAG);
                 break;
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");
