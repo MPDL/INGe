@@ -140,7 +140,7 @@
 						</h:selectOneMenu>
 					</h:panelGroup>
 					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{component.showEmbargoDate}">
-						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="Embargo Date"/></label>
+						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblFileEmbargo}"/></label>
 						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.embargoUntil}"/>
 					</h:panelGroup>
 				</span>
