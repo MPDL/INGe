@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.util;
 import java.util.List;
 
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -16,6 +17,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -469,5 +471,29 @@ public class PubFileVOPresentation extends FacesBean
                 fileID,
                 loginHelper.getAccountUser());
         return result;
+    }
+    
+    /**
+     * This Method evaluates if the embargo date input filed has to be displayed or not (yes, if visibility is set to private or restricted)
+     * @return boolean flag if embargo date input field should be displayed or not
+     */
+    public boolean getShowEmbargoDate()
+    {
+    	boolean showEmbargoDate = false;
+    	if(file.getVisibility().equals(FileVO.Visibility.PRIVATE))
+    	{
+    		showEmbargoDate = true;
+    	}
+    	return showEmbargoDate;
+    }
+    
+    /**
+     * This method updates the file's visibility with the new one selected by the user
+     * @param event The value change event
+     */
+    public void setUpdateVisibility(ValueChangeEvent event)
+    {
+    	Visibility newVisibility = (Visibility) event.getNewValue();
+    	file.setVisibility(newVisibility);
     }
 }
