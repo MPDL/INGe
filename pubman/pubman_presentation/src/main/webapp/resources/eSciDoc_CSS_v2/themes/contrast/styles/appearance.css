@@ -39,7 +39,7 @@
 			}
 		/*H2*/
 		h2 {
-			
+				font-weight: normal;
 			}
 		/*H3*/
 		h3 {
@@ -61,13 +61,13 @@
 			}
 	/*GENERAL*/
 		/*FONT RELATED*/
-		body, label, input, button, input.numberLabel, h3, h6, a {
+		body, label, input, button, input.numberLabel, h2, h3, h6, a {
 			font-family: Trebuchet, "Trebuchet MS", sans-serif;
 		}
 		input[type="text"], textarea, select {
 			font-family: "Times New Roman", "MS Mincho", serif;
 		}
-		h1, h2, h4, h5 {
+		h1, h4, h5 {
 			font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 		}
 /*
@@ -261,12 +261,15 @@
 	border-style: solid;
 	border-color: #AEAEAE;
 }
-
+*/
 .infoPage .sideSection {
 	border-style: solid;
-	border-color: #AEAEAE;
+	border-left-color: #AEAEAE;
 }
-*/	
+.infoPage .videoPreview {
+	border-style: solid;
+	border-color: #000000;
+}
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/

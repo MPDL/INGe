@@ -82,8 +82,7 @@
 .infoPage .sideSection {
 	padding: 0px;
 	width: 31.28em;
-	border-width: 0px;
-	border-top-width: 0.10em !important;
+	border-width: 0px 0px 0px 0.10em !important;
 }
 
 .infoPage .sideSection .gfc-resultsHeader {
@@ -102,4 +101,8 @@
 	float: left;
 	border: 1px solid;
 	margin-top: 1.7em;
+}
+
+.infoPage .videoPreview {
+	border-width: 0.10em;
 }
