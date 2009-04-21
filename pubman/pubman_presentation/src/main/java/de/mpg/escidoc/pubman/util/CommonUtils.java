@@ -170,8 +170,15 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static SelectItem[] getLanguageOptions()
     {
-        Object[] coneLanguages = CommonUtils.getConeLanguages();
-
+        Object[] coneLanguages = null;
+        try {
+            coneLanguages = CommonUtils.getConeLanguages();
+        }
+        catch(Exception e) {
+            Vector <String> langVec = new Vector<String>();
+            coneLanguages = langVec.toArray();
+        }
+            
         SelectItem[] options = new SelectItem[coneLanguages.length + 5];
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (CommonUtils.localLang.equals("de"))
