@@ -32,11 +32,12 @@
 	$Author: jkurt $ 
 -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-xmlns:fn="http://www.w3.org/2005/xpath-functions"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
- xmlns:func="urn:my-functions"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+	xmlns:jfunc="java:de.mpg.escidoc.services.structuredexportmanager.functions.BibTex"
+	xmlns:func="urn:my-functions"
  
  xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
@@ -125,7 +126,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		<xsl:param name="entryType"/>
 		<xsl:variable name="escidocid" select="parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@objid"/>
 		<xsl:value-of select="concat('@', $entryType, '{')"/>
-		<xsl:value-of select="func:texString($escidocid,1)"/>
+		<xsl:value-of select="jfunc:texString($escidocid)"/>
 		<xsl:value-of select="','"/>
 		
 		<xsl:text disable-output-escaping="yes">&#xD;&#xA;</xsl:text><!-- line break -->
@@ -290,9 +291,9 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	<xsl:template name="createField">
 		<xsl:param name="name"/>
 		<xsl:param name="xpath"/>
-		<xsl:value-of select="func:texString($name,1)"/>
+		<xsl:value-of select="jfunc:texString($name)"/>
 		<xsl:text disable-output-escaping="yes"> = "</xsl:text>
-		<xsl:value-of select="func:texString(normalize-space($xpath),1)"/>
+		<xsl:value-of select="jfunc:texString(normalize-space($xpath))"/>
 		<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 	</xsl:template>
 	
@@ -400,8 +401,8 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			</xsl:when>
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:variable name="familyname" select="func:texString(normalize-space(e:family-name),1)"/>
-		<xsl:variable name="givenname" select="func:texString(normalize-space(e:given-name),1)"/>
+		<xsl:variable name="familyname" select="jfunc:texString(normalize-space(e:family-name))"/>
+		<xsl:variable name="givenname" select="jfunc:texString(normalize-space(e:given-name))"/>
 		<xsl:value-of select="concat($familyname, ', ', $givenname, '')"/>		
 		<!-- AND-connection of persons -->		
 		<xsl:choose>		
@@ -425,7 +426,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:when>		
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="func:texString(e:organization-name,1)"/>
+		<xsl:value-of select="jfunc:texString(e:organization-name)"/>
 		<!-- AND-connection of orgas -->		
 		<xsl:variable name="role" select="../@role"/>
 		<xsl:choose>		
@@ -448,7 +449,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	<!-- TODO id.type= uri -->
 	<xsl:template match="dc:identifier">
 		<xsl:if test=".!=''">
-		<xsl:value-of select="func:texString(normalize-space(.),1)"/>
+		<xsl:value-of select="jfunc:texString(normalize-space(.))"/>
 		</xsl:if>
 	</xsl:template>
 	
