@@ -91,20 +91,20 @@
 <%-- Copyright Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="Copyright Date"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItem_lblCopyrightDate}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="Copyright Date here" rendered="true"/>
+					<h:outputText value="#{locator.file.defaultMetadata.copyrightDate}" rendered="true"/>
 				</span>
 			</h:panelGroup>
 
 <%-- Copyright Info --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="Copyright Info"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItem_lblCopyrightInfo}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="Copyright Info here" rendered="true"/>
+					<h:outputText value="#{locator.file.defaultMetadata.rights}" rendered="true"/>
 				</span>
 			</h:panelGroup>
 
@@ -114,10 +114,10 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLink value="#" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="License URL here" rendered="true"/></h:outputLink>
+					<h:outputLink value="#{file.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
 				</span>
-				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="false">
-					<h:graphicImage styleClass="sectionTool" url="http://i.creativecommons.org/l/by/3.0/80x15.png" />
+				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
+					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" />
 				</h:panelGroup>
 			</h:panelGroup>
 
