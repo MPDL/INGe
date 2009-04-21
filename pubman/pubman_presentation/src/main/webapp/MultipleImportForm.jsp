@@ -172,9 +172,6 @@
 							<!-- end: content section -->
 							</div>			
 					</div>
-
-					<h:outputText value="#{lbl.multipleImport_checkboxSomething}"/>
-
 				</tr:form>
 			</body>
 		</html>
