@@ -164,12 +164,12 @@
 					<h:panelGroup rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'easy-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
 						<span class="xDouble_area0 tiny_marginRIncl endline">
 							<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter"/>
-							<h:selectOneMenu styleClass="xDouble_select" value="#{component.file.visibility}" >
+							<h:selectOneMenu styleClass="xDouble_select" value="#{component.file.visibility}" onchange="this.form.submit()">
 								<f:selectItems value="#{EasySubmission.visibilities}" />
 							</h:selectOneMenu>
 						</span>
 					</h:panelGroup>
-					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="true">
+					<h:panelGroup styleClass="large_area0 tiny_marginLIncl" rendered="#{component.showEmbargoDate}">
 						<label class="large_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblFileEmbargo}"/></label>
 						<h:inputText id="fileEmbargoDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.embargoUntil}"/>
 					</h:panelGroup>
