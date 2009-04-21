@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -56,6 +57,7 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -419,7 +421,46 @@ public class FileBean extends FacesBean
 	        return false;
 	}
 
-    
+	/**
+	 * This method generates a link to a refering thumbnail image out of a link to a creativecommons licence
+	 * @return teh generated link to the refering thumbnail image
+	 */
+    public String getUrlToLicenceImage()
+    {
+    	String  urlToLicenceImage = "";
+    	String licenceURL = file.getDefaultMetadata().getLicense();
+    	
+    	String[] splittedURL = licenceURL.split("\\/");
+    	
+    	String protocol = splittedURL[0];
+    	String address = splittedURL[2];
+    	String licenses = "l";
+    	String type = splittedURL[4];
+    	String version = splittedURL[5];
+    	String image = "80x15.png";
+    	
+    	urlToLicenceImage = protocol + "//i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
+    	
+    	return urlToLicenceImage;
+    }
 	
+    /**
+     * This Method evaluates if the embargo date input filed has to be displayed or not (yes, if visibility is set to private or restricted)
+     * @return boolean flag if embargo date input field should be displayed or not
+     */
+    public boolean getShowEmbargoDate()
+    {
+    	boolean showEmbargoDate = false;
+    	if(file.getVisibility().equals(FileVO.Visibility.PRIVATE))
+    	{
+    		showEmbargoDate = true;
+    	}
+    	return showEmbargoDate;
+    }
     
+    public void setUpdateVisibility(ValueChangeEvent event)
+    {
+    	Visibility newVisibility = (Visibility) event.getNewValue();
+    	file.setVisibility(newVisibility);
+    }
 }

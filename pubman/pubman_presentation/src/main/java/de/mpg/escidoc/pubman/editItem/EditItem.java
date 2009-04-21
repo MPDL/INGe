@@ -2062,6 +2062,8 @@ public class EditItem extends FacesBean
         }
         return suggestConeUrl;
     }
+    
+    
 
     public void setSuggestConeUrl(String suggestConeUrl)
     {
