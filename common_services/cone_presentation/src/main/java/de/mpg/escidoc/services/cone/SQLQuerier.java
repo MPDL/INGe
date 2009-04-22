@@ -62,7 +62,7 @@ public class SQLQuerier implements Querier
         //InitialContext context = new InitialContext();
         //dataSource = (DataSource) context.lookup("Cone");
         
-        Class.forName("org.postgresql.Driver");
+        Class.forName(PropertyReader.getProperty("escidoc.cone.database.driver.class"));
         connection = DriverManager.getConnection("jdbc:postgresql://" +
                 PropertyReader.getProperty("escidoc.cone.database.server.name") +
                 ":" +
@@ -576,7 +576,7 @@ public class SQLQuerier implements Querier
     protected void finalize() throws Throwable
     {
         super.finalize();
-        connection.close();
+        //connection.close();
     }
 
     /**

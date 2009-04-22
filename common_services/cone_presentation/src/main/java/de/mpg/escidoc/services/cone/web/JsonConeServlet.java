@@ -77,7 +77,7 @@ public class JsonConeServlet extends ConeServlet
     @Override
     protected String getContentType()
     {
-        return "text/javascript;charset=" + DEFAULT_ENCODING;
+        return "application/json;charset=" + DEFAULT_ENCODING;
     }
 
     /**
