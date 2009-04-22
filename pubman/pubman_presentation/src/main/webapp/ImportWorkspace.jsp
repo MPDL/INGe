@@ -156,15 +156,15 @@
 											      	</td>
 											      	<td class="free_area0 endline status">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-											      		<span class="free_area0_p8 endline statusArea" title="<h:outputText value="#{import.errorLevel}"/>">
+											      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
 															<h:panelGroup styleClass="big_imgArea statusIcon submittedItem" />
-															<h:outputLabel styleClass="medium_label endline">
+															<h:outputLabel styleClass="medium_label endline" title="#{import.errorLevel}">
 																<h:panelGroup rendered="#{!import.finished}">
 																	<h:outputText value="#{import.percentage}"/>% - 
 																</h:panelGroup>
 																<h:outputText value="#{import.status}"/>	
 															</h:outputLabel>
-														</span>
+														</h:panelGroup>
 											      	</td>
 											      	<td class="free_area0 endline">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
