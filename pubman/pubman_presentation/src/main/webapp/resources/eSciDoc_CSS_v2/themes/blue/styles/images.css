@@ -78,6 +78,20 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.smallThrobber {
+		background: inherit;
+		background-image: url('../images/throbber_31x31.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.bigThrobber {
+		background: inherit;
+		background-image: url('../images/throbber_63x63.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
 
 	/*SEARCH MENU*/
 	
