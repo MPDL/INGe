@@ -48,6 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicS
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ObjectTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
@@ -214,6 +215,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     {
                         ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context"); 
                     }
+                    else if (filter instanceof LocalTagFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "/properties/content-model-specific/local-tags/local-tag"); 
+                    }
                     else if (filter instanceof ItemPublicStatusFilter)
                     {
                         ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
@@ -295,6 +300,11 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     {
                         ContextFilter contextFilter = (ContextFilter)filter;
                         ctx.content(contextFilter.getContextId());
+                    }
+                    else if (filter instanceof LocalTagFilter)
+                    {
+                        LocalTagFilter localTagFilter = (LocalTagFilter) filter;
+                        ctx.content(localTagFilter.getLocalTagId());
                     }
                     else if (filter instanceof ItemPublicStatusFilter)
                     {

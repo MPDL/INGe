@@ -95,6 +95,8 @@
 	
 					<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
 	
+					<!-- structure name="admin-descriptor" ns="${xsd.soap.context.context}" usage="optional"/ -->
+	
 			</collection>
 			
 		</structure>

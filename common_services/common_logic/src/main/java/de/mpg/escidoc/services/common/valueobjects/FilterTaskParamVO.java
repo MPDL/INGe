@@ -629,6 +629,44 @@ public class FilterTaskParamVO extends ValueObject
      * @version $Revision$ $LastChangedDate$
      *
      */
+    public class LocalTagFilter implements Filter
+    {
+        
+        private String localTagId;
+
+        public LocalTagFilter(String localTagId)
+        {
+            super();
+            this.localTagId = localTagId;
+        }
+
+        /**
+         * @return the localTagId
+         */
+        public String getLocalTagId()
+        {
+            return localTagId;
+        }
+
+        /**
+         * @param localTagId the localTagId to set
+         */
+        public void setLocalTagId(String localTagId)
+        {
+            this.localTagId = localTagId;
+        }
+
+    }
+    
+    /**
+     * 
+     * This filter filters by context id
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public class UserAccountStateFilter implements Filter
     {
        
