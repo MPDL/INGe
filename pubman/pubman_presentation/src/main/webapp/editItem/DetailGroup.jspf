@@ -153,10 +153,10 @@
 		</h:panelGroup>
 
 <%-- Identifier --%>
-		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index" rendered="#{!(genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'all')}">
+		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'full-submission' || genre.details_identifiers_display == 'false' && genre.details_identifiers_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' && (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.details_identifiers_optional != 'true' && (genre.details_identifiers_item_identifier_type_optional != 'true' || genre.details_identifiers_item_identifier_value_optional != 'true')}" /><h:outputText value="#{genre.details_identifiers_label}" rendered="#{EditItem.identifierCollection.identifierManager.objectDM.rowIndex == 0}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="large_area0 largeFormPush" rendered="#{!(genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'full-submission' || genre.details_identifiers_item_identifier_type_display == 'false' && genre.details_identifiers_item_identifier_type_form_id == 'all')}">
