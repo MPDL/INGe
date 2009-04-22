@@ -35,6 +35,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 {
     public static String BEAN_NAME = "CartItemsRetrieverRequestBean";
     private int numberOfRecords;
+    
+    public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBasket_NoItemSelected";
 
     public CartItemsRetrieverRequestBean()
     {
@@ -149,12 +151,19 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     public String deleteSelected()
     {
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
-       
+        int countSelected = 0;
         
         for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList())
         {
             if (pubItem.getSelected())
-                pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+            {
+            	countSelected ++;
+            	pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+            }
+        }
+        if(countSelected == 0)
+        {
+        	error(getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
         }
        
         getBasePaginatorListSessionBean().setHasChanged();
