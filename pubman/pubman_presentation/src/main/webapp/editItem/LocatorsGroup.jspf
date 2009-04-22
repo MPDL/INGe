@@ -136,7 +136,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
 						<h:outputLabel styleClass="xDouble_label">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" />
+							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
 							<h:outputText value="#{lbl.EditItem_lblCopyrightStatement}" />
 						</h:outputLabel>
 						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
