@@ -35,6 +35,7 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
@@ -139,6 +140,7 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
+            	this.getEditItem().setItem(null);
             	this.getEditItem().init();
             }
             return navigateTo;
@@ -157,6 +159,8 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
+            	this.getEditItem().setItem(null);
+            	this.getEditItem().setIdentifierIterator(new UIXIterator());
             	this.getEditItem().init();
             }
             return navigateTo;
