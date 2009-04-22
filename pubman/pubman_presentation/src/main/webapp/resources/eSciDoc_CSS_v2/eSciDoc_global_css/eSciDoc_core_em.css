@@ -69,6 +69,10 @@
 		.noDisplay {
 			display: none !important;
 		}
+		.noPaddingTopBottom {
+			padding-top: 0px !important;
+			padding-bottom: 0px !important;
+		}
 		.pointer {
 			cursor: pointer;
 		}
