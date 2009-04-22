@@ -1,5 +1,10 @@
 package de.mpg.escidoc.pubman.qaws;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +17,7 @@ import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -53,6 +59,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     private String selectedOrgUnit;
     
     /**
+     * The currently selected import tag.
+     */
+    private String selectedImport;
+    
+    /**
      * The HTTP GET parameter name for the context filter.
      */
     private static String parameterSelectedContext = "context"; 
@@ -61,10 +72,19 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     private static String parameterSelectedOrgUnit = "orgUnit"; 
     
+    /**import filter.
+     */
+    private static String parameterSelectedImport = "import"; 
+    
     /**
      * A list with menu entries for the context filter menu.
      */
     private List<SelectItem> contextSelectItems;
+    
+    /**
+     * A list with menu entries for the import filter menu.
+     */
+    private List<SelectItem> importSelectItems;
 
     /**
      * A list with the menu entries for the org units filter menu.
@@ -94,6 +114,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             logger.error("Error in retrieving organizations", e);
             error ("Couldn't retrieve all organizational units for the filter menu");
         }
+
         initSelectionMenu();
         
     }
@@ -173,6 +194,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 filter.getFilterList().add(f10);
             }
             
+            if (!getSelectedImport().toLowerCase().equals("all"))
+            {
+                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
+                filter.getFilterList().add(f10);
+            }
             
             if (!getSelectedOrgUnit().toLowerCase().equals("all"))
             {
@@ -257,7 +283,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
         if (context==null)
         {
-            //select first context as default, iv available
+            //select first context as default, if available
             if (getContextSelectItems().size()>1)
             {
                 setSelectedContext((String)getContextSelectItems().get(1).getValue());
@@ -283,6 +309,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             setSelectedOrgUnit(orgUnit);
         }
         
+        String selectedItem = getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
+        if (selectedItem==null)
+        {
+            setSelectedImport("all");
+        }
+        else
+        {
+            setSelectedImport(selectedItem);
+        }
+
     }
 
     @Override
@@ -396,8 +432,40 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             contextSelectItems.add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName()+" -- "+workflow));
   
         }
-          
+        
+        String contextString = ",";
+        for (PubContextVOPresentation pubContextVOPresentation : contextVOList)
+        {
+            contextString += pubContextVOPresentation.getReference().getObjectId() + ",";
+        }
+        
+        // Init imports
+        importSelectItems = new ArrayList<SelectItem>();
+        importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        
+        try
+        {
+            Connection connection = ImportLog.getConnection();
+            String sql = "select * from ESCIDOC_IMPORT_LOG where ? like '%,' || context || ',%'";
+            PreparedStatement statement = connection.prepareStatement(sql);
             
+            statement.setString(1, contextString);
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next())
+            {
+                SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+                importSelectItems.add(selectItem);
+            }
+            resultSet.close();
+            statement.close();
+        }
+        catch (Exception e) {
+            logger.error("Error getting imports from database", e);
+            error("Error getting imports from database");
+        }
+        
         /*
         //Org unit menu
         orgUnitSelectItems = new ArrayList<SelectItem>();
@@ -416,7 +484,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         */
     }
-    
     
     /**
      * Adds the list of the given affiliations to the filter select
@@ -484,6 +551,26 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
     
     /**
+     * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with updated import GET parameter.
+     * @return
+     */
+    public String changeImport()
+    {
+            try
+            {
+               
+                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+                getBasePaginatorListSessionBean().redirect();
+            }
+            catch (Exception e)
+            {
+               error("Could not redirect");
+            }
+            return "";
+        
+    }
+    
+    /**
      * Called by JSF whenever the organizational unit filter menu is changed. Causes a redirect to the page with updated context GET parameter.
      * @return
      */
@@ -528,4 +615,39 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     {
         return selectedOrgUnit;
     }
+
+    /**
+     * @return the selectedImport
+     */
+    public String getSelectedImport()
+    {
+        return selectedImport;
+    }
+
+    /**
+     * @param selectedImport the selectedImport to set
+     */
+    public void setSelectedImport(String selectedImport)
+    {
+        this.selectedImport = selectedImport;
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedImport, selectedImport);
+    }
+
+    /**
+     * @return the importSelectItems
+     */
+    public List<SelectItem> getImportSelectItems()
+    {
+        return importSelectItems;
+    }
+
+    /**
+     * @param importSelectItems the importSelectItems to set
+     */
+    public void setImportSelectItems(List<SelectItem> importSelectItems)
+    {
+        this.importSelectItems = importSelectItems;
+    }
+    
+    
 }

@@ -579,7 +579,7 @@ public class ImportProcess extends Thread
                 PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
                 pubItemVO.setContext(escidocContext);
                 pubItemVO.getLocalTags().add("multiple_import");
-                pubItemVO.getLocalTags().add(log.getMessage());
+                pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
                 log.setItemVO(pubItemVO);
                 
                 if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK)
