@@ -484,6 +484,11 @@ public class PubFileVOPresentation extends FacesBean
     	{
     		showEmbargoDate = true;
     	}
+    	else
+    	{
+    		file.getDefaultMetadata().setEmbargoUntil(null);
+    		showEmbargoDate = false;
+    	}
     	return showEmbargoDate;
     }
     
