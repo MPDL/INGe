@@ -57,7 +57,7 @@
 
 	/*GENERAL*/
 	
-.listHeader a {
+.listHeader a, .listHeader span {
 	padding-top: 0.37em;
 	padding-bottom: 0px;
 	margin: 0px;
