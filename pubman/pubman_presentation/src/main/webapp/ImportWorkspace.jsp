@@ -200,7 +200,7 @@
 										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 										      		<span class="large_area0_p8">
 														<h:inputHidden value="#{import.itemsLink}" />
-														<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())}">
+														<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 								 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
 									 					</a>
 										      		</span>

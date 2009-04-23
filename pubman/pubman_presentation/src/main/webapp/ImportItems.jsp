@@ -66,7 +66,7 @@
 					</div>
 					<div class="large_area0_p8 noPaddingTopBottom">
 						<h:inputHidden value="#{item.detailsLink}"/>
-						<a onmouseover="$(this).createDialog({addr: $(this).siblings('input').val(), bg: '#000'});">
+						<a onmouseover="$(this).createDialog({addr: $(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
 							Details
 						</a>
 					</div>
