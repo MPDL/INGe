@@ -78,7 +78,7 @@ public class RetrieveTest
         
         String result = getResponseAsString(method);
         
-        String[] lines = result.split("\n");
+        String[] lines = result.trim().split("\n");
         
         for (String line : lines)
         {
@@ -115,7 +115,7 @@ public class RetrieveTest
         GetMethod method = new GetMethod(serviceUrl + "jquery/persons/all");
         client.executeMethod(method);
         String result = getResponseAsString(method);
-        String line = result.split("\\n")[0];
+        String line = result.trim().split("\\n")[0];
         String id = line.split("\\|")[1];
         
         logger.debug("Query: " + serviceUrl + "rdf/persons/details/" + id);
