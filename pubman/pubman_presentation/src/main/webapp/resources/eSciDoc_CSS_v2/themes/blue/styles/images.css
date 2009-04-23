@@ -585,6 +585,24 @@
 		background-position: center center;
 	}
 	
+	.fixMessageBlockBtn {
+		background-image: url('../images/All_DropDown_CrossClose_15_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.fixMessageBlockBtn:hover, .fixMessageBlockBtn:focus {
+		background-image: url('../images/All_DropDown_CrossClose_15_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.fixMessageBlockBtn:disabled {
+		background-image: url('../images/All_DropDown_CrossClose_15_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
 	.fixErrorMessageBlockBtn {
 		background-image: url('../images/All_DropDown_CrossClose_15_Error.gif');
 		background-repeat: no-repeat;
