@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 <!-- 
@@ -44,33 +44,37 @@
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
-			
-		<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
-			
-			<div>
-	
-
-				<h:outputText value="#{item.status}"/>
-				/
-				<h:outputText value="#{item.errorLevel}"/>
-			
-				<h:outputText value="#{item.localizedMessage}" rendered="#{item.itemId == null}"/>
-				<h:outputLink value="#{item.link}" rendered="#{item.itemId != null}">
-					<h:outputText value="#{item.localizedMessage}"/>
-				</h:outputLink>
-
-				<h:outputText value="#{item.startDateFormatted}"/>
-			
-			
-				<h:outputText value="#{item.endDateFormatted}"/>
-							
-				<h:outputLink value="#{item.detailsLink}">
-					Details
-				</h:outputLink>
-				
-			</div>
-			
-		</tr:iterator>
-			
+		
+		<html>
+		<body>
+			<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
+				<div class="full_area0">
+					<div class="medium_area0_p8 noPaddingTopBottom" style="margin-left: 2.28em;">					
+						<h:outputText value="#{item.status}"/>
+					</div>
+					<div class="huge_area0_p8 noPaddingTopBottom" style="margin-left: 0.36em; margin-right: 0.19em">
+						<h:outputText value="#{item.localizedMessage}" rendered="#{item.itemId == null}"/>
+						<h:outputLink value="#{item.link}" rendered="#{item.itemId != null}">
+							<h:outputText value="#{item.localizedMessage}"/>
+						</h:outputLink>
+					</div>
+					<div class="large_area0_p8 noPaddingTopBottom">
+						<h:outputText value="#{item.startDateFormatted}"/>
+					</div>
+					<div class="large_area0_p8 noPaddingTopBottom">
+						<h:outputText value="#{item.endDateFormatted}"/>
+					</div>
+					<div class="large_area0_p8 noPaddingTopBottom">	
+						<h:outputLink value="#{item.detailsLink}">
+							Details
+						</h:outputLink>
+					</div>
+					<div class="large_area0_p8 noPaddingTopBottom">
+						<h:outputText value="#{item.errorLevel}"/>
+					</div>
+				</div>
+			</tr:iterator>
+		</body>
+		</html>
 	</f:view>
 </jsp:root>

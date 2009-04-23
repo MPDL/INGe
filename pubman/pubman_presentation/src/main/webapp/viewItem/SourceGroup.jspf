@@ -94,7 +94,7 @@
 							<h:outputText value="#{sourceCreatorPerson.formattedDisplay}" escape="false"/>
 							<h:panelGroup rendered="#{sourceCreatorPerson.portfolioLink != null}">
 								&#160;
-								<h:outputLink value="#{sourceCreatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank"><img src="images/researcher_portfolio.gif" border="0"/></h:outputLink>
+								<h:outputLink styleClass="authorCard" value="#{sourceCreatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>							
 						</h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>
@@ -121,7 +121,7 @@
                         <h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
                         <h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
                             &#160;
-                            <h:outputLink value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 800, 400, 'Details');return false" target="_blank"><img src="images/affiliation_history.gif" border="0"/></h:outputLink>
+                            <h:outputLink value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 800, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
                         </h:panelGroup>
                         </h:panelGroup>
 						<h:outputText value="<br />" escape="false"/>						
