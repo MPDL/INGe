@@ -94,4 +94,13 @@ public interface DataGathering
      * @throws TechnicalException 
      */
     public List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException;
+    
+    /**
+     * Searches for containers that has the given object id as a member
+     * @param userHandle The user handle of the authenticated user who uses this method
+     * @param id the id of the member
+     * @return
+     * @throws TechnicalException
+     */
+    public List<RelationVO> findParentContainer(String userHandle, String id) throws TechnicalException;
 }

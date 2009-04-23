@@ -1066,6 +1066,21 @@ public class XmlTransformingBean implements XmlTransforming
                         relationVO.setTargetItemRef(predicateRef);
                         relations.add(relationVO);
                     }
+                    if (relation.getLocalName() == "member")
+                    {
+                        //using ItemRefs as workarund here, although it can be containers
+                        String object = relation.getAttributes().getNamedItem("rdf:resource").getTextContent();
+                        String objectObjectId = object.substring(object.lastIndexOf('/') + 1);
+                        ItemRO objectRef = new ItemRO(objectObjectId);
+
+                        // add relation to list
+                        logger.debug(subjectObjectId + " hasMember " + objectObjectId);
+                        RelationVO relationVO = new RelationVO();
+                        relationVO.setSourceItemRef(subjectRef);
+                        relationVO.settype(RelationType.HASMEMBER);
+                        relationVO.setTargetItemRef(objectRef);
+                        relations.add(relationVO);
+                    }
                 }
             }
         }
