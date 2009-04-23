@@ -524,6 +524,7 @@
 /*MESSAGE AREAS*/
 	.messageArea {
 		border-style: solid;
+		border-color: #307086;
 		background-color: #FFFFFF;
 		margin-bottom: 1em;
 	}
@@ -549,7 +550,7 @@
 		z-index: 100;
 	}
 	
-	.fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
+	.fixMessageBlockBtn, .fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
 		background-color: #ffffff;
 	}
