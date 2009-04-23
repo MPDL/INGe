@@ -142,7 +142,7 @@ public class METSTransformation
             Div[] children = div.getDivArray();
             for (int i = 0; i < children.length; i++)
             {
-                if (children[i].getTYPE().equals(this.writeMETS.getTypeLOGICAL()))
+                if (children[i].getTYPE().equals("logical"))
                 {
                     containerId = children[i].getDivArray(0).getPtrArray(0).getHref();
                     // Id is returned as a href => extract id from link
@@ -223,7 +223,7 @@ public class METSTransformation
             Div physical = null;
             for (int i = 0; i < children.length; i++)
             {
-                if (children[i].getTYPE().equals(this.writeMETS.getTypePHYSICAL()))
+                if (children[i].getTYPE().equals("physical"))
                 {
                     physical = children[i];
                 }
@@ -289,7 +289,7 @@ public class METSTransformation
             Div logical = null;
             for (int i = 0; i < children.length; i++)
             {
-                if (children[i].getTYPE().equals(this.writeMETS.getTypeLOGICAL()))
+                if (children[i].getTYPE().equals("logical"))
                 {
                     logical = children[i];
                 }
