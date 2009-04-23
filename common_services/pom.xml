@@ -434,7 +434,11 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-
+                <escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+                <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
+                <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
+                
+                
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
@@ -577,6 +581,10 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
+                <escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+                <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
+                <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
+                
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
