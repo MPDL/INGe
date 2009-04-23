@@ -55,14 +55,14 @@
 					<div class="huge_area0_p8 noPaddingTopBottom" style="margin-left: 0.36em; margin-right: 0.19em">
 						<h:outputText value="#{item.localizedMessage}" rendered="#{item.itemId == null}"/>
 						<h:outputLink value="#{item.link}" rendered="#{item.itemId != null}">
-							<h:outputText value="#{item.localizedMessage}"/>
+							<h:outputText value="#{item.localizedMessage}"/>&#160;
 						</h:outputLink>
 					</div>
 					<div class="large_area0_p8 noPaddingTopBottom">
-						<h:outputText value="#{item.startDateFormatted}"/>
+						<h:outputText value="#{item.startDateFormatted}"/>&#160;
 					</div>
 					<div class="large_area0_p8 noPaddingTopBottom">
-						<h:outputText value="#{item.endDateFormatted}"/>
+						<h:outputText value="#{item.endDateFormatted}"/>&#160;
 					</div>
 					<div class="large_area0_p8 noPaddingTopBottom">
 						<h:inputHidden value="#{item.detailsLink}"/>
@@ -71,7 +71,7 @@
 						</a>
 					</div>
 					<div class="large_area0_p8 endline noPaddingTopBottom">
-						<h:outputText value="#{item.errorLevel}"/>
+						<h:outputText value="#{item.errorLevel}"/>&#160;
 					</div>
 				</div>
 			</tr:iterator>
