@@ -157,11 +157,7 @@
 							
 							<h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}" >
 								<!-- Subheadline starts here -->
-									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-									<a class="free_area0 xTiny_marginRIncl" href="#contentSkipLinkAnchor" onclick="$(this).siblings('.affDetail').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Affiliation"/></a>
-									<h:panelGroup layout="block" styleClass="half_area0_p6 affDetail" style="display: none;">
-										<jsp:directive.include file="search/AffiliationDetail.jspf"/>
-									</h:panelGroup>
+									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>									
 								<!-- Subheadline ends here -->
 							</h:panelGroup>
 
