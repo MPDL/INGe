@@ -48,7 +48,7 @@
 		<html>
 		<body>
 			<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
-				<div class="full_area0">
+				<div class="full_area0" style="margin-bottom: 0.19em;">
 					<div class="medium_area0_p8 noPaddingTopBottom" style="margin-left: 2.28em;">					
 						<h:outputText value="#{item.status}"/>
 					</div>
