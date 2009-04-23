@@ -87,9 +87,12 @@
 													<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
-												<span>
-													<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-												</span>
+												<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+													<h:outputText styleClass="seperator void" />
+													<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+														<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
+													</h:commandLink>
+												</h:panelGroup>
 											</div>
 											<div class="free_area0 sub action">
 											<!-- content menu lower line starts here -->

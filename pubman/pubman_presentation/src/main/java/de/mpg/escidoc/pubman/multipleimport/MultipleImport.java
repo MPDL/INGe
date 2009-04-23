@@ -133,6 +133,7 @@ public class MultipleImport extends FacesBean
         
         for (Format format : formats)
         {
+            format.setEncoding("UTF-8");
             importFormats.put(format.getName(), format);
         }
 //        importFormats.put("Endnote", ENDNOTE_FORMAT);

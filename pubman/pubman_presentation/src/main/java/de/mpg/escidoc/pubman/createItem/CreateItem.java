@@ -228,6 +228,11 @@ public class CreateItem extends FacesBean
 		return getSessionBean().getDepositorContextList();
 	}
 
+	public boolean getMultiple()
+	{
+	    return (getMethod() == SubmissionMethod.MULTIPLE_IMPORT);
+	}
+	
     /**
      * @return the target
      */

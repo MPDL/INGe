@@ -45,10 +45,8 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
-
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-				<h:outputText value="#{MultipleImport.beanName}" styleClass="noDisplay" />
 				<tr:form>
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
@@ -98,7 +96,7 @@
 										</div>
 										<div class="subHeader">
 											<!-- Subheadline starts here -->
-										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} MultipleImport.contextName#{lbl.easy_submission_lblCollectionOfImportedItem2}." />
+										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} #{MultipleImport.context.name} #{lbl.easy_submission_lblCollectionOfImportedItem2}." />
 											<!-- Subheadline ends here -->
 										</div>
 									</div>

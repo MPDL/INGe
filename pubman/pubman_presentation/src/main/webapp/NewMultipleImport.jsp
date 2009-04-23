@@ -86,7 +86,7 @@
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<span>
-													<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+													<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</span>
 											</div>
 											<div class="free_area0 sub action">
@@ -98,7 +98,7 @@
 										</div>
 										<div class="subHeader">
 											<!-- Subheadline starts here -->
-										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} MultipleImport.contextName#{lbl.easy_submission_lblCollectionOfImportedItem2}." />
+										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} #{MultipleImport.context.name} #{lbl.easy_submission_lblCollectionOfImportedItem2}." />
 											<!-- Subheadline ends here -->
 										</div>
 									</div>

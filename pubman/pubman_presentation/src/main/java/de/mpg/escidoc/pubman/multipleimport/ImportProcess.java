@@ -39,6 +39,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.Status;
+import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -96,6 +97,7 @@ public class ImportProcess extends Thread
     private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "utf-8");
     
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
+    private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
     private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
     private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
@@ -239,7 +241,7 @@ public class ImportProcess extends Thread
         boolean found = false;
         for (Format sourceFormat : allSourceFormats)
         {
-            if (format.equals(sourceFormat))
+            if (format.matches(sourceFormat))
             {
                 found = true;
                 
@@ -267,13 +269,29 @@ public class ImportProcess extends Thread
     
     private boolean setProcessor(Format format)
     {
-        if (ENDNOTE_FORMAT.equals(format))
+        try
         {
-            this.formatProcessor = new EndnoteProcessor();
+            if (format == null)
+            {
+                return false;
+            }
+            else if (ENDNOTE_FORMAT.matches(format))
+            {
+                this.formatProcessor = new EndnoteProcessor();
+            }
+            else if (BIBTEX_FORMAT.matches(format))
+            {
+                this.formatProcessor = new BibtexProcessor();
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
-            return false;
+        catch (Exception e) {
+            log.addDetail(ErrorLevel.FATAL, "import_process_format_error");
+            log.addDetail(ErrorLevel.FATAL, e);
+            fail();
         }
         this.formatProcessor.setEncoding(format.getEncoding());
         return true;
@@ -300,7 +318,8 @@ public class ImportProcess extends Thread
     {
         log.startItem(ErrorLevel.FINE, "import_process_rollback");
         log.finishItem();
-        log.deleteAll();
+        DeleteProcess deleteProcess = new DeleteProcess(log);
+        deleteProcess.start();
         log.startItem(ErrorLevel.FINE, "import_process_rollback_successful");
         log.finishItem();
     }
@@ -514,11 +533,15 @@ public class ImportProcess extends Thread
         
             log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
             
+            PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
+            pubItemVO.setContext(escidocContext);
+            pubItemVO.getLocalTags().add("multiple_import");
+            pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
+            
             // Default validation
             log.addDetail(ErrorLevel.FINE, "import_process_default_validation");
-            String validationReportXml = this.itemValidating.validateItemXml(esidocXml);
-            ValidationReportVO validationReportVO
-                = validationTransforming.transformToValidationReport(validationReportXml);
+            ValidationReportVO validationReportVO = this.itemValidating.validateItemObject(pubItemVO);
+            
             if (validationReportVO.isValid())
             {
                 if (!validationReportVO.hasItems())
@@ -538,9 +561,8 @@ public class ImportProcess extends Thread
                 
                 // Release validation
                 log.addDetail(ErrorLevel.FINE, "import_process_release_validation");
-                validationReportXml = this.itemValidating.validateItemXml(esidocXml, "submit_item");
-                validationReportVO
-                    = validationTransforming.transformToValidationReport(validationReportXml);
+                validationReportVO = this.itemValidating.validateItemObject(pubItemVO, "submit_item");
+
                 if (validationReportVO.isValid())
                 {
                     if (!validationReportVO.hasItems())
@@ -576,10 +598,7 @@ public class ImportProcess extends Thread
                 }
                 
                 log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
-                PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
-                pubItemVO.setContext(escidocContext);
-                pubItemVO.getLocalTags().add("multiple_import");
-                pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
+                
                 log.setItemVO(pubItemVO);
                 
                 if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK)
@@ -622,7 +641,7 @@ public class ImportProcess extends Thread
                         log.addDetail(ErrorLevel.WARNING, item.getContent());
                     }
                 }
-                log.addDetail(ErrorLevel.ERROR, "import_process_item_not_imported");
+                log.addDetail(ErrorLevel.PROBLEM, "import_process_item_not_imported");
                 log.finishItem();
             }
 
@@ -636,6 +655,7 @@ public class ImportProcess extends Thread
         
     }
 
+    // TODO: Implementation
     private boolean checkDuplicates()
     {
         return false;

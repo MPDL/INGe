@@ -102,8 +102,9 @@
 									</h:commandLink>
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-										<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+										<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{!CreateItem.multiple and LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
+									<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{CreateItem.multiple}"/>
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
