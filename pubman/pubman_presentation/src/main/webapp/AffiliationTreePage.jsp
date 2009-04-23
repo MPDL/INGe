@@ -45,8 +45,10 @@
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
-
-
+				
+				<jsp:directive.include file="affiliation/OrganizationTreeFeedLinks.jspf" />
+				
+				
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{AffiliationTreePage.beanName}" styleClass="noDisplay" />

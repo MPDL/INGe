@@ -302,4 +302,25 @@ public class AffiliationBean extends FacesBean
      
         return "";
     }
+    
+    public List<AffiliationVOPresentation> getTopLevelAffiliations()
+    {
+        List<AffiliationVO> tops = null;
+        try
+        {
+            tops = ((ItemControllerSessionBean) FacesContext.getCurrentInstance().getExternalContext()
+                    .getSessionMap().get("ItemControllerSessionBean")).searchTopLevelAffiliations();
+        } catch (Exception e)
+        {
+            logger.error("TopLevel affiliations cannot be fetched.");
+            tops = new ArrayList<AffiliationVO>();
+        }
+        
+        List<AffiliationVOPresentation> topsPres = new ArrayList<AffiliationVOPresentation>();
+        for(int i = 0; i < tops.size(); i++)
+        {
+            topsPres.add(new AffiliationVOPresentation(tops.get(i))); 
+        }
+        return topsPres;
+    }
 }

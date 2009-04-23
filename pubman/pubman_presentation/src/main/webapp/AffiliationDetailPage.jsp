@@ -47,6 +47,8 @@
 
 					<title><h:outputText value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}"/></title>
 					<jsp:directive.include file="header/ui/StandardImports.jspf" />
+					
+					<jsp:directive.include file="affiliation/OrganizationDetailFeedLinks.jspf" />
 	
 				</head>
 				<body lang="#{InternationalizationHelper.locale}">

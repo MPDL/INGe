@@ -45,7 +45,7 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
-				<jsp:directive.include file="header/ui/HomePageFeedLinks.jspf" />
+				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
