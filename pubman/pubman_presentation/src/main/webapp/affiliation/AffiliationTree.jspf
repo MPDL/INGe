@@ -42,7 +42,7 @@
 		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
 				<h:panelGroup>
-					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px"  style="float: left;" rendered="#{node.mps}"/>
+					<h:panelGroup layout="block" styleClass="std_imgArea mpgUnit" style="float: left;" rendered="#{node.mps}"></h:panelGroup>
 					<h:panelGroup layout="block" styleClass="std_imgArea organisationalUnit" style="float: left;" rendered="#{!node.mps && node.topLevel}"></h:panelGroup>
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px"  style="float: left;" rendered="#{!node.topLevel}"/>
 					<tr:commandLink styleClass="line-height: 2.10em;" text="#{node.name}" action="#{node.startSearch}"/>
