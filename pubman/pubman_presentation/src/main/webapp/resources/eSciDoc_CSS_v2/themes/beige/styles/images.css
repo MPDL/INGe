@@ -418,6 +418,12 @@
 		background-position: center center;
 	}
 	
+	.mpgUnit {
+		background-image: url('../images/mnrv_23x23.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
 /*IMPORT WORKSPACE*/
 	.importFINISHEDFINE  {
 		background-image: url('../images/All_Import_FinishedFine_31_Static.gif');
