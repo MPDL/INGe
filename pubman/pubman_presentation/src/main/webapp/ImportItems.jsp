@@ -70,7 +70,7 @@
 							Details
 						</a>
 					</div>
-					<div class="large_area0_p8 noPaddingTopBottom">
+					<div class="large_area0_p8 endline noPaddingTopBottom">
 						<h:outputText value="#{item.errorLevel}"/>
 					</div>
 				</div>
