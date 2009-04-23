@@ -410,6 +410,13 @@
 		background-position: center center;
 	}
 
+/*AFFILIATION TREE*/
+	.organisationalUnit {
+		background-image: url('../images/All_Status_Organization_23_Static.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
 /*GENERAL*/
 
 	.collapse, .expand /*, .files, .locators*/ {
@@ -535,4 +542,44 @@
 		.files, .locators {
 			padding-left: 0em;
 		}
+	}
+	
+	.authorCard {
+		width: 2.83em;
+		height: 1.37em;
+		background-image: url('../images/All_Info_Author_15_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.authorCard:hover, .authorCard:focus {
+		background-image: url('../images/All_Info_Author_15_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.authorCard:disabled {
+		background-image: url('../images/All_Info_Author_15_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.ouCard {
+		width: 2.83em;
+		height: 1.37em;
+		background-image: url('../images/All_Info_Organization_15_Active.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.ouCard:hover, .ouCard:focus {
+		background-image: url('../images/All_Info_Organization_15_Hover.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.ouCard:disabled {
+		background-image: url('../images/All_Info_Organization_15_Deactivated.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
 	}
