@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
@@ -39,20 +39,26 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 			
-		<div>
+		<div class="xHuge_area2_p8 messageArea">
+
+			<input type="button" onclick="$.closeDialog()" value=" " class="min_imgBtn fixMessageBlockBtn" />
+
+			<h2><h:outputText value="#{lbl.import_workspace_details}"/></h2>
 			
 			<tr:iterator var="detail" value="#{ImportItemDetails.details}" rows="0">
-				<h:panelGroup>
-					
-					<h:outputText value="#{detail.status}"/>
-					/
-					<h:outputText value="#{detail.errorLevel}"/>:
-				
-					<h:outputText value="#{detail.startDateFormatted}"/>
-					<br/>
-					<h:outputText value="#{detail.localizedMessage}"/>
-					<br/>
-					<br/>
+				<h:panelGroup styleClass="free_area0">
+					<span class="small_area0">
+						<h:outputText value="#{detail.status}"/>
+					</span>
+					<span class="small_area0">
+						<h:outputText value="#{detail.errorLevel}"/>
+					</span>
+					<span class="medium_area0">
+						<h:outputText value="#{detail.startDateFormatted}"/>
+					</span>
+					<span class="double_area0">
+						<h:outputText value="#{detail.localizedMessage}"/>
+					</span>
 					
 				</h:panelGroup>
 			</tr:iterator>
