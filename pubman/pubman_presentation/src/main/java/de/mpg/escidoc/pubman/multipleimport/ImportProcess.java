@@ -331,7 +331,7 @@ public class ImportProcess extends Thread
     {
         if (!failed)
         {
-            log.startItem("import_process_import_item");
+            log.startItem("import_process_start_import");
            
             this.formatProcessor.setSource(inputStream);
             
@@ -342,6 +342,8 @@ public class ImportProcess extends Thread
             }
             
             int counter = 0;
+            
+            log.finishItem();
             
             while (this.formatProcessor.hasNext() && !failed)
             {
@@ -388,6 +390,7 @@ public class ImportProcess extends Thread
                 return;
             }
             
+            log.finishItem();
             log.startItem("import_process_preparation_finished");
             log.addDetail(ErrorLevel.FINE, "import_process_no_more_items");
             log.finishItem();
