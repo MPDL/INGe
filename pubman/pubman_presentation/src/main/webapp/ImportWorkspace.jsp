@@ -234,108 +234,10 @@
 										</tr:iterator>
 									  </tbody>
 									</table>
-
-
-
-
-
-									
 								</div>
 							<!-- end: content section -->
 							</div>			
 					</div>
-
-
-
-					<table>
-						<thead>
-							<tr>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_status}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_name}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_format}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_startdate}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_enddate}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_details}"/>
-								</th>
-								<th>
-									<h:outputText value="#{lbl.import_workspace_actions}"/>
-								</th>
-								<th>
-									Link
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr:iterator var="import" rows="0" value="#{ImportWorkspace.imports}">
-								<h:panelGroup>
-									<tr>
-										<td>
-											<h:panelGroup rendered="#{!import.finished}">
-												<h:outputText value="#{import.percentage}"/>% - 
-											</h:panelGroup>
-											<h:outputText value="#{import.status}"/>
-											/
-											<h:outputText value="#{import.errorLevel}"/>
-										</td>
-										<td>
-											<h:outputText value="#{import.message}"/>
-										</td>
-										<td>
-											<h:outputText value="#{import.format}"/>
-										</td>
-										<td>
-											<h:outputText value="#{import.startDateFormatted}"/>
-										</td>
-										<td>
-											<h:outputText value="#{import.endDateFormatted}"/>
-										</td>
-										<td>
-											<h:outputText value="#{lbl.import_workspace_details}"/>
-										</td>
-										<td>
-											<h:panelGroup rendered="#{import.finished}">
-												<tr:commandLink action="#{import.remove}">
-													<h:outputText value="#{lbl.import_workspace_remove_import}"/>
-												</tr:commandLink>
-												/
-												<tr:commandLink action="#{import.deleteAll}">
-													<h:outputText value="#{lbl.import_workspace_delete_items}"/>
-												</tr:commandLink>
-												/
-												<tr:commandLink action="#{import.submitAll}" rendered="#{!import.simpleWorkflow}">
-													<h:outputText value="#{lbl.import_workspace_submit_items}"/>
-												</tr:commandLink>
-												/
-												<tr:commandLink action="#{import.submitAndReleaseAll}">
-													<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
-												</tr:commandLink>
-											</h:panelGroup>
-										</td>
-										<td>
-											<h:outputLink value="#{import.logLink}">
-												Import
-											</h:outputLink>
-											/
-											<h:outputLink value="#{import.itemsLink}">
-												Items
-											</h:outputLink>
-										</td>
-									</tr>
-								</h:panelGroup>
-							</tr:iterator>
-						</tbody>
-					</table>
 				</tr:form>
 			</body>
 		</html>
