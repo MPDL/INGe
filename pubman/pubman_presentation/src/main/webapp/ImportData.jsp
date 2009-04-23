@@ -49,7 +49,7 @@
 		      	<td class="free_area0 endline status">
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 		      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-						<h:panelGroup styleClass="big_imgArea statusIcon submittedItem" />
+						<h:panelGroup styleClass="big_imgArea statusIcon import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
 						<h:outputLabel styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
 							<h:panelGroup rendered="#{!ImportData.import.finished}">
 								<h:outputText value="#{ImportData.import.percentage}"/>% - 

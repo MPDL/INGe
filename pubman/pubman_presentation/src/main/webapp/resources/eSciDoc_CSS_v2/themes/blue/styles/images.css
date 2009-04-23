@@ -416,6 +416,79 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+/*IMPORT WORKSPACE*/
+	.importFINISHEDFINE  {
+		background-image: url('../images/All_Import_FinishedFine_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importFINISHEDWARNING  {
+		background-image: url('../images/All_Import_FinishedProblem_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+
+	.importFINISHEDERROR, .importFINISHEDPROBLEM, .importFINISHEDFATAL  {
+		background-image: url('../images/All_Import_FinishedError_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importPENDINGFINE  {
+		background-image: url('../images/All_Import_PendingFine_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importPENDINGWARNING  {
+		background-image: url('../images/All_Import_PendingProblem_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+
+	.importPENDINGERROR, .importPENDINGPROBLEM, .importPENDINGFATAL  {
+		background-image: url('../images/All_Import_PendingError_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importROLLBACKFINE  {
+		background-image: url('../images/All_Import_RollbackFine_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importROLLBACKWARNING  {
+		background-image: url('../images/All_Import_RollbackProblem_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+
+	.importROLLBACKERROR, .importROLLBACKPROBLEM, .importROLLBACKFATAL  {
+		background-image: url('../images/All_Import_RollbackError_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importSUSPENDEDFINE  {
+		background-image: url('../images/All_Import_SuspendedFine_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.importSUSPENDEDWARNING  {
+		background-image: url('../images/All_Import_SuspendedProblem_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+
+	.importSUSPENDEDERROR, .importSUSPENDEDPROBLEM, .importSUSPENDEDFATAL  {
+		background-image: url('../images/All_Import_SuspendedError_31_Static.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
 
 /*GENERAL*/
 
