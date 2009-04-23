@@ -10,12 +10,16 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
@@ -27,6 +31,11 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.schemas.container.x07.ContainerDocument;
 import de.escidoc.schemas.container.x07.ContainerDocument.Container;
 import de.escidoc.schemas.item.x07.ItemDocument;
@@ -35,6 +44,10 @@ import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.mpg.escidoc.metadataprofile.schema.x01.virrelement.VirrelementDocument;
+import de.mpg.escidoc.services.common.DataGathering;
+import de.mpg.escidoc.services.common.datagathering.DataGatheringBean;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -54,12 +67,24 @@ public class METSTransformation
     private int dmdIdCounter = 0;
     private int divCounter = 1;
     private String currentLogicalMetsDivId;
+    
+    @EJB
+    private DataGathering dataGathering;
 
     /**
      * Public Constructor METSTransformation.
      */
     public METSTransformation()
     {
+        try
+        {
+            InitialContext initialContext = new InitialContext();
+            this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
+        }
+        catch (NamingException e)
+        {
+            logger.error("could not find data gathering service",e);
+        }
     }
 
     /**
@@ -133,8 +158,7 @@ public class METSTransformation
      */
     private void createDmdSec(TocDocument tocDoc) throws RuntimeException
     {
-        String containerId = null;
-        ModsType mods = null;
+        String volumeContainerId = null;
         try
         {
             // Dummy root div
@@ -144,12 +168,63 @@ public class METSTransformation
             {
                 if (children[i].getTYPE().equals("logical"))
                 {
-                    containerId = children[i].getDivArray(0).getPtrArray(0).getHref();
+                    volumeContainerId = children[i].getDivArray(0).getPtrArray(0).getHref();
                     // Id is returned as a href => extract id from link
-                    int le = containerId.split("/").length - 1;
-                    containerId = containerId.split("/")[le];
+                    int le = volumeContainerId.split("/").length - 1;
+                    volumeContainerId = volumeContainerId.split("/")[le];
                 }
             }
+            
+            ModsType volumeMods = retrieveMods(volumeContainerId);
+            
+            List<RelationVO> multiVolumeContainerRel = dataGathering.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
+            if (multiVolumeContainerRel!=null && multiVolumeContainerRel.size()>0)
+            {
+                String multiVolContainerId = multiVolumeContainerRel.get(0).getSourceItemRef().getObjectId();
+                ModsType multiVolMods = retrieveMods(multiVolContainerId);
+                
+                //Set missing mods records from multivolume to volume
+                if (volumeMods.getTitleInfoArray().length == 0)
+                {
+                    volumeMods.setTitleInfoArray(multiVolMods.getTitleInfoArray());
+                }
+                if (volumeMods.getNameArray().length == 0)
+                {
+                    volumeMods.setNameArray(multiVolMods.getNameArray());
+                }
+                if (volumeMods.getSubjectArray().length == 0)
+                {
+                    volumeMods.setSubjectArray(multiVolMods.getSubjectArray());
+                }
+                if (volumeMods.getNoteArray().length == 0)
+                {
+                    volumeMods.setNoteArray(multiVolMods.getNoteArray());
+                }
+                if (volumeMods.getOriginInfoArray().length == 0)
+                {
+                    volumeMods.setOriginInfoArray(multiVolMods.getOriginInfoArray());
+                }
+                if (volumeMods.getOriginInfoArray().length == 0)
+                {
+                    volumeMods.setOriginInfoArray(multiVolMods.getOriginInfoArray());
+                }
+                
+            }
+            this.writeMETS.createDmdSec(volumeMods, "dmd" + String.valueOf(dmdIdCounter++));
+        }
+        catch (Exception e)
+        {
+            this.logger.error("Creation of dmdSec for METS document failed.", e);
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
+    private ModsType retrieveMods(String containerId)
+    {
+        ModsType mods = null;
+        try
+        {
             String xml = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieve(containerId);
             ContainerDocument cDoc = ContainerDocument.Factory.parse(xml);
             Container container = cDoc.getContainer();
@@ -158,27 +233,26 @@ public class METSTransformation
             {
                 if (mdr.getName().equals("escidoc"))
                 {
-//                    XmlCursor modsCursor = mdr.newCursor();
-//                    String nsuri = "http://www.loc.gov/mods/v3";
-//                    String namespace = "declare namespace mods='" + nsuri + "';";
-//                    //modsCursor.selectPath(namespace+"./*/*");
-//                    modsCursor.selectPath(namespace + "./mods:virr-book/mods:mods");
-//                    modsCursor.toNextSelection();
-//                    System.out.println(modsCursor.xmlText());        
-//                    ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
-//                    System.out.println(mdr.xmlText());
+//                XmlCursor modsCursor = mdr.newCursor();
+//                String nsuri = "http://www.loc.gov/mods/v3";
+//                String namespace = "declare namespace mods='" + nsuri + "';";
+//                //modsCursor.selectPath(namespace+"./*/*");
+//                modsCursor.selectPath(namespace + "./mods:virr-book/mods:mods");
+//                modsCursor.toNextSelection();
+//                System.out.println(modsCursor.xmlText());        
+//                ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
+//                System.out.println(mdr.xmlText());
                     VirrelementDocument virrElementDoc= VirrelementDocument.Factory.parse(mdr.xmlText());
                     //ModsDocument modsDoc = ModsDocument.Factory.parse(mdr.xmlText());
                     mods = virrElementDoc.getVirrelement().getMods();
                 }
             }
-            this.writeMETS.createDmdSec(mods, "dmd" + String.valueOf(dmdIdCounter++));
         }
         catch (Exception e)
         {
-            this.logger.error("Creation of dmdSec for METS document failed.", e);
-            throw new RuntimeException(e);
+            logger.error("Could not retrieve MODS metadata from container "+containerId, e);
         }
+        return mods;
     }
 
     /**
