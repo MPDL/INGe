@@ -28,7 +28,7 @@
 */
 
 package test;
-
+ 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -56,6 +56,7 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -71,9 +72,11 @@ public class TestHelper
 { 
 	public static final String ITEMS_LIMIT = "20"; 
 	public static final String CONTENT_MODEL_PUBMAN = "escidoc:persistent4"; 
-	public static final String CONTENT_MODEL_FACES = "escidoc:faces40"; 
-	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; 
+	public static final String CONTENT_MODEL_FACES = "escidoc:faces40";
+    private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+
+
 	
     /**
      * Retrieve resource based on a path relative to the classpath.
@@ -184,18 +187,14 @@ public class TestHelper
     public static String getItemListFromFramework(final String contentModel, String limit) throws IOException, ServiceException, URISyntaxException
     {
     	
-    	String userHandle = loginUser(USER_NAME, USER_PASSWD); 
+    	String userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN)); 
         ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-        // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        // example for SRW, faces, released: 
-        // http://srv05.mpdl.mpg.de:8080/srw/search/escidoc_all?operation=search&query=%20escidoc.content-model.objid=escidoc:faces40
         String filter = 
         	"<param>" + 
         		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + contentModel + " </filter>" +
-        		"<filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter>" +
-        		// records limit	
-        		"<limit>" + limit + "</limit>" +
+	    		"<filter name=\"/properties/content-model/id\">" + contentModel + "</filter>" +
+	    		//    		"<filter name=\"/properties/public-status\">pending</filter>" +
+	    		"<limit>" + limit + "</limit>" +
         	"</param>";
         return ch.retrieveItems(filter);
     

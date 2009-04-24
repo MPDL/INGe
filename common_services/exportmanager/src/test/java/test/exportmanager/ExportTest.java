@@ -46,7 +46,8 @@ import net.sf.saxon.om.SiblingCountingNode;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
+import org.junit.Ignore; 
 import org.junit.Test;
 
 import test.TestHelper;
@@ -55,31 +56,29 @@ import de.mpg.escidoc.services.exportmanager.Export;
 import de.mpg.escidoc.services.exportmanager.ExportHandler;
 import de.mpg.escidoc.services.exportmanager.ExportManagerException;
 import de.mpg.escidoc.services.exportmanager.Export.ArchiveFormats;
-
-
+ 
 
 public class ExportTest 
 {
 		private ExportHandler export = new Export();
 	    private String pubManItemList;
-	    private String facesItemList;
+	    private static String facesItemList;
 	    private long start = 0;
 
-	    private Logger logger = Logger.getLogger(ExportTest.class);
+	    private static Logger logger = Logger.getLogger(ExportTest.class);
 
 	    /**
 	     * Get test item list from XML 
 	     * @throws Exception
 	     */
-	    @Before
-	    @Ignore // tendres: the same test exists in the integration test suite
-	    public final void getItemLists() throws Exception
+	    @BeforeClass
+		public final static void getItemLists() throws Exception
 	    {
 	    	FileOutputStream fos;
 	    	
-	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, "5");
-			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
-			logger.info("PubMan item list from framework:\n" + pubManItemList);
+//	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, "5");
+//			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
+//			logger.info("PubMan item list from framework:\n" + pubManItemList);
 			
 			
 			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "5");
@@ -114,6 +113,7 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
+	    @Ignore
 	    public final void testCalculateItemListFileSizes() throws Exception
 	    {
 	    	long size = export.calculateItemListFileSizes(facesItemList);
@@ -122,13 +122,12 @@ public class ExportTest
 	    }
 	    
 	    
-	    
 	    /**
 	     * Test generate output into archive.
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
-	    @Ignore // tendres: the same test exists in the integration test suite
+	    //@Ignore // tendres: the same test exists in the integration test suite
 	    public final void testExportsToArchives() throws Exception
 	    {
 	    	logger.info("heapMaxSize = " + Runtime.getRuntime().maxMemory());
@@ -152,7 +151,7 @@ public class ExportTest
 
 	    	logger.info("Exports to the byte[]:");    
 	    	byte [] ba;
-	    	//		FileOutputStream fos;
+	    			FileOutputStream fos;
 	    	for (ArchiveFormats af : ArchiveFormats.values())
 	    	{
 	    		String afString = af.toString();
@@ -163,10 +162,10 @@ public class ExportTest
 	    		logger.info(afString + " generation is OK (" + (start) + "ms), " +
 	    				"byte array size:" + ba.length 
 	    		);
-	    		//			afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
-	    		//			fos = new FileOutputStream("output." + afString);
-	    		//			fos.write(ba);				
-	    		//			fos.close();	        
+	    					afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
+	    					fos = new FileOutputStream("output." + afString);
+	    					fos.write(ba);				
+	    					fos.close();	        
 	    	}
 	    	logger.info("End of the exports to the byte[].");    
 
@@ -178,27 +177,27 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
-	    @Ignore // tendres: the same test exists in the integration test suite
+	    @Ignore 
 	    public final void testExports() throws Exception
 	    {
-	    	
+
 	    	byte[] result; 
 	    	for ( String ef : new String[] { "ENDNOTE", "BIBTEX", "APA" })
 	    	{
-		    	logger.info("start " + ef + " export ");
-		        start = -System.currentTimeMillis();
-		    	result = export.getOutput(
-		    			ef,
-		    			ef.equals("APA") ? "snippet" : null,	
-		    			null, 
-		    			pubManItemList
-		    	);
-		    	start += System.currentTimeMillis();
-		    	assertFalse(ef + " export failed", result == null || result.length == 0);
-		    	logger.info(ef + " export (" + start + "ms):\n" + new String(result));
-	    		
+	    		logger.info("start " + ef + " export ");
+	    		start = -System.currentTimeMillis();
+	    		result = export.getOutput(
+	    				ef,
+	    				ef.equals("APA") ? "snippet" : null,	
+	    						null, 
+	    						pubManItemList
+	    		);
+	    		start += System.currentTimeMillis();
+	    		assertFalse(ef + " export failed", result == null || result.length == 0);
+	    		logger.info(ef + " export (" + start + "ms):\n" + new String(result));
+
 	    	}
-	    	
+
 	    }
 	    
 
