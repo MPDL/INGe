@@ -50,4 +50,9 @@ public class PubManVersionNotAvailableException extends Exception
     {
         super(cause);
     }
+
+    public PubManVersionNotAvailableException(String cause)
+    {
+        super(cause);
+    }
 }

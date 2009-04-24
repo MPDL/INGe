@@ -52,10 +52,25 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class ApplicationBean extends FacesBean
 {
+    /** system type enum */
+    public enum SystemType {
+        /** profile for developer machines */
+        Workstation,
+        /** profile for the development test server */
+        Dev_Server,
+        /** profile for the demo server */
+        Test_Server,
+        /** profile for the qa server */
+        QA_Server,
+        /** profile for the production server */
+        Production_Server
+    }
     public static final String BEAN_NAME = "ApplicationBean";
     private static Logger logger = Logger.getLogger(ApplicationBean.class);
 
     private final String APP_TITLE = "Publication Manager";
+    /** system type of this application instance */
+    private SystemType systemType;
     private String appTitle = null;
     private String appContext = "";
     
@@ -67,6 +82,15 @@ public class ApplicationBean extends FacesBean
      */
     public ApplicationBean()
     {
+        // set the system type of the application
+        try
+        {
+            this.systemType = fetchSystemTypeFromProperty();
+        } catch (PubManVersionNotAvailableException e)
+        {
+           logger.warn("System type is not retrievable! Setting now to PRODUCTION");
+           this.systemType=SystemType.Production_Server;
+        }
         this.init();
     }
 
@@ -80,6 +104,7 @@ public class ApplicationBean extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
+        // 
     }
 
     /**
@@ -183,6 +208,57 @@ public class ApplicationBean extends FacesBean
     public void setAppContext(String appContext)
     {
         this.appContext = appContext;
+    }
+    
+    /**
+     * Provides the escidoc instance string.
+     *
+     * @return the escidoc instance
+     * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
+     */
+    public SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException 
+    {
+        String sysType;
+        try
+        {
+            sysType = PropertyReader.getProperty("escidoc.systemtype");
+        } catch (IOException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        }
+        
+        if( sysType.equals("workstation") )
+        {
+            return SystemType.Workstation;
+        }
+        else if( sysType.equals("dev") )
+        {
+            return SystemType.Dev_Server;
+        }
+        else if( sysType.equals("qa") )
+        {
+            return SystemType.QA_Server;
+        }
+        else if( sysType.equals("test") )
+        {
+            return SystemType.Test_Server;
+        }
+        else if( sysType.equals("production") )
+        {
+            return SystemType.Production_Server;
+        }
+        else throw new PubManVersionNotAvailableException("SystemType Property unsupported!");
+    }
+    
+    public boolean getCheckSystemTypeProduction()
+    {
+        if(systemType == SystemType.Production_Server) 
+            return true;
+        else 
+            return false;
     }
 
 }

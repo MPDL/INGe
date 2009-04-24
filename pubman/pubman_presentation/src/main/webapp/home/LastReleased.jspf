@@ -33,27 +33,30 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
 <!-- TODO: Exchange this with lastsubmitted feed -->
-<script src="http://www.google.com/jsapi" type="text/javascript">&#160;</script> 
-<script type="text/javascript">
-  google.load("feeds", "1");
+<h:panelGroup rendered="#{ApplicationBean.checkSystemTypeProduction}">
+    <script src="http://www.google.com/jsapi" type="text/javascript">&#160;</script> 
+    <script type="text/javascript">
+    google.load("feeds", "1");
 
-  function initialize() 
-  {     
-      var feedControl = new google.feeds.FeedControl();
-      //QuickSearch does not work with hidden field (no idea why!!!) therefor i have to put url static.
-      feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanInstanceUrl}"/>'+'/syndication/feed/atom_1.0/releases', "");
-      feedControl.setNumEntries(4); 
-      feedControl.draw(document.getElementById("feedControl2"));
-  }
-  google.setOnLoadCallback(initialize);
-</script>
+      function initialize() 
+      {     
+    	  var feedControl = new google.feeds.FeedControl();
+    	  //QuickSearch does not work with hidden field (no idea why!!!) therefor i have to put url static.
+        feedControl.addFeed('<h:outputText value="#{ApplicationBean.pubmanInstanceUrl}"/>'+'/syndication/feed/atom_1.0/releases', "");
+        feedControl.setNumEntries(4); 
+        feedControl.draw(document.getElementById("feedControl2"));
+        }
+      google.setOnLoadCallback(initialize);
+    </script>
 
     <h2>
         <h:outputText value="#{lbl.Home_Header_LastItems}" escape="false"/>
     </h2>
     <div id="feedControl2" style="font-size: 0.4em"></div>
-
-
+</h:panelGroup>
+<h:panelGroup rendered="#{!ApplicationBean.checkSystemTypeProduction}">
+    <h:outputText id="rssFeedDisabled" value="#{lbl.Home_Header_LastItems_Disabled}"/>
+</h:panelGroup>
 
 
 
