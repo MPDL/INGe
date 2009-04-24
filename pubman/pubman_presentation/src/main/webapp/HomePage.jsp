@@ -117,9 +117,10 @@
 							
 						</div>	
 					</div>
-					</div>
+				</div>
 				<!-- end: content section -->
 				</div>
+				<jsp:directive.include file="footer/Footer.jspf" />
 				</h:form>
 				<script type="text/javascript">
 				$("input[id$='offset']").submit(function() {

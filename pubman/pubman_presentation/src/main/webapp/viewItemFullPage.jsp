@@ -246,6 +246,7 @@
 				<!-- end: content section -->
 				</div>
 			</div>
+			<jsp:directive.include file="footer/Footer.jspf" />
 			</tr:form>
 			
 			</body>

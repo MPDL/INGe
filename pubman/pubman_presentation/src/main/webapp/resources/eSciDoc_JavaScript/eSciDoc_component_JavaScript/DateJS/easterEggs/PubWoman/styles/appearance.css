@@ -82,7 +82,7 @@
 		line-height: 160%;
 	}
 	
-	body .wrapper {
+	body .wrapper, body .footer {
 		background-color: #F3EDF4;
 	}
 	

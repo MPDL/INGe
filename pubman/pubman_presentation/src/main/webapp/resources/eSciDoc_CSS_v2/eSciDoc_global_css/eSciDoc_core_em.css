@@ -60,12 +60,24 @@
 			height: 100%;
 		}
 		
-		body .wrapper {
+		body .wrapper, body .footer {
 			margin: 0 auto 0 auto;
-			padding-bottom: 2.19em;
 			overflow: hidden;
 			width: 84.10em;
 		}
+		
+		body .footer {
+			height: 2.00em;
+		}
+		
+		#content {
+			padding-bottom: 2.00em;
+		}
+		
+		body .wrapper {
+			margin-bottom: -2.00em;
+		}
+		
 		.noDisplay {
 			display: none !important;
 		}
