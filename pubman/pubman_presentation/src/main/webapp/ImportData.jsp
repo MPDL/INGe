@@ -39,7 +39,6 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 
-
 			<tr class="full_area0 listItem">
 		      	<td class="free_area0 endline">
 		      		<span class="tiny_area0">
@@ -86,7 +85,7 @@
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 		      		<span class="large_area0_p8">
 						<h:inputHidden value="#{ImportData.import.itemsLink}" />
-						<a onclick="if($(this).parents('.listItem').next('.toBeReplaced').length == 0) {$(this).parents('.listItem').after(detailsAwaiting); $(this).parents('.listItem').next('.toBeReplaced').load($(this).siblings('input').val())}">
+						<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
  							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
 	 					</a>
 		      		</span>
@@ -106,7 +105,7 @@
 								<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 							</tr:commandLink>
 
-							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAll}" rendered="#{!ImportData.import.simpleWorkflow}">
+							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAll}" rendered="#{!import.simpleWorkflow}">
 								<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 							</tr:commandLink>
 
@@ -118,7 +117,5 @@
 		      	</td>
 		    </tr>
 
-
-			
 	</f:view>
 </jsp:root>
