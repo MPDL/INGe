@@ -450,6 +450,10 @@
 				<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 				
+				<!-- Links from PubMan -->
+				<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
+				<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
+				
 				<!-- Sitemaps -->
 				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
 				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
