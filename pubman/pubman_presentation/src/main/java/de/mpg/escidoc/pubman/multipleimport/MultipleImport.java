@@ -127,20 +127,18 @@ public class MultipleImport extends FacesBean
     public MultipleImport()
     {
         
-        Transformation transformation = new TransformationBean();
-        
-        Format[] formats = transformation.getSourceFormats(ESCIDOC_FORMAT);
-        
-        for (Format format : formats)
-        {
-            format.setEncoding("UTF-8");
-            importFormats.put(format.getName(), format);
-        }
-//        importFormats.put("Endnote", ENDNOTE_FORMAT);
-//        importFormats.put("BibTeX", BIBTEX_FORMAT);
+//        Transformation transformation = new TransformationBean();
+//        Format[] formats = transformation.getSourceFormats(ESCIDOC_FORMAT);
+//        for (Format format : formats)
+//        {
+//            format.setEncoding("UTF-8");
+//            importFormats.put(format.getName(), format);
+//        }
+        importFormats.put("Endnote", ENDNOTE_FORMAT);
+        importFormats.put("BibTeX", BIBTEX_FORMAT);
 //        importFormats.put("eDoc", EDOC_FORMAT);
-//        importFormats.put("RIS", RIS_FORMAT);
-//        importFormats.put("WoS", WOS_FORMAT);
+        importFormats.put("RIS", RIS_FORMAT);
+        importFormats.put("WoS", WOS_FORMAT);
     }
         
     public String uploadFile()

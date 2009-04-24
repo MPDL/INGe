@@ -58,10 +58,10 @@ function changeSortCriteria()
 	document.getElementById("form1:content:btnSortItemList").click();
 }
 
-function loadAbout() 
+function loadAbout(url) 
 {
 	// use the h:output tag to output the bean property
-	openCenteredWindow("http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan", 1360, 1040, "About"); 
+	openCenteredWindow(url, 1360, 1040, "About"); 
 }
 
 function loadBlog(url) 

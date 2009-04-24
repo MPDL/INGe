@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- fÃƒÂ¼r wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur FÃƒÂ¶rderung der Wissenschaft e.V.
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
@@ -94,6 +94,10 @@
 														<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 													</h:commandLink>
 												</h:panelGroup>
+												<h:outputText styleClass="seperator void" />
+												<span>
+													<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
+												</span>
 											</div>
 											<div class="free_area0 sub action">
 											<!-- content menu lower line starts here -->
@@ -176,7 +180,9 @@
 										      	<td class="free_area0 endline">
 										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 										      		<span class="large_area0_p8">
-														<h:outputText value="#{import.message}"/>
+										      			<h:outputLink value="#{import.myItemsLink}">
+															<h:outputText value="#{import.message}"/>
+														</h:outputLink>
 										      		</span>
 										      	</td>
 										      	<td class="free_area0 endline">
@@ -225,7 +231,7 @@
 																<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 															</tr:commandLink>
 
-															<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}">
+															<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}">
 																<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 															</tr:commandLink>
 														</h:panelGroup>
@@ -250,19 +256,20 @@
 							});
 						}
 					);
+					window.setTimeout("reloadImports()", 2000);
 				}
 				function reloadDetails() {
-					$('.importDetails:has(.state[text!=FINISHED])').each(
+					$('.listItem').find('.statusArea').find('span:not(.FINISHED)').parents('tr').next('.importDetails').each(
 						function(i,ele) {
 							$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
-								alert($(ele).html());
-								$(ele).children('td').empty().append($(data));
+								$(ele).children('td').empty().append(data);
 							});
 						}
 					);
+					window.setTimeout("reloadDetails()", 5000);
 				}
-				window.setInterval("reloadImports()", 10000);
-				window.setInterval("reloadDetails()", 10000);
+				window.setTimeout("reloadImports()", 2000);
+				window.setTimeout("reloadDetails()", 5000);
 				</script>
 			</body>
 		</html>

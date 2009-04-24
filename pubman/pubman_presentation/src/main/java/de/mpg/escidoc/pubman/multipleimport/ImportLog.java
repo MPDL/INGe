@@ -31,6 +31,8 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -1379,6 +1381,18 @@ public class ImportLog
     public String getLogLink()
     {
         return "ImportData.jsp?id=" + getStoredId();
+    }
+    
+    public String getMyItemsLink()
+    {
+        try
+        {
+            return "DepositorWSPage.jsp?import=" + URLEncoder.encode(getMessage() + " " + getStartDateFormatted(), "UTF-8");
+        }
+        catch (UnsupportedEncodingException usee) {
+            // This should not happen as UTF-8 is known
+            throw new RuntimeException(usee);
+        }
     }
     
     /**

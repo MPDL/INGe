@@ -86,6 +86,10 @@
 												<span>
 													<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</span>
+												<h:outputText styleClass="seperator void" />
+												<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+													<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
+												</h:outputLink>
 											</div>
 											<div class="free_area0 sub action">
 											<!-- content menu lower line starts here -->
@@ -122,7 +126,7 @@
 														&#160;<span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<h:outputText value="#{msg.multipleImport_description}"/>
+														<h:outputText value="#{lbl.multipleImport_description}"/>
 													</span>
 												</h:panelGroup>
 												<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine">

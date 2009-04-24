@@ -152,7 +152,7 @@ public class EasySubmission extends FacesBean
     public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[]{this.DATE_CREATED, this.DATE_SUBMITTED, this.DATE_ACCEPTED, this.DATE_PUBLISHED_IN_PRINT, 
                                                              this.DATE_PUBLISHED_ONLINE, this.DATE_MODIFIED};
         
-    public final String INTERNAL_MD_FORMAT = "escidoc";
+    public final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
 
     // Faces navigation string
     public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";

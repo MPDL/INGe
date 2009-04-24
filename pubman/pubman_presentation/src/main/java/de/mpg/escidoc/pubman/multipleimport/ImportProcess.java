@@ -39,9 +39,11 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.Status;
+import de.mpg.escidoc.pubman.multipleimport.processor.ArxivProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -98,6 +100,7 @@ public class ImportProcess extends Thread
     
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
     private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
+    private static final Format ARXIV_FORMAT = new Format("arxiv", "application/xml", "utf-8");
     private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
     private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
@@ -279,9 +282,17 @@ public class ImportProcess extends Thread
             {
                 this.formatProcessor = new EndnoteProcessor();
             }
+            else if (RIS_FORMAT.matches(format))
+            {
+                this.formatProcessor = new RisProcessor();
+            }
             else if (BIBTEX_FORMAT.matches(format))
             {
                 this.formatProcessor = new BibtexProcessor();
+            }
+            else if (ARXIV_FORMAT.matches(format))
+            {
+                this.formatProcessor = new ArxivProcessor();
             }
             else
             {

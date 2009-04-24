@@ -90,13 +90,15 @@ public class SessionTimeoutFilter implements Filter
                         && httpServletRequest.getParameter("logout") == null
                         && !httpServletRequest.isRequestedSessionIdValid())
                 {
-
-                        httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
-                        return;
+                    // Deactivated because of import tool.
+                    // httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
+                    httpServletResponse.sendRedirect(homePage + "?expired=true");
+                    return;
                     
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new ServletException("Error logging out", e);
             }
         }

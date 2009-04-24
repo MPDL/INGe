@@ -1,5 +1,8 @@
 package de.mpg.escidoc.pubman.depositorWS;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +16,16 @@ import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -40,15 +46,34 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
    
     /**
+     * This workspace's user.
+     */
+    AccountUserVO userVO;
+    
+    /**
      * The GET parameter name for the item state.
      */
     protected static String parameterSelectedItemState = "itemState";
     
+    /**import filter.
+     */
+    private static String parameterSelectedImport = "import"; 
+ 
     /**
      * The total number of records
      */
     private int numberOfRecords;
     
+    /**
+     * The currently selected import tag.
+     */
+    private String selectedImport;
+    
+    /**
+     * A list with menu entries for the import filter menu.
+     */
+    private List<SelectItem> importSelectItems;
+
     /**
      * The menu entries of the item state filtering menu
      */
@@ -73,21 +98,26 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
      */
     protected void checkLogin()
     {
-        LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         Login login = (Login) getSessionBean(Login.class);
         
         //if not logged in redirect to login page
-        if(!loginHelper.isLoggedIn())
+        if (!loginHelper.isLoggedIn())
         {
             try
             {
                 login.loginLogout();
             }
-            catch (Exception e){
-                logger.error("Error during redirection.",e);
+            catch (Exception e)
+            {
+                logger.error("Error during redirection.", e);
                 error("Could not redirect to login!");
             }
            
+        }
+        else
+        {
+            this.userVO = loginHelper.getAccountUser();
         }
         
     }
@@ -96,6 +126,36 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     public void init()
     {
     	checkLogin();
+        
+        // Init imports
+        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
+        importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        
+        try
+        {
+            Connection connection = ImportLog.getConnection();
+            String sql = "select * from ESCIDOC_IMPORT_LOG where userid = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setString(1, this.userVO.getReference().getObjectId());
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next())
+            {
+                SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+                importSelectItems.add(selectItem);
+            }
+            resultSet.close();
+            statement.close();
+        }
+        catch (Exception e) {
+            logger.error("Error getting imports from database", e);
+            error("Error getting imports from database");
+        }
+        
+        setImportSelectItems(importSelectItems);
+
     }
 
     @Override
@@ -161,11 +221,12 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
                 filter.getFilterList().add(0,f7);
             }
                
-                
-            
-                
-            
-            
+            if (!getSelectedImport().toLowerCase().equals("all"))
+            {
+                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
+                filter.getFilterList().add(f10);
+            }
+              
             Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
             filter.getFilterList().add(f10);
 
@@ -262,7 +323,24 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     {
         return selectedItemState;
     }
-    
+
+    /**
+     * @return the selectedImport
+     */
+    public String getSelectedImport()
+    {
+        return selectedImport;
+    }
+
+    /**
+     * @param selectedImport the selectedImport to set
+     */
+    public void setSelectedImport(String selectedImport)
+    {
+        this.selectedImport = selectedImport;
+        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedImport, selectedImport);
+    }
+
     /**
      * Returns the label for the currently selected item state.
      * @return
@@ -299,7 +377,25 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         
     }
     
-    
+    /**
+     * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with updated import GET parameter.
+     * @return
+     */
+    public String changeImport()
+    {
+            try
+            {
+               
+                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+                getBasePaginatorListSessionBean().redirect();
+            }
+            catch (Exception e)
+            {
+               error("Could not redirect");
+            }
+            return "";
+        
+    }
 
     /**
      * Reads out the item state parameter from the HTTP GET request and sets an default value if it is null.
@@ -317,6 +413,15 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             setSelectedItemState(selectedItemState);
         }
         
+        String selectedItem = getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
+        if (selectedItem==null)
+        {
+            setSelectedImport("all");
+        }
+        else
+        {
+            setSelectedImport(selectedItem);
+        }
     }
 
     @Override
@@ -336,4 +441,20 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 	{
 		return false;
 	}
+
+    /**
+     * @return the importSelectItems
+     */
+    public List<SelectItem> getImportSelectItems()
+    {
+        return importSelectItems;
+    }
+
+    /**
+     * @param importSelectItems the importSelectItems to set
+     */
+    public void setImportSelectItems(List<SelectItem> importSelectItems)
+    {
+        this.importSelectItems = importSelectItems;
+    }
 }

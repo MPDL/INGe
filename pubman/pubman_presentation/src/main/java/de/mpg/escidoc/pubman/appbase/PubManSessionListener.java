@@ -71,7 +71,8 @@ public class PubManSessionListener implements HttpSessionListener
         {
             //login.logout();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error logging out user", e);
         }
     }

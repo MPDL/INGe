@@ -57,12 +57,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      * The currently selected org unit.
      */
     private String selectedOrgUnit;
-    
-    /**
-     * The currently selected import tag.
-     */
-    private String selectedImport;
-    
+
     /**
      * The HTTP GET parameter name for the context filter.
      */
@@ -72,19 +67,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     private static String parameterSelectedOrgUnit = "orgUnit"; 
     
-    /**import filter.
-     */
-    private static String parameterSelectedImport = "import"; 
-    
     /**
      * A list with menu entries for the context filter menu.
      */
     private List<SelectItem> contextSelectItems;
-    
-    /**
-     * A list with menu entries for the import filter menu.
-     */
-    private List<SelectItem> importSelectItems;
 
     /**
      * A list with the menu entries for the org units filter menu.
@@ -191,12 +177,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             else
             {
                 Filter f10 = filter.new ContextFilter(getSelectedContext());
-                filter.getFilterList().add(f10);
-            }
-            
-            if (!getSelectedImport().toLowerCase().equals("all"))
-            {
-                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
                 filter.getFilterList().add(f10);
             }
             
@@ -307,16 +287,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         else
         {
             setSelectedOrgUnit(orgUnit);
-        }
-        
-        String selectedItem = getExternalContext().getRequestParameterMap().get(parameterSelectedImport);
-        if (selectedItem==null)
-        {
-            setSelectedImport("all");
-        }
-        else
-        {
-            setSelectedImport(selectedItem);
         }
 
     }
@@ -440,7 +410,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         }
         
         // Init imports
-        importSelectItems = new ArrayList<SelectItem>();
+        List<SelectItem> importSelectItems = new ArrayList<SelectItem>();
         importSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
         
         try
@@ -465,6 +435,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             logger.error("Error getting imports from database", e);
             error("Error getting imports from database");
         }
+        
+        setImportSelectItems(importSelectItems);
         
         /*
         //Org unit menu
@@ -551,26 +523,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
     
     /**
-     * Called by JSF whenever the context filter menu is changed. Causes a redirect to the page with updated import GET parameter.
-     * @return
-     */
-    public String changeImport()
-    {
-            try
-            {
-               
-                getBasePaginatorListSessionBean().setCurrentPageNumber(1);
-                getBasePaginatorListSessionBean().redirect();
-            }
-            catch (Exception e)
-            {
-               error("Could not redirect");
-            }
-            return "";
-        
-    }
-    
-    /**
      * Called by JSF whenever the organizational unit filter menu is changed. Causes a redirect to the page with updated context GET parameter.
      * @return
      */
@@ -614,40 +566,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     public String getSelectedOrgUnit()
     {
         return selectedOrgUnit;
-    }
-
-    /**
-     * @return the selectedImport
-     */
-    public String getSelectedImport()
-    {
-        return selectedImport;
-    }
-
-    /**
-     * @param selectedImport the selectedImport to set
-     */
-    public void setSelectedImport(String selectedImport)
-    {
-        this.selectedImport = selectedImport;
-        getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedImport, selectedImport);
-    }
-
-    /**
-     * @return the importSelectItems
-     */
-    public List<SelectItem> getImportSelectItems()
-    {
-        return importSelectItems;
-    }
-
-    /**
-     * @param importSelectItems the importSelectItems to set
-     */
-    public void setImportSelectItems(List<SelectItem> importSelectItems)
-    {
-        this.importSelectItems = importSelectItems;
-    }
-    
+    }    
     
 }

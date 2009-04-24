@@ -113,6 +113,44 @@ public class HomePage extends BreadcrumbPage
         return url;
     }
     
+    /**
+     * Reads the policy URL from the properties file.
+     * @return policyUrl as String
+     */
+    public String getPolicyUrl()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.policy.url");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.policy.url' from properties file.", e);
+        }
+
+        return url;
+    }
+    
+    /**
+     * Reads the contact URL from the properties file.
+     * @return contactUrl as String
+     */
+    public String getContactUrl()
+    {
+        String url = "";
+        try
+        {
+            url = PropertyReader.getProperty("escidoc.pubman.contact.url");
+        }
+        catch (Exception e)
+        {
+            HomePage.logger.error("Could not read property: 'escidoc.pubman.contact.url' from properties file.", e);
+        }
+
+        return url;
+    }
+    
     public boolean isDepositor()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);

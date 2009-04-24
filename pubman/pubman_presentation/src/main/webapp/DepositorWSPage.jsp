@@ -130,6 +130,12 @@
 										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" "  action="#{MyItemsRetrieverRequestBean.changeItemState}"/>
+									
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags}: "/>
+									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyItemsRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
+										<f:selectItems value="#{MyItemsRetrieverRequestBean.importSelectItems}"/>
+									</h:selectOneMenu>
+									<h:commandButton styleClass="noDisplay changeImport" action="#{MyItemsRetrieverRequestBean.changeImport}" value="change import"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
