@@ -44,6 +44,7 @@ import java.util.Map;
  */
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test; 
 
@@ -57,42 +58,40 @@ import test.TestHelper;
 public class StructuredExportTest 
 {
 		private StructuredExportHandler export = new StructuredExport();
-	    private String endNoteTestOutput;
  
 	    private Logger logger = Logger.getLogger(StructuredExportTest.class);
 	    
-	    private HashMap<String, String> itemLists;
+	    private static HashMap<String, String> itemLists;
 	    
 	    public static final Map<String, String> ITEM_LISTS_FILE_MAMES =   
 	    	new HashMap<String, String>()   
 	    	{  
 				{  
-		    		put("ENDNOTE", "src/test/resources/escidoc_44161_1.xml");  
+		    		put("ENDNOTE", "src/test/resources/item_test_bibtex.xml");  
 		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
-		    		put("XML", null);  
-//		    		put("CSV", "src/test/resources/faces_item-list.xml");  
+		    		put("XML", "src/test/resources/item_test_bibtex.xml");  
+		    		put("CSV", "src/test/resources/faces_item-list.xml");  
 //		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
-	    
 
 	    /**
 	     * Get test item list from XML 
 	     * @throws Exception
 	     */
-	    @Before
-	    public final void getItemLists() throws Exception
+	    @BeforeClass
+	    public static final void getItemLists() throws Exception
 	    {
 	    	itemLists = new HashMap<String, String>();
 	    	
-	    	String itemList = TestHelper.getItemListFromFramework();
-    		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
-    		logger.info("item list from framework:\n" + itemList);
+//	    	String itemList = TestHelper.getItemListFromFramework();
+//    		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+//    		logger.info("item list from framework:\n" + itemList);
     		
 	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
 	    	{
-//	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
-//	    		assertNotNull("Item list xml is not found", itemList);
+	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
+	    		assertNotNull("Item list xml is not found", itemList);
 	    		itemLists.put(key, itemList);
 	    	}
 	    	
@@ -164,7 +163,7 @@ public class StructuredExportTest
 		    	logger.info("---------------------------------------------------");
 		    	assertFalse(f + " output is empty", result == null || result.length==0 );
 		    	logger.info(f + " export result:\n" + new String(result) );
-//		    	TestHelper.writeBinFile(result, f + "Win.txt");
+		    	TestHelper.writeBinFile(result, f + "_result.txt");
 	    	}
 	    	
 	    }
