@@ -46,6 +46,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
+import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 
@@ -68,36 +69,52 @@ import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 
 public class ProcessCitationStyleTest extends TestCase {
 
-    private Logger logger = Logger.getLogger(getClass());
-    
-    private final String DEFAULT_CITSTYLE = "APA";
-	
-    @Test
-    @Ignore
-    public final void testCitationStyleProcessing() throws Exception  {
-    	
-//    	long start;
+//    private Logger logger = Logger.getLogger(getClass());
+//
+//	private CitationStyleHandler pcs = new ProcessCitationStyles();    
+////    private final String DEFAULT_CITSTYLE = "APA";
+//	
+//    @Test
+//    @Ignore
+//    public final void testCitationStyleProcessing() throws Exception  {
+//    	
+//    	long start; 
 //    	long exec_time = 0;
 //    	int FAILED = 0;
-//    	String cs = System.getProperty("citation.style", DEFAULT_CITSTYLE);
+////    	String cs = System.getProperty("citation.style", DEFAULT_CITSTYLE);
+//    	
+//    	// for all citation styles
+//    	for (String cs : pcs.getStyles() )    	
+//    	{
+//    		
 //    	Properties tp = TestHelper.getTestProperties(cs); 
-//    	String ds = tp.getProperty("data.source");
+////    	String ds = tp.getProperty("data.source");
+//    	
+//    	//get item list from framework
 //    	boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
 //    	
+//    	String USER = tp.getProperty("data.source.user");
+//    	String PASSWORD = tp.getProperty("data.source.password");
+//    	String FILTER = tp.getProperty("data.source.filter");
+//    	
+//    	itemList = TestHelper.get
+//    	
+//    	//get items from framework
+//    	
 //    	//Sort test properties
-//    	Object[] keys = tp.keySet().toArray();
-//        Arrays.sort(keys);
-//        
-//        // Get number of tests
-//        String lastKey = (String)keys[keys.length-1];
-//        Pattern r = Pattern.compile("^test\\.(\\d+)\\..*");
-//        Matcher m = r.matcher(lastKey);
-//        if (!m.matches( )) 
-//            throw new IllegalArgumentException("Bad last key: " + lastKey);
-//        
-//        int testsNumber = Integer.valueOf(m.group(1));
-//        
-//        logger.info("Number of tests: " + testsNumber);
+////    	Object[] keys = tp.keySet().toArray();
+////        Arrays.sort(keys);
+////        
+////        // Get number of tests
+////        String lastKey = (String)keys[keys.length-1];
+////        Pattern r = Pattern.compile("^test\\.(\\d+)\\..*");
+////        Matcher m = r.matcher(lastKey);
+////        if (!m.matches( )) 
+////            throw new IllegalArgumentException("Bad last key: " + lastKey);
+////        
+////        int testsNumber = Integer.valueOf(m.group(1));
+////        
+////        logger.info("Number of tests: " + testsNumber);
 //
 //        //get DataSource
 //		Document document = JRXmlUtils.parse(ResourceUtil.DATASOURCES_DIRECTORY + ds + ".xml");
@@ -178,7 +195,9 @@ public class ProcessCitationStyleTest extends TestCase {
 //            	logger.info(testHeader + " is failed");
 //        	}
 //        	
-//        }
+//        	}
+//    	}
+//    	
 //    	logger.info("-----------------------------------------------");
 //    	logger.info("Complete execution time: " + exec_time);
 //        if (FAILED > 0 ) {
@@ -187,5 +206,5 @@ public class ProcessCitationStyleTest extends TestCase {
 //        } else {
 //        	logger.info(testsNumber + " of " + testsNumber + " tests are passed successfully!");
 //        }
-    }	
+//    }	
 }

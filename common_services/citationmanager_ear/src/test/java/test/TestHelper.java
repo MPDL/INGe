@@ -56,10 +56,12 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -72,11 +74,15 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestHelper
 {
 
+	private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "10"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
-	public static final String USER_NAME = "test_dep_scientist"; 
-	public static final String USER_PASSWD = "verdi"; 
+	public static final String USER_NAME = "citman_user"; 
+	public static final String USER_PASSWD = "citman_user";
+	public static final String CONTEXT_TITLE = "Citation Style Testing Context";
+    private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
 	
 	/**
      * Retrieve resource based on a path relative to the classpath.
@@ -200,28 +206,34 @@ public class TestHelper
     }
 
  
+   
     /**
      * Get itemList from the current Framework instance
      * @param fileName
      * @throws IOException 
      * @throws URISyntaxException 
      * @throws ServiceException 
-     */
-    public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException
+     */    
+    public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException
     {
-    	
-    	String userHandle = loginUser(USER_NAME, USER_PASSWD); 
-        ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
-        // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
-        String filter = 
-        	"<param>" +
-        		// escidoc content model
-        		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
-        		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
-        	"</param>";
-        return ch.retrieveItems(filter);
+    	return getItemListFromFrameworkBase(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN), 
+    		"<param>" +
+	    		"<filter name=\"/properties/content-model/id\">" + CONTENT_MODEL + "</filter>" +
+//	    		"<filter name=\"/properties/context/title\">" + CONTEXT_TITLE + "</filter>" +
+	    		"<limit>" + ITEMS_LIMIT + "</limit>" +
+	//    		"<filter name=\"/properties/public-status\">pending</filter>" +
+    		"</param>"
+    	);	
+    }
     
+    public static String getItemListFromFrameworkBase(String USER, String PASSWD, String filter) throws IOException, ServiceException, URISyntaxException
+    {
+    	logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
+    	String userHandle = loginUser(USER, PASSWD); 
+    	logger.info("Retrieve filter:" + filter);
+    	// see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
+    	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
+    	return ch.retrieveItems(filter);
     }
     
     

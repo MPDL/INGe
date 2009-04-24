@@ -29,54 +29,33 @@
 
 package test;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import org.junit.Ignore;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRXmlUtils;
-
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
-import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 public class CitationStyleHandlerTest {
 
-    private String itemList;
-	private CitationStyleHandler pcs;
+    private static String itemList;
+	private static CitationStyleHandler pcs;
 
 
-    private Logger logger = Logger.getLogger(getClass());
+    private static Logger logger = Logger.getLogger(test.CitationStyleHandlerTest.class);
 
     /**
      * Init  CitMan bean.
      * @throws Exception Any Exception.
      */
-    @Before
-    public final void getCitationStyleManager() throws Exception
+    @BeforeClass
+    public static final void getCitationStyleManager() throws Exception
     {
         InitialContext ctx = new InitialContext();
         pcs = (CitationStyleHandler) ctx.lookup(CitationStyleHandler.SERVICE_NAME);
@@ -86,15 +65,15 @@ public class CitationStyleHandlerTest {
      * Get test item list from XML 
      * @throws Exception
      */
-    @Before
-    public final void getItemList() throws Exception
+    @BeforeClass
+    public static final void getItemList() throws Exception
     {
 //    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml"; 
 //    	logger.info("Data Source:" + dsName);
 //    			
 //        itemList = ResourceUtil.getResourceAsString(dsName);
     	
-        itemList = TestHelper.getItemListFromFramework();
+        itemList = TestHelper.getTestItemListFromFramework();
 		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 		logger.info("item list from framework:\n" + itemList);
         
@@ -139,9 +118,9 @@ public class CitationStyleHandlerTest {
     		long start;
         	byte[] result;
     		for ( String format : pcs.getOutputFormats(cs) ) {
+//    		for ( String ouf : new String[]{"snippet","html"} ) {
         		logger.info("Test Citation Style: " + cs);
     			
-//    		for ( String ouf : new String[]{"snippet","html"} ) {
     	    	start = System.currentTimeMillis();
     	    	result = pcs.getOutput(cs, format, itemList);
     	    	
