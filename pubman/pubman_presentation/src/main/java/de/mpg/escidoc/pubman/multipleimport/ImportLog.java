@@ -105,9 +105,9 @@ public class ImportLog
     
     public enum SortColumn
     {
-        STARTDATE, ENDDATE, NAME, STATUS, ERRORLEVEL;
+        STARTDATE, ENDDATE, NAME, FORMAT, STATUS, ERRORLEVEL;
         
-        public String toString()
+        public String toSQL()
         {
             return super.toString().toLowerCase();
         }
@@ -117,10 +117,10 @@ public class ImportLog
     {
         ASCENDING, DESCENDING;
         
-        public String toString()
+        public String toSQL()
         {
             String value = super.toString();
-            return value.substring(0, value.indexOf("E")).toLowerCase();
+            return value.replace("ENDING", "").toLowerCase();
         }
     }
     
@@ -909,7 +909,7 @@ public class ImportLog
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        String query = "select id from escidoc_import_log where action = ? and userid = ? order by " + sortBy + " " + dir;
+        String query = "select id from escidoc_import_log where action = ? and userid = ? order by lower(" + sortBy + ") " + dir.toSQL();
         try
         {
             statement = connection.prepareStatement(query);

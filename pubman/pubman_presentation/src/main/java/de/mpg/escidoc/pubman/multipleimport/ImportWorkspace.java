@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.multipleimport;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortColumn;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.SortDirection;
@@ -48,15 +50,60 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
  */
 public class ImportWorkspace extends FacesBean
 {
+    
+    private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
+    private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
+    
     List<ImportLog> imports = null;
     public ImportWorkspace()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         AccountUserVO user = loginHelper.getAccountUser();
         
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        
+        ImportLog.SortColumn currentColumn = null;
+        ImportLog.SortDirection currentDirection = null;
+        ImportLog.SortColumn newColumn = null;
+        
+        String sortColumnString = facesContext.getExternalContext().getRequestParameterMap().get("sortColumn");
+        if (sortColumnString != null && !"".equals(sortColumnString))
+        {
+            newColumn = SortColumn.valueOf(sortColumnString);
+        }
+        
+        String currentColumnString = facesContext.getExternalContext().getRequestParameterMap().get("currentColumn");
+        if (currentColumnString != null && !"".equals(currentColumnString))
+        {
+             currentColumn = SortColumn.valueOf(currentColumnString);
+        }
+        
+        String currentDirectionString = facesContext.getExternalContext().getRequestParameterMap().get("currentDirection");
+        if (currentDirectionString != null && !"".equals(currentDirectionString))
+        {
+            currentDirection = SortDirection.valueOf(currentDirectionString);
+        }
+        
+        if (newColumn == this.sortColumn)
+        {
+            if (this.sortDirection == SortDirection.ASCENDING)
+            {
+                this.sortDirection = SortDirection.DESCENDING;
+            }
+            else
+            {
+                this.sortDirection = SortDirection.ASCENDING;
+            }
+        }
+        else
+        {
+            this.sortColumn = newColumn;
+            this.sortDirection = SortDirection.ASCENDING;
+        }
+        
         if (user != null)
         {
-            imports = ImportLog.getImportLogs("import", user, SortColumn.STATUS, SortDirection.ASCENDING, false, false);
+            imports = ImportLog.getImportLogs("import", user, sortColumn, sortDirection, false, false);
         }
     }
 
@@ -76,4 +123,36 @@ public class ImportWorkspace extends FacesBean
         this.imports = imports;
     }
 
+    /**
+     * @return the sortColumn
+     */
+    public ImportLog.SortColumn getSortColumn()
+    {
+        return sortColumn;
+    }
+
+    /**
+     * @param sortColumn the sortColumn to set
+     */
+    public void setSortColumn(ImportLog.SortColumn sortColumn)
+    {
+        this.sortColumn = sortColumn;
+    }
+
+    /**
+     * @return the sortDirection
+     */
+    public ImportLog.SortDirection getSortDirection()
+    {
+        return sortDirection;
+    }
+
+    /**
+     * @param sortDirection the sortDirection to set
+     */
+    public void setSortDirection(ImportLog.SortDirection sortDirection)
+    {
+        this.sortDirection = sortDirection;
+    }
+    
 }

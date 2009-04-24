@@ -114,11 +114,6 @@
 									</div>
 				              	</div>
 								<div class="full_area0">
-									
-
-
-
-
 
 									<table class="full_area0 itemList listBackground loggedIn" rules="none" style="border-collapse: collapse;">
 									  <thead class="listHeader" style="text-align: left; vertical-align:top;">
@@ -128,23 +123,33 @@
 									      	</th>
 									      	<th class="free_area0 endline status statusArea">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputText styleClass="free_area0_p8" value="#{lbl.import_workspace_status}"/>	
+									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+													<h:outputText styleClass="free_area0_p8" value="#{lbl.import_workspace_status}"/>
+												</h:outputLink>
 											</th>
 									      	<th class="large_area0">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_name}"/>	
+									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_name}"/>
+												</h:outputLink>	
 									      	</th>
 									      <th class="large_area0">
 									     		<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_format}"/>	
+									     		<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_format}"/>
+												</h:outputLink>	
 									      </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_startdate}"/>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_startdate}"/>
+												</h:outputLink>
 										  </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_enddate}"/>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_enddate}"/>
+												</h:outputLink>	
 										  </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
