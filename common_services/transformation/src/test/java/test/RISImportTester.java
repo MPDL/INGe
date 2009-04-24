@@ -25,7 +25,7 @@ public class RISImportTester {
 		
     	Transformation transformation = new TransformationBean();
     	Format inputFormat = new Format("RIS", "text/plain", "UTF-8");
-    	Format outputFormat = new Format("eSciDoc", "application/xml", "UTF-8");
+    	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
     	
     	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/ris-testdatensaetze.txt");
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();

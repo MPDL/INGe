@@ -49,7 +49,7 @@ public class RISImport{
     public String transformRIS2XML(String file){
     	String result = "";
     	
-    	String[] itemList = getItemListFromString(file, "ER\\s -");    	// extract items to array
+    	String[] itemList = getItemListFromString(file, "(\\n|\\r|\\r\\n)ER\\s -");    	// extract items to array
     	List<List<Pair>> items = new ArrayList();
     	if(itemList!=null && itemList.length>1){ //transform items to XML
     		

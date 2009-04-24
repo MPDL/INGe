@@ -88,7 +88,7 @@ public class TransformationTest
         ItemHandler ih = ServiceLocator.getItemHandler();
         String itemXml = ih.retrieve("escidoc:139621");
         
-        Format escidocFormat = new Format("escidoc", "application/xml", "UTF-8");
+        Format escidocFormat = new Format("escidoc-virr-item", "application/xml", "UTF-8");
         Format metsFormat = new Format("virr-mets", "application/xml", "UTF-8");
         
         byte[] result = trans.transform(itemXml.getBytes(), escidocFormat, metsFormat, "escidoc");
