@@ -29,10 +29,6 @@
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 
-	<jsp:output doctype-root-element="html"
-       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
-
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label"/>
@@ -48,13 +44,14 @@
 		      	<td class="free_area0 endline status">
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 		      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-						<h:panelGroup styleClass="big_imgArea statusIcon import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
+						<h:panelGroup styleClass="big_imgArea statusIcon #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
 						<h:outputLabel styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
 							<h:panelGroup rendered="#{!ImportData.import.finished}">
 								<h:outputText value="#{ImportData.import.percentage}"/>% - 
 							</h:panelGroup>
 							<h:outputText value="#{ImportData.import.status}"/>	
 						</h:outputLabel>
+						<h:inputHidden value="#{ImportData.import.logLink}" />
 					</h:panelGroup>
 		      	</td>
 		      	<td class="free_area0 endline">
@@ -83,7 +80,7 @@
 		      	</td>
 		      	<td class="free_area0 endline">
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-		      		<span class="large_area0_p8">
+		      		<span class="large_area0_p8 detailsLinkArea">
 						<h:inputHidden value="#{ImportData.import.itemsLink}" />
 						<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
  							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>

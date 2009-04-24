@@ -163,13 +163,14 @@
 										      	<td class="free_area0 endline status">
 										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 										      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-														<h:panelGroup styleClass="big_imgArea statusIcon import#{import.status}#{import.errorLevel}" />
+														<h:panelGroup styleClass="big_imgArea statusIcon #{import.status} import#{import.status}#{import.errorLevel}" />
 														<h:outputLabel styleClass="medium_label endline" title="#{import.errorLevel}">
 															<h:panelGroup rendered="#{!import.finished}">
 																<h:outputText value="#{import.percentage}"/>% - 
 															</h:panelGroup>
 															<h:outputText value="#{import.status}"/>	
 														</h:outputLabel>
+														<h:inputHidden value="#{import.logLink}" />
 													</h:panelGroup>
 										      	</td>
 										      	<td class="free_area0 endline">
@@ -198,7 +199,7 @@
 										      	</td>
 										      	<td class="free_area0 endline">
 										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8">
+										      		<span class="large_area0_p8 detailsLinkArea">
 														<h:inputHidden value="#{import.itemsLink}" />
 														<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 								 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
@@ -240,6 +241,29 @@
 					</div>
 				<jsp:directive.include file="footer/Footer.jspf" />
 				</tr:form>
+				<script type="text/javascript">
+				function reloadImports() {
+					$('.listItem').find('.statusArea').find('span:not(.FINISHED)').siblings('input').each(
+						function(i,ele) {
+							$.get($(ele).val(), function(data){
+								$(ele).parents('tr').replaceWith($(data));
+							});
+						}
+					);
+				}
+				function reloadDetails() {
+					$('.importDetails:has(.state[text!=FINISHED])').each(
+						function(i,ele) {
+							$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
+								alert($(ele).html());
+								$(ele).children('td').empty().append($(data));
+							});
+						}
+					);
+				}
+				window.setInterval("reloadImports()", 10000);
+				window.setInterval("reloadDetails()", 10000);
+				</script>
 			</body>
 		</html>
 	</f:view>

@@ -35,10 +35,6 @@
  -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 
-	<jsp:output doctype-root-element="html"
-       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
-
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label"/>
@@ -49,7 +45,7 @@
 		<body>
 			<tr:iterator var="item" value="#{ImportItems.import.items}" first="#{ImportItems.page * ImportItems.itemsPerPage}" rows="#{ImportItems.itemsPerPage}">
 				<div class="full_area0" style="margin-bottom: 0.19em;">
-					<div class="medium_area0_p8 noPaddingTopBottom" style="margin-left: 2.28em;">					
+					<div class="medium_area0_p8 state noPaddingTopBottom" style="margin-left: 2.28em;">					
 						<h:outputText value="#{item.status}"/>
 					</div>
 					<div class="huge_area0_p8 noPaddingTopBottom" style="margin-left: 0.36em; margin-right: 0.19em">
