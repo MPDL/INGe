@@ -113,7 +113,7 @@
 		</FT-fetch-settings>
 	</Import-Source>
 	
-	<Import-Source name="SPIRES">
+	<Import-Source name="Spires">
 		<dc:description>The Stanford Physics Information Retrieval System (SPIRES) is a High-Energy Physics Literature Database.</dc:description>
 		<dc:identifier xsi:type="dcterms:URI">http://www-spires.fnal.gov/spires/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>

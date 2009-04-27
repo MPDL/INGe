@@ -295,14 +295,33 @@ public class Util
                 identifier = identifier.substring(6);
                 return identifier.trim();
             }
+            if (identifier.toLowerCase().startsWith("pmc:", 0))
+            {
+                identifier = identifier.substring(4);
+                return identifier.trim();
+            }
             if (identifier.toLowerCase().startsWith("pmc", 0))
             {
                 identifier = identifier.substring(3);
                 return identifier.trim();
             }
-            if (identifier.toLowerCase().startsWith("pmc:", 0))
+        }
+        // Trim identifier for BioMedCentral
+        if (sourceName.trim().toLowerCase().equals("biomedcentral"))
+        {
+            if (identifier.toLowerCase().startsWith("bmcid:", 0))
+            {
+                identifier = identifier.substring(6);
+                return identifier.trim();
+            }
+            if (identifier.toLowerCase().startsWith("bmc:", 0))
             {
                 identifier = identifier.substring(4);
+                return identifier.trim();
+            }
+            if (identifier.toLowerCase().startsWith("bmc", 0))
+            {
+                identifier = identifier.substring(3);
                 return identifier.trim();
             }
         }
