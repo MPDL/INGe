@@ -434,7 +434,7 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-                <escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+                <escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
                 <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
                 <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
                 
@@ -506,7 +506,7 @@
 				<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 				
 				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
-				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 			</properties>
 
 			<distributionManagement>
