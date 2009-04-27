@@ -259,6 +259,8 @@ public final class ValidationSchemaCache
 
             LOGGER.debug("Getting transformer (" + triple + ") from database");
 
+            LOGGER.info(xsl);
+            
             try
             {
                 Transformer t = factory.newTransformer(new StreamSource(new StringReader(xsl)));
@@ -637,7 +639,8 @@ public final class ValidationSchemaCache
             parser.parse(inputSource, contentHandler);
             return contentHandler.getResult();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
     }

@@ -148,12 +148,16 @@
 
 	<!-- Mime-Types -->
 	<iso:let name="mimeTypes">
-		<?cone escidocmimetypes?>
+		<var>
+			<?cone escidocmimetypes?>
+		</var>
 	</iso:let>
 
 	<!-- DDC -->
 	<iso:let name="ddcSubjects">
-		<?cone ddc?>
+		<var>
+			<?cone ddc?>
+		</var>
 	</iso:let>
 
 	<!-- Validation rules -->
@@ -338,14 +342,14 @@
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="component_mimeType" id="component_mimeType">
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(exists($mimeTypes/rdf:RDF) or not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/rdf:RDF/rdf:Description/dc:title">MimeTypeNotValid</iso:assert>
+			<iso:assert test="not(exists($mimeTypes/var/rdf:RDF)) or not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/var/rdf:RDF/rdf:Description/dc:title">MimeTypeNotValid</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="ddc_keywords" id="ddc_keywords">
 		<iso:rule context="escidocMetadataProfile:publication/dc:subject">
-			<iso:assert test="not(exists($ddcSubjects/rdf:RDF) or . = $ddcSubjects/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
+			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 

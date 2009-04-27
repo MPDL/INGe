@@ -126,6 +126,7 @@ public class ValidationCacheTest
      * but not if these are newly retrieved.
      * @throws Exception Any exception.
      */
+    @Ignore
     @Test
     public final void testCreateCache() throws Exception
     {

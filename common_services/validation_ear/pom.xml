@@ -76,7 +76,12 @@
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>validation_presentation</artifactId>
+							<contextRoot>/validation</contextRoot>
 						</webModule>
+						<!-- <webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>cone_presentation</artifactId>
+						</webModule> -->
 					</modules>
 				</configuration>
 			</plugin>
@@ -342,5 +347,12 @@
 			<version>20040801</version>
 			<scope>compile</scope>
 		</dependency>
+		<!-- <dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>cone_presentation</artifactId>
+			<version>1.0.18-SNAPSHOT</version>
+			<type>war</type>
+			<scope>compile</scope>
+		</dependency> -->
 	</dependencies>
 </project>

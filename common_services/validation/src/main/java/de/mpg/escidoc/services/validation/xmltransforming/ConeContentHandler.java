@@ -75,17 +75,25 @@ public class ConeContentHandler extends IdentityHandler
                 HttpClient client = new HttpClient();
                 GetMethod method = new GetMethod(url);
                 client.executeMethod(method);
-                InputStream inputStream = method.getResponseBodyAsStream();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                int read;
-                byte[] buffer = new byte[2048];
-                while ((read = inputStream.read(buffer)) != -1)
+                if (method.getStatusCode() == 200)
                 {
-                    baos.write(buffer, 0, read);
+                    InputStream inputStream = method.getResponseBodyAsStream();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    int read;
+                    byte[] buffer = new byte[2048];
+                    while ((read = inputStream.read(buffer)) != -1)
+                    {
+                        baos.write(buffer, 0, read);
+                    }
+                    String response = new String(baos.toByteArray());
+                    response = response.replaceAll("<\\?xml[^>]+\\?>", "");
+                    super.append(response);
                 }
-                String response = new String(baos.toByteArray());
-                response = response.replaceAll("<\\?xml[^>]+\\?>", "");
-                super.append(response);
+                else
+                {
+                    logger.warn("CoNE service returned status code " + method.getStatusCode());
+                    logger.warn("CoNE data not included");
+                }
             }
             catch (Exception e)
             {

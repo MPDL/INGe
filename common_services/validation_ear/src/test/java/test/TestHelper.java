@@ -133,9 +133,7 @@ public class TestHelper
         try
         {
             HttpClient client = new HttpClient();
-            String url = getTestProperty("webservice.url")
-                + getTestProperty("webservice.rest.path")
-                + "/validateItemXml";
+            String url = "http://localhost:8080/validation/rest/validateItemXml";
             if (params != null)
             {
                 for (int i = 0; i < params.length; i++)
