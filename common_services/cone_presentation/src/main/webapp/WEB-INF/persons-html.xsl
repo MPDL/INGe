@@ -79,13 +79,14 @@
 						var requestString = '<xsl:value-of select="$citation-link"/>';
 						requestString = requestString.replace(/&amp;/g, amp);
 						
+						$('.publicationsArea').append('<div class="big_imgArea huge_marginLExcl smallThrobber"></div>');
+						
 						$.get(requestString, function(itemList){
 							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList);
 							
 							var element = '';
 							var itemURL = '';
 							var publicationTitle = '';
-							
 							
 							for(var i=0; getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList).length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
@@ -98,6 +99,8 @@
 
 									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
 									
+									if($('.publicationsArea').find('.smallThrobber').length != 0) {$('.publicationsArea').find('.smallThrobber').remove();}
+									
 									$('.publicationsArea').append('<b class="xLarge_area0 endline labelLine">&#160;<span class="noDisplay">: </span></b>');
 									$('.publicationsArea').append(element);
 
@@ -106,7 +109,7 @@
 									});
 								}
 							}
-							
+							$('.publicationsArea').find('.smallThrobber').remove();							
 						});
 					});
 					
