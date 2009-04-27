@@ -84,6 +84,8 @@
 		background-image: url('../images/throbber_31x31.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
+		margin-top: 1.37em;
+		margin-bottom: 1.37em;
 	}
 	
 	.bigThrobber {
@@ -91,6 +93,8 @@
 		background-image: url('../images/throbber_63x63.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
+		margin-top: 2.83em;
+		margin-bottom: 2.83em;
 	}
 
 	/*SEARCH MENU*/
