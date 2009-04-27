@@ -77,13 +77,15 @@
 */
 /*GENERAL*/
 	body {
-		background-color: #EEDEEF;
+		background-color: #FFFFFF;
 		color: #445140;
 		line-height: 160%;
 	}
 	
 	body .wrapper, body .footer {
 		background-color: #F3EDF4;
+		border-right: 1px dotted #8D3996;
+		border-left: 1px dotted #8D3996;
 	}
 	
 	input, button, textarea, select {

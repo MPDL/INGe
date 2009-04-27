@@ -33,8 +33,6 @@
 /*
 ALL COLORS USED
 
-FRAME BG		#D0E5EC
-
 BACKGROUND		#EAF4F7
 
 LINK COLOR		#147DA2
@@ -112,13 +110,15 @@ FORM BG			#FFFFFF
 */
 /*GENERAL*/
 	body {
-		background-color: #D0E5EC;
+		background-color: #FFFFFF;
 		color: #524240;
 		line-height: 160%;
 	}
 	
 	body .wrapper, body .footer {
 		background-color: #EAF4F7;
+		border-right: 1px dotted #147DA2;
+		border-left: 1px dotted #147DA2;
 	}
 	
 	input, button, textarea, select {
