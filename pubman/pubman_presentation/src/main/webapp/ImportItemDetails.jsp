@@ -35,7 +35,7 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
 			
-		<div class="xHuge_area2_p8 messageArea">
+		<div class="xHuge_area2_p8 messageArea" style="height: 28.37em; overflow-y: auto;">
 
 			<input type="button" onclick="$.closeDialog()" value=" " class="min_imgBtn fixMessageBlockBtn" />
 
