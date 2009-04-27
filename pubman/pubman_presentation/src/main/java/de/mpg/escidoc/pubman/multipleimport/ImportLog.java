@@ -1415,6 +1415,14 @@ public class ImportLog
     public void setLogLink(String link)
     {}
     
+    /**
+     * @param connection the connection to set
+     */
+    public void setConnection(Connection connection)
+    {
+        this.connection = connection;
+    }
+
     private Workflow getWorkflow()
     {
         if (this.workflow == null)

@@ -477,7 +477,7 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
 				<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 				<!-- Change transformation service properties as well when changing  'escidoc.pubman.external.organisation.id'-->
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
@@ -503,6 +503,8 @@
 				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 				
 				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
+				
+				<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 				
 				<!-- unAPI -->
 				<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
@@ -597,7 +599,7 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.model.pattern>:content-model +(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 				<escidoc.context.pattern>:context +(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.JSESSIONID=B564A0F0A746D66C6177654A186F45A9; escidocCookie=ESCIDOC-1240825207057</escidoc.validation.source.classname>
 				<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 
@@ -623,7 +625,9 @@
 				<escidoc.import.database.connection.url>jdbc:hsqldb:$3</escidoc.import.database.connection.url>
 				
 				<escidoc.import.task.content-model>escidoc:importtask1</escidoc.import.task.content-model>
-								
+				
+				<escidoc.import.surveyor.interval>15</escidoc.import.surveyor.interval>
+				
 				<!-- Sitemaps -->
 				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
 				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>

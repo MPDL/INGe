@@ -44,7 +44,8 @@ public class InitializerServlet extends HttpServlet
     
     private static final Logger logger = Logger.getLogger(InitializerServlet.class);
 
-    SiteMapTask siteMapTask;
+    private SiteMapTask siteMapTask;
+    private ImportSurveyor importSurveyor;
     
     /**
      * {@inheritDoc}
@@ -71,6 +72,18 @@ public class InitializerServlet extends HttpServlet
         try
         {
             new ImportDatabaseInitializer();
+            
+        }
+        catch (Exception e)
+        {
+            logger.error("Problem with initializing import database", e);
+        }
+        
+        //initialize import database
+        try
+        {
+            importSurveyor = new ImportSurveyor();
+            importSurveyor.start();
             
         }
         catch (Exception e)
