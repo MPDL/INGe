@@ -41,6 +41,7 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -196,7 +197,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
     }
 
     private ContainerVO createAndReleaseContainer(String userHandle, String containerTitle)
-        throws TechnicalException, ServiceException, RemoteException, URISyntaxException
+        throws TechnicalException, ServiceException, URISyntaxException, IOException
     {
         ContainerVO containerVO = getFacesAlbumContainer();
         containerVO.getMetadataSets().get(0).setTitle(new TextVO(containerTitle));

@@ -142,7 +142,7 @@ public class TestBase
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
-    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:2002";
+    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:2024";
     protected static final String FACES_CONTENT_MODEL_ID = "escidoc:faces50";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
@@ -185,6 +185,12 @@ public class TestBase
      * The default admin password property.
      */
     protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+    
+    /**
+     * The default faces test container property.
+     */
+    protected static final String PROPERTY_FACES_CONTEXTID = "escidoc.faces.contextid";
+    
     private static Map<String, Schema> schemas = null;
     /**
      * Logger for this class.
@@ -545,8 +551,10 @@ public class TestBase
      * Creates a well-defined, simple Faces container without members.
      * 
      * @return The container
+     * @throws URISyntaxException 
+     * @throws IOException 
      */
-    protected ContainerVO getFacesAlbumContainer()
+    protected ContainerVO getFacesAlbumContainer() throws IOException, URISyntaxException
     {
         ContainerVO container = new ContainerVO();
         // Metadata

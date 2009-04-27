@@ -60,19 +60,19 @@
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
 
 	<xs:import namespace="http://escidoc.de/core/01/properties/"
-		schemaLocation="../../../soap/common/0.4/properties.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/properties.xsd" />
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="../../../soap/common/0.4/structural-relations.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/structural-relations.xsd" />
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../soap/common/0.3/xlink.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xlink.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
-		schemaLocation="../../../soap/common/0.4/md-records.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/md-records.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/common-types.xsd" />
 
 	<xs:element name="components">
 		<xs:annotation>
@@ -126,6 +126,15 @@
 				</xs:element>
 			</xs:sequence>
 
+
+			<xs:attribute ref="xml:base" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 			<xs:attributeGroup
 				ref="common-types:eSciDocResourceIdentityAttributes">
 			</xs:attributeGroup>
@@ -235,6 +244,15 @@
 				</xs:annotation>
 			</xs:attribute>
 
+			<xs:attribute ref="xml:base" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>discarded</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+								
 			<xs:attributeGroup
 				ref="common-types:eSciDocRootElementAttributes">
 			</xs:attributeGroup>
@@ -274,6 +292,7 @@
 						<xs:documentation>
 							<create>discarded</create>
 							<update>discardred</update>
+							<comment>Description can be set by dc:description in md-record "escidoc".</comment>
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
@@ -319,6 +338,7 @@
 						<xs:documentation>
 							<create>discarded</create>
 							<update>discarded</update>
+							<comment>File name can be set by dc:title in md-record "escidoc".</comment>
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
