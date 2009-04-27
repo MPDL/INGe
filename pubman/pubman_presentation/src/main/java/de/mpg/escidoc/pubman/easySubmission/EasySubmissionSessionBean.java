@@ -95,6 +95,7 @@ public class EasySubmissionSessionBean extends FacesBean
     //For import service
     private String currentExternalServiceType = "";
     private String currentFTLabel = "";
+    private boolean fulltext = true;
 
     private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
     private HtmlSelectOneRadio radioSelectReference = new HtmlSelectOneRadio();
@@ -319,6 +320,16 @@ public class EasySubmissionSessionBean extends FacesBean
     public void setREFERENCE_OPTIONS(SelectItem[] reference_options)
     {
         this.REFERENCE_OPTIONS = reference_options;
+    }
+    
+    public boolean isFulltext()
+    {
+        return fulltext;
+    }
+
+    public void setFulltext(boolean fulltext)
+    {
+        this.fulltext = fulltext;
     }
 
 	/**

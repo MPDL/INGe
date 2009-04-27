@@ -125,10 +125,10 @@
 						</span>
 					</span>
 					<b class="xLarge_area0 endline labelLine">
-						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmission.fulltext}" /><span class="noDisplay">: </span>
+						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmission.fulltext}">										
+						<h:selectOneRadio styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
 							<f:selectItems value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
 						</h:selectOneRadio>
 					</span>
