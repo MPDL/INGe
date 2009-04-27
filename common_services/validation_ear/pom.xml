@@ -87,6 +87,13 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
@@ -94,8 +101,8 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>${jdk.version}</source>
-							<target>${jdk.version}</target>
+							<source>1.5</source>
+							<target>1.5</target>
 						</configuration>
 					</execution>
 				</executions>
@@ -114,10 +121,8 @@
 						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
 			</plugin>
+			<!-- enables the process test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
