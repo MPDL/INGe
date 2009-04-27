@@ -373,7 +373,7 @@
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
 	<iso:pattern name="ddc_keywords" id="ddc_keywords">
 		<iso:rule context="escidocMetadataProfile:publication/dc:subject">
-			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
+			<iso:assert test="not(exists($ddcSubjects/var/rdf:RDF)) or . = '' or . = $ddcSubjects/var/rdf:RDF/rdf:Description/dc:title">NoDDCKeyword</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
