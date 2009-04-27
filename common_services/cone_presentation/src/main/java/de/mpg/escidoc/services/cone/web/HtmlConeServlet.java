@@ -162,8 +162,10 @@ public class HtmlConeServlet extends ConeServlet
                 logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
                 xsltFile = ResourceUtil.getResourceAsFile("WEB-INF/generic-html.xsl");
             }
-            Transformer transformer = TransformerFactory
-                    .newInstance()
+            
+            TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+            
+            Transformer transformer = factory
                     .newTransformer(
                             new StreamSource(xsltFile));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
