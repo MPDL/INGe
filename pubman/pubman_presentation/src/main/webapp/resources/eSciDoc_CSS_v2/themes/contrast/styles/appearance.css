@@ -97,6 +97,11 @@
 		text-decoration: none;
 	}
 	
+	a.OraLinkDisabled {
+		color: #343434;
+		cursor: default;
+	}
+	
 	a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
 		color: #1B1B1B;
 		text-decoration: none;

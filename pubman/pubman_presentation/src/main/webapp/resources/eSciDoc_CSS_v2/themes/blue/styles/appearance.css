@@ -130,6 +130,11 @@ FORM BG			#FFFFFF
 		text-decoration: none;
 	}
 	
+	a.OraLinkDisabled {
+		color: #524240;
+		cursor: default;
+	}
+	
 	a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
 		color: #382926;
 		text-decoration: none;
