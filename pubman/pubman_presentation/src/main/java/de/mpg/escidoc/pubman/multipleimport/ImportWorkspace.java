@@ -84,9 +84,10 @@ public class ImportWorkspace extends FacesBean
             currentDirection = SortDirection.valueOf(currentDirectionString);
         }
         
-        if (newColumn == this.sortColumn)
+        if (newColumn != null && newColumn.equals(currentColumn))
         {
-            if (this.sortDirection == SortDirection.ASCENDING)
+            this.sortColumn = newColumn;
+            if (currentDirection == SortDirection.ASCENDING)
             {
                 this.sortDirection = SortDirection.DESCENDING;
             }
@@ -103,7 +104,7 @@ public class ImportWorkspace extends FacesBean
         
         if (user != null)
         {
-            imports = ImportLog.getImportLogs("import", user, sortColumn, sortDirection, false, false);
+            imports = ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, false, false);
         }
     }
 

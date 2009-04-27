@@ -1403,6 +1403,18 @@ public class ImportLog
         return "ImportItems.jsp?id=" + getStoredId();
     }
     
+    /**
+     * Dummy setter to avoid JSF warnings.
+     */
+    public void setItemsLink(String link)
+    {}
+    
+    /**
+     * Dummy setter to avoid JSF warnings.
+     */
+    public void setLogLink(String link)
+    {}
+    
     private Workflow getWorkflow()
     {
         if (this.workflow == null)

@@ -163,86 +163,88 @@
 									  </thead>
 									  <tbody style="text-align: left; vertical-align:top;">
 										<tr:iterator var="import" rows="0" value="#{ImportWorkspace.imports}">
-										    <tr class="full_area0 listItem">
-										      	<td class="free_area0 endline">
-										      		<span class="tiny_area0">
-														&#160;
-										      		</span>
-										      	</td>
-										      	<td class="free_area0 endline status">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-														<h:panelGroup styleClass="big_imgArea statusIcon #{import.status} import#{import.status}#{import.errorLevel}" />
-														<h:outputLabel styleClass="medium_label endline" title="#{import.errorLevel}">
-															<h:panelGroup rendered="#{!import.finished}">
-																<h:outputText value="#{import.percentage}"/>% - 
+											<h:panelGroup>
+											    <tr class="full_area0 listItem">
+											      	<td class="free_area0 endline">
+											      		<span class="tiny_area0">
+															&#160;
+											      		</span>
+											      	</td>
+											      	<td class="free_area0 endline status">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
+															<h:panelGroup styleClass="big_imgArea statusIcon #{import.status} import#{import.status}#{import.errorLevel}" />
+															<h:outputLabel styleClass="medium_label endline" title="#{import.errorLevel}">
+																<h:panelGroup rendered="#{!import.finished}">
+																	<h:outputText value="#{import.percentage}"/>% - 
+																</h:panelGroup>
+																<h:outputText value="#{import.status}"/>	
+															</h:outputLabel>
+															<h:inputHidden value="#{import.logLink}" />
+														</h:panelGroup>
+											      	</td>
+											      	<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0_p8">
+											      			<h:outputLink value="#{import.myItemsLink}">
+																<h:outputText value="#{import.message}"/>
+															</h:outputLink>
+											      		</span>
+											      	</td>
+											      	<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0_p8">
+											      			<h:outputText value="#{import.format}"/>&#160;
+											      		</span>
+											      	</td>
+											      	<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0_p8">
+												      		<h:outputText value="#{import.startDateFormatted}"/>&#160;
+												      	</span>
+												    </td>
+											      	<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0_p8">
+											      			<h:outputText value="#{import.endDateFormatted}"/>&#160;
+											      		</span>
+											      	</td>
+											      	<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0_p8 detailsLinkArea">
+															<h:inputHidden value="#{import.itemsLink}" />
+															<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
+									 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
+										 					</a>
+											      		</span>
+											      	</td>
+													<td class="free_area0 endline">
+											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
+											      		<span class="large_area0 endline">
+															<h:panelGroup rendered="false" styleClass="large_area0_p8 noPaddingTopBottom endline">
+																<h:outputText value="#{import.errorLevel}"/>
 															</h:panelGroup>
-															<h:outputText value="#{import.status}"/>	
-														</h:outputLabel>
-														<h:inputHidden value="#{import.logLink}" />
-													</h:panelGroup>
-										      	</td>
-										      	<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8">
-										      			<h:outputLink value="#{import.myItemsLink}">
-															<h:outputText value="#{import.message}"/>
-														</h:outputLink>
-										      		</span>
-										      	</td>
-										      	<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8">
-										      			<h:outputText value="#{import.format}"/>&#160;
-										      		</span>
-										      	</td>
-										      	<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8">
-											      		<h:outputText value="#{import.startDateFormatted}"/>&#160;
-											      	</span>
-											    </td>
-										      	<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8">
-										      			<h:outputText value="#{import.endDateFormatted}"/>&#160;
-										      		</span>
-										      	</td>
-										      	<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0_p8 detailsLinkArea">
-														<h:inputHidden value="#{import.itemsLink}" />
-														<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
-								 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
-									 					</a>
-										      		</span>
-										      	</td>
-												<td class="free_area0 endline">
-										      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-										      		<span class="large_area0 endline">
-														<h:panelGroup rendered="false" styleClass="large_area0_p8 noPaddingTopBottom endline">
-															<h:outputText value="#{import.errorLevel}"/>
-														</h:panelGroup>
-										      			<h:panelGroup rendered="#{import.finished}">
-															<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
-																<h:outputText value="#{lbl.import_workspace_remove_import}"/>
-															</tr:commandLink>
-
-															<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}">
-																<h:outputText value="#{lbl.import_workspace_delete_items}"/>
-															</tr:commandLink>
-
-															<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{!import.simpleWorkflow}">
-																<h:outputText value="#{lbl.import_workspace_submit_items}"/>
-															</tr:commandLink>
-
-															<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}">
-																<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
-															</tr:commandLink>
-														</h:panelGroup>
-										      		</span>
-										      	</td>
-										    </tr>
+											      			<h:panelGroup rendered="#{import.finished}">
+																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
+																	<h:outputText value="#{lbl.import_workspace_remove_import}"/>
+																</tr:commandLink>
+	
+																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}">
+																	<h:outputText value="#{lbl.import_workspace_delete_items}"/>
+																</tr:commandLink>
+	
+																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{!import.simpleWorkflow}">
+																	<h:outputText value="#{lbl.import_workspace_submit_items}"/>
+																</tr:commandLink>
+	
+																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}">
+																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
+																</tr:commandLink>
+															</h:panelGroup>
+											      		</span>
+											      	</td>
+											    </tr>
+											</h:panelGroup>
 										</tr:iterator>
 									  </tbody>
 									</table>
