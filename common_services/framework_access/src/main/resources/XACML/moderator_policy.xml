@@ -36,7 +36,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
@@ -92,7 +92,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
@@ -148,7 +148,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
@@ -196,7 +196,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
@@ -292,7 +292,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
@@ -366,7 +366,7 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
