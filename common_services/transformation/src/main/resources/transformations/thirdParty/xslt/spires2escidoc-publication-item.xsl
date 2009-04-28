@@ -258,8 +258,12 @@
 		</xsl:variable>
 		<xsl:variable name="date">
 			<xsl:value-of select="normalize-space($year)"/>
-			<xsl:value-of select="concat('-',$month)"/>
-			<xsl:value-of select="concat('-',$day)"/>
+			<xsl:if test="not($month='00')">
+				<xsl:value-of select="concat('-',$month)"/>
+			</xsl:if>
+			<xsl:if test="not($month='00')">
+				<xsl:value-of select="concat('-',$day)"/>
+			</xsl:if>
 		</xsl:variable>
 		<xsl:value-of select="$date"/>
 	</xsl:template>
