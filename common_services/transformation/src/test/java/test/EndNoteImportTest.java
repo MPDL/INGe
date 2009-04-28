@@ -27,7 +27,7 @@ public class EndNoteImportTest
 		// TODO Auto-generated method stub
 		
     	Format inputFormat = new Format("EndNote", "text/plain", "UTF-8");
-    	Format outputFormat = new Format("eSciDoc", "application/xml", "UTF-8");
+    	Format outputFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
     	
     	InputStream inputStream = ResourceUtil.getResourceAsStream("./src/test/resources/testFiles/publikationsliste_2008_endnote.txt");
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();

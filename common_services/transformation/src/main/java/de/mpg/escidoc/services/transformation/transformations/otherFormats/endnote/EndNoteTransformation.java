@@ -2,6 +2,7 @@ package de.mpg.escidoc.services.transformation.transformations.otherFormats.endn
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
@@ -12,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
@@ -25,7 +27,7 @@ public class EndNoteTransformation implements Transformation{
 	private Logger logger = Logger.getLogger(getClass());
 	
 	private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
-	private static final Format ESCIDOC_FORMAT = new Format("eSciDoc", "application/xml", "*");
+	private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
 
 	 /**
      * Get all possible source formats. 
@@ -101,15 +103,15 @@ public class EndNoteTransformation implements Transformation{
             throws TransformationNotSupportedException, RuntimeException
     {	 String output="";
         try
-        {	File stylesheet = ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/endnotexml2escidoc.xsl");
+        {	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/endnotexml2escidoc.xsl");
             StringWriter result = new StringWriter();
             if(arg1.getName().equalsIgnoreCase("EndNote")){
             	String endnoteSource = new String(arg0,"UTF-8");
             	EndNoteImport endnote = new EndNoteImport();
             	output = endnote.transformEndNote2XML(endnoteSource);
 //            	logger.info("intermediate xml:" + output);
-            	TransformerFactory factory = TransformerFactory.newInstance();
-        		Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
+            	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+        		Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
         		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
             }
