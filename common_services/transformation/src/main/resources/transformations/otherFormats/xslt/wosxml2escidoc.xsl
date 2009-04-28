@@ -170,7 +170,7 @@
 			<!-- ABSTRACT -->
 			<xsl:apply-templates select="AB"/>
 			<!-- SUBJECT -->
-			<!-- <xsl:call-template name="createSubject"/>-->
+			<xsl:call-template name="createSubject"/>
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
@@ -459,20 +459,23 @@
 	<!-- SUBJECT -->
 	<xsl:template name="createSubject">
 		<xsl:if test="ID or SC or DE">
+			
 			<xsl:element name="dcterms:subject">
-				<xsl:if test="ID">
-					<xsl:value-of select="concat(ID,'; ')"/>			
-				</xsl:if>
-				<xsl:if test="SC">
-					<xsl:value-of select="concat(SC,'; ')"/>
-				</xsl:if>
-				<xsl:if test="DE">
-					<xsl:value-of select="concat(DE,'; ')"/>
-				</xsl:if>
+				<xsl:apply-templates select="ID"/>
+				<xsl:apply-templates select="SC"/>
+				<xsl:apply-templates select="DE"/>
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
-	
+	<xsl:template match="ID">
+		<xsl:value-of select="."/>
+	</xsl:template>
+	<xsl:template match="SC">
+		<xsl:value-of select="concat(.,'; ')"/>
+	</xsl:template>
+	<xsl:template match="DE">
+		<xsl:value-of select="concat(.,'; ')"/>
+	</xsl:template>
 	<!-- IDENTIFIER -->
 	<xsl:template match="UT">		
 		<xsl:element name="dc:identifier">
