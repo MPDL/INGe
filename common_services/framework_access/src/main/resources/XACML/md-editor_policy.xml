@@ -36,9 +36,9 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -92,15 +92,15 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</Apply>
 			</Apply>
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
@@ -196,9 +196,9 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -262,15 +262,15 @@
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
 				</Apply>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</Apply>
 			</Apply>
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
