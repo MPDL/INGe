@@ -65,7 +65,7 @@
 	
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>
-	
+	<xsl:param name="is-item-list" select="true()"/>
 	<!--
 		DC XML  Header
 	-->
@@ -77,9 +77,22 @@
 	<xsl:variable name="genre"/>		
 	
 	<xsl:template match="/">
-		<item-list>
-			<xsl:apply-templates select="item-list/item"/>
-		</item-list>
+		<xsl:choose>
+			<xsl:when test="$is-item-list">
+				<item-list>
+					<xsl:apply-templates select="//item"/>
+				</item-list>
+			</xsl:when>
+			<xsl:when test="count(//item) = 1">
+				<xsl:apply-templates select="//item"/>
+			</xsl:when>
+			<xsl:when test="count(//item) = 0">
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSourceForSingleTarget' ), 'Single item was selected as target, but the source contained no items')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleSourceForSingleTarget' ), 'Single item was selected as target, but the source contained multiple items')"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="item-list/item">
@@ -267,9 +280,9 @@
 	</xsl:template>
 	<!-- LANGUAGE -->
 	<xsl:template match="LA">
-		<xsl:element name="dc:language">
-			<!-- <xsl:value-of select="."/>-->
-		</xsl:element>
+		<!-- <xsl:element name="dc:language">
+			<xsl:value-of select="."/>
+		</xsl:element>-->
 	</xsl:template>
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
