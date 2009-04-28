@@ -16,6 +16,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 @TransformationModule
@@ -107,16 +108,17 @@ public class RISTransformation implements Transformation{
         String output="";
         try
         {	
-            InputStream stylesheet;
+            
             StringWriter result = new StringWriter();
             
             if(srcFormat.matches(RIS_FORMAT))
             {
+            	
                 String risSource = new String(src,"UTF-8");
                 RISImport ris = new RISImport();
                 output = ris.transformRIS2XML(risSource);
                 TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/risxml2escidoc.xsl");
+                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/risxml2escidoc.xsl");
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
                 
                 if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
@@ -139,13 +141,38 @@ public class RISTransformation implements Transformation{
             else if(srcFormat.matches(WOS_FORMAT))
             {
             	
-                throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
+            	//StreamSource stylesheet = new StreamSource(new FileInputStream(ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/wosxml2escidoc.xsl")));
+            	String wosSource = new String(src,"UTF-8");
+            	WoSImport wos = new WoSImport();
+            	output = wos.transformWoS2XML(wosSource);
+            	TransformerFactory factory = TransformerFactory.newInstance();
+            	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl");
+                Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
+        		//Transformer transformer = factory.newTransformer(stylesheet);
+        		
+        		if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
+                {
+                    transformer.setParameter("is-item-list", Boolean.TRUE);
+                }
+                else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
+                {
+                    transformer.setParameter("is-item-list", Boolean.FALSE);
+                }
+                else
+                {
+                    throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
+                }
+        		
+        		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
+        		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
+        		
+               // throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
                 
             }
 
             return result.toString().getBytes("UTF-8");
-            
-           // return ResourceUtil.getResourceAsString("item.xml").getBytes("UTF-8");
+           //return output.getBytes();
+           // return ResourceUtil.getResourceAsString(src).getBytes("UTF-8");
         }
         catch (Exception e) {
             throw new RuntimeException("Error getting file content", e);
