@@ -340,6 +340,11 @@ public class ImportLog
     
     public void addDetail(ErrorLevel errorLevel, String message)
     {
+        addDetail(errorLevel, message, null);
+    }
+    
+    public void addDetail(ErrorLevel errorLevel, String message, String detailId)
+    {
         if (this.currentItem == null)
         {
             throw new RuntimeException("Trying to add a detail but no log item is started.");
@@ -350,6 +355,7 @@ public class ImportLog
         newDetail.setErrorLevel(errorLevel);
         newDetail.setMessage(message);
         newDetail.setStartDate(new Date());
+        newDetail.setItemId(detailId);
         newDetail.setStatus(Status.FINISHED);
         
         this.currentItem.getItems().add(newDetail);
@@ -361,7 +367,7 @@ public class ImportLog
     public void addDetail(ErrorLevel errorLevel, Exception exception)
     {
         String message = getExceptionMessage(exception);
-        addDetail(errorLevel, message);
+        addDetail(errorLevel, message, null);
     }
     
     public void setItemVO(PubItemVO itemVO)
@@ -1207,7 +1213,7 @@ public class ImportLog
         writer.write("\">\n");
         
         writer.write("\t<name>");
-        writer.write(this.message);
+        writer.write(escape(this.message));
         writer.write("</name>\n");
         
         writer.write("\t<context>");
@@ -1238,6 +1244,18 @@ public class ImportLog
         writer.write("</import-task>\n");
         
         return writer.toString();
+    }
+
+    protected String escape(String string)
+    {
+        if (string == null)
+        {
+            return null;
+        }
+        else
+        {
+            return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
+        }
     }
 
     public String getLocalizedMessage()

@@ -31,9 +31,13 @@
 package de.mpg.escidoc.pubman.multipleimport;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 
+import org.apache.axis.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.om.ItemHandler;
@@ -48,10 +52,18 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -79,11 +91,14 @@ public class ImportProcess extends Thread
     
     private ImportLog log;
     private InputStream inputStream;
+    
     private Transformation transformation;
     private ItemValidating itemValidating;
     private ValidationTransforming validationTransforming;
     private XmlTransforming xmlTransforming;
     private PubItemDepositing pubItemDepositing;
+    private Search search;
+    
     private Format format;
     private ContextRO escidocContext;
     private AccountUserVO user;
@@ -92,6 +107,7 @@ public class ImportProcess extends Thread
     
     private boolean rollback;
     private DuplicateStrategy duplicateStrategy;
+    private String itemContentModel;
     
     private boolean failed = false;
     
@@ -199,6 +215,9 @@ public class ImportProcess extends Thread
             this.validationTransforming = (ValidationTransforming) context.lookup(ValidationTransforming.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
             this.pubItemDepositing = (PubItemDepositing) context.lookup(PubItemDepositing.SERVICE_NAME);
+            this.search = (Search) context.lookup(Search.SERVICE_NAME);
+            
+            this.itemContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         }
         catch (Exception e)
         {
@@ -299,7 +318,8 @@ public class ImportProcess extends Thread
                 return false;
             }
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             log.addDetail(ErrorLevel.FATAL, "import_process_format_error");
             log.addDetail(ErrorLevel.FATAL, e);
             fail();
@@ -343,7 +363,6 @@ public class ImportProcess extends Thread
         if (!failed)
         {
             log.startItem("import_process_start_import");
-           
             this.formatProcessor.setSource(inputStream);
             
             int itemCount = 1;
@@ -353,7 +372,6 @@ public class ImportProcess extends Thread
             }
             
             int counter = 0;
-            
             log.finishItem();
             
             while (this.formatProcessor.hasNext() && !failed)
@@ -417,25 +435,17 @@ public class ImportProcess extends Thread
                     {
                         log.activateItem(item);
                         log.addDetail(ErrorLevel.FINE, "import_process_save_item");
-                        
                         PubItemVO savedPubItem = pubItemDepositing.savePubItem(item.getItemVO(), user);
-                        
                         String objid = savedPubItem.getVersion().getObjectId();
-                        
                         log.setItemId(objid);
-                        
                         log.addDetail(ErrorLevel.FINE, "import_process_item_imported");
-                        
                         log.finishItem();
-                        
                         counter++;
-                        
                         log.setPercentage(55 * counter / itemCount + 40);
                     }
                     catch (Exception e)
                     {
                         logger.error("Error during import", e);
-                        
                         log.finishItem();
                         log.startItem(ErrorLevel.ERROR, "import_process_item_error");
                         log.addDetail(ErrorLevel.ERROR, e);
@@ -465,9 +475,23 @@ public class ImportProcess extends Thread
                     ItemHandler itemHandler = ServiceLocator.getItemHandler(this.user.getHandle());
                     String savedTaskItemXml = itemHandler.create(taskItemXml);
                     
-                    log.setPercentage(100);
+                    //log.addDetail(ErrorLevel.FINE, "import_process_retrieve_log_id");
                     
-                    logger.debug(savedTaskItemXml);
+                    Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
+                    Matcher matcher = pattern.matcher(savedTaskItemXml);
+                    
+                    if (matcher.find())
+                    {
+                        String taskId = matcher.group(1);
+                        //log.addDetail(ErrorLevel.FINE, taskId);
+                        logger.info("Imported task item: " + taskId);
+                    }
+                    else
+                    {
+                        //log.addDetail(ErrorLevel.PROBLEM, "import_process_no_log_id");
+                    }
+                    
+                    log.setPercentage(100);
                     
                 }
                 catch (Exception e)
@@ -489,20 +513,21 @@ public class ImportProcess extends Thread
         {
             String taskItemXml = ResourceUtil.getResourceAsString("multipleImport/ImportTaskTemplate.xml");
             
-            taskItemXml = taskItemXml.replaceAll("\\$1", escape(this.escidocContext.getObjectId()));
-            taskItemXml = taskItemXml.replaceAll("\\$2", escape(PropertyReader.getProperty("escidoc.import.task.content-model")));
-            taskItemXml = taskItemXml.replaceAll("\\$4", escape(this.name));
-            taskItemXml = taskItemXml.replaceAll("\\$5", escape(this.fileName));
-            taskItemXml = taskItemXml.replaceAll("\\$6", escape(this.formatProcessor.getDataAsBase64()));
-            taskItemXml = taskItemXml.replaceAll("\\$7", escape(log.getStoredId() + ""));
-            taskItemXml = taskItemXml.replaceAll("\\$8", escape(this.format.toString()));
-            taskItemXml = taskItemXml.replaceAll("\\$9", escape(this.formatProcessor.getLength() + ""));
+            taskItemXml = taskItemXml.replace("$1", escape(this.escidocContext.getObjectId()));
+            taskItemXml = taskItemXml.replace(
+                    "$2", escape(PropertyReader.getProperty("escidoc.import.task.content-model")));
+            taskItemXml = taskItemXml.replace("$4", escape(this.name));
+            taskItemXml = taskItemXml.replace("$5", escape(this.fileName));
+            taskItemXml = taskItemXml.replace("$6", escape(this.formatProcessor.getDataAsBase64()));
+            taskItemXml = taskItemXml.replace("$7", escape(log.getStoredId() + ""));
+            taskItemXml = taskItemXml.replace("$8", escape(this.format.toString()));
+            taskItemXml = taskItemXml.replace("$9", escape(this.formatProcessor.getLength() + ""));
             
             log.finishItem();
             
             log.close();
     
-            taskItemXml = taskItemXml.replaceAll("\\$3", log.toXML());
+            taskItemXml = taskItemXml.replace("$3", log.toXML());
 
             return taskItemXml;
         }
@@ -611,14 +636,13 @@ public class ImportProcess extends Thread
                     }
                 }
                 
-                log.addDetail(ErrorLevel.FINE, "import_process_generate_item");
-                
+                log.addDetail(ErrorLevel.FINE, "import_process_generate_item");                
                 log.setItemVO(pubItemVO);
                 
                 if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK)
                 {
-                    log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates");
-                    boolean duplicatesDetected = checkDuplicates();
+                    log.addDetail(ErrorLevel.FINE, "import_process_check_duplicates_by_identifier");
+                    boolean duplicatesDetected = checkDuplicatesByIdentifier(pubItemVO);
                     if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK)
                     {
                         this.rollback = true;
@@ -670,8 +694,76 @@ public class ImportProcess extends Thread
     }
 
     // TODO: Implementation
-    private boolean checkDuplicates()
+    private boolean checkDuplicatesByIdentifier(PubItemVO itemVO)
     {
+        try
+        {
+            if (itemVO.getMetadata().getIdentifiers().size() > 0)
+            {
+                ArrayList<String> contentModels = new ArrayList<String>();
+                contentModels.add(this.itemContentModel);
+        
+                ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+                boolean first = true;
+                for (IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers())
+                {
+                    MetadataSearchCriterion criterion = new MetadataSearchCriterion(CriterionType.IDENTIFIER, identifierVO.getId(), (first ? LogicalOperator.AND : LogicalOperator.OR));
+                    first = false;
+                    criteria.add(criterion);
+                }
+                
+                MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
+                ItemContainerSearchResult searchResult = search.searchForItemContainer(query);
+                
+                if (searchResult.getTotalNumberOfResults().equals(NonNegativeInteger.ZERO))
+                {
+                    log.addDetail(ErrorLevel.FINE, "import_process_no_duplicate_detected");
+                    return false;
+                }
+                else
+                {
+                    
+                    log.addDetail(ErrorLevel.FINE, "import_process_duplicates_detected");
+                    for (ItemVO duplicate : searchResult.extractItemsOfSearchResult())
+                    {
+                        if (this.itemContentModel.equals(duplicate.getContentModel()))
+                        {
+                            PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
+                            if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK)
+                            {
+                                log.addDetail(ErrorLevel.PROBLEM, "import_process_duplicate_detected");
+                                log.addDetail(ErrorLevel.PROBLEM, duplicatePubItemVO.getVersion().getObjectId()
+                                        + " \"" + duplicatePubItemVO.getMetadata().getTitle().getValue()
+                                        + "\"", duplicatePubItemVO.getVersion().getObjectId());
+                                return true;
+                            }
+                            else
+                            {
+                                log.addDetail(ErrorLevel.WARNING, "import_process_duplicate_detected");
+                                log.addDetail(ErrorLevel.WARNING, duplicatePubItemVO.getVersion().getObjectId()
+                                        + " \"" + duplicatePubItemVO.getMetadata().getTitle().getValue()
+                                        + "\"", duplicatePubItemVO.getVersion().getObjectId());
+                            }
+                        }
+                        else
+                        {
+                            log.addDetail(ErrorLevel.WARNING, "import_process_detected_duplicate_no_publication");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                log.addDetail(ErrorLevel.FINE, "import_process_no_identifier_for_duplicate_check");
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            log.addDetail(ErrorLevel.ERROR, e);
+            log.finishItem();
+            return false;
+        }
         return false;
     }
 

@@ -118,7 +118,7 @@ public class BibtexProcessor extends FormatProcessor
             //String inputString = new String(this.originalData, this.encoding);
             String inputString = new String(this.originalData, this.encoding);
 
-            Pattern pattern = Pattern.compile("@[a-zA-Z]+\\{(.*(\\r\\n|\\r|\\n))+?\\},\\s*(\\r\\n|\\r|\\n)");
+            Pattern pattern = Pattern.compile("@[a-zA-Z]+\\{(.*(\\r\\n|\\r|\\n))+?.*\\},?\\s*(\\r\\n|\\r|\\n)(\\r\\n|\\r|\\n)");
             
             ArrayList<String> itemList = new ArrayList<String>();
             

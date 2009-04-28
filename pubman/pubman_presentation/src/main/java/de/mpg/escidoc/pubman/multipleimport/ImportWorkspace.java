@@ -96,7 +96,7 @@ public class ImportWorkspace extends FacesBean
                 this.sortDirection = SortDirection.ASCENDING;
             }
         }
-        else
+        else if (newColumn != null)
         {
             this.sortColumn = newColumn;
             this.sortDirection = SortDirection.ASCENDING;

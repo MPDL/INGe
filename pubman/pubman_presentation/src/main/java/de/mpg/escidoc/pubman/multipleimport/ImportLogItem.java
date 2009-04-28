@@ -169,7 +169,7 @@ public class ImportLogItem extends ImportLog
         writer.write("\">\n");
         
         writer.write("\t<message>");
-        writer.write(getMessage());
+        writer.write(escape(getMessage()));
         writer.write("</message>\n");
 
         writer.write("\t<escidoc-id>");

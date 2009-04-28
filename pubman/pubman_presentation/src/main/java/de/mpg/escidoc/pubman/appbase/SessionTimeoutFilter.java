@@ -59,7 +59,7 @@ public class SessionTimeoutFilter implements Filter
 {
     private static final Logger logger = Logger.getLogger(SessionTimeoutFilter.class);
     
-    public static String LOGOUT_URL = "/aa/logout";
+    public static String LOGOUT_URL = "/clear.jsp";
     
     /* (non-Javadoc)
      * @see javax.servlet.Filter#destroy()
@@ -91,8 +91,8 @@ public class SessionTimeoutFilter implements Filter
                         && !httpServletRequest.isRequestedSessionIdValid())
                 {
                     // Deactivated because of import tool.
-                    // httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
-                    httpServletResponse.sendRedirect(homePage + "?expired=true");
+                    httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
+                    //httpServletResponse.sendRedirect(homePage + "?expired=true");
                     return;
                     
                 }

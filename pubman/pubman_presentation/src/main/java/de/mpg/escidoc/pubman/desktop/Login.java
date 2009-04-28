@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class Login extends FacesBean
 {
     public static String LOGIN_URL = "/aa/login";
-    public static String LOGOUT_URL = "/aa/logout";
+    public static String LOGOUT_URL = "/clear.jsp";
     final public static String BEAN_NAME = "Login";
     private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";
@@ -104,7 +104,6 @@ public class Login extends FacesBean
     public String loginLogout() throws ServletException, IOException, ServiceException, URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
         String userHandle = loginHelper.getESciDocUserHandle();
@@ -124,10 +123,12 @@ public class Login extends FacesBean
 //                depWSSessionBean.setMyWorkspace(false);
 //                depWSSessionBean.setDepositorWS(false);
 //                depWSSessionBean.setNewSubmission(false);
-                HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-                session.invalidate();
+                
              // Logout mechanism
                 logout();
+                
+                HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+                session.invalidate();
             }
         }
         else
@@ -150,13 +151,13 @@ public class Login extends FacesBean
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         // Deactivated because of import tool
-        //fc.getExternalContext().redirect(
-        //        ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true", "UTF-8"));
-        fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
+        fc.getExternalContext().redirect(
+                ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true", "UTF-8"));
+        //fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
     }
 
     /**
-     * method for brutal logout if authantication errors occur in the framework
+     * method for brutal logout if authentication errors occur in the framework
      *
      * @return String navigation string for loading the login error page
      */
