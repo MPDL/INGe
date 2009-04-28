@@ -113,7 +113,7 @@ public class Util
      * @return true if equal, else false
      */
     public boolean isFormatEqual(Format src1, Format src2)
-    {
+    {       
         if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) {return false;}
         if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) {return false;}
         if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))

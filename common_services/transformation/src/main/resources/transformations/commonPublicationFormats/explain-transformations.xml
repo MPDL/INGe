@@ -36,4 +36,32 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	
+	<!--Start to be fixed  -->
+		<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>BibTex</Name>
+			<Type>text/plain</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>EndNote</Name>
+			<Type>text/plain</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<!--End to be fixed  -->
+	
 </Transformations>

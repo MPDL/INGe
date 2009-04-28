@@ -84,7 +84,7 @@
 			<Encoding>*</Encoding>
 		</Target>
 	</Transformation>
-		<Transformation>
+	<Transformation>
 		<Source>
 			<Name>eSciDoc-publication-item-list</Name>
 			<Type>application/xml</Type>
@@ -132,4 +132,140 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	
+	<!--Start to be fixed -->	
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>APA</Name>
+			<Type>text/html</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>APA</Name>
+			<Type>application/pdf</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>APA</Name>
+			<Type>application/rtf</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>APA</Name>
+			<Type>application/vnd.oasis.opendocument.text</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP</Name>
+			<Type>text/html</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP</Name>
+			<Type>application/pdf</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP</Name>
+			<Type>application/rtf</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP</Name>
+			<Type>application/vnd.oasis.opendocument.text</Type>
+			<Encoding>*</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP</Name>
+			<Type>application/odt</Type>
+			<Encoding>test</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>AJP(Snippet)</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>eSciDoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>APA(Snippet)</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	
+	<!--End to be fixed -->
 </Transformations>

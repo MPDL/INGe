@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.dataacquisition;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Vector;
 
 import javax.naming.InitialContext;
@@ -71,6 +72,7 @@ public class Util
     private Transformation transformer;
     private final Logger logger = Logger.getLogger(Util.class);
     private final String internalFormat = "eSciDoc-publication-item";
+    private final String internalListFormat = "eSciDoc-publication-item-list";
 
     /**
      * Public constructor.
@@ -355,8 +357,8 @@ public class Util
             {
                 Format formatTrans = formats[x];
                 MetadataVO mdTrans = new MetadataVO();
-                //Hack needed for unapi zotero interface
-                if (!formatTrans.getName().toLowerCase().equals("bibtex"))
+                //TODO: Should be nicer, only when a format can have different mime types, the mimetype will be attached to the format name
+                if (!formatTrans.getName().toLowerCase().equals("bibtex") && !formatTrans.getName().toLowerCase().startsWith("escidoc"))
                 {
                     mdTrans.setName(formatTrans.getName() + "_" + formatTrans.getType());
                 }        
@@ -385,13 +387,14 @@ public class Util
         Vector<MetadataVO> formatsV = new Vector<MetadataVO>();       
         Format escidoc = new Format (this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
                 this.getDefaultEncoding(this.getInternalFormat()));      
+        
         formatsArr = this.transformer.getTargetFormats(escidoc);
         for (int i = 0; i < formatsArr.length; i++)
         {
             Format format = formatsArr[i];
             MetadataVO md = new MetadataVO();
-            //Hack needed for unapi zotero interface
-            if (!format.getName().toLowerCase().equals("bibtex"))
+            //TODO: Should be nicer, only when a format can have different mime types, the mimetype will be attached to the format name
+            if (!format.getName().toLowerCase().equals("bibtex") && !format.getName().toLowerCase().startsWith("escidoc"))
             {
                 md.setName(format.getName() + "_" + format.getType());
             }
@@ -431,7 +434,7 @@ public class Util
                 for (int x = 0; x < trgFormats.length; x++)
                 {
                     Format trgFormat = trgFormats[x];
-                    if (trgFormat.getName().toLowerCase().equals(this.getInternalFormat()))
+                    if (trgFormat.getName().equals(this.getInternalFormat()))
                     {
                         return true;
                     }
@@ -637,7 +640,7 @@ public class Util
         {
             if (!identifier.startsWith("escidoc:"))
             {
-                return this.getInternalFormat()+ ":" + identifier;
+                return "escidoc"+ ":" + identifier;
             }
             else
             {
