@@ -164,7 +164,10 @@
 			
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="."/>
-			</xsl:element>			
+			</xsl:element>	
+			<xsl:element name="e:family-name">
+				<xsl:value-of select="."/>
+			</xsl:element>		
 			<xsl:if test="../aff">
 				<xsl:call-template name="createOrganization"/>
 			</xsl:if>
@@ -261,7 +264,7 @@
 			<xsl:if test="not($month='00')">
 				<xsl:value-of select="concat('-',$month)"/>
 			</xsl:if>
-			<xsl:if test="not($month='00')">
+			<xsl:if test="not($day='00')">
 				<xsl:value-of select="concat('-',$day)"/>
 			</xsl:if>
 		</xsl:variable>
