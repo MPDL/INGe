@@ -428,20 +428,24 @@ public class FileBean extends FacesBean
     public String getUrlToLicenceImage()
     {
     	String  urlToLicenceImage = "";
-    	String licenceURL = file.getDefaultMetadata().getLicense();
     	
-    	if(licenceURL != null && !licenceURL.trim().equals(""))
+    	if(file.getDefaultMetadata() != null)
     	{
-	    	String[] splittedURL = licenceURL.split("\\/");
+	    	String licenceURL = file.getDefaultMetadata().getLicense();
 	    	
-	    	String protocol = splittedURL[0];
-	    	String address = splittedURL[2];
-	    	String licenses = "l";
-	    	String type = splittedURL[4];
-	    	String version = splittedURL[5];
-	    	String image = "80x15.png";
-	    	
-	    	urlToLicenceImage = protocol + "//i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
+	    	if(licenceURL != null && !licenceURL.trim().equals(""))
+	    	{
+		    	String[] splittedURL = licenceURL.split("\\/");
+		    	
+		    	String protocol = splittedURL[0];
+		    	String address = splittedURL[2];
+		    	String licenses = "l";
+		    	String type = splittedURL[4];
+		    	String version = splittedURL[5];
+		    	String image = "80x15.png";
+		    	
+				urlToLicenceImage = protocol + "//i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
+	    	}
     	}
     	return urlToLicenceImage;
     }
