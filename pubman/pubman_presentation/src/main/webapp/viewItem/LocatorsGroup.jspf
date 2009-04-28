@@ -48,10 +48,11 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputLink value="#{locator.locatorLink}" rendered="#{ViewItemFull.isStateWithdrawn == false && locator.locatorIsLink}" target="_blank">
+						<h:outputLink value="#{locator.locatorLink}" rendered="#{ViewItemFull.isStateWithdrawn == false && locator.locatorIsLink}" target="_blank" title="#{locator.file.description}">
 							<h:outputText value="#{locator.fileName}" />
 						</h:outputLink>
 						<h:outputText value="#{locator.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false && !locator.locatorIsLink}"/>
+						<h:outputText value=" (#{locator.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
@@ -64,27 +65,6 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{locator.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- Locator content category --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileCategory}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{locator.contentCategory}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- Locator description --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{locator.file.description}"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.description == null || locator.file.description == ''}"/>
 				</span>
 			</h:panelGroup>
 

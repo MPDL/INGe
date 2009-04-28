@@ -52,7 +52,7 @@
 							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						</tr:goLink>
 						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>
-						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>
+						<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
@@ -76,27 +76,6 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{file.file.mimeType} / #{file.fileSize}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- File content category --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileCategory}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.contentCategory}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- File description --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0_p8 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.file.description}"/>
-				<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{file.file.description == null || file.file.description == ''}"/>
 				</span>
 			</h:panelGroup>
 
