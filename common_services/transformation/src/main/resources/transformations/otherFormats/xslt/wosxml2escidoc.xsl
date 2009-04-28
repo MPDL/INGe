@@ -58,8 +58,8 @@
    xmlns:mdp="${xsd.metadata.escidocprofile}"
    xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}"
-> -->
+   xmlns:prop="${xsd.soap.common.prop}">
+ -->
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -86,7 +86,10 @@
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<xsl:element name="srel:context">
-					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
+					<xsl:attribute name="xlink:href">
+						<xsl:text>/ir/context/</xsl:text>
+						<xsl:value-of select="$context"/>
+					</xsl:attribute>
 				</xsl:element>
 				<srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>
 				<xsl:element name="prop:content-model-specific"></xsl:element>
@@ -165,7 +168,7 @@
 			<!-- ABSTRACT -->
 			<xsl:apply-templates select="AB"/>
 			<!-- SUBJECT -->
-			<xsl:call-template name="createSubject"/>
+			<!-- <xsl:call-template name="createSubject"/>-->
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
