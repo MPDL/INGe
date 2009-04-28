@@ -268,7 +268,7 @@
 	<!-- LANGUAGE -->
 	<xsl:template match="LA">
 		<xsl:element name="dc:language">
-			<xsl:value-of select="."/>
+			<!-- <xsl:value-of select="."/>-->
 		</xsl:element>
 	</xsl:template>
 	<!-- SOURCE -->
