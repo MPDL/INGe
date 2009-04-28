@@ -41,11 +41,11 @@
 	</h:selectOneMenu>
 
 	<!-- Help -->
-	<h:commandLink id="lnkHelp" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink id="lnkHelp" styleClass="small_area0_p8 endline" title="#{tip.mainMenu_lnkHelp}" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Policy -->
-	<h:commandLink id="lnkPolicy" styleClass="medium_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{HomePage.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
+	<h:commandLink id="lnkPolicy" styleClass="large_area0_p8 endline" title="#{tip.mainMenu_lnkPolicy}" onclick="loadBlog('#{HomePage.policyUrl}');return false" value="#{lbl.mainMenu_lnkPolicy}" />
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 	<!-- Contact -->
