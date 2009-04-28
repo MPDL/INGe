@@ -258,8 +258,6 @@ public final class ValidationSchemaCache
             String xsl = getPrecompiledSchema(context, contentType, validationPoint);
 
             LOGGER.debug("Getting transformer (" + triple + ") from database");
-
-            LOGGER.info(xsl);
             
             try
             {
