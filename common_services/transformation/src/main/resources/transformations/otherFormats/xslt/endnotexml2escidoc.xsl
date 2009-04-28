@@ -29,9 +29,9 @@
 <!-- 
 	Transformations from EndNote Item to eSciDoc PubItem 
 	Author: Vlad Makarenko (initial creation) 
-	$Author: $ (last changed)
-	$Revision: $ 
-	$LastChangedDate: $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -57,6 +57,8 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="context" select="'escidoc:dummy-context'"/>
+
+	<xsl:param name="is-item-list" select="true()"/>
 	
 	<xsl:param name="refType" />
 
@@ -75,32 +77,44 @@
 			<m key="Manuscript">manuscript</m>
 			<m key="Thesis">thesis</m>
 			<m key="Generic">other</m>
-		</xsl:variable>
+	</xsl:variable>
 	
 	<xsl:template match="/">
-		<item-list>
-			<xsl:apply-templates select="//item"/>
-		</item-list>
+		<xsl:choose>
+			<xsl:when test="$is-item-list">
+				<item-list>
+					<xsl:apply-templates select="//item"/>
+				</item-list>
+			</xsl:when>
+			<xsl:when test="count(//item) = 1">
+				<xsl:apply-templates select="//item"/>
+			</xsl:when>
+			<xsl:when test="count(//item) = 0">
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSourceForSingleTarget' ), 'Single item was selected as target, but the source contained no items')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleSourceForSingleTarget' ), 'Single item was selected as target, but the source contained multiple items')"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="//item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<xsl:element name="srel:context">
-					<xsl:attribute name="objid" select="concat('/ir/context/', $context)"/>
+					<xsl:attribute name="objid" select="$context"/>
 				</xsl:element>
 				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
-				<xsl:element name="prop:content-model-specific"></xsl:element>
+				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
 					<xsl:call-template name="itemMetadata"/>
 				</mdr:md-record>
 			</xsl:element>
-			<xsl:element name="ec:components"></xsl:element>
+			<xsl:element name="ec:components"/>
 		</xsl:element>
 	</xsl:template>
-	
 		
 	
 	<!-- GENRE -->
