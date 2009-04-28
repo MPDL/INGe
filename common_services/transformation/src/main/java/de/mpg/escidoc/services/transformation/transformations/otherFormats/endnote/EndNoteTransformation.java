@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -29,8 +30,6 @@ public class EndNoteTransformation implements Transformation{
 	private Logger logger = Logger.getLogger(getClass());
 	
 	private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
-	private static final Format WOS_FORMAT = new Format("WoS", "text/plain", "UTF-8");
-	private static final Format RIS_FORMAT = new Format("RIS", "text/plain", "UTF-8");
 
 	private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
 	private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
@@ -42,7 +41,7 @@ public class EndNoteTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getSourceFormats() throws RuntimeException{
-    	return new Format[]{WOS_FORMAT, RIS_FORMAT};
+    	return new Format[]{ENDNOTE_FORMAT};
     }
     
     /**
@@ -54,7 +53,7 @@ public class EndNoteTransformation implements Transformation{
     public Format[] getSourceFormats(Format targetFormat) throws RuntimeException{
     	if (targetFormat != null && (targetFormat.matches(ESCIDOC_ITEM_FORMAT) || targetFormat.matches(ESCIDOC_ITEM_LIST_FORMAT)))
         {
-            return new Format[]{WOS_FORMAT, RIS_FORMAT, ENDNOTE_FORMAT};
+            return new Format[]{ENDNOTE_FORMAT};
         }
         else
         {
@@ -79,7 +78,7 @@ public class EndNoteTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException{
-    	if (WOS_FORMAT.equals(sourceFormat) || RIS_FORMAT.equals(sourceFormat) || ENDNOTE_FORMAT.equals(sourceFormat))
+    	if (ENDNOTE_FORMAT.equals(sourceFormat))
         {
             return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT};
         }
@@ -116,71 +115,13 @@ public class EndNoteTransformation implements Transformation{
             
             StringWriter result = new StringWriter();
             
-            if(srcFormat.matches(RIS_FORMAT))
-            {
-            	
-                String risSource = new String(src,"UTF-8");
-                RISImport ris = new RISImport();
-                output = ris.transformRIS2XML(risSource);
-                TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-                InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/risxml2escidoc.xsl");
-                Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-                
-                if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.TRUE);
-                }
-                else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.FALSE);
-                }
-                else
-                {
-                    throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
-                }
-        		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
-        		
-        		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
-              
-            }
-            else if(srcFormat.matches(WOS_FORMAT))
-            {
-            	
-            	//StreamSource stylesheet = new StreamSource(new FileInputStream(ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/wosxml2escidoc.xsl")));
-            	String wosSource = new String(src,"UTF-8");
-            	WoSImport wos = new WoSImport();
-            	output = wos.transformWoS2XML(wosSource);
-            	TransformerFactory factory = TransformerFactory.newInstance();
-            	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl");
-                Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-        		//Transformer transformer = factory.newTransformer(stylesheet);
-        		
-        		if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.TRUE);
-                }
-                else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.FALSE);
-                }
-                else
-                {
-                    throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
-                }
-        		
-        		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
-        		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
-        		
-               // throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
-                
-            }
-            else if(srcFormat.matches(ENDNOTE_FORMAT))
+            if(srcFormat.matches(ENDNOTE_FORMAT))
             {
             	
             	String endnoteSource = new String(src,"UTF-8");
             	EndNoteImport endnote = new EndNoteImport();
             	output = endnote.transformEndNote2XML(endnoteSource);
-            	TransformerFactory factory = TransformerFactory.newInstance();
+            	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/endnotexml2escidoc.xsl");
             	Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             	//Transformer transformer = factory.newTransformer(stylesheet);
@@ -198,11 +139,17 @@ public class EndNoteTransformation implements Transformation{
             		throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
             	}
             	
+            	transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+            	
             	transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             	transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
             	
             	// throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
             	
+            }
+            else
+            {
+                throw new TransformationNotSupportedException("Sorry, this is the Endnote transformation");
             }
 
             return result.toString().getBytes("UTF-8");

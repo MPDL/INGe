@@ -56,7 +56,9 @@
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:param name="context" select="'escidoc:dummy-context'"/>
+	<xsl:param name="user" select="'dummy:user'"/>
+	<xsl:param name="context" select="'dummy:context'"/>
+	<xsl:param name="content-model" select="'dummy:content-model'"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -101,10 +103,8 @@
 	<xsl:template match="//item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<xsl:element name="srel:context">
-					<xsl:attribute name="objid" select="$context"/>
-				</xsl:element>
-				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
+				<srel:context objid="{$context}" />
+				<srel:content-model objid="{$content-model}" />
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

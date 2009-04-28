@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -133,6 +134,9 @@ public class RISTransformation implements Transformation{
                 {
                     throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
                 }
+                
+                transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+                
         		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
         		
         		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
@@ -145,7 +149,7 @@ public class RISTransformation implements Transformation{
             	String wosSource = new String(src,"UTF-8");
             	WoSImport wos = new WoSImport();
             	output = wos.transformWoS2XML(wosSource);
-            	TransformerFactory factory = TransformerFactory.newInstance();
+            	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl");
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
         		//Transformer transformer = factory.newTransformer(stylesheet);
@@ -162,6 +166,8 @@ public class RISTransformation implements Transformation{
                 {
                     throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
                 }
+        		
+        		transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         		
         		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
         		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));

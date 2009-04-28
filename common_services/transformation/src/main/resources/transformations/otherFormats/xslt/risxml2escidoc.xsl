@@ -41,30 +41,24 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-   xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-   xmlns:ei="http://www.escidoc.de/schemas/item/0.7"
-   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
-   xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-   xmlns:prop="http://escidoc.de/core/01/properties/"
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-   xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
-   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
-   xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-   xmlns:escidoc="urn:escidoc:functions">
- <!--  xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+   xmlns:e="${xsd.metadata.escidocprofile.types}"
+   xmlns:ei="${xsd.soap.item.item}"
+   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:srel="${xsd.soap.common.srel}"
+   xmlns:prop="${xsd.core.properties}"
+   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}"
-> -->
+   xmlns:file="${xsd.metadata.file}"
+   xmlns:pub="${xsd.metadata.publication}"
+   xmlns:escidoc="urn:escidoc:functions">
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="''"/>
+	<xsl:param name="user" select="'dummy:user'"/>
+	<xsl:param name="context" select="'dummy:context'"/>
+	<xsl:param name="content-model" select="'dummy:content-model'"/>
 	
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -106,12 +100,8 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<!-- <xsl:element name="srel:context">
-					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
-				</xsl:element>-->
-				<srel:content-model objid="escidoc:persistent3" />
-				<prop:content-model-specific />
-				<!-- <srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>-->
+				<srel:context objid="{$context}" />
+				<srel:content-model objid="{$content-model}" />
 				<xsl:element name="prop:content-model-specific"></xsl:element>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
