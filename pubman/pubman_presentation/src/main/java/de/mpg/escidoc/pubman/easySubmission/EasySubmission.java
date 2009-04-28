@@ -1021,8 +1021,8 @@ public class EasySubmission extends FacesBean
             fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
                     
             //Harvest full text
-                if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getSubmittedValue() != null 
-                        && ((!this.getEasySubmissionSessionBean().getRadioSelectFulltext().getSubmittedValue().toString().equals(this.FULLTEXT_NONE))
+            if (this.getEasySubmissionSessionBean().isFulltext() 
+                        && ((!this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().equals(this.FULLTEXT_NONE))
                         && !fetchedItem.equals("")) 
                         && !service.toLowerCase().equals("escidoc"))
                 {                   
@@ -1032,7 +1032,7 @@ public class EasySubmission extends FacesBean
                     Vector<String> formats = new Vector<String>();
                             
                     //Get DEFAULT full text version from source
-                    if (CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_DEFAULT))
+                    if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().equals(this.FULLTEXT_DEFAULT))
                     {
                         for (int x =0; x< ftFormats.size(); x++)
                         {                
@@ -1045,7 +1045,7 @@ public class EasySubmission extends FacesBean
                          }                           
                      }              
                      //Get ALL full text versions from source
-                     if (CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_ALL))
+                     if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().equals(this.FULLTEXT_ALL))
                      {
                                 
                          for (int x =0; x< ftFormats.size(); x++)
@@ -1135,7 +1135,8 @@ public class EasySubmission extends FacesBean
                   itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);  
                   
                   //Upload fulltexts from other escidoc repositories to current repository
-                  if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue() != null 
+                  if (this.getEasySubmissionSessionBean().isFulltext()
+                          && this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue() != null 
                           && this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().toString().equals(this.FULLTEXT_ALL) 
                           && service.toLowerCase().equals("escidoc"))
                   {
@@ -1217,7 +1218,7 @@ public class EasySubmission extends FacesBean
                           logger.warn("Item URL could not be decoded");
                       }                          
                    }
-                   if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE))
+                   if (this.getEasySubmissionSessionBean().isFulltext() && !this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().equals(this.FULLTEXT_NONE))
                    {                
                        for (int i=0; i< fileVOs.size(); i++)
                        {
@@ -1636,15 +1637,18 @@ public class EasySubmission extends FacesBean
                 this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(new SelectItem[]{new SelectItem(this.FULLTEXT_DEFAULT,this.getEasySubmissionSessionBean().getCurrentFTLabel()), 
                                                                         new SelectItem(this.FULLTEXT_ALL,getLabel("easy_submission_lblFulltext_all")) , 
                                                                         new SelectItem(this.FULLTEXT_NONE,getLabel("easy_submission_lblFulltext_none"))});
+                this.getEasySubmissionSessionBean().getRadioSelectFulltext().setSubmittedValue(this.FULLTEXT_DEFAULT);
             }
             if (ftFormats.size()==1)
             {
                 this.getEasySubmissionSessionBean().setFULLTEXT_OPTIONS(new SelectItem[]{new SelectItem(this.FULLTEXT_DEFAULT,this.getEasySubmissionSessionBean().getCurrentFTLabel()), 
                                                                         new SelectItem(this.FULLTEXT_NONE,getLabel("easy_submission_lblFulltext_none"))});
+                this.getEasySubmissionSessionBean().getRadioSelectFulltext().setSubmittedValue(this.FULLTEXT_DEFAULT);
             }
             if (ftFormats.size()<=0)
             {
                 this.getEasySubmissionSessionBean().getRadioSelectFulltext().setSubmittedValue(this.FULLTEXT_NONE);
+                this.getEasySubmissionSessionBean().getRadioSelectFulltext().setValue(this.FULLTEXT_NONE);
                 this.getEasySubmissionSessionBean().setFulltext(false);
             }
         }  
