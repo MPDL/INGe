@@ -88,7 +88,7 @@
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
-					<xsl:call-template name="createMDRecord">	
+					<xsl:call-template name="createMDRecord"/>	
 				</mdr:md-record>
 			</xsl:element>	
 			<xsl:element name="ec:components">				
