@@ -26,8 +26,10 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skip>false</skip>
-					<test>TransformationTest</test>
+					<includes>
+						<include>**/TransformationTest.java</include>
+						<include>**/EndNoteImportTest.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>

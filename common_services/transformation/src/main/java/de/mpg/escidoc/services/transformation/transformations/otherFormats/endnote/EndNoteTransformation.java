@@ -102,13 +102,12 @@ public class EndNoteTransformation implements Transformation{
     {	 String output="";
         try
         {	File stylesheet = ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/endnotexml2escidoc.xsl");
-            String input = new String(arg0, "UTF-8"); //endnote item in xml
             StringWriter result = new StringWriter();
             if(arg1.getName().equalsIgnoreCase("EndNote")){
             	String endnoteSource = new String(arg0,"UTF-8");
             	EndNoteImport endnote = new EndNoteImport();
             	output = endnote.transformEndNote2XML(endnoteSource);
-            	logger.info("intermediate xml:" + output);
+//            	logger.info("intermediate xml:" + output);
             	TransformerFactory factory = TransformerFactory.newInstance();
         		Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
         		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -116,7 +115,8 @@ public class EndNoteTransformation implements Transformation{
             }
             else
             {
-            	
+                throw new RuntimeException("Wrong type of the input format: " 
+                		+ arg1.getName() + ", should be EndNote.");
             }
             return result.toString().getBytes("UTF-8");
             

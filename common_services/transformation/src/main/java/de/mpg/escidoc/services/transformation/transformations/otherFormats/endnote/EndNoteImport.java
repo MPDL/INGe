@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 /**
  * provides the import of a EndNote file 
  * 
- * @author vmakarenko (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
@@ -56,7 +55,8 @@ public class EndNoteImport
     public String readFile(){
     	
     	String file = "";        	
-    	try{    		
+    	try
+    	{    		
     		BufferedReader input = new BufferedReader(new FileReader(this.url));    	
     		// string buffer for file reading  
             String str;               
@@ -64,23 +64,40 @@ public class EndNoteImport
             while ((str = input.readLine()) != null) {            	          	
             		file = file + "\n" +str;            
             }            
-    	}catch(Exception e){    		
+    	}
+    	catch(Exception e)
+    	{    		
     		this.logger.error("An error occurred while reading EndNote file.", e);
             throw new RuntimeException(e);
     	}	
     	return file;
     }
    
-    
+
     /**
-     * identifies item lines from input string and stores it in a List<String>
-     * @param string
+     * Splits EndNote items and puts them into List<String>
+     * @param itemsStr item list string  
      * @return
      */
-    public List<String> splitItemElements(String string){    	
+    public List<String> splitItems(String itemsStr)
+    {
+    	List<String> l = new ArrayList<String>();
+    	String pattern = "%0";
+    	for (String s: itemsStr.split(pattern) )
+    		if ( s.length() > 1 && checkVal(s) )
+    			l.add(pattern + s);
+    	return l;
+    }
+    
+    /**
+     * Splits EndNote fields of an item and puts them into List<String>
+     * @param itemStr - item string
+     * @return 
+     */
+    public List<String> splitItemElements(String itemStr){    	
     	   	
-    	Pattern p = Pattern.compile("(%\\S.*?)(?=%\\S)", Pattern.DOTALL);
-    	Matcher m = p.matcher(string + "%STOP"); 
+    	Pattern p = Pattern.compile("(\\n%\\S.*?)(?=%\\S)", Pattern.DOTALL);
+    	Matcher m = p.matcher("\n" + itemStr + "%STOP"); 
     	List<String> l = new ArrayList<String>();
     	while (m.find()) 
     	{
@@ -92,42 +109,31 @@ public class EndNoteImport
     }
     
     /**
-     * identifies RIS items from input string and stores it in an String Array
-     * @param string 
-     * @return
-     */
-    public List<String> splitItems(String string)
-    {
-    	List<String> l = new ArrayList<String>();
-    	String pattern = "%0";
-    	for (String s: string.split(pattern) )
-    		if ( s.length() > 1 && checkVal(s) )
-    			l.add(pattern + s);
-    	return l;
-    }
-    
-    /**
-     * get item pairs from item string (by regex string)
+     * get item pairs from item string and pack them into the <code>List</code> 
      * @param string - EndNote item as string
      * @return String list with item key-value pairs
      */
     public List<Pair> getItemPairs(List<String> lines){
     	
     	List<Pair> pairList = new ArrayList<Pair>();    	
-    	if(lines !=null){
+    	if(lines != null){
     		for(String line: lines)
-    			pairList.add(createEndNotePairByString(line));
+    		{
+    			Pair p = createEndNotePairByString(line);
+    			if ( p != null )
+    				pairList.add(p);
+    		}
     	}    	
     	return pairList;
     }
     
     /**
-     * get a pair from line string (by regex string)
+     * get a EndNote <code>Pair</code> from line string 
      * @param string - EndNote line as string
      * @return Pair - key-value pair created by string line
      */
     public Pair createEndNotePairByString(String line){
-    	Pattern p = Pattern.compile("(%\\S)\\s+(.*)$", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    	Pattern p = Pattern.compile("^(%\\S)\\s+(.*)$", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
     	Matcher m = p.matcher(line);
     	if (m.find())
     	{
@@ -141,10 +147,12 @@ public class EndNoteImport
      * @param item pair list
      * @return xml string of the whole item list
      */
-    public String transformItemToXML(List<Pair> item){
+    public String transformItemToXML(List<Pair> item)
+    {
     	String xml = "";
-    	if(item != null && item.size() > 0){
-    		xml = createXMLElement("item",transformItemSubelementsToXML(item));    			   			
+    	if(item != null && item.size() > 0)
+    	{
+    		xml = createXMLElement("item", transformItemSubelementsToXML(item));    			   			
     	}
     	return xml;
     }
@@ -154,7 +162,8 @@ public class EndNoteImport
      * @param item pair list
      * @return xml string of the whole item list
      */
-    public String transformItemPairsListToXML(List<List<Pair>> itemList){
+    public String transformItemPairsListToXML(List<List<Pair>> itemList)
+    {
     	String xml = "";
     	if(itemList != null && itemList.size() > 0)
     		for (List<Pair> lp: itemList)
@@ -167,11 +176,13 @@ public class EndNoteImport
      * @param item pairs as list
      * @return xml String
      */
-    public String transformItemSubelementsToXML(List<Pair> item){
+    public String transformItemSubelementsToXML(List<Pair> item)
+    {
     	String xml = "";
-    	if(item != null && item.size() > 0){    		
+    	if(item != null && item.size() > 0)
+    	{    		
     		for(Pair p: item)
-    			xml += createXMLElement(p.getXmlTag(),escape(p.getValue()));
+    			xml += createXMLElement( p.getXmlTag(), escape(p.getValue()));
     	}
     	return xml;
     }
@@ -211,11 +222,6 @@ public class EndNoteImport
     	return ( val != null && !val.trim().equals("") );
     }
 
-    /**
-     * Returns true if val is not null && Length >0 
-     * @param val 
-     * @return first not null && Length >0
-     */
     public static boolean checkLen(String val)
     {
     	return ( val != null && val.length()>0 );

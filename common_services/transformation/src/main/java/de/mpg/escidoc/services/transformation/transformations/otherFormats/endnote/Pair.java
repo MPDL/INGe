@@ -15,6 +15,7 @@ public class Pair{
 	
 	private String key;
     private String value;
+    //EndNote to xml tags mapping
     public static final Map<String, String> KEY_MAPPING =   
     	new HashMap<String, String>()   
     	{  
