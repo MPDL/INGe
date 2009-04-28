@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
+		<tr:iterator id="organizationCriterion" var="organizationCriterionBean" value="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.objectDM}" binding="#{organizationCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{organizationCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -46,19 +46,19 @@
 				</b>
 				
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-                    <h:outputLabel styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-                    <h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
-                    <tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+                    <h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
+                    <h:inputText id="organizationSearchTermEmpty" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
+                    <tr:commandButton id="btnSelectOrganisationEmpty" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
                 </h:panelGroup>
                 <h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-                    <h:outputLabel styleClass="xDouble_label" value="Organization" />
-                    <h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
-                    <tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+                    <h:outputLabel id="lblOrganizationSearchTerm" styleClass="xDouble_label" value="Organization" />
+                    <h:inputText id="organizationSearchTerm" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
+                    <tr:commandButton id="btnSelectOrganisation" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
                 </h:panelGroup>
 				
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddOrganizationCriterion" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
 --%>
@@ -69,18 +69,18 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-					<h:outputLabel styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
-					<tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+					<h:outputLabel id="lblOrganizationSearchTermEmpty" styleClass="xDouble_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText id="organizationSearchTermEmpty" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.searchString}"/>
+					<tr:commandButton id="btnSelectOrganisationEmpty" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
 				</h:panelGroup>
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline" rendered="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}">
-                    <h:outputLabel styleClass="xDouble_label" value="Organization" />
-                    <h:inputText styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
-                    <tr:commandButton text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
+                    <h:outputLabel id="lblOrganizationSearchTerm" styleClass="xDouble_label" value="Organization" />
+                    <h:inputText id="organizationSearchTerm" styleClass="xDouble_txtInput" value="#{organizationCriterionBean.organizationCriterionVO.affiliationName}" disabled="#{!organizationCriterionBean.organizationCriterionVO.affiliationEmpty}"/>
+                    <tr:commandButton id="btnSelectOrganisation" text="#{lbl.EditItem_btSelect}" shortDesc="#{tip.EditItem_btSelect}" styleClass="medium_txtBtn xTiny_marginLExcl groupBtn" action="#{organizationCriterionBean.selectOrganisation}" />
                 </h:panelGroup>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddOrganizationCriterion" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveOrganizationCriterion" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size == 1}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
 --%>
@@ -89,7 +89,7 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{organizationCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selOrganizationCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{organizationCriterionBean.logicOperator}">
 					<f:selectItems value="#{organizationCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>
