@@ -65,10 +65,8 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.pubman.easySubmission.LocatorUploadBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
@@ -1137,8 +1135,8 @@ public class EasySubmission extends FacesBean
                   itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);  
                   
                   //Upload fulltexts from other escidoc repositories to current repository
-                  if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getSubmittedValue() != null 
-                          && CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_ALL) 
+                  if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue() != null 
+                          && this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().toString().equals(this.FULLTEXT_ALL) 
                           && service.toLowerCase().equals("escidoc"))
                   {
                         boolean hasFile = false;
@@ -1219,8 +1217,7 @@ public class EasySubmission extends FacesBean
                           logger.warn("Item URL could not be decoded");
                       }                          
                    }
-                   if (this.getEasySubmissionSessionBean().getRadioSelectFulltext().getSubmittedValue() != null && 
-                           !CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE))
+                   if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE))
                    {                
                        for (int i=0; i< fileVOs.size(); i++)
                        {
