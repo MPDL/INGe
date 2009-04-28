@@ -48,10 +48,11 @@
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<tr:goLink targetFrame="." destination="#{ViewItemFull.fwUrl}/ir/#{ViewItemFull.itemPattern}/components/component/#{file.file.reference.objectId}/content">
+						<tr:goLink targetFrame="." destination="#{ViewItemFull.fwUrl}/ir/#{ViewItemFull.itemPattern}/components/component/#{file.file.reference.objectId}/content" shortDesc="#{file.file.description}">
 							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						</tr:goLink>
 						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>
+						<h:outputText value=" (#{file.contentCategory})" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
@@ -63,7 +64,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil} )" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil} )" rendered="#{ViewItemFull.isStateWithdrawn == false && file.isVisible == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
