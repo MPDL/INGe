@@ -501,7 +501,7 @@
 					$refType = ('Conference Proceedings', 'Book Section')
 				]
 				">
-				<xsl:element name="pub:creator">
+				<xsl:element name="e:creator">
 					<xsl:element name="e:person">
 						<xsl:attribute name="role">editor</xsl:attribute>
 						<xsl:call-template name="createPerson"/>
