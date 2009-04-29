@@ -70,7 +70,7 @@
 
 			<!-- Node: item.md-records.md-record.publication.creator(*) -->
 			<!-- Field: PubItemVO.metadata.creators [java.util.ArrayList<CreatorVO>]-->
-			<collection field="creators"
+			<collection field="creators" usage="optional"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
 				<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
 					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />

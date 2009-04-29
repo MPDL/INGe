@@ -3,7 +3,7 @@
 
 	<xsl:output method="text" encoding="UTF-8"/>
 
-	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_ous.xml"/>
+	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_ous_prod.xml"/>
 	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_authors.xml"/>
 	
 	<xsl:template match="/">
@@ -30,7 +30,7 @@
 						insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>', null, null);
 					</xsl:when>
 					<xsl:otherwise>
-						insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$parent-ou"/>, <xsl:value-of select="$ou"/>', null, null);
+						insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>, <xsl:value-of select="$parent-ou"/>, Max Planck Society', null, null);
 					</xsl:otherwise>
 				</xsl:choose>
 				insert into triples values ('<xsl:value-of select="$genid"/>', 'http://purl.org/dc/elements/1.1/identifier', '<xsl:value-of select="$ou-id"/>', null, null);

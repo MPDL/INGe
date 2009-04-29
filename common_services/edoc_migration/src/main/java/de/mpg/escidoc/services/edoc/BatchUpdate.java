@@ -67,7 +67,11 @@ public class BatchUpdate
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
     private static String CORESERVICES_URL;
-    private static final String IMPORT_CONTEXT = "escidoc:31013";
+    // QA
+    //private static final String IMPORT_CONTEXT = "escidoc:31013";
+    
+    // Live
+    private static final String IMPORT_CONTEXT = "escidoc:57277";
     
     /**
      * @param args
@@ -82,6 +86,8 @@ public class BatchUpdate
         HttpClient httpClient = new HttpClient();
         String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
  
+        logger.info("Filter: " + filter);
+        
         PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/items/filter");
         
         postMethod.setRequestBody(filter);
@@ -114,9 +120,9 @@ public class BatchUpdate
 
             System.out.print(objId);
             
-            if (item.contains("xsi:type=\"eidt:cone\""))
+            if (item.contains("escidoc:22019"))
             {
-                item = item.replaceAll("xsi:type=\"eidt:cone\"", "xsi:type=\"eidt:CONE\"");
+                item = item.replaceAll("escidoc:22019", "escidoc:55222");
             
                 PutMethod putMethod = new PutMethod(CORESERVICES_URL + objId);
                 
@@ -133,7 +139,7 @@ public class BatchUpdate
                 endPos = result.indexOf("\"", startPos + 24);
                 String modDate = result.substring(startPos + 24, endPos);
                 //System.out.println("modDate: " + modDate);
-                String param = "<param last-modification-date=\"" + modDate + "\"><url>http://qa-pubman.mpdl.mpg.de:8080/faces/item/" + objId.substring(4) + "</url></param>";
+                String param = "<param last-modification-date=\"" + modDate + "\"><url>http://pubman.mpdl.mpg.de/pubman/item/" + objId.substring(4) + "</url></param>";
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/assign-version-pid");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));
@@ -145,7 +151,7 @@ public class BatchUpdate
                 endPos = result.indexOf("\"", startPos + 24);
                 modDate = result.substring(startPos + 24, endPos);
                 //System.out.println("modDate: " + modDate);
-                param = "<param last-modification-date=\"" + modDate + "\"><comment>Repaired identifier</comment></param>";
+                param = "<param last-modification-date=\"" + modDate + "\"><comment>Batch repair of organizational unit identifier</comment></param>";
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/submit");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));
@@ -157,7 +163,7 @@ public class BatchUpdate
                 endPos = result.indexOf("\"", startPos + 24);
                 modDate = result.substring(startPos + 24, endPos);
                 //System.out.println("modDate: " + modDate);
-                param = "<param last-modification-date=\"" + modDate + "\"><comment>Repaired identifier</comment></param>";
+                param = "<param last-modification-date=\"" + modDate + "\"><comment>Batch repair of organizational unit identifier</comment></param>";
                 postMethod = new PostMethod(CORESERVICES_URL + objId + "/release");
                 postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
                 postMethod.setRequestEntity(new StringRequestEntity(param));

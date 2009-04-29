@@ -64,11 +64,11 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="useAuthorList" select="false()"/>
-	<xsl:param name="removeSpacesInInitials" select="true()"/>
+	<xsl:param name="removeSpacesInInitials" select="false()"/>
 	<xsl:param name="createLocatorsForPublicComponents" select="false()"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:31013'"/>
+	<xsl:param name="context" select="'escidoc:57277'"/>
 	
 	<!--
 		DC XML  Header
@@ -76,7 +76,7 @@
 	<xsl:include href="src/main/resources/languages.xml"/>
 	<xsl:include href="src/main/resources/functions.xslt"/>
 	<xsl:include href="src/main/resources/mpipl_authors.xml"/>
-	<xsl:include href="src/main/resources/mpipl_ous.xml"/>
+	<xsl:include href="src/main/resources/mpipl_ous_prod.xml"/>
 	<xsl:include href="src/main/resources/mpipl_collections.xml"/>
 	
 	<xsl:variable name="dependentGenre">
@@ -1261,5 +1261,38 @@
 			<xsl:value-of select="$languages/language[$lang-label=@name][1]/@abbrev"/>
 		</xsl:element>
 	</xsl:template>
-	
-	<xsl:template name="validation">			<xsl:variable name="collectionsWithoutOuMatch">			<xsl:copy-of select="/edoc/record/docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]"/>		</xsl:variable>		<xsl:variable name="recordsWithoutOuMatch">			<xsl:value-of select="/edoc/record[docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>		</xsl:variable>		<xsl:if test="$collectionsWithoutOuMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $collectionsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch))"/>		</xsl:if>				<xsl:variable name="affiliationsWithoutOuMatch">			<xsl:copy-of select="/edoc/record/docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]"/>		</xsl:variable>		<xsl:variable name="recordsWithoutOuMatch2">			<xsl:value-of select="/edoc/record[docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>		</xsl:variable>		<xsl:if test="$affiliationsWithoutOuMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $affiliationsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch2))"/>		</xsl:if>				<xsl:variable name="mappingWithoutOuMatch">			<xsl:copy-of select="$collection-mapping/mapping/escidoc-ou[not(. = $organizational-units//ou/@name)]"/>		</xsl:variable>		<xsl:if test="$mappingWithoutOuMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('OU mappings [', $mappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>		</xsl:if>				<xsl:variable name="authorOuMappingWithoutOuMatch">			<xsl:value-of select="$authors/authors/author/departments/department[not(. = $organizational-units//ou/@name)]"/>		</xsl:variable>		<xsl:if test="$authorOuMappingWithoutOuMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthorOU' ), concat('OU mappings [', $authorOuMappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>		</xsl:if>				<!-- Uncomment this to find out which authors are not mapped. -->		<!-- <xsl:variable name="authorsWithoutMatch">			<xsl:for-each select="//creator">				<xsl:sort select="creatornfamily"/>				<xsl:sort select="creatorngiven"/>				<xsl:variable name="creatornfamily" select="creatornfamily"/>				<xsl:variable name="creatorngiven" select="creatorngiven"/>				<xsl:if test="not($authors/authors/author[aliases/alias[lower-case(familyname) = lower-case($creatornfamily) and lower-case(givenname) = lower-case($creatorngiven)]])">					<xsl:value-of select="creatornfamily"/>, <xsl:value-of select="creatorngiven"/><xsl:text></xsl:text>				</xsl:if>			</xsl:for-each>		</xsl:variable>				<xsl:if test="$authorsWithoutMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthor' ), concat('Authors ', $authorsWithoutMatch, ' do not match any mapped author.'))"/>		</xsl:if> -->		</xsl:template>	</xsl:stylesheet>
+
+	<xsl:template name="validation">
+		<xsl:variable name="collectionsWithoutOuMatch">
+			<xsl:copy-of select="/edoc/record/docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]"/>
+		</xsl:variable>
+		<xsl:variable name="recordsWithoutOuMatch">
+			<xsl:value-of select="/edoc/record[docaff/collection[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>
+		</xsl:variable>
+		<xsl:if test="$collectionsWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $collectionsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch))"/>
+		</xsl:if>
+		<xsl:variable name="affiliationsWithoutOuMatch">
+			<xsl:copy-of select="/edoc/record/docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]"/>
+		</xsl:variable>
+		<xsl:variable name="recordsWithoutOuMatch2">
+			<xsl:value-of select="/edoc/record[docaff/affiliation/mpgsunit[not($collection-mapping/mapping/edoc-collection = .)]]/@id"/>
+		</xsl:variable>
+		<xsl:if test="$affiliationsWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('Collections [', $affiliationsWithoutOuMatch, '] do not match any eSciDoc ou. Records: ', $recordsWithoutOuMatch2))"/>
+		</xsl:if>
+		<xsl:variable name="mappingWithoutOuMatch">
+			<xsl:copy-of select="$collection-mapping/mapping/escidoc-ou[not(. = $organizational-units//ou/@name)]"/>
+		</xsl:variable>
+		<xsl:if test="$mappingWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedCollection' ), concat('OU mappings [', $mappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>
+		</xsl:if>
+		<xsl:variable name="authorOuMappingWithoutOuMatch">
+			<xsl:value-of select="$authors/authors/author/departments/department[not(. = $organizational-units//ou/@name)]"/>
+		</xsl:variable>
+		<xsl:if test="$authorOuMappingWithoutOuMatch != ''">
+			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthorOU' ), concat('OU mappings [', $authorOuMappingWithoutOuMatch, '] do not match any eSciDoc ou.'))"/>
+		</xsl:if>
+		<!-- Uncomment this to find out which authors are not mapped. -->		<!-- <xsl:variable name="authorsWithoutMatch">			<xsl:for-each select="//creator">				<xsl:sort select="creatornfamily"/>				<xsl:sort select="creatorngiven"/>				<xsl:variable name="creatornfamily" select="creatornfamily"/>				<xsl:variable name="creatorngiven" select="creatorngiven"/>				<xsl:if test="not($authors/authors/author[aliases/alias[lower-case(familyname) = lower-case($creatornfamily) and lower-case(givenname) = lower-case($creatorngiven)]])">					<xsl:value-of select="creatornfamily"/>, <xsl:value-of select="creatorngiven"/><xsl:text></xsl:text>				</xsl:if>			</xsl:for-each>		</xsl:variable>				<xsl:if test="$authorsWithoutMatch != ''">			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnmatchedAuthor' ), concat('Authors ', $authorsWithoutMatch, ' do not match any mapped author.'))"/>		</xsl:if> -->
+	</xsl:template>
+</xsl:stylesheet>

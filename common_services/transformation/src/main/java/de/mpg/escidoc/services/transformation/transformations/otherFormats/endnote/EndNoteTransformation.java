@@ -1,7 +1,5 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.endnote;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -13,15 +11,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
-import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISImport;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 @TransformationModule

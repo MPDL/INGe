@@ -36,9 +36,10 @@ Workflow
      java EDocImport -Dfile.encoding=UTF-8 -Xmx512m <eDoc-data-file>
    where <eDoc-data-file> is the path and filename of the exported data. A new 
    file is created in the project root directory named "edoc_export_out.xml"
-10) The data are imported with the following execution
+10) Check in your settings.xml file if you point to the correct coreservice instance.
+11) The data are imported with the following execution
       java PubManImport -Dfile.encoding=UTF-8 -Xmx512m "edoc_export_out.xml" <eSciDoc-user-name> <eSciDoc-password>
-11) CHECK THE IMPORTED DATA
+12) CHECK THE IMPORTED DATA
 
 If the imported data shall be removed from the repository, do the following
 

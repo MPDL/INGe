@@ -180,7 +180,8 @@ public class RISTransformation implements Transformation{
            //return output.getBytes();
            // return ResourceUtil.getResourceAsString(src).getBytes("UTF-8");
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error getting file content", e);
         }
     }
