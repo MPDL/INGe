@@ -2,19 +2,19 @@
     <parent>
         <artifactId>pubman</artifactId>
         <groupId>de.mpg.escidoc.pubman</groupId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.mpg.escidoc.pubman</groupId>
     <artifactId>pubman_ear</artifactId>
     <name>pubman_ear</name>
     <packaging>ear</packaging>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0</version>
 
     <scm>
-        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
-        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
-        <url>https://zim02.gwdg.de/repos/common/</url>
+        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-5.0.0/pubman_ear</connection>
+        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-5.0.0/pubman_ear</developerConnection>
+        <url>https://zim02.gwdg.de/repos/common/tags/pubman-5.0.0/pubman_ear</url>
     </scm>
 
     <build>
@@ -423,7 +423,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.19-SNAPSHOT</version>
+            <version>1.1.19</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -444,7 +444,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>structuredexportmanager</artifactId>
-            <version>1.0.22-SNAPSHOT</version>
+            <version>1.0.22</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -458,18 +458,18 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.25-SNAPSHOT</version>
+            <version>1.0.25</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.18-SNAPSHOT</version>            <scope>compile</scope>            <type>war</type>        </dependency>
+            <version>1.0.18</version>            <scope>compile</scope>            <type>war</type>        </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition_presentation</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.16</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
@@ -496,28 +496,28 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search_presentation</artifactId>
-            <version>1.0.18-SNAPSHOT</version>
+            <version>1.0.18</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>syndication_presentation</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_logic</artifactId>
-            <version>5.0.0-SNAPSHOT</version>
+            <version>5.0.0</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_presentation</artifactId>
-            <version>5.0.0-SNAPSHOT</version>
+            <version>5.0.0</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
@@ -795,8 +795,7 @@
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
-                                            out="${project.build.directory}/properties-service.temp" />
+                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
                                         </copy>
 
@@ -871,8 +870,7 @@
                                         <taskdef resource="selenium-ant.properties">
                                             <classpath refid="maven.plugin.classpath" />
                                         </taskdef>
-                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180"
-                                            port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
+                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180" port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
                                     </tasks>
                                 </configuration>
                                 <goals>
@@ -955,16 +953,16 @@
         <!--                            <configuration>-->
         <!--                                <tasks>-->
         <!--                                    <taskdef resource="selenium-ant.properties">-->
-        <!--                                        <classpath refid="maven.plugin.classpath"/>-->
+        <!--                                        <classpath refid="maven.plugin.classpath" />-->
         <!--                                    </taskdef>-->
         <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
         <!--                                              browser="*firefox" timeoutInSeconds="180" port="5555"-->
         <!--                                              results="${project.build.directory}/selenium-firefox-results.html"-->
-        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/" />-->
         <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
         <!--                                              browser="*iexplore" timeoutInSeconds="180" port="5555"-->
         <!--                                              results="${project.build.directory}/selenium-ie-results.html"-->
-        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/" />-->
         <!--                                </tasks>-->
         <!--                            </configuration>-->
         <!--                            <goals>-->
