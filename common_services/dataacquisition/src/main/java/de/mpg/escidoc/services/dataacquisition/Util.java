@@ -638,7 +638,7 @@ public class Util
         }
         else             
         {
-            if (!identifier.startsWith("escidoc:"))
+            if (!identifier.toLowerCase().startsWith("escidoc:"))
             {
                 return "escidoc"+ ":" + identifier;
             }
