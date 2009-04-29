@@ -115,14 +115,15 @@ public class EndnoteProcessor extends FormatProcessor
             
             String inputString = new String(this.originalData, this.encoding);
 
-            items = inputString.split("(\\r\\n|\\r|\\n){3}");
+            items = inputString.split("(\\r\\n|\\r|\\n){2,3}");
             
             this.length = items.length;
             
             counter = 0;
             
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error reading input stream", e);
         }
         

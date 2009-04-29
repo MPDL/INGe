@@ -33,6 +33,8 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
@@ -66,7 +68,7 @@ public class WosProcessor extends FormatProcessor
         {
             initialize();
         }
-        return (this.items != null && this.counter < this.items.length);
+        return (this.items != null && this.counter < this.length);
     }
 
     /* (non-Javadoc)
@@ -78,7 +80,7 @@ public class WosProcessor extends FormatProcessor
         {
             initialize();
         }
-        if (this.items != null && this.counter < this.items.length)
+        if (this.items != null && this.counter < this.length)
         {
             this.counter++;
             return items[counter - 1];
@@ -100,32 +102,53 @@ public class WosProcessor extends FormatProcessor
 
     private void initialize()
     {
-        init = true;
+init = true;
+        
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getSource()));
+        String line = null;
+        String lastLine = null;
+        ArrayList<String> itemList = new ArrayList<String>();
+        StringWriter stringWriter = new StringWriter();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int read;
-        byte[] buffer = new byte[2048];
         try
         {
-            while ((read = getSource().read(buffer)) != -1)
+            while ((line = bufferedReader.readLine()) != null)
             {
-                byteArrayOutputStream.write(buffer, 0, read);
+                stringWriter.write(line);
+                stringWriter.write("\n");
+                
+                byteArrayOutputStream.write(line.getBytes(getEncoding()));
+                byteArrayOutputStream.write("\n".getBytes(getEncoding()));
+                
+                if ("".equals(line) && lastLine != null && lastLine.matches("ER\\s+"))
+                {
+                    itemList.add(stringWriter.toString());
+                    lastLine = null;
+                    stringWriter = new StringWriter();
+                }
+                else
+                {
+                    lastLine = line;
+                }
+            }
+            
+            if (line != null && line.matches("ER\\s+-"))
+            {
+                itemList.add(stringWriter.toString());
             }
             
             this.originalData = byteArrayOutputStream.toByteArray();
             
-            String inputString = new String(this.originalData, this.encoding);
-
-            items = inputString.split("(\\n|\\r|\\r\\n)ER\\s -");
+            this.items = itemList.toArray(new String[]{}); 
             
-            this.length = items.length;
+            this.length = this.items.length;
             
             counter = 0;
-            
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error reading input stream", e);
         }
-        
     }
 
     /* (non-Javadoc)

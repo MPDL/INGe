@@ -423,42 +423,42 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.19</version>
+            <version>1.1.20-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.25-SNAPSHOT</version>
+            <version>1.0.26-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.16-SNAPSHOT</version>
+            <version>1.0.17-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>structuredexportmanager</artifactId>
-            <version>1.0.22</version>
-            <scope>compile</scope>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>de.mpg.escidoc.services</groupId>
-            <artifactId>validation</artifactId>
             <version>1.0.23-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>validation</artifactId>
+            <version>1.0.24-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.25</version>
+            <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
@@ -795,7 +795,8 @@
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
+                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
+                                            out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
                                         </copy>
 
@@ -870,7 +871,8 @@
                                         <taskdef resource="selenium-ant.properties">
                                             <classpath refid="maven.plugin.classpath" />
                                         </taskdef>
-                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180" port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
+                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180"
+                                            port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
                                     </tasks>
                                 </configuration>
                                 <goals>
@@ -953,16 +955,16 @@
         <!--                            <configuration>-->
         <!--                                <tasks>-->
         <!--                                    <taskdef resource="selenium-ant.properties">-->
-        <!--                                        <classpath refid="maven.plugin.classpath" />-->
+        <!--                                        <classpath refid="maven.plugin.classpath"/>-->
         <!--                                    </taskdef>-->
         <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
         <!--                                              browser="*firefox" timeoutInSeconds="180" port="5555"-->
         <!--                                              results="${project.build.directory}/selenium-firefox-results.html"-->
-        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/" />-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
         <!--                                    <selenese suite="src/test/resources/selenium/TestSuite.html"-->
         <!--                                              browser="*iexplore" timeoutInSeconds="180" port="5555"-->
         <!--                                              results="${project.build.directory}/selenium-ie-results.html"-->
-        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/" />-->
+        <!--                                              startURL="http://${cargo.host}:${cargo.port}/${project.build.finalName}/"/>-->
         <!--                                </tasks>-->
         <!--                            </configuration>-->
         <!--                            <goals>-->

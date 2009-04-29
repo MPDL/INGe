@@ -2,14 +2,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>5.0.1-SNAPSHOT</version>
+		<version>5.0.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
-	<version>5.0.1-SNAPSHOT</version>
+	<version>5.0.0-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</connection>
@@ -65,25 +65,25 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.23</version>
+			<version>1.0.24-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.19</version>
+			<version>1.1.20-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.16</version>
+			<version>1.0.17-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.19</version>
+			<version>1.0.19-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		  <dependency>
