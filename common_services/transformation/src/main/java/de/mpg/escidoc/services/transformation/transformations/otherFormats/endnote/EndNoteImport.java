@@ -73,7 +73,6 @@ public class EndNoteImport
     	return file;
     }
    
-
     /**
      * Splits EndNote items and puts them into List<String>
      * @param itemsStr item list string  
@@ -82,10 +81,15 @@ public class EndNoteImport
     public List<String> splitItems(String itemsStr)
     {
     	List<String> l = new ArrayList<String>();
-    	String pattern = "%0";
-    	for (String s: itemsStr.split(pattern) )
-    		if ( s.length() > 1 && checkVal(s) )
-    			l.add(pattern + s);
+    	String pattern = "[\\n\\r]+%0";
+    	Pattern p = Pattern.compile(pattern);
+    	for (String s: p.split(itemsStr) )
+			if (checkVal(s) && s.length() > 1)
+			{
+				s = s.replaceAll("^.*?(%0)","$1" );
+    			l.add( s.startsWith("%0 ")? s : "%0 " + s );
+			}
+//    	logger.info("count:" + i);
     	return l;
     }
     
@@ -96,16 +100,17 @@ public class EndNoteImport
      */
     public List<String> splitItemElements(String itemStr){    	
     	   	
-    	Pattern p = Pattern.compile("(\\n%\\S.*?)(?=%\\S)", Pattern.DOTALL);
-    	Matcher m = p.matcher("\n" + itemStr + "%STOP"); 
     	List<String> l = new ArrayList<String>();
-    	while (m.find()) 
-    	{
-			String s = m.group();
-    		if ( checkVal(s) && s.length() > 1  )
-    			l.add(s.trim());
-		}
+    	String pattern = "\\n%";
+    	Pattern p = Pattern.compile(pattern);
+    	for (String s: p.split("\n" + itemStr) )
+			if ( checkVal(s) )
+			{
+    			l.add("%" + s);
+			}
+    	
     	return l;
+    	
     }
     
     /**
