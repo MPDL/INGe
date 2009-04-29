@@ -136,10 +136,10 @@
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:element name="e:complete-name">
-				<xsl:value-of select="concat(FirstName, " ", MiddelName, " ", LastName)"/>
+				<xsl:value-of select="concat(FirstName, ' ', MiddelName, ' ', LastName)"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="concat(FirstName, "", MiddelName)"/>
+				<xsl:value-of select="concat(FirstName, ' ', MiddelName)"/>
 			</xsl:element>
 			<xsl:element name="e:family-name">
 				<xsl:value-of select="LastName"/>
