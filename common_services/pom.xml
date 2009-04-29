@@ -489,6 +489,7 @@
 				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.metadata.escidocprofile.idtypes>http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes</xsd.metadata.escidocprofile.idtypes>
 				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
 				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
@@ -638,6 +639,7 @@
 				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.metadata.escidocprofile.idtypes>http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes</xsd.metadata.escidocprofile.idtypes>
 				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
 				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
