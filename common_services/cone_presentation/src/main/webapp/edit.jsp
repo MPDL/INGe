@@ -610,7 +610,7 @@
 									<% } %>	
 								</div>
 								<div class="free_area0 xTiny_marginLIncl">
-									<span class="mandatory">* mandatory fiefd</span>
+									<span class="mandatory">* mandatory field</span>
 								</div>
 							</div>
 						</div>
