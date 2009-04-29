@@ -117,7 +117,7 @@ public class RisProcessor extends FormatProcessor
                 byteArrayOutputStream.write(line.getBytes(getEncoding()));
                 byteArrayOutputStream.write("\n".getBytes(getEncoding()));
                 
-                if ("".equals(line) && lastLine != null && lastLine.matches("ER\\s+-"))
+                if ("".equals(line) && lastLine != null && lastLine.matches("ER\\s+-\\s*"))
                 {
                     itemList.add(stringWriter.toString());
                     lastLine = null;

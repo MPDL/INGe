@@ -384,7 +384,7 @@ public class ImportProcess extends Thread
                     }
     
                     String singleItem = this.formatProcessor.next();
-                    
+
                     if (failed)
                     {
                         return;
@@ -557,6 +557,7 @@ public class ImportProcess extends Thread
     private void prepareItem(String singleItem)
     {
         log.addDetail(ErrorLevel.FINE, "import_process_source_data_found");
+        log.addDetail(ErrorLevel.FINE, singleItem);
         
         log.addDetail(ErrorLevel.FINE, "import_process_start_transformation");
         String esidocXml = null;
@@ -570,6 +571,8 @@ public class ImportProcess extends Thread
                             "escidoc"),
                     ESCIDOC_FORMAT.getEncoding());
         
+            log.addDetail(ErrorLevel.FINE, esidocXml);
+            
             log.addDetail(ErrorLevel.FINE, "import_process_transformation_done");
             
             PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
