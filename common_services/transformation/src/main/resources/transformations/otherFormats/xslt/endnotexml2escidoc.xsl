@@ -276,7 +276,7 @@
 			</xsl:variable>
 			
 			<xsl:if test="concat($publisher, $place, $edition)!=''">
-				<xsl:element name="e:publishing-info">
+				<xsl:element name="pub:publishing-info">
 					<xsl:if test="$publisher!=''">
 						<xsl:element name="dc:publisher">
 							<xsl:value-of select="$publisher"/>
