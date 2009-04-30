@@ -136,8 +136,9 @@
 	<xsl:template match="bmc:Author">
 	
 		<xsl:element name="pub:creator">
-			<xsl:element name="e:person">
 			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:element name="e:person">
+			
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
 				<xsl:value-of select="concat(bmc:MiddelName, ' ')"/>
