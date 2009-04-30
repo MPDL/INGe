@@ -33,7 +33,7 @@
 	$Revision: 747 $ 
 	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Mo, 21 Jul 2008) $
 -->
-<xsl:stylesheet version="2.0" xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle"
+<xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
@@ -53,6 +53,7 @@
    xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
    xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
    xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+   xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
    
  <!--  xmlns:ei="${xsd.soap.item.item}"
@@ -69,7 +70,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
 	
 	<xsl:template match="/">		
-		<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/Article">			
+		<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/bmc:ArticleSet/bmc:Article">			
 			<xsl:call-template name="createItem"/>
 		</xsl:for-each>
 	</xsl:template>	
@@ -103,24 +104,24 @@
 	<!-- CREATE MD-RECORD -->
 	<xsl:template name="createMDRecord">
 		<xsl:element name="mdp:publication">			
-			<xsl:attribute name="type" select="'article'"/>
+			<xsl:attribute name="type">article</xsl:attribute>
 			<!-- CREATOR -->
-			<xsl:apply-templates select="AuthorList"/>
+			<xsl:apply-templates select="bmc:AuthorList"/>
 			<!-- TITLE -->
-			<xsl:apply-templates select="ArticleTitle"/>
-			<xsl:apply-templates select="VernacularTitle"/>
+			<xsl:apply-templates select="bmc:ArticleTitle"/>
+			<xsl:apply-templates select="bmc:VernacularTitle"/>
 			<!-- IDENTIFIER -->
-			<xsl:apply-templates select="ArticleIdList"/>
+			<xsl:apply-templates select="bmc:ArticleIdList"/>
 			
 			<!-- DATES -->
-			<xsl:apply-templates select="History/PubDate"/>
+			<xsl:apply-templates select="bmc:History/bmc:PubDate"/>
 			<!-- TOTAL PAGES -->
-			<xsl:apply-templates select="pm:page-range"/>
+		<!-- 	<xsl:apply-templates select="pm:page-range"/>-->
 			<!-- ABSTRACT -->			
-			<xsl:apply-templates select="Abstract"/>
-			<xsl:apply-templates select="OtherAbstract"/>
+			<xsl:apply-templates select="bmc:Abstract"/>
+			<xsl:apply-templates select="bmc:OtherAbstract"/>
 			<!-- SOURCE:JOURNAL -->
-			<xsl:apply-templates select="Journal"/>
+			<xsl:apply-templates select="bmc:Journal"/>
 			
 		</xsl:element>
 	</xsl:template>
@@ -128,32 +129,35 @@
 	
 
 	<!-- CREATOR --><!--TODO organizations-->
-	<xsl:template match="AuthorList">
-		<xsl:apply-templates select="Author"/>
+	<xsl:template match="bmc:AuthorList">
+		<xsl:apply-templates select="bmc:Author"/>
 	</xsl:template>
 	
-	<xsl:template match="Author">
+	<xsl:template match="bmc:Author">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:element name="e:complete-name">
-				<xsl:value-of select="concat(FirstName, ' ', MiddelName, ' ', LastName)"/>
+				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
+				<xsl:value-of select="concat(bmc:MiddelName, ' ')"/>
+				<xsl:value-of select="bmc:LastName"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="concat(FirstName, ' ', MiddelName)"/>
+				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
+				<xsl:value-of select="bmc:MiddelName"/>
 			</xsl:element>
 			<xsl:element name="e:family-name">
-				<xsl:value-of select="LastName"/>
+				<xsl:value-of select="bmc:LastName"/>
 			</xsl:element>
-			<xsl:apply-templates select="Affiliation"/>
+			<xsl:apply-templates select="bmc:Affiliation"/>
 		</xsl:element>
-		<xsl:apply-templates select="ColectiveName"/>
+		<xsl:apply-templates select="bmc:ColectiveName"/>
 	</xsl:template>
 	
-	<xsl:template match="Affiliation">
+	<xsl:template match="bmc:Affiliation">
 		<xsl:call-template name="createOrganization"/>
 	</xsl:template>
 	
-	<xsl:template match="CollectiveName">
+	<xsl:template match="bmc:CollectiveName">
 		<xsl:element name="pub:creator">			
 			<xsl:call-template name="createOrganization"/>
 		</xsl:element>
@@ -168,21 +172,21 @@
 	
 	
 	<!-- TITLE -->
-	<xsl:template match="ArticleTitle">
+	<xsl:template match="bmc:ArticleTitle">
 		<xsl:element name="dc:title">			
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="VernacularTitle">
+	<xsl:template match="bmc:VernacularTitle">
 		<xsl:element name="dcterms:alternative">			
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- IDENTIFIER -->
-	<xsl:template match="ArticleIdList">
+	<xsl:template match="bmc:ArticleIdList">
 		<xsl:apply-templates select="ArticleId"/>
 	</xsl:template>
-	<xsl:template match="ArticleId">
+	<xsl:template match="bmc:ArticleId">
 		<xsl:element name="dc:identifier">
 			<xsl:choose>
 				<xsl:when test="@IdType='pii'">					
@@ -216,7 +220,7 @@
 	
 	
 	<!-- DATES -->
-	<xsl:template match="History/PubDate">		
+	<xsl:template match="bmc:History/bmc:PubDate">		
 		<xsl:choose>
 			<xsl:when test="@PubStatus='received'">
 				<xsl:element name="dcterms:dateSubmitted">
@@ -255,27 +259,27 @@
 	<xsl:template name="createDate">
 		
 		<xsl:variable name="date">
-			<xsl:if test="Year">
-				<xsl:value-of select="Year"/>
-				<xsl:if test="Month">					
+			<xsl:if test="bmc:Year">
+				<xsl:value-of select="bmc:Year"/>
+				<xsl:if test="bmc:Month">					
 					
 					<xsl:choose>
-						<xsl:when test="Jan"><xsl:value-of>-01</xsl:value-of></xsl:when>
-						<xsl:when test="Feb"><xsl:value-of>-02</xsl:value-of></xsl:when>
-						<xsl:when test="Mar"><xsl:value-of>-03</xsl:value-of></xsl:when>
-						<xsl:when test="Apr"><xsl:value-of>-04</xsl:value-of></xsl:when>
-						<xsl:when test="May"><xsl:value-of>-05</xsl:value-of></xsl:when>
-						<xsl:when test="Jun"><xsl:value-of>-06</xsl:value-of></xsl:when>
-						<xsl:when test="Jul"><xsl:value-of>-07</xsl:value-of></xsl:when>
-						<xsl:when test="Aug"><xsl:value-of>-08</xsl:value-of></xsl:when>
-						<xsl:when test="Sep"><xsl:value-of>-09</xsl:value-of></xsl:when>
-						<xsl:when test="Oct"><xsl:value-of>-10</xsl:value-of></xsl:when>
-						<xsl:when test="Nov"><xsl:value-of>-11</xsl:value-of></xsl:when>
-						<xsl:when test="Dec"><xsl:value-of>-12</xsl:value-of></xsl:when>
+						<xsl:when test="Jan"><xsl:text>-01</xsl:text></xsl:when>
+						<xsl:when test="Feb"><xsl:text>-02</xsl:text></xsl:when>
+						<xsl:when test="Mar"><xsl:text>-03</xsl:text></xsl:when>
+						<xsl:when test="Apr"><xsl:text>-04</xsl:text></xsl:when>
+						<xsl:when test="May"><xsl:text>-05</xsl:text></xsl:when>
+						<xsl:when test="Jun"><xsl:text>-06</xsl:text></xsl:when>
+						<xsl:when test="Jul"><xsl:text>-07</xsl:text></xsl:when>
+						<xsl:when test="Aug"><xsl:text>-08</xsl:text></xsl:when>
+						<xsl:when test="Sep"><xsl:text>-09</xsl:text></xsl:when>
+						<xsl:when test="Oct"><xsl:text>-10</xsl:text></xsl:when>
+						<xsl:when test="Nov"><xsl:text>-11</xsl:text></xsl:when>
+						<xsl:when test="Dec"><xsl:text>-12</xsl:text></xsl:when>
 					</xsl:choose>
 				</xsl:if>
-				<xsl:if test="Day">
-					<xsl:value-of select="concat('-',Day)"/>
+				<xsl:if test="bmc:Day">
+					<xsl:value-of select="concat('-',bmc:Day)"/>
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
@@ -283,19 +287,19 @@
 	
 	
 	<!-- TOTAL NO OF PAGES  -->
-	<xsl:template match="pm:page-range">
+	<!-- <xsl:template match="pm:page-range">
 		<xsl:element name="pub:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
-	</xsl:template>
+	</xsl:template>-->
 	<!-- ABSTRACT -->
 	<!--TODO delete tags -->
-	<xsl:template match="Abstract">
+	<xsl:template match="bmc:Abstract">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="OtherAbstract">
+	<xsl:template match="bmc:OtherAbstract">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
 		</xsl:element>
@@ -303,58 +307,58 @@
 	
 	
 	<!-- CREATE JOURNAL -->
-	<xsl:template match="Journal">		
+	<xsl:template match="bmc:Journal">		
 		<xsl:element name="pub:source">	
-			<xsl:attribute name="type" select="'journal'"/>
+			<xsl:attribute name="type">journal</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:apply-templates select="JournalTitle"/>			
+			<xsl:apply-templates select="bmc:JournalTitle"/>			
 			<!-- SOURCE VOLUME -->
-			<xsl:apply-templates select="Volume"/>
+			<xsl:apply-templates select="bmc:Volume"/>
 			<!-- SOURCE ISSUE -->
-			<xsl:apply-templates select="Issue"/>
+			<xsl:apply-templates select="bmc:Issue"/>
 			<!-- SOURCE PAGES -->
-			<xsl:apply-templates select="FirstPage"/>
-			<xsl:apply-templates select="LastPage"/>
+			<xsl:apply-templates select="bmc:FirstPage"/>
+			<xsl:apply-templates select="bmc:LastPage"/>
 			<!-- SOURCE SEQ NR -->
-			<xsl:apply-templates select="ELocationID"/>
+			<xsl:apply-templates select="bmc:ELocationID"/>
 			<!-- SOURCE PUBLISHINGINFO -->
-			<xsl:apply-templates select="PublisherName"/>
+			<xsl:apply-templates select="bmc:PublisherName"/>
 			<!-- SOURCE IDENTIFIER -->
-			<xsl:apply-templates select="Issn"/>
+			<xsl:apply-templates select="bmc:Issn"/>
 		</xsl:element>
 	</xsl:template>
 	<!-- VOLUME -->	
-	<xsl:template match="Volume">
+	<xsl:template match="bmc:Volume">
 		<xsl:element name="e:volume">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- ISSUE -->	
-	<xsl:template match="Issue">
+	<xsl:template match="bmc:Issue">
 		<xsl:element name="e:issue">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- PAGES -->
-	<xsl:template match="FirstPages">
+	<xsl:template match="bmc:FirstPages">
 		<xsl:element name="e:start-page">
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
-	<xsl:template match="LastPage">
+	<xsl:template match="bmc:LastPage">
 		<xsl:element name="e:end-page">	
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- SEQ NO -->
-	<xsl:template match="ELocationID">
+	<xsl:template match="bmc:ELocationID">
 		<xsl:element name="e:sequence-number">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	
 	<!-- SOURCE TITLE -->
-	<xsl:template match="JournalTitle">
+	<xsl:template match="bmc:JournalTitle">
 		<xsl:element name="dc:title">
 			<xsl:value-of select="."/>
 		</xsl:element>
@@ -362,14 +366,14 @@
 	
 	<!-- SOURCE IDENTIFIER -->
 	
-	<xsl:template match="Issn">
+	<xsl:template match="bmc:Issn">
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- SOURCE PUBLISHINGINFO -->
-	<xsl:template match="PublisherName">
+	<xsl:template match="bmc:PublisherName">
 		<xsl:element name="e:publishing-info">
 			<xsl:element name="dc:publisher">
 				<xsl:value-of select="."/>
