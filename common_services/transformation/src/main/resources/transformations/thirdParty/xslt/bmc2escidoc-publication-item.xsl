@@ -134,7 +134,9 @@
 	</xsl:template>
 	
 	<xsl:template match="bmc:Author">
+	
 		<xsl:element name="pub:creator">
+			<xsl:element name="e:person">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
@@ -150,7 +152,9 @@
 			</xsl:element>
 			<xsl:apply-templates select="bmc:Affiliation"/>
 		</xsl:element>
+		</xsl:element>
 		<xsl:apply-templates select="bmc:ColectiveName"/>
+		
 	</xsl:template>
 	
 	<xsl:template match="bmc:Affiliation">
@@ -158,9 +162,12 @@
 	</xsl:template>
 	
 	<xsl:template match="bmc:CollectiveName">
-		<xsl:element name="pub:creator">			
+	
+		<xsl:element name="pub:creator">	
+				
 			<xsl:call-template name="createOrganization"/>
 		</xsl:element>
+	
 	</xsl:template>
 	<xsl:template name="createOrganization">		
 		<xsl:element name="e:organization">
