@@ -354,8 +354,7 @@
 				</xsl:if>
 			</xsl:variable>
 			<xsl:if test="$year">
-				<!--				TODO: check !!!-->
-				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="string-join(($year, $date), '-')"/></dcterms:created>				
+				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="concat($year, if ($year!='' and $date!='') then '-' else '', $date)"/></dcterms:created>				
 			</xsl:if>
 			<xsl:if test="NUM_7 and (
 				   $refType = 'Journal Article' 
