@@ -645,8 +645,8 @@
 				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 				
 				<!-- unAPI -->
-				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/view/unapi/</escidoc.unapi.view.server>
-				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/download/unapi/</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
+				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				
                 <!-- Blog integration -->
                 <escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
