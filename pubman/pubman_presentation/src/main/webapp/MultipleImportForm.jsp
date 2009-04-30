@@ -134,7 +134,7 @@
 														&#160;<span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<span class="xLarge_checkbox">
+														<span class="xHuge_checkbox">
 															<h:selectBooleanCheckbox value="#{MultipleImport.rollback}"/>
 															<h:outputLabel value="#{lbl.multipleImport_checkboxRollback}"/>
 														</span>
@@ -145,7 +145,7 @@
 														&#160;<span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<h:selectOneRadio styleClass="large_radioBtn xHuge_area0" value="#{MultipleImport.duplicateStrategy}">
+														<h:selectOneRadio layout="pageDirection" styleClass="xHuge_radioBtn xHuge_area0" value="#{MultipleImport.duplicateStrategy}">
 															<f:selectItem itemValue="1" itemLabel="#{lbl.multipleImport_dont_check_duplicates}"/>
 															<f:selectItem itemValue="2" itemLabel="#{lbl.multipleImport_dont_import_duplicates}"/>
 															<f:selectItem itemValue="3" itemLabel="#{lbl.multipleImport_dont_import_anything}"/>
