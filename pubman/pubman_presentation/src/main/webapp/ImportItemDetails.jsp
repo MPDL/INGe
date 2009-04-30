@@ -53,7 +53,10 @@
 						<h:outputText value="#{detail.startDateFormatted}"/>&#160;
 					</span>
 					<span class="double_area0">
-						<h:outputText value="#{detail.localizedMessage}"/>&#160;
+						<h:outputText value="#{detail.localizedMessage}" rendered="#{detail.itemId == null}"/>
+						<h:outputLink value="#{detail.link}" rendered="#{detail.itemId != null}">
+							<h:outputText value="#{detail.localizedMessage}"/>&#160;
+						</h:outputLink>&#160;
 					</span>
 					
 				</h:panelGroup>

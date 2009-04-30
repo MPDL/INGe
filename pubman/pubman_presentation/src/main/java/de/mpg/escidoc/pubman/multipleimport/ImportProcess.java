@@ -48,6 +48,7 @@ import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -312,6 +313,10 @@ public class ImportProcess extends Thread
             else if (ARXIV_FORMAT.matches(format))
             {
                 this.formatProcessor = new ArxivProcessor();
+            }
+            else if (WOS_FORMAT.matches(format))
+            {
+                this.formatProcessor = new WosProcessor();
             }
             else
             {

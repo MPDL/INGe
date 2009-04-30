@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.multipleimport.processor;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -102,42 +103,54 @@ public class BibtexProcessor extends FormatProcessor
     private void initialize()
     {
         init = true;
+        
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getSource()));
+        String line = null;
+        ArrayList<String> itemList = new ArrayList<String>();
+        StringWriter stringWriter = new StringWriter();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        int read;
-        byte[] buffer = new byte[2048];
+		boolean first = true;
         try
         {
-            while ((read = getSource().read(buffer)) != -1)
+            while ((line = bufferedReader.readLine()) != null)
             {
-                byteArrayOutputStream.write(buffer, 0, read);
+                
+                byteArrayOutputStream.write(line.getBytes(getEncoding()));
+                byteArrayOutputStream.write("\n".getBytes(getEncoding()));
+                
+                if (line.matches("^@[a-zA-Z]+\\{.*"))
+                {
+					stringWriter = new StringWriter();
+					if (first)
+					{
+						first = false;
+					}
+					else
+					{
+						itemList.add(stringWriter.toString());
+                    }
+                }
+
+                stringWriter.write(line);
+                stringWriter.write("\n");
+            }
+            
+            if (!"".equals(stringWriter.toString().trim()))
+            {
+                itemList.add(stringWriter.toString());
             }
             
             this.originalData = byteArrayOutputStream.toByteArray();
             
-            // TODO: Check encoding handling
-            //String inputString = new String(this.originalData, this.encoding);
-            String inputString = new String(this.originalData, this.encoding);
-
-            Pattern pattern = Pattern.compile("@[a-zA-Z]+\\{(.*(\\r\\n|\\r|\\n))+?.*\\},?\\s*(\\r\\n|\\r|\\n)(\\r\\n|\\r|\\n)");
+            this.items = itemList.toArray(new String[]{});
             
-            ArrayList<String> itemList = new ArrayList<String>();
-            
-            Matcher matcher = pattern.matcher(inputString);
-            int start = 0;
-            
-            while (matcher.find(start))
-            {
-                itemList.add(matcher.group());
-                start = matcher.end();
-            }
-            items = itemList.toArray(new String[]{});
-            
-            this.length = items.length;
+            this.length = this.items.length;
             
             counter = 0;
             
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error reading input stream", e);
         }
         

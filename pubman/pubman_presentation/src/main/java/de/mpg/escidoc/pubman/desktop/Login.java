@@ -152,7 +152,10 @@ public class Login extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         // Deactivated because of import tool
         fc.getExternalContext().redirect(
-                ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true", "UTF-8"));
+                ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target="
+                + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + "?logout=true", "UTF-8"));
         //fc.getExternalContext().redirect(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true");
     }
 
