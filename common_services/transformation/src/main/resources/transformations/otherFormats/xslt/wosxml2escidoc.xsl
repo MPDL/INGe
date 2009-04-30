@@ -98,7 +98,7 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:content-model objid="escidoc:persistent3"/>
+				<srel:content-model objid="escidoc:persistent4"/>
 				<xsl:element name="prop:content-model-specific"/>
 				<!-- <xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href">
