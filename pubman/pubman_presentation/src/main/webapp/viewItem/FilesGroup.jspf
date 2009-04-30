@@ -107,7 +107,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLink value="#{file.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="#{file.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
 				</span>
-				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
+				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{!file.urlToLicenceImage == ''}">
 					<h:graphicImage styleClass="sectionTool" url="#{file.urlToLicenceImage}" value="#{file.urlToLicenceImage}"/>
 				</h:panelGroup>
 			</h:panelGroup>

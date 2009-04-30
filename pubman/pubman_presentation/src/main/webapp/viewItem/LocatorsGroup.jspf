@@ -97,7 +97,7 @@
 					<h:outputLink value="#{locator.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
-					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" />
+					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" rendered="#{!locator.urlToLicenceImage == ''}"/>
 				</h:panelGroup>
 			</h:panelGroup>
 

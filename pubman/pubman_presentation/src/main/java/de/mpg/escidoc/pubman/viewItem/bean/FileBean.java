@@ -429,11 +429,11 @@ public class FileBean extends FacesBean
     {
     	String  urlToLicenceImage = "";
     	
-    	if(file.getDefaultMetadata() != null)
+    	if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getLicense() != null)
     	{
-	    	String licenceURL = file.getDefaultMetadata().getLicense();
+	    	String licenceURL = file.getDefaultMetadata().getLicense().toLowerCase();
 	    	
-	    	if(licenceURL != null && !licenceURL.trim().equals(""))
+	    	if(licenceURL != null && !licenceURL.trim().equals("") && licenceURL.contains("creative") && licenceURL.contains("commons"));
 	    	{
 		    	String[] splittedURL = licenceURL.split("\\/");
 		    	
