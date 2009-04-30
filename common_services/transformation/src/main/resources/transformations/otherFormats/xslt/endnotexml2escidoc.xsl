@@ -348,7 +348,7 @@
 							  	if (.='Nov') then '11' else
 							  	'12'
 							  )	
-							else concat('-', .)	
+							else concat('-', if (string-length(.)=1) then concat('0', .) else .  )	
 							   "/>
 					</xsl:for-each>			
 				</xsl:if>
