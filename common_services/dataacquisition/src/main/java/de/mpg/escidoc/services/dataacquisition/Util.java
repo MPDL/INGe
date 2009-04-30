@@ -33,7 +33,6 @@ package de.mpg.escidoc.services.dataacquisition;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Vector;
 
 import javax.naming.InitialContext;
@@ -48,6 +47,7 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
@@ -649,6 +649,23 @@ public class Util
         }
     }
     
+//    /**
+//     * This methods gets a vector of formats, checks the formats names and adds
+//     * the format type to the name if the name occurs more than once in the list.
+//     * @param formats
+//     * @return Vector of FormatVOs
+//     */
+//    private Vector<FormatVO> handleDuplicateFormatNames (Vector<FormatVO> formats)
+//    {
+//        FormatVO currentFormat;
+//        
+//        for (int i=0; i<f)
+//        {
+//            
+//        }
+//        
+//        return formats;
+//    }
     
     public String getInternalFormat()
     {

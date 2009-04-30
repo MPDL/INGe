@@ -356,7 +356,10 @@ public class DataHandlerBean implements DataHandler
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
                 item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
-                this.setItemUrl(new URL(importSource.getItemUrl().toString().replace("GETID", identifier)));
+                if (importSource.getItemUrl()!= null)
+                {
+                    this.setItemUrl(new URL(importSource.getItemUrl().toString().replace("GETID", identifier)));
+                }
             }
             
             this.setContentType(trgFormatType);
