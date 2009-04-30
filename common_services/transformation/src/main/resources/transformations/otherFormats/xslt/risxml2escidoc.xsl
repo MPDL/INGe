@@ -270,10 +270,10 @@
 				<xsl:value-of select="."/>
 			</xsl:element>
 			<xsl:element name="e:family-name">
-				<xsl:value-of select="substring-before(e:complete-name,',')"/>
+				<xsl:value-of select="substring-before(.,',')"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="substring-after(e:complete-name,',')"/>
+				<xsl:value-of select="substring-after(.,',')"/>
 			</xsl:element>
 			<xsl:if test="../AD">
 				<xsl:element name="e:organization">
