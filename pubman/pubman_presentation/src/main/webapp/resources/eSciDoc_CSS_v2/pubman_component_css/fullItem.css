@@ -213,6 +213,11 @@
 	margin-bottom: 0.19em;
 } 
 
+.fullItem .affTreeOUIcon {
+	margin-bottom: 0.27em;
+	margin-right: 0.27em;
+}
+
 .fullItem .advSearchCollapse {
 	 margin-top: -1.46em !important;
 }
