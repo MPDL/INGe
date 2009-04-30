@@ -283,6 +283,7 @@
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
+		<xsl:value-of select="$date"/>
 	</xsl:template>
 	
 	
