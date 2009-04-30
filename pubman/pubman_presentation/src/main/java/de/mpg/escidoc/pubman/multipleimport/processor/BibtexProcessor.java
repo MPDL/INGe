@@ -120,7 +120,6 @@ public class BibtexProcessor extends FormatProcessor
                 
                 if (line.matches("^@[a-zA-Z]+\\{.*"))
                 {
-					stringWriter = new StringWriter();
 					if (first)
 					{
 						first = false;
@@ -129,16 +128,15 @@ public class BibtexProcessor extends FormatProcessor
 					{
 						itemList.add(stringWriter.toString());
                     }
+					stringWriter = new StringWriter();
                 }
 
                 stringWriter.write(line);
                 stringWriter.write("\n");
             }
-            
-            if (!"".equals(stringWriter.toString().trim()))
-            {
-                itemList.add(stringWriter.toString());
-            }
+
+            itemList.add(stringWriter.toString());
+
             
             this.originalData = byteArrayOutputStream.toByteArray();
             
