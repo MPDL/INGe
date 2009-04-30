@@ -360,7 +360,7 @@
 			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:if test="PU">
 				<xsl:element name="e:publishing-info">
-					<xsl:element name="e:publisher">
+					<xsl:element name="dc:publisher">
 						<xsl:value-of select="PU"/>
 					</xsl:element>
 					<xsl:element name="e:place">
