@@ -95,7 +95,7 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="item-list/item">
+	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<srel:content-model objid="escidoc:persistent3"/>
