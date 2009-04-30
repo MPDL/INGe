@@ -147,16 +147,15 @@
 				"/>		
 		
 		<xsl:element name="mdp:publication">
+		
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
 			
-			<!-- CREATORS -->
-			<xsl:apply-templates select="A"/>
-			<xsl:apply-templates select="E"/>
-			<xsl:apply-templates select="Y"/>
-			<xsl:apply-templates select="QUESTION"/>
 			
+			<!-- CREATORS -->
+			<xsl:call-template name="createCreators"/>
+
 						
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
@@ -501,12 +500,10 @@
 					$refType = ('Conference Proceedings', 'Book Section')
 				]
 				">
-				<xsl:element name="e:creator">
-					<xsl:element name="e:person">
-						<xsl:attribute name="role">editor</xsl:attribute>
-						<xsl:call-template name="createPerson"/>
-						</xsl:element>
-				</xsl:element>
+				<xsl:call-template name="createCreator">
+					<xsl:with-param name="role" select="'editor'"/>
+					<xsl:with-param name="isSource" select="true()"/>
+				</xsl:call-template>
 			</xsl:for-each>
 
 			
@@ -610,99 +607,121 @@
 	
 	
 	<!-- CREATORS -->
-	<xsl:template match="A">
-		<xsl:variable name="refType" select="../NUM_0"/>
-		<xsl:choose>
-			<xsl:when test="
-				$refType = (
-					'Generic', 
-					'Book', 
-					'Book Section', 
-					'Conference Paper', 
-					'Conference Proceedings', 
-					'Electronic Article', 
-					'Electronic Book', 
-					'Journal Article', 
-					'Magazine Article',	 
-					'Newspaper Article',	 
-					'Manuscript', 
-					'Report', 
-					'Thesis'
-				)">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">author</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="$refType='Edited Book'">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">editor</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-		</xsl:choose>
+	<xsl:template name="createCreators">
+		<xsl:variable name="refType" select="NUM_0"/>
+		<xsl:for-each select="A|E|Y|QUESTION">
+			<xsl:if test="name(.)='A'">
+				<xsl:choose>
+					<xsl:when test="
+						$refType = (
+							'Generic', 
+							'Book', 
+							'Book Section', 
+							'Conference Paper', 
+							'Conference Proceedings', 
+							'Electronic Article', 
+							'Electronic Book', 
+							'Journal Article', 
+							'Magazine Article',	 
+							'Newspaper Article',	 
+							'Manuscript', 
+							'Report', 
+							'Thesis'
+						)">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'author'"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:when test="$refType='Edited Book'">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'editor'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:if>
+			
+			<xsl:if test="name(.)='E'">
+				<xsl:choose>
+					<xsl:when test="$refType='Generic'">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'author'"/>
+						</xsl:call-template>					
+					</xsl:when>
+					<xsl:when test="$refType = ('Conference Paper', 'Electronic Book') ">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'editor'"/>
+						</xsl:call-template>					
+					</xsl:when>
+				</xsl:choose>
+			</xsl:if>
+			
+			<xsl:if test="name(.)='Y'">
+				<xsl:choose>
+					<xsl:when test="$refType='Generic'">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'author'"/>
+						</xsl:call-template>					
+					</xsl:when>
+					<xsl:when test="$refType='Thesis'">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role" select="'advisor'"/>
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:if>
+			
+			<xsl:if test="name(.)='QUESTION'">
+				<xsl:if test="$refType = ('Book', 'Book Section', 'Edited Book')">
+					<xsl:call-template name="createCreator">
+						<xsl:with-param name="role" select="'translator'"/>
+					</xsl:call-template>					
+				</xsl:if>
+			</xsl:if>		
+		</xsl:for-each>
 	</xsl:template>
-	
-	<xsl:template match="E">
-		<xsl:variable name="refType" select="../NUM_0"/>	
-		<xsl:choose>
-			<xsl:when test="$refType='Generic'">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">author</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="$refType = ('Conference Paper', 'Electronic Book') ">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">editor</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-	
-	<xsl:template match="Y">
-		<xsl:variable name="refType" select="../NUM_0"/>
-		<xsl:choose>
-			<xsl:when test="$refType='Generic'">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">author</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-			<xsl:when test="$refType='Thesis'">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">advisor</xsl:attribute>
-					<xsl:call-template name="createPerson"/>
-				</xsl:element>
-			</xsl:when>
-		</xsl:choose>
-	</xsl:template>
-	
-	<xsl:template match="QUESTION">
-		<xsl:variable name="refType" select="../NUM_0"/>
-		<xsl:if test="$refType = ('Book', 'Book Section', 'Edited Book')">
-			<xsl:element name="pub:creator">
-				<xsl:attribute name="role">translator</xsl:attribute>
-				<xsl:call-template name="createPerson"/>
+
+	<xsl:template name="createCreator">
+		<xsl:param name="role"/>
+		<xsl:param name="isSource"/>
+		<xsl:if test="$isSource">
+			<xsl:element name="e:creator">
+				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+				<xsl:call-template name="createPerson">
+					<xsl:with-param name="isSource" select="$isSource"/>
+				</xsl:call-template>				
 			</xsl:element>
 		</xsl:if>
-	</xsl:template>
-	
+		<xsl:if test="not($isSource)">
+			<xsl:element name="pub:creator">
+				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+				<xsl:call-template name="createPerson">
+					<xsl:with-param name="isSource" select="$isSource"/>
+				</xsl:call-template>				
+			</xsl:element>
+		</xsl:if>
+	</xsl:template>	
 	
 	<xsl:template name="createPerson">
+		<xsl:param name="isSource"/>
 		<xsl:element name="e:person">
 			<xsl:element name="e:family-name">
-				<xsl:value-of select="substring-before(.,', ')"/>
+				<xsl:value-of select="substring-before( ., ', ' )"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="substring-after(.,', ')"/>
+				<xsl:value-of select="substring-after( ., ', ' )"/>
 			</xsl:element>
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="."/>
 			</xsl:element>
+			<xsl:if test="not($isSource) and position()=1">
+				<e:organization>
+					<e:organization-name>External Organizations</e:organization-name>
+					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+				</e:organization>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>
+	
 	
 <!--	END OF CREATORS-->	
 	
