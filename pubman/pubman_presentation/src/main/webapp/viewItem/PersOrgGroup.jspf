@@ -75,7 +75,7 @@
 						<h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
 						<h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
 							&#160;
-							<h:outputLink value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 800, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+							<h:outputLink value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 900, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>

@@ -48,7 +48,7 @@
 					<tr:commandLink styleClass="line-height: 2.10em;" text="#{node.name}" action="#{node.startSearch}"/>
 					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
 					&#160;
-					<h:outputLink title="#{tip.Affiliation_details}" value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 800, 400, 'Details');return false">   [<h:outputText value="#{lbl.AffiliationTree_lnkDescription}"/>]</h:outputLink>
+					<h:outputLink title="#{tip.Affiliation_details}" value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 900, 400, 'Details');return false">   [<h:outputText value="#{lbl.AffiliationTree_lnkDescription}"/>]</h:outputLink>
 				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
