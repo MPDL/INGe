@@ -61,11 +61,8 @@
 			}
 	/*GENERAL*/
 		/*FONT RELATED*/
-		body, label, input, button, input.numberLabel, h2, h3, h6, a {
+		body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 			font-family: Trebuchet, "Trebuchet MS", sans-serif;
-		}
-		input[type="text"], textarea, select {
-			font-family: "Times New Roman", "MS Mincho", serif;
 		}
 		h1, h4, h5 {
 			font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
