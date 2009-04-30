@@ -52,7 +52,7 @@
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
    xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
-   xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+   xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
    xmlns:escidoc="urn:escidoc:functions">
    
  <!--  xmlns:ei="${xsd.soap.item.item}"
@@ -150,12 +150,12 @@
 	</xsl:template>
 	
 	<xsl:template match="Affiliation">
-		<xsl:call-templates name="createOrganization"/>
+		<xsl:call-template name="createOrganization"/>
 	</xsl:template>
 	
 	<xsl:template match="CollectiveName">
 		<xsl:element name="pub:creator">			
-			<xsl:call-templates name="createOrganization"/>
+			<xsl:call-template name="createOrganization"/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template name="createOrganization">		
@@ -251,20 +251,6 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:variable name="month">
-		<month label="Jan" number="01"/>
-		<month label="Feb" number="02"/>
-		<month label="Mar" number="03"/>
-		<month label="Apr" number="04"/>
-		<month label="May" number="05"/>
-		<month label="Jun" number="06"/>
-		<month label="Jul" number="07"/>
-		<month label="Aug" number="08"/>
-		<month label="Sep" number="09"/>
-		<month label="Oct" number="10"/>
-		<month label="Nov" number="11"/>
-		<month label="Dec" number="12"/>
-	</xsl:variable>
 	
 	<xsl:template name="createDate">
 		
@@ -272,7 +258,21 @@
 			<xsl:if test="Year">
 				<xsl:value-of select="Year"/>
 				<xsl:if test="Month">					
-					<xsl:value-of select="concat('-',$month[@label=Month]/@number)"/>
+					
+					<xsl:choose>
+						<xsl:when test="Jan"><xsl:value-of>-01</xsl:value-of></xsl:when>
+						<xsl:when test="Feb"><xsl:value-of>-02</xsl:value-of></xsl:when>
+						<xsl:when test="Mar"><xsl:value-of>-03</xsl:value-of></xsl:when>
+						<xsl:when test="Apr"><xsl:value-of>-04</xsl:value-of></xsl:when>
+						<xsl:when test="May"><xsl:value-of>-05</xsl:value-of></xsl:when>
+						<xsl:when test="Jun"><xsl:value-of>-06</xsl:value-of></xsl:when>
+						<xsl:when test="Jul"><xsl:value-of>-07</xsl:value-of></xsl:when>
+						<xsl:when test="Aug"><xsl:value-of>-08</xsl:value-of></xsl:when>
+						<xsl:when test="Sep"><xsl:value-of>-09</xsl:value-of></xsl:when>
+						<xsl:when test="Oct"><xsl:value-of>-10</xsl:value-of></xsl:when>
+						<xsl:when test="Nov"><xsl:value-of>-11</xsl:value-of></xsl:when>
+						<xsl:when test="Dec"><xsl:value-of>-12</xsl:value-of></xsl:when>
+					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="Day">
 					<xsl:value-of select="concat('-',Day)"/>
