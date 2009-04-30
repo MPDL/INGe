@@ -94,10 +94,10 @@
 					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLink value="#{locator.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
+					<h:outputLink value="#{locator.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}" rendered="#{locator.file.defaultMetadata.license != ''}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
-					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" rendered="#{!locator.urlToLicenceImage == ''}"/>
+					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" rendered="#{locator.urlToLicenceImage != ''}"/>
 				</h:panelGroup>
 			</h:panelGroup>
 
