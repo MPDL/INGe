@@ -34,10 +34,10 @@
 
 
 <div class="full_area0 itemHeader">
-	<h:panelGroup styleClass="xLarge_area0 endline" >
-		&#160;<h:outputText value="#{lbl.AffiliationTree_txtHeadline}" />
-	</h:panelGroup>
-		<h:panelGroup styleClass="seperator" />
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.AffiliationTree_txtHeadline}" />
+	</h3>
+	<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
 		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">

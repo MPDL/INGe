@@ -212,3 +212,7 @@
 .fullItem .singleItem {
 	margin-bottom: 0.19em;
 } 
+
+.fullItem .advSearchCollapse {
+	 margin-top: -1.46em !important;
+}
