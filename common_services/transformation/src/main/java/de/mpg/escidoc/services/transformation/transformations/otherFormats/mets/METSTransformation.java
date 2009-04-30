@@ -458,9 +458,33 @@ public class METSTransformation
     {
         try
         {
+            
             String tocHref = itemTocDoc.getItem().getComponents().getComponentArray(0).getContent().getHref();
             URL tocUrl = new URL(ServiceLocator.getFrameworkUrl() + tocHref);
-            TocDocument toc = TocDocument.Factory.parse(tocUrl);
+            TocDocument toc = null;
+            
+            //workaroound due to framework bug: login as sysadmin. Currently only logged-in users can retrieve
+            //components that have a latest-version pendings
+            String userHandle = login.loginSysAdmin();
+            
+            if (login.loginSysAdmin() != null)
+            {
+                GetMethod get = new GetMethod(tocUrl.toString());
+                get.setFollowRedirects(false);
+                get.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+                HttpClient client = new HttpClient();
+                client.executeMethod(get);
+                if (get.getStatusCode() == HttpServletResponse.SC_OK)
+                {
+                    toc = TocDocument.Factory.parse(get.getResponseBodyAsStream());
+                }
+            }
+            else
+            {
+                toc = TocDocument.Factory.parse(tocUrl);
+            }
+            
+            
             return toc;
         }
         catch (Exception e)
@@ -470,4 +494,6 @@ public class METSTransformation
         }
        
     }
+    
+    
 }
