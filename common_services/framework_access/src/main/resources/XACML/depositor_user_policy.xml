@@ -146,6 +146,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+				<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -160,6 +161,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+-->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -218,7 +220,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+		<!--		<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -232,6 +234,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+       -->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -268,7 +271,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+					<!--	<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -282,6 +285,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+	-->	
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -340,6 +344,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+			<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -354,6 +359,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+           -->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -416,6 +422,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+			<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -430,6 +437,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+         -->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:created-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -458,6 +466,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+			<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -472,6 +481,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+            -->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:created-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
