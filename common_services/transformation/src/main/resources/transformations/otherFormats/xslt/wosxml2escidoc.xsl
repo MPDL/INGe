@@ -321,7 +321,7 @@
 				
 			<!-- SOURCE CREATOR -->
 			<xsl:if test="ED">
-				<xsl:element name="pub:creator">
+				<xsl:element name="e:creator">
 					<xsl:attribute name="role">editor</xsl:attribute>
 					<xsl:element name="e:person">
 						<xsl:element name="e:complete-name">
