@@ -284,7 +284,7 @@
 	
 	<!-- TOTAL NO OF PAGES  -->
 	<xsl:template match="pm:page-range">
-		<xsl:element name="publ:total-number-of-pages">
+		<xsl:element name="pub:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
