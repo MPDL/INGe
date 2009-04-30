@@ -48,7 +48,7 @@
    xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
@@ -268,6 +268,12 @@
 			</xsl:call-template>-->
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="."/>
+			</xsl:element>
+			<xsl:element name="e:family-name">
+				<xsl:value-of select="substring-before(e:complete-name,',')"/>
+			</xsl:element>
+			<xsl:element name="e:given-name">
+				<xsl:value-of select="substring-after(e:complete-name,',')"/>
 			</xsl:element>
 			<xsl:if test="../AD">
 				<xsl:element name="e:organization">
@@ -503,7 +509,7 @@
 		<xsl:variable name="year" select="substring-before(.,'/')"/>
 		<xsl:variable name="string-md" select="substring-after(.,'/')"/>
 		<xsl:variable name="month" select="substring-before($string-md, '/')"/>
-		<xsl:variable name="day" select="substring-after($string-md, '/')"/>
+		<xsl:variable name="day" select="substring-before(substring-after($string-md, '/'),'/')"/>
 		<xsl:variable name="date">
 			<xsl:if test="not($year='')">
 				<xsl:value-of select="$year"/>
