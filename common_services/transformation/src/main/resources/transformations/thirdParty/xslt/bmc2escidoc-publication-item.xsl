@@ -192,40 +192,60 @@
 	</xsl:template>
 	<!-- IDENTIFIER -->
 	<xsl:template match="bmc:ArticleIdList">
-		<xsl:apply-templates select="ArticleId"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='pii']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='doi']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='pmcpid']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='pmpid']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='pmid']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='medline']"/>
+		<xsl:apply-templates select="bmc:ArticleId[@IdType='pmcid']"/>
 	</xsl:template>
-	<xsl:template match="bmc:ArticleId">
+	
+	<xsl:template match="bmc:ArticleId[@IdType='pii']">
 		<xsl:element name="dc:identifier">
-			<xsl:choose>
-				<xsl:when test="@IdType='pii'">					
-					<xsl:attribute name="xsi:type">eidt:PII</xsl:attribute>					
-				</xsl:when>
-				<xsl:when test="@IdType='doi'">
-					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
-				</xsl:when>
-				<xsl:when test="@IdType='pmcpid'">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
-					<xsl:value-of select="'pmcpid:'"/>
-				</xsl:when>
-				<xsl:when test="@IdType='pmpid'">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
-					<xsl:value-of select="'pmpid:'"/>
-				</xsl:when>
-				<xsl:when test="@IdType='pmid'">
-					<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>
-				</xsl:when>
-				<xsl:when test="@IdType='medline'">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
-					<xsl:value-of select="'medline:'"/>
-				</xsl:when>
-				<xsl:when test="@Idtype='pmcid'">
-					<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>
-				</xsl:when>				
-			</xsl:choose>				
+			<xsl:attribute name="xsi:type">eidt:PII</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
-	
+	<xsl:template match="bmc:ArticleId[@IdType='doi']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">edit:DOI</xsl:attribute>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="bmc:ArticleId[@IdType='pmcpid']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:value-of select="'pmcpid:'"/>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="bmc:ArticleId[@IdType='pmpid']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:value-of select="'pmpid:'"/>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="bmc:ArticleId[@IdType='pmid']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="bmc:ArticleId[@IdType='medline']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:value-of select="'medline:'"/>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="bmc:ArticleId[@IdType='pmcid']">
+		<xsl:element name="dc:identifier">
+			<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
 	
 	<!-- DATES -->
 	<xsl:template match="bmc:History/bmc:PubDate">		
