@@ -139,7 +139,14 @@
 			<!-- No PAGES -->
 			<xsl:apply-templates select="pages"/>
 			<!-- SUBJECT -->			
-			<xsl:apply-templates select="report_num"/>
+			
+			<xsl:if test="report_num">
+				<xsl:element name="dcterms:subject">
+					<xsl:for-each select="report_num">
+						<xsl:value-of select="concat(.,'; ')"/>
+					</xsl:for-each>
+				</xsl:element>
+			</xsl:if>
 			
 			<!-- SOURCE:JOURNAL -->
 			<xsl:apply-templates select="journal"/>
@@ -310,13 +317,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<!-- SUBJECT -->
 	
-	<xsl:template match="report_num">
-		<xsl:element name="dcterms:subject">
-			<xsl:value-of select="."/>
-		</xsl:element>
-	</xsl:template>
 	<!-- PAGES -->
 	<xsl:template match="pages">
 		<xsl:element name="pub:total-number-of-pages">
