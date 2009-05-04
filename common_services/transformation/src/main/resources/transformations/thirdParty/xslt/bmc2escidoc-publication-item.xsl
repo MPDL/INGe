@@ -141,12 +141,12 @@
 			
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
-				<xsl:value-of select="concat(bmc:MiddelName, ' ')"/>
+				<xsl:value-of select="concat(bmc:MiddleName, ' ')"/>
 				<xsl:value-of select="bmc:LastName"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
-				<xsl:value-of select="bmc:MiddelName"/>
+				<xsl:value-of select="bmc:MiddleName"/>
 			</xsl:element>
 			<xsl:element name="e:family-name">
 				<xsl:value-of select="bmc:LastName"/>
@@ -154,7 +154,7 @@
 			<xsl:apply-templates select="bmc:Affiliation"/>
 		</xsl:element>
 		</xsl:element>
-		<xsl:apply-templates select="bmc:ColectiveName"/>
+		<xsl:apply-templates select="bmc:CollectiveName"/>
 		
 	</xsl:template>
 	
@@ -292,18 +292,18 @@
 				<xsl:if test="bmc:Month">					
 					
 					<xsl:choose>
-						<xsl:when test="Jan"><xsl:text>-01</xsl:text></xsl:when>
-						<xsl:when test="Feb"><xsl:text>-02</xsl:text></xsl:when>
-						<xsl:when test="Mar"><xsl:text>-03</xsl:text></xsl:when>
-						<xsl:when test="Apr"><xsl:text>-04</xsl:text></xsl:when>
-						<xsl:when test="May"><xsl:text>-05</xsl:text></xsl:when>
-						<xsl:when test="Jun"><xsl:text>-06</xsl:text></xsl:when>
-						<xsl:when test="Jul"><xsl:text>-07</xsl:text></xsl:when>
-						<xsl:when test="Aug"><xsl:text>-08</xsl:text></xsl:when>
-						<xsl:when test="Sep"><xsl:text>-09</xsl:text></xsl:when>
-						<xsl:when test="Oct"><xsl:text>-10</xsl:text></xsl:when>
-						<xsl:when test="Nov"><xsl:text>-11</xsl:text></xsl:when>
-						<xsl:when test="Dec"><xsl:text>-12</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Jan'"><xsl:text>-01</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Feb'"><xsl:text>-02</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Mar'"><xsl:text>-03</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Apr'"><xsl:text>-04</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='May'"><xsl:text>-05</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Jun'"><xsl:text>-06</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Jul'"><xsl:text>-07</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Aug'"><xsl:text>-08</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Sep'"><xsl:text>-09</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Oct'"><xsl:text>-10</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Nov'"><xsl:text>-11</xsl:text></xsl:when>
+						<xsl:when test="bmc:Month='Dec'"><xsl:text>-12</xsl:text></xsl:when>
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="bmc:Day">
