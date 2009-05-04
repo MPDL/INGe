@@ -234,7 +234,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
-       -->
+       
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -251,6 +251,20 @@
 						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
+				-->
+					<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+			</Apply>
+			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+			</Apply>
+		
 			</Condition>
 		</Rule>
 		<Rule RuleId="Depositor-policy-rule-3" Effect="Permit">
@@ -360,6 +374,35 @@
 					</Apply>
 				</Apply>
            -->
+           <!--*Depositor should be able to modify own items if:
+				**public status is any of (pending, released, in-revision)
+				**latest version status is any of (pending, released, in-revision)
+           -->
+ 			<!--should be rephrased
+			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+			</Apply>
+			-->
+			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+			</Apply>
+			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				</Apply>
+			</Apply>
+		
+		</Condition>
+		<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -377,6 +420,7 @@
 					</Apply>
 				</Apply>
 			</Condition>
+-->
 		</Rule>
 		<Rule RuleId="Depositor-policy-rule-4" Effect="Permit">
 			<Target>
