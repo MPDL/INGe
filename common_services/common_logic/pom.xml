@@ -225,16 +225,22 @@
 			<scope>compile</scope>
 		</dependency>
 	    <dependency>
-	      <groupId>saxon</groupId>
+	      <groupId>net.sf.saxon</groupId>
 	      <artifactId>saxon-dom</artifactId>
 	      <version>8.7</version>
-	      <scope>test</scope>
+	      <scope>compile</scope>
 	    </dependency>
 	    <dependency>
 	      <groupId>dom4j</groupId>
 	      <artifactId>dom4j</artifactId>
 	      <version>1.6.1</version>
 	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>net.sf.saxon</groupId>
+	    	<artifactId>saxon</artifactId>
+	    	<version>8.7</version>
+	    	<scope>compile</scope>
 	    </dependency>
 	    
 	</dependencies>

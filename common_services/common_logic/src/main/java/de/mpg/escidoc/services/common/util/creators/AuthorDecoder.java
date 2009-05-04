@@ -35,7 +35,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
+
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * Main class for author string decoding.
@@ -215,4 +223,87 @@ public class AuthorDecoder
         return null;
     }
 
+    /**
+     * Parses the given author string and returns the result as DOM node.
+     * The returned XML has the following structure:
+     * <authors>
+     *   <author>
+     *     <familyname>Buxtehude-Mölln</familyname>
+     *     <givenname>Heribert</givenname>
+     *     <prefix>von und zu</prefix>
+     *     <title>König</title>
+     *   </author>
+     *   <author>
+     *     <familyname>Müller</familyname>
+     *     <givenname>Peter</givenname>
+     *   </author>
+     * </authors>
+     * 
+     * @param authors
+     * @return
+     */
+    public static Node parseAsNode(String authors)
+    {
+        DocumentBuilder documentBuilder;
+
+        try
+        {
+            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        Document document = documentBuilder.newDocument();
+        Element element = document.createElement("authors");
+        document.appendChild(element);
+        
+        try
+        {
+            AuthorDecoder authorDecoder = new AuthorDecoder(authors);
+            List<Author> authorList = authorDecoder.getBestAuthorList();
+            if (authorList != null)
+            {
+                for (Author author : authorList)
+                {
+                    Element authorElement = document.createElement("author");
+                    element.appendChild(authorElement);
+                    
+                    if (author.getSurname() != null)
+                    {
+                        Element familyNameElement = document.createElement("familyname");
+                        familyNameElement.setTextContent(author.getSurname());
+                        authorElement.appendChild(familyNameElement);
+                    }
+                    
+                    if (author.getGivenName() != null)
+                    {
+                        Element givenNameElement = document.createElement("givenname");
+                        givenNameElement.setTextContent(author.getGivenName());
+                        authorElement.appendChild(givenNameElement);
+                    }
+                    
+                    if (author.getPrefix() != null)
+                    {
+                        Element prefixElement = document.createElement("prefix");
+                        prefixElement.setTextContent(author.getPrefix());
+                        authorElement.appendChild(prefixElement);
+                    }
+                    
+                    if (author.getTitle() != null)
+                    {
+                        Element titleElement = document.createElement("title");
+                        titleElement.setTextContent(author.getTitle());
+                        authorElement.appendChild(titleElement);
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+        return document;
+    }
+    
 }
