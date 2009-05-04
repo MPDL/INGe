@@ -228,8 +228,29 @@
 	<xsl:template name="createDate">
 		<xsl:variable name="year" select="substring(.,1,4)"/>
 		<xsl:variable name="month" select="substring(.,5,2)"/>
-		<xsl:variable name="day" select="substring(.,7,8)"/>
-		<xsl:value-of select="concat($year,'-',$month,'-',$day)"/>
+		<xsl:variable name="d" select="substring(.,7,8)"/>
+		
+		
+		<xsl:variable name="day">	
+			<xsl:choose>
+				<xsl:when test="string-length($d)=1">	
+					<xsl:value-of select="concat('0',$d)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$d"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="date">
+			<xsl:value-of select="normalize-space($year)"/>
+			<xsl:if test="not($month='00') and not($month='')">
+				<xsl:value-of select="concat('-',$month)"/>
+			</xsl:if>
+			<xsl:if test="not($day='00') and not($day='')">
+				<xsl:value-of select="concat('-',$day)"/>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:value-of select="$date"/>
 	</xsl:template>
 	
 	<xsl:template name="createEventDate">
@@ -268,10 +289,10 @@
 		</xsl:variable>
 		<xsl:variable name="date">
 			<xsl:value-of select="normalize-space($year)"/>
-			<xsl:if test="not($month='00')">
+			<xsl:if test="not($month='00' or $month='')">
 				<xsl:value-of select="concat('-',$month)"/>
 			</xsl:if>
-			<xsl:if test="not($day='00')">
+			<xsl:if test="not($day='00' or $day='')">
 				<xsl:value-of select="concat('-',$day)"/>
 			</xsl:if>
 		</xsl:variable>
@@ -308,6 +329,16 @@
 				<xsl:variable name="month" select="substring(.,5,2)"/>
 				<xsl:variable name="day" select="substring(.,7,2)"/>
 				<xsl:value-of select="concat($year,'-',$month,'-',$day)"/>
+				<xsl:variable name="date">
+					<xsl:value-of select="normalize-space($year)"/>
+					<xsl:if test="not($month='00' or $month='')">
+						<xsl:value-of select="concat('-',$month)"/>
+					</xsl:if>
+					<xsl:if test="not($day='00' or $day='')">
+						<xsl:value-of select="concat('-',$day)"/>
+					</xsl:if>
+				</xsl:variable>
+				<xsl:value-of select="$date"/>
 			</xsl:element>
 		
 	</xsl:template>
