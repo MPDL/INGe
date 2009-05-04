@@ -140,8 +140,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 //all public status except withdrawn
                 Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
                 filter.getFilterList().add(0,f4);
-                Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
-                filter.getFilterList().add(0,f5);
                 Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
                 filter.getFilterList().add(0,f6);
                 Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
@@ -155,8 +153,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 //all public status except withdrawn
                 Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
                 filter.getFilterList().add(0,f4);
-                Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
-                filter.getFilterList().add(0,f5);
                 Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
                 filter.getFilterList().add(0,f6);
                 Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
