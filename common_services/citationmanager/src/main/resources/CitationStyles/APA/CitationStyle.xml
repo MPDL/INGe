@@ -60,7 +60,7 @@
 				: 
 				${publication/dateSubmitted} != null 
 				? 
-				"Submitted for publication" 
+				"submitted" 
 				: 
 				(${publication/modified}  != null || ${publication/created} != null) 
 				? 
@@ -270,7 +270,7 @@
         	ref="publication/source[1]/creator[@role='editor']"
         	repeatable="yes">
 			<parameters position="last">
-				<delimiter value=" &amp; " />
+				<delimiter value=", &amp; " />
 			</parameters>
 			<elements position="last">
 				<layout-element ref="organization/organization-name" />
@@ -319,13 +319,10 @@
 		
 		
 		<!-- "plain" layout elements -->
-		<!-- ??? -->
-<!--		<layout-element name="year" ref="publication/issued" func="get_year">-->
 
 		
 		<layout-element name="year" ref="date">
 			<parameters>
-				<valid-if><![CDATA[ !"Submitted for publication".equals(${date}) ]]></valid-if>
 				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
 				<ends-with value="). " />
@@ -410,16 +407,6 @@
 		</layout-element>
 		
 
-		<layout-element name="submitted" ref="date">
-			<parameters>
-				<valid-if><![CDATA[ "Submitted for publication".equals(${date}) ]]></valid-if>
-				<starts-with value=" " />
-				<ends-with value="." />
-			</parameters>
-			<elements />
-		</layout-element>
-
-		
 		<layout-element name="published-online-and-external-locator">
 			<parameters>
 				<valid-if><![CDATA[${publication/issued}==null && ${publication/published-online}!=null]]></valid-if>
@@ -442,8 +429,6 @@
 			</elements>
 		</layout-element>
 		
-
-
 
 		<layout-element name="year-authors-are-presented">
 			<parameters>
@@ -631,7 +616,6 @@
 		</layout-element>
 
 
-
 	<layout-element name="__debugBlock__">
 		<parameters>
 			<font-style ref="BLUE"/>
@@ -755,8 +739,6 @@
 			
 			<layout-element ref="published-online-and-external-locator"/>
 			
-			<layout-element ref="submitted"/>
-		
 		</elements>
 	</cs-layout-definition>
 	
@@ -817,8 +799,6 @@
 			
 			<layout-element ref="published-online-and-external-locator"/>
 			
-			<layout-element ref="submitted"/>
-		
 		</elements>
 	</cs-layout-definition>
 	
@@ -965,8 +945,6 @@
 			
 			<layout-element ref="published-online-and-external-locator"/>
 			
-			<layout-element ref="submitted"/>
-		
 		</elements>
 	</cs-layout-definition>
 	
@@ -1001,8 +979,6 @@
 			
 			<layout-element ref="volume-issue"/>
 			
-			<layout-element ref="submitted"/>
-			
 		</elements>
 	
 	</cs-layout-definition>
@@ -1021,17 +997,15 @@
 			
 			<layout-element ref="editors-with-dot"/> 
 			
-			<layout-element ref="year-editors-are-presented"/>
+<!--			<layout-element ref="year-editors-are-presented"/>-->
 			
 			<layout-element ref="title-with-dot-italic"/>
 
-			<layout-element ref="year-editors-are-not-presented"/>
+<!--			<layout-element ref="year-editors-are-not-presented"/>-->
 			
 			<layout-element ref="source-title" />
 			
 			<layout-element ref="place-publisher"/>
-			
-			<layout-element ref="submitted"/>
 			
 		</elements>
 	
@@ -1056,7 +1030,6 @@
 
 			<layout-element ref="year-authors-are-not-presented"/>
 			
-			<layout-element ref="submitted"/>
 		</elements>
 	
 	</cs-layout-definition>	
@@ -1073,8 +1046,6 @@
 
 			<layout-element ref="editors-with-dot"/>
 
-			<layout-element ref="year-editors-are-presented"/>
-			
 			<layout-element ref="publication/title">
 				<parameters>
 					<font-style ref="ITALIC"/>
@@ -1083,8 +1054,6 @@
 				</parameters>
 				<elements/>
 			</layout-element>
-			
-			<layout-element ref="year-editors-are-not-presented"/>
 			
 			<!-- start-volume / end-volume are not presented in MD, only volume!!! -->
 			<layout-element name="volumes">
@@ -1099,25 +1068,22 @@
 			
 			<layout-element ref="place-publisher"/>
 			
-			<layout-element ref="submitted"/>
-			
 		</elements>
 	
 	</cs-layout-definition>
 	
-	<!-- TALK-AT-EVENT, COURSEWARE-LECTURE(TEACHING) -->
+	<!-- TALK-AT-EVENT -->
 	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Talk_at_event -->
-	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Lecture.2F_Courseware_.28Teaching.29 -->
-	<cs-layout-definition name="talk-at-event-or-courseware-lecture">
+	<cs-layout-definition name="talk-at-event">
 		<parameters>
 			<valid-if><![CDATA[
 					${genre}.equals("talk-at-event")
-					|| ${genre}.equals("courseware-lecture")
 				]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
 		<elements>
+		
 <!--			<layout-element ref="debugBlock" />-->
 			
 			<layout-element ref="authors"/>
@@ -1126,7 +1092,7 @@
 				<parameters>
 					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 ]]></valid-if>
 				</parameters>
-				<elements />
+				<elements /> 
 			</layout-element>
 			
 			<layout-element ref="title-with-dot"/>
@@ -1152,7 +1118,6 @@
 			<layout-element name="event-place">
 				<parameters>
 					<starts-with value=" "/>
-					<ends-with value=","/>
 				</parameters>
 				<elements>
 					<layout-element ref="publication/event/place"/>
@@ -1161,7 +1126,7 @@
 			
 			<layout-element name="dates-of-event">
 				<parameters>
-					<starts-with value=" "/>
+					<starts-with value=", "/>
 					<delimiter value=" - "/>
 				</parameters>
 				<elements>
@@ -1170,8 +1135,72 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="submitted"/>
+		</elements>
+	
+	</cs-layout-definition>
+	
+	<!--COURSEWARE-LECTURE(TEACHING) -->
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Lecture.2F_Courseware_.28Teaching.29 -->
+	<cs-layout-definition name="courseware-lecture">
+		<parameters>
+			<valid-if><![CDATA[
+					${genre}.equals("courseware-lecture")
+				]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+		
+<!--			<layout-element ref="debugBlock" />-->
+			
+			<layout-element ref="authors"/>
+			
+			<layout-element name="year-authors-are-presented" ref="year-for-talk-at-event">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 ]]></valid-if>
+				</parameters>
+				<elements /> 
+			</layout-element>
+			
+			<layout-element ref="title-with-dot"/>
+			
+			<layout-element name="year-authors-are-not-presented" ref="year-for-talk-at-event">
+				<parameters>
+					<valid-if><![CDATA[ ${toInt}(${authorsCount})==0 ]]></valid-if>
+				</parameters>
+				<elements />
+			</layout-element>
 
+			<layout-element name="event-title">
+				<parameters>
+					<starts-with value=" "/>
+					<ends-with value="."/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/title"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="event-place">
+				<parameters>
+					<starts-with value=", "/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/place"/>
+				</elements>
+			</layout-element>
+			
+			<layout-element name="dates-of-event">
+				<parameters>
+					<starts-with value=", "/>
+					<delimiter value=" - "/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/event/start-date"/>
+					<layout-element ref="publication/event/end-date"/>
+				</elements>
+			</layout-element>
+			
 		</elements>
 	
 	</cs-layout-definition>
@@ -1218,8 +1247,6 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="submitted"/>
-
 		</elements>
 	
 	</cs-layout-definition>
@@ -1266,8 +1293,6 @@
 			<layout-element ref="year-authors-are-not-presented"/>
 
 			<layout-element ref="place-publisher"/>
-			
-			<layout-element ref="submitted"/>
 			
 		</elements>
 	

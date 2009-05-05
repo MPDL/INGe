@@ -9,7 +9,8 @@ import java.util.regex.*;
 
 public class ScriptletForRepeatableElements_APA extends JRDefaultScriptlet {
 private ArrayList<String[]> elems = new ArrayList<String[]>();
-private String insertDelimiter(String left, String delim, String right) {
+private long cTime = 0;
+public String getCTime() {return cTime + "";}private String insertDelimiter(String left, String delim, String right) {
     String result;
     return (delim!=null && delim.length()>0 &&
        left!=null && left.length()>0 &&
@@ -50,6 +51,8 @@ StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='author']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='author']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -88,13 +91,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_2() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='author']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='author']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -162,13 +167,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_3() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='author']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='author']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -211,13 +218,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_5() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -256,13 +265,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_6() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -330,13 +341,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_7() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -379,13 +392,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_10() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/source[1]/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/source[1]/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -424,13 +439,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_11() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/source[1]/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/source[1]/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -481,7 +498,7 @@ if (hasLast) {
 chunk_last_0 = xmlEncode((String)subDs.getFieldValue(field_last_0));chunk_last_0 = chunk_last_0!=null && chunk_last_0.length()>0 ? chunk_last_0 : "";
 chunk_last_1 = xmlEncode((String)subDs.getFieldValue(field_last_1));chunk_last_1 = chunk_last_1!=null && chunk_last_1.length()>0 ? chunk_last_1 : "";chunk_last_1 = get_initials(chunk_last_1);
 chunk_last_2 = xmlEncode((String)subDs.getFieldValue(field_last_2));chunk_last_2 = chunk_last_2!=null && chunk_last_2.length()>0 ? chunk_last_2 : "";
-last = chunk_last_0 + insertDelimiter(chunk_last_0, " ", chunk_last_1) + chunk_last_1 + insertDelimiter(chunk_last_1, " ", chunk_last_2) + chunk_last_2;delim = " &amp; ";}
+last = chunk_last_0 + insertDelimiter(chunk_last_0, " ", chunk_last_1) + chunk_last_1 + insertDelimiter(chunk_last_1, " ", chunk_last_2) + chunk_last_2;delim = ", &amp; ";}
 
 }
 int es = elems.size();
@@ -498,13 +515,15 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 public String getCS_1_PLE_12() throws Exception {
 StringBuffer result = new StringBuffer();
 String str = "";
 String last = "";
 String delim = "";
+long start = System.currentTimeMillis();
+String XPath = "publication/source[1]/creator[@role='editor']";
 JRXmlDataSource ds = ((JRXmlDataSource) this.getParameterValue("REPORT_DATA_SOURCE"));
 JRXmlDataSource subDs = ds.subDataSource("md-record/publication/source[1]/creator[@role='editor']");
 JRDesignField field_default_0 = new JRDesignField();
@@ -547,6 +566,6 @@ String[] elem = (String[])elems.get(i);
 result.append(elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "");
 }
 elems.clear();
-return result.toString();
+cTime+=System.currentTimeMillis() - start;return result.toString();
 }
 }
