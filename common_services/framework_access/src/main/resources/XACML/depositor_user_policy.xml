@@ -377,6 +377,7 @@
            <!--*Depositor should be able to modify own items if:
 				**public status is any of (pending, released, in-revision)
 				**latest version status is any of (pending, released, in-revision)
+                **current policy is a workaround to allow depositor to modify own items always
            -->
  			<!--should be rephrased
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
@@ -389,13 +390,13 @@
 			</Apply>
 			-->
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</Apply>
 			</Apply>
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
+				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</Apply>
