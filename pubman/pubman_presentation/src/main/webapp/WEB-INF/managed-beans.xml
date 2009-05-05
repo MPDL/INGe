@@ -570,17 +570,17 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportItemDetails</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportItemDetails</managed-bean-class>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItemDetails</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportData</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportData</managed-bean-class>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportData</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>ImportItems</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.ImportItems</managed-bean-class>
+        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItems</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

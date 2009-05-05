@@ -28,49 +28,103 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.multipleimport;
+package de.mpg.escidoc.pubman.multipleimport.beans;
 
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 
 /**
- * TODO Description
+ * A JSF bean class to hold the data of the items of an import.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ImportData extends FacesBean
+public class ImportItems extends FacesBean
 {
     private int importId = 0;
+    private int page = 0;
+    private int itemsPerPage = 0;
     private String userid = null;
     private ImportLog log = null;
     
-    public ImportData()
+    /**
+     * Constructor extracting the import's id and the pagination parameters from the URL and setting user settings.
+     */
+    public ImportItems()
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        
         String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
         if (idString != null)
         {
             this.importId = Integer.parseInt(idString);
         }
+        String pageString = facesContext.getExternalContext().getRequestParameterMap().get("page");
+        if (pageString != null)
+        {
+            this.page = Integer.parseInt(pageString);
+        }
+        String itemsPerPageString = facesContext.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+        if (itemsPerPageString != null)
+        {
+            this.itemsPerPage = Integer.parseInt(itemsPerPageString);
+        }
+        
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        if (loginHelper.getAccountUser() != null && loginHelper.getAccountUser().getReference() != null)
+        if (loginHelper.getAccountUser() != null)
         {
             this.userid = loginHelper.getAccountUser().getReference().getObjectId();
         }
     }
     
+    /**
+     * @return The import including the details
+     */
     public ImportLog getImport()
     {
         if (this.log == null && this.importId != 0 && this.userid != null)
         {
             
-            this.log = ImportLog.getImportLog(this.importId, false, false);
+            this.log = ImportLog.getImportLog(this.importId, true, false);
         }
         return this.log;
     }
+
+    /**
+     * @return the page
+     */
+    public int getPage()
+    {
+        return page;
+    }
+
+    /**
+     * @param page the page to set
+     */
+    public void setPage(int page)
+    {
+        this.page = page;
+    }
+
+    /**
+     * @return the itemsPerPage
+     */
+    public int getItemsPerPage()
+    {
+        return itemsPerPage;
+    }
+
+    /**
+     * @param itemsPerPage the itemsPerPage to set
+     */
+    public void setItemsPerPage(int itemsPerPage)
+    {
+        this.itemsPerPage = itemsPerPage;
+    }
+    
 }

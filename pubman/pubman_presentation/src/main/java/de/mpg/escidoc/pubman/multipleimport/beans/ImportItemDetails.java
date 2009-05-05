@@ -28,49 +28,42 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.multipleimport;
+package de.mpg.escidoc.pubman.multipleimport.beans;
+
+import java.util.List;
 
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.multipleimport.ImportLog;
+import de.mpg.escidoc.pubman.multipleimport.ImportLogItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 
 /**
- * TODO Description
+ * A JSF bean class to hold data of an import item's details.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ImportItems extends FacesBean
+public class ImportItemDetails extends FacesBean
 {
-    private int importId = 0;
-    private int page = 0;
-    private int itemsPerPage = 0;
+    private int itemId = 0;
+    private List<ImportLogItem> details = null;
     private String userid = null;
-    private ImportLog log = null;
     
-    public ImportItems()
+    /**
+     * Constructor extracting the import's id from the URL and setting user settings.
+     */
+    public ImportItemDetails()
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        
         String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
         if (idString != null)
         {
-            this.importId = Integer.parseInt(idString);
+            this.itemId = Integer.parseInt(idString);
         }
-        String pageString = facesContext.getExternalContext().getRequestParameterMap().get("page");
-        if (pageString != null)
-        {
-            this.page = Integer.parseInt(pageString);
-        }
-        String itemsPerPageString = facesContext.getExternalContext().getRequestParameterMap().get("itemsPerPage");
-        if (itemsPerPageString != null)
-        {
-            this.itemsPerPage = Integer.parseInt(itemsPerPageString);
-        }
-        
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         if (loginHelper.getAccountUser() != null)
         {
@@ -78,46 +71,29 @@ public class ImportItems extends FacesBean
         }
     }
     
-    public ImportLog getImport()
+    /**
+     * @return The number of details.
+     */
+    public int getLength()
     {
-        if (this.log == null && this.importId != 0 && this.userid != null)
+        if (this.details == null && this.itemId != 0 && this.userid != null)
         {
             
-            this.log = ImportLog.getImportLog(this.importId, true, false);
+            this.details = ImportLog.loadDetails(this.itemId, this.userid);
         }
-        return this.log;
-    }
-
-    /**
-     * @return the page
-     */
-    public int getPage()
-    {
-        return page;
-    }
-
-    /**
-     * @param page the page to set
-     */
-    public void setPage(int page)
-    {
-        this.page = page;
-    }
-
-    /**
-     * @return the itemsPerPage
-     */
-    public int getItemsPerPage()
-    {
-        return itemsPerPage;
-    }
-
-    /**
-     * @param itemsPerPage the itemsPerPage to set
-     */
-    public void setItemsPerPage(int itemsPerPage)
-    {
-        this.itemsPerPage = itemsPerPage;
+        return this.details.size();
     }
     
+    /**
+     * @return The list of details for JSF iteration
+     */
+    public List<ImportLogItem> getDetails()
+    {
+        if (this.details == null && this.itemId != 0 && this.userid != null)
+        {
+            
+            this.details = ImportLog.loadDetails(this.itemId, this.userid);
+        }
+        return this.details;
+    }
 }

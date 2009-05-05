@@ -28,61 +28,58 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.multipleimport;
-
-import java.util.List;
+package de.mpg.escidoc.pubman.multipleimport.beans;
 
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 
 /**
- * TODO Description
+ * JSF bean class to hold an import's data.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class ImportItemDetails extends FacesBean
+public class ImportData extends FacesBean
 {
-    private int itemId = 0;
-    private List<ImportLogItem> details = null;
+    private int importId = 0;
     private String userid = null;
+    private ImportLog log = null;
     
-    public ImportItemDetails()
+    /**
+     * Constructor extracting the import's id from the URL and setting user settings.
+     */
+    public ImportData()
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         String idString = facesContext.getExternalContext().getRequestParameterMap().get("id");
         if (idString != null)
         {
-            this.itemId = Integer.parseInt(idString);
+            this.importId = Integer.parseInt(idString);
         }
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        if (loginHelper.getAccountUser() != null)
+        if (loginHelper.getAccountUser() != null && loginHelper.getAccountUser().getReference() != null)
         {
             this.userid = loginHelper.getAccountUser().getReference().getObjectId();
         }
     }
     
-    public int getLength()
+    /**
+     * Getter.
+     * 
+     * @return the import
+     */
+    public ImportLog getImport()
     {
-        if (this.details == null && this.itemId != 0 && this.userid != null)
+        if (this.log == null && this.importId != 0 && this.userid != null)
         {
             
-            this.details = ImportLog.loadDetails(this.itemId, this.userid);
+            this.log = ImportLog.getImportLog(this.importId, false, false);
         }
-        return this.details.size();
-    }
-    
-    public List<ImportLogItem> getDetails()
-    {
-        if (this.details == null && this.itemId != 0 && this.userid != null)
-        {
-            
-            this.details = ImportLog.loadDetails(this.itemId, this.userid);
-        }
-        return this.details;
+        return this.log;
     }
 }
