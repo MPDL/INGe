@@ -81,13 +81,14 @@ public class EndNoteImport
     public List<String> splitItems(String itemsStr)
     {
     	List<String> l = new ArrayList<String>();
-    	String pattern = "[\\n\\r]+%0";
+    	String pattern = "(\\r\\n){2,3}|\\n{2,3}|\\r{2,3}";
     	Pattern p = Pattern.compile(pattern);
     	for (String s: p.split(itemsStr) )
 			if (checkVal(s) && s.length() > 1)
 			{
-				s = s.replaceAll("^.*?(%0)","$1" );
-    			l.add( s.startsWith("%0 ")? s : "%0 " + s );
+				//s = s.replaceAll("^.*?(%0)","$1" );
+    			//l.add( s.startsWith("%0 ")? s : "%0 " + s );
+				l.add(s.trim());
 			}
 //    	logger.info("count:" + i);
     	return l;
@@ -101,7 +102,7 @@ public class EndNoteImport
     public List<String> splitItemElements(String itemStr){    	
     	   	
     	List<String> l = new ArrayList<String>();
-    	String pattern = "\\n%";
+    	String pattern = "(\\r\\n|\\n|\\r)%";
     	Pattern p = Pattern.compile(pattern);
     	for (String s: p.split("\n" + itemStr) )
 			if ( checkVal(s) )
