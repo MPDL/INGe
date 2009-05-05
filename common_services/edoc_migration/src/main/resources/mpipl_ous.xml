@@ -29,6 +29,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
 	<xsl:variable name="organizational-units">
 		<ou name="Max Planck Society" id="escidoc:persistent13">
+			<ou name="MPI für Kulturpflanzenzüchtung" alias="MPI für Kulturpflanzenzüchtung" id="escidoc:177623"/>
 			<ou name="MPI for Psycholinguistics" alias="MPI für Psycholinguistik" id="escidoc:22007">
 				<ou name="Language Acquisition Group" id="escidoc:22008"/>
 				<ou name="Language Comprehension Group" id="escidoc:22010"/>

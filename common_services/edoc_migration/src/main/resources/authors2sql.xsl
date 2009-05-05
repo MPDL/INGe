@@ -3,14 +3,15 @@
 
 	<xsl:output method="text" encoding="UTF-8"/>
 
-	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_ous_prod.xml"/>
-	<xsl:include href="C:/temp/projects/common_services/edoc_migration/src/main/resources/mpipl_authors.xml"/>
+	<xsl:include href="C:/repository/common_services/edoc_migration/src/main/resources/mpipl_ous.xml"/>
+	
+	<xsl:param name="id-prefix" select="'sb'"/>
 	
 	<xsl:template match="/">
 	
-		<xsl:for-each select="$authors/authors/author[cone/@display = 'true']">
+		<xsl:for-each select="/authors/author[cone/@display = 'true']">
 			<xsl:variable name="pos" select="position()"/>
-			<xsl:variable name="id" select="@id"/>
+			<xsl:variable name="id" select="concat('urn:cone:', $id-prefix, $pos)"/>
 			
 			insert into triples values ('<xsl:value-of select="$id"/>', 'http://purl.org/dc/elements/1.1/title', '<xsl:value-of select="familyname"/>, <xsl:value-of select="givenname"/>', null, 'persons');
 			insert into triples values ('<xsl:value-of select="$id"/>', 'http://xmlns.com/foaf/0.1/familyname', '<xsl:value-of select="familyname"/>', null, 'persons');
@@ -20,20 +21,22 @@
 			</xsl:for-each>
 			<xsl:for-each select="departments/department">
 				<xsl:variable name="pos2" select="position()"/>
-				<xsl:variable name="genid">genid:mpipl<xsl:value-of select="$pos"/>_<xsl:value-of select="$pos2"/></xsl:variable>
+				<xsl:variable name="genid">genid:<xsl:value-of select="$id-prefix"/><xsl:value-of select="$pos"/>_<xsl:value-of select="$pos2"/></xsl:variable>
 				<xsl:variable name="ou" select="."/>
-				<xsl:variable name="parent-ou" select="$organizational-units//ou[ou/@name = $ou]/@name"/>
-				<xsl:variable name="ou-id" select="$organizational-units//ou[@name = $ou]/@id"/>
-				insert into triples values ('<xsl:value-of select="$id"/>', 'http://escidoc.mpg.de/position', '<xsl:value-of select="$genid"/>', null, 'persons');
-				<xsl:choose>
-					<xsl:when test="$parent-ou = 'external'">
-						insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>', null, null);
-					</xsl:when>
-					<xsl:otherwise>
-						insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>, <xsl:value-of select="$parent-ou"/>, Max Planck Society', null, null);
-					</xsl:otherwise>
-				</xsl:choose>
-				insert into triples values ('<xsl:value-of select="$genid"/>', 'http://purl.org/dc/elements/1.1/identifier', '<xsl:value-of select="$ou-id"/>', null, null);
+				<xsl:if test="$ou != ''">
+					<xsl:variable name="parent-ou" select="$organizational-units//ou[ou/@name = $ou]/@name"/>
+					<xsl:variable name="ou-id" select="$organizational-units//ou[@name = $ou]/@id"/>
+					insert into triples values ('<xsl:value-of select="$id"/>', 'http://escidoc.mpg.de/position', '<xsl:value-of select="$genid"/>', null, 'persons');
+					<xsl:choose>
+						<xsl:when test="$ou = 'External Organizations' or $parent-ou = 'external'">
+							insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>', null, null);
+						</xsl:when>
+						<xsl:otherwise>
+							insert into triples values ('<xsl:value-of select="$genid"/>', 'http://escidoc.mpg.de/organization', '<xsl:value-of select="$ou"/>, Max-Planck-Gesellschaft', null, null);
+						</xsl:otherwise>
+					</xsl:choose>
+					insert into triples values ('<xsl:value-of select="$genid"/>', 'http://purl.org/dc/elements/1.1/identifier', '<xsl:value-of select="$ou-id"/>', null, null);
+				</xsl:if>
 				insert into triples values ('<xsl:value-of select="$id"/>', 'http://purl.org/dc/terms/modified', '<xsl:value-of select="current-date()"/>', null, 'persons');
 				insert into triples values ('<xsl:value-of select="$id"/>', 'http://purl.org/dc/terms/created', '<xsl:value-of select="current-date()"/>', null, 'persons');
 				insert into triples values ('<xsl:value-of select="$id"/>', 'http://escidoc.mpg.de/modified-by', 'urn:cone:persons102', null, 'persons');
