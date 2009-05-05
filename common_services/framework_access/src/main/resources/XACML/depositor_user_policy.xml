@@ -220,7 +220,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-		<!--		<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+				<!--		<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -252,19 +252,18 @@
 					</Apply>
 				</Apply>
 				-->
-					<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
 				</Apply>
-			</Apply>
-			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision</AttributeValue>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
 				</Apply>
-			</Apply>
-		
 			</Condition>
 		</Rule>
 		<Rule RuleId="Depositor-policy-rule-3" Effect="Permit">
@@ -285,7 +284,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-					<!--	<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+				<!--	<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -299,7 +298,7 @@
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</Apply>
 				</Apply>
-	-->	
+	-->
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -358,7 +357,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
+				<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -374,12 +373,12 @@
 					</Apply>
 				</Apply>
            -->
-           <!--*Depositor should be able to modify own items if:
+				<!--*Depositor should be able to modify own items if:
 				**public status is any of (pending, released, in-revision)
 				**latest version status is any of (pending, released, in-revision)
                 **current policy is a workaround to allow depositor to modify own items always
            -->
- 			<!--should be rephrased
+				<!--should be rephrased
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -389,21 +388,20 @@
 				</Apply>
 			</Apply>
 			-->
-			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
 				</Apply>
-			</Apply>
-			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
+						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+					</Apply>
 				</Apply>
-			</Apply>
-		
-		</Condition>
-		<!--
+			</Condition>
+			<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -467,7 +465,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
+				<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -511,7 +509,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
+				<!--
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
