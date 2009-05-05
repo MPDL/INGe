@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
 /**
- * TODO Description
+ * A {@link Thread} that deletes asynchronously all imported items of an import.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -49,12 +49,17 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
  */
 public class DeleteProcess extends Thread
 {
-    private static final Logger logger = Logger.getLogger(DeleteProcess.class);
+    private static Logger logger = Logger.getLogger(DeleteProcess.class);
     
     private ImportLog log;
     private PubItemDepositing pubItemDepositing;
     private AccountUserVO user;
     
+    /**
+     * Constructor taking an {@link ImportLog}. Reopens the log again and checks user data.
+     * 
+     * @param log The {@link ImportLog} whose items should be deleted
+     */
     public DeleteProcess(ImportLog log)
     {
         this.log = log;
@@ -70,7 +75,8 @@ public class DeleteProcess extends Thread
             user.setHandle(log.getUserHandle());
             user.setUserid(log.getUser());
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             this.log.addDetail(ErrorLevel.FATAL, "import_process_initialize_delete_process_error");
             this.log.addDetail(ErrorLevel.FATAL, e);
             this.log.close();
@@ -80,6 +86,9 @@ public class DeleteProcess extends Thread
         this.log.setPercentage(5);
     }
     
+    /**
+     * First schedule all imported items for deletion, then delete them.
+     */
     public void run()
     {
         int itemCount = 0;
