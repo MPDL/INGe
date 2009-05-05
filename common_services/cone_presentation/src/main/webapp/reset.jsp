@@ -46,7 +46,7 @@
 
 	List<String> models = new ArrayList<String>();
 	
-	models.add("journals");
+	models.add(request.getParameter("model"));
 	
 	for (String modelName : models)
 	{
