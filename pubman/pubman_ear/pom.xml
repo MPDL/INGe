@@ -786,26 +786,19 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        
-										<echo message="XXX:${jboss.install.dir}"/>
- 
- 										<delete file="${jboss.install.dir}/server/default/conf/pubman.properties"/>
- 										<delete file="${jboss.install.dir}/server/default/deploy/validation-ds.xml"/>
- 
-                                        <!-- copy over the configuration file -->
-                                        <copy file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
-                                        </copy>
-										
                                         <!-- configuration for the deploy jboss server -->
                                         <!-- copy over the validation datasource descriptor -->
-                                        <copy file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
+                                        <copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
+                                        </copy>
+                                        <!-- copy over the configuration file -->
+                                        <copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <!-- <xslt in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
+                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
                                             out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
-                                        </copy> -->
+                                        </copy>
 
                                     </tasks>
                                 </configuration>
