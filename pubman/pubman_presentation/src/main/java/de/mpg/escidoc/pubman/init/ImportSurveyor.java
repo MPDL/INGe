@@ -37,6 +37,7 @@ import java.sql.ResultSet;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
+import de.mpg.escidoc.pubman.multipleimport.ImportLogItem;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -106,6 +107,17 @@ public class ImportSurveyor extends Thread
                     logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
                     ImportLog log = ImportLog.getImportLog(id, true, true);
                     log.setConnection(connection);
+                    
+                    for (ImportLogItem item : log.getItems())
+                    {
+                        if (item.getEndDate() == null)
+                        {
+                            log.activateItem(item);
+                            log.addDetail(ErrorLevel.WARNING, "import_process_terminate_item");
+                            log.finishItem();
+                        }
+                    }
+                    
                     log.startItem("import_process_aborted_unexpectedly");
                     log.addDetail(ErrorLevel.FATAL, "import_process_failed");
                     log.finishItem();

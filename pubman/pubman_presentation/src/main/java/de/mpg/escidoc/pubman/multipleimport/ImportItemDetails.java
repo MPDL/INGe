@@ -66,6 +66,16 @@ public class ImportItemDetails extends FacesBean
         }
     }
     
+    public int getLength()
+    {
+        if (this.details == null && this.itemId != 0 && this.userid != null)
+        {
+            
+            this.details = ImportLog.loadDetails(this.itemId, this.userid);
+        }
+        return this.details.size();
+    }
+    
     public List<ImportLogItem> getDetails()
     {
         if (this.details == null && this.itemId != 0 && this.userid != null)

@@ -104,7 +104,7 @@ public class ImportWorkspace extends FacesBean
         
         if (user != null)
         {
-            imports = ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, false, false);
+            imports = ImportLog.getImportLogs("import", user, this.sortColumn, this.sortDirection, true, false);
         }
     }
 

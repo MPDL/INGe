@@ -41,6 +41,12 @@
 
 			<h2><h:outputText value="#{lbl.import_workspace_details}"/></h2>
 			
+			<h:panelGroup styleClass="free_area0" style="margin-bottom: 0.56em;" rendered="#{ImportItemDetails.length == 0}">
+				<span class="small_area0">
+					<h:outputText value="#{msg.multiple_import_no_details}"/>
+				</span>
+			</h:panelGroup>
+			
 			<tr:iterator var="detail" value="#{ImportItemDetails.details}" rows="0">
 				<h:panelGroup styleClass="free_area0" style="margin-bottom: 0.56em;">
 					<span class="small_area0">

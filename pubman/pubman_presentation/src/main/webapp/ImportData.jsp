@@ -98,15 +98,15 @@
 								<h:outputText value="#{lbl.import_workspace_remove_import}"/>
 							</tr:commandLink>
 
-							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.deleteAll}">
+							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.deleteAll}" rendered="#{ImportData.import.importedItems}">
 								<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 							</tr:commandLink>
 
-							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAll}" rendered="#{!import.simpleWorkflow}">
+							<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAll}" rendered="#{ImportData.import.importedItems and !import.simpleWorkflow}">
 								<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 							</tr:commandLink>
 
-							<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAndReleaseAll}">
+							<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{ImportData.import.submitAndReleaseAll}" rendered="#{ImportData.import.importedItems}">
 								<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 							</tr:commandLink>
 						</h:panelGroup>

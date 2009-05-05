@@ -126,7 +126,7 @@ public class ImportLog
     
     private static final Logger logger = Logger.getLogger(ImportLog.class);
     
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     
     private Date startDate;
     private Date endDate;
@@ -577,9 +577,31 @@ public class ImportLog
         }
     }
 
+    /**
+     * Checks if the import is already finished.
+     * 
+     * @return true if the import is finished
+     */
     public boolean getFinished()
     {
         return (this.status == Status.FINISHED);
+    }
+    
+    /**
+     * Checks if at least one item was imported.
+     * 
+     * @return true if one or more items were imported, otherwise false.
+     */
+    public boolean getImportedItems()
+    {
+        for (ImportLogItem item : this.items)
+        {
+            if (item.getItemId() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**

@@ -115,7 +115,7 @@ public class EndnoteProcessor extends FormatProcessor
             
             String inputString = new String(this.originalData, this.encoding);
 
-            items = inputString.split("(\\r\\n|\\r|\\n){2,3}");
+            items = inputString.split("(\\r\\n){2,3}|\\n{2,3}|\\r{2,3}");
             
             this.length = items.length;
             

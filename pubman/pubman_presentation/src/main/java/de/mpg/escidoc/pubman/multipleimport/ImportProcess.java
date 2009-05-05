@@ -759,6 +759,7 @@ public class ImportProcess extends Thread
                         }
                     }
                 }
+                return true;
             }
             else
             {
@@ -772,7 +773,6 @@ public class ImportProcess extends Thread
             log.finishItem();
             return false;
         }
-        return false;
     }
 
 }
