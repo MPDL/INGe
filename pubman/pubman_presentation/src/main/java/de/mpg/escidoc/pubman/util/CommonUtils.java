@@ -89,8 +89,14 @@ public class CommonUtils extends InternationalizedImpl
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     //HTML escaped characters mapping
-    private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
-    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>" };
+    private static final String[] PROBLEMATIC_CHARACTERS =
+    {
+        "&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"
+    };
+    private static final String[] ESCAPED_CHARACTERS =
+    {
+        "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>" , "&#160;&#160;"
+    };
     
     private static String localLang = "";
 
@@ -384,10 +390,14 @@ public class CommonUtils extends InternationalizedImpl
      */
     public static String htmlEscape(String cdata)
     {
-        // The escaping has to start with the ampsersand (&amp;, '&') !
-        for (int i = 0; i < problematicCharacters.length; i++)
+        if (cdata == null)
         {
-            cdata = change(cdata, problematicCharacters[i], escapedCharacters[i]);
+            return null;
+        }
+        // The escaping has to start with the ampersand (&amp;, '&') !
+        for (int i = 0; i < PROBLEMATIC_CHARACTERS.length; i++)
+        {
+            cdata = cdata.replace(PROBLEMATIC_CHARACTERS[i], ESCAPED_CHARACTERS[i]);
 
         }
         return cdata;
@@ -399,8 +409,12 @@ public class CommonUtils extends InternationalizedImpl
      * @param in A String that might contain problematic HTML characters.
      * @param oldPat the old pattern to be escaped.
      * @param newPat the new pattern to escape with.
+     * 
      * @return The escaped string.
+     * 
+     * @deprecated I do not see any advantage over String.replace
      */
+    @Deprecated
     private static String change(String in, String oldPat, String newPat)
     {
         if (in == null)

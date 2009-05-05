@@ -73,11 +73,6 @@ public class ImportLog
 {
     /**
      * enum to describe the general state of the log.
-     *
-     * @author franke (initial creation)
-     * @author $Author$ (last modification)
-     * @version $Revision$ $LastChangedDate$
-     *
      */
     public enum Status
     {
@@ -92,31 +87,39 @@ public class ImportLog
      * - PROBLEM:   some item was not imported because validation failed
      * - ERROR:     some items were not imported because there were system errors during the import
      * - FATAL:     the import was interrupted completely due to system errors
-     *
-     * @author franke (initial creation)
-     * @author $Author$ (last modification)
-     * @version $Revision$ $LastChangedDate$
-     *
      */
     public enum ErrorLevel
     {
         FINE, WARNING, PROBLEM, ERROR, FATAL
     }
     
+    /**
+     * enum defining possible sorting columns.
+     */
     public enum SortColumn
     {
         STARTDATE, ENDDATE, NAME, FORMAT, STATUS, ERRORLEVEL;
         
+        /**
+         * @return A representation of the element that is used for storing in a database
+         */
         public String toSQL()
         {
             return super.toString().toLowerCase();
         }
     }
     
+    /**
+     * enum defining sorting directions.
+     *
+     */
     public enum SortDirection
     {
         ASCENDING, DESCENDING;
         
+        /**
+         * @return A representation of the element that is used for storing in a database
+         */
         public String toSQL()
         {
             String value = super.toString();
@@ -124,8 +127,12 @@ public class ImportLog
         }
     }
     
-    private static final Logger logger = Logger.getLogger(ImportLog.class);
+    private static Logger logger = Logger.getLogger(ImportLog.class);
     
+    /**
+     * The data format that is used to display start- and end-date.
+     * Example: 2009-12-31 23:59
+     */
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     
     private Date startDate;
@@ -171,6 +178,7 @@ public class ImportLog
      * TODO: Put this into an enum
      * 
      * @param user The eSciDoc user id of the user that invoces this action.
+     * @param format A string holding the format of the import, e.g. "bibtex".
      */
     public ImportLog(String action, String user, String format)
     {
@@ -187,7 +195,9 @@ public class ImportLog
     }
 
     /**
-     * @throws RuntimeException
+     * Reads the database configuration from the properties and then creates a {@link Connection}.
+     * 
+     * @return An open connection to the import database
      */
     public static Connection getConnection()
     {
@@ -270,30 +280,75 @@ public class ImportLog
     }
     
     /**
+     * Creates a new item using the given message.
      * 
-     * @param message
+     * Defaults:
+     * - Item id will be set to null
+     * - Start date will be set to the current date
+     * - Error level will be set to FINE.
+     * 
+     * @param msg A message key for a localized message
      */
-    public void startItem(String message)
+    public void startItem(String msg)
     {
-        startItem(message, null);
+        startItem(msg, null);
     }
     
-    public void startItem(String message, String itemId)
+    /**
+     * Creates a new item using the given message and item id, then putting the focus of the import on it.
+     * 
+     * Defaults:
+     * - Start date will be set to the current date
+     * - Error level will be set to FINE.
+     * 
+     * @param msg A message key for a localized message
+     * @param itemId The eSciDoc id of the imported item
+     */
+    public void startItem(String msg, String itemId)
     {
-        startItem(message, new Date(), itemId);
+        startItem(msg, new Date(), itemId);
     }
     
-    public void startItem(String message, Date startDate, String itemId)
+    /**
+     * Creates a new item using the given message, item id and start date, then putting the focus of the import on it.
+     * 
+     * Defaults:
+     * - Error level will be set to FINE.
+     * 
+     * @param msg A message key for a localized message
+     * @param sDate The start date of this item
+     * @param itemId The eSciDoc id of the imported item
+     */
+    public void startItem(String msg, Date sDate, String itemId)
     {
-        startItem(ErrorLevel.FINE, message, startDate, itemId);
+        startItem(ErrorLevel.FINE, msg, sDate, itemId);
     }
     
-    public void startItem(ErrorLevel errorLevel, String message)
+    /**
+     * Creates a new item using the given error level and message, then putting the focus of the import on it.
+     * 
+     * Defaults:
+     * - Item id will be set to null
+     * - Start date will be set to the current date
+     * 
+     * @param errLevel The initial error level of this item
+     * @param msg A message key for a localized message
+     */
+    public void startItem(ErrorLevel errLevel, String msg)
     {
-        startItem(errorLevel, message, new Date(), null);
+        startItem(errLevel, msg, new Date(), null);
     }
     
-    public void startItem(ErrorLevel errorLevel, String message, Date startDate, String itemId)
+    /**
+     * Creates a new item using the given error level, message, item id and start date,
+     * then putting the focus of the import on it.
+     * 
+     * @param errLevel The initial error level of this item
+     * @param msg A message key for a localized message
+     * @param sDate The start date of this item
+     * @param itemId The eSciDoc id of the imported item
+     */
+    public void startItem(ErrorLevel errLevel, String msg, Date sDate, String itemId)
     {
         if (this.currentItem != null)
         {
@@ -302,9 +357,9 @@ public class ImportLog
         
         ImportLogItem newItem = new ImportLogItem(this);
         
-        newItem.setErrorLevel(errorLevel);
-        newItem.setMessage(message);
-        newItem.setStartDate(startDate);
+        newItem.setErrorLevel(errLevel);
+        newItem.setMessage(msg);
+        newItem.setStartDate(sDate);
         
         saveItem(newItem);
         
@@ -313,6 +368,10 @@ public class ImportLog
         this.currentItem = newItem;
     }
     
+    /**
+     * Sets the status of the focused item to FINISHED and the end date to the current date,
+     * then removes the focus of the import.
+     */
     public void finishItem()
     {
         if (this.currentItem != null)
@@ -326,6 +385,12 @@ public class ImportLog
         }
     }
     
+    /**
+     * Sets the status of the focused item to SUSPENDED. This should be done
+     * when it is planned to visit this item again later.
+     * I.e. in a first step, all items are transformed and validated, then suspended.
+     * In a second step, all items are imported into the repository.
+     */
     public void suspendItem()
     {
         if (this.currentItem != null)
@@ -338,12 +403,30 @@ public class ImportLog
         }
     }
     
-    public void addDetail(ErrorLevel errorLevel, String message)
+    /**
+     * Adds a detail to the focused item using the given error level and message key.
+     * Start- and end-date are set to the current date. Status is set to FINISHED.
+     * 
+     * Defaults:
+     * - The detail id will be set to null
+     * 
+     * @param errLevel The error level of this item
+     * @param msg A message key for a localized message
+     */
+    public void addDetail(ErrorLevel errLevel, String msg)
     {
-        addDetail(errorLevel, message, null);
+        addDetail(errLevel, msg, null);
     }
     
-    public void addDetail(ErrorLevel errorLevel, String message, String detailId)
+    /**
+     * Adds a detail to the focused item using the given error level, message key and detail id.
+     * Start- and end-date are set to the current date. Status is set to FINISHED.
+     * 
+     * @param errLevel The error level of this item
+     * @param msg A message key for a localized message
+     * @param detailId The (eSciDoc) id related to this detail (e.g. the id of an identified duplicate)
+     */
+    public void addDetail(ErrorLevel errLevel, String msg, String detailId)
     {
         if (this.currentItem == null)
         {
@@ -352,8 +435,8 @@ public class ImportLog
         
         ImportLogItem newDetail = new ImportLogItem(currentItem);
         
-        newDetail.setErrorLevel(errorLevel);
-        newDetail.setMessage(message);
+        newDetail.setErrorLevel(errLevel);
+        newDetail.setMessage(msg);
         newDetail.setStartDate(new Date());
         newDetail.setItemId(detailId);
         newDetail.setStatus(Status.FINISHED);
@@ -364,17 +447,34 @@ public class ImportLog
         
     }
     
-    public void addDetail(ErrorLevel errorLevel, Exception exception)
+    /**
+     * Adds a detail to the focused item using the given error level and a previously caught exception.
+     * Start- and end-date are set to the current date. Status is set to FINISHED.
+     * The exception is transformed into a stack trace.
+     * 
+     * @param errLevel The error level of this item
+     * @param exception The exception that should be added to the item
+     */
+    public void addDetail(ErrorLevel errLevel, Exception exception)
     {
-        String message = getExceptionMessage(exception);
-        addDetail(errorLevel, message, null);
+        String msg = getExceptionMessage(exception);
+        addDetail(errLevel, msg, null);
     }
     
+    /**
+     * @param itemVO Assigns a value object to the focused item.
+     */
     public void setItemVO(PubItemVO itemVO)
     {
         this.currentItem.setItemVO(itemVO);
     }
     
+    /**
+     * Transforms an exception into a Java stack trace.
+     * 
+     * @param exception The exception
+     * @return The stack trace
+     */
     private String getExceptionMessage(Throwable exception)
     {
         StringWriter stringWriter = new StringWriter();
@@ -407,12 +507,20 @@ public class ImportLog
         return stringWriter.toString();
     }
 
+    /**
+     * Sets the (eSciDoc) id of the focused item.
+     * 
+     * @param id The id
+     */
     public void setItemId(String id)
     {
         this.currentItem.setItemId(id);
         updateItem(this.currentItem);
     }
 
+    /**
+     * @return true if this import is already finished
+     */
     public boolean isDone()
     {
         return (this.status == Status.FINISHED);
@@ -714,7 +822,8 @@ public class ImportLog
         try
         {
             PreparedStatement statement = this.connection.prepareStatement("insert into escidoc_import_log "
-                    + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+                    + "(status, errorlevel, startdate, action, userid, name, context, format, percentage) "
+                    + "values (?, ?, ?, ?, ?, ?, ?, ?, 0)");
             
             statement.setString(1, this.status.toString());
             statement.setString(2, this.errorLevel.toString());
@@ -921,16 +1030,56 @@ public class ImportLog
         }
     }
 
+    /**
+     * Retrieves a users imports from the database.
+     * 
+     * Defaults:
+     * - items are loaded
+     * - item details are loaded
+     * 
+     * @param action Usually "import"
+     * @param user The user's value object
+     * @param sortBy The column the logs should be sorted by
+     * @param dir The direction the imports should be sorted by
+     * 
+     * @return A list of imports
+     */
     public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy, SortDirection dir)
     {
         return getImportLogs(action, user, sortBy, dir, true);
     }
     
+    /**
+     * Retrieves a users imports from the database.
+     * 
+     * Defaults:
+     * - items are loaded
+     * 
+     * @param action Usually "import"
+     * @param user The user's value object
+     * @param sortBy The column the logs should be sorted by
+     * @param dir The direction the imports should be sorted by
+     * @param loadDetails Indicates whether the items details should be loaded
+     * 
+     * @return A list of imports
+     */
     public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy, SortDirection dir, boolean loadDetails)
     {
         return getImportLogs(action, user, sortBy, dir, true, loadDetails);
     }
     
+    /**
+     * Retrieves a users imports from the database.
+     *
+     * @param action Usually "import"
+     * @param user The user's value object
+     * @param sortBy The column the logs should be sorted by
+     * @param dir The direction the imports should be sorted by
+     * @param loadItems Indicates whether the import items should be loaded
+     * @param loadDetails Indicates whether the items details should be loaded
+     * 
+     * @return A list of imports
+     */
     public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy, SortDirection dir, boolean loadItems, boolean loadDetails)
     {
         List<ImportLog> result = new ArrayList<ImportLog>();
@@ -980,16 +1129,47 @@ public class ImportLog
         return result;
     }
 
+    /**
+     * Get a single import by its stored id.
+     * 
+     * Defaults:
+     * - items are loaded
+     * - item details are loaded
+     * 
+     * @param id The id
+     * 
+     * @return The import
+     */
     public static ImportLog getImportLog(int id)
     {
         return getImportLog(id, true);
     }
 
+    /**
+     * Get a single import by its stored id.
+     * 
+     * Defaults:
+     * - items are loaded
+     * 
+     * @param id The id
+     * @param loadDetails Indicates whether the items details should be loaded
+     * 
+     * @return The import
+     */
     public static ImportLog getImportLog(int id, boolean loadDetails)
     {
         return getImportLog(id, true, loadDetails);
     }
     
+    /**
+     * Get a single import by its stored id.
+     * 
+     * @param id The id
+     * @param loadItems Indicates whether the import items should be loaded
+     * @param loadDetails Indicates whether the items details should be loaded
+     * 
+     * @return The import
+     */
     public static ImportLog getImportLog(int id, boolean loadItems, boolean loadDetails)
     {
         Connection connection = getConnection();
@@ -1127,6 +1307,14 @@ public class ImportLog
         return result;
     }
     
+    /**
+     * Get the details of a certain import item.
+     * 
+     * @param id The item id
+     * @param userid The users id
+     * 
+     * @return A list of details
+     */
     public static List<ImportLogItem> loadDetails(int id, String userid)
     {
         List<ImportLogItem> details = new ArrayList<ImportLogItem>();
@@ -1171,6 +1359,9 @@ public class ImportLog
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public String toString()
     {
         StringWriter writer = new StringWriter();
@@ -1209,6 +1400,11 @@ public class ImportLog
         return getAction();
     }
 
+    /**
+     * Puts the import's focus on this item.
+     * 
+     * @param item
+     */
     public void activateItem(ImportLogItem item)
     {
         if (this.currentItem == null)
@@ -1221,6 +1417,9 @@ public class ImportLog
         }
     }
     
+    /**
+     * @return An XML representation of this import. Used to store it in the repository.
+     */
     public String toXML()
     {
         StringWriter writer = new StringWriter();
@@ -1268,6 +1467,12 @@ public class ImportLog
         return writer.toString();
     }
 
+    /**
+     * An XML-safe representation of the given string.
+     * 
+     * @param string The given string
+     * @return the escaped string
+     */
     protected String escape(String string)
     {
         if (string == null)
@@ -1280,10 +1485,19 @@ public class ImportLog
         }
     }
 
+    /**
+     * Reads a localized message from the message resource bundle.
+     * 
+     * @return A string holding the localized message
+     */
     public String getLocalizedMessage()
     {
-        FacesContext context = FacesContext.getCurrentInstance();
-        InternationalizationHelper i18nHelper = (InternationalizationHelper) context.getExternalContext().getSessionMap().get(InternationalizationHelper.BEAN_NAME);
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        InternationalizationHelper i18nHelper =
+            (InternationalizationHelper) ctx
+                .getExternalContext()
+                .getSessionMap()
+                .get(InternationalizationHelper.BEAN_NAME);
         try
         {
             return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(getMessage());
