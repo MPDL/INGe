@@ -60,19 +60,19 @@
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
 
 	<xs:import namespace="http://escidoc.de/core/01/properties/"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/properties.xsd" />
+		schemaLocation="../../../soap/common/0.4/properties.xsd" />
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/structural-relations.xsd" />
+		schemaLocation="../../../soap/common/0.4/structural-relations.xsd" />
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xlink.xsd" />
+		schemaLocation="../../../soap/common/0.3/xlink.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/md-records.xsd" />
+		schemaLocation="../../../soap/common/0.4/md-records.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" />
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/common-types.xsd" />
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
 
 	<xs:element name="components">
 		<xs:annotation>

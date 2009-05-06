@@ -261,6 +261,7 @@
 						<xs:documentation>
 							<create>discarded</create>
 							<update>discardred</update>
+							<comment>Description can be set by dc:description in md-record "escidoc".</comment>
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
@@ -306,6 +307,7 @@
 						<xs:documentation>
 							<create>discarded</create>
 							<update>discarded</update>
+							<comment>File name can be set by dc:title in md-record "escidoc".</comment>
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>

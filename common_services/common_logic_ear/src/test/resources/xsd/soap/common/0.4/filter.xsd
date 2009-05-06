@@ -14,6 +14,7 @@
 					maxOccurs="unbounded">
 					<xs:complexType mixed="true">
 						<xs:sequence>
+							<!-- FIXME: id should be of type common-types:objid ? -->
 							<xs:element name="id" minOccurs="0"
 								maxOccurs="unbounded">
 								<xs:annotation>

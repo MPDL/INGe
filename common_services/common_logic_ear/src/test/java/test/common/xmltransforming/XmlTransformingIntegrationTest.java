@@ -43,7 +43,6 @@ import test.common.xmltransforming.integration.TransformPubItemResultListIntegra
 import test.common.xmltransforming.integration.TransformPubItemVersionListIntegrationTest;
 import test.common.xmltransforming.integration.TransformSchindlMayrIntegrationTest;
 import test.common.xmltransforming.integration.TransformStatisticsTest;
-import test.common.xmltransforming.integration.TransformTocTest;
 
 
 /**
@@ -66,8 +65,7 @@ import test.common.xmltransforming.integration.TransformTocTest;
                      TransformFileUrlTest.class,
 //                     // TODO: Fix this test.
   //                   TransformContainerIntegrationTest.class,
-                     TransformStatisticsTest.class,
-                     TransformTocTest.class
+                     TransformStatisticsTest.class
                      
                     })
 public class XmlTransformingIntegrationTest extends TestBase

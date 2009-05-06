@@ -4,7 +4,11 @@
 	targetNamespace="http://escidoc.de/core/01/structural-relations/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:import namespace="http://www.w3.org/1999/xlink"
+        schemaLocation="../../../rest/common/0.3/xlink.xsd" />
 
 	<xs:annotation>
 		<xs:documentation>
@@ -43,6 +47,27 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+    <xs:element name="granted-to">
+        <xs:annotation>
+            <xs:documentation>
+                Refers to a user or group.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="common-types:readOnlyLink">
+                    <xs:attribute name="resource">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:token">
+                                <xs:enumeration value="user-account" />
+                                <xs:enumeration value="user-group" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
 	<xs:element name="context" type="common-types:linkForCreate">
 		<xs:annotation>
 			<xs:documentation>
@@ -134,6 +159,14 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="toc" type="common-types:linkForCreate">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the Item with Toc content-model that is a member of this
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="child" type="common-types:linkRequired">
 		<xs:annotation>
 			<xs:documentation>
@@ -150,4 +183,56 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="predecessor" type="srel:predecessorLinkRequired">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to the predecessor of this Organizational
+				Unit.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+    <xs:complexType name="predecessorLinkRequired">
+        <xs:attribute name="form">
+            <xs:annotation>
+                <xs:documentation>
+                    <create>required</create>
+                    <update>required</update>
+                </xs:documentation>
+            </xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="splitting" />
+					<xs:enumeration value="fusion" />
+					<xs:enumeration value="spin-off" />
+					<xs:enumeration value="affiliation" />
+					<xs:enumeration value="replacement" />
+				</xs:restriction>
+			</xs:simpleType>
+        </xs:attribute>
+        <xs:attribute ref="xlink:type" fixed="simple">
+            <xs:annotation>
+                <xs:documentation>
+                    <create>discarded</create>
+                    <update>discarded</update>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute ref="xlink:title">
+            <xs:annotation>
+                <xs:documentation>
+                    <create>discarded</create>
+                    <update>discarded</update>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute ref="xlink:href">
+            <xs:annotation>
+                <xs:documentation>
+                    <create>depends on the element</create>
+                    <update>depends on the element</update>
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
 </xs:schema>

@@ -31,6 +31,9 @@
 				<xs:element ref="context:context" minOccurs="0"
 					maxOccurs="unbounded" />
 			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 

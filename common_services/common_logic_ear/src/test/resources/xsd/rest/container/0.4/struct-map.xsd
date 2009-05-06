@@ -78,11 +78,11 @@
 			</xs:documentation>
 
 			<xs:documentation>
-				<create>required</create>
-				<update>required</update>
+				<create>optional</create>
+				<update>discarded</update>
 				<comment>
-					The struct map is read-only, changes can be done by
-					spefic methods
+					The struct map is read-only on update, changes can be done by
+					the methods addMembers and removeMembers of the ContainerHandler 
 				</comment>
 			</xs:documentation>
 		</xs:annotation>
