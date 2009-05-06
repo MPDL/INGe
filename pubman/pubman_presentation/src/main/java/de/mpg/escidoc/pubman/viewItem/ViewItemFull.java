@@ -105,6 +105,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -134,6 +135,9 @@ public class ViewItemFull extends FacesBean
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
     public final static String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
+    
+    public final static String ISI_KNOWLEDGE_BASE_LINK = "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
+    public final static String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
     
     public boolean isDepositor = false;
     public boolean isModerator = false;
@@ -1101,6 +1105,10 @@ public class ViewItemFull extends FacesBean
                 else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.EDOC)
                 {
                     identifiers.append("<a target='_blank' href='http://edoc.mpg.de/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                }
+                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.ISI)
+                {
+                    identifiers.append("<a target='_blank' href='" + ISI_KNOWLEDGE_BASE_LINK +this.pubItem.getMetadata().getIdentifiers().get(i).getId()+ ISI_KNOWLEDGE_DEST_APP +"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
                 }
                 else
                 {
@@ -2391,7 +2399,7 @@ public class ViewItemFull extends FacesBean
     	}
     	return contactEmail;
     }
-
+    
     public void setPublicStateReleased(boolean isPublicStateReleased)
     {
         this.isPublicStateReleased = isPublicStateReleased;
