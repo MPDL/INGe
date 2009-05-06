@@ -44,8 +44,13 @@ import org.apache.axis.configuration.FileProvider;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.handler.WSHandlerConstants;
 
+import de.escidoc.www.services.adm.AdminHandler;
+import de.escidoc.www.services.adm.AdminHandlerService;
+import de.escidoc.www.services.adm.AdminHandlerServiceLocator;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.aa.UserAccountHandlerServiceLocator;
+import de.escidoc.www.services.aa.UserGroupHandler;
+import de.escidoc.www.services.aa.UserGroupHandlerServiceLocator;
 import de.escidoc.www.services.aa.UserManagementWrapper;
 import de.escidoc.www.services.aa.UserManagementWrapperServiceLocator;
 import de.escidoc.www.services.cmm.ContentModelHandler;
@@ -58,8 +63,6 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.om.ItemHandlerServiceLocator;
 import de.escidoc.www.services.om.SemanticStoreHandler;
 import de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator;
-import de.escidoc.www.services.om.TocHandler;
-import de.escidoc.www.services.om.TocHandlerServiceLocator;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandlerServiceLocator;
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
@@ -93,6 +96,7 @@ public class ServiceLocator
     
     private static UserManagementWrapperServiceLocator authorizedUserManagementWrapperServiceLocator;
     private static UserAccountHandlerServiceLocator authorizedUserAccountHandlerServiceLocator;
+    private static UserGroupHandlerServiceLocator authorizedUserGroupHandlerServiceLocator;
     private static OrganizationalUnitHandlerServiceLocator publicOrganizationalUnitHandlerServiceLocator;
     private static OrganizationalUnitHandlerServiceLocator authorizedOrganizationalUnitHandlerServiceLocator;
     private static ContentModelHandlerServiceLocator authorizedContentModelHandlerServiceLocator;
@@ -108,8 +112,10 @@ public class ServiceLocator
     private static StatisticDataHandlerServiceLocator  publicStatisticDataHandlerServiceLocator;
     private static ReportDefinitionHandlerServiceLocator  publicReportDefinitionHandlerServiceLocator;
     private static ReportHandlerServiceLocator  publicReportHandlerServiceLocator;
-    private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
+    // TocHandler is deprecated as of version 1.1 build501
+    //private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
     private static IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator;
+    private static AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -186,6 +192,28 @@ public class ServiceLocator
             authorizedUserAccountHandlerServiceLocator.setUserAccountHandlerServiceEndpointAddress(url);
         }
         UserAccountHandler handler = authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the UserGroupHandler service for an authentificated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return A UserGroupHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static UserGroupHandler getUserGroupHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        if (authorizedUserGroupHandlerServiceLocator == null)
+        {
+            authorizedUserGroupHandlerServiceLocator = new UserGroupHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedUserGroupHandlerServiceLocator.getUserGroupHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("UserGroupHandler URL=" + url);
+            authorizedUserGroupHandlerServiceLocator.setUserGroupHandlerServiceEndpointAddress(url);
+        }
+        UserGroupHandler handler = authorizedUserGroupHandlerServiceLocator.getUserGroupHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -670,7 +698,11 @@ public class ServiceLocator
      * @throws ServiceException
      * @throws URISyntaxException 
      */
-    public static TocHandler getTocHandler(String userHandle) throws ServiceException, URISyntaxException
+    
+    // DEPRECATED !!!
+    
+    
+    /*public static TocHandler getTocHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedTocHandlerServiceLocator == null)
         {
@@ -682,7 +714,7 @@ public class ServiceLocator
         TocHandler handler = authorizedTocHandlerServiceLocator.getTocHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
-    }
+    }*/
     
     /**
      * Gets the IngestHandler service for an authenticated user.
@@ -704,6 +736,30 @@ public class ServiceLocator
             authorizedIngestHandlerServiceLocator.setIngestHandlerServiceEndpointAddress(url);
         }
         IngestHandler handler = authorizedIngestHandlerServiceLocator.getIngestHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the AdminHandler service for an authenticated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return An AdminHandler.
+     * @throws URISyntaxException 
+     * @throws ServiceException 
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static AdminHandler getAdminHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        if (authorizedAdminHandlerServiceLocator == null)
+        {
+            authorizedAdminHandlerServiceLocator = new AdminHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedAdminHandlerServiceLocator.getAdminHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("authorizedAdminHandlerServiceLocator URL=" + url);
+            authorizedAdminHandlerServiceLocator.setAdminHandlerServiceEndpointAddress(url);
+        }
+        AdminHandler handler = authorizedAdminHandlerServiceLocator.getAdminHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }

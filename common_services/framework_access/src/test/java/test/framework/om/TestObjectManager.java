@@ -45,7 +45,7 @@ import org.junit.runners.Suite;
                     ,TestRelation.class
                     ,TestItemRetrieve.class
                     ,TestContainer.class
-                    ,TestToc.class
+                    //,TestToc.class TOC handler is deprecated !!!
                     })
 public class TestObjectManager
 {

@@ -38,7 +38,6 @@
             <url>${escidoc.framework_access.framework.url}/axis/services/ContextHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/ItemHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/ContainerHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/TocHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/SemanticStoreHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/ScopeHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/AggregationDefinitionHandlerService?wsdl</url>
@@ -52,6 +51,8 @@
             <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowTemplateHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowTypeHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/IngestHandlerService?wsdl</url>
+            <url>${escidoc.framework_access.framework.url}/axis/services/UserGroupHandlerService?wsdl</url>
+            <url>${escidoc.framework_access.framework.url}/axis/services/AdminHandlerService?wsdl</url>
           </urls>
           <mappings>
             <mapping>
@@ -79,6 +80,14 @@
               <targetPackage>de.escidoc.www.services.aa</targetPackage>
             </mapping>
             <mapping>
+              <namespace>http://www.escidoc.de/services/UserGroupHandlerService/0.1</namespace>
+              <targetPackage>de.escidoc.www.services.aa</targetPackage>
+            </mapping>
+            <mapping>
+              <namespace>http://www.escidoc.de/services/AdminHandlerService/0.1</namespace>
+              <targetPackage>de.escidoc.www.services.adm</targetPackage>
+            </mapping>
+            <mapping>
               <namespace>http://www.escidoc.de/services/ContentModelHandlerService/0.1</namespace>
               <targetPackage>de.escidoc.www.services.cmm</targetPackage>
             </mapping>
@@ -92,10 +101,6 @@
             </mapping>
             <mapping>
               <namespace>http://www.escidoc.de/services/ContainerHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.om</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/TocHandlerService/0.1</namespace>
               <targetPackage>de.escidoc.www.services.om</targetPackage>
             </mapping>
             <mapping>
