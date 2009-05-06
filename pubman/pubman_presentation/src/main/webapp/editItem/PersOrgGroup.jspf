@@ -97,7 +97,7 @@
 					<h:commandButton title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
 				</h:panelGroup>
 			</h:panelGroup>
-				<tr:iterator var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}">
+				<tr:iterator var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
 					<h:panelGroup layout="block" styleClass="suggestAnchor">
 						<%-- Creator role --%>
 						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
