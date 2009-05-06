@@ -178,7 +178,6 @@
 
 <%-- Local Tags --%>
 
-	<%-- pls use a copy of the event section in this file as basis for implementation --%>
 	<tr:iterator id="localTagCriterion" var="localTagCriterionBean" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{localTagCriterionIterator}" varStatus="index">
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
