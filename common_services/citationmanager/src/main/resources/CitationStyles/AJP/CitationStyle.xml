@@ -302,8 +302,8 @@
 				<delimiter value="-"/>
 			</parameters>
 			<elements>
-				<layout-element ref="publication/source/start-page" />
-				<layout-element ref="publication/source/end-page" />
+				<layout-element ref="publication/source[1]/start-page" />
+				<layout-element ref="publication/source[1]/end-page" />
 			</elements>
 		</layout-element>
 		
@@ -430,26 +430,19 @@
 		<elements>
 			<layout-element ref="../../@objid" />
 		</elements>
-		<!-- BOOK CHAPTER -->
-		<!--
-			Question: Should courseware, other, conference-paper and
-			conference-report handled identically?
-		-->
-		<!--
-			Note: We need to differentiate between conference-papers published in
-			a book and those published in a journal issue
-		-->
 	</cs-layout-definition>
+
+<!--Creator.Person.GivenName Creator.Person.FamilyName, "Title," Source.Title Source.Volume (Source.Issue), Source.sequence-number (year issued). -->
 
 	<cs-layout-definition name="Article">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("article") ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("article")]]></valid-if>
 			<delimiter value=" " />
 			<ends-with value="." />
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators" />
 						
@@ -462,23 +455,30 @@
 					<delimiter value=""/>
 				</parameters>
 				<elements>
-					<layout-element ref="publication/source/title" />
-					<layout-element ref="publication/source/volume">
+					<layout-element ref="publication/source[1]/title" />
+					<layout-element ref="publication/source[1]/volume">
 						<parameters>
 							<font-style ref="BOLD" />
 							<starts-with value=" "/>
 						</parameters>
 						<elements />
 					</layout-element>
-					<layout-element ref="publication/source/issue">
+					<layout-element ref="publication/source[1]/issue">
 						<parameters>
 							<starts-with value=" (" />
 							<ends-with value=")" />
 						</parameters>
 						<elements />
 					</layout-element>
+					<layout-element ref="publication/source[1]/sequence-number">
+						<parameters>
+							<starts-with value=", " />
+						</parameters>
+						<elements />
+					</layout-element>
 					<layout-element ref="start-page-end-page">
 						<parameters>
+							<valid-if><![CDATA[${publication/source[1]/sequence-number}==null]]></valid-if>
 							<starts-with value=", " />
 						</parameters>
 						<elements />
@@ -503,7 +503,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators" />
 						
@@ -524,7 +524,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators" />
 						
@@ -570,7 +570,7 @@
 		</parameters>
 		<elements>
 
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators"/>
 			
@@ -591,7 +591,7 @@
 		</parameters>
 		<elements>
 
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators" />
 
@@ -607,32 +607,6 @@
 		</elements>
 	</cs-layout-definition>	
 	
-	<cs-layout-definition name="conference-paper">
-		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("conference-paper") ]]></valid-if>
-			<delimiter value=", " />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-
-			<layout-element ref="debug" />
-			
-			<layout-element ref="creators" />
-
-			<layout-element ref="publication/event/title" >
-				<parameters>
-					<starts-with value="presented at "/>
-				</parameters>
-				<elements/>
-			</layout-element>
-			
-			<layout-element ref="publication/event/place" />
-			
-			<layout-element ref="date" />
-						
-		</elements>
-	</cs-layout-definition>
-	
 	<cs-layout-definition name="Generic">
 		<parameters>
 			<delimiter value=", " />
@@ -640,7 +614,7 @@
 		</parameters>
 		<elements>
 			
-			<layout-element ref="debug" />
+<!--			<layout-element ref="debug" />-->
 			
 			<layout-element ref="creators" />
 
