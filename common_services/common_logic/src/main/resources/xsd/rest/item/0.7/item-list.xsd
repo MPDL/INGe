@@ -43,6 +43,9 @@
 			<xs:attribute ref="xlink:href" use="prohibited"/>
 			<xs:attribute ref="xlink:type" use="required"/>
 			<xs:attribute ref="xml:base" use="required"/>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

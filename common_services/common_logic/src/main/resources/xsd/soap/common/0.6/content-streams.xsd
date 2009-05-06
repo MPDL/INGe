@@ -66,6 +66,16 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
+			<xs:attribute ref="xml:base">
+            	<xs:annotation>
+                	<xs:documentation>
+                    	<create>discarded</create>
+                    	<update>discarded</update>
+                	</xs:documentation>
+            	</xs:annotation>
+        	</xs:attribute>
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
 		</xs:complexType>
 	</xs:element>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://escidoc.de/core/01/properties/version/"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:annotation>
+		<xs:documentation />
+	</xs:annotation>
+	
+	<xs:element name="number" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>
+				The number of the version. See
+				{http://escidoc.de/core/01/properties/}version,
+				{http://escidoc.de/core/01/properties/}latest-version.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="date" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>
+				The timestamp of the version. See
+				{http://escidoc.de/core/01/properties/}version,
+				{http://escidoc.de/core/01/properties/}latest-version.
+				For latest version equivalent to
+				{http://purl.org/dc/terms/}modified?
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="status" type="xs:token">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="valid-status">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="valid" />
+				<xs:enumeration value="invalid" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="pid" type="xs:token">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="comment" type="xs:token">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

@@ -9,7 +9,6 @@
 	- Version changed to 0.6
 	
 	- Uses organizational unit schema in version 0.6
-	-
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6"
@@ -17,7 +16,7 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../metadata/0.1/xml.xsd" />
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
 		schemaLocation="../../../soap/organizational-unit/0.6/organizational-unit.xsd" />

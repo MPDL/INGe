@@ -58,6 +58,8 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
 		</xs:complexType>
 	</xs:element>
 

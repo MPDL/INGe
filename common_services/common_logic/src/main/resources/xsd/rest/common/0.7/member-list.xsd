@@ -69,6 +69,9 @@
 				</xs:choice>
 			</xs:sequence>
 			<xs:attributeGroup ref="common-types:readOnlyESciDocResourceLinkAttributes" />
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

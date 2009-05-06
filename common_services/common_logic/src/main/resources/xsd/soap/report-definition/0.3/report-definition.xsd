@@ -71,8 +71,53 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+				<xs:element name="allowed-roles"
+					type="report-definition:AllowedRoleType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Holds information about the
+								roles that may access the
+								report.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
       		<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
 		</xs:complexType>
 	</xs:element>
+
+	<!--*******************************
+		AllowedRoleType
+		********************************-->
+	<xs:complexType name="AllowedRoleType">
+		<xs:sequence>
+			<xs:element name="allowed-role" type="common-types:linkRequired" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								specifies which roles are allowed to access this report.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

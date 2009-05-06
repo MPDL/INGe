@@ -99,15 +99,6 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="modified-by"
-                                type="common-types:readOnlyLink" minOccurs="0">
-                                <xs:annotation>
-                                    <xs:documentation>
-                                        <create>discarded</create>
-                                        <update>discarded</update>
-                                    </xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
                             <xs:element minOccurs="0"
                                 ref="srel:modified-by">
                                 <xs:annotation>

@@ -96,7 +96,9 @@
 	</xs:element>
 	<xs:element name="public-status-comment" type="xs:token">
 		<xs:annotation>
-			<xs:documentation />
+			<xs:documentation>
+				The comment while changing of the public-status.
+			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="active" type="xs:boolean">
@@ -112,6 +114,14 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="label">
+		<xs:annotation>
+			<xs:documentation>
+				The label of the resource, has to be unique in the
+				repository scope
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="valid-status">
 		<xs:annotation>
 			<xs:documentation>Component valid-status.</xs:documentation>
@@ -119,7 +129,7 @@
 	</xs:element>
 	<xs:element name="type" type="xs:token">
 		<xs:annotation>
-			<xs:documentation>Type of Context.</xs:documentation>
+			<xs:documentation>Type of the resource.</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="has-children" type="xs:boolean">
@@ -185,6 +195,34 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="checksum" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>
+				The checksum of the file associated with the resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="checksum-algorithm">
+		<xs:annotation>
+			<xs:documentation>
+				The algorithm used to calculate the checksum of the file
+				associated with the resource.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="MD5" />
+				<xs:enumeration value="SHA-1" />
+				<xs:enumeration value="SHA-256" />
+				<xs:enumeration value="SHA-384" />
+				<xs:enumeration value="SHA-512" />
+				<xs:enumeration value="HAVAL" />
+				<xs:enumeration value="TIGER" />
+				<xs:enumeration value="WHIRLPOOL" />
+				<xs:enumeration value="DISABLED" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
 	<!-- PID -->
 	<xs:element name="pid" type="xs:string">
 		<xs:annotation>
@@ -193,7 +231,7 @@
 				resource.
 			</xs:documentation>
 		</xs:annotation>
-	</xs:element>	
+	</xs:element>
 	<!-- content model specific properties; may be defined by solution -->
 	<xs:element name="content-model-specific">
 		<xs:annotation>
@@ -324,12 +362,14 @@
 	<xs:element name="external-ids">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="external-id" minOccurs="0" maxOccurs="unbounded"  type="xs:string">
+				<xs:element name="external-id" minOccurs="0"
+					maxOccurs="unbounded" type="xs:string">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
 							<update>discarded</update>
-							<comment>An external Identifier of the resource.
+							<comment>
+								An external Identifier of the resource.
 							</comment>
 						</xs:documentation>
 					</xs:annotation>
@@ -340,7 +380,7 @@
 	<xs:element name="organizational-units">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element  minOccurs="0" maxOccurs="unbounded"
+				<xs:element minOccurs="0" maxOccurs="unbounded"
 					ref="srel:organizational-unit">
 					<xs:annotation>
 						<xs:documentation>
@@ -363,12 +403,12 @@
 	<xs:element name="affiliations">
 		<xs:annotation>
 			<xs:documentation>
-				List of affiliations related of a user account.
+				List of affiliations related to a user account.
 				<create>optional</create>
 				<update>optional (see note 2.)</update>
 				<comment>
 					2. If this element is not provided during update,
-					all affiliations are removed from the resource.
+					all affiliations are removed from the user account.
 				</comment>
 			</xs:documentation>
 		</xs:annotation>
