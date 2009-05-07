@@ -1,4 +1,5 @@
 <Policy PolicyId="Moderator-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
+<!--NBU change 07.05.2009 Added new actions for update, submit, release and revise for the moderator. Still lacking modified-by and lock snippets, to be done when new FW release is provided-->
 	<Target>
 		<Subjects>
 			<AnySubject/>
