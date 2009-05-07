@@ -1,13 +1,12 @@
 package de.mpg.escidoc.pubman.search.bean;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
-import de.mpg.escidoc.pubman.search.bean.criterion.EventCriterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.LocalTagCriterion;
 
 /**
  * POJO bean to deal with one LocalTagCriterionVO.
  * 
- * @author Mario Wagner
+ * @author Thomas Endres
  */
 public class LocalTagCriterionBean extends CriterionBean
 {

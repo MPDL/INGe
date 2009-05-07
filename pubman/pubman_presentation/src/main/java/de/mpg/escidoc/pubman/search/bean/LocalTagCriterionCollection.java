@@ -19,8 +19,8 @@ public class LocalTagCriterionCollection
 	private LocalTagCriterionManager localTagCriterionManager;
 	
 	/**
-	 * CTOR to create a new ArrayList<EventCriterionVO> 
-	 * starting with one empty new EventCriterionVO
+	 * CTOR to create a new ArrayList<LocalCriterionVO> 
+	 * starting with one empty new LocalTagCriterionVO
 	 */
 	public LocalTagCriterionCollection()
 	{
@@ -31,7 +31,7 @@ public class LocalTagCriterionCollection
 	}
 
 	/**
-	 * CTOR to refine or fill a predefined ArrayList<EventCriterionVO>
+	 * CTOR to refine or fill a predefined ArrayList<LocalTagCriterionVO>
 	 * @param parentVO
 	 */
 	public LocalTagCriterionCollection(List<LocalTagCriterion> parentVO)
@@ -52,8 +52,8 @@ public class LocalTagCriterionCollection
 	}
 	
 	/**
-	 * Specialized DataModelManager to deal with objects of type EventCriterionBean
-	 * @author Mario Wagner
+	 * Specialized DataModelManager to deal with objects of type LocalTagCriterionBean
+	 * @author Thomas Endres
 	 */
 	public class LocalTagCriterionManager extends DataModelManager<LocalTagCriterionBean>
 	{
@@ -86,7 +86,7 @@ public class LocalTagCriterionCollection
 		public List<LocalTagCriterionBean> getDataListFromVO()
 		{
 			if (parentVO == null) return null;
-			// we have to wrap all VO's in a nice EventCriterionBean
+			// we have to wrap all VO's in a nice LocalTagCriterionBean
 			List<LocalTagCriterionBean> beanList = new ArrayList<LocalTagCriterionBean>();
 			for (LocalTagCriterion localTagCriterionVO : parentVO)
 			{
@@ -119,7 +119,7 @@ public class LocalTagCriterionCollection
 		return localTagCriterionManager;
 	}
 
-	public void setEventCriterionManager(LocalTagCriterionManager localTagCriterionManager)
+	public void setLocalTagCriterionManager(LocalTagCriterionManager localTagCriterionManager)
 	{
 		this.localTagCriterionManager = localTagCriterionManager;
 	}

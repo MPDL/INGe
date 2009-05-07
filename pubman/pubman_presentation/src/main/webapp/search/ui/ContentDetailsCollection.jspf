@@ -40,9 +40,9 @@
 
 <%-- Identifier --%>
 
-		<tr:iterator id="identifierCriterion" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{identifierCriterionIterator}" varStatus="index">
+		<tr:iterator id="identifierCriterion" var="identifierCriterionBean" value="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.identifierCriterionIterator}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{identifierCriterionIterator.rowIndex == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.identifierCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -58,7 +58,7 @@
 --%>
 				</span>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{identifierCriterionIterator.rowIndex > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.identifierCriterionIterator.rowIndex > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<span class="noDisplay"> </span>
 				</b>
@@ -86,7 +86,7 @@
 
 <%-- Event --%>
 
-		<tr:iterator id="eventCriterion" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{eventCriterionIterator}" varStatus="index">
+		<tr:iterator id="eventCriterion" var="eventCriterionBean" value="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.eventCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -113,9 +113,13 @@
 			</h:panelGroup>
 
 		</tr:iterator>
+		
+
+
+
 
 <%-- Source --%>
-		<tr:iterator var="sourceCriterionBean" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{sourceCriterionIterator}" varStatus="index">
+		<tr:iterator var="sourceCriterionBean" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.sourceCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -145,7 +149,7 @@
 
 <%-- Language --%>
 
-		<tr:iterator id="languageCriterion" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" varStatus="index">
+		<tr:iterator id="languageCriterion" var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.languageCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -175,36 +179,37 @@
 			</h:panelGroup>
 
 		</tr:iterator>
-
-<%-- Local Tags --%>
-
-	<tr:iterator id="localTagCriterion" var="localTagCriterionBean" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{localTagCriterionIterator}" varStatus="index">
+		
+<%-- LocalTag --%>
+        <tr:iterator var="localTagCriterionBean" value="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.localTagCriterionIterator}" varStatus="index">
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
                 <b class="xLarge_area0_p8 endline labelLine clear">
                     &#160;<span class="noDisplay"> </span>
                 </b>
                 <span class="xHuge_area0 xTiny_marginLExcl endline">
-                    <h:outputLabel id="lblSearchStringFollowing" styleClass="quad_label" value="#{lbl.adv_search_lbHeaderLocalTag}" />
-                    <h:inputText id="searchStringFollowing" styleClass="quad_txtInput" value="#{localTagCriterionBean.localTagCriterionVO.searchString}" />
+                    <h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lbHeaderLocalTag}" />
+                    <h:inputText styleClass="quad_txtInput" value="#{localTagCriterionBean.localTagCriterionVO.searchString}" />
                 </span>
                 <span class="large_area0_p8 lineToolSection">
-                    <tr:commandButton id="btnAddFollowing" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
-                    <tr:commandButton id="btnRemoveFollowing" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
+                    <tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.addObject}" />
+                    <tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size == 1}" action="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.removeObject}"/>
 <%-- 
-                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
+                    <tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
                 </span>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
-            <h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.localTagCriterionCollection.localTagCriterionManager.size != (localTagCriterionIterator.rowIndex + 1)}">
-                <h:selectOneMenu id="selLocalTagCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{LocalTagCriterionBean.logicOperator}">
+            <h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+                <h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{localTagCriterionBean.logicOperator}">
                     <f:selectItems value="#{localTagCriterionBean.logicOptions}"/>
                 </h:selectOneMenu>              
             </h:panelGroup>
 
         </tr:iterator>
+
+
 	
 	
 
