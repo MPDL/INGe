@@ -40,6 +40,7 @@ import org.apache.axis.encoding.Base64;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * TODO Description
@@ -147,7 +148,18 @@ public class EscidocProcessor extends FormatProcessor
                 
                 this.originalData = byteArrayOutputStream.toByteArray();
                 
-                List<? extends ItemVO> itemList = xmlTransforming.transformToItemList(new String(this.originalData, "UTF-8"));
+                List<PubItemVO> itemList;
+                String source = new String(this.originalData, "UTF-8");
+                if (source.contains("item-list"))
+                {
+                    itemList= xmlTransforming.transformToPubItemList(source);
+                }
+                else
+                {
+                    itemList = new ArrayList<PubItemVO>();
+                    PubItemVO itemVO = xmlTransforming.transformToPubItem(source);
+                    itemList.add(itemVO);
+                }
                 this.items = new ArrayList<String>();
                 for (ItemVO itemVO : itemList)
                 {

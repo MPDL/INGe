@@ -46,6 +46,7 @@ import de.mpg.escidoc.pubman.multipleimport.ImportLog.Status;
 import de.mpg.escidoc.pubman.multipleimport.processor.ArxivProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.EscidocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
@@ -318,6 +319,10 @@ public class ImportProcess extends Thread
             {
                 this.formatProcessor = new WosProcessor();
             }
+            else if (ESCIDOC_FORMAT.matches(format))
+            {
+                this.formatProcessor = new EscidocProcessor();
+            }
             else
             {
                 return false;
@@ -582,6 +587,7 @@ public class ImportProcess extends Thread
             
             PubItemVO pubItemVO = xmlTransforming.transformToPubItem(esidocXml);
             pubItemVO.setContext(escidocContext);
+            pubItemVO.getVersion().setObjectId(null);
             pubItemVO.getLocalTags().add("multiple_import");
             pubItemVO.getLocalTags().add(log.getMessage() + " " + log.getStartDateFormatted());
             
