@@ -98,6 +98,9 @@
 	<field name="tmpField_CS_1_PLE_7" class="java.lang.String">
 		<fieldDescription><![CDATA[count(publication/creator[@role='editor'])>0]]></fieldDescription>
 	</field>
+	<field name="publication/publishing-info/edition" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/publishing-info/edition]]></fieldDescription>
+	</field>
 	<field name="publication/publishing-info/place" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/publishing-info/place]]></fieldDescription>
 	</field>
@@ -112,6 +115,9 @@
 	</field>
 	<field name="tmpField_CS_1_PLE_12" class="java.lang.String">
 		<fieldDescription><![CDATA[count(publication/source[1]/creator[@role='editor'])>0]]></fieldDescription>
+	</field>
+	<field name="publication/source[1]/publishing-info/edition" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/source[1]/publishing-info/edition]]></fieldDescription>
 	</field>
 	<field name="publication/source[1]/publishing-info/place" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/source[1]/publishing-info/place]]></fieldDescription>
@@ -255,23 +261,23 @@
 	<variable name="CS_1_CSLD_2_P_default_E_4" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_20}!=null ? (!($V{CS_1_PLE_20}).trim().equals("") ? $V{CS_1_PLE_20} : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_33" class="java.lang.String">
+	<variable name="CS_1_PLE_34" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/title}))).trim().equals("") ? " " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/title})) : "")+"</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_5" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_33}!=null ? (!($V{CS_1_PLE_33}).trim().equals("") ? $V{CS_1_PLE_33} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_34}!=null ? (!($V{CS_1_PLE_34}).trim().equals("") ? $V{CS_1_PLE_34} : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_30_P_default_E_1" class="java.lang.String">
+	<variable name="CS_1_PLE_31_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/volume}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/volume}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/volume})) : "")+"</style>" : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_30_P_default_E_2" class="java.lang.String">
+	<variable name="CS_1_PLE_31_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/issue}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/issue}))).trim().equals("") ? "(" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/issue})) + ")" : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_30" class="java.lang.String">
-		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_30_P_default_E_1},$V{CS_1_PLE_30_P_default_E_2}}, "")).trim().equals("") ? ", " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_30_P_default_E_1},$V{CS_1_PLE_30_P_default_E_2}}, "") : "")]]></variableExpression>
+	<variable name="CS_1_PLE_31" class="java.lang.String">
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_31_P_default_E_1},$V{CS_1_PLE_31_P_default_E_2}}, "")).trim().equals("") ? ", " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_31_P_default_E_1},$V{CS_1_PLE_31_P_default_E_2}}, "") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_6_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_30}!=null ? (!($V{CS_1_PLE_30}).trim().equals("") ? $V{CS_1_PLE_30} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_31}!=null ? (!($V{CS_1_PLE_31}).trim().equals("") ? $V{CS_1_PLE_31} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_29_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/start-page}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/start-page}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/start-page})) : "") : ""]]></variableExpression>
@@ -345,8 +351,14 @@
 	<variable name="CS_1_CSLD_3_P_default_E_3" class="java.lang.String">
 		<variableExpression><![CDATA[(($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})>0 || $P{REPORT_SCRIPTLET}.toInt($F{editorsCount})>0) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_3_P_default_E_1}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_3_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
 	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_4_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title})) : "")+"</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_4_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/publishing-info/edition}!=null ? (($F{genre}.equals("book")) ? ((!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/edition}))).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/edition})) + " ed.)" : "")) : "") : ""]]></variableExpression>
+	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_4" class="java.lang.String">
-		<variableExpression><![CDATA[$F{publication/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title})) + "." : "")+"</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_4_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_4_P_default_E_2}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_4_P_default_E_1},$V{CS_1_CSLD_3_P_default_E_4_P_default_E_2}}, " ") + "." : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_5_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_14}!=null ? (!($V{CS_1_PLE_14}).trim().equals("") ? $V{CS_1_PLE_14} : "") : ""]]></variableExpression>
@@ -354,17 +366,17 @@
 	<variable name="CS_1_CSLD_3_P_default_E_5" class="java.lang.String">
 		<variableExpression><![CDATA[(($F{publication/issued}!=null && ($P{REPORT_SCRIPTLET}.toInt($F{authorsCount})==0 && $P{REPORT_SCRIPTLET}.toInt($F{editorsCount})==0)) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_5_P_default_E_1}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_3_P_default_E_5_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_35_P_default_E_1" class="java.lang.String">
+	<variable name="CS_1_PLE_36_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/publishing-info/place}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/place}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/place})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_35_P_default_E_2" class="java.lang.String">
+	<variable name="CS_1_PLE_36_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/publishing-info/publisher}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/publisher}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/publishing-info/publisher})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_35" class="java.lang.String">
-		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_35_P_default_E_1},$V{CS_1_PLE_35_P_default_E_2}}, ": ")).trim().equals("") ? " " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_35_P_default_E_1},$V{CS_1_PLE_35_P_default_E_2}}, ": ") : "")]]></variableExpression>
+	<variable name="CS_1_PLE_36" class="java.lang.String">
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_36_P_default_E_1},$V{CS_1_PLE_36_P_default_E_2}}, ": ")).trim().equals("") ? " " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_36_P_default_E_1},$V{CS_1_PLE_36_P_default_E_2}}, ": ") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_6" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_35}!=null ? (!($V{CS_1_PLE_35}).trim().equals("") ? $V{CS_1_PLE_35} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_36}!=null ? (!($V{CS_1_PLE_36}).trim().equals("") ? $V{CS_1_PLE_36} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_7" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_18}!=null ? (!($V{CS_1_PLE_18}).trim().equals("") ? $V{CS_1_PLE_18} : "") : ""]]></variableExpression>
@@ -465,26 +477,32 @@
 	<variable name="CS_1_CSLD_6_P_default_E_5_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_2_P_default_E_1}}, " ")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_2_P_default_E_1}}, " ") : "")+"</style>"]]></variableExpression>
 	</variable>
-	<variable name="CS_1_CSLD_6_P_default_E_5_P_default_E_3_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_29}!=null ? (!($V{CS_1_PLE_29}).trim().equals("") ? $V{CS_1_PLE_29} : "") : ""]]></variableExpression>
+	<variable name="CS_1_PLE_30_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/source[1]/publishing-info/edition}!=null ? (($F{genre}.equals("book-item")) ? ((!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/edition}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/edition})) + " ed." : "")) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_PLE_30_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$V{CS_1_PLE_29}!=null ? (!($V{CS_1_PLE_29}).trim().equals("") ? "pp. " + $V{CS_1_PLE_29} : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_PLE_30" class="java.lang.String">
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_30_P_default_E_1},$V{CS_1_PLE_30_P_default_E_2}}, ", ")).trim().equals("") ? "(" + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_30_P_default_E_1},$V{CS_1_PLE_30_P_default_E_2}}, ", ") + ")" : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_6_P_default_E_5_P_default_E_3" class="java.lang.String">
-		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_3_P_default_E_1}}, " ")).trim().equals("") ? " (pp. " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_3_P_default_E_1}}, " ") + ")" : "")]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_30}!=null ? (!($V{CS_1_PLE_30}).trim().equals("") ? $V{CS_1_PLE_30} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_6_P_default_E_5" class="java.lang.String">
 		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_5_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_5_P_default_E_3}}, " ")).trim().equals("") ? " In " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_6_P_default_E_5_P_default_E_1},$V{CS_1_CSLD_6_P_default_E_5_P_default_E_2},$V{CS_1_CSLD_6_P_default_E_5_P_default_E_3}}, " ") + "." : "")]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_34_P_default_E_1" class="java.lang.String">
+	<variable name="CS_1_PLE_35_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/publishing-info/place}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/place}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/place})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_34_P_default_E_2" class="java.lang.String">
+	<variable name="CS_1_PLE_35_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/source[1]/publishing-info/publisher}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/publisher}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/source[1]/publishing-info/publisher})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_PLE_34" class="java.lang.String">
-		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_34_P_default_E_1},$V{CS_1_PLE_34_P_default_E_2}}, ": ")).trim().equals("") ? " " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_34_P_default_E_1},$V{CS_1_PLE_34_P_default_E_2}}, ": ") : "")]]></variableExpression>
+	<variable name="CS_1_PLE_35" class="java.lang.String">
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_35_P_default_E_1},$V{CS_1_PLE_35_P_default_E_2}}, ": ")).trim().equals("") ? " " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_PLE_35_P_default_E_1},$V{CS_1_PLE_35_P_default_E_2}}, ": ") : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_6_P_default_E_6" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_34}!=null ? (!($V{CS_1_PLE_34}).trim().equals("") ? $V{CS_1_PLE_34} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_35}!=null ? (!($V{CS_1_PLE_35}).trim().equals("") ? $V{CS_1_PLE_35} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_6_P_default_E_7" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_18}!=null ? (!($V{CS_1_PLE_18}).trim().equals("") ? $V{CS_1_PLE_18} : "") : ""]]></variableExpression>
@@ -520,10 +538,10 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_26}!=null ? (!($V{CS_1_PLE_26}).trim().equals("") ? $V{CS_1_PLE_26} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_7_P_default_E_5" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_33}!=null ? (!($V{CS_1_PLE_33}).trim().equals("") ? $V{CS_1_PLE_33} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_34}!=null ? (!($V{CS_1_PLE_34}).trim().equals("") ? $V{CS_1_PLE_34} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_7_P_default_E_6" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_30}!=null ? (!($V{CS_1_PLE_30}).trim().equals("") ? $V{CS_1_PLE_30} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_31}!=null ? (!($V{CS_1_PLE_31}).trim().equals("") ? $V{CS_1_PLE_31} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_8_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_9}!=null ? (!($V{CS_1_PLE_9}).trim().equals("") ? $V{CS_1_PLE_9} : "") : ""]]></variableExpression>
@@ -535,10 +553,10 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_28}!=null ? (!($V{CS_1_PLE_28}).trim().equals("") ? $V{CS_1_PLE_28} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_8_P_default_E_3" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_33}!=null ? (!($V{CS_1_PLE_33}).trim().equals("") ? $V{CS_1_PLE_33} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_34}!=null ? (!($V{CS_1_PLE_34}).trim().equals("") ? $V{CS_1_PLE_34} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_8_P_default_E_4" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_35}!=null ? (!($V{CS_1_PLE_35}).trim().equals("") ? $V{CS_1_PLE_35} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_36}!=null ? (!($V{CS_1_PLE_36}).trim().equals("") ? $V{CS_1_PLE_36} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_9_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
@@ -565,7 +583,7 @@
 		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_10_P_default_E_3_P_default_E_1}}, " ")).trim().equals("") ? " (Vols. " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_10_P_default_E_3_P_default_E_1}}, " ") + ")." : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_10_P_default_E_4" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_35}!=null ? (!($V{CS_1_PLE_35}).trim().equals("") ? $V{CS_1_PLE_35} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_36}!=null ? (!($V{CS_1_PLE_36}).trim().equals("") ? $V{CS_1_PLE_36} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_11_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_4}!=null ? (!($V{CS_1_PLE_4}).trim().equals("") ? $V{CS_1_PLE_4} : "") : ""]]></variableExpression>
@@ -715,7 +733,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_20}!=null ? (!($V{CS_1_PLE_20}).trim().equals("") ? $V{CS_1_PLE_20} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_14_P_default_E_5" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_35}!=null ? (!($V{CS_1_PLE_35}).trim().equals("") ? $V{CS_1_PLE_35} : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_36}!=null ? (!($V{CS_1_PLE_36}).trim().equals("") ? $V{CS_1_PLE_36} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1" class="java.lang.String">
 		<variableExpression><![CDATA[(($F{hasPublication}.equals("false")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ")).trim().equals("") ? "## Citaion style layout is not defined for metadata record: " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>

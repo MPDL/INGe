@@ -546,6 +546,30 @@
 			</elements>
 		</layout-element>
 		
+		<layout-element name="source-edition-start-page-end-page">
+			<parameters>
+				<starts-with value="("/>
+				<ends-with value=")"/>
+				<delimiter value=", "/>
+			</parameters>
+			<elements>
+				<layout-element ref="publication/source[1]/publishing-info/edition">
+					<parameters>
+						<valid-if><![CDATA[${genre}.equals("book-item")]]></valid-if>
+						<ends-with value=" ed." />
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element ref="start-page-end-page">
+					<parameters>
+						<starts-with value="pp. "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+			</elements>
+		</layout-element>
+		
+		
 		<layout-element name="volume-issue">
 			<parameters>
 				<starts-with value=", " />
@@ -778,12 +802,26 @@
 				</elements>
 			</layout-element>
 			
-			<layout-element ref="publication/title">
+			<layout-element>
 				<parameters>
 					<ends-with value="." />
-					<font-style ref="ITALIC" />
 				</parameters>
-				<elements />
+				<elements>
+					<layout-element ref="publication/title">
+						<parameters>
+							<font-style ref="ITALIC" />
+						</parameters>
+						<elements/>
+					</layout-element>
+					<layout-element ref="publication/publishing-info/edition">
+						<parameters>
+							<valid-if><![CDATA[${genre}.equals("book")]]></valid-if>
+							<starts-with value=" ("/>
+							<ends-with value=" ed.)"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+				</elements>
 			</layout-element>
 			
 			<layout-element name="year-editors-and-authors-are-not-presented">
@@ -929,15 +967,7 @@
 							<layout-element ref="publication/source[1]/title"/>
 						</elements>
 					</layout-element>
-					<layout-element>
-						<parameters>
-							<starts-with value=" (pp. "/>
-							<ends-with value=")"/>
-						</parameters>
-						<elements>
-							<layout-element ref="start-page-end-page"/>
-						</elements>
-					</layout-element>
+					<layout-element ref="source-edition-start-page-end-page"/>
 				</elements>
 			</layout-element>
 			
