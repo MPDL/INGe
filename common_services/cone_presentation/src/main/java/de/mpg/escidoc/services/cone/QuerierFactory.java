@@ -16,8 +16,6 @@ package de.mpg.escidoc.services.cone;
 
 
 
-import java.lang.reflect.Method;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;

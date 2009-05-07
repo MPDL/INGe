@@ -263,4 +263,39 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://escidoc.mpg.de/posit
 		</samples>
 		<!-- <example_page>../jquery_languages.jsp</example_page> -->
 	</model>
+	<model>
+		<name>cclicences</name>
+		<aliases>
+			<alias>cclicences</alias>
+		</aliases>
+		<primary-identifier generate="false" prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Version" value="urn:cone:version" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Image-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="true"/>
+			<predicate name="Commercial" value="urn:cone:commercial" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Derivatives" value="urn:cone:derivatives" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Jurisdiction" value="urn:cone:jurisdiction" multiple="false" mandatory="true" localized="false" searchable="true"/>
+			<predicate name="Translation" value="urn:cone:translation" multiple="true" mandatory="false" localized="true" searchable="false" generateObject="true">
+				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
+				<predicate name="URL" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<!-- <predicate name="Language" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="false"/> -->
+				<predicate name="Locale" value="urn:cone:locale" multiple="false" mandatory="true" localized="false" searchable="false"/>
+			</predicate>
+		</predicates>
+		<result>
+			<pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+			</pattern>
+		</result>
+		<description>CreativeCommons licences</description>
+		<samples>
+			<sample>
+				<description>Return the whole list of CreativeCommons licences.</description>
+				<method>
+					<name>all</name>
+				</method>
+			</sample>
+		</samples>
+	</model>
 </models>

@@ -75,4 +75,6 @@ public interface LocalizedTripleObject
      * @return The object as JSON
      */
     public String toJson();
+    
+    public int hashCode();
 }

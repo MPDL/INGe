@@ -128,6 +128,19 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject
             
     }
 
+    @Override
+    public int hashCode()
+    {
+        if (value == null)
+        {
+            return super.hashCode();
+        }
+        else
+        {
+            return (value + ":" + language).hashCode();
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
