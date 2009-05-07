@@ -64,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
@@ -1016,6 +1017,36 @@ public class JiBXHelper
     }
     
     /**
+     * Deserializes a String containing a ChecksumAlgorithm-type like defined in item.xsd to the corresponding
+     * <code>FileVO.ChecksumAlgorithm</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return ChecksumAlgorithm The corresponding <code>FileVO.ChecksumAlgorithm</code> Enum
+     * @throws WrongEnumException
+     */
+    public static ChecksumAlgorithm deserializeChecksumAlgorithmEnum(String enumValue) throws WrongEnumException
+    {
+        ChecksumAlgorithm checksumAlgorithm = null;
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("ChecksumAlgorithm is null.");
+        }
+        else
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                checksumAlgorithm = ChecksumAlgorithm.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("ChecksumAlgorithmEnum value is '" + enumValue + "'.", e);
+            }
+        }
+        return checksumAlgorithm;
+    }
+    
+    /**
      * Deserializes a String containing a lock-status-type like defined in container.xsd to the corresponding
      * <code>ContainerVO.LockStatus</code> Enum.
      * 
@@ -1059,6 +1090,22 @@ public class JiBXHelper
         if (enumeration != null)
         {
             enumString = enumeration.toString().replace('_', '-').toLowerCase();
+        }
+        return enumString;
+    }
+
+    /**
+     * Serializes enums to strings leaving the cases as they are but replacing _ by -.
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeUppercaseEnumToString(Enum<?> enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.toString().replace('_', '-');
         }
         return enumString;
     }

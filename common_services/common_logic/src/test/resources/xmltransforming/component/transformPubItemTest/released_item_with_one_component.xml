@@ -70,6 +70,8 @@
                 <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
                 <prop:content-category>publisher-version</prop:content-category>
                 <prop:file-name>farbtest.gif</prop:file-name>
+                <prop:checksum>4fe9cebf84b66a9ebb07729f24f9f8cc</prop:checksum>
+				<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
             </escidocComponents:properties>
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
             <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">

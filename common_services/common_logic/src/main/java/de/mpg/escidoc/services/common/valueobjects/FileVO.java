@@ -64,7 +64,7 @@ public class FileVO extends ValueObject implements Cloneable
     {
         PUBLIC, PRIVATE
     }
-    
+
     /**
      * The possible storage of a file.
      */
@@ -72,17 +72,27 @@ public class FileVO extends ValueObject implements Cloneable
     {
         INTERNAL_MANAGED, EXTERNAL_URL, EXTERNAL_MANAGED
     }
+    /**
+     * The possible storage of a file.
+     */
+    public enum ChecksumAlgorithm
+    {
+        MD5, SHA1
+    }
 
 
     private FileRO reference;
+    
     /**
      * The name of the file including the extension.
      */
     private String name;
+    
     /**
      * The visibility of the file for users of the system.
      */
     private FileVO.Visibility visibility;
+    
     /**
      * A short description of the file.
      */
@@ -94,26 +104,36 @@ public class FileVO extends ValueObject implements Cloneable
      * This date gives the moment in time the file was created.
      */
     private java.util.Date creationDate;
+    
     /**
      * This date is updated whenever the file is stored.
      */
     private java.util.Date lastModificationDate;
+    
     /**
      * The persistent identifier of the file if the item is released.
      */
     private String pid;
+    
     /**
      * A reference to the content of the file.
      */
     private String content;
+    
     /**
      * A reference to the storage attribute of the file.
      */
     private FileVO.Storage storage;
+    
     /**
      * The content type of the file.
      */
     private String contentCategory;
+    
+    private String checksum;
+    
+    private ChecksumAlgorithm checksumAlgorithm;
+    
     /**
      * The size of the file in Bytes.
      * Has to be zero if no content is given.
@@ -487,6 +507,26 @@ public class FileVO extends ValueObject implements Cloneable
     public List<MetadataSetVO> getMetadataSets()
     {
         return metadataSets;
+    }
+
+    public String getChecksum()
+    {
+        return checksum;
+    }
+
+    public void setChecksum(String checksum)
+    {
+        this.checksum = checksum;
+    }
+
+    public ChecksumAlgorithm getChecksumAlgorithm()
+    {
+        return checksumAlgorithm;
+    }
+
+    public void setChecksumAlgorithm(ChecksumAlgorithm checksumAlgorithm)
+    {
+        this.checksumAlgorithm = checksumAlgorithm;
     }
     
     

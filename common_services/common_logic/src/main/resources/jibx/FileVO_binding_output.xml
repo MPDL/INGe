@@ -98,6 +98,19 @@
 			<value style="element" name="mime-type" ns="${xsd.soap.common.prop}" field="mimeType"
 				usage="optional" />
 
+			<!-- Node: component.properties.checksum -->
+			<!-- Field: PubFileVO.mimeType[String] -->
+			<value style="element" name="checksum" ns="${xsd.soap.common.prop}" field="checksum"
+				usage="optional" />
+
+			<!-- Node: component.properties.checksum-algorithm -->
+			<!-- Field: PubFileVO.checksumAlgorithm[PubFileVO.ChecksumAlgorithm] -->
+			<value style="element" name="checksum-algorithm" ns="${xsd.soap.common.prop}"
+				field="checksumAlgorithm"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeChecksumAlgorithmEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeUppercaseEnumToString"
+				usage="optional"/>
+				
 			<!-- Node: component.properties.file-size (discarded) -->
 			<!-- Field: PubFileVO.size[int] -->
 <!--			<value style="element" name="file-size" ns="${xsd.soap.common.prop}" field="size" />-->

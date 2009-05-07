@@ -295,6 +295,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         assertEquals("There should be two local tags", 2, pubItemVO.getLocalTags().size());
         assertEquals("best-of", pubItemVO.getLocalTags().get(0));
         assertEquals("very-best-of", pubItemVO.getLocalTags().get(1));
+        
+        assertEquals("4fe9cebf84b66a9ebb07729f24f9f8cc", pubItemVO.getFiles().get(0).getChecksum());
+        assertEquals("CC-LICENSE", pubItemVO.getFiles().get(0).getDefaultMetadata().getLicense());
     }
 
     /**
