@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
  * @author Michael Franke (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: $ by $Author: $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 public class AffiliationROListWrapper implements Serializable
 {    

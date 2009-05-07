@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grants:current-grants xmlns:grants="http://www.escidoc.de/schemas/grants/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" last-modification-date="2009-05-06T13:13:32.065Z">
+	<grants:grant objid="escidoc:grant4205">
+		<grants:properties>
+			<srel:granted-to resource="user-account" objid="escidoc:user2"/>
+			<prop:creation-date>2009-05-06T13:13:32.179Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:role objid="escidoc:role-administrator" />
+			<srel:assigned-on objid="escidoc:persistent3" />
+		</grants:properties>
+	</grants:grant>
+	<grants:grant objid="escidoc:grant4207">
+		<grants:properties>
+			<srel:granted-to resource="group" objid="escidoc:user2"/>
+			<prop:creation-date>2009-05-06T13:13:32.179Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:role objid="escidoc:role-depositor" />
+			<srel:assigned-on objid="escidoc:persistent3" />
+		</grants:properties>
+	</grants:grant>
+	<grants:grant objid="escidoc:grant4209">
+		<grants:properties>
+			<srel:granted-to resource="user-account" objid="escidoc:user2"/>
+			<prop:creation-date>2009-05-06T13:13:32.179Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:role objid="escidoc:role-md-editor" />
+			<srel:assigned-on objid="escidoc:persistent3" />
+		</grants:properties>
+	</grants:grant>
+	<grants:grant objid="escidoc:grant4208">
+		<grants:properties>
+			<srel:granted-to resource="user-account" objid="escidoc:user2"/>
+			<prop:creation-date>2009-05-06T13:13:32.179Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:role objid="escidoc:role-moderator" />
+			<srel:assigned-on objid="escidoc:persistent3" />
+		</grants:properties>
+	</grants:grant>
+	<grants:grant objid="escidoc:grant4206">
+		<grants:properties>
+			<srel:granted-to resource="user-account" objid="escidoc:user2"/>
+			<prop:creation-date>2009-05-06T13:13:32.179Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:role objid="escidoc:role-workflow-manager" />
+			<srel:assigned-on objid="escidoc:persistent3" />
+		</grants:properties>
+	</grants:grant>
+</grants:current-grants>
+

@@ -50,8 +50,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 * This class provides the ejb implementation of the {@link ItemSorting} interface.
 * 
 * @author Galina Stancheva
-* @author $Author: gstancheva $ (last modification)
-* @version $Revision:$ $LastChangedDate:$
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate$
 * Revised by StG: 24.08.2007
 */
 @Stateless

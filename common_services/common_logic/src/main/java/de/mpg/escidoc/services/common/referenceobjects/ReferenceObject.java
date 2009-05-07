@@ -38,7 +38,7 @@ import java.io.Serializable;
  * @created 18-Jan-2007 15:42:40
  * @revised by MuJ: 27.08.2007
  * @author Full Access
- * @version $Revision: 632 $ $LastChangedDate: 2007-07-09 16:4
+ * @version $Revision$ $LastChangedDate: 2007-07-09 16:4
  * @updated 04-Sep-2007 11:47:55
  */
 public abstract class ReferenceObject implements Serializable

@@ -94,7 +94,7 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumExcept
  * Class with helper methods for the JiBX-based XML-2-Java-Transforming.
  * 
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 655 $ $LastChangedDate: 2007-12-11 11:09:13 +0100 (Tue, 11 Dec 2007) $ by $Author: vdm $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 28.08.2007
  */
 public class JiBXHelper

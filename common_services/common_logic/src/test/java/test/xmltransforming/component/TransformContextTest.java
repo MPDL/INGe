@@ -62,8 +62,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * Test for pubCollection transforming of {@link XmlTransforming}.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: tendres $ (last modification)
- * @version $Revision: 663 $ $LastChangedDate: 2007-12-12 14:18:51 +0100 (Wed, 12 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 20.09.2007
  */
 public class TransformContextTest extends TestBase

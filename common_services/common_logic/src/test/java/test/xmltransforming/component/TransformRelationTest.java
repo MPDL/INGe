@@ -46,8 +46,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 /**
  * Test of {@link XmlTransforming} methods for Relation transforming.
  * 
- * @author $Author: tendres $ (last modification)
- * @version $Revision: 663 $ $LastChangedDate: 2007-12-12 14:18:51 +0100 (Wed, 12 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class TransformRelationTest extends TestBase
 {

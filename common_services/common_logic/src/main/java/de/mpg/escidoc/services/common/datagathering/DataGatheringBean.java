@@ -69,7 +69,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * This class provides the ejb implementation of the {@link DataGathering} interface.
  *
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
 @Remote

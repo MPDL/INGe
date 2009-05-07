@@ -123,7 +123,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * EJB implementation of interface {@link XmlTransforming}.
  * 
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 635 $ $LastChangedDate: 2007-11-21 17:12:27 +0100 (Wed, 21 Nov 2007) $Author: mfranke $
+ * @version $Revision$ $LastChangedDate$Author: mfranke $
  * @revised by MuJ: 21.08.2007
  */
 @Stateless

@@ -36,8 +36,8 @@ import java.util.List;
  * <code>Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1</code>.
  * 
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class OxfordJournalFormat extends AuthorFormat
 {

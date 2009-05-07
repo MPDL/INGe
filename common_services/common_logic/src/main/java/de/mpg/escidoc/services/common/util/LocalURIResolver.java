@@ -43,8 +43,8 @@ import javax.xml.transform.stream.StreamSource;
  * Without this URIResolver it is not possible to work with import statements.
  *
  * @author mfranke
- * @author $Author: mfranke $
- * @version $Revision: 131 $$LastChangedDate: 2007-11-21 18:53:43 +0100 (Wed, 21 Nov 2007) $
+ * @author $Author$
+ * @version $Revision$$LastChangedDate$
  */
 public class LocalURIResolver implements URIResolver
 {

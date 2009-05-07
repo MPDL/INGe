@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.referenceobjects.LockRO;
  * This class wraps information about a the locking of a resource.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:48:16
  */
 public class LockVO extends ValueObject

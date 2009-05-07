@@ -36,7 +36,7 @@ import java.io.Serializable;
  * The super class of all value objects.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 627 $ $LastChangedDate: 2007-11-19 17:27:42 +0100 (Mon, 19 Nov 2007) $ by $Author: tdiebaec $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:54
  */
 public abstract class ValueObject implements Serializable

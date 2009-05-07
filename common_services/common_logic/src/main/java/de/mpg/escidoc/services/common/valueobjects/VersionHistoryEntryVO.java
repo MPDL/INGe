@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 /**
  * Version information of a publication item.
  * 
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @created 17-Okt-2007 18:51:45
  */
 public class VersionHistoryEntryVO extends ValueObject

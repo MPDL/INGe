@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
  * A grant wraps a role that is granted to a certain certain object (like an affiliation or a collection).
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:46:17
  */
 public class GrantVO extends ValueObject
@@ -59,6 +59,17 @@ public class GrantVO extends ValueObject
      * "escidoc:role-depositor").
      */
     private String role;
+    
+    /**
+     * The scope of this grant.
+     */
+    private String grantType;
+    
+    /**
+     * The object to which this grant was granted.
+     */
+    private String grantedTo;
+    
     /**
      * The reference to the object for which the role is granted. Changed to String by FrM.
      */
@@ -205,5 +216,25 @@ public class GrantVO extends ValueObject
     public void setLastModificationDate(Date lastModificationDate)
     {
         this.lastModificationDate = lastModificationDate;
+    }
+
+    public String getGrantedTo()
+    {
+        return grantedTo;
+    }
+
+    public void setGrantedTo(String grantedTo)
+    {
+        this.grantedTo = grantedTo;
+    }
+
+    public String getGrantType()
+    {
+        return grantType;
+    }
+
+    public void setGrantType(String grantType)
+    {
+        this.grantType = grantType;
     }
 }

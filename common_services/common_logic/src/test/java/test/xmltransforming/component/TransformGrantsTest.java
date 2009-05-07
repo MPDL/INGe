@@ -30,42 +30,53 @@
 
 package test.xmltransforming.component;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import test.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
  * Test class for {@link XmlTransforming} methods for LockVo transformation.
  *
+ * @author Author: mfranke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * @revised by MuJ: 03.09.2007
  */
-public class TransformLockTest extends TestBase
+public class TransformGrantsTest extends TestBase
 {
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-    private Logger logger = Logger.getLogger(getClass());
+    private static Logger logger = Logger.getLogger(TransformGrantsTest.class);
     
     /**
-     * Test for {@link XmlTransforming#transformToLockVO(String)}.
+     * Test for {@link XmlTransforming#transformToGrantVOList(String)}.
      * 
-     * @throws TechnicalException 
-     * @throws Exception
+     * @throws Exception Any exception
      */
-    @Ignore("Not implemenmted yet")
     @Test
-    public void testTransformToLockVO() throws TechnicalException
+    public void testTransformToGrantVOList() throws Exception
     {
-        logger.info("### testTransformToLockVO ###");
-        LockVO lock = xmlTransforming.transformToLockVO("lockInformation xml");
-        assertNotNull("Transforming of LockVO not implemented yet.", lock);
+        logger.info("### TransformGrantsTest ###");
+        
+        String grantsXml =
+            ResourceUtil.getResourceAsString("xmltransforming/component/transformGrantsTest/current-grants.xml");
+        
+        List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXml);
+        
+        assertNotNull("Grants are null", grants);
+        
+        assertEquals("user-account", grants.get(0).getGrantType());
+        assertEquals("escidoc:user2", grants.get(0).getGrantedTo());
+        assertEquals("escidoc:role-depositor", grants.get(1).getRole());
+        assertEquals("group", grants.get(1).getGrantType());
+        
     }
 }

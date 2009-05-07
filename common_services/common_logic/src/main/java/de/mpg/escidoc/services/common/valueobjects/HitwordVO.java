@@ -34,7 +34,7 @@ package de.mpg.escidoc.services.common.valueobjects;
  * Representation of a hit word, especially the start and end index of the word in the text fragment data.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:48
  */
 public class HitwordVO extends ValueObject

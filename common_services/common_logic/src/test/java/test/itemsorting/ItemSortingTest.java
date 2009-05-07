@@ -36,8 +36,8 @@ import org.junit.Test;
 * Test class for {@link de.mpg.escidoc.services.common.intemsorting.ItemSortingBean}.
 * 
 * @author Galina Stancheva (initial creation)
-* @author $Author: gstancheva $ (last modification)
-* @version $Revision:$ $LastChangedDate:$
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate$
 * Revised by StG: 24.08.2007
 */
 public class ItemSortingTest

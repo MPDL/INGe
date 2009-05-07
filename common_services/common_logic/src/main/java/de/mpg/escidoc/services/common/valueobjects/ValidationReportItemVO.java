@@ -34,7 +34,7 @@ package de.mpg.escidoc.services.common.valueobjects;
  * The report of an item validation.
  * 
  * @TODO FrM: Add comments to methods in EA and re-generate class.
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:44:20
  */
 public class ValidationReportItemVO extends ValueObject

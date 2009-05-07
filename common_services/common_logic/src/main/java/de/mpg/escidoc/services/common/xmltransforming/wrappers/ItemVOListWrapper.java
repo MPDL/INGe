@@ -38,7 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
  * cannot bind directly to ArrayLists.
  * 
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 635 $ $LastChangedDate: 2007-11-21 17:12:27 +0100 (Wed, 21 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 13.08.2007
  */
 public class ItemVOListWrapper implements Serializable

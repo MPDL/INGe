@@ -37,7 +37,7 @@ package de.mpg.escidoc.services.common.valueobjects;
  * item version'.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:53
  */
 public class ValidationPointVO extends ValueObject

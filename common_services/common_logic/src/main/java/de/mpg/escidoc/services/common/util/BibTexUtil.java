@@ -45,8 +45,8 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
  * Utility class for BibTeX handling.
  *
  * @author franke (initial creation)
- * @author $Author: mfranke $ (last modification)
- * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class BibTexUtil
 {

@@ -52,8 +52,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * Test cases for the method transformToPubItem of the interface XmlTransforming. The main purpose of the test methods
  * in this class is to check the handling of incomplete or invalid PubItemVO by the {@link XmlTransforming} component.
  * 
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 03.09.2007
  */
 public class TransformInvalidPubItemTest extends XmlTransformingTestBase

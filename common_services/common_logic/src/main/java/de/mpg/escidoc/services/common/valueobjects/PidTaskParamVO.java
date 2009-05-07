@@ -36,8 +36,8 @@ import java.util.Date;
  * Parameters for PID related task oriented framework methods.
  *
  * @author Michael Franke (initial creation)
- * @author $Author: franke $ (last modification)
- * @version $Revision:  $ $LastChangedDate:  $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class PidTaskParamVO extends ValueObject
 {

@@ -35,8 +35,8 @@ package de.mpg.escidoc.services.common.referenceobjects;
  * The class for AccountUser references.
  * 
  * @revised by MuJ: 27.08.2007
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 635 $ $LastChangedDate: 2007-11-21 17:12:27 +0100 (Wed, 21 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @updated 21-Nov-2007 12:08:27
  */
 public class AccountUserRO extends ReferenceObject implements Cloneable

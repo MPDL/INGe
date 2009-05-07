@@ -36,7 +36,7 @@ import java.util.List;
  * This VO is used to retrieve organizational units filtered by certain filter criteria. It corresponds to
  * filter-organizational-units.xsd.
  * 
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @created 09-Okt-2007 16:17:58
  * @revised by MuJ: 09.10.2007
  */

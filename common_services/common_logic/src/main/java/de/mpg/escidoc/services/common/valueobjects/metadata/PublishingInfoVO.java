@@ -34,7 +34,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
  * @revised by MuJ: 27.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:48:58
  */
 public class PublishingInfoVO extends ValueObject implements Cloneable

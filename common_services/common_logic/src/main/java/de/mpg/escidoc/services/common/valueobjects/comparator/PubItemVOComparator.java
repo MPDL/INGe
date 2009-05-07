@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.
  * that are inconsistent with equals.
  * @revised by MuJ: 27.08.2007
  * @author Peter Broszeit (initial creation)
- * @version $Revision: 665 $ $LastChangedDate: 2007-07-09 16:4
+ * @version $Revision$ $LastChangedDate: 2007-07-09 16:4
  * @updated 04-Sep-2007 11:45:03
  */
 public class PubItemVOComparator implements Comparator<PubItemVO>

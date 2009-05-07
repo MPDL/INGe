@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
  * superordinate element.
  * 
  * @revised by MuJ: 27.08.2007
- * @version $Revision: 647 $ $LastChangedDate: 2007-11-27 20:27:41 +0100 (Tue, 27 Nov 2007) $ by $Author: tdiebaec $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 14:35:53
  */
 public class SourceVO extends ValueObject implements TitleIF, Cloneable

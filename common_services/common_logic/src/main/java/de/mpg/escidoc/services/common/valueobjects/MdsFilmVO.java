@@ -38,7 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * This metadata set describes all kind of motion pictures like documentation, art, movies and simulations.
  * 
  * @revised by MuJ: 03.09.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:54:29
  */
 public class MdsFilmVO extends MetadataSetVO

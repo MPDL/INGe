@@ -63,7 +63,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.UserAccount
  * This class is a helper class for JiBX binding of TaskParamVO (and subclasses) to XML.
  *
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 613 $ $LastChangedDate: 2007-11-07 17:45:28 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
 public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable

@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  *
  * @author mfranke (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate:$
+ * @version $Revision$ $LastChangedDate$
  * @revised 
  */
 public class TransformExportFormatTest extends TestBase

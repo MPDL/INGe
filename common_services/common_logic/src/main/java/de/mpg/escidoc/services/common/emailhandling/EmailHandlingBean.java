@@ -66,8 +66,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  * EJB implementation of interface {@link EmailHandling}.
  * 
  * @author Galina Stancheva (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 355 $ $LastChangedDate: 2007-07-17 12:19:12 +0200 (Di, 17 Jul 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by StG: 24.08.2007
  */
 

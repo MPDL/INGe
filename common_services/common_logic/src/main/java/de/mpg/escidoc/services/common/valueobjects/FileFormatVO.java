@@ -34,7 +34,7 @@ package de.mpg.escidoc.services.common.valueobjects;
 /**
  * Valueobject representing the export file format data needed for the export.
  *
- * @version $Revision: 653 $ $LastChangedDate: 2007-12-11 11:07:02 +0100 (Tue, 11 Dec 2007) $ by $Author: vdm $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 
 public class FileFormatVO extends ValueObject

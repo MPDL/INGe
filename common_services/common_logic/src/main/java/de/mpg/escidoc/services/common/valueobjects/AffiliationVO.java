@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUni
  * groups, etc.)
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 07-Sep-2007 13:27:29
  */
 public class AffiliationVO extends ValueObject implements Searchable

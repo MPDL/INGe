@@ -35,7 +35,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 
 /**
  * @revised by MuJ: 29.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 22-Okt-2007 15:26:37
  */
 public class EventVO extends ValueObject implements TitleIF, Cloneable

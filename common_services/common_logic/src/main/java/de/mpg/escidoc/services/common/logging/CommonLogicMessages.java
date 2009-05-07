@@ -35,7 +35,7 @@ import java.text.MessageFormat;
 /**
  * Messages used in common logic and other other common messages.
  *
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
 public enum CommonLogicMessages implements Messages

@@ -36,7 +36,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * Identifiers can be internal or external.
  * 
  * @revised by MuJ: 29.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 12:59:09
  */
 public class IdentifierVO extends ValueObject implements Cloneable

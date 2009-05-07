@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
  * @author mfranke (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: mfranke $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 public class MetadataSetVOListWrapper implements Serializable
 {

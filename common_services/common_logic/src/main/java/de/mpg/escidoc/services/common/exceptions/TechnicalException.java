@@ -34,8 +34,8 @@ package de.mpg.escidoc.services.common.exceptions;
  * Basic exception for all exceptions caused by technical or infrastructure errors.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * Revised by BrP: 03.09.2007
  */
 public class TechnicalException extends Exception

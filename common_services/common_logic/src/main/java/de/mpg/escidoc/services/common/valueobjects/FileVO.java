@@ -41,7 +41,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
  * A file that is contained in an item.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 632 $ $LastChangedDate: 2007-11-21 12:45:14 +0100 (Wed, 21 Nov 2007) $ by $Author: pbroszei $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 12:05:47
  */
 public class FileVO extends ValueObject implements Cloneable

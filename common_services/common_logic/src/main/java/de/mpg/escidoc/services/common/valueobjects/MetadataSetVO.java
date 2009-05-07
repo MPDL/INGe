@@ -36,7 +36,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * The super class for the different metadata sets for the different types of items (Publication, Transcription, etc.)
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:10:10
  */
 public class MetadataSetVO extends ValueObject

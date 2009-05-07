@@ -35,7 +35,7 @@ import java.text.MessageFormat;
 /**
  * Class to create log messages. Creates a string out of a Messages instance and the argument objects.
  *
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by @author $author$
+ * @version $Revision$ $LastChangedDate$ by @author $author$
  * @revised by MuJ: 03.09.2007
  */
 public class MessageCreator

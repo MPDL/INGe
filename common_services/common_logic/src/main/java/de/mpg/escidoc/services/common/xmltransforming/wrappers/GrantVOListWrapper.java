@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
  * @author Michael Franke (initial creation)
- * @version $Revision: 448 $ $LastChangedDate: 2007-09-05 19:31:12 +0200 (Mi, 05 Sep 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 public class GrantVOListWrapper implements Serializable
 {

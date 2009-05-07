@@ -42,8 +42,8 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
  * Test for class ReferenceObject.
  *
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $20.09.2007
+ * @author $Author$ (last modification)
+ * @version $Revision$ $20.09.2007
  * @revised by MuJ: 20.09.2007
  */
 public class ReferenceObjectTest

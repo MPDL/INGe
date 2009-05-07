@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.Searchable;
  * Item object which consists of descriptive metadata and may have one or more files associated.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 641 $ $LastChangedDate: 2007-11-22 14:49:16 +0100 (Thu, 22 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
 public class ItemVO extends ValueObject implements Searchable

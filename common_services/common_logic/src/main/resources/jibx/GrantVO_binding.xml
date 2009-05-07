@@ -38,14 +38,18 @@
 		</structure>
 		
 		<structure name="properties" ns="${xsd.soap.useraccount.grants}" ordered="false">
+			<structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
+				<value style="attribute" name="resource" field="grantType" usage="optional" />
+				<value style="attribute" name="objid" field="grantedTo" usage="optional" />
+			</structure>
+			<structure name="creation-date" ns="${xsd.soap.common.prop}" usage="optional"/>
+			<structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional"/>
 			<structure name="role" ns="${xsd.soap.common.srel}" usage="optional">
 				<value style="attribute" name="objid" field="role" usage="optional" />
 			</structure>
 			<structure name="assigned-on" ns="${xsd.soap.common.srel}" usage="optional">
 				<value style="attribute" name="objid" field="objectRef" usage="optional" />
 			</structure>
-			<structure name="creation-date" ns="${xsd.soap.common.prop}" usage="optional"/>
-			<structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional"/>
 			<structure name="grant-remark" ns="${xsd.soap.common.prop}" usage="optional"/>
 		</structure>
 	</mapping>

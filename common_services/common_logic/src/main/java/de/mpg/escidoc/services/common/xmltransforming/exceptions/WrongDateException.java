@@ -35,7 +35,7 @@ package de.mpg.escidoc.services.common.xmltransforming.exceptions;
  * <code>dateString</code> contains the problematic String.
  * 
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 28.08.2007
  */
 public class WrongDateException extends UnmarshallingException

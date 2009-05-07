@@ -33,7 +33,7 @@ package de.mpg.escidoc.services.common.logging;
 /**
  * Interface for Messages used in {@link MessageCreator#getMessage(Messages, Object[])}.
  *
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $author$
+ * @version $Revision$ $LastChangedDate$ by $author$
  * @revised by MuJ: 03.09.2007
  */
 public interface Messages

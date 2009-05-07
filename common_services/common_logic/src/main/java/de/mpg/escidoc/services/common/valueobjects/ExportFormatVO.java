@@ -34,7 +34,7 @@ package de.mpg.escidoc.services.common.valueobjects;
  * Valueobject representing the export format data needed for the export.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 654 $ $LastChangedDate: 2007-12-11 11:08:15 +0100 (Tue, 11 Dec 2007) $ by $Author: vdm $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:42:30
  */
 public class ExportFormatVO extends ValueObject
@@ -71,7 +71,7 @@ public class ExportFormatVO extends ValueObject
     /**
      * The possible export format types.
      * 
-     * @version $Revision: 654 $ $LastChangedDate: 2007-12-11 11:08:15 +0100 (Tue, 11 Dec 2007) $ by $Author: vdm $
+     * @version $Revision$ $LastChangedDate$ by $Author$
      * @updated 05-Sep-2007 10:42:30
      */
     public enum FormatType

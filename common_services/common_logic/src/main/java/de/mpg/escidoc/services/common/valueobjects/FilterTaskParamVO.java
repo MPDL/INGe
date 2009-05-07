@@ -42,8 +42,8 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  * Valueobject representing a filter taskParam.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 28.08.2007
  */
 public class FilterTaskParamVO extends ValueObject

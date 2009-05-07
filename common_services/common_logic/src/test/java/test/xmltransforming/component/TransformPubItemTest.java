@@ -66,8 +66,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * Test of {@link XmlTransforming} methods for transforming PubItemVOs to XML and back.
  * 
  * @author Johannes M&uuml;ller (initial creation)
- * @author $Author: mfranke $ (last change)
- * @version $Revision: 645 $ $LastChangedDate: 2007-08-20 19:55:57 +0200 (Mo, 20 Aug 2007)
+ * @author $Author$ (last change)
+ * @version $Revision$ $LastChangedDate: 2007-08-20 19:55:57 +0200 (Mo, 20 Aug 2007)
  * @revised by MuJ: 21.08.2007
  */
 public class TransformPubItemTest extends XmlTransformingTestBase

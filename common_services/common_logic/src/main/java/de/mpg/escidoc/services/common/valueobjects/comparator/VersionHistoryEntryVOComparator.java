@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
  * 
  * @revised by MuJ: 27.08.2007
  * @author Johannes Mueller (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-07-09 16:4
+ * @version $Revision$ $LastChangedDate: 2007-07-09 16:4
  */
 public class VersionHistoryEntryVOComparator implements Comparator<VersionHistoryEntryVO>
 {

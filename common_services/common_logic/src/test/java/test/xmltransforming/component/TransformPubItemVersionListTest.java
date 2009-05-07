@@ -49,8 +49,8 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * Test of {@link PubManTransforming} methods for transforming and integration with common_logic and the framework.
  * 
  * @author Johannes M&uuml;ller (initial creation)
- * @author $Author: jmueller $ (last change)
- * @version $Revision: 553 $ $LastChangedDate: 2007-10-23 19:09:52 +0200 (Di, 23 Okt 2007) $
+ * @author $Author$ (last change)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 20.09.2007
  */
 public class TransformPubItemVersionListTest extends XmlTransformingTestBase

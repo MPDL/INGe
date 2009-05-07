@@ -33,7 +33,7 @@ package de.mpg.escidoc.services.common.valueobjects;
 /**
  * This VO is used to retrieve contexts filtered by certain filter criteria. It corresponds to filter-contexts.xsd.
  * 
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @created 09-Okt-2007 16:17:57
  * @revised by MuJ: 09.10.2007
  */

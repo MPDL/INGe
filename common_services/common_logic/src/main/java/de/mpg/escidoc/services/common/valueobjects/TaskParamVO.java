@@ -36,8 +36,8 @@ import java.util.Date;
  * Parameters for task oriented framework methods.
  * 
  * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 05.09.2007
  */
 public class TaskParamVO extends ValueObject

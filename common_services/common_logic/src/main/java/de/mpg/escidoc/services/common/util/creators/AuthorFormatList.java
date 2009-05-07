@@ -35,7 +35,7 @@ import java.util.Arrays;
  * Class to define all valid AuthorFormats.
  *
  * @author franke
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  *
  */
 public final class AuthorFormatList

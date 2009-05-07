@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  *
  * @author Johannes Mueller (initial creation)
  * @revised by MuJ: 05.09.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  */
 public interface DataGathering
 {

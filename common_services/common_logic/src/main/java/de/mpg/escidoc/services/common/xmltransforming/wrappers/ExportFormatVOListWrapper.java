@@ -40,7 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
  * @author Michael Franke (initial creation)
- * @version $Revision:$ $LastChangedDate:$ by $Author: mfranke $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @revised by MuJ: 03.09.2007
  */
 public class ExportFormatVOListWrapper implements Serializable

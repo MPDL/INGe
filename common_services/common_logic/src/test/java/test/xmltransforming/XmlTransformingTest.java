@@ -39,6 +39,7 @@ import test.xmltransforming.component.TransformContainerTest;
 import test.xmltransforming.component.TransformContextTest;
 import test.xmltransforming.component.TransformExportFormatTest;
 import test.xmltransforming.component.TransformFacesItemTest;
+import test.xmltransforming.component.TransformGrantsTest;
 import test.xmltransforming.component.TransformInvalidPubItemTest;
 import test.xmltransforming.component.TransformLockTest;
 import test.xmltransforming.component.TransformParamTest;
@@ -53,8 +54,8 @@ import test.xmltransforming.component.TransformTocTest;
  * Component test suite for XmlTransforming.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
@@ -64,6 +65,7 @@ import test.xmltransforming.component.TransformTocTest;
                      TransformExportFormatTest.class,
                      TransformInvalidPubItemTest.class,
                      TransformLockTest.class,
+                     TransformGrantsTest.class,
                      TransformParamTest.class,
                      TransformContextTest.class,
                      TransformPubItemTest.class,

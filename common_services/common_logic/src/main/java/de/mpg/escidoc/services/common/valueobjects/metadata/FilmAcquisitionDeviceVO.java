@@ -36,7 +36,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
  * A description of the technology used in the process of producing a film.
  * 
  * @revised by MuJ: 28.08.2007
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 06-Sep-2007 11:29:07
  */
 public class FilmAcquisitionDeviceVO extends ValueObject
