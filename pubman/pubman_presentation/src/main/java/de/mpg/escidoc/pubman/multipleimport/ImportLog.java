@@ -37,6 +37,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Class that describes an import process.
+ * Class that describes an import.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -1063,7 +1064,12 @@ public class ImportLog
      * 
      * @return A list of imports
      */
-    public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy, SortDirection dir, boolean loadDetails)
+    public static List<ImportLog> getImportLogs(
+            String action,
+            AccountUserVO user,
+            SortColumn sortBy,
+            SortDirection dir,
+            boolean loadDetails)
     {
         return getImportLogs(action, user, sortBy, dir, true, loadDetails);
     }
@@ -1080,13 +1086,20 @@ public class ImportLog
      * 
      * @return A list of imports
      */
-    public static List<ImportLog> getImportLogs(String action, AccountUserVO user, SortColumn sortBy, SortDirection dir, boolean loadItems, boolean loadDetails)
+    public static List<ImportLog> getImportLogs(
+            String action,
+            AccountUserVO user,
+            SortColumn sortBy,
+            SortDirection dir,
+            boolean loadItems,
+            boolean loadDetails)
     {
         List<ImportLog> result = new ArrayList<ImportLog>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        String query = "select id from escidoc_import_log where action = ? and userid = ? order by lower(" + sortBy + ") " + dir.toSQL();
+        String query = "select id from escidoc_import_log where action = ? and userid = ? "
+                + "order by lower(" + sortBy + ") " + dir.toSQL();
         try
         {
             statement = connection.prepareStatement(query);
@@ -1112,7 +1125,8 @@ public class ImportLog
                 //connection.close();
             }
             catch (Exception f)
-            {}
+            {
+            }
             throw new RuntimeException("Error getting log", e);
         }
         try
@@ -1176,32 +1190,18 @@ public class ImportLog
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         String query = null;
-        
         ImportLog result = null;
-        
-        
+
         try
         {
             query = "select * from escidoc_import_log where id = ?";
             statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            
             resultSet = statement.executeQuery();
             
             if (resultSet.next())
             {
-                result = new ImportLog();
-                result.setAction(resultSet.getString("action"));
-                result.setEndDate(resultSet.getTimestamp("enddate"));
-                result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-                result.setFormat(resultSet.getString("format"));
-                result.setStartDate(resultSet.getTimestamp("startdate"));
-                result.setStatus(Status.valueOf(resultSet.getString("status")));
-                result.setStoredId(id);
-                result.setContext(resultSet.getString("context"));
-                result.setUser(resultSet.getString("userid"));
-                result.setMessage(resultSet.getString("name"));
-                result.percentage = resultSet.getInt("percentage");
+                result = fillLog(resultSet);
             }
             else
             {
@@ -1211,24 +1211,13 @@ public class ImportLog
             query = "select * from escidoc_import_log_item where parent = ? order by id";
             statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            
             resultSet = statement.executeQuery();
             
             List<ImportLogItem> items = new ArrayList<ImportLogItem>();
             
             while (resultSet.next())
             {
-                ImportLogItem item = new ImportLogItem(result);
-                
-                item.setAction(resultSet.getString("action"));
-                item.setEndDate(resultSet.getTimestamp("enddate"));
-                item.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-                item.setStartDate(resultSet.getTimestamp("startdate"));
-                item.setStatus(Status.valueOf(resultSet.getString("status")));
-                item.setStoredId(resultSet.getInt("id"));
-                item.setItemId(resultSet.getString("item_id"));
-                item.setMessage(resultSet.getString("message"));
-                
+                ImportLogItem item = fillItem(resultSet, result);
                 items.add(item);
             }
             
@@ -1237,13 +1226,12 @@ public class ImportLog
             if (loadDetails)
             {
                 query = "select escidoc_import_log_detail.* "
-                		+ "from escidoc_import_log_item, escidoc_import_log_detail "
-                		+ "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
-                		+ "and escidoc_import_log_item.parent = ? "
-                		+ "order by escidoc_import_log_detail.id";
+                        + "from escidoc_import_log_item, escidoc_import_log_detail "
+                        + "where escidoc_import_log_item.id = escidoc_import_log_detail.parent "
+                        + "and escidoc_import_log_item.parent = ? "
+                        + "order by escidoc_import_log_detail.id";
                 statement = connection.prepareStatement(query);
                 statement.setInt(1, id);
-                
                 resultSet = statement.executeQuery();
     
                 Iterator<ImportLogItem> iterator = items.iterator();
@@ -1265,17 +1253,7 @@ public class ImportLog
                             currentItem.setItems(details);
                         }
                         
-                        ImportLogItem detail = new ImportLogItem(currentItem);
-                        
-                        detail.setAction(resultSet.getString("action"));
-                        detail.setEndDate(resultSet.getTimestamp("enddate"));
-                        detail.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-                        detail.setStartDate(resultSet.getTimestamp("startdate"));
-                        detail.setStatus(Status.valueOf(resultSet.getString("status")));
-                        detail.setStoredId(resultSet.getInt("id"));
-                        detail.setItemId(resultSet.getString("item_id"));
-                        detail.setMessage(resultSet.getString("message"));
-                        
+                        ImportLogItem detail = fillDetail(resultSet, currentItem);
                         details.add(detail);
                     }
                 }
@@ -1290,7 +1268,8 @@ public class ImportLog
                 //connection.close();
             }
             catch (Exception f)
-            {}
+            {
+            }
             throw new RuntimeException("Error getting detail", e);
         }
         try
@@ -1304,6 +1283,71 @@ public class ImportLog
             throw new RuntimeException("Error closing connection", f);
         }
         
+        return result;
+    }
+
+    /**
+     * @param resultSet
+     * @param currentItem
+     * @return
+     * @throws SQLException
+     */
+    private static ImportLogItem fillDetail(ResultSet resultSet, ImportLogItem currentItem) throws SQLException
+    {
+        ImportLogItem detail = new ImportLogItem(currentItem);
+        
+        detail.setAction(resultSet.getString("action"));
+        detail.setEndDate(resultSet.getTimestamp("enddate"));
+        detail.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
+        detail.setStartDate(resultSet.getTimestamp("startdate"));
+        detail.setStatus(Status.valueOf(resultSet.getString("status")));
+        detail.setStoredId(resultSet.getInt("id"));
+        detail.setItemId(resultSet.getString("item_id"));
+        detail.setMessage(resultSet.getString("message"));
+        return detail;
+    }
+
+    /**
+     * @param resultSet
+     * @param result
+     * @return
+     * @throws SQLException
+     */
+    private static ImportLogItem fillItem(ResultSet resultSet, ImportLog result) throws SQLException
+    {
+        ImportLogItem item = new ImportLogItem(result);
+        
+        item.setAction(resultSet.getString("action"));
+        item.setEndDate(resultSet.getTimestamp("enddate"));
+        item.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
+        item.setStartDate(resultSet.getTimestamp("startdate"));
+        item.setStatus(Status.valueOf(resultSet.getString("status")));
+        item.setStoredId(resultSet.getInt("id"));
+        item.setItemId(resultSet.getString("item_id"));
+        item.setMessage(resultSet.getString("message"));
+        return item;
+    }
+
+    /**
+     * @param resultSet SQL result set
+     * @return The filled import
+     * @throws SQLException
+     */
+    private static ImportLog fillLog(ResultSet resultSet) throws SQLException
+    {
+        ImportLog result;
+        result = new ImportLog();
+        result.setAction(resultSet.getString("action"));
+        result.setEndDate(resultSet.getTimestamp("enddate"));
+        result.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
+        result.setFormat(resultSet.getString("format"));
+        result.setStartDate(resultSet.getTimestamp("startdate"));
+        result.setStatus(Status.valueOf(resultSet.getString("status")));
+        result.setStoredId(resultSet.getInt("id"));
+        result.setContext(resultSet.getString("context"));
+        result.setUser(resultSet.getString("userid"));
+        result.setMessage(resultSet.getString("name"));
+        result.percentage = resultSet.getInt("percentage");
         return result;
     }
     
@@ -1337,18 +1381,7 @@ public class ImportLog
         
             while (resultSet.next())
             {
-                
-                ImportLogItem detail = new ImportLogItem(null);
-                
-                detail.setAction(resultSet.getString("action"));
-                detail.setEndDate(resultSet.getTimestamp("enddate"));
-                detail.setErrorLevel(ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
-                detail.setStartDate(resultSet.getTimestamp("startdate"));
-                detail.setStatus(Status.valueOf(resultSet.getString("status")));
-                detail.setStoredId(resultSet.getInt("id"));
-                detail.setItemId(resultSet.getString("item_id"));
-                detail.setMessage(resultSet.getString("message"));
-                
+                ImportLogItem detail = fillDetail(resultSet, null);
                 details.add(detail);
             }
             return details;
@@ -1403,7 +1436,7 @@ public class ImportLog
     /**
      * Puts the import's focus on this item.
      * 
-     * @param item
+     * @param item The item to be activated
      */
     public void activateItem(ImportLogItem item)
     {
@@ -1519,22 +1552,23 @@ public class ImportLog
     {
         try
         {
-            Connection connection = getConnection();
+            Connection conn = getConnection();
             
-            String query = "delete from escidoc_import_log_detail where parent in (select id from escidoc_import_log_item where parent = ?)";
-            PreparedStatement statement = connection.prepareStatement(query);
+            String query = "delete from escidoc_import_log_detail where parent in "
+                + "(select id from escidoc_import_log_item where parent = ?)";
+            PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, this.storedId);
             statement.executeUpdate();
             statement.close();
             
             query = "delete from escidoc_import_log_item where parent  = ?";
-            statement = connection.prepareStatement(query);
+            statement = conn.prepareStatement(query);
             statement.setInt(1, this.storedId);
             statement.executeUpdate();
             statement.close();
             
             query = "delete from escidoc_import_log where id  = ?";
-            statement = connection.prepareStatement(query);
+            statement = conn.prepareStatement(query);
             statement.setInt(1, this.storedId);
             statement.executeUpdate();
             statement.close();
@@ -1630,27 +1664,32 @@ public class ImportLog
     }
     
     /**
-     * @return the itemLink
+     * @return A link to a JSP page showing only this import (no items)
      */
     public String getLogLink()
     {
         return "ImportData.jsp?id=" + getStoredId();
     }
     
+    /**
+     * @return A link to the MyItems page filtering for this import
+     */
     public String getMyItemsLink()
     {
         try
         {
-            return "DepositorWSPage.jsp?import=" + URLEncoder.encode(getMessage() + " " + getStartDateFormatted(), "UTF-8");
+            return "DepositorWSPage.jsp?import=" + URLEncoder.encode(
+                    getMessage() + " " + getStartDateFormatted(), "UTF-8");
         }
-        catch (UnsupportedEncodingException usee) {
+        catch (UnsupportedEncodingException usee)
+        {
             // This should not happen as UTF-8 is known
             throw new RuntimeException(usee);
         }
     }
     
     /**
-     * @return the itemLink
+     * @return A link to a JSP page showing the items of this import (no details)
      */
     public String getItemsLink()
     {
@@ -1659,15 +1698,21 @@ public class ImportLog
     
     /**
      * Dummy setter to avoid JSF warnings.
+     * 
+     * @param link The link
      */
     public void setItemsLink(String link)
-    {}
+    {
+    }
     
     /**
      * Dummy setter to avoid JSF warnings.
+     * 
+     * @param link The link
      */
     public void setLogLink(String link)
-    {}
+    {
+    }
     
     /**
      * @param connection the connection to set
@@ -1685,21 +1730,27 @@ public class ImportLog
             {
                 ContextVO contextVO;
                 ContextHandler contextHandler = ServiceLocator.getContextHandler();
-                InitialContext context = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming) context.lookup(XmlTransforming.SERVICE_NAME);
+                InitialContext ctx = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
                 
                 String contextXml = contextHandler.retrieve(this.context);
                 contextVO = xmlTransforming.transformToContext(contextXml);
         
                 this.workflow = contextVO.getAdminDescriptor().getWorkflow();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new RuntimeException(e);
             }
         }
         return this.workflow;
     }
     
+    /**
+     * Indicates whether the workflow of the currently used context is SIMPLE.
+     * 
+     * @return true if the workflow of the currently used context is SIMPLE.
+     */
     public boolean getSimpleWorkflow()
     {
         return (getWorkflow() == Workflow.SIMPLE);

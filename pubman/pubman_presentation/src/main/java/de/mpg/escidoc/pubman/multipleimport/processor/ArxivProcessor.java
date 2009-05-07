@@ -140,8 +140,8 @@ public class ArxivProcessor extends FormatProcessor
         return length;
     }
 
-    /* (non-Javadoc)
-     * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getDataAsBase64()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getDataAsBase64()

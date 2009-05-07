@@ -139,6 +139,7 @@ public class MultipleImport extends FacesBean
 //        importFormats.put("eDoc", EDOC_FORMAT);
         importFormats.put("RIS", RIS_FORMAT);
         importFormats.put("WoS", WOS_FORMAT);
+        importFormats.put("eSciDoc", ESCIDOC_FORMAT);
     }
         
     public String uploadFile()

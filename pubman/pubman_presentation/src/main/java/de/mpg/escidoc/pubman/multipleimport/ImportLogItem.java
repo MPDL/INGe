@@ -38,7 +38,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 
 
 /**
- * TODO Description
+ * Class describing an import item. The parent is a {@link ImportLog}.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -51,8 +51,13 @@ public class ImportLogItem extends ImportLog
     private String itemId;
     private PubItemVO itemVO;
     
-    static String link = null;
+    private static String link = null;
     
+    /**
+     * Constructor setting the parent import.
+     * 
+     * @param parent The parent import
+     */
     public ImportLogItem(ImportLog parent)
     {
         this.setStartDate(new Date());
@@ -62,8 +67,8 @@ public class ImportLogItem extends ImportLog
         this.parent = parent;
     }
     
-    /* (non-Javadoc)
-     * @see de.mpg.escidoc.pubman.multipleimport.ImportLog#setErrorLevel(de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void setErrorLevel(ErrorLevel errorLevel)
@@ -142,7 +147,8 @@ public class ImportLogItem extends ImportLog
                     + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
                     + PropertyReader.getProperty("escidoc.pubman.item.pattern");
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new RuntimeException(e);
             }
         }
@@ -157,6 +163,9 @@ public class ImportLogItem extends ImportLog
         return "ImportItemDetails.jsp?id=" + getStoredId();
     }
     
+    /**
+     * @return An XML representation of this item
+     */
     public String toXML()
     {
         StringWriter writer = new StringWriter();
