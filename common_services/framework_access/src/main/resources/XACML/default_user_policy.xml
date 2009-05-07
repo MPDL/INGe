@@ -9,7 +9,7 @@
 		<Actions>
 			<Action>
 				<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-container info:escidoc/names:aa:1.0:action:retrieve-context info:escidoc/names:aa:1.0:action:retrieve-item info:escidoc/names:aa:1.0:action:retrieve-content info:escidoc/names:aa:1.0:action:retrieve-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-children-of-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-parents-of-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-content-model info:escidoc/names:aa:1.0:action:unlock-container info:escidoc/names:aa:1.0:action:unlock-item info:escidoc/names:aa:1.0:action:logout info:escidoc/names:aa:1.0:action:retrieve-user-account info:escidoc/names:aa:1.0:action:update-user-account info:escidoc/names:aa:1.0:action:retrieve-grant info:escidoc/names:aa:1.0:action:retrieve-object-refs info:escidoc/names:aa:1.0:action:retrieve-objects-filtered info:escidoc/names:aa:1.0:action:retrieve-staging-file info:escidoc/names:aa:1.0:action:query-semantic-store info:escidoc/names:aa:1.0:action:fmdh-export info:escidoc/names:aa:1.0:action:retrieve-report </AttributeValue>
+					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-container info:escidoc/names:aa:1.0:action:retrieve-context info:escidoc/names:aa:1.0:action:retrieve-item info:escidoc/names:aa:1.0:action:retrieve-content info:escidoc/names:aa:1.0:action:retrieve-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-children-of-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-parents-of-organizational-unit info:escidoc/names:aa:1.0:action:retrieve-content-model info:escidoc/names:aa:1.0:action:unlock-container info:escidoc/names:aa:1.0:action:unlock-item info:escidoc/names:aa:1.0:action:logout info:escidoc/names:aa:1.0:action:retrieve-user-account info:escidoc/names:aa:1.0:action:update-user-account info:escidoc/names:aa:1.0:action:retrieve-grant info:escidoc/names:aa:1.0:action:retrieve-object-refs info:escidoc/names:aa:1.0:action:retrieve-objects-filtered info:escidoc/names:aa:1.0:action:retrieve-staging-file info:escidoc/names:aa:1.0:action:query-semantic-store info:escidoc/names:aa:1.0:action:fmdh-export info:escidoc/names:aa:1.0:action:retrieve-report info:escidoc/names:aa:1.0:action:retrieve-set-definition info:escidoc/names:aa:1.0:action:get-repository-info</AttributeValue>
 					<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 				</ActionMatch>
 			</Action>
@@ -350,7 +350,7 @@
 			<Actions>
 				<Action>
 					<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-report </AttributeValue>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string"> info:escidoc/names:aa:1.0:action:retrieve-report info:escidoc/names:aa:1.0:action:retrieve-set-definition info:escidoc/names:aa:1.0:action:get-repository-info</AttributeValue>
 						<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 					</ActionMatch>
 				</Action>
