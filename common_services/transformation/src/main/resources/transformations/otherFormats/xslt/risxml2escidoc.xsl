@@ -29,9 +29,9 @@
 <!-- 
 	Transformations from RIS Item to eSciDoc PubItem 
 	Author: Julia Kurt (initial creation) 
-	$Author: kurt $ (last changed)
-	$Revision: 747 $ 
-	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Tue, 31 Mar 2009) $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

@@ -29,7 +29,7 @@
 <!-- 
 	Transformations from eSciDoc PubItem Schema to BibTeX
 	Author: Julia Kurt (initial creation) 
-	$Author: jkurt $ 
+	$Author$ 
 -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 xmlns:xs="http://www.w3.org/2001/XMLSchema" 

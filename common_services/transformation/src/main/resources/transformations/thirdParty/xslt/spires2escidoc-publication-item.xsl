@@ -29,9 +29,9 @@
 <!-- 
 	Transformations from BioMedCentral to eSciDoc PubItem 
 	Author: Julia Kurt (initial creation) 
-	$Author: kurt $ (last changed)
-	$Revision: 747 $ 
-	$LastChangedDate: 2008-07-21 19:15:26 +0200 (Mo, 21 Jul 2008) $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0" xmlns:pm="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle" xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
