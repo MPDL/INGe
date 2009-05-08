@@ -44,6 +44,7 @@
 
 <%
 	XmlTransforming xmlTransforming = new XmlTransformingBean();
+	boolean showWarning = false;
 	
 	if (request.getParameter("eSciDocUserHandle") != null)
 	{
@@ -61,9 +62,15 @@
 	    for (GrantVO grant : grants)
 	    {
 	        accountUser.getGrants().add(grant);
-	        if ("escidoc:role-administrator".equals(grant.getRole()))
+	        if ("escidoc:role-system-administrator".equals(grant.getRole()))
 	        {
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	    		request.getSession().setAttribute("edit", Boolean.TRUE);
+	        }
+	        else
+	        {
+	            request.getSession().setAttribute("logged_in", Boolean.TRUE);
+	            showWarning = true;
 	        }
 	    }
 	}
@@ -86,13 +93,22 @@
 
 			<!-- Login -->
 		
-				<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+				<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && (Boolean)request.getSession().getAttribute("logged_in")) { %>
+					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Logout</a>
+				<% } else { %>
+					<a class="medium_area0_p8 endline" href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/aa/login?target=<%= URLEncoder.encode(request.getRequestURL().toString(), "UTF-8") %>">Login</a>
+				<% } %>
 				<span class="seperator"></span>
 		
 			<!-- Log out -->
 
 		<!-- meta Menu ends here -->
 	</span>
+	<% if (showWarning) { %>
+		<div>
+			Not sufficient privileges!
+		</div>
+	<% } %>
 	<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 		<a href="index.jsp" class="free_area0 xTiny_marginRIncl">Home</a>
 
@@ -102,7 +118,7 @@
 			<a href="search.jsp" class="free_area0 xTiny_marginRIncl">Search</a>
 		<% } %>
 
-		<% if (request.getSession() != null && request.getSession().getAttribute("logged_in") != null && ((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()) { %>
+		<% if (request.getSession() != null && request.getSession().getAttribute("edit") != null && ((Boolean)request.getSession().getAttribute("edit")).booleanValue()) { %>
 			<a href="select.jsp" class="free_area0 xTiny_marginRIncl">Enter New Entity</a>
 		<% } %>
 		

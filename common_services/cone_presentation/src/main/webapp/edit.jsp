@@ -432,8 +432,8 @@
 	
 	if ((request.getParameter("delete") != null
 	        || request.getParameter("save") != null)
-	        && (request.getSession().getAttribute("logged_in") == null
-	        || !((Boolean)request.getSession().getAttribute("logged_in")).booleanValue()))
+	        && (request.getSession().getAttribute("edit") == null
+	        || !((Boolean)request.getSession().getAttribute("edit")).booleanValue()))
     {
 	    errors.add("Not authorized for this action.");
     }
