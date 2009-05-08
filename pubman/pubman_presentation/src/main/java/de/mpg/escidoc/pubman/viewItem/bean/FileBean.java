@@ -511,7 +511,7 @@ public class FileBean extends FacesBean
                     filename="";
                 }
                 
-                response.setHeader("Content-disposition", "inline; filename=" + URLEncoder.encode(filename, "UTF-8") + "." + getChecksumAlgorithmAsString().toLowerCase());
+                response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "." + getChecksumAlgorithmAsString().toLowerCase());
                 
                 OutputStream out = response.getOutputStream();
                 out.write(file.getChecksum().getBytes("UTF-8"));

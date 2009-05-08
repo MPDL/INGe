@@ -54,8 +54,7 @@
 						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>
 						<h:outputText value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-						<h:commandLink value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null}"/>
-							
+						<h:commandLink value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null}"/>		
 				</span>
 			</h:panelGroup>
 
