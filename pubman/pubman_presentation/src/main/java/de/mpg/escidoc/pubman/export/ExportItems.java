@@ -82,7 +82,8 @@ public class ExportItems extends FacesBean
     public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
     public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
     public SelectItem FILEFORMAT_HTML = new SelectItem("html", getLabel("Export_FileFormat_HTML"));
-    public SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML};
+    public SelectItem FILEFORMAT_SNIPPET = new SelectItem("snippet", getLabel("Export_FileFormat_SNIPPET"));
+    public SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML, FILEFORMAT_SNIPPET};
  
     // constants for error and status messages
     public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
