@@ -35,7 +35,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && HomePage.depositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && LoginHelper.isDepositor}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -59,7 +59,7 @@
     </span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='en'}">
+	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='en'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -74,7 +74,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='en'}">
+	<h:panelGroup rendered="#{(LoginHelper.isModerator || LoginHelper.isMdEditor) && PubManSessionBean.locale =='en'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -110,7 +110,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && HomePage.depositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && LoginHelper.isDepositor}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -133,7 +133,7 @@
 		</h:commandLink>
     </span>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='de'}">
+	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='de'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -148,7 +148,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='de'}">
+	<h:panelGroup rendered="#{LoginHelper.isModerator && PubManSessionBean.locale =='de'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -184,7 +184,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && HomePage.depositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && LoginHelper.isDepositor}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -208,7 +208,7 @@
     </span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{HomePage.depositor && PubManSessionBean.locale =='ja'}">
+	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='ja'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -223,7 +223,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{HomePage.moderator && PubManSessionBean.locale =='ja'}">
+	<h:panelGroup rendered="#{LoginHelper.isModerator && PubManSessionBean.locale =='ja'}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
