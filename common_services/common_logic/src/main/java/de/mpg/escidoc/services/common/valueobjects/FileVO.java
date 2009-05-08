@@ -178,6 +178,8 @@ public class FileVO extends ValueObject implements Cloneable
         visibility = other.visibility;
         storage = other.storage;
         metadataSets = other.metadataSets;
+        checksum = other.checksum;
+        checksumAlgorithm = other.checksumAlgorithm;
     }
     
     /**
