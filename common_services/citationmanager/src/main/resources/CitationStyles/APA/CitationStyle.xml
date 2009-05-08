@@ -104,12 +104,8 @@
 			]]>
 		</variable>
 
-		
-		<!-- doi and url should be revised after fixing of the bug: http://www.escidoc.org/jira/browse/DEV-578  -->
-<!--		<variable name="doi" xpath="(publication/identifier[contains(.,'doi')])[1]" />-->
-<!--		<variable name="url" xpath="(publication/identifier[contains(.,'http://') or contains(.,'www')])[1]" />-->
-		<variable name="doi" type="xpath"><![CDATA[(publication/identifier[@type='DOI'])[1]]]></variable>
-		<variable name="url" type="xpath"><![CDATA[(publication/identifier[@type='URI'])[1]]]></variable>
+		<variable name="doi" type="xpath"><![CDATA[(publication/identifier[@type='eidt:DOI'])[1]]]></variable>
+		<variable name="uri" type="xpath"><![CDATA[(publication/identifier[@type='dcterms:URI'])[1]]]></variable>
 		
 	</variables>
 
@@ -410,21 +406,18 @@
 		<layout-element name="published-online-and-external-locator">
 			<parameters>
 				<valid-if><![CDATA[${publication/issued}==null && ${publication/published-online}!=null]]></valid-if>
-				<starts-with value=". Published online " />
+				<starts-with value=". " />
 				<delimiter value=". "/>
 			</parameters>
 			<elements>
-				<layout-element ref="publication/published-online" />
 				<layout-element ref="doi"/>
-				<layout-element>
+				<layout-element ref="uri">
 					<parameters>
-						<valid-if><![CDATA[${doi}==null && ${url}!=null]]></valid-if>
+						<valid-if><![CDATA[${doi}==null]]></valid-if>
 						<starts-with value="Retrieved from "/>
 						<ends-with value=". "/>
 					</parameters>
-					<elements>
-						<layout-element ref="url"/>
-					</elements>
+					<elements/>
 				</layout-element>
 			</elements>
 		</layout-element>
@@ -640,7 +633,7 @@
 		</layout-element>
 
 
-	<layout-element name="__debugBlock__">
+	<layout-element name="debugBlock">
 		<parameters>
 			<font-style ref="BLUE"/>
 			<starts-with value="debug:"/>
@@ -668,6 +661,12 @@
 			<layout-element ref="publication/published-online" > 
 				<parameters>
 					<starts-with value="published-online:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="doi" > 
+				<parameters>
+					<starts-with value="doi:"/>
 				</parameters>
 				<elements/>
 			</layout-element> 
@@ -910,9 +909,8 @@
 				</elements>
 			</layout-element>
 				
-			<layout-element ref="url">
+			<layout-element ref="uri">
 				<parameters>
-					<valid-if><![CDATA[${url}!=null]]></valid-if>
 					<starts-with value=" Retrieved from "/>
 					<ends-with value=". "/>
 				</parameters>
@@ -1201,33 +1199,30 @@
 				<elements />
 			</layout-element>
 
-			<layout-element name="event-title">
+			<layout-element ref="publication/event/title">
 				<parameters>
 					<starts-with value=" "/>
 					<ends-with value="."/>
 				</parameters>
-				<elements>
-					<layout-element ref="publication/event/title"/>
-				</elements>
+				<elements/>
 			</layout-element>
 			
-			<layout-element name="event-place">
+			<layout-element>
 				<parameters>
-					<starts-with value=", "/>
+					<starts-with value=" "/>
+					<delimiter value=", "/>
 				</parameters>
 				<elements>
 					<layout-element ref="publication/event/place"/>
-				</elements>
-			</layout-element>
-			
-			<layout-element name="dates-of-event">
-				<parameters>
-					<starts-with value=", "/>
-					<delimiter value=" - "/>
-				</parameters>
-				<elements>
-					<layout-element ref="publication/event/start-date"/>
-					<layout-element ref="publication/event/end-date"/>
+					<layout-element>
+						<parameters>
+							<delimiter value=" - "/>
+						</parameters>
+						<elements>
+							<layout-element ref="publication/event/start-date"/>
+							<layout-element ref="publication/event/end-date"/>
+						</elements>
+					</layout-element>
 				</elements>
 			</layout-element>
 			
@@ -1309,8 +1304,7 @@
 						</parameters>
 						<elements/>
 					</layout-element>
-					<!-- report identifier ?????? -->
-					<layout-element ref="(publication/identifier)[1]">
+					<layout-element ref="(publication/identifier[@type='eidt:OTHER'])[1]">
 						<parameters>
 							<starts-with value="("/>
 							<ends-with value=")"/>
