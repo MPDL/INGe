@@ -157,7 +157,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel id="lblLanguageTermMultiple" styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
-					<h:inputText id="languageSuggestMultiple" styleClass="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:inputText id="languageSuggestMultiple" styleClass="large_txtInput tiny_marginRIncl languageSuggest" value="#{languageCriterionBean.languageProposal}"/>
 					<h:selectOneMenu id="selLanguageOptionsMultiple" styleClass="xDouble_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
 						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
 					</h:selectOneMenu>

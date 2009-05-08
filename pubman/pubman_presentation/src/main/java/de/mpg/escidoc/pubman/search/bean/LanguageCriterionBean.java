@@ -19,6 +19,8 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
 	
 	private LanguageCriterion languageCriterionVO;
 	
+	private String languageProposal = "";
+	
 	// collapsed by default
 	protected boolean collapsed = true;
 	
@@ -55,7 +57,8 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
 	 */
 	public String clearCriterion()
 	{
-		languageCriterionVO.setSearchString( null );
+		languageCriterionVO.setSearchString( "" );
+		setLanguageProposal( "" ); 
 		
 		// navigation refresh
 		return null;
@@ -65,4 +68,20 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
 	{
 	    return CommonUtils.getLanguageOptions();
 	}
+
+    /**
+     * @return the languageProposal
+     */
+    public String getLanguageProposal()
+    {
+        return languageProposal;
+    }
+
+    /**
+     * @param languageProposal the languageProposal to set
+     */
+    public void setLanguageProposal(String languageProposal)
+    {
+        this.languageProposal = languageProposal;
+    }
 }
