@@ -1,5 +1,4 @@
 <Policy PolicyId="Moderator-policy" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:ordered-permit-overrides">
-<!--NBU change 07.05.2009 Added new actions for update, submit, release and revise for the moderator. Still lacking modified-by and lock snippets, to be done when new FW release is provided-->
 	<Target>
 		<Subjects>
 			<AnySubject/>
@@ -34,25 +33,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
-			<!-- due to incosistency and inability to use modified-by attribute in XACML, policy changed: 
-                   Moderator can submit items if the public status of an item is submitted or released and last version status is pending (can work with MPDL PubMan workflow only) -->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -93,23 +73,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -142,25 +105,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
-			<!-- due to incosistency and inability to use modified-by attribute in XACML, policy changed: 
-                   Moderator can release items if the public status of an item is submitted or released and last version status is submitted (can work with MPDL PubMan workflow only) -->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -201,16 +145,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--should be rephrased
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-			-->
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released in-revision withdrawn</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -242,83 +176,7 @@
 				</Action>
 			</Actions>
 		</Target>
-		<!--
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">withdrawn</AttributeValue>
-				</Apply>
-			</Apply>
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</AttributeValue>
-					</Apply>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-							<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-								<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-							</Apply>
-							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
-						</Apply>
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-							<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-								<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-							</Apply>
-							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</AttributeValue>
-						</Apply>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-					</Apply>
-				</Apply>
-			</Apply>
-			-->
-		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--should be rephrased
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-			-->
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -351,7 +209,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
-			<!--here better to be phrased, but missing modified-by-->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:component:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -360,7 +217,6 @@
 			</Apply>
 		</Condition>
 	</Rule>
-	<!-- container rules -->
 	<Rule RuleId="Moderator-policy-rule-sc" Effect="Permit">
 		<Target>
 			<Subjects>
@@ -378,27 +234,7 @@
 				</Action>
 			</Actions>
 		</Target>
-		
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
-			<!-- due to incosistency and inability to use modified-by attribute in XACML, policy changed: 
-                   Moderator can submit items if the public status of an item is submitted or released and last version status is pending (can work with MPDL PubMan workflow only) -->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -439,23 +275,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -488,25 +307,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--
-            The rule below does not work, waiting for some better times
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
--->
-			<!-- due to incosistency and inability to use modified-by attribute in XACML, policy changed: 
-                   Moderator can release items if the public status of an item is submitted or released and last version status is submitted (can work with MPDL PubMan workflow only) -->
 			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -547,16 +347,6 @@
 			</Actions>
 		</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--should be rephrased
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-			-->
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released in-revision withdrawn</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -588,83 +378,7 @@
 				</Action>
 			</Actions>
 		</Target>
-		<!--
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">withdrawn</AttributeValue>
-				</Apply>
-			</Apply>
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">released</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</AttributeValue>
-					</Apply>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-							<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-								<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-							</Apply>
-							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
-						</Apply>
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-							<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-								<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-							</Apply>
-							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted</AttributeValue>
-						</Apply>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-					</Apply>
-				</Apply>
-			</Apply>
-			-->
-		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-			<!--should be rephrased
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-			-->
 			<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 				<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">submitted released</AttributeValue>
 				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
@@ -678,6 +392,5 @@
 				</Apply>
 			</Apply>
 		</Condition>
-	</Rule>	
-	
+	</Rule>
 </Policy>

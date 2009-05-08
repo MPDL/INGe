@@ -128,8 +128,6 @@
 				</Apply>
 			</Condition>
 		</Rule>
-		
-		<!--NBU change 07.05.2009 separated delete and update actions into two rules, 2 and 2b-->
 		<Rule RuleId="Depositor-policy-rule-2" Effect="Permit">
 			<Target>
 				<Subjects>
@@ -148,23 +146,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<!--
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
--->
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -221,66 +203,8 @@
 					</Action>
 				</Actions>
 			</Target>
-			<!-- NBU change 07.05.2009 commented, depositor can always modify the container if it was not withdrawn before
-			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:latest-version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">in-revision</AttributeValue>
-					</Apply>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:created-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
-			</Condition>
-        -->
-        		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<!--		<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
-       
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">withdrawn</AttributeValue>
-					</Apply>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:created-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-						<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
-				-->
-				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+		        		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+						<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:container:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -302,7 +226,6 @@
 				</Apply>
 			</Condition>
 		</Rule>
-<!--NBU change 07.05.2009 separate policy for item delete rules are now 3 (delete), 3b (update, lock)-->
 <Rule RuleId="Depositor-policy-rule-3" Effect="Permit">
 			<Target>
 				<Subjects>
@@ -321,22 +244,7 @@
 				</Actions>
 			</Target>
 			<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<!--	<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
-	-->
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+							<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -376,8 +284,7 @@
 				</Apply>
 			</Condition>
 		</Rule>
-		<!--NBU change 07.05.2009: new rule, separate for update of item, as it is different rule then for delete item -->		
-		<Rule RuleId="Depositor-policy-rule-3b" Effect="Permit">
+				<Rule RuleId="Depositor-policy-rule-3b" Effect="Permit">
 			<Target>
 				<Subjects>
 					<AnySubject/>
@@ -395,38 +302,7 @@
 				</Actions>
 			</Target>
 		<Condition FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
-				<!--
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">unlocked</AttributeValue>
-					</Apply>
-					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
-						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-						</Apply>
-						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:lock-owner" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-					</Apply>
-				</Apply>
-           -->
-				<!--*Depositor should be able to modify own items if:
-				**public status is any of (pending, released, in-revision)
-				**latest version status is any of (pending, released, in-revision)
-                **current policy is a workaround to allow depositor to modify own items always
-           -->
-				<!--should be rephrased
-			<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:modified-by" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-				<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
-					<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
-				</Apply>
-			</Apply>
-			-->
-				<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
+					<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
 					<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending released in-revision submitted</AttributeValue>
 					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 						<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:public-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
@@ -474,8 +350,7 @@
 				</Apply>
 			</Condition>
 		</Rule>
-		<!--NBU change 07.05.2009 Depositor may also release container, action added only -->
-		<Rule RuleId="Depositor-policy-rule-5" Effect="Permit">
+			<Rule RuleId="Depositor-policy-rule-5" Effect="Permit">
 			<Target>
 				<Subjects>
 					<AnySubject/>
@@ -501,8 +376,7 @@
 				</Apply>
 			</Condition>
 		</Rule>
-		<!--NBU change 07.05.2009 Depositor may also release item, action added only -->
-		<Rule RuleId="Depositor-policy-rule-6" Effect="Permit">
+				<Rule RuleId="Depositor-policy-rule-6" Effect="Permit">
 			<Target>
 				<Subjects>
 					<AnySubject/>
