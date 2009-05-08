@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.cone.Querier;
@@ -67,7 +68,7 @@ public class QuerierTest
     {
         querier = QuerierFactory.newQuerier();
     }
-    
+    @Ignore
     @Test
     public void testAllIdsMethod() throws Exception
     {
@@ -75,7 +76,7 @@ public class QuerierTest
         assertNotNull("No resources for model 'journals'", ids);
         assertTrue("No resources for model 'journals'", ids.size() > 0);
     }
-    
+    @Ignore
     @Test
     public void testQueryMethod1() throws Exception
     {
@@ -91,7 +92,7 @@ public class QuerierTest
             assertTrue("Result does not contain query string 'of': " + pair.getValue(), pair.getValue().contains("of"));
         }
     }
-    
+    @Ignore
     @Test
     public void testQueryMethod2() throws Exception
     {
@@ -107,7 +108,7 @@ public class QuerierTest
             assertTrue("Result does not contain query string 'of': " + pair.getValue(), pair.getValue().contains("of"));
         }
     }
-    
+    @Ignore
     @Test
     public void testDetailMethod() throws Exception
     {
