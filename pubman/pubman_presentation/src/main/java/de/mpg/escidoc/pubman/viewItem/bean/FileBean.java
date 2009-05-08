@@ -34,6 +34,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -469,4 +471,71 @@ public class FileBean extends FacesBean
     	Visibility newVisibility = (Visibility) event.getNewValue();
     	file.setVisibility(newVisibility);
     }
+    
+    /**
+     * Returns the checksum algorithm of the file as string.
+     * @return
+     */
+    public String getChecksumAlgorithmAsString()
+    {
+        if (file.getChecksumAlgorithm() != null)
+        {
+            return file.getChecksumAlgorithm().toString();
+        }
+        return null;
+        
+    }
+    
+    /**
+     * Sends back an html response of content type text/plain that includes the checksum as UTF-8 string.
+     * @return
+     */
+    public String displayChecksum()
+    {
+
+        if (file.getChecksum()!=null && file.getChecksumAlgorithm()!=null)
+        {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
+            response.setContentLength(file.getChecksum().length());
+            response.setContentType("text/plain");
+            try
+            {
+                String filename = this.file.getName();
+                if (filename!=null)
+                {
+                    filename = filename.replace(" ", "_");
+                }
+                else
+                {
+                    filename="";
+                }
+                
+                response.setHeader("Content-disposition", "inline; filename=" + URLEncoder.encode(filename, "UTF-8") + "." + getChecksumAlgorithmAsString().toLowerCase());
+                
+                OutputStream out = response.getOutputStream();
+                out.write(file.getChecksum().getBytes("UTF-8"));
+                out.flush();
+                
+                facesContext.responseComplete();
+                out.close();
+            }
+            catch (Exception e)
+            {
+                error("Could not display checksum of file!");
+               logger.error("Could not display checksum of file", e);
+            }
+      
+           return "";
+        }
+        else
+        {
+            error("Could not display checksum of file!");
+            logger.error("File checksum is null");
+            return "";
+        }
+            
+       
+}
+    
 }

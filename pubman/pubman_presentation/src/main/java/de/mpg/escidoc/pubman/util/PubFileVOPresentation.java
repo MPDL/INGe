@@ -501,4 +501,6 @@ public class PubFileVOPresentation extends FacesBean
     	Visibility newVisibility = (Visibility) event.getNewValue();
     	file.setVisibility(newVisibility);
     }
+    
+   
 }
