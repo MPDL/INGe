@@ -128,6 +128,24 @@ public class AccountUserVO extends ValueObject
         }
         return moderator;
     }
+    
+    /**
+     * Delivers true if the granted role is of type 'md-editor' for any object.
+     */
+    public boolean isMdEditor()
+    {
+        boolean mdEditor = false;
+        for (GrantVO grant : this.grants)
+        {
+            
+            if (grant.getRole().equals(PredefinedRoles.MD_EDITOR.frameworkValue()))
+            {
+                mdEditor = true;
+                break;
+            }
+        }
+        return mdEditor;
+    }
 
     /**
      * Delivers true if the granted role is of type 'moderator' for the given object (normally a PubCollection).
