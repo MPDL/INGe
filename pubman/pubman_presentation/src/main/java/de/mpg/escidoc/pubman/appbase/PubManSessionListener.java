@@ -73,7 +73,7 @@ public class PubManSessionListener implements HttpSessionListener
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Error logging out user", e);
+            logger.warn("Error logging out user", e);
         }
     }
 }

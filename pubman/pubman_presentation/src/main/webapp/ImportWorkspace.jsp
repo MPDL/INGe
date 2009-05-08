@@ -96,7 +96,7 @@
 												</h:panelGroup>
 												<h:outputText styleClass="seperator void" />
 												<span>
-													<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
+													<h:outputText value="#{lbl.submission_lnkImportWorkspace}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</span>
 											</div>
 											<div class="free_area0 sub action">
