@@ -89,8 +89,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     private static String ITEM_WITHOUT_COMPONENTS_FILE = TEST_FILE_ROOT + "item_without_components.xml";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String PDF_RUNAWAY_FILE = TEST_FILE_ROOT + "RunawayMassiveBinariesAndClusterEjectionScenarios.pdf";
-    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.7/item.xsd";
-    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.7/item-list.xsd";
+    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.8/item.xsd";
+    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.8/item-list.xsd";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
     private static final String PREDICATE_FEDORARELATIONSHIP = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#fedoraRelationship";
     private static final String PREDICATE_ISMEMBEROF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isMemberOf";

@@ -178,6 +178,14 @@ public class TestBase
      */
     protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
     /**
+     * The default editor password property.
+     */
+    protected static final String PROPERTY_USERNAME_EDITOR = "framework.editor.username";
+    /**
+     * The default editor password property.
+     */
+    protected static final String PROPERTY_PASSWORD_EDITOR = "framework.editor.password";
+    /**
      * The default admin password property.
      */
     protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
@@ -307,6 +315,20 @@ public class TestBase
     {
         return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader
                 .getProperty(PROPERTY_PASSWORD_AUTHOR));
+    }
+    
+    /**
+     * Logs the user test_editor in and returns the corresponding user handle.
+     * 
+     * @return userHandle
+     * @throws ServiceException
+     * @throws HttpException
+     * @throws IOException
+     */
+    protected static String loginEditor() throws ServiceException, HttpException, IOException, URISyntaxException
+    {
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_EDITOR), PropertyReader
+                .getProperty(PROPERTY_PASSWORD_EDITOR));
     }
 
     /**
