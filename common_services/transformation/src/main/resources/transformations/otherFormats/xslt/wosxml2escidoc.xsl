@@ -39,27 +39,22 @@
    xmlns:fn="http://www.w3.org/2005/xpath-functions"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-   xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-   xmlns:ei="http://www.escidoc.de/schemas/item/0.7"
-   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
-   xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-   xmlns:prop="http://escidoc.de/core/01/properties/"
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-   xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
-   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
-   xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-   xmlns:escidoc="urn:escidoc:functions">
- <!--  xmlns:ei="${xsd.soap.item.item}"
+   xmlns:dc="${xsd.metadata.dc}"
+   xmlns:dcterms="${xsd.metadata.dcterms}"    
+   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:srel="${xsd.soap.common.srel}"   
+   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
+   xmlns:file="${xsd.metadata.file}"
+   xmlns:pub="${xsd.metadata.publication}"
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+   xmlns:escidoc="urn:escidoc:functions"
+   xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+   xmlns:e="${xsd.metadata.escidocprofile.types}"
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}">
- -->
+ 
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -227,10 +222,18 @@
 	</xsl:template>
 	<!-- CREATOR -->
 	<xsl:template name="createPerson">
-		<xsl:element name="e:person">
-			
+		<xsl:param name="familyname"/>
+		<xsl:param name="givenname"/>
+		<xsl:param name="title"/>
+		<xsl:element name="e:person">			
 			<xsl:element name="e:complete-name">
-				<xsl:value-of select="."/>
+				<xsl:value-of select="concat($familyname,', ',$givenname)"/>
+			</xsl:element>
+			<xsl:element name="e:family-name">
+				<xsl:value-of select="$familyname"/>
+			</xsl:element>
+			<xsl:element name="e:given-name">
+				<xsl:value-of select="$givenname"/>
 			</xsl:element>
 			<xsl:if test="../CA">
 				<xsl:element name="e:organization">
@@ -242,10 +245,22 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="AF">
-		<xsl:element name="pub:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
-			<xsl:call-template name="createPerson"/>
-		</xsl:element>
+		<xsl:variable name="var">
+           <xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
+      	</xsl:variable>
+        <xsl:for-each select="$var/authors/author">
+        	<xsl:element name="pub:creator">
+				<xsl:attribute name="role">author</xsl:attribute>
+					<xsl:call-template name="createPerson">
+						<xsl:with-param name="familyname" select="familyname"/>
+						<xsl:with-param name="givenname" select="givenname"/>
+						<xsl:with-param name="title" select="title"/>
+					</xsl:call-template>
+			</xsl:element>
+          
+       </xsl:for-each>
+         
+		
 	</xsl:template>
 	<xsl:template match="AU">
 		<xsl:element name="pub:creator">
@@ -321,14 +336,20 @@
 				
 			<!-- SOURCE CREATOR -->
 			<xsl:if test="ED">
-				<xsl:element name="e:creator">
-					<xsl:attribute name="role">editor</xsl:attribute>
-					<xsl:element name="e:person">
-						<xsl:element name="e:complete-name">
-							<xsl:value-of select="ED"/>
-						</xsl:element>
-					</xsl:element>
-				</xsl:element>
+				<xsl:variable name="var">
+           			<xsl:copy-of select="AuthorDecoder:parseAsNode(ED)"/>
+      			</xsl:variable>
+       			<xsl:for-each select="$var/authors/author">
+        			<xsl:element name="e:creator">
+						<xsl:attribute name="role">editor</xsl:attribute>						
+							<xsl:call-template name="createPerson">
+								<xsl:with-param name="familyname" select="familyname"/>
+								<xsl:with-param name="givenname" select="givenname"/>
+								<xsl:with-param name="title" select="title"/>
+							</xsl:call-template>
+						</xsl:element>          
+      			 </xsl:for-each>
+				
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="VL and not(SE)">
@@ -454,8 +475,11 @@
 					<xsl:when test="$monthStr='DEC'">12</xsl:when>
 				</xsl:choose>
 			</xsl:variable>
-			<xsl:element name="dcterms:created">	
-				<xsl:value-of select="concat(PY,'-',$month)"/>
+			<xsl:element name="dcterms:created">				
+				<xsl:value-of select="PY"/>
+				<xsl:if test="not($month='')">
+					<xsl:value-of select="concat('-',$month)"/>
+				</xsl:if>				
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
@@ -493,7 +517,7 @@
 	<xsl:template match="UT">		
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type">eidt:ISI</xsl:attribute>
-			<xsl:value-of select="."/>
+			<xsl:value-of select="substring-after(.,':')"/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template match="DI">
