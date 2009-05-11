@@ -46,6 +46,7 @@
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
+				<link rel="stylesheet" href="http://labs.creativecommons.org/demos/jswidget/tags/0.97/example_web_app/example-widget-style.css" />
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
