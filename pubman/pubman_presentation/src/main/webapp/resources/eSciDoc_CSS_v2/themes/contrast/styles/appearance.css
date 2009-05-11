@@ -327,6 +327,10 @@
 		background-color: #FFFFFF;
 	}
 	
+	.listBackground .ascSort, .listBackground .descSort {
+		background-color: #FFFFFF;
+	}
+	
 	/*LIST ITEM*/
 	
 		/*GENERAL*/

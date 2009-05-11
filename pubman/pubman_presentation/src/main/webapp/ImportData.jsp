@@ -44,7 +44,7 @@
 		      	<td class="free_area0 endline status">
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 		      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
-						<h:panelGroup styleClass="big_imgArea statusIcon #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
+						<h:panelGroup styleClass="big_imgArea statusIcon ajaxedImport #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
 						<h:outputLabel styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
 							<h:panelGroup rendered="#{!ImportData.import.finished}">
 								<h:outputText value="#{ImportData.import.percentage}"/>% - 
@@ -57,7 +57,10 @@
 		      	<td class="free_area0 endline">
 		      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 		      		<span class="large_area0_p8">
-						<h:outputText value="#{ImportData.import.message}"/>
+						<h:outputLink value="#{ImportData.import.myItemsLink}" rendered="#{ImportData.import.importedItems}">
+							<h:outputText value="#{ImportData.import.message}"/>
+						</h:outputLink>
+						<h:outputText value="#{ImportData.import.message}" rendered="#{!ImportData.import.importedItems}"/>
 		      		</span>
 		      	</td>
 		      	<td class="free_area0 endline">

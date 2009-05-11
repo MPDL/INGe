@@ -123,33 +123,63 @@
 									      	</th>
 									      	<th class="free_area0 endline status statusArea">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
-													<h:outputText styleClass="free_area0_p8" value="#{lbl.import_workspace_status}"/>
+									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STATUS'}">
+													<h:outputText styleClass="medium_area0_p8" value="#{lbl.import_workspace_status}"/>
+												</h:outputLink>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+													<h:outputText styleClass="medium_area0_p8 ascSort" value="#{lbl.import_workspace_status}"/>
+												</h:outputLink>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+													<h:outputText styleClass="medium_area0_p8 desSort" value="#{lbl.import_workspace_status}"/>
 												</h:outputLink>
 											</th>
 									      	<th class="large_area0">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'NAME'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_name}"/>
+												</h:outputLink>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_name}"/>
+												</h:outputLink>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_name}"/>
 												</h:outputLink>	
 									      	</th>
 									      <th class="large_area0">
 									     		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									     		<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+									     		<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'FORMAT'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_format}"/>
 												</h:outputLink>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_format}"/>
+												</h:outputLink>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_format}"/>
+												</h:outputLink>
 									      </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STARTDATE'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_startdate}"/>
+												</h:outputLink>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_startdate}"/>
+												</h:outputLink>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_startdate}"/>
 												</h:outputLink>
 										  </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}">
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'ENDDATE'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_enddate}"/>
 												</h:outputLink>	
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_enddate}"/>
+												</h:outputLink>
+												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_enddate}"/>
+												</h:outputLink>
 										  </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
@@ -186,9 +216,10 @@
 											      	<td class="free_area0 endline">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 											      		<span class="large_area0_p8">
-											      			<h:outputLink value="#{import.myItemsLink}">
+											      			<h:outputLink value="#{import.myItemsLink}" rendered="#{import.importedItems}">
 																<h:outputText value="#{import.message}"/>
 															</h:outputLink>
+															<h:outputText value="#{import.message}" rendered="#{!import.importedItems}"/>
 											      		</span>
 											      	</td>
 											      	<td class="free_area0 endline">
@@ -237,7 +268,7 @@
 																	<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
+																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitandReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 																</tr:commandLink>
 															</h:panelGroup>
@@ -266,11 +297,14 @@
 					window.setTimeout("reloadImports()", 2000);
 				}
 				function reloadDetails() {
-					$('.listItem').find('.statusArea').find('span:not(.FINISHED)').parents('tr').next('.importDetails').each(
-						function(i,ele) {
+					$('.listItem').find('.statusArea').find('span:not(.FINISHED),span.ajaxedImport').parents('tr').next('.importDetails').each(
+						function(i,ele) {	
 							$.get($(ele).prev('.listItem').find('.detailsLinkArea').find('input').val(), function(data) {
 								$(ele).children('td').empty().append(data);
 							});
+							if(($(ele).prev('.listItem').find('.statusArea').find('.FINISHED').length != 0 ) &amp;&amp; ($(ele).prev('.listItem').find('.ajaxedImport').length != 0)) {
+								$(ele).prev('.listItem').find('.ajaxedImport').removeClass('ajaxedImport');
+							}
 						}
 					);
 					window.setTimeout("reloadDetails()", 5000);
