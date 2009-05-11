@@ -52,7 +52,9 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
-   xmlns:escidoc="urn:escidoc:functions">
+   xmlns:escidoc="urn:escidoc:functions"
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"   
+   >
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -702,12 +704,13 @@
 	
 	<xsl:template name="createPerson">
 		<xsl:param name="isSource"/>
+		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		<xsl:element name="e:person">
 			<xsl:element name="e:family-name">
-				<xsl:value-of select="substring-before( ., ', ' )"/>
+				<xsl:value-of select="$person/familyname"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="substring-after( ., ', ' )"/>
+				<xsl:value-of select="$person/givenname"/>
 			</xsl:element>
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="."/>
