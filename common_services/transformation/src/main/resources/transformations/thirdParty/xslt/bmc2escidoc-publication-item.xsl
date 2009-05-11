@@ -42,27 +42,20 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
-   xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-   xmlns:ei="http://www.escidoc.de/schemas/item/0.7"
-   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
-   xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-   xmlns:prop="http://escidoc.de/core/01/properties/"
+   xmlns:mdr="${xsd.soap.common.mdrecords}"
+   xmlns:mdp="${xsd.metadata.escidocprofile}"
+   xmlns:e="${xsd.metadata.escidocprofile.types}"
+   xmlns:ei="${xsd.soap.item.item}"
+   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:srel="${xsd.soap.common.srel}"
+   xmlns:prop="${xsd.soap.common.prop}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
-   xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
-   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
-   xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+   xmlns:ec="${xsd.soap.item.components}"
+   xmlns:file="${xsd.metadata.file}"
+   xmlns:pub="${xsd.metadata.publication}"
    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
    
- <!--  xmlns:ei="${xsd.soap.item.item}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}"
-> -->
 
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>	
