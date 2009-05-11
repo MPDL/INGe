@@ -47,7 +47,6 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
-import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
@@ -73,6 +72,7 @@ public class Util
     private final Logger logger = Logger.getLogger(Util.class);
     private final String internalFormat = "eSciDoc-publication-item";
     private final String internalListFormat = "eSciDoc-publication-item-list";
+    private final String transformationService = "escidoc";
 
     /**
      * Public constructor.
@@ -97,16 +97,16 @@ public class Util
      */
     public String getDefaultEncoding (String formatName)
     {
-        return "UTF-8";
+        return "*";
     }
     
     /**
-     * Default is application/xml
      * @param formatName
      * @return
      */
     public String getDefaultMimeType (String formatName)
     {
+        //Will be replaced by cone
         if (formatName.toLowerCase().equals("apa")) { return "text/html"; }      
         if (formatName.toLowerCase().equals("ajp")) { return "text/html"; }       
         if (formatName.toLowerCase().equals("endnote")) { return "text/plain"; } 
@@ -340,6 +340,7 @@ public class Util
     }
     
     /**
+     * This method retrieves all formats a given format can be transformed into.
      * @param fetchFormats
      * @return Vector of Metadata Value Objects
      */
@@ -352,68 +353,23 @@ public class Util
             MetadataVO md = fetchFormats.get(i);
             Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
             Format [] formats = this.transformer.getTargetFormats(format);
-            
+            formats = this.handleDuplicateFormatNames(formats);
+            //Create MetadataVO
             for (int x = 0; x < formats.length; x++)
             {
                 Format formatTrans = formats[x];
-                MetadataVO mdTrans = new MetadataVO();
-                //TODO: Should be nicer, only when a format can have different mime types, the mimetype will be attached to the format name
-                if (!formatTrans.getName().toLowerCase().equals("bibtex") && !formatTrans.getName().toLowerCase().startsWith("escidoc"))
-                {
-                    mdTrans.setName(formatTrans.getName() + "_" + formatTrans.getType());
-                }        
-                else
-                {
-                    mdTrans.setName(formatTrans.getName());
-                }
+                MetadataVO mdTrans = new MetadataVO(); 
+                mdTrans.setName(formatTrans.getName());
                 mdTrans.setMdFormat(formatTrans.getType());
-                mdTrans.setEncoding(formatTrans.getEncoding());
-                
+                mdTrans.setEncoding(formatTrans.getEncoding());                 
                 allFormats.add(mdTrans);
             }
         }
         return allFormats;
     }
     
-    
-    /**
-     * Returns all formats in which the escidoc format can be transformed.
-     * In this context escidoc acts like a transition format for all other formats.
-     * @return
-     */
-    public Vector<MetadataVO> getTransformationsWithEscidocTransition()
-    {        
-        Format[] formatsArr;
-        Vector<MetadataVO> formatsV = new Vector<MetadataVO>();       
-        Format escidoc = new Format (this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
-                this.getDefaultEncoding(this.getInternalFormat()));      
-        
-        formatsArr = this.transformer.getTargetFormats(escidoc);
-        for (int i = 0; i < formatsArr.length; i++)
-        {
-            Format format = formatsArr[i];
-            MetadataVO md = new MetadataVO();
-            //TODO: Should be nicer, only when a format can have different mime types, the mimetype will be attached to the format name
-            if (!format.getName().toLowerCase().equals("bibtex") && !format.getName().toLowerCase().startsWith("escidoc"))
-            {
-                md.setName(format.getName() + "_" + format.getType());
-            }
-            else
-            {
-                md.setName(format.getName());
-            }
-            md.setMdFormat(format.getType());
-            md.setEncoding(format.getEncoding());
-            
-            formatsV.add(md);
-        }
-
-        return formatsV;
-    }
-    
     /**
      * Checks if a format can use escidoc as transition format.
-     * 
      * @param metadataV
      * @return
      */
@@ -649,26 +605,40 @@ public class Util
         }
     }
     
-//    /**
-//     * This methods gets a vector of formats, checks the formats names and adds
-//     * the format type to the name if the name occurs more than once in the list.
-//     * @param formats
-//     * @return Vector of FormatVOs
-//     */
-//    private Vector<FormatVO> handleDuplicateFormatNames (Vector<FormatVO> formats)
-//    {
-//        FormatVO currentFormat;
-//        
-//        for (int i=0; i<f)
-//        {
-//            
-//        }
-//        
-//        return formats;
-//    }
+    /**
+     * This methods gets a vector of formats, checks the formats names and adds
+     * the format type to the name if the name occurs more than once in the list.
+     * @param formats
+     * @return Vector of FormatVOs
+     */
+    private Format[] handleDuplicateFormatNames (Format[] formats)
+    {       
+        for (int i=0; i<formats.length; i++)
+        {
+            Format currentFormat = formats[i];
+            Format[] currentVector = formats;
+            for (int x = i+1; x< currentVector.length; x++)
+            {
+                Format compareFormat = currentVector[x];
+                if (currentFormat.getName().toLowerCase().equals(compareFormat.getName().toLowerCase()))
+                {
+                    Format updatedFormat = new Format (currentFormat.getName() + "_" + currentFormat.getType(),
+                            currentFormat.getType(),currentFormat.getEncoding());
+                    formats[i] = updatedFormat;
+                }
+            }
+        }
+        
+        return formats;
+    }
     
     public String getInternalFormat()
     {
         return this.internalFormat;
+    }
+
+    public String getTransformationService()
+    {
+        return this.transformationService;
     }
 }

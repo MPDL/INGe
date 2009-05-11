@@ -28,6 +28,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * This class provides the implementation of the {@link Unapi} interface.
@@ -234,7 +235,15 @@ public class UnapiServlet extends HttpServlet implements Unapi
         //get transformable formats via escidoc format
         if (util.checkEscidocTransition(metadataV, identifier))
         {
-            metadataV.addAll(util.getTransformationsWithEscidocTransition());
+            String transitionFormatName = util.getInternalFormat();
+            MetadataVO transitionFormat = new MetadataVO ();
+            transitionFormat.setName(transitionFormatName);
+            transitionFormat.setEncoding(util.getDefaultEncoding(transitionFormatName));
+            transitionFormat.setMdFormat(util.getDefaultMimeType(transitionFormatName));
+            Vector<MetadataVO> transitionFormatV = new Vector<MetadataVO> ();
+            transitionFormatV.add(transitionFormat);
+            //Call method with transition format escidoc
+            metadataV.addAll(util.getTransformFormats(transitionFormatV));
         }
         metadataV = util.getRidOfDuplicatesInVector(metadataV);
 

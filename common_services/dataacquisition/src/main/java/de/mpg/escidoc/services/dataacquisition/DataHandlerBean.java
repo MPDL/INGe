@@ -353,6 +353,7 @@ public class DataHandlerBean implements DataHandler
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
+                //Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
                 item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
