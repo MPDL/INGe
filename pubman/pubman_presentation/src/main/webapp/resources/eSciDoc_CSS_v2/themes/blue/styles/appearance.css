@@ -376,7 +376,7 @@ FORM BG			#FFFFFF
 		background-color: #A1CBDA;
 	}
 	
-	.fullItem, .listBackground {
+	.fullItem, .listBackground, .listBackground .seperator {
 		background-color: #ffffff;
 	}
 

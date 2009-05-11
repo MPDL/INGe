@@ -339,7 +339,7 @@
 		background-color: #D0AFD3;
 	}
 	
-	.fullItem, .listBackground {
+	.fullItem, .listBackground, .listBackground .seperator {
 		background-color: #ffffff;
 	}
 
