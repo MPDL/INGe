@@ -129,7 +129,7 @@ public class PubItemPublishingBean implements PubItemPublishing
         try
         {
             ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-            ItemHandler adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
+            //ItemHandler adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
             String actualItem;
             PubItemVO actualItemVO;
             String url;
@@ -153,7 +153,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             try
             {
                 // Assign floating PID
-                result = adminHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
+                result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
     
                 LOGGER.debug("Floating PID assigned: " + result);
             }
@@ -183,7 +183,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             try
             {
                 // Assign version PID
-                result = adminHandler.assignVersionPid(
+                result = itemHandler.assignVersionPid(
                         actualItemVO.getVersion().getObjectId() + ":"
                         + actualItemVO.getVersion().getVersionNumber(), paramXml);
 
@@ -216,7 +216,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                     paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
                     
                     // Assign component PID
-                    result = adminHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
+                    result = itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
                             file.getReference().getObjectId(), paramXml);
     
                     LOGGER.debug("PID assigned: " + result);

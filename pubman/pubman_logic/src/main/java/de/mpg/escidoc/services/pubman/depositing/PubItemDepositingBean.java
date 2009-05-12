@@ -245,7 +245,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws SecurityException, TechnicalException
+    public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws TechnicalException
     {
         if (user == null)
         {
@@ -355,25 +355,13 @@ public class PubItemDepositingBean implements PubItemDepositing
             }
             else
             {
-                
                 logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
                 
-                boolean itemHasToBeSubmitted = PubItemVO.State.RELEASED.equals(pubItem.getVersion().getState());
                 // Update the item and set message
                 itemStored = itemHandler.update(pubItem.getVersion().getObjectId(), itemXML);
-                message = PUBITEM_UPDATED;
-                // Submit item if original in state released.
-                if (itemHasToBeSubmitted)
-                {
-                    pubItemStored = xmlTransforming.transformToPubItem(itemStored);
-                    TaskParamVO taskParam = new TaskParamVO(pubItemStored.getModificationDate(), "Submission during save released item.");
-                    itemHandler.submit(pubItemStored.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
-                    ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { pubItemStored.getVersion().getObjectId(), user.getUserid() });
-
-                    // Retrieve item once again.
-                    itemStored = itemHandler.retrieve(pubItemStored.getVersion().getObjectId());
-                }
+                message = PUBITEM_UPDATED;  
             }
+           
             // Transform the item and log the action.
             pubItemStored = xmlTransforming.transformToPubItem(itemStored);
             ApplicationLog.info(message, new Object[] { pubItemStored.getVersion().getObjectId(), user.getUserid() });
@@ -534,6 +522,8 @@ public class PubItemDepositingBean implements PubItemDepositing
         // Release the item
         try
         {
+           
+ 
             // Because no workflow system is used at this time
             // automatic release is triggered here
             // item has to be retrieved again to get actual modification date
