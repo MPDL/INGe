@@ -96,6 +96,7 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -1052,7 +1053,20 @@ public class EditItem extends FacesBean
                 }
             }
             
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+           
+            String retVal = "";
+            //If item is released, submit it additionally (because it is pending after the save)
+            if(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState().equals(ItemVO.State.RELEASED))
+            {
+                retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+            }
+            else
+            {
+                //only save it
+                retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+            }
+            
+            
 
             if (retVal == null)
             {
@@ -1509,8 +1523,8 @@ public class EditItem extends FacesBean
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
         this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner);
         this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID);
-        this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision) &&  isWorkflowStandard && isOwner);
-        this.lnkSave.setRendered(((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator));
+        this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision || isStateReleased) &&  isWorkflowStandard && isOwner);
+        this.lnkSave.setRendered(((isStatePending || isStateInRevision || isStateReleased) && isOwner) || (isStateSubmitted && isModerator));
         
         /*
         this.lnkAccept.setRendered(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getContext()));

@@ -384,7 +384,7 @@ public class ItemControllerSessionBean extends FacesBean
                 }
                 catch (Exception e)
                 {
-                    logger.error("Could not submit item." + "\n" + e.toString());
+                    logger.error("Could not submit item." + "\n", e);
                     ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
@@ -2048,8 +2048,8 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.debug(e.toString());
-            Login login = (Login) getSessionBean(Login.class);
-            login.forceLogout();
+            //Login login = (Login) getSessionBean(Login.class);
+            //login.forceLogout();
             throw e;
         }
         
