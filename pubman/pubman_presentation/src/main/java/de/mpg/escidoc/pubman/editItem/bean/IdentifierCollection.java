@@ -91,12 +91,18 @@ public class IdentifierCollection
         SelectItem IDENTIFIERTYPE_ISSN = new SelectItem(IdentifierVO.IdType.ISSN.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ISSN"));
         SelectItem IDENTIFIERTYPE_DOI = new SelectItem(IdentifierVO.IdType.DOI.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_DOI"));
         SelectItem IDENTIFIERTYPE_URN = new SelectItem(IdentifierVO.IdType.URN.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_URN"));
+        SelectItem IDENTIFIERTYPE_PII = new SelectItem(IdentifierVO.IdType.PII.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_PII"));
         SelectItem IDENTIFIERTYPE_EDOC = new SelectItem(IdentifierVO.IdType.EDOC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_EDOC"));
         SelectItem IDENTIFIERTYPE_ESCIDOC = new SelectItem(IdentifierVO.IdType.ESCIDOC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ESCIDOC"));
         SelectItem IDENTIFIERTYPE_ISI = new SelectItem(IdentifierVO.IdType.ISI.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ISI"));
         SelectItem IDENTIFIERTYPE_PND = new SelectItem(IdentifierVO.IdType.PND.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_PND"));
+        SelectItem IDENTIFIERTYPE_ZDB = new SelectItem(IdentifierVO.IdType.ZDB.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ZDB"));
+        SelectItem IDENTIFIERTYPE_PMID = new SelectItem(IdentifierVO.IdType.PMID.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_PMID"));
+        SelectItem IDENTIFIERTYPE_ARXIV = new SelectItem(IdentifierVO.IdType.ARXIV.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ARXIV"));
+        SelectItem IDENTIFIERTYPE_PMC = new SelectItem(IdentifierVO.IdType.PMC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_PMC"));
+        SelectItem IDENTIFIERTYPE_BMC = new SelectItem(IdentifierVO.IdType.BMC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_BMC"));
         SelectItem IDENTIFIERTYPE_OTHER = new SelectItem(IdentifierVO.IdType.OTHER.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_OTHER"));
-        return new SelectItem[] {NO_ITEM_SET, IDENTIFIERTYPE_URI, IDENTIFIERTYPE_ISBN, IDENTIFIERTYPE_ISSN, IDENTIFIERTYPE_DOI, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_EDOC, IDENTIFIERTYPE_ESCIDOC, IDENTIFIERTYPE_ISI, IDENTIFIERTYPE_PND, IDENTIFIERTYPE_OTHER};
+        return new SelectItem[] {NO_ITEM_SET, IDENTIFIERTYPE_URI, IDENTIFIERTYPE_ISBN, IDENTIFIERTYPE_ISSN, IDENTIFIERTYPE_DOI, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_PII, IDENTIFIERTYPE_EDOC, IDENTIFIERTYPE_ESCIDOC, IDENTIFIERTYPE_ISI, IDENTIFIERTYPE_PND, IDENTIFIERTYPE_ZDB, IDENTIFIERTYPE_PMID, IDENTIFIERTYPE_ARXIV, IDENTIFIERTYPE_PMC, IDENTIFIERTYPE_BMC, IDENTIFIERTYPE_OTHER};
     }
 
     /**
