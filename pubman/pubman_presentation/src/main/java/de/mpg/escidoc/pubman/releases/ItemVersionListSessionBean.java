@@ -42,6 +42,7 @@ import de.mpg.escidoc.pubman.util.EventLogEntryVOPresentation;
 import de.mpg.escidoc.pubman.util.VersionHistoryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO.EventType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
@@ -57,7 +58,7 @@ public class ItemVersionListSessionBean extends FacesBean
     
     private List<VersionHistoryVOPresentation> versionList = new ArrayList<VersionHistoryVOPresentation>();
    
-    private List<VersionHistoryVOPresentation> releaseList = new ArrayList<VersionHistoryVOPresentation>();
+    private List<EventLogEntryVOPresentation> releaseList = new ArrayList<EventLogEntryVOPresentation>();
     
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
@@ -98,23 +99,27 @@ public class ItemVersionListSessionBean extends FacesBean
 	    }
 	    
 	    
-	    this.releaseList = new ArrayList<VersionHistoryVOPresentation>();
+	    this.releaseList = new ArrayList<EventLogEntryVOPresentation>();
 	    
 	    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 	    
 	    for(VersionHistoryVOPresentation vEntry : versionList)
 	    {
-	        //if state=released add to release list
-            if (vEntry.getState() == PubItemVO.State.RELEASED)
-            {
-                releaseList.add(vEntry);
-            }
+	        
             
             
-            //add all eventlog-entries to eventloglist
+            
+            
             List<EventLogEntryVO> eventList = vEntry.getEvents();
             for (EventLogEntryVO eEntry : eventList)
             {
+              //if state=released add to release list
+                if (eEntry.getType() == EventType.RELEASE)
+                {
+                    releaseList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
+                }
+                
+              //add all eventlog-entries to eventloglist
                 eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
             }
 	            
@@ -134,15 +139,7 @@ public class ItemVersionListSessionBean extends FacesBean
         this.eventLogList = null;
 	}
 
-    public List<VersionHistoryVOPresentation> getReleaseList()
-    {
-        return releaseList;
-    }
-
-    public void setReleaseList(List<VersionHistoryVOPresentation> releaseList)
-    {
-        this.releaseList = releaseList;
-    }
+   
 
     public List<EventLogEntryVOPresentation> getEventLogList()
     {
@@ -162,6 +159,16 @@ public class ItemVersionListSessionBean extends FacesBean
     public UIXIterator getEventIterator()
     {
         return eventIterator;
+    }
+
+    public void setReleaseList(List<EventLogEntryVOPresentation> releaseList)
+    {
+        this.releaseList = releaseList;
+    }
+
+    public List<EventLogEntryVOPresentation> getReleaseList()
+    {
+        return releaseList;
     }
     
     

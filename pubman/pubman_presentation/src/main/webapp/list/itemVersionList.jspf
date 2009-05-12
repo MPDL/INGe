@@ -22,8 +22,8 @@ CDDL HEADER END
 
 
 Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
@@ -35,7 +35,7 @@ All rights reserved. Use is subject to license terms.
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
-			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.versionHistoryVO.reference.versionNumber}"/>
 		</h3>
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
@@ -44,7 +44,7 @@ All rights reserved. Use is subject to license terms.
 					<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{entry.formattedModificationDate}"/>
+					<h:outputText value="#{entry.formattedDate}"/>
 				</span>
 			</div>
 			<div class="free_area0 endline itemLine noTopBorder">
@@ -52,7 +52,7 @@ All rights reserved. Use is subject to license terms.
 					<h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{entry.reference.lastMessage}" />
+					<h:outputText value="#{entry.versionHistoryVO.reference.lastMessage}" />
 				</span>
 			</div>
 		</div>
