@@ -59,7 +59,23 @@ public class IdentifierVO extends ValueObject implements Cloneable
      */
     public enum IdType
     {
-        CONE, URI, ISBN, ISSN, DOI, URN, EDOC, ESCIDOC, ISI, PND, OTHER
+        CONE, 
+        URI, 
+        ISBN, 
+        ISSN, 
+        DOI, 
+        URN,
+        PII,
+        EDOC, 
+        ESCIDOC, 
+        ISI, 
+        PND,
+        ZDB,
+        PMID,
+        ARXIV,
+        PMC,
+        BMC,
+        OTHER
     }
 
     private String id;
