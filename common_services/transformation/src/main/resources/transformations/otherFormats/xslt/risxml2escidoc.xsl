@@ -51,6 +51,7 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:escidoc="urn:escidoc:functions">
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -261,18 +262,19 @@
 	</xsl:template>
 	<!-- CREATOR -->
 	<xsl:template name="createPerson">
+		<xsl:param name="familyname"/>
+		<xsl:param name="givenname"/>
+		<xsl:param name="title"/>
 		<xsl:element name="e:person">
-			<!--<xsl:call-template name="parseCreators">
-				<xsl:with-param name="string" select="."/>
-			</xsl:call-template>-->
+			
 			<xsl:element name="e:complete-name">
 				<xsl:value-of select="."/>
 			</xsl:element>
 			<xsl:element name="e:family-name">
-				<xsl:value-of select="substring-before(.,',')"/>
+				<xsl:value-of select="$familyname"/>
 			</xsl:element>
 			<xsl:element name="e:given-name">
-				<xsl:value-of select="substring-after(.,',')"/>
+				<xsl:value-of select="$givenname"/>
 			</xsl:element>
 			<xsl:if test="../AD">
 				<xsl:element name="e:organization">
@@ -284,27 +286,48 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="A1">
-		<xsl:element name="pub:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
-			<xsl:call-template name="createPerson"/>
-		</xsl:element>
+		<xsl:variable name="var">
+           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
+      	</xsl:variable>
+       	<xsl:for-each select="$var/authors/author">
+        	<xsl:element name="pub:creator">
+				<xsl:attribute name="role">author</xsl:attribute>						
+				<xsl:call-template name="createPerson">
+					<xsl:with-param name="familyname" select="familyname"/>
+					<xsl:with-param name="givenname" select="givenname"/>
+					<xsl:with-param name="title" select="title"/>
+				</xsl:call-template>
+			</xsl:element>          
+      	</xsl:for-each>		
 	</xsl:template>
 	<xsl:template match="AU">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
-			<xsl:call-template name="createPerson"/>
+			<xsl:call-template name="createPerson">
+				<xsl:with-param name="familyname" select="familyname"/>
+				<xsl:with-param name="givenname" select="givenname"/>
+				<xsl:with-param name="title" select="title"/>
+			</xsl:call-template>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="A2">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
-			<xsl:call-template name="createPerson"/>
+			<xsl:call-template name="createPerson">
+				<xsl:with-param name="familyname" select="familyname"/>
+				<xsl:with-param name="givenname" select="givenname"/>
+				<xsl:with-param name="title" select="title"/>
+			</xsl:call-template>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="ED">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
-			<xsl:call-template name="createPerson"/>
+			<xsl:call-template name="createPerson">
+				<xsl:with-param name="familyname" select="familyname"/>
+				<xsl:with-param name="givenname" select="givenname"/>
+				<xsl:with-param name="title" select="title"/>
+			</xsl:call-template>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template name="parseCreators">
@@ -387,14 +410,20 @@
 			</xsl:choose>
 			<!-- SOURCE CREATOR -->
 			<xsl:if test="A3">
-				<xsl:element name="pub:creator">
-					<xsl:attribute name="role">author</xsl:attribute>
-					<xsl:element name="e:person">
-						<xsl:element name="e:complete-name">
-							<xsl:value-of select="A3"/>
-						</xsl:element>
-					</xsl:element>
-				</xsl:element>
+				<xsl:variable name="var">
+           			<xsl:copy-of select="AuthorDecoder:parseAsNode(A3)"/>
+      			</xsl:variable>
+       			<xsl:for-each select="$var/authors/author">
+        			<xsl:element name="e:creator">
+						<xsl:attribute name="role">author</xsl:attribute>						
+						<xsl:call-template name="createPerson">
+							<xsl:with-param name="familyname" select="familyname"/>
+							<xsl:with-param name="givenname" select="givenname"/>
+							<xsl:with-param name="title" select="title"/>
+						</xsl:call-template>
+					</xsl:element>          
+      			</xsl:for-each>
+				
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="ET and VL">
