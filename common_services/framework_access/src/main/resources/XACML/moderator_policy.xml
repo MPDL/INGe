@@ -393,4 +393,22 @@
 			</Apply>
 		</Condition>
 	</Rule>
+	<Rule RuleId="Moderator-policy-rule-cregrpandgrnts" Effect="Permit">
+			<Target>
+				<Subjects>
+					<AnySubject/>
+				</Subjects>
+				<Resources>
+					<AnyResource/>
+				</Resources>
+				<Actions>
+					<Action>
+						<ActionMatch MatchId="info:escidoc/names:aa:1.0:function:string-contains">
+							<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">info:escidoc/names:aa:1.0:action:create-grant info:escidoc/names:aa:1.0:action:revoke-grant info:escidoc/names:aa:1.0:action:revoke-grants info:escidoc/names:aa:1.0:action:retrieve-grant info:escidoc/names:aa:1.0:action:create-user-group-grant info:escidoc/names:aa:1.0:action:revoke-user-group-grant info:escidoc/names:aa:1.0:action:revoke-user-group-grants info:escidoc/names:aa:1.0:action:retrieve-user-group-grants info:escidoc/names:aa:1.0:action:add-user-group-selectors info:escidoc/names:aa:1.0:action:remove-user-group-selectors info:escidoc/names:aa:1.0:action:retrieve-user-account info:escidoc/names:aa:1.0:action:retrieve-user-group info:escidoc/names:aa:1.0:action:create-user-group info:escidoc/names:aa:1.0:action:update-user-group</AttributeValue>
+							<ActionAttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+						</ActionMatch>
+					</Action>
+				</Actions>
+			</Target>
+		</Rule>
 </Policy>
