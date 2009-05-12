@@ -63,6 +63,7 @@ import de.mpg.escidoc.pubman.EditItemPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.PubManSessionBean;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
@@ -83,6 +84,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -1433,6 +1435,16 @@ public class EditItem extends FacesBean
     {
         return (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
     }
+    
+    
+    /**
+     * Returns a reference to the scoped data bean (the PubManSessionBean).
+     * @return a reference to the scoped data bean
+     */
+    protected de.mpg.escidoc.pubman.PubManSessionBean getPubManSessionBean()
+    {
+        return (PubManSessionBean)getSessionBean(PubManSessionBean.class);
+    }
 
     /**
      * Returns the ContextListSessionBean.
@@ -2077,7 +2089,11 @@ public class EditItem extends FacesBean
         return suggestConeUrl;
     }
     
-    
+    public String getCcScriptTag()
+    {
+    	PubManSessionBean sessionBean = this.getPubManSessionBean();
+        return "<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.97/complete.js?locale=" + sessionBean.getLocale() + "'>;</script>";
+    }
 
     public void setSuggestConeUrl(String suggestConeUrl)
     {
