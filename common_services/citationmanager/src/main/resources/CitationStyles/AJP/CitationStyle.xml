@@ -78,7 +78,7 @@
 					${publication/degree}.equals("phd") ? 
 					"PhD Thesis" :
 					${publication/degree}
-				) : null
+				) : "Thesis"
 			]]>
 		</variable>
 		
@@ -582,30 +582,6 @@
 						
 		</elements>
 	</cs-layout-definition>
-
-	<cs-layout-definition name="Report">
-		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("report") ]]></valid-if>
-			<delimiter value=", " />
-			<ends-with value="." />
-		</parameters>
-		<elements>
-
-<!--			<layout-element ref="debug" />-->
-			
-			<layout-element ref="creators" />
-
-			<layout-element ref="publication/identifier[contains(@type,'OTHER')]" >
-				<parameters>
-					<starts-with value="Report No. "/>
-				</parameters>
-				<elements/>
-			</layout-element>
-			
-			<layout-element ref="date" />
-						
-		</elements>
-	</cs-layout-definition>	
 	
 	<cs-layout-definition name="Generic">
 		<parameters>
