@@ -41,7 +41,7 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
- * TODO Description
+ * JSF bean class (request) to hold data for the import workspace.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -54,7 +54,13 @@ public class ImportWorkspace extends FacesBean
     private ImportLog.SortColumn sortColumn = SortColumn.STARTDATE;
     private ImportLog.SortDirection sortDirection = SortDirection.DESCENDING;
     
-    List<ImportLog> imports = null;
+    private List<ImportLog> imports = null;
+    
+    /**
+     * Default constructor.
+     * 
+     * Retrieves the sorting information from the request parameters.
+     */
     public ImportWorkspace()
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -75,10 +81,11 @@ public class ImportWorkspace extends FacesBean
         String currentColumnString = facesContext.getExternalContext().getRequestParameterMap().get("currentColumn");
         if (currentColumnString != null && !"".equals(currentColumnString))
         {
-             currentColumn = SortColumn.valueOf(currentColumnString);
+            currentColumn = SortColumn.valueOf(currentColumnString);
         }
         
-        String currentDirectionString = facesContext.getExternalContext().getRequestParameterMap().get("currentDirection");
+        String currentDirectionString
+            = facesContext.getExternalContext().getRequestParameterMap().get("currentDirection");
         if (currentDirectionString != null && !"".equals(currentDirectionString))
         {
             currentDirection = SortDirection.valueOf(currentDirectionString);

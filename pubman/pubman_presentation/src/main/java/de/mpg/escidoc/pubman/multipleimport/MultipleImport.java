@@ -76,10 +76,10 @@ public class MultipleImport extends FacesBean
     public static final Format RIS_FORMAT = new Format("ris", "text/plain", "UTF-8");
     public static final Format WOS_FORMAT = new Format("wos", "text/plain", "UTF-8");
     
-    public TreeMap<String, Object> importFormats = new TreeMap<String, Object>();
-    public UploadedFile uploadedImportFile;
+    private TreeMap<String, Object> importFormats = new TreeMap<String, Object>();
+    private UploadedFile uploadedImportFile;
     
-    public ImportProcess importProcess = null;
+    private ImportProcess importProcess = null;
     
     private ContextVO context;
     private Format format;
@@ -136,7 +136,7 @@ public class MultipleImport extends FacesBean
 //        }
         importFormats.put("Endnote", ENDNOTE_FORMAT);
         importFormats.put("BibTeX", BIBTEX_FORMAT);
-//        importFormats.put("eDoc", EDOC_FORMAT);
+        importFormats.put("eDoc", EDOC_FORMAT);
         importFormats.put("RIS", RIS_FORMAT);
         importFormats.put("WoS", WOS_FORMAT);
         importFormats.put("eSciDoc", ESCIDOC_FORMAT);

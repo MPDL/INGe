@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.multipleimport.ImportLog.ErrorLevel;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog.Status;
 import de.mpg.escidoc.pubman.multipleimport.processor.ArxivProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.BibtexProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.EdocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EscidocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
@@ -322,6 +323,10 @@ public class ImportProcess extends Thread
             else if (ESCIDOC_FORMAT.matches(format))
             {
                 this.formatProcessor = new EscidocProcessor();
+            }
+            else if (EDOC_FORMAT.matches(format))
+            {
+                this.formatProcessor = new EdocProcessor();
             }
             else
             {

@@ -138,7 +138,7 @@
 				for (var i = 0; i < details.http_escidoc_mpg_de_position.length; i++)
 				{
 					if (details.http_escidoc_mpg_de_position[i].http_escidoc_mpg_de_organization == orgName
-						&& typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined')
+						&& typeof details.http_escidoc_mpg_de_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined')
 					{
 						orgId = details.http_escidoc_mpg_de_position[i].http_purl_org_dc_elements_1_1_identifier;
 						break;
