@@ -1,14 +1,15 @@
 
 <escidocItem:item xmlns:dc="http://purl.org/dc/elements/1.1/" 
     xmlns:dcterms="http://purl.org/dc/terms/"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"	
+	xmlns:escidocItem="${xsd.soap.item.item}"	
 	xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:prop="http://escidoc.de/core/01/properties/"
-    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-	xmlns:version="http://escidoc.de/core/01/properties/version/"
-	xmlns:release="http://escidoc.de/core/01/properties/release/"
-	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
+    xmlns:prop="${xsd.soap.common.prop}"
+    xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
+	xmlns:file="${xsd.metadata.file}">
 	<escidocItem:properties>
 		<srel:context objid="$1" />
 		<srel:content-model objid="$2" />
@@ -19,7 +20,7 @@
             $3
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-	<escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7">
+	<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
 		<escidocComponents:component>
 			<escidocComponents:properties xmlns:xlink="http://www.w3.org/1999/xlink">
 				<prop:description>$4</prop:description>
@@ -32,7 +33,7 @@
 			<escidocComponents:content xlink:type="simple" storage="internal-managed">$6</escidocComponents:content>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<dc:title>$5</dc:title>
 						<dc:description>$4</dc:description>
 						<dc:identifier xsi:type="eidt:OTHER">$7</dc:identifier>
