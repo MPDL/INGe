@@ -31,16 +31,31 @@
 package de.mpg.escidoc.services.transformation;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Vector;
 
+import javax.xml.parsers.DocumentBuilder;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -53,6 +68,8 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  */
 public class Util
 {
+    private static Logger logger = Logger.getLogger(Util.class);
+    
     /**
      * Converts a simpleLiteral Objects into a String Object.
      * @param sl as SimpleLiteral
@@ -243,5 +260,79 @@ public class Util
             thisMimetype = "application/rtf";
         }
         return thisMimetype;
+    }
+    
+    /**
+     * Queries CoNE service and returns the result as DOM node.
+     * The returned XML has the following structure:
+     * <cone>
+     *   <author>
+     *     <familyname>Buxtehude-Mölln</familyname>
+     *     <givenname>Heribert</givenname>
+     *     <prefix>von und zu</prefix>
+     *     <title>König</title>
+     *   </author>
+     *   <author>
+     *     <familyname>Müller</familyname>
+     *     <givenname>Peter</givenname>
+     *   </author>
+     * </authors>
+     * 
+     * @param authors
+     * @return
+     */
+    public static Node queryCone(String model, String query)
+    {
+        DocumentBuilder documentBuilder;
+
+        try
+        {
+            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+        
+            Document document = documentBuilder.newDocument();
+            Element element = document.createElement("cone");
+            document.appendChild(element);
+            
+            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                + "jquery/" + model + "/query?q=" + URLEncoder.encode(query, "UTF-8");
+            String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                + "rdf/" + model + "/details/";
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            client.executeMethod(method);
+            if (method.getStatusCode() == 200)
+            {
+                String[] results = method.getResponseBodyAsString().split("\n");
+                for (String result : results)
+                {
+                    if (!"".equals(result.trim()))
+                    {
+                        String id = result.split("\\|")[1];
+                        GetMethod detailMethod = new GetMethod(detailsUrl + id);
+                        client.executeMethod(detailMethod);
+                        if (detailMethod.getStatusCode() == 200)
+                        {
+                            Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
+                            element.appendChild(document.importNode(details.getFirstChild(), true));
+                        }
+                        else
+                        {
+                            logger.error("Error querying CoNE: Status "
+                                    + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                        }
+                    }
+                }
+            }
+            else
+            {
+                logger.error("Error querying CoNE: Status "
+                        + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+            }
+            return document;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
