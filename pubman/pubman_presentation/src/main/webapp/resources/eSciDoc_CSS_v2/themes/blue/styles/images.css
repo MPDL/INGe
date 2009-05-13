@@ -684,3 +684,10 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 	}
+	
+	.ccLicense {
+		padding-left: 1.37em;
+		background-image: url('../images/cc.gif');
+		background-repeat: no-repeat;
+		background-position: center left;
+	}
