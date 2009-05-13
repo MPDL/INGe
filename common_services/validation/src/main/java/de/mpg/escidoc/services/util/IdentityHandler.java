@@ -50,6 +50,7 @@ public class IdentityHandler extends ShortContentHandler
     private StringWriter result = new StringWriter();
     Map<String, String> nameSpaces = new HashMap<String, String>();
     String defaultNameSpace = null;
+    int length = 0;
     
     public String getResult()
     {
@@ -59,6 +60,7 @@ public class IdentityHandler extends ShortContentHandler
     public void append(String str)
     {
         result.append(str);
+        this.length += str.length();
     }
 
     @Override
@@ -68,8 +70,11 @@ public class IdentityHandler extends ShortContentHandler
         super.endElement(uri, localName, name);
         
         result.append("</");
+        this.length += 2;
         result.append(name);
+        this.length += name.length();
         result.append(">");
+        this.length += 1;
 
     }
 
@@ -80,17 +85,24 @@ public class IdentityHandler extends ShortContentHandler
         super.startElement(uri, localName, name, attributes);
 
         result.append("<");
+        this.length += 1;
         result.append(name);
+        this.length += name.length();
         for (int i = 0; i < attributes.getLength(); i++) {
 
             result.append(" ");
+            this.length += 1;
             result.append(attributes.getQName(i));
+            this.length += attributes.getQName(i).length();
             result.append("=\"");
+            this.length += 2;
             result.append(escape(attributes.getValue(i)));
+            this.length += escape(attributes.getValue(i)).length();
             result.append("\"");
-
+            this.length += 2;
         }
         result.append(">");
+        this.length += 1;
     }
     
     public String escape(String input)
@@ -110,6 +122,7 @@ public class IdentityHandler extends ShortContentHandler
     {
         super.content(uri, localName, name, content);
         result.append(escape(content));
+        this.length += escape(content).length();
     }
 
     /* (non-Javadoc)
@@ -120,11 +133,19 @@ public class IdentityHandler extends ShortContentHandler
     {
         super.processingInstruction(name, params);
         result.append("<?");
+        this.length += 2;
         result.append(name);
+        this.length += name.length();
         result.append(" ");
+        this.length += 1;
         result.append(params);
+        this.length += params.length();
         result.append("?>");
+        this.length += 2;
     }
     
-    
+    public int getResultLength()
+    {
+        return this.length;
+    }
 }
