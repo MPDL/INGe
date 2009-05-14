@@ -43,10 +43,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
-import org.purl.sword.base.HttpHeaders;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.SWORDContentTypeException;
 
+import de.mpg.escidoc.pubman.HomePage;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
@@ -99,7 +99,7 @@ public class PubManDepositServlet extends HttpServlet
 
       this.logger.debug("Starting deposit processing by " + request.getRemoteAddr());
 
-      // AUTHENTIFICATION -----------------------------------------------------------------
+      // Authentification -----------------------------------------------------------------
       String usernamePassword = this.getUsernamePassword(request);
       if ((usernamePassword != null) && (!usernamePassword.equals(""))) 
       {
@@ -107,7 +107,7 @@ public class PubManDepositServlet extends HttpServlet
          if (p != -1) 
          {
             deposit.setUsername(usernamePassword.substring(0, p));
-            deposit.setPassword(usernamePassword.substring(p+1));
+            deposit.setPassword(usernamePassword.substring(p + 1));
             user = util.getAccountUser(deposit.getUsername(), deposit.getPassword());
             this.pubMan.setCurrentUser(user);
          } 
@@ -116,78 +116,81 @@ public class PubManDepositServlet extends HttpServlet
       {
           String s = "Basic realm=\"SWORD\"";
           response.setHeader("WWW-Authenticate", s);
-          response.setStatus(401);
+          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
           return;
       }
 
-      // DEPOSIT --------------------------------------------------------------------------
+      // Deposit --------------------------------------------------------------------------
       try {
 
             //Check if login was successfull
             if (this.pubMan.getCurrentUser() == null)
             {
                 this.logger.info("User: " + deposit.getUsername() + " not recognized.");
-                response.sendError(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION, "User: " + deposit.getUsername() + " not recognized.");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User: " + deposit.getUsername() + " not recognized.");
                 this.pubMan.setCurrentUser(null);
                 return;
             }
-          
-            this.collection = request.getParameter("collection");
+            this.logger.info("Authentification sucessfull");
+            
             //Check if collection was provided
+            this.collection = request.getParameter("collection");
             if (this.collection == null || this.collection.equals(""))
             {
                 this.logger.info("No collection provided in request.");
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No collection provided in request.");
                 this.pubMan.setCurrentUser(null);
                 return;
-            }
+            }           
             //Check if user has depositing rights for this collection
             else
             {
+                this.logger.info("Deposit request for collection: " + this.collection);
+                
                 if (!util.checkCollection(this.collection, user))
                 {
-                   this.logger.error("User: " + deposit.getUsername() + 
+                    this.logger.error("User: " + deposit.getUsername() + 
                             " does not have depositing rights for collection " + this.collection +".");
-                   response.sendError(HttpServletResponse.SC_FORBIDDEN, "User: " + deposit.getUsername() + 
-                           " does not have depositing rights for collection " + this.collection +".");
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "User: " + deposit.getUsername() + 
+                            " does not have depositing rights for collection " + this.collection +".");
                    this.pubMan.setCurrentUser(null);
                    return;
                 }
             }
-            
+
             deposit.setFile(request.getInputStream());
 
             // Set the X-No-Op header
-            String noop = request.getHeader(HttpHeaders.X_NO_OP);
+            String noop = request.getHeader("X-No-Op");
             if ((noop != null) && (noop.equals("true"))) 
             {
                deposit.setNoOp(true);
-            } else 
+            } 
+            else 
             {
                deposit.setNoOp(false);
             }
 
             // Set the X-Verbose header
-//            String verbose = request.getHeader(HttpHeaders.X_VERBOSE);
-//            if ((verbose != null) && (verbose.equals("true"))) 
-//            {
-//               deposit.setVerbose(true);
-//            } 
-//            else 
-//            {
-//               deposit.setVerbose(false);
-//            }
-            
+            String verbose = request.getHeader("X-Verbose");
+            if ((verbose != null) && (verbose.equals("true"))) 
+            {
+               deposit.setVerbose(true);
+            } 
+            else 
+            {
+               deposit.setVerbose(false);
+            }
+
             // Get the DepositResponse
             DepositResponse dr = this.pubMan.doDeposit(deposit, this.collection);
-            
-            // Print out the Deposit Response
-            response.setStatus(dr.getHttpResponse());
+
+            response.setStatus(dr.getHttpResponse());      
             response.setContentType("application/xml");
             PrintWriter out = response.getWriter();
             out.write(dr.marshall());
             out.flush();
-          
+            
       } 
       catch (SWORDAuthenticationException sae) 
       {
@@ -201,7 +204,7 @@ public class PubManDepositServlet extends HttpServlet
       }
       catch (Exception ioe) 
       {
-         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, this.getError());
+          response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, this.getError());
          this.logger.error(ioe.toString());
       } 
       this.pubMan.setCurrentUser(null);
@@ -232,7 +235,7 @@ public class PubManDepositServlet extends HttpServlet
       }
       return null;
    }
-   
+
 
    public PubManSwordServer getPubMan()
     {

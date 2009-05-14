@@ -41,7 +41,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
-import org.purl.sword.base.Deposit;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
@@ -115,7 +114,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         {
             String s = "Basic realm=\"SWORD\"";
             response.setHeader("WWW-Authenticate", s);
-            response.setStatus(401);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
         

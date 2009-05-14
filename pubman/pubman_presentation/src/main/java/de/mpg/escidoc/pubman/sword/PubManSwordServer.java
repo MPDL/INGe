@@ -32,9 +32,6 @@ package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletResponse;
@@ -52,12 +49,6 @@ import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
 import org.purl.sword.base.ServiceLevel;
 import org.purl.sword.base.Workspace;
-import org.w3.atom.Author;
-import org.w3.atom.Content;
-import org.w3.atom.Generator;
-import org.w3.atom.Source;
-import org.w3.atom.Summary;
-import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -66,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 
 /**
@@ -80,7 +72,7 @@ public class PubManSwordServer
 {
         private Logger log = Logger.getLogger(PubManSwordServer.class);
         private AccountUserVO currentUser;
-        private String baseURL = "";
+        private String verbose = "";
 
 
         /**
@@ -94,23 +86,16 @@ public class PubManSwordServer
         public ServiceDocument doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException
         {
             SwordUtil util = new SwordUtil();
-            Vector<Collection> collections = new Vector<Collection>();
-//            
-//            this.currentUser = util.checkUser(sdr);
-//            
-//            if (this.currentUser==null)
-//            {
-//                throw new SWORDAuthenticationException("Bad credentials");
-//            }
-            
+            Vector <Collection> collections = new Vector <Collection>();
+
             //Get collections due to logged in user
             collections = util.getDepositCollection(this.currentUser);
-            
+
             // Create and return the PubMan ServiceDocument
             ServiceDocument document = new ServiceDocument();
             Service service = new Service(ServiceLevel.ZERO, true, false);
             document.setService(service);
-            
+
             Workspace workspace = new Workspace();
             workspace.setTitle("PubMan SWORD Workspace");
 
@@ -121,10 +106,10 @@ public class PubManSwordServer
             }
 
             service.addWorkspace(workspace);
-            
+
             return document;
         }
-        
+
         
         /**
          * Process the deposit.
@@ -137,142 +122,106 @@ public class PubManSwordServer
          * @throws IOException 
          * @throws SWORDContentTypeException 
          */
-        public DepositResponse doDeposit(Deposit deposit, String collection) throws SWORDAuthenticationException, SWORDException, IOException, URISyntaxException, SWORDContentTypeException 
+        public DepositResponse doDeposit(Deposit deposit, String collection) throws SWORDAuthenticationException, 
+            SWORDException, IOException, URISyntaxException, SWORDContentTypeException 
         {
             SwordUtil util = new SwordUtil();
             PubItemVO depositItem = null;
             DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
-            PubManDepositServlet depositServlet = new PubManDepositServlet();
-            SWORDEntry se = new SWORDEntry();
-            this.baseURL = PropertyReader.getProperty("escidoc.pubman.instance.url");
+            boolean valid = false;
+
+            this.setVerbose("Start depositing process ... ");
 
             try
             {
-                //generated item
-                depositItem = util.readZipFile(deposit.getFile(), this.currentUser);                
-                //deposit item
+                //Create item
+                depositItem = util.readZipFile(deposit.getFile(), this.currentUser); 
+                this.setVerbose("Escidoc Publication Item successfully created.");
                 ContextRO context = new ContextRO();
                 context.setObjectId(collection);
                 depositItem.setContext(context);
-                util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));
-                if (!deposit.isNoOp())
+
+                //Validate Item
+                String validationReport = util.validateItem(depositItem);
+                if (validationReport == null)
                 {
-                    depositItem = util.doDeposit(this.currentUser, depositItem);
-                }
-                if (depositItem == null)
-                {
-                    throw new SWORDException("Creation of Publication Item failed.");
-                }
-                if (!deposit.isNoOp() && depositItem.getVersion().getState().equals(State.RELEASED))
-                {
-                     dr = new DepositResponse(Deposit.CREATED);
+                    this.setVerbose("Escidoc Publication Item successfully validated.");
+                    valid = true;
                 }
                 else
                 {
-                    dr = new DepositResponse(Deposit.ACCEPTED);
+                    this.setVerbose("Following validation error(s) occurred: " + validationReport);
+                    valid = false;
+                }
+                
+                //Deposit item
+                util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));                
+                if (!deposit.isNoOp() && valid)
+                {
+                    depositItem = util.doDeposit(this.currentUser, depositItem);   
+                    if (depositItem.getVersion().getState().equals(State.RELEASED))
+                    {
+                         dr = new DepositResponse(Deposit.CREATED);
+                         this.setVerbose("Escidoc Publication Item successfully created.");
+                    }
+                    else
+                    {
+                        dr = new DepositResponse(Deposit.ACCEPTED);
+                        this.setVerbose("Escidoc Publication Item successfully created and submitted.");
+                    }
+                }
+                else 
+                {
+                    if (valid)
+                    {
+                        this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
+                    }
+                    else
+                    {
+                        this.setVerbose("Escidoc Publication Item not deposited due to validation errors.");
+                    }
                 }
             }
             catch (ContentStreamNotFoundException e)
             {
                 this.log.error("No metadata File was found");
-                depositServlet.setError("No metadata File was found.");
-                dr.setHttpResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
-                return dr;
+                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
+                this.setVerbose("No metadata File was found.");
             }
             catch (SWORDContentTypeException e)
             {
                 this.log.error(e);
-                depositServlet.setError("Unsupported File Format.");
-                dr.setHttpResponse(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
-                return dr;
+                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
+                this.setVerbose("Transformation to eSciDoc publication failed (" + e.getMessage() + " ).");
             }
             catch (ItemInvalidException e)
             {
                 this.log.error(e);
-                depositServlet.setError("Invalis Item: " + e.getMessage());
                 dr.setHttpResponse(HttpServletResponse.SC_NOT_ACCEPTABLE);
-                return dr;
+                this.setVerbose("An internal error occurred: " + e.toString());
+            }
+            catch (PubItemStatusInvalidException e)
+            {
+                this.log.error("Provided item has wrong status");
+                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
+                this.setVerbose("Deposit failed because the provided item has wrong status.");
             }
             catch (Exception e)
             {
                 this.log.error(e);
                 dr.setHttpResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                return dr;
+                this.setVerbose("An internal error occurred: " + e.toString());
             }
 
-
-            Title title = new Title();
-            title.setContent(depositItem.getMetadata().getTitle().getValue());
-            se.setTitle(title);
-             
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            TimeZone utc = TimeZone.getTimeZone("UTC");
-            sdf.setTimeZone (utc);
-            String milliFormat = sdf.format(new Date());
-            se.setUpdated(milliFormat);
-                
-            Summary s = new Summary();
-            Vector <String> filenames = util.getFileNames();
-            String filename = "";
-            for (int i = 0; i< filenames.size(); i++)
+            SWORDEntry se = util.createResponseAtom(depositItem, deposit);
+            if (deposit.isVerbose())
             {
-                if (filename.equals(""))
-                {
-                    filename = filenames.get(i);    
-                }
-                else
-                {
-                    filename = filename + " ," + filenames.get(i);    
-                }                           
-            }   
-            s.setContent(filename);
-            se.setSummary(s);
-            
-            //Add the author names
-            for (int i=0; i< depositItem.getMetadata().getCreators().size(); i++)
-            {
-                Author author = new Author();
-                if (depositItem.getMetadata().getCreators().get(i).getPerson().getCompleteName() != null)
-                {
-                    author.setName(depositItem.getMetadata().getCreators().get(i).getPerson().getCompleteName());
-                }
-                else
-                {
-                    String name = depositItem.getMetadata().getCreators().get(i).getPerson().getGivenName() + ", " +
-                        depositItem.getMetadata().getCreators().get(i).getPerson().getFamilyName();
-                    author.setName(name);
-                }
-                se.addAuthors(author);     
-            }           
-            
-            Source source = new Source();
-            Generator generator = new Generator();
-            generator.setContent(this.baseURL);
-            source.setGenerator(generator);
-            se.setSource(source);
-
-            //Only set content if item was really created
-            if (! deposit.isNoOp())
-            {
-                Content content = new Content();
-                content.setSource(this.baseURL + "/pubman/item/" + depositItem.getVersion().getObjectId());
-                se.setContent(content);
+                se.setVerboseDescription(this.getVerbose());
             }
-
-            se.setTreatment("Zip archives recognised as content packages are opened and the individual files contained in them are stored. All other files are stored as is.");
-            
-//            if (deposit.isVerbose()) 
-//            {
-//                se.setVerboseDescription("I've done a lot of hard work to get this far!");
-//            }
-            
-            se.setNoOp(deposit.isNoOp());            
-            se.setFormatNamespace("http://www.loc.gov/METS/");      
             dr.setEntry(se);
-            
             return dr;
         }
-       
+
         
         public AccountUserVO getCurrentUser()
         {
@@ -283,5 +232,27 @@ public class PubManSwordServer
         {
             this.currentUser = currentUser;
         }
-    
+
+        public String getVerbose()
+        {
+            return this.verbose;
+        }
+
+        public void setVerbose(String verbose)
+        {
+            this.verbose += verbose + "\n";
+        }
+
+        public String getBaseURL()
+        {
+            try
+            {
+                return PropertyReader.getProperty("escidoc.pubman.instance.url");
+            }
+            catch (Exception e)
+            {
+                this.log.warn("Base URL could not be read from property file.", e);
+            }
+            return "";
+        }   
 }

@@ -42,6 +42,7 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="#{ApplicationBean.pubmanInstanceUrl}/sword-app/servicedocument"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
