@@ -30,17 +30,9 @@
 
 package de.mpg.escidoc.pubman.multipleimport.processor;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -52,7 +44,7 @@ import org.xml.sax.SAXException;
 import de.mpg.escidoc.services.common.util.IdentityHandler;
 
 /**
- * TODO Description
+ * Format processor for eDoc XML files.
  *
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
@@ -68,8 +60,8 @@ public class EdocProcessor extends FormatProcessor
     private int length = -1;
     private byte[] originalData = null;
     
-    /* (non-Javadoc)
-     * @see java.util.Iterator#hasNext()
+    /**
+     * {@inheritDoc}
      */
     public boolean hasNext()
     {
@@ -80,8 +72,8 @@ public class EdocProcessor extends FormatProcessor
         return (this.originalData != null && this.counter < this.length);
     }
 
-    /* (non-Javadoc)
-     * @see java.util.Iterator#next()
+    /**
+     * {@inheritDoc}
      */
     public String next() throws NoSuchElementException
     {
@@ -100,8 +92,8 @@ public class EdocProcessor extends FormatProcessor
         
     }
 
-    /* (non-Javadoc)
-     * @see java.util.Iterator#remove()
+    /**
+     * Not implemented.
      */
     @Deprecated
     public void remove()
@@ -127,14 +119,15 @@ public class EdocProcessor extends FormatProcessor
             counter = 0;
             
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error reading input stream", e);
         }
         
     }
 
-    /* (non-Javadoc)
-     * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getLength()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public int getLength()
@@ -158,33 +151,86 @@ public class EdocProcessor extends FormatProcessor
         }
     }
     
+    /**
+     * SAX parser to extract the items out of the XML.
+     *
+     * @author franke (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public class EdocHandler extends IdentityHandler
     {
 
-        private int start = -1;
+        private StringBuilder builder;
+        private boolean inItem = false;
         
-        @Override
-        public void endElement(String uri, String localName, String name) throws SAXException
-        {
-            super.endElement(uri, localName, name);
-            if ("edoc".equals(getStack().toString()))
-            {
-                String record = getResult().substring(this.start);
-                items.add(record);
-                this.start = -1;
-            }
-        }
-
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
         {
             if ("edoc".equals(getStack().toString()))
             {
-                this.start = getResultLength();
+                this.builder = new StringBuilder();
+                inItem = true;
             }
             super.startElement(uri, localName, name, attributes);
+            
+            if (inItem)
+            {
+                this.builder.append("<");
+                this.builder.append(name);
+                for (int i = 0; i < attributes.getLength(); i++)
+                {
+
+                    this.builder.append(" ");
+                    this.builder.append(attributes.getQName(i));
+                    this.builder.append("=\"");
+                    this.builder.append(escape(attributes.getValue(i)));
+                    this.builder.append("\"");
+                }
+                this.builder.append(">");
+            }
+            
         }
         
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void endElement(String uri, String localName, String name) throws SAXException
+        {
+            super.endElement(uri, localName, name);
+            
+            if (inItem)
+            {
+                this.builder.append("</");
+                this.builder.append(name);
+                this.builder.append(">");
+            }
+            
+            if ("edoc".equals(getStack().toString()))
+            {
+                items.add(this.builder.toString());
+                this.builder = null;
+                inItem = false;
+            }
+        }
+        
+        /** 
+         * {@inheritDoc}
+         */
+        @Override
+        public void content(String uri, String localName, String name, String content)
+        {
+            super.content(uri, localName, name, content);
+            if (inItem)
+            {
+                this.builder.append(escape(content));
+            }
+        }
     }
     
 }
