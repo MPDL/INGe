@@ -136,6 +136,7 @@ public class SwordUtil extends FacesBean
     private final String itemPath = "/pubman/item/";
     private final String serviceDocUrl = "faces/sword/servicedocument";
     private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
+    private final String acceptedNs = "http://www.tei-c.org/ns/1.0";
 
     /**
      * Public constructor
@@ -209,7 +210,7 @@ public class SwordUtil extends FacesBean
             //static value
             col.setTreatment(this.treatmentText);
             //static value
-            col.setFormatNamespace("http://www.loc.gov/METS/");
+            col.setFormatNamespace(this.acceptedNs);
             //static value
             col.addAccepts(this.acceptedFormat);
 
@@ -769,7 +770,7 @@ public class SwordUtil extends FacesBean
 
         se.setTreatment(this.treatmentText);           
         se.setNoOp(deposit.isNoOp());            
-        se.setFormatNamespace("http://www.loc.gov/METS/");   
+        se.setFormatNamespace(this.acceptedNs);   
 
         return se;
     }
