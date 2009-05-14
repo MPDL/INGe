@@ -44,6 +44,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * Generic SAX handler with convenience methods. Useful for XML with only short string content. Classes that extend
  * this class should always call super() at the beginning of an overridden method.
  * 
+ * Important: This class is not useful for XMLs with mixed contents: <a><b/>xyz</a>
+ * 
  * @author franke (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 1743 $ $LastChangedDate: 2009-03-25 11:12:45 +0100 (Mi, 25 Mrz 2009) $
@@ -55,6 +57,9 @@ public class ShortContentHandler extends DefaultHandler
     protected XMLStack localStack = new XMLStack();
     protected Map<String, String> namespaces = new HashMap<String, String>();
 
+    /**
+     * Manage stack and namespaces.
+     */
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
     {
@@ -81,18 +86,31 @@ public class ShortContentHandler extends DefaultHandler
         currentContent = new StringBuffer();
     }
 
+    /**
+     * Call {@link ShortContentHandler.content} if there is some. Then delete Current content.
+     */
     @Override
     public void endElement(String uri, String localName, String name) throws SAXException
     {
-        content(uri, localName, name, currentContent.toString());
+        if (currentContent != null)
+        {
+            content(uri, localName, name, currentContent.toString());
+        }
+        currentContent = null;
         stack.pop();
         localStack.pop();
     }
 
+    /**
+     * Append characters to current content.
+     */
     @Override
     public final void characters(char[] ch, int start, int length) throws SAXException
     {
-        currentContent.append(ch, start, length);
+        if (currentContent != null)
+        {
+            currentContent.append(ch, start, length);
+        }
     }
 
     /**
@@ -110,11 +128,29 @@ public class ShortContentHandler extends DefaultHandler
         // Do nothing by default
     }
 
+    /**
+     * Encodes an XML attribute. Replaces characters that might break the XML into XML entities.
+     * Includes &quot; and &apos;.
+     * 
+     * @param str The string that shall be encoded
+     * @return The encoded string
+     */
     public String encodeAttribute(String str)
     {
-        return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&apos;");
+        return str
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace("\"", "&quot;")
+            .replace("'", "&apos;");
     }
 
+    /**
+     * Encodes XML string content. Replaces characters that might break the XML into XML entities.
+     * 
+     * @param str The string that shall be encoded
+     * @return The encoded string
+     */
     public String encodeContent(String str)
     {
         return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
@@ -145,7 +181,7 @@ public class ShortContentHandler extends DefaultHandler
     public class XMLStack extends Stack<String>
     {
         /**
-         * Returns a String representation of the Stack in an XPath like way (e.g. "root/subtag/subsub"):
+         * @return A String representation of the Stack in an XPath like way (e.g. "root/subtag/subsub"):
          */
         @Override
         public synchronized String toString()
