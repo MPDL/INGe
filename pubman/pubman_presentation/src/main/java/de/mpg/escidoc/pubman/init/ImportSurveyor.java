@@ -62,7 +62,8 @@ public class ImportSurveyor extends Thread
         {
             interval = Long.parseLong(PropertyReader.getProperty("escidoc.import.surveyor.interval"));
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException("Error initializing import surveyor");
         }
     }
@@ -79,7 +80,8 @@ public class ImportSurveyor extends Thread
             {
                 Thread.sleep(interval * 60 * 1000);
             }
-            catch (InterruptedException e) {
+            catch (InterruptedException e)
+            {
                 logger.info("Import surveyor interrupted");
                 return;
             }
@@ -94,7 +96,7 @@ public class ImportSurveyor extends Thread
             String query = "select id from escidoc_import_log where "
             		+ "(status = 'PENDING' or status = 'ROLLBACK') "
             		+ "and id not in (select parent from escidoc_import_log_item where "
-            		+ "datediff('minute', startdate, now()) <= 5)";
+            		+ "datediff('minute', startdate, now()) <= 15)";
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try
