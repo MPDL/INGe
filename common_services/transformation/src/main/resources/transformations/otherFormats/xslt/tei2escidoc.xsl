@@ -368,7 +368,6 @@
 			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
 			<xsl:variable name="publisher" select="$imprint/t:publisher"/>
 			<xsl:variable name="place" select="$imprint/t:pubPlace"/>
-			<xsl:variable name="edition" select="$monogr/t:editionStmt/t:edition"/>
 			
 			<xsl:if test="exists($publisher)">
 				<xsl:element name="pub:publishing-info">
@@ -378,11 +377,6 @@
 					<xsl:if test="exists($place)">
 						<xsl:element name="e:place">
 							<xsl:value-of select="$place"/>
-						</xsl:element>
-					</xsl:if>
-					<xsl:if test="exists($edition)">
-						<xsl:element name="e:edition">
-							<xsl:value-of select="$edition"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:element>
