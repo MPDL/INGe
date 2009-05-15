@@ -2,7 +2,10 @@ package test;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -13,6 +16,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
@@ -36,6 +40,7 @@ public class TransformationTest
 
     
     @Test
+    @Ignore
     public void test() throws Exception
     {
         try{
@@ -82,7 +87,6 @@ public class TransformationTest
     }
     
     @Test
-    @Ignore
     public void test2() throws Exception
     {
         ItemHandler ih = ServiceLocator.getItemHandler();
@@ -101,8 +105,27 @@ public class TransformationTest
         fileStream.close();
         
         logger.info(new String(result));
-        
-        
-        
     }
+
+    /* 
+     * test TEI2 to eSciDoc item transformation 
+     * */
+    @Test
+    public void tei2escidoc() throws Exception
+    {
+    	
+    	Format teiFormat = new Format("TEI", "application/xml", "UTF-8");
+    	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+    	
+    	byte[] result = trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/BMJ1.tei").getBytes(), teiFormat, escidocFormat, "escidoc");
+    	
+    	logger.info(new String(result));
+    	
+    }
+    
+    
+    
+
+    
+    		
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Qualitative Performance Evaluation of Torque Control
+                    Methods for Industrial Applications</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Mr</roleName>
+                                <forename type="first">ANURAG</forename>
+                                <surname>TRIPATHI</surname>
+                                <roleName type="degree">M.Tech</roleName>
+                            </persName>
+                            <email>shuklakavita@rediffmail.com</email>
+                            <affiliation>
+                                <orgName type="institution">I.E.T</orgName>
+                                <orgName type="department">Electrical Engineering</orgName>
+                                <address><settlement>Lucknow</settlement><country key="IN">India</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Bharti</forename>
+                                <surname>Dwivedi</surname>
+                            </persName>
+                            <email>bharti_dwivedi@yahoo.com</email>
+                            <affiliation>
+                                <orgName type="institution">I.E.T</orgName>
+                                <orgName type="department">Electrical Engineering</orgName>
+                                <address><settlement>Lucknow</settlement><region>U.P.</region><country key="IN">India</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Dinesh</forename>
+                                <surname>Chandra</surname>
+                            </persName>
+                            <email>dinuchandra@rediffmail.com</email>
+                            <affiliation>
+                                <orgName type="institution">MNNIT</orgName>
+                                <orgName type="department">Electrical Engineering</orgName>
+                                <address><settlement>Allahabad</settlement><region>U.P.</region><country key="IN">India</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Qualitative Performance Evaluation of Torque
+                            Control Methods for Industrial Applications</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">European Transactions on Electrical
+                            Power</title>
+                        <idno type="pISSN">1430-144X</idno>
+                        <idno type="eISSN">1546-3109</idno>
+                        <imprint>
+                            <publisher>European Transactions on Electrical Power</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">ETEP-08-0188</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Robust control of torque has been a motivation for research in the servo and
+                    electric drives industry. For industrial drives and servo applications AC
+                    machine drives are gaining prominence over the conventional DC-motor drives. Two
+                    methods, (a) Field oriented Control (FOC) and (b) the Direct torque control
+                    (DTC) have been proposed to control an AC motor. FOC is a current control method
+                    and needs co-ordinate transformation. Torque dynamic depends upon the modulator
+                    which also decides the steady state performance. DTC on the other hand is more
+                    robust and has physically the fastest torque dynamic. These methods have
+                    succeeded to achieve a fast and dynamically decoupled torque control but at what
+                    expense? Problems of FOC are, saturation of current controllers, current control
+                    in the overmodulation region and parameter sensitivity. Problems with DTC are
+                    variable switching frequency and sampling period dependence of hysteresis
+                    controllers, during digital implementation. This paper highlights the problems
+                    and explains a method of achieving Direct Control of Torque using a method of
+                    stator flux vector control. The analysis carried out here is backed with
+                    appropriate simulation results.</p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

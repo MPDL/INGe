@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">GP-led melanoma follow-up: the practical experience of
+                    GPs</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Peter</forename>
+                                <surname>Murchie</surname>
+                            </persName>
+                            <email>p.murchie@abdn.ac.uk</email>
+                            <affiliation>
+                                <orgName type="institution">University of Aberdeen</orgName>
+                                <orgName type="department">Centre of Academic Primary Care</orgName>
+                                <address><settlement>Aberdeen</settlement><country key="NO_CODE">United Kingdom</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Elizabeth</forename>
+                                <forename type="middle">Kathleen</forename>
+                                <surname>Delaney</surname>
+                            </persName>
+                            <email>liz.delaney@abdn.ac.uk</email>
+                            <affiliation>
+                                <orgName type="institution">University of Aberdeen</orgName>
+                                <orgName type="department">Centre of Academic Primary Care</orgName>
+                                <address><settlement>Aberdeen</settlement><country key="NO_CODE">United Kingdom</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Neil</forename>
+                                <surname>Campbell</surname>
+                            </persName>
+                            <email>n.campbell@abdn.ac.uk</email>
+                            <affiliation>
+                                <orgName type="institution">University of Aberdeen</orgName>
+                                <orgName type="department">Centre of Academic Primary Care</orgName>
+                                <address><settlement>Aberdeen</settlement><country key="NO_CODE">United Kingdom</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Philip</forename>
+                                <surname>Hannaford</surname>
+                            </persName>
+                            <email>p.hannaford@abdn.ac.uk</email>
+                            <affiliation>
+                                <orgName type="institution">University of Aberdeen</orgName>
+                                <orgName type="department">Centre of Academic Primary Care</orgName>
+                                <address><settlement>Aberdeen</settlement><region>Grampian</region><country key="NO_CODE">United Kingdom</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">GP-led melanoma follow-up: the practical
+                            experience of GPs</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Family Practice</title>
+                        <idno type="eISSN">N</idno>
+                        <imprint>
+                            <publisher>Family Practice</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">FAMPR-345-08</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Objectives&#xD; To explore how GP-led melanoma follow-up had actually worked
+                    by exploring in detail the practical experiences of GPs running the
+                    programme.&#xD; &#xD; Design&#xD; Semi-structured audio-taped
+                    telephone interviews with GPs delivering a GP-led follow-up programme for people
+                    with cutaneous malignant melanoma. &#xD; &#xD; Subjects&#xD; 17
+                    general practitioners currently delivering structured GP-led routine follow-up
+                    for&#xD; Results&#xD; GP-led melanoma follow-up worked well from the
+                    perspectives of GPs. The GPs felt that they were well equipped and supported in
+                    undertaking the follow-up consultations, and recognised that they were freeing
+                    up hospital consultant time. They felt that patients appreciated the convenience
+                    of GP-led follow-up. The GPs felt that: a robust recall system; initial training
+                    with regular refreshers; and effective consultant back-up were vital components
+                    of a successful long-term programme. &#xD; &#xD; Conclusions&#xD;
+                    GP-led melanoma follow-up is feasible and, provided certain concerns can be
+                    addressed, GPs are willing to provide it.&#xD; </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

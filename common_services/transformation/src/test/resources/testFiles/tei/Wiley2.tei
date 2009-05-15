@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Inorganic and organic templates-assisted solvothermal
+                    synthesis of trigonal selenium microrods</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Ma</forename>
+                                <surname>Jianmin</surname>
+                            </persName>
+                            <email>mjm81@mail.nankai.edu.cn</email>
+                            <affiliation>
+                                <address><country key="CN">China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Chuansheng</forename>
+                                <surname>Sun</surname>
+                            </persName>
+                            <affiliation>
+                                <address><settlement>Tianjin</settlement><country key="CN">China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Jiabiao</forename>
+                                <surname>Lian</surname>
+                            </persName>
+                            <affiliation>
+                                <address><settlement>Tianjin</settlement><country key="CN">China</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <forename type="first">Wenjun</forename>
+                                <surname>Zheng</surname>
+                            </persName>
+                            <affiliation>
+                                <address><settlement>Tianjin</settlement><country key="CN">China</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Inorganic and organic templates-assisted
+                            solvothermal synthesis of trigonal selenium microrods</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Crystal Research and Technology</title>
+                        <title level="j" type="abbrev">Cryst. Res. Technol.</title>
+                        <idno type="pISSN">0232-1300</idno>
+                        <idno type="eISSN">1521-4079</idno>
+                        <imprint>
+                            <publisher>Crystal Research and Technology</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">CRAT-2008-00380</idno>
+                    <idno type="manuscript">CRAT-2008-00380.R1</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en"/>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>A facile and environment-friendly solvothermal method has been developed for the
+                    controlled growth of nano- and micro-structured trigonal selenium (t-Se) by
+                    using green templates. And, the morphology of trigonal selenium can be tuned by
+                    using different kinds of templates. The as-obtained products were characterized
+                    by X-ray powder diffraction (XRD) and scanning electron microscope (SEM).
+                    Furthermore, the formation mechanism of trigonal selenium nano- and
+                    microcrystals was rationally suggested. This method will open a new avenue to
+                    synthesize other functional inorganic nano- and microcrystals.</p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">The effects of vitamin C and E supplementation on heat
+                    shock protein70 response of ovary and brain in heat-stressed quail</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Nurhan</forename>
+                                <surname>Sahin</surname>
+                            </persName>
+                            <email>nsahin@firat.edu.tr</email>
+                            <affiliation>
+                                <address><settlement>Elazig</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Mehmet</forename>
+                                <surname>Tuzcu</surname>
+                            </persName>
+                            <email>mtuzcu23@yahoo.com</email>
+                            <affiliation>
+                                <address><settlement>Elazig</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">cemal</forename>
+                                <surname>orhan</surname>
+                            </persName>
+                            <email>corhan1@yahoo.com</email>
+                            <affiliation>
+                                <address><settlement>Elazig</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Mr.</roleName>
+                                <forename type="first">Muhittin</forename>
+                                <surname>Onderci</surname>
+                            </persName>
+                            <email>monderci@yahoo.com</email>
+                            <affiliation>
+                                <address><settlement>Elazig</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Yesari</forename>
+                                <surname>Eroksuz</surname>
+                            </persName>
+                            <email>yeroksuz23@yhaoo.com</email>
+                            <affiliation>
+                                <address><settlement>Elazig</settlement><country key="TR">Turkey</country></address>
+                            </affiliation>
+                        </author>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Prof.</roleName>
+                                <forename type="first">Kazim</forename>
+                                <surname>Sahin</surname>
+                            </persName>
+                            <email>nsahinkm@yahoo.com</email>
+                            <email>ksahin@firat.edu.tr</email>
+                            <affiliation>
+                                <address><addrLine>Firat University Veterinary Faculty </addrLine><addrLine>Department of Animal Nutrition</addrLine><settlement>Elazig</settlement><country key="TR">Turkey</country><postCode>23100</postCode></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">The effects of vitamin C and E supplementation
+                            on heat shock protein70 response of ovary and brain in heat-stressed
+                            quail</title>
+                        <title level="a" type="vernacular">HSP70 OF OVARY AND BRAIN</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">British Poultry Science</title>
+                        <title level="j" type="abbrev">BPS</title>
+                        <idno type="pISSN">0007-1668</idno>
+                        <idno type="eISSN">N</idno>
+                        <imprint>
+                            <publisher>British Poultry Science</publisher>
+                        </imprint>
+                    </monogr>
+                    <idno type="PII">CBPS-2008-077</idno>
+                    <idno type="manuscript">CBPS-2008-077.R1</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+        <profileDesc>
+            <langUsage>
+                <language ident="en"/>
+            </langUsage>
+        </profileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>The effects of vitamins C and E supplementation on egg production and Hsp70
+                    response of ovary and brain in the Japanese quail were evaluated. &#xD; The
+                    birds were randomly assigned to 18 groups consisting of 3 replicates of 10 birds
+                    each in a 2 x 3 x 3 factorial arrangement of treatments. Birds were kept in a
+                    temperature-controlled room at either 22 oC (Thermo-neutral, TN) or 34 oC (Heat
+                    stress, HS) for 8 h /d and fed a basal diet or the basal diet supplemented with
+                    either three levels of vitamin C (0, 250 and 500 mg of L-ascorbic acid/kg of
+                    diet) or three levels of vitamin E (0, 250 and 500 mg of
+                    dl-&amp;#61537;-tocopheryl acetate / kg of diet). Feed intakeand egg
+                    production were increased with the vitamin C or E supplementation both alone and
+                    in combination in heat-stressed groups for quail. Heat exposure increased serum
+                    corticosterone levels and Hsp70 expression. Serum corticosterone level was
+                    significantly decreased by vitamin C or E (supplementation in HS groups for
+                    quail. Ovary and brain Hsp70 expression linearly decreased as dietary vitamin C
+                    or vitamin E supplementation increased in heat-stressed groups. However, Hsp70
+                    expression of ovary and brain was not affected by vitamin C -and E -supplemented
+                    to the quail reared under thermoneutral conditions. Results of the present study
+                    show that a combination of dietary vitamin C and E supplementation may alleviate
+                    some heat stress-related deleterious in heat shock proteins of ovary and brain
+                    of Japanese quail. &#xD; </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

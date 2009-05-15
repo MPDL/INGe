@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+    xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Physiologically Based Pharmacokinetic Model of Methyl
+                    tertiary Butyl Ether and tertiary Butyl Alcohol Dosimetry in Male Rats Based on
+                    Binding to α2u-Globulin</title>
+            </titleStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author type="corresp">
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Teresa</forename>
+                                <surname>Leavens</surname>
+                                <roleName type="degree">PhD</roleName>
+                            </persName>
+                            <email>teresa_leavens@ncsu.edu</email>
+                            <affiliation>
+                                <orgName type="institution">North Carolina State
+                                    University</orgName>
+                                <orgName type="department">Population Health and
+                                    Pathobiology</orgName>
+                                <note type="phone">919-513-6446</note>
+                                <note type="fax">919-513-6358</note>
+                                <address><addrLine>College of Veterinary Medicine</addrLine><addrLine>4700 Hillsborough St</addrLine><settlement>Raleigh</settlement><region>North Carolina</region><country key="US">United States</country><postCode>27606</postCode></address>
+                            </affiliation>
+                        </author>
+                        <author>
+                            <persName>
+                                <roleName type="salutation">Dr.</roleName>
+                                <forename type="first">Susan</forename>
+                                <forename type="middle">J.</forename>
+                                <surname>Borghoff</surname>
+                                <genName>PhD</genName>
+                            </persName>
+                            <email>sborghoff@ils-inc.com</email>
+                            <note>imported for project id 505 on Sep 16, 2002, no letter sent</note>
+                            <affiliation>
+                                <orgName type="institution">Integrated Laboratory Systems,
+                                    Inc.</orgName>
+                                <address><settlement>Research Triangle Park</settlement><region>North Carolina</region><country key="US">United States</country></address>
+                            </affiliation>
+                        </author>
+                        <title level="a" type="main">Physiologically Based Pharmacokinetic Model of
+                            Methyl tertiary Butyl Ether and tertiary Butyl Alcohol Dosimetry in Male
+                            Rats Based on Binding to α2u-Globulin</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Toxicological Sciences</title>
+                        <title level="j" type="issue">May 09</title>
+                        <idno type="pISSN">1096-6080</idno>
+                        <idno type="eISSN">N</idno>
+                        <imprint>
+                            <publisher>Toxicological Sciences</publisher>
+                            <biblScope type="vol">109</biblScope>
+                            <biblScope type="issue">1</biblScope>
+                        </imprint>
+                    </monogr>
+                    <idno type="pii">TOXSCI-08-0820</idno>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <front>
+            <div type="abstract">
+                <head>Abstract</head>
+                <p>Current physiologically based pharmacokinetic (PBPK) models for the fuel additive
+                    methyl tertiary butyl ether (MTBE) and its metabolite tertiary butyl alcohol
+                    (TBA) have not included a mechanism for chemical binding to the
+                    male-rat-specific protein α2u-globulin, which has been postulated to be
+                    responsible for renal effects in male rats observed in toxicity and
+                    carcinogenicity studies with MTBE. The objective of this work was to expand the
+                    previously published models for MTBE to include binding to α2u-globulin in the
+                    kidney of male rats. In the model, metabolism of MTBE was assumed to occur only
+                    in the liver via two saturable pathways. TBA metabolism was assumed to occur
+                    only in the liver via one saturable, low-affinity pathway and to be inducible
+                    following repeated exposures. The binding of MTBE and TBA to α2u-globulin was
+                    modeled as saturable and competitive and was assumed to only affect the rate of
+                    hydrolysis of α2u-globulin in the kidney. The developed model characterized the
+                    differences in kidney concentrations of MTBE and TBA in male versus female rats
+                    from inhalation exposures to MTBE, as well as the observed changes in blood and
+                    tissue concentrations from repeated exposure to TBA. The model-predicted binding
+                    affinity of MTBE to α2u-globulin was greater than TBA, and the hydrolysis rate
+                    of chemically bound α2u-globulin was approximately 30% of the unbound protein.
+                    This PBPK model supports the role of MTBE and TBA binding to the
+                    male-rat-specific protein α2u-globulin as essential for predicting
+                    concentrations of these chemicals in the kidney following exposure. </p>
+            </div>
+        </front>
+        <body/>
+        <back/>
+    </text>
+</TEI>

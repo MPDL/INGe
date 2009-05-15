@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" type="main">Enhanced Sensitivity of the MRL/MpJ Mouse to the
+                    Neuroplastic and Behavioral Effects of Chronic Antidepressant Treatments</title>
+            </titleStmt>
+            <publicationStmt>
+                <availability status="embargo">
+                    <p>6</p>
+                </availability>
+            </publicationStmt>
+            <sourceDesc>
+                <biblStruct>
+                    <analytic>
+                        <author>
+                            <persName>
+                                <forename>Irwin</forename>
+                                <surname>Lucki</surname>
+                            </persName>
+                            <email>lucki@mail.med.upenn.edu</email>
+                        </author>
+                        <title level="a" type="main">Enhanced Sensitivity of the MRL/MpJ Mouse to
+                            the Neuroplastic and Behavioral Effects of Chronic Antidepressant
+                            Treatments</title>
+                    </analytic>
+                    <monogr>
+                        <title level="j" type="main">Neuropsychopharmacology</title>
+                        <title level="j" type="nlm-ta">Neuropsychopharmacology</title>
+                        <idno type="pISSN">0893-133X</idno>
+                    </monogr>
+                </biblStruct>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+</TEI>

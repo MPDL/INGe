@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xml:lang="en">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Desferroxamine infusion increases cerebral blood flow:
+					a potential association with hypoxia-inducible transcription factor 1</title>
+			</titleStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Farzaneh</forename>
+								<forename type="middle">A</forename>
+								<surname>Sorond</surname>
+							</persName>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Michele</forename>
+								<forename type="middle">L</forename>
+								<surname>Shaffer</surname>
+							</persName>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Andrew</forename>
+								<forename type="middle">L</forename>
+								<surname>Kung</surname>
+							</persName>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Lewis</forename>
+								<forename type="middle">A</forename>
+								<surname>Lipsitz</surname>
+							</persName>
+						</author>
+						<title level="a" type="main">Desferroxamine infusion increases cerebral
+							blood flow: a potential association with hypoxia-inducible transcription
+							factor 1</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Clin. Sci.</title>
+						<idno type="ISSN">0143-5221</idno>
+						<imprint>
+							<publisher>Portland Press Limited</publisher>
+							<date type="publication" when="2008-11-18"/>
+						</imprint>
+					</monogr>
+					<idno type="PII">CS20080320</idno>
+					<idno type="DOI">10.1042/CS20080320</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<langUsage>
+				<language ident="en"/>
+			</langUsage>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2008-07-17">Received</change>
+			<change when="2008-10-09">Revised</change>
+			<change when="2008-11-18">Accepted</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+				<p>Finding an effective means to improve cerebral perfusion during hypoxic-ischemic
+					stress is essential for neuroprotection. Studies in animal models of stroke have
+					shown that Desferroxamine activates hypoxia inducible transcription factor-1,
+					reduces brain damage and promotes functional recovery. Our study was designed to
+					investigate the effects of Desferroxamine infusion on the cerebral circulation
+					in humans. Fifteen volunteers were enrolled in a randomized double-blinded
+					placebo controlled crossover study. We measured cerebral blood flow velocity by
+					transcranial Doppler ultrasonography in the middle cerebral artery, arterial
+					blood pressure, end-tidal CO2, as well as hypoxia inducible transcription
+					factor-1 protein and serum lactate dehydrogenase concentrations in response to 8
+					hours of Desferroxamine versus placebo infusion. Cerebrovascular resistance was
+					calculated from the ratio of steady state beat-to-beat values for blood pressure
+					to blood flow velocity. We found that Desferroxamine infusion was associated
+					with a significant cerebral vasodilation. Moreover, decreased cerebrovascular
+					resistance was temporally correlated with increased hypoxia inducible
+					transcription factor-1 protein concentration as well as hypoxia inducible
+					transcription factor-1 transcriptional activation as measured by serum lactate
+					dehydrogenase concentration. Our findings provide preliminary data suggesting
+					that activators of hypoxia inducible transcription factor-1, such as
+					Desferroxamine, may protect neurons against ischemic injury by dilating cerebral
+					vessels and enhancing cerebral perfusion.</p>
+			</div>
+		</front>
+	</text>
+</TEI>

@@ -1,0 +1,1978 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:ce="http://www.elsevier.com" xmlns:mml="http://www.w3.org/1998/Math/MathML" xml:lang="en">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main" xml:lang="en">Spring migration dynamics and
+					sex-specific patterns in stopover strategy in the Wood Sandpiper <hi
+						rend="italic">Tringa glareola</hi>
+				</title>
+			</titleStmt>
+			<publicationStmt>
+				<authority>Dt. Ornithologen-Gesellschaft e.V.</authority>
+				<date>2008</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Yoko</forename>
+								<surname>Muraoka</surname>
+							</persName>
+
+							<email>yoko.muraoka@gmail.com</email>
+
+							<affiliation>
+								<orgName type="department">Department of Population Ecology, Faculty
+									of Life Sciences</orgName>
+								<orgName type="institution">University of Vienna</orgName>
+								<address>
+					<postCode>1090</postCode>
+					<settlement>Vienna</settlement>
+					<country>Austria</country>
+				</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Christian</forename>
+								<forename type="first">H.</forename>
+								<surname>Schulze</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Department of Population Ecology, Faculty
+									of Life Sciences</orgName>
+								<orgName type="institution">University of Vienna</orgName>
+								<address>
+					<postCode>1090</postCode>
+					<settlement>Vienna</settlement>
+					<country>Austria</country>
+				</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Mihaela</forename>
+								<surname>Pavličev</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Department of Anatomy and
+									Neurobiology</orgName>
+								<orgName type="institution">Washington University</orgName>
+								<address>
+					<settlement>St Louis</settlement>
+					<region>MO</region>
+					<postCode>63108</postCode>
+					<country>USA</country>
+				</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Gábor</forename>
+								<surname>Wichmann</surname>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Auring Society</orgName>
+								<address>
+					<postCode>2273</postCode>
+					<settlement>Hohenau an der March</settlement>
+					<country>Austria</country>
+				</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main" xml:lang="en">Spring migration dynamics and
+							sex-specific patterns in stopover strategy in the Wood Sandpiper <hi
+								rend="italic">Tringa glareola</hi>
+						</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date when="2008-11-08">Online</date>
+							<biblScope type="fpage">1</biblScope>
+							<biblScope type="lpage">7</biblScope>
+						</imprint>
+					</monogr>
+					<idno type="DOI">10.1007/s10336-008-0351-5</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<head>Keywords</head>
+						<item>
+							<term>Sex differences</term>
+						</item>
+						<item>
+							<term>Spring migration strategy</term>
+						</item>
+						<item>
+							<term>Stopover ecology</term>
+						</item>
+						<item>
+							<term>
+								<hi rend="italic">Tringa glareola</hi>
+							</term>
+						</item>
+						<item>
+							<term>Wood Sandpiper</term>
+						</item>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2008-10-16">Registration</change>
+			<change when="2007-04-01">Received</change>
+			<change when="2008-10-16">Accepted</change>
+			<change when="2008-11-08">Online</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+				<p>Due to being a virtually monomorphic wader species, migration dynamics and
+					sex-related migration patterns in the Wood Sandpiper (<hi rend="italic">Tringa
+						glareola</hi>) have rarely been investigated. We captured spring migrants at
+					an important stopover site in northeastern Austria. Birds were individually
+					color-marked, and sex was determined by an analysis of DNA from tail feather
+					material. Among temporary residents (birds seen again after day of capture),
+					males migrated on average 3 days earlier than females. However, since sexes did
+					not differ in fat score, the length of stay and the proportion of transients
+					(birds not seen again after day of capture) and temporary residents, we suggest
+					that males and females adopt similar migration strategies in the spring. The
+					large number of transients captured as well as shorter stopover durations in
+					later temporary residents indicate that Wood Sandpipers minimize time at this
+					stage of their northbound migration. Temporary residents earlier in the season
+					exhibited lower fat stores than later ones. Nevertheless, since the fat stores
+					of transients and temporary residents were similar even after the progress of
+					the season had been accounted for, we assume that Wood Sandpipers may afford to
+					exhibit individual flexibility in migration strategy and the use of stopover
+					sites, especially early in the season. This variability may be a necessary
+					adaptation to cope with possible varying environmental conditions at dynamic and
+					unpredictable inland stopover sites. After having reached North Mediterranean
+					regions, mean body mass of spring migrants gradually increases during successive
+					stopovers, indicating that Wood Sandpipers follow a ‘hopping’ migration
+					strategy. This emphasizes the high conservation value of even small artificial
+					mudflat pools as important stepping stones in order to maintain a continuous
+					network of wetland habitats for this continental migrant.</p>
+			</div>
+		</front>
+		<body>
+			<div type="Introduction" xml:id="Sec1">
+				<head>Introduction</head>
+				<p>The Wood Sandpiper <hi rend="italic">Tringa glareola</hi> is a common migrant in
+					inland Central Europe (Kirchner <ref>1978</ref>) and found in abundance at
+					freshwater habitats during its north- and southbound migration. In the course of
+					their annual migratory journeys between sub-Saharan Africa and Fennoscandian
+					breeding grounds, they depend on the availability of suitable stopover sites.
+					Piersma (<ref>1987</ref>) hypothesized that waders follow either a ‘hop, skip or
+					jump’ migration strategy. ‘Jumping’ is characterized by long flights and may
+					involve as few as one stopover in-between. As such, jumpers need to put on and
+					carry large fat loads for covering the long distances between stopovers. The
+					‘skipping’ migration strategy involves a series of flight bouts with few stops,
+					whereas ‘hoppers’ fly only short distances between numerous brief stopovers.
+					Hopping is energetically less costly than performing long jumps or intermediate
+					skips and entails lower risks of delays in fattening and timing (Piersma
+						<ref>1987</ref>).</p>
+				<p>Among waders, males generally precede females in the spring (Ketterson and Nolan
+						<ref>1983</ref>), and the latter leave breeding grounds ahead of males and
+					juveniles in many species (Glutz von Blotzheim et al. <ref>1986</ref>). As in
+					all <hi rend="italic">Tringa</hi> species, female Wood Sandpipers are on average
+					slightly larger than their male counterparts (Jehl and Murray <ref>1986</ref>;
+					Remisiewicz and Wennerberg <ref>2006</ref>). However, due to being a virtually
+					monomorphic species, sex-related differences in the migration dynamics of the
+					Wood Sandpiper have rarely been investigated. Remisiewicz and Wennerberg
+						(<ref>2006</ref>) recently used genetic analyses to reveal sex differences
+					in the morphology and spring migration phenology of Wood Sandpipers in
+					northeastern Poland. These researchers found that differential timing of
+					migration occurred between sexes (males ahead of females) and age classes
+					(second year birds after older birds). In the study reported here, we applied
+					molecular sexing in order to examine sex-specific patterns in migration dynamics
+					in the Wood Sandpiper at an important stopover site in northeastern Austria,
+					which is further south along the spring migration route than that studied by
+					Remisiewicz and Wennerberg (<ref>2006</ref>). Due to the small size and the
+					openness of our study site, color-ringed birds can be easily detected (Wichmann
+					et al. <ref>2004</ref>). Consequently, minimum stopover durations of migrants
+					can be estimated quite precisely. Studies involving individual color-ringing
+					therefore provide an ideal opportunity for more detailed investigations of
+					migration dynamics in this locally abundant migrant species.</p>
+			</div>
+			<div type="MaterialsAndMethods" xml:id="Sec2">
+				<head>Methods</head>
+				<div xml:id="Sec3">
+					<head>Study area and field methods</head>
+					<p>Our study site, the ‘Absetzbecken Hohenau-Ringelsdorf’ (48°35′N, 16°55′E), is
+						located in northeastern Austria and consists of several small pools
+						(‘Absetzbecken’, total area 38 ha) and a 17-ha pond (‘Kühlteich’) belonging
+						to the local sugar factory. The site contains a mosaic of shallow water
+						pools, semi-submerged vegetation and muddy areas (Wichmann et al.
+							<ref>2004</ref>) and represents an important stopover site for waders in
+						Austria (Zuna-Kratky and Rössler <ref>1993</ref>). The Wood Sandpiper is one
+						of the most abundant wader species migrating through this area (Zuna-Kratky
+						et al. <ref>2000</ref>).</p>
+					<p>Spring migrants were caught with walk-in traps (Meissner <ref>1998</ref>)
+						from 18 April until 12 May 2004 (4 days a week, 16 days in total) and from
+						22 April until 17 May 2005 (7 days a week, 26 days in total). The captured
+						birds were individually marked with metal and plastic color rings. The size
+						of the visible fat deposits was determined according to a 0–8 scale
+						developed by Kaiser (<ref>1993</ref>), which enables the detection of small
+						differences in visible fat stores independent of absolute body size or mass
+						fluctuations, such as those that occur during the course of day (Kaiser
+							<ref>1993</ref>). We therefore used fat score as a direct measure of
+						body condition (Green <ref>2001</ref>).</p>
+					<p>During the trapping period, all Wood Sandpipers in the area were counted once
+						a day for 5 days per week in 2004 and 7 days per week in 2005. We estimated
+						the minimum length of stay by assuming that birds arrived on the day of
+						initial capture and departed on the day when they were last observed.
+						Color-ringed birds that were not seen again after the day of capture were
+						assumed to have departed from the study site the day they were ringed. Since
+						the stopover length of this latter group was classified as 0, we will refer
+						to those birds as ‘transients’. Migrants seen again after the day of capture
+						were defined as ‘temporary residents’.</p>
+				</div>
+				<div xml:id="Sec4">
+					<head>Sex determination</head>
+					<p>We used the feathers of ringed birds for sexing as feather bases provide a
+						good source of DNA (Bayard de Volo et al. <ref>2003</ref>). Of the breast
+						feathers collected during ringing in 2004 and stored in dry envelopes, only
+						13 out of 28 samples were successfully sexed. Consequently, in 2005, tail
+						feathers were collected and stored in 96% ethanol. Over the spring passage
+						period, 71 individuals were randomly chosen, of which 67 were successfully
+						sexed based on DNA extracted from the tail feathers.</p>
+					<p>In birds, females carry two different copies of the sex chromosome (WZ),
+						while males are homogametic (ZZ). This difference is employed in genetic sex
+						determination. We used a PCR-based method to amplify sex-specific DNA
+						fragments of CHD-gene located on the sex chromosomes (Griffiths and Tiwari
+							<ref>1993</ref>, <ref>1995</ref>; Ellegren <ref>1996</ref>; Griffiths et
+						al. <ref>1996</ref>). In the avian genome, the two copies of this gene
+						(CHD-W and CHD-Z) differ in the lengths of their introns (Griffiths and Korn
+							<ref>1997</ref>). We used primers P2 and P8 by Griffiths et al.
+							(<ref>1998</ref>), which bind in the CDH gene at exon sequences flanking
+						an intron that usually differs in length between W and Z copies. Hence, when
+						the section of the CHD-gene including the length-variable intron is PCR
+						amplified, the sexes can be distinguished by the presence of either (1) two
+						bands showing two fragments of different lengths or (2) fragments of uniform
+						length (males) constituting a single band on the electrophoresis gel. For
+						the screening of total genomic DNA by PCR analysis, we extracted DNA from
+						feathers using the DNA mini Kit (QIAGEN, Valencia, CA). The amplification of
+						PCR fragments was performed in 25-μl reaction mixtures containing PCR buffer
+						with 1.5 mM MgCl<hi rend="subscript">2</hi>, 0.2 mM of each dNTP, 0.4 μM of
+						each primer and 0.5 U of<hi rend="italic"> Taq</hi> polymerase (Amersham
+						Biosciences, Piscataway, NJ). The PCR reaction conditions comprised an
+						initial denaturation step of 2 min at 94°C, 35 cycles of 10 s at 95°C, 15 s
+						at 52°C, 50 s at 72°C and a final extension step of 7 min at 72°C. Negative
+						and positive controls were included in all runs. All screens were repeated
+						three times to verify the results. Amplified fragments were separated by
+						length on a 2% agarose gel.</p>
+				</div>
+				<div xml:id="Sec5">
+					<head>Data analysis</head>
+					<p>To determine intraspecific variation among spring migrant Wood Sandpipers, we
+						examined differences in (1) all individuals and (2) temporary residents. We
+						chose the latter for separate analyses because transient birds were assumed
+						to have departed from the study area on the day of arrival and, therefore,
+						did not actually use Hohenau as a stopover site. Since median dates of
+						passage differed between study years (see <ref>Results</ref>), we
+						investigated sex-related differences in the timing of migration by
+						classifying the median date of passage of each study year as day 0.</p>
+					<p>Statistical analyses were performed using STATISTICA ver. 7.1 (StatSoft Inc
+							<ref>2005</ref>). We used nonparametric and randomization tests if the
+						assumptions, such as the normal probability distribution of data, could not
+						be met. Randomizations were performed using the program MUREG (H.L.
+						Nemeschkal, University of Vienna). Results were taken to be statistically
+						significant if <hi rend="italic">P</hi> &lt; 0.05.</p>
+				</div>
+			</div>
+			<div type="Results" xml:id="Sec6">
+				<head>Results</head>
+				<div xml:id="Sec7">
+					<head>Spring migration phenology</head>
+					<p>The number of male Wood Sandpipers (47) migrating through the area exceeded
+						the number of female migrants (33), but the difference was not significant
+						(binomial test, <hi rend="italic">P</hi> = 0.15). Due to the low sample size
+						of sex-determined individuals in 2004 (eight males, five females), we were
+						unable to test whether the median dates of passage within either sex
+						differed between the study years. However, the median date of passage of all
+						birds captured did differ between years (2004: May 3, <hi rend="italic"
+							>n</hi> = 28; 2005: May 7, <hi rend="italic">n</hi> = 183; Mann–Whitney
+							<hi rend="italic">U</hi>-test <hi rend="italic">U</hi> = 755.5, <hi
+							rend="italic">P</hi> &lt; 0.001). Birds of each sex were recorded
+						during the entire trapping season. The median date of passage was May 5 in
+						both sexes (range April 25–May 17, <hi rend="italic">n</hi> = 211). Within
+						temporary residents, the median date of passage differed between males
+						(median May 4, range April 26–May 9, <hi rend="italic">n</hi> = 11) and
+						females (median May 7, range May 2–May 12, <hi rend="italic">n</hi> = 11;
+						Mann–Whitney <hi rend="italic">U</hi>-test <hi rend="italic">U</hi> = 26,
+							<hi rend="italic">P</hi> = 0.023).</p>
+				</div>
+				<div xml:id="Sec8">
+					<head>Use of stopover site and body condition</head>
+					<p>Of the 211 first captures in both study years, 159 birds (73.5%) were
+						transients and 52 birds (26.5%) stayed in the study area at least overnight
+						(temporary residents). The number of temporary residents and transients did
+						not differ between males and females (<hi rend="italic">χ</hi>
+						<hi rend="superscript">2</hi> = 0.96, <hi rend="italic">P</hi> = 0.234;
+						temporary residents: <hi rend="italic">n</hi>
+						<hi rend="subscript">♂</hi> = 11, <hi rend="italic">n</hi>
+						<hi rend="subscript">♀</hi> = 11; transients: <hi rend="italic">n</hi>
+						<hi rend="subscript">♂</hi> = 36, <hi rend="italic">n</hi>
+						<hi rend="subscript">♀</hi> = 22).</p>
+					<p>Since stopover duration and fat score of the spring migrants did not differ
+						between study years (Mann–Whitney <hi rend="italic">U</hi>-test; length of
+						stay: ♂ <hi rend="italic">U</hi> = 136.5, <hi rend="italic">P</hi> = 0.581,
+						♀ <hi rend="italic">U</hi> = 42.5, <hi rend="italic">P</hi> = 0.167; fat
+						score: ♂: <hi rend="italic">U</hi> = 136.0, <hi rend="italic"
+						>P</hi> = 0.571, ♀: <hi rend="italic">U</hi> = 68.0, <hi rend="italic"
+							>P</hi> = 0.920), data were pooled in order to increase the sample size.
+						Fat scores of spring migrants were similar between transients and temporary
+						residents (ANCOVA <hi rend="italic">F</hi>
+						<hi rend="subscript">1,208</hi> = 0.01, <hi rend="italic">P</hi> = 0.914)
+						and varied slightly (albeit not significantly) during the course of the
+						season (covariate: Julian day, ANCOVA <hi rend="italic">F</hi>
+						<hi rend="subscript">1,208</hi> = 3.53, <hi rend="italic">P</hi> = 0.062).
+						This result is founded on variations in fat deposits of the temporary
+						residents: whereas the fat stores of transients did not vary during the
+						course of the season (regression equation: <hi rend="italic"
+							>y</hi> = 8.69<hi rend="italic">x</hi> + 2.08, <hi rend="italic">r</hi>
+						<hi rend="superscript">2</hi> = 0.003, <hi rend="italic">P</hi> = 0.54;
+							Fig. <ref>1</ref>a), those of temporary residents significantly
+						increased as the season progressed (regression equation: <hi rend="italic"
+							>y</hi> = 0.122<hi rend="italic">x</hi> − 12.19, <hi rend="italic"
+							>r</hi>
+						<hi rend="superscript">2</hi> = 0.24, <hi rend="italic"
+						>P</hi> &lt; 0.001, <hi rend="italic">n</hi> = 155; Fig. <ref>1</ref>b).
+						Differences in fat score could not be detected between males and females
+						(median fat score = 3 in both sexes; Mann–Whitney <hi rend="italic"
+						>U</hi>-test <hi rend="italic">U</hi> = 694.0, <hi rend="italic"
+							>P</hi> = 0.426).<figure xml:id="Fig1">
+
+							<head>Fig. 1</head>
+
+							<p>Temporal variation in fat scores of (<hi rend="bold">a</hi>)
+								transient (<hi rend="italic">n</hi> = 131) and (<hi rend="bold"
+									>b</hi>) temporarily resident Wood Sandpipers (<hi rend="italic"
+									>n</hi> = 52) during spring passage in 2005</p>
+
+
+
+							<graphic url="10336_2008_351_Fig1_HTML.gif"/>
+							<graphic
+								url="dctm://spcpbase/37011a6a802cbf14?DMS_OBJECT_SPEC=RELATION_ID"/>
+
+						</figure>
+					</p>
+					<p>The median length of stay of temporarily resident birds was 4 days and did
+						not differ between sexes (Mann–Whitney <hi rend="italic">U</hi>-test <hi
+							rend="italic">U</hi> = 54.0, <hi rend="italic">P</hi> = 0.944, <hi
+							rend="italic">n</hi>
+						<hi rend="subscript">♂</hi> = 47, <hi rend="italic">n</hi>
+						<hi rend="subscript">♀</hi> = 33). The stopover duration of the temporary
+						residents decreased as the season progressed (Spearman rank correlation <hi
+							rend="italic">r</hi>
+						<hi rend="subscript">
+							<hi rend="italic">s</hi>
+						</hi> = −0.31, <hi rend="italic">P</hi> = 0.025, <hi rend="italic"
+						>n</hi> = 52). No such correlation was observed when pooling all spring
+						migrants captured (<hi rend="italic">r</hi>
+						<hi rend="subscript">
+							<hi rend="italic">s</hi>
+						</hi> = −0.05, <hi rend="italic">P</hi> = 0.527, <hi rend="italic"
+						>n</hi> = 183) due to the large number of transients that left the study
+						area on the day of capture. We found no relationship between length of stay
+						and fat score (<hi rend="italic">r</hi>
+						<hi rend="subscript">
+							<hi rend="italic">s</hi>
+						</hi> = −0.06, <hi rend="italic">P</hi> = 0.672, <hi rend="italic"
+						>n</hi> = 52).</p>
+				</div>
+				<div xml:id="Sec9">
+					<head>Migration strategy</head>
+					<p>When we compared the mean body mass of the birds captured at Hohenau with
+						data extracted from the literature, we found that a quadratic regression
+						best described changes in mean body masses and latitudinal occurrence of
+						Wood Sandpipers during the spring migration (<hi rend="italic">r</hi>
+						<hi rend="superscript">2</hi> = 0.675, <hi rend="italic">F</hi>
+						<hi rend="subscript">2,8</hi> = 8.3, <hi rend="italic">P</hi> = 0.011).
+						After crossing the Mediterranean Sea, the body masses of the spring migrants
+						increase in the course of their northbound journey
+							(Fig. <ref>2</ref>).<figure xml:id="Fig2">
+
+							<head>Fig. 2</head>
+
+							<p>Mass gains of Wood Sandpipers during the northward migration. <hi
+									rend="italic">Line</hi> fitted quadratic regression curve, <hi
+									rend="italic">open circle</hi> location of the study area, <hi
+									rend="italic">filled circles</hi> literature data (<hi
+									rend="italic">1</hi>, <hi rend="italic">2</hi>, <hi
+									rend="italic">6</hi>, <hi rend="italic">8</hi> references in
+								Glutz von Blotzheim et al. <ref>1986</ref>, <hi rend="italic">3</hi>
+								Yosef et al. <ref>2002</ref>, <hi rend="italic">4</hi> Scebba and
+								Moschetti <ref>1996</ref>, <hi rend="italic">5</hi> Licheri and
+								Spina <ref>2005</ref>, <hi rend="italic">7</hi> present study, <hi
+									rend="italic">9</hi> Anthes et al. <ref>2002</ref>, <hi
+									rend="italic">10</hi> Remisiewicz and Wennerberg
+								<ref>2006</ref>, <hi rend="italic">11</hi> Persson
+								<ref>1998</ref>)</p>
+
+
+
+							<graphic url="10336_2008_351_Fig2_HTML.gif"/>
+							<graphic
+								url="dctm://spcpbase/37011a6a802cbf15?DMS_OBJECT_SPEC=RELATION_ID"/>
+
+						</figure>
+					</p>
+				</div>
+			</div>
+			<div type="Discussion" xml:id="Sec10">
+				<head>Discussion</head>
+				<p>Birds traveling long distances are subject to severe physiological and ecological
+					constraints and depend on suitable stopover sites for refuelling in order to
+					complete their migration (e.g. Alerstam <ref>1993</ref>; Berthold
+						<ref>1990</ref>). The exact timing of resource availability at the time of
+					passage is critical to their survival. Timing is especially important during the
+					spring, when resources must be available during a rather narrow time window.
+					Unlike coastal staging sites, interior wetlands are dynamic and unpredictable
+					habitats (Skagen and Knopf <ref>1993</ref>; Amezaga et al. <ref>2002</ref>). As
+					such, waders travelling along an inland migration route need to be more flexible
+					in their choice of stopover sites. This is reflected by the lower degree of site
+					fidelity observed in continental migrants than in coastal shorebirds, with the
+					latter being highly depend on the availability of traditional staging posts
+					(Colwell and Oring <ref>1988</ref>; Skagen and Knopf <ref>1994</ref>).</p>
+				<p>The spring phenology of Wood Sandpipers at our study site corresponds well with
+					phenology patterns reported from other inland stopover sites (Winkler and
+					Herzig-Straschil <ref>1981</ref>; Glutz von Blotzheim et al. <ref>1986</ref>;
+					Leuzinger and Jenni <ref>1993</ref>; Scebba and Moschetti <ref>1996</ref>;
+					Anthes et al. <ref>2002</ref>; Laber <ref>2003</ref>; Remisiewicz et al.
+						<ref>2007</ref>). Differences in median dates of passage between years may
+					have occurred due to shifting environmental conditions (Anthes <ref>2004</ref>)
+					and/or varying catching efforts and periods. However, the numbers of migrant
+					waders recorded in 2004 were overall low, both at Hohenau and at Austria’s most
+					important stopover site for waders, the Seewinkel region in the southeastern
+					part of the country (Zuna-Kratky <ref>2004</ref>). Considerable between-year
+					variation in the spring migration intensity of Wood Sandpipers has also been
+					reported recently for stopover sites in Poland and Belarus (Remisiewicz et al.
+						<ref>2007</ref>). The tight timing of spring passage as well as the large
+					number of transients suggest that Wood Sandpipers minimize their time during the
+					northbound migration. While the median stopover duration of spring migrants at
+					Hohenau was 4 days, the overall median length of stay at study sites in Poland
+					and Belarus was 2 days (M. Remisiewicz, personal communication), indicating that
+					the migration schedule becomes tighter as birds get closer to the breeding
+					grounds (see references in Battley et al. <ref>2004</ref>).</p>
+				<p>Since neither the number of transients and temporary residents nor the stopover
+					duration differed between males and females, our data implies that sex-related
+					differences in migration speed did not occur. Differences in fat stores could
+					also not be detected between sexes. In northeastern Poland, Remisiewicz and
+					Wennerberg (<ref>2006</ref>) found that adult (&gt;2nd year) males migrated
+					ahead of females. That the same pattern applied only to temporarily resident
+					birds in our study may be due to the fact that we did not distinguish between
+					age classes. Our findings suggest that, except for differences in the timing of
+					migration, males and females adopt similar migration strategies during the
+					northbound migration. Differential migration with males preceding females is a
+					commonly observed pattern among many bird species during the spring migration
+					and may result from latitudinal segregation of sexes on the wintering grounds
+					(Cristol et al. <ref>1999</ref>). In species in which sexes are not spatially
+					segregated during the non-breeding season, male-biased earlier arrival on the
+					breeding grounds (protandry) in migratory birds has primarily been attributed to
+					(1) male–male competition for high-quality territories and (2) benefits arising
+					from increased opportunities to mate (Morbey and Ydenberg <ref>2001</ref>). In
+					the monogamous Wood Sandpiper, males establish breeding territories and females
+					choose a mate among territorial males (Jehl and Murray <ref>1986</ref>;
+					Remisiewicz and Wennerberg <ref>2006</ref>). Therefore, males should strive to
+					reach the breeding grounds early in order to obtain high-quality territories.
+					For females, however, it may be convenient to arrive at breeding sites after
+					males to maximize the pool of available mates. The high overlap of biometric
+					measurements between sexes (Remisiewicz and Wennerberg <ref>2006</ref>; own
+					data, unpublished) may be one reason why only minor sex-specific differences in
+					migration patterns could be detected. In wader species with a more pronounced
+					sex dimorphism, the constraints acting on sexes and resulting in different
+					migration patterns of males and females may be more important, as demonstrated
+					for the European Bar-tailed Godwit <hi rend="italic">Limosa lapponica</hi>
+					(Ketterson and Nolan <ref>1983</ref>; Scheiffarth <ref>2003</ref>).</p>
+				<p>The long migratory journeys between widely separated wintering and breeding areas
+					require several refuelling stops en route. The ‘jumping’ and ‘skipping’
+					migration strategies are characterized by long flights with one or few stops
+					in-between (Piersma <ref>1987</ref>). The alternative strategy, ‘hopping’ (i.e.
+					flying short distances between frequent stops), is energetically cheaper than
+					performing long jumps or intermediate skips (Piersma <ref>1987</ref>). Whereas
+					hoppers should be expected to show little variation in body condition during
+					stopovers, jumpers should arrive at a staging site in a fat-depleted condition.
+					In comparison to hoppers, jumpers have to stay longer at stopovers to refuel and
+					to depart with higher levels of reserves for the next long-distance bout. In
+					this case, a negative correlation between fat loads upon arrival at a stopover
+					site and length of stay should exist. The missing relationship between fat
+					stores and stopover duration among birds captured at Hohenau indicates that Wood
+					Sandpipers follow a ‘hopping’ migration strategy, as has been suggested for the
+					autumn passage of this species (Meissner <ref>1997</ref>; Wichmann et al.
+						<ref>2004</ref>). This assumption is further confirmed by the comparison of
+					mean body masses of birds captured at Hohenau with data found in the literature.
+					After crossing the Mediterranean Sea, the body masses of spring migrants
+					increase during the course of their northbound journey.</p>
+				<p>Overall, earlier birds tended to have lower fat stores than later migrants, but a
+					significant increase in fat deposits could only be recorded in temporary
+					residents. Birds arriving at Hohenau earlier in the season thus exhibited lower
+					fat stores and stayed at Hohenau longer than later temporary residents, which
+					carried larger fat deposits and stopped over only for a short time. The reasons
+					for the shorter stopovers recorded in later temporarily resident migrants may be
+					twofold. The first is that the time pressure to arrive at breeding grounds on
+					time in order to obtain a high-quality territory, mate and complete the breeding
+					cycle presumably increases as the season progresses. Spring migrants earlier in
+					the season may have the ‘luxury' to stay longer and encounter variable
+					environmental conditions in a fairly flexible manner. The second is that later
+					migrants may have used other sites for refuelling, as indicated by the
+					relatively larger fat deposits in birds arriving later in the season, and thus
+					stayed in Hohenau only for a short time. Since fat stores of transients and
+					temporary residents were similar, even after accounting for the progress of the
+					season, we assume that Wood Sandpipers may exhibit individual variability in
+					migration strategy and the use of stopover sites (Iverson et al.
+					<ref>1996</ref>; Meissner <ref>1997</ref>; Remisiewicz et al. <ref>2007</ref>),
+					as reflected by variation in the residency patterns and body condition of birds
+					captured at Hohenau.</p>
+				<p>The short-hop migration strategy emphasizes the importance of maintaining a
+					network of abundant wetlands along the migration route. Being wetland
+					specialists, Wood Sandpipers, as well as many other waders migrating through or
+					breeding in continental wetlands, are highly dependent on the preservation of
+					these habitats. During the last few decades, wetlands in Europe have drastically
+					declined (van Vessem et al. <ref>1997</ref>). The Hohenau sugar factory was
+					closed in the year after our study was conducted; the Auring Society (a local
+					non-governmental organization) has since struggled to maintain the Absetzbecken
+					as artificial wetlands for waders and waterfowl. Small disjunct patches of
+					temporally dynamic wetlands provide less predictable resources than large
+					permanent wetlands or coastal intertidal areas. The latter in particular
+					accommodate many species that show consistent year-to-year use of traditional
+					staging posts. For jumpers, the loss of only one site could cause a net
+					reduction of the entire population if feeding and resting areas become too far
+					apart. In contrast, hoppers may be capable of locating habitats
+					opportunistically (Skagen and Knopf <ref>1993</ref>, <ref>1994</ref>) and may
+					better be able to cope with the loss of a few individual sites. However, the
+					summation of the effects, which in our case would result from the loss of
+					several suitable inland wetlands, has proven to be one of the major problems
+					encountered in nature conservation (EEA <ref>2006</ref>). While stopover sites
+					that traditionally support large populations during migration have received the
+					most recognition, complexes of small wetlands have often been neglected by
+					recent conservation efforts. Yet the existence of an adequate density of small
+					freshwater stopover sites must be ensured for those long-distance migrants
+					depending on a continuous network of wetland habitats as stepping stones along
+					their migratory route.</p>
+			</div>
+			<div xml:id="Sec11">
+				<head>Zusammenfassung</head>
+				<div xml:id="Sec12">
+					<head>Zugdynamik und geschlechtsspezifische Muster im Rastverhalten des
+						Bruchwasserläufers <hi rend="italic">Tringa glareola</hi> im Frühjahr</head>
+					<p>Als nahezu monomorphe Limikolenart wurden geschlechtsspezifische Unterschiede
+						in der Zugstrategie des Bruchwasserläufers bisher kaum untersucht. Wir
+						fingen Frühjahrszieher an einem wichtigen Rastplatz in den March-Thaya—Auen
+						im nordöstlichen Niederösterreich und markierten sie individuell mit
+						Farbringen. Die molekulare Geschlechtsbestimmung von 80 Individuen erfolgte
+						anhand von Schwanzfederproben. Unter jenen Vögeln, die nach dem Fangtag
+						erneut im Gebiet gesichtet wurden (“temporary residents”) zogen Männchen
+						durchschnittlich 3 Tage früher als Weibchen. Da jedoch weder bezüglich
+						Fettdepots, Verweildauer noch des Anteils an “transients” (Vögel, die nach
+						dem Fangtag nicht erneut im Gebiet gesichtet wurden) und <hi rend="italic"
+							>temporary residents</hi> geschlechtsspezifische Unterschiede
+						nachweisbar waren, deuten die gewonnenen Daten darauf hin, dass Männchen und
+						Weibchen ähnliche Zugstragien im Frühjahr anwenden. Der hohe Anteil an <hi
+							rend="italic">transients</hi> sowie kürzere Verweildauern später
+						durchziehender <hi rend="italic">temporary residents</hi> weisen darauf hin,
+						dass Bruchwasserläufer in diesem Zugabschnitt Zeit minimieren. Früher
+						durchziehende <hi rend="italic">temporary residents</hi> wiesen geringere
+						Fettdepots auf als spätere. Nachdem sich jedoch das Ausmaß der angelagerten
+						Fettdepots bei “transients” und <hi rend="italic">temporary residents</hi>
+						auch unter Berücksichtigung der fortschreitenden Saison ähnelte, vermuten
+						wir, dass Bruchwasserläufer eine gewisse individuelle Flexibilität in der
+						Zugstrategie und dem Gebrauch von Rastgebieten vor allem früh in der
+						Zugsaison an den Tag legen können. Diese Variabilität könnte eine notwendige
+						Anpassung sein, um mit möglichen variierenden Umweltbedingungen in
+						dynamischen und unvorhersagbaren Binnenland-Rastgebieten zu Rande zu kommen.
+						Durch den Vergleich mit Ergebnissen anderer Fangstationen zeigte sich, dass
+						das Körpergewicht der Vögel im Laufe ihres Zuges in die nördlichen
+						Brutgebiete sukzessive zunimmt. Nach Überquerung des Mittelmeeres werden
+						während zahlreicher Zwischenstopps die für die Bewältigung der verbleibenden
+						Zugstrecke und das Brutgeschäft notwendigen Energiedepots nach und nach
+						aufgebaut. Dem Vorhandensein und der Erhaltung geeigneter Rasthabitate im
+						Binnenland kommt damit eine besondere Bedeutung zu.</p>
+				</div>
+			</div>
+		</body>
+		<back>
+			<div type="acknowledgments">
+				<head>Acknowledgments</head>
+				<p>We thank M. Hillbrand and H. Klosius who helped with the fieldwork. K.H. Lux,
+					director of the former AGRANA Sugar Factory Hohenau, who granted us permission
+					to catch Wood Sandpipers on the Absetzbecken. We are also grateful to E. Haring,
+					K. Fiedler, W. Meissner, M. Remisiewicz and two anonymous reviewers who provided
+					helpful comments. The study was supported by the Austrian Academy of Sciences
+					and the German Ornithologists’ Society.</p>
+			</div>
+			<div type="references" xml:id="Bib1">
+				<head>References</head>
+				<listBibl>
+					<listBibl type="Citation" xml:id="CR1">
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Alerstam</surname>
+									</persName>
+								</author>
+								<title level="m">Bird migration</title>
+								<imprint>
+									<date type="year">1993</date>
+									<pubPlace>Cambridge</pubPlace>
+									<publisher>Cambridge University Press</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Alerstam T (1993) Bird migration. Cambridge University Press,
+							Cambridge</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR2">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">JM</forename>
+										<surname>Amezaga</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">L</forename>
+										<surname>Santamaría</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">AJ</forename>
+										<surname>Green</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Biotic wetland
+									connectivity—supporting a new approach for wetland
+									policy</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Acta Oecol</title>
+								<imprint>
+									<date type="year">2002</date>
+									<biblScope type="vol">23</biblScope>
+									<biblScope type="fpage">213</biblScope>
+									<biblScope type="lpage">222</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Amezaga JM, Santamaría L, Green AJ (2002) Biotic wetland
+							connectivity—supporting a new approach for wetland policy. Acta Oecol
+							23:213–222. doi:<ref> 10.1016/S1146-609X(02)01152-9 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR3">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">N</forename>
+										<surname>Anthes</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Long-distance migration
+									timing of <hi rend="italic">Tringa</hi> sandpipers adjusted to
+									recent climate change</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Bird Study</title>
+								<imprint>
+									<date type="year">2004</date>
+									<biblScope type="vol">51</biblScope>
+									<biblScope type="fpage">203</biblScope>
+									<biblScope type="lpage">211</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Anthes N (2004) Long-distance migration timing of <hi rend="italic"
+								>Tringa</hi> sandpipers adjusted to recent climate change. Bird
+							Study 51:203–211</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR4">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">N</forename>
+										<surname>Anthes</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">I</forename>
+										<surname>Harry</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Mantel</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Müller</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Schielzeth</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Wahl</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Notes on migration
+									dynamics and biometry of the Wood Sandpiper (<hi rend="italic"
+										>Tringa glareola</hi>) at the sewage farm of Münster (NW
+									Germany)</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ring</title>
+								<imprint>
+									<date type="year">2002</date>
+									<biblScope type="vol">24</biblScope>
+									<biblScope type="fpage">41</biblScope>
+									<biblScope type="lpage">56</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Anthes N, Harry I, Mantel K, Müller A, Schielzeth H, Wahl J (2002)
+							Notes on migration dynamics and biometry of the Wood Sandpiper (<hi
+								rend="italic">Tringa glareola</hi>) at the sewage farm of Münster
+							(NW Germany). Ring 24:41–56</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR5">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">PF</forename>
+										<surname>Battley</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Piersma</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">DI</forename>
+										<surname>Rogers</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Dekinga</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">B</forename>
+										<surname>Spaans</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">JA</forename>
+										<surname>Gils</surname>
+										<nameLink>van</nameLink>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Do body condition and
+									plumage during fuelling predict northwards departure dates of
+									Great Knots <hi rend="italic">Calidris tenuirostris</hi> from
+									north-west Australia?</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ibis</title>
+								<imprint>
+									<date type="year">2004</date>
+									<biblScope type="vol">146</biblScope>
+									<biblScope type="fpage">46</biblScope>
+									<biblScope type="lpage">60</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Battley PF, Piersma T, Rogers DI, Dekinga A, Spaans B, van Gils JA
+							(2004) Do body condition and plumage during fuelling predict northwards
+							departure dates of Great Knots <hi rend="italic">Calidris
+								tenuirostris</hi> from north-west Australia? Ibis 146:46–60.
+								doi:<ref> 10.1111/j.1474-919X.2004.00210.x </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR6">
+						<bibl>Bayard de Volo S, Antolin MF, Reynolds RT, Topinka JR, May B (2003)
+							Can molted feathers serve as a source of DNA for genotyping and
+							mark/recapture and population genetic studies: results from a pilot
+							study. Paper presentation. Int North Goshawk Symp/Annu Meet Raptor Res
+							Foundation, Anchorage</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR7">
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">P</forename>
+										<surname>Berthold</surname>
+									</persName>
+								</author>
+								<title level="m">Vogelzug: eine aktuelle Gesamtübersicht</title>
+								<imprint>
+									<date type="year">1990</date>
+									<pubPlace>Darmstadt</pubPlace>
+									<publisher>Wissenschaftliche Buchgesellschaft</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Berthold P (1990) Vogelzug: eine aktuelle Gesamtübersicht.
+							Wissenschaftliche Buchgesellschaft, Darmstadt</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR8">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">MA</forename>
+										<surname>Colwell</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">LW</forename>
+										<surname>Oring</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Habitat use by breeding
+									and migrating shorebirds in southcentral Saskatchewan</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Wilson Bull</title>
+								<imprint>
+									<date type="year">1988</date>
+									<biblScope type="vol">100</biblScope>
+									<biblScope type="fpage">554</biblScope>
+									<biblScope type="lpage">566</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Colwell MA, Oring LW (1988) Habitat use by breeding and migrating
+							shorebirds in southcentral Saskatchewan. Wilson Bull 100:554–566</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR9">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">DA</forename>
+										<surname>Cristol</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">MB</forename>
+										<surname>Baker</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">C</forename>
+										<surname>Carbone</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Differential migration
+									revisited: latitudinal segregation by age and sex class</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Curr Ornithol</title>
+								<imprint>
+									<date type="year">1999</date>
+									<biblScope type="vol">15</biblScope>
+									<biblScope type="fpage">33</biblScope>
+									<biblScope type="lpage">38</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Cristol DA, Baker MB, Carbone C (1999) Differential migration
+							revisited: latitudinal segregation by age and sex class. Curr Ornithol
+							15:33–38</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR10">
+						<bibl>EEA (2006) Progress towards halting the loss of biodiversity by 2010.
+							EEA report No. 5. European Environmental Agency, Copenhagen</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR11">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Ellegren</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">First gene on the avian W
+									chromosome (CHD) provides a tag for universal sexing of
+									non-ratite birds</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Proc R Soc Lond B Biol Sci</title>
+								<imprint>
+									<date type="year">1996</date>
+									<biblScope type="vol">263</biblScope>
+									<biblScope type="fpage">1635</biblScope>
+									<biblScope type="lpage">1641</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Ellegren H (1996) First gene on the avian W chromosome (CHD) provides
+							a tag for universal sexing of non-ratite birds. Proc R Soc Lond B Biol
+							Sci 263:1635–1641. doi:<ref> 10.1098/rspb.1996.0239 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR12">
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">U</forename>
+										<surname>Glutz von Blotzheim</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">KM</forename>
+										<surname>Bauer</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">E</forename>
+										<surname>Bezzel</surname>
+									</persName>
+								</author>
+								<title level="m">Handbuch der Vögel Mitteleuropas, Bd. 7</title>
+								<imprint>
+									<date type="year">1986</date>
+									<pubPlace>Wiesbaden</pubPlace>
+									<publisher>Aula</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Glutz von Blotzheim U, Bauer KM, Bezzel E (1986) Handbuch der Vögel
+							Mitteleuropas, Bd. 7. Aula, Wiesbaden</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR13">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">AJ</forename>
+										<surname>Green</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Mass/length residuals:
+									measures of body condition or generators of spurious
+									results?</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ecology</title>
+								<imprint>
+									<date type="year">2001</date>
+									<biblScope type="vol">82</biblScope>
+									<biblScope type="fpage">1473</biblScope>
+									<biblScope type="lpage">1483</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Green AJ (2001) Mass/length residuals: measures of body condition or
+							generators of spurious results? Ecology 82:1473–1483</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR14">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Griffiths</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RM</forename>
+										<surname>Korn</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">A CHD1 gene is z
+									chromosome linked in the chicken <hi rend="italic">Gallus
+										domesticus</hi>
+								</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Gene</title>
+								<imprint>
+									<date type="year">1997</date>
+									<biblScope type="vol">197</biblScope>
+									<biblScope type="fpage">225</biblScope>
+									<biblScope type="lpage">229</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Griffiths R, Korn RM (1997) A CHD1 gene is z chromosome linked in the
+							chicken <hi rend="italic">Gallus domesticus</hi>. Gene 197:225–229.
+								doi:<ref> 10.1016/S0378-1119(97)00266-7 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR15">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Griffiths</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">B</forename>
+										<surname>Tiwari</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">The isolation of
+									molecular genetic markers for the identification of sex</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Proc Natl Acad Sci USA</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">90</biblScope>
+									<biblScope type="fpage">8324</biblScope>
+									<biblScope type="lpage">8326</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Griffiths R, Tiwari B (1993) The isolation of molecular genetic
+							markers for the identification of sex. Proc Natl Acad Sci USA
+							90:8324–8326. doi:<ref> 10.1073/pnas.90.18.8324 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR16">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Griffiths</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">B</forename>
+										<surname>Tiwari</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Sex of the last wild
+									Spix’s macaw</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Nature</title>
+								<imprint>
+									<date type="year">1995</date>
+									<biblScope type="vol">375</biblScope>
+									<biblScope type="fpage">454</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Griffiths R, Tiwari B (1995) Sex of the last wild Spix’s macaw. Nature
+							375:454. doi:<ref> 10.1038/375454a0 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR17">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Griffiths</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Daan</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">C</forename>
+										<surname>Dijkstra</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Sex identification in
+									birds using two CHD genes</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Proc R Soc Lond B Biol Sci</title>
+								<imprint>
+									<date type="year">1996</date>
+									<biblScope type="vol">263</biblScope>
+									<biblScope type="fpage">1251</biblScope>
+									<biblScope type="lpage">1256</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Griffiths R, Daan S, Dijkstra C (1996) Sex identification in birds
+							using two CHD genes. Proc R Soc Lond B Biol Sci 263:1251–1256. doi:<ref>
+								10.1098/rspb.1996.0184 </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR18">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Griffiths</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">MC</forename>
+										<surname>Double</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Orr</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">JG</forename>
+										<surname>Dawson</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">A DNA test to sex most
+									birds</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Mol Ecol</title>
+								<imprint>
+									<date type="year">1998</date>
+									<biblScope type="vol">7</biblScope>
+									<biblScope type="fpage">1071</biblScope>
+									<biblScope type="lpage">1076</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Griffiths R, Double MC, Orr K, Dawson JG (1998) A DNA test to sex most
+							birds. Mol Ecol 7:1071–1076. doi:<ref> 10.1046/j.1365-294x.1998.00389.x
+							</ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR19">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">GC</forename>
+										<surname>Iverson</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">SE</forename>
+										<surname>Warnock</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RW</forename>
+										<surname>Butler</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">MA</forename>
+										<surname>Bishop</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">N</forename>
+										<surname>Warnock</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Spring migration of
+									Western Sandpipers along the Pacific coast and North America: a
+									telemetry study</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Condor</title>
+								<imprint>
+									<date type="year">1996</date>
+									<biblScope type="vol">98</biblScope>
+									<biblScope type="fpage">10</biblScope>
+									<biblScope type="lpage">21</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Iverson GC, Warnock SE, Butler RW, Bishop MA, Warnock N (1996) Spring
+							migration of Western Sandpipers along the Pacific coast and North
+							America: a telemetry study. Condor 98:10–21. doi:<ref> 10.2307/1369502
+							</ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR20">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">JR</forename>
+										<surname>Jehl</surname>
+										<genName>Jr</genName>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">BG</forename>
+										<surname>Murray</surname>
+										<genName>Jr</genName>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">The evolution of normal
+									and reverse sexual size dimorphism in shorebirds and other
+									birds</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Curr Ornithol</title>
+								<imprint>
+									<date type="year">1986</date>
+									<biblScope type="vol">3</biblScope>
+									<biblScope type="fpage">1</biblScope>
+									<biblScope type="lpage">86</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Jehl JR Jr, Murray BG Jr (1986) The evolution of normal and reverse
+							sexual size dimorphism in shorebirds and other birds. Curr Ornithol
+							3:1–86</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR21">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Kaiser</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">A new multi-category
+									classification of subcutaneous fat deposition of
+									songbirds</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Field Ornithol</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">64</biblScope>
+									<biblScope type="fpage">246</biblScope>
+									<biblScope type="lpage">255</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Kaiser A (1993) A new multi-category classification of subcutaneous
+							fat deposition of songbirds. J Field Ornithol 64:246–255</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR22">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">ED</forename>
+										<surname>Ketterson</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">VJRF</forename>
+										<surname>Nolan</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">The evolution of
+									differential bird migration</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Curr Ornithol</title>
+								<imprint>
+									<date type="year">1983</date>
+									<biblScope type="vol">1</biblScope>
+									<biblScope type="fpage">357</biblScope>
+									<biblScope type="lpage">402</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Ketterson ED, Nolan VJRF (1983) The evolution of differential bird
+							migration. Curr Ornithol 1:357–402</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR23">
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Kirchner</surname>
+									</persName>
+								</author>
+								<title level="m">Bruchwasserläufer und Waldwasserläufer</title>
+								<imprint>
+									<date type="year">1978</date>
+									<pubPlace>Ziemsen, Wittenberg Lutherstadt</pubPlace>
+									<publisher>Neue Brehm-Bücherei</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Kirchner H (1978) Bruchwasserläufer und Waldwasserläufer. Neue
+							Brehm-Bücherei, Ziemsen, Wittenberg Lutherstadt</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR24">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Laber</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Die Limikolen des
+									österreichischen/ungarischen Seewinkels</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Egretta</title>
+								<imprint>
+									<date type="year">2003</date>
+									<biblScope type="vol">46</biblScope>
+									<biblScope type="fpage">1</biblScope>
+									<biblScope type="lpage">91</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Laber J (2003) Die Limikolen des österreichischen/ungarischen
+							Seewinkels. Egretta 46:1–91</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR25">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Leuzinger</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">L</forename>
+										<surname>Jenni</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Durchzug des
+									Bruchwasserläufers <hi rend="italic">Tringa glareola</hi> am
+									Ägelsee bei Frauenfeld</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ornithol Beob</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">90</biblScope>
+									<biblScope type="fpage">169</biblScope>
+									<biblScope type="lpage">188</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Leuzinger H, Jenni L (1993) Durchzug des Bruchwasserläufers <hi
+								rend="italic">Tringa glareola</hi> am Ägelsee bei Frauenfeld.
+							Ornithol Beob 90:169–188</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR26">
+						<bibl>Licheri D, Spina F (2005) Biodiversità dell’avifauna italiana:
+							variabilità morfologica nei non-Passeriformi. (Istituto Nazionale per la
+							Fauna Selvatica “Alessandro Ghigi”, Ozzano dell’Emilia.) Biol Cons Fauna
+							114:114–116</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR27">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">W</forename>
+										<surname>Meissner</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Autumn migration of Wood
+									Sandpipers (<hi rend="italic">Tringa glareola</hi>) in the
+									region of the Gulf of Gdansk</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ring</title>
+								<imprint>
+									<date type="year">1997</date>
+									<biblScope type="vol">19</biblScope>
+									<biblScope type="fpage">75</biblScope>
+									<biblScope type="lpage">91</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Meissner W (1997) Autumn migration of Wood Sandpipers (<hi
+								rend="italic">Tringa glareola</hi>) in the region of the Gulf of
+							Gdansk. Ring 19:75–91</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR28">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">W</forename>
+										<surname>Meissner</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Some notes on using
+									walk-in traps</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Wader Study Group Bull</title>
+								<imprint>
+									<date type="year">1998</date>
+									<biblScope type="vol">86</biblScope>
+									<biblScope type="fpage">33</biblScope>
+									<biblScope type="lpage">35</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Meissner W (1998) Some notes on using walk-in traps. Wader Study Group
+							Bull 86:33–35</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR29">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">YE</forename>
+										<surname>Morbey</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RC</forename>
+										<surname>Ydenberg</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Protandrous arrival
+									timing to breeding areas: a review</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ecol Lett</title>
+								<imprint>
+									<date type="year">2001</date>
+									<biblScope type="vol">4</biblScope>
+									<biblScope type="fpage">663</biblScope>
+									<biblScope type="lpage">673</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Morbey YE, Ydenberg RC (2001) Protandrous arrival timing to breeding
+							areas: a review. Ecol Lett 4:663–673. doi:<ref>
+								10.1046/j.1461-0248.2001.00265.x </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR30">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">C</forename>
+										<surname>Persson</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Weight studies in Wood
+									Sandpipers (<hi rend="italic">Tringa glareola</hi>) migrating
+									over southwestern Scania in late summer and spring, with notes
+									on related species</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ring</title>
+								<imprint>
+									<date type="year">1998</date>
+									<biblScope type="vol">20</biblScope>
+									<biblScope type="fpage">95</biblScope>
+									<biblScope type="lpage">105</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Persson C (1998) Weight studies in Wood Sandpipers (<hi rend="italic"
+								>Tringa glareola</hi>) migrating over southwestern Scania in late
+							summer and spring, with notes on related species. Ring 20:95–105</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR31">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Piersma</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Hop, skip or jump?
+									Constraints on migration of arctic waders by feeding, fattening,
+									and flight speed</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Limosa</title>
+								<imprint>
+									<date type="year">1987</date>
+									<biblScope type="vol">60</biblScope>
+									<biblScope type="fpage">185</biblScope>
+									<biblScope type="lpage">194</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Piersma T (1987) Hop, skip or jump? Constraints on migration of arctic
+							waders by feeding, fattening, and flight speed. Limosa 60:185–194</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR32">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Remisiewicz</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">L</forename>
+										<surname>Wennerberg</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Differential migration
+									strategies of the Wood Sandpiper (<hi rend="italic">Tringa
+										glareola</hi>)—genetic analyses reveal sex differences in
+									morphology and spring migration phenology</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ornis Fenn</title>
+								<imprint>
+									<date type="year">2006</date>
+									<biblScope type="vol">83</biblScope>
+									<biblScope type="fpage">1</biblScope>
+									<biblScope type="lpage">10</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Remisiewicz M, Wennerberg L (2006) Differential migration strategies
+							of the Wood Sandpiper (<hi rend="italic">Tringa glareola</hi>)—genetic
+							analyses reveal sex differences in morphology and spring migration
+							phenology. Ornis Fenn 83:1–10</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR33">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Remisiewicz</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">W</forename>
+										<surname>Meissner</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">P</forename>
+										<surname>Pinchuk</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Ściborski</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Phenology of spring
+									migration of Wood Sandpiper <hi rend="italic">Tringa
+										glareola</hi> through Europe</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ornis Svec</title>
+								<imprint>
+									<date type="year">2007</date>
+									<biblScope type="vol">17</biblScope>
+									<biblScope type="fpage">3</biblScope>
+									<biblScope type="lpage">14</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Remisiewicz M, Meissner W, Pinchuk P, Ściborski M (2007) Phenology of
+							spring migration of Wood Sandpiper <hi rend="italic">Tringa
+								glareola</hi> through Europe. Ornis Svec 17:3–14</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR34">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Scebba</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">G</forename>
+										<surname>Moschetti</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Migration pattern and
+									weight changes of Wood Sandpiper <hi rend="italic">Tringa
+										glareola</hi> in a stopover site in southern Italy</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ring Migr</title>
+								<imprint>
+									<date type="year">1996</date>
+									<biblScope type="vol">17</biblScope>
+									<biblScope type="fpage">101</biblScope>
+									<biblScope type="lpage">104</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Scebba S, Moschetti G (1996) Migration pattern and weight changes of
+							Wood Sandpiper <hi rend="italic">Tringa glareola</hi> in a stopover site
+							in southern Italy. Ring Migr 17:101–104</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR35">
+						<bibl>Scheiffarth G (2003) Born to fly—migratory strategies and stopover
+							ecology in the European Wadden Sea of a long-distance migrant, the
+							Bar-tailed Godwit (<hi rend="italic">Limosa lapponica</hi>). PhD thesis.
+							Institut für Vogelforschung Wilhelmshafen und Christian-Albrechts
+							Universität, Kiel</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR36">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">SK</forename>
+										<surname>Skagen</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">FL</forename>
+										<surname>Knopf</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Toward conservation of
+									midcontinental shorebird migrations</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Conserv Biol</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">7</biblScope>
+									<biblScope type="fpage">533</biblScope>
+									<biblScope type="lpage">541</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Skagen SK, Knopf FL (1993) Toward conservation of midcontinental
+							shorebird migrations. Conserv Biol 7:533–541. doi:<ref>
+								10.1046/j.1523-1739.1993.07030533.x </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR37">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">SK</forename>
+										<surname>Skagen</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">FL</forename>
+										<surname>Knopf</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Migrating shorebirds and
+									habitat dynamics at a prairie wetland complex</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Wilson Bull</title>
+								<imprint>
+									<date type="year">1994</date>
+									<biblScope type="vol">106</biblScope>
+									<biblScope type="fpage">91</biblScope>
+									<biblScope type="lpage">105</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Skagen SK, Knopf FL (1994) Migrating shorebirds and habitat dynamics
+							at a prairie wetland complex. Wilson Bull 106:91–105</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR38">
+						<biblStruct type="book">
+							<monogr>
+								<title level="m">STATISTICA for Windows, 7.1</title>
+								<imprint>
+									<date type="year">2005</date>
+									<pubPlace>Tulsa</pubPlace>
+									<publisher>StatSoft Inc</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>StatSoft Inc (2005) STATISTICA for Windows, 7.1. StatSoft,
+							Tulsa</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR39">
+						<bibl>Van Vessem J, Hecker N, Tucker GM (1997) Inland wetlands. In: Tucker
+							GM, Evans MI (eds) Habitats for birds in Europe: a conservation strategy
+							for the wider environment. BirdLife conservation series, vol 6. BirdLife
+							International, Cambridge, pp 125–158</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR40">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">G</forename>
+										<surname>Wichmann</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Barker</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Zuna-Kratky</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Donnerbaum</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Rössler</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Age-related stopover
+									strategies in Wood Sandpiper <hi rend="italic">Tringa
+										glareola</hi>
+								</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ornis Fenn</title>
+								<imprint>
+									<date type="year">2004</date>
+									<biblScope type="vol">81</biblScope>
+									<biblScope type="fpage">169</biblScope>
+									<biblScope type="lpage">179</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Wichmann G, Barker J, Zuna-Kratky T, Donnerbaum K, Rössler M (2004)
+							Age-related stopover strategies in Wood Sandpiper <hi rend="italic"
+								>Tringa glareola</hi>. Ornis Fenn 81:169–179</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR41">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Winkler</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">B</forename>
+										<surname>Herzig-Straschil</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Die Phänologie der
+									Limikolen im Seewinkel (Burgenland) in den Jahren 1963 bis
+									1972</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Egretta</title>
+								<imprint>
+									<date type="year">1981</date>
+									<biblScope type="vol">24</biblScope>
+									<biblScope type="fpage">47</biblScope>
+									<biblScope type="lpage">69</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Winkler H, Herzig-Straschil B (1981) Die Phänologie der Limikolen im
+							Seewinkel (Burgenland) in den Jahren 1963 bis 1972. Egretta
+							24:47–69</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR42">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">R</forename>
+										<surname>Yosef</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">P</forename>
+										<surname>Tryjanowski</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Remisiewicz</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Migration characteristics
+									of the Wood Sandpiper (<hi rend="italic">Tringa glareola</hi>)
+									at Eilat (Israel)</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Ring</title>
+								<imprint>
+									<date type="year">2002</date>
+									<biblScope type="vol">24</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">61</biblScope>
+									<biblScope type="lpage">67</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Yosef R, Tryjanowski P, Remisiewicz M (2002) Migration characteristics
+							of the Wood Sandpiper (<hi rend="italic">Tringa glareola</hi>) at Eilat
+							(Israel). Ring 24(1):61–67</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR43">
+						<bibl>Zuna-Kratky T (2004) March-Thaya News 2004. Monatsberichte des Verein
+							AURING-Biologische Station Hohenau—Ringelsdorf. Available online at:
+								<ref> http://auring.at/birdwatching/vogelnews.html </ref>
+						</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR44">
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Zuna-Kratky</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Rössler</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="en">Die bedeutenden
+									Limikolenrastplätze in Ostösterreich</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Vogelkundl Nachr Ostosterr</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">4</biblScope>
+									<biblScope type="fpage">1</biblScope>
+									<biblScope type="lpage">9</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Zuna-Kratky T, Rössler M (1993) Die bedeutenden Limikolenrastplätze in
+							Ostösterreich. Vogelkundl Nachr Ostosterr 4:1–9</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR45">
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Zuna-Kratky</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">E</forename>
+										<surname>Kalivodová</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Kürthy</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">D</forename>
+										<surname>Horal</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">P</forename>
+										<surname>Horák</surname>
+									</persName>
+								</author>
+								<title level="m">Die Vögel der March-Thaya-Auen im
+									österreichisch-slowakisch-tschechischen Grenzraum</title>
+								<imprint>
+									<date type="year">2000</date>
+									<pubPlace>Deutsch-Wagram</pubPlace>
+									<publisher>Distelverein</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>Zuna-Kratky T, Kalivodová E, Kürthy A, Horal D, Horák P (2000) Die
+							Vögel der March-Thaya-Auen im österreichisch-slowakisch-tschechischen
+							Grenzraum. Distelverein, Deutsch-Wagram</bibl>
+					</listBibl>
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

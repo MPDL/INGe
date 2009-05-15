@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:ce="http://www.elsevier.com"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Congenital aortic valvar stenosis: limited progression
+					during childhood</title>
+			</titleStmt>
+			<publicationStmt>
+				<availability>
+					<p>Permissions: true</p>
+				</availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct type="article">
+					<analytic>
+						<author type="corresp">
+							<persName>
+								<forename type="first">Arend Derk Jan</forename>
+								<surname>Ten Harkel</surname>
+								<roleName type="degree">Dr</roleName>
+							</persName>
+							<affiliation>
+								<orgName type="institution">Erasmus MC-Sophia</orgName>
+								<address><addrLine>Dr Molewaterplein 50</addrLine><settlement>Rotterdam</settlement><country>Netherlands</country><postCode>3015GJ</postCode></address>
+							</affiliation>
+							<note type="phone">+31 10 - 4636363</note>
+							<note type="fax">+3015 GJ 10 - 4636772</note>
+							<email>a.d.j.ten_harkel@lumc.nl</email>
+						</author>
+						<author>
+							<persName>Maarten Berkhout</persName>
+							<affiliation>
+								<orgName type="institution">Erasmus MC-Sophia</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName>Wim C Hop</persName>
+							<affiliation>
+								<orgName type="institution">Erasmus MC-Sophia</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName>Maarten Witsenburg</persName>
+							<affiliation>
+								<orgName type="institution">Erasmus MC-Sophia</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName>Willem A Helbing</persName>
+							<affiliation>
+								<orgName type="institution">Erasmus MC-Sophia</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Congenital aortic valvar stenosis: limited
+							progression during childhood</title>
+						<title level="a" type="short">Limited progression of aortic stenosis in
+							children</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="Accepted" when="2009-02-17"/>
+						</imprint>
+					</monogr>
+					<idno type="DOI">10.1136/adc.2007.134924</idno>
+					<idno type="manuscript">ADC/2007/134924</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<list>
+						<item>
+							<term>Cardiology</term>
+						</item>
+						<item>
+							<term>Congenital Abnorm</term>
+						</item>
+						<item>
+							<term>Aortic valvar stenosis</term>
+						</item>
+						<item>
+							<term>Follow-up study</term>
+						</item>
+						<item>
+							<term>Intervention</term>
+						</item>
+						<note type="manuscript-type">Original Article</note>
+					</list>
+				</keywords>
+			</textClass>
+		</profileDesc>
+		<revisionDesc>
+			<change when="2007-11-22">Submitted</change>
+			<change when="2008-11-04">Revised</change>
+			<change when="2009-02-27">Accepted</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+				<p>Objective Congenital valvular aortic stenosis is a common congenital heart
+					malformation. The rate of progression in childhood, however, remains to be
+					established. We assessed progression of peak aortic velocity before intervention
+					as well as frequency of intervention in pediatric patients with isolated
+					congenital valvular aortic stenosis. Patients and Methods A retrospective cohort
+					study was performed in 245 consecutive patients with aortic stenosis. Both
+					clinical and echocardiographic data were obtained. Results Over a period of
+					9.0±5.2 years (range 0.1-19.4) mean annual increase of peak systolic velocity
+					was 0.04 m/sec/year (95% confidence interval 0.028 to 0.056 m/sec/year;
+					P&lt;0.001) as shown by Anova. Forty patients underwent any cardiac
+					intervention shortly after their first echocardiogram. Another 33 patients
+					underwent intervention during follow-up. Interventions were performed
+					significantly more often in patients diagnosed at younger age and/or with a
+					higher peak velocity at diagnosis (P&lt;0.001). Mortality was considerable
+					in those diagnosed in infancy (five-year survival 73±9%), whereas it was nearly
+					absent in patients diagnosed after infancy. Most patients who died during
+					infancy had progressive left ventricular dysfunction despite adequate relief of
+					LV outflow obstruction. Conclusions Valvular aortic stenosis in the pediatric
+					age group usually has a good prognosis beyond neonatal age. Progression over
+					time is usually limited, although a considerable proportion of patients need any
+					intervention shortly after the initial diagnosis. Mortality, except for the
+					neonatal age group, is nearly absent.</p>
+			</div>
+		</front>
+		<body/>
+		<back/>
+	</text>
+</TEI>
