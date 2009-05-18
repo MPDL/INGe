@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+      eSciDoc types factory
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="escidocenumtypes.xsd"/>
+	<xs:include schemaLocation="escidoctypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>	
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
+	
+	
+	<!--*******************************
+    PersonType
+    ********************************-->
+	<xs:complexType name="PersonType">
+		<xs:sequence>
+			<xs:element name="complete-name" type="dc:SimpleLiteral"/>
+			<xs:element name="family-name" type="dc:SimpleLiteral" minOccurs="0"/>
+			<xs:element name="given-name" type="dc:SimpleLiteral" minOccurs="0"/>
+			<xs:element name="alternative-name" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="person-title" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="pseudonym" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="organization" type="OrganizationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
