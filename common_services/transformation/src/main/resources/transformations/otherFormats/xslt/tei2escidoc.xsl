@@ -80,11 +80,12 @@
 	</xsl:variable>
 	
 	<xsl:variable name="identMap">
-			<m key="DOI">dcterms:DOI</m>
+			<m key="DOI">eidt:DOI</m>
 			<m key="ISSN">eidt:ISSN</m>
 			<m key="pISSN">eidt:ISSN</m>
 			<m key="eISSN">eidt:ISSN</m>
-<!--			TODO: see new mapping of ident types!!!-->
+			<m key="pmid">eidt:PMID</m>
+			<m key="pii">eidt:PII</m>
 	</xsl:variable>
 	
       	
@@ -138,10 +139,6 @@
 		<xsl:variable name="refType" select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:biblStruct/@type"/>
 		
 		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
-		<!-- TODO: examples (e.g. Elsevier.tei) have no genre type, how to map???  -->
-<!--		<xsl:if test="empty($curGenre)">-->
-<!--			<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownGenre' ), 'Unknown genre: ', $refType)"/>		-->
-<!--		</xsl:if>		-->
 		<xsl:call-template name="createEntry">
 			<xsl:with-param name="gen" select="if (exists($curGenre)) then $curGenre else 'article'"/>
 		</xsl:call-template>
@@ -269,11 +266,21 @@
 			</xsl:if>
 			
 			<!-- SUBJECT -->
-			<xsl:for-each select="$pDesc/t:textClass/t:keywords/t:list/t:item/t:term">
-				<xsl:element name="dc:subject">
-					<xsl:value-of select="normalize-space(.)"/>
+			<!-- TODO: mit comma-->
+			<xsl:variable name="subjCount" select="count($pDesc/t:textClass/t:keywords/t:list/t:item/t:term)"/>
+			
+			<xsl:if test="$subjCount>0">
+				<xsl:element name="dcterms:subject">
+					<xsl:for-each select="$pDesc/t:textClass/t:keywords/t:list/t:item/t:term">
+							<xsl:value-of select="
+								concat(
+									normalize-space(.),
+									if ($subjCount>1 and (position()!=last())) then ', ' else ''
+								)	
+							"/>
+					</xsl:for-each>
 				</xsl:element>
-			</xsl:for-each>
+			</xsl:if>
 			
 			
 			<!-- LOCATION -->
@@ -364,13 +371,14 @@
 			</xsl:if>
 				
 					
-			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
+			
+			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:variable name="publisher" select="$imprint/t:publisher"/>
 			<xsl:variable name="place" select="$imprint/t:pubPlace"/>
 			
 			<xsl:if test="exists($publisher)">
-				<xsl:element name="pub:publishing-info">
+				<xsl:element name="e:publishing-info">
 					<xsl:element name="dc:publisher">
 						<xsl:value-of select="$publisher"/>
 					</xsl:element>
@@ -396,8 +404,8 @@
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
 		<!-- take corresp Author as first author-->
-		<xsl:variable name="analytic" select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:biblStruct/t:analytic"/>
-			<xsl:for-each select="($analytic/t:author[@type='corresp'], $analytic/t:author[empty(@type) or @type!='corresp'])">
+		<xsl:variable name="authors" select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:biblStruct/t:analytic/t:author"/>
+			<xsl:for-each select="($authors[@type='corresp'], $authors[empty(@type) or @type!='corresp'])">
 			<xsl:call-template name="createCreator">
 				<xsl:with-param name="role" select="'author'"/>
 			</xsl:call-template>
@@ -443,7 +451,7 @@
 				</e:organization-name>
 				<xsl:variable name="addr" select="$a/t:address"/>
 				<xsl:if test="exists($addr)">
-					<e:organization-address>
+					<e:address>
 					<!-- TODO: Not clear the order-->
 						<xsl:value-of select="
 							string-join(
@@ -456,7 +464,7 @@
 								)
 								, ' '
 							)"/>
-					</e:organization-address>
+					</e:address>
 				</xsl:if>
 				<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
 			</e:organization>
@@ -476,7 +484,7 @@
 				<xsl:variable name="idType" select="$identMap/m[@key=$ident/@type]"/>
 				<xsl:attribute name="xsi:type">
 					<!-- TODO: not clear from specs -->
-					<xsl:value-of select="if (exists($idType)) then $idType else $ident/@type"/>
+					<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
 				</xsl:attribute>
 				<xsl:value-of select="$ident"/>
 			</xsl:element>		
