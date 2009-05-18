@@ -86,7 +86,7 @@ public class TransformationTest
         this.logger.info("Transformation Tests succeeded");
     }
     
-    @Test
+    //Identifier not valid! (dev-coreservice)
     public void test2() throws Exception
     {
         ItemHandler ih = ServiceLocator.getItemHandler();
@@ -112,20 +112,15 @@ public class TransformationTest
      * */
     @Test
     public void tei2escidoc() throws Exception
-    {
-    	
-    	Format teiFormat = new Format("TEI", "application/xml", "UTF-8");
+    {    	
+    	Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
     	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
     	
-    	byte[] result = trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/BMJ1.tei").getBytes(), teiFormat, escidocFormat, "escidoc");
+    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S3.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
+    	this.logger.info(new String(result));
     	
-    	logger.info(new String(result));
-    	
+    	this.logger.info("Get all target formats for peer_tei: ");
+    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
     }
-    
-    
-    
-
-    
-    		
+	
 }

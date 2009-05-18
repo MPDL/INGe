@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats;
 
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -50,9 +51,23 @@ public class OtherFormatsTransformation
      * @param service
      * @return mets as byte[]
      */
-    public byte[] transformEscidocToMets(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transformEscidocToMets(byte[] src)
     {
         METSTransformation metsTrans = new METSTransformation();
         return metsTrans.transformToMETS(new String(src));
+    }
+    
+    /**
+     * Provides the transformation from a tei (PEER) object to a escidoc publication object.
+     * @param src
+     * @param srcFormat
+     * @param trgFormat
+     * @param service
+     * @return mets as byte[]
+     */
+    public byte[] transformPeerTeiToEscidoc(byte[] src, Format trgFormat) throws RuntimeException
+    {
+        TEITransformation teiTrans = new TEITransformation ();
+        return teiTrans.transform(src, trgFormat);
     }
 }

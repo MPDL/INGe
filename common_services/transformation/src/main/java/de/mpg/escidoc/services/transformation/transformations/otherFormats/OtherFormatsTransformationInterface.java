@@ -42,6 +42,7 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -195,6 +196,11 @@ public class OtherFormatsTransformationInterface implements Transformation
             result = this.escidocTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }     
+        if (srcFormat.getName().toLowerCase().startsWith("peer_tei"))
+        {
+            result = this.peerTeiTransform(src, srcFormat, trgFormat, service);
+            supported = true;
+        }  
         if (!supported)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
@@ -214,7 +220,29 @@ public class OtherFormatsTransformationInterface implements Transformation
         if (trgFormat.getName().equals("virr-mets"))
         {
             OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
-            result = otherTrans.transformEscidocToMets(src, srcFormat, trgFormat, service);
+            result = otherTrans.transformEscidocToMets(src);
+            supported = true;
+        }  
+        if (!supported)
+        {
+            this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
+                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
+                    + ", " + trgFormat.getEncoding());
+            throw new TransformationNotSupportedException();
+        }
+        return result;
+    }
+    
+    private byte[] peerTeiTransform(byte[] src, Format srcFormat, Format trgFormat, String service)
+    throws TransformationNotSupportedException
+    {
+        byte[] result = null;
+        boolean supported = false;
+        
+        if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
+        {
+            OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
+            result = otherTrans.transformPeerTeiToEscidoc(src, trgFormat);
             supported = true;
         }  
         if (!supported)
