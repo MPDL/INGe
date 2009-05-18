@@ -126,6 +126,10 @@
 									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
+									<h:panelGroup styleClass="seperator" />
+									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}AudiencePage.jsp">
+										<h:outputText value="#{lbl.AudiencePage}" />
+									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
 									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemLogPage}"/>
