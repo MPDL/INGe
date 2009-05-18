@@ -10,6 +10,9 @@
 	<xs:include schemaLocation="escidocenumtypes.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
 	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
+	<xs:include schemaLocation="escidoc_person_profile.xsd"/>
+	<xs:include schemaLocation="escidoc_source_profile.xsd"/>
+	<xs:include schemaLocation="escidoc_event_profile.xsd"/>
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
 	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
 	<!--*******************************
@@ -21,19 +24,7 @@
 			<xs:element name="organization" type="OrganizationType"/>
 		</xs:choice>
 	</xs:group>
-	<!--*******************************
-    EventType
-    ********************************-->
-	<xs:complexType name="EventType">
-		<xs:sequence>
-			<xs:element ref="dc:title"/>
-			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="start-date" type="dcterms:W3CDTF" minOccurs="0"/>
-			<xs:element name="end-date" type="dcterms:W3CDTF" minOccurs="0"/>
-			<xs:element name="place" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="invitation-status" type="InvitationStatusEnum" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
+	
 	<!--*******************************
     OrganizationType
     ********************************-->
@@ -44,21 +35,7 @@
 			<xs:element name="identifier" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--*******************************
-    PersonType
-    ********************************-->
-	<xs:complexType name="PersonType">
-		<xs:sequence>
-			<xs:element name="complete-name" type="dc:SimpleLiteral"/>
-			<xs:element name="family-name" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="given-name" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="alternative-name" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="person-title" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="pseudonym" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="organization" type="OrganizationType" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
+	
 	<!--*******************************
     PublishingInfoType
     ********************************-->
@@ -113,24 +90,5 @@
 		<xs:group ref="CreatorGroup"/>
 		<xs:attribute name="role" type="CreatorRoleEnum" use="required"/>
 	</xs:complexType>
-	<!--*******************************
-    SourceType
-    ********************************-->
-	<xs:complexType name="SourceType">
-		<xs:sequence>
-			<xs:element ref="dc:title"/>
-			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="creator" type="CreatorType" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="volume" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="issue" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="start-page" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="end-page" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="sequence-number" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="total-number-of-pages" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="publishing-info" type="PublishingInfoType" minOccurs="0"/>
-			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="source" type="SourceType" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-		<xs:attribute name="type" type="GenreEnum" use="optional"/>
-	</xs:complexType>
+	
 </xs:schema>
