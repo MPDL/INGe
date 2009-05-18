@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
 /**
  * Fragment class for CreateItem.
@@ -105,6 +106,7 @@ public class CreateItem extends FacesBean
         
         target = EditItem.LOAD_EDITITEM;
         method = SubmissionMethod.FULL_SUBMISSION;
+        String genreBundle = "Genre_ARTICLE";
         
         String navigateTo = "";
     	if (logger.isDebugEnabled())
@@ -140,7 +142,10 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
+            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
+            	this.getEditItemSessionBean().setGenreBundle(genreBundle);
             	this.getEditItem().setItem(null);
+            	this.getEditItem().getGenreSelect().resetValue();
             	this.getEditItem().init();
             }
             return navigateTo;
@@ -159,6 +164,8 @@ public class CreateItem extends FacesBean
             // re-init the edit item bean to make sure that all data is removed
             if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
             {
+            	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
+            	this.getEditItemSessionBean().setGenreBundle(genreBundle);
             	this.getEditItem().setItem(null);
             	this.getEditItem().setIdentifierIterator(new UIXIterator());
             	this.getEditItem().init();

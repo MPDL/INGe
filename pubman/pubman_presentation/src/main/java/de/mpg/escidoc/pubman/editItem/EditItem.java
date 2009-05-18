@@ -195,7 +195,7 @@ public class EditItem extends FacesBean
     
     private CoreInputFile inputFile = new CoreInputFile();
     
-    private String genreBundle = "Genre_ARTICLE";
+    private String genreBundle;
     
     // Flag for the binding method to avoid unnecessary binding
     private boolean bindFilesAndLocators = true;
@@ -228,14 +228,6 @@ public class EditItem extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
-        this.genreBundle = this.getEditItemSessionBean().getGenreBundle();
-        
-        // ensure that at least the genre article is available (JSF lifecycle problems...)
-        if(this.genreBundle == null || this.genreBundle.trim().equals(""))
-        {
-        	this.genreBundle = "Genre_ARTICLE";
-        }
-    	
         this.fileTable = new CoreTable();
 
         // enables the commandlinks
@@ -2042,6 +2034,16 @@ public class EditItem extends FacesBean
       
     	String newGenre = this.genreSelect.getSubmittedValue().toString();
     	
+    	Genre[] possibleGenres = MdsPublicationVO.Genre.values();
+    	for(int i = 0; i < possibleGenres.length; i++)
+    	{
+    		if(possibleGenres[i].toString().equals(newGenre))
+    		{
+    			this.item.getMetadata().setGenre(possibleGenres[i]);
+    			this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(possibleGenres[i]);
+    		}
+    	}
+    	
     	if(newGenre != null && newGenre.trim().equals(""))
     	{
     		newGenre = "ARTICLE";
@@ -2157,11 +2159,13 @@ public class EditItem extends FacesBean
 	}
 
 	public String getGenreBundle() {
-		return genreBundle;
+		//return genreBundle;
+		return this.getEditItemSessionBean().getGenreBundle();
 	}
 
 	public void setGenreBundle(String genreBundle) {
-		this.genreBundle = genreBundle;
+		//this.genreBundle = genreBundle;
+		this.getEditItemSessionBean().setGenreBundle(genreBundle);
 	}	
     
     public String getLocatorUpload()

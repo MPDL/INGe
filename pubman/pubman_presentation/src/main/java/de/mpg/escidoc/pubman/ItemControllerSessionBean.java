@@ -671,10 +671,10 @@ public class ItemControllerSessionBean extends FacesBean
         }
         
         // Genre
-//        if (newPubItem.getMetadata().getGenre() == null)
-//        {
+        if (newPubItem.getMetadata().getGenre() == null)
+        {
             newPubItem.getMetadata().setGenre(Genre.ARTICLE);
-//        }
+        }
         // File
 //        if (newPubItem.getFiles().size() == 0)
 //        {
