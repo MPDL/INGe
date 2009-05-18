@@ -129,6 +129,9 @@
 					<xsl:call-template name="createMetadata"/>
 				</mdr:md-record>
 			</xsl:element>
+			
+			<xsl:call-template name="createComponents"/>
+			
 		</xsl:element>
 	</xsl:template>
 		
@@ -343,36 +346,35 @@
 				</xsl:element>
 			</xsl:if>	
 
+			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
 			
 			<!-- SOURCE ISSUE -->
-			<xsl:if test="exists($monogr/t:biblScope[@type='issue'])">
+			<xsl:if test="exists($imprint/t:biblScope[@type='issue'])">
 				<xsl:element name="e:issue">
-					<xsl:value-of select="$monogr/t:biblScope[@type='issue']"/>
+					<xsl:value-of select="$imprint/t:biblScope[@type='issue']"/>
 				</xsl:element>
 			</xsl:if>
 			
 			<!-- SOURCE PAGES -->
-			<xsl:if test="exists($monogr/t:biblScope[@type='fpage'])">
+			<xsl:if test="exists($imprint/t:biblScope[@type='fpage'])">
 				<xsl:element name="e:start-page">
-					<xsl:value-of select="$monogr/t:biblScope[@type='fpage']"/>
+					<xsl:value-of select="$imprint/t:biblScope[@type='fpage']"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="exists($monogr/t:biblScope[@type='lpage'])">
+			<xsl:if test="exists($imprint/t:biblScope[@type='lpage'])">
 				<xsl:element name="e:end-page">
-					<xsl:value-of select="$monogr/t:biblScope[@type='lpage']"/>								
+					<xsl:value-of select="$imprint/t:biblScope[@type='lpage']"/>								
 				</xsl:element>						
 			</xsl:if>
 			
 			<!-- SOURCE SEQUENCE NUMBER -->
-			<xsl:if test="exists($monogr/t:biblScope[@type='elocation-id'])">
+			<xsl:if test="exists($imprint/t:biblScope[@type='elocation-id'])">
 				<xsl:element name="e:sequence-number">
-					<xsl:value-of select="$monogr/t:biblScope[@type='elocation-id']"/>
+					<xsl:value-of select="$imprint/t:biblScope[@type='elocation-id']"/>
 				</xsl:element>
 			</xsl:if>
 				
-					
-			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
-			
+
 			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:variable name="publisher" select="$imprint/t:publisher"/>
 			<xsl:variable name="place" select="$imprint/t:pubPlace"/>
@@ -422,32 +424,50 @@
 	
 	<xsl:template name="createPerson">
 		<xsl:element name="e:person">
-			<xsl:if test="empty(t:persName/t:surname)">
-				<xsl:element name="e:family-name">
-					<xsl:value-of select="t:persName"/>
-				</xsl:element>				
-			</xsl:if>
-			<xsl:if test="exists(t:persName/t:forename)">
-				<xsl:element name="e:given-name">
-					<xsl:value-of select="t:persName/t:forename"/>
-					<xsl:if test="exists(t:persName/t:genName)">
-						<xsl:value-of select="concat(', ', t:persName/t:genName)"/>
-					</xsl:if>
-				</xsl:element>				
-			</xsl:if>
-			<xsl:if test="exists(t:persName/t:surname)">
-				<xsl:element name="e:family-name">
-					<xsl:value-of select="t:persName/t:surname"/>
-					<xsl:if test="exists(t:persName/t:nameLink)">
-						<xsl:value-of select="concat(' ', t:persName/t:nameLink)"/>
-					</xsl:if>
-				</xsl:element>				
-			</xsl:if>
+			
+			<xsl:variable name="familyName">
+				<xsl:if test="empty(t:persName/t:surname)">
+					<xsl:element name="e:family-name">
+						<xsl:value-of select="t:persName"/>
+					</xsl:element>				
+				</xsl:if>
+				<xsl:if test="exists(t:persName/t:surname)">
+					<xsl:element name="e:family-name">
+						<xsl:value-of select="t:persName/t:surname"/>
+						<xsl:if test="exists(t:persName/t:nameLink)">
+							<xsl:value-of select="concat(' ', t:persName/t:nameLink)"/>
+						</xsl:if>
+					</xsl:element>				
+				</xsl:if>
+			</xsl:variable>
+			<xsl:copy-of select="$familyName"/>
+			
+			<xsl:variable name="givenName">
+				<xsl:if test="exists(t:persName/t:forename)">
+					<xsl:element name="e:given-name">
+						<xsl:value-of select="t:persName/t:forename"/>
+						<xsl:if test="exists(t:persName/t:genName)">
+							<xsl:value-of select="concat(', ', t:persName/t:genName)"/>
+						</xsl:if>
+					</xsl:element>				
+				</xsl:if>
+			</xsl:variable>
+			<xsl:copy-of select="$givenName"/>
+			
+			<xsl:variable name="a" select="t:affiliation"/>
+			<xsl:variable name="orgName" select="
+				if(exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution']))
+				then string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')
+				else ''
+			"/>
 			
 			<e:organization>
-				<xsl:variable name="a" select="t:affiliation"/>
 				<e:organization-name>
-					<xsl:value-of select="string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')"/>
+					<xsl:value-of select="
+						if (empty($orgName))
+						then string-join( ($familyName, $givenName), ' ')
+						else $orgName
+					"/>
 				</e:organization-name>
 				<xsl:variable name="addr" select="$a/t:address"/>
 				<xsl:if test="exists($addr)">
@@ -490,6 +510,52 @@
 			</xsl:element>		
 		</xsl:for-each>
 	</xsl:template>
+
+	
+<!--	COMOPONENTS-->
+	<xsl:template name="createComponents">
+	
+		<xsl:variable name="pubStmt" select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt"/>
+	
+		<ec:components>
+		      <ec:component objid="escidoc:dummy">
+		        <ec:properties/>
+		        <ec:content />
+		        <mdr:md-records>
+		          <mdr:md-record name="escidoc">
+		            <file:file>
+		              <dc:title/>
+		              <dc:description/>
+		              <dc:format/>
+		              <dcterms:available/>
+		              <dcterms:dateCopyrighted>
+		              		<xsl:value-of select="
+		              			if (exists($pubStmt/t:date/@when)) 
+		              			then $pubStmt/t:date/@when
+		              			else if (exists($pubStmt/t:date)) 
+		              			then $pubStmt/t:date
+		              			else ''
+		              		"/>
+		              </dcterms:dateCopyrighted>
+		              <dc:rights>
+		              	<xsl:if test="exists($pubStmt/t:availability)">
+		              		<xsl:value-of select="$pubStmt/t:availability"/>
+		              	</xsl:if>
+		              	<xsl:if test="exists($pubStmt/t:authority)">
+		              		<xsl:value-of select="
+		              			if (exists($pubStmt/t:availability))
+		              			then concat(' (', $pubStmt/t:authority, ')')
+		              			else $pubStmt/t:authority
+		              		"/>
+		              	</xsl:if>
+		              </dc:rights>
+		              <dcterms:license/>
+		            </file:file>
+		          </mdr:md-record>
+		        </mdr:md-records>
+		      </ec:component>
+		    </ec:components>
+	</xsl:template>				
 	
 
 </xsl:stylesheet>
