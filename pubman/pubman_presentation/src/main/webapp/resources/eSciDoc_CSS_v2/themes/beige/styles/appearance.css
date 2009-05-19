@@ -359,11 +359,11 @@
 		font-size: 14px !important;
 	}
 		
-	.listItem .itemHeadline b {
+	.listItem .itemHeadline a {
 		font-size: 14px !important;
 	}
 
-	.listItem td .itemHeadline b {
+	.listItem td .itemHeadline a {
 		font-size: 11px !important;
 	}
 	

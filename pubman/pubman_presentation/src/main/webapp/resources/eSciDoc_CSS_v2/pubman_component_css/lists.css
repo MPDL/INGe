@@ -117,6 +117,10 @@
 }
 
 	/*STATUS RELATED HEADER ELEMENTS*/
+	
+.listHeader {
+	height: 2.37em;
+}
 
 .listHeader .statusArea {
 	width: 9.19em;
@@ -128,6 +132,10 @@
 
 .listHeader .statusArea a {
 	width: 7.74em;
+}
+
+.listHeader span.statusArea a, .listHeader div.statusArea a {
+	padding-top: 0.00em;
 }
 
 /*LIST ITEM*/

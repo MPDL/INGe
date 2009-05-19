@@ -216,7 +216,7 @@ All rights reserved. Use is subject to license terms.
 		      		<span class="seperator"></span>
 		      		<span class="free_area0_p8 itemHeadline">
 						<h:outputLink title="#{tip.list_item}" value="#{item.link}">
- 							<b><h:outputText value="#{item.shortTitle}"/></b>
+ 							<h:outputText value="#{item.shortTitle}"/>
 	 					</h:outputLink>
 		      		</span>
 		      	</td>

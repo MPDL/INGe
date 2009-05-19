@@ -43,7 +43,7 @@
 	.metaMenu .logButton, .metaMenu button, .metaMenu label {
 		margin-top: 0.27em;
 		padding-top: 0px;
-		padding-left: 0.18em;
+		padding-left: 0.46em;
 	}
 
 	.metaMenu label {
@@ -52,7 +52,7 @@
 
 	.metaMenu .seperator {
 		width: 0.09em;
-		height: 1.45em;
+		height: 1.65em;
 		margin: 0px;
 		padding: 0px;
 		border-right-width: 0px;
@@ -77,12 +77,14 @@
 	
 	.searchMenu .quickSearchBtn {
 		float: left;
-	}
-/*
-	.quickSearchIcon {
-		margin-left: 0.64em;
+		margin-left: 0.37em;
+		margin-right: 2.37em;
 	}
 
+	.searchMenu .quickSearchIcon {
+		margin-right: 0.34em;
+	}
+/*
 	.quickSearchTextInput, .quickSearchCheckBoxMenu, .advancedSearchMenu *, .organisationSearchMenu * {
 		padding: 0px;
 		margin-top: 0.27em;
@@ -106,7 +108,7 @@
 	.mainMenu input, .mainMenu a, .mainMenu span {
 		font-size: 16px !important;
 		font-weight: bold;
-		/*margin-left: -0.09em;*/
+		margin-right: 0.80em;
 	}
 
 /*SUB-HEADER SECTION*/

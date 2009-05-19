@@ -33,7 +33,7 @@
 <div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
 
-	<span class="min_imgArea quickSearchIcon">&#160;</span>
+	<span class="std_imgArea quickSearchIcon">&#160;</span>
 	<span class="large_area0 quickSearchMenu">
 		<h:inputText id="quickSearchString" styleClass="large_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
 		<h:panelGroup styleClass="large_checkbox quickSearchCheckBoxMenu">
@@ -41,7 +41,7 @@
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
 	</span>
-	<h:commandButton id="btnQuickSearchStart" styleClass="xSmall_txtBtn xSmall_marginRIncl activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
+	<h:commandButton id="btnQuickSearchStart" styleClass="xSmall_txtBtn activeButton quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value="#{lbl.quick_search_btnStart}"/>
 
 
 
