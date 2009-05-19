@@ -49,7 +49,7 @@
 				</h:outputLink>	
 			<h:outputText value="#{lbl.lbl_noEntry}" rendered="#{ViewItemFull.isStatePending}"/>
 			</span>
-			<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{!ViewItemFull.isStatePending}">
+			<h:panelGroup styleClass="large_area0_p8 lineToolSection socialBookmarking" rendered="#{!ViewItemFull.isStatePending}">
 				<h:graphicImage title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}" styleClass="min_imgArea sectionTool pointer" url="http://www.informaworld.com/images/bookmarks/citeulike.gif" onclick="citeULikeLink();"/>
 				<script type="text/javascript">
 					function citeULikeLink() {

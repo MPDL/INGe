@@ -123,6 +123,11 @@
 	border-top-style: solid !important;
 }
 
+.fullItem .socialBookmarking img {
+	margin-top: 0.27em;
+	margin-left: 0.27em;
+}
+
 .fullItem .noTopBorder {
 	border-top-width: 0px !important;
 }

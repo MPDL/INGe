@@ -391,7 +391,7 @@ FORM BG			#FFFFFF
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
-		font-size: 18px !important;
+		font-size: 16px !important;
 		font-weight: normal;
 	}
 		
@@ -407,7 +407,7 @@ FORM BG			#FFFFFF
 	
 	.fullItem .easySubmissionHeader b {
 		color: #BAB4B3;
-		font-size: 18px;
+		font-size: 16px;
 	}
 	
 	.fullItem .easySubmissionHeader b.actual {

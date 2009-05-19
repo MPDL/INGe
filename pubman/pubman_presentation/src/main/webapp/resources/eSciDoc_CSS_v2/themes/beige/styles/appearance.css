@@ -355,7 +355,7 @@
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
-		font-size: 18px !important;
+		font-size: 16px !important;
 		font-weight: normal;
 	}
 		
@@ -371,7 +371,7 @@
 	
 	.fullItem .easySubmissionHeader b {
 		color: #B9B9B9;
-		font-size: 18px;
+		font-size: 16px;
 	}
 	
 	.fullItem .easySubmissionHeader b.actual {
