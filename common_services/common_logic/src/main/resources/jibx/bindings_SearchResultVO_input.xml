@@ -54,6 +54,8 @@
 	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
 	<namespace prefix="ou-details" uri="${xsd.metadata.organization}" default="none" />
 	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" default="none" />
+    <namespace prefix="ousuc" uri="http://www.escidoc.de/schemas/organizationalunitsuccessors/0.7" default="none" />
+    
 
 	<format type="java.util.Date"
 		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"

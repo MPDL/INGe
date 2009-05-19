@@ -49,6 +49,8 @@ public class AffiliationRO extends ReferenceObject
      * @author Johannes Mueller
      */
     private static final long serialVersionUID = 1L;
+    
+    private String form;
 
     /**
      * Creates a new instance.
@@ -65,5 +67,21 @@ public class AffiliationRO extends ReferenceObject
     public AffiliationRO(String objectId)
     {
         super(objectId);
+    }
+
+    /**
+     * @return the form
+     */
+    public String getForm()
+    {
+        return form;
+    }
+
+    /**
+     * @param form the form to set
+     */
+    public void setForm(String form)
+    {
+        this.form = form;
     }
 }

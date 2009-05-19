@@ -43,7 +43,7 @@
 	<namespace prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}" default="none" />
 	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
 	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
-	
+    	
     <format type="java.util.Date"
       deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
       serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />

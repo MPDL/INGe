@@ -65,6 +65,8 @@ public class AffiliationVO extends ValueObject implements Searchable
     private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
     private java.util.List<AffiliationRO> parentAffiliations = new java.util.ArrayList<AffiliationRO>();
+    
+    private java.util.List<AffiliationRO> predecessorAffiliations = new java.util.ArrayList<AffiliationRO>();
 
     private AffiliationRO reference;
 
@@ -315,5 +317,23 @@ public class AffiliationVO extends ValueObject implements Searchable
     {
         this.modifiedBy = modifiedBy;
     }
+
+    /**
+     * @return the predecessorAffiliations
+     */
+    public java.util.List<AffiliationRO> getPredecessorAffiliations()
+    {
+        return predecessorAffiliations;
+    }
+
+    /**
+     * @param predecessorAffiliations the predecessorAffiliations to set
+     */
+    public void setPredecessorAffiliations(java.util.List<AffiliationRO> predecessorAffiliations)
+    {
+        this.predecessorAffiliations = predecessorAffiliations;
+    }
+
+    
     
 }

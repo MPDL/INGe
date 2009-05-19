@@ -136,8 +136,28 @@
 			</structure>
 
 		</collection>
+        
+        <!-- Node: organizational-unit.parents -->
+        <!-- Field: AffiliationVO.parentAffiliations [List<AffiliationRO>] -->
+        <collection name="predecessors" ns="${xsd.soap.ou.ou}"
+            field="predecessorAffiliations"
+            factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory"
+            usage="optional">
 
-	</mapping>
+        <!-- Node: organizational-unit.parents.parent -->
+            <structure name="predecessor" ns="${xsd.soap.common.srel}"
+                type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
+
+                <!-- Node: organizational-unit.parents.parent.@objid -->
+                <value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+                
+                <!-- Node: organizational-unit.parents.parent.@objid -->
+                <value style="attribute" name="form" set-method="setForm" usage="optional" />
+
+            </structure>
+        
+        </collection>
+    </mapping>
 
 </binding>
 
