@@ -332,6 +332,7 @@ FORM BG			#FFFFFF
 	
 	.listHeader a {
 		line-height: normal;
+		font-weight: normal;
 	}
 	
 		/*SELECT MENU*/
