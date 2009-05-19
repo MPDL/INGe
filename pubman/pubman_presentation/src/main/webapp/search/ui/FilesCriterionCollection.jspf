@@ -63,9 +63,12 @@
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="#{lbl.adv_search_fileComponentEmbargoDate}"/>
+                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&#160;"/>
                         
-                        <h:inputText styleClass="large_txtInput"/>
+                        <span class="large_checkbox">
+							<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" />
+							<h:outputLabel for="fileCriterion_hasEmbargoDate" value="#{lbl.adv_search_fileComponentEmbargoDate}"/>
+						</span>	
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
