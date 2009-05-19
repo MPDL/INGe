@@ -64,6 +64,9 @@
 		body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 			font-family: Trebuchet, "Trebuchet MS", sans-serif;
 		}
+		input[type=text], textarea {
+			font-family : "Georgia", sans-serif;
+		}
 		h1, h4, h5 {
 			font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 		}
