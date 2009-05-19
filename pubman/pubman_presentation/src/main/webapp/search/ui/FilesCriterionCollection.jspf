@@ -63,7 +63,7 @@
                             
                     </span>
 					<span class="large_area0 tiny_marginRIncl">
-                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&#160;"/>
+                        <h:outputLabel id="lblComponentEmbargoDate" styleClass="large_label" value="&nbsp;" escape="false"/>
                         
                         <span class="large_checkbox">
 							<h:selectBooleanCheckbox id="fileCriterion_hasEmbargoDate" />
@@ -80,7 +80,7 @@
 							
 					</span>
 					<span class="large_area0 tiny_marginRIncl">
-						<h:outputLabel styleClass="large_label" value="&#160;"/>
+						<h:outputLabel styleClass="large_label" value="&nbsp;" escape="false"/>
 
                         <span class="large_checkbox">
 							<h:selectBooleanCheckbox id="fileCriterion_excludeCategory" value="#{fileCriterionBean.fileCriterionVO.excludeCategory}" />

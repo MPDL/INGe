@@ -155,7 +155,7 @@
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
  					<h:outputLink title="#{tip.list_shortTitle}" value="#{item.link}">
- 						<h:outputText value="#{item.shortTitle}"/>
+ 						<b><h:outputText value="#{item.shortTitle}"/></b>
  					</h:outputLink>
 					
  				</span>

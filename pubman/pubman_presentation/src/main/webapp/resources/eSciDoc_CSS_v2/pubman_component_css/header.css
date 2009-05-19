@@ -151,6 +151,10 @@
 	.contentMenu * {
 		line-height: normal;
 	}
+	
+	.contentMenu .action * {
+		margin-right: 0.37em;
+	}
 
 	.contentMenu {
 		margin-top: 0em;

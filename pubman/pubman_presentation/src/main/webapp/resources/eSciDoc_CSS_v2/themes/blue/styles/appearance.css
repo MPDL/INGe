@@ -391,15 +391,18 @@ FORM BG			#FFFFFF
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
-		font-size: 14px !important;
+		font-size: 18px !important;
+		font-weight: normal;
 	}
 		
-	.listItem .itemHeadline a {
+	.listItem .itemHeadline b {
 		font-size: 14px !important;
+		font-weight: normal;
 	}
 
-	.listItem td .itemHeadline a {
+	.listItem td .itemHeadline b {
 		font-size: 11px !important;
+		font-weight: normal;
 	}
 	
 	.fullItem .easySubmissionHeader b {
