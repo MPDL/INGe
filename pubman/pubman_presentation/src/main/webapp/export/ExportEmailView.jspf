@@ -30,15 +30,20 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 
-<div class="full_area0 itemBlock">
+<div class="full_area0 itemBlock noTopBorder">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		&#160;
 	</h3>
 	<span class="seperator"></span>
+	<span class="free_area0_p8 endline itemHeadline">
+		<b>
+			<h:outputText value="#{lbl.ExportEmail_lblItemsAttached}" />
+		</b>
+	</span>
 	<div class="free_area0 itemBlockContent endline">
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblItemsAttached}" />
+				
 				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.attExportFileName}" />
 			</span>
 		</div>
@@ -71,6 +76,9 @@
 				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
 				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
 			</span>
+		</div>
+		<div class="free_area0 endline itemLine noTopBorder">
+			&#160;<br />&#160;
 		</div>
 	</div>
 </div>
