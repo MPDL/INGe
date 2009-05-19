@@ -81,10 +81,16 @@
 	
 	<xsl:variable name="identMap">
 			<m key="DOI">eidt:DOI</m>
+			<m key="doi">eidt:DOI</m>
 			<m key="ISSN">eidt:ISSN</m>
+			<m key="issn">eidt:ISSN</m>
 			<m key="pISSN">eidt:ISSN</m>
+			<m key="pissn">eidt:ISSN</m>
 			<m key="eISSN">eidt:ISSN</m>
+			<m key="eissn">eidt:ISSN</m>
+			<m key="PMID">eidt:PMID</m>
 			<m key="pmid">eidt:PMID</m>
+			<m key="PII">eidt:PII</m>
 			<m key="pii">eidt:PII</m>
 	</xsl:variable>
 	
@@ -130,7 +136,7 @@
 				</mdr:md-record>
 			</xsl:element>
 			
-			<xsl:call-template name="createComponents"/>
+			<!--  <xsl:call-template name="createComponents"/> -->
 			
 		</xsl:element>
 	</xsl:template>
@@ -458,37 +464,32 @@
 			<xsl:variable name="orgName" select="
 				if(exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution']))
 				then string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')
-				else ''
+				else 'External Organization'
 			"/>
 			
-			<e:organization>
-				<e:organization-name>
-					<xsl:value-of select="
-						if (empty($orgName))
-						then string-join( ($familyName, $givenName), ' ')
-						else $orgName
-					"/>
-				</e:organization-name>
-				<xsl:variable name="addr" select="$a/t:address"/>
-				<xsl:if test="exists($addr)">
-					<e:address>
-					<!-- TODO: Not clear the order-->
-						<xsl:value-of select="
-							string-join(
-								(
-									 $addr/t:addrLine
-									,$addr/t:settlement
-									,$addr/t:postCode
-									,$addr/t:country
-									,t:email
-								)
-								, ' '
-							)"/>
-					</e:address>
-				</xsl:if>
-				<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
-			</e:organization>
-			
+				<e:organization>
+					<e:organization-name>
+						<xsl:value-of select="$orgName"/>
+					</e:organization-name>
+					<xsl:variable name="addr" select="$a/t:address"/>
+					<xsl:if test="exists($addr)">
+						<e:address>
+						<!-- TODO: Not clear the order-->
+							<xsl:value-of select="
+								string-join(
+									(
+										 $addr/t:addrLine
+										,$addr/t:settlement
+										,$addr/t:postCode
+										,$addr/t:country
+										,t:email
+									)
+									, ' '
+								)"/>
+						</e:address>
+					</xsl:if>
+					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+				</e:organization>
 			
 		</xsl:element>
 	</xsl:template>
@@ -519,8 +520,11 @@
 	
 		<ec:components>
 		      <ec:component objid="escidoc:dummy">
-		        <ec:properties/>
-		        <ec:content />
+		        <!-- Default values we need to tansform item in itemVO -->
+		        <ec:properties>
+		        	<prop:visibility>public</prop:visibility>
+		        </ec:properties>
+		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>
 		          <mdr:md-record name="escidoc">
 		            <file:file>

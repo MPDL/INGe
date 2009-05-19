@@ -116,7 +116,7 @@ public class TransformationTest
     	Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
     	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
     	
-    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S3.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
+    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Elsevier1.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
     	this.logger.info(new String(result));
     	
     	this.logger.info("Get all target formats for peer_tei: ");
