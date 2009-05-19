@@ -54,6 +54,8 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
+import net.sf.saxon.om.Validation;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
@@ -101,6 +103,8 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.exceptions.PubManException;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -127,8 +131,12 @@ public class SwordUtil extends FacesBean
     private PubManDepositServlet depositServlet;
 
     private Vector<String> filenames = new Vector<String>();
+    //Format of the provided Metadata
     private String format = "";
     
+    private String validationPoint;
+    
+
     //Constants
     private final String acceptedFormat = "application/zip";
     private final String mdFormatTEI = ".tei";
@@ -137,6 +145,10 @@ public class SwordUtil extends FacesBean
     private final String serviceDocUrl = "faces/sword/servicedocument";
     private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
     private final String acceptedNs = "http://www.tei-c.org/ns/1.0";
+    private final String validationPointAccept = "accept_item";
+    private final String validationPointSubmit = "submit_item";
+    private final String validationPointDefault = "default";
+    private final String transformationService = "escidoc";
 
     /**
      * Public constructor
@@ -149,6 +161,7 @@ public class SwordUtil extends FacesBean
     public void init()
     {
         this.depositServlet = new PubManDepositServlet();
+        this.setValidationPoint(this.validationPointDefault);
         super.init();
     }
 
@@ -397,22 +410,21 @@ public class SwordUtil extends FacesBean
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEscidoc))
                 {
                     size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF8");
+                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.format=this.mdFormatEscidoc;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatTEI))
                 {
                     size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF8");
+                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.format=this.mdFormatTEI;
                 }
-                else
-                {
+
                     attachements.add(baos.toByteArray());
                     attachementsNames.add(zipentry.getName());
-                    }               
+      
                 zipinputstream.closeEntry();
             }
             zipinputstream.close();            
@@ -422,7 +434,7 @@ public class SwordUtil extends FacesBean
         {
             //TODO exception handling
             e.printStackTrace();
-            }        
+        }        
         if (count == 0)
         {
             this.logger.info("No zip file was provided.");
@@ -459,14 +471,20 @@ public class SwordUtil extends FacesBean
             
             if (this.format.equals(this.mdFormatEscidoc))
             {
-              //Transform to escidoc-publication-item
-              if (this.format.equals(this.mdFormatTEI))
-              {
-                  //Start tei transformation
-              }
+                //No transformation needed
             }
             
+            //Transform from tei to escidoc-publication-item
+            if (this.format.equals(this.mdFormatTEI))
+            {
+                TransformationBean transformer = new TransformationBean ();
+                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
+                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+                item = new String (transformer.transform(item.getBytes(), teiFormat, escidocFormat, this.transformationService), "UTF-8");
+            }           
+            
             //Create item
+            System.out.println(item);
             itemVO = xmlTransforming.transformToPubItem(item);
             this.logger.debug("Item successfully created.");
         }
@@ -481,7 +499,7 @@ public class SwordUtil extends FacesBean
         {
             byte[] file = files.get(i);   
             String name = names.get(i);
-            FileVO fileVO = this.convertToFile(file, name, user);
+            FileVO fileVO = this.convertToFile(itemVO, file, name, user);
             itemVO.getFiles().add(fileVO);
         }
         
@@ -581,14 +599,17 @@ public class SwordUtil extends FacesBean
 
         if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner)
         {
+            this.setValidationPoint(this.validationPointAccept);
             return "RELEASE";
         }
         if ((isStatePending || isStateInRevision) &&  isWorkflowStandard && isOwner)
         {
+            this.setValidationPoint(this.validationPointSubmit);
             return "SAVE_SUBMIT";
         }
         if (((isStatePending || isStateInRevision) && isOwner) || (isStateSubmitted && isModerator))
         {
+            this.setValidationPoint(this.validationPointSubmit);
             return "SUBMIT";
         }
         return null;
@@ -643,7 +664,7 @@ public class SwordUtil extends FacesBean
      * @return FileVO
      * @throws Exception
      */
-    private FileVO convertToFile (byte[] file, String name, AccountUserVO user) throws Exception
+    private FileVO convertToFile (PubItemVO itemVO, byte[] file, String name, AccountUserVO user) throws Exception
     {
         FileVO fileVO = new FileVO();
 
@@ -651,9 +672,16 @@ public class SwordUtil extends FacesBean
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
 
-        URL fileURL = this.uploadFile(in, mimeType, user.getHandle());    
+        URL fileURL = this.uploadFile(in, mimeType, user.getHandle()); 
+        
         if (fileURL != null && !fileURL.toString().trim().equals(""))
         {                           
+            //check if Metadata file component was created by the transformation
+//            if (name.toLowerCase().endsWith(this.format))
+//            {
+//                fileVO = itemVO.getFiles().get(0);
+//            }
+            
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
             fileVO.setDefaultMetadata(new MdsFileVO());
@@ -664,11 +692,18 @@ public class SwordUtil extends FacesBean
             FormatVO formatVO = new FormatVO();
             formatVO.setType("dcterms:IMT");
             formatVO.setValue(mimeType);
-
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(fileURL.toString());
             fileVO.getDefaultMetadata().setSize(file.length);
-            fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.ANY_FULLTEXT.toString());
+            //This is the provided metadata which we store as a component 
+            if (name.endsWith(this.mdFormatEscidoc) || name.endsWith(this.mdFormatTEI))
+            {
+                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+            }
+            else
+            {
+                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.toString());
+            }           
         }
 
         return fileVO;
@@ -700,7 +735,7 @@ public class SwordUtil extends FacesBean
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 
-    public SWORDEntry createResponseAtom (PubItemVO item, Deposit deposit)
+    public SWORDEntry createResponseAtom (PubItemVO item, Deposit deposit, boolean valid)
     {
         SWORDEntry se = new SWORDEntry();
         PubManSwordServer server = new PubManSwordServer();
@@ -729,8 +764,12 @@ public class SwordUtil extends FacesBean
                 }
                 else
                 {
-                    String name = item.getMetadata().getCreators().get(i).getPerson().getGivenName() + ", " +
-                    item.getMetadata().getCreators().get(i).getPerson().getFamilyName();
+                    String name = "";
+                    if (item.getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
+                    {
+                        name += item.getMetadata().getCreators().get(i).getPerson().getGivenName()  + ", ";
+                    }                         
+                    name += item.getMetadata().getCreators().get(i).getPerson().getFamilyName();
                     author.setName(name);
                 }
                 se.addAuthors(author);     
@@ -754,8 +793,8 @@ public class SwordUtil extends FacesBean
         s.setContent(filename);
         se.setSummary(s);
 
-        //Only set content if item was really created
-        if (! deposit.isNoOp() && item != null)
+        //Only set content if item was deposited
+        if (! deposit.isNoOp() && item != null && valid)
         {
             Content content = new Content();
             content.setSource(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
@@ -780,13 +819,16 @@ public class SwordUtil extends FacesBean
         InitialContext initialContext = new InitialContext();
         ItemValidating itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         String error = "";
+        
+        //To set the validation point
+        this.getMethod(item);
 
         ValidationReportItemVO itemReport = null;
         ValidationReportVO report = new ValidationReportVO();
 
         try
         {
-            report = itemValidating.validateItemObject(item);
+            report = itemValidating.validateItemObject(item, this.getValidationPoint());
             if (!report.isValid())
             {
                 for (int i = 0; i < report.getItems().size(); i++)
@@ -808,5 +850,16 @@ public class SwordUtil extends FacesBean
             this.logger.error("Validation error", e);
         }
         return error;
+    }
+    
+    
+    public String getValidationPoint()
+    {
+        return this.validationPoint;
+    }
+
+    public void setValidationPoint(String validationPoint)
+    {
+        this.validationPoint = validationPoint;
     }
 }

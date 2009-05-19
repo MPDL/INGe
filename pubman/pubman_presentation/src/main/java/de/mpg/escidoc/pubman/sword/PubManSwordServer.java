@@ -142,6 +142,7 @@ public class PubManSwordServer
                 depositItem.setContext(context);
 
                 //Validate Item
+                util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));
                 String validationReport = util.validateItem(depositItem);
                 if (validationReport == null)
                 {
@@ -154,20 +155,19 @@ public class PubManSwordServer
                     valid = false;
                 }
                 
-                //Deposit item
-                util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));                
+                //Deposit item                             
                 if (!deposit.isNoOp() && valid)
                 {
                     depositItem = util.doDeposit(this.currentUser, depositItem);   
                     if (depositItem.getVersion().getState().equals(State.RELEASED))
                     {
                          dr = new DepositResponse(Deposit.CREATED);
-                         this.setVerbose("Escidoc Publication Item successfully created.");
+                         this.setVerbose("Escidoc Publication Item successfully deposited (state: "+ depositItem.getPublicStatus() +").");
                     }
                     else
                     {
                         dr = new DepositResponse(Deposit.ACCEPTED);
-                        this.setVerbose("Escidoc Publication Item successfully created and submitted.");
+                        this.setVerbose("Escidoc Publication Item successfully deposited (state: "+ depositItem.getPublicStatus() +").");
                     }
                 }
                 else 
@@ -213,7 +213,7 @@ public class PubManSwordServer
                 this.setVerbose("An internal error occurred: " + e.toString());
             }
 
-            SWORDEntry se = util.createResponseAtom(depositItem, deposit);
+            SWORDEntry se = util.createResponseAtom(depositItem, deposit, valid);
             if (deposit.isVerbose())
             {
                 se.setVerboseDescription(this.getVerbose());
