@@ -509,42 +509,42 @@
 	.collapse {
 		background-image: url('../images/All_ListView_MinusSmallview_15_Active.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 	
 	.collapse:hover, .collapse:focus {
 		background-image: url('../images/All_ListView_MinusSmallview_15_Hover.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 	
 	.collapse:disabled {
 		background-image: url('../images/All_ListView_MinusSmallview_15_Deactivated.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 
 	.expand {
 		background-image: url('../images/All_ListView_PlusMediumview_15_Active.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 	
 	.expand:hover, .expand:focus {
 		background-image: url('../images/All_ListView_PlusMediumview_15_Hover.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 	
 	.expand:disabled {
 		background-image: url('../images/All_ListView_PlusMediumview_15_Deactivated.gif');
 		background-repeat: no-repeat;
-		background-position: top left;
+		background-position: center left;
 		padding-left: 2.10em !important;
 	}
 	
