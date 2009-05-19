@@ -952,6 +952,9 @@ public class JiBXHelper
             case CONE:
                 s = IDTYPES_NAMESPACE_PREFIX + "CONE";
                 break;
+            case PII:
+                s = IDTYPES_NAMESPACE_PREFIX + "PII";
+                break;
         }
         return s;
     }
