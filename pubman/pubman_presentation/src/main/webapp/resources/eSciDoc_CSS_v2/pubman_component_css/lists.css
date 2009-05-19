@@ -161,11 +161,11 @@
 }
 
 .listItem .itemHeader {
-	margin-bottom: -1.00em;
+	margin-bottom: -0.37em;
 }
 
 .loggedIn .listItem .itemHeader {
-	margin-bottom: -2.65em;
+	margin-bottom: -3.19em;
 }
 
 .listItem .shortView, .listItem .mediumView {
@@ -180,7 +180,6 @@
 
 .listItem .itemHeadline {
 	width: 59.56em;
-	padding-top: 0.19em;
 	padding-bottom: 1.00em;
 }
 

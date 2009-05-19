@@ -124,25 +124,25 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 50em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
+									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE} "/>
 									<h:selectOneMenu styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeState" action="#{MyTasksRetrieverRequestBean.changeItemState}" value="change item state"/>
 									
-									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblCollectionSelection}: "/>
+									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblCollectionSelection} "/>
 									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('div').find('.changeCollection').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
 
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection}: "/>
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblOrgUnitSelection} "/>
 									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedOrgUnit}" onchange="$(this).parents('div').find('.changeOrgUnit').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.orgUnitSelectItems}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeOrgUnit" action="#{MyTasksRetrieverRequestBean.changeOrgUnit}" value="change org unit"/>
 
-									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags}: "/>
+									<h:outputText styleClass="free_area0 clearLeft" value="#{lbl.qaws_lblMultipleImportTags} "/>
 									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedImport}" onchange="$(this).parents('div').find('.changeImport').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.importSelectItems}"/>
 									</h:selectOneMenu>
@@ -151,7 +151,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
+									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy} "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
 										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>

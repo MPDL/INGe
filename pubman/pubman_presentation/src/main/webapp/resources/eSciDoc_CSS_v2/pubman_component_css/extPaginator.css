@@ -42,12 +42,12 @@
 /*RANGE SELECTOR*/
 
 .rangeSelector {
-		margin-top: 0.36em;
+		margin-top: 0.46em;
 	}
 	
-.rangeSelector select {
-	margin-top: 0.37em;
-}
+	.rangeSelector select {
+		margin-top: 0.09em;
+	}
 
 /*
 	.rangeSelector {
@@ -124,7 +124,7 @@
 /*PAGE BROWSER*/
 
 	.pageBrowser {
-		margin-top: 0.27em;
+		margin-top: 0.09em;
 	}
 
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
@@ -160,18 +160,18 @@
 		margin-left: 0.45em;
 	}
 	
-	.pageBrowser label{
+	.pageBrowser label {
 		margin-top: 0.28em;
 	}
 
 /*GOTO BOX*/
-	.gotoBox label{
-		margin-top: 0.28em;
+	.gotoBox label {
+		margin-top: 0.46em;
 	}
 
 	.gotoBox input {
-		margin-top: 0.65em;
-		margin-left: 0.10em;
-		margin-right: 0.19em;
+		margin-top: 0.46em;
+		margin-left: 0.19em;
+		margin-right: 0.37em;
 		padding-top: 0.18em;
 	}
