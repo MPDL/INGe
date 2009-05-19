@@ -89,7 +89,6 @@
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-													<h:outputText styleClass="seperator void" />
 													<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 														<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 													</h:commandLink>
