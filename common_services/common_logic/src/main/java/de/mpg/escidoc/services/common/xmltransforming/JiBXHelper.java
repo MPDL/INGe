@@ -955,6 +955,21 @@ public class JiBXHelper
             case PII:
                 s = IDTYPES_NAMESPACE_PREFIX + "PII";
                 break;
+            case ZDB:
+                s = IDTYPES_NAMESPACE_PREFIX + "ZDB";
+                break;
+            case PMID:
+                s = IDTYPES_NAMESPACE_PREFIX + "PMID";
+                break;
+            case ARXIV:
+                s = IDTYPES_NAMESPACE_PREFIX + "ARXIV";
+                break;
+            case PMC:
+                s = IDTYPES_NAMESPACE_PREFIX + "PMC";
+                break;
+            case BMC:
+                s = IDTYPES_NAMESPACE_PREFIX + "BMC";
+                break;
         }
         return s;
     }
