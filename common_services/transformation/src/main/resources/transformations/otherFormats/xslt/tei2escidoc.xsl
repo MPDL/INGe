@@ -461,21 +461,27 @@
 
 				<e:organization>
 					<e:organization-name>
-						<xsl:value-of select="$orgName"/>
+						<xsl:value-of select="normalize-space($orgName)"/>
 					</e:organization-name>
 					<xsl:variable name="addr" select="$a/t:address"/>
 					<xsl:if test="exists($addr)">
 						<e:address>
 							<xsl:value-of select="
-								string-join(
-									(
-										 $addr/t:addrLine
-										,concat(',',$addr/t:postCode)
-										,$addr/t:settlement
-										,concat(',',$addr/t:country)
-										,t:email
-									)
-									, ' '
+								replace(
+									normalize-space(
+										string-join(
+											(
+												  $addr/t:addrLine
+												, if (exists($addr/t:postCode)) then concat(', ',$addr/t:postCode) else ''
+												, $addr/t:settlement
+												, if (exists($addr/t:country)) then concat(', ', $addr/t:country) else '' 
+												, if (exists(t:email)) then concat(' (', t:email, ')') else '' 
+											)
+											, ' '
+										)
+									),
+									'\s+,',
+									','	
 								)"/>
 						</e:address>
 					</xsl:if>
