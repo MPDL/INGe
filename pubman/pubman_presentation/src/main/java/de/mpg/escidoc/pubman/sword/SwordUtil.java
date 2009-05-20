@@ -133,6 +133,7 @@ public class SwordUtil extends FacesBean
     private Vector<String> filenames = new Vector<String>();
     //Format of the provided Metadata
     private String format = "";
+    private String depositXml ="";
     
     private String validationPoint;
     
@@ -413,6 +414,7 @@ public class SwordUtil extends FacesBean
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.format=this.mdFormatEscidoc;
+                    this.depositXml = item;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatTEI))
                 {
@@ -420,6 +422,7 @@ public class SwordUtil extends FacesBean
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.format=this.mdFormatTEI;
+                    this.depositXml = item;
                 }
 
                     attachements.add(baos.toByteArray());
@@ -499,7 +502,7 @@ public class SwordUtil extends FacesBean
         {
             byte[] file = files.get(i);   
             String name = names.get(i);
-            FileVO fileVO = this.convertToFile(itemVO, file, name, user);
+            FileVO fileVO = this.convertToFile(file, name, user);
             itemVO.getFiles().add(fileVO);
         }
         
@@ -664,27 +667,43 @@ public class SwordUtil extends FacesBean
      * @return FileVO
      * @throws Exception
      */
-    private FileVO convertToFile (PubItemVO itemVO, byte[] file, String name, AccountUserVO user) throws Exception
+    private FileVO convertToFile (byte[] file, String name, AccountUserVO user) throws Exception
     {
+        MdsFileVO mdSet = new MdsFileVO();
         FileVO fileVO = new FileVO();
+        String fileXml = null;
 
         ByteArrayInputStream in = new ByteArrayInputStream(file);
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
+        TransformationBean transformer = new TransformationBean();
 
         URL fileURL = this.uploadFile(in, mimeType, user.getHandle()); 
         
         if (fileURL != null && !fileURL.toString().trim().equals(""))
         {                           
-            //check if Metadata file component was created by the transformation
-//            if (name.toLowerCase().endsWith(this.format))
-//            {
-//                fileVO = itemVO.getFiles().get(0);
-//            }
+            if (this.format.equals(this.mdFormatTEI))
+            {
+                //Copyright information are imported from metadata file
+                InitialContext initialContext = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
+                Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
+                fileXml = new String (transformer.transform(this.depositXml.getBytes(), teiFormat, escidocComponentFormat, "escidoc"),"UTF-8");
+                try
+                {
+                    fileVO = xmlTransforming.transformToFileVO(fileXml);
+                    mdSet = fileVO.getDefaultMetadata();
+                }
+                catch(TechnicalException e)
+                {
+                    this.logger.error("File Xml could not be transformed into FileVO. " , e);
+                }
+            }
             
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
-            fileVO.setDefaultMetadata(new MdsFileVO());
+            fileVO.setDefaultMetadata(mdSet);
             fileVO.getDefaultMetadata().setTitle(new TextVO(name));
             fileVO.setMimeType(mimeType);
             fileVO.setName(name);
