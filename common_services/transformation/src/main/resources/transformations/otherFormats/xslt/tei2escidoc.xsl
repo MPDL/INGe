@@ -81,17 +81,11 @@
 	
 	<xsl:variable name="identMap">
 			<m key="DOI">eidt:DOI</m>
-			<m key="doi">eidt:DOI</m>
 			<m key="ISSN">eidt:ISSN</m>
-			<m key="issn">eidt:ISSN</m>
 			<m key="pISSN">eidt:ISSN</m>
-			<m key="pissn">eidt:ISSN</m>
 			<m key="eISSN">eidt:ISSN</m>
-			<m key="eissn">eidt:ISSN</m>
 			<m key="PMID">eidt:PMID</m>
-			<m key="pmid">eidt:PMID</m>
 			<m key="PII">eidt:PII</m>
-			<m key="pii">eidt:PII</m>
 	</xsl:variable>
 	
       	
@@ -135,9 +129,6 @@
 					<xsl:call-template name="createMetadata"/>
 				</mdr:md-record>
 			</xsl:element>
-			
-			<!--  <xsl:call-template name="createComponents"/> -->
-			
 		</xsl:element>
 	</xsl:template>
 		
@@ -184,10 +175,10 @@
 			</xsl:element>
 			
 			<!-- LANGUAGE -->
-			<xsl:if test="exists($pDesc/t:langUsage/t:lang)">
+			<xsl:if test="exists($pDesc/t:langUsage/t:language/@ident)">
 				<xsl:element name="dc:language">
 					<xsl:attribute name="xsi:type">dcterms:RFC3066</xsl:attribute>
-					<xsl:value-of select="$pDesc/t:langUsage/t:lang"/>
+					<xsl:value-of select="$pDesc/t:langUsage/t:language/@ident"/>
 				</xsl:element>
 			</xsl:if> 
 			
@@ -223,8 +214,8 @@
 			
 			<xsl:for-each select="$dateMap/m/@key">
 				<xsl:variable name="dateType" select="."/>
-				<xsl:variable name="date" select="$iDates[@type=$dateType]"/>
-				<xsl:variable name="change" select="$rDates[.=$dateType]"/>
+				<xsl:variable name="date" select="$iDates[upper-case(@type)=upper-case($dateType)]"/>
+				<xsl:variable name="change" select="$rDates[upper-case(.)=upper-case($dateType)]"/>
 				<xsl:if test="exists($date) or exists($change)">
 					<xsl:element name="{$dateMap/m[@key=$dateType]}">
 						<xsl:attribute name="xsi:type">dcterms:W3CDTF</xsl:attribute>
@@ -343,16 +334,15 @@
 			
 			<!-- SOURCE CREATORS -->
 
-
+			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
 			
 			<!-- SOURCE VOLUME -->
-			<xsl:if test="exists($monogr/t:biblScope[@type='vol'])">
+			<xsl:if test="exists($imprint/t:biblScope[@type='vol'])">
 				<xsl:element name="e:volume">
-					<xsl:value-of select="$monogr/t:biblScope[@type='vol']"/>
+					<xsl:value-of select="$imprint/t:biblScope[@type='vol']"/>
 				</xsl:element>
 			</xsl:if>	
 
-			<xsl:variable name="imprint" select="$monogr/t:imprint"/>
 			
 			<!-- SOURCE ISSUE -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='issue'])">
@@ -462,8 +452,10 @@
 			
 			<xsl:variable name="a" select="t:affiliation"/>			
 			<xsl:variable name="orgName" select="
-				if(exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution']))
+				if (exists($a/t:orgName) and (exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution'])))
 				then string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')
+				else if (exists($a))
+				then $a 
 				else 'External Organization'
 			"/>
 
@@ -500,65 +492,23 @@
 		<xsl:param name="idents"/>
 		<xsl:for-each select="$idents">
 			<xsl:variable name="ident" select="."/>
-			<xsl:element name="dc:identifier">
-				<xsl:variable name="idType" select="$identMap/m[@key=$ident/@type]"/>
-				<xsl:attribute name="xsi:type">
-					<!-- TODO: not clear from specs -->
-					<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
-				</xsl:attribute>
-				<xsl:value-of select="$ident"/>
-			</xsl:element>		
+			<xsl:variable name="isISSN" select="contains(upper-case($ident/@type), 'ISSN')"/>
+			<xsl:if test="not($isISSN) or ($isISSN and $ident!='N')">
+				<xsl:element name="dc:identifier">
+					<xsl:variable name="idType" select="$identMap/m[upper-case(@key)=upper-case($ident/@type)]"/>
+					<xsl:attribute name="xsi:type">
+						<!-- TODO: not clear from specs -->
+						<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
+					</xsl:attribute>
+					<xsl:value-of select="
+						if ($isISSN)
+						then concat('(', $ident/@type, ')', $ident)
+						else $ident
+					"/>
+				</xsl:element>
+			</xsl:if>		
 		</xsl:for-each>
 	</xsl:template>
-
-	
-<!--	COMOPONENTS-->
-	<xsl:template name="createComponents">
-	
-		<xsl:variable name="pubStmt" select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt"/>
-	
-		<ec:components>
-		      <ec:component objid="escidoc:dummy">
-		        <!-- Default values we need to tansform item in itemVO -->
-		        <ec:properties>
-		        	<prop:visibility>public</prop:visibility>
-		        </ec:properties>
-		        <ec:content storage="internal-managed"/>
-		        <mdr:md-records>
-		          <mdr:md-record name="escidoc">
-		            <file:file>
-		              <dc:title/>
-		              <dc:description/>
-		              <dc:format/>
-		              <dcterms:available/>
-		              <dcterms:dateCopyrighted>
-		              		<xsl:value-of select="
-		              			if (exists($pubStmt/t:date/@when)) 
-		              			then $pubStmt/t:date/@when
-		              			else if (exists($pubStmt/t:date)) 
-		              			then $pubStmt/t:date
-		              			else ''
-		              		"/>
-		              </dcterms:dateCopyrighted>
-		              <dc:rights>
-		              	<xsl:if test="exists($pubStmt/t:availability)">
-		              		<xsl:value-of select="$pubStmt/t:availability"/>
-		              	</xsl:if>
-		              	<xsl:if test="exists($pubStmt/t:authority)">
-		              		<xsl:value-of select="
-		              			if (exists($pubStmt/t:availability))
-		              			then concat(' (', $pubStmt/t:authority, ')')
-		              			else $pubStmt/t:authority
-		              		"/>
-		              	</xsl:if>
-		              </dc:rights>
-		              <dcterms:license/>
-		            </file:file>
-		          </mdr:md-record>
-		        </mdr:md-records>
-		      </ec:component>
-		    </ec:components>
-	</xsl:template>				
 	
 
 </xsl:stylesheet>
