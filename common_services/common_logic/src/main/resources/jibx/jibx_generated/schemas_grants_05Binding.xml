@@ -1,0 +1,34 @@
+<binding xmlns:tns="http://www.escidoc.de/schemas/grants/0.5">
+  <namespace uri="http://www.escidoc.de/schemas/grants/0.5" prefix="tns"/>
+  <namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
+  <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList" name="grant-list" ns="http://www.escidoc.de/schemas/grants/0.5">
+    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
+    <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
+    <value style="attribute" name="number-of-records" get-method="getNumberOfRecords" set-method="setNumberOfRecords" usage="optional"/>
+    <value style="attribute" name="limit" get-method="getLimit" set-method="setLimit" usage="optional"/>
+    <value style="attribute" name="offset" get-method="getOffset" set-method="setOffset" usage="optional"/>
+  </mapping>
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="http://www.escidoc.de/schemas/grants/0.5">
+    <structure name="properties" ns="http://www.escidoc.de/schemas/grants/0.5">
+      <structure name="granted-to" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      	<value style="attribute" name="objid" get-method="getPropertiesGrantedTo" set-method="setPropertiesGrantedTo"/>
+      	<value style="attribute" name="resource" get-method="getPropertiesGrantType" set-method="setPropertiesGrantType" usage="optional" />
+      </structure>
+      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesCreationDate" set-method="setPropertiesCreationDate" usage="optional"/>
+      <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      	<value style="attribute" name="objid" get-method="getPropertiesCreatedBy" set-method="setPropertiesCreatedBy"/>
+      </structure>
+      <value style="element" name="revocation-date" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesRevocationDate" set-method="setPropertiesRevocationDate" usage="optional"/>
+      <structure name="revoked-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      	<value style="attribute" name="objid" get-method="getPropertiesRevokedBy" set-method="setPropertiesRevokedBy"/>
+      </structure>
+      <value style="element" name="grant-remark" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesGrantRemark" set-method="setPropertiesGrantRemark" usage="optional"/>
+      <value style="element" name="revocation-remark" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesRevocationRemark" set-method="setPropertiesRevocationRemark" usage="optional"/>
+      <value style="element" name="role" ns="http://escidoc.de/core/01/structural-relations/" get-method="getPropertiesRole" set-method="setPropertiesRole"/>
+      <value style="element" name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" get-method="getPropertiesAssignedOn" set-method="setPropertiesAssignedOn" usage="optional"/>
+    </structure>
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+    <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
+  </mapping>
+</binding>

@@ -1,0 +1,609 @@
+
+package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
+
+import de.escidoc.www.services.aa.UserGroupHandler;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
+import de.mpg.escidoc.services.framework.ServiceLocator;
+
+/** 
+ * 
+ <para>
+ Following you will find information which elements
+ and attributes are "required", "optional",
+ "not-allowed" or will be "discarded" in the input
+ XML-stream when creating or updating such an object.
+ </para>
+ <para>
+ In "create" the rule for creating a new object is
+ defined.
+ </para>
+ <para>
+ In "update" the rule for updating an object is
+ defined.
+ </para>
+ <para>
+ Possible values are: required | optional |
+ not-allowed | discarded
+ </para>
+ <para>
+ required: this element or attribute has to be
+ delivered
+ </para>
+ <para>
+ optional: this element or attribute can be delivered
+ and will be kept
+ </para>
+ <para>
+ not-allowed: this element or attribute is not
+ allowed in delivery and will cause an exception
+ </para>
+ <para>
+ discarded: this element or attribute can be
+ delivered but will not be used
+ </para>
+ 
+ <create>required</create>
+ <update>required</update>
+ 
+ * 
+ * Schema fragment(s) for this class:
+ * <pre>
+ * &lt;xs:element xmlns:ns="http://escidoc.de/core/01/structural-relations/" xmlns:ns1="http://www.escidoc.de/schemas/commontypes/0.4" xmlns:ns2="http://www.escidoc.de/schemas/usergroup/0.5" xmlns:ns3="http://escidoc.de/core/01/properties/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="user-group">
+ *   &lt;xs:complexType>
+ *     &lt;xs:sequence>
+ *       &lt;xs:element name="properties">
+ *         &lt;xs:complexType>
+ *           &lt;xs:sequence>
+ *             &lt;xs:element ref="ns3:creation-date" minOccurs="0"/>
+ *             &lt;xs:element ref="ns:created-by" minOccurs="0"/>
+ *             &lt;xs:element ref="ns:modified-by" minOccurs="0"/>
+ *             &lt;xs:element ref="ns3:email" minOccurs="0"/>
+ *             &lt;xs:element ref="ns3:name"/>
+ *             &lt;xs:element ref="ns3:label"/>
+ *             &lt;xs:element ref="ns3:description" minOccurs="0"/>
+ *             &lt;xs:element ref="ns3:type" minOccurs="0"/>
+ *             &lt;xs:element ref="ns3:active" minOccurs="0"/>
+ *           &lt;/xs:sequence>
+ *         &lt;/xs:complexType>
+ *       &lt;/xs:element>
+ *       &lt;xs:element ref="ns2:selectors" minOccurs="0"/>
+ *       &lt;xs:element ref="ns2:resources" minOccurs="0"/>
+ *     &lt;/xs:sequence>
+ *     &lt;xs:attributeGroup ref="ns1:eSciDocResourceIdentityAttributes"/>
+ *     &lt;xs:attributeGroup ref="ns1:eSciDocRootElementAttributes"/>
+ *   &lt;/xs:complexType>
+ * &lt;/xs:element>
+ * 
+ * &lt;xs:attributeGroup xmlns:ns="http://escidoc.de/core/01/structural-relations/" xmlns:ns1="http://www.escidoc.de/schemas/commontypes/0.4" xmlns:ns2="http://www.escidoc.de/schemas/usergroup/0.5" xmlns:ns3="http://escidoc.de/core/01/properties/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="eSciDocResourceIdentityAttributes">
+ *   &lt;xs:attribute type="xs:string" name="objid"/>
+ * &lt;/xs:attributeGroup>
+ * 
+ * &lt;xs:attributeGroup xmlns:ns="http://escidoc.de/core/01/structural-relations/" xmlns:ns1="http://www.escidoc.de/schemas/commontypes/0.4" xmlns:ns2="http://www.escidoc.de/schemas/usergroup/0.5" xmlns:ns3="http://escidoc.de/core/01/properties/" xmlns:xs="http://www.w3.org/2001/XMLSchema" name="eSciDocRootElementAttributes">
+ *   &lt;xs:attribute type="xs:dateTime" name="last-modification-date"/>
+ * &lt;/xs:attributeGroup>
+ * </pre>
+ */
+public class UserGroup extends IntelligentVO
+{
+    private Date propertiesCreationDate;
+    private String propertiesCreatedBy;
+    private String propertiesModifiedBy;
+    private String propertiesEmail;
+    private String propertiesName;
+    private String propertiesLabel;
+    private String propertiesDescription;
+    private String propertiesType;
+    private boolean propertiesActive;
+    private Selectors selectors;
+    private Resources resources;
+    private String objid;
+    private Date lastModificationDate;
+
+    
+    
+
+
+    
+    /** 
+     * Get the 'creation-date' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @return value
+     */
+    public Date getPropertiesCreationDate() {
+        return propertiesCreationDate;
+    }
+
+    /** 
+     * Set the 'creation-date' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @param propertiesCreationDate
+     */
+    public void setPropertiesCreationDate(Date propertiesCreationDate) {
+        this.propertiesCreationDate = propertiesCreationDate;
+    }
+
+    /** 
+     * Get the 'created-by' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesCreatedBy() {
+        return propertiesCreatedBy;
+    }
+
+    /** 
+     * Set the 'created-by' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @param propertiesCreatedBy
+     */
+    public void setPropertiesCreatedBy(String propertiesCreatedBy) {
+        this.propertiesCreatedBy = propertiesCreatedBy;
+    }
+
+    /** 
+     * Get the 'modified-by' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesModifiedBy() {
+        return propertiesModifiedBy;
+    }
+
+    /** 
+     * Set the 'modified-by' element value. 
+     <create>discarded</create>
+     <update>discarded</update>
+     
+     * 
+     * @param propertiesModifiedBy
+     */
+    public void setPropertiesModifiedBy(String propertiesModifiedBy) {
+        this.propertiesModifiedBy = propertiesModifiedBy;
+    }
+
+    /** 
+     * Get the 'email' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesEmail() {
+        return propertiesEmail;
+    }
+
+    /** 
+     * Set the 'email' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @param propertiesEmail
+     */
+    public void setPropertiesEmail(String propertiesEmail) {
+        this.propertiesEmail = propertiesEmail;
+    }
+
+    /** 
+     * Get the 'name' element value. 
+     <create>required</create>
+     <update>required</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesName() {
+        return propertiesName;
+    }
+
+    /** 
+     * Set the 'name' element value. 
+     <create>required</create>
+     <update>required</update>
+     
+     * 
+     * @param propertiesName
+     */
+    public void setPropertiesName(String propertiesName) {
+        this.propertiesName = propertiesName;
+    }
+
+    /** 
+     * Get the 'label' element value. 
+     <create>required</create>
+     <update>required</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesLabel() {
+        return propertiesLabel;
+    }
+
+    /** 
+     * Set the 'label' element value. 
+     <create>required</create>
+     <update>required</update>
+     
+     * 
+     * @param propertiesLabel
+     */
+    public void setPropertiesLabel(String propertiesLabel) {
+        this.propertiesLabel = propertiesLabel;
+    }
+
+    /** 
+     * Get the 'description' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesDescription() {
+        return propertiesDescription;
+    }
+
+    /** 
+     * Set the 'description' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @param propertiesDescription
+     */
+    public void setPropertiesDescription(String propertiesDescription) {
+        this.propertiesDescription = propertiesDescription;
+    }
+
+    /** 
+     * Get the 'type' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @return value
+     */
+    public String getPropertiesType() {
+        return propertiesType;
+    }
+
+    /** 
+     * Set the 'type' element value. 
+     <create>optional</create>
+     <update>optional</update>
+     
+     * 
+     * @param propertiesType
+     */
+    public void setPropertiesType(String propertiesType) {
+        this.propertiesType = propertiesType;
+    }
+
+    /** 
+     * Get the 'active' element value. 
+     <create>
+     discarded (see note 1.)
+     </create>
+     <update>
+     discarded (see note 1.)
+     </update>
+     <comment>
+     1. A created user group is
+     always active. It is not
+     possible to activate or
+     deactivate a user group
+     using the update method.
+     This can only be done by
+     using the activate() and
+     deactivate() methods.
+     </comment>
+     
+     * 
+     * @return value
+     */
+    public boolean getPropertiesActive() {
+        return propertiesActive;
+    }
+
+    /** 
+     * Set the 'active' element value. 
+     <create>
+     discarded (see note 1.)
+     </create>
+     <update>
+     discarded (see note 1.)
+     </update>
+     <comment>
+     1. A created user group is
+     always active. It is not
+     possible to activate or
+     deactivate a user group
+     using the update method.
+     This can only be done by
+     using the activate() and
+     deactivate() methods.
+     </comment>
+     
+     * 
+     * @param propertiesActive
+     */
+    public void setPropertiesActive(boolean propertiesActive) {
+        this.propertiesActive = propertiesActive;
+    }
+
+    /** 
+     * Get the 'selectors' element value.
+     * 
+     * @return value
+     */
+    public Selectors getSelectors() {
+        return selectors;
+    }
+
+    /** 
+     * Set the 'selectors' element value.
+     * 
+     * @param selectors
+     */
+    public void setSelectors(Selectors selectors) {
+        this.selectors = selectors;
+    }
+
+    /** 
+     * Get the 'resources' element value.
+     * 
+     * @return value
+     */
+    public Resources getResources() {
+        return resources;
+    }
+
+    /** 
+     * Set the 'resources' element value.
+     * 
+     * @param resources
+     */
+    public void setResources(Resources resources) {
+        this.resources = resources;
+    }
+
+    /** 
+     * Get the 'objid' attribute value. <create>discarded</create><update>discarded</update>
+     * 
+     * @return value
+     */
+    public String getObjid() {
+        return objid;
+    }
+
+    /** 
+     * Set the 'objid' attribute value. <create>discarded</create><update>discarded</update>
+     * 
+     * @param objid
+     */
+    public void setObjid(String objid) {
+        this.objid = objid;
+    }
+
+    /** 
+     * Get the 'last-modification-date' attribute value. <create>discarded</create>
+     <update>required</update>
+     <comment>required only in root element on update</comment>
+     * 
+     * @return value
+     */
+    public Date getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    /** 
+     * Set the 'last-modification-date' attribute value. <create>discarded</create>
+     <update>required</update>
+     <comment>required only in root element on update</comment>
+     * 
+     * @param lastModificationDate
+     */
+    public void setLastModificationDate(Date lastModificationDate) {
+        this.lastModificationDate = lastModificationDate;
+    }
+    
+    public void createInCoreservice(String userHandle) throws Exception
+    {
+        Factory.create(this, userHandle);
+    }
+    
+    public void updateInCoreservice(String userHandle) throws Exception
+    {
+        Factory.update(this, userHandle);
+    }
+    
+    public void deleteInCoreservice(String userHandle) throws Exception
+    {
+        Factory.delete(this, userHandle);
+    }
+    
+    public void activateInCoreservice(String userHandle) throws Exception
+    {
+        Factory.activate(this, userHandle);
+    }
+    
+    public void deactivateInCoreservice(String userHandle) throws Exception
+    {
+        Factory.deactivate(this, userHandle);
+    }
+    
+    public void addNewSelectorsInCoreservice(Selectors selectors, String userHandle) throws Exception
+    {
+        Factory.addSelectors(selectors, this, userHandle);
+    }
+    
+    public void removeSelectorsInCoreservice(Selectors selectors, String userHandle) throws Exception
+    {
+        Factory.removeSelectors(selectors, this, userHandle);
+    }
+    
+    
+    
+    public static class Factory
+    {
+        
+        public static UserGroup retrieve(String id, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String ugXml = ugh.retrieve(id);
+            UserGroup ugn = (UserGroup)Grant.Factory.unmarshal(ugXml, UserGroup.class);
+            return ugn;
+        }
+        
+        
+        public static UserGroup update(UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String userGroupXml = Grant.Factory.marshal(userGroup, UserGroup.class);
+            
+            String updatedUserGroupXml = ugh.update(userGroup.getObjid(), userGroupXml);
+            
+            UserGroup updatedUserGroup = (UserGroup)Grant.Factory.unmarshal(updatedUserGroupXml, UserGroup.class);
+
+            userGroup = updatedUserGroup;
+            return userGroup;
+        }
+        
+        public static UserGroupList retrieveUserGroups(String filter, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String uglXml = ugh.retrieveUserGroups(filter);
+            
+            UserGroupList ugld = (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
+            return ugld;
+        }
+        
+        public static UserGroupList retrieveActiveUserGroups(String userHandle) throws Exception
+        {
+            
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            /*
+            String filter = "<param><filter name=\"/properties/active\">"+"true"+"</filter></param>";
+            String uglXml = ugh.retrieveUserGroups(filter);
+            UserGroupList ugl= (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
+            */
+            
+            //workaround:
+            UserGroup ug = retrieve("escidoc:121631", userHandle);
+            UserGroupList ugl = new UserGroupList();
+            List<UserGroup> uglList = new ArrayList<UserGroup>();
+            uglList.add(ug);
+            ugl.setUserGroupLists(uglList);
+            
+            
+            return ugl;
+        }
+        
+        public static UserGroup create(UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String userGroupXml = Grant.Factory.marshal(userGroup, UserGroup.class);
+            String createdUgXml = ugh.create(userGroupXml);
+            UserGroup createdUg = (UserGroup)Grant.Factory.unmarshal(createdUgXml, UserGroup.class);
+            
+            userGroup = createdUg;
+            return createdUg;
+        }
+        
+        public static void delete(UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            ugh.delete(userGroup.getObjid());
+        }
+        
+        public static void activate(UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(userGroup.getLastModificationDate());
+            
+            ugh.activate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal)+"\" >");
+            userGroup = retrieve(userGroup.getObjid(), userHandle);
+        }
+        
+        public static void deactivate(UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(userGroup.getLastModificationDate());
+            ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal)+"\" >");
+            
+            userGroup = retrieve(userGroup.getObjid(), userHandle);
+        }
+        
+        public static void addSelectors(Selectors selectors, UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(userGroup.getLastModificationDate());
+            
+            String param = "<param last-modification-date=\""+ DatatypeConverter.printDateTime(cal) +"\">";
+            for (Selector selector : selectors.getSelectors())
+            {
+                param+="<selector name=\""+selector.getName() + "\" type=\""+selector.getType()+"\" >"+selector.getString()+"</selector>";
+            }
+            param+="</param>";
+            
+            ugh.addSelectors(userGroup.getObjid(), param);
+            userGroup = retrieve(userGroup.getObjid(), userHandle);
+        }
+        
+        public static void removeSelectors(Selectors selectors, UserGroup userGroup, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(userGroup.getLastModificationDate());
+            
+            String param = "<param last-modification-date=\""+ DatatypeConverter.printDateTime(cal) +"\">";
+            for (Selector selector : selectors.getSelectors())
+            {
+                param+="<selector name=\""+selector.getName() + "\" type=\""+selector.getType()+"\" >"+selector.getString()+"</selector>";
+            }
+            param+="</param>";
+            
+            ugh.removeSelectors(userGroup.getObjid(), param);
+            userGroup = retrieve(userGroup.getObjid(), userHandle);
+        }
+        
+ 
+        
+        
+    }
+}

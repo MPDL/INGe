@@ -1,0 +1,6 @@
+<binding xmlns:tns="http://www.escidoc.de/schemas/usergrouplist/0.5">
+  <namespace uri="http://www.escidoc.de/schemas/usergrouplist/0.5" prefix="tns"/>
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList" name="user-group-list" ns="http://www.escidoc.de/schemas/usergrouplist/0.5">
+    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup" get-method="getUserGroupLists" set-method="setUserGroupLists" create-type="java.util.ArrayList"/>
+  </mapping>
+</binding>

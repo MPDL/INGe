@@ -1,0 +1,17 @@
+<binding xmlns:ns0="http://www.escidoc.de/schemas/commontypes/0.4">
+  <mapping abstract="true" type-name="ns0:linkRequired" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.LinkRequired">
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid"/>
+  </mapping>
+  <mapping abstract="true" type-name="ns0:link" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.Link">
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+  </mapping>
+  <mapping abstract="true" type-name="ns0:linkForCreate" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.LinkForCreate">
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+  </mapping>
+  <mapping abstract="true" type-name="ns0:readOnlyLink" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.ReadOnlyLink">
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
+  </mapping>
+  <mapping abstract="true" type-name="ns0:laxLinkContainer" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.LaxLinkContainer">
+    <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid"/>
+  </mapping>
+</binding>
