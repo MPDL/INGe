@@ -2,10 +2,7 @@ package test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -115,12 +112,16 @@ public class TransformationTest
     {    	
     	Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
     	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+    	Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
     	
     	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/sage3.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
     	this.logger.info(new String(result));
     	
-    	this.logger.info("Get all target formats for peer_tei: ");
-    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
+//        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S2.tei").getBytes(), teiFormat, escidocComponentFormat, "escidoc");    
+//        this.logger.info(new String(result));
+//    	
+//    	this.logger.info("Get all target formats for peer_tei: ");
+//    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
     }
 	
 }

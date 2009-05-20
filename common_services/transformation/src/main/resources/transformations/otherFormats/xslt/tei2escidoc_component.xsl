@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -89,8 +89,6 @@
 	<xsl:template name="createComponents">
 	
 		<xsl:variable name="pubStmt" select="/t:TEI/t:teiHeader/t:fileDesc/t:publicationStmt"/>
-	
-		<ec:components>
 		      <ec:component objid="escidoc:dummy">
 		        <!-- Default values we need to tansform item in itemVO -->
 		        <ec:properties>
@@ -130,7 +128,6 @@
 		          </mdr:md-record>
 		        </mdr:md-records>
 		      </ec:component>
-		    </ec:components>
 	</xsl:template>				
 	
 

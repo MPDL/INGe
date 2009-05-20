@@ -473,7 +473,7 @@
 										,concat(',',$addr/t:postCode)
 										,$addr/t:settlement
 										,concat(',',$addr/t:country)
-										,concat(' (', t:email, ')')
+										,t:email
 									)
 									, ' '
 								)"/>
@@ -501,7 +501,7 @@
 						<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
 					</xsl:attribute>
 					<xsl:value-of select="
-						if ($isISSN)
+						if ($isISSN and ident!= 'ISSN')
 						then concat('(', $ident/@type, ')', $ident)
 						else $ident
 					"/>
