@@ -62,7 +62,7 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public enum Visibility
     {
-        PUBLIC, PRIVATE
+        PUBLIC, PRIVATE, AUDIENCE
     }
 
     /**
