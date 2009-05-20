@@ -44,6 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -448,4 +449,6 @@ public interface XmlTransforming
     public ItemVOListWrapper transformToItemListWrapper(String itemListXml) throws TechnicalException;
     
     public ContainerVOListWrapper transformToContainerListWrapper(String containerListXml) throws TechnicalException;
+    
+    public FileVO transformToFileVO(String fileXML) throws TechnicalException;
 }

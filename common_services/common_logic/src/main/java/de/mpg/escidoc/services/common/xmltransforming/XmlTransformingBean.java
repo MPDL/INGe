@@ -76,6 +76,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
@@ -1945,6 +1946,41 @@ public class XmlTransformingBean implements XmlTransforming
             throw new TechnicalException(e);
         }
         return resultVO;
+    }
+    
+    
+   
+    
+    public FileVO transformToFileVO(String fileXML) throws TechnicalException
+    {
+        logger.debug("transformToFileVO(String) - String file=\n" + fileXML);
+        if (fileXML == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformTofileVO: fileXML is null");
+        }
+        FileVO fileVO = null;
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", FileVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(fileXML);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            fileVO = (FileVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(fileXML, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        
+        
+        return fileVO;
     }
     
     
