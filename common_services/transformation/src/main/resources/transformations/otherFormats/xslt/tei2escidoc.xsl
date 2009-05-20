@@ -460,13 +460,13 @@
 			</xsl:variable>
 			<xsl:copy-of select="$givenName"/>
 			
-			<xsl:variable name="a" select="t:affiliation"/>
+			<xsl:variable name="a" select="t:affiliation"/>			
 			<xsl:variable name="orgName" select="
 				if(exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution']))
 				then string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')
 				else 'External Organization'
 			"/>
-			
+
 				<e:organization>
 					<e:organization-name>
 						<xsl:value-of select="$orgName"/>
@@ -474,15 +474,14 @@
 					<xsl:variable name="addr" select="$a/t:address"/>
 					<xsl:if test="exists($addr)">
 						<e:address>
-						<!-- TODO: Not clear the order-->
 							<xsl:value-of select="
 								string-join(
 									(
 										 $addr/t:addrLine
+										,concat(',',$addr/t:postCode)
 										,$addr/t:settlement
-										,$addr/t:postCode
-										,$addr/t:country
-										,t:email
+										,concat(',',$addr/t:country)
+										,concat(' (', t:email, ')')
 									)
 									, ' '
 								)"/>
