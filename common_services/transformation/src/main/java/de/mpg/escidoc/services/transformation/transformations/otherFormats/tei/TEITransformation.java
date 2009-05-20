@@ -23,8 +23,8 @@ public class TEITransformation {
 
 	private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
 	private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
-    
-    
+	private static final Format ESCIDOC_COMPONENT_FORMAT = new Format("eSciDoc-publication-component", "application/xml", "*");
+	
     /* (non-Javadoc)
      * @see de.mpg.escidoc.services.transformation.Transformation#transform(byte[], de.mpg.escidoc.services.transformation.valueObjects.Format, de.mpg.escidoc.services.transformation.valueObjects.Format, java.lang.String)
      */
@@ -36,22 +36,32 @@ public class TEITransformation {
             String teiSource = new String(src,"UTF-8");
             	
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc.xsl");
-            Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
+            InputStream stylesheet;
+            Transformer transformer = null;
             	
             if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
             {
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc.xsl");
+                transformer = factory.newTransformer(new StreamSource(stylesheet));
                 transformer.setParameter("is-item-list", Boolean.TRUE);
             }
             else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
             {
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc.xsl");
+                transformer = factory.newTransformer(new StreamSource(stylesheet));
                 transformer.setParameter("is-item-list", Boolean.FALSE);
+            }
+            else if (trgFormat.matches(ESCIDOC_COMPONENT_FORMAT))
+            {
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc_component.xsl");
+                transformer = factory.newTransformer(new StreamSource(stylesheet));
+            	transformer.setParameter("is-item-list", Boolean.FALSE);
             }
             else
             {
                 this.logger.error("The requested target format (" + trgFormat.toString() + ") is not supported");
             }
-            	
+            
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(teiSource)), new StreamResult(result));
