@@ -465,6 +465,17 @@
 					</e:organization-name>
 					<xsl:variable name="addr" select="$a/t:address"/>
 					<xsl:if test="exists($addr)">
+						<xsl:variable name="emlCount" select="count(t:email)"/>
+						<xsl:variable name="emails">
+							<xsl:for-each select="t:email">
+								<xsl:value-of select="
+									concat(
+										normalize-space(.),
+										if ($emlCount>1 and (position()!=last())) then ', ' else ''
+									)									
+								"/>
+							</xsl:for-each>
+						</xsl:variable>					
 						<e:address>
 							<xsl:value-of select="
 								replace(
@@ -475,7 +486,7 @@
 												, if (exists($addr/t:postCode)) then concat(', ',$addr/t:postCode) else ''
 												, $addr/t:settlement
 												, if (exists($addr/t:country)) then concat(', ', $addr/t:country) else '' 
-												, if (exists(t:email)) then concat(' (', t:email, ')') else '' 
+												, if (exists($emails)) then concat(' (', $emails, ')') else '' 
 											)
 											, ' '
 										)
