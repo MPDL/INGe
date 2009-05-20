@@ -219,4 +219,24 @@ public class TestMetadataSearchQuery
         assertEquals(expected, query);
         
     }
+    
+    @Test
+    public void testCopyrightIndex() throws Exception
+    {
+        logger.info("Testing copyright index");
+        
+        ArrayList<String> contentTypes = new ArrayList<String>();
+        contentTypes.add("escidoc:persistent4");
+        MetadataSearchQuery msq = new MetadataSearchQuery(contentTypes);
+        
+        msq.addCriterion(new MetadataSearchCriterion(CriterionType.COPYRIGHT_DATE, "testing" ));
+        
+        String query = msq.getCqlQuery();
+        logger.debug(query);
+        String expected = "( ( escidoc.component.file.dateCopyrighted=\"testing\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
+        assertNotNull(query);
+        assertEquals(expected, query);
+        
+    }
+    
 }
