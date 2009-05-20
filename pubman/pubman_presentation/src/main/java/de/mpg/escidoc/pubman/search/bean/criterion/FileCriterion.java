@@ -49,7 +49,8 @@ public class FileCriterion extends Criterion
     private String componentVisibility;
     /** Choose all files which have components attached */
     private String componentAvailability;
-    
+    /** Shall files with an embargo date be searched */
+    private boolean searchForEmbargoFiles;
 
 
     public FileCriterion()
@@ -123,6 +124,16 @@ public class FileCriterion extends Criterion
            }
        }
        
+       // embargo date
+       if( getSearchForEmbargoFiles() == true )
+       {
+           MetadataSearchCriterion criterion = 
+               new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COPYRIGHT_DATE,
+                        MetadataSearchCriterion.LogicalOperator.AND);
+           criterions.add(criterion);
+       }
+       
+       
        return criterions;
     }
 
@@ -188,6 +199,22 @@ public class FileCriterion extends Criterion
     public void setComponentAvailability(String componentAvailability)
     {
         this.componentAvailability = componentAvailability;
+    }
+
+    /**
+     * @return the searchForEmbargoFiles
+     */
+    public boolean getSearchForEmbargoFiles()
+    {
+        return searchForEmbargoFiles;
+    }
+
+    /**
+     * @param searchForEmbargoFiles the searchForEmbargoFiles to set
+     */
+    public void setSearchForEmbargoFiles(boolean searchForEmbargoFiles)
+    {
+        this.searchForEmbargoFiles = searchForEmbargoFiles;
     }
 
 }

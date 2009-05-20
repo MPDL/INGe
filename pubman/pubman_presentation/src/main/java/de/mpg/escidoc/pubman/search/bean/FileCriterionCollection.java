@@ -168,7 +168,7 @@ public static final String BEAN_NAME = "FileCriterionCollection";
         for (FileCriterion vo : parentVO)
         {
             if (!(vo.getContentCategory() == null && vo.getComponentVisibility() == null 
-                    && vo.getComponentAvailability() == null))
+                    && vo.getComponentAvailability() == null && vo.getSearchForEmbargoFiles() == false))
             {
                 returnList.add(vo);
             }
