@@ -1,8 +1,6 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.grants;
 
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -11,10 +9,6 @@ import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IMarshallingContext;
-import org.jibx.runtime.IUnmarshallingContext;
 
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.aa.UserGroupHandler;
@@ -410,31 +404,12 @@ public class Grant extends IntelligentVO
     public static class Factory
     {
         
-        public static String marshal(Object object, Class bindingClass) throws Exception
-        {
-            IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
-            IMarshallingContext macxt = bindingFactory.createMarshallingContext();
-            StringWriter sw = new StringWriter();
-            macxt.marshalDocument(object, "UTF-8", null, sw);
-            return sw.toString();
-        }
-        
-        public static Object unmarshal(String xml, Class bindingClass) throws Exception
-        {
-            IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
-            IUnmarshallingContext unmacxt = bindingFactory.createUnmarshallingContext();
-            StringReader sr = new StringReader(xml);
-            Object o = unmacxt.unmarshalDocument(sr, null);
-            return o;
-        }
-        
-        
         public static Grant retrieveGrant(String userHandle, String userId, String grantId) throws Exception
         {
 
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String grantXml = ugh.retrieveGrant(userId, grantId);
-            Grant grant = (Grant)unmarshal(grantXml, Grant.class);
+            Grant grant = (Grant)IntelligentVO.unmarshal(grantXml, Grant.class);
             return grant;
             
         }
@@ -444,9 +419,9 @@ public class Grant extends IntelligentVO
             
             
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String grantXml = marshal(grant, Grant.class);
+            String grantXml = IntelligentVO.marshal(grant, Grant.class);
             String createdGrantXml = ugh.createGrant(grant.getPropertiesGrantedTo(), grantXml);
-            Grant createdGrant = (Grant)unmarshal(createdGrantXml, Grant.class);
+            Grant createdGrant = (Grant)IntelligentVO.unmarshal(createdGrantXml, Grant.class);
             grant = createdGrant;
             return createdGrant;
             
@@ -457,7 +432,7 @@ public class Grant extends IntelligentVO
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String grantListXml = ugh.retrieveCurrentGrants(userGroupId);
-            GrantList currentGrants = (GrantList)unmarshal(grantListXml, GrantList.class);
+            GrantList currentGrants = (GrantList)IntelligentVO.unmarshal(grantListXml, GrantList.class);
             return currentGrants;
         }
         
@@ -468,7 +443,7 @@ public class Grant extends IntelligentVO
             UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
             String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">"+roleId+"</filter></param>";
             String grantListXml = uah.retrieveGrants(filter);
-            GrantList currentGrants = (GrantList)unmarshal(grantListXml, GrantList.class);
+            GrantList currentGrants = (GrantList)IntelligentVO.unmarshal(grantListXml, GrantList.class);
             return currentGrants;
         }
         

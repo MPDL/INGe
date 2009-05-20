@@ -17,7 +17,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
@@ -483,7 +482,7 @@ public class UserGroup extends IntelligentVO
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String ugXml = ugh.retrieve(id);
-            UserGroup ugn = (UserGroup)Grant.Factory.unmarshal(ugXml, UserGroup.class);
+            UserGroup ugn = (UserGroup)IntelligentVO.unmarshal(ugXml, UserGroup.class);
             return ugn;
         }
         
@@ -491,11 +490,11 @@ public class UserGroup extends IntelligentVO
         public static UserGroup update(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String userGroupXml = Grant.Factory.marshal(userGroup, UserGroup.class);
+            String userGroupXml = IntelligentVO.marshal(userGroup, UserGroup.class);
             
             String updatedUserGroupXml = ugh.update(userGroup.getObjid(), userGroupXml);
             
-            UserGroup updatedUserGroup = (UserGroup)Grant.Factory.unmarshal(updatedUserGroupXml, UserGroup.class);
+            UserGroup updatedUserGroup = (UserGroup)IntelligentVO.unmarshal(updatedUserGroupXml, UserGroup.class);
 
             userGroup = updatedUserGroup;
             return userGroup;
@@ -506,7 +505,7 @@ public class UserGroup extends IntelligentVO
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String uglXml = ugh.retrieveUserGroups(filter);
             
-            UserGroupList ugld = (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
+            UserGroupList ugld = (UserGroupList)IntelligentVO.unmarshal(uglXml, UserGroupList.class);
             return ugld;
         }
         
@@ -534,9 +533,9 @@ public class UserGroup extends IntelligentVO
         public static UserGroup create(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String userGroupXml = Grant.Factory.marshal(userGroup, UserGroup.class);
+            String userGroupXml = IntelligentVO.marshal(userGroup, UserGroup.class);
             String createdUgXml = ugh.create(userGroupXml);
-            UserGroup createdUg = (UserGroup)Grant.Factory.unmarshal(createdUgXml, UserGroup.class);
+            UserGroup createdUg = (UserGroup)IntelligentVO.unmarshal(createdUgXml, UserGroup.class);
             
             userGroup = createdUg;
             return createdUg;

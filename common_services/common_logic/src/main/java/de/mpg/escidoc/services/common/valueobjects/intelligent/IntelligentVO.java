@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import org.jibx.runtime.BindingDirectory;
+import org.jibx.runtime.IBindingFactory;
+import org.jibx.runtime.IMarshallingContext;
+import org.jibx.runtime.IUnmarshallingContext;
 
 public class IntelligentVO implements Serializable
 {
@@ -34,6 +41,24 @@ public class IntelligentVO implements Serializable
             cnfe.printStackTrace();
         }
         return obj;
+    }
+
+    public static Object unmarshal(String xml, Class bindingClass) throws Exception
+    {
+        IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
+        IUnmarshallingContext unmacxt = bindingFactory.createUnmarshallingContext();
+        StringReader sr = new StringReader(xml);
+        Object o = unmacxt.unmarshalDocument(sr, null);
+        return o;
+    }
+
+    public static String marshal(Object object, Class bindingClass) throws Exception
+    {
+        IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
+        IMarshallingContext macxt = bindingFactory.createMarshallingContext();
+        StringWriter sw = new StringWriter();
+        macxt.marshalDocument(object, "UTF-8", null, sw);
+        return sw.toString();
     }
     
 }
