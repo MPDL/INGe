@@ -518,7 +518,7 @@
 						<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
 					</xsl:attribute>
 					<xsl:value-of select="
-						if ($isISSN and ident!= 'ISSN')
+						if ($isISSN)
 						then concat('(', $ident/@type, ')', $ident)
 						else $ident
 					"/>
