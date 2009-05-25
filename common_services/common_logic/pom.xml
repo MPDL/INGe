@@ -68,6 +68,11 @@
 										<include name="bindings_TocItemVO_output.xml" />
 										<include name="bindings_SearchResultVO_input.xml" />
 									</bindingfileset>
+									
+									<bindingfileset dir="${project.build.outputDirectory}/jibx/jibx_generated">
+										<include name="binding.xml" />
+									</bindingfileset>
+									
 									<classpathset dir="${project.build.outputDirectory}">
 									</classpathset>
 								</bind>
@@ -166,6 +171,8 @@
 			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
+		
+		  
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-extras</artifactId>
@@ -182,6 +189,7 @@
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-run</artifactId>
 			<version>1.1.5</version>
+			<scope>compile</scope>		
 		</dependency>
 		<dependency>
 			<groupId>bcel</groupId>
@@ -242,6 +250,5 @@
 	    	<version>8.7</version>
 	    	<scope>compile</scope>
 	    </dependency>
-	    
 	</dependencies>
 </project>
