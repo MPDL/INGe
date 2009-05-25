@@ -442,8 +442,9 @@ public class ImportProcess extends Thread
             log.setPercentage(40);
             counter = 0;
             
-            for (ImportLogItem item : log.getItems())
+            for (int i = 0; i < log.getItems().size(); i++)
             {
+                ImportLogItem item = log.getItems().get(i);
                 if (item.getStatus() == Status.SUSPENDED && item.getItemVO() != null && !failed)
                 {
                     try

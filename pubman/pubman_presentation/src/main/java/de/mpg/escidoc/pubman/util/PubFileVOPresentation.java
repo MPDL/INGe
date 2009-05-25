@@ -209,7 +209,7 @@ public class PubFileVOPresentation extends FacesBean
      */
     public String getContentCategoryAsXmlString()
     {
-        if (this.file.getContentCategory()!= null)
+        if (this.file.getContentCategory() != null)
         {
             return this.file.getContentCategory().toLowerCase().replace("_", "-");
         }
