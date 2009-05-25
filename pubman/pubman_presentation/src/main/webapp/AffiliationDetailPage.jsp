@@ -144,19 +144,19 @@
 										<h:outputText value="#{lbl.AffiliationDetailPredecessors}"/>
 									</h3>
 									<h:panelGroup styleClass="seperator"></h:panelGroup>
+								   <div class="free_area0 itemBlockContent endline">
+									<!-- any field -->
 									<tr:iterator id="predecessorsDescription" var="predecessor" value="#{AffiliationDetailPage.affiliation.predecessors}">
-									   <div class="free_area0 itemBlockContent endline">
-										  <!-- any field -->
-										  <div class="free_area0 endline itemLine noTopBorder">
-											 <b class="xLarge_area0_p8 endline labelLine clear">
-												    <h:outputText value="label" /><span class="noDisplay">: </span>
-											 </b>
-											 <span class="xHuge_area0 endline">
-			                                     <h:outputText styleClass="xHuge_area0 endline" value="#{predecessor.defaultMetadata.name}"/>    
-											 </span>
-										</div>
-									   </div>
+									  <div class="free_area0 endline itemLine noTopBorder">
+										 <b class="xLarge_area0_p8 endline labelLine clear">
+											    <h:outputText value="label" /><span class="noDisplay">: </span>
+										 </b>
+										 <span class="xHuge_area0 endline">
+		                                     <h:outputText styleClass="xHuge_area0 endline" value="#{predecessor.defaultMetadata.name}"/>    
+										 </span>
+									  </div>
 									</tr:iterator>
+								   </div>
 								</h:panelGroup>
 							</div>
 						</div>
