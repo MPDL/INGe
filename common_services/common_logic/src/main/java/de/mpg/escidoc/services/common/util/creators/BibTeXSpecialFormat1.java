@@ -44,7 +44,7 @@ public class BibTeXSpecialFormat1 extends AuthorFormat
     @Override
     public String getPattern()
     {
-        return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | und | et ) *"
+        return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | AND | und | et ) *"
                 + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
     }
 
@@ -54,7 +54,7 @@ public class BibTeXSpecialFormat1 extends AuthorFormat
     public List<Author> getAuthors(String authorsString)
     {
 
-        String[] authors = authorsString.split(" *(,| and | und | et ) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
 
         return getAuthorListNormalFormat(authors, "~");
     }

@@ -49,14 +49,14 @@ public class ScienceDirectFormat extends AuthorFormat
     {
         return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z], "
         		+ "Corresponding Author Contact Information, E-mail The Corresponding Author"
-        		+ "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
+        		+ "( *(,| and | AND | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
-        String[] authors = authorsString.split(" *(,| and | und | et ) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
         List<String> newList = new ArrayList<String>();
         for (int i = 0; i < authors.length; i++)
         {

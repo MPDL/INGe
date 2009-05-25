@@ -45,7 +45,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     public final String BRACES_WITH_ANY_CONTENT = "\\s+\\(\\s*(\\s*\\S+)+\\s*\\)\\s*";
     @Override
     public String getPattern() {
-        //return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*(,|;)*\\s*$";
+        //return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | AND | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*(,|;)*\\s*$";
        return ".";
     }
 
@@ -55,7 +55,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
         //string contains semicolons and commas -> interprete as format with surname first
         if (authorsString.contains(",") && authorsString.contains(";"))
         {
-            String[] authors = authorsString.split("(;| and | und | et )");
+            String[] authors = authorsString.split("(;| and | AND | und | et )");
             return getAuthorListLooseFormatSurnameFirst(authors);
         }
         

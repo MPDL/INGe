@@ -43,14 +43,14 @@ public class WesternFormat10 extends AuthorFormat {
     
     @Override
     public String getPattern() {
-        return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + "( *(,|;| and | und | et ) *" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + ")*\\s*$";
+        return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + "( *(,|;| and | AND | und | et ) *" + GIVEN_NAME_FORMAT_MIXED + " " + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
-        String[] authors = authorsString.split(" *(,|;| and | und | et ) *");
+        String[] authors = authorsString.split(" *(,|;| and | AND | und | et ) *");
         
         return getAuthorListNormalFormat(authors);
     }

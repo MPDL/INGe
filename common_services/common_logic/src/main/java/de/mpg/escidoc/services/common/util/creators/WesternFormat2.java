@@ -38,14 +38,14 @@ public class WesternFormat2 extends AuthorFormat
     public String getPattern()
     {
         return "^(" + INITIALS + "[ -]*)+ ?" + NAME
-            + "( *(,| and | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
+            + "( *(,| and | AND | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString)
     {
 
-        String[] authors = authorsString.split(" *(,| and | und | et ) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
 
         return getAuthorListWithInitials(authors);
     }
