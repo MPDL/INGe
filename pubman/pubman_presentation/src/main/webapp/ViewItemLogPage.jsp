@@ -127,6 +127,10 @@
 									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}AudiencePage.jsp">
 										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:outputLink>
+									<h:panelGroup styleClass="seperator" rendered="false"/>
+									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}CollaboratorPage.jsp" rendered="false">
+										<h:outputText value="#{lbl.CollaboratorPage}" />
+									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
 									<h:outputLink styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
 										<h:outputText value="#{lbl.ViewItemLogPage}"/>

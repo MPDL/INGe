@@ -33,44 +33,15 @@
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.AudiencePage}" />
+		<h:outputText value="#{lbl.CollaboratorPage}" />
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
-<%-- All Files --%>
+<%-- Collaborators --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Anzahl #{lbl.AudiencePage_filesAttached}"/>
-			</span>
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:selectOneMenu styleClass="quad_select">
-					
-				</h:selectOneMenu>
-			</span>
-			<span class="large_area0_p8 lineToolSection">
-				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
-				<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " />
-				<tr:commandButton styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
-			</span>
-		</h:panelGroup>
-
-<%-- Single Files --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Filename + Link"/>
-			</span>
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
+			<b class="xLarge_area0_p8 endline labelLine toLabelInputBottom clear">
+				<h:outputText value="#{lbl.CollaboratorPage_group}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:selectOneMenu styleClass="quad_select">
