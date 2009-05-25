@@ -14,13 +14,27 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 
+/**
+ * Super class for value objects that contain additional methods for working with the coreservice.
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class IntelligentVO implements Serializable
 {
     
+    /**
+     * Creates a deep copy of this value pbject using serialization.
+     * @param orig the vo to be copied
+     * @return a copy of the VO
+     */
     public IntelligentVO copy(IntelligentVO orig) {
         
         IntelligentVO obj = null;
-        try {
+        try 
+        {
             // Write the object out to a byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -32,17 +46,26 @@ public class IntelligentVO implements Serializable
             // a copy of the object back in.
             ObjectInputStream in = new ObjectInputStream(
                 new ByteArrayInputStream(bos.toByteArray()));
-            obj = (IntelligentVO)in.readObject();
+            obj = (IntelligentVO) in.readObject();
         }
-        catch(IOException e) {
+        catch (IOException e) 
+        {
             e.printStackTrace();
         }
-        catch(ClassNotFoundException cnfe) {
+        catch (ClassNotFoundException cnfe) 
+        {
             cnfe.printStackTrace();
         }
         return obj;
     }
 
+    /**
+     * Tries to unmarshal the given xml string to the vo object.
+     * @param xml The xml string.
+     * @param bindingClass The class that should be used for the binding.
+     * @return The unmarshalled VO object.
+     * @throws Exception If an error occurs during unmarshalling.
+     */
     public static Object unmarshal(String xml, Class bindingClass) throws Exception
     {
         IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
@@ -52,6 +75,13 @@ public class IntelligentVO implements Serializable
         return o;
     }
 
+    /**
+     * Tries to marshal the given object to a xml string.
+     * @param object The object to be marhsalled.
+     * @param bindingClass he class that should be used for the binding.
+     * @return The xml representation of the object.
+     * @throws Exception If an error occurs during marshalling.
+     */
     public static String marshal(Object object, Class bindingClass) throws Exception
     {
         IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);

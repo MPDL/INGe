@@ -386,11 +386,23 @@ public class Grant extends IntelligentVO
         return propertiesGrantType;
     }
     
+    /**
+     * Revokes this grant in the coreservice.
+     * @param userHandle userHandle
+     * @param comment The revocation comment.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void revokeInCoreservice(String userHandle, String comment) throws Exception
     {
         Factory.revokeGrant(userHandle, this, comment);
     }
     
+    /**
+     * Creates this grant in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @param comment The creation comment.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void createInCoreservice(String userHandle, String comment) throws Exception
     {
         Factory.createGrant(userHandle, this);
@@ -400,20 +412,40 @@ public class Grant extends IntelligentVO
    
 
 
-
+    /**
+     * Inner factory class for communicating with coreservice and marshalling/unmarshalling this VO.
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public static class Factory
     {
-        
+        /**
+         * Retrieves a grant from the coreservice.
+         * @param id the id of the grant.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The Grant object that was retrieved.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static Grant retrieveGrant(String userHandle, String userId, String grantId) throws Exception
         {
 
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String grantXml = ugh.retrieveGrant(userId, grantId);
-            Grant grant = (Grant)IntelligentVO.unmarshal(grantXml, Grant.class);
+            Grant grant = (Grant) IntelligentVO.unmarshal(grantXml, Grant.class);
             return grant;
             
         }
         
+        /**
+         * Creates the given grant in the coreservice.
+         * @param grant The grant to be created.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The created Grant.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static Grant createGrant(String userHandle, Grant grant) throws Exception
         {
             
@@ -421,44 +453,72 @@ public class Grant extends IntelligentVO
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String grantXml = IntelligentVO.marshal(grant, Grant.class);
             String createdGrantXml = ugh.createGrant(grant.getPropertiesGrantedTo(), grantXml);
-            Grant createdGrant = (Grant)IntelligentVO.unmarshal(createdGrantXml, Grant.class);
+            Grant createdGrant = (Grant) IntelligentVO.unmarshal(createdGrantXml, Grant.class);
             grant = createdGrant;
             return createdGrant;
             
         }
         
         
+        /**
+         * Retrieves the current grants the given user or user group owns.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @param userGroupId The id of the user or user group.
+         * @return The list of grants for the user / user group.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static GrantList retrieveCurrentGrantsForUser(String userHandle, String userGroupId) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String grantListXml = ugh.retrieveCurrentGrants(userGroupId);
-            GrantList currentGrants = (GrantList)IntelligentVO.unmarshal(grantListXml, GrantList.class);
+            GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
             return currentGrants;
         }
         
         
-        
+        /**
+         * Retrieves the grants for a given escidoc object and a given role
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @param objectId The id of the object for which the grants should be retrieved
+         * @param roleId The id of the role that a user should have on that object.
+         * @return The list of grants.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static GrantList retrieveGrantsForObject(String userHandle, String objectId, String roleId) throws Exception
         {
             UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-            String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">"+roleId+"</filter></param>";
+            String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter></param>";
             String grantListXml = uah.retrieveGrants(filter);
-            GrantList currentGrants = (GrantList)IntelligentVO.unmarshal(grantListXml, GrantList.class);
+            GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
             return currentGrants;
         }
         
+        /**
+         * Revokes the given grant in the coreservice.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @param grant The grant to be revoked.
+         * @param comment The revocation comment
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void revokeGrant(String userHandle, Grant grant, String comment) throws Exception
         {
             UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
             Calendar cal = new GregorianCalendar();
             cal.setTime(grant.getLastModificationDate());
-            String param = "<param last-modification-date=\""+ DatatypeConverter.printDateTime(cal) +"\" >";
-            param+="<revocation-remark>"+comment+"</revocation-remark>";
-            param+="</param>";
+            String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
+            param += "<revocation-remark>" + comment + "</revocation-remark>";
+            param += "</param>";
             uah.revokeGrant(grant.getPropertiesGrantedTo(), grant.getObjid(), param);
             
         }
         
+        /**
+         * Revokes a list of grants in the coreservice.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @param grants The list of grants to be revoked.
+         * @param comment The revocation comment
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void revokeGrants(String userHandle, List<Grant> grants, String comment) throws Exception
         {
             if (grants==null || grants.size()==0)
@@ -470,11 +530,11 @@ public class Grant extends IntelligentVO
             
             for (Grant grant : grants)
             {
-                param+="<id>"+grant.getObjid()+"</id>";
+                param += "<id>" + grant.getObjid() + "</id>";
                 
             }
-            param+="</filter><revocation-remark>"+comment+"</revocation-remark>";
-            param+="</param>";
+            param += "</filter><revocation-remark>" + comment + "</revocation-remark>";
+            param += "</param>";
             uah.revokeGrants(grants.get(0).getPropertiesGrantedTo(), param);
             
         }

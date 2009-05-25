@@ -438,55 +438,112 @@ public class UserGroup extends IntelligentVO
         this.lastModificationDate = lastModificationDate;
     }
     
+    /**
+     * Creates this user group in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void createInCoreservice(String userHandle) throws Exception
     {
         Factory.create(this, userHandle);
     }
     
+    /**
+     * Updates this user group in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void updateInCoreservice(String userHandle) throws Exception
     {
         Factory.update(this, userHandle);
     }
     
+    /**
+     * Deletes this user group in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void deleteInCoreservice(String userHandle) throws Exception
     {
         Factory.delete(this, userHandle);
     }
     
+    /**
+     * Activates this user group in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void activateInCoreservice(String userHandle) throws Exception
     {
         Factory.activate(this, userHandle);
     }
     
+    /**
+     * Deactivates this user group in the coreservice.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void deactivateInCoreservice(String userHandle) throws Exception
     {
         Factory.deactivate(this, userHandle);
     }
     
+    /**
+     * Adds new selectors to this user group in the coreservice.
+     * @param selectors The list of selectors to be added.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void addNewSelectorsInCoreservice(Selectors selectors, String userHandle) throws Exception
     {
         Factory.addSelectors(selectors, this, userHandle);
     }
     
+    /**
+     * Removes selectors from this user group in the coreservice.
+     * @param selectors The list of selectors to be removed.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
     public void removeSelectorsInCoreservice(Selectors selectors, String userHandle) throws Exception
     {
         Factory.removeSelectors(selectors, this, userHandle);
     }
     
     
-    
+    /**
+     * Inner factory class for communicating with coreservice and marshalling/unmarshalling this VO.
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public static class Factory
     {
         
+        /**
+         * Retrieves a user group from the coreservice.
+         * @param id the id of the user group.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The User Group object that was retrieved.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static UserGroup retrieve(String id, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String ugXml = ugh.retrieve(id);
-            UserGroup ugn = (UserGroup)IntelligentVO.unmarshal(ugXml, UserGroup.class);
+            UserGroup ugn = (UserGroup) IntelligentVO.unmarshal(ugXml, UserGroup.class);
             return ugn;
         }
         
-        
+        /**
+         * Updates the given User group in the coreservice.
+         * @param userGroup The user group VO to be updated.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The updated user group VO.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static UserGroup update(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
@@ -494,12 +551,19 @@ public class UserGroup extends IntelligentVO
             
             String updatedUserGroupXml = ugh.update(userGroup.getObjid(), userGroupXml);
             
-            UserGroup updatedUserGroup = (UserGroup)IntelligentVO.unmarshal(updatedUserGroupXml, UserGroup.class);
+            UserGroup updatedUserGroup = (UserGroup) IntelligentVO.unmarshal(updatedUserGroupXml, UserGroup.class);
 
             userGroup = updatedUserGroup;
             return userGroup;
         }
         
+        /**
+         * Retrieves a list of User Groups.
+         * @param filter The filter for the user group list.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The list of User Groups.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static UserGroupList retrieveUserGroups(String filter, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
@@ -509,6 +573,12 @@ public class UserGroup extends IntelligentVO
             return ugld;
         }
         
+        /**
+         * Retrieves all active user groups.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The list of User Groups.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static UserGroupList retrieveActiveUserGroups(String userHandle) throws Exception
         {
             
@@ -530,6 +600,13 @@ public class UserGroup extends IntelligentVO
             return ugl;
         }
         
+        /**
+         * Creates the given user group in the coreservice.
+         * @param userGroup The user group to be created.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The created User Group.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static UserGroup create(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
@@ -541,12 +618,24 @@ public class UserGroup extends IntelligentVO
             return createdUg;
         }
         
+        /**
+         * Deletes the given user group in the coreservice.
+         * @param userGroup The user group to be deleted
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void delete(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             ugh.delete(userGroup.getObjid());
         }
         
+        /**
+         * Activates the user group in the coreservice.
+         * @param userGroup The user group to be activated.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void activate(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
@@ -557,6 +646,12 @@ public class UserGroup extends IntelligentVO
             userGroup = retrieve(userGroup.getObjid(), userHandle);
         }
         
+        /**
+         * Deactivates the user group in the coreservice.
+         * @param userGroup The user group to be deactivated.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void deactivate(UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
@@ -567,35 +662,49 @@ public class UserGroup extends IntelligentVO
             userGroup = retrieve(userGroup.getObjid(), userHandle);
         }
         
+        /**
+         * Adds selectors to a given user group.
+         * @param selectors The selectors to be added.
+         * @param userGroup The user group to which the selectors should be added.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void addSelectors(Selectors selectors, UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             Calendar cal = new GregorianCalendar();
             cal.setTime(userGroup.getLastModificationDate());
             
-            String param = "<param last-modification-date=\""+ DatatypeConverter.printDateTime(cal) +"\">";
+            String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\">";
             for (Selector selector : selectors.getSelectors())
             {
-                param+="<selector name=\""+selector.getName() + "\" type=\""+selector.getType()+"\" >"+selector.getString()+"</selector>";
+                param += "<selector name=\"" + selector.getName() + "\" type=\""+selector.getType() + "\" >"+selector.getString() + "</selector>";
             }
-            param+="</param>";
+            param += "</param>";
             
             ugh.addSelectors(userGroup.getObjid(), param);
             userGroup = retrieve(userGroup.getObjid(), userHandle);
         }
         
+        /**
+         * Removes selectors from a given user group.
+         * @param selectors The selectors to be added.
+         * @param userGroup The user group to which the selectors should be added.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
         public static void removeSelectors(Selectors selectors, UserGroup userGroup, String userHandle) throws Exception
         {
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             Calendar cal = new GregorianCalendar();
             cal.setTime(userGroup.getLastModificationDate());
             
-            String param = "<param last-modification-date=\""+ DatatypeConverter.printDateTime(cal) +"\">";
+            String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\">";
             for (Selector selector : selectors.getSelectors())
             {
-                param+="<selector name=\""+selector.getName() + "\" type=\""+selector.getType()+"\" >"+selector.getString()+"</selector>";
+                param += "<selector name=\"" + selector.getName() + "\" type=\"" + selector.getType()+"\" >" + selector.getString() + "</selector>";
             }
-            param+="</param>";
+            param += "</param>";
             
             ugh.removeSelectors(userGroup.getObjid(), param);
             userGroup = retrieve(userGroup.getObjid(), userHandle);

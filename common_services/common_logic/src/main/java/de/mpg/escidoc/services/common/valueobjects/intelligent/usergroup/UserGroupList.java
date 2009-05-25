@@ -1,8 +1,10 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
+import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +41,51 @@ public class UserGroupList extends IntelligentVO
      */
     public void setUserGroupLists(List<UserGroup> list) {
         userGroupListList = list;
+    }
+    
+    
+    
+    /**
+     * Inner factory class for communicating with coreservice and marshalling/unmarshalling this VO.
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public static class Factory
+    {
+        /**
+         * Retrieves a list of User Groups.
+         * @param filter The filter for the user group list.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The list of User Groups.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
+        public static UserGroupList retrieveUserGroups(String filter, String userHandle) throws Exception
+        {
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String uglXml = ugh.retrieveUserGroups(filter);
+            UserGroupList ugld = (UserGroupList)IntelligentVO.unmarshal(uglXml, UserGroupList.class);
+            
+            return ugld;
+        }
+        
+        /**
+         * Retrieves all active user groups.
+         * @param userHandle A user handle for authentication in the coreservice.
+         * @return The list of User Groups.
+         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+         */
+        public static UserGroupList retrieveActiveUserGroups(String userHandle) throws Exception
+        {
+            
+            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+            String filter = "<param><filter name=\"/properties/active\">" + "true" + "</filter></param>";
+            String uglXml = ugh.retrieveUserGroups(filter);
+            UserGroupList ugl= (UserGroupList)unmarshal(uglXml, UserGroupList.class);
+
+            return ugl;
+        }
     }
 }
