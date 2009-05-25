@@ -67,7 +67,10 @@ public class AffiliationVO extends ValueObject implements Searchable
     private java.util.List<AffiliationRO> parentAffiliations = new java.util.ArrayList<AffiliationRO>();
     
     private java.util.List<AffiliationRO> predecessorAffiliations = new java.util.ArrayList<AffiliationRO>();
+    
+    private java.util.List<AffiliationRO> successorAffiliations = new java.util.ArrayList<AffiliationRO>();
 
+    
     private AffiliationRO reference;
 
     private java.util.Date creationDate;
@@ -102,6 +105,8 @@ public class AffiliationVO extends ValueObject implements Searchable
         this.hasChildren = affiliation.hasChildren;
         this.publicStatus = affiliation.publicStatus;
         this.metadataSets = affiliation.metadataSets;
+        this.predecessorAffiliations = affiliation.predecessorAffiliations;
+        this.successorAffiliations = affiliation.successorAffiliations;
     }
     
     @Override
@@ -333,7 +338,38 @@ public class AffiliationVO extends ValueObject implements Searchable
     {
         this.predecessorAffiliations = predecessorAffiliations;
     }
+    
+    /**
+     * @return the successorAffiliations
+     */
+    public java.util.List<AffiliationRO> getSuccessorAffiliations()
+    {
+        return successorAffiliations;
+    }
 
+    /**
+     * @param successorAffiliations the successorAffiliations to set
+     */
+    public void setSuccessorAffiliations(java.util.List<AffiliationRO> successorAffiliations)
+    {
+        this.successorAffiliations = successorAffiliations;
+    }
     
+    /**
+     * Are successors available.
+     * @return true if successors are available
+     */
+    public boolean getHasSuccessors()
+    {
+        return ( this.successorAffiliations.size() != 0 );
+    }
     
+    /**
+     * Are predecessors available.
+     * @return true if predecessors are available
+     */
+    public boolean getHasPredecessors()
+    {
+        return ( this.predecessorAffiliations.size() != 0 );
+    }    
 }
