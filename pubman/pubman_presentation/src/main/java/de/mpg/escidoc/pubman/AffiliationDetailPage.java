@@ -103,5 +103,5 @@ public class AffiliationDetailPage extends FacesBean
     public AffiliationVOPresentation getAffiliation()
     {
         return this.affiliation;
-    }    
+    }
 }

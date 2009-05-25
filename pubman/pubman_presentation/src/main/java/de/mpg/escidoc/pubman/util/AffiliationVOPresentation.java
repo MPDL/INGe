@@ -35,13 +35,20 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation>
 {
@@ -49,12 +56,20 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     private AffiliationVOPresentation parent = null;
     private String namePath;
     private String idPath;
+    
+    private List<AffiliationVO> predecessors = new java.util.ArrayList<AffiliationVO>();
+    
+    private List<AffiliationVO> successors = new java.util.ArrayList<AffiliationVO>();
 
     public AffiliationVOPresentation(AffiliationVO affiliation)
     {
         super(affiliation);
         this.namePath = getDetails().getName();
         this.idPath = getReference().getObjectId();
+        
+        this.successors = getAffiliationVOfromRO(getSuccessorAffiliations());
+        this.predecessors = getAffiliationVOfromRO(getPredecessorAffiliations());
+        
     }
 
     public List<AffiliationVOPresentation> getChildren() throws Exception
@@ -66,6 +81,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         }
         return children;
     }
+    
 
     public MdsOrganizationalUnitDetailsVO getDetails()
     {
@@ -254,6 +270,66 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     public int compareTo(AffiliationVOPresentation other)
     {
         return getSortOrder().compareTo(other.getSortOrder());
+    }
+    
+    private List<AffiliationVO> getAffiliationVOfromRO( List<AffiliationRO> affiliations  )
+    {
+        List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
+        InitialContext initialContext = null;
+        XmlTransforming xmlTransforming = null;
+        if( affiliations.size() == 0 ) {
+            return transformedAffs;
+        }
+        try
+        {
+            initialContext = new InitialContext();
+            xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            for( AffiliationRO affiliation : affiliations )
+            {
+                String userHandle = AdminHelper.getAdminUserHandle();
+                OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
+                String ouXml = ouHandler.retrieve(affiliation.getObjectId());
+                AffiliationVO affVO = xmlTransforming.transformToAffiliation(ouXml);
+                transformedAffs.add(affVO);
+            }
+            return transformedAffs;
+        } 
+        catch (Exception e)
+        {
+            return transformedAffs;
+        }
+    }
+
+    /**
+     * @return the predecessors
+     */
+    public List<AffiliationVO> getPredecessors()
+    {
+        return predecessors;
+    }
+
+    /**
+     * @param predecessors the predecessors to set
+     */
+    public void setPredecessors(List<AffiliationVO> predecessors)
+    {
+        this.predecessors = predecessors;
+    }
+
+    /**
+     * @return the successors
+     */
+    public List<AffiliationVO> getSuccessors()
+    {
+        return successors;
+    }
+
+    /**
+     * @param successors the successors to set
+     */
+    public void setSuccessors(List<AffiliationVO> successors)
+    {
+        this.successors = successors;
     }
     
     
