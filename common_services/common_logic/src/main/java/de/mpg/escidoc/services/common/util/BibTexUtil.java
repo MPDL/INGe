@@ -61,7 +61,8 @@ public class BibTexUtil
     public enum Genre
     {
         article, book, booklet, conference, inbook, incollection, inproceedings,
-        manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished
+        manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished,
+        webpage
     }
 
     /**
@@ -85,6 +86,8 @@ public class BibTexUtil
         genreMapping.put(BibTexUtil.Genre.proceedings, MdsPublicationVO.Genre.PROCEEDINGS);
         genreMapping.put(BibTexUtil.Genre.techreport, MdsPublicationVO.Genre.REPORT);
         genreMapping.put(BibTexUtil.Genre.unpublished, MdsPublicationVO.Genre.OTHER);
+        
+        genreMapping.put(BibTexUtil.Genre.webpage, MdsPublicationVO.Genre.OTHER);
     }
 
     /**
