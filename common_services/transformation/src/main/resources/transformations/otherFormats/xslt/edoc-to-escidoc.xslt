@@ -1047,7 +1047,7 @@
 			<xsl:when test="@creatorType='individual'">
 			
 				<xsl:variable name="coneCreator">
-					<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', creatorngiven))"/>
+					<xsl:copy-of select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven))"/>
 				</xsl:variable>
 				
 				<xsl:variable name="multiplePersonsFound" select="exists($coneCreator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>

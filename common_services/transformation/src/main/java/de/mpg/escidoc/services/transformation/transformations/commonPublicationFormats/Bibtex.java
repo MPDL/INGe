@@ -74,7 +74,7 @@ public class Bibtex
     private final Logger logger = Logger.getLogger(Bibtex.class);
 
     /**
-     * Public constructor
+     * Public constructor.
      */
     public Bibtex()
     {       
@@ -83,7 +83,7 @@ public class Bibtex
     /**
      * 
      * @param bibtex
-     * @return
+     * @return eSciDoc-publication item XML representation of this BibTeX entry
      * @throws RuntimeException
      */
     public String getBibtex(String bibtex) throws RuntimeException
@@ -127,7 +127,16 @@ public class Bibtex
                 BibtexEntry entry = (BibtexEntry) object;
 
                 // genre
-                BibTexUtil.Genre bibGenre = BibTexUtil.Genre.valueOf(entry.getEntryType());
+                BibTexUtil.Genre bibGenre;
+                try
+                {
+                    bibGenre = BibTexUtil.Genre.valueOf(entry.getEntryType());
+                }
+                catch (IllegalArgumentException iae)
+                {
+                    bibGenre = BibTexUtil.Genre.misc;
+                    this.logger.warn("Unrecognized genre: " + entry.getEntryType());
+                }
                 MdsPublicationVO.Genre itemGenre = BibTexUtil.getGenreMapping().get(bibGenre);
                 mds.setGenre(itemGenre);
                 SourceVO sourceVO = new SourceVO(new TextVO());
@@ -186,7 +195,9 @@ public class Bibtex
                         
                         if (fields.get("journal") != null)
                         {
-                            sourceVO.getAlternativeTitles().add(new TextVO(BibTexUtil.bibtexDecode(fields.get("journal").toString())));
+                            sourceVO.getAlternativeTitles().add(
+                                    new TextVO(
+                                            BibTexUtil.bibtexDecode(fields.get("journal").toString())));
                         }
 
                     }
@@ -305,7 +316,7 @@ public class Bibtex
                         {
                             if (author instanceof BibtexPerson)
                             {
-                                   addCreator(
+                                addCreator(
                                             mds,
                                             (BibtexPerson) author,
                                             CreatorVO.CreatorRole.AUTHOR,
@@ -345,10 +356,8 @@ public class Bibtex
                                 {
                                     PersonVO personVO = new PersonVO();
                                     personVO.setFamilyName(author.getSurname());
-                                    OrganizationVO organization = new OrganizationVO();
-                                    organization.setIdentifier(
-                                            PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-                                    personVO.getOrganizations().add(organization);
+                                    
+                                    
                                     if (author.getGivenName() != null)
                                     {
                                         personVO.setGivenName(author.getGivenName());
@@ -359,8 +368,12 @@ public class Bibtex
                                     }
                                     if (affiliation != null || affiliationAddress != null)
                                     {
+                                        OrganizationVO organization = new OrganizationVO();
+                                        organization.setIdentifier(
+                                                PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                                         organization.setName(new TextVO(affiliation));
                                         organization.setAddress(affiliationAddress);
+                                        personVO.getOrganizations().add(organization);
                                     }
                                     CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.AUTHOR);
                                     mds.getCreators().add(creatorVO);
@@ -418,7 +431,8 @@ public class Bibtex
 
                         String editor = BibTexUtil.bibtexDecode(fields.get("editor").toString());
                         
-                        try{
+                        try
+                        {
                             AuthorDecoder decoder = new AuthorDecoder(editor);
                             if (decoder.getBestFormat() != null)
                             {
@@ -458,6 +472,43 @@ public class Bibtex
                     }
                 }
 
+                // If no affiliation is given, set the first author to "external"
+                boolean affiliationFound = false;
+                for (CreatorVO creator : mds.getCreators())
+                {
+                    if (creator.getPerson() != null && creator.getPerson().getOrganizations() != null)
+                    {
+                        for (OrganizationVO organization : creator.getPerson().getOrganizations())
+                        {
+                            if (organization.getIdentifier() != null)
+                            {
+                                affiliationFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (!affiliationFound && mds.getCreators().size() > 0)
+                {
+                    OrganizationVO externalOrganization = new OrganizationVO();
+                    externalOrganization.setName(new TextVO("External Organizations"));
+                    try
+                    {
+                        externalOrganization
+                            .setIdentifier(
+                                    PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                    }
+                    catch (Exception e)
+                    {
+                        throw new RuntimeException("Property escidoc.pubman.external.organisation.id not found", e);
+                    }
+                    if (mds.getCreators().get(0).getPerson() != null)
+                    {
+                        mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
+                    }
+                }
+                
                 // Mapping of "common" (maybe relevant), non standard BibTeX Entries
 
                 // abstract
@@ -518,9 +569,11 @@ public class Bibtex
 //                                    BibTexUtil.bibtexDecode(fields.get("url").toString())));
                     
                     FileVO locator = new FileVO();
-                    locator.setName(BibTexUtil.bibtexDecode(fields.get("url").toString()));
+                    locator.setContent(BibTexUtil.bibtexDecode(fields.get("url").toString()));
+                    locator.setName("Link");
                     locator.setStorage(FileVO.Storage.EXTERNAL_URL);
                     locator.setVisibility(FileVO.Visibility.PUBLIC);
+                    locator.setContentCategory("any-fulltext");
 
                     itemVO.getFiles().add(locator);
                 }
