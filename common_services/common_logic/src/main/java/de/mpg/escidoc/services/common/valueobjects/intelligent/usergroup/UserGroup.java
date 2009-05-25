@@ -566,11 +566,7 @@ public class UserGroup extends IntelligentVO
          */
         public static UserGroupList retrieveUserGroups(String filter, String userHandle) throws Exception
         {
-            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String uglXml = ugh.retrieveUserGroups(filter);
-            
-            UserGroupList ugld = (UserGroupList)IntelligentVO.unmarshal(uglXml, UserGroupList.class);
-            return ugld;
+            return UserGroupList.Factory.retrieveUserGroups(filter, userHandle);
         }
         
         /**
@@ -581,23 +577,7 @@ public class UserGroup extends IntelligentVO
          */
         public static UserGroupList retrieveActiveUserGroups(String userHandle) throws Exception
         {
-            
-            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            /*
-            String filter = "<param><filter name=\"/properties/active\">"+"true"+"</filter></param>";
-            String uglXml = ugh.retrieveUserGroups(filter);
-            UserGroupList ugl= (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
-            */
-            
-            //workaround:
-            UserGroup ug = retrieve("escidoc:121631", userHandle);
-            UserGroupList ugl = new UserGroupList();
-            List<UserGroup> uglList = new ArrayList<UserGroup>();
-            uglList.add(ug);
-            ugl.setUserGroupLists(uglList);
-            
-            
-            return ugl;
+            return UserGroupList.Factory.retrieveActiveUserGroups(userHandle);
         }
         
         /**
@@ -612,7 +592,7 @@ public class UserGroup extends IntelligentVO
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             String userGroupXml = IntelligentVO.marshal(userGroup, UserGroup.class);
             String createdUgXml = ugh.create(userGroupXml);
-            UserGroup createdUg = (UserGroup)IntelligentVO.unmarshal(createdUgXml, UserGroup.class);
+            UserGroup createdUg = (UserGroup) IntelligentVO.unmarshal(createdUgXml, UserGroup.class);
             
             userGroup = createdUg;
             return createdUg;
@@ -642,7 +622,7 @@ public class UserGroup extends IntelligentVO
             Calendar cal = new GregorianCalendar();
             cal.setTime(userGroup.getLastModificationDate());
             
-            ugh.activate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal)+"\" >");
+            ugh.activate(userGroup.getObjid(), "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >");
             userGroup = retrieve(userGroup.getObjid(), userHandle);
         }
         
@@ -657,7 +637,7 @@ public class UserGroup extends IntelligentVO
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
             Calendar cal = new GregorianCalendar();
             cal.setTime(userGroup.getLastModificationDate());
-            ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal)+"\" >");
+            ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal) + "\" >");
             
             userGroup = retrieve(userGroup.getObjid(), userHandle);
         }
@@ -678,7 +658,7 @@ public class UserGroup extends IntelligentVO
             String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\">";
             for (Selector selector : selectors.getSelectors())
             {
-                param += "<selector name=\"" + selector.getName() + "\" type=\""+selector.getType() + "\" >"+selector.getString() + "</selector>";
+                param += "<selector name=\"" + selector.getName() + "\" type=\""+selector.getType() + "\" >" + selector.getString() + "</selector>";
             }
             param += "</param>";
             

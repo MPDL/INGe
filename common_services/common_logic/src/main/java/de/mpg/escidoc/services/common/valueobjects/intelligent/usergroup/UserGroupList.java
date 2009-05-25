@@ -81,10 +81,20 @@ public class UserGroupList extends IntelligentVO
         {
             
             UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String filter = "<param><filter name=\"/properties/active\">" + "true" + "</filter></param>";
+            /*
+            String filter = "<param><filter name=\"/properties/active\">"+"true"+"</filter></param>";
             String uglXml = ugh.retrieveUserGroups(filter);
-            UserGroupList ugl= (UserGroupList)unmarshal(uglXml, UserGroupList.class);
-
+            UserGroupList ugl= (UserGroupList)Grant.Factory.unmarshal(uglXml, UserGroupList.class);
+            */
+            
+            //workaround:
+            UserGroup ug = UserGroup.Factory.retrieve("escidoc:121631", userHandle);
+            UserGroupList ugl = new UserGroupList();
+            List<UserGroup> uglList = new ArrayList<UserGroup>();
+            uglList.add(ug);
+            ugl.setUserGroupLists(uglList);
+            
+            
             return ugl;
         }
     }
