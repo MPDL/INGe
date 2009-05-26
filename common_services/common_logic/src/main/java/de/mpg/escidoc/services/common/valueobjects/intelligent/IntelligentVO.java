@@ -45,7 +45,7 @@ public class IntelligentVO implements Serializable
      */
     public IntelligentVO (IntelligentVO orig) 
     {
-        this.copyFieldsIn(orig);
+        this.copyInFields(orig);
     }
 
     /**
@@ -80,7 +80,11 @@ public class IntelligentVO implements Serializable
         return sw.toString();
     }
     
-    protected void copyFieldsIn(IntelligentVO copyFrom)
+    /**
+     * Copies fields from the given VO to this VO, using getter and setter methods.
+     * @param copyFrom The VO from which the fields are to be copied.
+     */
+    protected void copyInFields(IntelligentVO copyFrom)
     {
         Class copyFromClass = copyFrom.getClass();
         Class copyToClass = this.getClass();

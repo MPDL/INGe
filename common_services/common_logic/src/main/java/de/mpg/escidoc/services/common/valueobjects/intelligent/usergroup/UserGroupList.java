@@ -48,11 +48,16 @@ public class UserGroupList extends IntelligentVO
 {
     private List<UserGroup> userGroupListList = new ArrayList<UserGroup>();
 
-    
-    public UserGroupList(String filter, String userHandle)
+    /**
+     * Retrieves a list of User Groups.
+     * @param filter The filter for the user group list.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
+    public UserGroupList(String filter, String userHandle) throws RuntimeException
     {
         UserGroupList ugl = Factory.retrieveUserGroups(filter, userHandle);
-        copyFieldsIn(ugl);
+        copyInFields(ugl);
     }
     
     public UserGroupList()

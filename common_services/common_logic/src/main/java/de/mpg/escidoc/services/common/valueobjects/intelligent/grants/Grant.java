@@ -74,11 +74,18 @@ public class Grant extends IntelligentVO
     private String objid;
     private Date lastModificationDate;
 
-    public Grant(String userHandle, String userId, String grantId)
+    
+    /**
+     * Retrieves a grant from the coreservice.
+     * @param grantId the id of the grant.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @param userId The id of the user or user group that owns this grant.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
+    public Grant(String userHandle, String userId, String grantId) throws RuntimeException
     {
         Grant grant = Factory.retrieveGrant(userHandle, userId, grantId);
-        copyFieldsIn(grant);
-        
+        copyInFields(grant);
     }
     
     
@@ -438,8 +445,9 @@ public class Grant extends IntelligentVO
     {
         /**
          * Retrieves a grant from the coreservice.
-         * @param id the id of the grant.
+         * @param grantId the id of the grant.
          * @param userHandle A user handle for authentication in the coreservice.
+         * @param userId The id of the user or user group that owns this grant.
          * @return The Grant object that was retrieved.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
@@ -476,7 +484,7 @@ public class Grant extends IntelligentVO
                 String grantXml = IntelligentVO.marshal(grant, Grant.class);
                 String createdGrantXml = ugh.createGrant(grant.getGrantedTo(), grantXml);
                 Grant createdGrant = (Grant) IntelligentVO.unmarshal(createdGrantXml, Grant.class);
-                grant.copyFieldsIn(createdGrant);
+                grant.copyInFields(createdGrant);
                 return createdGrant;
             }
             catch (Exception e)

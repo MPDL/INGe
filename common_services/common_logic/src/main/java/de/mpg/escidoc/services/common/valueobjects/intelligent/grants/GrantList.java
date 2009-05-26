@@ -62,11 +62,16 @@ public class GrantList  extends IntelligentVO
     private int offset;
     
    
-    
-    public GrantList(String userHandle, String filter)
+    /**
+     * Retrieves the grants for a given filter
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @param filter The filter
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
+    public GrantList(String userHandle, String filter) throws RuntimeException
     {
         GrantList gl = Factory.retrieveGrants(userHandle, filter);
-        copyFieldsIn(gl);
+        copyInFields(gl);
     }
     
     public GrantList()

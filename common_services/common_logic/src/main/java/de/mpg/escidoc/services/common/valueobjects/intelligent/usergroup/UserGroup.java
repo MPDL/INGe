@@ -122,11 +122,16 @@ public class UserGroup extends IntelligentVO
     private Date lastModificationDate;
 
     
-    
-    public UserGroup(String escidocId, String userHandle)
+    /**
+     * Retrieves a user group from the coreservice.
+     * @param id the id of the user group.
+     * @param userHandle A user handle for authentication in the coreservice.
+     * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
+     */
+    public UserGroup(String escidocId, String userHandle) throws RuntimeException
     {
         UserGroup newUg = Factory.retrieve(escidocId, userHandle);
-        copyFieldsIn(newUg);
+        copyInFields(newUg);
     }
     
     public UserGroup()
@@ -581,7 +586,7 @@ public class UserGroup extends IntelligentVO
                 
                 UserGroup updatedUserGroup = (UserGroup) IntelligentVO.unmarshal(updatedUserGroupXml, UserGroup.class);
     
-                userGroup.copyFieldsIn(updatedUserGroup);
+                userGroup.copyInFields(updatedUserGroup);
                 return userGroup;
             }
             catch (Exception e)
@@ -605,7 +610,7 @@ public class UserGroup extends IntelligentVO
                 String userGroupXml = IntelligentVO.marshal(userGroup, UserGroup.class);
                 String createdUgXml = ugh.create(userGroupXml);
                 UserGroup createdUg = (UserGroup) IntelligentVO.unmarshal(createdUgXml, UserGroup.class);
-                userGroup.copyFieldsIn(createdUg);
+                userGroup.copyInFields(createdUg);
                 
                 return createdUg;
             }
@@ -650,7 +655,7 @@ public class UserGroup extends IntelligentVO
                 
                 ugh.activate(userGroup.getObjid(), "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >");
                 UserGroup updatedUserGroup = userGroup = retrieve(userGroup.getObjid(), userHandle);
-                userGroup.copyFieldsIn(updatedUserGroup);
+                userGroup.copyInFields(updatedUserGroup);
                 
             }
             catch (Exception e)
@@ -675,7 +680,7 @@ public class UserGroup extends IntelligentVO
                 ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal) + "\" >");
                 
                 UserGroup updatedUserGroup = retrieve(userGroup.getObjid(), userHandle);
-                userGroup.copyFieldsIn(updatedUserGroup);
+                userGroup.copyInFields(updatedUserGroup);
             }
             catch (Exception e)
             {
@@ -707,7 +712,7 @@ public class UserGroup extends IntelligentVO
                 
                 ugh.addSelectors(userGroup.getObjid(), param);
                 UserGroup updatedUserGroup = retrieve(userGroup.getObjid(), userHandle);
-                userGroup.copyFieldsIn(updatedUserGroup);
+                userGroup.copyInFields(updatedUserGroup);
             }
             catch (Exception e)
             {
@@ -740,7 +745,7 @@ public class UserGroup extends IntelligentVO
                 
                 ugh.removeSelectors(userGroup.getObjid(), param);
                 UserGroup updatedUserGroup = retrieve(userGroup.getObjid(), userHandle);
-                userGroup.copyFieldsIn(updatedUserGroup);
+                userGroup.copyInFields(updatedUserGroup);
             }
             catch (Exception e)
             {
