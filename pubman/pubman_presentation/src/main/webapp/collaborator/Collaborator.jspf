@@ -40,13 +40,17 @@
 
 <%-- Collaborators --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
-			<b class="xLarge_area0_p8 endline labelLine toLabelInputBottom clear">
+			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.CollaboratorPage_group}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:selectOneMenu styleClass="quad_select">
+				<h:selectOneMenu styleClass="xDouble_select tiny_marginRIncl">
 					
 				</h:selectOneMenu>
+				<h:panelGroup styleClass="large_checkbox">
+					<h:selectBooleanCheckbox id="grantModifyRights"/>
+					<h:outputLabel for="grantModifyRights" value="#{lbl.CollaboratorPage_modify}" />
+				</h:panelGroup>
 			</span>
 			<span class="large_area0_p8 lineToolSection citationBlock">
 				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
