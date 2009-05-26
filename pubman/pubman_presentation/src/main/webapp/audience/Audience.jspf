@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            f�r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            fuer wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Foerderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -44,25 +44,29 @@
 				<h:outputText value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Anzahl #{lbl.AudiencePage_filesAttached}"/>
+				<h:outputLabel styleClass="quad_label" value="Anzahl #{AudienceBean.numberOfFiles}"/>
 			</span>
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:selectOneMenu styleClass="quad_select">
-					
-				</h:selectOneMenu>
-			</span>
-			<span class="large_area0_p8 lineToolSection">
-				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
-				<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " />
-				<tr:commandButton styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
-			</span>
+			<tr:iterator var="grantForAllFiles" id="grantListForAllFiles" value="#{AudienceBean.grantsForAllFiles}" >
+				<h:panelGroup>
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneMenu styleClass="quad_select">
+							<f:selectItems value="#{AudienceBean.userGroups}" />
+						</h:selectOneMenu>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton action="#{AudienceBean.addGrantForAllFiles}" styleClass="min_imgBtn groupTool add" text=" " />
+						<tr:commandButton action="#{grantForAllFiles.removeGrantForAllFiles}" styleClass="min_imgBtn groupTool remove" text=" " />
+						<tr:commandButton styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
+					</span>
+				</h:panelGroup>
+			</tr:iterator>
 		</h:panelGroup>
 
-<%-- Single Files --%>
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+<%-- Single Files 
+		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
 			</b>
@@ -74,14 +78,14 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:selectOneMenu styleClass="quad_select">
-					
+					<f:selectItems value="Groups here" />
 				</h:selectOneMenu>
 			</span>
-			<span class="large_area0_p8 lineToolSection citationBlock">
+			<span class="large_area0_p8 lineToolSection">
 				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
 				<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " />
 			</span>
-		</h:panelGroup>
+		</h:panelGroup> --%>
 
 	</div>
 </div>
