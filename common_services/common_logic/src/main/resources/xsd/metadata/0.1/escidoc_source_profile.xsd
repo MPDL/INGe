@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/source" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" 
+	xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" 
+	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/source" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -7,31 +14,31 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="escidocenumtypes.xsd"/>
-	<xs:include schemaLocation="escidoctypes.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>	
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
-	
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/event" schemaLocation="../../metadata/0.1/escidoc_event_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/ves/0.1/" schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
 	<!--*******************************
     SourceType
     ********************************-->
+	<xs:element name="source" type="SourceType"/>
 	<xs:complexType name="SourceType">
 		<xs:sequence>
 			<xs:element ref="dc:title"/>
 			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="creator" type="CreatorType" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="volume" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="issue" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="start-page" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="end-page" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="sequence-number" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="total-number-of-pages" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="publishing-info" type="PublishingInfoType" minOccurs="0"/>
+			<xs:element ref="eterms:creator" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:volume" minOccurs="0"/>
+			<xs:element ref="eterms:issue" minOccurs="0"/>
+			<xs:element ref="eterms:start-page" minOccurs="0"/>
+			<xs:element ref="eterms:end-page" minOccurs="0"/>
+			<xs:element ref="eterms:sequence-number" minOccurs="0"/>
+			<xs:element ref="eterms:total-number-of-pages" minOccurs="0"/>
+			<xs:element ref="eterms:publishing-info" minOccurs="0"/>
 			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="source" type="SourceType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
-		<xs:attribute name="type" type="GenreEnum" use="optional"/>
+		<xs:attribute name="type" type="eves:GenreEnum" use="optional"/>
 	</xs:complexType>
 </xs:schema>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" targetNamespace="http://purl.org/escidoc/metadata/terms/0.1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -7,24 +7,54 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="escidocenumtypes.xsd"/>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
-	<xs:include schemaLocation="escidoc_person_profile.xsd"/>
-	<xs:include schemaLocation="escidoc_source_profile.xsd"/>
-	<xs:include schemaLocation="escidoc_event_profile.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/person" schemaLocation="../../metadata/0.1/escidoc_person_profile.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>	
+	<xs:import namespace="http://purl.org/escidoc/metadata/ves/0.1/" schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/source" schemaLocation="../../metadata/0.1/escidoc_source_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/event" schemaLocation="../../metadata/0.1/escidoc_event_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/person" schemaLocation="../../metadata/0.1/escidoc_person_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" schemaLocation="../../metadata/0.1/escidoc_organization_profile.xsd"/>
+	<!-- PUBLICATION, SOURCE TERMS -->
+	<xs:element name="creator" type="CreatorType"/>
+	<xs:element name="publishing-info" type="PublishingInfoType"/>
+	<xs:element name="review-method" type="eves:ReviewMethodEnum"/>
+	<xs:element name="total-number-of-pages" type="dc:SimpleLiteral"/>
+	<xs:element name="degree" type="eves:DegreeEnum"/>
+	<xs:element name="location" type="dc:SimpleLiteral"/>
+	<xs:element name="volume" type="dc:SimpleLiteral"/>
+	<xs:element name="issue" type="dc:SimpleLiteral"/>
+	<xs:element name="start-page" type="dc:SimpleLiteral"/>
+	<xs:element name="end-page" type="dc:SimpleLiteral"/>
+	<xs:element name="sequence-number" type="dc:SimpleLiteral"/>
+	<xs:element name="published-online" type="dcterms:W3CDTF"/>
+	<!-- PERSON TERMS -->
+	<xs:element name="complete-name" type="dc:SimpleLiteral"/>
+	<xs:element name="family-name" type="dc:SimpleLiteral"/>
+	<xs:element name="given-name" type="dc:SimpleLiteral"/>
+	<xs:element name="alternative-name" type="dc:SimpleLiteral"/>
+	<xs:element name="person-title" type="dc:SimpleLiteral"/>
+	<xs:element name="pseudonym" type="dc:SimpleLiteral"/>
+	<xs:element name="organization" type="OrganizationType"/>
+	<!-- ORGANIZATION, EVENT TERMS -->
+	<xs:element name="city" type="dc:SimpleLiteral"/>
+	<xs:element name="country" type="dc:SimpleLiteral"/>
+	<xs:element name="start-date" type="dcterms:W3CDTF"/>
+	<xs:element name="end-date" type="dcterms:W3CDTF"/>
+	<xs:element name="place" type="dc:SimpleLiteral"/>
+	<xs:element name="invitation-status" type="eves:InvitationStatusEnum"/>
+	<!-- FILE TERMS -->
+	<xs:element name="content-category" type="dc:SimpleLiteral"/>
 	<!--*******************************
     CreatorGroup
     ********************************-->
 	<xs:group name="CreatorGroup">
 		<xs:choice>
-			<xs:element name="person" type="PersonType"/>
-			<xs:element name="organization" type="OrganizationType"/>
+			<xs:element ref="person:person"/>
+			<xs:element ref="organization"/>
 		</xs:choice>
 	</xs:group>
-	
 	<!--*******************************
     OrganizationType
     ********************************-->
@@ -35,7 +65,6 @@
 			<xs:element name="identifier" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	
 	<!--*******************************
     PublishingInfoType
     ********************************-->
@@ -54,7 +83,7 @@
 			<xs:element name="device-name" type="dc:SimpleLiteral"/>
 			<xs:element name="production-comment" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
-		<xs:attribute name="type" type="AcquisitionDeviceTypeEnum" use="required"/>
+		<xs:attribute name="type" type="eves:AcquisitionDeviceTypeEnum" use="required"/>
 	</xs:complexType>
 	<!--*******************************
     OriginalType
@@ -63,7 +92,7 @@
 		<xs:sequence>
 			<xs:element name="size-x" type="xs:float" minOccurs="0"/>
 			<xs:element name="size-y" type="xs:float" minOccurs="0"/>
-			<xs:element name="size-unit" type="OriginalSizeUnitEnum" minOccurs="0"/>
+			<xs:element name="size-unit" type="eves:OriginalSizeUnitEnum" minOccurs="0"/>
 			<xs:element name="pixel-x" type="xs:integer"/>
 			<xs:element name="pixel-y" type="xs:integer"/>
 			<xs:element name="ppi-x" type="xs:integer" minOccurs="0"/>
@@ -88,7 +117,6 @@
     ********************************-->
 	<xs:complexType name="CreatorType">
 		<xs:group ref="CreatorGroup"/>
-		<xs:attribute name="role" type="CreatorRoleEnum" use="required"/>
+		<xs:attribute name="role" type="eves:CreatorRoleEnum" use="required"/>
 	</xs:complexType>
-	
 </xs:schema>
