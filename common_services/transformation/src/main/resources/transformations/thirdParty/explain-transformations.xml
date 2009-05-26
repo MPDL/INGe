@@ -12,6 +12,18 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+    <Transformation>
+		<Source>
+			<Name>arXiv</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>eSciDoc-publication-component</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
 	<Transformation>
 		<Source>
 			<Name>pmc</Name>
@@ -26,6 +38,18 @@
 	</Transformation>
 	<Transformation>
 		<Source>
+			<Name>pmc</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>eSciDoc-publication-component</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
 			<Name>bmc</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
@@ -33,6 +57,18 @@
 		<Target>
 			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>bmc-fulltext-xml</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>bmc-fulltext-html</Name>
+			<Type>text/html</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>

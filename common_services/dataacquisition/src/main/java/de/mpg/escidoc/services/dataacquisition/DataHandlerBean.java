@@ -48,16 +48,17 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.dataacquisition.exceptions.BadArgumentException;
@@ -70,6 +71,7 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -98,6 +100,9 @@ public class DataHandlerBean implements DataHandler
     private String fileEnding;
     private String contentCategorie;
     private String visibility = "PRIVATE";
+    private FileVO componentVO = null;
+    private DataSourceVO currentSource = null;
+
     private URL itemUrl;
 
 
@@ -115,8 +120,8 @@ public class DataHandlerBean implements DataHandler
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
     {
-        DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
-        MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
+        this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+        MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(this.currentSource);
         return this.doFetch(sourceName, identifier, md.getName(), md.getMdFormat(), md.getEncoding());
     }
 
@@ -129,7 +134,6 @@ public class DataHandlerBean implements DataHandler
             FormatNotAvailableException
     {
         byte[] fetchedData = null;
-        DataSourceVO importSource = new DataSourceVO();
         
         try
         {             
@@ -140,22 +144,22 @@ public class DataHandlerBean implements DataHandler
                 identifier = this.util.setEsciDocIdentifier(identifier);
             }
             identifier = this.util.trimIdentifier(sourceName, identifier);
-            importSource = this.sourceHandler.getSourceByName(sourceName);
-            String fetchType = this.getFetchingType(importSource, trgFormatName, trgFormatType, trgFormatEncoding);
+            this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+            String fetchType = this.getFetchingType(trgFormatName, trgFormatType, trgFormatEncoding);
 
             if (fetchType.equals(this.fetchTypeTEXTUALDATA))
             {
-                fetchedData = this.fetchTextualData(importSource, identifier, trgFormatName, 
+                fetchedData = this.fetchTextualData(identifier, trgFormatName, 
                         trgFormatType, trgFormatEncoding).getBytes("UTF-8");
             }
             if (fetchType.equals(this.fetchTypeFILEDATA))
             {
                 Format format = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
-                fetchedData = this.fetchData(importSource, identifier, new Format[] {format });
+                fetchedData = this.fetchData(identifier, new Format[] {format });
             }
             if (fetchType.equals(this.fetchTypeESCIDOCTRANS))
             {
-                fetchedData = this.fetchTextualData(importSource, identifier, "eSciDoc-publication-item", "application/xml", "UTF-8")
+                fetchedData = this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", "UTF-8")
                     .getBytes("UTF-8");
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
@@ -205,9 +209,8 @@ public class DataHandlerBean implements DataHandler
             RuntimeException, FormatNotAvailableException
     {
         identifier = this.util.trimIdentifier(sourceName, identifier);
-        DataSourceVO importSource = new DataSourceVO();
-        importSource = this.sourceHandler.getSourceByName(sourceName);
-        return this.fetchData(importSource, identifier, formats);
+        this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+        return this.fetchData(identifier, formats);
     }
     
     /**
@@ -224,8 +227,7 @@ public class DataHandlerBean implements DataHandler
             identifier = this.util.setEsciDocIdentifier(identifier);
         }
         identifier = this.util.trimIdentifier(sourceName, identifier);
-        DataSourceVO importSource = new DataSourceVO();
-        importSource = this.sourceHandler.getSourceByName(sourceName);
+        this.currentSource = this.sourceHandler.getSourceByName(sourceName);
         Format[] formatsF = new Format[formats.length];
         Format format;
         
@@ -236,7 +238,7 @@ public class DataHandlerBean implements DataHandler
             formatsF[i] = format;
         }
         
-        return this.fetchData(importSource, identifier, formatsF);
+        return this.fetchData(identifier, formatsF);
     }
     
     /**
@@ -293,7 +295,6 @@ public class DataHandlerBean implements DataHandler
     /**
      * Operation for fetching data of type TEXTUALDATA.
      * 
-     * @param importSource
      * @param identifier
      * @param format
      * @return itemXML
@@ -302,48 +303,50 @@ public class DataHandlerBean implements DataHandler
      * @throws AccessException
      * @throws FormatNotSupportedException
      */
-    private String fetchTextualData(DataSourceVO importSource, String identifier, String trgFormatName, 
+    private String fetchTextualData(String identifier, String trgFormatName, 
             String trgFormatType, String trgFormatEncoding) 
             throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException, 
             FormatNotAvailableException, FormatNotRecognisedException
     {
+        String fetchedItem = null;
         String item = null;
         boolean supportedProtocol = false;
         ProtocolHandler protocolHandler = new ProtocolHandler();
         
         try
         {
-            MetadataVO md = this.util.getMdObjectToFetch(importSource, trgFormatName, trgFormatType, trgFormatEncoding);
+            MetadataVO md = this.util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding);
             
-            String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), importSource.getEncoding());
+            String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
             md.setMdUrl(new URL(decoded));
             md.setMdUrl(new URL(md.getMdUrl().toString().replaceAll(this.regex, identifier.trim())));
-            importSource = this.sourceHandler.updateMdEntry(importSource, md);
+            this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
             
             // Select harvesting method
-            if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
+            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
             {
                 this.logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
-                item = fetchOAIRecord(importSource, md);
+                item = fetchOAIRecord(md);
                 //Check the record for error codes
                 protocolHandler.checkOAIRecord(item);
                 supportedProtocol = true;
+                fetchedItem = item;
             }
-            if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
+            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
-                item = this.fetchEjbRecord(importSource, md, identifier);
+                item = this.fetchEjbRecord(md, identifier);
                 supportedProtocol = true;
             }
-            if (importSource.getHarvestProtocol().toLowerCase().equals("http"))
+            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("http"))
             {
                 this.logger.debug("Fetch record via http.");
-                item = this.fetchHttpRecord(importSource, md);
+                item = this.fetchHttpRecord(md);
                 supportedProtocol = true;
             }
             if (!supportedProtocol)
             {
-                this.logger.warn("Harvesting protocol " + importSource.getHarvestProtocol() + " not supported.");
+                this.logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
                 throw new RuntimeException();
             }
             
@@ -352,14 +355,25 @@ public class DataHandlerBean implements DataHandler
             {               
                 InitialContext initialContext = new InitialContext();
                 Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+                
+                //Transform item metadata
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
-                //Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
                 item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
-                if (importSource.getItemUrl()!= null)
+                if (this.currentSource.getItemUrl()!= null)
                 {
-                    this.setItemUrl(new URL(importSource.getItemUrl().toString().replace("GETID", identifier)));
+                    this.setItemUrl(new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier)));
+                }
+                
+                //Transform item component
+                String name = trgFormatName.replace("item", "component");
+                Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
+                String componentXml = new String(transformer.transform(fetchedItem.getBytes("UTF-8"), srcFormat, trgFormatComponent, "escidoc"));
+                if (componentXml != null)
+                {                   
+                    XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                    this.componentVO = xmlTransforming.transformToFileVO(componentXml);
                 }
             }
             
@@ -368,11 +382,11 @@ public class DataHandlerBean implements DataHandler
         catch (AccessException e)
         {
             this.logger.error("Access denied.", e);
-            throw new AccessException(importSource.getName());
+            throw new AccessException(this.currentSource.getName());
         }
         catch (IdentifierNotRecognisedException e)
         {
-            this.logger.error("The Identifier " + identifier + "was not recognized by source " + importSource.getName()
+            this.logger.error("The Identifier " + identifier + "was not recognized by source " + this.currentSource.getName()
                     + ".", e);
             throw new IdentifierNotRecognisedException(e);
         }
@@ -483,7 +497,7 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws SourceNotAvailableException
      */
-    private byte[] fetchData(DataSourceVO importSource, String identifier, Format[] formats) 
+    private byte[] fetchData(String identifier, Format[] formats) 
         throws SourceNotAvailableException, RuntimeException, FormatNotAvailableException
     {
         byte[] in = null;
@@ -497,23 +511,23 @@ public class DataHandlerBean implements DataHandler
             for (int i = 0; i < formats.length; i++)
             {
                 Format format = formats[i];
-                fulltext = this.util.getFtObjectToFetch(importSource, format.getName(), format.getType(), 
+                fulltext = this.util.getFtObjectToFetch(this.currentSource, format.getName(), format.getType(), 
                         format.getEncoding());
                 // Replace regex with identifier
-                String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding());
+                String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), this.currentSource.getEncoding());
                 fulltext.setFtUrl(new URL(decoded));
                 fulltext.setFtUrl(new URL(fulltext.getFtUrl().toString().replaceAll(this.regex, identifier.trim())));
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
                 
                 //escidoc file
-                if (importSource.getHarvestProtocol().equals("ejb"))
+                if (this.currentSource.getHarvestProtocol().equals("ejb"))
                 {
-                    in = this.fetchEjbFile(importSource, fulltext, identifier);
+                    in = this.fetchEjbFile(fulltext, identifier);
                 }
                 //other file
                 else
                 {
-                    in = this.fetchFile(importSource, fulltext);                    
+                    in = this.fetchFile(fulltext);                    
                 }
                 
                 this.setFileProperties(fulltext);
@@ -544,7 +558,7 @@ public class DataHandlerBean implements DataHandler
         }
         catch (SourceNotAvailableException e)
         {
-            this.logger.error("Import Source " + importSource + " not available.", e);
+            this.logger.error("Import Source " + this.currentSource + " not available.", e);
             throw new SourceNotAvailableException(e);
         }
         catch (FormatNotAvailableException e)
@@ -568,7 +582,7 @@ public class DataHandlerBean implements DataHandler
      * @throws SourceNotAvailableException
      * @throws RuntimeException
      */
-    private byte[] fetchFile(DataSourceVO importSource, FullTextVO fulltext) throws SourceNotAvailableException,
+    private byte[] fetchFile(FullTextVO fulltext) throws SourceNotAvailableException,
             RuntimeException, AccessException, FormatNotAvailableException
     {
         URLConnection conn = null;
@@ -581,14 +595,14 @@ public class DataHandlerBean implements DataHandler
             switch (responseCode)
             {
                 case 503:
-                    //request was not prcessed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide data in format " 
+                    //request was not processed by source
+                    this.logger.warn("Import source " + this.currentSource.getName() + "did not provide data in format " 
                             + fulltext.getFtLabel());
                     throw new FormatNotAvailableException(fulltext.getFtLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     fulltext.setFtUrl(new URL(alternativeLocation));
-                    return fetchFile(importSource, fulltext);
+                    return fetchFile(fulltext);
                 case 200:
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
@@ -598,7 +612,7 @@ public class DataHandlerBean implements DataHandler
                     httpConn.disconnect();
                     break;
                 case 403:
-                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                    throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
@@ -607,7 +621,7 @@ public class DataHandlerBean implements DataHandler
         catch (AccessException e)
         {
             this.logger.error("Access denied.", e);
-            throw new AccessException(importSource.getName());
+            throw new AccessException(this.currentSource.getName());
         }
         catch (Exception e)
         {
@@ -625,13 +639,13 @@ public class DataHandlerBean implements DataHandler
      * @throws SourceNotAvailableException
      * @throws RuntimeException
      */
-    private String fetchOAIRecord(DataSourceVO importSource, MetadataVO md) throws SourceNotAvailableException,
+    private String fetchOAIRecord(MetadataVO md) throws SourceNotAvailableException,
             AccessException, IdentifierNotRecognisedException, RuntimeException
     {
         String itemXML = "";
         URLConnection conn;
         Date retryAfter;
-        String charset = importSource.getEncoding();
+        String charset = this.currentSource.getEncoding();
         InputStreamReader isReader;
         BufferedReader bReader;
         try
@@ -653,19 +667,19 @@ public class DataHandlerBean implements DataHandler
                     else
                     {
                         this.logger.debug("Source responded with 503, retry after " 
-                                + importSource.getRetryAfter() + ".");
-                        throw new SourceNotAvailableException(importSource.getRetryAfter());
+                                + this.currentSource.getRetryAfter() + ".");
+                        throw new SourceNotAvailableException(this.currentSource.getRetryAfter());
                     }
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     md.setMdUrl(new URL(alternativeLocation));
-                    importSource = this.sourceHandler.updateMdEntry(importSource, md);
-                    return fetchOAIRecord(importSource, md);
+                    this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
+                    return fetchOAIRecord(md);
                 case 200:
                     this.logger.info("Source responded with 200");
                     break;
                 case 403:
-                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                    throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
@@ -693,7 +707,7 @@ public class DataHandlerBean implements DataHandler
         catch (AccessException e)
         {
             this.logger.error("Access denied.", e);
-            throw new AccessException(importSource.getName());
+            throw new AccessException(this.currentSource.getName());
         }
         catch (Exception e)
         {
@@ -710,19 +724,19 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private String fetchEjbRecord(DataSourceVO importSource, MetadataVO md, String identifier) 
+    private String fetchEjbRecord(MetadataVO md, String identifier) 
         throws IdentifierNotRecognisedException, RuntimeException
     {
         try
         {
-            if (importSource.getName().toLowerCase().equals("escidoc"))
+            if (this.currentSource.getName().toLowerCase().equals("escidoc"))
             {
                 return ServiceLocator.getItemHandler().retrieve(identifier);
             }  
-            if (importSource.getName().toLowerCase().equals("escidocdev") 
-                    || importSource.getName().toLowerCase().equals("escidocqa") 
-                    || importSource.getName().toLowerCase().equals("escidocprod") 
-                    || importSource.getName().toLowerCase().equals("escidoctest"))
+            if (this.currentSource.getName().toLowerCase().equals("escidocdev") 
+                    || this.currentSource.getName().toLowerCase().equals("escidocqa") 
+                    || this.currentSource.getName().toLowerCase().equals("escidocprod") 
+                    || this.currentSource.getName().toLowerCase().equals("escidoctest"))
             {
                 return ServiceLocator.getItemHandlerByUrl(md.getMdUrl().toString()).retrieve(identifier);
             } 
@@ -754,7 +768,7 @@ public class DataHandlerBean implements DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws RuntimeException
      */
-    private byte[] fetchEjbFile(DataSourceVO importSource, FullTextVO ft, String identifier) 
+    private byte[] fetchEjbFile(FullTextVO ft, String identifier) 
         throws IdentifierNotRecognisedException, RuntimeException
     {
         String itemXML = "";
@@ -765,14 +779,14 @@ public class DataHandlerBean implements DataHandler
         
         try
         {
-            if (importSource.getName().toLowerCase().equals("escidoc"))
+            if (this.currentSource.getName().toLowerCase().equals("escidoc"))
             {
                 itemXML = ServiceLocator.getItemHandler().retrieve(identifier);  
                 coreservice = ServiceLocator.getFrameworkUrl();
             }  
-            if (importSource.getName().toLowerCase().equals("escidocdev") 
-                    || importSource.getName().toLowerCase().equals("escidocqa") 
-                    || importSource.getName().toLowerCase().equals("escidocprod"))
+            if (this.currentSource.getName().toLowerCase().equals("escidocdev") 
+                    || this.currentSource.getName().toLowerCase().equals("escidocqa") 
+                    || this.currentSource.getName().toLowerCase().equals("escidocprod"))
             {
                 itemXML = ServiceLocator.getItemHandlerByUrl(ft.getFtUrl().toString()).retrieve(identifier);
                 coreservice = ft.getFtUrl().toString();
@@ -786,12 +800,12 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
+                    this.logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(ft.getFtLabel());
                 case 302:
                     String alternativeLocation = contentUrl.getHeaderField("Location");
                     ft.setFtUrl(new URL(alternativeLocation));
-                    return fetchEjbFile(importSource, ft, identifier);
+                    return fetchEjbFile(ft, identifier);
                 case 200:
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(coreservice + itemVO.getFiles().get(0).getContent());
@@ -801,7 +815,7 @@ public class DataHandlerBean implements DataHandler
                     httpConn.disconnect();
                     break;
                 case 403:
-                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                    throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                                 + responseCode + ": " + httpConn.getResponseMessage());
@@ -831,12 +845,12 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws AccessException
      */
-    private String fetchHttpRecord(DataSourceVO importSource, MetadataVO md) 
+    private String fetchHttpRecord(MetadataVO md) 
         throws IdentifierNotRecognisedException, RuntimeException, AccessException
     {
         String item = "";
         URLConnection conn;
-        String charset = importSource.getEncoding();
+        String charset = this.currentSource.getEncoding();
         InputStreamReader isReader;
         BufferedReader bReader;
         try
@@ -848,18 +862,18 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
+                    this.logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(md.getMdLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     md.setMdUrl(new URL(alternativeLocation));
-                    importSource = this.sourceHandler.updateMdEntry(importSource, md);
-                    return fetchHttpRecord(importSource, md);
+                    this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
+                    return fetchHttpRecord(md);
                 case 200:
                     this.logger.info("Source responded with 200");
                     break;
                 case 403:
-                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                    throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
@@ -876,7 +890,7 @@ public class DataHandlerBean implements DataHandler
         catch (AccessException e)
         {
             this.logger.error("Access denied.", e);
-            throw new AccessException(importSource.getName());
+            throw new AccessException(this.currentSource.getName());
         }
         catch (Exception e)
         {
@@ -964,7 +978,7 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws AccessException
      */
-    private byte[] fetchHttpFile(DataSourceVO importSource, FullTextVO ft) 
+    private byte[] fetchHttpFile(FullTextVO ft) 
         throws IdentifierNotRecognisedException, RuntimeException, AccessException
     {
         URLConnection conn;
@@ -979,12 +993,12 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + importSource.getName() + "did not provide file.");
+                    this.logger.warn("Import source " + this.currentSource.getName() + "did not provide file.");
                     throw new FormatNotAvailableException(ft.getFtLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     ft.setFtUrl(new URL(alternativeLocation));
-                    return fetchHttpFile(importSource, ft);
+                    return fetchHttpFile(ft);
                 case 200:
                     this.logger.info("Source responded with 200.");
                     GetMethod method = new GetMethod(ft.getFtUrl().toString());
@@ -994,7 +1008,7 @@ public class DataHandlerBean implements DataHandler
                     httpConn.disconnect();
                     break;
                 case 403:
-                    throw new AccessException("Access to url " + importSource.getName() + " is restricted.");
+                    throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
                 default:
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
@@ -1003,7 +1017,7 @@ public class DataHandlerBean implements DataHandler
         catch (AccessException e)
         {
             this.logger.error("Access denied.", e);
-            throw new AccessException(importSource.getName());
+            throw new AccessException(this.currentSource.getName());
         }
         catch (Exception e)
         {
@@ -1018,17 +1032,17 @@ public class DataHandlerBean implements DataHandler
      * @param format
      * @return type of data to be fetched {TEXTUALDATA, FILEDATA, ESCIDOCTRANS, UNKNOWN}
      */
-    private String getFetchingType(DataSourceVO source, String trgFormatName, 
+    private String getFetchingType(String trgFormatName, 
             String trgFormatType, String trgFormatEncoding) 
             throws FormatNotAvailableException
     {
         //Native metadata format
-        if (this.util.getMdObjectToFetch(source, trgFormatName, trgFormatType, trgFormatEncoding) != null)
+        if (this.util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null)
         {
             return this.fetchTypeTEXTUALDATA;
         }
         //Native Fulltext format
-        if (this.util.getFtObjectToFetch(source, trgFormatName, trgFormatType, trgFormatEncoding) != null)
+        if (this.util.getFtObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null)
         {
             return this.fetchTypeFILEDATA;
         }
@@ -1108,9 +1122,16 @@ public class DataHandlerBean implements DataHandler
         this.contentCategorie = contentCategorie;
     }
 
-    public String getVisibility()
-    {
-        return this.visibility;
+    public Visibility getVisibility()
+    {                         
+        if (this.visibility.equals("PUBLIC"))
+        {
+            return FileVO.Visibility.PUBLIC;
+        }
+        else
+        {
+            return FileVO.Visibility.PRIVATE;
+        }
     }
 
     public void setVisibility(String visibility)
@@ -1127,4 +1148,37 @@ public class DataHandlerBean implements DataHandler
     {
         this.itemUrl = itemUrl;
     }
+    
+    public FileVO getComponentVO()
+    {
+        if (this.componentVO != null)
+        {
+            return this.componentVO;
+        }
+        else
+        {
+            FileVO file = new FileVO();
+            MdsFileVO md = new MdsFileVO();
+            md.setLicense(this.currentSource.getLicense());
+            md.setRights(this.currentSource.getCopyright());
+            file.setDefaultMetadata(md);
+            return file;
+        }
+    }
+
+    public void setComponentVO(FileVO componentVO)
+    {
+        this.componentVO = componentVO;
+    }
+    
+    public DataSourceVO getCurrentSource()
+    {
+        return this.currentSource;
+    }
+
+    public void setCurrentSource(DataSourceVO currentSource)
+    {
+        this.currentSource = currentSource;
+    }
+
 }

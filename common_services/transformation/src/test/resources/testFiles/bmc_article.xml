@@ -1,0 +1,2064 @@
+<?xml version="1.0" encoding="UTF-8"?>
+				<art xmlns="http://www.biomedcentral.com/xml/schemas/oai/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.biomedcentral.com/xml/schemas/oai/2.0/ http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd">
+					<ui>1757-4749-1-9</ui>
+					<ji>1757-4749</ji>
+					<fm>
+						<dochead>Research</dochead>
+						<bibl>
+							<title>
+								<p>An oral recombinant <it>Salmonella enterica </it>serovar Typhimurium mutant elicits systemic antigen-specific CD8+ T cell cytokine responses in mice</p>
+							</title>
+							<aug>
+								<au id="A1" ca="yes">
+									<snm>Chin'ombe</snm>
+									<fnm>Nyasha</fnm>
+									<insr iid="I1"/>
+									<email>Nyasha.Chinombe@uct.ac.za</email>
+								</au>
+								<au id="A2">
+									<snm>Bourn</snm>
+									<mi>R</mi>
+									<fnm>William</fnm>
+									<insr iid="I2"/>
+									<email>william.bourn@kapabiosystem.com</email>
+								</au>
+								<au id="A3">
+									<snm>Williamson</snm>
+									<fnm>Anna-Lise</fnm>
+									<insr iid="I1"/>
+									<email>Anna-Lise.Williamson@uct.ac.za</email>
+								</au>
+								<au id="A4">
+									<snm>Shephard</snm>
+									<mi>G</mi>
+									<fnm>Enid</fnm>
+									<insr iid="I1"/>
+									<insr iid="I3"/>
+									<email>Enid.Shephard@uct.ac.za</email>
+								</au>
+							</aug>
+							<insg>
+								<ins id="I1">
+									<p>Institute of Infectious Disease and Molecular Medicine, Faculty of Health Sciences, University of Cape Town, Anzio Rd, Observatory 7925, Cape Town, South Africa</p>
+								</ins>
+								<ins id="I2">
+									<p>Kapa Biosystems (Pty) Ltd, Observatory 7925, Cape Town, South Africa</p>
+								</ins>
+								<ins id="I3">
+									<p>MRC/UCT Liver Research Centre, Department of Medicine, Faculty of Health Sciences, University of Cape Town, Anzio Rd, Observatory 7925, Cape Town, South Africa</p>
+								</ins>
+							</insg>
+							<source>Gut Pathogens</source>
+							<issn>1757-4749</issn>
+							<pubdate>2009</pubdate>
+							<volume>1</volume>
+							<issue>1</issue>
+							<fpage>9</fpage>
+							<url>http://www.gutpathogens.com/content/1/1/9</url>
+							<xrefbib>
+								<pubidlist>
+									<pubid idtype="pmpid">19402893</pubid>
+									<pubid idtype="doi">10.1186/1757-4749-1-9</pubid>
+								</pubidlist>
+							</xrefbib>
+						</bibl>
+						<history>
+							<rec>
+								<date>
+									<day>26</day>
+									<month>11</month>
+									<year>2008</year>
+								</date>
+							</rec>
+							<acc>
+								<date>
+									<day>29</day>
+									<month>4</month>
+									<year>2009</year>
+								</date>
+							</acc>
+							<pub>
+								<date>
+									<day>29</day>
+									<month>4</month>
+									<year>2009</year>
+								</date>
+							</pub>
+						</history>
+						<cpyrt>
+							<year>2009</year>
+							<collab>Chin'ombe et al; licensee BioMed Central Ltd.</collab>
+							<note>This is an Open Access article distributed under the terms of the Creative Commons Attribution License (<url>http://creativecommons.org/licenses/by/2.0</url>), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</note>
+						</cpyrt>
+						<abs>
+							<sec>
+								<st>
+									<p>Abstract</p>
+								</st>
+								<sec>
+									<st>
+										<p>Background</p>
+									</st>
+									<p>The induction of antigen-specific CD8+ T cell cytokine responses against an attenuated, oral recombinant <it>Salmonella enterica </it>serovar Typhimurium vaccine expressing a green fluorescent protein (GFP) model antigen was investigated. A GFP expression plasmid was constructed in which the <it>gfp </it>gene was fused in-frame with the 5' domain of the <it>Escherichia coli &#946;</it>-galactosidase <it>&#945;</it>-gene fragment with expression under the <it>lac </it>promoter. Groups of mice were orally immunized three times with the bacteria and systemic CD8+ T cell cytokine responses were evaluated.</p>
+								</sec>
+								<sec>
+									<st>
+										<p>Results</p>
+									</st>
+									<p>High level of the GFP model antigen was expressed by the recombinant <it>Salmonella </it>vaccine vector. Systemic GFP-specific CD8+ T cell cytokine (IFN-&#947; and IL-4) immune responses were detected after mice were orally vaccinated with the bacteria. It was shown that 226 net IFN-&#947; and 132 net IL-4 GFP-specific SFUs/10e6 splenocytes were formed in an ELISPOT assay. The level of IFN-&#947; produced by GFP peptide-stimulated cells was 65.2-fold above background (p &lt; 0.05). The level of IL-4 produced by the cells was 10.4-fold above background (p &lt; 0.05).</p>
+								</sec>
+								<sec>
+									<st>
+										<p>Conclusion</p>
+									</st>
+									<p>These results suggested that a high expressing recombinant <it>Salmonella </it>vaccine given orally to mice would elicit antigen-specific CD8+ T cell responses in the spleen. <it>Salmonella </it>bacteria may, therefore, be used as potential mucosal vaccine vectors.</p>
+								</sec>
+							</sec>
+						</abs>
+					</fm>
+					<bdy>
+						<sec>
+							<st>
+								<p>Background</p>
+							</st>
+							<p>Most <it>Salmonella </it>bacteria invade their hosts (human or animal) via the mucosal route to cause systemic infection <abbrgrp>
+									<abbr bid="B1">1</abbr>
+								</abbrgrp>. They are taken up by phagocytes and they stay in the phagosomes of these cells. Antigens from <it>Salmonella </it>are mainly targeted to the MHC class II presentation pathway for induction of CD4+ T cell immune responses. However, both CD4+ and CD8+ T lymphocytes are crucial for protective immune responses against intracellular pathogens such as <it>Salmonella </it>
+								<abbrgrp>
+									<abbr bid="B2">2</abbr>
+									<abbr bid="B3">3</abbr>
+									<abbr bid="B4">4</abbr>
+								</abbrgrp>. In recent years, attenuated strains of <it>Salmonella </it>have been explored as potential mucosal vaccine vectors for heterologous antigens <abbrgrp>
+									<abbr bid="B5">5</abbr>
+									<abbr bid="B6">6</abbr>
+									<abbr bid="B7">7</abbr>
+									<abbr bid="B8">8</abbr>
+									<abbr bid="B9">9</abbr>
+									<abbr bid="B10">10</abbr>
+									<abbr bid="B11">11</abbr>
+								</abbrgrp>. One of the main advantages of using <it>Salmonella </it>as vaccine vectors is their ability to induce both mucosal and systemic immune responses to the foreign antigens. In order to investigate the induction of antigen-specific CD8+ T cell responses to a foreign antigen, we developed a recombinant <it>Salmonella </it>vector expressing jellyfish <it>Aequorea victoria </it>green fluorescent protein (GFP) as a model antigen. The GFP model antigen contains a mouse H-2K<sup>d</sup>-restricted class I epitope, HYLSTQSAL, identified previously by Gambotto and co-workers <abbrgrp>
+									<abbr bid="B12">12</abbr>
+								</abbrgrp> and can be used to evaluate CD8+ T cell responses after vaccinations. We then investigated the potential of using a <it>Salmonella </it>vaccine in delivering the GFP CD8+ epitope to the immune system. The study was done against a backdrop for the need to develop vaccines that induce CD8+ T cell responses in the mucosal and systemic compartments in which <it>Salmonella </it>may be used as a mucosal vector administered orally. In order to understand the steps required for the development of such vaccines, we therefore constructed the recombinant <it>Salmonella enterica </it>serovar Typhimurium expressing GFP as a model foreign antigen and tested its systemic immune responses in mice after oral vaccination by gavage.</p>
+						</sec>
+						<sec>
+							<st>
+								<p>Results</p>
+							</st>
+							<sec>
+								<st>
+									<p>A recombinant <it>Salmonella </it>vaccine vector was constructed</p>
+								</st>
+								<p>A prokaryotic expression cassette was developed in which the <it>gfp </it>gene was fused in-frame with an <it>E coli &#946;</it>-galactosidase <it>&#945;</it>-fragment sequence (N-terminus) (Figure <figr fid="F1">1</figr>). The <it>gfp </it>gene was amplified and cloned into pGEM-Teasy plasmid vector. The <it>&#946;</it>-galactosidase <it>&#945;</it>-fragment with DNA sequence (5'-ATG ACC ATG ATT ACG CCA AGC TAT TTA GGT GAC ACT ATA GAA TAC TCA AGC TAT GCA TCC AAC GCG TTG GGA GCT CTC CCA TAT GGT CGA CCT GCA GGC GGC CGC GAA TTC ACT AGT GAT-3') had 24 amino acids (MTMITPSYLG DTIEYSSYAS NALGALPYGR PAGGREFTSD) and the peptide was 4.2 kDa in size. A small linker (<b>L</b>) sequence with 15 codons (5-TAT GGC GCC AAA GAC TCC GGC TCC GCC GGT TCC GCC GGC TCA GCT-3) was incorporated between the <it>&#946;</it>-galactosidase <it>&#945;</it>-fragment and <it>gfp</it>. The linker peptide had 15 amino acids (YGAKDSGSAG SAGSA) and a molecular weight of 1.266 kDa. The <it>gfp </it>gene had 237 amino acids (SKGEELFTGV VPILVELDGD VNGHKFSVSG EGEGDATYGK LTLKFICTTG KLPVPWPTLV TTFSYGVQCF SRYPDHMKRH DFFKSAMPEG YVQERTISFK DDGNYKTRAE VKFEGDTLVN RIELKGIDFK EDGNILGHKL EYNYNSHNVY ITADKQKNGI KANFKIRHNI EDGSVQLADH YQQNTPIGDG PVLLPDNHYL STQSALSKDP NEKRDHMVLL EFVTAAGITH GMDELYK) and a molecular weight of 26.6 kDa. The GFP contains a Balb/C mouse CD8+ T cell epitope, HYLSTQSAL. The whole <it>&#946;</it>-galactosidase-GFP fusion protein was 32.1 kDa. A preferred translation stop codon (<ul>TAA</ul>G) which was incorporated in the PCR primer, GR, was found at the end of the <it>gfp </it>gene. There was also an extra stop codon, <ul>TAA</ul>T, one codon downstream the end of the <it>gfp </it>gene.</p>
+								<fig id="F1">
+									<title>
+										<p>Figure 1</p>
+									</title>
+									<caption>
+										<p>The GFP expression plasmid (pGEM+GFP)</p>
+									</caption>
+									<text>
+										<p>
+											<b>The GFP expression plasmid (pGEM+GFP)</b>. The <it>gfp </it>was fused in-frame to the <it>&#946;</it>-galactosidase <it>&#945;</it>-gene in pGEM-Teasy plasmid. A small linker (L) was included (in-frame) between the <it>gfp </it>and <it>&#946;</it>-galactosidase <it>&#945;</it>-gene (<it>lacZa</it>). <it>E. coli lac </it>(<it>lactose</it>) promoter was upstream the genes. A start codon was in the <it>&#946;</it>-galactosidase <it>&#945;</it>-gene and a stop codon was included at the end of the <it>gfp </it>gene. The expression cassette contained an <it>E. coli </it>origin of replication (ori) and ampicillin resistance gene (AmpR).</p>
+									</text>
+									<graphic file="1757-4749-1-9-1"/>
+								</fig>
+								<p>Very high level constitutive expression of GFP antigen by the recombinant <it>Salmonella enterica </it>serovar Typhimurium, AroC+GFP, was demonstrated (Figure <figr fid="F2">2</figr>). Colonies and cultures of the bacterial vaccine, AroC+GFP, fluoresced brightly green under UV light. SDS-PAGE analysis showed that GFP antigen was the most highly expressed antigen by the <it>Salmonella </it>vaccine vector (Figure <figr fid="F2">2A</figr>). The GFP protein band was visible on the Coomassie-stained gel. Western blotting further confirmed that GFP antigen was expressed at very high levels by the vaccine vector (Figure <figr fid="F2">2B</figr>). There was no expression of GFP by the negative control vaccine, AroC+pGEM.</p>
+								<fig id="F2">
+									<title>
+										<p>Figure 2</p>
+									</title>
+									<caption>
+										<p>GFP expression by the <it>Salmonella </it>vaccine vector</p>
+									</caption>
+									<text>
+										<p>
+											<b>GFP expression by the <it>Salmonella </it>vaccine vector</b>. Recombinant <it>Salmonella </it>expressing GFP (AroC+GFP) or <it>Salmonella </it>carrying an empty plasmid (AroC+pGEM) were grown overnight. GFP expression by the bacteria was determined by sodium dodecyl sulphate-polyacrylamide gel electrophoresis (A) and confirmed by Western Blotting (B).</p>
+									</text>
+									<graphic file="1757-4749-1-9-2"/>
+								</fig>
+							</sec>
+							<sec>
+								<st>
+									<p>Oral vaccination induces IFN-&#947; and IL-4 cytokine producing CD8+ splenocytes</p>
+								</st>
+								<p>The induction of GFP-specific CD8+ T cells in the spleen was evaluated on Day 84 after oral vaccination of mice with a dose of 10e8 colony-forming units either with AroC+GFP or the control (AroC+GEM) on Days 0, 28 and 56. Both IFN-&#947; and IL-4 producing GFP-specific CD8+ T cells were evaluated after sacrifice of mice. A high magnitude of GFP-specific CD8+ T cells was detected when the GFP peptide was included in the IFN-&#947; and IL-4 ELISPOT assays (Tables <tblr tid="T1">1</tblr> and <tblr tid="T2">2</tblr>). The number of cells secreting IFN-&#947; after stimulation with a GFP CD8 peptide were significantly higher in AroC+GFP than in the negative control vaccine, AroC+pGEM (p &lt; 0.05) (Table <tblr tid="T1">1</tblr>). There was no significant difference in response between the two groups when the cells were stimulated with media or full-length GFP (p > 0.05). Response to the LPS stimulation differed between the two groups (p &lt; 0.05). Analysis of the responses within the AroC+GFP group showed that the number of cells producing IFN-&#947; were significantly higher when stimulated with GFP CD8 peptide than when not stimulated (p &lt; 0.05) (Table <tblr tid="T1">1</tblr>). In the negative vaccine group, AroC+pGEM, there was no difference in response in GFP peptide-stimulated cells and unstimulated cells (p > 0.05) (Table <tblr tid="T1">1</tblr>).</p>
+								<tbl id="T1">
+									<title>
+										<p>Table 1</p>
+									</title>
+									<caption>
+										<p>The magnitude of GFP-specific CD8+ T cell responses as measured by IFN-&#947; ELISPOT assay</p>
+									</caption>
+									<tblbdy cols="4">
+										<r>
+											<c ca="center">
+												<p>
+													<b>Stimulant</b>
+												</p>
+											</c>
+											<c cspan="2" ca="center">
+												<p>
+													<b>IFN-&#947; SFUs/10e6 cells</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>p-value</b>
+												</p>
+											</c>
+										</r>
+										<r>
+											<c>
+												<p/>
+											</c>
+											<c cspan="2">
+												<hr/>
+											</c>
+											<c>
+												<p/>
+											</c>
+										</r>
+										<r>
+											<c>
+												<p/>
+											</c>
+											<c ca="center">
+												<p>
+													<b>AroC+GFP Group</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>AroC+pGEM Group</b>
+												</p>
+											</c>
+											<c>
+												<p/>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>Media</p>
+											</c>
+											<c ca="center">
+												<p>6 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>7 &#177; 5</p>
+											</c>
+											<c ca="center">
+												<p>0.84</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>GFP CD8 peptide</p>
+											</c>
+											<c ca="center">
+												<p>232 &#177; 15</p>
+											</c>
+											<c ca="center">
+												<p>6 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>0.0001</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>GFP protein</p>
+											</c>
+											<c ca="center">
+												<p>4 &#177; 0</p>
+											</c>
+											<c ca="center">
+												<p>4 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>1.00</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>
+													<it>Salmonella </it>LPS</p>
+											</c>
+											<c ca="center">
+												<p>244 &#177; 39</p>
+											</c>
+											<c ca="center">
+												<p>375 &#177; 62</p>
+											</c>
+											<c ca="center">
+												<p>0.037</p>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>
+													<b>Vaccine group</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>Media</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>GFP peptide</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>p-value</b>
+												</p>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>AroC+GFP</p>
+											</c>
+											<c ca="center">
+												<p>6 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>233 &#177; 15</p>
+											</c>
+											<c ca="center">
+												<p>0.0001</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>AroC+pGEM</p>
+											</c>
+											<c ca="center">
+												<p>7 &#177; 5</p>
+											</c>
+											<c ca="center">
+												<p>6 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>0.70</p>
+											</c>
+										</r>
+									</tblbdy>
+									<tblfn>
+										<p>Groups of mice were vaccinated three times (Days 0, 28 and 56) with live recombinant <it>Salmonella </it>vaccine expressing GFP (AroC+GFP) or a negative <it>Salmonella </it>control vaccine not expressing any antigen (AroC+pGEM). On Day 84 (28 days after the last inoculation), splenocytes from the sacrificed mice were incubated with media only (negative assay control), or stimulated with GFP CD8+ T cell peptide (HYLSTQSAL), full-length GFP or <it>Salmonella </it>LPS in an IFN-&#947; ELISPOT assay. The mean number of spots &#177; SD in triplicate wells was calculated and expressed as IFN-&#947; SFUs/10e6 cells. Difference in response between or within vaccines was determined. Responses differ significantly if the p-values are less than 0.05 and do not differ significantly if the p-values are greater than 0.05.</p>
+									</tblfn>
+								</tbl>
+								<tbl id="T2">
+									<title>
+										<p>Table 2</p>
+									</title>
+									<caption>
+										<p>The magnitude of GFP-specific CD8+ T cell responses as measured by IL-4 ELISPOT assay</p>
+									</caption>
+									<tblbdy cols="4">
+										<r>
+											<c ca="center">
+												<p>
+													<b>Stimulant</b>
+												</p>
+											</c>
+											<c cspan="2" ca="center">
+												<p>
+													<b>IL-4 SFUs/10e6 cells</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>p-value</b>
+												</p>
+											</c>
+										</r>
+										<r>
+											<c>
+												<p/>
+											</c>
+											<c cspan="2">
+												<hr/>
+											</c>
+											<c>
+												<p/>
+											</c>
+										</r>
+										<r>
+											<c>
+												<p/>
+											</c>
+											<c ca="center">
+												<p>
+													<b>AroC+GFP Group</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>AroC+pGEM Group</b>
+												</p>
+											</c>
+											<c>
+												<p/>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>Media</p>
+											</c>
+											<c ca="center">
+												<p>16 &#177; 10</p>
+											</c>
+											<c ca="center">
+												<p>12 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>0.55</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>GFP CD8 peptide</p>
+											</c>
+											<c ca="center">
+												<p>148 &#177; 56</p>
+											</c>
+											<c ca="center">
+												<p>12 &#177; 13</p>
+											</c>
+											<c ca="center">
+												<p>0.015</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>GFP protein</p>
+											</c>
+											<c ca="center">
+												<p>18 &#177; 13</p>
+											</c>
+											<c ca="center">
+												<p>29 &#177; 26</p>
+											</c>
+											<c ca="center">
+												<p>0.56</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>
+													<it>Salmonella </it>LPS</p>
+											</c>
+											<c ca="center">
+												<p>55 &#177; 29</p>
+											</c>
+											<c ca="center">
+												<p>26 &#177; 9</p>
+											</c>
+											<c ca="center">
+												<p>0.17</p>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>
+													<b>Vaccine group</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>Media</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>GFP peptide</b>
+												</p>
+											</c>
+											<c ca="center">
+												<p>
+													<b>p-value</b>
+												</p>
+											</c>
+										</r>
+										<r>
+											<c cspan="4">
+												<hr/>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>AroC+GFP</p>
+											</c>
+											<c ca="center">
+												<p>16 &#177; 10</p>
+											</c>
+											<c ca="center">
+												<p>148 &#177; 56</p>
+											</c>
+											<c ca="center">
+												<p>0.016</p>
+											</c>
+										</r>
+										<r>
+											<c ca="center">
+												<p>AroC+pGEM</p>
+											</c>
+											<c ca="center">
+												<p>12 &#177; 2</p>
+											</c>
+											<c ca="center">
+												<p>12 &#177; 13</p>
+											</c>
+											<c ca="center">
+												<p>0.97</p>
+											</c>
+										</r>
+									</tblbdy>
+									<tblfn>
+										<p>Groups of mice were vaccinated three times (Days 0, 28 and 56) with live recombinant <it>Salmonella </it>vaccine expressing GFP (AroC+GFP) or a negative <it>Salmonella </it>control vaccine not expressing any antigen (AroC+pGEM). On Day 84 (28 days after the last inoculation), splenocytes from the sacrificed mice were incubated with media only (negative assay control), or stimulated with GFP CD8+ T cell peptide (HYLSTQSAL), full-length GFP or <it>Salmonella </it>LPS in an IL-4 ELISPOT assay. The mean number of spots &#177; SD in triplicate wells was calculated and expressed as IL-4 SFUs/10e6 cells. Difference in response between or within vaccines was determined. Responses differ significantly if the p-values are less than 0.05 and do not differ significantly if the p-values are greater than 0.05.</p>
+									</tblfn>
+								</tbl>
+								<p>The number of cells from AroC+GFP vaccine group producing IL-4 were also significantly higher than in AroC+pGEM after stimulation with GFP CD8 peptide (p &lt; 0.05) (Table <tblr tid="T2">2</tblr>). However no significant difference in response between the two groups were observed when the cells were stimulated with media, full-length GFP or <it>Salmonella </it>LPS (p > 0.05). Within the AroC+GFP group, the number of cells producing IL-4 were significantly higher when stimulated with GFP CD8 peptide than when unstimulated (p &lt; 0.05) (Table <tblr tid="T2">2</tblr>). No difference in IL-4 responses was observed within the AroC+pGEM group between GFP peptide-stimulated and unstimulated cells (p > 0.05) (Table <tblr tid="T2">2</tblr>).</p>
+								<p>The cytometric bead array (CBA) assay and flow cytometry analysis were used to quantify the IFN-&#947; and IL-4 simultaneously produced by splenocytes after stimulation with the GFP H-2K<sup>d </sup>binding peptide (HYLSTQSAL). Cells from AroC+GFP produced higher levels of IFN-&#947; when stimulated with the GFP CD8 peptide than when unstimulated (p &lt; 0.05) (Figure <figr fid="F3">3</figr>). The IFN-&#947; cytokine levels were also higher in the test group (AroC+GFP) than in the negative vaccine group (AroC+pGEM) (p &lt; 0.05) (Figure <figr fid="F3">3</figr>). There was no difference in the amount of IFN-&#947; produced between stimulated and unstimulated cells within the negative control vaccine (p > 0.05) (Figure <figr fid="F3">3</figr>). As with IFN-&#947;, the same trends were observed with IL-4 (Figure <figr fid="F4">4</figr>). Cells from AroC+GFP produced higher levels of IL-4 when stimulated with GFP peptide than when unstimulated (p &lt; 0.05). The level of the IL-4 produced by the stimulated cells was 10.4-fold above background. GFP peptide-stimulated cells from AroC+GFP also produced significantly higher levels of IL-4 than cells from the negative control vaccine, AroC+pGEM (p &lt; 0.05). The results from CBA further confirmed the ELISPOT results which showed that a significant number of cells produced both IFN-&#947; and IL-4 after stimulation with the GFP CD8 peptide. Further analysis of the both ELISPOT and CBA assay results showed that GFP-specific IFN-&#947; was produced at a rate of 2.56 pg/cell as opposed to GFP-specific IL-4 which was produced at 1.63 pg/cell.</p>
+								<fig id="F3">
+									<title>
+										<p>Figure 3</p>
+									</title>
+									<caption>
+										<p>The magnitude of GFP-specific CD8+ T cell responses as determined by quantification of IFN-&#947; cytokine</p>
+									</caption>
+									<text>
+										<p>
+											<b>The magnitude of GFP-specific CD8+ T cell responses as determined by quantification of IFN-&#947; cytokine</b>. Groups of mice were vaccinated three times (Days 0, 28 and 56) with live recombinant <it>Salmonella </it>vaccine expressing GFP (AroC+GFP) or a negative <it>Salmonella </it>control vaccine not expressing any antigen (AroC+pGEM). On Day 84 (28 days after the last inoculation), splenocytes from the sacrificed mice were incubated with media only (negative assay control) or stimulated with GFP CD8+ T cell peptide (HYLSTQSAL), and the amounts of IFN-&#947; measured by CBA assay. Each bar in the graphs represents the average picogram amount of cytokine produced per 10e6 splenocytes in 48 hrs of stimulation. One asterisk indicates values that differ significantly (p &lt; 0.05). Two asterisks indicate values that do not differ significantly (p > 0.05).</p>
+									</text>
+									<graphic file="1757-4749-1-9-3"/>
+								</fig>
+								<fig id="F4">
+									<title>
+										<p>Figure 4</p>
+									</title>
+									<caption>
+										<p>The magnitude of GFP-specific CD8+ T cell responses as determined by quantification of IL-4 cytokine</p>
+									</caption>
+									<text>
+										<p>
+											<b>The magnitude of GFP-specific CD8+ T cell responses as determined by quantification of IL-4 cytokine</b>. Groups of mice were vaccinated three times (Days 0, 28 and 56) with live recombinant <it>Salmonella </it>vaccine expressing GFP (AroC+GFP) or a negative <it>Salmonella </it>control vaccine not expressing any antigen (AroC+pGEM). On Day 84 (28 days after the last inoculation), splenocytes from the sacrificed mice were incubated with media only (negative assay control) or stimulated with GFP CD8+ T cell peptide (HYLSTQSAL), and the amounts of IL-4 measured by CBA assay. Each bar in the graphs represents the average picogram amount of cytokine produced per 10e6 splenocytes in 48 hrs of stimulation. One asterisk indicates values that differ significantly (p &lt; 0.05). Two asterisks indicate values that do not differ significantly (p > 0.05).</p>
+									</text>
+									<graphic file="1757-4749-1-9-4"/>
+								</fig>
+							</sec>
+						</sec>
+						<sec>
+							<st>
+								<p>Discussion</p>
+							</st>
+							<p>Attenuated <it>Salmonella </it>bacteria have the potential of being used as vaccine vectors for foreign antigens (5&#8211;11). One of the key challenges with these vaccine delivery systems is to optimize the expression of high levels of the foreign antigens for successful delivery to the immune system. In the current study, a strategy based on <it>E. coli lac </it>operon control sequences was employed and tested for expression of a model foreign antigen, <it>Aequorea victoria </it>green fluorescent protein, in <it>aro</it>C <it>Salmonella enterica </it>serovar Typhimurium vaccine mutant. The <it>E. coli lac </it>promoter was used and the <it>gfp </it>gene was successfully fused in-frame with first 40 codons of the <it>E coli &#946;</it>-galactosidase <it>&#945;</it>-fragment. The inclusion of the N-terminal domain of the <it>&#946;</it>-galactosidase <it>&#945;</it>-gene fragment, which itself is an <it>E. coli </it>bacterial peptide potentially contributed to the high-level expression of GFP observed in the <it>Salmonella enterica </it>serovar Typhimurium vector. Fusing foreign proteins to other prokaryotic peptides has the potential of enhancing the expression of the cloned genes <abbrgrp>
+									<abbr bid="B13">13</abbr>
+								</abbrgrp>. Furthermore, fusion proteins have been shown to be, in most cases, resistant to proteolytic degradation, thereby overcoming the problems of instability normally associated with foreign proteins <abbrgrp>
+									<abbr bid="B14">14</abbr>
+									<abbr bid="B15">15</abbr>
+								</abbrgrp>. The fusion of <it>gfp </it>to the 5'-domain of LacZ&#945; also potentially stabilized GFP mRNA of the antigen gene and increased its half-life. In a similar study, it was shown that fusing genes to the 5' UTR (untranslated region) of <it>ompA </it>was effective in stabilizing the mRNA transcripts <abbrgrp>
+									<abbr bid="B16">16</abbr>
+								</abbrgrp>. Other considerations that potentially contributed to the high level expression of GFP antigen were the nature of the ribosome-binding site, the origin of replication (ori), promoter (<it>lac</it>) properties, and translation termination sequences. These transcriptional and translational domains are present in the pGEM-Teasy plasmid (Promega, USA). The origin of replication of the pGEM-Teasy plasmid allowed for high copy number of the plasmid (300&#8211;400 copies per cell) in <it>Salmonella </it>vector, thereby increasing the <it>gfp </it>gene dosage and high expression of the antigen. The natural Shine Dalgarno sequence (ribosome binding site) for the <it>LacZ&#945; </it>gene in the pGEM-Teasy plasmid was used for efficient bacterial ribosome binding. The stop codon, TAA(G) was used in the pGEM+GFP plasmid to increase efficiency of translation termination. The high-level GFP expression was anticipated to facilitate the delivery of sufficient antigen to the immune system by the <it>Salmonella </it>vector after vaccination.</p>
+							<p>Development of bacterial vaccine vectors that provoke antigen-specific CD8+ T cell responses in the mucosal and systemic compartments is a key challenge. In this study, we were able to demonstrate that oral vaccination of mice with a recombinant <it>aro</it>C <it>Salmonella enterica </it>serovar Typhimurium mutant overexpressing a heterologous model antigen could induce antigen-specific CD8+ T cell cytokine immune responses in the spleen. Using the ELISPOT assay, it was shown that after three oral immunizations of mice with AroC+GFP, there was production of both antigen-specific IFN-&#947; and IL-4 cytokine secreting CD8+ cells in the spleen. The ELISPOT results were further confirmed by the CBA assay which showed that high levels of IFN-&#947; and IL-4 cytokines could be secreted by the splenocytes when stimulated with a GFP CD8 peptide. The induction of LPS-specific IFN-&#947; and IL-4 suggested that the bacterial vaccine was delivered successfully to the immune system.</p>
+							<p>
+								<it>Salmonella </it>antigens or heterologous antigens expressed by <it>Salmonella </it>vaccine vectors are expected to be presented mainly by the MHC-II molecules to give predominantly antigen-specific CD4+ T cell responses. This is mainly because <it>Salmonella </it>bacteria always dwell in the phagosomes and antigens are presented to the immune system by the MHC Class II pathway. The mechanisms by which <it>Salmonella</it>-expressed antigens are presented to the immune system by the MHC Class I pathway to induce CD8+ T cell responses is still poorly understood. However, it is known that <it>Salmonella </it>have a high tropism for dendritic cells and these cells have the capacity of cross-priming exogenous antigens for induction of CD8+ T cell responses <abbrgrp>
+									<abbr bid="B17">17</abbr>
+									<abbr bid="B18">18</abbr>
+									<abbr bid="B19">19</abbr>
+									<abbr bid="B20">20</abbr>
+									<abbr bid="B21">21</abbr>
+									<abbr bid="B22">22</abbr>
+								</abbrgrp>. Dendritic cells can also engulf the <it>Salmonella</it>-infected apoptotic cells which may be a key source of antigens that can be processed for induction of CD8+ T cell responses <abbrgrp>
+									<abbr bid="B17">17</abbr>
+									<abbr bid="B18">18</abbr>
+								</abbrgrp>. It seems that the high-level expression of the GFP shown in this study may have facilitated antigen processing and cross-presentation for induction of CD8+ T cell responses. The high amounts of the antigen also potentially improved the immunodominance of GFP CD8+ epitope over <it>Salmonella </it>vector epitopes. It has been demonstrated that antigen abundance (antigen dose) is one of the crucial factors that determine CD8+ T cell immunodominance <abbrgrp>
+									<abbr bid="B23">23</abbr>
+									<abbr bid="B24">24</abbr>
+								</abbrgrp>. It was not clear whether IFN-&#947; or IL-4 cytokines observed in this study were secreted by the same or different CD8+ T cell populations as we did not do flow cytometry to determine this. The ELISPOT assays do not allow the characterization of the effector cell populations secreting the two cytokines. However, the data is only suggestive that IFN-&#947; was produced by type 1 CD8+ T (Tc1) cells while IL-4 was produced by type 2 CD8+ (Tc2) cells. The possible polarized pattern of secreted cytokines by CD8+ T cells against the GFP model antigen delivered by a <it>Salmonella </it>vaccine observed in the current study might have a great relevance to immune responses against many diseases. CD8+ Tc1 cells produce cytokines such as IFN-&#947; and TNF-<it>&#945; </it>that are critical in prevention or control of infection. However, the immunological and clinical significance of CD8+ Tc2 cells is still poorly understood. Some reports suggest that that Tc2 cells provide B cell help by secretion of IL-4 and would display cytotoxicity function just like the Tc1 cells <abbrgrp>
+									<abbr bid="B25">25</abbr>
+									<abbr bid="B26">26</abbr>
+									<abbr bid="B27">27</abbr>
+								</abbrgrp>. Tc2 cells may also be correlated with better antibody immune responses <abbrgrp>
+									<abbr bid="B28">28</abbr>
+									<abbr bid="B29">29</abbr>
+								</abbrgrp>. High numbers of CD8+ T cells (Tc2) producing IL-4, but not IFN-&#947;, have been found in AIDS patients <abbrgrp>
+									<abbr bid="B30">30</abbr>
+								</abbrgrp>. It has also been established that Tc2 cells play a role in reducing metastasis of lung cancer <abbrgrp>
+									<abbr bid="B31">31</abbr>
+								</abbrgrp>. Although a <it>Salmonella </it>vaccine vector eliciting foreign antigen-specific IFN-&#947; may be useful, the impact of a vaccine that induces antigen-specific IL-4 is poorly understood.</p>
+							<p>This study is unique in that we showed that expression of a foreign antigen in the bacterial cytoplasmic space could elicit antigen-specific cellular responses in vaccinated mice. Other studies have only shown that CD8+ T cell responses in mice could only be induced when antigens were secreted from the bacteria or when prime-boost regimens were used in the vaccination <abbrgrp>
+									<abbr bid="B33">33</abbr>
+									<abbr bid="B34">34</abbr>
+									<abbr bid="B35">35</abbr>
+									<abbr bid="B36">36</abbr>
+								</abbrgrp>. Unlike in most studies, we also looked at the simultaneous induction of both IFN-&#947; and IL-4 cytokine responses elicited in the systemic compartment of <it>Salmonella</it>-vaccinated mice.</p>
+						</sec>
+						<sec>
+							<st>
+								<p>Conclusion</p>
+							</st>
+							<p>In conclusion, we have shown that an oral recombinant <it>Salmonella </it>mutant could be used as a vaccine vector that could deliver a GFP model antigen for induction of systemic antigen-specific CD8+ T cell cytokine (IFN-&#947; and IL-4) responses. Using the current study as a model, future investigations should further explore the possibility of using attenuated oral recombinant bacteria as vaccine vectors that induce specific CD8+ T cell responses. Such vaccine-induced immune responses are critical for prevention or control of a number of pathogens such HIV.</p>
+						</sec>
+						<sec>
+							<st>
+								<p>Methods</p>
+							</st>
+							<sec>
+								<st>
+									<p>Bacterial strains and culture conditions</p>
+								</st>
+								<p>Competent <it>Escherichia coli </it>SCS110 cells (Stratagene, USA) were used in cloning and genetic manipulations. An auxotroph, &#916;<it>aro</it>C <it>Salmonella enterica </it>serovar Typhimurium mutant vaccine strain (TML-MD58) (Microscience Pty Ltd, UK) was used as an attenuated vaccine for the expression of GFP. The strain has a deletion in the <it>aro</it>C gene, which encodes chorismate synthase, an enzyme necessary for the biosynthesis of aromatic compounds, tryptophan, tyrosine, phenylalanine, para-aminobenzoic acid and 2,3-dihydroxybenzoate <abbrgrp>
+										<abbr bid="B37">37</abbr>
+									</abbrgrp>. The bacteria were grown in 2YT media supplemented, where necessary, with ampicillin and aromatic amino acids (tryptophan, tyrosine, phenylalanine, para-aminobenzoic acid and 2,3-dihydroxybenzoate) as previously described <abbrgrp>
+										<abbr bid="B37">37</abbr>
+										<abbr bid="B38">38</abbr>
+									</abbrgrp>.</p>
+							</sec>
+							<sec>
+								<st>
+									<p>Construction of a high-level GFP expression cassette</p>
+								</st>
+								<p>Unless stated otherwise, DNA manipulations were performed using standard recombinant DNA methods <abbrgrp>
+										<abbr bid="B38">38</abbr>
+									</abbrgrp>. A recombinant plasmid, designated pGEM+GFP, was constructed. The <it>gfp </it>gene was amplified using GFP2 (forward), 5'-ATG GCG CCA AAG ACT CCG GCT CCG-3' and GR (reverse), 5'- AAG CTT ATT TGT ATA GTT CAT CCA TGC-3') synthetic oligonucleotides as primers. The primers were rationally designed so that GR could have a preferred gram-negative bacterial stop codon, 5'-<ul>TAA</ul>G-3' at its end and that after cloning of the <it>gfp </it>PCR product in pGEM-Teasy (Promega, USA), there could be a second stop codon, <ul>TAA</ul>T, one codon downstream of <ul>TAA</ul>G. The primer GFP2 was designed so that the <it>gfp </it>gene to be amplified by polymerase chain reaction could be in-frame with the 5' domain (first 40 codons) of <it>&#946;</it>-galactosidase <it>&#945;</it>-gene in pGEM-Teasy vector. Restriction site for <it>Nar </it>I, 5'-GGCGCC-3', was incorporated in the GFP2 primer. The two primers had few base mismatches with their respective target DNA sequences in <it>gfp </it>template.</p>
+								<p>The polymerase chain reaction for amplification of <it>gfp </it>was conducted in a 50 &#956;l volume with 4.5 units AmpliTaq Gold&#8482; DNA polymerase (Applied Biosystems), 1&#215; PCR buffer, 1.5 &#956;M of each primers (GFP2 and GR), 0.2 mM deoxynucleotide triphosphates, 1.5 mM magnesium chloride and 10 ng of PEHAOGFP plasmid (provided by Dr W Bourn, University of Cape Town). The PCR cycling conditions were as follows: 1 cycle of 95&#176;C for 5 min, 5 cycles of 95&#176;C for 45 s, 55&#176;C for 30 s, 72&#176;C for 2 min, 25 cycles of 95&#176;C for 45 s, 64&#176;C for 30 s, 72&#176;C for 2 min, and a final extension of 72&#176;C for 7 min. Analysis of the <it>gfp </it>amplicon aliquot (5 &#956;l) was done by agarose gel electrophoresis. An aliquot (1 &#956;l) of remaining amplicon was ligated into a linearized pGEM-Teasy (Promega, USA) according to manufacturer's recommendations. The ligation reaction was used in the genetic transformation of competent <it>E. coli </it>SCS110 cells using the heat-shock method. The recombinant SCS110 clones harbouring the recombinant plasmid (pGEM+GFP) were screened for presence of <it>gfp </it>fragment and its orientation by blue-white screening procedure and UV-illumination. The white and fluorescing (candidate) clones were cultured using standard protocols. To investigate the presence of the recombinant <it>gfp </it>gene in plasmids, restriction mapping was performed initially with <it>Eco</it>R1 followed by double digestion with <it>Nar</it>I and <it>Hind</it>III. The <it>gfp </it>gene in the candidate pGEM+GFP plasmid was sequenced.</p>
+							</sec>
+							<sec>
+								<st>
+									<p>Preparation of &#916;<it>aroC Salmonella enterica </it>serovar Typhimurium expressing GFP</p>
+								</st>
+								<p>To investigate the expression of recombinant GFP, pGEM+GFP and pGEM (negative control) plasmids were used in the genetic transformation of competent <it>aroC Salmonella enterica </it>serovar Typhimurium mutant by a standard heat-shock method <abbrgrp>
+										<abbr bid="B33">33</abbr>
+									</abbrgrp>. The agar plates were incubated overnight and fluorescence of colonies viewed under UV light the following morning. Single colonies were cultured in 100 ml 2 YT liquid broth with ampicillin (100 &#956;g/ml). To determine the expression of GFP by the recombinant <it>Salmonella</it>, total bacterial protein was extracted from each culture, separated by a standard 12% sodium dodecyl sulphate-polyacrylamide gel electrophoresis (SDS-PAGE) and visualized in the gel by Coomassie blue staining. A standard Western blotting was performed to identify and to confirm the specificity and integrity of the GFP antigen band seen on the SDS-PAGE after Coomassie blue staining. A mixture of two anti-GFP mouse monoclonal antibodies (Clones 7.1 and 13.1) (Roche Diagnostics) was used as a primary antibody (diluted at 1.1000). Goat-anti-mouse immunoglobulins conjugated to horseradish peroxidase (Biorad), diluted at 1.1000 were used as secondary antibody. The immunoblot was visualized by enhanced chemiluminescence (Roche Diagnostics) and autoradiography according to manufacturer's recommendations</p>
+							</sec>
+							<sec>
+								<st>
+									<p>Vaccination of mice and preparation of splenocytes</p>
+								</st>
+								<p>To prepare vaccine stocks, a single colony of recombinant <it>Salmonella </it>was inoculated into 200 ml of 2 YT liquid media supplemented with ampicillin (100 ug/ml), and aromatic amino acids (1&#215;) and grown at 37&#176;C with strong aeration. The bacterial cells were harvested in the logarithmic phase (OD<sub>600 </sub>= 0.8&#8211;1.0) by centrifugation at 3000 rpm for 5 mins, washed once with equal volume of phosphate buffered saline (PBS, pH 7.4) and suspended in PBS with 15% glycerol. The cultures were stored in aliquots at -80&#176;C until vaccination. The bacterial count in the vaccine stocks was determined by plating of serial dilutions. The vaccines were designated AroC+GFP (a recombinant <it>aro</it>C <it>Salmonella enterica </it>serovar Typhimurium mutant expressing GFP) and AroC+pGEM (a recombinant control <it>aro</it>C <it>Salmonella enterica </it>serovar Typhimurium harbouring an empty plasmid, pGEM-Teasy).</p>
+								<p>All animal procedures were approved by the University of Cape Town Animal Ethics Committee. Female H-2<sup>d </sup>BALB/c mice (8&#8211;10 weeks old; and five per group) were purchased from South Africa Vaccine Producers Pty Ltd (Johannesburg, South Africa), housed at the University of Cape Town Animal Unit and allowed to adapt for a minimum of 10 days before vaccinations. Groups of female BALB/c mice were inoculated by intragastric gavage with 10e8 colony forming units (CFUs)/mouse of either <it>Salmonella </it>vaccine (AroC+GFP) or negative control (AroC+pGEM) on Days 0, 28 and 56. Mice were sacrifice on Day 84 and spleens were pooled for each group. The spleens were meshed using a rubber stopper and metal grid (Sigma) placed in a petri dish to generate a single cell suspension in RPMI 1640 medium (Invitrogen, USA). The cell suspension was transferred to a 50 ml conical centrifuge tube. The volume was made up to 50 ml with RPMI 1640 medium. The cell suspension was centrifuged at 1500 rpm for 5 minutes to pellet the cells. The pellet was re-suspended in 50 ml of RPMI 1640 medium and centrifuged as before. The pellet was then washed twice with 50 ml of RPMI 1640 medium. The cells were re-suspended in 50 ml R10 medium (RPMI 1640, 10% heat-inactivated fetal calf serum, a mixture of pernicillin and streptomycin (Invitrogen, USA), and 15 mM 2-mercaptoethanol (Sigma, USA)). A single cell suspension of splenocytes was prepared and red cells were lysed using erythrocyte lysing buffer (0.15 M NH<sub>4</sub>Cl, 10 mM KHCO<sub>3</sub>, 0.1 mM Na<sub>2</sub>EDTA) for 1 min at room temperature. To count the cells and determine viability, 1/10 dilution of the suspension was made in Trypan Blue and Neubauer counting chamber used. Cell concentration in suspension was calculated and adjusted to an appropriate concentration. For use in ELISPOT assay, the splenocytes were adjusted to a concentration of 5 &#215; 10e6 cells per ml and 100 ul of this stock was added to a single well which contained 100 ul of the stimulant. For use in CBA assay, the splenocytes were adjusted to a concentration of 15 &#215; 10e6 cells per ml and 100 ul of this stock was added to a single well which contained 100 ul of the stimulant.</p>
+							</sec>
+							<sec>
+								<st>
+									<p>IFN-&#947; and IL-4 ELISPOT assays</p>
+								</st>
+								<p>The IFN-&#947; and IL-4 ELISPOT kits (BD Pharmingen) were used according to manufacturer's recommendations. Splenocytes were plated in triplicate at 0.5 &#215; 10e6 cells/well in a final volume of 200 &#956;l of R10 medium (RPMI-1640 with 10% heat-inactivated fetal calf serum, 15 mM &#946;-mercaptoethanol, 100 U penicillin per ml, and 100 &#956;g streptomycin) either alone or with stimulants at 4 &#956;g/ml. The stimulants used assays were media (no peptide), GFP H-2K<sup>d </sup>binding peptide (HYLSTQSAL), full-length GFP, <it>Salmonella </it>lipopolysaccharide (LPS) (at a final concentration of 0.5 &#956;g/ml). After incubation for 24 hrs (IFN-&#947; ELISPOT assay) or 48 hr (IL-4 ELISPOT assay), the plates were processed to detect IFN-&#947;- or IL-4-spot-forming units (SFUs) using Nova Red substrate (Vector Laboratories, UK) according to the kit instructions. Spots were counted using a CTL Analyzer (Cellular Technology, OH, USA) and ImmunoSpot Version 3.2 software (Cellular Technology OH, USA). The mean number of spots &#177; SD in triplicate wells was calculated and expressed as SFUs/10e6 splenocytes. Differences in immune responses between vaccine groups were analyzed by the two-sample t-test.</p>
+							</sec>
+							<sec>
+								<st>
+									<p>Cytometric Bead Array (CBA) assay</p>
+								</st>
+								<p>Splenocytes at a concentration of 1.5 &#215; 10e6 per 200 ul R10 culture medium (RPMI-1640 with 10% heat inactivated fetal calf serum, 100 U penicillin per ml, and 100 &#956;g streptomycin) were cultured alone or with the individual stimulants as in the ELISPOT assay. CD8+ Tc1 (IFN-&#947;) and Tc2 (IL-4) cytokines secreted by the splenocytes were quantified using a mouse Th1/Th2 cytokine cytometric bead array (CBA) assay (BD Biosciences kit) and flow cytometry analysis according to manufacturer's instructions. Results were expressed as pg cytokine per 1 &#215; 10e6 splenocytes. Differences in immune responses between vaccine groups were analyzed by the two-sample t-test.</p>
+							</sec>
+						</sec>
+						<sec>
+							<st>
+								<p>List of abbreviations</p>
+							</st>
+							<p>CBA: cytometric bead array; Con A: Concanavalin A; ELISPOT: Enzyme-linked immunospot; GFP: Green fluorescent protein; IFN-&#947;: interferon-gamma; LPS: lipopolysaccharide; IL-4: interleukin 4; SDS-PAGE: sodium dodecyl sulphate-polyacrylamide gel electrophoresis; SFUs: Spot-forming units; 2YT: 2&#215; Yeast Tryptone.</p>
+						</sec>
+						<sec>
+							<st>
+								<p>Competing interests</p>
+							</st>
+							<p>The authors declare that they have no competing interests.</p>
+						</sec>
+						<sec>
+							<st>
+								<p>Authors' contributions</p>
+							</st>
+							<p>NC, WB, AW and EGS designed the experiment. NC performed all the experiments. NC, WB, AW and EGS all participated in the writing of the manuscript. All the authors read and approved the manuscript.</p>
+						</sec>
+					</bdy>
+					<bm>
+						<ack>
+							<sec>
+								<st>
+									<p>Acknowledgements</p>
+								</st>
+								<p>We thank Microscience Pty Ltd (UK) for providing the <it>AroC Salmonella </it>strain used in this study. We are grateful to members of the University of Cape Town Animal Unit and Sharon Makhubela, Shireen Galant, Desiree Bowers and Anke Binder for assistance with the immunology assays. This work was supported financially by a grant from the South African Aids Vaccine Initiative (SAAVI).</p>
+							</sec>
+						</ack>
+						<refgrp>
+							<bibl id="B1">
+								<title>
+									<p>
+										<it>Salmonella enterica </it>infection</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Hess</snm>
+										<fnm>J</fnm>
+									</au>
+									<au>
+										<snm>Kaufmann</snm>
+										<fnm>SH</fnm>
+									</au>
+								</aug>
+								<source>Res Immunol</source>
+								<pubdate>1996</pubdate>
+								<volume>147</volume>
+								<fpage>581</fpage>
+								<lpage>586</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/S0923-2494(97)85225-X</pubid>
+										<pubid idtype="pmpid">9127891</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B2">
+								<title>
+									<p>T cell responses to bacterial infection</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Kerksiek</snm>
+										<fnm>KM</fnm>
+									</au>
+									<au>
+										<snm>Pamer</snm>
+										<fnm>EG</fnm>
+									</au>
+								</aug>
+								<source>Curr Opin Immunol</source>
+								<pubdate>1999</pubdate>
+								<volume>11</volume>
+								<fpage>400</fpage>
+								<lpage>405</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/S0952-7915(99)80067-3</pubid>
+										<pubid idtype="pmpid" link="fulltext">10448135</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B3">
+								<title>
+									<p>Tracking the dynamics of T-cell activation in response to <it>Salmonella </it>infection</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Ravindran</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>McSorley</snm>
+										<fnm>SJ</fnm>
+									</au>
+								</aug>
+								<source>Immunology</source>
+								<pubdate>2005</pubdate>
+								<volume>114</volume>
+								<fpage>450</fpage>
+								<lpage>458</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">1782102</pubid>
+										<pubid idtype="pmpid" link="fulltext">15804280</pubid>
+										<pubid idtype="doi">10.1111/j.1365-2567.2005.02140.x</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B4">
+								<title>
+									<p>Characterization of CD8(+) effector T cell responses in volunteers immunized with <it>Salmonella enterica </it>serovar Typhi strain Ty21a typhoid vaccine</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Salerno-Goncalves</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Pasetti</snm>
+										<fnm>MF</fnm>
+									</au>
+									<au>
+										<snm>Sztein</snm>
+										<fnm>MB</fnm>
+									</au>
+								</aug>
+								<source>J Immunol</source>
+								<pubdate>2002</pubdate>
+								<volume>169</volume>
+								<fpage>2196</fpage>
+								<lpage>2203</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid" link="fulltext">12165550</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B5">
+								<title>
+									<p>Recent advances with recombinant bacterial vaccine vectors</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Shata</snm>
+										<fnm>MT</fnm>
+									</au>
+									<au>
+										<snm>Stevceva</snm>
+										<fnm>L</fnm>
+									</au>
+									<au>
+										<snm>Agwale</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Lewis</snm>
+										<fnm>GK</fnm>
+									</au>
+									<au>
+										<snm>Hone</snm>
+										<fnm>DM</fnm>
+									</au>
+								</aug>
+								<source>Mol Med Today</source>
+								<pubdate>2000</pubdate>
+								<volume>6</volume>
+								<fpage>66</fpage>
+								<lpage>71</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/S1357-4310(99)01633-0</pubid>
+										<pubid idtype="pmpid">10652479</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B6">
+								<title>
+									<p>Use of live bacterial vaccine vectors for antigen delivery: potential and limitations</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Medina</snm>
+										<fnm>E</fnm>
+									</au>
+									<au>
+										<snm>Guzman</snm>
+										<fnm>CA</fnm>
+									</au>
+								</aug>
+								<source>Vaccine</source>
+								<pubdate>2001</pubdate>
+								<volume>19</volume>
+								<fpage>1573</fpage>
+								<lpage>1580</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/S0264-410X(00)00354-6</pubid>
+										<pubid idtype="pmpid" link="fulltext">11166877</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B7">
+								<title>
+									<p>Bacterial infectious disease control by vaccine development</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Curtiss</snm>
+										<fnm>R</fnm>
+										<suf>3rd</suf>
+									</au>
+								</aug>
+								<source>J Clin Invest</source>
+								<pubdate>2002</pubdate>
+								<volume>110</volume>
+								<fpage>1061</fpage>
+								<lpage>1066</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">150804</pubid>
+										<pubid idtype="pmpid" link="fulltext">12393839</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B8">
+								<title>
+									<p>The use of live attenuated bacteria as a delivery system for heterologous antigens</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Garmory</snm>
+										<fnm>HS</fnm>
+									</au>
+									<au>
+										<snm>Leary</snm>
+										<fnm>SE</fnm>
+									</au>
+									<au>
+										<snm>Griffin</snm>
+										<fnm>KF</fnm>
+									</au>
+									<au>
+										<snm>Williamson</snm>
+										<fnm>ED</fnm>
+									</au>
+									<au>
+										<snm>Brown</snm>
+										<fnm>KA</fnm>
+									</au>
+									<au>
+										<snm>Titball</snm>
+										<fnm>RW</fnm>
+									</au>
+								</aug>
+								<source>J Drug Target</source>
+								<pubdate>2003</pubdate>
+								<volume>11</volume>
+								<fpage>471</fpage>
+								<lpage>479</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1080/10611860410001670008</pubid>
+										<pubid idtype="pmpid" link="fulltext">15203915</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B9">
+								<title>
+									<p>Rational design of <it>Salmonella </it>-based vaccination strategies</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Spreng</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Dietrich</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>Weidinger</snm>
+										<fnm>G</fnm>
+									</au>
+								</aug>
+								<source>Methods</source>
+								<pubdate>2006</pubdate>
+								<volume>38</volume>
+								<fpage>133</fpage>
+								<lpage>143</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/j.ymeth.2005.09.012</pubid>
+										<pubid idtype="pmpid" link="fulltext">16414270</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B10">
+								<title>
+									<p>Live-attenuated <it>Salmonella </it>as a prototype vaccine vector for passenger immunogens in humans: are we there yet?</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Lewis</snm>
+										<fnm>GK</fnm>
+									</au>
+								</aug>
+								<source>Expert Rev Vaccines</source>
+								<pubdate>2007</pubdate>
+								<volume>6</volume>
+								<fpage>431</fpage>
+								<lpage>440</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1586/14760584.6.3.431</pubid>
+										<pubid idtype="pmpid" link="fulltext">17542757</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B11">
+								<title>
+									<p>
+										<it>Salmonella </it>-based vaccines for infectious diseases</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Kwon</snm>
+										<fnm>YM</fnm>
+									</au>
+									<au>
+										<snm>Cox</snm>
+										<fnm>MM</fnm>
+									</au>
+									<au>
+										<snm>Calhoun</snm>
+										<fnm>LN</fnm>
+									</au>
+								</aug>
+								<source>Expert Rev Vaccines</source>
+								<pubdate>2007</pubdate>
+								<volume>6</volume>
+								<fpage>147</fpage>
+								<lpage>152</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1586/14760584.6.2.147</pubid>
+										<pubid idtype="pmpid" link="fulltext">17408365</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B12">
+								<title>
+									<p>Immunogenicity of enhanced green fluorescent protein (EGFP) in BALB/c mice: identification of an H2-Kd-restricted CTL epitope</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Gambotto</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Dworacki</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>Cicinnati</snm>
+										<fnm>V</fnm>
+									</au>
+									<au>
+										<snm>Kenniston</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Steitz</snm>
+										<fnm>J</fnm>
+									</au>
+									<au>
+										<snm>Tuting</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Robbins</snm>
+										<fnm>PD</fnm>
+									</au>
+								</aug>
+								<source>Gene Ther</source>
+								<pubdate>2000</pubdate>
+								<volume>7</volume>
+								<fpage>2036</fpage>
+								<lpage>2040</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1038/sj.gt.3301335</pubid>
+										<pubid idtype="pmpid">11175316</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B13">
+								<title>
+									<p>Expression of a recombinant <it>Toxoplasma gondii </it>ROP2 fragment as a fusion protein in bacteria circumvents insolubility and proteolytic degradation</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Jacquet</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Daminet</snm>
+										<fnm>V</fnm>
+									</au>
+									<au>
+										<snm>Haumont</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Garcia</snm>
+										<fnm>L</fnm>
+									</au>
+									<au>
+										<snm>Chaudoir</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Bollen</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Biemans</snm>
+										<fnm>R</fnm>
+									</au>
+								</aug>
+								<source>Protein Expr Purif</source>
+								<pubdate>1999</pubdate>
+								<volume>17</volume>
+								<fpage>392</fpage>
+								<lpage>400</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1006/prep.1999.1150</pubid>
+										<pubid idtype="pmpid" link="fulltext">10600457</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B14">
+								<title>
+									<p>Expression in <it>Escherichia coli </it>of a chemically synthesized gene for the hormone somatostatin</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Itakura</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Hirose</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Crea</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Riggs</snm>
+										<fnm>AD</fnm>
+									</au>
+									<au>
+										<snm>Heyneker</snm>
+										<fnm>HL</fnm>
+									</au>
+									<au>
+										<snm>Bolivar</snm>
+										<fnm>F</fnm>
+									</au>
+									<au>
+										<snm>Boyer</snm>
+										<fnm>HW</fnm>
+									</au>
+								</aug>
+								<source>Science</source>
+								<pubdate>1977</pubdate>
+								<volume>198</volume>
+								<fpage>1056</fpage>
+								<lpage>1063</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1126/science.412251</pubid>
+										<pubid idtype="pmpid" link="fulltext">412251</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B15">
+								<title>
+									<p>Expression of recombinant human phenylalanine hydroxylase as fusion protein in <it>Escherichia coli </it>circumvents proteolytic degradation by host cell proteases. Isolation and characterization of the wild-type enzyme</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Martinez</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Knappskog</snm>
+										<fnm>PM</fnm>
+									</au>
+									<au>
+										<snm>Olafsdottir</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Doskeland</snm>
+										<fnm>AP</fnm>
+									</au>
+									<au>
+										<snm>Eiken</snm>
+										<fnm>HG</fnm>
+									</au>
+									<au>
+										<snm>Svebak</snm>
+										<fnm>RM</fnm>
+									</au>
+									<au>
+										<snm>Bozzini</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Apold</snm>
+										<fnm>J</fnm>
+									</au>
+									<au>
+										<snm>Flatmark</snm>
+										<fnm>T</fnm>
+									</au>
+								</aug>
+								<source>Biochem J</source>
+								<pubdate>1995</pubdate>
+								<volume>306</volume>
+								<fpage>589</fpage>
+								<lpage>597</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">1136558</pubid>
+										<pubid idtype="pmpid">7887915</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B16">
+								<title>
+									<p>The ompA 5' untraslated region impedes a major pathway for mRNA degradation in <it>E. coli</it>
+									</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Hansen</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Chen</snm>
+										<fnm>L</fnm>
+									</au>
+									<au>
+										<snm>Fejzo</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Belasco</snm>
+										<fnm>J</fnm>
+									</au>
+								</aug>
+								<source>Mol Microbiology</source>
+								<pubdate>1994</pubdate>
+								<volume>12</volume>
+								<fpage>707</fpage>
+								<lpage>716</lpage>
+								<xrefbib>
+									<pubid idtype="doi">10.1111/j.1365-2958.1994.tb01058.x</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B17">
+								<title>
+									<p>Dendritic cells acquire antigen from apoptotic cells and induce class I-restricted CTLs</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Albert</snm>
+										<fnm>ML</fnm>
+									</au>
+									<au>
+										<snm>Sauter</snm>
+										<fnm>B</fnm>
+									</au>
+									<au>
+										<snm>Bhardwaj</snm>
+										<fnm>N</fnm>
+									</au>
+								</aug>
+								<source>Nature</source>
+								<pubdate>1998</pubdate>
+								<volume>392</volume>
+								<fpage>86</fpage>
+								<lpage>89</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1038/32183</pubid>
+										<pubid idtype="pmpid" link="fulltext">9510252</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B18">
+								<title>
+									<p>Cross-presentation: dendritic cells and macrophages bite off more than they can chew!</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Brode</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Macary</snm>
+										<fnm>PA</fnm>
+									</au>
+								</aug>
+								<source>Immunology</source>
+								<pubdate>2004</pubdate>
+								<volume>112</volume>
+								<fpage>345</fpage>
+								<lpage>351</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">1782510</pubid>
+										<pubid idtype="pmpid" link="fulltext">15196201</pubid>
+										<pubid idtype="doi">10.1111/j.1365-2567.2004.01920.x</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B19">
+								<title>
+									<p>Cross-presentation, dendritic cell subsets, and the generation of immunity to cellular antigens</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Heath</snm>
+										<fnm>WR</fnm>
+									</au>
+									<au>
+										<snm>Belz</snm>
+										<fnm>GT</fnm>
+									</au>
+									<au>
+										<snm>Behrens</snm>
+										<fnm>GM</fnm>
+									</au>
+									<au>
+										<snm>Smith</snm>
+										<fnm>CM</fnm>
+									</au>
+									<au>
+										<snm>Forehan</snm>
+										<fnm>SP</fnm>
+									</au>
+									<au>
+										<snm>Parish</snm>
+										<fnm>IA</fnm>
+									</au>
+									<au>
+										<snm>Davey</snm>
+										<fnm>GM</fnm>
+									</au>
+									<au>
+										<snm>Wilson</snm>
+										<fnm>NS</fnm>
+									</au>
+									<au>
+										<snm>Carbone</snm>
+										<fnm>FR</fnm>
+									</au>
+									<au>
+										<snm>Villadangos</snm>
+										<fnm>JA</fnm>
+									</au>
+								</aug>
+								<source>Immunol Rev</source>
+								<pubdate>2004</pubdate>
+								<volume>199</volume>
+								<fpage>9</fpage>
+								<lpage>26</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1111/j.0105-2896.2004.00142.x</pubid>
+										<pubid idtype="pmpid" link="fulltext">15233723</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B20">
+								<title>
+									<p>Cell tropism of <it>Salmonella enterica</it>
+									</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Santos</snm>
+										<fnm>RL</fnm>
+									</au>
+									<au>
+										<snm>Baumler</snm>
+										<fnm>AJ</fnm>
+									</au>
+								</aug>
+								<source>Int J Med Microbiol</source>
+								<pubdate>2004</pubdate>
+								<volume>294</volume>
+								<fpage>225</fpage>
+								<lpage>233</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/j.ijmm.2004.06.029</pubid>
+										<pubid idtype="pmpid">15532980</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B21">
+								<title>
+									<p>Induction of CD8+ T lymphocytes by <it>Salmonella typhimurium </it>is independent of <it>Salmonella </it>pathogenicity island 1-mediated host cell death</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Wijburg</snm>
+										<fnm>OL</fnm>
+									</au>
+									<au>
+										<snm>Van Rooijen</snm>
+										<fnm>N</fnm>
+									</au>
+									<au>
+										<snm>Strugnell</snm>
+										<fnm>RA</fnm>
+									</au>
+								</aug>
+								<source>J Immunol</source>
+								<pubdate>2002</pubdate>
+								<volume>169</volume>
+								<fpage>3275</fpage>
+								<lpage>3283</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid" link="fulltext">12218147</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B22">
+								<title>
+									<p>Immunity to <it>Salmonella </it>from a dendritic point of view</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Sundquist</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Rydstrom</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Wick</snm>
+										<fnm>MJ</fnm>
+									</au>
+								</aug>
+								<source>Cell Microbiol</source>
+								<pubdate>2004</pubdate>
+								<volume>6</volume>
+								<fpage>1</fpage>
+								<lpage>11</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1046/j.1462-5822.2003.00336.x</pubid>
+										<pubid idtype="pmpid" link="fulltext">14678326</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B23">
+								<title>
+									<p>Antigen selection based on expression levels during infection facilitates vaccine development for an intracellular pathogen</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Rollenhagen</snm>
+										<fnm>C</fnm>
+									</au>
+									<au>
+										<snm>Sorensen</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Rizos</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Hurvitz</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Bumann</snm>
+										<fnm>D</fnm>
+									</au>
+								</aug>
+								<source>Proc Natl Acad Sci USA</source>
+								<pubdate>2004</pubdate>
+								<volume>101</volume>
+								<fpage>8739</fpage>
+								<lpage>8744</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">423265</pubid>
+										<pubid idtype="pmpid" link="fulltext">15173591</pubid>
+										<pubid idtype="doi">10.1073/pnas.0401283101</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B24">
+								<title>
+									<p>A virus-specific CD8+ T cell immunodominance hierarchy determined by antigen dose and precursor frequencies</p>
+								</title>
+								<aug>
+									<au>
+										<snm>La Gruta</snm>
+										<fnm>NL</fnm>
+									</au>
+									<au>
+										<snm>Kedzierska</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Pang</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Webby</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Davenport</snm>
+										<fnm>M</fnm>
+									</au>
+									<au>
+										<snm>Chen</snm>
+										<fnm>W</fnm>
+									</au>
+									<au>
+										<snm>Turner</snm>
+										<fnm>SJ</fnm>
+									</au>
+									<au>
+										<snm>Doherty</snm>
+										<fnm>PC</fnm>
+									</au>
+								</aug>
+								<source>Proc Natl Acad Sci USA</source>
+								<pubdate>2006</pubdate>
+								<volume>103</volume>
+								<fpage>994</fpage>
+								<lpage>999</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">1348014</pubid>
+										<pubid idtype="pmpid" link="fulltext">16418289</pubid>
+										<pubid idtype="doi">10.1073/pnas.0510429103</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B25">
+								<title>
+									<p>Th2-like CD8+ T cells showing B cell helper function and reduced cytolytic activity in human immunodeficiency virus type 1 infection</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Maggi</snm>
+										<fnm>E</fnm>
+									</au>
+									<au>
+										<snm>Giudizi</snm>
+										<fnm>MG</fnm>
+									</au>
+									<au>
+										<snm>Biagiotti</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Annunziato</snm>
+										<fnm>F</fnm>
+									</au>
+									<au>
+										<snm>Manetti</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Piccinni</snm>
+										<fnm>MP</fnm>
+									</au>
+									<au>
+										<snm>Parronchi</snm>
+										<fnm>P</fnm>
+									</au>
+									<au>
+										<snm>Sampognaro</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Giannarini</snm>
+										<fnm>L</fnm>
+									</au>
+									<au>
+										<snm>Zuccati</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>Romagnani</snm>
+										<fnm>S</fnm>
+									</au>
+								</aug>
+								<source>J Exp Med</source>
+								<pubdate>1994</pubdate>
+								<volume>180</volume>
+								<fpage>489</fpage>
+								<lpage>495</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">2191625</pubid>
+										<pubid idtype="pmpid">8046328</pubid>
+										<pubid idtype="doi">10.1084/jem.180.2.489</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B26">
+								<title>
+									<p>Interleukin (IL) 4, in the absence of antigen stimulation, induces an anergy-like state in differentiated CD8+ TC1 cells: loss of IL-2 synthesis and autonomous proliferation but retention of cytotoxicity and synthesis of other cytokines</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Sad</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Mosmann</snm>
+										<fnm>TR</fnm>
+									</au>
+								</aug>
+								<source>J Exp Med</source>
+								<pubdate>1995</pubdate>
+								<volume>182</volume>
+								<fpage>1505</fpage>
+								<lpage>1515</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">2192195</pubid>
+										<pubid idtype="pmpid">7595220</pubid>
+										<pubid idtype="doi">10.1084/jem.182.5.1505</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B27">
+								<title>
+									<p>Cytokine-deficient CD8+ Tc1 cells induced by IL-4: retained inflammation and perforin and Fas cytotoxicity but compromised long-term killing of tumor cells</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Sad</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Li</snm>
+										<fnm>L</fnm>
+									</au>
+									<au>
+										<snm>Mosmann</snm>
+										<fnm>TR</fnm>
+									</au>
+								</aug>
+								<source>J Immunol</source>
+								<pubdate>1997</pubdate>
+								<volume>159</volume>
+								<fpage>606</fpage>
+								<lpage>613</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid" link="fulltext">9218575</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B28">
+								<title>
+									<p>IL-4-producing CD8+ T cells with a CD62L++(bright) phenotype accumulate in a subgroup of older adults and are associated with the maintenance of intact humoral immunity in old age</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Schwaiger</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Wolf</snm>
+										<fnm>AM</fnm>
+									</au>
+									<au>
+										<snm>Robatscher</snm>
+										<fnm>P</fnm>
+									</au>
+									<au>
+										<snm>Jenewein</snm>
+										<fnm>B</fnm>
+									</au>
+									<au>
+										<snm>Grubeck-Loebenstein</snm>
+										<fnm>B</fnm>
+									</au>
+								</aug>
+								<source>J Immunol</source>
+								<pubdate>2003</pubdate>
+								<volume>170</volume>
+								<fpage>613</fpage>
+								<lpage>619</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid" link="fulltext">12496450</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B29">
+								<title>
+									<p>Age-associated changes in interferon-gamma and IL-4 secretion by purified human CD4+ and CD8+ T cells</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Yen</snm>
+										<fnm>CJ</fnm>
+									</au>
+									<au>
+										<snm>Lin</snm>
+										<fnm>SL</fnm>
+									</au>
+									<au>
+										<snm>Huang</snm>
+										<fnm>KT</fnm>
+									</au>
+									<au>
+										<snm>Lin</snm>
+										<fnm>RH</fnm>
+									</au>
+								</aug>
+								<source>J Biomed Sci</source>
+								<pubdate>2000</pubdate>
+								<volume>7</volume>
+								<fpage>317</fpage>
+								<lpage>321</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid">10895055</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B30">
+								<title>
+									<p>CD8+ T lymphocytes producing Th2-type cytokines (Tc2) in HIV-infected individuals</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Maggi</snm>
+										<fnm>E</fnm>
+									</au>
+									<au>
+										<snm>Manetti</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Annunziato</snm>
+										<fnm>F</fnm>
+									</au>
+									<au>
+										<snm>Romagnani</snm>
+										<fnm>S</fnm>
+									</au>
+								</aug>
+								<source>J Biol Regul Homeost Agents</source>
+								<pubdate>1995</pubdate>
+								<volume>9</volume>
+								<fpage>78</fpage>
+								<lpage>81</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid">8782011</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B31">
+								<title>
+									<p>Therapeutic effects of tumor-reactive type 1 and type 2 CD8+ T cell subpopulations in established pulmonary metastases</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Dobrzanski</snm>
+										<fnm>MJ</fnm>
+									</au>
+									<au>
+										<snm>Reome</snm>
+										<fnm>JB</fnm>
+									</au>
+									<au>
+										<snm>Dutton</snm>
+										<fnm>RW</fnm>
+									</au>
+								</aug>
+								<source>J Immunol</source>
+								<pubdate>1999</pubdate>
+								<volume>162</volume>
+								<fpage>6671</fpage>
+								<lpage>6680</lpage>
+								<xrefbib>
+									<pubid idtype="pmpid" link="fulltext">10352285</pubid>
+								</xrefbib>
+							</bibl>
+							<bibl id="B32">
+								<title>
+									<p>Optimization of the delivery of heterologous proteins by the Salmonella enterica serovar Typhimurium type III secretion system for vaccine development</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Chen</snm>
+										<fnm>LM</fnm>
+									</au>
+									<au>
+										<snm>Briones</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>Donis</snm>
+										<fnm>RO</fnm>
+									</au>
+									<au>
+										<snm>Gal&#225;n</snm>
+										<fnm>JE</fnm>
+									</au>
+								</aug>
+								<source>Infect Immun</source>
+								<pubdate>2006</pubdate>
+								<volume>74</volume>
+								<fpage>5826</fpage>
+								<lpage>5833</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">1594939</pubid>
+										<pubid idtype="pmpid" link="fulltext">16988261</pubid>
+										<pubid idtype="doi">10.1128/IAI.00375-06</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B33">
+								<title>
+									<p>
+										<it>Salmonella </it>type III-mediated heterologous antigen delivery: a versatile oral vaccination strategy to induce cellular immunity against infectious agents and tumors</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Panthel</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Meinel</snm>
+										<fnm>KM</fnm>
+									</au>
+									<au>
+										<snm>Sevil Dom&#232;nech</snm>
+										<fnm>VE</fnm>
+									</au>
+									<au>
+										<snm>Tr&#252;lzsch</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>R&#252;ssmann</snm>
+										<fnm>H</fnm>
+									</au>
+								</aug>
+								<source>Int J Med Microbiol</source>
+								<pubdate>2008</pubdate>
+								<volume>298</volume>
+								<fpage>99</fpage>
+								<lpage>103</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/j.ijmm.2007.07.002</pubid>
+										<pubid idtype="pmpid" link="fulltext">17719275</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B34">
+								<title>
+									<p>Complete protection against P. berghei malaria upon heterologous prime/boost immunization against circumsporozoite protein employing Salmonella type III secretion system and Bordetella adenylate cyclase toxoid</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Tartz</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>R&#252;ssmann</snm>
+										<fnm>H</fnm>
+									</au>
+									<au>
+										<snm>Kamanova</snm>
+										<fnm>J</fnm>
+									</au>
+									<au>
+										<snm>Sebo</snm>
+										<fnm>P</fnm>
+									</au>
+									<au>
+										<snm>Sturm</snm>
+										<fnm>A</fnm>
+									</au>
+									<au>
+										<snm>Heussler</snm>
+										<fnm>V</fnm>
+									</au>
+									<au>
+										<snm>Fleischer</snm>
+										<fnm>B</fnm>
+									</au>
+									<au>
+										<snm>Jacobs</snm>
+										<fnm>T</fnm>
+									</au>
+								</aug>
+								<source>Vaccine</source>
+								<pubdate>2008</pubdate>
+								<volume>26</volume>
+								<fpage>5935</fpage>
+								<lpage>5943</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/j.vaccine.2008.08.057</pubid>
+										<pubid idtype="pmpid" link="fulltext">18804138</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B35">
+								<title>
+									<p>Heterologous prime-boost immunizations with different <it>Salmonella </it>serovars for enhanced antigen-specific CD8 T-cell induction</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Sevil Dom&#232;nech</snm>
+										<fnm>VE</fnm>
+									</au>
+									<au>
+										<snm>Panthel</snm>
+										<fnm>K</fnm>
+									</au>
+									<au>
+										<snm>Winter</snm>
+										<fnm>SE</fnm>
+									</au>
+									<au>
+										<snm>R&#252;ssmann</snm>
+										<fnm>H</fnm>
+									</au>
+								</aug>
+								<source>Vaccine</source>
+								<pubdate>2008</pubdate>
+								<volume>26</volume>
+								<fpage>1879</fpage>
+								<lpage>1886</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/j.vaccine.2008.01.044</pubid>
+										<pubid idtype="pmpid" link="fulltext">18313813</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B36">
+								<title>
+									<p>Concomitant cytosolic delivery of two immunodominant listerial antigens by Salmonella enterica serovar typhimurium confers superior protection against murine listeriosis</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Igwe</snm>
+										<fnm>EI</fnm>
+									</au>
+									<au>
+										<snm>Geginat</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>R&#252;ssmann</snm>
+										<fnm>H</fnm>
+									</au>
+								</aug>
+								<source>Infect Immun</source>
+								<pubdate>2002</pubdate>
+								<volume>70</volume>
+								<fpage>7114</fpage>
+								<lpage>7119</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="pmcid">133064</pubid>
+										<pubid idtype="pmpid" link="fulltext">12438393</pubid>
+										<pubid idtype="doi">10.1128/IAI.70.12.7114-7119.2002</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B37">
+								<title>
+									<p>
+										<it>Salmonella typhi </it>and <it>S typhimurium </it>derivatives harbouring deletions in aromatic biosynthesis and <it>Salmonella </it>Pathogenicity Island-2 (SPI-2) genes as vaccines and vectors</p>
+								</title>
+								<aug>
+									<au>
+										<snm>Khan</snm>
+										<fnm>SA</fnm>
+									</au>
+									<au>
+										<snm>Stratford</snm>
+										<fnm>R</fnm>
+									</au>
+									<au>
+										<snm>Wu</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Mckelvie</snm>
+										<fnm>N</fnm>
+									</au>
+									<au>
+										<snm>Bellaby</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Hindle</snm>
+										<fnm>Z</fnm>
+									</au>
+									<au>
+										<snm>Sinha</snm>
+										<fnm>KA</fnm>
+									</au>
+									<au>
+										<snm>Eltze</snm>
+										<fnm>S</fnm>
+									</au>
+									<au>
+										<snm>Mastroeni</snm>
+										<fnm>P</fnm>
+									</au>
+									<au>
+										<snm>Pickard</snm>
+										<fnm>D</fnm>
+									</au>
+									<au>
+										<snm>Dougan</snm>
+										<fnm>G</fnm>
+									</au>
+									<au>
+										<snm>Chatfield</snm>
+										<fnm>SN</fnm>
+									</au>
+									<au>
+										<snm>Brennan</snm>
+										<fnm>FR</fnm>
+									</au>
+								</aug>
+								<source>Vaccine</source>
+								<pubdate>2003</pubdate>
+								<volume>21</volume>
+								<fpage>538</fpage>
+								<lpage>548</lpage>
+								<xrefbib>
+									<pubidlist>
+										<pubid idtype="doi">10.1016/S0264-410X(02)00410-3</pubid>
+										<pubid idtype="pmpid" link="fulltext">12531654</pubid>
+									</pubidlist>
+								</xrefbib>
+							</bibl>
+							<bibl id="B38">
+								<aug>
+									<au>
+										<snm>Sambrook</snm>
+										<fnm>J</fnm>
+									</au>
+									<au>
+										<snm>Maniatis</snm>
+										<fnm>T</fnm>
+									</au>
+									<au>
+										<snm>Fritsch</snm>
+										<fnm>EF</fnm>
+									</au>
+								</aug>
+								<source>Molecular cloning: a laboratory manual</source>
+								<publisher>Cold Spring Harbor: Cold Spring Harbor Laboratory Press</publisher>
+								<pubdate>1989</pubdate>
+							</bibl>
+						</refgrp>
+					</bm>
+				</art>

@@ -196,6 +196,7 @@
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
+		<copyright>http://www.pubmedcentral.nih.gov/about/copyright.html</copyright>
 		<status>published</status>
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
@@ -244,6 +245,7 @@
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
+		<license>http://arxiv.org/help/license</license>
 		<status>published</status>
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>

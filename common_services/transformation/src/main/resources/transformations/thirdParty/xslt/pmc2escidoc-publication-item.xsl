@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -52,7 +52,7 @@
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
-   xmlns:publ="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:publ="${xsd.metadata.publication}"
    xmlns:escidoc="urn:escidoc:functions">
    
 

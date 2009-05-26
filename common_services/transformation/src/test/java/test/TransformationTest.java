@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -14,7 +16,13 @@ import org.junit.Test;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -37,7 +45,6 @@ public class TransformationTest
 
     
     @Test
-    @Ignore
     public void test() throws Exception
     {
         try{
@@ -107,21 +114,70 @@ public class TransformationTest
     /* 
      * test TEI2 to eSciDoc item transformation 
      * */
-    @Test
+    
     public void tei2escidoc() throws Exception
     {    	
     	Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
     	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
     	Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
     	
-    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/sage3.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
+    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Wiley1.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
     	this.logger.info(new String(result));
     	
-//        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S2.tei").getBytes(), teiFormat, escidocComponentFormat, "escidoc");    
-//        this.logger.info(new String(result));
-//    	
-//    	this.logger.info("Get all target formats for peer_tei: ");
-//    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
+        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S2.tei").getBytes(), teiFormat, escidocComponentFormat, "escidoc");    
+        this.logger.info(new String(result));
+    	
+    	this.logger.info("Get all target formats for peer_tei: ");
+    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
     }
+    
+     public void testBmcArticle() throws Exception
+     {
+         Format xml = new Format("bmc-fulltext-xml", "application/xml", "UTF-8");
+         Format html = new Format("bmc-fulltext-html", "text/html", "UTF-8");
+         
+         
+         byte[] result;
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc_article.xml").getBytes(), xml, html, "escidoc");
+         this.logger.info(new String(result));     
+     }
+     
+     public void arxivTest() throws Exception
+     {
+         Format arxivItem = new Format("arxiv", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");
+         
+         
+         byte[] result;
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
+         this.logger.info(new String(result));     
+         
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidocComponent, "escidoc");
+         this.logger.info(new String(result));   
+     }
+     
+     public void pmcTest() throws Exception
+     {
+         Format pmcItem = new Format("pmc", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");
+                      
+         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+         
+         byte[] result;
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/pmc.xml").getBytes(), pmcItem, escidoc, "escidoc");
+         this.logger.info(new String(result));   
+         
+         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
+         System.out.println("itemVO successfully created. ");
+         
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/pmc.xml").getBytes(), pmcItem, escidocComponent, "escidoc");
+         this.logger.info(new String(result));   
+         
+         FileVO componentVO = xmlTransforming.transformToFileVO(new String(result));
+         System.out.println("FileVO successfully created. ");
+         
+     }
 	
 }

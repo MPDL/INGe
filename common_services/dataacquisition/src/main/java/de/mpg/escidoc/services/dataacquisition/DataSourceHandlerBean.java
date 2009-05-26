@@ -78,6 +78,8 @@ public class DataSourceHandlerBean
                     sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                     sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                    sourceVO.setLicense(source.getLicense());   
+                    sourceVO.setCopyright(source.getCopyright());
                     if (source.getItemUrl() != null)
                     {
                         sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
@@ -214,6 +216,9 @@ public class DataSourceHandlerBean
                 sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                 sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
                 sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                sourceVO.setLicense(source.getLicense());   
+                sourceVO.setCopyright(source.getCopyright());
+                
                 if (source.getItemUrl() != null)
                 {
                     sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
@@ -455,6 +460,8 @@ public class DataSourceHandlerBean
         LOGGER.info("Retry after        : " + source.getRetryAfter());
         LOGGER.info("Number of tries    : " + source.getNumberOfTries());
         LOGGER.info("Status             : " + source.getStatus());
+        LOGGER.info("License            : " + source.getLicense());
+        LOGGER.info("Copyright          : " + source.getCopyright());
         LOGGER.info(seperator);
         for (int i = 0; i < source.getMdFormats().size(); i++)
         {

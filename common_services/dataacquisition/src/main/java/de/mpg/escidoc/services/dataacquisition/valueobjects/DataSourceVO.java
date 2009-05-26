@@ -51,6 +51,9 @@ public class DataSourceVO
     private int timeout;
     private int numberOfTries;
     private String status;
+    private String license;
+
+    private String copyright;
     //Identifier prefix
     private String identifier;
     private String sourceOAIIdentifier;
@@ -226,5 +229,25 @@ public class DataSourceVO
     public Vector<String> getIdentifierExample()
     {
         return this.identifierExample;
+    }
+    
+    public String getLicense()
+    {
+        return this.license;
+    }
+
+    public void setLicense(String license)
+    {
+        this.license = license;
+    }
+
+    public String getCopyright()
+    {
+        return this.copyright;
+    }
+
+    public void setCopyright(String copyright)
+    {
+        this.copyright = copyright;
     }
 }

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2009-05-25T13:20:32Z</responseDate><request verb="getRecord" identifier="oai:pubmedcentral.nih.gov:1635312" metadataPrefix="pmc_fm">http://www.pubmedcentral.nih.gov/oai/oai.cgi</request><GetRecord><record><header><identifier>oai:pubmedcentral.nih.gov:1635312</identifier><datestamp>2006-12-28</datestamp><setSpec>nar</setSpec><setSpec>pmc-open</setSpec></header><metadata><article xmlns="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle http://dtd.nlm.nih.gov/2.0/xsd/archivearticle.xsd" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">Nucleic Acids Res</journal-id>
+      <journal-id journal-id-type="publisher-id">Nucleic Acids Research</journal-id>
+
+      <journal-title>Nucleic Acids Research</journal-title>
+      <issn pub-type="ppub">0305-1048</issn>
+      <issn pub-type="epub">1362-4962</issn>
+      <publisher>
+        <publisher-name>Oxford University Press</publisher-name>
+      </publisher>
+    </journal-meta>
+
+    <article-meta>
+      <article-id pub-id-type="pmc">1635312</article-id>
+      <article-id pub-id-type="doi">10.1093/nar/gkl733</article-id>
+      <article-id pub-id-type="pmid">17074746</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>RNA</subject>
+
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Keeping signals straight in transcription regulation: specificity determinants for the interaction of a family of conserved bacterial RNA–protein couples</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <name>
+
+            <surname>Schilling</surname>
+            <given-names>Oliver</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Herzberg</surname>
+
+            <given-names>Christina</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Hertrich</surname>
+            <given-names>Tina</given-names>
+
+          </name>
+          <xref rid="au1" ref-type="aff">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Vörsmann</surname>
+            <given-names>Hanna</given-names>
+
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Jessen</surname>
+            <given-names>Dirk</given-names>
+          </name>
+        </contrib>
+
+        <contrib contrib-type="author">
+          <name>
+            <surname>Hübner</surname>
+            <given-names>Sebastian</given-names>
+          </name>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+
+            <surname>Titgemeyer</surname>
+            <given-names>Fritz</given-names>
+          </name>
+          <xref rid="au1" ref-type="aff">1</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+
+            <surname>Stülke</surname>
+            <given-names>Jörg</given-names>
+          </name>
+          <xref ref-type="corresp" rid="cor1">*</xref>
+        </contrib>
+        <aff>
+          <institution>Department of General Microbiology, Institute of Microbiology and Genetics, Georg-August University Göttingen</institution>
+
+          <addr-line>Germany</addr-line>
+        </aff>
+        <aff id="au1">
+          <sup>1</sup>
+          <institution>Lehrstuhl für Mikrobiologie, Friedrich-Alexander-Universität Erlangen-Nürnberg</institution>
+          <addr-line>Erlangen, Germany</addr-line>
+        </aff>
+
+      </contrib-group>
+      <author-notes>
+        <corresp id="cor1"><sup>*</sup>To whom correspondence should be addressed. Tel: +49 551 393781; Fax: +49 551 393808; Email: <email>jstuelk@gwdg.de</email></corresp>
+      </author-notes>
+<!--For NAR: both ppub and collection dates generated for PMC processing 1/27/05 beck-->
+      <pub-date pub-type="collection">
+        <month>12</month>
+
+        <year>2006</year>
+      </pub-date>
+      <pub-date pub-type="ppub">
+        <month>12</month>
+        <year>2006</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+
+        <day>29</day>
+        <month>10</month>
+        <year>2006</year>
+      </pub-date>
+      <volume>34</volume>
+      <issue>21</issue>
+
+      <fpage>6102</fpage>
+      <lpage>6115</lpage>
+      <history>
+        <date date-type="received">
+          <day>03</day>
+          <month>8</month>
+          <year>2006</year>
+
+        </date>
+        <date date-type="rev-recd">
+          <day>20</day>
+          <month>9</month>
+          <year>2006</year>
+        </date>
+        <date date-type="accepted">
+
+          <day>21</day>
+          <month>9</month>
+          <year>2006</year>
+        </date>
+      </history>
+      <permissions>
+	      <copyright-statement>© 2006 The Author(s)</copyright-statement>
+	      <copyright-year>2006</copyright-year>
+	
+	      <license license-type="openaccess">
+	        <p>This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/by-nc/2.0/uk/) which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.</p>
+	      </license>
+      </permissions>
+      <abstract>
+        <p>Regulatory systems often evolve by duplication of ancestral systems and subsequent specialization of the components of the novel signal transduction systems. In the Gram-positive soil bacterium <italic>Bacillus subtilis</italic>, four homologous antitermination systems control the expression of genes involved in the metabolism of glucose, sucrose and β-glucosides. Each of these systems is made up of a sensory sugar permease that does also act as phosphotransferase, an antitermination protein, and a RNA switch that is composed of two mutually exclusive structures, a RNA antiterminator (RAT) and a transcriptional terminator. We have studied the contributions of sugar specificity of the permeases, carbon catabolite repression, and protein–RAT recognition for the straightness of the signalling chains. We found that the β-glucoside permease BglP does also have a minor activity in glucose transport. However, this activity is irrelevant under physiological conditions since carbon catabolite repression in the presence of glucose prevents the synthesis of the β-glucoside permease. Reporter gene studies, <italic>in vitro</italic> RNA–protein interaction analyzes and northern blot transcript analyzes revealed that the interactions between the antiterminator proteins and their RNA targets are the major factor contributing to regulatory specificity. Both structural features in the RATs and individual bases are important specificity determinants. Our study revealed that the specificity of protein–RNA interactions, substrate specificity of the permeases as well as the general mechanism of carbon catabolite repression together allow to keep the signalling chains straight and to avoid excessive cross-talk between the systems.</p>
+
+      </abstract>
+    </article-meta>
+  </front>
+</article>
+
+</metadata></record></GetRecord></OAI-PMH>

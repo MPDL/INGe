@@ -34,7 +34,8 @@
 			<xs:element name="timeout" type="xs:nonNegativeInteger"/>
 			<xs:element name="number-of-tries" type="xs:nonNegativeInteger"/>
 			<xs:element name="status" type="dc:SimpleLiteral"/>
-			<xs:element name="test" type="xs:string"/>
+			<xs:element name="license" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="copyright" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="MD-fetch-settings" type="MDFetchSettingsType"/>
 			<xs:element name="FT-fetch-settings" type="FTFetchSettingsType"/>
 		</xs:sequence>
