@@ -92,21 +92,21 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for genre. */
     private static final String INDEX_GENRE = "escidoc.publication.type";
     /** Index for dates. */
-    private static final String INDEX_DATE_ANY = "escidoc.any-dates";
+    private static final String INDEX_DATE_ANY = "escidoc.publication.any-dates";
     /** Index for creation date. */
-    private static final String INDEX_DATE_CREATED = "escidoc.created";
+    private static final String INDEX_DATE_CREATED = "escidoc.publication.created";
     /** Index for the accepted date. */
-    private static final String INDEX_DATE_ACCEPTED = "escidoc.dateAccepted";
+    private static final String INDEX_DATE_ACCEPTED = "escidoc.publication.dateAccepted";
     /** Index for the submitted date. */
-    private static final String INDEX_DATE_SUBMITTED = "escidoc.dateSubmitted";
+    private static final String INDEX_DATE_SUBMITTED = "escidoc.publication.dateSubmitted";
     /** Index for the issued date. */
-    private static final String INDEX_DATE_ISSUED = "escidoc.issued";
+    private static final String INDEX_DATE_ISSUED = "escidoc.publication.issued";
     /** Index for the modified date. */
-    private static final String INDEX_DATE_MODIFIED = "escidoc.modified";
+    private static final String INDEX_DATE_MODIFIED = "escidoc.publication.modified";
     /** Index for the published online date. */
-    private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.published-online";
+    private static final String INDEX_DATE_PUBLISHED_ONLINE = "escidoc.publication.published-online";
     /** Index for topics. */
-    private static final String INDEX_TOPIC = "escidoc.subject";
+    private static final String INDEX_TOPIC = "escidoc.publication.subject";
     /** Index for sources. */
     private static final String INDEX_SOURCE = "escidoc.any-source";
     /** Index for events. */
@@ -118,7 +118,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for the created-by object id. */
     private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.created-by.objid";
     /** Index for languages. */
-    private static final String INDEX_LANGUAGE = "escidoc.language";
+    private static final String INDEX_LANGUAGE = "escidoc.publication.language";
     /** Index for object types. */
     private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
     /** Index for component availability. */
@@ -128,7 +128,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for component content category. */
     private static final String INDEX_COMPONENT_CONTENT_CATEGORY = "escidoc.component.content-category";
     /** Index for local tags. */
-    private static final String INDEX_LOCAL_TAG = "escidoc.content-model-specific.local-tags.local-tag";
+    private static final String INDEX_LOCAL_TAG = "escidoc.property.content-model-specific.local-tags.local-tag";
     /** Index for copyright date. */
     private static final String INDEX_COPYRIGHT_DATE = "escidoc.component.file.dateCopyrighted";
     /** String to be used to represent an empty search term. */
