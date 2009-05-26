@@ -11,6 +11,7 @@
   </mapping>
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="http://www.escidoc.de/schemas/grants/0.5">
     <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
+  	<value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="http://www.escidoc.de/schemas/grants/0.5">
     <structure name="properties" ns="http://www.escidoc.de/schemas/grants/0.5">
