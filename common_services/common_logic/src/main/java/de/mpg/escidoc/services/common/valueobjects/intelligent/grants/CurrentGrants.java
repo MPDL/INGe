@@ -160,7 +160,7 @@ public class CurrentGrants  extends IntelligentVO
          * @return The list of grants for the user / user group.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        public static CurrentGrants retrieveCurrentGrantsForUserGroup(String userHandle, String userGroupId) throws RuntimeException
+        private static CurrentGrants retrieveCurrentGrantsForUserGroup(String userHandle, String userGroupId) throws RuntimeException
         {
             try
             {
@@ -182,7 +182,7 @@ public class CurrentGrants  extends IntelligentVO
          * @return The list of grants for the user / user group.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        public static CurrentGrants retrieveCurrentGrantsForUser(String userHandle, String userId) throws RuntimeException
+        private static CurrentGrants retrieveCurrentGrantsForUser(String userHandle, String userId) throws RuntimeException
         {
             try
             {
