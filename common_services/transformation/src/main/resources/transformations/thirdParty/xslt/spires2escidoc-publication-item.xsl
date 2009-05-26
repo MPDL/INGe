@@ -70,15 +70,19 @@
 	</xsl:template>
 	
 	<xsl:template match="document">
-		<xsl:call-template name="createItem">
-			<xsl:with-param name="genre">conference-paper</xsl:with-param>
-		</xsl:call-template>
-	</xsl:template>
-	
-	<xsl:template match="journal">
-		<xsl:call-template name="createItem">
-			<xsl:with-param name="genre">journal</xsl:with-param>
-		</xsl:call-template>
+		<xsl:choose>
+			<xsl:when test="journal">
+				<xsl:call-template name="createItem">
+					<xsl:with-param name="genre">journal</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="createItem">
+					<xsl:with-param name="genre">conference-paper</xsl:with-param>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>	
+			
 	</xsl:template>
 	
 	<!-- CREATE ITEM -->	
