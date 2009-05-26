@@ -31,38 +31,21 @@ public class IntelligentVO implements Serializable
     
     private Logger logger = Logger.getLogger(IntelligentVO.class);
     
+    
     /**
-     * Creates a deep copy of this value pbject using serialization.
-     * @param orig the vo to be copied
-     * @return a copy of the VO
+     * Standard constructor.
      */
-    public IntelligentVO copy(IntelligentVO orig) {
-        
-        IntelligentVO obj = null;
-        try 
-        {
-            // Write the object out to a byte array
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(bos);
-            out.writeObject(orig);
-            out.flush();
-            out.close();
-
-            // Make an input stream from the byte array and read
-            // a copy of the object back in.
-            ObjectInputStream in = new ObjectInputStream(
-                new ByteArrayInputStream(bos.toByteArray()));
-            obj = (IntelligentVO) in.readObject();
-        }
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException cnfe) 
-        {
-            cnfe.printStackTrace();
-        }
-        return obj;
+    public IntelligentVO () 
+    {
+    }
+    
+    /**
+     * Clone constructor.
+     * @param orig the vo to be copied
+     */
+    public IntelligentVO (IntelligentVO orig) 
+    {
+        this.copyFieldsIn(orig);
     }
 
     /**
@@ -72,7 +55,7 @@ public class IntelligentVO implements Serializable
      * @return The unmarshalled VO object.
      * @throws Exception If an error occurs during unmarshalling.
      */
-    public static Object unmarshal(String xml, Class bindingClass) throws Exception
+    protected static Object unmarshal(String xml, Class bindingClass) throws Exception
     {
         IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
         IUnmarshallingContext unmacxt = bindingFactory.createUnmarshallingContext();
@@ -88,7 +71,7 @@ public class IntelligentVO implements Serializable
      * @return The xml representation of the object.
      * @throws Exception If an error occurs during marshalling.
      */
-    public static String marshal(Object object, Class bindingClass) throws Exception
+    protected static String marshal(Object object, Class bindingClass) throws Exception
     {
         IBindingFactory bindingFactory = BindingDirectory.getFactory("binding", bindingClass);
         IMarshallingContext macxt = bindingFactory.createMarshallingContext();
