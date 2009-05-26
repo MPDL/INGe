@@ -9,6 +9,9 @@
     <value style="attribute" name="limit" get-method="getLimit" set-method="setLimit" usage="optional"/>
     <value style="attribute" name="offset" get-method="getOffset" set-method="setOffset" usage="optional"/>
   </mapping>
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="http://www.escidoc.de/schemas/grants/0.5">
+    <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
+  </mapping>
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="http://www.escidoc.de/schemas/grants/0.5">
     <structure name="properties" ns="http://www.escidoc.de/schemas/grants/0.5">
       <structure name="granted-to" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
@@ -25,8 +28,12 @@
       </structure>
       <value style="element" name="grant-remark" ns="http://escidoc.de/core/01/properties/" get-method="getGrantRemark" set-method="setGrantRemark" usage="optional"/>
       <value style="element" name="revocation-remark" ns="http://escidoc.de/core/01/properties/" get-method="getRevocationRemark" set-method="setRevocationRemark" usage="optional"/>
-      <value style="element" name="role" ns="http://escidoc.de/core/01/structural-relations/" get-method="getRole" set-method="setRole"/>
-      <value style="element" name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" get-method="getAssignedOn" set-method="setAssignedOn" usage="optional"/>
+     <structure name="role" ns="http://escidoc.de/core/01/structural-relations/">
+      	<value style="attribute" name="objid" get-method="getRole" set-method="setRole"/>
+      </structure>
+      <structure name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" >
+      	<value style="attribute" name="objid" get-method="getAssignedOn" set-method="setAssignedOn"/>
+      </structure>
     </structure>
     <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>

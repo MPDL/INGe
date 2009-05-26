@@ -53,7 +53,7 @@ import java.util.List;
  * &lt;/xs:attributeGroup>
  * </pre>
  */
-public class GrantList  extends IntelligentVO
+public class GrantList  extends CurrentGrants
 {
     private List<Grant> grantList = new ArrayList<Grant>();
     private Date lastModificationDate;
@@ -109,52 +109,8 @@ public class GrantList  extends IntelligentVO
         this.offset = offset;
     }
 
-    /** 
-     * Get the list of 'grant' element items.
-     * 
-     * @return list
-     */
-    public List<Grant> getGrants() {
-        return grantList;
-    }
-
-    /** 
-     * Set the list of 'grant' element items.
-     * 
-     * @param list
-     */
-    public void setGrants(List<Grant> list) {
-        grantList = list;
-    }
-
-    /** 
-     * Get the 'last-modification-date' attribute value. <create>discarded</create>
-     <update>required</update>
-     <comment>required only in root element on update</comment>
-     * 
-     * @return value
-     */
-    public Date getLastModificationDate() {
-        return lastModificationDate;
-    }
-
-    /** 
-     * Set the 'last-modification-date' attribute value. <create>discarded</create>
-     <update>required</update>
-     <comment>required only in root element on update</comment>
-     * 
-     * @param lastModificationDate
-     */
-    public void setLastModificationDate(Date lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
-    
-    
-    public void revokeGrants(String userHandle, String revocationComment)
-    {
-        Factory.revokeGrants(userHandle, getGrants(), revocationComment);
-    }
-    
+  
+ 
     
 
     /**
@@ -167,30 +123,7 @@ public class GrantList  extends IntelligentVO
      */
     public static class Factory
     {
-        
-        /**
-         * Retrieves the current grants the given user or user group owns.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @param userGroupId The id of the user or user group.
-         * @return The list of grants for the user / user group.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        public static GrantList retrieveCurrentGrantsForUser(String userHandle, String userGroupId) throws RuntimeException
-        {
-            try
-            {
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                String grantListXml = ugh.retrieveCurrentGrants(userGroupId);
-                GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
-                return currentGrants;
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        
-        
+
         /**
          * Retrieves the grants for a given escidoc object and a given role
          * @param userHandle A user handle for authentication in the coreservice.
@@ -237,40 +170,6 @@ public class GrantList  extends IntelligentVO
             }
         }
         
-        
-        /**
-         * Revokes a list of grants in the coreservice.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @param grants The list of grants to be revoked.
-         * @param comment The revocation comment
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        private static void revokeGrants(String userHandle, List<Grant> grants, String comment) throws RuntimeException
-        {
-            try
-            {
-                if (grants==null || grants.size()==0)
-                {
-                    throw new IllegalArgumentException("The grant list is empty.");
-                }
-                UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-                String param = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier}\">";
-                
-                for (Grant grant : grants)
-                {
-                    param += "<id>" + grant.getObjid() + "</id>";
-                    
-                }
-                param += "</filter><revocation-remark>" + comment + "</revocation-remark>";
-                param += "</param>";
-                uah.revokeGrants(grants.get(0).getGrantedTo(), param);
-            
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException(e);
-            }
-            
-        }
+      
     }
 }
