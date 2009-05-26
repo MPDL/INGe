@@ -15,6 +15,7 @@ import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup.Factory;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -82,9 +83,9 @@ public class Grant extends IntelligentVO
      * @param userId The id of the user or user group that owns this grant.
      * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public Grant(String userHandle, String userId, String grantId) throws RuntimeException
+    public Grant(String userHandle, String userId, String grantId, UserType userType) throws RuntimeException
     {
-        Grant grant = Factory.retrieveGrant(userHandle, userId, grantId);
+        Grant grant = Factory.retrieveGrant(userHandle, userId, grantId, userType);
         copyInFields(grant);
     }
     
@@ -451,13 +452,24 @@ public class Grant extends IntelligentVO
          * @return The Grant object that was retrieved.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        private static Grant retrieveGrant(String userHandle, String userId, String grantId) throws RuntimeException
+        private static Grant retrieveGrant(String userHandle, String userId, String grantId, UserType ut) throws RuntimeException
         {
+            String grantXml = "";
 
             try
             {
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                String grantXml = ugh.retrieveGrant(userId, grantId);
+                if (ut.equals(UserType.USER_GROUP))
+                {
+                    UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+                    grantXml = ugh.retrieveGrant(userId, grantId);
+                   
+                }
+                else if (ut.equals(UserType.USER_ACCOUNT))
+                {
+                    UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+                    grantXml = uah.retrieveGrant(userId, grantId);
+                    
+                }
                 Grant grant = (Grant) IntelligentVO.unmarshal(grantXml, Grant.class);
                 return grant;
             }
@@ -479,10 +491,22 @@ public class Grant extends IntelligentVO
         {
             try
             {
-            
-                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
                 String grantXml = IntelligentVO.marshal(grant, Grant.class);
-                String createdGrantXml = ugh.createGrant(grant.getGrantedTo(), grantXml);
+                String createdGrantXml = "";
+                
+                if (grant.getGrantType().equals("user-account"))
+                {
+                    UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+                    createdGrantXml = uah.createGrant(grant.getGrantedTo(), grantXml);
+                    
+                }
+                else if (grant.getGrantType().equals("user-group"));
+                {
+                    UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+                    createdGrantXml = ugh.createGrant(grant.getGrantedTo(), grantXml);
+                    
+                }
+                
                 Grant createdGrant = (Grant) IntelligentVO.unmarshal(createdGrantXml, Grant.class);
                 grant.copyInFields(createdGrant);
                 return createdGrant;
@@ -506,13 +530,27 @@ public class Grant extends IntelligentVO
         {
             try
             {
-                UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(grant.getLastModificationDate());
                 String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
                 param += "<revocation-remark>" + comment + "</revocation-remark>";
                 param += "</param>";
-                uah.revokeGrant(grant.getGrantedTo(), grant.getObjid(), param);
+                
+                
+                if (grant.getGrantType().equals("user-account"))
+                {
+                    UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+                    uah.revokeGrant(grant.getGrantedTo(), grant.getObjid(), param);
+                    
+                }
+                else if (grant.getGrantType().equals("user-group"));
+                {
+                        
+                   UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+                   ugh.revokeGrant(grant.getGrantedTo(), grant.getObjid(), param);
+                   
+                }
+    
             }
             catch (Exception e)
             {

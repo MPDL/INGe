@@ -80,7 +80,7 @@ public class CurrentGrants  extends IntelligentVO
             CurrentGrants gl = Factory.retrieveCurrentGrantsForUser(userHandle, userId);
             copyInFields(gl);
         }
-        else
+        else if (type.equals(UserType.USER_GROUP))
         {
             CurrentGrants gl = Factory.retrieveCurrentGrantsForUserGroup(userHandle, userId);
             copyInFields(gl);
