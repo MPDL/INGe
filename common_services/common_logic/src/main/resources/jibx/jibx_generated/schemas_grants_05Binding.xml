@@ -12,21 +12,21 @@
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="http://www.escidoc.de/schemas/grants/0.5">
     <structure name="properties" ns="http://www.escidoc.de/schemas/grants/0.5">
       <structure name="granted-to" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
-      	<value style="attribute" name="objid" get-method="getPropertiesGrantedTo" set-method="setPropertiesGrantedTo"/>
-      	<value style="attribute" name="resource" get-method="getPropertiesGrantType" set-method="setPropertiesGrantType" usage="optional" />
+      	<value style="attribute" name="objid" get-method="getGrantedTo" set-method="setGrantedTo" usage="optional"/>
+      	<value style="attribute" name="resource" get-method="getGrantType" set-method="setGrantType" usage="optional" />
       </structure>
-      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesCreationDate" set-method="setPropertiesCreationDate" usage="optional"/>
+      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
       <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
-      	<value style="attribute" name="objid" get-method="getPropertiesCreatedBy" set-method="setPropertiesCreatedBy"/>
+      	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
-      <value style="element" name="revocation-date" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesRevocationDate" set-method="setPropertiesRevocationDate" usage="optional"/>
+      <value style="element" name="revocation-date" ns="http://escidoc.de/core/01/properties/" get-method="getRevocationDate" set-method="setRevocationDate" usage="optional"/>
       <structure name="revoked-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
-      	<value style="attribute" name="objid" get-method="getPropertiesRevokedBy" set-method="setPropertiesRevokedBy"/>
+      	<value style="attribute" name="objid" get-method="getRevokedBy" set-method="setRevokedBy" usage="optional"/>
       </structure>
-      <value style="element" name="grant-remark" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesGrantRemark" set-method="setPropertiesGrantRemark" usage="optional"/>
-      <value style="element" name="revocation-remark" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesRevocationRemark" set-method="setPropertiesRevocationRemark" usage="optional"/>
-      <value style="element" name="role" ns="http://escidoc.de/core/01/structural-relations/" get-method="getPropertiesRole" set-method="setPropertiesRole"/>
-      <value style="element" name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" get-method="getPropertiesAssignedOn" set-method="setPropertiesAssignedOn" usage="optional"/>
+      <value style="element" name="grant-remark" ns="http://escidoc.de/core/01/properties/" get-method="getGrantRemark" set-method="setGrantRemark" usage="optional"/>
+      <value style="element" name="revocation-remark" ns="http://escidoc.de/core/01/properties/" get-method="getRevocationRemark" set-method="setRevocationRemark" usage="optional"/>
+      <value style="element" name="role" ns="http://escidoc.de/core/01/structural-relations/" get-method="getRole" set-method="setRole"/>
+      <value style="element" name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" get-method="getAssignedOn" set-method="setAssignedOn" usage="optional"/>
     </structure>
     <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>

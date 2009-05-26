@@ -61,19 +61,33 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class Grant extends IntelligentVO
 {
-    private Date propertiesCreationDate;
-    private String propertiesGrantedTo;
-    private String propertiesGrantType;
-    private String propertiesCreatedBy;
-    private Date propertiesRevocationDate;
-    private String propertiesRevokedBy;
-    private String propertiesGrantRemark;
-    private String propertiesRevocationRemark;
-    private String propertiesRole;
-    private String propertiesAssignedOn;
+    private Date creationDate;
+    private String grantedTo;
+    private String grantType;
+    private String createdBy;
+    private Date revocationDate;
+    private String revokedBy;
+    private String grantRemark;
+    private String revocationRemark;
+    private String role;
+    private String assignedOn;
     private String objid;
     private Date lastModificationDate;
 
+    public Grant(String userHandle, String userId, String grantId)
+    {
+        Grant grant = Factory.retrieveGrant(userHandle, userId, grantId);
+        copyFieldsIn(grant);
+        
+    }
+    
+    
+    public Grant()
+    {
+        
+    }
+    
+    
     /** 
      * Get the 'creation-date' element value. 
      <create>discarded</create>
@@ -82,8 +96,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public Date getPropertiesCreationDate() {
-        return propertiesCreationDate;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     /** 
@@ -92,10 +106,10 @@ public class Grant extends IntelligentVO
      <update>discarded</update>
      
      * 
-     * @param propertiesCreationDate
+     * @param CreationDate
      */
-    public void setPropertiesCreationDate(Date propertiesCreationDate) {
-        this.propertiesCreationDate = propertiesCreationDate;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     /** 
@@ -106,8 +120,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesCreatedBy() {
-        return propertiesCreatedBy;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
     /** 
@@ -116,10 +130,10 @@ public class Grant extends IntelligentVO
      <update>discarded</update>
      
      * 
-     * @param propertiesCreatedBy
+     * @param CreatedBy
      */
-    public void setPropertiesCreatedBy(String propertiesCreatedBy) {
-        this.propertiesCreatedBy = propertiesCreatedBy;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     /** 
@@ -131,8 +145,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public Date getPropertiesRevocationDate() {
-        return propertiesRevocationDate;
+    public Date getRevocationDate() {
+        return revocationDate;
     }
 
     /** 
@@ -142,10 +156,10 @@ public class Grant extends IntelligentVO
      1.)</update>
      
      * 
-     * @param propertiesRevocationDate
+     * @param RevocationDate
      */
-    public void setPropertiesRevocationDate(Date propertiesRevocationDate) {
-        this.propertiesRevocationDate = propertiesRevocationDate;
+    public void setRevocationDate(Date revocationDate) {
+        this.revocationDate = revocationDate;
     }
 
     /** 
@@ -157,8 +171,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesRevokedBy() {
-        return propertiesRevokedBy;
+    public String getRevokedBy() {
+        return revokedBy;
     }
 
     /** 
@@ -168,10 +182,10 @@ public class Grant extends IntelligentVO
      1.)</update>
      
      * 
-     * @param propertiesRevokedBy
+     * @param RevokedBy
      */
-    public void setPropertiesRevokedBy(String propertiesRevokedBy) {
-        this.propertiesRevokedBy = propertiesRevokedBy;
+    public void setRevokedBy(String revokedBy) {
+        this.revokedBy = revokedBy;
     }
 
     /** 
@@ -183,8 +197,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesGrantRemark() {
-        return propertiesGrantRemark;
+    public String getGrantRemark() {
+        return grantRemark;
     }
 
     /** 
@@ -194,10 +208,10 @@ public class Grant extends IntelligentVO
      1.)</update>
      
      * 
-     * @param propertiesGrantRemark
+     * @param GrantRemark
      */
-    public void setPropertiesGrantRemark(String propertiesGrantRemark) {
-        this.propertiesGrantRemark = propertiesGrantRemark;
+    public void setGrantRemark(String grantRemark) {
+        this.grantRemark = grantRemark;
     }
 
     /** 
@@ -209,8 +223,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesRevocationRemark() {
-        return propertiesRevocationRemark;
+    public String getRevocationRemark() {
+        return revocationRemark;
     }
 
     /** 
@@ -220,11 +234,11 @@ public class Grant extends IntelligentVO
      1.)</update>
      
      * 
-     * @param propertiesRevocationRemark
+     * @param RevocationRemark
      */
-    public void setPropertiesRevocationRemark(
-            String propertiesRevocationRemark) {
-        this.propertiesRevocationRemark = propertiesRevocationRemark;
+    public void setRevocationRemark(
+            String revocationRemark) {
+        this.revocationRemark = revocationRemark;
     }
 
     /** 
@@ -236,8 +250,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesRole() {
-        return propertiesRole;
+    public String getRole() {
+        return role;
     }
 
     /** 
@@ -247,10 +261,10 @@ public class Grant extends IntelligentVO
      1.)</update>
      
      * 
-     * @param propertiesRole
+     * @param Role
      */
-    public void setPropertiesRole(String propertiesRole) {
-        this.propertiesRole = propertiesRole;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /** 
@@ -270,8 +284,8 @@ public class Grant extends IntelligentVO
      * 
      * @return value
      */
-    public String getPropertiesAssignedOn() {
-        return propertiesAssignedOn;
+    public String getAssignedOn() {
+        return assignedOn;
     }
 
     /** 
@@ -289,10 +303,10 @@ public class Grant extends IntelligentVO
      yet.</comment>
      
      * 
-     * @param propertiesAssignedOn
+     * @param AssignedOn
      */
-    public void setPropertiesAssignedOn(String propertiesAssignedOn) {
-        this.propertiesAssignedOn = propertiesAssignedOn;
+    public void setAssignedOn(String assignedOn) {
+        this.assignedOn = assignedOn;
     }
 
     /** 
@@ -336,14 +350,14 @@ public class Grant extends IntelligentVO
     }
 
 
-    public void setPropertiesGrantedTo(String propertiesGrantedTo)
+    public void setGrantedTo(String grantedTo)
     {
-        this.propertiesGrantedTo = propertiesGrantedTo;
+        this.grantedTo = grantedTo;
     }
 
-    public String getPropertiesGrantedTo()
+    public String getGrantedTo()
     {
-        return propertiesGrantedTo;
+        return grantedTo;
     }
 
     
@@ -358,7 +372,7 @@ public class Grant extends IntelligentVO
             throw new IllegalArgumentException(getClass().getSimpleName()
                     + ":isModerator:objectRef is null");
         }
-        return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(propertiesRole) && this.propertiesAssignedOn.equals(objRef.getObjectId()));
+        return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
     }
 
     /**
@@ -371,19 +385,19 @@ public class Grant extends IntelligentVO
             throw new IllegalArgumentException(getClass().getSimpleName()
                     + ":isModerator:objectRef is null");
         }
-        return (PredefinedRoles.MODERATOR.frameworkValue().equals(propertiesRole) && this.propertiesAssignedOn.equals(objRef.getObjectId()));
+        return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
     }
 
     
     
-    public void setPropertiesGrantType(String propertiesGrantType)
+    public void setGrantType(String grantType)
     {
-        this.propertiesGrantType = propertiesGrantType;
+        this.grantType = grantType;
     }
 
-    public String getPropertiesGrantType()
+    public String getGrantType()
     {
-        return propertiesGrantType;
+        return grantType;
     }
     
     /**
@@ -392,7 +406,7 @@ public class Grant extends IntelligentVO
      * @param comment The revocation comment.
      * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public void revokeInCoreservice(String userHandle, String comment) throws Exception
+    public void revokeInCoreservice(String userHandle, String comment) throws RuntimeException
     {
         Factory.revokeGrant(userHandle, this, comment);
     }
@@ -403,7 +417,7 @@ public class Grant extends IntelligentVO
      * @param comment The creation comment.
      * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
      */
-    public void createInCoreservice(String userHandle, String comment) throws Exception
+    public void createInCoreservice(String userHandle, String comment) throws RuntimeException
     {
         Factory.createGrant(userHandle, this);
     }
@@ -429,13 +443,20 @@ public class Grant extends IntelligentVO
          * @return The Grant object that was retrieved.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        public static Grant retrieveGrant(String userHandle, String userId, String grantId) throws Exception
+        private static Grant retrieveGrant(String userHandle, String userId, String grantId) throws RuntimeException
         {
 
-            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String grantXml = ugh.retrieveGrant(userId, grantId);
-            Grant grant = (Grant) IntelligentVO.unmarshal(grantXml, Grant.class);
-            return grant;
+            try
+            {
+                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+                String grantXml = ugh.retrieveGrant(userId, grantId);
+                Grant grant = (Grant) IntelligentVO.unmarshal(grantXml, Grant.class);
+                return grant;
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
             
         }
         
@@ -446,53 +467,26 @@ public class Grant extends IntelligentVO
          * @return The created Grant.
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        public static Grant createGrant(String userHandle, Grant grant) throws Exception
+        private static Grant createGrant(String userHandle, Grant grant) throws RuntimeException
         {
+            try
+            {
             
-            
-            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String grantXml = IntelligentVO.marshal(grant, Grant.class);
-            String createdGrantXml = ugh.createGrant(grant.getPropertiesGrantedTo(), grantXml);
-            Grant createdGrant = (Grant) IntelligentVO.unmarshal(createdGrantXml, Grant.class);
-            grant = createdGrant;
-            return createdGrant;
+                UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
+                String grantXml = IntelligentVO.marshal(grant, Grant.class);
+                String createdGrantXml = ugh.createGrant(grant.getGrantedTo(), grantXml);
+                Grant createdGrant = (Grant) IntelligentVO.unmarshal(createdGrantXml, Grant.class);
+                grant.copyFieldsIn(createdGrant);
+                return createdGrant;
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
             
         }
         
-        
-        /**
-         * Retrieves the current grants the given user or user group owns.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @param userGroupId The id of the user or user group.
-         * @return The list of grants for the user / user group.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        public static GrantList retrieveCurrentGrantsForUser(String userHandle, String userGroupId) throws Exception
-        {
-            UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-            String grantListXml = ugh.retrieveCurrentGrants(userGroupId);
-            GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
-            return currentGrants;
-        }
-        
-        
-        /**
-         * Retrieves the grants for a given escidoc object and a given role
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @param objectId The id of the object for which the grants should be retrieved
-         * @param roleId The id of the role that a user should have on that object.
-         * @return The list of grants.
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        public static GrantList retrieveGrantsForObject(String userHandle, String objectId, String roleId) throws Exception
-        {
-            UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-            String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter></param>";
-            String grantListXml = uah.retrieveGrants(filter);
-            GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
-            return currentGrants;
-        }
-        
+
         /**
          * Revokes the given grant in the coreservice.
          * @param userHandle A user handle for authentication in the coreservice.
@@ -500,44 +494,26 @@ public class Grant extends IntelligentVO
          * @param comment The revocation comment
          * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
          */
-        public static void revokeGrant(String userHandle, Grant grant, String comment) throws Exception
+        private static void revokeGrant(String userHandle, Grant grant, String comment) throws RuntimeException
         {
-            UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-            Calendar cal = new GregorianCalendar();
-            cal.setTime(grant.getLastModificationDate());
-            String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
-            param += "<revocation-remark>" + comment + "</revocation-remark>";
-            param += "</param>";
-            uah.revokeGrant(grant.getPropertiesGrantedTo(), grant.getObjid(), param);
+            try
+            {
+                UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(grant.getLastModificationDate());
+                String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
+                param += "<revocation-remark>" + comment + "</revocation-remark>";
+                param += "</param>";
+                uah.revokeGrant(grant.getGrantedTo(), grant.getObjid(), param);
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
             
         }
         
-        /**
-         * Revokes a list of grants in the coreservice.
-         * @param userHandle A user handle for authentication in the coreservice.
-         * @param grants The list of grants to be revoked.
-         * @param comment The revocation comment
-         * @throws Exception If an error occurs in coreservice or during marshalling/unmarshalling.
-         */
-        public static void revokeGrants(String userHandle, List<Grant> grants, String comment) throws Exception
-        {
-            if (grants==null || grants.size()==0)
-            {
-                throw new IllegalArgumentException("The grant list is empty.");
-            }
-            UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-            String param = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier}\">";
-            
-            for (Grant grant : grants)
-            {
-                param += "<id>" + grant.getObjid() + "</id>";
-                
-            }
-            param += "</filter><revocation-remark>" + comment + "</revocation-remark>";
-            param += "</param>";
-            uah.revokeGrants(grants.get(0).getPropertiesGrantedTo(), param);
-            
-        }
+        
     
     
 

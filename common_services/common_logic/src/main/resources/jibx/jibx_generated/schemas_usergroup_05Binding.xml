@@ -4,19 +4,19 @@
   <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
   <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup" name="user-group" ns="http://www.escidoc.de/schemas/usergroup/0.5">
     <structure name="properties" ns="http://www.escidoc.de/schemas/usergroup/0.5">
-      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesCreationDate" set-method="setPropertiesCreationDate" usage="optional"/>
-       <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
-      	<value style="attribute" name="objid" get-method="getPropertiesCreatedBy" set-method="setPropertiesCreatedBy"/>
+      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
+      <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
-       <structure name="modified-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
-      	<value style="attribute" name="objid" get-method="getPropertiesModifiedBy" set-method="setPropertiesModifiedBy"/>
+      <structure name="modified-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      	<value style="attribute" name="objid" get-method="getModifiedBy" set-method="setModifiedBy" usage="optional"/>
       </structure>
-      <value style="element" name="email" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesEmail" set-method="setPropertiesEmail" usage="optional"/>
-      <value style="element" name="name" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesName" set-method="setPropertiesName"/>
-      <value style="element" name="label" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesLabel" set-method="setPropertiesLabel"/>
-      <value style="element" name="description" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesDescription" set-method="setPropertiesDescription" usage="optional"/>
-      <value style="element" name="type" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesType" set-method="setPropertiesType" usage="optional"/>
-      <value style="element" name="active" ns="http://escidoc.de/core/01/properties/" get-method="getPropertiesActive" set-method="setPropertiesActive" usage="optional"/>
+      <value style="element" name="email" ns="http://escidoc.de/core/01/properties/" get-method="getEmail" set-method="setEmail" usage="optional"/>
+      <value style="element" name="name" ns="http://escidoc.de/core/01/properties/" get-method="getName" set-method="setName"/>
+      <value style="element" name="label" ns="http://escidoc.de/core/01/properties/" get-method="getLabel" set-method="setLabel"/>
+      <value style="element" name="description" ns="http://escidoc.de/core/01/properties/" get-method="getDescription" set-method="setDescription" usage="optional"/>
+      <value style="element" name="type" ns="http://escidoc.de/core/01/properties/" get-method="getType" set-method="setType" usage="optional"/>
+      <value style="element" name="active" ns="http://escidoc.de/core/01/properties/" get-method="getActive" set-method="setActive" usage="optional"/>
     </structure>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" get-method="getSelectors" set-method="setSelectors" usage="optional"/>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" get-method="getResources" set-method="setResources" usage="optional"/>

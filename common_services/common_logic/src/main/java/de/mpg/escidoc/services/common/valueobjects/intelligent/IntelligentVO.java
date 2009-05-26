@@ -8,7 +8,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+import org.apache.log4j.Logger;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
@@ -24,6 +28,8 @@ import org.jibx.runtime.IUnmarshallingContext;
  */
 public class IntelligentVO implements Serializable
 {
+    
+    private Logger logger = Logger.getLogger(IntelligentVO.class);
     
     /**
      * Creates a deep copy of this value pbject using serialization.
@@ -89,6 +95,42 @@ public class IntelligentVO implements Serializable
         StringWriter sw = new StringWriter();
         macxt.marshalDocument(object, "UTF-8", null, sw);
         return sw.toString();
+    }
+    
+    protected void copyFieldsIn(IntelligentVO copyFrom)
+    {
+        Class copyFromClass = copyFrom.getClass();
+        Class copyToClass = this.getClass();
+        
+        for(Method methodFrom : copyFromClass.getDeclaredMethods())
+        {
+            String setMethodName = null;
+            
+            if(methodFrom.getName().startsWith("get"))
+            {
+                setMethodName = "set" + methodFrom.getName().substring(3, methodFrom.getName().length());
+            }
+            else if (methodFrom.getName().startsWith("is"))
+            {
+                setMethodName = "set" + methodFrom.getName().substring(2, methodFrom.getName().length());
+            }
+            
+            if (setMethodName!=null)
+            {
+                    try
+                    {
+                        
+                        Method methodTo = copyToClass.getMethod(setMethodName, methodFrom.getReturnType());
+                        methodTo.invoke(this, methodFrom.invoke(copyFrom, null));
+                    }
+                    catch (Exception e)
+                    {
+                        logger.error("Could not copy field from method: " + methodFrom.getName(), e);
+                    }
+            }
+            
+        }
+
     }
     
 }
