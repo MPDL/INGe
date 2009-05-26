@@ -1009,7 +1009,8 @@ public class EasySubmission extends FacesBean
        //Fetch data from external system 
         if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean().getImportMethod()))
         {
-            if (getServiceID() == null || "".equals(getServiceID())){
+            if (getServiceID() == null || "".equals(getServiceID()))
+            {
                 warn(getMessage("easy_submission_external_service_no_id"));
                 return null;
             }
@@ -1061,18 +1062,13 @@ public class EasySubmission extends FacesBean
                      ByteArrayInputStream in = new ByteArrayInputStream(ba);
                      URL fileURL = this.uploadFile(in, dataHandler.getContentType(), loginHelper.getESciDocUserHandle());    
                      if (fileURL != null && !fileURL.toString().trim().equals(""))
-                     {                           
+                     {   
+                         fileVO = dataHandler.getComponentVO();
+                         MdsFileVO fileMd = fileVO.getDefaultMetadata(); 
+                         
                          fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-    
-                         if (dataHandler.getVisibility().equals("PUBLIC"))
-                         {
-                             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
-                         }
-                         if (dataHandler.getVisibility().equals("PRIVATE"))
-                         {
-                             fileVO.setVisibility(FileVO.Visibility.PRIVATE);
-                         }
-                         fileVO.setDefaultMetadata(new MdsFileVO());
+                         fileVO.setVisibility(dataHandler.getVisibility());
+                         fileVO.setDefaultMetadata(fileMd);
                          fileVO.getDefaultMetadata().setTitle(new TextVO(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding()));
                          fileVO.setMimeType(dataHandler.getContentType());
                          fileVO.setName(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding());
