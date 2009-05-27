@@ -230,6 +230,8 @@
 				var items = [];
 				var tokens = txt.split(options.delimiter);
 				
+				var queryParts = q.split(' ');
+				
 				// parse returned data for non-empty items
 				for (var i = 0; i < tokens.length; i++) {
 					
@@ -238,11 +240,16 @@
 					
 				/*	var token = $.trim(tokens[i]);*/
 					if (token[0]) {
-						token[0] = token[0].replace(
-							new RegExp(q, 'ig'), 
-							function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
-							);
-						items[items.length] = token;
+						
+						for(var j = 0; j < queryParts.length; j++) {
+							if(queryParts != ""){
+								token[0] = token[0].replace(
+									new RegExp(queryParts[j], 'ig'), 
+									function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
+									);
+								items[items.length] = token;
+							}
+						}
 					}
 				}
 				
