@@ -7,6 +7,7 @@
 
     </xs:documentation>
 	</xs:annotation>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidocidtypes.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/person" schemaLocation="../../metadata/0.1/escidoc_person_profile.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>	
 	<xs:import namespace="http://purl.org/escidoc/metadata/ves/0.1/" schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
