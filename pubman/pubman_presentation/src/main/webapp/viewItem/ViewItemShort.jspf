@@ -39,9 +39,9 @@
 			<a class="expand"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.ViewItemShort_lblDetails}"/></span></a></div>
 			<h:outputText value="#{lbl.ViewItemShort_lblCreators}"/><span class="noDisplay">: </span>
 		</span>
-		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.creatorsShort}"/>&#160;
-		</span>
+		
+		<h:outputLabel styleClass="xHuge_area0 endline" value="#{item.creatorsShort}" title="all Names here"/>
+		
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
