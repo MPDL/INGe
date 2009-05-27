@@ -62,6 +62,18 @@
 	</Transformation>
 	<Transformation>
 		<Source>
+			<Name>bmc</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>eSciDoc-publication-component</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
+	<Transformation>
+		<Source>
 			<Name>bmc-fulltext-xml</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>

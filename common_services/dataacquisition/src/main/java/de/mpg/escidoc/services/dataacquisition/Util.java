@@ -31,8 +31,14 @@
 package de.mpg.escidoc.services.dataacquisition;
 
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Vector;
 
 import javax.naming.InitialContext;
@@ -51,6 +57,7 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -73,6 +80,11 @@ public class Util
     private final String internalFormat = "eSciDoc-publication-item";
     private final String internalListFormat = "eSciDoc-publication-item-list";
     private final String transformationService = "escidoc";
+    
+    //Cone
+    private final String coneMethod = "jquery/escidocmimetypes";
+    private final String coneRel = "http://www.escidoc.org/mimetypes/";
+    
 
     /**
      * Public constructor.
@@ -630,6 +642,52 @@ public class Util
         }
         
         return formats;
+    }
+    
+    public String retrieveFileEndingFromCone(String mimeType) 
+    {
+        String[] mimeTypeArr;
+        String suffix = null;
+        InputStreamReader isReader;
+        BufferedReader bReader;
+        
+        try
+        {
+            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" + this.coneMethod + "/" + this.coneRel + "/" + mimeType);
+            URLConnection conn = coneUrl.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            switch (responseCode)
+            {
+                case 200:
+                    this.logger.info("Cone Service responded with 200.");
+                    break;
+                default:
+                    throw new RuntimeException("An error occurred while calling Cone Service: "
+                                + responseCode + ": " + httpConn.getResponseMessage());
+            }
+                
+           isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+           bReader = new BufferedReader(isReader);
+           String line = "";
+           while ((line = bReader.readLine()) != null)
+           {
+               if (!line.trim().contains("urn_cone_suffix"))
+               {
+                   mimeTypeArr = line.split(":");
+                   line = mimeTypeArr[1];
+                   line.replaceAll("''", "");
+                   suffix = line;
+               }
+           }
+        }
+        catch (Exception e)
+        {
+            logger.warn("Suffix could not be retrieved from cone service (mimetype: "+ mimeType + ")", e);
+            return null;
+        }
+        
+        return suffix;
     }
     
     public String getInternalFormat()

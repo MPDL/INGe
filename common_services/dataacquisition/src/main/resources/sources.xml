@@ -60,6 +60,8 @@
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
+		<copyright>http://www.biomedcentral.com/info/about/copyright </copyright>
+		<license>http://www.biomedcentral.com/info/about/license</license>
 		<status>published</status>
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
