@@ -1,38 +1,38 @@
-<binding xmlns:tns="http://www.escidoc.de/schemas/grants/0.5">
-  <namespace uri="http://www.escidoc.de/schemas/grants/0.5" prefix="tns"/>
+<binding xmlns:tns="${xsd.soap.useraccount.grants}">
+  <namespace uri="${xsd.soap.useraccount.grants}" prefix="tns"/>
   <namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
   <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList" name="grant-list" ns="http://www.escidoc.de/schemas/grants/0.5">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList" name="grant-list" ns="${xsd.soap.useraccount.grants}">
     <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
     <value style="attribute" name="number-of-records" get-method="getNumberOfRecords" set-method="setNumberOfRecords" usage="optional"/>
     <value style="attribute" name="limit" get-method="getLimit" set-method="setLimit" usage="optional"/>
     <value style="attribute" name="offset" get-method="getOffset" set-method="setOffset" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="http://www.escidoc.de/schemas/grants/0.5">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants" name="current-grants" ns="${xsd.soap.useraccount.grants}">
     <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" get-method="getGrants" set-method="setGrants" create-type="java.util.ArrayList"/>
   	<value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="http://www.escidoc.de/schemas/grants/0.5">
-    <structure name="properties" ns="http://www.escidoc.de/schemas/grants/0.5">
-      <structure name="granted-to" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant" name="grant" ns="${xsd.soap.useraccount.grants}">
+    <structure name="properties" ns="${xsd.soap.useraccount.grants}">
+      <structure name="granted-to" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="objid" get-method="getGrantedTo" set-method="setGrantedTo" usage="optional"/>
       	<value style="attribute" name="resource" get-method="getGrantType" set-method="setGrantType" usage="optional" />
       </structure>
-      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
-      <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      <value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
+      <structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
-      <value style="element" name="revocation-date" ns="http://escidoc.de/core/01/properties/" get-method="getRevocationDate" set-method="setRevocationDate" usage="optional"/>
-      <structure name="revoked-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      <value style="element" name="revocation-date" ns="${xsd.soap.common.prop}" get-method="getRevocationDate" set-method="setRevocationDate" usage="optional"/>
+      <structure name="revoked-by" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="objid" get-method="getRevokedBy" set-method="setRevokedBy" usage="optional"/>
       </structure>
-      <value style="element" name="grant-remark" ns="http://escidoc.de/core/01/properties/" get-method="getGrantRemark" set-method="setGrantRemark" usage="optional"/>
-      <value style="element" name="revocation-remark" ns="http://escidoc.de/core/01/properties/" get-method="getRevocationRemark" set-method="setRevocationRemark" usage="optional"/>
-     <structure name="role" ns="http://escidoc.de/core/01/structural-relations/">
+      <value style="element" name="grant-remark" ns="${xsd.soap.common.prop}" get-method="getGrantRemark" set-method="setGrantRemark" usage="optional"/>
+      <value style="element" name="revocation-remark" ns="${xsd.soap.common.prop}" get-method="getRevocationRemark" set-method="setRevocationRemark" usage="optional"/>
+     <structure name="role" ns="${xsd.soap.common.srel}">
       	<value style="attribute" name="objid" get-method="getRole" set-method="setRole"/>
       </structure>
-      <structure name="assigned-on" ns="http://escidoc.de/core/01/structural-relations/" >
+      <structure name="assigned-on" ns="${xsd.soap.common.srel}" >
       	<value style="attribute" name="objid" get-method="getAssignedOn" set-method="setAssignedOn"/>
       </structure>
     </structure>

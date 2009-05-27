@@ -1,5 +1,5 @@
-<binding xmlns:ns0="http://www.escidoc.de/schemas/commontypes/0.4" name="binding" package="de.mpg.escidoc.services.common.valueobjects.intelligent">
-  <namespace uri="http://www.escidoc.de/schemas/commontypes/0.4" prefix="ns0"/>
+<binding xmlns:ns0="${xsd.soap.common.commontypes}" name="binding" package="de.mpg.escidoc.services.common.valueobjects.intelligent">
+  <namespace uri="${xsd.soap.common.commontypes}" prefix="ns0"/>
   
   <include path="schemas_grants_05Binding.xml"/>
   <include path="schemas_usergrouplist_05Binding.xml"/>

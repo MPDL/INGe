@@ -1,36 +1,36 @@
-<binding xmlns:tns="http://www.escidoc.de/schemas/usergroup/0.5" xmlns:ns0="http://www.escidoc.de/schemas/commontypes/0.4">
-  <namespace uri="http://www.escidoc.de/schemas/usergroup/0.5" prefix="tns"/>
+<binding xmlns:tns="${xsd.soap.usergroup.usergroup}" xmlns:ns0="${xsd.soap.common.commontypes}">
+  <namespace uri="${xsd.soap.usergroup.usergroup}" prefix="tns"/>
   <namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
   <namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup" name="user-group" ns="http://www.escidoc.de/schemas/usergroup/0.5">
-    <structure name="properties" ns="http://www.escidoc.de/schemas/usergroup/0.5">
-      <value style="element" name="creation-date" ns="http://escidoc.de/core/01/properties/" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
-      <structure name="created-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup" name="user-group" ns="${xsd.soap.usergroup.usergroup}">
+    <structure name="properties" ns="${xsd.soap.usergroup.usergroup}">
+      <value style="element" name="creation-date" ns="${xsd.soap.common.prop}" get-method="getCreationDate" set-method="setCreationDate" usage="optional"/>
+      <structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="objid" get-method="getCreatedBy" set-method="setCreatedBy" usage="optional"/>
       </structure>
-      <structure name="modified-by" ns="http://escidoc.de/core/01/structural-relations/" usage="optional">
+      <structure name="modified-by" ns="${xsd.soap.common.srel}" usage="optional">
       	<value style="attribute" name="objid" get-method="getModifiedBy" set-method="setModifiedBy" usage="optional"/>
       </structure>
-      <value style="element" name="email" ns="http://escidoc.de/core/01/properties/" get-method="getEmail" set-method="setEmail" usage="optional"/>
-      <value style="element" name="name" ns="http://escidoc.de/core/01/properties/" get-method="getName" set-method="setName"/>
-      <value style="element" name="label" ns="http://escidoc.de/core/01/properties/" get-method="getLabel" set-method="setLabel"/>
-      <value style="element" name="description" ns="http://escidoc.de/core/01/properties/" get-method="getDescription" set-method="setDescription" usage="optional"/>
-      <value style="element" name="type" ns="http://escidoc.de/core/01/properties/" get-method="getType" set-method="setType" usage="optional"/>
-      <value style="element" name="active" ns="http://escidoc.de/core/01/properties/" get-method="getActive" set-method="setActive" usage="optional"/>
+      <value style="element" name="email" ns="${xsd.soap.common.prop}" get-method="getEmail" set-method="setEmail" usage="optional"/>
+      <value style="element" name="name" ns="${xsd.soap.common.prop}" get-method="getName" set-method="setName"/>
+      <value style="element" name="label" ns="${xsd.soap.common.prop}" get-method="getLabel" set-method="setLabel"/>
+      <value style="element" name="description" ns="${xsd.soap.common.prop}" get-method="getDescription" set-method="setDescription" usage="optional"/>
+      <value style="element" name="type" ns="${xsd.soap.common.prop}" get-method="getType" set-method="setType" usage="optional"/>
+      <value style="element" name="active" ns="${xsd.soap.common.prop}" get-method="getActive" set-method="setActive" usage="optional"/>
     </structure>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" get-method="getSelectors" set-method="setSelectors" usage="optional"/>
     <structure type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" get-method="getResources" set-method="setResources" usage="optional"/>
     <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid" usage="optional"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" name="resources" ns="http://www.escidoc.de/schemas/usergroup/0.5">
-    <structure map-as="ns0:readOnlyLink" get-method="getCurrentGrants" set-method="setCurrentGrants" name="current-grants" ns="http://www.escidoc.de/schemas/usergroup/0.5"/>
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Resources" name="resources" ns="${xsd.soap.usergroup.usergroup}">
+    <structure map-as="ns0:readOnlyLink" get-method="getCurrentGrants" set-method="setCurrentGrants" name="current-grants" ns="${xsd.soap.usergroup.usergroup}"/>
     <value style="attribute" name="last-modification-date" get-method="getLastModificationDate" set-method="setLastModificationDate" usage="optional"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" name="selectors" ns="http://www.escidoc.de/schemas/usergroup/0.5">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selectors" name="selectors" ns="${xsd.soap.usergroup.usergroup}">
     <collection item-type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector" get-method="getSelectors" set-method="setSelectors" create-type="java.util.ArrayList"/>
   </mapping>
-  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector" name="selector" ns="http://www.escidoc.de/schemas/usergroup/0.5">
+  <mapping class="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector" name="selector" ns="${xsd.soap.usergroup.usergroup}">
     <format type="de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector$Type" enum-value-method="toString"/>
     <value style="text" get-method="getString" set-method="setString"/>
     <value style="attribute" name="name" get-method="getName" set-method="setName" usage="optional"/>

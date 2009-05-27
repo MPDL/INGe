@@ -20,36 +20,35 @@ import org.jibx.runtime.IUnmarshallingContext;
 
 /**
  * Super class for value objects that contain additional methods for working with the coreservice.
- *
+ * 
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- *
  */
 public class IntelligentVO implements Serializable
 {
-    
     private Logger logger = Logger.getLogger(IntelligentVO.class);
-    
-    
+
     /**
      * Standard constructor.
      */
-    public IntelligentVO () 
+    public IntelligentVO()
     {
     }
-    
+
     /**
      * Clone constructor.
+     * 
      * @param orig the vo to be copied
      */
-    public IntelligentVO (IntelligentVO orig) 
+    public IntelligentVO(IntelligentVO orig)
     {
         this.copyInFields(orig);
     }
 
     /**
      * Tries to unmarshal the given xml string to the vo object.
+     * 
      * @param xml The xml string.
      * @param bindingClass The class that should be used for the binding.
      * @return The unmarshalled VO object.
@@ -66,6 +65,7 @@ public class IntelligentVO implements Serializable
 
     /**
      * Tries to marshal the given object to a xml string.
+     * 
      * @param object The object to be marhsalled.
      * @param bindingClass he class that should be used for the binding.
      * @return The xml representation of the object.
@@ -79,21 +79,20 @@ public class IntelligentVO implements Serializable
         macxt.marshalDocument(object, "UTF-8", null, sw);
         return sw.toString();
     }
-    
+
     /**
      * Copies fields from the given VO to this VO, using getter and setter methods.
+     * 
      * @param copyFrom The VO from which the fields are to be copied.
      */
     protected void copyInFields(IntelligentVO copyFrom)
     {
         Class copyFromClass = copyFrom.getClass();
         Class copyToClass = this.getClass();
-        
-        for(Method methodFrom : copyFromClass.getDeclaredMethods())
+        for (Method methodFrom : copyFromClass.getDeclaredMethods())
         {
             String setMethodName = null;
-            
-            if(methodFrom.getName().startsWith("get"))
+            if (methodFrom.getName().startsWith("get"))
             {
                 setMethodName = "set" + methodFrom.getName().substring(3, methodFrom.getName().length());
             }
@@ -101,23 +100,18 @@ public class IntelligentVO implements Serializable
             {
                 setMethodName = "set" + methodFrom.getName().substring(2, methodFrom.getName().length());
             }
-            
-            if (setMethodName!=null)
+            if (setMethodName != null)
             {
-                    try
-                    {
-                        
-                        Method methodTo = copyToClass.getMethod(setMethodName, methodFrom.getReturnType());
-                        methodTo.invoke(this, methodFrom.invoke(copyFrom, null));
-                    }
-                    catch (Exception e)
-                    {
-                        logger.error("Could not copy field from method: " + methodFrom.getName(), e);
-                    }
+                try
+                {
+                    Method methodTo = copyToClass.getMethod(setMethodName, methodFrom.getReturnType());
+                    methodTo.invoke(this, methodFrom.invoke(copyFrom, null));
+                }
+                catch (Exception e)
+                {
+                    logger.error("Could not copy field from method: " + methodFrom.getName(), e);
+                }
             }
-            
         }
-
     }
-    
 }

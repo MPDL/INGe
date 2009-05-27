@@ -1,4 +1,4 @@
-<binding xmlns:ns0="http://www.escidoc.de/schemas/commontypes/0.4">
+<binding xmlns:ns0="${xsd.soap.common.commontypes}">
   <mapping abstract="true" type-name="ns0:linkRequired" class="de.mpg.escidoc.services.common.valueobjects.intelligent.commontypes.LinkRequired">
     <value style="attribute" name="objid" get-method="getObjid" set-method="setObjid"/>
   </mapping>
