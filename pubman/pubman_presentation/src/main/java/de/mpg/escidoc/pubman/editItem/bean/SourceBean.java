@@ -227,16 +227,20 @@ public class SourceBean extends FacesBean
      */
     public String parseAndSetAlternativeTitlesAndIds()
     {
+        //clear old alternative titles
+        AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
+        altTitleManager.getObjectList().clear();
+        
+        //clear old identifiers
+        IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
+        idManager.getObjectList().clear();
+        
         if (!getHiddenAlternativeTitlesField().trim().equals(""))
         {
-            AlternativeTitleManager altTitleManager = getTitleCollection().getAlternativeTitleManager();
-            altTitleManager.getObjectList().clear();
             altTitleManager.getObjectList().addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
         }
         if (!getHiddenIdsField().trim().equals(""))
         {
-            IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
-            idManager.getObjectList().clear();
             // idManager.getDataListFromVO().clear();
             idManager.getObjectList().addAll(parseIdentifiers(getHiddenIdsField()));
         }
