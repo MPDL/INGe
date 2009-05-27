@@ -138,7 +138,7 @@
 								<span class="noDisplay">: </span>
 							</b>
 							<span class="xHuge_area0 xTiny_marginLExcl endline">
-								<tr:selectOneRadio styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();">
+								<tr:selectOneRadio styleClass="medium_radioBtn double_area0" layout="horizontal" simple="true" value="#{creatorBean.creator.typeString}" valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();">
 									<f:selectItems value="#{creatorBean.creatorTypes}"/>
 								</tr:selectOneRadio>
 							</span>
