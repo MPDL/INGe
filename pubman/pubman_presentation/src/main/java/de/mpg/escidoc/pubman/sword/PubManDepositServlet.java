@@ -187,7 +187,8 @@ public class PubManDepositServlet extends HttpServlet
 
             response.setStatus(dr.getHttpResponse());      
             response.setContentType("application/xml");
-            PrintWriter out = response.getWriter();
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();           
             out.write(dr.marshall());
             out.flush();
             
