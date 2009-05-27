@@ -232,6 +232,13 @@
 				
 				var queryParts = q.split(' ');
 				
+				var expression = "";
+				for(var i = 0; i < queryParts.length; i++) {
+					if(queryParts[i] != ""){
+						expression =  expression + queryParts[i] + "|";
+					}
+				}
+				
 				// parse returned data for non-empty items
 				for (var i = 0; i < tokens.length; i++) {
 					
@@ -240,16 +247,11 @@
 					
 				/*	var token = $.trim(tokens[i]);*/
 					if (token[0]) {
-						
-						for(var j = 0; j < queryParts.length; j++) {
-							if(queryParts != ""){
-								token[0] = token[0].replace(
-									new RegExp(queryParts[j], 'ig'), 
-									function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
-									);
-								items[items.length] = token;
-							}
-						}
+						token[0] = token[0].replace(
+							new RegExp(expression, 'ig'), 
+							function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
+							);
+						items[items.length] = token;
 					}
 				}
 				
