@@ -83,12 +83,12 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
-				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/languages/query';
-				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/query';
-				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/ddc/query';
-				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/query';
-				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/journals/details?id=';
-				personDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>jquery/persons/details?id=';
+				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />json/languages/query';
+				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />json/journals/query';
+				subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />json/ddc/query';
+				personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>json/persons/query';
+				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />json/journals/details?id=';
+				personDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>json/persons/details?id=';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
