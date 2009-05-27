@@ -330,7 +330,6 @@ public class DataHandlerBean implements DataHandler
                 //Check the record for error codes
                 protocolHandler.checkOAIRecord(item);
                 supportedProtocol = true;
-                fetchedItem = item;
             }
             if (this.currentSource.getHarvestProtocol().toLowerCase().equals("ejb"))
             {
@@ -349,6 +348,7 @@ public class DataHandlerBean implements DataHandler
                 this.logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
                 throw new RuntimeException();
             }
+            fetchedItem = item;
             
             // Transform the itemXML if necessary
             if (item != null && !trgFormatName.trim().toLowerCase().equals(md.getName().toLowerCase()))
@@ -366,14 +366,22 @@ public class DataHandlerBean implements DataHandler
                     this.setItemUrl(new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier)));
                 }
                 
-                //Transform item component
-                String name = trgFormatName.replace("item", "component");
-                Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
-                String componentXml = new String(transformer.transform(fetchedItem.getBytes("UTF-8"), srcFormat, trgFormatComponent, "escidoc"));
-                if (componentXml != null)
-                {                   
-                    XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                    this.componentVO = xmlTransforming.transformToFileVO(componentXml);
+                try
+                {
+                    //Transform item component
+                    String name = trgFormatName.replace("item", "component");
+                    Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
+                    byte[] componentBytes = transformer.transform(fetchedItem.getBytes("UTF-8"), srcFormat, trgFormatComponent, "escidoc");
+                    
+                    if (componentBytes != null)
+                    {   String componentXml = new String(componentBytes);               
+                        XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                        this.componentVO = xmlTransforming.transformToFileVO(componentXml);
+                    }
+                }
+                catch(Exception e)
+                {
+                    this.logger.info("No component was created from external sources metadata");
                 }
             }
             
@@ -1153,6 +1161,16 @@ public class DataHandlerBean implements DataHandler
     {
         if (this.componentVO != null)
         {
+            if (this.componentVO.getDefaultMetadata().getRights() == null || 
+                    this.componentVO.getDefaultMetadata().getRights().equals(""))
+            {
+                this.componentVO.getDefaultMetadata().setRights(this.currentSource.getCopyright());
+            }
+            if (this.componentVO.getDefaultMetadata().getLicense() == null || 
+                    this.componentVO.getDefaultMetadata().getLicense().equals(""))
+            {
+                this.componentVO.getDefaultMetadata().setRights(this.currentSource.getLicense());
+            }
             return this.componentVO;
         }
         else
