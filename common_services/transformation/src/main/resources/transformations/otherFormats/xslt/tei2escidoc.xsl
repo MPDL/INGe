@@ -156,7 +156,8 @@
 				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
 			
-			<xsl:variable name="sDesc" select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc"/>
+			<xsl:variable name="fDesc" select="/t:TEI/t:teiHeader/t:fileDesc"/>
+			<xsl:variable name="sDesc" select="$fDesc/t:sourceDesc"/>
 			<xsl:variable name="pDesc" select="/t:TEI/t:teiHeader/t:profileDesc"/>
 			<xsl:variable name="rDesc" select="/t:TEI/t:teiHeader/t:revisionDesc"/>
 			
@@ -166,8 +167,8 @@
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
 				<xsl:value-of select="normalize-space(
-					if (exists($sDesc/t:titleStmt/t:title[@type='main']))
-					then $sDesc/t:titleStmt/t:title[@type='main']
+					if (exists($fDesc/t:titleStmt/t:title[@type='main']))
+					then $fDesc/t:titleStmt/t:title[@type='main']
 					else if (exists($sDesc/t:biblStruct/t:analytic/t:title[@type='main']))
 					then $sDesc/t:biblStruct/t:analytic/t:title[@type='main']
 					else error(QName('http://www.escidoc.de', 'err:NoTitleDefined' ), 'No title is defined for the item')
