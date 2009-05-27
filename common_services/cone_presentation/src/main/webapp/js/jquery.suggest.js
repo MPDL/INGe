@@ -144,13 +144,14 @@
 						$.ajax({
 							processData: false,
 							type: "GET",
+							dataType: "json",
 							url: options.source,
 							data: "lang="+lang+"&q="+escape(q),
-							success:function(txt){
+							success:function(result){
 									$results.hide();
-									var items = parseTxt(txt, q);
+									var items = parseJSON(result, q);
 									displayItems(items);
-									addToCache(q, items, txt.length);
+									addToCache(q, items, result.length);
 								}
 						});	
 					}
@@ -223,6 +224,30 @@
 					})
 					;
 							
+			}
+			
+			function parseJSON(jsonObject, q){
+				var items = [];
+
+				var queryParts = q.split(' ');
+				
+				var expression = "";
+				for(var i = 0; i < queryParts.length; i++) {
+					if(queryParts[i] != ""){
+						expression =  expression + queryParts[i] + "|";
+					}
+				}
+				
+				for (var i = 0; i < jsonObject.length; i++) {
+					jsonObject[i].value = jsonObject[i].value.replace(
+							new RegExp(expression, 'ig'), 
+							function(q) { return '<span class="' + options.matchClass + '">' + q + '</span>' }
+							);
+
+					items[items.length] = new Array(jsonObject[i].value, jsonObject[i].id);
+				}
+				
+				return items;
 			}
 			
 			function parseTxt(txt, q) {

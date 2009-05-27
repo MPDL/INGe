@@ -129,16 +129,6 @@
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
-										jQuery<span class="noDisplay">: </span>
-									</b>
-									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/jquery/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/jquery/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/jquery/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
-									</span>
-								</span>
-								<span class="free_area0 endline itemLine noTopBorder">
-									<b class="xLarge_area0_p8 endline labelLine clear">
 										Options<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">

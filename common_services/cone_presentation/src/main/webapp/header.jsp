@@ -44,11 +44,11 @@
 			{
 				if (typeof cutId != 'undefined' && cutId)
 				{
-					$('.' + element).suggest("/cone/jquery/" + model + "/query?lang=en", {onSelect: fillSmallId});
+					$('.' + element).suggest("/cone/json/" + model + "/query?lang=en", {onSelect: fillSmallId});
 				}
 				else
 				{
-					$('.' + element).suggest("/cone/jquery/" + model + "/query?lang=en", {onSelect: fillId});
+					$('.' + element).suggest("/cone/json/" + model + "/query?lang=en", {onSelect: fillId});
 				}
 			};
 
