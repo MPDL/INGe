@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class Login extends FacesBean
 {
     public static String LOGIN_URL = "/aa/login";
-    public static String LOGOUT_URL = "/clear.jsp";
+    public static String LOGOUT_URL = "/aa/logout/clear.jsp";
     final public static String BEAN_NAME = "Login";
     private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";

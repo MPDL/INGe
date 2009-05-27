@@ -124,7 +124,7 @@ public class SwordUtil extends FacesBean
     public static final String BEAN_NAME = "SwordUtil";
 
     public static String LOGIN_URL = "/aa/login";
-    public static String LOGOUT_URL = "/clear.jsp";
+    public static String LOGOUT_URL = "/aa/logout/clear.jsp";
     private static final int NUMBER_OF_URL_TOKENS = 2;
 
     private Logger logger = Logger.getLogger(SwordUtil.class);

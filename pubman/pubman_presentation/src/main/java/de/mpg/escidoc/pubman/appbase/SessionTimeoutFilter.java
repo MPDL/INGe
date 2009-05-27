@@ -59,7 +59,7 @@ public class SessionTimeoutFilter implements Filter
 {
     private static final Logger logger = Logger.getLogger(SessionTimeoutFilter.class);
     
-    public static String LOGOUT_URL = "/clear.jsp";
+    public static String LOGOUT_URL = "/aa/logout/clear.jsp";
     
     /* (non-Javadoc)
      * @see javax.servlet.Filter#destroy()

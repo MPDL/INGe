@@ -50,7 +50,7 @@ public class PubManSessionListener implements HttpSessionListener
     
     private static final Logger logger = Logger.getLogger(PubManSessionListener.class);
     
-    public static final String LOGOUT_URL = "/clear.jsp";
+    public static final String LOGOUT_URL = "/aa/logout/clear.jsp";
     
     /* (non-Javadoc)
      * @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
