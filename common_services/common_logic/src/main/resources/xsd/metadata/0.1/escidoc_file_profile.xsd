@@ -3,7 +3,6 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
 	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes" 
 	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" 
 	targetNamespace="http://purl.org/metadata/profiles/0.1/file" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
@@ -16,8 +15,7 @@
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
 	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
-	<xs:import namespace="http://purl.org/escidoc/metadata/terms/idtypes" schemaLocation="../../metadata/0.1/escidocidtypes.xsd"/>
-	<xs:import namespace="http://purl.org/escidoc/metadata/terms/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
 	<xs:element name="file" type="FileType"/>
 	<!--*******************************
     FileType
