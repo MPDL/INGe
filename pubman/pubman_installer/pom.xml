@@ -1,0 +1,182 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>pubman</artifactId>
+        <groupId>de.mpg.escidoc.pubman</groupId>
+        <version>5.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.mpg.escidoc.pubman</groupId>
+    <artifactId>pubman_installer</artifactId>
+    <name>pubman_installer</name>
+    <packaging>jar</packaging>
+    <version>5.0.1-SNAPSHOT</version>
+
+    <scm>
+        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
+        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
+        <url>https://zim02.gwdg.de/repos/pubman/</url>
+    </scm>
+
+    <build>
+        <defaultGoal>package</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                       <id>make-assembly</id>  <!-- this is used for inheritance merges -->
+                        <phase>package</phase>  <!-- append to the packaging phase. -->
+                        <goals>
+                            <goal>single</goal>  <!-- goals == mojos  -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--  copy other checked resource into staging area, expected by install.xml -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>create-staging-area</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy todir="${staging.dir}">
+                                    <fileset dir="${basedir}/src/izpack" />
+                                </copy>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--  prepare dependencies so that izpack jar tag to pickup at compile time -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <id>standard-installer</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <stripVersion>true</stripVersion>
+                            <excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
+                            <outputDirectory>${staging.dir}/dependency</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pubman_ear-installer</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <stripVersion>true</stripVersion>
+                            <includeArtifactIds>pubman_ear</includeArtifactIds> <!-- dont want standalone compiler -->
+                            <outputDirectory>${staging.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--  see install.xml to see how MyHelloPanel is used -->
+            <plugin>
+                <groupId>org.codehaus.izpack</groupId>
+                <artifactId>izpack-maven-plugin</artifactId>
+                <version>1.0-alpha-4</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.izpack</groupId>
+                        <artifactId>izpack-standalone-compiler</artifactId>
+                        <version>${izpack-standalone.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <izpackBasedir>${staging.dir}</izpackBasedir>
+                    <customPanelDirectory>${staging.dir}</customPanelDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>standard-installer</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>izpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <staging.dir>${project.build.directory}/staging</staging.dir>
+        <izpack-standalone.version>4.2.1-SNAPSHOT</izpack-standalone.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.mpg.escidoc.pubman</groupId>
+            <artifactId>pubman_ear</artifactId>
+            <version>5.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+            <type>ear</type>
+        </dependency>
+         <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>framework_access</artifactId>
+            <version>1.0.24-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-standalone-compiler</artifactId>
+            <version>${izpack-standalone.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+
+    </dependencies>
+</project>
