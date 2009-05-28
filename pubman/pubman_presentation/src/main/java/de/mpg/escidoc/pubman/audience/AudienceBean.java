@@ -166,10 +166,10 @@ public class AudienceBean extends FacesBean
     	SelectItem selectItem = new SelectItem("", "-");
         selectItems[0] = selectItem;
         
-    	for(int i = 1; i < this.getUserGroupList().getUserGroupLists().size()+1; i++)
+    	for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
         {
         	selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getLabel());
-            selectItems[i] = selectItem;
+            selectItems[i+1] = selectItem;
         }
     	
     	return selectItems;
