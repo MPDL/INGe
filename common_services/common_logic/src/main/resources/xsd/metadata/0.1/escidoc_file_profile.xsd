@@ -2,7 +2,7 @@
 <xs:schema xmlns="http://purl.org/metadata/profiles/0.1/file" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-	xmlns:dcterms="http://purl.org/dc/terms/0.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
 	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" 
 	targetNamespace="http://purl.org/metadata/profiles/0.1/file" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
