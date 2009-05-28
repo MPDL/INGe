@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.pubman.audience;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -46,6 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Fragment class for editing the audience grants of files. 
@@ -56,6 +59,7 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGro
 public class AudienceBean extends FacesBean
 {
 	private static Logger logger = Logger.getLogger(AudienceBean.class);
+	public static final String BEAN_NAME = "AudienceBean";
     // Faces navigation string
     public static final String LOAD_AUDIENCEPAGE = "loadAudiencePage";
     public static final String ESCIDOC_ROLE_AUDIENCE = "escidoc:role-audience";
@@ -180,6 +184,102 @@ public class AudienceBean extends FacesBean
     	this.getGrantsForAllFiles().add(new GrantVOPresentation(new Grant(), this.getAudienceSessionBean().getGrantsForAllFiles().size()));
     	return AudienceBean.LOAD_AUDIENCEPAGE;
     }
+    
+    /**
+     * This method applies all grants to every file listed
+     * @return String navigation string
+     */
+    public String applyForAll()
+    {
+    	if(this.getAudienceSessionBean().getGrantsForAllFiles().size() > 0 && !this.getAudienceSessionBean().getGrantsForAllFiles().get(0).getGrant().getGrantedTo().trim().equals(""))
+    	{
+    		for(int i = 0; i < this.getAudienceSessionBean().getFileListNew().size(); i++)
+    		{
+    			// first remove all existing grants
+    			this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().clear();
+    			// then add the new grants
+    			for(int j = 0; j < this.getAudienceSessionBean().getGrantsForAllFiles().size(); j++)
+    			{
+    				if(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo() != null && !this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo().trim().equals(""))
+    				{
+    					this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().add(new GrantVOPresentation(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant(), this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(), i));
+    				}
+    			}
+    			for (int k = 0; k < this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().size(); k++)
+    			{
+    				if(this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(k).getGrant().getGrantedTo() == null 
+    						|| this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().get(k).getGrant().getGrantedTo().trim().equals(""))
+    				{
+    					this.getAudienceSessionBean().getFileListNew().get(i).getGrantList().remove(k);
+    				}
+    			}
+    		}
+    	}
+    	return AudienceBean.LOAD_AUDIENCEPAGE;
+    }
+    
+    /**
+     * Returns the URL of the coreservice this PubMan instance is currently working with
+     * @return String URL of the coreservice
+     */
+    public String getFwUrl()
+    {
+    	String fwUrl = "";
+    	
+    	// populate the core service Url
+        try 
+        {
+			fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		} 
+        catch (IOException ioE) 
+		{
+			throw new RuntimeException("Could  not read the Property file for property 'escidoc.framework_access.framework.url'", ioE);
+		} 
+        catch (URISyntaxException uE) 
+		{
+			throw new RuntimeException("Syntax of property 'escidoc.framework_access.framework.url' not correct", uE);
+		}
+    	return fwUrl;
+    }
+    
+    public String getItemPattern()
+    {
+    	String itemPattern = "";
+    	
+    	String pubmanUrl = "";
+		try 
+		{
+			pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+		} 
+		catch (IOException ioE) 
+		{
+			throw new RuntimeException("Could  not read the Property file for property 'escidoc.pubman.instance.url' or 'escidoc.pubman.instance.context.path'", ioE);
+		} 
+		catch (URISyntaxException uE) 
+		{
+			throw new RuntimeException("Syntax of property 'escidoc.pubman.instance.url' or 'escidoc.pubman.instance.context.path' not correct", uE);
+		}
+        
+        try 
+        {
+			itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectIdAndVersion());
+		} 
+        catch (IOException ioE) 
+		{
+        	throw new RuntimeException("Could  not read the Property file for property 'escidoc.pubman.item.pattern'", ioE);
+		} 
+        catch (URISyntaxException uE) 
+        {
+        	throw new RuntimeException("Syntax of property 'escidoc.pubman.item.pattern' not correct", uE);
+		}
+        
+        
+        if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
+        if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
+        
+    	return itemPattern;
+    }
+    
     
     /**
      * Returns the AudienceSessionBean.

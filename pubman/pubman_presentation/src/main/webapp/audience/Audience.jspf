@@ -59,33 +59,43 @@
 					<h:panelGroup styleClass="large_area0_p8 lineToolSection" >
 						<tr:commandButton action="#{AudienceBean.addGrantForAllFiles}" styleClass="min_imgBtn groupTool add" text=" " />
 						<tr:commandButton action="#{grantForAllFiles.removeGrantForAllFiles}" styleClass="min_imgBtn groupTool remove" text=" " />
-						<tr:commandButton styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
 					</h:panelGroup>
 				</h:panelGroup>
 			</tr:iterator>
+			<tr:commandButton action="#{AudienceBean.applyForAll}" styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
 		</h:panelGroup>
 
-<%-- Single Files 
+<%-- Single Files --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Filename + Link"/>
-			</span>
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:selectOneMenu styleClass="quad_select">
-					<f:selectItems value="Groups here" />
-				</h:selectOneMenu>
-			</span>
-			<span class="large_area0_p8 lineToolSection">
-				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
-				<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " />
-			</span>
-		</h:panelGroup> --%>
+			<tr:iterator var="file" id="allFiles" value="#{AudienceBean.fileList}" >
+				<h:panelGroup>
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						<h:outputText value="#{lbl.AudiencePage_file}" /><span class="noDisplay"> </span>
+					</b>
+					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+						<tr:goLink targetFrame="." destination="#{AudienceBean.fwUrl}/ir/#{AudienceBean.itemPattern}/components/component/#{file.file.reference.objectId}/content" shortDesc="#{file.file.description}">
+							<h:outputText value="#{file.file.name}"/>
+						</tr:goLink>
+					</h:panelGroup>
+					<tr:iterator var="grant" id="allGrants" value="#{file.grantList}" >
+						<h:panelGroup>
+							<b class="xLarge_area0_p8 endline labelLine clear">
+								<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
+							</b>
+							<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+								<h:selectOneMenu styleClass="quad_select" value="#{grant.grant.grantedTo}">
+									<f:selectItems value="#{AudienceBean.userGroups}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+							<h:panelGroup styleClass="large_area0_p8 lineToolSection">
+								<tr:commandButton action="#{file.addGrant}" styleClass="min_imgBtn groupTool add" text=" " />
+								<tr:commandButton action="#{grant.remove}" styleClass="min_imgBtn groupTool remove" text=" " />
+							</h:panelGroup>
+						</h:panelGroup>
+					</tr:iterator>
+				</h:panelGroup>
+			</tr:iterator>
+		</h:panelGroup> 
 
 	</div>
 </div>

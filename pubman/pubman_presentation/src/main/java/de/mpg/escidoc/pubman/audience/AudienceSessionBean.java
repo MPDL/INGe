@@ -49,6 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGro
 public class AudienceSessionBean extends FacesBean 
 {
 	private static Logger logger = Logger.getLogger(AudienceSessionBean.class);
+	public static final String BEAN_NAME = "AudienceSessionBean";
 	// the original file list with the original grants retrieved from core-service and which will be applied if user clicks on cancel
 	private List<PubFileVOPresentation> fileListOld = new ArrayList<PubFileVOPresentation>();
 	// the file list where changes are made and which will be applied if user clicks on save

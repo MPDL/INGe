@@ -513,7 +513,13 @@ public class PubFileVOPresentation extends FacesBean
     	file.setVisibility(newVisibility);
     }
 
-	public List<GrantVOPresentation> getGrantList() {
+	public List<GrantVOPresentation> getGrantList()
+	{
+		// ensure that at least one grant is in the list (for presentation)
+		if(this.grantList.size() == 0)
+		{
+			this.grantList.add(new GrantVOPresentation(new Grant(), this.grantList.size(), this.index));
+		}
 		return grantList;
 	}
 
