@@ -43,24 +43,24 @@
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
 			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputLabel styleClass="quad_label" value="Anzahl #{AudienceBean.numberOfFiles}"/>
-			</span>
+			</h:panelGroup>
 			<tr:iterator var="grantForAllFiles" id="grantListForAllFiles" value="#{AudienceBean.grantsForAllFiles}" >
 				<h:panelGroup>
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						<h:outputText value="#{lbl.AudiencePage_audiencingGroup}" /><span class="noDisplay"> </span>
 					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu styleClass="quad_select">
+					<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneMenu styleClass="quad_select" value="#{grantForAllFiles.grant.grantedTo}">
 							<f:selectItems value="#{AudienceBean.userGroups}" />
 						</h:selectOneMenu>
-					</span>
-					<span class="large_area0_p8 lineToolSection">
+					</h:panelGroup>
+					<h:panelGroup styleClass="large_area0_p8 lineToolSection" >
 						<tr:commandButton action="#{AudienceBean.addGrantForAllFiles}" styleClass="min_imgBtn groupTool add" text=" " />
 						<tr:commandButton action="#{grantForAllFiles.removeGrantForAllFiles}" styleClass="min_imgBtn groupTool remove" text=" " />
 						<tr:commandButton styleClass="medium_txtBtn endline groupBtn" text="#{lbl.AudiencePage_applyAll}"/>
-					</span>
+					</h:panelGroup>
 				</h:panelGroup>
 			</tr:iterator>
 		</h:panelGroup>

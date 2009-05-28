@@ -419,6 +419,18 @@ public class InternationalizationHelper
     {
         return this.getSelectItemsContentCategory(false);
     }
+    
+    /**
+     * Returns an array of SelectItems for a list of user groups
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for user groups
+     */
+    public SelectItem[] getSelectItemsUserGroups(final boolean includeNoItemSelectedEntry)
+    {
+    	FileVO.Visibility[] values = FileVO.Visibility.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
 
 
     /**

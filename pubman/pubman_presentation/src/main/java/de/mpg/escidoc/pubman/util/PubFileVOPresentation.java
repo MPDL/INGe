@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.html.HtmlCommandButton;
@@ -13,11 +14,14 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.audience.AudienceBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -43,6 +47,7 @@ public class PubFileVOPresentation extends FacesBean
     private PubItemSimpleStatistics pubItemStatistics;
     private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
     private LoginHelper loginHelper;
+    private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
 
 
     /**
@@ -492,6 +497,12 @@ public class PubFileVOPresentation extends FacesBean
     	return showEmbargoDate;
     }
     
+    public String addGrant()
+    {
+    	this.getGrantList().add(new GrantVOPresentation(new Grant(), this.getGrantList().size(), this.index));
+    	return AudienceBean.LOAD_AUDIENCEPAGE;
+    }
+    
     /**
      * This method updates the file's visibility with the new one selected by the user
      * @param event The value change event
@@ -501,6 +512,14 @@ public class PubFileVOPresentation extends FacesBean
     	Visibility newVisibility = (Visibility) event.getNewValue();
     	file.setVisibility(newVisibility);
     }
+
+	public List<GrantVOPresentation> getGrantList() {
+		return grantList;
+	}
+
+	public void setGrantList(List<GrantVOPresentation> grantList) {
+		this.grantList = grantList;
+	}
     
-   
+    
 }
