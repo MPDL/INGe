@@ -125,7 +125,7 @@ public class GrantList  extends CurrentGrants
     {
 
         /**
-         * Retrieves the grants for a given escidoc object and a given role
+         * Retrieves the grants for a given escidoc object and a given role that are not revoked and only for groups.
          * @param userHandle A user handle for authentication in the coreservice.
          * @param objectId The id of the object for which the grants should be retrieved
          * @param roleId The id of the role that a user should have on that object.
@@ -137,7 +137,7 @@ public class GrantList  extends CurrentGrants
             try
             {
                 UserAccountHandler uah = ServiceLocator.getUserAccountHandler(userHandle);
-                String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter></param>";
+                String filter = "<param><filter name=\"objectId\">" + objectId + "</filter><filter name=\"roleId\">" + roleId + "</filter><filter name=\"revokerId\"></filter><filter name=\"userId\"></filter></param>";
                 String grantListXml = uah.retrieveGrants(filter);
                 GrantList currentGrants = (GrantList) IntelligentVO.unmarshal(grantListXml, GrantList.class);
                    return currentGrants;
