@@ -303,10 +303,15 @@ public class Utils {
     	StringBuffer buffer = new StringBuffer();
     	while (iter.hasNext())
     	{
-    		String str = iter.next().toString();
-    		//empty strings will be omitted!
-    		if (checkVal(str))
-    			buffer.append(str).append(delimiter);
+    		Object o = iter.next();
+    		String str="";
+    		if ( o != null )
+    		{
+	    		str = o.toString();
+	    		//empty strings will be omitted!
+	    		if (checkVal(str))
+	    			buffer.append(str).append(delimiter);
+    		}
     	}	
     	String result = buffer.toString();
     	result = result.substring(0, result.length() - delimiter.length());
@@ -327,6 +332,19 @@ public class Utils {
 		if (postfx == null || postfx.length() >= maxLen)
 			postfx = "";
 		return str.substring(0, maxLen-postfx.length()) + postfx;
+	}
+	
+	/**
+	 * Cut <code>string</code> and appends it with postfix id <code>cond</code> is <code>true</code> 
+	 * @param cond - boolean condition
+	 * @param str - input String
+	 * @param maxLen - max length of the result to be returned  
+	 * @param postfx - postfix of the string which indicates that string is cut.  
+	 * @return 
+	 */
+	public static String checkAndCutString(boolean cond, String str, int maxLen, String postfx) 
+	{
+		return cond ? cutString(str, maxLen, postfx) : str;
 	}    
     
 	

@@ -409,7 +409,9 @@ public class Feed extends SyndFeedImpl
 	{
 		
 		setTitle(populateFieldWithParams("title", getTitle()));
-		setDescription(populateFieldWithParams("description", getDescription()));
+		setDescription(
+					populateFieldWithParams("description", getDescription())
+		);
 		
 		setLink(populateFieldWithParams("link", getLink()));
 		setUri(populateFieldWithParams("uri", getUri()));
@@ -461,23 +463,12 @@ public class Feed extends SyndFeedImpl
 			throw new SyndicationException("Requested feed type: " + ft + " is not supported");
 		}
 		setFeedType( ft );
-		
-		/* SET LIMITATIONS */
-		//set setMaximumRecords to 15 for RSS 0.9, 0.91N, 091U 
-		if ( isRSS_09_or_091N_or_091U() && Integer.parseInt(getMaximumRecords()) > 15 )
-			setMaximumRecords("15");
-		
-		//length of the channel/image title of RSS 0.9  <= 40 
-		if ( ft.equals("rss_0.9") )
-		{
-			setTitle(Utils.cutString(getTitle(), 40, "..."));
-			getImage().setTitle(Utils.cutString(getImage().getTitle(), 40, "..."));
-		}
-		
+
 		
 		populateFeedElementsWithParams();
 		
-        
+        setChannelLimitations();
+       
 		//search for itemList 
 		String itemListXml = performSearch( getQuery(), getMaximumRecords(), getSortKeys() );
         
@@ -494,7 +485,11 @@ public class Feed extends SyndFeedImpl
         		  new Date()
         );
         
+        
 	}
+
+	
+
 
 	/**
 	 * Search for the items for feed entries population. 
@@ -561,7 +556,6 @@ public class Feed extends SyndFeedImpl
 		
 	}
 
-	
 	/**
 	 * Transformation method takes ItemList XML and transforms it to the list of 
 	 * syndication entries (<code><List>SyndEntry</code>)  
@@ -597,19 +591,10 @@ public class Feed extends SyndFeedImpl
 			scont.setType("application/xml");
 			try {
 				//        	 		logger.info("XML"  + xt.transformToItem( pi ));
-				// For the initial implementation 
-				// 1) the complete PubItem will be in the enty, 
-				// not the md-record since no transformation md-record -> XML is implemented
-				// 2) CDATA is used for atom/rss compatibility
-				// TODO: resolve the issues
 				String itemXml = replaceXmlHeader(xt.transformToItem( pi ));
-				logger.info(itemXml);
-				scont.setValue(
-						contentIsEncoded() ? 
-								itemXml :
-							String.format(CDATA, itemXml)
-				);
-				if ("atom_0.3".equals(getFeedType()))
+//				logger.info(itemXml);
+				scont.setValue( itemXml );
+				if ( "atom_0.3".equals(getFeedType()) )
 					scont.setMode(Content.XML);
 			} 
 			catch (TechnicalException e) 
@@ -620,26 +605,16 @@ public class Feed extends SyndFeedImpl
 			se.setContents(Arrays.asList(scont));
 
 			//
-			
-			se.setTitle(
-					// the title length rss_0.9, rss_0.91N, rss_0.91U  must be <=100	
-					isRSS_09_or_091N_or_091U() ?
-						Utils.cutString(md.getTitle().getValue(), 100, "...") :	
-						md.getTitle().getValue() 
-			);
+			se.setTitle( md.getTitle().getValue() );
 
 			//Description ??? optional
 			List abs = md.getAbstracts();
 			SyndContent sc = new SyndContentImpl();
-			if ( Utils.checkList(abs) )
-			{
-				sc.setValue(((TextVO)abs.get(0)).getValue());
-			}
-			else
-			{
-				sc.setValue( md.getTitle().getValue() );
-			}	
-
+			sc.setValue( 
+				Utils.checkList(abs) ? 
+					((TextVO)abs.get(0)).getValue() : 
+					md.getTitle().getValue()
+			);
 			se.setDescription(sc);
 
 			//Category
@@ -707,6 +682,8 @@ public class Feed extends SyndFeedImpl
 
 			//Entry PublishedDate ???
 			se.setPublishedDate( pi.getLatestRelease().getModificationDate() );
+			
+			setEntryLimitations(se);
 
 			entries.add(se);
 
@@ -715,6 +692,45 @@ public class Feed extends SyndFeedImpl
 		
 	}
 	
+
+	/**
+	 * set channel limitations
+	 */
+	private void setChannelLimitations() 
+	{
+		
+		//set setMaximumRecords to 15 for RSS 0.9, 0.91N, 091U 
+		if ( isRSS_09_or_091N_or_091U() && Integer.parseInt(getMaximumRecords()) > 15 )
+			setMaximumRecords("15");
+		
+		//length of the channel/image title of RSS 0.9  <= 40 
+		if ( getFeedType().equals("rss_0.9") )
+		{
+			setTitle(Utils.cutString(getTitle(), 40, "..."));
+			getImage().setTitle(Utils.cutString(getImage().getTitle(), 40, "..."));
+		}
+		
+	}
+	
+	
+	/**
+	 * set entry limitations
+	 */
+	private void setEntryLimitations(SyndEntry se) 
+	{
+		if (isRSS_09_or_091N_or_091U()) 
+		{
+			se.setTitle(
+					Utils.cutString(se.getTitle(), 100, "...")	
+				);			
+			se.getDescription().setValue(
+					Utils.cutString(se.getDescription().getValue(), 500, "...")	
+			);
+		}
+		
+	}
+
+
 	/**
 	 * Removes xml header 
 	 * @param xml
@@ -726,15 +742,6 @@ public class Feed extends SyndFeedImpl
 	}
 
 
-	/**
-	 * Check the encoding status of the <code>feedType</code>. 
-	 * @return <code>true</code> for all RSS feeds, <code>false</code> otherwise 
-	 */
-	private boolean contentIsEncoded()
-	{
-//		return getFeedType().contains("rss_");
-		return true;
-	}
 	
 	/**
 	 * <code>True</code> for RSS 0.9, 0.91*  

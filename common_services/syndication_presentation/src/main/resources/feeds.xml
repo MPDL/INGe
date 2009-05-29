@@ -44,6 +44,7 @@ There are following limitations for the feeds:
   RSS 0.9, RSS 0.91N, RSS 0.91U: 
     a. Number of items &lt;= 15
     b. Length of the entry title should be &lt;= 100
+    c. Length of the entry description should be &lt;= 500
   RSS 0.9: 
     a. Length of the name of the channel and image &lt;= 40
 	</comments>
