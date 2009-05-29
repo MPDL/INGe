@@ -257,72 +257,7 @@ public class TestBase
         }
         return userHandle;
     }
-    
-    protected String login2(String user, String pass) throws Exception
-    {
-        String userHandle = null;
-        HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost("localhost", 8080, "http");
-        GetMethod loginGet = new GetMethod("/aa/login?target=");
-        client.executeMethod(loginGet);
-        loginGet.releaseConnection();
-        PostMethod loginPost = new PostMethod("/aa/j_spring_security_check");
-        NameValuePair userid = new NameValuePair("j_username", user);
-        NameValuePair passwd = new NameValuePair("j_password", pass);
-        loginPost.setRequestBody(new NameValuePair[] {userid, passwd});
-        client.executeMethod(loginPost);
-        loginPost.releaseConnection();
-        //System.out.println("SC after post: "+loginPost.getStatusCode());
-/*        Cookie cakes[] = client.getState().getCookies();
-        for (Cookie c : cakes)
-        {
-            System.out.println("Cookie: "+c.getName()+"  value:  "+c.getValue());
-        }*/
-        
-        int sc = loginPost.getStatusCode();
-        
-        if ((sc == HttpStatus.SC_MOVED_TEMPORARILY)
-                || (sc == HttpStatus.SC_MOVED_PERMANENTLY)
-                || (sc == HttpStatus.SC_SEE_OTHER)
-                || (sc == HttpStatus.SC_TEMPORARY_REDIRECT)) {
-                Header header = loginPost.getResponseHeader("location");
-                if (header != null) {
-                    String newuri = header.getValue();
-                    //System.out.println("redirect to: "+newuri);
-
-                    if ((newuri == null) || (newuri.equals(""))) {
-                        newuri = "/";
-                    }
-
-                    GetMethod redirect = new GetMethod(newuri);
-
-                    redirect.setFollowRedirects(false);
-                    client.executeMethod(redirect);
-
-                    StringBuffer response = new StringBuffer();
-                    BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(redirect.getResponseBodyAsStream()));
-                    String line = null;
-
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line + "\n");
-                    }
-                    reader.close();
-
-                    int start = response.indexOf("eSciDocUserHandle");
-                    String encodedUserHandle = response.substring(start +18, start +46);
-                    //System.out.println("handle: "+encodedUserHandle);
-
-                    if (encodedUserHandle != null) {
-                        userHandle = new String(Base64.decode(encodedUserHandle));
-                    }
-                    redirect.releaseConnection();
-                }
-            }
-        
-        return userHandle;
-    }
-
+   
     /**
      * Reads contents from text file and returns it as String.
      * 
