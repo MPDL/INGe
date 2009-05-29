@@ -76,6 +76,37 @@ public class Grant extends IntelligentVO
     private Date lastModificationDate;
 
     
+    public enum CoreserviceRole
+    {
+        DEPOSITOR ("escidoc:role-depositor"),
+        MODERATOR ("escidoc:role-moderator"),
+        MD_EDITOR ("escidoc:role-md-editor"),
+        AUDIENCE ("escidoc:role-audience"),
+        COLLABORATOR_VIEWER ("escidoc:role-collaborator"),
+        COLLABORATOR_MODIFIER("escidoc:role-collaborator-modifier");
+        
+        private String roleId;
+        
+        
+        private CoreserviceRole(String roleId)
+        {
+            this.setRoleId(roleId);
+        }
+
+
+        public void setRoleId(String roleId)
+        {
+            this.roleId = roleId;
+        }
+
+
+        public String getRoleId()
+        {
+            return roleId;
+        }
+        
+    }
+    
     /**
      * Retrieves a grant from the coreservice.
      * @param grantId the id of the grant.
@@ -93,6 +124,14 @@ public class Grant extends IntelligentVO
     public Grant()
     {
         
+    }
+    
+    /**
+     * Clone constructor
+     */
+    public Grant(Grant toBeCloned)
+    {
+        super(toBeCloned);
     }
     
     
@@ -530,6 +569,14 @@ public class Grant extends IntelligentVO
         {
             try
             {
+                
+                //workaround if last modification date is missing in a list
+                if(grant.getLastModificationDate()==null)
+                {
+                    grant.setLastModificationDate(grant.getCreationDate());
+                    //grant = new Grant(userHandle, grant.getGrantedTo(), grant.getObjid(), UserType.valueOf(grant.getGrantType()));
+                }
+                
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(grant.getLastModificationDate());
                 String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
