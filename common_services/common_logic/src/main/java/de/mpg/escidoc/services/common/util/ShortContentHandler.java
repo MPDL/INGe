@@ -55,7 +55,8 @@ public class ShortContentHandler extends DefaultHandler
     private StringBuffer currentContent;
     protected XMLStack stack = new XMLStack();
     protected XMLStack localStack = new XMLStack();
-    protected Map<String, String> namespaces = new HashMap<String, String>();
+    protected Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
+    protected Map<String, String> namespaces = null;
 
     /**
      * Manage stack and namespaces.
@@ -63,6 +64,16 @@ public class ShortContentHandler extends DefaultHandler
     @Override
     public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException
     {
+        Map<String, String> formerNamespaces;
+        if (namespacesMap.get(stack.toString()) != null)
+        {
+            formerNamespaces = namespacesMap.get(stack.toString());
+        }
+        else
+        {
+            formerNamespaces = new HashMap<String, String>();
+        }
+        
         stack.push(name);
         if (name.contains(":"))
         {
@@ -73,15 +84,26 @@ public class ShortContentHandler extends DefaultHandler
             localStack.push(name);
         }
         
+        Map<String, String> currentNamespaces = new HashMap<String, String>();
+        currentNamespaces.putAll(formerNamespaces);
+        
         for (int i = 0; i < attributes.getLength(); i++)
         {
             if (attributes.getQName(i).startsWith("xmlns:"))
             {
                 String prefix = attributes.getQName(i).substring(6);
                 String nsUri = attributes.getValue(i);
-                namespaces.put(prefix, nsUri);
+                currentNamespaces.put(prefix, nsUri);
+            }
+            else if (attributes.getQName(i).equals("xmlns"))
+            {
+                String nsUri = attributes.getValue(i);
+                currentNamespaces.put("", nsUri);
             }
         }
+        
+        namespacesMap.put(stack.toString(), currentNamespaces);
+        this.namespaces = currentNamespaces;
         
         currentContent = new StringBuffer();
     }
@@ -123,7 +145,7 @@ public class ShortContentHandler extends DefaultHandler
      * @param name The qualified name (with prefix), or the empty string if qualified names are not available.
      * @param content The string content of the current tag.
      */
-    public void content(String uri, String localName, String name, String content)
+    public void content(String uri, String localName, String name, String content) throws SAXException
     {
         // Do nothing by default
     }

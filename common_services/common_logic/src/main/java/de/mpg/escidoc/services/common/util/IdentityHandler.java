@@ -140,7 +140,7 @@ public class IdentityHandler extends ShortContentHandler
      * {@inheritDoc}
      */
     @Override
-    public void content(String uri, String localName, String name, String content)
+    public void content(String uri, String localName, String name, String content) throws SAXException
     {
         super.content(uri, localName, name, content);
         result.append(escape(content));
