@@ -65,7 +65,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil} )" rendered="#{ViewItemFull.isStateWithdrawn == false && file.isVisible == false}"/>
+					<h:outputText value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil})" rendered="#{ViewItemFull.isStateWithdrawn == false && file.isVisible == false && file.file.defaultMetadata.embargoUntil != null}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
