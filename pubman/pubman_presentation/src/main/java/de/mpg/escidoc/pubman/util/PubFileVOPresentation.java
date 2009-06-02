@@ -22,6 +22,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -499,7 +500,10 @@ public class PubFileVOPresentation extends FacesBean
     
     public String addGrant()
     {
-    	this.getGrantList().add(new GrantVOPresentation(new Grant(), this.getGrantList().size(), this.index));
+    	Grant newGrant = new Grant();
+    	newGrant.setGrantType(UserType.USER_GROUP.toString());
+    	newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.toString());
+    	this.getGrantList().add(new GrantVOPresentation(newGrant, this.getGrantList().size(), this.index));
     	return AudienceBean.LOAD_AUDIENCEPAGE;
     }
     
