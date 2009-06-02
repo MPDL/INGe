@@ -223,7 +223,7 @@ public class EdocProcessor extends FormatProcessor
          * {@inheritDoc}
          */
         @Override
-        public void content(String uri, String localName, String name, String content)
+        public void content(String uri, String localName, String name, String content) throws SAXException
         {
             super.content(uri, localName, name, content);
             if (inItem)
