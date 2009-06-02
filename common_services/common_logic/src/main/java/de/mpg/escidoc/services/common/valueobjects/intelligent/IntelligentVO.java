@@ -92,6 +92,7 @@ public class IntelligentVO implements Serializable
         for (Method methodFrom : copyFromClass.getDeclaredMethods())
         {
             String setMethodName = null;
+            Object valueFrom = null;
             if (methodFrom.getName().startsWith("get"))
             {
                 setMethodName = "set" + methodFrom.getName().substring(3, methodFrom.getName().length());
@@ -105,11 +106,20 @@ public class IntelligentVO implements Serializable
                 try
                 {
                     Method methodTo = copyToClass.getMethod(setMethodName, methodFrom.getReturnType());
-                    methodTo.invoke(this, methodFrom.invoke(copyFrom, null));
+                    try
+                    {
+                        valueFrom = methodFrom.invoke(copyFrom, new Object[]{});
+                        methodTo.invoke(this, methodFrom.invoke(copyToClass, new Object[]{valueFrom}));
+                    }
+                    catch (Exception e)
+                    {
+                        logger.error("Could not copy field from method: " + methodFrom.getName(), e);
+                    }
                 }
-                catch (Exception e)
+                // No setter, do nothing.
+                catch (NoSuchMethodException e)
                 {
-                    logger.error("Could not copy field from method: " + methodFrom.getName(), e);
+                    
                 }
             }
         }
