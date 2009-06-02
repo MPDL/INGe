@@ -99,7 +99,7 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
     
     public String getFormattedDate()
     {
-        return CommonUtils.format(getDate());
+        return CommonUtils.formatTimestamp(getDate());
     }
     
     public VersionHistoryEntryVO getVersionHistoryVO()

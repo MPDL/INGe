@@ -87,6 +87,7 @@ public class CommonUtils extends InternationalizedImpl
     private static Logger logger = Logger.getLogger(CommonUtils.class);
     private static final String NO_ITEM_SET = "-";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
     //HTML escaped characters mapping
     private static final String[] PROBLEMATIC_CHARACTERS =
@@ -377,6 +378,19 @@ public class CommonUtils extends InternationalizedImpl
     public static String format(Date date)
     {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
+        String dateString = simpleDateFormat.format(date);
+
+        return dateString;
+    }
+
+    /**
+     * Formats a date with the default format.
+     * @param date the date to be formated
+     * @return a formated String
+     */
+    public static String formatTimestamp(Date date)
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.TIMESTAMP_FORMAT);
         String dateString = simpleDateFormat.format(date);
 
         return dateString;

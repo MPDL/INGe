@@ -1488,7 +1488,7 @@ public class ViewItemFull extends FacesBean
      */
     public String getModificationDate()
     {
-    	return CommonUtils.format(this.pubItem.getModificationDate());
+    	return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
     }
     
     /**
