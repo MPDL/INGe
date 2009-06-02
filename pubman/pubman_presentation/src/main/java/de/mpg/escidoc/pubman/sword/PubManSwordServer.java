@@ -34,16 +34,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Vector;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.purl.sword.base.Collection;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDAuthenticationException;
-import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
-import org.purl.sword.base.SWORDException;
 import org.purl.sword.base.Service;
 import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
@@ -59,6 +55,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * Main class to provide SWORD Server functionality.
@@ -116,14 +113,11 @@ public class PubManSwordServer
          * @param deposit
          * @param collection
          * @return DepositResponse
-         * @throws SWORDAuthenticationException
-         * @throws SWORDException
-         * @throws URISyntaxException 
-         * @throws IOException 
-         * @throws SWORDContentTypeException 
+         * @throws Exception 
+         * @throws ItemInvalidException 
+         * @throws PubItemStatusInvalidException 
          */
-        public DepositResponse doDeposit(Deposit deposit, String collection) throws SWORDAuthenticationException, 
-            SWORDException, IOException, URISyntaxException, SWORDContentTypeException 
+        public DepositResponse doDeposit(Deposit deposit, String collection) throws PubItemStatusInvalidException, ItemInvalidException, ContentStreamNotFoundException, Exception 
         {
             SwordUtil util = new SwordUtil();
             PubItemVO depositItem = null;
@@ -131,9 +125,7 @@ public class PubManSwordServer
             boolean valid = false;
 
             this.setVerbose("Start depositing process ... ");
-
-            try
-            {
+            
                 //Create item
                 depositItem = util.readZipFile(deposit.getFile(), this.currentUser); 
                 this.setVerbose("Escidoc Publication Item successfully created.");
@@ -143,8 +135,8 @@ public class PubManSwordServer
 
                 //Validate Item
                 util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation (depositItem));
-                String validationReport = util.validateItem(depositItem);
-                if (validationReport == null)
+                ValidationReportVO validationReport = util.validateItem(depositItem);
+                if (validationReport.isValid())
                 {
                     this.setVerbose("Escidoc Publication Item successfully validated.");
                     valid = true;
@@ -153,6 +145,7 @@ public class PubManSwordServer
                 {
                     this.setVerbose("Following validation error(s) occurred: " + validationReport);
                     valid = false;
+                    throw new ItemInvalidException(validationReport);
                 }
                 
                 //Deposit item                             
@@ -181,37 +174,6 @@ public class PubManSwordServer
                         this.setVerbose("Escidoc Publication Item not deposited due to validation errors.");
                     }
                 }
-            }
-            catch (ContentStreamNotFoundException e)
-            {
-                this.log.error("No metadata File was found");
-                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
-                this.setVerbose("No metadata File was found.");
-            }
-            catch (SWORDContentTypeException e)
-            {
-                this.log.error(e);
-                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
-                this.setVerbose("Transformation to eSciDoc publication failed (" + e.getMessage() + " ).");
-            }
-            catch (ItemInvalidException e)
-            {
-                this.log.error(e);
-                dr.setHttpResponse(HttpServletResponse.SC_NOT_ACCEPTABLE);
-                this.setVerbose("An internal error occurred: " + e.toString());
-            }
-            catch (PubItemStatusInvalidException e)
-            {
-                this.log.error("Provided item has wrong status");
-                dr.setHttpResponse(HttpServletResponse.SC_BAD_REQUEST);
-                this.setVerbose("Deposit failed because the provided item has wrong status.");
-            }
-            catch (Exception e)
-            {
-                this.log.error(e);
-                dr.setHttpResponse(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                this.setVerbose("An internal error occurred: " + e.toString());
-            }
 
             SWORDEntry se = util.createResponseAtom(depositItem, deposit, valid);
             if (deposit.isVerbose())

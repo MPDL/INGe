@@ -46,8 +46,13 @@ import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.SWORDContentTypeException;
 
-import de.mpg.escidoc.pubman.HomePage;
+import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.mpg.escidoc.pubman.sword.PubManSwordErrorDocument.swordError;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
+import de.mpg.escidoc.services.validation.ItemInvalidException;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * DepositServlet for the PubMan SWORD interface.
@@ -61,6 +66,7 @@ public class PubManDepositServlet extends HttpServlet
     private String collection;
     PubManSwordServer pubMan;
     private String error = "";
+    private PubManSwordErrorDocument errorDoc;
 
 /** 
     * Process the GET request. This will return an unimplemented response.
@@ -92,124 +98,186 @@ public class PubManDepositServlet extends HttpServlet
    protected void doPost(HttpServletRequest request,
          HttpServletResponse response) throws ServletException, IOException
   {
-      this.pubMan = new PubManSwordServer();
-      SwordUtil util = new SwordUtil();
-      Deposit deposit = new Deposit();
-      AccountUserVO user = null;
+       this.pubMan = new PubManSwordServer();
+       SwordUtil util = new SwordUtil();
+       Deposit deposit = new Deposit();
+       AccountUserVO user = null;
+       boolean validDeposit = true;
+       this.errorDoc = new PubManSwordErrorDocument();
+       DepositResponse dr = null;
+       
+       System.out.println("---------4-----------");
 
-      this.logger.debug("Starting deposit processing by " + request.getRemoteAddr());
+       // Authentification -----------------------------------------------------------------
+       String usernamePassword = this.getUsernamePassword(request);
+       if (usernamePassword == null)
+       {
+           this.errorDoc.setSummary("No user credentials provided.");
+           this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
+           validDeposit = false;
+       }
+       else
+       {
+          int p = usernamePassword.indexOf(":");
+          if (p != -1) 
+          {
+             deposit.setUsername(usernamePassword.substring(0, p));
+             deposit.setPassword(usernamePassword.substring(p + 1));
+             user = util.getAccountUser(deposit.getUsername(), deposit.getPassword());
+             this.pubMan.setCurrentUser(user);
+          } 
+       }
 
-      // Authentification -----------------------------------------------------------------
-      String usernamePassword = this.getUsernamePassword(request);
-      if ((usernamePassword != null) && (!usernamePassword.equals(""))) 
-      {
-         int p = usernamePassword.indexOf(":");
-         if (p != -1) 
-         {
-            deposit.setUsername(usernamePassword.substring(0, p));
-            deposit.setPassword(usernamePassword.substring(p + 1));
-            user = util.getAccountUser(deposit.getUsername(), deposit.getPassword());
-            this.pubMan.setCurrentUser(user);
-         } 
-      } 
-      else 
-      {
-          String s = "Basic realm=\"SWORD\"";
-          response.setHeader("WWW-Authenticate", s);
-          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-          return;
-      }
-
-      // Deposit --------------------------------------------------------------------------
-      try {
-
-            //Check if login was successfull
-            if (this.pubMan.getCurrentUser() == null)
-            {
-                this.logger.info("User: " + deposit.getUsername() + " not recognized.");
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User: " + deposit.getUsername() + " not recognized.");
-                this.pubMan.setCurrentUser(null);
-                return;
-            }
-            this.logger.info("Authentification sucessfull");
-            
-            //Check if collection was provided
-            this.collection = request.getParameter("collection");
-            if (this.collection == null || this.collection.equals(""))
-            {
-                this.logger.info("No collection provided in request.");
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No collection provided in request.");
-                this.pubMan.setCurrentUser(null);
-                return;
-            }           
-            //Check if user has depositing rights for this collection
-            else
-            {
-                this.logger.info("Deposit request for collection: " + this.collection);
-                
-                if (!util.checkCollection(this.collection, user))
-                {
-                    this.logger.error("User: " + deposit.getUsername() + 
+       try 
+       {     
+           // Deposit --------------------------------------------------------------------------    
+           //Check if login was successfull
+           if (this.pubMan.getCurrentUser() == null && validDeposit)
+           {
+               this.errorDoc.setSummary("Login user: "+deposit.getUsername()+" failed.");
+               this.errorDoc.setErrorDesc(swordError.AuthentificationFailure);
+               validDeposit = false;
+           }
+             
+           //Check if collection was provided    
+           this.collection = request.getParameter("collection");
+           if ((this.collection == null || this.collection.equals("")) && validDeposit)
+           {
+               this.collection = request.getParameter("collection");
+               this.errorDoc.setSummary("No collection provided in request.");
+               this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
+               validDeposit = false;
+           }           
+           
+           //Check if user has depositing rights for this collection
+           else
+           {          
+               if (!util.checkCollection(this.collection, user) && validDeposit)
+               {
+                   this.errorDoc.setSummary("User: " + deposit.getUsername() + 
                             " does not have depositing rights for collection " + this.collection +".");
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "User: " + deposit.getUsername() + 
-                            " does not have depositing rights for collection " + this.collection +".");
-                   this.pubMan.setCurrentUser(null);
-                   return;
-                }
+                   this.errorDoc.setErrorDesc(swordError.AuthorisationFailure);
+                   validDeposit = false;
+               }
+           }
+
+           deposit.setFile(request.getInputStream());
+
+           // Set the X-No-Op header
+           String noop = request.getHeader("X-No-Op");
+           if ((noop != null) && (noop.equals("true"))) 
+           {
+              deposit.setNoOp(true);
+           } 
+           else 
+           {
+              deposit.setNoOp(false);
+           }
+
+           // Set the X-Verbose header
+           String verbose = request.getHeader("X-Verbose");
+           if ((verbose != null) && (verbose.equals("true"))) 
+           {
+              deposit.setVerbose(true);
+           } 
+           else 
+           {
+              deposit.setVerbose(false);
+           }
+             
+           //Check X-On-Behalf-Of header
+           String mediation = request.getHeader("X-On-Behalf-Of");
+           if ((mediation != null) && (mediation.equals(""))) 
+           {
+               this.errorDoc.setSummary("Mediation not supported.");
+               this.errorDoc.setErrorDesc(swordError.MediationNotAllowed);
+               validDeposit = false;
+           }   
+           
+           if (validDeposit)
+           {
+               // Get the DepositResponse
+               dr = this.pubMan.doDeposit(deposit, this.collection);
+           }
+       } 
+       catch (SWORDAuthenticationException sae) 
+       {
+           response.sendError(HttpServletResponse.SC_FORBIDDEN, this.getError());
+           this.logger.error(sae.toString());
+           validDeposit = false;
+           
+       } 
+       catch (SWORDContentTypeException e)
+       {
+           this.errorDoc.setSummary("File format not supported.");
+           this.errorDoc.setErrorDesc(swordError.ErrorContent);
+           validDeposit = false;
+       }
+       catch (ContentStreamNotFoundException e)
+       {
+           this.errorDoc.setSummary("No metadata File was found.");
+           this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
+           validDeposit = false;
+       }
+       catch (ItemInvalidException e)
+       {
+           ValidationReportItemVO itemReport = null;
+           ValidationReportVO report = e.getReport();
+           String error = "";
+           for (int i = 0; i < report.getItems().size(); i++)
+           {
+               itemReport = report.getItems().get(i);                   
+               error +=  itemReport.getContent() + "\n";
+           }
+           this.errorDoc.setSummary(error);
+           this.errorDoc.setErrorDesc(swordError.ValidationFailure);
+           validDeposit = false;
+       }
+       catch (PubItemStatusInvalidException e)
+       {
+           this.errorDoc.setSummary("Provided item has wrong status.");
+           this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
+           validDeposit = false;
+       }
+       catch (Exception ioe) 
+       {
+          this.errorDoc.setSummary("An internal server error occurred.");
+          this.errorDoc.setErrorDesc(swordError.InternalError);
+          validDeposit = false;
+       } 
+       try
+       {
+           //Write response atom
+           if (validDeposit)
+           {
+               response.setStatus(dr.getHttpResponse());      
+               response.setContentType("application/xml");
+               response.setCharacterEncoding("UTF-8");
+               PrintWriter out = response.getWriter();           
+               out.write(dr.marshall());            
+               out.flush();
+           }
+           //Write error document     
+           else
+           {
+               String errorXml = this.errorDoc.createErrorDoc();
+               response.setStatus(this.errorDoc.getStatus());      
+               response.setContentType("application/xml");
+               response.setCharacterEncoding("UTF-8");
+               PrintWriter out = response.getWriter(); 
+               out.write(errorXml); 
+               out.flush();
             }
+       }
+       catch(Exception e)
+       {
+           this.logger.error("Error document could not be created.", e);
+           throw new RuntimeException();
+       }
+       
+       this.pubMan.setCurrentUser(null);
+     }
 
-            deposit.setFile(request.getInputStream());
-
-            // Set the X-No-Op header
-            String noop = request.getHeader("X-No-Op");
-            if ((noop != null) && (noop.equals("true"))) 
-            {
-               deposit.setNoOp(true);
-            } 
-            else 
-            {
-               deposit.setNoOp(false);
-            }
-
-            // Set the X-Verbose header
-            String verbose = request.getHeader("X-Verbose");
-            if ((verbose != null) && (verbose.equals("true"))) 
-            {
-               deposit.setVerbose(true);
-            } 
-            else 
-            {
-               deposit.setVerbose(false);
-            }
-
-            // Get the DepositResponse
-            DepositResponse dr = this.pubMan.doDeposit(deposit, this.collection);
-
-            response.setStatus(dr.getHttpResponse());      
-            response.setContentType("application/xml");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter out = response.getWriter();           
-            out.write(dr.marshall());
-            out.flush();
-            
-      } 
-      catch (SWORDAuthenticationException sae) 
-      {
-          response.sendError(HttpServletResponse.SC_FORBIDDEN, this.getError());
-          this.logger.error(sae.toString());
-      } 
-      catch (SWORDContentTypeException e)
-      {
-          response.sendError(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, this.getError());
-          this.logger.error("Internal error.", e);
-      }
-      catch (Exception ioe) 
-      {
-          response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, this.getError());
-         this.logger.error(ioe.toString());
-      } 
-      this.pubMan.setCurrentUser(null);
-    }
    
    /**
     * Utiliy method to return the username and password (separated by a colon ':')
@@ -256,5 +324,15 @@ public class PubManDepositServlet extends HttpServlet
     public void setError(String error)
     {
         this.error = error;
+    }
+    
+    public PubManSwordErrorDocument getErrorDoc()
+    {
+        return errorDoc;
+    }
+
+    public void setErrorDoc(PubManSwordErrorDocument errorDoc)
+    {
+        this.errorDoc = errorDoc;
     }
 }

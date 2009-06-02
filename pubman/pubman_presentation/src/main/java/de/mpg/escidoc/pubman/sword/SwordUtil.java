@@ -79,6 +79,7 @@ import org.w3.atom.Source;
 import org.w3.atom.Summary;
 import org.w3.atom.Title;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidItemStatusException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -377,7 +378,7 @@ public class SwordUtil extends FacesBean
      * @throws NamingException 
      * @throws SWORDContentTypeException 
      */
-    public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws SWORDContentTypeException, ContentStreamNotFoundException, Exception
+    public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         String item = null;
         Vector <byte[]> attachements = new Vector<byte[]>();
@@ -458,7 +459,7 @@ public class SwordUtil extends FacesBean
      * @throws TechnicalException
      * @throws SWORDContentTypeException 
      */
-    private PubItemVO processFiles(String item, Vector<byte[]> files, Vector<String> names, AccountUserVO user) throws SWORDContentTypeException, ContentStreamNotFoundException, Exception
+    private PubItemVO processFiles(String item, Vector<byte[]> files, Vector<String> names, AccountUserVO user) throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         PubItemVO itemVO = null;
 
@@ -494,7 +495,11 @@ public class SwordUtil extends FacesBean
         catch (Exception e)
         {
            this.logger.error("Transformation to PubItem failed.", e);
-           throw new SWORDContentTypeException();
+           ValidationReportItemVO itemReport = new ValidationReportItemVO();
+           itemReport.setContent("Error transforming item into eSciDoc Publication Item.");
+           ValidationReportVO report = new ValidationReportVO();
+           report.getItems().add(itemReport);
+           throw new ItemInvalidException(report);
         }       
         
         //Attach files to the item
@@ -756,7 +761,7 @@ public class SwordUtil extends FacesBean
 
     public SWORDEntry createResponseAtom (PubItemVO item, Deposit deposit, boolean valid)
     {
-        SWORDEntry se = new SWORDEntry();
+        SWORDEntry se = new SWORDEntry();        
         PubManSwordServer server = new PubManSwordServer();
 
         //This info can only be filled if item was successfully created
@@ -833,7 +838,7 @@ public class SwordUtil extends FacesBean
         return se;
     }
 
-    public String validateItem(PubItemVO item) throws NamingException
+    public ValidationReportVO validateItem(PubItemVO item) throws NamingException
     {
         InitialContext initialContext = new InitialContext();
         ItemValidating itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
@@ -848,27 +853,27 @@ public class SwordUtil extends FacesBean
         try
         {
             report = itemValidating.validateItemObject(item, this.getValidationPoint());
-            if (!report.isValid())
-            {
-                for (int i = 0; i < report.getItems().size(); i++)
-                {
-                    itemReport = report.getItems().get(i);                   
-                    if (itemReport.isRestrictive())
-                    {
-                        error +=  itemReport.getContent() + "\n";
-                    }
-                }
-            }
-            else 
-            {
-                error = null;
-            }
+//            if (!report.isValid())
+//            {
+//                for (int i = 0; i < report.getItems().size(); i++)
+//                {
+//                    itemReport = report.getItems().get(i);                   
+//                    if (itemReport.isRestrictive())
+//                    {
+//                        error +=  itemReport.getContent() + "\n";
+//                    }
+//                }
+//            }
+//            else 
+//            {
+//                error = null;
+//            }
         }
         catch (Exception e)
         {
             this.logger.error("Validation error", e);
         }
-        return error;
+        return report;
     }
     
     
