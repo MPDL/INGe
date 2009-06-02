@@ -124,7 +124,7 @@ function bunny() {
 
 function raiseBunny() {
 	if(BrowserDetect.browser == 'Firefox') {
-		$('link[id]:first').before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/PubWoman/styles/theme.css" id="PubWoman" type="text/css" rel="alternate stylesheet"/>');
+		$('link[id]:first').before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
 		applyCookieStyle();
 	};
 }
@@ -153,9 +153,9 @@ function setStyle(styleValue) {
 }
 
 function showPubWomanStyle() {
-	$('#PubWoman').attr('title','PubWoman');
+	$('#PubWomanTheme').attr('title','PubWoman');
 	enableHiddenStyle();
-	setStyle('PubWoman');
+	setStyle('PubWomanTheme');
 	alert('PubWoman style activated! Happy easter!');
 }
 
