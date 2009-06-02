@@ -336,6 +336,16 @@
       						<artifactId>xom</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>commons-fileupload</groupId>
+      						<artifactId>commons-fileupload</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>commons-io</groupId>
+      						<artifactId>commons-io</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
                     </modules>
                 </configuration>
             </plugin>
@@ -465,7 +475,10 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.20-SNAPSHOT</version>            <scope>compile</scope>            <type>war</type>        </dependency>
+            <version>1.0.20-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition_presentation</artifactId>
@@ -734,6 +747,18 @@
       		<version>1.2.1</version>
       		<scope>compile</scope>
     	</dependency>
+    	<dependency>
+	    	<groupId>commons-fileupload</groupId>
+	    	<artifactId>commons-fileupload</artifactId>
+	    	<version>1.2</version>
+	    	<scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>commons-io</groupId>
+	    	<artifactId>commons-io</artifactId>
+	    	<version>1.4</version>
+	    	<scope>compile</scope>
+	    </dependency>
     </dependencies>
 
     <profiles>
@@ -795,10 +820,10 @@
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
+                                        <!-- <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
                                             out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
-                                        </copy>
+                                        </copy> -->
 
                                     </tasks>
                                 </configuration>
