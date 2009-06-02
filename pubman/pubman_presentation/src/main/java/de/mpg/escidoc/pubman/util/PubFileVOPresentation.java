@@ -486,7 +486,7 @@ public class PubFileVOPresentation extends FacesBean
     public boolean getShowEmbargoDate()
     {
     	boolean showEmbargoDate = false;
-    	if(file.getVisibility().equals(FileVO.Visibility.PRIVATE))
+    	if(FileVO.Visibility.PRIVATE.equals(file.getVisibility()) || FileVO.Visibility.AUDIENCE.equals(file.getVisibility()))
     	{
     		showEmbargoDate = true;
     	}
