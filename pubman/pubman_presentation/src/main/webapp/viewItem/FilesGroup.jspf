@@ -58,6 +58,16 @@
 				</span>
 			</h:panelGroup>
 
+<%-- File description --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputText value="#{file.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+				</span>
+			</h:panelGroup>
+
 <%-- File visibility, Embargo Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">

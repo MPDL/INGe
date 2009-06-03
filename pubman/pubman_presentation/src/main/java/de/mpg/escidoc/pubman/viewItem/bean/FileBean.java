@@ -359,13 +359,23 @@ public class FileBean extends FacesBean
 	}
     
     public String getFileName() {
-		String fileName = "";
-		if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
-		{
-			fileName = file.getDefaultMetadata().getTitle().getValue();
-		}
-    	return fileName;
-	}
+        String fileName = "";
+        if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
+        {
+            fileName = file.getDefaultMetadata().getTitle().getValue();
+        }
+        return fileName;
+    }
+    
+    public String getFileDescription()
+    {
+        String fileDescription = "";
+        if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getDescription() != null)
+        {
+            fileDescription = file.getDefaultMetadata().getDescription();
+        }
+        return fileDescription;
+    }
     
     public String getFileLink() {
 		return file.getContent();

@@ -84,8 +84,6 @@ public class AffiliationDetailPage extends FacesBean
         }
         catch (Exception e)
         {
-            Login login = (Login) getSessionBean(Login.class);
-            login.forceLogout();
             error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         }
 	}
