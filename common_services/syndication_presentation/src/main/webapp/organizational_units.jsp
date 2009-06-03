@@ -44,7 +44,7 @@
 	// generation of the SELECT for Organizational Units
 	String ou = request.getParameter("ou");
 	
-    TreeMap<String, String> outm = Utils.getOrganizationUnitTree(); 
+    TreeMap<String, String> outm = Utils.recalcOrganizationUnitTree(); 
 	String selOrgUnit="";
 	boolean flag = Utils.checkVal(ou);
 	for( Map.Entry<String, String> entry: outm.entrySet() )
@@ -71,6 +71,7 @@
 			+ (type.equals("rss_2.0") ? "SELECTED" : "") 
 		+ ">"+ type +"</option>\n";
 	}
+
 	
 	
     String urlPrefix = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") + request.getContextPath() + "/feed";
@@ -80,7 +81,15 @@
 	for ( String feedType: new String[]{"rss_2.0", "atom_1.0"} )
 		for( Map.Entry<String, String> entry: outm.entrySet() )
 		{
-			feedLinks += "<link href=\""
+			feedLinks += 
+					synd.getFeedRelLink(
+						urlPrefix + "/"
+						+ feedType + "/publications/organization/"
+						+ entry.getValue() 
+					) 
+				+ "\n";
+  
+			/*feedLinks += "<link href=\""
 				+ urlPrefix + "/"
 				+ feedType + "/publications/organization/"
 				+ entry.getValue() + "\""
@@ -91,7 +100,8 @@
 				+ entry.getKey()
 				+ " | "
 				+ feedType 
-				+ "\" />\n";  
+				+ "\" />\n";*/
+
 		}
 		
     

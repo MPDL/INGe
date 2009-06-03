@@ -54,17 +54,14 @@
 	String feedLinks = "";
 	for ( String feedType: feedTypes )
 	{
-		feedLinks += "<link href=\""
-			+ String.format(urlTempl, urlPrefix, feedType) + "\"" 
-			+ " rel=\"alternate\" type=\"application/"
-			+ (feedType.toLowerCase().contains("atom") ? "atom" : "rss")
-			+ "+xml\" title=\""
-			+ "eSciDoc Syndication Service | Recent Releases | "
-			+ feedType 
-			+ "\" />\n";  
+		feedLinks +=
+			synd.getFeedRelLink(
+				String.format(urlTempl, urlPrefix, feedType)
+			)
+			+ "\n";
 	}    
 	
-	String feedImage = "<img src=\"http://kb.mozillazine.org/images/Live_bookmarks.png\" />";
+	String feedImage = "<img src=\"./resources/Live_bookmarks.png\" />";
 %>
 <html>
 	<head>

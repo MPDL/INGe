@@ -39,6 +39,15 @@
  * $LastChangedDate$ 
  */
 %>
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%
+	String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
+/*	
+	String searchPath = urlBase + "/search/SearchAndExport";
+	String feedPath = urlBase + "/syndication/feed";
+	String feedImage = "<img src=\"http://kb.mozillazine.org/images/Live_bookmarks.png\" />";
+*/
+%>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />	
@@ -62,6 +71,9 @@
 							</li>
 							<li>
 								 <a href="organizational_units.jsp">Recent Releases for a specific Organizational Unit.</a>  
+							</li>
+							<li>
+								 <a href="<%= urlBase %>/search/SearchAndExport_rest_sample.jsp">eSciDoc search can be presented as feed.</a>  
 							</li>
 						</ul>
 					</div>
