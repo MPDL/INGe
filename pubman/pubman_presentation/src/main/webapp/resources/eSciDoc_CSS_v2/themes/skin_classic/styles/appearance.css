@@ -30,6 +30,39 @@
 * All rights reserved. Use is subject to license terms.
 */
 
+/*
+ALL COLORS USED
+
+BACKGROUND		#E7E8E2
+
+LINK COLOR		#307086
+AUTHOR/ORG BG	#5A8D9E
+LIGHT LINES		#ACC6CF
+DROPDOWN/BG		#E0EAED
+INPUT BG		#F4F8F9
+
+PAGE TITLE		#183944
+
+ERROR MSG		#C65D1F
+
+SUCCESS MSG		#66852C
+
+DEACTIVATED		#777777
+
+DEA LIGHT		#C9C9C9
+
+TEXT			#515151
+
+TEXT LIGHT		#B9B9B9
+
+MOUSEOVER		#222222
+
+INPUT TEXT		#A7A7A7
+
+FORM BG			#FFFFFF
+
+*/
+
 /*FONT DEFINITION*/
 	/*HEADER*/
 		/*H1*/
@@ -89,7 +122,7 @@
 	}
 	
 	input, button, textarea, select {
-		color: #000000;
+		color: #A7A7A7;
 	}
 	
 	a, a:visited {
@@ -110,10 +143,14 @@
 	input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		cursor: pointer;
 	}
-	
+
 	input, textarea, select {
 		border-style: solid;
 		border-color: #515151;
+	}
+	
+	input[type="text"], textarea, select {
+		background-color: #F4F8F9;
 	}
 	
 	a:hover, a:focus {
@@ -225,7 +262,7 @@
 	}
 	
 	.rangeSelector .actual, .rangeSelector .selectLine:hover {
-		background-color: #9B9D86 !important;
+		background-color: #5A8D9E !important;
 		color: #FFFFFF !important;
 	}
 
@@ -259,24 +296,24 @@
 	
 /* INFO PAGE*/
 /*
-.infoPage {
-	border-style: solid;
-	border-color: #B9B9B9;
-}
-
-.infoPage .mainSection h2 {
-	border-style: solid;
-	border-color: #B9B9B9;
-}
+	.infoPage {
+		border-style: solid;
+		border-color: #B9B9B9;
+	}
+	
+	.infoPage .mainSection h2 {
+		border-style: solid;
+		border-color: #B9B9B9;
+	}
 */
-.infoPage .sideSection {
-	border-style: solid;
-	border-left-color: #B9B9B9;
-}
-.infoPage .videoPreview {
-	border-style: solid;
-	border-color: #000000;
-}
+	.infoPage .sideSection {
+		border-style: solid;
+		border-left-color: #B9B9B9;
+	}
+	.infoPage .videoPreview {
+		border-style: solid;
+		border-color: #222222;
+	}
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/
@@ -322,7 +359,7 @@
 	}
 
 	.selectMenu a:hover, .selectMenu input:hover {
-		background-color: #9B9D86;
+		background-color: #5A8D9E;
 		color: #FFFFFF;
 	}
 	
@@ -355,7 +392,6 @@
 		background-color: #ffffff;
 	}
 */	
-	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
@@ -404,7 +440,7 @@
 	}
 	
 	.fullItem li, .itemBlock .itemLine {
-		border-top-color: #B9B9B9;
+		border-top-color: #C9C9C9;
 	}
 	
 	.itemBlock .newBlock {
@@ -426,7 +462,7 @@
 	.fullItem .groupBtn {
 		/*font-weight: bold;*/
 		color: #307086;
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 		text-align: left;
 	}
 	
@@ -442,7 +478,7 @@
 	
 /*SINGLE ELEMENTS*/
 	.dateJSLabel {
-		background-color: #E7E8E2;
+		background-color: #E0EAED;
 		color: #515151;
 	}
 	
@@ -453,7 +489,7 @@
 	
 	.replace .pulldown {
 		border-color: #ACC6CF !important;
-		background-color: #E7E8E2 !important;
+		background-color: #E0EAED !important;
 	}
 	
 	.replace .open, .replace .close {
@@ -461,7 +497,7 @@
 	}
 	
 	.replace .actual, .replace .selectLine:hover {
-		background-color: #9B9D86 !important;
+		background-color: #5A8D9E !important;
 		color: #FFFFFF !important;
 	}
 
@@ -500,7 +536,7 @@
 	
 	.activeButton:hover {
 		color: #FFFFFF !important;
-		background-color: #183944;
+		background-color: #222222;
 		border-color: #222222;
 	}
 	
@@ -509,7 +545,7 @@
 	.ac_results {
 		border-style: solid;
 		border-color: #ACC6CF;
-		background-color: #ECF2F4;
+		background-color: #E7E8E2;
 	}
 	
 	.ac_results li {
@@ -520,7 +556,7 @@
 	
 	.ac_over {
 		cursor: pointer;
-		background-color: #9B9D86;
+		background-color: #5A8D9E;
 	}
 	
 	.ac_match {
@@ -528,7 +564,7 @@
 		font-weight: bold;
 		color: #000000;
 	}
-	
+
 /*BLANK INPUT*/
 	.blankInput {
 		color: #B9B9B9;
@@ -586,6 +622,6 @@
 	
 /*UNDER REWORK*/
 
-.underRework {
-	background-color: #F43E71 !important;
-}
+	.underRework {
+		background-color: #F43E71 !important;
+	}

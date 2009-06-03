@@ -57,7 +57,7 @@ TEXT LIGHT		#BAB4B3
 
 MOUSEOVER		#382926
 
-INPUT TEXT		#000000
+INPUT TEXT		#AFA9AB
 
 FORM BG			#FFFFFF
 
@@ -122,7 +122,7 @@ FORM BG			#FFFFFF
 	}
 	
 	input, button, textarea, select {
-		color: #000000;
+		color: #AFA9AB;
 	}
 	
 	a, a:visited {
@@ -384,12 +384,12 @@ FORM BG			#FFFFFF
 	}
 	
 	.fullItem, .listBackground, .listBackground .seperator {
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 	}
 
 /*	
 	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 	}
 */	
 		/*ITEM HEADER*/
@@ -462,7 +462,7 @@ FORM BG			#FFFFFF
 	.fullItem .groupBtn {
 		/*font-weight: bold;*/
 		color: #147DA2;
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 		text-align: left;
 	}
 	
@@ -601,7 +601,7 @@ FORM BG			#FFFFFF
 	
 	.fixMessageBlockBtn, .fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
 		float: right;
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 	}
 	
 /*ERROR OR WARNING MESSAGES*/
