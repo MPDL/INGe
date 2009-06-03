@@ -418,6 +418,24 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
+     * Escapes problematic Javascript characters ("'", "\n").
+     *
+     * @param cdata A String that might contain problematic Javascript characters.
+     * @return The escaped string.
+     */
+    public static String javascriptEscape(String cdata)
+    {
+        if (cdata == null)
+        {
+            return null;
+        }
+        else
+        {
+            return cdata.replace("'", "\\'").replace("\n", "\\n").trim();
+        }
+    }
+
+    /**
      * Changes all occurrences of oldPat to newPat.
      *
      * @param in A String that might contain problematic HTML characters.

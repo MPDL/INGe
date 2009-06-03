@@ -102,6 +102,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -2087,6 +2088,29 @@ public class ViewItemFull extends FacesBean
         return false;
     }
 
+    public boolean getHasAudience()
+    {
+        if (this.pubItem == null)
+        {
+            return false;
+        }
+        else if (this.pubItem.getPublicStatus() != State.RELEASED)
+        {
+            return false;
+        }
+        else
+        {
+            for (FileVO file : this.pubItem.getFiles())
+            {
+                if (file.getVisibility() == Visibility.AUDIENCE)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    
     public UIXIterator getSourceCreatorOrganizationsIterator()
     {
         return this.sourceCreatorOrganizationsIterator;

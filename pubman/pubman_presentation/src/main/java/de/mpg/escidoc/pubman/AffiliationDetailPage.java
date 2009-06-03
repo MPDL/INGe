@@ -56,18 +56,18 @@ public class AffiliationDetailPage extends FacesBean
     private static final long serialVersionUID = 1L;
     public static String BEAN_NAME = "AffiliationDetailPage";
     
-	private static Logger logger = Logger.getLogger(AffiliationDetailPage.class);
-	private AffiliationVOPresentation affiliation;
+    private static Logger logger = Logger.getLogger(AffiliationDetailPage.class);
+    private AffiliationVOPresentation affiliation;
     private XmlTransforming xmlTransforming;
 
-	/**
-	 * Construct a new Page bean instance.
-	 */
-	public AffiliationDetailPage()
+    /**
+     * Construct a new Page bean instance.
+     */
+    public AffiliationDetailPage()
     {
-	    this.init();
-	    try
-	    {
+        this.init();
+        try
+        {
             InitialContext initialContext = new InitialContext();
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             
@@ -86,10 +86,10 @@ public class AffiliationDetailPage extends FacesBean
         {
             error(getMessage("AffiliationDetailPage_detailsNotRetrieved"));
         }
-	}
+    }
 
-	
-	public void init(){}
+    
+    public void init(){}
 
 
     public void setAffiliation(AffiliationVOPresentation affilitation)

@@ -86,6 +86,11 @@
 	</converter>
 	
 	<converter>
+		<converter-id>JavascriptEscapeConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.JavascriptEscapeConverter</converter-class>
+	</converter>
+	
+	<converter>
 		<converter-id>GenreLabelConverter</converter-id>
 		<converter-class>de.mpg.escidoc.pubman.util.GenreLabelConverter</converter-class>
 	</converter>
