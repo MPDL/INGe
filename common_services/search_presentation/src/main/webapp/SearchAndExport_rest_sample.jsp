@@ -30,9 +30,15 @@
 */
 %>
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%
+	String urlBase = (request.getProtocol().contains("HTTPS") ? "https" : "http") + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : "");
+	String searchPath = urlBase + "/search/SearchAndExport";
+	String feedPath = urlBase + "/syndication/feed";
+	String feedImage = "<img src=\""+ urlBase +"/syndication/resources/Live_bookmarks.png\" />";
+%>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
+		<link rel="stylesheet" type="text/css" href="<%= urlBase %>/syndication/resources/escidoc-css/css/main.css" />
 		<title>eSciDoc SearchandExport Service</title>
 		<script type="text/javascript" id="script">
 
@@ -52,6 +58,19 @@
 				var req = document.form.url.value  + queryString;
 				
 				document.getElementById('result').innerHTML = req;   
+
+				document.getElementById('feeds').style.visibility='visible';
+				
+				setFeedAnchor('rss_0.9');
+				setFeedAnchor('rss_0.91N');
+				setFeedAnchor('rss_0.91U');
+				setFeedAnchor('rss_0.92');
+				setFeedAnchor('rss_0.93');
+				setFeedAnchor('rss_0.94');
+				setFeedAnchor('rss_1.0');
+				setFeedAnchor('rss_2.0');
+				setFeedAnchor('atom_0.3');
+				setFeedAnchor('atom_1.0');
 				
 				//window.open(req,'','height=100, width=100, toolbar=no, scrollbars=yes, resizable=yes');
 				location.href = req;
@@ -61,6 +80,11 @@
 			{
 				var efv = document.form.exportFormat.value;
 				document.form.outputFormat.disabled =  ! (efv == "APA" || efv == "AJP" ); 
+			}
+							
+			function setFeedAnchor(type)
+			{
+				document.getElementById(type).href = '<%= feedPath %>/' + type +'/search?q=' + document.form.cqlQuery.value;
 			}				
 		</script>
 	</head>
@@ -130,7 +154,7 @@
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl">This is the address where to send to:</label><br/>
-				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/SearchAndExport"/>
+				<input type="text" name="url" size="100" value="<%= searchPath %>"/>
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl">Then submit it here:</label><br/>
@@ -140,6 +164,24 @@
 				<label class="colLbl">The complete URI:</label><br/>
 				<pre id="result" style="background-color: #EEEEEE"></pre>
 			</div>
+			<div id="feeds" class="editItemSingleCol" style="visibility: hidden;">
+				<h2 class="topSpace">
+					RSS/ATOM feeds for the search.
+				</h2>
+				<label class="colLbl">The following feeds are available for the search:</label><br/>
+				<ul>
+					<li><a id="rss_0.9">RSS, version 0.9 <%= feedImage %></a></li>
+					<li><a id="rss_0.91N">RSS, version 0.91N <%= feedImage %></a></li>
+					<li><a id="rss_0.91U">RSS, version 0.91U <%= feedImage %></a></li>
+					<li><a id="rss_0.92">RSS, version 0.92 <%= feedImage %></a></li>
+					<li><a id="rss_0.93">RSS, version 0.93 <%= feedImage %></a></li>
+					<li><a id="rss_0.94">RSS, version 0.94 <%= feedImage %></a></li>
+					<li><a id="rss_1.0">RSS, version 1.0 <%= feedImage %></a></li>
+					<li><a id="rss_2.0">RSS, version 2.0 <%= feedImage %></a></li>
+					<li><a id="atom_0.3">Atom, version 0.3 <%= feedImage %></a></li>
+					<li><a id="atom_1.0">Atom, version 1.0 <%= feedImage %></a></li>
+				</ul>
+			</div>			
 		</form>
 		</div>
 			</div>
