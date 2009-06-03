@@ -68,6 +68,10 @@ There are following limitations for the feeds:
 			Permanent link to the feed under the link to the originated site
 		-->
 		<uri>${baseUrl}/syndication/feed/${feedType}/releases</uri>
+		<!--
+			html rel link template   
+		-->
+		<relLink>eSciDoc Syndication Service | Search as Feed | ${feedType}</relLink>
 		
 		<!-- Categories of the feed-->
 		<category>MPG</category>
@@ -112,8 +116,8 @@ There are following limitations for the feeds:
 				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
 				should be removed after fixing of the transformation problem with some testing items 
 			-->
-			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.public-status=released</query>
-			<sortKeys>escidoc.latest-release.date,,0</sortKeys>
+			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.property.public-status=released</query>
+			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
 		
@@ -130,6 +134,7 @@ There are following limitations for the feeds:
 		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
 		<link>${baseUrl}/pubman?entry=feed&amp;name=organizational_unit_${organizationId}&amp;type=${feedType}</link>
 		<uri>${baseUrl}/syndication/feed/${feedType}/publications/organization/${organizationId}</uri>
+		<relLink>eSciDoc Syndication Service | Organizational Unit | ${organizationName} | ${feedType}</relLink>
 		<category>MPG</category>
 		<category>PubMan</category>
 		<copyright>Copyright</copyright>
@@ -148,8 +153,44 @@ There are following limitations for the feeds:
 		<language>en-US</language>
 		
 		<entries context="cql">
-			<query>(escidoc.content-model.objid=escidoc:persistent4 and escidoc.any-organization-pids=${organizationId} and escidoc.public-status=released)</query>
-			<sortKeys>escidoc.latest-release.date,,0</sortKeys>
+			<query>(escidoc.content-model.objid=escidoc:persistent4 and escidoc.any-organization-pids=${organizationId} and escidoc.property.public-status=released)</query>
+			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
+			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
+		</entries>
+		
+		<caching>
+			<status>true</status>
+			<ttl>${escidoc.syndication.ttl}</ttl>
+		</caching>	
+			
+	</feed>
+	<feed>
+		<title>Search result as feed</title>
+		<description>Search result as feed, query: ${searchQuery}</description>
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<link>${baseUrl}/pubman?entry=feed&amp;name=search_as_feed&amp;type=${feedType}&amp;q=${searchQuery}</link>
+		<uri>${baseUrl}/syndication/feed/${feedType}/search?q=${searchQuery}</uri>
+		<relLink>eSciDoc Syndication Service | Search as Feed | ${searchQuery} | ${feedType}</relLink>
+		<category>MPG</category>
+		<category>PubMan</category>
+		<copyright>Copyright</copyright>
+		<author>
+			<name>makarenko@mpdl.mpg.de (Vlad Makarenko)</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>		
+		<image>
+			<title>Search result as feed: ${searchQuery}</title>
+			<url>http://localhost:8080/syndication/resources/escidoc-css/images/about.gif</url>
+			<link>${baseUrl}/pubman?entry=feed&amp;name=search_as_feed&amp;type=${feedType}&amp;q=${searchQuery}</link>
+			<description>Search result as feed</description>
+		</image>
+		
+		<language>en-US</language>
+		
+		<entries context="cql">
+			<query>(${searchQuery}) and escidoc.content-model.objid=escidoc:persistent4</query>
+			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
 			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>
 		</entries>
 		

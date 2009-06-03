@@ -47,6 +47,7 @@
 <!--		<call-method-rule pattern="identifier" methodname="setId" paramcount="0" />-->
 		<call-method-rule pattern="link" methodname="setLink" paramcount="0" />
 		<call-method-rule pattern="uri" methodname="setUri" paramcount="0" />
+		<call-method-rule pattern="relLink" methodname="setRelLink" paramcount="0" />
 		<call-method-rule pattern="copyright" methodname="setCopyright" paramcount="0" />
 		<call-method-rule pattern="language" methodname="setLanguage" paramcount="0" />
 		<call-method-rule pattern="entries/query" methodname="setQuery" paramcount="0" />
