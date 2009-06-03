@@ -79,6 +79,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 import de.mpg.escidoc.services.syndication.SyndicationException;
 import de.mpg.escidoc.services.syndication.Utils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 
 public class Feed extends SyndFeedImpl 
@@ -107,6 +108,9 @@ public class Feed extends SyndFeedImpl
 	
 	//List of the all available types for the feed
 	private String feedTypes;
+	
+	//template for html rel link generation
+	private String relLink;
 	
 	//uriMatcher is RegExp for URI matching
 	private String uriMatcher; 
@@ -215,6 +219,43 @@ public class Feed extends SyndFeedImpl
 	}
 	
 
+	
+	public String getRelLink() {
+		return relLink;
+	}
+
+
+	public void setRelLink(String relLink) {
+		this.relLink = relLink;
+	}
+
+	
+	public String generateRelLink(String uri) throws SyndicationException
+	{
+		
+		populateParamsFromUri(uri);
+		
+		String feedLink = "<link href=\""
+			+ StringEscapeUtils.escapeXml(uri) + "\"" 
+			+ " rel=\"alternate\" type=\""
+			+ getFeedMimeType((String)paramHash.get("${feedType}"))
+			+ "\" title=\""
+			+ StringEscapeUtils.escapeXml(populateFieldWithParams("relLink", getRelLink()))
+			+ "\" />\n";
+		
+		return feedLink;
+	}
+
+	
+	private String getFeedMimeType(String feedType) throws SyndicationException
+	{
+		Utils.checkName(feedType, "feedType is empty");
+		return  
+			"application/"
+			+ (feedType.toLowerCase().contains("atom") ? "atom" : "rss")
+			+"+xml";
+	}
+	
 	/**
 	 * CachingStatus getter.
 	 * @return <code>CachingStatus</code>
@@ -327,6 +368,8 @@ public class Feed extends SyndFeedImpl
 	{
 		String result = new String(uri);
 		
+		result = escapeUri(result);
+		
 		//property regexp in uri
 		String regexp = "(\\$\\{[\\w.]+?\\})";
 		
@@ -340,6 +383,11 @@ public class Feed extends SyndFeedImpl
 		setUriMatcher(result);
 	}
 	
+	
+	private String escapeUri(String uri)
+	{
+		return uri.replaceAll("\\?", "\\\\?");
+	}
 	
 	/**
 	 * Populate parameters with the values taken from the certain <code>uri</code> 
@@ -409,12 +457,12 @@ public class Feed extends SyndFeedImpl
 	{
 		
 		setTitle(populateFieldWithParams("title", getTitle()));
-		setDescription(
-					populateFieldWithParams("description", getDescription())
-		);
+		setDescription(populateFieldWithParams("description", getDescription()));
 		
 		setLink(populateFieldWithParams("link", getLink()));
 		setUri(populateFieldWithParams("uri", getUri()));
+		
+		setRelLink(populateFieldWithParams("relLink", getRelLink()));
 		
 		setQuery(populateFieldWithParams("query", getQuery()));
 		
@@ -464,7 +512,6 @@ public class Feed extends SyndFeedImpl
 		}
 		setFeedType( ft );
 
-		
 		populateFeedElementsWithParams();
 		
         setChannelLimitations();
@@ -751,6 +798,7 @@ public class Feed extends SyndFeedImpl
 	{
 		return "rss_0.9".equals(getFeedType()) || getFeedType().contains("rss_0.91");
 	}
+
 	
 	
 }

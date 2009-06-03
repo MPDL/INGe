@@ -120,6 +120,8 @@ public class Utils {
 	
 	private static XPath xpath = XPathFactory.newInstance().newXPath();
 	
+	private static TreeMap<String, String> outm = null;
+	
     /**
      * Returns true if val is not null && not empty String 
      * @param val 
@@ -346,52 +348,31 @@ public class Utils {
 	{
 		return cond ? cutString(str, maxLen, postfx) : str;
 	}    
-    
+
+	
 	
 	/**
-	 * Get sorted Organizational Unit Tree.
+	 * Get sorted Organizational Unit Tree. Please call {@link #recalcOrganizationUnitTree() recalcOrganizationUnitTree} 
+	 * to refresh <code>OrganizationUnitTree</code>
+	 * @return <code>TreeMap<String, String></code>: 
+	 * <code>keys</code> are unit names, <code>values</code> are objids
+	 * @throws Exception
+	 */	
+	public static TreeMap<String, String> getOrganizationUnitTree() throws SyndicationException
+	{
+		return outm == null ? recalcOrganizationUnitTree() : outm; 
+	}
+	
+	
+	/**
+	 * Recalculate sorted Organizational Unit Tree.
 	 * @return <code>TreeMap<String, String></code>: 
 	 * <code>keys</code> are unit names, <code>values</code> are objids   
 	 * @throws Exception
 	 */
-	public static TreeMap<String, String> getOrganizationUnitTree() throws SyndicationException
+	public static TreeMap<String, String> recalcOrganizationUnitTree() throws SyndicationException
 	{
 		
-//    	long start = System.currentTimeMillis();
-//		String result = performOragnizationalItemsSearch("escidoc.public-status=opened or escidoc.public-status=closed", "10000");
-//		logger.info("time1:" + (System.currentTimeMillis() - start));
-		
-//    	start = System.currentTimeMillis();
-		
-//        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-//        searchRetrieveRequest.setVersion("1.1");
-//        searchRetrieveRequest.setQuery("escidoc.public-status=opened or escidoc.public-status=closed");
-//        searchRetrieveRequest.setRecordPacking("xml");
-//        searchRetrieveRequest.setMaximumRecords(new NonNegativeInteger("10000"));
-//
-//        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidocou_all").searchRetrieveOperation(searchRetrieveRequest);
-////		logger.info("time2:" + (System.currentTimeMillis() - start));
-//
-////        String list = "";
-////    	start = System.currentTimeMillis();
-//        TreeMap<String, String> outm = new TreeMap<String, String>();        
-//        RecordsType records = searchResult.getRecords(); 
-//        if (records != null)
-//        {
-//            for (RecordType record : records.getRecord())
-//            {
-//                MessageElement[] messages = record.getRecordData().get_any();
-//                for (int i = 0; i < messages.length; i++)
-//                {
-//        			Document tmpDoc = createDocument(messages[i].getAsString());
-//        			String objid = Utils.xpathString("/search-result-record/organizational-unit/@objid", tmpDoc);
-//        			String name = Utils.xpathString("/search-result-record/organizational-unit/properties/name", tmpDoc);
-//        			outm.put(name, objid);
-//                }
-//            }
-//        }
-//		logger.info("time3:" + (System.currentTimeMillis() - start));
-//				
     	long start = System.currentTimeMillis(); 
 		String adminHandle;
 		try 
@@ -429,7 +410,7 @@ public class Utils {
 			throw new SyndicationException("Cannot retrieve Organizational Unit List:", e);
 		}
 		
-		TreeMap<String, String> outm = new TreeMap<String, String>(); 
+		outm = new TreeMap<String, String>(); 
 		NodeList nodes;
 		try {
 			nodes = Utils.xpathNodeList( "/organizational-unit-list/organizational-unit", orgUnitList );

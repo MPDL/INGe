@@ -100,6 +100,14 @@ public class RestServlet extends HttpServlet
     {
 
     	String url = req.getRequestURL().toString();
+    	String q = req.getQueryString();
+    	
+    	if (Utils.checkVal(q))
+    	{
+    		url += "?" + q;
+    	}
+    	
+    	
     	Feed feed = synd.getFeeds().matchFeedByUri( url );
     	
     	
@@ -143,129 +151,6 @@ public class RestServlet extends HttpServlet
 
     }
     
-//    @Override
-//    protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
-//    IOException
-//    {
-//    	
-//    	String url = req.getRequestURL().toString();
-//    	
-//    	byte[] result = null;
-//    	try 
-//    	{
-//    		result = synd.getFeed( url );
-//    	} 
-//    	catch (SyndicationException e) 
-//    	{
-//    		handleException(e, resp);
-//    	} 
-//    	catch (URISyntaxException e) 
-//    	{
-//    		resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong URI syntax: " + url);
-//    		return;
-//    	} 
-//    	catch (FeedException e) 
-//    	{
-//    		handleException(e, resp);
-//    	}
-//    	
-//    	if ( result == null || result.length == 0  )
-//    	{
-//    		resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Empty feed output for the URL: " + url);
-//    		return;
-//    	}
-//    	
-//    	
-//    	resp.setContentType("application/xml; charset=utf-8");
-//    	resp.setContentLength(result.length);
-//    	
-//    	//cache handling
-//    	String ttl = synd.getFeeds().matchFeedByUri( url ).getCachingTtl();
-//    	if (Utils.checkVal(ttl))
-//    	{
-//    		long ttlLong = Long.parseLong(ttl) * 1000L; 
-//    		resp.setHeader("control-cache",  "max-age=" + ttl + ", must-revalidate");
-//    		
-//    		DateFormat df = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");  
-//    		df.setTimeZone(TimeZone.getTimeZone("GMT"));
-//    		resp.setHeader("Expires",  df.format(new Date(System.currentTimeMillis() + ttlLong)) );
-//    	}
-//    	
-//    	
-//    	ByteArrayInputStream bais = new ByteArrayInputStream( result );
-//    	BufferedInputStream bis = new BufferedInputStream( bais );
-//    	byte[] ba = new byte[2048];
-//    	int len;
-//    	
-//    	OutputStream os = resp.getOutputStream();
-//    	while ( (len = bis.read( ba ))!=-1 )
-//    	{
-//    		os.write(ba, 0, len);
-//    	}
-//    	os.close();
-//    	
-//    }
-
-    /**
-     * {@inheritDoc}
-     */
-//    @Override
-//    protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
-//            IOException
-//    {
-//
-//    	String url = req.getRequestURL().toString();
-//
-//    	Writer result = null;
-//    	try 
-//    	{
-//    		result = synd.getFeedAsWriter( url );
-//    	} 
-//    	catch (SyndicationException e) 
-//    	{
-//    		handleException(e, resp);
-//    	} 
-//    	catch (URISyntaxException e) 
-//    	{
-//    		resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong URI syntax: " + url);
-//    		return;
-//    	} 
-//    	catch (FeedException e) 
-//    	{
-//    		handleException(e, resp);
-//    	}
-//
-//    	if ( result == null )
-//    	{
-//    		resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Empty feed output for the URL: " + url);
-//    		return;
-//    	}
-//    	
-//    	
-//    	resp.setContentType("application/xml; charset=utf-8");
-////    	resp.setContentLength(result.length);
-//
-//    	//cache handling
-//    	String ttl = synd.getFeeds().matchFeedByUri( url ).getCachingTtl();
-//    	if (Utils.checkVal(ttl))
-//    	{
-//        	long ttlLong = Long.parseLong(ttl) * 1000L; 
-//        	resp.setHeader("control-cache",  "max-age=" + ttl + ", must-revalidate");
-//
-//        	DateFormat df = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");  
-//        	df.setTimeZone(TimeZone.getTimeZone("GMT"));
-//        	resp.setHeader("Expires",  df.format(new Date(System.currentTimeMillis() + ttlLong)) );
-//    	}
-//
-//    	
-//    	Writer writer = resp.getWriter();
-//    	
-//    	writer.write(result.toString());
-//    	
-//    	result.close();
-//    	
-//
-//    }
     
     /**
      * Take care on an incoming exception.

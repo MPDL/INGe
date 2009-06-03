@@ -165,4 +165,20 @@ public class Syndication implements SyndicationHandler
 		
 	}
 	
+	public String getFeedRelLink(String uri) throws Exception 
+	{
+		Utils.checkName(uri, "Url is not defined");
+		
+		Feed f = feeds.matchFeedByUri( uri );
+		if ( f == null ) 
+			throw new SyndicationException("The feed for uri: " + uri + "has not been found");
+		
+		// make clone of the feed in order to hold instant feeds unchanged  
+		Feed cf = (Feed)f.clone();
+		
+		return cf.generateRelLink( uri );
+		
+	}
+	
+	
 }
