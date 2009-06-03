@@ -16,7 +16,7 @@
 	<!--*******************************
     PersonType
     ********************************-->
-	<xs:element name="person"/>
+	<xs:element name="person" type="PersonType"/>
 	<xs:complexType name="PersonType">
 		<xs:sequence>
 			<xs:element ref="eterms:complete-name"/>
