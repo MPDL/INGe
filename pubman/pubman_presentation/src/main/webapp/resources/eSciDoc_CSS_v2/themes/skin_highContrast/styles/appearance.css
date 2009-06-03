@@ -57,7 +57,7 @@ TEXT LIGHT		#AEAEAE
 
 MOUSEOVER		#1B1B1B
 
-INPUT TEXT		#A4A4A4
+INPUT TEXT		#000000
 
 FORM BG			#F2F8FC
 
@@ -122,7 +122,7 @@ FORM BG			#F2F8FC
 	}
 	
 	input, button, textarea, select {
-		color: #A4A4A4;
+		color: #000000;
 	}
 	
 	a, a:visited {
