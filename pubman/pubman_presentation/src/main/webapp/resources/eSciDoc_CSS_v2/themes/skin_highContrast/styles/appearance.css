@@ -30,6 +30,39 @@
 * All rights reserved. Use is subject to license terms.
 */
 
+/*
+ALL COLORS USED
+
+BACKGROUND		#FFFFFF
+
+LINK COLOR		#0076C9
+AUTHOR/ORG BG	#3391D4
+LIGHT LINES		#99C8E9
+DROPDOWN/BG		#D9EBF7
+INPUT BG		#F2F8FC
+
+PAGE TITLE		#004373
+
+ERROR MSG		#D80000
+
+SUCCESS MSG		#548E00
+
+DEACTIVATED		#777777
+
+DEA LIGHT		#C9C9C9
+
+TEXT			#343434
+
+TEXT LIGHT		#AEAEAE
+
+MOUSEOVER		#1B1B1B
+
+INPUT TEXT		#000000
+
+FORM BG			#F2F8FC
+
+*/
+
 /*FONT DEFINITION*/
 	/*HEADER*/
 		/*H1*/
@@ -110,14 +143,18 @@
 	input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		cursor: pointer;
 	}
-	
+
 	input, textarea, select {
 		border-style: solid;
 		border-color: #343434;
 	}
 	
+	input[type="text"], textarea, select {
+		background-color: #F2F8FC;
+	}
+	
 	a:hover, a:focus {
-		text-decoration: underline;
+	/*	text-decoration: underline; */
 		cursor: pointer;
 	}
 	
@@ -217,7 +254,7 @@
 	
 	.rangeSelector .pulldown {
 		border-color: #99C8E9 !important;
-		background-color: #E8F3FA !important;
+		background-color: #FFFFFF !important;
 	}
 	
 	.rangeSelector .open, .rangeSelector .close {
@@ -225,7 +262,7 @@
 	}
 	
 	.rangeSelector .actual, .rangeSelector .selectLine:hover {
-		background-color: #999999 !important;
+		background-color: #3391D4 !important;
 		color: #FFFFFF !important;
 	}
 
@@ -259,24 +296,24 @@
 	
 /* INFO PAGE*/
 /*
-.infoPage {
-	border-style: solid;
-	border-color: #AEAEAE;
-}
-
-.infoPage .mainSection h2 {
-	border-style: solid;
-	border-color: #AEAEAE;
-}
+	.infoPage {
+		border-style: solid;
+		border-color: #AEAEAE;
+	}
+	
+	.infoPage .mainSection h2 {
+		border-style: solid;
+		border-color: #AEAEAE;
+	}
 */
-.infoPage .sideSection {
-	border-style: solid;
-	border-left-color: #AEAEAE;
-}
-.infoPage .videoPreview {
-	border-style: solid;
-	border-color: #000000;
-}
+	.infoPage .sideSection {
+		border-style: solid;
+		border-left-color: #AEAEAE;
+	}
+	.infoPage .videoPreview {
+		border-style: solid;
+		border-color: #1B1B1B;
+	}
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/
@@ -322,7 +359,7 @@
 	}
 
 	.selectMenu a:hover, .selectMenu input:hover {
-		background-color: #999999;
+		background-color: #3391D4;
 		color: #FFFFFF;
 	}
 	
@@ -331,7 +368,7 @@
 	}
 	
 	.listBackground .ascSort, .listBackground .descSort {
-		background-color: #F2F2F2;
+		background-color: #F2F8FC;
 	}
 	
 	/*LIST ITEM*/
@@ -346,8 +383,12 @@
 		background-color: #99C8E9;
 	}
 	
-	.fullItem, .listBackground, .listBackground .seperator {
-		background-color: #ffffff;
+	.fullItem {
+		background-color: #FFFFFF;
+	}
+	
+	.listBackground, .listBackground .seperator {
+		background-color: #F2F8FC;
 	}
 
 /*	
@@ -355,7 +396,6 @@
 		background-color: #ffffff;
 	}
 */	
-	
 		/*ITEM HEADER*/
 		
 	.fullItem .itemHeadline b {
@@ -404,7 +444,7 @@
 	}
 	
 	.fullItem li, .itemBlock .itemLine {
-		border-top-color: #AEAEAE;
+		border-top-color: #C9C9C9;
 	}
 	
 	.itemBlock .newBlock {
@@ -442,7 +482,7 @@
 	
 /*SINGLE ELEMENTS*/
 	.dateJSLabel {
-		background-color: #E8F3FA;
+		background-color: #D9EBF7;
 		color: #343434;
 	}
 	
@@ -453,7 +493,7 @@
 	
 	.replace .pulldown {
 		border-color: #99C8E9 !important;
-		background-color: #E8F3FA !important;
+		background-color: #D9EBF7 !important;
 	}
 	
 	.replace .open, .replace .close {
@@ -461,7 +501,7 @@
 	}
 	
 	.replace .actual, .replace .selectLine:hover {
-		background-color: #999999 !important;
+		background-color: #3391D4 !important;
 		color: #FFFFFF !important;
 	}
 
@@ -500,7 +540,7 @@
 	
 	.activeButton:hover {
 		color: #FFFFFF !important;
-		background-color: #004373;
+		background-color: #1B1B1B;
 		border-color: #1B1B1B;
 	}
 	
@@ -509,7 +549,7 @@
 	.ac_results {
 		border-style: solid;
 		border-color: #99C8E9;
-		background-color: #E8F3FA;
+		background-color: #FFFFFF;
 	}
 	
 	.ac_results li {
@@ -520,7 +560,7 @@
 	
 	.ac_over {
 		cursor: pointer;
-		background-color: #999999;
+		background-color: #3391D4;
 	}
 	
 	.ac_match {
@@ -528,7 +568,7 @@
 		font-weight: bold;
 		color: #000000;
 	}
-	
+
 /*BLANK INPUT*/
 	.blankInput {
 		color: #AEAEAE;
