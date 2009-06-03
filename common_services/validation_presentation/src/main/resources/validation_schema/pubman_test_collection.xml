@@ -33,13 +33,13 @@
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
-	<iso:ns prefix="item" uri="http://www.escidoc.de/schemas/item/0.7"/>
+	<iso:ns prefix="item" uri="http://www.escidoc.de/schemas/item/0.8"/>
 	<iso:ns prefix="escidocMetadataRecords" uri="http://www.escidoc.de/schemas/metadatarecords/0.4"/>
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
 	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
-	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.7"/>
+	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.8"/>
 	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<iso:ns prefix="prop" uri="http://escidoc.de/core/01/properties/"/>
