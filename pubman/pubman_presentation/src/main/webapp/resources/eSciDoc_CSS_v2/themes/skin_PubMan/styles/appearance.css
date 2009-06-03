@@ -296,24 +296,24 @@ FORM BG			#FFFFFF
 	
 /* INFO PAGE*/
 /*
-.infoPage {
-	border-style: solid;
-	border-color: #BAB4B3;
-}
-
-.infoPage .mainSection h2 {
-	border-style: solid;
-	border-color: #BAB4B3;
-}
+	.infoPage {
+		border-style: solid;
+		border-color: #BAB4B3;
+	}
+	
+	.infoPage .mainSection h2 {
+		border-style: solid;
+		border-color: #BAB4B3;
+	}
 */
-.infoPage .sideSection {
-	border-style: solid;
-	border-left-color: #BAB4B3;
-}
-.infoPage .videoPreview {
-	border-style: solid;
-	border-color: #382926;
-}
+	.infoPage .sideSection {
+		border-style: solid;
+		border-left-color: #BAB4B3;
+	}
+	.infoPage .videoPreview {
+		border-style: solid;
+		border-color: #382926;
+	}
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/
@@ -440,7 +440,7 @@ FORM BG			#FFFFFF
 	}
 	
 	.fullItem li, .itemBlock .itemLine {
-		border-top-color: #BAB4B3;
+		border-top-color: #CDC9C8;
 	}
 	
 	.itemBlock .newBlock {
