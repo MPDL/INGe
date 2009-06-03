@@ -86,6 +86,7 @@ public class SyndicationTest
      * Test feeds explain XML
      */
     @Test
+//  @Ignore    
     public void checkExplainFeedsXML()
     {
     	assertTrue("Empty explainFeedsXml", Utils.checkVal(sh.explainFeedsXML()));
@@ -96,6 +97,7 @@ public class SyndicationTest
      * Check all supported feed formats by feeds in syndication manager
      */
     @Test
+//  @Ignore    
     public void checkGetFeedFormatList()
     { 
     	
@@ -125,7 +127,6 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-    @Ignore
     public void checkRecentReleasesFeed() throws Exception
     {
 
@@ -161,7 +162,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-    @Ignore
+//  @Ignore    
     public void checkOrganizationalUnitFeed() throws Exception
     {
     	
@@ -189,11 +190,51 @@ public class SyndicationTest
     }
     
     /**
+     * Check feed generation - Search as Feed 
+     * 
+     * @throws SyndicationException
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws FeedException
+     */
+    @Test
+//  @Ignore    
+    public void checkSearchAsFeed() throws Exception
+    {
+    	
+    	String uri;
+    	long start;
+    	String result;
+    	
+    	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
+    	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
+    	logger.info("pubman base url:" + pubman_url);
+    	
+    	for(String ft: sh.getFeedFormatList(sh.getFeedList()[1]))
+    	{
+    		
+    		uri = pubman_url + "/syndication/feed/" + ft + "/search?q=escidoc.metadata=\"APA\"";
+    		logger.info("URL: " + uri );
+    		start = System.currentTimeMillis();
+    		result = new String(sh.getFeed(uri));  
+    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
+    		assertTrue("Empty Feed",  Utils.checkVal(result) );
+    		logger.info("GENERATED FEED:\n" + result );
+//        	Utils.writeToFile("result_" + ft + ".xml", result); 
+        	
+        	logger.info("relLink:" + sh.getFeedRelLink(uri));
+        	
+    	}
+    	
+    	
+    }
+    
+    /**
      * Check OrganizationalUnitList retrieval
      * @throws Exception
      */
     @Test
-    @Ignore
+//  @Ignore
     public final void testOrganizationalUnitList() throws Exception     
 	{ 
     	 TreeMap<String, String> outm = Utils.getOrganizationUnitTree(); 
