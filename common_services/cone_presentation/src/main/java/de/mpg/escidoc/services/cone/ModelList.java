@@ -16,13 +16,17 @@ package de.mpg.escidoc.services.cone;
 
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -42,9 +46,16 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
  */
 public class ModelList
 {
+    
+    public enum Event
+    {
+        ONLOAD, ONSAVE
+    }
+    
     private static ModelList instance = null;
     private static final Logger logger = Logger.getLogger(ModelList.class);
     private Set<Model> list = new HashSet<Model>();
+    private Map<String, String> defaultNamepaces = new HashMap<String, String>();
 
     private ModelList() throws Exception
     {
@@ -98,6 +109,16 @@ public class ModelList
         return null;
     }
     
+    public Map<String, String> getDefaultNamepaces()
+    {
+        return defaultNamepaces;
+    }
+
+    public void setDefaultNamepaces(Map<String, String> defaultNamepaces)
+    {
+        this.defaultNamepaces = defaultNamepaces;
+    }
+
     /**
      * SAX handler.
      * 
@@ -128,7 +149,7 @@ public class ModelList
             }
             else if ("models/model/primary-identifier".equals(stack.toString()))
             {
-                currentService.setIdentifier(content.trim());
+                currentService.setIdentifier("".equals(content.trim()) ? null : content.trim());
             }
             else if ("models/model/result/pattern".equals(stack.toString()))
             {
@@ -151,6 +172,26 @@ public class ModelList
             }
             else if ("predicate".equals(name))
             {
+                if (attributes.getValue("value") == null)
+                {
+                    throw new SAXException("Predicate value for " + attributes.getValue("name") + " in model " + currentService.getName() + " must not be null");
+                }
+                else if (attributes.getValue("value").equals(currentService.getIdentifier()))
+                {
+                    if (!Boolean.parseBoolean(attributes.getValue("mandatory")))
+                    {
+                        throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must be mandatory");
+                    }
+                    else if (Boolean.parseBoolean(attributes.getValue("multiple")))
+                    {
+                        throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must not be multiple");
+                    }
+                    else if (Boolean.parseBoolean(attributes.getValue("localized")))
+                    {
+                        throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must not be localized");
+                    }
+                }
+                
                 Predicate predicate = new Predicate(
                         attributes.getValue("value"),
                         attributes.getValue("name"),
@@ -159,14 +200,24 @@ public class ModelList
                         Boolean.parseBoolean(attributes.getValue("localized")),
                         Boolean.parseBoolean(attributes.getValue("generateObject")),
                         Boolean.parseBoolean(attributes.getValue("searchable")),
-                        attributes.getValue("resourceModel"));
+                        Boolean.parseBoolean(attributes.getValue("overwrite")),
+                        (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
+                        attributes.getValue("event"),
+                        attributes.getValue("resourceModel"),
+                        attributes.getValue("default"));
                 this.predicateStack.peek().add(predicate);
                 this.predicateStack.push(predicate.getPredicates());
             }
             else if ("models/model/primary-identifier".equals(stack.toString()))
             {
-                currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate")));
-                currentService.setIdentifierPrefix(attributes.getValue("prefix"));
+                currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
+                currentService.setIdentifierPrefix(attributes.getValue("identifier-prefix"));
+                currentService.setSubjectPrefix(attributes.getValue("subject-prefix"));
+                currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
+            }
+            else if ("models/config/default-namespace".equals(stack.toString()))
+            {
+                defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
             }
         }
 
@@ -360,7 +411,9 @@ public class ModelList
         private List<Predicate> predicates = new ArrayList<Predicate>();
         private String identifier;
         private String identifierPrefix;
+        private String subjectPrefix;
         private boolean generateIdentifier;
+        private boolean controlled;
         private List<String> resultPattern = new ArrayList<String>();
         private boolean localizedResultPattern;
         private boolean globalResultPattern;
@@ -545,6 +598,26 @@ public class ModelList
             this.globalMatches = globalMatches;
         }
 
+        public String getSubjectPrefix()
+        {
+            return subjectPrefix;
+        }
+
+        public void setSubjectPrefix(String subjectPrefix)
+        {
+            this.subjectPrefix = subjectPrefix;
+        }
+
+        public boolean isControlled()
+        {
+            return controlled;
+        }
+
+        public void setControlled(boolean controlled)
+        {
+            this.controlled = controlled;
+        }
+
         /**
          * Find a predicate by id.
          * 
@@ -620,6 +693,7 @@ public class ModelList
      */
     public class Predicate
     {
+
         private String name;
         private String id;
         private boolean multiple;
@@ -629,6 +703,10 @@ public class ModelList
         private boolean generateObject = false;
         private String resourceModel;
         private boolean searchable;
+        private boolean overwrite;
+        private boolean modify;
+        private Event event;
+        private String defaultValue;
 
         /**
          * Constructor using all fields.
@@ -653,7 +731,11 @@ public class ModelList
                 boolean localized,
                 boolean generateObject,
                 boolean searchable,
-                String resourceModel)
+                boolean overwrite,
+                boolean modify,
+                String eventString,
+                String resourceModel,
+                String defaultValue)
         {
             this.id = id;
             
@@ -663,7 +745,14 @@ public class ModelList
             this.name = name;
             this.generateObject = generateObject;
             this.searchable = searchable;
+            this.overwrite = overwrite;
+            this.modify = modify;
+            if (eventString != null && !"".equals(eventString))
+            {
+                this.event = Event.valueOf(eventString.toUpperCase());
+            }
             this.resourceModel = resourceModel;
+            this.defaultValue = defaultValue;
         }
         
         public boolean isResource()
@@ -692,6 +781,32 @@ public class ModelList
                 }
             }
             return null;
+        }
+        
+        public String getDefault(HttpServletRequest request)
+        {
+            if (this.defaultValue == null)
+            {
+                return null;
+            }
+            else if (this.defaultValue.startsWith("'") && this.defaultValue.endsWith("'"))
+            {
+                return this.defaultValue.substring(1, this.defaultValue.length() - 1);
+            }
+            else
+            {
+                try
+                {
+                    int index = this.defaultValue.lastIndexOf(".");
+                    Class cls = Class.forName(this.defaultValue.substring(0, index));
+                    Method method = cls.getMethod(this.defaultValue.substring(index + 1), new Class[]{HttpServletRequest.class});
+                    String result = (String) method.invoke(null, new Object[]{request});
+                    return result;
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         
         public String getName()
@@ -774,6 +889,45 @@ public class ModelList
             return searchable;
         }
 
+        public boolean isOverwrite()
+        {
+            return overwrite;
+        }
+
+        public void setOverwrite(boolean overwrite)
+        {
+            this.overwrite = overwrite;
+        }
+
+        public String getDefaultValue()
+        {
+            return defaultValue;
+        }
+
+        public void setDefaultValue(String defaultValue)
+        {
+            this.defaultValue = defaultValue;
+        }
+
+        public boolean isModify()
+        {
+            return modify;
+        }
+
+        public void setModify(boolean modify)
+        {
+            this.modify = modify;
+        }
+
+        public Event getEvent()
+        {
+            return event;
+        }
+
+        public void setEvent(Event event)
+        {
+            this.event = event;
+        }
 
     }
 }

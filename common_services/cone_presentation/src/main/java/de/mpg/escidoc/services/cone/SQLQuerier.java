@@ -273,7 +273,7 @@ public class SQLQuerier implements Querier
             }
             if (!found)
             {
-                logger.error("Predicate '" + predicateValue + "' not found in model '" + modelName + "'");
+                logger.error("Predicate '" + predicateValue + "' (subject = '" + id + "') not found in model '" + modelName + "'");
                 //throw new RuntimeException("Predicate '" + predicateValue + "' not found in model.");
             }
             else

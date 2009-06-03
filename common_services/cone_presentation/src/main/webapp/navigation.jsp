@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<%--
 
  CDDL HEADER START
 
@@ -26,7 +25,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
+--%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="de.mpg.escidoc.services.cone.ModelList.Model" %>
@@ -59,18 +58,19 @@
 	    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
 	    List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
 	    
+	    request.getSession().setAttribute("logged_in", Boolean.TRUE);
+        showWarning = true;
+        
 	    for (GrantVO grant : grants)
 	    {
 	        accountUser.getGrants().add(grant);
 	        if ("escidoc:role-system-administrator".equals(grant.getRole()))
 	        {
+	            request.getSession().setAttribute("user", accountUser);
 	    		request.getSession().setAttribute("logged_in", Boolean.TRUE);
 	    		request.getSession().setAttribute("edit", Boolean.TRUE);
-	        }
-	        else
-	        {
-	            request.getSession().setAttribute("logged_in", Boolean.TRUE);
-	            showWarning = true;
+	    		showWarning = false;
+	    		break;
 	        }
 	    }
 	}
@@ -120,6 +120,7 @@
 
 		<% if (request.getSession() != null && request.getSession().getAttribute("edit") != null && ((Boolean)request.getSession().getAttribute("edit")).booleanValue()) { %>
 			<a href="select.jsp" class="free_area0 xTiny_marginRIncl">Enter New Entity</a>
+			<a href="import.jsp" class="free_area0 xTiny_marginRIncl">Import</a>
 		<% } %>
 		
 	</div>

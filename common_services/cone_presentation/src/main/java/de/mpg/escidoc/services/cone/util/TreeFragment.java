@@ -36,6 +36,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import de.mpg.escidoc.services.cone.ModelList;
+
 /**
  * A representation of a tree-like structure built of s-p-o triples.
  *
@@ -135,6 +137,16 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         {
             StringWriter result = new StringWriter();
             Map<String, String> namespaces = new HashMap<String, String>();
+            
+            ModelList modelList;
+            try
+            {
+                modelList = ModelList.getInstance();
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
             int counter = 0;
 
             result.append("<rdf:Description");
@@ -165,8 +177,18 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
                     
                     if (!namespaces.containsKey(namespace))
                     {
-                        counter++;
-                        String prefix = "ns" + counter;
+                        String prefix;
+                        
+                        if (modelList.getDefaultNamepaces().containsKey(namespace))
+                        {
+                            prefix = modelList.getDefaultNamepaces().get(namespace);
+                        }
+                        else
+                        {
+                            counter++;
+                            prefix = "ns" + counter;
+                        }
+                        
                         namespaces.put(namespace, prefix);
                         
                         result.append(" xmlns:" + prefix + "=\"" + namespace + "\"");

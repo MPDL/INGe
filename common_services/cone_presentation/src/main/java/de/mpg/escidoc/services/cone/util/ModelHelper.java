@@ -123,6 +123,11 @@ public class ModelHelper
                     for (String predicateName : poMap.keySet())
                     {
                         Predicate predicate = model.getPredicate(predicateName);
+                        if (predicate == null)
+                        {
+                            logger.warn("Predicate not found: " + predicateName);
+                        }
+                        
                         List<String> newStrings = new ArrayList<String>();
                         
                         for (String string : strings)
@@ -191,6 +196,11 @@ public class ModelHelper
                         for (String predicateName : poMap.keySet())
                         {
                             Predicate predicate = model.getPredicate(predicateName);
+                            if (predicate == null)
+                            {
+                                logger.warn("Predicate not found: " + predicateName);
+                            }
+                            
                             List<String> newStrings = new ArrayList<String>();
                             
                             for (String string : strings)
