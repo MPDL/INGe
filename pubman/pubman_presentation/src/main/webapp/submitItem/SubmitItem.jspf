@@ -61,7 +61,7 @@
 				<h:outputText value="#{SubmitItem.creators}" />
 			</span>
 		</div>
-		<div class="free_area0 endline itemLine noTopBorder">
+		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{SubmitItem.hasRightsInformation}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNotice}" /><span class="noDisplay">: </span>
 			</b>
@@ -69,7 +69,7 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}" />
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
 			</span>
-		</div>
+		</h:panelGroup>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>

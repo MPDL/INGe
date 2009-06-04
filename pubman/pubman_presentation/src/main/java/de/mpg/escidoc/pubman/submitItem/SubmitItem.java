@@ -43,6 +43,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -222,6 +223,22 @@ public class SubmitItem extends FacesBean
         
         // keep the message just once
         this.getSessionBean().setMessage(null);
+    }
+    
+    public boolean getHasRightsInformation()
+    {
+        PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
+        for (FileVO file : pubItemVO.getFiles())
+        {
+            if (file.getDefaultMetadata().getCopyrightDate() != null
+                    //|| file.getDefaultMetadata().getEmbargoUntil() != null
+                    || file.getDefaultMetadata().getLicense() != null
+                    || file.getDefaultMetadata().getRights() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**

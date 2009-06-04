@@ -69,6 +69,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
 
     /**
      * Executes a HEAD request to the locator.
+     * 
      * @param locator
      * @return true if locator is accessible
      */
@@ -243,7 +244,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
     {
         FileVO fileVO = null;
         
-        boolean check = this.ckeckLocator(locator.getName());
+        boolean check = this.ckeckLocator(locator.getContent());
 
         if (check)
         {           

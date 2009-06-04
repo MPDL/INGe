@@ -2094,7 +2094,7 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
-        else if (this.pubItem.getPublicStatus() != State.RELEASED)
+        else if (this.pubItem.getPublicStatus() != State.RELEASED || !getIsModerator())
         {
             return false;
         }
