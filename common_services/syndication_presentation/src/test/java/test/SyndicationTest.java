@@ -127,6 +127,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
+    @Ignore
     public void checkRecentReleasesFeed() throws Exception
     {
 
@@ -162,7 +163,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-//  @Ignore    
+    @Ignore    
     public void checkOrganizationalUnitFeed() throws Exception
     {
     	
@@ -198,7 +199,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-//  @Ignore    
+	@Ignore    
     public void checkSearchAsFeed() throws Exception
     {
     	
@@ -234,7 +235,7 @@ public class SyndicationTest
      * @throws Exception
      */
     @Test
-//  @Ignore
+    @Ignore
     public final void testOrganizationalUnitList() throws Exception     
 	{ 
     	 TreeMap<String, String> outm = Utils.getOrganizationUnitTree(); 
