@@ -105,8 +105,6 @@ public class PubManDepositServlet extends HttpServlet
        boolean validDeposit = true;
        this.errorDoc = new PubManSwordErrorDocument();
        DepositResponse dr = null;
-       
-       System.out.println("---------4-----------");
 
        // Authentification -----------------------------------------------------------------
        String usernamePassword = this.getUsernamePassword(request);

@@ -124,6 +124,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
             pubMan.setCurrentUser(null);
             
             // Print out the Service Document
+            response.setCharacterEncoding("UTF-8");
             response.setContentType("application/xml");
             PrintWriter out = response.getWriter();
             out.write(sd.marshall());
@@ -133,6 +134,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         {
             response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
             response.setStatus(401);
+            response.setCharacterEncoding("UTF-8");
             pubMan.setCurrentUser(null);
         }
     }

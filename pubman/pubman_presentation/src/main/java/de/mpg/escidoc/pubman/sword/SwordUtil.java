@@ -682,6 +682,12 @@ public class SwordUtil extends FacesBean
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
         TransformationBean transformer = new TransformationBean();
+        
+        //Hack: FileNameMap class does not know tei
+        if (name.toLowerCase().endsWith(".tei"))
+        {
+            mimeType = "application/xml";
+        }
 
         URL fileURL = this.uploadFile(in, mimeType, user.getHandle()); 
         
