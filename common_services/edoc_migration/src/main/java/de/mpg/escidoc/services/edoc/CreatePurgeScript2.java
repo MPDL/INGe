@@ -68,7 +68,9 @@ public class CreatePurgeScript2
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
     private static String CORESERVICES_URL;
-    private static final String IMPORT_CONTEXT = "escidoc:31013";
+    //private static final String IMPORT_CONTEXT = "escidoc:31013";
+    //private static final String IMPORT_CONTEXT = "escidoc:54203";
+    private static final String IMPORT_CONTEXT = "escidoc:57277";
     
     /**
      * @param args
@@ -81,7 +83,7 @@ public class CreatePurgeScript2
         
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
-        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><filter name=\"/properties/public-status\">released</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
 
         PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/items/filter");
         postMethod.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
