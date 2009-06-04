@@ -501,8 +501,10 @@ public class PubFileVOPresentation extends FacesBean
     public String addGrant()
     {
     	Grant newGrant = new Grant();
-    	newGrant.setGrantType(UserType.USER_GROUP.toString());
-    	newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.toString());
+    	newGrant.setObjid("");
+    	newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
+    	newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
+    	newGrant.setAssignedOn(this.file.getReference().getObjectId());
     	this.getGrantList().add(new GrantVOPresentation(newGrant, this.getGrantList().size(), this.index));
     	return AudienceBean.LOAD_AUDIENCEPAGE;
     }
@@ -520,11 +522,11 @@ public class PubFileVOPresentation extends FacesBean
 	public List<GrantVOPresentation> getGrantList()
 	{
 		// ensure that at least one grant is in the list (for presentation)
-		if(this.grantList.size() == 0)
+		/*if(this.grantList.size() == 0)
 		{
 			this.grantList.add(new GrantVOPresentation(new Grant(), this.grantList.size(), this.index));
-		}
-		return grantList;
+		}*/
+		return this.grantList;
 	}
 
 	public void setGrantList(List<GrantVOPresentation> grantList) {

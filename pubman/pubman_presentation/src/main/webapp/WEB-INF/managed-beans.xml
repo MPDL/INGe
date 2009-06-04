@@ -583,4 +583,14 @@
         <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItems</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>AudienceBean</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.audience.AudienceBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>AudienceSessionBean</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.audience.AudienceSessionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

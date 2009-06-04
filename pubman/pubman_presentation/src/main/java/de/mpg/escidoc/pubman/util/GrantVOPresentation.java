@@ -7,6 +7,7 @@ import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
 
 public class GrantVOPresentation extends FacesBean 
 {
+	public static final String GRANT_TYPE_USER_GROUP = "user-group";
 	private Grant grant;
 	private int index;
 	private int fileIndex;

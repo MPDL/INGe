@@ -75,8 +75,14 @@ public class AudienceSessionBean extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        
-         
+    }
+    
+    public void cleanUp()
+    {
+    	this.fileListNew = new ArrayList<PubFileVOPresentation>();
+    	this.fileListOld = new ArrayList<PubFileVOPresentation>();
+    	this.grantsForAllFiles = new ArrayList<GrantVOPresentation>();
+    	this.ugl = null;
     }
 
 	public List<PubFileVOPresentation> getFileListOld() {
