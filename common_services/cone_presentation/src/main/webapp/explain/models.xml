@@ -83,7 +83,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			<alias>lang</alias>
 			<alias>languages</alias>
 		</aliases>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="urn:iso639:" identifier-prefix="">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="urn:cone:iso639:" identifier-prefix="">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
 			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="true" mandatory="true" localized="true" searchable="true"/>
 			<predicate name="ISO639 Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="false"/>

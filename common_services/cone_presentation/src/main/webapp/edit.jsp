@@ -684,7 +684,7 @@
 								            	}
 								                else
 								                {
-								                    out.append("<label class=\"free_area0\">"+model.getIdentifierPrefix()+"</label>");
+								                    out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
 								                    out.append("<input type=\"text\" name=\"cone_identifier\" class=\"double_txtInput\" value=\"\" />");
 								                }
 								            }
