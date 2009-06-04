@@ -17,6 +17,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup.Factory;
+import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
@@ -577,9 +578,7 @@ public class Grant extends IntelligentVO
                     //grant = new Grant(userHandle, grant.getGrantedTo(), grant.getObjid(), UserType.valueOf(grant.getGrantType()));
                 }
                 
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(grant.getLastModificationDate());
-                String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >";
+                String param = "<param last-modification-date=\"" + JiBXHelper.serializeDate(grant.getLastModificationDate()) + "\" >";
                 param += "<revocation-remark>" + comment + "</revocation-remark>";
                 param += "</param>";
                 
