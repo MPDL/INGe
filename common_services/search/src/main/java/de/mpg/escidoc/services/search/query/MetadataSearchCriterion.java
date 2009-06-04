@@ -82,7 +82,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for fulltexts. */
     private static final String INDEX_FULLTEXT = "escidoc.fulltext";
     /** Index for persons. */
-    private static final String INDEX_PERSON = "escidoc.any-persons";
+    private static final String INDEX_PERSON = "escidoc.publication.creator.person.compound.person-complete-name";
     /** Index for creator roles. */
     private static final String INDEX_PERSON_ROLE = "escidoc.creator.role";
     /** Index for organizations. */
