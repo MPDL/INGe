@@ -337,4 +337,13 @@
 			/MultipleImportForm.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadAudiencePage</from-outcome>
+			<to-view-id>
+			/AudiencePage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
