@@ -163,6 +163,17 @@ public class AudienceBean extends FacesBean
     }
     
     /**
+     * Cleans AudienceSessionBean and re-initializes the audience related beans
+     * @return String navigation String
+     */
+    public String manageAudience()
+    {
+    	this.getAudienceSessionBean().cleanUp();
+    	this.init();
+    	return AudienceBean.LOAD_AUDIENCEPAGE;
+    }
+    
+    /**
      * Returns the number of files with visibility audience (for presentation purpose)
      * @return number of files with visibility audience 
      */
