@@ -109,14 +109,14 @@
 					<h:outputText value="#{file.file.defaultMetadata.rights}" rendered="true"/>
 				</span>
 			</h:panelGroup>
-
+ 
 <%-- File License --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="true">
 				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemFull_lblFileLicense}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLink value="#{file.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}" rendered="#{file.file.defaultMetadata.license != ''}"><h:outputText value="#{file.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
+					<h:outputText value="#{file.file.defaultMetadata.licenseDisplayString}" escape="false"/>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="#{file.urlToLicenceImage != ''}">
 					<h:graphicImage styleClass="sectionTool" url="#{file.urlToLicenceImage}" value="#{file.urlToLicenceImage}"/>
