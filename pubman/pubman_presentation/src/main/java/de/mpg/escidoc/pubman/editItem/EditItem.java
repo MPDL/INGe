@@ -1235,7 +1235,7 @@ public class EditItem extends FacesBean
     public void uploadLocator()
     {
         LocatorUploadBean locatorBean = new LocatorUploadBean();
-        boolean check = locatorBean.ckeckLocator(this.getLocatorUpload());
+        boolean check = locatorBean.checkLocator(this.getLocatorUpload());
 
         if (check)
         {           

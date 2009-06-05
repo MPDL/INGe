@@ -225,15 +225,22 @@ public class SubmitItem extends FacesBean
         this.getSessionBean().setMessage(null);
     }
     
+    /**
+     * Checks is the current item has at least one rights information field filled.
+     * 
+     * @return true if at least one rights information field filled
+     */
     public boolean getHasRightsInformation()
     {
         PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
         for (FileVO file : pubItemVO.getFiles())
         {
-            if (file.getDefaultMetadata().getCopyrightDate() != null
-                    //|| file.getDefaultMetadata().getEmbargoUntil() != null
-                    || file.getDefaultMetadata().getLicense() != null
-                    || file.getDefaultMetadata().getRights() != null)
+            if ((file.getDefaultMetadata().getCopyrightDate() != null
+                    && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
+                    || (file.getDefaultMetadata().getLicense() != null
+                    && !"".equals(file.getDefaultMetadata().getLicense()))
+                    || (file.getDefaultMetadata().getRights() != null
+                    && !"".equals(file.getDefaultMetadata().getRights())))
             {
                 return true;
             }
@@ -247,7 +254,7 @@ public class SubmitItem extends FacesBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**

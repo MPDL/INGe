@@ -62,6 +62,15 @@
 				<h:outputText id="txtCreators" value="#{AcceptItem.creators}" />
 			</span>
 		</div>
+		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AcceptItem.hasRightsInformation}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNotice}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeSubmit}" rendered="#{SubmitItem.isStandardWorkflow}" />
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
+			</span>
+		</h:panelGroup>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText id="lblComment" value="#{lbl.AcceptItem_lblComment}" />&#160;<span class="noDisplay">: </span>

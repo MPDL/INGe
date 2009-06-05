@@ -73,7 +73,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
      * @param locator
      * @return true if locator is accessible
      */
-    public boolean ckeckLocator(String locator)
+    public boolean checkLocator(String locator)
     {
         this.locator = locator;
         URLConnection conn = null;
@@ -97,7 +97,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
                  this.error = getMessage("errorLocatorServiceUnavailable");
                  return false;
              case 200:
-                 this.logger.info("Source responded with 200.");
+                 this.logger.debug("Source responded with 200.");
                  break;
              case 403:
                  this.error = getMessage("errorLocatorAccessDenied");
@@ -244,7 +244,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
     {
         FileVO fileVO = null;
         
-        boolean check = this.ckeckLocator(locator.getContent());
+        boolean check = this.checkLocator(locator.getContent());
 
         if (check)
         {           

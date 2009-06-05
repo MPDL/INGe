@@ -43,6 +43,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -107,7 +108,7 @@ public class AcceptItem extends FacesBean
             }
             else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION)
             {
-                if(creator.getOrganization().getName()!= null)
+                if (creator.getOrganization().getName() != null)
                 {
                     creators.append(creator.getOrganization().getName().getValue());
                 }
@@ -144,13 +145,13 @@ public class AcceptItem extends FacesBean
      */
     public final String accept()
     {
-    	FacesContext fc = FacesContext.getCurrentInstance();
-    	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-    	String retVal;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
-        if(navigateTo == null)
+        if (navigateTo == null)
         {
-        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
+            navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
 
         logger.debug("Now acceptting, then go to " + navigateTo);
@@ -159,19 +160,22 @@ public class AcceptItem extends FacesBean
         
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-           info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED));
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED));
         }
         
         // redirect to the view item page afterwards (if no error occured)
-        if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-        	try 
+            try
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-    		} 
-            catch (IOException e) {
-    			logger.error("Could not redirect to View Item Page", e);
-    		}
+                fc.getExternalContext().redirect(request.getContextPath()
+                        + "/faces/viewItemFullPage.jsp?itemId="
+                        + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+            } 
+            catch (IOException e)
+            {
+                logger.error("Could not redirect to View Item Page", e);
+            }
         }
         
         
@@ -190,16 +194,40 @@ public class AcceptItem extends FacesBean
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         try 
         {
-            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+            fc.getExternalContext().redirect(request.getContextPath()
+                    + "/faces/viewItemFullPage.jsp?itemId="
+                    + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
         } 
-        catch (IOException e) {
+        catch (IOException e)
+        {
             logger.error("Could not redirect to View Item Page", e);
         }
         return DepositorWS.LOAD_DEPOSITORWS;
     }
 
-   
-    
+    /**
+     * Checks is the current item has at least one rights information field filled.
+     * 
+     * @return true if at least one rights information field filled
+     */
+    public boolean getHasRightsInformation()
+    {
+        PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
+        for (FileVO file : pubItemVO.getFiles())
+        {
+            if ((file.getDefaultMetadata().getCopyrightDate() != null
+                    && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
+                    || (file.getDefaultMetadata().getLicense() != null
+                    && !"".equals(file.getDefaultMetadata().getLicense()))
+                    || (file.getDefaultMetadata().getRights() != null
+                    && !"".equals(file.getDefaultMetadata().getRights())))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds and removes messages on this page, if any.
      * @author Michael Franke
@@ -221,7 +249,7 @@ public class AcceptItem extends FacesBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -230,7 +258,7 @@ public class AcceptItem extends FacesBean
      */
     protected final ItemListSessionBean getItemListSessionBean()
     {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
+        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
     }
 
     /**
@@ -239,26 +267,30 @@ public class AcceptItem extends FacesBean
      */
     protected final AcceptItemSessionBean getSessionBean()
     {
-        return (AcceptItemSessionBean)getSessionBean(AcceptItemSessionBean.class);
+        return (AcceptItemSessionBean) getSessionBean(AcceptItemSessionBean.class);
     }
 
-    public String getAcceptanceComment() {
-		return acceptanceComment;
-	}
+    public String getAcceptanceComment()
+    {
+        return acceptanceComment;
+    }
 
-	public void setAcceptanceComment(String acceptanceComment) {
-		this.acceptanceComment = acceptanceComment;
-	}
+    public void setAcceptanceComment(String acceptanceComment)
+    {
+        this.acceptanceComment = acceptanceComment;
+    }
 
-	public String getValMessage() {
-		return valMessage;
-	}
+    public String getValMessage()
+    {
+        return valMessage;
+    }
 
-	public void setValMessage(String valMessage) {
-		this.valMessage = valMessage;
-	}
+    public void setValMessage(String valMessage)
+    {
+        this.valMessage = valMessage;
+    }
 
-	public final String getNavigationStringToGoBack()
+    public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

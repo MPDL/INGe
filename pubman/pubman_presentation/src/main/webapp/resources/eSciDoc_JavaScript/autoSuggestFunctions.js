@@ -244,7 +244,7 @@
 
 		bindJournalSuggest();
 		
-		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[2] ); }   });
+		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[3] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[3] ); }   });
 		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 	};

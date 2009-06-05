@@ -33,14 +33,14 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
-    public static String BEAN_NAME = "CartItemsRetrieverRequestBean";
+    public static final String BEAN_NAME = "CartItemsRetrieverRequestBean";
     private int numberOfRecords;
     
     public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBasket_NoItemSelected";
 
     public CartItemsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
+        super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public void init()
     {
-    	// no init needed
+        // no init needed
     }
 
     @Override
@@ -77,7 +77,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         
         try
         {
-            PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
+            PubItemStorageSessionBean pssb =
+                (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
             
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             InitialContext initialContext = new InitialContext();
@@ -85,12 +86,12 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       
             
             List<ItemRO> idList = new ArrayList<ItemRO>();
-            for(ItemRO id : pssb.getStoredPubItems().values())
+            for (ItemRO id : pssb.getStoredPubItems().values())
             {
                 idList.add(id);
             }
             
-            if (idList.size()>0)
+            if (idList.size() > 0)
             {
                 checkSortCriterias(sc);
                 
@@ -98,7 +99,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 FilterTaskParamVO filter = new FilterTaskParamVO();
                 
                 Filter f1 = filter.new ItemRefFilter(idList);
-                filter.getFilterList().add(0,f1);
+                filter.getFilterList().add(0, f1);
                 
                 Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
                 filter.getFilterList().add(f10);
@@ -110,15 +111,21 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
                 
                 String xmlItemList = "";
-                if (loginHelper.getESciDocUserHandle()!=null)
-                  xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+                if (loginHelper.getESciDocUserHandle() != null)
+                {
+                    xmlItemList = ServiceLocator
+                      .getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+                }
                 else
-                  xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+                {
+                    xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+                }
         
-                ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
+                ItemVOListWrapper itemList =
+                    (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
         
                 List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-                for(ItemVO item : itemList.getItemVOList())
+                for (ItemVO item : itemList.getItemVOList())
                 {
                     pubItemList.add(new PubItemVO(item));
                 }
@@ -135,8 +142,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         }
         catch (Exception e)
         {
-          error("Error in retrieving items");
-           
+            error("Error in retrieving items");
         }
         return returnList;
 
@@ -145,25 +151,25 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
    
 
     /**
-     * Called from JSF when selected items in the list should be removed from the basket
+     * Called from JSF when selected items in the list should be removed from the basket.
      * @return
      */
     public String deleteSelected()
     {
-        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
+        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
         int countSelected = 0;
         
         for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList())
         {
             if (pubItem.getSelected())
             {
-            	countSelected ++;
-            	pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+                countSelected++;
+                pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
             }
         }
-        if(countSelected == 0)
+        if (countSelected == 0)
         {
-        	error(getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
+            error(getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
         }
        
         getBasePaginatorListSessionBean().setHasChanged();
@@ -179,14 +185,15 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     }
     
     /**
-     * Checks if the selected sorting criteria is currently available. If not (empty string), it displays a warning message to the user.
+     * Checks if the selected sorting criteria is currently available.
+     * If not (empty string), it displays a warning message to the user.
      * @param sc The sorting criteria to be checked
      */
     protected void checkSortCriterias(SORT_CRITERIA sc)
     {
-        if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
+        if  (sc.getSortPath() == null || sc.getSortPath().equals(""))
         {
-            error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_"+sc.name())));
+            error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_" + sc.name())));
             //getBasePaginatorListSessionBean().redirect();
         }
         
@@ -195,18 +202,19 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     
     /**
      * Called when the export format list should be updated. Workaround.
-     * Method needs to be called over this bean and not directly in the ExportItems bean, because it has to be called first in order to save the selections in the list
+     * Method needs to be called over this bean and not directly in the ExportItems bean,
+     * because it has to be called first in order to save the selections in the list.
      */
     public void updateExportOptions()
     {
-        ExportItems exportItemsBean = (ExportItems)getRequestBean(ExportItems.class);
+        ExportItems exportItemsBean = (ExportItems) getRequestBean(ExportItems.class);
         exportItemsBean.updateExportFormats();
         
     }
 
-	@Override
-	public boolean isItemSpecific() 
-	{
-		return false;
-	}
+    @Override
+    public boolean isItemSpecific()
+    {
+        return false;
+    }
 }
