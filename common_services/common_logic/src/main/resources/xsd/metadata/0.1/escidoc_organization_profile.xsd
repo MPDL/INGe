@@ -23,11 +23,11 @@
 			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="dc:description" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="city"/>
-			<xs:element name="country"/>
+			<xs:element ref="eterms:city"/>
+			<xs:element ref="eterms:country"/>
 			<xs:element ref="kml:coordinates" minOccurs="0"/>
-			<xs:element name="start-date"/>
-			<xs:element name="end-date" minOccurs="0"/>
+			<xs:element ref="eterms:start-date"/>
+			<xs:element ref="eterms:end-date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
