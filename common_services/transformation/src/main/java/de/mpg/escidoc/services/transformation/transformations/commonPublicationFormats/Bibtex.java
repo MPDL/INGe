@@ -51,6 +51,7 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
@@ -574,6 +575,11 @@ public class Bibtex
                     locator.setStorage(FileVO.Storage.EXTERNAL_URL);
                     locator.setVisibility(FileVO.Visibility.PUBLIC);
                     locator.setContentCategory("any-fulltext");
+                    
+                    MdsFileVO metadata = new MdsFileVO();
+                    metadata.setContentCategory("any-fulltext");
+                    metadata.setTitle(new TextVO("Link"));
+                    locator.getMetadataSets().add(metadata);
 
                     itemVO.getFiles().add(locator);
                 }
