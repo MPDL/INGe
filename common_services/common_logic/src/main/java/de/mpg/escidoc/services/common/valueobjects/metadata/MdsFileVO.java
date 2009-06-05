@@ -143,6 +143,40 @@ public class MdsFileVO extends MetadataSetVO
     {
         return license;
     }
+    
+    /**
+     * Checks if a String contains a URL and transformes this URL in a html link.
+     * Note: Cuurently only good for first link in String, should be improved.
+     * @return the license String 
+     */
+    public String getLicenseDisplayString()
+    {
+        String output = this.license;
+        boolean containsUrl = this.license.contains("http://");
+        if (containsUrl)
+        {
+            int start = output.indexOf("http://");
+            int end = output.indexOf(" ", start);
+            if (end == -1)
+            {
+                end = license.length();
+            }
+            String linkStart = "<a href='"+ output.substring(start, end)+"'>";
+            String linkEnd = "</a> ";
+            if (this.license.startsWith("http://"))
+            {
+                output = linkStart + output.substring(start, end) + linkEnd + output.substring(end);
+            }
+            else
+            {
+                output = output.substring(0, start) + linkStart + output.substring(start, end) + linkEnd + output.substring(end);
+            }
+            
+        }
+        
+        System.out.println("LICENSE: " + output);
+        return output;
+    }
 
     /**
      * @param license the license to set
