@@ -217,11 +217,17 @@
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/></label>
-						<h:inputText styleClass="quad_txtInput" value="#{component.file.defaultMetadata.license}"/>
+						<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
+						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
 					</h:panelGroup>
+					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
+						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
+						<div class="ccContent">&#160;</div>
+						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
+				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFileEasySubmission}" rendered="#{genre.files_repeatable != 'false'}"/>

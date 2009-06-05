@@ -153,12 +153,12 @@
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
 						<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').removeClass('noDisplay');"/>
+						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
 						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
-				       	<h:outputText value="#{EditItem.ccScriptTag}" escape="false"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').addClass('noDisplay');"/>
+						<div class="ccContent">&#160;</div>
+						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
