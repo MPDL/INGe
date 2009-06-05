@@ -43,7 +43,10 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<!-- unapi interface for zotero -->
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
+				<!-- rss feed for search result -->
+				<jsp:directive.include file="search/SearchResultFeedLinks.jspf" />
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
