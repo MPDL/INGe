@@ -70,6 +70,14 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
 			</span>
 		</h:panelGroup>
+		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{SubmitItem.hasAudienceFiles}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNoticeSubmit}" />
+			</span>
+		</h:panelGroup>			
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>
