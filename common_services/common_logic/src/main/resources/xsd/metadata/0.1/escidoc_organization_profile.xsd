@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:kml="http://earth.google.com/kml/2.1" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:kml="http://earth.google.com/kml/2.1" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -12,22 +12,16 @@
 	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
 	<xs:import namespace="http://earth.google.com/kml/2.1" schemaLocation="kml21.xsd"/>
-	<xs:element name="organization-details" type="OrganizationDetailsType"/>
+	
 	<!--*******************************
     Organization Unit
     ********************************-->
-	<xs:element name="organization" type="OrganizationDetailsType"/>
-	<xs:complexType name="OrganizationDetailsType">
+	<xs:element name="organization" type="OrganizationType"/>
+	<xs:complexType name="OrganizationType">
 		<xs:sequence>
 			<xs:element ref="dc:title"/>
-			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="dc:description" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="eterms:city"/>
-			<xs:element ref="eterms:country"/>
-			<xs:element ref="kml:coordinates" minOccurs="0"/>
-			<xs:element ref="eterms:start-date"/>
-			<xs:element ref="eterms:end-date" minOccurs="0"/>
+			<xs:element ref="eterms:address" minOccurs="0"/>
+			<xs:element ref="dc:identifier" minOccurs="0"/>			
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

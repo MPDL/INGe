@@ -37,7 +37,7 @@
 	<xs:element name="alternative-name" type="dc:SimpleLiteral"/>
 	<xs:element name="person-title" type="dc:SimpleLiteral"/>
 	<xs:element name="pseudonym" type="dc:SimpleLiteral"/>
-	<xs:element name="organization" type="OrganizationType"/>
+	
 	<!-- ORGANIZATION, EVENT TERMS -->
 	<xs:element name="city" type="dc:SimpleLiteral"/>
 	<xs:element name="country" type="dc:SimpleLiteral"/>
@@ -53,19 +53,10 @@
 	<xs:group name="CreatorGroup">
 		<xs:choice>
 			<xs:element ref="person:person"/>
-			<xs:element ref="organization"/>
+			<xs:element ref="organization:organization"/>
 		</xs:choice>
 	</xs:group>
-	<!--*******************************
-    OrganizationType
-    ********************************-->
-	<xs:complexType name="OrganizationType">
-		<xs:sequence>
-			<xs:element name="organization-name" type="dc:SimpleLiteral"/>
-			<xs:element name="address" type="dc:SimpleLiteral" minOccurs="0"/>
-			<xs:element name="identifier" type="dc:SimpleLiteral" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
+	
 	<!--*******************************
     PublishingInfoType
     ********************************-->
