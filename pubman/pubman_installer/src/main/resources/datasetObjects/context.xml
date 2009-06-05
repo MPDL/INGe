@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:context xmlns:context="http://www.escidoc.de/schemas/context/0.6" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+    <context:properties>
+        <prop:name>PubMan Default Context</prop:name>
+        <prop:description>Default PubMan Context created by the PubMan installer.
+            The following settings are applied:
+
+            *validation schema =publication
+            *workflow = simple
+            *all supported publication genres are allowed
+            *type=PubMan
+
+            You may modify your settings as required, by using eSciDoc Admin solution, see http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Admin for more information.
+
+            Note: Please do not modify the type of the context (PubMan), as otherwise PubMan solution will not function properly out of the box.</prop:description>
+        <prop:type>PubMan</prop:type>
+        <prop:organizational-units>
+            <srel:organizational-unit objid="template_objectid_substituted_by_installer" />
+        </prop:organizational-units>
+    </context:properties>
+    <context:admin-descriptors xmlns:context="http://www.escidoc.de/schemas/context/0.6" last-modification-date="2009-06-04T12:21:03.606Z">
+        <context:admin-descriptor name="pubman">
+
+            <pubman-admin-descriptor>
+                <allowed-genres>
+                    <allowed-genre>article</allowed-genre>
+                    <allowed-genre>book</allowed-genre>
+                    <allowed-genre>book-item</allowed-genre>
+                    <allowed-genre>proceedings</allowed-genre>
+                    <allowed-genre>conference-paper</allowed-genre>
+                    <allowed-genre>talk-at-event</allowed-genre>
+                    <allowed-genre>conference-report</allowed-genre>
+                    <allowed-genre>poster</allowed-genre>
+                    <allowed-genre>courseware-lecture</allowed-genre>
+                    <allowed-genre>thesis</allowed-genre>
+                    <allowed-genre>paper</allowed-genre>
+                    <allowed-genre>report</allowed-genre>
+                    <allowed-genre>journal</allowed-genre>
+                    <allowed-genre>issue</allowed-genre>
+                    <allowed-genre>series</allowed-genre>
+                    <allowed-genre>manuscript</allowed-genre>
+                    <allowed-genre>other</allowed-genre>
+                </allowed-genres>
+                <template-item></template-item>
+                <validation-schema>publication</validation-schema>
+                <workflow>simple</workflow>
+                <contact-email>default-context@support.org</contact-email>
+            </pubman-admin-descriptor>
+
+        </context:admin-descriptor>
+
+
+    </context:admin-descriptors>
+</context:context>

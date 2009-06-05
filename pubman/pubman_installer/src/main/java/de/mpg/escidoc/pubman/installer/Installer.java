@@ -29,7 +29,9 @@
 package de.mpg.escidoc.pubman.installer;
 
 
-//import org.apache.log4j.Logger;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -43,34 +45,31 @@ public class Installer
      * @param args
      */
     
-//    private Logger logger = null;
+    private Logger logger = null;
+    
     
     public Installer() {
-//        logger = Logger.getLogger(Installer.class);
+        logger = Logger.getLogger(Installer.class);
+        
     }
     
     public static void main(String[] args)
     {
         Installer installer = new Installer();
-        System.out.println("Huhuuu!");
-//        try
-//        {
-//           URL frameworkUrl = new URL("http://framework:8080");
-//            ServiceLocator.getSearchHandler("test", frameworkUrl);
-//            installer.logger.info("setup complete");
-//        } catch (ServiceException e)
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (URISyntaxException e)
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (MalformedURLException e)
-//        {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        installer.logger.info("logger is working!");
+        try
+        {
+//            InitialDataset dataset = new InitialDataset(new URL("http://framework:8080"));
+//            String handle = dataset.loginToCoreservice("sysadmin", "eSciDoc");
+//            installer.logger.info( handle );
+//            installer.logger.info( dataset.retrieveContentModel("escidoc:persistent4", handle));
+              Configuration config = new Configuration("configuration/pubman.properties");      
+            config.store("test.properties");
+            
+        } catch (Exception e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-
 }

@@ -27,7 +27,7 @@
     -->
     <locale>
         <langpack iso3="eng"/>
-        <langpack iso3="fra"/>
+        <langpack iso3="deu"/>
     </locale>
 
     <!-- 
@@ -37,6 +37,9 @@
     <resources>
         <res id="LicencePanel.licence" src="Licence.txt"/>
         <res id="InfoPanel.info" src="Readme.txt"/>
+        <res id="userInputSpec.xml" src="res/userInputSpec.xml" />
+        <res id="userInputSpec.xml_deu" src="res/userInputSpec.xml_deu" />
+        <res id="userInputSpec.xml_eng" src="res/userInputSpec.xml_eng" />
     </resources>
 
     <!-- 
@@ -50,6 +53,7 @@
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="InstallPanel"/>
+        <panel classname="UserInputPanel"/>
         <panel classname="FinishPanel"/>
     </panels>
 

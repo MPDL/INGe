@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user-account:user-account xmlns:user-account="http://www.escidoc.de/schemas/useraccount/0.6" xmlns:prop="http://escidoc.de/core/01/properties/"
+    xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+    <user-account:properties>
+        <prop:name>PubMan Moderator</prop:name>
+        <prop:login-name>pubman_moderator</prop:login-name>
+        <prop:active>true</prop:active>
+        <prop:organizational-units>
+            <srel:organizational-unit objid="template_objectid_substituted_by_installer" />
+        </prop:organizational-units>
+    </user-account:properties>
+</user-account:user-account>

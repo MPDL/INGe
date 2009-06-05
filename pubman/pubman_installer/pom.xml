@@ -160,7 +160,7 @@
             <scope>provided</scope>
             <type>ear</type>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
             <version>1.0.24-SNAPSHOT</version>

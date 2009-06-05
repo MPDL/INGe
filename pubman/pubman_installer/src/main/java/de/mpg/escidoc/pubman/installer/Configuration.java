@@ -28,11 +28,37 @@
 */
 package de.mpg.escidoc.pubman.installer;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
 /**
  * @author endres
  *
  */
 public class Configuration
 {
-
+    private Properties properties = null;
+    /** logging instance */
+    private Logger logger = null;
+    
+    public Configuration(String fileName) throws IOException
+    {
+        logger = logger = Logger.getLogger(Configuration.class);
+        InputStream inStream = getClass().getClassLoader().getResourceAsStream(fileName);
+        properties = new Properties();
+        properties.load(inStream);
+        logger.info("Created Configuration instance with following attributes: " + properties.toString());
+    }
+    
+    public void store(String FileName) throws IOException
+    {
+        FileOutputStream outStream = new FileOutputStream(FileName);
+        this.properties.store(outStream, "header");
+    }
 }

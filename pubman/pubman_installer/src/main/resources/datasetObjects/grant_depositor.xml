@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grants:grant  xmlns:grants="http://www.escidoc.de/schemas/grants/0.5"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/">
+<grants:properties>
+<srel:role   objid="escidoc:role-depositor" /><srel:assigned-on   objid="template_contextid_substituted_by_installer" /></grants:properties>
+</grants:grant>
