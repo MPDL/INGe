@@ -52,15 +52,20 @@
 	<xsl:variable name="copyrightStatement" select="if (exists(oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-statement))
 													then oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-statement
 													else oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:copyright-statement"/>
+													
 	<xsl:variable name="copyrightHolder" select="if (exists(oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-holder))
 													then oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-holder
 													else oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:copyright-holder"/>
+													
 	<xsl:variable name="copyrightYear" select="if (exists(oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-year))
 													then oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:copyright-year
 													else oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:copyright-year"/>
+													
 	<xsl:variable name="license" select="if (exists(oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:license))
-													then oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:license
-													else oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:license"/>
+													then concat (oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:license,
+																 oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:permissions/pm:license/@xlink:href)
+													else concat (oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:license,
+																 oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:license/@xlink:href)"/>
 
 	<xsl:template match="/">
 		      <ec:component objid="escidoc:dummy">	      	
@@ -82,10 +87,10 @@
 		             	<xsl:value-of select="
 							if (exists($copyrightStatement) and exists ($copyrightHolder))
 							then concat($copyrightStatement, concat(' (', $copyrightHolder, ') '))
-							else copyrightStatement"/>
+							else $copyrightStatement"/>
 		              </dc:rights>
 		              <dcterms:license>
-		              	<xsl:value-of select="$license"/>
+		              	<xsl:value-of select="normalize-space($license)"/>
 		              </dcterms:license>
 		            </file:file>
 		          </mdr:md-record>
