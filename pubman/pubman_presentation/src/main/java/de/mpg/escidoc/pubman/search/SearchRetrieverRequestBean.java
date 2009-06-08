@@ -1,8 +1,6 @@
 package de.mpg.escidoc.pubman.search;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -217,6 +215,16 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public String getCqlQuery()
     {
         return cqlQuery;
+    }
+    
+    /**
+     * Returns the current cql query without blanks
+     * @return
+     */
+    public String getNormalizedCqlQuery()
+    {
+        String ret = this.cqlQuery; // .replace(" ", "");
+        return java.net.URLEncoder.encode(ret);
     }
     
     /**
