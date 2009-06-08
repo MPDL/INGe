@@ -34,24 +34,31 @@ package de.mpg.escidoc.services.dataacquisition;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Vector;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.parsers.DocumentBuilder;
 
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 import noNamespace.SourceType;
 import noNamespace.SourcesDocument;
 import noNamespace.SourcesType;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
@@ -82,7 +89,7 @@ public class Util
     private final String transformationService = "escidoc";
     
     //Cone
-    private final String coneMethod = "jquery/escidocmimetypes";
+    private final String coneMethod = "rdf/escidocmimetypes";
     private final String coneRel = "http://www.escidoc.org/mimetypes/";
     
 
@@ -343,7 +350,7 @@ public class Util
         if (sourceName.trim().toLowerCase().equals("spires"))
         {
             //If identifier is DOI, the identifier has to be enhanced
-            if ((!identifier.toLowerCase().startsWith("arxiv")) && (!identifier.toLowerCase().startsWith("hep")))
+            if ((!identifier.toLowerCase().startsWith("arxiv")) && (!identifier.toLowerCase().startsWith("hep")) && (!identifier.toLowerCase().startsWith("cond")))
             {
                 identifier = "FIND+DOI+" + identifier;
             }
@@ -619,7 +626,7 @@ public class Util
     
     /**
      * This methods gets a vector of formats, checks the formats names and adds
-     * the format type to the name if the name occurs more than once in the list.
+     * the format type to the name, if the name occurs more than once in the list.
      * @param formats
      * @return Vector of FormatVOs
      */
@@ -644,17 +651,21 @@ public class Util
         return formats;
     }
     
+    /**
+     * Retrieves the fileending for a given mimetype from the cone service
+     * @param mimeType
+     * @return fileending as String
+     */
     public String retrieveFileEndingFromCone(String mimeType) 
     {
-        String[] mimeTypeArr;
         String suffix = null;
-        InputStreamReader isReader;
-        BufferedReader bReader;
+        URLConnection conn;
         
         try
         {
-            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" + this.coneMethod + "/" + this.coneRel + "/" + mimeType);
-            URLConnection conn = coneUrl.openConnection();
+
+            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" + this.coneMethod + "/" + this.coneRel + mimeType);
+            conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
             switch (responseCode)
@@ -664,26 +675,29 @@ public class Util
                     break;
                 default:
                     throw new RuntimeException("An error occurred while calling Cone Service: "
-                                + responseCode + ": " + httpConn.getResponseMessage());
+                                + responseCode);
             }
-                
-           isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-           bReader = new BufferedReader(isReader);
-           String line = "";
-           while ((line = bReader.readLine()) != null)
+            InputStream isReader = coneUrl.openStream();
+            //BufferedReader bReader = new BufferedReader(isReader);
+//            String line = "";
+//            while ((line = bReader.readLine()) != null)
+//            {
+//                itemXML += line + "\n";
+//            }
+           
+           DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();          
+           Document doc = documentBuilder.parse(isReader);
+           NodeList nodeL = doc.getElementsByTagName("suffix");
+           
+           for (int i = 0; i< nodeL.getLength(); i++)
            {
-               if (!line.trim().contains("urn_cone_suffix"))
-               {
-                   mimeTypeArr = line.split(":");
-                   line = mimeTypeArr[1];
-                   line.replaceAll("''", "");
-                   suffix = line;
-               }
+               Node node = nodeL.item(i);
+               suffix = node.getNodeValue();
            }
         }
         catch (Exception e)
         {
-            logger.warn("Suffix could not be retrieved from cone service (mimetype: "+ mimeType + ")", e);
+            this.logger.warn("Suffix could not be retrieved from cone service (mimetype: "+ mimeType + ")", e);
             return null;
         }
         
