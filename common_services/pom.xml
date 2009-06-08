@@ -654,8 +654,11 @@
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-
-				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>                <!-- syndication service -->				
+				<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
+				<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
+				
+				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
+				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.FrameworkValidationSchemaSource</escidoc.validation.source.classname>                <!-- syndication service -->				
                 <escidoc.syndication.service.url>http://localhost:8080/syndication/</escidoc.syndication.service.url>
 				<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 				<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
