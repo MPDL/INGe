@@ -33,7 +33,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,6 +51,16 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
+import de.escidoc.core.common.exceptions.application.missing.MissingElementValueException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.application.violated.OrganizationalUnitNameNotUniqueException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -61,6 +73,8 @@ public class InitialDataset
     private Logger logger = null;
     /** URL of the framework instance */
     private URL frameworkUrl = null;
+    /** user handle from framework */
+    private String userHandle = null;
     /** number of tokens needed by the login method */
     private static final int NUMBER_OF_URL_TOKENS = 2;
     
@@ -68,10 +82,13 @@ public class InitialDataset
     private static final String CONTEXTID_SUBSTITUTE_IDENTIFIER = "template_contextid_substituted_by_installer";
                                             
 
-    public InitialDataset(URL frameworkUrl)
+    public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException
     {
         logger = Logger.getLogger(Installer.class);
         this.frameworkUrl = frameworkUrl;
+        this.userHandle = loginToCoreservice(username, password);
+        logger.info("Connection to coreservice <" + frameworkUrl.toString() +"> established, using handle" +
+        		" <" + userHandle + ">.");
     }
 
     public String loginToCoreservice(String userid, String password) throws ServiceException, IOException
@@ -188,7 +205,7 @@ public class InitialDataset
         return buffer.toString();
     }
     
-    public String createAndOpenOrganizationalUnit(String fileName, String userHandle) throws Exception 
+    public String createAndOpenOrganizationalUnit(String fileName) throws Exception
     {
         String orgXml = getResourceAsXml(fileName);
         String frameworkReturnXml =
@@ -209,7 +226,7 @@ public class InitialDataset
         
     }
     
-    public String createAndOpenContext(String fileName, String orgObjectId, String userHandle) throws Exception
+    public String createAndOpenContext(String fileName, String orgObjectId) throws Exception
     {
         String contextXml = getResourceAsXml(fileName);
         contextXml = contextXml.replaceAll(OBJECTID_SUBSTITUTE_IDENTIFIER, orgObjectId);
@@ -231,7 +248,7 @@ public class InitialDataset
         return objectId;
     }
     
-    public String createUser( String fileName, String password, String orgObjectId, String userHandle ) throws Exception
+    public String createUser( String fileName, String password, String orgObjectId) throws Exception
     {
         String userXml = getResourceAsXml(fileName);
         userXml = userXml.replaceAll(OBJECTID_SUBSTITUTE_IDENTIFIER, orgObjectId);
@@ -254,7 +271,7 @@ public class InitialDataset
         return objectId;
     }
     
-    public String createGrantForUser( String fileName, String userObjectId, String contextId, String userHandle ) throws Exception
+    public String createGrantForUser( String fileName, String userObjectId, String contextId ) throws Exception
     {
         String grantXml = getResourceAsXml(fileName);
         grantXml = grantXml.replaceAll(CONTEXTID_SUBSTITUTE_IDENTIFIER, contextId);
@@ -268,7 +285,7 @@ public class InitialDataset
         return objectId;
     }
     
-    public String retrieveContentModel(String contentModelId, String userHandle) throws Exception
+    public String retrieveContentModel(String contentModelId) throws Exception
     {
         String frameworkReturnXml =
             ServiceLocator.getContentModelHandler(userHandle, frameworkUrl).retrieve(contentModelId);
@@ -299,4 +316,9 @@ public class InitialDataset
         }
         return result;
     }  
+    
+    public String getHandle()
+    {
+        return userHandle;
+    }
 }

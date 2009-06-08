@@ -33,6 +33,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -43,9 +45,25 @@ import org.apache.log4j.Logger;
  */
 public class Configuration
 {
+    /** */
     private Properties properties = null;
     /** logging instance */
     private Logger logger = null;
+    
+    public static final String KEY_MAILSERVER = "escidoc.pubman_presentation.email.mailservername";
+    public static final String KEY_MAIL_SENDER = "escidoc.pubman_presentation.email.sender";
+    public static final String KEY_MAIL_USE_AUTHENTICATION = "escidoc.pubman_presentation.email.withauthentication";
+    public static final String KEY_MAILUSER = "escidoc.pubman_presentation.email.authenticationuser";
+    public static final String KEY_MAILUSERPW = "escidoc.pubman_presentation.email.authenticationpwd";
+    public static final String KEY_INSTANCEURL = "escidoc.pubman.instance.url";
+    public static final String KEY_CORESERVICE_URL = "escidoc.framework_access.framework.url";
+    public static final String KEY_CORESERVICE_ADMINUSERNAME = "framework.admin.username";
+    public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
+    public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";
+    public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
+    public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
+    public static final String KEY_CONE_USER = "escidoc.cone.database.user.name";
+    public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";
     
     public Configuration(String fileName) throws IOException
     {
@@ -60,5 +78,23 @@ public class Configuration
     {
         FileOutputStream outStream = new FileOutputStream(FileName);
         this.properties.store(outStream, "header");
+    }
+    
+    public void setProperty( String key, String value)
+    {
+        properties.setProperty(key, value);
+    }
+    
+    public String getProperty( String key )
+    {
+        return properties.getProperty(key);
+    }
+    
+    public void setProperties(Map<String, String> props) {
+        Iterator it = props.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            setProperty((String)pairs.getKey(), (String)pairs.getValue());
+        }
     }
 }
