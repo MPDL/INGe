@@ -460,19 +460,11 @@ public class FileBean extends FacesBean
     		    	    }
     		    	}
     		    	
-    		    	//http://i.creativecommons.org/l/by-nc/2.0/80x15.png
     	            String address = splittedURL[start];
     	            String licenses = "l";
     	            String type = splittedURL[start+2];
     	            String version = splittedURL[start+3];
     	            String image = "80x15.png";
-    		    	
-    //		    	String protocol = splittedURL[0];
-    //		    	String address = splittedURL[2];
-    //		    	String licenses = "l";
-    //		    	String type = splittedURL[4];
-    //		    	String version = splittedURL[5];
-    //		    	String image = "80x15.png";
     		    	
     				urlToLicenceImage = "http://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
     	    	}
