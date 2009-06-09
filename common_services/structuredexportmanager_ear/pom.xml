@@ -125,53 +125,7 @@
 	</build>
 	
 	<profiles>
-		<profile>
-			<id>jboss40</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.3.1</version>
-						<executions>
-							<execution>
-								<id>start-container</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-									<goal>prepare-deployment</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>stop-container</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<container>
-								<containerId>jboss4x</containerId>
-								<zipUrlInstaller>
-									<url>${cargo.jboss.url}</url>
-									<installDir>${cargo.install.dir}</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<home>${project.build.directory}/jboss/server</home>
-								<properties>
-									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-									<cargo.logging>${cargo.log}</cargo.logging>
-									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
-								</properties>
-							</configuration>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+		
 		<profile>
 			<id>jboss42</id>
 			<build>
