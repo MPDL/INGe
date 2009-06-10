@@ -223,8 +223,15 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      */
     public String getNormalizedCqlQuery()
     {
-        String ret = this.cqlQuery; // .replace(" ", "");
-        return java.net.URLEncoder.encode(ret);
+        String ret = this.cqlQuery; 
+        if (ret != null)
+        {
+            return java.net.URLEncoder.encode(ret);
+        }
+        else
+        {
+            return "";
+        }         
     }
     
     /**
