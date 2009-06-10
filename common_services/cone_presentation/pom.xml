@@ -10,7 +10,6 @@
 	<packaging>war</packaging>
 	<name>cone_presentation</name>
 	<version>1.0.20-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
 	<build>
 		<plugins>
 			<plugin>
