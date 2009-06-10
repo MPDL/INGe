@@ -627,6 +627,8 @@
 				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.7</xsd.soap.searchresult.searchresult>
 				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.6</xsd.soap.useraccount.useraccount>
 				<xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.6</xsd.soap.useraccount.useraccountlist>
+				<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.5</xsd.soap.usergroup.usergroup>
+				<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.5</xsd.soap.usergroup.usergrouplist>
 				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
 				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.7</xsd.soap.ou.ou>
 				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.7</xsd.soap.ou.oulist>
