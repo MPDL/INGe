@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item-list 
-	xmlns="http://www.escidoc.de/schemas/itemlist/0.3" 
-	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" 
+	xmlns="http://www.escidoc.de/schemas/itemlist/0.8" 
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" 
 	xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
 	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
 	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" 
