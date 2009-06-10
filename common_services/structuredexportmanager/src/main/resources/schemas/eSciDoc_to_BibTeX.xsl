@@ -37,10 +37,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	xmlns:jfunc="java:de.mpg.escidoc.services.structuredexportmanager.functions.BibTex"
-	xmlns:func="urn:my-functions"
- 
- xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:func="urn:my-functions" 
+	xmlns:dc="${xsd.metadata.dc}"
+   xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
