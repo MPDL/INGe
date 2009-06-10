@@ -267,7 +267,7 @@
 																	<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitandReleaseAll}" rendered="#{import.importedItems}">
+																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 																</tr:commandLink>
 															</h:panelGroup>
