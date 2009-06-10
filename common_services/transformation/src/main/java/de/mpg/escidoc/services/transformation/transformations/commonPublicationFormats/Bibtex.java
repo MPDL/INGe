@@ -367,7 +367,7 @@ public class Bibtex
                                     {
                                         personVO.setGivenName(author.getInitial());
                                     }
-                                    if (affiliation != null || affiliationAddress != null)
+                                    if (affiliation != null)
                                     {
                                         OrganizationVO organization = new OrganizationVO();
                                         organization.setIdentifier(
@@ -443,8 +443,6 @@ public class Bibtex
                                     PersonVO personVO = new PersonVO();
                                     personVO.setFamilyName(author.getSurname());
                                     OrganizationVO organization = new OrganizationVO();
-                                    organization.setIdentifier(
-                                            PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                                     personVO.getOrganizations().add(organization);
                                     if (author.getGivenName() != null)
                                     {
@@ -454,8 +452,9 @@ public class Bibtex
                                     {
                                         personVO.setGivenName(author.getInitial());
                                     }
-                                    if (affiliation != null || affiliationAddress != null)
+                                    if (affiliation != null)
                                     {
+                                        organization.setName(new TextVO(affiliation));
                                         organization.setAddress(affiliationAddress);
                                         organization.setIdentifier(
                                                 PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
