@@ -48,7 +48,9 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:pub="${xsd.metadata.publication}">
-	<xsl:import href="functions.xsl"/>
+	<!-- <xsl:import href="functions.xsl"/>-->
+	
+
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	
 	
