@@ -208,7 +208,7 @@ public class AudienceBean extends FacesBean
         
     	for(int i = 0; i < this.getUserGroupList().getUserGroupLists().size(); i++)
         {
-        	selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getLabel());
+        	selectItem = new SelectItem(this.getUserGroupList().getUserGroupLists().get(i).getObjid(), this.getUserGroupList().getUserGroupLists().get(i).getName());
             selectItems[i+1] = selectItem;
         }
     	
