@@ -132,8 +132,8 @@
     	</dependency>
     	 <dependency>
 			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-allin1</artifactId>
-			<version>1.0.0</version>
+			<artifactId>escidoc-core</artifactId>
+			<version>1.1.0</version>
 			<scope>provided</scope>
 		</dependency>
     	<dependency>

@@ -29,6 +29,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
+
 import org.apache.xmlbeans.XmlOptions;
 
 import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
@@ -36,9 +37,10 @@ import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundE
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
+
 import de.escidoc.schemas.container.x07.ContainerDocument;
 import de.escidoc.schemas.container.x07.ContainerDocument.Container;
-import de.escidoc.schemas.item.x07.ItemDocument;
+import de.escidoc.schemas.item.x08.ItemDocument;
 import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;

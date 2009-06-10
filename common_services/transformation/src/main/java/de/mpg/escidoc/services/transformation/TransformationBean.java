@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.transformation;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Set;
 import java.util.Vector;
 
