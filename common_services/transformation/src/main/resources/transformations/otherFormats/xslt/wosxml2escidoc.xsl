@@ -235,13 +235,21 @@
 			<xsl:element name="e:given-name">
 				<xsl:value-of select="$givenname"/>
 			</xsl:element>
-			<xsl:if test="../CA">
+			<xsl:choose>
+			<xsl:when test="../CA">
 				<xsl:element name="e:organization">
 					<xsl:element name="e:organization-name">
 						<xsl:value-of select="../CA"/>
 					</xsl:element>
 				</xsl:element>
-			</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<e:organization>
+					<e:organization-name>External Organizations</e:organization-name>
+					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+				</e:organization>
+			</xsl:otherwise>
+			</xsl:choose>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="AF">
