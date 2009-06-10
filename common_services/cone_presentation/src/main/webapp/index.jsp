@@ -102,9 +102,9 @@
 										HTML<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/html/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -112,9 +112,9 @@
 										RDF/XML<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/rdf/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/rdf/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/rdf/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -122,9 +122,9 @@
 										JSON<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/json/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/json/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/json/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -132,9 +132,9 @@
 										Options<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/options/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/options/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="/cone/options/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/query?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/all">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
 									</span>
 								</span>
 							</div>

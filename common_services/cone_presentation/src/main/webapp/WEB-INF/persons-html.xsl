@@ -46,7 +46,7 @@
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-				<link href="/pubman/resources/eSciDoc_CSS_v2/themes/blue/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
+				<link href="/pubman/resources/eSciDoc_CSS_v2/themes//skin_PubMan/styles/theme.css" id="blueTheme" type="text/css" title="blue" rel="stylesheet"/>
 				<style type="text/css">
 					.Italic {
 						font-style:italic;
