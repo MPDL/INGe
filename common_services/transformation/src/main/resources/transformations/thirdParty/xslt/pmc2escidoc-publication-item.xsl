@@ -255,12 +255,10 @@
 					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
 				</xsl:when>
 				<xsl:when test="@pub-id-type='pmc'">
-					<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>
-					<xsl:value-of select="'pmc:'"/>
+					<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>					
 				</xsl:when>
 				<xsl:when test="@pub-id-type='pmid'">
-					<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>
-					<xsl:value-of select="'pmid:'"/>
+					<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>					
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
