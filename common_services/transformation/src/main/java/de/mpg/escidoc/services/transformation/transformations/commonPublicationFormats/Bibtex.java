@@ -57,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
@@ -175,6 +176,16 @@ public class Bibtex
                             || bibGenre == BibTexUtil.Genre.inproceedings)
                     {
                         sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("booktitle").toString())));
+                        if (bibGenre == BibTexUtil.Genre.conference
+                            || bibGenre == BibTexUtil.Genre.inproceedings)
+                        {
+                            sourceVO.setGenre(Genre.PROCEEDINGS);
+                        }
+                        else if (bibGenre == BibTexUtil.Genre.inbook
+                            || bibGenre == BibTexUtil.Genre.incollection)
+                        {
+                            sourceVO.setGenre(Genre.BOOK);
+                        }
                     }
                 }
 
