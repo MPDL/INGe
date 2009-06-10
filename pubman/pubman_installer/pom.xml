@@ -149,7 +149,7 @@
 
     <properties>
         <staging.dir>${project.build.directory}/staging</staging.dir>
-        <izpack-standalone.version>4.2.1-SNAPSHOT</izpack-standalone.version>
+        <izpack-standalone.version>4.2.1</izpack-standalone.version>
     </properties>
 
     <dependencies>

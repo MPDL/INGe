@@ -32,8 +32,10 @@ package de.mpg.escidoc.pubman.installer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,7 +65,14 @@ public class Installer
     private Configuration config = null ;
     /** content model to be checked */
     private static final String CHECK_CONTENT_MODEL = "escidoc:persistent4";
- 
+    /** filename of ear */
+    private static final String PUBMAN_EAR_FILENAME = "bin/pubman_ear.ear";
+    /** filename of validation */
+    private static final String VALIDATION_FILENAME = "config/validation-ds.xml";
+    /** jboss relative deploy path */
+    private static final String JBOSS_DEPLOY = "/server/default/deploy";   
+    /** jboss relative conf path */
+    private static final String jBOSS_CONF = "/server/default/conf";
     /**
      * Default constructor
      * @throws IOException 
@@ -76,38 +85,82 @@ public class Installer
     
     public void install() throws IOException, ServiceException, Exception {
         printStartMessage();
+        askUserIfContentModelAvailable();
         collectDataFromUser();
         config.setProperties(userConfigValues);
         createInitialData();
-        if( isContentModelValid() == true) {
-            
-        }
-        else {
-            
-        }
-        config.store("pubman.properties");
+        checkContextModel();
+        installFiles();  
     }
       
     public static void main(String[] args)
-    {
+    {   Installer installer = null;
+        try {
+           installer = new Installer();
+        }
+        catch (Exception e){
+           System.out.println("Severe problems. Aborting program.");
+        }
+    
         try
         {
-            Installer installer = new Installer();
             installer.install();
         } 
+        
         catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("Program aborted. See installer.log for errors.");
+            installer.logger.error(e);
         }
+        System.out.println("Installer terminated successfully. See installer.log for additional info.");
     }
     
-    private void printStartMessage() {
-        System.out.print("PubMan Installer");
-        
-        System.out.println();
+    public void askUserIfContentModelAvailable() throws FileNotFoundException, Exception {
+        System.out.println("-------------------");
+        System.out.println("Before continuing with the installation and creating of the initial dataset,");
+        System.out.println("are you sure the PubMan content model with the identifier 'escidoc:persistent4");
+        System.out.print("is available in the coreservice instance? (y/n)");
+        System.out.flush();
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                System.in));
+        String response = in.readLine();
+        if (!response.equals("Y") && !response.equals("y")) {
+            System.out.println("This means, you have to manual ingest the content model into the coreservice instance.");
+            System.out.println("Be aware, that you need root rights to the host, coreservice is running and you should know what you are doing on that host. ;)");
+            System.out.println("Ingest the following xml into the fedora system:");
+            System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
+            System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
+            System.out.println("Finally run this tool again.");
+            throw new Exception();
+        }
+        else {
+            System.out.println("Good. Then we will proceed with the installation.");
+        }        
     }
     
-    private void collectDataFromUser() throws IOException {
+    public void printStartMessage() {
+        System.out.println("PubMan Installer");
+        System.out.println("-------------------");
+        System.out.println("This PubMan installer is used to install the needed PubMan files to a JBoss server" +
+        		" and to install an initial dataset on the used coreservice instance.");
+        System.out.println("Prerequisites for this installer:");
+        System.out.println("- JBoss 4.2.2 server");
+        System.out.println("- coreservice instance 1.1 with known admin user");
+        System.out.println("- ingested content model, name escidoc:persistent4 into coreservice");
+    }
+    
+    
+    
+    public void installFiles() throws IOException {
+        config.store("pubman.properties"); 
+        String deployDir = jbossInstallPath + JBOSS_DEPLOY;
+        String confDir = jbossInstallPath + jBOSS_CONF;
+        copyFile("pubman.property", confDir);
+        copyFile(PUBMAN_EAR_FILENAME, deployDir);
+        copyFile(VALIDATION_FILENAME, deployDir);
+    }
+    
+    public void collectDataFromUser() throws IOException {
         System.out.println("---General Settings---");
         jbossInstallPath = fetchDataValueFromUser("Enter the installation path of Jboss: ");
         defaultUserPassword = fetchDataValueFromUser("Enter the default password for users to be created: ");
@@ -157,7 +210,7 @@ public class Installer
         return input;
     }
     
-    private void createInitialData() throws Exception {
+    public void createInitialData() throws Exception {
         InitialDataset dataset = new InitialDataset(
                 new URL( config.getProperty(Configuration.KEY_CORESERVICE_URL) ),
                 config.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
@@ -175,10 +228,24 @@ public class Installer
         String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml", 
                 defaultUserPassword, ouDefaultObjectId);
         
-        String grantModeratorId = dataset.createGrantForUser(
+        dataset.createGrantForUser(
                 "datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
-        String grantDepositorId = dataset.createGrantForUser(
+        dataset.createGrantForUser(
                 "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
+    }
+    
+    public void checkContextModel() throws FileNotFoundException, Exception {
+        System.out.println("Checking if context (escidoc:persistent4) is available...");
+        if( isContentModelValid() == true) {
+            System.out.println("Good. Context is available.");
+        }
+        else {
+            System.out.println("Context is not available. Please ingest the following xml in fedora " +
+            		"and do a recache on the eSciDoc core infrastructure before running PubMan.");
+            System.out.println();
+            
+            System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
+        }
     }
     
     private boolean isContentModelValid() {
@@ -188,6 +255,7 @@ public class Installer
                     new URL( config.getProperty(Configuration.KEY_CORESERVICE_URL) ),
                     config.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
                     config.getProperty(Configuration.KEY_CORESERVICE_ADMINPW));
+            
             dataset.retrieveContentModel(CHECK_CONTENT_MODEL);
             return true;
         } 
@@ -195,7 +263,6 @@ public class Installer
         {
             return false;
         }
-        
     }
     
     private void copyFile(String fromFileName, String toFileName) throws IOException {
@@ -269,5 +336,40 @@ public class Installer
            ;
        }
         }
+    }
+    public String getResourceAsString(final String fileName) throws FileNotFoundException, Exception
+    {
+        StringBuffer buffer = new StringBuffer();
+        InputStream is = null;
+        BufferedReader br = null;
+        String line;
+
+        try
+        {
+            is = getClass().getClassLoader().getResourceAsStream(fileName);
+            br = new BufferedReader(new InputStreamReader(is));
+            while (null != (line = br.readLine()))
+            {
+                buffer.append(line);
+                buffer.append("\n");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            try
+            {
+                if (br != null)
+                    br.close();
+                if (is != null)
+                    is.close();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return buffer.toString();
     }
 }

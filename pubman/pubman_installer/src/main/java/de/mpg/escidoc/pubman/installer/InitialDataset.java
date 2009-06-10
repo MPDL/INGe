@@ -80,7 +80,10 @@ public class InitialDataset
     
     private static final String OBJECTID_SUBSTITUTE_IDENTIFIER = "template_objectid_substituted_by_installer";
     private static final String CONTEXTID_SUBSTITUTE_IDENTIFIER = "template_contextid_substituted_by_installer";
-                                            
+        
+    public InitialDataset() {
+        
+    }
 
     public InitialDataset(URL frameworkUrl, String username, String password) throws ServiceException, IOException
     {
