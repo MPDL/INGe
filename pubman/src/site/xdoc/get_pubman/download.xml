@@ -6,12 +6,12 @@
 	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
 	<body>
 		<!-- The body of the document contains a number of sections -->
-		<section name="Download PubMan 4.1.6">
+		<section name="Download PubMan 5.0.1-SNAPSHOT">
 
 			<!-- Within sections, any XHTML can be used -->
 			<p>PubMan is currently delivered in several formats for your convenience.</p>
 			<p>
-				PubMan 4.1.6 is distributed under the
+				PubMan 5.0.1-SNAPSHOT is distributed under the
 				<a href="../license.html">Common Development And Distribution License (CDDL)</a>
 				.
 			</p>
@@ -30,21 +30,21 @@
 					<tr>
 						<td>PubMan 4.1.6 (tar.bz2)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-4.1.6-bin/pubman-4.1.6-bin.tar.bz2">pubman-4.1.6-bin.tar.bz2
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-5.0.1-SNAPSHOT-bin/pubman-5.0.1-SNAPSHOT-bin.tar.bz2">pubman-5.0.1-SNAPSHOT-bin.tar.bz2
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>PubMan 4.1.6 (tar.gz)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-4.1.6-bin/pubman-4.1.6-bin.tar.gz">pubman-4.1.6-bin.tar.gz
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-5.0.1-SNAPSHOT-bin/pubman-5.0.1-SNAPSHOT-bin.tar.gz">pubman-5.0.1-SNAPSHOT-bin.tar.gz
 							</a>
 						</td>
 					</tr>
 					<tr>
 						<td>PubMan 4.1.6 (zip)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-4.1.6-bin/pubman-4.1.6-bin.zip">pubman-4.1.6-bin.zip</a>
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-5.0.1-SNAPSHOT-bin/pubman-5.0.1-SNAPSHOT-bin.zip">pubman-5.0.1-SNAPSHOT-bin.zip</a>
 						</td>
 					</tr>
 				</tbody>
@@ -64,7 +64,7 @@
 					</tr>
 					<tr>
 						<td>Escidoc Framework instance</td>
-						<td>Release 1.0</td>
+						<td>Release 1.1</td>
 					</tr>
 				</tbody>
 			</table>
@@ -72,31 +72,6 @@
 			<h3>Installation instructions</h3>
 			<ul>
 				<li>Install the Jboss 4.2.3 server</li>
-				<li>Unzip the PubMan release file to a directory</li>
-				<li>
-					Copy the PubMan ear to the jboss
-					<i>deploy</i>
-					directory
-				</li>
-				<li>
-					Copy the
-					<i>validation-ds.xml</i>
-					file to the jboss
-					<i>deploy</i>
-					directory
-				</li>
-				<li>
-					Copy the
-					<i>pubman.properties</i>
-					file to the jboss
-					<i>conf</i>
-					directory
-				</li>
-				<li>
-					Now open the file
-					<i>pubman.properties</i>
-					and change the config settings to your needs
-				</li>
 				<li>
 					Open the file
 					<i>properties-service.xml</i>
@@ -113,6 +88,8 @@
 					... 
 			&lt;/server&gt;
 				</source>
+                <li>Unzip the PubMan release file to a directory</li>
+                <li>Start the pubman-installer</li>
 				<li>
 					Start the jboss server and PubMan should be available at
 					<i>jboss_server_url</i>
@@ -160,6 +137,13 @@
 							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
 						</td>
 					</tr>
+                    <tr>
+                        <td>pubman_installer</td>
+                        <td>Pubman Installer</td>
+                        <td>
+                            <a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_installer">archiva dir</a>
+                        </td>
+                    </tr>
 				</tbody>
 			</table>
 
