@@ -86,10 +86,10 @@ public class Installer
     public void install() throws IOException, ServiceException, Exception {
         printStartMessage();
         askUserIfContentModelAvailable();
+        checkContextModel();
         collectDataFromUser();
         config.setProperties(userConfigValues);
         createInitialData();
-        checkContextModel();
         installFiles();  
     }
       
@@ -105,6 +105,7 @@ public class Installer
         try
         {
             installer.install();
+            System.out.println("Installer terminated successfully. See installer.log for additional info.");
         } 
         
         catch (Exception e)
@@ -112,7 +113,6 @@ public class Installer
             System.out.println("Program aborted. See installer.log for errors.");
             installer.logger.error(e);
         }
-        System.out.println("Installer terminated successfully. See installer.log for additional info.");
     }
     
     public void askUserIfContentModelAvailable() throws FileNotFoundException, Exception {
@@ -131,7 +131,7 @@ public class Installer
             System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
             System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
             System.out.println("Finally run this tool again.");
-            throw new Exception();
+            throw new Exception("Context is not available.");
         }
         else {
             System.out.println("Good. Then we will proceed with the installation.");
@@ -155,7 +155,7 @@ public class Installer
         config.store("pubman.properties"); 
         String deployDir = jbossInstallPath + JBOSS_DEPLOY;
         String confDir = jbossInstallPath + jBOSS_CONF;
-        copyFile("pubman.property", confDir);
+        copyFile("pubman.properties", confDir);
         copyFile(PUBMAN_EAR_FILENAME, deployDir);
         copyFile(VALIDATION_FILENAME, deployDir);
     }
@@ -240,11 +240,12 @@ public class Installer
             System.out.println("Good. Context is available.");
         }
         else {
-            System.out.println("Context is not available. Please ingest the following xml in fedora " +
-            		"and do a recache on the eSciDoc core infrastructure before running PubMan.");
-            System.out.println();
-            
+            System.out.println("Sorry context is not available.");
+            System.out.println("Please ingest the following context into the eSciDoc core service.");
             System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
+            System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
+            System.out.println("Finally run this tool again.");
+            throw new Exception("Context is not available.");
         }
     }
     

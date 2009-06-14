@@ -6,11 +6,11 @@
   <escidocMetadataRecords:md-records>
     <escidocMetadataRecords:md-record name="escidoc">
       <ou-details:organization-details xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-        <dc:title>Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.</dc:title>
-        <dcterms:alternative>FG</dcterms:alternative>
+        <dc:title>External Organisation</dc:title>
+        <dcterms:alternative>EO</dcterms:alternative>
         <dc:identifier xsi:type="dcterms:URI"></dc:identifier>
         <dc:identifier xsi:type="eidt:ESCIDOC">4711</dc:identifier>
-        <dc:description>Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.</dc:description>
+        <dc:description>This is the default external organisation.</dc:description>
         <ou-details:city>München</ou-details:city>
         <ou-details:country>NO</ou-details:country>
       </ou-details:organization-details>
