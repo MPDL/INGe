@@ -71,7 +71,7 @@
 
 			<h3>Installation instructions</h3>
 			<ul>
-				<li>Install the Jboss 4.2.3 server</li>
+				<li>Install the Jboss 4.2.2 server</li>
 				<li>
 					Open the file
 					<i>properties-service.xml</i>
