@@ -34,7 +34,7 @@
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
-
+		<h:form>
 			<tr class="full_area0 listItem">
 		      	<td class="free_area0 endline">
 		      		<span class="tiny_area0">
@@ -116,6 +116,6 @@
 		      		</span>
 		      	</td>
 		    </tr>
-
+		</h:form>
 	</f:view>
 </jsp:root>
