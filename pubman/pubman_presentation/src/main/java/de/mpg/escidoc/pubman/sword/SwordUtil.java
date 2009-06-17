@@ -143,14 +143,16 @@ public class SwordUtil extends FacesBean
     private final String acceptedFormat = "application/zip";
     private final String mdFormatTEI = ".tei";
     private final String mdFormatEscidoc = ".xml";
+    private final String mdFormatBibTex = ".bib";
+    private final String mdFormatEndnote = ".enl";
+    
     private final String itemPath = "/pubman/item/";
     private final String serviceDocUrl = "faces/sword/servicedocument";
-    private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
-    private final String acceptedNs = "http://www.tei-c.org/ns/1.0";
     private final String validationPointAccept = "accept_item";
     private final String validationPointSubmit = "submit_item";
     private final String validationPointDefault = "default";
     private final String transformationService = "escidoc";
+    private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
 
     /**
      * Public constructor
@@ -197,42 +199,42 @@ public class SwordUtil extends FacesBean
         }
         return userVO;
     }
-    
-    /**
-     * Retrieves all collections a user may deposit to.
-     * @param user
-     * @return Vector with all collections 
-     */
-    public Vector <Collection> getDepositCollection (AccountUserVO user)
-    {
-        Vector <Collection> allCol = new Vector<Collection>();
-        List <PubContextVOPresentation> contextList = null;
-        ContextListSessionBean contextListBean = new ContextListSessionBean();
-        contextList = contextListBean.getDepositorContextList();
-
-        for (int i = 0; i < contextList.size(); i++)
-        {
-            PubContextVOPresentation pubContext = contextList.get(i);
-            //Create collection object for all PubContextVOPresentation objects
-            Collection col = new Collection();
-            col.setTitle(pubContext.getName());
-            col.setAbstract(pubContext.getDescription());
-            //standard value for start.
-            col.setMediation(false);
-            col.setCollectionPolicy(this.getWorkflowAsString(pubContext));
-            //Collection identifier
-            col.setLocation(pubContext.getReference().getObjectId());
-            //static value
-            col.setTreatment(this.treatmentText);
-            //static value
-            col.setFormatNamespace(this.acceptedNs);
-            //static value
-            col.addAccepts(this.acceptedFormat);
-
-            allCol.add(col);
-        }
-        return allCol;
-    }
+//    
+//    /**
+//     * Retrieves all collections a user may deposit to.
+//     * @param user
+//     * @return Vector with all collections 
+//     */
+//    public Vector <Collection> getDepositCollection (AccountUserVO user)
+//    {
+//        Vector <Collection> allCol = new Vector<Collection>();
+//        List <PubContextVOPresentation> contextList = null;
+//        ContextListSessionBean contextListBean = new ContextListSessionBean();
+//        contextList = contextListBean.getDepositorContextList();
+//
+//        for (int i = 0; i < contextList.size(); i++)
+//        {
+//            PubContextVOPresentation pubContext = contextList.get(i);
+//            //Create collection object for all PubContextVOPresentation objects
+//            Collection col = new Collection();
+//            col.setTitle(pubContext.getName());
+//            col.setAbstract(pubContext.getDescription());
+//            //standard value for start.
+//            col.setMediation(false);
+//            col.setCollectionPolicy(this.getWorkflowAsString(pubContext));
+//            //Collection identifier
+//            col.setLocation(pubContext.getReference().getObjectId());
+//            //static value
+//            col.setTreatment(this.treatmentText);
+//            //static value
+//            col.setFormatNamespace(this.acceptedNs);
+//            //static value
+//            col.addAccepts(this.acceptedFormat);
+//
+//            allCol.add(col);
+//        }
+//        return allCol;
+//    }
 
     /**
      * Checks if a user has depositing rights for a collection.
@@ -409,21 +411,38 @@ public class SwordUtil extends FacesBean
 
                 this.filenames.add(zipentry.getName());
                 //Retrieve the metadata
+                
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEscidoc))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
-                    this.format=this.mdFormatEscidoc;
                     this.depositXml = item;
+                    this.format=this.mdFormatEscidoc;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatTEI))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
-                    this.format=this.mdFormatTEI;
                     this.depositXml = item;
+                    this.format=this.mdFormatTEI;
+                }
+                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatBibTex))
+                {
+                    size = (int) zipentry.getSize();
+                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
+                    this.logger.debug("Provided Metadata:" + item);
+                    this.depositXml = item;
+                    this.format=this.mdFormatBibTex;
+                }
+                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEndnote))
+                {
+                    size = (int) zipentry.getSize();
+                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
+                    this.logger.debug("Provided Metadata:" + item);
+                    this.depositXml = item;
+                    this.format=this.mdFormatEndnote;
                 }
 
                     attachements.add(baos.toByteArray());
@@ -485,10 +504,27 @@ public class SwordUtil extends FacesBean
                 Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
                 Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
                 item = new String (transformer.transform(item.getBytes(), teiFormat, escidocFormat, this.transformationService), "UTF-8");
-            }           
+            }     
+            
+            //Transform from bibtex to escidoc-publication-item
+            if (this.format.equals(this.mdFormatBibTex))
+            {
+                TransformationBean transformer = new TransformationBean ();
+                Format bibFormat = new Format("bibtex", "text/plain", "*");
+                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+                item = new String (transformer.transform(item.getBytes(), bibFormat, escidocFormat, this.transformationService), "UTF-8");
+            }
+            
+            //Transform from endnote to escidoc-publication-item
+            if (this.format.equals(this.mdFormatEndnote))
+            {
+                TransformationBean transformer = new TransformationBean ();
+                Format endFormat = new Format("endnote", "text/plain", "UTF-8");
+                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+                item = new String (transformer.transform(item.getBytes(), endFormat, escidocFormat, this.transformationService), "UTF-8");
+            }
             
             //Create item
-            System.out.println(item);
             itemVO = xmlTransforming.transformToPubItem(item);
             this.logger.debug("Item successfully created.");
         }
@@ -628,7 +664,7 @@ public class SwordUtil extends FacesBean
      * @param pubContext
      * @return workflow type as string
      */
-    private String getWorkflowAsString(PubContextVOPresentation pubContext)
+    public String getWorkflowAsString(PubContextVOPresentation pubContext)
     {
         boolean isWorkflowStandard = pubContext.getAdminDescriptor().getWorkflow() == 
             PublicationAdminDescriptorVO.Workflow.STANDARD;
@@ -683,10 +719,14 @@ public class SwordUtil extends FacesBean
         String mimeType = fileNameMap.getContentTypeFor(name);
         TransformationBean transformer = new TransformationBean();
         
-        //Hack: FileNameMap class does not know tei
+        //Hack: FileNameMap class does not know tei, bibtex and endnote
         if (name.toLowerCase().endsWith(".tei"))
         {
             mimeType = "application/xml";
+        }
+        if (name.toLowerCase().endsWith(".bib") || name.toLowerCase().endsWith(".enl"))
+        {
+            mimeType = "text/plain";
         }
 
         URL fileURL = this.uploadFile(in, mimeType, user.getHandle()); 
@@ -838,8 +878,7 @@ public class SwordUtil extends FacesBean
         se.setSource(source);
 
         se.setTreatment(this.treatmentText);           
-        se.setNoOp(deposit.isNoOp());            
-        se.setFormatNamespace(this.acceptedNs);   
+        se.setNoOp(deposit.isNoOp());              
 
         return se;
     }
@@ -891,5 +930,15 @@ public class SwordUtil extends FacesBean
     public void setValidationPoint(String validationPoint)
     {
         this.validationPoint = validationPoint;
+    }
+    
+    public String getAcceptedFormat()
+    {
+        return acceptedFormat;
+    }
+    
+    public String getTreatmentText()
+    {
+        return treatmentText;
     }
 }

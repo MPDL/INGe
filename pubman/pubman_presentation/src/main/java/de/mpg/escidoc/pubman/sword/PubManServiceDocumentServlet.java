@@ -32,19 +32,37 @@ package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.util.List;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.purl.sword.base.Collection;
 import org.purl.sword.base.SWORDAuthenticationException;
-import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 
@@ -57,7 +75,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Logger log = Logger.getLogger(PubManServiceDocumentServlet.class);
 
-    private PubManSwordServer swordServer;
+    private AccountUserVO currentUser;
+    private PubManSwordServer swordServer = new PubManSwordServer();
 
     
     /** 
@@ -95,7 +114,6 @@ public class PubManServiceDocumentServlet extends HttpServlet {
     {
         // Create the ServiceDocumentRequest
         ServiceDocumentRequest sdr = new ServiceDocumentRequest();
-        PubManSwordServer pubMan = new PubManSwordServer();
         SwordUtil util = new SwordUtil();
         AccountUserVO user = null;
         
@@ -107,7 +125,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
                 sdr.setUsername(usernamePassword.substring(0, p));
                 sdr.setPassword(usernamePassword.substring(p+1));
                 user = util.getAccountUser(sdr.getUsername(), sdr.getPassword());
-                pubMan.setCurrentUser(user);
+                this.currentUser = user;
             } 
         } 
         else
@@ -120,14 +138,14 @@ public class PubManServiceDocumentServlet extends HttpServlet {
         
         try 
         {
-            ServiceDocument sd = this.swordServer.doServiceDocument(sdr);
-            pubMan.setCurrentUser(null);
+            String doc = swordServer.doServiceDocument(sdr);
+            this.currentUser = null;
             
             // Print out the Service Document
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/xml");
             PrintWriter out = response.getWriter();
-            out.write(sd.marshall());
+            out.write(doc);
             out.flush();
         } 
         catch (SWORDAuthenticationException sae) 
@@ -135,7 +153,11 @@ public class PubManServiceDocumentServlet extends HttpServlet {
             response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
             response.setStatus(401);
             response.setCharacterEncoding("UTF-8");
-            pubMan.setCurrentUser(null);
+            this.currentUser = null;
+        }
+        catch (Exception e)
+        {
+            this.log.error(e);
         }
     }
    
@@ -173,4 +195,6 @@ public class PubManServiceDocumentServlet extends HttpServlet {
        }
        return null;
     }
+    
+    
 }

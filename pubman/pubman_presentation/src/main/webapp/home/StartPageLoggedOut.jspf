@@ -69,7 +69,7 @@
 			<li>Data Acquisition Service with an <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI interface</a> (fetching data from external sources like arXiv)</li>
 			<li><a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.</li>
 			<li><a href="/cone/" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.</li>
-		    <li>A <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces#SWORD_.28Simple_Web-service_Offering_Repository_Deposit.29_Interface" target="_blank">SWORD Interface</a> for automated depositing.</li>
+		    <li>A <a href="/sword-app/" target="_blank">SWORD Interface</a> for automated depositing.</li>
 		</ul>
 	<span>Further information on the interfaces can be found under:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
@@ -110,7 +110,7 @@
 			<li>Data Acquisition Service mit einer <a href="/pubman/faces/../../dataacquisition" target="_blank">unAPI Schnittstelle</a> (Datenimport aus externen Systemen wie arXiv)</li>
 			<li><a href="/validation/" target="_blank">Validation Service</a>:Validierung von XML Daten</li>
 			<li><a href="/cone/" target="_blank">Control of Named Entities Service (CoNE)</a>: Anfragen von kontrollierten Vokabularien wie Journal Namen oder Personen</li>
-			<li>Eine <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces#SWORD_.28Simple_Web-service_Offering_Repository_Deposit.29_Interface" target="_blank">SWORD Schnittstelle</a> f&uuml;r automatisierte Deposits.</li>
+			<li>Eine <a href="/sword-app" target="_blank">SWORD Schnittstelle</a> f&uuml;r automatisierte Deposits.</li>
 		</ul>
 	<span>Weitere Informationen finden Sie unter:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
@@ -150,7 +150,7 @@
 			<li>データ取得サービス: <a href="/dataacquisition" target="_blank">unAPI インタフェース</a> arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。</li>
 			<li><a href="/validation/" target="_blank">検証サービス</a>: XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス; Control of Named Entities Service (CoNE)</a>: 雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher Portfolio)の提供が可能です。</li>
-			<li>A <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces#SWORD_.28Simple_Web-service_Offering_Repository_Deposit.29_Interface" target="_blank">SWORD Interface</a> for automated depositing.</li>
+			<li>A <a href="/sword-app" target="_blank">SWORD Interface</a> for automated depositing.</li>
 		</ul>
 	<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces" target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>

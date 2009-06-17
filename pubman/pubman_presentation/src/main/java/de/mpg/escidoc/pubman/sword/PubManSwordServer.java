@@ -31,22 +31,33 @@
 package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URISyntaxException;
-import java.util.Vector;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.log4j.Logger;
-import org.purl.sword.base.Collection;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.SWORDEntry;
-import org.purl.sword.base.Service;
-import org.purl.sword.base.ServiceDocument;
 import org.purl.sword.base.ServiceDocumentRequest;
-import org.purl.sword.base.ServiceLevel;
-import org.purl.sword.base.Workspace;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -70,42 +81,6 @@ public class PubManSwordServer
         private Logger log = Logger.getLogger(PubManSwordServer.class);
         private AccountUserVO currentUser;
         private String verbose = "";
-
-
-        /**
-         * Provides Service Document.
-         * @param ServiceDocumentRequest
-         * @return ServiceDocument
-         * @throws SWORDAuthenticationException 
-         * @throws URISyntaxException 
-         * @throws IOException 
-         */
-        public ServiceDocument doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException
-        {
-            SwordUtil util = new SwordUtil();
-            Vector <Collection> collections = new Vector <Collection>();
-
-            //Get collections due to logged in user
-            collections = util.getDepositCollection(this.currentUser);
-
-            // Create and return the PubMan ServiceDocument
-            ServiceDocument document = new ServiceDocument();
-            Service service = new Service(ServiceLevel.ZERO, true, false);
-            document.setService(service);
-
-            Workspace workspace = new Workspace();
-            workspace.setTitle("PubMan SWORD Workspace");
-
-            //Add all collections to workspace
-            for (int i = 0; i < collections.size(); i++)
-            {
-                workspace.addCollection(collections.get(i));
-            }
-
-            service.addWorkspace(workspace);
-
-            return document;
-        }
 
         
         /**
@@ -184,6 +159,101 @@ public class PubManSwordServer
             return dr;
         }
 
+        /**
+         * Provides Service Document.
+         * @param ServiceDocumentRequest
+         * @return ServiceDocument
+         * @throws SWORDAuthenticationException 
+         * @throws ParserConfigurationException 
+         * @throws TransformerException 
+         * @throws URISyntaxException 
+         * @throws IOException 
+         */
+        public String doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException, ParserConfigurationException, TransformerException
+        {
+            SwordUtil util = new SwordUtil();
+            List <PubContextVOPresentation> contextList = null;
+            ContextListSessionBean contextListBean = new ContextListSessionBean();
+            contextList = contextListBean.getDepositorContextList();
+            DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+
+            // Create and return the PubMan ServiceDocument
+            Document document = documentBuilder.newDocument();
+            Element service = document.createElementNS("http://www.w3.org/2007/app", "service");
+            Element version = document.createElementNS("http://purl.org/net/sword/", "version");
+            version.setPrefix("sword");
+            version.setTextContent("1.3");
+            Element workspace = document.createElement("workspace");
+            Element wsTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
+            wsTitle.setPrefix("atom");
+            wsTitle.setTextContent("PubMan SWORD Workspace");
+            workspace.appendChild(wsTitle);
+
+            //Add all collections to workspace
+            for (int i = 0; i < contextList.size(); i++)
+            {
+                    PubContextVOPresentation pubContext = contextList.get(i);
+                    
+                    Element collection = document.createElement("collection");
+                    collection.setAttribute("href", pubContext.getReference().getObjectId());
+                    Element colTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
+                    colTitle.setPrefix("atom");
+                    colTitle.setTextContent(pubContext.getName());
+                    Element abst = document.createElementNS("http://purl.org/dc/terms/", "abstract");
+                    abst.setPrefix("dcterms");
+                    abst.setTextContent(pubContext.getDescription());
+                    Element med = document.createElementNS("http://purl.org/net/sword/", "mediation");
+                    med.setPrefix("sword");
+                    med.setTextContent("false");
+                    Element policy = document.createElementNS("http://purl.org/net/sword/", "collectionPolicy");
+                    policy.setPrefix("sword");
+                    policy.setTextContent(util.getWorkflowAsString(pubContext));            
+                    //static value
+                    Element treat = document.createElementNS("http://purl.org/net/sword/", "treatment");
+                    treat.setPrefix("sword");
+                    treat.setTextContent(util.getTreatmentText());
+                    //static value
+                    Element format1 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+                    format1.setPrefix("sword");
+                    format1.setTextContent("http://www.tei-c.org/ns/1.0");
+                    Element format2 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+                    format2.setPrefix("sword");
+                    format2.setTextContent("http://purl.org/escidoc/metadata/schemas/0.1/publication");
+                    Element format3 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+                    format3.setPrefix("sword");
+                    format3.setTextContent("bibTex");
+                    Element format4 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+                    format4.setPrefix("sword");
+                    format4.setTextContent("EndNote");
+                    
+                    collection.appendChild(colTitle);
+                    collection.appendChild(abst);
+                    collection.appendChild(med);
+                    collection.appendChild(policy);
+                    collection.appendChild(treat);
+                    collection.appendChild(format1);
+                    collection.appendChild(format2);
+                    collection.appendChild(format3);
+                    collection.appendChild(format4);
+                    
+                    workspace.appendChild(collection);
+            }
+            
+            service.appendChild(version);
+            service.appendChild(workspace);    
+            
+            document.appendChild(service);
+
+            //Transform to xml
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            StreamResult result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(document);
+            transformer.transform(source, result);
+            String xmlString = result.getWriter().toString();
+            
+            return xmlString;
+        }
         
         public AccountUserVO getCurrentUser()
         {
