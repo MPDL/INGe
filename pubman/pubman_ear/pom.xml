@@ -58,6 +58,11 @@
                             <artifactId>dataacquisition_presentation</artifactId>
                             <contextRoot>/dataacquisition</contextRoot>
                         </webModule>
+                        <webModule>
+                            <groupId>de.mpg.escidoc.services</groupId>
+                            <artifactId>sword_presentation</artifactId>
+                            <contextRoot>/sword-app</contextRoot>
+                        </webModule>
                         <ejbModule>
                             <groupId>de.mpg.escidoc.services</groupId>
                             <artifactId>common_logic</artifactId>
@@ -531,6 +536,13 @@
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_presentation</artifactId>
             <version>5.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>sword_presentation</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
