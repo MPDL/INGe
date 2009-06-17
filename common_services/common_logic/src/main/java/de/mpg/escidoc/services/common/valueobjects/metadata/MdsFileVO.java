@@ -152,29 +152,34 @@ public class MdsFileVO extends MetadataSetVO
     public String getLicenseDisplayString()
     {
         String output = this.license;
-        boolean containsUrl = this.license.contains("http://");
-        if (containsUrl)
+        if (output != null)
         {
-            int start = output.indexOf("http://");
-            int end = output.indexOf(" ", start);
-            if (end == -1)
+            boolean containsUrl = output.contains("http://");
+            if (containsUrl)
             {
-                end = license.length();
+                int start = output.indexOf("http://");
+                int end = output.indexOf(" ", start);
+                if (end == -1)
+                {
+                    end = this.license.length();
+                }
+                String linkStart = "<a href='"+ output.substring(start, end)+"'>";
+                String linkEnd = "</a> ";
+                if (this.license.startsWith("http://"))
+                {
+                    output = linkStart + output.substring(start, end) + linkEnd + output.substring(end);
+                }
+                else
+                {
+                    output = output.substring(0, start) + linkStart + output.substring(start, end) + linkEnd + output.substring(end);
+                }
+                
             }
-            String linkStart = "<a href='"+ output.substring(start, end)+"'>";
-            String linkEnd = "</a> ";
-            if (this.license.startsWith("http://"))
-            {
-                output = linkStart + output.substring(start, end) + linkEnd + output.substring(end);
-            }
-            else
-            {
-                output = output.substring(0, start) + linkStart + output.substring(start, end) + linkEnd + output.substring(end);
-            }
-            
         }
-        
-        System.out.println("LICENSE: " + output);
+        else
+        {
+            return "";
+        }
         return output;
     }
 
