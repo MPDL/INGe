@@ -7,10 +7,10 @@
         The meaning of the tags should be natural ...
     -->
     <info>
-        <appname>@{project.name}</appname>
+        <appname>eSciDoc PubMan</appname>
         <appversion>@{project.version}</appversion>
         <authors>
-            <author name="${user.name}" email="${user.name}@mpdl.mpg.de"/>
+            <author name="MPDL Development Team" email="pubman-support@gwdg.de"/>
         </authors>
         <url>http://www.mpdl.mpg.de/</url>
     </info>
@@ -19,7 +19,18 @@
         The gui preferences indication.
         Sets the installer window to 640x480. It will not be able to change the size.
     -->
-    <guiprefs width="640" height="480" resizable="no"/>
+    <guiprefs width="640" height="480" resizable="no">
+        <modifier key="useButtonIcons" value="no"/>
+        <modifier key="labelGap" value="2"/>
+        <modifier key="layoutAnchor" value="NORTHWEST"/>
+        <modifier key="useHeadingPanel" value="yes"/>
+        <modifier key="headingImageOnLeft" value="yes"/>
+        <modifier key="headingLineCount" value="1"/>
+        <modifier key="headingFontSize" value="1.5"/>
+        <modifier key="headingBackgroundColor" value="0x00ffffff"/>
+        <modifier key="headingPanelCounter" value="text"/>
+        <modifier key="headingPanelCounterPos" value="inHeading"/>
+    </guiprefs>
 
     <!-- 
         The locale section.
@@ -27,7 +38,7 @@
     -->
     <locale>
         <langpack iso3="eng"/>
-        <langpack iso3="deu"/>
+        <!-- <langpack iso3="deu"/> -->
     </locale>
 
     <!-- 
@@ -38,7 +49,6 @@
         <res id="LicencePanel.licence" src="Licence.txt"/>
         <res id="InfoPanel.info" src="Readme.txt"/>
         <res id="userInputSpec.xml" src="res/userInputSpec.xml" />
-        <res id="userInputSpec.xml_deu" src="res/userInputSpec.xml_deu" />
         <res id="userInputSpec.xml_eng" src="res/userInputSpec.xml_eng" />
     </resources>
 

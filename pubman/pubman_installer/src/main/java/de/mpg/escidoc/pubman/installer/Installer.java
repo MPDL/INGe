@@ -85,9 +85,10 @@ public class Installer
     
     public void install() throws IOException, ServiceException, Exception {
         printStartMessage();
+        collectCoreserviceDataFromUser();
         askUserIfContentModelAvailable();
-        checkContextModel();
-        collectDataFromUser();
+        checkContentModel();
+        collectPubmanDataFromUser();
         config.setProperties(userConfigValues);
         createInitialData();
         installFiles();  
@@ -131,7 +132,7 @@ public class Installer
             System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
             System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
             System.out.println("Finally run this tool again.");
-            throw new Exception("Context is not available.");
+            throw new Exception("Content model is not available.");
         }
         else {
             System.out.println("Good. Then we will proceed with the installation.");
@@ -160,14 +161,7 @@ public class Installer
         copyFile(VALIDATION_FILENAME, deployDir);
     }
     
-    public void collectDataFromUser() throws IOException {
-        System.out.println("---General Settings---");
-        jbossInstallPath = fetchDataValueFromUser("Enter the installation path of Jboss: ");
-        defaultUserPassword = fetchDataValueFromUser("Enter the default password for users to be created: ");
-        userConfigValues.put(Configuration.KEY_INSTANCEURL, 
-                fetchDataValueFromUser("Enter the instance URL PubMan will be running on: "));
-        System.out.println();
-        
+    public void collectCoreserviceDataFromUser() throws IOException {
         System.out.println("---Coreservice Settings---");
         userConfigValues.put(Configuration.KEY_CORESERVICE_URL, 
                 fetchDataValueFromUser("Enter coreservice URL: "));
@@ -175,6 +169,15 @@ public class Installer
                 fetchDataValueFromUser("Enter coreservice admin username: "));
         userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, 
                 fetchDataValueFromUser("Enter coreservice admin password: "));   
+        System.out.println();
+    }
+    
+    public void collectPubmanDataFromUser() throws IOException {
+        System.out.println("---General Settings---");
+        jbossInstallPath = fetchDataValueFromUser("Enter the installation path of Jboss: ");
+        defaultUserPassword = fetchDataValueFromUser("Enter the default password for users to be created: ");
+        userConfigValues.put(Configuration.KEY_INSTANCEURL, 
+                fetchDataValueFromUser("Enter the instance URL PubMan will be running on: "));
         System.out.println();
         
         System.out.println("---Mailserver Settings---");
@@ -211,6 +214,7 @@ public class Installer
     }
     
     public void createInitialData() throws Exception {
+        System.out.println("Creating initial dataset...");
         InitialDataset dataset = new InitialDataset(
                 new URL( config.getProperty(Configuration.KEY_CORESERVICE_URL) ),
                 config.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
@@ -234,18 +238,18 @@ public class Installer
                 "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
     }
     
-    public void checkContextModel() throws FileNotFoundException, Exception {
-        System.out.println("Checking if context (escidoc:persistent4) is available...");
+    public void checkContentModel() throws FileNotFoundException, Exception {
+        System.out.println("Checking if content model (escidoc:persistent4) is available...");
         if( isContentModelValid() == true) {
-            System.out.println("Good. Context is available.");
+            System.out.println("Good. Content model is available.");
         }
         else {
-            System.out.println("Sorry context is not available.");
-            System.out.println("Please ingest the following context into the eSciDoc core service.");
+            System.out.println("Sorry content model is not available.");
+            System.out.println("Please ingest the following content model into the eSciDoc core service.");
             System.out.println( getResourceAsString("datasetObjects/escidoc_persistent4.xml") );
             System.out.println("Now do a recache in the coreservice admin tool. Reachable via the coreservice homepage.");
             System.out.println("Finally run this tool again.");
-            throw new Exception("Context is not available.");
+            throw new Exception("Content model is not available.");
         }
     }
     
@@ -253,15 +257,16 @@ public class Installer
         try
         {
             InitialDataset dataset = new InitialDataset(
-                    new URL( config.getProperty(Configuration.KEY_CORESERVICE_URL) ),
-                    config.getProperty(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
-                    config.getProperty(Configuration.KEY_CORESERVICE_ADMINPW));
+                    new URL( userConfigValues.get(Configuration.KEY_CORESERVICE_URL) ),
+                    userConfigValues.get(Configuration.KEY_CORESERVICE_ADMINUSERNAME),
+                   userConfigValues.get(Configuration.KEY_CORESERVICE_ADMINPW));
             
             dataset.retrieveContentModel(CHECK_CONTENT_MODEL);
             return true;
         } 
         catch (Exception e)
         {
+            logger.error(e);
             return false;
         }
     }
