@@ -1792,7 +1792,17 @@ public class ItemControllerSessionBean extends FacesBean
 
         PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.parent.objid=" + parentAffiliation.getReference().getObjectId() + ")");
         OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
-        return CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
+        
+        List<AffiliationVOPresentation> wrappedAffiliationList =
+            CommonUtils.convertToAffiliationVOPresentationList(results.getResults());
+        
+        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList)
+        {
+            affiliationVOPresentation.setParent(parentAffiliation);
+            affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()+", "+parentAffiliation.getNamePath());
+            affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() +" "+parentAffiliation.getIdPath());
+        }
+        return wrappedAffiliationList; 
     }
     
     /**
