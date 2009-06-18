@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map; 
 import java.util.Properties;
@@ -884,13 +885,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         }    	
         
         // add special variables defined in cs XML
-        HashMap<String, String[]> vars = cs.getVariables();   
+        LinkedHashMap<String, String[]> vars = cs.getVariables();   
         Iterator<String> iter = vars.keySet().iterator();
         while ( iter.hasNext() )
         {
         	String key = iter.next();
         	//xpath is first  
-        	String val = vars.get(key)[0]; 
+        	String val = vars.get(key)[0];
+        	logger.info("add variable (xpath):(" + key + "," + val + ")");
         	if ( Utils.checkVal(val)  )
         	{
         		addJRField(key, val );        		
@@ -899,6 +901,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             	//expression is second
         	{
             	val = vars.get(key)[1];
+            	logger.info("add variable (expression):(" + key + "," + val + ")");
             	if ( Utils.checkVal(val)  )
             	{
             		addJRVariable(key, val);        		
