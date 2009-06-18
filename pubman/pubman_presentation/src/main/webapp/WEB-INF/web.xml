@@ -26,8 +26,8 @@
 	Gesellschaft zur Förderung der Wissenschaft e.V.
 	All rights reserved. Use is subject to license terms.
 -->
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd">
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<jsp-config>
 		<taglib>
@@ -223,9 +223,6 @@
     <context-param>
 	    <param-name>authentication-method</param-name>
 	    <param-value>Basic</param-value>
-	    <description>
-	      The type of authentication used : [Basic|None]
-	    </description>
   	</context-param>
 	<servlet>
 		<servlet-name>servicedocument</servlet-name>

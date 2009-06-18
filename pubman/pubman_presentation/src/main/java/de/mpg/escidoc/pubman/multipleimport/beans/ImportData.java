@@ -77,9 +77,43 @@ public class ImportData extends FacesBean
     {
         if (this.log == null && this.importId != 0 && this.userid != null)
         {
-            
             this.log = ImportLog.getImportLog(this.importId, false, false);
         }
         return this.log;
     }
+    
+    public String getRemove()
+    {
+        getImport().remove();
+        return null;
+    }
+
+    public String getDelete()
+    {
+        getImport().deleteAll();
+        return null;
+    }
+
+    public String getSubmit()
+    {
+        getImport().submitAll();
+        return null;
+    }
+    
+    public String getRelease()
+    {
+        getImport().submitAndReleaseAll();
+        return null;
+    }
+    
+    public int getImportId()
+    {
+        return importId;
+    }
+
+    public void setImportId(int importId)
+    {
+        this.importId = importId;
+    }
+    
 }
