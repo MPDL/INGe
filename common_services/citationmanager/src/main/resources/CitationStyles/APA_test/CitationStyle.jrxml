@@ -1,84 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="APA_test" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="ScriptletForRepeatableElements_1163610480634">
+<jasperReport name="APA" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.scriptlets.ScriptletForRepeatableElements_APA">
 	<property name="ireport.scriptlethandling" value="2"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
-	<queryString language="xPath">
-		<![CDATA["/record"]]>
+	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<queryString>
+		<![CDATA[//item/md-records/md-record]]>
 	</queryString>
-	<field name="genre" class="java.lang.String">
-		<fieldDescription><![CDATA[genre]]></fieldDescription>
+	<field name="../../@objid" class="java.lang.String">
+		<fieldDescription><![CDATA[../../@objid]]></fieldDescription>
 	</field>
-	<field name="title" class="java.lang.String">
-		<fieldDescription><![CDATA[title]]></fieldDescription>
+	<field name="hasPublication" class="java.lang.String">
+		<fieldDescription><![CDATA[hasPublication]]></fieldDescription>
 	</field>
-	<field name="sequencenr" class="java.lang.String">
-		<fieldDescription><![CDATA[sequencenr]]></fieldDescription>
+	<field name="publication/title" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/title]]></fieldDescription>
 	</field>
-	<field name="date" class="java.lang.String">
-		<fieldDescription><![CDATA[date]]></fieldDescription>
+	<field name="publication/titleAlternative" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/titleAlternative]]></fieldDescription>
 	</field>
-	<field name="datetype" class="java.lang.String">
-		<fieldDescription><![CDATA[date/@type]]></fieldDescription>
+	<field name="publication/dateSubmitted" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/dateSubmitted]]></fieldDescription>
 	</field>
-	<field name="issue" class="java.lang.String">
-		<fieldDescription><![CDATA[issue]]></fieldDescription>
+	<field name="publication/date" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/date]]></fieldDescription>
 	</field>
-	<field name="physicaldescription" class="java.lang.String">
-		<fieldDescription><![CDATA[physicaldescription]]></fieldDescription>
+	<field name="publication/creator/person/family-name" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/creator/person/family-name]]></fieldDescription>
 	</field>
-	<field name="publicationstatus" class="java.lang.String">
-		<fieldDescription><![CDATA[publicationstatus]]></fieldDescription>
-	</field>
-	<field name="volume" class="java.lang.String">
-		<fieldDescription><![CDATA[volume]]></fieldDescription>
-	</field>
-	<field name="publishername" class="java.lang.String">
-		<fieldDescription><![CDATA[publisher/publishername]]></fieldDescription>
-	</field>
-	<field name="publisheraddress" class="java.lang.String">
-		<fieldDescription><![CDATA[publisher/publisheraddress]]></fieldDescription>
-	</field>
-	<field name="sourcetitle" class="java.lang.String">
-		<fieldDescription><![CDATA[source/sourcetitle]]></fieldDescription>
-	</field>
-	<field name="titleofseries" class="java.lang.String">
-		<fieldDescription><![CDATA[source/titleofseries]]></fieldDescription>
-	</field>
-	<field name="nameofevent" class="java.lang.String">
-		<fieldDescription><![CDATA[event/nameofevent]]></fieldDescription>
-	</field>
-	<field name="placeofevent" class="java.lang.String">
-		<fieldDescription><![CDATA[event/placeofevent]]></fieldDescription>
-	</field>
-	<field name="dateofevent" class="java.lang.String">
-		<fieldDescription><![CDATA[event/dateofevent]]></fieldDescription>
-	</field>
-	<field name="enddateofevent" class="java.lang.String">
-		<fieldDescription><![CDATA[event/enddateofevent]]></fieldDescription>
-	</field>
-	<field name="sourcecreatorfullname" class="java.lang.String">
-		<fieldDescription><![CDATA[source/sourcecreators/person/creatorfullname]]></fieldDescription>
+	<field name="publication/creator/person/given-name" class="java.lang.String">
+		<fieldDescription><![CDATA[publication/creator/person/given-name]]></fieldDescription>
 	</field>
 	<variable name="CS_1_CSLD_1_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_1())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_1()) : "")]]></variableExpression>
+		<variableExpression><![CDATA[$F{../../@objid}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_CSLD_1_P_default_E_2" class="java.lang.String">
-		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"blue\" backcolor=\"yellow\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
+	<variable name="CS_1_CSLD_2_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/title}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title})) : "") : ""]]></variableExpression>
 	</variable>
-	<variable name="CS_1_CSLD_1_P_default_E_3" class="java.lang.String">
-		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_3())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_3()) : "")]]></variableExpression>
+	<variable name="CS_1_CSLD_2_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/titleAlternative}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/titleAlternative}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/titleAlternative})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_3" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/dateSubmitted}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/dateSubmitted}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/dateSubmitted})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_4" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/date}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/date}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/date})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_5" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/creator/person/family-name}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/creator/person/family-name}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/creator/person/family-name})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_6" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publication/creator/person/given-name}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/creator/person/given-name}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/creator/person/given-name})) : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{genre}.equals("Book")||$F{genre}.equals("Habilitation")||$F{genre}.equals("PHD-Thesis")||$F{genre}.equals("Proceedings")||$F{genre}.equals("Journal")||$F{genre}.equals("Series")||$F{genre}.equals("Talk at Event")||$F{genre}.equals("Thesis")) ? ((($V{CS_1_CSLD_1_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_2} + ($V{CS_1_CSLD_1_P_default_E_3}.length()>0 && $V{CS_1_CSLD_1_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_3}).length() > 0 ? $V{CS_1_CSLD_1_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_2} + ($V{CS_1_CSLD_1_P_default_E_3}.length()>0 && $V{CS_1_CSLD_1_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_3} + ".\n\n" : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{hasPublication}.equals("false")) ? ((!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ")).trim().equals("") ? "## Citaion style layout is not defined for metadata record: " + $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_1_P_default_E_1}}, " ") : "")) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2" class="java.lang.String">
+		<variableExpression><![CDATA[(!($P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6}}, "")).trim().equals("") ? $P{REPORT_SCRIPTLET}.join(new String[]{$V{CS_1_CSLD_2_P_default_E_1},$V{CS_1_CSLD_2_P_default_E_2},$V{CS_1_CSLD_2_P_default_E_3},$V{CS_1_CSLD_2_P_default_E_4},$V{CS_1_CSLD_2_P_default_E_5},$V{CS_1_CSLD_2_P_default_E_6}}, "") + "." : "")]]></variableExpression>
 	</variable>
 	<variable name="citation" class="java.lang.String">
-		<variableExpression><![CDATA[($P{REPORT_SCRIPTLET}.cleanCit($V{CS_1_CSLD_1}))]]></variableExpression>
+		<variableExpression><![CDATA[($P{REPORT_SCRIPTLET}.cleanCit(!$V{CS_1_CSLD_1}.trim().equals("") ? $V{CS_1_CSLD_1}:!$V{CS_1_CSLD_2}.trim().equals("") ? $V{CS_1_CSLD_2}:""))]]></variableExpression>
 	</variable>
 	<background>
 		<band/>
@@ -89,9 +74,9 @@
 				<reportElement key="staticText" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="13" width="533" height="32" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Arial Black" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" pdfFontName="ARIALBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[Citation Ctyle: APA_test]]></text>
+				<text><![CDATA[Citation Style: APA]]></text>
 			</staticText>
 			<line direction="BottomUp">
 				<reportElement key="line" mode="Opaque" x="0" y="50" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
@@ -110,14 +95,16 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="18">
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-1" mode="Transparent" x="1" y="1" width="533" height="17" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+		<band height="1">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement key="textField-1" mode="Opaque" x="0" y="0" width="533" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{citation}==null ? Boolean.FALSE : Boolean.TRUE]]></printWhenExpression>
+				</reportElement>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" isStyledText="true">
 					<font reportFont="Normal"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$V{citation}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{citation} + "\n"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -125,44 +112,7 @@
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="27">
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" mode="Transparent" x="310" y="4" width="189" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="CP1252" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" mode="Transparent" x="499" y="4" width="36" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="CP1252" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement key="line" mode="Opaque" x="0" y="3" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
-				<graphicElement pen="2Point" fill="Solid"/>
-			</line>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" mode="Transparent" x="183" y="4" width="90" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Times-Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="CP1252" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement key="staticText-1" mode="Transparent" x="1" y="5" width="184" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Generated by eSciDoc Reporting Tool at]]></text>
-			</staticText>
-		</band>
+		<band/>
 	</pageFooter>
 	<summary>
 		<band/>
