@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.citationmanager.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -63,7 +64,7 @@ public class CitationStyle implements Cloneable {
     private List<LayoutElement> csLayoutDefinitions;
     
     // special variables to be used in CitationStyle
-    private HashMap<String, String[]> variables;
+    private LinkedHashMap<String, String[]> variables;
     
     // globally defined layoutElements on the citation style level 
     private LayoutElementsCollection layoutElements;
@@ -87,7 +88,7 @@ public class CitationStyle implements Cloneable {
         setReadOnly(false);
         hasName = true;
         setCsLayoutDefinitions(new ArrayList<LayoutElement>());
-        setVariables(new HashMap<String, String[]>());
+        setVariables(new LinkedHashMap<String, String[]>());
         setLayoutElements(new LayoutElementsCollection());
         
     }
@@ -130,11 +131,11 @@ public class CitationStyle implements Cloneable {
         return csLayoutDefinitions;
     }
 
-    public HashMap<String, String[]> getVariables() {
+    public LinkedHashMap<String, String[]> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(HashMap<String, String[]> variables) {
+	public void setVariables(LinkedHashMap<String, String[]> variables) {
 		this.variables = variables;
 	}
 
@@ -341,7 +342,7 @@ public class CitationStyle implements Cloneable {
 
         
         //variables
-        ((CitationStyle)clone).setVariables(new HashMap<String, String[]>());
+        ((CitationStyle)clone).setVariables(new LinkedHashMap<String, String[]>());
         Iterator<String> iter = variables.keySet().iterator();
     	while(iter.hasNext()) 
     	{	
