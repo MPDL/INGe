@@ -67,12 +67,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>framework_access</artifactId>
-			<version>1.0.21</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
 			<version>1.1.21-SNAPSHOT</version>
 			<type>ejb</type>
@@ -84,68 +78,67 @@
 	      <version>8.7</version>
 	      <scope>provided</scope>
 	    </dependency>
-	    
-	    <dependency>
+		<dependency>
 	    	<groupId>commons-beanutils</groupId>
 	    	<artifactId>commons-beanutils</artifactId>
 	    	<version>1.7.0</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>commons-digester</groupId>
 	    	<artifactId>commons-digester</artifactId>
 	    	<version>1.8</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>richfaces</groupId>
 	    	<artifactId>richfaces-api</artifactId>
 	    	<version>3.1.4</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>richfaces</groupId>
 	    	<artifactId>richfaces-impl</artifactId>
 	    	<version>3.1.4</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>richfaces</groupId>
 	    	<artifactId>richfaces-ui</artifactId>
 	    	<version>3.1.4</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>jsf-facelets</groupId>
 	    	<artifactId>jsf-facelets</artifactId>
 	    	<version>1.1.13</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>log4j</groupId>
 	    	<artifactId>log4j</artifactId>
 	    	<version>1.2.14</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>urlrewrite</groupId>
 	    	<artifactId>urlrewrite</artifactId>
 	    	<version>3.1.0</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>postgresql</groupId>
 	    	<artifactId>postgresql</artifactId>
 	    	<version>8.3-604.jdbc3</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>commons-fileupload</groupId>
 	    	<artifactId>commons-fileupload</artifactId>
 	    	<version>1.2</version>
 	    	<scope>provided</scope>
 	    </dependency>
-	    <dependency>
+		<dependency>
 	    	<groupId>commons-io</groupId>
 	    	<artifactId>commons-io</artifactId>
 	    	<version>1.4</version>
