@@ -4,7 +4,7 @@
  * ============================================================================
  *
  * JasperReports - Free Java report-generating library.
- * Copyright (C) 2001-2006 JasperSoft Corporation http://www.jaspersoft.com
+ * Copyright (C) 2001-2009 JasperSoft Corporation http://www.jaspersoft.com
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA.
  * 
  * JasperSoft Corporation
- * 303 Second Street, Suite 450 North
+ * 539 Bryant Street, Suite 100
  * San Francisco, CA 94107
  * http://www.jaspersoft.com
  */
@@ -31,7 +31,7 @@
  * 
  * Contributors:
  * Majid Ali Khan - majidkk@users.sourceforge.net
- * Frank Sch�nheit - Frank.Schoenheit@Sun.COM
+ * Frank Schönheit - Frank.Schoenheit@Sun.COM
  */
 package net.sf.jasperreports.engine.export.oasis;
 
@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
- * @version $Id: Utility.java 1664 2007-03-26 09:48:03Z lucianc $
+ * @version $Id: Utility.java 2695 2009-03-24 18:14:25Z teodord $
  */
 public class Utility {
 
@@ -52,13 +52,13 @@ public class Utility {
 		return indent;
 	}
 	
-	public static double translatePixelsToInches(int pixels){
+	public static double translatePixelsToInches(double pixels){
 		double inches = 0.0;
 		inches = pixels/72.0;
 		inches = (Math.floor(inches * 100.0))/100.0;
 		return inches;
 	}
-	public static double translatePixelsToInchesRound(int pixels){
+	public static double translatePixelsToInchesRound(double pixels){
 		double inches = 0.0;
 		inches = pixels/72.0;
 		inches = (Math.round(inches * 100.0))/100.0;
