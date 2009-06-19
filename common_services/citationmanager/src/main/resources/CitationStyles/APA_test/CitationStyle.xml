@@ -1,50 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<citationStylesCollection name="Default">
-  <citationStyle name="APA_test" elementSpecific="yes" readOnly="yes">
-    <csLayoutDefinition name="Book">
-      <parameters>
-        <validIf><![CDATA[$F{genre}.equals("Book")||$F{genre}.equals("Habilitation")||$F{genre}.equals("PHD-Thesis")||$F{genre}.equals("Proceedings")||$F{genre}.equals("Journal")||$F{genre}.equals("Series")||$F{genre}.equals("Talk at Event")||$F{genre}.equals("Thesis")]]></validIf>
-        <endsWith value=".\n\n" />
-      </parameters>
-      <elements>
-        <layoutElement ref="creators/group" repeatable="yes">
-          <parameters>
-            <delimiter value=", " />
-            <maxCount value="6"><![CDATA[et al.]]></maxCount>
-          </parameters>
-          <elements>
-            <layoutElement ref="corporatebody" />
-          </elements>
-        </layoutElement>
-        <layoutElement ref="title">
-          <parameters>
-            <endsWith value="." />
-            <fontStyle ref="ITALIC" />
-          </parameters>
-          <elements />
-        </layoutElement>
-        <layoutElement ref="creators/person" repeatable="yes">
-          <parameters position="last">
-            <delimiter value=",&amp; " />
-            <internalDelimiter value=", " />
-            <maxCount value="6"><![CDATA[et al.]]></maxCount>
-          </parameters>
-          <elements position="last">
-            <layoutElement ref="creatorlastname" />
-            <layoutElement ref="creatorini" />
-          </elements>
-          <parameters>
-            <delimiter value=", " />
-            <internalDelimiter value=", " />
-            <maxCount value="6"><![CDATA[et al.]]></maxCount>
-          </parameters>
-          <elements>
-            <layoutElement ref="creatorlastname" />
-            <layoutElement ref="creatorini" />
-          </elements>
-        </layoutElement>
-      </elements>
-    </csLayoutDefinition>
-  </citationStyle>
-</citationStylesCollection>
+	<!--
+		CDDL HEADER START The contents of this file are subject to the terms
+		of the Common Development and Distribution License, Version 1.0 only
+		(the "License"). You may not use this file except in compliance with
+		the License. You can obtain a copy of the license at
+		license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+		License for the specific language governing permissions and
+		limitations under the License. When distributing Covered Code, include
+		this CDDL HEADER in each file and include the License file at
+		license/ESCIDOC.LICENSE. If applicable, add the following below this
+		CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+		your own identifying information: Portions Copyright [yyyy] [name of
+		copyright owner] CDDL HEADER END Copyright 2006-2007
+		Fachinformationszentrum Karlsruhe Gesellschaft für
+		wissenschaftlich-technische Information mbH and Max-Planck-
+		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+		Use is subject to license terms.
+	-->
+<citation-style name="APA" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd" read-only="no" element-specific="no" 
+	md-xpath="//item/md-records/md-record">  
+	<!-- special variables to be used in expressions for short notations -->
 
+
+	<!-- predefined layout elements which can be referenced in CSLDs -->
+
+
+
+    <!-- Print warning message for non-publication items -->
+	<cs-layout-definition name="isNotPublication">
+		<parameters>
+			<valid-if><![CDATA[${hasPublication}.equals("false") ]]></valid-if>
+			<starts-with value="## Citaion style layout is not defined for metadata record: " />
+<!--			<ends-with value=".\n\n" />-->
+		</parameters>
+		<elements>
+			<layout-element ref="../../@objid" />
+		</elements>
+		<!-- BOOK CHAPTER -->
+		<!--
+			Question: Should courseware, other, conference-paper and
+			conference-report handled identically?
+		-->
+		<!--
+			Note: We need to differentiate between conference-papers published in
+			a book and those published in a journal issue
+		-->
+	</cs-layout-definition>
+	
+	<!-- JOURNAL ARTICLE, (OTHER OR CONFERENCE-REPORT)+source.genre=journal -->
+<!--	<cs-layout-definition name="journal-article-etc">-->
+<!--		<parameters>-->
+<!--			<valid-if><![CDATA[-->
+<!--				${genre}.equals("article") -->
+<!--				|| ${genre}.equals("paper") -->
+<!--				|| ( -->
+<!--					(${genre}.equals("other") || ${genre}.equals("conference-report") || ${genre}.equals("conference-paper")) -->
+<!--					&& "journal".equals(${source-type})-->
+<!--					)  -->
+<!--			]]></valid-if>-->
+<!--			<delimiter value="" />-->
+<!--			<ends-with value="." />-->
+<!--		</parameters>-->
+<!--		<elements>-->
+			<layout-element ref="debugBlock" />
+<!--			-->
+<!--			<layout-element ref="authors" />-->
+<!---->
+<!--			<layout-element ref="year-authors-are-presented"/>-->
+<!--			-->
+<!--			<layout-element ref="title-with-dot"/>-->
+<!---->
+<!--			<layout-element ref="year-authors-are-not-presented"/>-->
+<!--			-->
+<!--			<layout-element ref="source-title"/>-->
+<!--			-->
+<!--			<layout-element>-->
+<!--				<parameters>-->
+<!--					<starts-with value=", "/>-->
+<!--					<delimiter value=", "/>-->
+<!--				</parameters>-->
+<!--				<elements>-->
+<!--					<layout-element ref="volume-issue"/>-->
+<!--					<layout-element ref="start-page-end-page"/>-->
+<!--				</elements>-->
+<!--			</layout-element>-->
+<!--			-->
+<!--			<layout-element ref="published-online-and-external-locator"/>-->
+<!--			-->
+<!--			<layout-element ref="submitted"/>-->
+<!--		-->
+<!--		</elements>-->
+<!--	</cs-layout-definition>-->
+	
+	
+	<cs-layout-definition name="journal-article-etc">
+		<parameters>
+<!--			<valid-if><![CDATA[ -->
+<!--				${genre}.equals("article") -->
+<!--				|| ${genre}.equals("paper") -->
+<!--				|| ( -->
+<!--					(${genre}.equals("other") || ${genre}.equals("conference-report") || ${genre}.equals("conference-paper")) -->
+<!--					&& "journal".equals(${source-type})-->
+<!--					)  -->
+<!--			]]></valid-if>-->
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+<!--			<layout-element ref="debugBlock" />-->
+			
+			<layout-element ref="publication/title" />
+
+			<layout-element ref="publication/titleAlternative"/>
+			
+			<layout-element ref="publication/dateSubmitted"/>
+
+			<layout-element ref="publication/date"/>
+			
+			<layout-element ref="publication/creator/person/family-name"/>
+			<layout-element ref="publication/creator/person/given-name"/>
+			
+			
+		</elements>
+	</cs-layout-definition>
+
+	<!-- BOOK, PROCEEDINGS, CONFERENCE-REPORT or CONFERENCE-PAPER with not source in(book,proceedings,journal),  OTHER without source -->
+
+
+</citation-style>

@@ -276,7 +276,7 @@
 		</layout-element>
 
 
-		<layout-element name="authors">
+		<layout-element name="authors-or-editors">
 			<parameters>
 				<delimiter value="" />
 			</parameters>
@@ -438,9 +438,9 @@
 		</layout-element>
 
 
-		<layout-element name="year-authors-are-presented">
+		<layout-element name="year-authors-or-editors-are-presented">
 			<parameters>
-				<valid-if><![CDATA[${toInt}(${authorsCount})>0]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${authorsCount})>0 || ${toInt}(${editorsCount})>0]]></valid-if>
 				<ends-with value=". " />
 			</parameters>
 			<elements>
@@ -448,9 +448,9 @@
 			</elements>
 		</layout-element>
 
-		<layout-element name="year-authors-are-not-presented">
+		<layout-element name="year-authors-or-editors-are-not-presented">
 			<parameters>
-				<valid-if><![CDATA[${toInt}(${authorsCount})==0]]></valid-if>
+				<valid-if><![CDATA[${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})==0]]></valid-if>
 				<ends-with value=". " />
 			</parameters>
 			<elements>
@@ -648,6 +648,29 @@
 			</elements>
 		</layout-element>
 
+		<!-- COMMONS -->
+		<layout-element name="authors-or-editors-and-year-and-title-with-dot">
+			<parameters/>
+			<elements>
+				<layout-element ref="authors-or-editors" />			
+				<layout-element ref="year-authors-or-editors-are-presented" />
+				<layout-element ref="title-with-dot" />
+				<layout-element ref="year-authors-or-editors-are-not-presented" />
+			</elements>				
+		</layout-element>
+		
+		<layout-element name="authors-or-editors-and-year-and-title-with-dot-italic">
+			<parameters/>
+			<elements>
+				<layout-element ref="authors-or-editors" />			
+				<layout-element ref="year-authors-or-editors-are-presented" />
+				<layout-element ref="title-with-dot-italic" />
+				<layout-element ref="year-authors-or-editors-are-not-presented" />
+			</elements>				
+		</layout-element>
+		<!-- END OF  COMMONS -->
+
+
 
 		<layout-element name="debugBlock">
 			<parameters>
@@ -752,13 +775,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
 		</elements>
 	</cs-layout-definition>
@@ -781,13 +798,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
 			<layout-element ref="source-title" />
 
@@ -825,26 +836,9 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
+			<layout-element ref="authors-or-editors" />
 
-			<layout-element name="only-editors">
-				<parameters>
-					<valid-if><![CDATA[${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})>0]]></valid-if>
-					<ends-with value="." />
-				</parameters>
-				<elements>
-					<layout-element ref="editors" />
-				</elements>
-			</layout-element>
-
-			<layout-element name="year-editors-or-authors-are-presented">
-				<parameters>
-					<valid-if><![CDATA[ ${toInt}(${authorsCount})>0 || ${toInt}(${editorsCount})>0 ]]></valid-if>
-				</parameters>
-				<elements>
-					<layout-element ref="year" />
-				</elements>
-			</layout-element>
+			<layout-element ref="year-authors-or-editors-are-presented" />
 
 			<layout-element>
 				<parameters>
@@ -863,14 +857,7 @@
 				</elements>
 			</layout-element>
 
-			<layout-element name="year-editors-and-authors-are-not-presented">
-				<parameters>
-					<valid-if><![CDATA[${publication/issued}!=null && (${toInt}(${authorsCount})==0 && ${toInt}(${editorsCount})==0)]]></valid-if>
-				</parameters>
-				<elements>
-					<layout-element ref="year" />
-				</elements>
-			</layout-element>
+			<layout-element ref="year-authors-or-editors-are-not-presented" />
 
 			<layout-element ref="place-publisher" />
 
@@ -892,7 +879,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
+			<layout-element ref="authors-or-editors" />
 
 			<layout-element ref="year-for-thesis" />
 
@@ -928,7 +915,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
+			<layout-element ref="authors-or-editors" />
 
 			<layout-element ref="year-for-thesis" />
 
@@ -979,13 +966,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
 			<layout-element>
 				<parameters>
@@ -1089,13 +1070,7 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot-italic" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot-italic" />
 
 		</elements>
 
@@ -1151,13 +1126,7 @@
 
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented"/>
-
-			<layout-element ref="title-with-dot" />
-
-			<layout-element ref="year-authors-are-not-presented"/>
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
 			<layout-element name="event-title">
 				<parameters>
@@ -1210,13 +1179,7 @@
 
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
 			<layout-element ref="publication/event/title">
 				<parameters>
@@ -1263,13 +1226,7 @@
 
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
-
-			<layout-element ref="year-authors-are-presented" />
-
-			<layout-element ref="title-with-dot-italic" />
-
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="authors-or-editors-and-year-and-title-with-dot-italic" />
 
 			<layout-element name="event-title-and-place">
 				<parameters>
@@ -1298,9 +1255,9 @@
 		<elements>
 			<!--			<layout-element ref="debugBlock" />-->
 
-			<layout-element ref="authors" />
+			<layout-element ref="authors-or-editors" />
 
-			<layout-element ref="year-authors-are-presented" />
+			<layout-element ref="year-authors-or-editors-are-presented" />
 
 			<layout-element name="title-report-identifier">
 				<parameters>
@@ -1325,7 +1282,7 @@
 				</elements>
 			</layout-element>
 
-			<layout-element ref="year-authors-are-not-presented" />
+			<layout-element ref="year-authors-or-editors-are-not-presented" />
 
 			<layout-element ref="place-publisher" />
 
