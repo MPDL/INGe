@@ -28,6 +28,7 @@
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/source" schemaLocation="../../metadata/0.1/escidoc_source_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" schemaLocation="../../metadata/0.1/escidoc_organization_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" schemaLocation="../../metadata/0.1/escidoc_organizationalunit_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/file" schemaLocation="../../metadata/0.1/escidoc_file_profile.xsd"/>
 		
 	<xs:element name="publication" type="publication:PublicationType"/>
 	<xs:element name="event" type="event:EventType"/>
