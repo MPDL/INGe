@@ -5,8 +5,8 @@
 	xmlns:prop="${xsd.soap.common.prop}" 
 	xmlns:srel="${xsd.soap.common.srel}" 
 	xmlns:ou-details="${xsd.metadata.organization}" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:dc="${xsd.metadata.dc}" 
+	xmlns:dcterms="${xsd.metadata.dcterms}" 
 	xmlns:kml="http://www.opengis.net/kml/2.2" 
 	xmlns:md-records="${xsd.soap.common.mdrecords}">
 	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">

@@ -36,16 +36,16 @@
 	<escidocMetadataRecords:md-records
 			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 		<escidocMetadataRecords:md-record name="escidoc">
-			<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="poster">
-				<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="commentator">
-					<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+			<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="poster">
+				<publication:creator xmlns:publication="${xsd.metadata.publication}" role="commentator">
+					<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 						<escidoc:organization-name>Test</escidoc:organization-name>
 					</escidoc:organization>
 				</publication:creator>
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test FrM 1</dc:title>
-				<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-12-31</dcterms:dateSubmitted>
-				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
-				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
+				<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="">Test FrM 1</dc:title>
+				<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-12-31</dcterms:dateSubmitted>
+				<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:subject>
+				<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:tableOfContents>
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>

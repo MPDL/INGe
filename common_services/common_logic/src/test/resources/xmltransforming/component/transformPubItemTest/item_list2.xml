@@ -29,14 +29,14 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="poster">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="painter">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="poster">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="painter">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name>MPDL</escidoc:organization-name>
 						</escidoc:organization>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:family-name>Franke</escidoc:family-name>
 							<escidoc:given-name>Michael</escidoc:given-name>
 							<escidoc:organization>
@@ -44,11 +44,11 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="ae">Test FrM</dc:title>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="ae">Test FrM</dc:title>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
 						2009
 					</dcterms:issued>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:abstract>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}"></dcterms:abstract>
 				</escidocMetadataProfile:publication>
 			</escidocMetadataRecords:md-record>
 
@@ -83,46 +83,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -139,7 +139,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -149,44 +149,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -194,8 +194,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -204,7 +204,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -241,46 +241,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -297,7 +297,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -307,44 +307,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -352,8 +352,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -362,7 +362,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -399,46 +399,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -455,7 +455,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -465,44 +465,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -510,8 +510,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -520,7 +520,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -555,9 +555,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -569,8 +569,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -582,22 +582,22 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>
-					<publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">
+					<publication:published-online xmlns:publication="${xsd.metadata.publication}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:W3CDTF">
 						2007-03-04
 					</publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
 						2007-01-02
 					</dcterms:issued>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="de">
 						This is the subject. Betreffs fußen auf Gerüchten für Äonen.
 					</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="it">
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="it">
 						I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.
 					</dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
@@ -632,9 +632,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -646,8 +646,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -659,22 +659,22 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>
-					<publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">
+					<publication:published-online xmlns:publication="${xsd.metadata.publication}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:W3CDTF">
 						2007-03-04
 					</publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
 						2007-01-02
 					</dcterms:issued>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="de">
 						This is the subject. Betreffs fußen auf Gerüchten für Äonen.
 					</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="it">
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="it">
 						I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.
 					</dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
@@ -709,9 +709,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -723,8 +723,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -736,22 +736,22 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>
-					<publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">
+					<publication:published-online xmlns:publication="${xsd.metadata.publication}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:W3CDTF">
 						2007-03-04
 					</publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
 						2007-01-02
 					</dcterms:issued>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="de">
 						This is the subject. Betreffs fußen auf Gerüchten für Äonen.
 					</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="it">
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="it">
 						I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.
 					</dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
@@ -786,9 +786,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -800,8 +800,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -813,22 +813,22 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>
-					<publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">
+					<publication:published-online xmlns:publication="${xsd.metadata.publication}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:W3CDTF">
 						2007-03-04
 					</publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">
 						2007-01-02
 					</dcterms:issued>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="de">
 						This is the subject. Betreffs fußen auf Gerüchten für Äonen.
 					</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="it">
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="it">
 						I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.
 					</dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
@@ -865,46 +865,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -921,7 +921,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -931,44 +931,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -976,8 +976,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -986,7 +986,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -1023,46 +1023,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -1079,7 +1079,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -1089,44 +1089,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -1134,8 +1134,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -1144,7 +1144,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -1183,9 +1183,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -1197,8 +1197,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -1210,8 +1210,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan: The first of all. MODIFIED</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}">PubMan: The first of all. MODIFIED</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>
@@ -1249,46 +1249,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -1305,7 +1305,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -1315,44 +1315,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -1360,8 +1360,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -1370,7 +1370,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -1407,46 +1407,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -1463,7 +1463,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -1473,44 +1473,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -1518,8 +1518,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -1528,7 +1528,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -1565,46 +1565,46 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">
 								Department of Physics, University of Californiay
 							</escidoc:organization-name>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
 							<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-								xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+								xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 								P4711
 							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">
 						Observation of inertial energy cascade in interplanetary space plasma
 					</dc:title>
-					<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">German</dc:language>
-					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="jp">
+					<dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
+					<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
 						0361-526X
 					</dc:identifier>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Universita della Calabria</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:edition>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Universita della Calabria</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2007-07-17</dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/">2008-08-17</dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/">2009-09-17</dcterms:dateSubmitted>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2010-10-17</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">peer</publication:review-method>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">peer</publication:review-method>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 							Relevant issue for spacecrafts and communication satellites operations
 						</dcterms:alternative>
-						<escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="transcriber">
+						<escidoc:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="transcriber">
 							<escidoc:person>
 								<escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
 								<escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
@@ -1621,7 +1621,7 @@
 									</escidoc:organization-name>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										ASG 2233-3
 									</escidoc:identifier>
 								</escidoc:organization>
@@ -1631,44 +1631,44 @@
 									</escidoc:organization-name>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
 									<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-										xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ESCIDOC">
+										xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">
 										IOP 998
 									</escidoc:identifier>
 								</escidoc:organization>
 								<escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-									xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">
+									xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">
 									HJKS 1-23-24434
 								</escidoc:identifier>
 							</escidoc:person>
 						</escidoc:creator>
-						<escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2.</escidoc:volume>
-						<escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">9.</escidoc:issue>
-						<escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">302</escidoc:start-page>
-						<escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">678</escidoc:end-page>
-						<escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">444</escidoc:sequence-number>
-						<escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">University of Pittsburgh</dc:publisher>
+						<escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2.</escidoc:volume>
+						<escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">9.</escidoc:issue>
+						<escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">302</escidoc:start-page>
+						<escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">678</escidoc:end-page>
+						<escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">444</escidoc:sequence-number>
+						<escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+							<dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-							xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
 							2387928 233
 						</dc:identifier>
 					</publication:source>
-					<publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-						<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">text</dcterms:alternative>
-						<escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:start-date>
-						<escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2001-12-17</escidoc:end-date>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">String</escidoc:place>
-						<escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+					<publication:event xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+						<dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+						<escidoc:start-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:start-date>
+						<escidoc:end-date xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2001-12-17</escidoc:end-date>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">String</escidoc:place>
+						<escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
 					</publication:event>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">
 						899
 					</publication:total-number-of-pages>
-					<publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-					<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+					<dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the
 						category of unbounded complexes of quasi-coherent sheaves over the projective line. Concretely we will define a locally projective model
 						structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects
@@ -1676,8 +1676,8 @@
 						monoidal. We point out that this model structure is necessarily different from others model structures known until now, like the
 						injective model structure and the locally free model structure.
 					</dcterms:abstract>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
 						Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis
 						(Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus, 2000) and apozygoty (Khokhlov, 1967) are also used to
 						designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al.,
@@ -1686,7 +1686,7 @@
 						suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic
 						agamospermy are distinguished.
 					</dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xml:lang="fr">
+					<publication:location xmlns:publication="${xsd.metadata.publication}" xml:lang="fr">
 						Novosibirsk, Russia
 					</publication:location>
 				</md-profile-escidoc:publication>
@@ -1726,9 +1726,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -1740,8 +1740,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
@@ -1753,8 +1753,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan: The first of all. MODIFIED</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<dc:title xmlns:dc="${xsd.metadata.dc}">PubMan: The first of all. MODIFIED</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						xsi:type="dcterms:W3CDTF">
 						2007
 					</dcterms:created>

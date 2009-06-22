@@ -30,9 +30,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name></escidoc:complete-name>
 							<escidoc:family-name>Gruss</escidoc:family-name>
 							<escidoc:given-name>Peter</escidoc:given-name>
@@ -48,8 +48,8 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="author">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name></escidoc:complete-name>
 							<escidoc:family-name>Jaeckle</escidoc:family-name>
 							<escidoc:given-name>H.</escidoc:given-name>
@@ -60,23 +60,23 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Die Wechselbeziehung von Wissenschaft und Technologie.</dc:title>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Verlag Kommunikation und Wirtschaft GmbH</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Oldenburg</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:edition>
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="de">Die Wechselbeziehung von Wissenschaft und Technologie.</dc:title>
+					<publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+						<dc:publisher xmlns:dc="${xsd.metadata.dc}">Verlag Kommunikation und Wirtschaft GmbH</dc:publisher>
+						<escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Oldenburg</escidoc:place>
+						<escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}"></escidoc:edition>
 					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
-					<dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
-					<publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no-review</publication:review-method>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no local signature</publication:location>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+					<dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+					<dcterms:dateAccepted xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+					<publication:published-online xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:publication="${xsd.metadata.publication}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+					<dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
+					<publication:review-method xmlns:publication="${xsd.metadata.publication}">no-review</publication:review-method>
+					<publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}"></publication:total-number-of-pages>
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:tableOfContents>
+					<publication:location xmlns:publication="${xsd.metadata.publication}">no local signature</publication:location>
 				</escidocMetadataProfile:publication>
 			</escidocMetadataRecords:md-record>
 
@@ -112,9 +112,9 @@
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="article">
+					<publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
+						<escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 							<escidoc:complete-name></escidoc:complete-name>
 							<escidoc:family-name>Bulatovic</escidoc:family-name>
 							<escidoc:given-name>Natasa</escidoc:given-name>
@@ -125,13 +125,13 @@
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test article for submission</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">my source</dc:title>
+					<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="">Test article for submission</dc:title>
+					<dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
+					<publication:source xmlns:publication="${xsd.metadata.publication}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="">my source</dc:title>
 					</publication:source>
-					<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
+					<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:subject>
+					<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
 			</escidocMetadataRecords:md-record>
 

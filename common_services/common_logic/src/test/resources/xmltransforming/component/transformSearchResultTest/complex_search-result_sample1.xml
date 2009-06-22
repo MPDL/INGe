@@ -23,14 +23,14 @@
                 </search-result:hit-word>
             </search-result:text-fragment>
             <search-result:text-fragment>
-                <search-result:text-fragment-data><![CDATA[ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
+                <search-result:text-fragment-data><![CDATA[ xmlns:escidoc="${xsd.metadata.escidocprofile.types}"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
                 <search-result:hit-word>
                     <search-result:start-index>119</search-result:start-index>
                     <search-result:end-index>124</search-result:end-index>
                 </search-result:hit-word>
             </search-result:text-fragment>
             <search-result:text-fragment>
-                <search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
+                <search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="${xsd.metadata.dc}"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
                 <search-result:hit-word>
                     <search-result:start-index>70</search-result:start-index>
                     <search-result:end-index>73</search-result:end-index>
@@ -68,9 +68,9 @@
         </escidocItem:properties>
          <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             <escidocMetadataRecords:md-record name="escidoc">
-                <escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/">
-                    <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                <escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">
+                    <publication:creator role="author" xmlns:publication="${xsd.metadata.publication}">
+                        <escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:complete-name />
                             <escidoc:family-name>Tester</escidoc:family-name>
                             <escidoc:given-name>Franz</escidoc:given-name>
@@ -90,14 +90,14 @@
                             </escidoc:organization>
                         </escidoc:person>
                     </publication:creator>
-                    <publication:creator role="painter" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                    <publication:creator role="painter" xmlns:publication="${xsd.metadata.publication}">
+                        <escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:organization-name>Malorganisation</escidoc:organization-name>
                             <escidoc:address>Malstr. 11, 11223 Farbhausen</escidoc:address>
                         </escidoc:organization>
                     </publication:creator>
-                    <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                    <publication:creator role="author" xmlns:publication="${xsd.metadata.publication}">
+                        <escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:complete-name />
                             <escidoc:family-name>Ersteller</escidoc:family-name>
                             <escidoc:given-name>Hans</escidoc:given-name>
@@ -108,30 +108,30 @@
                             </escidoc:organization>
                         </escidoc:person>
                     </publication:creator>
-                    <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Test ScT 01</dc:title>
-                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">en</dc:language>
-                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">de</dc:language>
-                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">ae</dc:language>
-                    <dcterms:alternative xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">Alternative ScT 01</dcterms:alternative>
-                    <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">nochn alternativer Titel</dcterms:alternative>
-                    <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">12761-45</dc:identifier>
-                    <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">65</dc:identifier>
-                    <dc:identifier xsi:type="eidt:ISSN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">5646545-855</dc:identifier>
-                    <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Testpublisher</dc:publisher>
-                        <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Garching-Itzehoe-Capreton</escidoc:place>
-                        <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">One and a half</escidoc:edition>
+                    <dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">Test ScT 01</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}">en</dc:language>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}">de</dc:language>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}">ae</dc:language>
+                    <dcterms:alternative xml:lang="en" xmlns:dcterms="${xsd.metadata.dcterms}">Alternative ScT 01</dcterms:alternative>
+                    <dcterms:alternative xml:lang="de" xmlns:dcterms="${xsd.metadata.dcterms}">nochn alternativer Titel</dcterms:alternative>
+                    <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="${xsd.metadata.dc}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">12761-45</dc:identifier>
+                    <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="${xsd.metadata.dc}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">65</dc:identifier>
+                    <dc:identifier xsi:type="eidt:ISSN" xmlns:dc="${xsd.metadata.dc}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">5646545-855</dc:identifier>
+                    <publication:publishing-info xmlns:publication="${xsd.metadata.publication}">
+                        <dc:publisher xmlns:dc="${xsd.metadata.dc}">Testpublisher</dc:publisher>
+                        <escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Garching-Itzehoe-Capreton</escidoc:place>
+                        <escidoc:edition xmlns:escidoc="${xsd.metadata.escidocprofile.types}">One and a half</escidoc:edition>
                     </publication:publishing-info>
-                    <dcterms:created xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:created>
-                    <dcterms:modified xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:modified>
-                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:dateSubmitted>
-                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:dateAccepted>
-                    <dcterms:issued xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:issued>
-                    <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">internal</publication:review-method>
-                    <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">source 1</dc:title>
-                        <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">quelle 1</dcterms:alternative>
-                        <escidoc:creator role="author" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                    <dcterms:created xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}">2007-06-28</dcterms:created>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}">2007-06-28</dcterms:modified>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}">2007-06-28</dcterms:dateSubmitted>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}">2007-06-28</dcterms:dateAccepted>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}">2007-06-28</dcterms:issued>
+                    <publication:review-method xmlns:publication="${xsd.metadata.publication}">internal</publication:review-method>
+                    <publication:source xmlns:publication="${xsd.metadata.publication}">
+                        <dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">source 1</dc:title>
+                        <dcterms:alternative xml:lang="de" xmlns:dcterms="${xsd.metadata.dcterms}">quelle 1</dcterms:alternative>
+                        <escidoc:creator role="author" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:person>
                                 <escidoc:complete-name />
                                 <escidoc:family-name>Hanz</escidoc:family-name>
@@ -147,29 +147,29 @@
                                 </escidoc:organization>
                             </escidoc:person>
                         </escidoc:creator>
-                        <escidoc:creator role="illustrator" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                        <escidoc:creator role="illustrator" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:organization>
                                 <escidoc:organization-name>Illustra</escidoc:organization-name>
                                 <escidoc:address>Strasse 23, 12345 Ort</escidoc:address>
                             </escidoc:organization>
                         </escidoc:creator>
-                        <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:volume>
-                        <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">12</escidoc:issue>
-                        <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:start-page>
-                        <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">87</escidoc:end-page>
-                        <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">123</escidoc:sequence-number>
-                        <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-                            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">ersteller der ersten quelle</dc:publisher>
+                        <escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">1</escidoc:volume>
+                        <escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">12</escidoc:issue>
+                        <escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">1</escidoc:start-page>
+                        <escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">87</escidoc:end-page>
+                        <escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">123</escidoc:sequence-number>
+                        <escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+                            <dc:publisher xmlns:dc="${xsd.metadata.dc}">ersteller der ersten quelle</dc:publisher>
                             <escidoc:place>Ort der ersten quelle</escidoc:place>
                             <escidoc:edition>edition 1</escidoc:edition>
                         </escidoc:publishing-info>
-                        <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">465465-88</dc:identifier>
-                        <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">99</dc:identifier>
+                        <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="${xsd.metadata.dc}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">465465-88</dc:identifier>
+                        <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="${xsd.metadata.dc}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">99</dc:identifier>
                     </publication:source>
-                    <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Source 2</dc:title>
-                        <dcterms:alternative xml:lang="" xmlns:dcterms="http://purl.org/dc/terms/">Quelle 2</dcterms:alternative>
-                        <escidoc:creator role="editor" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                    <publication:source xmlns:publication="${xsd.metadata.publication}">
+                        <dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">Source 2</dc:title>
+                        <dcterms:alternative xml:lang="" xmlns:dcterms="${xsd.metadata.dcterms}">Quelle 2</dcterms:alternative>
+                        <escidoc:creator role="editor" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:person>
                                 <escidoc:complete-name />
                                 <escidoc:family-name>Van Haaren</escidoc:family-name>
@@ -186,7 +186,7 @@
                                 </escidoc:organization>
                             </escidoc:person>
                         </escidoc:creator>
-                        <escidoc:creator role="photographer" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                        <escidoc:creator role="photographer" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
                             <escidoc:person>
                                 <escidoc:complete-name />
                                 <escidoc:family-name>Fahrl&#xE4;ssig</escidoc:family-name>
@@ -198,32 +198,32 @@
                                 </escidoc:organization>
                             </escidoc:person>
                         </escidoc:creator>
-                        <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">45</escidoc:volume>
-                        <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">32</escidoc:issue>
-                        <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2</escidoc:start-page>
-                        <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">11</escidoc:end-page>
-                        <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">445</escidoc:sequence-number>
-                        <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-                            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Ersteller der zweiten Quelle</dc:publisher>
+                        <escidoc:volume xmlns:escidoc="${xsd.metadata.escidocprofile.types}">45</escidoc:volume>
+                        <escidoc:issue xmlns:escidoc="${xsd.metadata.escidocprofile.types}">32</escidoc:issue>
+                        <escidoc:start-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2</escidoc:start-page>
+                        <escidoc:end-page xmlns:escidoc="${xsd.metadata.escidocprofile.types}">11</escidoc:end-page>
+                        <escidoc:sequence-number xmlns:escidoc="${xsd.metadata.escidocprofile.types}">445</escidoc:sequence-number>
+                        <escidoc:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
+                            <dc:publisher xmlns:dc="${xsd.metadata.dc}">Ersteller der zweiten Quelle</dc:publisher>
                             <escidoc:place>Ort der zweiten Quelle</escidoc:place>
                             <escidoc:edition>2</escidoc:edition>
                         </escidoc:publishing-info>
                     </publication:source>
-                    <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Title of the event</dc:title>
-                        <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">alternativer Titel der Veranstaltung</dcterms:alternative>
-                        <escidoc:start-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2007-08-10</escidoc:start-date>
-                        <escidoc:end-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2007-08-13</escidoc:end-date>
-                        <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Washington</escidoc:place>
-                        <escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+                    <publication:event xmlns:publication="${xsd.metadata.publication}">
+                        <dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">Title of the event</dc:title>
+                        <dcterms:alternative xml:lang="de" xmlns:dcterms="${xsd.metadata.dcterms}">alternativer Titel der Veranstaltung</dcterms:alternative>
+                        <escidoc:start-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2007-08-10</escidoc:start-date>
+                        <escidoc:end-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">2007-08-13</escidoc:end-date>
+                        <escidoc:place xmlns:escidoc="${xsd.metadata.escidocprofile.types}">Washington</escidoc:place>
+                        <escidoc:invitation-status xmlns:escidoc="${xsd.metadata.escidocprofile.types}">invited</escidoc:invitation-status>
                     </publication:event>
-                    <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">899</publication:total-number-of-pages>
-                    <publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
-                    <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">the abstract of the item</dcterms:abstract>
-                    <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">another abstract</dcterms:abstract>
-                    <dcterms:subject xmlns:dc="http://purl.org/dc/elements/1.1/">The subject of the item</dcterms:subject>
-                    <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">the table of contents of the item</dcterms:tableOfContents>
-                    <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">Linnemann Buecherei Paderborn</publication:location>
+                    <publication:total-number-of-pages xmlns:publication="${xsd.metadata.publication}">899</publication:total-number-of-pages>
+                    <publication:degree xmlns:publication="${xsd.metadata.publication}">diploma</publication:degree>
+                    <dcterms:abstract xml:lang="en" xmlns:dcterms="${xsd.metadata.dcterms}">the abstract of the item</dcterms:abstract>
+                    <dcterms:abstract xml:lang="en" xmlns:dcterms="${xsd.metadata.dcterms}">another abstract</dcterms:abstract>
+                    <dcterms:subject xmlns:dc="${xsd.metadata.dc}">The subject of the item</dcterms:subject>
+                    <dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}">the table of contents of the item</dcterms:tableOfContents>
+                    <publication:location xmlns:publication="${xsd.metadata.publication}">Linnemann Buecherei Paderborn</publication:location>
                 </escidocMetadataProfile:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>

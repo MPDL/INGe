@@ -101,12 +101,12 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 				<release:number>2</release:number>
 				<release:date>2008-03-20T14:13:25.874Z</release:date>
 			</prop:latest-release>
-			<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+			<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"></prop:content-model-specific>
 		</container:properties>
 		<escidocMetadataRecords:md-records>
 			<escidocMetadataRecords:md-record name="escidoc">
 				<virr-book xmlns="http://www.loc.gov/mods/v3">
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+					<dc:title xmlns:dc="${xsd.metadata.dc}"></dc:title>
 					<mods version="3.2">
 						<genre authority="MAB2-051/1-3">u</genre>
 						<titleInfo>
@@ -144,7 +144,7 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 			</escidocMetadataRecords:md-record>
 			<escidocMetadataRecords:md-record name="virr_mab" md-type="MAB">
 				<mab-md>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+					<dc:title xmlns:dc="${xsd.metadata.dc}"></dc:title>
 				<![CDATA[
 					00371nM2.01030024      u
 					001 69452

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.escidoc.de/schemas/report/0.3">
+<report xmlns="${xsd.soap.statistic.report}">
     <report-definition objid="86"/>
     <report-record>
         <parameter name="itemid">

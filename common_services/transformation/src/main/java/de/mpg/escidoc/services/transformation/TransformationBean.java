@@ -60,10 +60,6 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
  *
  */
 
-@Stateless
-@Remote
-@RemoteBinding(jndiBinding = Transformation.SERVICE_NAME)
-@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class TransformationBean implements Transformation
 {
     

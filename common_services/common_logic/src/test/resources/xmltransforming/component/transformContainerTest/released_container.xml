@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container:container
-		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
+		xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:container="${xsd.soap.container.container}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
 	<container:properties>
 		<prop:creation-date>2008-03-19T16:47:36.29Z</prop:creation-date>
 		<srel:created-by objid="escidoc:1047" />
@@ -29,12 +29,12 @@
 			<release:number>2</release:number>
 			<release:date>2008-03-20T14:13:25.874Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"></prop:content-model-specific>
 	</container:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 		<virr-book xmlns="http://www.loc.gov/mods/v3">
-			<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+			<dc:title xmlns:dc="${xsd.metadata.dc}"></dc:title>
 			<mods version="3.2">
 				<genre authority="MAB2-051/1-3">u</genre>
 				<titleInfo>
@@ -72,7 +72,7 @@
 		</escidocMetadataRecords:md-record>
 		<escidocMetadataRecords:md-record name="virr_mab" md-type="MAB">
 			<mab-md>
-			<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+			<dc:title xmlns:dc="${xsd.metadata.dc}"></dc:title>
 				<![CDATA[
 					00371nM2.01030024      u
 					001 69452

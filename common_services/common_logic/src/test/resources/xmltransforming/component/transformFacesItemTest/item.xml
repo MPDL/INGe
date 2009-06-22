@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocItem:item
-		xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.8" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
+		xmlns:relations="${xsd.soap.common.relations}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
 	<escidocItem:properties>
 		<prop:creation-date>2009-02-02T18:10:33.241Z</prop:creation-date>
 		<srel:created-by objid="escidoc:user42" />
@@ -27,7 +27,7 @@
 			<release:date>2009-02-02T18:12:58.790Z</release:date>
 			<release:pid>hdl:someHandle/test/escidoc:176155</release:pid>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}">
 			<local-tags/>
 		</prop:content-model-specific>
 	</escidocItem:properties>
@@ -36,7 +36,7 @@
 			<face-item>
 				<emotion>disgust</emotion>
 				<picture-group>a</picture-group>
-				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">004</dc:identifier>
+				<dc:identifier xmlns:dc="${xsd.metadata.dc}">004</dc:identifier>
 				<age>70</age>
 				<age-group>old</age-group>
 				<gender>male</gender>
@@ -59,12 +59,12 @@
 					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_high_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176158/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_high_resolution.jpg</dc:title>
-						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">high resolution</dc:description>
+					<file:file xmlns:file="${xsd.metadata.file}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_high_resolution.jpg</dc:title>
+						<dc:description xmlns:dc="${xsd.metadata.dc}">high resolution</dc:description>
 						<file:content-category>high resolution</file:content-category>
-						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">1086756</dcterms:extent>
+						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">1086756</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
@@ -308,12 +308,12 @@
 					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_web_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176156/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_web_resolution.jpg</dc:title>
-						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">web resolution</dc:description>
+					<file:file xmlns:file="${xsd.metadata.file}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_web_resolution.jpg</dc:title>
+						<dc:description xmlns:dc="${xsd.metadata.dc}">web resolution</dc:description>
 						<file:content-category>web resolution</file:content-category>
-						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">59723</dcterms:extent>
+						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">59723</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
@@ -477,12 +477,12 @@
 					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_thumbnail.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176157/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">004_o_m_d_a_thumbnail.jpg</dc:title>
-						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">thumbnail</dc:description>
+					<file:file xmlns:file="${xsd.metadata.file}">
+						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_thumbnail.jpg</dc:title>
+						<dc:description xmlns:dc="${xsd.metadata.dc}">thumbnail</dc:description>
 						<file:content-category>thumbnail</file:content-category>
-						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">30846</dcterms:extent>
+						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">30846</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">

@@ -35,8 +35,8 @@
 
  	<citation-styles 
  		xmlns="http://escidoc.mpg.de/citation/schema/0.1/explain-styles" 
- 		xmlns:dc="http://purl.org/dc/elements/1.1/" 
-		xmlns:dcterms="http://purl.org/dc/terms/"
+ 		xmlns:dc="${xsd.metadata.dc}" 
+		xmlns:dcterms="${xsd.metadata.dcterms}"
  		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
  		xsi:schemaLocation="http://escidoc.mpg.de/citation/schema/0.1/explain-styles explain-styles.xsd"
 	 >

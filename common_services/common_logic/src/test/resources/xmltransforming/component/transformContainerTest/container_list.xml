@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<container-list:container-list xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7" xmlns:container="http://www.escidoc.de/schemas/container/0.7">
+<container-list:container-list xmlns:container-list="${xsd.soap.container.containerlist}" xmlns:container="${xsd.soap.container.container}">
 <container:container
-		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
+		xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:container="${xsd.soap.container.container}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
 	<container:properties>
 		<prop:creation-date>2008-03-19T16:47:36.29Z</prop:creation-date>
 		<srel:created-by objid="escidoc:1047" />
@@ -30,12 +30,12 @@
 			<release:number>2</release:number>
 			<release:date>2008-03-20T14:13:25.874Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"></prop:content-model-specific>
 	</container:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
+				<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo>
@@ -180,7 +180,7 @@
 	</struct-map:struct-map>
 </container:container>
 <container:container
-		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1127" last-modification-date="2008-03-20T14:26:30.639Z">
+		xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:container="${xsd.soap.container.container}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1127" last-modification-date="2008-03-20T14:26:30.639Z">
 	<container:properties>
 		<prop:creation-date>2008-03-18T09:28:26.058Z</prop:creation-date>
 		<srel:created-by objid="escidoc:1047" />
@@ -209,12 +209,12 @@
 			<release:number>2</release:number>
 			<release:date>2008-03-20T14:26:46.973Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"></prop:content-model-specific>
 	</container:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</dc:title>
+				<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="de">Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">n</genre>
 					<titleInfo>
@@ -250,7 +250,7 @@
 	</struct-map:struct-map>
 </container:container>
 <container:container
-		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1131" last-modification-date="2008-03-20T11:24:07.410Z">
+		xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:container="${xsd.soap.container.container}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1131" last-modification-date="2008-03-20T11:24:07.410Z">
 	<container:properties>
 		<prop:creation-date>2008-03-18T09:28:39.332Z</prop:creation-date>
 		<srel:created-by objid="escidoc:1047" />
@@ -279,12 +279,12 @@
 			<release:number>2</release:number>
 			<release:date>2008-03-20T12:59:21.642Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"></prop:content-model-specific>
 	</container:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 			<virr-book xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vollst�ndiges corpus gravaminum evangelicorum</dc:title>
+				<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="de">Vollst�ndiges corpus gravaminum evangelicorum</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo type="uniform">

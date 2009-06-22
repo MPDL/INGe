@@ -23,14 +23,14 @@
 				</search-result:hit-word>
 			</search-result:text-fragment>
 			<search-result:text-fragment>
-				<search-result:text-fragment-data><![CDATA[ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
+				<search-result:text-fragment-data><![CDATA[ xmlns:escidoc="${xsd.metadata.escidocprofile.types}"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
 				<search-result:hit-word>
 					<search-result:start-index>119</search-result:start-index>
 					<search-result:end-index>124</search-result:end-index>
 				</search-result:hit-word>
 			</search-result:text-fragment>
 			<search-result:text-fragment>
-				<search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
+				<search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="${xsd.metadata.dc}"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
 				<search-result:hit-word>
 					<search-result:start-index>70</search-result:start-index>
 					<search-result:end-index>73</search-result:end-index>
@@ -42,8 +42,8 @@
 			xmlns:organizational-unit="${xsd.soap.ou.ou}"
 			xmlns:md-records="${xsd.soap.common.mdrecords}"
 			xmlns:ou-details="${xsd.metadata.organization}"
-			xmlns:dc="http://purl.org/dc/elements/1.1/"
-			xmlns:dcterms="http://purl.org/dc/terms/"
+			xmlns:dc="${xsd.metadata.dc}"
+			xmlns:dcterms="${xsd.metadata.dcterms}"
 			xmlns:kml="http://www.opengis.net/kml/2.2"
 			objid="escidoc:persistent1"
 			last-modification-date="2007-03-19T12:16:19.322Z">

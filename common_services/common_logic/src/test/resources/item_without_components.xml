@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--XML-Beispieldatei von XMLSpy generiert v2006 sp2 U (http://www.altova.com)-->
 <item:item xmlns:item="${xsd.soap.item.item}"
-	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
-	xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:dcmitype="http://purl.org/dc/dcmitype/"
-	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+	xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+	xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}"
 	xmlns:components="${xsd.soap.item.components}"
-	xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}"
 	xmlns:md-records="${xsd.soap.common.mdrecords}"
 	xmlns:prop="${xsd.soap.common.prop}"
 	xmlns:srel="${xsd.soap.common.srel}"
@@ -24,7 +24,7 @@
 	</item:properties>
 	<md-records:md-records>
 		<md-records:md-record name="escidoc">
-			<md-profile-escidoc:publication xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+			<md-profile-escidoc:publication xmlns:publication="${xsd.metadata.publication}" type="book">
 				<publication:creator role="author">
 					<escidoc:person>
 						<escidoc:complete-name>Hans Meier</escidoc:complete-name>

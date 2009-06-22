@@ -17,15 +17,15 @@
 		<escidocMetadataRecords:md-records
 			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-					<publication:creator role="author" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+				<escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:publication="${xsd.metadata.publication}">
+					<publication:creator role="author" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
 						<escidoc:person>
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
 						</escidoc:person>
 					</publication:creator>
-					<dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan: The first of all.</dc:title>
+					<dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">PubMan: The first of all.</dc:title>
 				</escidocMetadataProfile:publication>
 			</escidocMetadataRecords:md-record>
 		</escidocMetadataRecords:md-records>
@@ -44,7 +44,7 @@
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
             <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             	<escidocMetadataRecords:md-record name="escidoc">
-            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<dc:title>My File</dc:title>
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>

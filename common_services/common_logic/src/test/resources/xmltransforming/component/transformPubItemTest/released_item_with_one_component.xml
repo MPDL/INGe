@@ -1,8 +1,8 @@
 <escidocItem:item
 	objid="escidoc:375"
 	last-modification-date="2007-04-24T16:20:26.823Z" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-    xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:dc="${xsd.metadata.dc}" 
+    xmlns:dcterms="${xsd.metadata.dcterms}"
 	xmlns:escidocItem="${xsd.soap.item.item}"	
 	xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -43,15 +43,15 @@
     </escidocItem:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
         <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" name="escidoc">
-            <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-                <publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+            <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book" xmlns:publication="${xsd.metadata.publication}">
+                <publication:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="author">
                     <escidoc:person>
                         <escidoc:complete-name>Hans Meier</escidoc:complete-name>
                         <escidoc:family-name>Meier</escidoc:family-name>
                         <escidoc:given-name>Hans</escidoc:given-name>
                     </escidoc:person>
                 </publication:creator>
-                <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
+                <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
                 <dc:identifier>1234567890</dc:identifier>
                 <dcterms:subject>My, free, keywords</dcterms:subject>
                 <dc:subject>000.000.000</dc:subject>
@@ -76,7 +76,7 @@
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
             <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             	<escidocMetadataRecords:md-record name="escidoc">
-            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<dc:title>My File</dc:title>
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>

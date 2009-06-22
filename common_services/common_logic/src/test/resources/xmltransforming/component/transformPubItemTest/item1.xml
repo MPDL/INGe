@@ -8,7 +8,7 @@
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
-			<escidocMetadataProfile:publication type="book" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<escidocMetadataProfile:publication type="book" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:publication="${xsd.metadata.publication}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<publication:creator role="author">
 					<escidoc:person>
 						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
@@ -35,7 +35,7 @@
 				<dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
 				<publication:published-online xsi:type="dcterms:W3CDTF">2007-03-04</publication:published-online>
 				<dcterms:issued xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
-				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dcterms:subject>
+				<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dcterms:subject>
 				<dcterms:tableOfContents xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>

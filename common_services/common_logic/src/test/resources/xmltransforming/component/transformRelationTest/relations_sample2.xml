@@ -23,10 +23,10 @@
    <contentModel xmlns="info:fedora/fedora-system:def/model#">SIMPLE_DOC</contentModel>
    <latest-version.number xmlns="http://www.escidoc.de/schemas/item/0.3/">1</latest-version.number>
    <latest-version.user xmlns="http://www.escidoc.de/schemas/item/0.3/">escidoc:user1</latest-version.user>
-   <identifier xmlns="http://purl.org/dc/elements/1.1/">escidoc:287</identifier>
+   <identifier xmlns="${xsd.metadata.dc}">escidoc:287</identifier>
    <public-status xmlns="http://www.escidoc.de/schemas/item/0.3/">pending</public-status>
    <content-model-title xmlns="http://www.escidoc.de/schemas/item/0.3/">ct</content-model-title>
-   <title xmlns="http://purl.org/dc/elements/1.1/">item</title>
+   <title xmlns="${xsd.metadata.dc}">item</title>
    <context-title xmlns="http://www.escidoc.de/schemas/item/0.3/">PubMan Test Collection</context-title>
    <content-model xmlns="http://www.escidoc.de/schemas/item/0.3/" rdf:resource="info:fedora/escidoc:persistent4"/>
    <state xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/fedora-system:def/model#Active"/>
