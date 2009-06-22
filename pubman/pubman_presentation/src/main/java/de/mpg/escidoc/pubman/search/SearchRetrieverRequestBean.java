@@ -13,7 +13,9 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
+import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -232,6 +234,30 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         {
             return "";
         }         
+    }
+    
+    /**
+     * @return link to the rss feed for the current search
+     * @throws PubManVersionNotAvailableException
+     */
+    public String getRssFeedLink () throws PubManVersionNotAvailableException
+    {
+        String link = "";
+        ApplicationBean appBean = new ApplicationBean();
+        link = "<link href='"+appBean.getPubmanInstanceUrl()+"/syndication/feed/rss_2.0/search?q="+ this.getNormalizedCqlQuery() +"' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
+        return link;
+    }
+    
+    /**
+     * @return link to the atom feed for the current search
+     * @throws PubManVersionNotAvailableException
+     */
+    public String getAtomFeedLink () throws PubManVersionNotAvailableException
+    {
+        String link = "";
+        ApplicationBean appBean = new ApplicationBean();
+        link = "<link href='"+appBean.getPubmanInstanceUrl()+"/syndication/feed/atom_1.0/search?q="+ this.getNormalizedCqlQuery() +"' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+        return link;
     }
     
     /**

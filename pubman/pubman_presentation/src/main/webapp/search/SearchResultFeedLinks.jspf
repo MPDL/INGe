@@ -29,5 +29,5 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
-			    <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/rss_2.0/search?q=<h:outputText value='#{SearchRetrieverRequestBean.normalizedCqlQuery}'/>" rel="alternate" type="application/rss+xml" title="Current Search | rss 2.0" />
-			    <link href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}'/>/syndication/feed/atom_1.0/search?q=<h:outputText value='#{SearchRetrieverRequestBean.normalizedCqlQuery}'/>" rel="alternate" type="application/atom+xml" title="Current Search | atom 1.0" />
+			   <h:outputText value='#{SearchRetrieverRequestBean.rssFeedLink}' rendered='#{SearchRetrieverRequestBean.normalizedCqlQuery != ""}' escape="false" />
+			   <h:outputText value='#{SearchRetrieverRequestBean.atomFeedLink}' rendered='#{SearchRetrieverRequestBean.normalizedCqlQuery != ""}' escape="false" />
