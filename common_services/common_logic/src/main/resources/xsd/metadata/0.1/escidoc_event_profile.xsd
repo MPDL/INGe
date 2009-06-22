@@ -26,4 +26,5 @@
 			<xs:element ref="eterms:invitation-status" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+
 </xs:schema>

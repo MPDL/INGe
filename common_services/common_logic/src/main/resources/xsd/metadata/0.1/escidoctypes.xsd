@@ -45,8 +45,10 @@
 	<xs:element name="end-date" type="dcterms:W3CDTF"/>
 	<xs:element name="place" type="dc:SimpleLiteral"/>
 	<xs:element name="invitation-status" type="eves:InvitationStatusEnum"/>
+	<xs:element name="address" type="dc:SimpleLiteral"/>
 	<!-- FILE TERMS -->
 	<xs:element name="content-category" type="dc:SimpleLiteral"/>
+
 	<!--*******************************
     CreatorGroup
     ********************************-->
@@ -67,43 +69,7 @@
 			<xs:element name="edition" type="dc:SimpleLiteral" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
-	<!--*******************************
-    AcquisitionDeviceType
-    ********************************-->
-	<xs:complexType name="AcquisitionDeviceType">
-		<xs:sequence>
-			<xs:element name="device-name" type="dc:SimpleLiteral"/>
-			<xs:element name="production-comment" type="dc:SimpleLiteral" minOccurs="0"/>
-		</xs:sequence>
-		<xs:attribute name="type" type="eves:AcquisitionDeviceTypeEnum" use="required"/>
-	</xs:complexType>
-	<!--*******************************
-    OriginalType
-    ********************************-->
-	<xs:complexType name="OriginalType">
-		<xs:sequence>
-			<xs:element name="size-x" type="xs:float" minOccurs="0"/>
-			<xs:element name="size-y" type="xs:float" minOccurs="0"/>
-			<xs:element name="size-unit" type="eves:OriginalSizeUnitEnum" minOccurs="0"/>
-			<xs:element name="pixel-x" type="xs:integer"/>
-			<xs:element name="pixel-y" type="xs:integer"/>
-			<xs:element name="ppi-x" type="xs:integer" minOccurs="0"/>
-			<xs:element name="ppi-y" type="xs:integer" minOccurs="0"/>
-			<xs:element name="ppi" type="xs:integer" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<!--*******************************
-    DisplayType
-    ********************************-->
-	<xs:complexType name="DisplayType">
-		<xs:sequence>
-			<xs:element name="pixel-x" type="xs:integer"/>
-			<xs:element name="pixel-y" type="xs:integer"/>
-			<xs:element name="ppi-x" type="xs:integer" minOccurs="0"/>
-			<xs:element name="ppi-y" type="xs:integer" minOccurs="0"/>
-			<xs:element name="ppi" type="xs:integer" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
+
 	<!--*******************************
     CreatorType
     ********************************-->
@@ -111,4 +77,6 @@
 		<xs:group ref="CreatorGroup"/>
 		<xs:attribute name="role" type="eves:CreatorRoleEnum" use="required"/>
 	</xs:complexType>
+	
+
 </xs:schema>

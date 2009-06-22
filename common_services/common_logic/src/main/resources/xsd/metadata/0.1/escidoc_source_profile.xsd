@@ -41,4 +41,5 @@
 		</xs:sequence>
 		<xs:attribute name="type" type="eves:GenreEnum" use="optional"/>
 	</xs:complexType>
+
 </xs:schema>

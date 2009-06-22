@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/publication" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/publication" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+
+xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" 
+xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" 
+xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" 
+xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
+targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/publication" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -53,4 +60,5 @@
 			<xs:element ref="dcterms:issued" minOccurs="0"/>
 		</xs:sequence>
 	</xs:group>
+
 </xs:schema>

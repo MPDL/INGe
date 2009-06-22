@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema 	
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://purl.org/escidoc/metadata/profiles/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
 	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:collection="http://purl.org/escidoc/metadata/profiles/0.1/collection" 
-	xmlns:image="http://purl.org/escidoc/metadata/profiles/0.1/image" 
 	xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" 
 	xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
 	xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"  	
-	xmlns:image="http://purl.org/escidoc/metadata/profiles/0.1/image" 
+	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"  
+	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+	xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+	xmlns:ou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit"
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/"
 	elementFormDefault="qualified" 
-	attributeFormDefault="unqualified"
->
+	attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -21,23 +22,18 @@
     </xs:documentation>
 	</xs:annotation>
 	
-	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/collection" schemaLocation="../../metadata/0.1/escidoc_collection_profile.xsd"/>
-	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/image" schemaLocation="../../metadata/0.1/escidoc_image_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/publication" schemaLocation="../../metadata/0.1/escidoc_publication_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/event" schemaLocation="../../metadata/0.1/escidoc_event_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/person" schemaLocation="../../metadata/0.1/escidoc_person_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/source" schemaLocation="../../metadata/0.1/escidoc_source_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" schemaLocation="../../metadata/0.1/escidoc_organization_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" schemaLocation="../../metadata/0.1/escidoc_organizationalunit_profile.xsd"/>
 		
-	<xs:element name="collection" type="collection:CollectionType"/>
-	<xs:element name="image" type="image:ImageType"/>	
 	<xs:element name="publication" type="publication:PublicationType"/>
 	<xs:element name="event" type="event:EventType"/>
 	<xs:element name="person" type="person:PersonType"/>
 	<xs:element name="organization" type="organization:OrganizationType"/>
 	<xs:element name="source" type="source:SourceType"/>
 	<xs:element name="file" type="file:FileType"/>
-	
-	
-	
+	<xs:element name="organizational-unit" type="ou:OrganizationalUnitType"/>	
 </xs:schema>

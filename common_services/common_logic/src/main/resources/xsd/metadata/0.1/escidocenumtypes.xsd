@@ -75,34 +75,7 @@
 			<xs:enumeration value="invited"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--*******************************
-    AcquisitionDeviceTypeEnum
-    ********************************-->
-	<xs:simpleType name="AcquisitionDeviceTypeEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="scanner"/>
-			<xs:enumeration value="camera"/>
-			<xs:enumeration value="microscope"/>
-			<xs:enumeration value="telescope"/>
-			<xs:enumeration value="computer"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<!--*******************************
-    OriginalSizeUnitEnum
-    ********************************-->
-	<xs:simpleType name="OriginalSizeUnitEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="mile"/>
-			<xs:enumeration value="foot"/>
-			<xs:enumeration value="inch"/>
-			<xs:enumeration value="km"/>
-			<xs:enumeration value="m"/>
-			<xs:enumeration value="cm"/>
-			<xs:enumeration value="mm"/>
-			<xs:enumeration value="µm"/>
-			<xs:enumeration value="nm"/>
-		</xs:restriction>
-	</xs:simpleType>
+
 	<!--*******************************
     CreatorRoleEnum
     ********************************-->
@@ -123,16 +96,5 @@
 			<xs:enumeration value="honoree"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--*******************************
-    ColorDepthEnum
-    ********************************-->
-	<xs:simpleType name="ColorDepthEnum">
-		<xs:restriction base="xs:integer">
-			<xs:enumeration value="1"/>
-			<xs:enumeration value="4"/>
-			<xs:enumeration value="16"/>
-			<xs:enumeration value="24"/>
-			<xs:enumeration value="32"/>
-		</xs:restriction>
-	</xs:simpleType>
+                           
 </xs:schema>

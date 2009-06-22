@@ -37,4 +37,5 @@
 			<!-- change remark: dcterms:license is a refinement of dc:rights thus it is already covered with unbounded dc:rights and cannot be declared additional -->
 		</xs:sequence>
 	</xs:complexType>
+
 </xs:schema>

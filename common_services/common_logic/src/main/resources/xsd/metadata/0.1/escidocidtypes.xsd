@@ -197,4 +197,5 @@
 			</xs:restriction>
 		</xs:simpleContent>
 	</xs:complexType>
+
 </xs:schema>
