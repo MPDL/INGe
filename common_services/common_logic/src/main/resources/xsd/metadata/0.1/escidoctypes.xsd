@@ -53,17 +53,17 @@
 	<!-- FACES-ITEM TERMS -->
 	<xs:element name="emotion" type="eves:EmotionEnumType"/>
 	<xs:element name="picture-group" type="eves:PictureGroupEnumType"/>
-	<xs:element name="age" type="dc:SimpleLiteral"/>
+	<xs:element name="age" type="xs:string"/>
 	<xs:element name="age-group" type="eves:AgeGroupEnumType"/>
 	<xs:element name="gender" type="eves:GenderEnumType"/>
 	
 	<!-- DIAMOND-ITEM TERMS -->
-	<xs:element name="diamond-elements" type="dc:SimpleLiteral"/>
-	<xs:element name="shape" type="dc:SimpleLiteral"/>			
-	<xs:element name="color" type="dc:SimpleLiteral"/>
-	<xs:element name="mechanism" type="dc:SimpleLiteral"/>
-	<xs:element name="condition" type="dc:SimpleLiteral"/>
-	<xs:element name="temperature" type="dc:SimpleLiteral"/>
+	<xs:element name="diamond-elements" type="xs:string"/>
+	<xs:element name="shape" type="xs:string"/>			
+	<xs:element name="color" type="xs:string"/>
+	<xs:element name="mechanism" type="xs:string"/>
+	<xs:element name="condition" type="xs:string"/>
+	<xs:element name="temperature" type="xs:string"/>
 
 	<!--*******************************
     CreatorGroup
