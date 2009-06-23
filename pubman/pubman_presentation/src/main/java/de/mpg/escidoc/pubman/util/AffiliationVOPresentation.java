@@ -38,6 +38,8 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.log4j.Logger;
+
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
@@ -59,7 +61,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     
     private List<AffiliationVO> predecessors = new java.util.ArrayList<AffiliationVO>();
     
-    private List<AffiliationVO> successors = new java.util.ArrayList<AffiliationVO>();
+    private List<AffiliationVO> successors = null;
 
     public AffiliationVOPresentation(AffiliationVO affiliation)
     {
@@ -67,7 +69,6 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         this.namePath = getDetails().getName();
         this.idPath = getReference().getObjectId();
         
-        this.successors = getAffiliationVOfromRO(getSuccessorAffiliations());
         this.predecessors = getAffiliationVOfromRO(getPredecessorAffiliations());
         
     }
@@ -321,16 +322,51 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
      */
     public List<AffiliationVO> getSuccessors()
     {
-        return successors;
+        fetchSuccessors();
+        return this.successors;
     }
-
-    /**
-     * @param successors the successors to set
-     */
-    public void setSuccessors(List<AffiliationVO> successors)
+    
+    private void fetchSuccessors() 
     {
-        this.successors = successors;
+        if( this.successors == null )
+        {
+        try
+        {
+                InitialContext initialContext = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            
+                // TODO tendres: This admin login is neccessary because of bug 
+                // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
+                // If the org tree structure is fetched via search, this is obsolete
+                String userHandle = AdminHelper.getAdminUserHandle();
+                OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler(userHandle);
+                String ouXml = ouHandler.retrieveSuccessors(reference.getObjectId());
+                Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
+                logger.info(ouXml);
+                List<AffiliationRO> affROs = xmlTransforming.transformToSuccessorAffiliationList(ouXml);
+                List<AffiliationVO> affVOs = getAffiliationVOfromRO(affROs);
+                this.successors = affVOs;
+            }
+            catch (Exception e)
+            {
+                this.successors = new java.util.ArrayList<AffiliationVO>();
+            }
+        }
+        else 
+        {
+          return;  
+        }
     }
+    
+    /**
+     * Are predecessors available.
+     * @return true if predecessors are available
+     */
+    public boolean getHasSuccessors()
+    {
+        fetchSuccessors();
+        return ( this.successors.size() != 0 );
+    } 
     
     
 }
