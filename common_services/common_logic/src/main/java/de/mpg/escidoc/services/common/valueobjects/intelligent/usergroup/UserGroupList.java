@@ -1,36 +1,22 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidContentException;
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
-import de.escidoc.www.services.aa.UserGroupHandler;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+
+import de.escidoc.www.services.aa.UserGroupHandler;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
  * Schema fragment(s) for this class:

@@ -1,30 +1,10 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.net.URISyntaxException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.rpc.ServiceException;
-
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.UserGroupNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserGroupHandler;
 import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
@@ -650,10 +630,8 @@ public class UserGroup extends IntelligentVO
             try
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(userGroup.getLastModificationDate());
-                
-                ugh.activate(userGroup.getObjid(), "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\" >");
+
+                ugh.activate(userGroup.getObjid(), "<param last-modification-date=\"" + JiBXHelper.serializeDate(userGroup.getLastModificationDate()) + "\" >");
                 UserGroup updatedUserGroup = userGroup = retrieve(userGroup.getObjid(), userHandle);
                 userGroup.copyInFields(updatedUserGroup);
                 
@@ -675,9 +653,7 @@ public class UserGroup extends IntelligentVO
             try
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(userGroup.getLastModificationDate());
-                ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+DatatypeConverter.printDateTime(cal) + "\" >");
+                ugh.deactivate(userGroup.getObjid(), "<param last-modification-date=\""+ JiBXHelper.serializeDate(userGroup.getLastModificationDate()) + "\" >");
                 
                 UserGroup updatedUserGroup = retrieve(userGroup.getObjid(), userHandle);
                 userGroup.copyInFields(updatedUserGroup);
@@ -700,10 +676,7 @@ public class UserGroup extends IntelligentVO
             try
             {
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(userGroup.getLastModificationDate());
-                
-                String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\">";
+                String param = "<param last-modification-date=\"" + JiBXHelper.serializeDate(userGroup.getLastModificationDate()) + "\">";
                 for (Selector selector : selectors.getSelectors())
                 {
                     param += "<selector name=\"" + selector.getName() + "\" type=\""+selector.getType() + "\" >" + selector.getString() + "</selector>";
@@ -733,10 +706,7 @@ public class UserGroup extends IntelligentVO
             {
                 
                 UserGroupHandler ugh = ServiceLocator.getUserGroupHandler(userHandle);
-                Calendar cal = new GregorianCalendar();
-                cal.setTime(userGroup.getLastModificationDate());
-                
-                String param = "<param last-modification-date=\"" + DatatypeConverter.printDateTime(cal) + "\">";
+                String param = "<param last-modification-date=\"" + JiBXHelper.serializeDate(userGroup.getLastModificationDate()) + "\">";
                 for (Selector selector : selectors.getSelectors())
                 {
                     param += "<selector name=\"" + selector.getName() + "\" type=\"" + selector.getType()+"\" >" + selector.getString() + "</selector>";

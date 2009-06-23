@@ -1,15 +1,13 @@
 
 package de.mpg.escidoc.services.common.valueobjects.intelligent.grants;
 
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.aa.UserGroupHandler;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import de.escidoc.www.services.aa.UserAccountHandler;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.IntelligentVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /** 
  * 

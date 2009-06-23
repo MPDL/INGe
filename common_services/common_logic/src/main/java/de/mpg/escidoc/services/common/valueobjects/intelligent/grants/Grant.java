@@ -412,7 +412,7 @@ public class Grant extends IntelligentVO
             throw new IllegalArgumentException(getClass().getSimpleName()
                     + ":isModerator:objectRef is null");
         }
-        return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
+        return (CoreserviceRole.DEPOSITOR.getRoleId().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
     }
 
     /**
@@ -425,7 +425,7 @@ public class Grant extends IntelligentVO
             throw new IllegalArgumentException(getClass().getSimpleName()
                     + ":isModerator:objectRef is null");
         }
-        return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
+        return (CoreserviceRole.DEPOSITOR.getRoleId().equals(role) && this.assignedOn.equals(objRef.getObjectId()));
     }
 
     
