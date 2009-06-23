@@ -11,6 +11,8 @@
 	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
 	xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
 	xmlns:ou="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit"
+	xmlns:diamond="http://purl.org/escidoc/metadata/profiles/0.1/diamond"
+	xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face"
 	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/"
 	elementFormDefault="qualified" 
 	attributeFormDefault="unqualified">
@@ -29,6 +31,8 @@
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" schemaLocation="../../metadata/0.1/escidoc_organization_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" schemaLocation="../../metadata/0.1/escidoc_organizationalunit_profile.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/file" schemaLocation="../../metadata/0.1/escidoc_file_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/face" schemaLocation="../../metadata/0.1/escidoc_face_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/diamond" schemaLocation="../../metadata/0.1/escidoc_diamond_profile.xsd"/>
 		
 	<xs:element name="publication" type="publication:PublicationType"/>
 	<xs:element name="event" type="event:EventType"/>
@@ -36,5 +40,7 @@
 	<xs:element name="organization" type="organization:OrganizationType"/>
 	<xs:element name="source" type="source:SourceType"/>
 	<xs:element name="file" type="file:FileType"/>
-	<xs:element name="organizational-unit" type="ou:OrganizationalUnitType"/>	
+	<xs:element name="organizational-unit" type="ou:OrganizationalUnitType"/>
+	<xs:element name="face" type="face:FaceType"/>
+	<xs:element name="diamond" type="diamond:DiamondType"/>	
 </xs:schema>
