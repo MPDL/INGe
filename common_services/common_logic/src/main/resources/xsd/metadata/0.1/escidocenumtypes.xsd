@@ -96,5 +96,35 @@
 			<xs:enumeration value="honoree"/>
 		</xs:restriction>
 	</xs:simpleType>
-                           
+	
+	<!-- FACES-ITEM TYPES -->
+	<xs:simpleType name="EmotionEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="happiness"/>
+			<xs:enumeration value="anger"/>
+			<xs:enumeration value="neutrality"/>
+			<xs:enumeration value="sadness"/>
+			<xs:enumeration value="fear"/>
+			<xs:enumeration value="disgust"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PictureGroupEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="a"/>
+			<xs:enumeration value="b"/>			
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="AgeGroupEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="young"/>
+			<xs:enumeration value="middle"/>
+			<xs:enumeration value="old"/>			
+		</xs:restriction>
+	</xs:simpleType>           
+	<xs:simpleType name="GenderEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="female"/>
+			<xs:enumeration value="male"/>						
+		</xs:restriction>
+	</xs:simpleType>                  
 </xs:schema>
