@@ -451,4 +451,7 @@ public interface XmlTransforming
     public ContainerVOListWrapper transformToContainerListWrapper(String containerListXml) throws TechnicalException;
     
     public FileVO transformToFileVO(String fileXML) throws TechnicalException;
+    
+    public List<AffiliationRO> transformToSuccessorAffiliationList(String successorOrganizationalUnitList) throws TechnicalException, 
+        UnmarshallingException;
 }

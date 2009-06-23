@@ -36,6 +36,8 @@ All rights reserved. Use is subject to license terms.
 		<!-- Node: organizational-unit-path.organizational-unit-ref.@objid -->
 		<!-- Field: AffiliationPathVO.affiliationList[X] [AffiliationRO] -->
 		<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+        
+        <value style="attribute" name="form" get-method="getForm" set-method="setForm" usage="optional" />
 
 	</mapping>
 </binding>

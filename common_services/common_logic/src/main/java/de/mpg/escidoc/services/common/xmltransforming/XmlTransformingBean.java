@@ -117,6 +117,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportDefinitionVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.SuccessorROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -271,6 +272,40 @@ public class XmlTransformingBean implements XmlTransforming
         }
         // unwrap the List<AffiliationVO>
         List<AffiliationRO> affiliationList = affiliationROListWrapper.getAffiliationROList();
+        return affiliationList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<AffiliationRO> transformToSuccessorAffiliationList(String successorOrganizationalUnitList) throws TechnicalException, UnmarshallingException
+    {
+        logger.debug("transformToSuccessorAffiliationList(String) - String successorOrganizationalUnitList=" + successorOrganizationalUnitList);
+        if (successorOrganizationalUnitList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToAffiliationList:organizationalUnitList is null");
+        }
+        SuccessorROListWrapper successorROListWrapper;
+        try
+        {
+            // unmarshal AffiliationVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("AffiliationVO_input", SuccessorROListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(successorOrganizationalUnitList);
+            successorROListWrapper = (SuccessorROListWrapper)uctx.unmarshalDocument(sr, null);
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(successorOrganizationalUnitList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<AffiliationVO>
+        List<AffiliationRO> affiliationList = successorROListWrapper.getAffiliationROList();
         return affiliationList;
     }
 

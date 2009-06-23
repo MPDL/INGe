@@ -61,6 +61,7 @@
 	<include path="AffiliationVOListWrapper_binding.xml" />
 	<include path="organizationalunit/MdsOrganizationalUnitDetailsVO_binding_input.xml" />
 	<include path="ParentAffiliationROListWrapper_binding.xml"/>
+    <include path="SuccessorAffiliationROListWrapper_binding.xml"/>
 	<include path="AffiliationRO_binding.xml"/>
 	<include path="publication/IdentifierVO_binding.xml"/>
 	
