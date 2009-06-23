@@ -34,7 +34,7 @@
 			<xs:element ref="dcterms:abstract"/>
 			<xs:element ref="dc:identifier"/>
 			<xs:element ref="dc:date"/>
-			<xs:element ref="dc:creator" minOccurs="0"/>
+			<xs:element ref="eterms:creator" minOccurs="0"/>
 		</xs:sequence>	
 	</xs:complexType>
 	
