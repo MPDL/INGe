@@ -14,7 +14,6 @@ public class FullTextVO
     private String ftFormat;
     private String ftLabel;
     private boolean ftDefault;
-    private String fileType;
     private String contentCategory;
     private String visibility;
     private String name;
@@ -38,16 +37,6 @@ public class FullTextVO
     public void setEncoding(String encoding)
     {
         this.encoding = encoding;
-    }
-
-    public String getFileType()
-    {
-        return this.fileType;
-    }
-
-    public void setFileType(String fileType)
-    {
-        this.fileType = fileType;
     }
 
     public String getFtDesc()

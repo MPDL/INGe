@@ -122,19 +122,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
                             else
                             {
                                 response.setContentType(this.dataHandler.getContentType());
-                                if (!this.view)
-                                {
-                                    if (this.dataHandler.getFileEnding() != null)
-                                    {
-                                        response.setHeader("Content-disposition", "attachment; filename=" 
+                                response.setHeader("Content-disposition", "attachment; filename=" 
                                                 + this.filename + this.dataHandler.getFileEnding());
-                                    }
-                                    else
-                                    {
-                                        response.setHeader("Content-disposition", "attachment; filename=" 
-                                                + this.filename);
-                                    }
-                                }
                                 response.setStatus(200);
                                 outStream.write(data);
                             }

@@ -14,19 +14,17 @@ public class MetadataVO
     private String mdFormat;
     private String mdLabel;
     private boolean mdDefault;
-    private String fileType;
     private String name;
     private String encoding;
 
     public MetadataVO (String mdDesc, URL mdUrl, String mdFormat, String mdLabel, boolean mdDefault, 
-            String fileType, String name, String encoding )
+            String name, String encoding )
     {
         this.mdDesc = mdDesc;
         this.mdUrl = mdUrl;
         this.mdFormat = mdFormat;
         this.mdLabel = mdLabel;
         this.mdDefault = mdDefault;
-        this.fileType = fileType;
         this.name = name;
         this.encoding = encoding;
     }
@@ -52,16 +50,6 @@ public class MetadataVO
     public void setEncoding(String encoding)
     {
         this.encoding = encoding;
-    }
-
-    public String getFileType()
-    {
-        return this.fileType;
-    }
-
-    public void setFileType(String fileType)
-    {
-        this.fileType = fileType;
     }
 
     public String getMdDesc()

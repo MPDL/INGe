@@ -134,6 +134,7 @@ public class DataHandlerBean implements DataHandler
             FormatNotAvailableException
     {
         byte[] fetchedData = null;
+        this.setFileEnding(this.util.retrieveFileEndingFromCone(trgFormatType));
         
         try
         {             
@@ -166,13 +167,11 @@ public class DataHandlerBean implements DataHandler
                 fetchedData = transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", "UTF-8", 
                         trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
                 this.setContentType(trgFormatType);
-                this.setFileEnding(null);
             }
             if (fetchType.equals(this.fetchTypeUNKNOWN))
             {
                 throw new FormatNotRecognisedException();
             }
-            this.logger.info("Fetched file type: " + fetchType + ".");
         }
         catch (AccessException e)
         {
@@ -360,7 +359,7 @@ public class DataHandlerBean implements DataHandler
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
-                item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"));  
+                item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"),"UTF-8");  
                 if (this.currentSource.getItemUrl()!= null)
                 {
                     this.setItemUrl(new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier)));
@@ -374,7 +373,7 @@ public class DataHandlerBean implements DataHandler
                     byte[] componentBytes = transformer.transform(fetchedItem.getBytes("UTF-8"), srcFormat, trgFormatComponent, "escidoc");
                     
                     if (componentBytes != null)
-                    {   String componentXml = new String(componentBytes);               
+                    {   String componentXml = new String(componentBytes, "UTF-8");               
                         XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
                         this.componentVO = xmlTransforming.transformToFileVO(componentXml);
                     }
@@ -547,7 +546,7 @@ public class DataHandlerBean implements DataHandler
                 // If more than one file => add it to zip
                 else
                 {
-                    ZipEntry ze = new ZipEntry(identifier + fulltext.getFileType());
+                    ZipEntry ze = new ZipEntry(identifier + this.getFileEnding());
                     ze.setSize(in.length);
                     ze.setTime(this.currentDate());
                     CRC32 crc321 = new CRC32();
@@ -800,7 +799,7 @@ public class DataHandlerBean implements DataHandler
                 coreservice = ft.getFtUrl().toString();
             }  
             
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(itemXML));
+            PubItemVO itemVO = xmlTransforming.transformToPubItem(itemXML);
             contentUrl = new URL(coreservice + itemVO.getFiles().get(0).getContent()).openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) contentUrl;
             int responseCode = httpConn.getResponseCode();
@@ -1087,7 +1086,7 @@ public class DataHandlerBean implements DataHandler
         this.setVisibility(fulltext.getVisibility());
         this.setContentCategorie(fulltext.getContentCategory());
         this.setContentType(fulltext.getFtFormat());
-        this.setFileEnding(fulltext.getFileType());
+        this.setFileEnding(this.util.retrieveFileEndingFromCone(fulltext.getFtFormat()));
     }
     
     /**
@@ -1112,7 +1111,14 @@ public class DataHandlerBean implements DataHandler
 
     public String getFileEnding()
     {
-        return this.fileEnding;
+        if (this.fileEnding == null)
+        {
+            return "";
+        }
+        else
+        {
+            return this.fileEnding;
+        }
     }
 
     public void setFileEnding(String fileEnding)
@@ -1169,7 +1175,7 @@ public class DataHandlerBean implements DataHandler
             if (this.componentVO.getDefaultMetadata().getLicense() == null || 
                     this.componentVO.getDefaultMetadata().getLicense().equals(""))
             {
-                this.componentVO.getDefaultMetadata().setRights(this.currentSource.getLicense());
+                this.componentVO.getDefaultMetadata().setLicense(this.currentSource.getLicense());
             }
             return this.componentVO;
         }

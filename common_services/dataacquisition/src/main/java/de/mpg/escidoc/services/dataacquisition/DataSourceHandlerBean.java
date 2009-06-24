@@ -103,7 +103,6 @@ public class DataSourceHandlerBean
                         mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
                         mdVO.setMdDefault(mdf.getDefault());
                         mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
-                        mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
                         mdVO.setName(simpleLiteralTostring(mdf.getName()));
                         mdVO.setEncoding(simpleLiteralTostring(mdf.getEncoding()));
                         mdVec.add(mdVO);
@@ -121,7 +120,6 @@ public class DataSourceHandlerBean
                         fulltextVO.setFtFormat(simpleLiteralTostring(ftf.getFormat()));
                         fulltextVO.setFtDefault(ftf.getDefault());
                         fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
-                        fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
                         fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                         fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
                         fulltextVO.setName(simpleLiteralTostring(ftf.getName()));
@@ -243,7 +241,6 @@ public class DataSourceHandlerBean
                     mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
                     mdVO.setMdDefault(mdf.getDefault());
                     mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
-                    mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
                     mdVO.setName(simpleLiteralTostring(mdf.getName()));
                     mdVO.setEncoding(simpleLiteralTostring(mdf.getEncoding()));
                     mdVec.add(mdVO);
@@ -263,7 +260,6 @@ public class DataSourceHandlerBean
                     fulltextVO.setFtFormat(simpleLiteralTostring(ftf.getFormat()));
                     fulltextVO.setFtDefault(ftf.getDefault());
                     fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
-                    fulltextVO.setFileType(simpleLiteralTostring(ftf.getFileType()));
                     fulltextVO.setContentCategory(simpleLiteralTostring(ftf.getContentCategorie()));
                     fulltextVO.setVisibility(simpleLiteralTostring(ftf.getVisibility()));
                     fulltextVO.setName(simpleLiteralTostring(ftf.getName()));

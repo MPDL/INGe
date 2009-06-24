@@ -23,7 +23,6 @@
 				<label>oai_hal</label>
 				<name>hal</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://hal.inria.fr/oai/elements/inria.xsd</dc:description>
@@ -32,7 +31,6 @@
 				<label>oai_inria</label>
 				<name>inria</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
@@ -41,7 +39,6 @@
 				<label>oai_dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 
@@ -72,7 +69,6 @@
 				<label>bmc</label>
 				<name>bmc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/article.xsd</dc:description>
@@ -81,7 +77,6 @@
 				<label>bmc_article</label>
 				<name>bmcarticle</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/references.xsd</dc:description>
@@ -90,7 +85,6 @@
 				<label>bmc_references</label>
 				<name>bmcreferences</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.biomedcentral.com/xml/schemas/oai/2.0/bibl.xsd</dc:description>
@@ -99,7 +93,6 @@
 				<label>bmc_bibl</label>
 				<name>bmcbibl</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
@@ -108,7 +101,6 @@
 				<label>oai_dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<FT-fetch-settings>
@@ -139,7 +131,6 @@
 				<label>SPIRES</label>
 				<name>spires</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<FT-fetch-settings>
@@ -168,7 +159,6 @@
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -179,7 +169,6 @@
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
 				<encoding>*</encoding>
-				<fileType>unknown</fileType>
 				<content-categorie>unknown</content-categorie>
 				<visibility>unknown</visibility>
 			</FT-fetch-setting>
@@ -209,7 +198,6 @@
 				<label>PubMed Central</label>
 				<name>pmc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
@@ -218,7 +206,6 @@
 				<label>oai dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<FT-fetch-settings>
@@ -228,7 +215,6 @@
 				<label>PDF</label>
 				<name>pdf</name>
 				<encoding>*</encoding>
-				<fileType>.pdf</fileType>
 				<content-categorie>any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
@@ -258,7 +244,6 @@
 				<label>arXiv</label>
 				<name>arXiv</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
@@ -267,7 +252,6 @@
 				<label>oai dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -278,7 +262,6 @@
 				<label>PDF</label>
 				<name>pdf</name>
 				<encoding>*</encoding>
-				<fileType>.pdf</fileType>
 				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
@@ -288,7 +271,6 @@
 				<label>Postscript</label>
 				<name>ps</name>
 				<encoding>*</encoding>
-				<fileType>.ps.gz</fileType>
 				<content-categorie>pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
@@ -317,7 +299,6 @@
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -328,7 +309,6 @@
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
 				<encoding>*</encoding>
-				<fileType>unknown</fileType>
 				<content-categorie>unknown</content-categorie>
 				<visibility>unknown</visibility>
 			</FT-fetch-setting>
@@ -357,7 +337,6 @@
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -368,7 +347,6 @@
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
 				<encoding>*</encoding>
-				<fileType>unknown</fileType>
 				<content-categorie>unknown</content-categorie>
 				<visibility>unknown</visibility>
 			</FT-fetch-setting>
@@ -397,7 +375,6 @@
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -408,7 +385,6 @@
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
 				<encoding>*</encoding>
-				<fileType>unknown</fileType>
 				<content-categorie>unknown</content-categorie>
 				<visibility>unknown</visibility>
 			</FT-fetch-setting>
@@ -437,7 +413,6 @@
 				<label>ESciDoc</label>
 				<name>eSciDoc-publication-item</name>
 				<encoding>UTF-8</encoding>
-				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		<!--Information about data fetching-->
@@ -448,7 +423,6 @@
 				<label>esidoc-fulltext</label>
 				<name>unknown</name>
 				<encoding>*</encoding>
-				<fileType>unknown</fileType>
 				<content-categorie>unknown</content-categorie>
 				<visibility>unknown</visibility>
 			</FT-fetch-setting>

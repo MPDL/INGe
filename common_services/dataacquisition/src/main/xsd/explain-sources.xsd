@@ -60,8 +60,6 @@
 			<xs:element name="name" type="dc:SimpleLiteral"/>
 			<!-- encoding-->
 			<xs:element name="encoding" type="dc:SimpleLiteral"/>
-			<!-- file ending-->
-			<xs:element name="fileType" type="dc:SimpleLiteral"/>
 		</xs:sequence>
 		<xs:attribute name="default" type="xs:boolean" use="required"/>
 	</xs:complexType>
@@ -83,8 +81,6 @@
 			<xs:element name="name" type="dc:SimpleLiteral"/>
 			<!-- encoding-->
 			<xs:element name="encoding" type="dc:SimpleLiteral"/>
-			<!-- file ending-->
-			<xs:element name="fileType" type="dc:SimpleLiteral"/>
 			<!-- full text content -->
 			<xs:element name="content-categorie" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
 			<!-- full text visibility -->

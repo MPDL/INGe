@@ -87,10 +87,11 @@ public class Util
     private final String internalFormat = "eSciDoc-publication-item";
     private final String internalListFormat = "eSciDoc-publication-item-list";
     private final String transformationService = "escidoc";
+    private final String dummyFormat = "unknown";
     
     //Cone
     private final String coneMethod = "rdf/escidocmimetypes";
-    private final String coneRel = "http://www.escidoc.org/mimetypes/";
+    private final String coneRel = "urn:cone:escidocmimetype:";
     
 
     /**
@@ -438,7 +439,7 @@ public class Util
             for (int x = i + 1; x < dirtyVector.size(); x++)
             {
                 format2 = (MetadataVO) dirtyVector.get(x);
-                if (this.isMdFormatEqual(format1, format2))
+                if (this.isMdFormatEqual(format1, format2) || format1.getName().equals(this.dummyFormat))
                 {
                     duplicate = true;
                 }
@@ -660,6 +661,8 @@ public class Util
     {
         String suffix = null;
         URLConnection conn;
+        InputStreamReader isReader;
+        BufferedReader bReader;
         
         try
         {
@@ -677,23 +680,16 @@ public class Util
                     throw new RuntimeException("An error occurred while calling Cone Service: "
                                 + responseCode);
             }
-            InputStream isReader = coneUrl.openStream();
-            //BufferedReader bReader = new BufferedReader(isReader);
-//            String line = "";
-//            while ((line = bReader.readLine()) != null)
-//            {
-//                itemXML += line + "\n";
-//            }
-           
-           DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();          
-           Document doc = documentBuilder.parse(isReader);
-           NodeList nodeL = doc.getElementsByTagName("suffix");
-           
-           for (int i = 0; i< nodeL.getLength(); i++)
-           {
-               Node node = nodeL.item(i);
-               suffix = node.getNodeValue();
-           }
+            isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+            bReader = new BufferedReader(isReader);
+            String line = "";
+            while ((line = bReader.readLine()) != null)
+            {
+                if (line.contains("suffix"))
+                {
+                    suffix= line.substring(line.indexOf("<suffix>")+ "<suffix>".length(), line.indexOf("</suffix>"));
+                }
+            }
         }
         catch (Exception e)
         {
