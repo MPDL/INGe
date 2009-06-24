@@ -194,6 +194,7 @@
    	<module>transformation</module>
 	<module>syndication_ear</module>
     <module>syndication_presentation</module>
+    <module>sword_presentation</module>
     
   </modules>
 
