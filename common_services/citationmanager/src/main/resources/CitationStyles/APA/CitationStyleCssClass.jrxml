@@ -201,11 +201,11 @@
 				? 
 				"n.d."
 				:
-				null]]></variableExpression>
+				""]]></variableExpression>
 	</variable>
 	<variable name="notPublishedRule" class="java.lang.String">
-		<variableExpression><![CDATA[($V{date}.equals("submitted") || $V{date}.equals("in preparation")) &&
-				!(	$F{genre}.equals("manuscript") || $F{genre}.equals("courseware-lecture") || $F{genre}.equals("talk-at-event") || $F{genre}.equals("poster") || $F{genre}.equals("series") || $F{genre}.equals("journal") )
+		<variableExpression><![CDATA[("submitted".equals($V{date}) || "in preparation".equals($V{date})) &&
+				!(	$F{genre}.equals("manuscript") || $F{genre}.equals("courseware-lecture") || $F{genre}.equals("talk-at-event") || $F{genre}.equals("poster") )
 				? "true" : "false"]]></variableExpression>
 	</variable>
 	<variable name="date-for-thesis" class="java.lang.String">

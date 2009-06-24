@@ -103,15 +103,15 @@
 				? 
 				"n.d."
 				:
-				null
+				""
 			]]>
 		</variable>
 		
 		<!-- see http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Citation_of_not_yet_published_works_.28valid_for_all_genres.2C_except_for_manuscript.2C_teaching_.28Lecture.2FCourseware.29.2C_Talk_at_event.2C_Poster.29 -->
 		<variable name="notPublishedRule" type="expression">
 			<![CDATA[
-				(${date}.equals("submitted") || ${date}.equals("in preparation")) &&
-				!(	${genre}.equals("manuscript") || ${genre}.equals("courseware-lecture") || ${genre}.equals("talk-at-event") || ${genre}.equals("poster") || ${genre}.equals("series") || ${genre}.equals("journal") )
+				("submitted".equals(${date}) || "in preparation".equals(${date})) &&
+				!(	${genre}.equals("manuscript") || ${genre}.equals("courseware-lecture") || ${genre}.equals("talk-at-event") || ${genre}.equals("poster") )
 				? "true" : "false"
 			]]>
 		</variable>
@@ -773,7 +773,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<!--			<layout-element ref="debugBlock" />-->
+<!--						<layout-element ref="debugBlock" />-->
 
 			<layout-element ref="authors-or-editors-and-year-and-title-with-dot" />
 
@@ -1084,7 +1084,7 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
-			<!--			<layout-element ref="debugBlock" />-->
+<!--						<layout-element ref="debugBlock" />-->
 
 			<layout-element ref="editors-with-dot" />
 
@@ -1292,17 +1292,15 @@
 
 
 	<!--	Test CSLD: -->
-	<!--	<cs-layout-definition name="notMatched">-->
-	<!--		<parameters>-->
-	<!--
-		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>
-	-->
-	<!--		</parameters>-->
-	<!--		<elements>-->
-	<!--			-->
-	<!--			<layout-element ref="debugBlock" />-->
-	<!--		-->
-	<!--		</elements>-->
-	<!--	</cs-layout-definition>-->
+<!--		<cs-layout-definition name="notMatched">-->
+<!--			<parameters>-->
+<!--		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
+<!--			</parameters>-->
+<!--			<elements>-->
+<!--				-->
+<!--				<layout-element ref="debugBlock" />-->
+<!--			-->
+<!--			</elements>-->
+<!--		</cs-layout-definition>-->
 
 </citation-style>
