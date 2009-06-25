@@ -126,5 +126,17 @@
 			<xs:enumeration value="female"/>
 			<xs:enumeration value="male"/>						
 		</xs:restriction>
-	</xs:simpleType>                  
+	</xs:simpleType>      
+	
+	<!-- DIAMONDS -->   
+	
+	<xs:simpleType name="TemperatureUnitEnum">
+    	<xs:restriction base="xs:string">
+    		<xs:enumeration value="celsius"/>
+    		<xs:enumeration value="kelvin"/>
+    		<xs:enumeration value="fahrenheit"/>
+    		<xs:enumeration value="reaumur"/>
+    		<xs:enumeration value="rankine"/>
+    	</xs:restriction>
+ 	</xs:simpleType>          
 </xs:schema>
