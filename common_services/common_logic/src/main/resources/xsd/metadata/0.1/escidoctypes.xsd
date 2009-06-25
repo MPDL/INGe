@@ -63,7 +63,19 @@
 	<xs:element name="color" type="xs:string"/>
 	<xs:element name="mechanism" type="xs:string"/>
 	<xs:element name="condition" type="xs:string"/>
-	<xs:element name="temperature" type="xs:string"/>
+	<xs:element name="temperature" type="TemperatureType"/>
+	
+	<!--*******************************
+    TemperatureType
+    ********************************-->
+	
+	<xs:complexType name="TemperatureType">
+                <xs:sequence>
+                        <xs:element name="unit" type="xs:string"/>
+                        <xs:element name="value" type="xs:string"/>
+                </xs:sequence>
+        </xs:complexType>
+	
 
 	<!--*******************************
     CreatorGroup
