@@ -109,7 +109,7 @@
 							if (result instanceof TreeFragment)
 							{
 								String id;
-								if (model.isGenerateIdentifier())
+								if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
 								{
 									id = model.getIdentifierPrefix() + querier.createUniqueIdentifier(model.getName());
 								}
@@ -121,6 +121,7 @@
 								{
 									throw new RuntimeException("Identifier expected");
 								}
+								querier.delete(model.getName(), id);
 								querier.create(model.getName(), id, (TreeFragment) result);
 							}
 							else
