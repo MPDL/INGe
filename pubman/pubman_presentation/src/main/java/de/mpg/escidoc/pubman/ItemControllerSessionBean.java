@@ -40,6 +40,7 @@ import javax.naming.NamingException;
 import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -237,6 +238,14 @@ public class ItemControllerSessionBean extends FacesBean
             // setting the returned item as new currentItem
             this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
         }
+        catch (TechnicalException tE)
+        {
+        	if(tE.getCause() instanceof OptimisticLockingException)
+        	{
+	        	logger.error("Could not save item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
+	            throw new RuntimeException("Could not save item because it has been changed by another user in the meantime.", tE);
+        	}
+        }
         catch (Exception e)
         {
             logger.error("Could not save item." + "\n" + e.toString(), e);
@@ -275,6 +284,14 @@ public class ItemControllerSessionBean extends FacesBean
                 return null;
             }
             
+        }
+        catch (TechnicalException tE)
+        {
+        	if(tE.getCause() instanceof OptimisticLockingException)
+        	{
+	        	logger.error("Could not submit or release item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
+	            throw new RuntimeException("Could not submit or release item because it has been changed by another user in the meantime.", tE);
+        	}
         }
         catch (Exception e)
         {

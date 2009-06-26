@@ -651,8 +651,18 @@ public class EditItem extends FacesBean
 
             //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
             this.getItemListSessionBean().setListDirty(true);
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
-
+            String retVal = "";
+            try
+            {
+            	retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+            }
+            catch (RuntimeException rE)
+            {
+            	String message = getMessage("itemHasBeenChangedInTheMeantime");
+                fatal(message);
+                this.valMessage.setRendered(true);
+            }
+            
             if (retVal == null)
             {
                 this.showValidationMessages(
@@ -734,7 +744,18 @@ public class EditItem extends FacesBean
      */
     public String saveAnyway()
     {        
-        String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, true);
+    	String retVal = "";
+    	try
+        {
+        	retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, true);
+        }
+        catch (RuntimeException rE)
+        {
+        	String message = getMessage("itemHasBeenChangedInTheMeantime");
+            fatal(message);
+            retVal = EditItem.LOAD_EDITITEM;
+            this.valMessage.setRendered(true);
+        }
         
         if (!(this.getItemControllerSessionBean().getCurrentItemValidationReport().isValid())) 
         {
@@ -824,9 +845,19 @@ public class EditItem extends FacesBean
             {
                 logger.debug("Submitting item...");
             }
-            
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false); 
-
+            String retVal = "";
+            try
+            {
+            	retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false); 
+            }
+            catch (RuntimeException rE)
+            {
+            	String message = getMessage("itemHasBeenChangedInTheMeantime");
+                fatal(message);
+                retVal = EditItem.LOAD_EDITITEM;
+                this.valMessage.setRendered(true);
+                return retVal;
+            }
             if (retVal == null)
             {
                 this.showValidationMessages(
@@ -1042,16 +1073,27 @@ public class EditItem extends FacesBean
            
             String retVal = "";
             //If item is released, submit it additionally (because it is pending after the save)
-            if(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState().equals(ItemVO.State.RELEASED))
+            try
             {
-                retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+	            if(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState().equals(ItemVO.State.RELEASED))
+	            {
+	                retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+	            }
+	            else
+	            {
+	                //only save it
+	                retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+	            }
             }
-            else
+            // handle optimistic locking exception
+            catch (RuntimeException rE)
             {
-                //only save it
-                retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+            	String message = getMessage("itemHasBeenChangedInTheMeantime");
+                fatal(message);
+                retVal = EditItem.LOAD_EDITITEM;
+                this.valMessage.setRendered(true);
+                return retVal;
             }
-            
             
 
             if (retVal == null)
