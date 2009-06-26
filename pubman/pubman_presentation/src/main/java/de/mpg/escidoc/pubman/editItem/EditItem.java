@@ -903,19 +903,11 @@ public class EditItem extends FacesBean
     public String cancel()
     {
         // examine if the user came from the view Item Page or if he started a new submission
-        String navString = "";
+        String navString = ViewItemFull.LOAD_VIEWITEM;
         
         //set the current submission method to empty string (for GUI purpose)
         this.getEditItemSessionBean().setCurrentSubmission("");
-        
-        if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getVersionNumber() > 0)
-        {
-            navString = ViewItemFull.LOAD_VIEWITEM;
-        }
-        else
-        {
-            navString = Home.LOAD_HOME;
-        }
+       
         cleanEditItem();
         
         if (navString.equals(ViewItemFull.LOAD_VIEWITEM))
