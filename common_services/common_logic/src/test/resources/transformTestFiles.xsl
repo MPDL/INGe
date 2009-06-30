@@ -74,6 +74,10 @@
 	xmlns:result="${xsd.soap.result.result}"
 	xmlns:dc="${xsd.metadata.dc}"
 	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:organizationalunit="${xsd.metadata.organizationalunit}"
 	>
 	
 	<xsl:output method="xml" encoding="UTF-8"/>
@@ -84,20 +88,209 @@
 	
 	<xsl:template match="*">
 		<xsl:copy>
-			<xsl:apply-templates select="@*" mode="attribute"/>
+			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</xsl:copy>
 	</xsl:template>
 	
-	<xsl:template match="*" mode="attribute">
-		<xsl:copy/>
+	<xsl:template match="item:item">
+		<item:item
+			xmlns:prop="${xsd.soap.common.prop}"
+			xmlns:srel="${xsd.soap.common.srel}"
+			xmlns:version="${xsd.soap.common.version}"
+			xmlns:release="${xsd.soap.common.release}"
+			xmlns:item="${xsd.soap.item.item}"
+			xmlns:context="${xsd.soap.context.context}"
+			xmlns:components="${xsd.soap.item.components}"
+			xmlns:contextlist="${xsd.soap.context.contextlist}"
+			xmlns:itemlist="${xsd.soap.item.itemlist}"
+			xmlns:mdrecords="${xsd.soap.common.mdrecords}"
+			xmlns:relations="${xsd.soap.common.relations}"
+			xmlns:searchresult="${xsd.soap.searchresult.searchresult}"
+			xmlns:useraccount="${xsd.soap.useraccount.useraccount}"
+			xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}"
+			xmlns:usergroup="${xsd.soap.usergroup.usergroup}"
+			xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}"
+			xmlns:oupathlist="${xsd.soap.ou.oupathlist}"
+			xmlns:ou="${xsd.soap.ou.ou}"
+			xmlns:oulist="${xsd.soap.ou.oulist}"
+			xmlns:ouref="${xsd.soap.ou.ouref}"
+			xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}"
+			xmlns:commontypes="${xsd.soap.common.commontypes}"
+			xmlns:grants="${xsd.soap.useraccount.grants}"
+			xmlns:versionhistory="${xsd.soap.common.versionhistory}"
+			xmlns:memberlist="${xsd.soap.common.memberlist}"
+			xmlns:container="${xsd.soap.container.container}"
+			xmlns:structmap="${xsd.soap.container.structmap}"
+			xmlns:containerlist="${xsd.soap.container.containerlist}"
+			xmlns:organization="${xsd.metadata.organization}"
+			xmlns:file="${xsd.metadata.file}"
+			xmlns:publication="${xsd.metadata.publication}"
+			xmlns:escidocprofile="${xsd.metadata.escidocprofile}"
+			xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+			xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}"
+			xmlns:properties="${xsd.core.properties}"
+			xmlns:metadatarecords="${xsd.soap.common.metadatarecords}"
+			xmlns:report="${xsd.soap.statistic.report}"
+			xmlns:reportparameters="${xsd.soap.statistic.reportparameters}"
+			xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}"
+			xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}"
+			xmlns:toc="${xsd.soap.toc.toc}"
+			xmlns:table-of-content="${xsd.soap.toc.table-of-content}"
+			xmlns:result="${xsd.soap.result.result}"
+			xmlns:dc="${xsd.metadata.dc}"
+			xmlns:dcterms="${xsd.metadata.dcterms}"
+			xmlns:source="${xsd.metadata.source}"
+			xmlns:event="${xsd.metadata.event}"
+			xmlns:person="${xsd.metadata.person}"
+			xmlns:organizationalunit="${xsd.metadata.organizationalunit}"
+			>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</item:item>
 	</xsl:template>
 	
-	<xsl:template match="*[namespace-uri() = 'xmlns']" mode="attribute">
-		<xsl:copy/>
-		<xsl:attribute name="ns">123</xsl:attribute>
+	<xsl:template match="container:container">
+		<container:container
+			xmlns:prop="${xsd.soap.common.prop}"
+			xmlns:srel="${xsd.soap.common.srel}"
+			xmlns:version="${xsd.soap.common.version}"
+			xmlns:release="${xsd.soap.common.release}"
+			xmlns:item="${xsd.soap.item.item}"
+			xmlns:context="${xsd.soap.context.context}"
+			xmlns:components="${xsd.soap.item.components}"
+			xmlns:contextlist="${xsd.soap.context.contextlist}"
+			xmlns:itemlist="${xsd.soap.item.itemlist}"
+			xmlns:mdrecords="${xsd.soap.common.mdrecords}"
+			xmlns:relations="${xsd.soap.common.relations}"
+			xmlns:searchresult="${xsd.soap.searchresult.searchresult}"
+			xmlns:useraccount="${xsd.soap.useraccount.useraccount}"
+			xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}"
+			xmlns:usergroup="${xsd.soap.usergroup.usergroup}"
+			xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}"
+			xmlns:oupathlist="${xsd.soap.ou.oupathlist}"
+			xmlns:ou="${xsd.soap.ou.ou}"
+			xmlns:oulist="${xsd.soap.ou.oulist}"
+			xmlns:ouref="${xsd.soap.ou.ouref}"
+			xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}"
+			xmlns:commontypes="${xsd.soap.common.commontypes}"
+			xmlns:grants="${xsd.soap.useraccount.grants}"
+			xmlns:versionhistory="${xsd.soap.common.versionhistory}"
+			xmlns:memberlist="${xsd.soap.common.memberlist}"
+			xmlns:container="${xsd.soap.container.container}"
+			xmlns:structmap="${xsd.soap.container.structmap}"
+			xmlns:containerlist="${xsd.soap.container.containerlist}"
+			xmlns:organization="${xsd.metadata.organization}"
+			xmlns:file="${xsd.metadata.file}"
+			xmlns:publication="${xsd.metadata.publication}"
+			xmlns:escidocprofile="${xsd.metadata.escidocprofile}"
+			xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+			xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}"
+			xmlns:properties="${xsd.core.properties}"
+			xmlns:metadatarecords="${xsd.soap.common.metadatarecords}"
+			xmlns:report="${xsd.soap.statistic.report}"
+			xmlns:reportparameters="${xsd.soap.statistic.reportparameters}"
+			xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}"
+			xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}"
+			xmlns:toc="${xsd.soap.toc.toc}"
+			xmlns:table-of-content="${xsd.soap.toc.table-of-content}"
+			xmlns:result="${xsd.soap.result.result}"
+			xmlns:dc="${xsd.metadata.dc}"
+			xmlns:dcterms="${xsd.metadata.dcterms}"
+			xmlns:source="${xsd.metadata.source}"
+			xmlns:event="${xsd.metadata.event}"
+			xmlns:person="${xsd.metadata.person}"
+			xmlns:organizationalunit="${xsd.metadata.organizationalunit}"
+			>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</container:container>
 	</xsl:template>
 	
+	<xsl:template match="publication:creator">
+		<escidoc:creator>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:creator>
+	</xsl:template>
+	
+	<xsl:template match="escidocprofile:publication">
+		<publication:publication>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</publication:publication>
+	</xsl:template>
+	
+	<xsl:template match="escidoc:person">
+		<person:person>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</person:person>
+	</xsl:template>
+	
+	<xsl:template match="publication:source">
+		<source:source>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</source:source>
+	</xsl:template>
+	
+	<xsl:template match="escidoc:source">
+		<source:source>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</source:source>
+	</xsl:template>
+	
+	<xsl:template match="publication:event">
+		<event:event>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</event:event>
+	</xsl:template>
+	
+	<xsl:template match="publication:total-number-of-pages">
+		<escidoc:total-number-of-pages>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:total-number-of-pages>
+	</xsl:template>
+	
+	<xsl:template match="publication:degree">
+		<escidoc:degree>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:degree>
+	</xsl:template>
+	
+	<xsl:template match="publication:publishing-info">
+		<escidoc:publishing-info>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:publishing-info>
+	</xsl:template>
+	
+	<xsl:template match="publication:review-method">
+		<escidoc:review-method>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:review-method>
+	</xsl:template>
+	
+	<xsl:template match="publication:location">
+		<escidoc:location>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:location>
+	</xsl:template>
+	
+	<xsl:template match="publication:published-online">
+		<escidoc:published-online>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:published-online>
+	</xsl:template>
+
 	<xsl:template match="escidoc:organization">
 		<organization:organization>
 			<xsl:copy-of select="@*"/>
@@ -110,6 +303,55 @@
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</dc:title>
+	</xsl:template>
+
+	<xsl:template match="organization:organization/escidoc:identifier">
+		<dc:identifier>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</dc:identifier>
+	</xsl:template>
+	
+	<xsl:template match="escidoc:person/escidoc:identifier">
+		<dc:identifier>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</dc:identifier>
+	</xsl:template>
+	
+	<xsl:template match="organization:organization-details">
+		<organizationalunit:organization-details>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</organizationalunit:organization-details>
+	</xsl:template>
+	
+	<xsl:template match="organization:organization-details/organization:city">
+		<escidoc:city>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:city>
+	</xsl:template>
+	
+	<xsl:template match="organization:organization-details/organization:country">
+		<escidoc:country>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:country>
+	</xsl:template>
+	
+	<xsl:template match="organization:organization-details/organization:start-date">
+		<escidoc:start-date>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:start-date>
+	</xsl:template>
+	
+	<xsl:template match="organization:organization-details/organization:end-date">
+		<escidoc:end-date>
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</escidoc:end-date>
 	</xsl:template>
 
 </xsl:stylesheet>
