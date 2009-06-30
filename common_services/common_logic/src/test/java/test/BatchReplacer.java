@@ -52,7 +52,7 @@ import java.util.Map;
  */
 public class BatchReplacer
 {
-    private static final String REPLACE_MAP_FILENAME = "../../src/test/resources/replace-map.properties";
+    private static final String REPLACE_MAP_FILENAME = "C:/repository/common_services/common_logic/src/test/resources/replace-map.properties";
     private static final String EQUALS_TOKEN = "<<<EQUALS>>>";
     private static Map<String, String> replaceMap = new LinkedHashMap<String, String>();
     
@@ -129,7 +129,7 @@ public class BatchReplacer
                 System.out.println("Saving " + file.getAbsolutePath());
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
-                outputStreamWriter.write(result);
+                outputStreamWriter.write(newValue);
                 outputStreamWriter.close();
             }
         }

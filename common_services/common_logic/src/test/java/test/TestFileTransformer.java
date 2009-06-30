@@ -51,26 +51,47 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class TestFileTransformer
 {
-    public static final String STYLESHEET = "../../src/test/resources/transformTestFiles.xsl";
-    
+    public static final String STYLESHEET = "C:/repository/common_services/common_logic/src/test/resources/transformTestFiles.xsl";
+    private static TransformerFactory factory = TransformerFactory.newInstance();
     /**
      * @param args
      */
     public static void main(String[] args) throws Exception
     {
+        System.out.println("Using " + factory.getClass().getName());
         for (String arg : args)
         {
-
-            File source = new File(arg);
+            new TestFileTransformer(new File(arg));
+        }
+    }
+    
+    public TestFileTransformer(File source) throws Exception
+    {
+        if (source.isHidden() || source.getName().startsWith("."))
+        {
+            System.out.println("Ignoring file " + source.getAbsolutePath());
+        }
+        else if (source.isDirectory())
+        {
+            File[] subFiles = source.listFiles();
+            for (File subFile : subFiles)
+            {
+                new TestFileTransformer(subFile);
+            }
+        }
+        else if (source.getName().endsWith(".xml"))
+        {
+            System.out.println("Transforming file " + source.getAbsolutePath());
             File tmp = File.createTempFile(source.getName(), ".tmp", source.getParentFile());
             File stylesheet = new File(STYLESHEET);
             InputStream in = new FileInputStream(source);
             
             OutputStream out = new FileOutputStream(tmp);
             
-            TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", TestFileTransformer.class.getClassLoader());
+            //TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", TestFileTransformer.class.getClassLoader());
+            
             Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
-
+    
             transformer.transform(new StreamSource(in), new StreamResult(out));
             
             in.close();
@@ -78,7 +99,7 @@ public class TestFileTransformer
             
             source.delete();
             tmp.renameTo(source);
-            
         }
     }
+    
 }
