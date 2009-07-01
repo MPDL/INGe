@@ -183,11 +183,11 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         ihr.submit(createdItemId, "<param last-modification-date=\"" + md + "\"/>");
         createdItemXml = ihr.retrieve(createdItemId);
         md = getModificationDate(createdItemXml);
-        String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         ihr.assignObjectPid(createdItemId, param);
         createdItemXml = ihr.retrieve(createdItemId);
         md = getModificationDate(createdItemXml);
-        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         ihr.assignVersionPid(createdItemId + ":1", param);
         createdItemXml = ihr.retrieve(createdItemId);
         md = getModificationDate(createdItemXml);
@@ -214,11 +214,11 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         ihr.submit(createdContainerId, "<param last-modification-date=\"" + md + "\"/>");
         createdContainerXml = ihr.retrieve(createdContainerId);
         md = getModificationDate(createdContainerXml);
-        String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         ihr.assignObjectPid(createdContainerId, param);
         createdContainerXml = ihr.retrieve(createdContainerId);
         md = getModificationDate(createdContainerXml);
-        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         ihr.assignVersionPid(createdContainerId + ":1", param);
         createdContainerXml = ihr.retrieve(createdContainerId);
         md = getModificationDate(createdContainerXml);

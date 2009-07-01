@@ -923,7 +923,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         
         // Param for assignement of Object PID
         String md = getLastModificationDate(pubItemXMLPostSubmission);
-        String objectPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        String objectPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         
         logger.debug("objectPidParam: " + objectPidParam);
         
@@ -936,7 +936,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         
         // Param for assignement of Version PID
         md = getLastModificationDate(pubItemXMLPostOPidAssignement);
-        String versionPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        String versionPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost/" + System.currentTimeMillis() + "</url>" + "</param>";
         
         // Assign version pid
         ihr.assignVersionPid(pubItemVOPostSubmission.getVersion().getObjectId() + ":1", versionPidParam);
