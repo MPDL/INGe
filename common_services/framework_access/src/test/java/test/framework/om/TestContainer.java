@@ -32,6 +32,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Date;
+
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -118,7 +120,7 @@ public class TestContainer extends TestItemBase
         String id = getId(container);
         String md = getModificationDate(container);
         String param = "<param last-modification-date=\"" + md + "\">" +
-        "    <url>http://localhost</url>" +
+        "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         logger.debug("Param=" + param);
         String pid = ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id, param);
@@ -217,14 +219,14 @@ public class TestContainer extends TestItemBase
         md = getModificationDate(container);
         //logger.info("md "+md);
         String param = "<param last-modification-date=\"" + md + "\">" +
-        "    <url>http://localhost</url>" +
+        "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
         //logger.info("md "+md);
         param = "<param last-modification-date=\"" + md + "\">" +
-        "    <url>http://localhost</url>" +
+        "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
@@ -260,14 +262,14 @@ public class TestContainer extends TestItemBase
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
         String param = "<param last-modification-date=\"" + md + "\">" +
-        "    <url>http://localhost</url>" +
+        "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         logger.info("param(" + param + ")");
         ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
         String param2 = "<param last-modification-date=\"" + md + "\">" +
-        "    <url>http://localhost</url>" +
+        "    <url>http://localhost/" + System.currentTimeMillis() + "</url>" +
         "</param>";
         ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param2);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
