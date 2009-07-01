@@ -103,6 +103,7 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -212,7 +213,7 @@ public class EasySubmission extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.transformer = (Transformation)initialContext.lookup(Transformation.SERVICE_NAME);
+            this.transformer = new TransformationBean();
             this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         }
