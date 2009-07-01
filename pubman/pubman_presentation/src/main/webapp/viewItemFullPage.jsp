@@ -229,9 +229,22 @@
 									</h:outputLabel>
 								</h:panelGroup>	
 							</div>
+							<h:panelGroup layout="block" styleClass="full_area0 itemBlock noTopBorder" rendered="#{ViewItemFull.isLoggedIn}">
+								<h3 class="xLarge_area0_p8 endline blockHeader">
+									&#160;
+								</h3>
+								<div class="free_area0 itemBlockContent endline">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										<h:outputText value="#{lbl.ViewItem_lblModeratorContact}" /><span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<h:outputLink value="mailto:#{ViewItemFull.moderatorContactEmail}?subject=#{ViewItemFull.pubItem.version.objectIdAndVersion}" rendered="#{ViewItemFull.isLoggedIn}"><h:outputText value="#{lbl.ViewItem_lnkModeratorEmail}" /></h:outputLink>
+									</span>
+								</div>								
+							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="full_area0 itemBlock visibility" rendered="#{!ViewItemFull.isStateWithdrawn}">
 								<h3 class="xLarge_area0_p8 endline blockHeader">
-									&#160;<h:outputLink value="mailto:#{ViewItemFull.moderatorContactEmail}?subject=#{ViewItemFull.pubItem.version.objectIdAndVersion}" rendered="#{ViewItemFull.isLoggedIn}"><h:outputText value="#{lbl.ViewItem_lnkModeratorEmail}" /></h:outputLink>
+									&#160;
 								</h3>
 								<h:panelGroup styleClass="seperator" />
 								<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
