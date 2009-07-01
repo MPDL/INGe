@@ -82,10 +82,13 @@ public class RetrieveTest
         
         for (String line : lines)
         {
-            assertTrue("Illegal line: '" + line + "'", line.contains("|"));
-            String[] parts = line.split("\\|");
-            assertTrue("Illegal line: '" + line + "'", parts[0] != null && !"".equals(parts[0]));
-            assertTrue("Illegal line: '" + line + "'", parts[1] != null && !"".equals(parts[1]));
+            if (!"".equals(line.trim()))
+            {
+                assertTrue("Illegal line: '" + line + "'", line.contains("|"));
+                String[] parts = line.split("\\|");
+                assertTrue("Illegal line: '" + line + "'", parts[0] != null && !"".equals(parts[0]));
+                assertTrue("Illegal line: '" + line + "'", parts[1] != null && !"".equals(parts[1]));
+            }
         }
 
     }
