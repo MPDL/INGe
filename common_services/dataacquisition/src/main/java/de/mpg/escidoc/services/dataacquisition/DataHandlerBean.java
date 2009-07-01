@@ -745,7 +745,7 @@ public class DataHandlerBean implements DataHandler
                     || this.currentSource.getName().toLowerCase().equals("escidocprod") 
                     || this.currentSource.getName().toLowerCase().equals("escidoctest"))
             {
-                return ServiceLocator.getItemHandlerByUrl(md.getMdUrl().toString()).retrieve(identifier);
+                return ServiceLocator.getItemHandler(md.getMdUrl().toString()).retrieve(identifier);
             } 
             if (md.getName().toLowerCase().equals("virr-mets"))
             {
@@ -795,7 +795,7 @@ public class DataHandlerBean implements DataHandler
                     || this.currentSource.getName().toLowerCase().equals("escidocqa") 
                     || this.currentSource.getName().toLowerCase().equals("escidocprod"))
             {
-                itemXML = ServiceLocator.getItemHandlerByUrl(ft.getFtUrl().toString()).retrieve(identifier);
+                itemXML = ServiceLocator.getItemHandler(ft.getFtUrl().toString()).retrieve(identifier);
                 coreservice = ft.getFtUrl().toString();
             }  
             
