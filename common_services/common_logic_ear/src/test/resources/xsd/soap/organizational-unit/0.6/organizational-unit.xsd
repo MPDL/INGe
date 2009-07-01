@@ -12,12 +12,12 @@
 	
 -->
 <xs:schema
-	targetNamespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
+	targetNamespace="${xsd.soap.ou.ou}"
 	elementFormDefault="qualified" attributeFormDefault="unqualified"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
 	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
-	xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6"
+	xmlns:organizational-unit="${xsd.soap.ou.ou}"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
 

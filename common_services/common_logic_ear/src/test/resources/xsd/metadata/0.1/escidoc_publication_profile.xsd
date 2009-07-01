@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:annotation>
-    <xs:documentation xml:lang="en">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/publication" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+
+xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" 
+xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" 
+xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" 
+xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
+targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/publication" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
 
     eSciDoc metadata profile, publication
 
     </xs:documentation>
-  </xs:annotation>
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
-  <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
-  <xs:import namespace="http://purl.org/dc/terms/" schemaLocation="../../metadata/0.1/dcterms.xsd"/>
-  <xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
-  <xs:element name="publication" type="PublicationType"/>
-  <!--*******************************
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/source" schemaLocation="../../metadata/0.1/escidoc_source_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/event" schemaLocation="../../metadata/0.1/escidoc_event_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/ves/0.1/" schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
+	<xs:element name="publication" type="PublicationType"/>
+	<!--*******************************
     PublicationType
     ********************************-->
-  <xs:complexType name="PublicationType">
-    <xs:sequence>
-      <xs:element name="creator" type="escidoc:CreatorType" maxOccurs="unbounded"/>
-      <xs:element ref="dc:title"/>
-      <xs:element ref="dc:language" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="publishing-info" type="escidoc:PublishingInfoType" minOccurs="0"/>
-      <xs:group ref="PublicationDatesGroup" minOccurs="0"/>
-      <xs:element name="review-method" type="escidoc:ReviewMethodEnum" minOccurs="0"/>
-      <xs:element name="source" type="escidoc:SourceType" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="event" type="escidoc:EventType" minOccurs="0"/>
-      <xs:element name="total-number-of-pages" type="dc:SimpleLiteral" minOccurs="0"/>
-      <xs:element name="degree" type="escidoc:DegreeEnum" minOccurs="0"/>
-      <xs:element ref="dcterms:abstract" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="dc:subject" minOccurs="0"/>
-      <xs:element ref="dcterms:tableOfContents" minOccurs="0"/>
-      <xs:element name="location" type="dc:SimpleLiteral" minOccurs="0"/>
-    </xs:sequence>
-    <xs:attribute name="type" type="escidoc:GenreEnum" use="required"/>
-    <xs:attribute ref="xml:lang" use="optional"/>
-  </xs:complexType>
-  <!--************************************
+	<xs:complexType name="PublicationType">
+		<xs:sequence>
+			<xs:element ref="eterms:creator" maxOccurs="unbounded"/>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:language" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:publishing-info" minOccurs="0"/>
+			<xs:group ref="PublicationDatesGroup" minOccurs="0"/>
+			<xs:element ref="eterms:review-method" minOccurs="0"/>
+			<xs:element ref="source:source" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="event:event" minOccurs="0"/>
+			<xs:element ref="eterms:total-number-of-pages" minOccurs="0"/>
+			<xs:element ref="eterms:degree" minOccurs="0"/>
+			<xs:element ref="dcterms:abstract" minOccurs="0" maxOccurs="unbounded"/>		
+			<xs:element ref="dc:subject" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dcterms:tableOfContents" minOccurs="0"/>
+			<xs:element ref="eterms:location" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="eves:GenreEnum" use="required"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<!--************************************
     PublicationDateGroup
     ********************************-->
-  <xs:group name="PublicationDatesGroup">
-    <xs:sequence>
-      <xs:element ref="dcterms:created" minOccurs="0"/>
-      <xs:element ref="dcterms:modified" minOccurs="0"/>
-      <xs:element ref="dcterms:dateSubmitted" minOccurs="0"/>
-      <xs:element ref="dcterms:dateAccepted" minOccurs="0"/>
-      <xs:element name="published-online" type="dcterms:W3CDTF" minOccurs="0"/>
-      <xs:element ref="dcterms:issued" minOccurs="0"/>
-    </xs:sequence>
-  </xs:group>
+	<xs:group name="PublicationDatesGroup">
+		<xs:sequence>
+			<xs:element ref="dcterms:created" minOccurs="0"/>
+			<xs:element ref="dcterms:modified" minOccurs="0"/>
+			<xs:element ref="dcterms:dateSubmitted" minOccurs="0"/>
+			<xs:element ref="dcterms:dateAccepted" minOccurs="0"/>
+			<xs:element ref="eterms:published-online" minOccurs="0"/>
+			<xs:element ref="dcterms:issued" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+
 </xs:schema>

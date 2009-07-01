@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/event" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+      eSciDoc types factory
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidocidtypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<!--*******************************
+    EventType
+    ********************************-->
+	<xs:element name="event" type="EventType"/>
+	<xs:complexType name="EventType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:start-date" minOccurs="0"/>
+			<xs:element ref="eterms:end-date" minOccurs="0"/>
+			<xs:element ref="eterms:place" minOccurs="0"/>
+			<xs:element ref="eterms:invitation-status" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) --><!-- $Date: 2003/05/03 15:52:43 $ --><!--
+<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) --><!-- $Date: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $ --><!--
  Copyright (c) 2002 World Wide Web Consortium,
  (Massachusetts Institute of Technology, Institut National de
  Recherche en Informatique et en Automatique, Keio University). All
@@ -8,7 +8,7 @@
  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  PURPOSE.
  See W3C License http://www.w3.org/Consortium/Legal/ for more details.
---><xs:schema xmlns="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/1999/xlink" elementFormDefault="qualified" attributeFormDefault="unqualified" version="$Date: 2003/05/03 15:52:43 $">
+--><xs:schema xmlns="http://www.w3.org/1999/xlink" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/1999/xlink" elementFormDefault="qualified" attributeFormDefault="unqualified" version="$Date: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $">
 	<xs:annotation>
 		<xs:documentation source="http://www.w3.org/TR/2000/REC-xlink-20010627" xml:lang="en">
 	Note this schema is NOT a normative schema - -

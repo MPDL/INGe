@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/ves/0.1/" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://purl.org/escidoc/metadata/ves/0.1/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	
 	<!--*******************************
     ReviewMethodEnum
     ********************************-->
@@ -27,6 +32,7 @@
 			<xs:enumeration value="staatsexamen"/>
 			<xs:enumeration value="phd"/>
 			<xs:enumeration value="habilitation"/>
+			<xs:enumeration value="bachelor"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -64,7 +70,6 @@
 			<xs:enumeration value="modified"/>
 			<xs:enumeration value="published-in-print"/>
 			<xs:enumeration value="published-online"/>
-			
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -75,34 +80,7 @@
 			<xs:enumeration value="invited"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--*******************************
-    AcquisitionDeviceTypeEnum
-    ********************************-->
-	<xs:simpleType name="AcquisitionDeviceTypeEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="scanner"/>
-			<xs:enumeration value="camera"/>
-			<xs:enumeration value="microscope"/>
-			<xs:enumeration value="telescope"/>
-			<xs:enumeration value="computer"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<!--*******************************
-    OriginalSizeUnitEnum
-    ********************************-->
-	<xs:simpleType name="OriginalSizeUnitEnum">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="mile"/>
-			<xs:enumeration value="foot"/>
-			<xs:enumeration value="inch"/>
-			<xs:enumeration value="km"/>
-			<xs:enumeration value="m"/>
-			<xs:enumeration value="cm"/>
-			<xs:enumeration value="mm"/>
-			<xs:enumeration value="µm"/>
-			<xs:enumeration value="nm"/>
-		</xs:restriction>
-	</xs:simpleType>
+
 	<!--*******************************
     CreatorRoleEnum
     ********************************-->
@@ -120,18 +98,87 @@
 			<xs:enumeration value="advisor"/>
 			<xs:enumeration value="contributor"/>
 			<xs:enumeration value="publisher"/>
+			<xs:enumeration value="honoree"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<!--*******************************
-    ColorDepthEnum
-    ********************************-->
-	<xs:simpleType name="ColorDepthEnum">
-		<xs:restriction base="xs:integer">
-			<xs:enumeration value="1"/>
-			<xs:enumeration value="4"/>
-			<xs:enumeration value="16"/>
-			<xs:enumeration value="24"/>
-			<xs:enumeration value="32"/>
+	
+	<!-- FACES-ITEM TYPES -->
+	<xs:simpleType name="EmotionEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="happiness"/>
+			<xs:enumeration value="anger"/>
+			<xs:enumeration value="neutrality"/>
+			<xs:enumeration value="sadness"/>
+			<xs:enumeration value="fear"/>
+			<xs:enumeration value="disgust"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="PictureGroupEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="a"/>
+			<xs:enumeration value="b"/>			
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="AgeGroupEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="young"/>
+			<xs:enumeration value="middle"/>
+			<xs:enumeration value="old"/>			
+		</xs:restriction>
+	</xs:simpleType>           
+	<xs:simpleType name="GenderEnumType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="female"/>
+			<xs:enumeration value="male"/>						
+		</xs:restriction>
+	</xs:simpleType>      
+	
+	<!-- DIAMONDS -->
+        <xs:complexType name="KELVIN">
+                <xs:simpleContent>
+                        <xs:restriction base="dc:SimpleLiteral">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                        </xs:restriction>
+               </xs:simpleContent>
+       </xs:complexType>
+        <xs:complexType name="CELSIUS">
+                <xs:simpleContent>
+                        <xs:restriction base="dc:SimpleLiteral">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                       </xs:restriction>
+                </xs:simpleContent>
+       </xs:complexType>
+       <xs:complexType name="FAHRENHEIT">
+                <xs:simpleContent>
+                        <xs:restriction base="dc:SimpleLiteral">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                        </xs:restriction>
+                </xs:simpleContent>
+        </xs:complexType>
+        <xs:complexType name="REAUMUR">
+                <xs:simpleContent>
+                        <xs:restriction base="dc:SimpleLiteral">
+                                <xs:simpleType>
+                                        <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                        </xs:restriction>
+                </xs:simpleContent>
+        </xs:complexType>
+        <xs:complexType name="RANKINE">
+                <xs:simpleContent>
+                        <xs:restriction base="dc:SimpleLiteral">
+                                <xs:simpleType>
+                                       <xs:restriction base="xs:string"/>
+                                </xs:simpleType>
+                        </xs:restriction>
+                </xs:simpleContent>
+        </xs:complexType>
+
+
 </xs:schema>

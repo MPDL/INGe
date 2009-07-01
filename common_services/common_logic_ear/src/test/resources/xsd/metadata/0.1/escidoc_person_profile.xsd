@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"  targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/person" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+      eSciDoc types factory
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/profiles/0.1/organization" schemaLocation="../../metadata/0.1/escidoc_organization_profile.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/ves/0.1/" schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<!--*******************************
+    PersonType
+    ********************************-->
+	<xs:element name="person"/>
+	<xs:complexType name="PersonType">
+		<xs:sequence>
+			<xs:element ref="eterms:complete-name"/>
+			<xs:element ref="eterms:family-name" minOccurs="0"/>
+			<xs:element ref="eterms:given-name" minOccurs="0"/>
+			<xs:element ref="eterms:alternative-name" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:person-title" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:pseudonym" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="organization:organization" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

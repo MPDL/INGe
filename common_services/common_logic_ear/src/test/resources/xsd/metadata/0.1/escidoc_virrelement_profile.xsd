@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:mods=""http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile virr, volume
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>		
+	<xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd"/>
+	<xs:element name="virrelement" type="VirrelementType"/>
+	<!-- A Virrelement is one of the following types -->
+	<!--*******************************
+    VolumeType
+    ********************************
+    * genre
+    * titleInfo
+    * name
+    * originInfo
+    * note
+    * subject
+    * recordInfo
+    * identifier
+    * relatedItem
+    * part
+    
+  *******************************
+    MultivolumeType
+    ********************************
+    * genre
+    * titleInfo
+    * name
+    * originInfo
+    * note
+    * subject
+    * recordInfo
+    * identifier
+    
+   *******************************
+    PageType
+    ********************************
+    * identifier
+    * relatedItem
+    * part
+    
+    *******************************
+    StructuralElementType
+    ********************************
+    * genre
+    * titleInfo
+    * numeration
+    * name
+    * originInfo
+    * subject
+    * relatedItem
+    * part
+    
+  *******************************
+    VirrelementType
+    ********************************-->
+	<xs:complexType name="VirrelementType">
+		<xs:sequence>
+			<xs:element ref="mods:mods"/>			
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional"/>
+		<xs:attribute name="type" type="VirrelementTypeEnum" use="required"/>
+	</xs:complexType>
+	<!-- ************************************
+		ViRR ENUM TYPES
+	****************************************-->
+	
+	<xs:simpleType name="VirrelementTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Possible item types for virr element</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="volume"/>
+			<xs:enumeration value="multivolume"/>
+			<xs:enumeration value="page"/>
+			<xs:enumeration value="stuctural-element"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

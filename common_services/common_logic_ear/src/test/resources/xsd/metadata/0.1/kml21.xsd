@@ -4,7 +4,7 @@
         xmlns:kml="http://earth.google.com/kml/2.1"
         targetNamespace="http://earth.google.com/kml/2.1"
         elementFormDefault="qualified"
-        version="$Revision: 1.26 $">
+        version="$Revision: 1951 $">
 
   <annotation>
     <documentation>

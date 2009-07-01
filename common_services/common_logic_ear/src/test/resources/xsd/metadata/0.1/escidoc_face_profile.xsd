@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema 	
+	xmlns="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/face"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata faces profile
+
+    </xs:documentation>
+	</xs:annotation>
+	
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+		
+	<xs:element name="face" type="FaceType"/>
+	
+	<xs:complexType name="FaceType">
+		<xs:sequence>
+			<xs:element ref="eterms:emotion"/>
+			<xs:element ref="eterms:picture-group"/>
+			<xs:element ref="dc:identifier" minOccurs="0"/>
+			<xs:element ref="eterms:age"/>
+			<xs:element ref="eterms:age-group"/>
+			<xs:element ref="eterms:gender"/>
+		</xs:sequence>	
+	</xs:complexType>
+	
+</xs:schema>

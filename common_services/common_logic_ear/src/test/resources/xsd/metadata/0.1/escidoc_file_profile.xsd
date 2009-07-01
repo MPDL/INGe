@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/file" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" 
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/file" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -7,24 +12,30 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../soap/common/0.3/xml.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
+	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
 	<xs:element name="file" type="FileType"/>
 	<!--*******************************
     FileType
     ********************************-->
+ 
 	<xs:complexType name="FileType">
 		<xs:sequence>
 			<xs:element ref="dc:title"/>
 			<xs:element ref="dc:description" minOccurs="0"/>
 			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
 			<!-- e.g. ESCIDOC Identifier or any URI  -->
-			<xs:element name="content-category" type="dc:SimpleLiteral"/>
-			<!-- e.g. to tag attached file as full text, as supplementary material and/or as administrative file; the content is free -->			
+			<xs:element ref="eterms:content-category"/>
+			<!-- e.g. to tag attached file as full text, as supplementary material and/or as administrative file; the content is free -->
 			<xs:element ref="dc:format" minOccurs="0" maxOccurs="unbounded"/>
 			<!-- MIME-Type: e.g. image/jpeg, text/xml,... -->
+			<xs:element ref="dcterms:available" minOccurs="0"/>
+			<xs:element ref="dcterms:dateCopyrighted" minOccurs="0"/>
+			<xs:element ref="dc:rights" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- change remark: dcterms:license is a refinement of dc:rights thus it is already covered with unbounded dc:rights and cannot be declared additional -->
 		</xs:sequence>
 	</xs:complexType>
+
 </xs:schema>

@@ -219,7 +219,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     @Test
     public void testTransformToPubItemWithoutComponents2() throws Exception
     {
-        logger.debug("### testTransformToPubItemWithoutComponents ###");
+        logger.debug("### testTransformToPubItemWithoutComponents2 ###");
         // read item[XML] from file
         String pubItemXMLPreCreate = readFile(ITEM_WITHOUT_COMPONENTS_FILE);
         logger.info("Item[XML] read from file.");

@@ -155,6 +155,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         adminDescriptorVO.setWorkflow(PublicationAdminDescriptorVO.Workflow.STANDARD);
         adminDescriptorVO.setValidationSchema("publication");
         adminDescriptorVO.setTemplateItem(new ItemRO("escidoc:123"));
+        adminDescriptorVO.setContactEmail("");
         expected.getAdminDescriptors().add(adminDescriptorVO);
         
         
