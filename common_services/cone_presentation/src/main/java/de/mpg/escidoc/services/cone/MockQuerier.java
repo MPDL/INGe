@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -37,6 +39,9 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class MockQuerier implements Querier
 {
+    
+    private static final Logger logger = Logger.getLogger(MockQuerier.class);
+    
     private static final LocalizedString DIES_IST_DIE_BESCHREIBUNG = new LocalizedString("Dies ist die Beschreibung. ");
     private static final LocalizedString DIES_IST_DER_TITEL = new LocalizedString("Dies ist der Titel");
     private static final String DC_DESCRIPTION = "http://purl.org/dc/elements/1.1/description";
@@ -264,6 +269,9 @@ public class MockQuerier implements Querier
                 .concat(THIS_IS_THE_DESCRIPTION)
                 .concat(THIS_IS_THE_DESCRIPTION));
         resultSet.put(DC_DESCRIPTION, triple1);
+        
+        logger.debug("Details1: " + resultSet.toString());
+        
         return resultSet;
     }
 
@@ -298,6 +306,9 @@ public class MockQuerier implements Querier
                             .concat(THIS_IS_THE_DESCRIPTION));
             resultSet.put(DC_DESCRIPTION, triple1);
         }
+        
+        logger.debug("Details2: " + resultSet.toString());
+        
         return resultSet;
     }
 
