@@ -40,8 +40,8 @@
 <h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
 <br/>
 <!--URIs as links -->
-<tr:iterator var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
-	<h:outputLink value="#{uri}" target="_blank">
+<tr:iterator id="affiliationDetailUri" var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
+	<h:outputLink id="lnkAffiliationDetailUri" value="#{uri}" target="_blank">
 		<h:outputText value="#{uri}"/>
 	</h:outputLink>
 	<br/>
