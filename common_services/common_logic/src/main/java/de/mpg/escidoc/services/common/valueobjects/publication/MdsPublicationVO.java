@@ -551,7 +551,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDateAccepted(String newVal)
     {
-        dateAccepted = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            dateAccepted = null;
+        }
+        else
+        {
+            dateAccepted = newVal;
+        }
+        
     }
 
     /**
@@ -561,7 +569,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDateCreated(String newVal)
     {
-        dateCreated = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            dateCreated = null;
+        }
+        else
+        {
+            dateCreated = newVal;
+        }
+        
     }
 
     /**
@@ -571,7 +587,15 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDateModified(String newVal)
     {
-        dateModified = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            dateModified = null;
+        }
+        else
+        {
+            dateModified = newVal;
+        }
+        
     }
 
     /**
@@ -581,7 +605,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDatePublishedInPrint(String newVal)
     {
-        datePublishedInPrint = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            datePublishedInPrint = null;
+        }
+        else
+        {
+            datePublishedInPrint = newVal;
+        }
     }
 
     /**
@@ -591,7 +622,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDateSubmitted(String newVal)
     {
-        dateSubmitted = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            dateSubmitted = null;
+        }
+        else
+        {
+            dateSubmitted = newVal;
+        }
     }
 
     /**
@@ -626,6 +664,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public void setDatePublishedOnline(String newVal)
     {
-        this.datePublishedOnline = newVal;
+        if(newVal==null || newVal.equals(""))
+        {
+            datePublishedOnline = null;
+        }
+        else
+        {
+            datePublishedOnline = newVal;
+        }
     }
 }
