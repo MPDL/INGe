@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/virrelement" xmlns:mods=""http://www.loc.gov/mods/v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/virrelement" 
+	xmlns:mods="http://www.loc.gov/mods/v3" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/virrelement" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -7,7 +10,7 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>		
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>		
 	<xs:import namespace="http://www.loc.gov/mods/v3" schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd"/>
 	<xs:element name="virrelement" type="VirrelementType"/>
 	<!-- A Virrelement is one of the following types -->
