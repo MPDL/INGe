@@ -38,7 +38,7 @@
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
 
-		<tr:iterator var="sourceCriterionBean" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{sourceCriterionIterator}" varStatus="index">
+		<tr:iterator id="sourceCriterion" var="sourceCriterionBean" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" binding="#{sourceCriterionIterator}" varStatus="index">
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{sourceCriterionIterator.rowIndex == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
@@ -46,11 +46,11 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
+					<h:inputText id="sourceSearchStringFirst" styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
@@ -62,11 +62,11 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
-					<h:inputText styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
+					<h:inputText id="sourceSearchString" styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
+					<tr:commandButton id="btnAdd" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
+					<tr:commandButton id="btnRemove" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
@@ -75,7 +75,7 @@
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
-				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
+				<h:selectOneMenu id="selSourceCriterionLogicOption" styleClass="small_select xSmall_marginLIncl endline replace" value="#{sourceCriterionBean.logicOperator}">
 					<f:selectItems value="#{sourceCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
 			</h:panelGroup>
