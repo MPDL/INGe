@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.23</version>
+		<version>1.0.24-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>citationmanager</artifactId>
 	<packaging>ejb</packaging>
 	<name>citationmanager</name>
-	<version>1.0.27</version>
+	<version>1.0.28-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.23/citationmanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.23/citationmanager</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.23</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.24</version>
+			<version>1.0.25-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
