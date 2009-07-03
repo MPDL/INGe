@@ -119,15 +119,15 @@ public class RetrieveTest
         client.executeMethod(method);
         String result = getResponseAsString(method);
         
-        logger.info("Result: " + result);
+        logger.debug("Result: " + result);
         
         String line = result.trim().split("\\n")[0];
         
-        logger.info("Line: " + line);
+        logger.debug("Line: " + line);
         
         String id = line.split("\\|")[1];
         
-        logger.info("ID: " + id);
+        logger.debug("ID: " + id);
         
         logger.debug("Query: " + serviceUrl + "rdf/persons/details/" + id);
         method = new GetMethod(serviceUrl + "rdf/persons/details/" + id);
