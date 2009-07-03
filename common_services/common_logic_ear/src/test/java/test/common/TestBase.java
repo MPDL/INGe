@@ -42,6 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -63,8 +64,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.rpc.ServiceException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -1473,23 +1481,16 @@ public class TestBase
      * @return The String representation of the Xml Node.
      * @throws Exception If anything fails.
      */
-    protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception
-    {
-        if (xml == null)
-        {
-            throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
-        }
-        String result = null;
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        // serialize
-        DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
-        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
-        LSSerializer serial = feature.createLSSerializer();
-        LSOutput output = feature.createLSOutput();
-        output.setByteStream(outputStream);
-        serial.write(xml, output);
-        result = output.toString();
-        return result;
+    protected static String toString(final Node node, final boolean omitXMLDeclaration) throws Exception
+    {      
+      
+        Source source = new DOMSource(node);
+        StringWriter stringWriter = new StringWriter();
+        Result result = new StreamResult(stringWriter);
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer = factory.newTransformer();
+        transformer.transform(source, result);
+        return stringWriter.getBuffer().toString();       
     }
 
     /**
