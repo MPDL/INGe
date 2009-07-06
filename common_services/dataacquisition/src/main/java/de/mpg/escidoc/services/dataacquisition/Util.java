@@ -34,38 +34,29 @@ package de.mpg.escidoc.services.dataacquisition;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Vector;
 
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.parsers.DocumentBuilder;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 import noNamespace.SourceType;
 import noNamespace.SourcesDocument;
 import noNamespace.SourcesType;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 
@@ -82,7 +73,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class Util
 {
 
-    private Transformation transformer;
+    private TransformationBean transformer;
     private final Logger logger = Logger.getLogger(Util.class);
     private final String internalFormat = "eSciDoc-publication-item";
     private final String internalListFormat = "eSciDoc-publication-item-list";
@@ -99,16 +90,7 @@ public class Util
      */
     public Util()
     {
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            this.transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-        }
-        catch (NamingException e)
-        {
-            this.logger.warn(e);
-        }
-        
+            this.transformer = new TransformationBean();       
     }
     
     /**

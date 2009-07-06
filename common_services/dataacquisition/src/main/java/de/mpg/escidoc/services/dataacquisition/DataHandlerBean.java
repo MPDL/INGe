@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -92,8 +93,8 @@ public class DataHandlerBean implements DataHandler
     private final String fetchTypeUNKNOWN = "UNKNOWN";
     private final String regex = "GETID";
 
-    private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
-    private Util util = new Util();
+    private DataSourceHandlerBean sourceHandler;
+    private Util util; 
     
     //Additional data info
     private String contentType;
@@ -111,6 +112,8 @@ public class DataHandlerBean implements DataHandler
      */
     public DataHandlerBean()
     {
+        this.sourceHandler = new DataSourceHandlerBean();
+        this.util = new Util();
     }
 
     /**
@@ -162,8 +165,7 @@ public class DataHandlerBean implements DataHandler
             {
                 fetchedData = this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", "UTF-8")
                     .getBytes("UTF-8");
-                InitialContext initialContext = new InitialContext();
-                Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+                TransformationBean transformer = new TransformationBean();
                 fetchedData = transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", "UTF-8", 
                         trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
                 this.setContentType(trgFormatType);
@@ -352,8 +354,7 @@ public class DataHandlerBean implements DataHandler
             // Transform the itemXML if necessary
             if (item != null && !trgFormatName.trim().toLowerCase().equals(md.getName().toLowerCase()))
             {               
-                InitialContext initialContext = new InitialContext();
-                Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
+                TransformationBean transformer = new TransformationBean();
                 
                 //Transform item metadata
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
@@ -374,7 +375,8 @@ public class DataHandlerBean implements DataHandler
                     
                     if (componentBytes != null)
                     {   String componentXml = new String(componentBytes, "UTF-8");               
-                        XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                        InitialContext initialContext = new InitialContext();
+                        XmlTransforming xmlTransforming = (XmlTransforming)initialContext .lookup(XmlTransforming.SERVICE_NAME);
                         this.componentVO = xmlTransforming.transformToFileVO(componentXml);
                     }
                 }
@@ -1059,21 +1061,14 @@ public class DataHandlerBean implements DataHandler
             return this.fetchTypeESCIDOCTRANS;
         }
         //Transformable formats
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            Transformation transformer = (Transformation) initialContext.lookup(Transformation.SERVICE_NAME);
-            Format[] trgFormats = transformer.getTargetFormats(
-                    new Format(trgFormatName, trgFormatType, trgFormatEncoding));
-            if (trgFormats.length > 0)
-            {
-                return this.fetchTypeTEXTUALDATA;
-            }
+        TransformationBean transformer = new TransformationBean();
+        Format[] trgFormats = transformer.getTargetFormats(
+                new Format(trgFormatName, trgFormatType, trgFormatEncoding));
+        if (trgFormats.length > 0)
+        { 
+            return this.fetchTypeTEXTUALDATA;
         }
-        catch (NamingException e)
-        {
-            this.logger.warn(e);
-        }
+
         return this.fetchTypeUNKNOWN;
     }
 

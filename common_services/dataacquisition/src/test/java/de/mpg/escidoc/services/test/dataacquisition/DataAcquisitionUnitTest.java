@@ -29,24 +29,30 @@
 */ 
 
 package de.mpg.escidoc.services.test.dataacquisition;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
+import de.mpg.escidoc.services.dataacquisition.Util;
 
 /**
  * 
  * Test suite for unit test of dataAcquisition service
  *
  * @author Friederike Kleinfercher (initial creation)
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ 
-                    //Tmp till tests run through ;)
-					//DataSourceHandlerTest.class,
-					//DataHandlerTest.class
-                    })
-                    
-                    
+ */           
 public class DataAcquisitionUnitTest {
 
+    private Logger LOGGER = Logger.getLogger(DataHandlerTest.class);
+
+    @Test
+    public void fetchFromCone() throws Exception
+    {
+        Util util = new Util();
+        String fileEnding = util.retrieveFileEndingFromCone("application/pdf");
+        
+        System.out.println("Suffix: " + fileEnding);
+        
+    }
+    
 }
 
