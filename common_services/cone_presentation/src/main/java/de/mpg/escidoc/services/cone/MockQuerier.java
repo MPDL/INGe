@@ -231,7 +231,7 @@ public class MockQuerier implements Querier
         List<Pair> resultSet = new ArrayList<Pair>();
         for (String id : data.keySet())
         {
-            if ("*".equals(query) && data.get(id).toLowerCase().contains(query.toLowerCase()))
+            if ("*".equals(query) || data.get(id).toLowerCase().contains(query.toLowerCase()))
             {
                 Pair pair = new Pair(id, data.get(id));
                 resultSet.add(pair);
