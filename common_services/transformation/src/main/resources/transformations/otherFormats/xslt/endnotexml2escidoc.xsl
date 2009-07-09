@@ -124,12 +124,18 @@
 	
 		<xsl:variable name="refType" select="NUM_0"/>
 		
-		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" /> 
-		<xsl:if test="$curGenre!=''">
-			<xsl:call-template name="createEntry">
-				<xsl:with-param name="gen" select="$curGenre"/>
-			</xsl:call-template>
-		</xsl:if>		
+		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
+		
+		<xsl:choose>
+			<xsl:when test="$curGenre != ''">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="gen" select="$curGenre"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoGenreFound' ), concat('Endnote import must have a &quot;%0&quot; tag to describe the publication genre: ', .))"/>
+			</xsl:otherwise>
+		</xsl:choose>
 
 	</xsl:template>
 	

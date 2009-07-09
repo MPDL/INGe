@@ -1,4 +1,4 @@
-﻿%0 Journal Article
+%0 Journal Article
 %A Zhou, F.
 %A Badillo-Corona, J. A.
 %A Karcher, D.
