@@ -34,7 +34,7 @@
 	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	<f:view locale="#{InternationalizationHelper.userLocale}" >
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
 			<f:loadBundle var="tip" basename="Tooltip"/>
@@ -47,7 +47,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-				<tr:form>
+				<tr:form rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						

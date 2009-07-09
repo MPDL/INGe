@@ -487,14 +487,14 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition_presentation</artifactId>
-            <version>1.0.18-SNAPSHOT</version>
+            <version>1.0.19-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.9-SNAPSHOT</version>
+            <version>1.0.10-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -832,10 +832,10 @@
                                         </copy>
 
                                         <!-- configuration for the runtime server jboss server -->
-                                        <xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
+                                        <!--<xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl"
                                             out="${project.build.directory}/properties-service.temp" />
                                         <copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
-                                        </copy>
+                                        </copy>-->
 
                                     </tasks>
                                 </configuration>

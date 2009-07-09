@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.9-SNAPSHOT</version>
+			<version>1.0.10-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
