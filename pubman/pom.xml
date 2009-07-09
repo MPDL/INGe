@@ -537,11 +537,10 @@
 				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.7</xsd.soap.searchresult.searchresult>
 				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.6</xsd.soap.useraccount.useraccount>
 				<xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.6</xsd.soap.useraccount.useraccountlist>
-				<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.5</xsd.soap.usergroup.usergroup>
-				<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.5</xsd.soap.usergroup.usergrouplist>
 				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
 				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.7</xsd.soap.ou.ou>
 				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.7</xsd.soap.ou.oulist>
+				<xsd.soap.ou.ousuccessors>http://www.escidoc.de/schemas/organizationalunitsuccessors/0.7</xsd.soap.ou.ousuccessors>
 				<xsd.soap.ou.ouref>http://www.escidoc.de/schemas/organizationalunitref/0.4</xsd.soap.ou.ouref>
 				<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
@@ -551,27 +550,22 @@
 				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.7</xsd.soap.container.container>
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
-				<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
-				<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
-				<xsd.metadata.file>http://purl.org/metadata/profiles/0.1/file</xsd.metadata.file>
-				<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
+				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
+				<xsd.metadata.file>http://escidoc.mpg.de/metadataprofile/schema/0.1/file</xsd.metadata.file>
+				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
-				<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
-				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.idtypes>
-				<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
-				<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
-				<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.metadata.escidocprofile.idtypes>http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes</xsd.metadata.escidocprofile.idtypes>
 				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
 				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-				<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
-				<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 				
 			</properties>
 			
@@ -726,11 +720,10 @@
 				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.7</xsd.soap.searchresult.searchresult>
 				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.6</xsd.soap.useraccount.useraccount>
 				<xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.6</xsd.soap.useraccount.useraccountlist>
-				<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.5</xsd.soap.usergroup.usergroup>
-				<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.5</xsd.soap.usergroup.usergrouplist>
 				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
 				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.7</xsd.soap.ou.ou>
 				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.7</xsd.soap.ou.oulist>
+				<xsd.soap.ou.ousuccessors>http://www.escidoc.de/schemas/organizationalunitsuccessors/0.7</xsd.soap.ou.ousuccessors>
 				<xsd.soap.ou.ouref>http://www.escidoc.de/schemas/organizationalunitref/0.4</xsd.soap.ou.ouref>
 				<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
@@ -740,27 +733,22 @@
 				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.7</xsd.soap.container.container>
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
-				<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
-				<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
-				<xsd.metadata.file>http://purl.org/metadata/profiles/0.1/file</xsd.metadata.file>
-				<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
+				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
+				<xsd.metadata.file>http://escidoc.mpg.de/metadataprofile/schema/0.1/file</xsd.metadata.file>
+				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
-				<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
-				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.idtypes>
-				<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
-				<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
-				<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.metadata.escidocprofile.idtypes>http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes</xsd.metadata.escidocprofile.idtypes>
 				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
 				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-				<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
-				<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
 				
 			</properties>
 				<distributionManagement>
