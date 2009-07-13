@@ -432,55 +432,55 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.24-SNAPSHOT</version>
+            <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.21-SNAPSHOT</version>
+            <version>1.1.22-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.27-SNAPSHOT</version>
+            <version>1.0.28-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.18-SNAPSHOT</version>
+            <version>1.0.19-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>structuredexportmanager</artifactId>
-            <version>1.0.24-SNAPSHOT</version>
-            <scope>compile</scope>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>de.mpg.escidoc.services</groupId>
-            <artifactId>validation</artifactId>
             <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>validation</artifactId>
+            <version>1.0.26-SNAPSHOT</version>
+            <scope>compile</scope>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.27-SNAPSHOT</version>
+            <version>1.0.28-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.21-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -507,21 +507,21 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search</artifactId>
-            <version>1.0.21-SNAPSHOT</version>
+            <version>1.0.22-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search_presentation</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.21-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>syndication_presentation</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>1.0.3-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>

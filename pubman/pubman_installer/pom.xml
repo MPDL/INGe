@@ -30,18 +30,7 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+            
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
@@ -57,10 +46,10 @@
                 </configuration>
                 <executions>
                     <execution>
-                       <id>make-assembly</id>  <!-- this is used for inheritance merges -->
-                        <phase>package</phase>  <!-- append to the packaging phase. -->
+                       <id>make-assembly</id>   
+                        <phase>package</phase>   
                         <goals>
-                            <goal>single</goal>  <!-- goals == mojos  -->
+                            <goal>single</goal>   
                         </goals>
                     </execution>
                 </executions>
@@ -149,7 +138,7 @@
 
     <properties>
         <staging.dir>${project.build.directory}/staging</staging.dir>
-        <izpack-standalone.version>4.2.1</izpack-standalone.version>
+        <izpack-standalone.version>4.3.0</izpack-standalone.version>
     </properties>
 
     <dependencies>
@@ -163,7 +152,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.24-SNAPSHOT</version>
+            <version>1.0.25-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
