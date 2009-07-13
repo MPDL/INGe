@@ -628,7 +628,7 @@
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de:8080</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de</escidoc.pubman.instance.url>
 				<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
 				<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
@@ -675,7 +675,7 @@
 				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
-				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de:8080/cone/</escidoc.cone.service.url>
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de/cone/</escidoc.cone.service.url>
 				
 				<!-- Import database -->
 				<escidoc.import.database.driver.class>org.hsqldb.jdbcDriver</escidoc.import.database.driver.class>
@@ -696,8 +696,8 @@
 				<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
 				
 				<!-- unAPI -->
-				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
-				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
+				<escidoc.unapi.download.server>http://dev-pubman.mpdl.mpg.de/dataacquisition/download/unapi</escidoc.unapi.download.server>
 				
                 <!-- Blog integration -->
                 <escidoc.pubman.blog.baseUrl>http://pubman.blogs.mpdl.mpg.de/</escidoc.pubman.blog.baseUrl>
