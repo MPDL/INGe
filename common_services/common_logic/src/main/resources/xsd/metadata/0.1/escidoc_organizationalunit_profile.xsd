@@ -23,6 +23,7 @@
 			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="dc:description" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="eterms:organization-type" minOccurs="0"/>
 			<xs:element ref="eterms:city"/>
 			<xs:element ref="eterms:country"/>
 			<xs:element ref="kml:coordinates" minOccurs="0"/>

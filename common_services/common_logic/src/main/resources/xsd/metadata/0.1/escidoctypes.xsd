@@ -47,6 +47,7 @@
 	<xs:element name="place" type="dc:SimpleLiteral"/>
 	<xs:element name="invitation-status" type="eves:InvitationStatusEnum"/>
 	<xs:element name="address" type="dc:SimpleLiteral"/>
+	<xs:element name="organization-type" type="xs:string"/>
 	<!-- FILE TERMS -->
 	<xs:element name="content-category" type="dc:SimpleLiteral"/>
 	
