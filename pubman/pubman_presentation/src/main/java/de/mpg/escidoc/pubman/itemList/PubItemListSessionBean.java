@@ -88,7 +88,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public static enum SORT_CRITERIA
     { 
 
-        TITLE ("escidoc.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
+        TITLE ("escidoc.publication.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
         GENRE ("escidoc.any-genre", "/md-records/md-record/publication/type", OrderFilter.ORDER_ASCENDING),
         DATE ("escidoc.any-dates", "", OrderFilter.ORDER_DESCENDING),
         CREATOR ("escidoc.family-name", "/md-records/md-record/publication/creator/person/family-name", OrderFilter.ORDER_ASCENDING), //TODO: Change back to sort.escidoc.complete-name when complete name is filled!!
