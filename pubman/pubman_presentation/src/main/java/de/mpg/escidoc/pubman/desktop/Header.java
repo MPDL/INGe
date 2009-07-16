@@ -30,9 +30,6 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -46,11 +43,11 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class Header extends FacesBean
 {
     /** Logo for dev environment. */
-    private static String LOGO_DEV = "overlayDev";
+    private static final String LOGO_DEV = "overlayDev";
     /** Logo for qa environment. */
-    private static String LOGO_QA = "overlayQA";
+    private static final String LOGO_QA = "overlayQA";
     /** Logo for test environment. */
-    private static String LOGO_TEST = "overlayTest";
+    private static final String LOGO_TEST = "overlayTest";
     
     private String type;
     
@@ -82,19 +79,16 @@ public class Header extends FacesBean
         String serverLogo = "";
         try
         {
-            if (type == null)
-            {
-                type = PropertyReader.getProperty("escidoc.systemtype");
-            }
-            if(type.equals("dev"))
+            
+            if (getType().equals("dev"))
             {
                 serverLogo = LOGO_DEV;
             }
-            else if(type.equals("test"))
+            else if (getType().equals("test"))
             {
                 serverLogo = LOGO_TEST;
             }
-            else if(type.equals("qa"))
+            else if (getType().equals("qa"))
             {
                 serverLogo = LOGO_QA;
             }
@@ -106,8 +100,22 @@ public class Header extends FacesBean
         }
     }
 
-    public String getType()
+    /**
+     * Get instance type property. Return an empty string if it is not defined.
+     * 
+     * @return A string representing the instance type, e.g. "dev", "qa".
+     * @throws Exception Any exception from PropertyReader
+     */
+    public String getType() throws Exception
     {
+        if (type == null)
+        {
+            type = PropertyReader.getProperty("escidoc.systemtype");
+            if (type == null)
+            {
+                type = "";
+            }
+        }
         return type;
     }
     
