@@ -52,6 +52,8 @@ public class Header extends FacesBean
     /** Logo for test environment. */
     private static String LOGO_TEST = "overlayTest";
     
+    private String type;
+    
     /**
      * Public constructor.
      */
@@ -80,7 +82,10 @@ public class Header extends FacesBean
         String serverLogo = "";
         try
         {
-            String type = PropertyReader.getProperty("escidoc.systemtype");
+            if (type == null)
+            {
+                type = PropertyReader.getProperty("escidoc.systemtype");
+            }
             if(type.equals("dev"))
             {
                 serverLogo = LOGO_DEV;
@@ -100,4 +105,10 @@ public class Header extends FacesBean
             return "";
         }
     }
+
+    public String getType()
+    {
+        return type;
+    }
+    
 }
