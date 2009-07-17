@@ -243,8 +243,8 @@
 		</h2>
 		<b>紹介ビデオ</b>
 		<ul>
-			<li>video on <a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a></li>
-			<li>video on <a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">登録一覧・管理画面の使い方</a></li>
+			<li><a href=" http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-how-to-submit-publications-to-pubman/" target="_blank">データの登録方法</a></li>
+			<li><a href="http://pubman.blogs.mpdl.mpg.de/2009/06/04/new-videos-out-on-pubman-user-workspaces/" target="_blank">登録一覧・管理画面の使い方</a></li>
 		</ul>
 	</span>
 	</h:panelGroup>
