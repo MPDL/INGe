@@ -3,7 +3,51 @@
 
 require "pp"
 
-IGNORE_UNTRANSLATED = [ "ae", "oe", "ss", "ue" ]
+IGNORE_UNTRANSLATED = {
+   "ae" => nil,
+   "oe" => nil,
+   "ss" => nil,
+   "ue" => nil,
+   "faq" => "FAQ",
+   "AffiliationTree_txtFax" => "Fax",
+   "affiliation_detail_fax" => "Fax",
+   "AffiliationTree_txtEmail" => "E-mail",
+   "affiliation_detail_email" => "E-mail",
+   /^ENUM_CONTENTCATEGORY_[A-Z]+$/ => /^Deprecated: /,
+   "ENUM_IDENTIFIERTYPE_ARXIV" => "arXiv",
+   "ENUM_IDENTIFIERTYPE_BMC" => "BMC",
+   "ENUM_IDENTIFIERTYPE_DOI" => "DOI",
+   "ENUM_IDENTIFIERTYPE_EDOC" => "eDoc",
+   "ENUM_IDENTIFIERTYPE_ESCIDOC" => "eSciDoc",
+   "ENUM_IDENTIFIERTYPE_ISBN" => "ISBN",
+   "ENUM_IDENTIFIERTYPE_ISI" => "ISI",
+   "ENUM_IDENTIFIERTYPE_ISSN" => "ISSN",
+   "ENUM_IDENTIFIERTYPE_PII" => "PII",
+   "ENUM_IDENTIFIERTYPE_PMC" => "PMC",
+   "ENUM_IDENTIFIERTYPE_PMID" => "PMID",
+   "ENUM_IDENTIFIERTYPE_PND" => "PND",
+   "ENUM_IDENTIFIERTYPE_URI" => "URI",
+   "ENUM_IDENTIFIERTYPE_URN" => "URN",
+   "ENUM_IDENTIFIERTYPE_ZDB" => "ZDB",
+   "ENUM_LOGICOPTIONS_LOGIC_AND" => "AND",
+   "ENUM_LOGICOPTIONS_LOGIC_NOT" => "NOT",
+   "ENUM_LOGICOPTIONS_LOGIC_OR" => "OR",
+   /^ENUM_MIMETYPE_\w+$/ => nil,
+   /^ENUM_LANGUAGE_[A-Z][A-Z]$/ => nil,
+   "EditItem_NO_ITEM_SET" => "-",
+   "Export_ExportFormat_AJP" => "AJP",
+   "Export_ExportFormat_APA" => "APA",
+   "Export_ExportFormat_BIBTEX" => "BibTeX",
+   "Export_ExportFormat_ENDNOTE" => "EndNote (UTF-8)",
+   "Export_ExportFormat_XML" => "eSciDoc XML",
+   "Export_FileFormat_HTML" => "HTML",
+   "Export_FileFormat_ODT" => "ODT",
+   "Export_FileFormat_PDF" => "PDF",
+   "Export_FileFormat_RTF" => "RTF",
+   "ViewItemFull_lblFileSizeB" => "B",
+   "ViewItemFull_lblFileSizeKB" => "KB",
+   "ViewItemFull_lblFileSizeMB" => "MB",
+}
 
 def parse_resource_file( filename )
    resource = {}
@@ -48,8 +92,14 @@ if $0 == __FILE__
             if orig[ k ]
                if not new[ k ]
                   count[ "only in en" ] << k
-               elsif orig[ k ] == new[ k ] and not IGNORE_UNTRANSLATED.include? k
-                  count[ "untranslated" ] << k
+               elsif orig[ k ] == new[ k ]
+                  if IGNORE_UNTRANSLATED.keys.find{|e|
+                        e === k and IGNORE_UNTRANSLATED[e].nil? or IGNORE_UNTRANSLATED[e] === orig[k]
+                     }
+                     count[ "translated" ] += 1
+                  else
+                     count[ "untranslated" ] << k
+                  end
                else
                   count[ "translated" ] += 1
                end
