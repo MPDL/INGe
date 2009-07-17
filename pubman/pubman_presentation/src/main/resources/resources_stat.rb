@@ -11,9 +11,9 @@ IGNORE_UNTRANSLATED = {
    "faq" => "FAQ",
    "AffiliationTree_txtFax" => "Fax",
    "affiliation_detail_fax" => "Fax",
-   "AffiliationTree_txtEmail" => "E-mail",
-   "affiliation_detail_email" => "E-mail",
-   /^ENUM_CONTENTCATEGORY_[A-Z]+$/ => /^Deprecated: /,
+   "AffiliationTree_txtEmail" => "E-Mail",
+   "affiliation_detail_email" => "E-Mail",
+   /^ENUM_CONTENTCATEGORY_\w+$/ => /^Deprecated: /,
    "ENUM_IDENTIFIERTYPE_ARXIV" => "arXiv",
    "ENUM_IDENTIFIERTYPE_BMC" => "BMC",
    "ENUM_IDENTIFIERTYPE_DOI" => "DOI",
@@ -44,9 +44,24 @@ IGNORE_UNTRANSLATED = {
    "Export_FileFormat_ODT" => "ODT",
    "Export_FileFormat_PDF" => "PDF",
    "Export_FileFormat_RTF" => "RTF",
-   "ViewItemFull_lblFileSizeB" => "B",
-   "ViewItemFull_lblFileSizeKB" => "KB",
-   "ViewItemFull_lblFileSizeMB" => "MB",
+   /^ViewItem(Full|Medium)_lblFileSizeB$/ => "B",
+   /^ViewItem(Full|Medium)_lblFileSizeKB$/ => "KB",
+   /^ViewItem(Full|Medium)_lblFileSizeMB$/ => "MB",
+   "ViewItemFull_lblNoEntry" => "-",
+   "ViewItem_lkAPA" => "APA",
+   "ViewItem_lkBIBTEX" => "BibTeX",
+   "ViewItem_lkENDNOTE" => "EndNote",
+   "ViewItem_lkESCIDOC" => "eSciDoc",
+   "easy_submission_lblIDTypeArxiv" => "arXiv ID",
+   "easy_submission_lblIDTypeEscidoc" => "eSciDoc ID",
+   "easy_submission_lblLocatorUrl" => "URL",
+   "export_btEMail" => "E-Mail",
+   /^export_btn?Export$/ => "Ok",
+   "lbl_noEntry" => "-",
+   "no" => "No",
+   "ok" => "Ok",
+   "openSearch_shortDesc" => "eSciDoc PubMan",
+   "title" => "Publication Manager",
 }
 
 def parse_resource_file( filename )
@@ -94,7 +109,9 @@ if $0 == __FILE__
                   count[ "only in en" ] << k
                elsif orig[ k ] == new[ k ]
                   if IGNORE_UNTRANSLATED.keys.find{|e|
-                        e === k and IGNORE_UNTRANSLATED[e].nil? or IGNORE_UNTRANSLATED[e] === orig[k]
+                        e === k and
+                        ( IGNORE_UNTRANSLATED[e].nil? or
+                          IGNORE_UNTRANSLATED[e] === orig[k] )
                      }
                      count[ "translated" ] += 1
                   else
