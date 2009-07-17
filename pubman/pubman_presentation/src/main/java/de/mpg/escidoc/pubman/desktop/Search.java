@@ -64,7 +64,23 @@ public class Search extends FacesBean
             return "";
         }
         
-              
+        try
+        {
+            getExternalContext().redirect("SearchResultListPage.jsp?cql="+generateUrlEncodedCQLRequest(searchString, includeFiles));
+        }
+        catch(Exception e ) 
+        {
+            logger.error("Technical problem while retrieving the search results", e);
+            error(getMessage("search_TechnicalError"));
+            return "";
+        }
+  
+        return "";           
+    }
+
+    private String generateUrlEncodedCQLRequest(String searchString, boolean includeFiles)
+    {
+        String cql = "";
         try
         {
             ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
@@ -93,12 +109,7 @@ public class Search extends FacesBean
             contentTypes.add( contentTypeIdPublication );
             
             MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
-            String cql = query.getCqlQuery();
-            
-            //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
-            
-            
+            cql = URLEncoder.encode(query.getCqlQuery(),"UTF-8");
         }
         catch( de.mpg.escidoc.services.search.parser.ParseException e) 
         {
@@ -112,10 +123,16 @@ public class Search extends FacesBean
             error(getMessage("search_TechnicalError"));
             return "";
         }
-  
-        return "";           
+        return cql;
     }
-    
+
+    public String getOpenSearchRequest()
+    {
+        String requestDummy = "dummyTermToBeReplaced";
+        String openSearchRequest = "SearchResultListPage.jsp?cql="+generateUrlEncodedCQLRequest(requestDummy, false);
+        return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
+        
+    }
 
     public void setSearchString(String searchString)
     {

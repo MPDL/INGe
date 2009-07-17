@@ -41,8 +41,8 @@
 			<Tags><h:outputText value="#{lbl.openSearch_shortDesc}"/></Tags>
 			<Contact>escidoc-dev-ext@gwdg.de</Contact>
 				<h:outputText escape="false" value='&lt;Url type="text/html" template="' />
-				<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />
-				<h:outputText escape="false" value='SearchResultListPage.jsp?cql=%28+%28+escidoc.metadata%3D%22{searchTerms}%22+%29++or++%28+escidoc.any-identifier%3D%22{searchTerms}%22+%29++not++%28+escidoc.context.objid%3D%22{searchTerms}%22+%29++not++%28+escidoc.created-by.objid%3D%22{searchTerms}%22+%29++and++%28+escidoc.objecttype%3D%22item%22+%29+%29+and++%28+escidoc.content-model.objid%3D%22escidoc%3Apersistent4%22+%29+" /&gt;' />
+				<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{Search.openSearchRequest}' />
+				<h:outputText escape="false" value='" /&gt;' />
 			<Image height="16" width="16" type="image/vnd.microsoft.icon"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}resources/pubman_favicon.ico" /></Image>
 		</OpenSearchDescription>
 	</f:view>
