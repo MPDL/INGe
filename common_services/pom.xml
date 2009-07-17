@@ -359,8 +359,8 @@
         </configuration>
       </plugin>
 			 <plugin>
-                 JavaNCSS - A Source Measurement Suite for Java
-                    http://www.kclee.de/clemens/java/javancss/ 
+<!--                 JavaNCSS - A Source Measurement Suite for Java-->
+<!--                    http://www.kclee.de/clemens/java/javancss/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
             </plugin>
