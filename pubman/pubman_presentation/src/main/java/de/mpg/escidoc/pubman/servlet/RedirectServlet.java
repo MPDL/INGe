@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +48,18 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
+/**
+ * A servlet for retrieving and redirecting the content objects urls.
+ *     /pubman/item/escidoc:12345 for items
+ * and
+ *     /pubman/item/escidoc:12345/component/escidoc:23456/name.txt for components.
+ *     
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class RedirectServlet extends HttpServlet
 {
     /**
@@ -94,7 +107,19 @@ public class RedirectServlet extends HttpServlet
                     client.executeMethod(method);
                     InputStream input;
                     OutputStream out = resp.getOutputStream();
-                    if (method.getStatusCode() != 200)
+                    if (method.getStatusCode() == 302)
+                    {
+                        String servletUrl = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                                + PropertyReader.getProperty("escidoc.pubman.item.pattern");
+                        servletUrl = servletUrl.replace("$1", "");
+                        
+                        String loginUrl = frameworkUrl + "/aa/login?target="
+                                + URLEncoder.encode(url, "ASCII");
+                        resp.sendRedirect(loginUrl);
+                        return;
+                    }
+                    else if (method.getStatusCode() != 200)
                     {
                         throw new RuntimeException("error code " + method.getStatusCode());
                     }
@@ -130,7 +155,7 @@ public class RedirectServlet extends HttpServlet
     }
 
     /**
-     * No post action.
+     * {@inheritDoc}
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
