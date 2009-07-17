@@ -37,7 +37,7 @@
 <link href="./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="<h:outputText value='#{lbl.styleTheme_lblClassic}' />" rel="alternate stylesheet"/>
 <link href="./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="<h:outputText value='#{lbl.styleTheme_lblPubMan}' />" rel="stylesheet"/>
 <link rel="SHORTCUT ICON" href="./resources/pubman_favicon.ico"/>
-<link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>." href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
+<link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
 <meta http-equiv="expires" content="0"/>
