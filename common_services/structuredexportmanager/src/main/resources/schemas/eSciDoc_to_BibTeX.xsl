@@ -35,7 +35,7 @@
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+	xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
 	xmlns:jfunc="java:de.mpg.escidoc.services.structuredexportmanager.functions.BibTex"
 	xmlns:func="urn:my-functions" 
 	xmlns:dc="${xsd.metadata.dc}"
@@ -55,11 +55,11 @@
 	
 	<xsl:template match="/*">			
 		<!-- create entry for each item -->
-			<xsl:apply-templates select="ei:item/mdr:md-records/mdr:md-record/mdp:publication"/>				
+			<xsl:apply-templates select="//ei:item/mdr:md-records/mdr:md-record/mdp:publication"/>				
 	</xsl:template>	
 	
 	<!-- create bibTeX entry -->
-	<xsl:template match="ei:item/mdr:md-records/mdr:md-record/mdp:publication">		
+	<xsl:template match="//ei:item/mdr:md-records/mdr:md-record/mdp:publication">		
 		<xsl:param name="genre" select="@type"/>
 		
 		<!-- detect bibtex entry type -->		
