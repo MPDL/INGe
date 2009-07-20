@@ -345,4 +345,27 @@ public class TransformationBean implements Transformation
         return null;
     }
 
+    /**
+     * Checks if a format can be transformed into another one.
+     * @param from
+     * @param to
+     * @return true if 'from' can be transformed into 'to', else false
+     */
+    public boolean checkTransformation (Format from, Format to)
+    {
+        boolean check = false;
+        Util util = new Util();
+        
+        Format[] targetArr = this.getTargetFormats(from);
+        for (int i=0; i< targetArr.length; i++)
+        {
+            Format target = targetArr[i];
+            if (util.isFormatEqual(target, to))
+            {
+                return true;
+            }
+        }
+        
+        return check;
+    }
 }

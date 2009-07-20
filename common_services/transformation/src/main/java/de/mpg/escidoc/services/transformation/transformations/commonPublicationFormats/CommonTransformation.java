@@ -86,7 +86,7 @@ public class CommonTransformation
         catch (Exception e)
         {
             this.logger.error("An error occurred during a common publication transformation.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
         
         return bib;
@@ -107,13 +107,10 @@ public class CommonTransformation
         byte[] endnote = null;
         try
         {
-            //InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             StructuredExportHandler structExport = new StructuredExportHandlerBean();
             PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src));
             List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-//            ItemVO itemVO = xmlTransforming.transformToItem(new String(src));
-//            List<ItemVO> pubitemList = Arrays.asList(itemVO);
             String itemList = xmlTransforming.transformToItemList(pubitemList);
             endnote = structExport.getOutput(itemList, "ENDNOTE");
         }
