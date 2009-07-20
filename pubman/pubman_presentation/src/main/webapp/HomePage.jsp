@@ -140,22 +140,7 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
 				});
-				</script>
-
-				<script type="text/javascript">
-				      google.load("visualization", "1");
-				      google.setOnLoadCallback(draw);
-				      function draw() {
-				        data = new google.visualization.DataTable({<h:outputText value="#{HomePage.searchTagCloud}"/>});
-				        var outputDiv = document.getElementById('searchCloudDiv');
-				        var tc = new TermCloud(outputDiv);
-				        tc.draw(data, null);
-				      }
-				    </script>
-
-
-
-				
+				</script>				
 			</body>
 		</html>
 	</f:view>
