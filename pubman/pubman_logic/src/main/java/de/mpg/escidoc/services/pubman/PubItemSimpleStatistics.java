@@ -32,6 +32,8 @@ package de.mpg.escidoc.services.pubman;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 
 
@@ -149,5 +151,10 @@ public interface PubItemSimpleStatistics
      * @throws Exception
      */
     public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception;
+    
+    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId, boolean loggedIn, boolean hasOA, String referer) throws Exception;
+    
+    
+    //public void logUser(HttpServletRequest requ, HttpSession session) throws Exception;
     
 }

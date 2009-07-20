@@ -29,43 +29,34 @@
 */
 package de.mpg.escidoc.services.pubman.statistics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
 import de.escidoc.www.services.sm.ReportHandler;
+import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
@@ -74,7 +65,6 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
-import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 
@@ -273,11 +263,66 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         return repDefVOList;
         
     }
-
-
-
-
-   
-
     
+    
+    
+    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
+    {
+        
+        List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
+        /*
+        List<CreatorVO> creatorList = pubItem.getMetadata().getCreators();
+        String persAffIds = "";
+        for(CreatorVO creator : creatorList)
+        {
+            if (creator.getPerson()!=null && creator.getPerson().getIdentifier()!=null && creator.getPerson().getIdentifier().getId()!=null && !creator.getPerson().getIdentifier().getId().equals(""))
+            {
+               persAffIds += creator.getPerson().getIdentifier().getId() + ",";
+            }
+        }
+        StatisticReportRecordParamVO persAffParam = new StatisticReportRecordParamVO();
+        persAffParam.setName("persAffId");
+        persAffParam.setParamValue(new StatisticReportRecordStringParamValueVO(persAffIds));
+        paramList.add(persAffParam);
+*/
+        
+        StatisticReportRecordParamVO oaParam = new StatisticReportRecordParamVO();
+        oaParam.setName("hasOAComponent");
+        oaParam.setParamValue(new StatisticReportRecordStringParamValueVO(String.valueOf(hasOA)));
+        paramList.add(oaParam);
+        
+        InitialContext ic = new InitialContext();
+        StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+        sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
+        
+        List<CreatorVO> creatorList = pubItem.getMetadata().getCreators();
+        for(CreatorVO creator : creatorList)
+        {
+            if (creator.getPerson()!=null && creator.getPerson().getIdentifier()!=null && creator.getPerson().getIdentifier().getId()!=null && !creator.getPerson().getIdentifier().getId().equals(""))
+            {
+                sl.logAuthorAction(sessionId, ip, creator.getPerson().getIdentifier().getId(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+            }
+            
+            if(creator.getPerson()!=null && creator.getPerson().getOrganizationsSize()>0)
+            {
+                for(OrganizationVO org : creator.getPerson().getOrganizations())
+                {
+                    if(org.getIdentifier()!= null && !org.getIdentifier().equals(""))
+                    {
+                        sl.logOrgAction(sessionId, ip, org.getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                    }
+                }
+            }
+            
+            if(creator.getOrganization()!=null && creator.getOrganization().getIdentifier()!= null && !creator.getOrganization().getIdentifier().equals(""))
+            {
+                sl.logOrgAction(sessionId, ip, creator.getOrganization().getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+            }
+            
+        }
+        
+        
+
+
+    }
 }
