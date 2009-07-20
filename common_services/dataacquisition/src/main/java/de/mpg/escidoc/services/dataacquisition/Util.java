@@ -40,8 +40,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Vector;
 
-import javax.naming.NamingException;
-
 import noNamespace.SourceType;
 import noNamespace.SourcesDocument;
 import noNamespace.SourcesType;
@@ -79,7 +77,7 @@ public class Util
     private final String internalListFormat = "eSciDoc-publication-item-list";
     private final String transformationService = "escidoc";
     private final String dummyFormat = "unknown";
-    
+
     //Cone
     private final String coneMethod = "rdf/escidocmimetypes";
     private final String coneRel = "urn:cone:escidocmimetype:";
@@ -99,6 +97,7 @@ public class Util
      */
     public String getDefaultEncoding (String formatName)
     {
+        if (formatName.equalsIgnoreCase(this.getInternalFormat())){return "UTF-8";}
         return "*";
     }
     
@@ -108,15 +107,13 @@ public class Util
      */
     public String getDefaultMimeType (String formatName)
     {
-        //Will be replaced by cone
-        if (formatName.toLowerCase().equals("apa")) { return "text/html"; }      
-        if (formatName.toLowerCase().equals("ajp")) { return "text/html"; }       
-        if (formatName.toLowerCase().equals("endnote")) { return "text/plain"; } 
-        if (formatName.toLowerCase().equals("bibtex")) { return "text/plain"; } 
-        if (formatName.toLowerCase().equals("coins")) { return "text/plain"; } 
-        if (formatName.toLowerCase().equals("pdf")) { return "application/pdf"; } 
-        if (formatName.toLowerCase().equals("ps")) { return "application/gzip"; } 
-        if (formatName.toLowerCase().equals("esidoc-fulltext")) { return "unknown"; } 
+        if (formatName.equalsIgnoreCase("apa")) { return "text/html"; }      
+        if (formatName.equalsIgnoreCase("ajp")) { return "text/html"; }       
+        if (formatName.equalsIgnoreCase("endnote")) { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("bibtex")) { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("coins")) { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("pdf")) { return "application/pdf"; } 
+        if (formatName.equalsIgnoreCase("ps")) { return "application/gzip"; } 
         
         return "application/xml";
     }
@@ -143,13 +140,13 @@ public class Util
             sourceMd = source.getMdFormats().get(i);
             boolean fetchMd = true;
             
-            if (!sourceMd.getName().trim().toLowerCase().equals(trgFormatName.trim().toLowerCase()))
+            if (!sourceMd.getName().equalsIgnoreCase(trgFormatName))
             { fetchMd = false; }
-            if (!sourceMd.getMdFormat().trim().toLowerCase().equals(trgFormatType.trim().toLowerCase()))
+            if (!sourceMd.getMdFormat().equalsIgnoreCase(trgFormatType))
             { fetchMd = false; }
             if ((!sourceMd.getEncoding().equals("*")) && (!trgFormatEndcoding.equals("*")))
             {
-                if (!sourceMd.getEncoding().toLowerCase().trim().equals(trgFormatEndcoding.toLowerCase().trim())) 
+                if (!sourceMd.getEncoding().equalsIgnoreCase(trgFormatEndcoding)) 
                 {
                     fetchMd = false;
                 }
@@ -171,14 +168,13 @@ public class Util
                 Format possibleFormat = possibleFormats[x];
                 boolean fetchMd = true;
                     
-                if (!sourceMd.getName().trim().toLowerCase().equals(possibleFormat.getName().toLowerCase()))
+                if (!sourceMd.getName().equalsIgnoreCase(possibleFormat.getName()))
                 { fetchMd = false; }
-                if (!sourceMd.getMdFormat().trim().toLowerCase().equals(possibleFormat.getType().toLowerCase()))
+                if (!sourceMd.getMdFormat().equalsIgnoreCase(possibleFormat.getType()))
                 { fetchMd = false; }
                 if ((!sourceMd.getEncoding().equals("*")) && (!possibleFormat.getEncoding().equals("*")))
                 {
-                    if (!sourceMd.getEncoding().toLowerCase().trim().equals(
-                            possibleFormat.getEncoding().toLowerCase().trim())) 
+                    if (!sourceMd.getEncoding().equalsIgnoreCase( possibleFormat.getEncoding())) 
                     {
                         fetchMd = false;
                     }
@@ -193,7 +189,7 @@ public class Util
     
     /**
      * Checks if a target format can be transformed from escidoc format.
-     * Will be more dynamic in future! This part of arxiv hack for natasa ;)
+     * Will be more dynamic in future when transformation service can handle transformation queuing
      * @param trgFormatName
      * @param trgFormatType
      * @param trgFormatEncoding
@@ -239,13 +235,13 @@ public class Util
             ft = source.getFtFormats().get(i);
             boolean fetchMd = true;
             
-            if (!ft.getName().trim().toLowerCase().equals(formatName.trim().toLowerCase()))
+            if (!ft.getName().equalsIgnoreCase(formatName))
             { fetchMd = false; }
-            if (!ft.getFtFormat().trim().toLowerCase().equals(formatType.trim().toLowerCase()))
+            if (!ft.getFtFormat().equalsIgnoreCase(formatType))
             { fetchMd = false; }
             if ((!ft.getEncoding().equals("*")) && (!formatEncoding.equals("*")))
             {
-                if (!ft.getEncoding().toLowerCase().trim().equals(formatEncoding.toLowerCase().trim())) 
+                if (!ft.getEncoding().equalsIgnoreCase(formatEncoding)) 
                 {
                     fetchMd = false;
                 }
@@ -260,85 +256,37 @@ public class Util
     }
     
     /**
-     * For a more flexible user input handling.
+     * Trims the given identifier according to description in source.xml, for a more flexible user input handling.
      * @param sourceName
      * @param identifier
      * @return a trimed identifier
      */
-    public String trimIdentifier(String sourceName, String identifier)
+    public String trimIdentifier(DataSourceVO source, String identifier)
     {
-        // Trim the identifier arXiv
-        if (sourceName.trim().toLowerCase().equals("arxiv"))
+        Vector <String> idPrefVec = source.getIdentifier();
+        
+        for (int i = 0; i< idPrefVec.size(); i++)
         {
-            if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
+            String idPref = idPrefVec.get(i);
+            if (identifier.toLowerCase().startsWith(idPref))
             {
-                identifier = identifier.substring(14);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("arxiv:", 0))
-            {
-                identifier = identifier.substring(6);
-                return identifier.trim();
+                //Plus one because of the delimiter (:)
+                identifier = identifier.substring(idPref.length()+ 1);
             }
         }
-        // Trim identifier for PubMedCentral
-        if (sourceName.trim().toLowerCase().equals("pubmedcentral"))
-        {
-            if (identifier.toLowerCase().startsWith("pmcid:pmc", 0))
-            {
-                identifier = identifier.substring(9);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmcid: pmc", 0))
-            {
-                identifier = identifier.substring(10);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmcid:", 0))
-            {
-                identifier = identifier.substring(6);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmc:", 0))
-            {
-                identifier = identifier.substring(4);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("pmc", 0))
-            {
-                identifier = identifier.substring(3);
-                return identifier.trim();
-            }
-        }
-        // Trim identifier for BioMedCentral
-        if (sourceName.trim().toLowerCase().equals("biomedcentral"))
-        {
-            if (identifier.toLowerCase().startsWith("bmcid:", 0))
-            {
-                identifier = identifier.substring(6);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("bmc:", 0))
-            {
-                identifier = identifier.substring(4);
-                return identifier.trim();
-            }
-            if (identifier.toLowerCase().startsWith("bmc", 0))
-            {
-                identifier = identifier.substring(3);
-                return identifier.trim();
-            }
-        }
-        // Trim identifier for SPIRES
-        if (sourceName.trim().toLowerCase().equals("spires"))
+
+        // SPIRES is special case
+        if (source.getName().equalsIgnoreCase("spires"))
         {
             //If identifier is DOI, the identifier has to be enhanced
-            if ((!identifier.toLowerCase().startsWith("arxiv")) && (!identifier.toLowerCase().startsWith("hep")) && (!identifier.toLowerCase().startsWith("cond")))
+            if ((!identifier.toLowerCase().startsWith("arxiv")) && (!identifier.toLowerCase().startsWith("hep")) 
+                    && (!identifier.toLowerCase().startsWith("cond")))
             {
                 identifier = "FIND+DOI+" + identifier;
             }
         }
-        return identifier.trim();
+        
+        return identifier;
     }
     
     /**
@@ -421,7 +369,7 @@ public class Util
             for (int x = i + 1; x < dirtyVector.size(); x++)
             {
                 format2 = (MetadataVO) dirtyVector.get(x);
-                if (this.isMdFormatEqual(format1, format2) || format1.getName().equals(this.dummyFormat))
+                if (this.isMdFormatEqual(format1, format2))
                 {
                     duplicate = true;
                 }
@@ -443,13 +391,16 @@ public class Util
      */
     public boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2)
     {
-        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) { return false;}
-        if (!src1.getMdFormat().toLowerCase().trim().equals(src2.getMdFormat().toLowerCase().trim())) { return false;}
-        if (!src1.getEncoding().equals("*") || !src2.getEncoding().equals("*"))
+        if (!src1.getName().equalsIgnoreCase(src2.getName())) { return false;}
+        if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) { return false;}
+        
+        if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")){return true;}
+        else
         {
-            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) 
             { return false;}
         }
+        
         return true;
     }
     
@@ -461,15 +412,15 @@ public class Util
      */
     public boolean isFormatEqual(Format src1, Format src2)
     {
-        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) { return false;}
-        if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) { return false;}
+        if (!src1.getName().equalsIgnoreCase(src2.getName())) { return false;}
+        if (!src1.getType().equalsIgnoreCase(src2.getType())) { return false;}
         if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
         {
             return true;
         }
         else 
         {
-            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) 
             { return false;}
             else 
             { return true;}
@@ -513,30 +464,31 @@ public class Util
                 sourceDesc.setStringValue(source.getDescription());
                 desc.set(sourceDesc);
                 //Identifier prefix
-                SimpleLiteral idPre = xmlSource.addNewIdentifierPrefix();
-                XmlString sourceidPre = XmlString.Factory.newInstance();
-                sourceidPre.setStringValue(source.getIdentifier());
-                idPre.set(sourceidPre);
+                Vector <String> idPreVec = source.getIdentifier();
+                for (int x = 0; x< idPreVec.size(); x++)
+                {
+                    SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
+                    XmlString sourceidPre = XmlString.Factory.newInstance();
+                    sourceidPre.setStringValue(idPreVec.get(x));
+                    idPreSimp.set(sourceidPre);
+                }               
                 //Identifier delimiter
                 SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
                 XmlString sourceidDel = XmlString.Factory.newInstance();
                 sourceidDel.setStringValue(":");
                 idDel.set(sourceidDel);
                 //Identifier example
-                //Friederike: Have to update jar file first!
-//                Vector<String> examples = source.getIdentifierExample();
-//                for (String example : examples)
-//                {                   
-//                    SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
-//                    XmlString sourceidEx = XmlString.Factory.newInstance();
-//                    sourceidEx.setStringValue(example);
-//                    idEx.set(sourceidEx);
-//                }               
-                //Disclaimer
-                // SimpleLiteral disclaim = xmlSource.addNewDisclaimer();
-                // XmlString sourceDisclaim = XmlString.Factory.newInstance();
-                // sourceDisclaim.setStringValue("Disclaimer will follow");
-                // disclaim.set(sourceDisclaim);
+                Vector<String> examples = source.getIdentifierExample();
+                if (examples != null)
+                {
+                    for (String example : examples)
+                    {                   
+                        SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
+                        XmlString sourceidEx = XmlString.Factory.newInstance();
+                        sourceidEx.setStringValue(example);
+                        idEx.set(sourceidEx);
+                    }   
+                }
             }
             XmlOptions xOpts = new XmlOptions();
             xOpts.setSavePrettyPrint();
@@ -562,19 +514,19 @@ public class Util
      */
     public String trimSourceName(String sourceName, String identifier)
     {
-        if (identifier.startsWith("http://dev-pubman.mpdl.mpg.de:8080/"))
+        if (identifier.startsWith("http://dev-pubman"))
         {
             sourceName = "escidocdev";
         }
-        if (identifier.startsWith("http://qa-pubman.mpdl.mpg.de:8080/"))
+        if (identifier.startsWith("http://qa-pubman"))
         {
             sourceName = "escidocqa";
         }
-        if (identifier.startsWith("http://test-pubman.mpdl.mpg.de/"))
+        if (identifier.startsWith("http://test-pubman"))
         {
             sourceName = "escidoctest";
         }
-        if (identifier.startsWith("http://pubman.mpdl.mpg.de/"))
+        if (identifier.startsWith("http://pubman"))
         {
             sourceName = "escidocprod";
         }        
@@ -622,7 +574,7 @@ public class Util
             for (int x = i+1; x< currentVector.length; x++)
             {
                 Format compareFormat = currentVector[x];
-                if (currentFormat.getName().toLowerCase().equals(compareFormat.getName().toLowerCase()))
+                if (currentFormat.getName().equalsIgnoreCase(compareFormat.getName()))
                 {
                     Format updatedFormat = new Format (currentFormat.getName() + "_" + currentFormat.getType(),
                             currentFormat.getType(),currentFormat.getEncoding());
@@ -690,5 +642,10 @@ public class Util
     public String getTransformationService()
     {
         return this.transformationService;
+    }
+    
+    public String getDummyFormat()
+    {
+        return this.dummyFormat;
     }
 }

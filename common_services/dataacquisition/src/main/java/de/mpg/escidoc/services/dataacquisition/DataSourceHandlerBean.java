@@ -64,10 +64,9 @@ public class DataSourceHandlerBean
                 ImportSourceType source = sources[i];
                 Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
                 Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
-                Vector<String> examplesVec = new Vector<String>();
 
                 String status = simpleLiteralTostring(source.getStatus());
-                if (status.toLowerCase().trim().equals("published"))
+                if (status.equalsIgnoreCase("published"))
                 {   DataSourceVO sourceVO = new DataSourceVO();
                     sourceVO.setName(source.getName());
                     sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
@@ -77,20 +76,30 @@ public class DataSourceHandlerBean
                     sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
                     sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
                     sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
-                    sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                    //Accepted identifier Prefixes
+                    SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
+                    Vector <String> idPrefVec = new Vector <String>();
+                    for (int x=0; x<idPrefArr.length; x++)
+                    {
+                        String idPref = simpleLiteralTostring(idPrefArr[x]);
+                        idPrefVec.add(idPref);
+                    }
+                    sourceVO.setIdentifier(idPrefVec);
+                    //Identifier Examples
+                    SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
+                    Vector <String> idExVec = new Vector <String>();
+                    for (int y=0; y<idExArr.length; y++)
+                    {
+                        String idEx = simpleLiteralTostring(idExArr[y]);
+                        idExVec.add(idEx);
+                    }
+                    sourceVO.setIdentifierExample(idExVec);
                     sourceVO.setLicense(source.getLicense());   
                     sourceVO.setCopyright(source.getCopyright());
                     if (source.getItemUrl() != null)
                     {
                         sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
                     }                    
-//                    SimpleLiteral[] examples = source.getSourceIdentifierExampleArray();
-//                    for (SimpleLiteral example : examples)
-//                    {
-//                        examplesVec.add(simpleLiteralTostring(example));
-//                    }
-//                    sourceVO.setIdentifierExample(examplesVec); 
-                    //TODO oai identifier
                     // Metadata parameters
                     MDFetchSettingsType mdfs = source.getMDFetchSettings();
                     MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -137,7 +146,7 @@ public class DataSourceHandlerBean
                             {
                                 if (this.thirdPartyTransformer.checkXsltTransformation(md.getName(), 
                                         this.transformationFormat) 
-                                        || (this.transformationFormat.toLowerCase().equals(md.getName().toLowerCase())))
+                                        || (this.transformationFormat.equalsIgnoreCase(md.getName())))
                                 { sourceVec.add(sourceVO); }
                             }
                         }
@@ -185,7 +194,6 @@ public class DataSourceHandlerBean
         DataSourceVO sourceVO = new DataSourceVO();
         Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
         Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
-        Vector<String> examplesVec = new Vector<String>();
         boolean found = false;
         try
         {
@@ -196,7 +204,7 @@ public class DataSourceHandlerBean
             ImportSourceType[] sources = this.sourceType.getImportSourceArray();
             for (ImportSourceType source : sources)
             {
-                if (!source.getName().trim().toLowerCase().equals(name.trim().toLowerCase()))
+                if (!source.getName().equalsIgnoreCase(name))
                 {
                     continue;
                 }
@@ -213,20 +221,31 @@ public class DataSourceHandlerBean
                 sourceVO.setTimeout(Integer.parseInt(source.getTimeout().toString()));
                 sourceVO.setNumberOfTries(Integer.parseInt(source.getNumberOfTries().toString()));
                 sourceVO.setStatus(simpleLiteralTostring(source.getStatus()));
-                sourceVO.setIdentifier(simpleLiteralTostring(source.getSourceIdentifier()));
+                //Accepted identifier Prefixes
+                SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
+                Vector <String> idPrefVec = new Vector <String>();
+                for (int i=0; i<idPrefArr.length; i++)
+                {
+                    String idPref = simpleLiteralTostring(idPrefArr[i]);
+                    idPrefVec.add(idPref);
+                }
+                sourceVO.setIdentifier(idPrefVec);
+                //Identifier Examples
+                SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
+                Vector <String> idExVec = new Vector <String>();
+                for (int y=0; y<idExArr.length; y++)
+                {
+                    String idEx = simpleLiteralTostring(idExArr[y]);
+                    idExVec.add(idEx);
+                }
+                sourceVO.setIdentifierExample(idExVec);
                 sourceVO.setLicense(source.getLicense());   
                 sourceVO.setCopyright(source.getCopyright());
                 
                 if (source.getItemUrl() != null)
                 {
                     sourceVO.setItemUrl(new URL(simpleLiteralTostring(source.getItemUrl())));
-                }   
-//                SimpleLiteral[] examples = source.getSourceIdentifierExampleArray();
-//                for (SimpleLiteral example : examples)
-//                {
-//                    examplesVec.add(simpleLiteralTostring(example));
-//                }
-//                sourceVO.setIdentifierExample(examplesVec);    
+                }    
                 // Metadata parameters
                 MDFetchSettingsType mdfs = source.getMDFetchSettings();
                 MDFetchSettingType[] mdfArray = mdfs.getMDFetchSettingArray();
@@ -314,14 +333,18 @@ public class DataSourceHandlerBean
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
         for (ImportSourceType source : sources)
         {
-            if (!simpleLiteralTostring(source.getSourceIdentifier()).trim().toLowerCase().equals(
-                    id.trim().toLowerCase()))
+            SimpleLiteral [] idPrefVec = source.getSourceIdentifierArray();
+            for (int x = 0; x < idPrefVec.length; x++)
             {
-                continue;
-            }
-            else
-            {
-                return this.getSourceByName(source.getName());
+                SimpleLiteral idPref = idPrefVec[x];
+                if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id))
+                {
+                    continue;
+                }
+                else
+                {
+                    return this.getSourceByName(source.getName());
+                }
             }
         }
         return null;
@@ -351,14 +374,18 @@ public class DataSourceHandlerBean
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
         for (ImportSourceType source : sources)
         {
-            if (!simpleLiteralTostring(source.getSourceIdentifier()).trim().toLowerCase().equals(
-                    id.trim().toLowerCase()))
+            SimpleLiteral [] idPrefVec = source.getSourceIdentifierArray();
+            for (int x = 0; x < idPrefVec.length; x++)
             {
-                continue;
-            }
-            else
-            {
-                return source.getName();
+                SimpleLiteral idPref = idPrefVec[x];
+                if (!simpleLiteralTostring(idPref).equalsIgnoreCase(id))
+                {
+                    continue;
+                }
+                else
+                {
+                    return source.getName();
+                }
             }
         }
         return null;
@@ -378,7 +405,7 @@ public class DataSourceHandlerBean
         for (int i = 0; i < source.getMdFormats().size(); i++)
         {
             md = source.getMdFormats().get(i);
-            if (md.getName().trim().toLowerCase().equals(format.trim().toLowerCase()))
+            if (md.getName().equalsIgnoreCase(format))
             {
                 return md;
             }
@@ -421,7 +448,7 @@ public class DataSourceHandlerBean
             for (int i = 0; i < mdv.size(); i++)
             {
                 MetadataVO mdVO = source.getMdFormats().get(i);
-                if (mdVO.getName().trim().toLowerCase().equals(md.getName().trim().toLowerCase()))
+                if (mdVO.getName().equalsIgnoreCase(md.getName()))
                 {
                     mdv.setElementAt(md, i);
                 }

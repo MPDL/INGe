@@ -28,7 +28,6 @@ import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableExce
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * This class provides the implementation of the {@link Unapi} interface.
@@ -76,7 +75,6 @@ public class UnapiServlet extends HttpServlet implements Unapi
             {
                 command = command.substring(1);
             }
-            // Response will be viewed (not attachement)
             if (request.getRequestURL().toString().contains("view"))
             {
                 this.view = true;
@@ -122,8 +120,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
                             else
                             {
                                 response.setContentType(this.dataHandler.getContentType());
-                                response.setHeader("Content-disposition", "attachment; filename=" 
+                                if (!this.view)
+                                {
+                                    response.setHeader("Content-disposition", "attachment; filename=" 
                                                 + this.filename + this.dataHandler.getFileEnding());
+                                }
                                 response.setStatus(200);
                                 outStream.write(data);
                             }
@@ -251,9 +252,12 @@ public class UnapiServlet extends HttpServlet implements Unapi
         for (int i = 0; i < fullTextV.size(); i++)
         {
             FullTextVO ft = fullTextV.get(i);
-            FormatType xmlFormat = xmlFormats.addNewFormat();
-            xmlFormat.setName(ft.getName());
-            xmlFormat.setType(ft.getFtFormat());
+            if (!ft.getName().equals(util.getDummyFormat()))
+            {
+                FormatType xmlFormat = xmlFormats.addNewFormat();
+                xmlFormat.setName(ft.getName());
+                xmlFormat.setType(ft.getFtFormat());
+            }
         }
         try
         {
@@ -279,15 +283,16 @@ public class UnapiServlet extends HttpServlet implements Unapi
     {
         String trimmedId = "";
         this.filename = identifier;
-        String[] tmp = identifier.split(":", 2);
-        String sourceId = tmp[0];
-        String fullId = tmp[1];
-
-        String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
-        String idType = this.checkIdentifier(trimmedId, format);
-        
+          
         try
         {
+            String[] tmp = identifier.split(":", 2);
+            String sourceId = tmp[0];
+            String fullId = tmp[1];
+    
+            String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
+            String idType = this.checkIdentifier(trimmedId, format);
+            
             if (idType.equals(this.idTypeUri))
             {
                 if (sourceId != null)
@@ -330,6 +335,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
         {
             throw new FormatNotAvailableException(e.getMessage());
         }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            //Given identifier has wrong encoding (type : value)
+            throw new IdentifierNotRecognisedException ();
+        }
         catch (Exception e)
         {
             throw new RuntimeException(e);
@@ -345,7 +355,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         {
             return this.idTypeEscidoc;
         }
-        if (identifier.startsWith("http") & format.toLowerCase().equals("url"))
+        if (identifier.startsWith("http") & format.equalsIgnoreCase("url"))
         {
             // Fetch from url => only download possible
             this.view = false;

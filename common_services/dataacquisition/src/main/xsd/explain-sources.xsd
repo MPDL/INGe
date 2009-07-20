@@ -26,9 +26,8 @@
 			<!-- type of metadata fetch, encoding -->
 			<xs:element ref="dc:format" maxOccurs="unbounded"/>
 			<xs:element name="item-url" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="source-identifier" type="dc:SimpleLiteral"/>
+			<xs:element name="source-identifier" type="dc:SimpleLiteral" maxOccurs="unbounded"/>
 			<xs:element name="source-identifier-example" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="source-oai-identifier" type="dc:SimpleLiteral" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="harvest-protocol" type="dc:SimpleLiteral"/>
 			<xs:element name="retry-after" type="xs:nonNegativeInteger"/>
 			<xs:element name="timeout" type="xs:nonNegativeInteger"/>

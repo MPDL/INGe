@@ -27,6 +27,7 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
+import java.beans.Encoder;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.rmi.AccessException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +49,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -70,7 +71,6 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.exceptions.FormatNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -105,6 +105,7 @@ public class DataHandlerBean implements DataHandler
     private DataSourceVO currentSource = null;
 
     private URL itemUrl;
+    private final String enc = "UTF-8";
 
 
     /**
@@ -141,20 +142,25 @@ public class DataHandlerBean implements DataHandler
         
         try
         {             
-            if (sourceName.toLowerCase().equals("escidoc"))
+            if (sourceName.equalsIgnoreCase("escidoc"))
             {
                 //necessary for escidoc sources
                 sourceName = this.util.trimSourceName(sourceName, identifier);
                 identifier = this.util.setEsciDocIdentifier(identifier);
+                this.currentSource = this.sourceHandler.getSourceByName(sourceName); 
+            }           
+            else
+            {
+                this.currentSource = this.sourceHandler.getSourceByName(sourceName); 
+                identifier = this.util.trimIdentifier(this.currentSource, identifier);               
             }
-            identifier = this.util.trimIdentifier(sourceName, identifier);
-            this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+                             
             String fetchType = this.getFetchingType(trgFormatName, trgFormatType, trgFormatEncoding);
 
             if (fetchType.equals(this.fetchTypeTEXTUALDATA))
             {
                 fetchedData = this.fetchTextualData(identifier, trgFormatName, 
-                        trgFormatType, trgFormatEncoding).getBytes("UTF-8");
+                        trgFormatType, trgFormatEncoding).getBytes(this.enc);
             }
             if (fetchType.equals(this.fetchTypeFILEDATA))
             {
@@ -163,10 +169,10 @@ public class DataHandlerBean implements DataHandler
             }
             if (fetchType.equals(this.fetchTypeESCIDOCTRANS))
             {
-                fetchedData = this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", "UTF-8")
-                    .getBytes("UTF-8");
+                fetchedData = this.fetchTextualData(identifier, "eSciDoc-publication-item", "application/xml", this.enc)
+                    .getBytes(this.enc);
                 TransformationBean transformer = new TransformationBean();
-                fetchedData = transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", "UTF-8", 
+                fetchedData = transformer.transform(fetchedData, "eSciDoc-publication-item", "application/xml", this.enc, 
                         trgFormatName, trgFormatType, trgFormatEncoding, "escidoc");
                 this.setContentType(trgFormatType);
             }
@@ -208,9 +214,9 @@ public class DataHandlerBean implements DataHandler
     public byte[] doFetch(String sourceName, String identifier, Format[] formats) throws SourceNotAvailableException,
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
-    {
-        identifier = this.util.trimIdentifier(sourceName, identifier);
+    {      
         this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+        identifier = this.util.trimIdentifier(this.currentSource, identifier);
         return this.fetchData(identifier, formats);
     }
     
@@ -221,14 +227,14 @@ public class DataHandlerBean implements DataHandler
             IdentifierNotRecognisedException, FormatNotRecognisedException, 
             RuntimeException, FormatNotAvailableException
     {
-        if (sourceName.toLowerCase().equals("escidoc"))
+        if (sourceName.equalsIgnoreCase("escidoc"))
         {
             //necessary for escidoc sources
             sourceName = this.util.trimSourceName(sourceName, identifier);
             identifier = this.util.setEsciDocIdentifier(identifier);
-        }
-        identifier = this.util.trimIdentifier(sourceName, identifier);
+        }       
         this.currentSource = this.sourceHandler.getSourceByName(sourceName);
+        identifier = this.util.trimIdentifier(this.currentSource, identifier);
         Format[] formatsF = new Format[formats.length];
         Format format;
         
@@ -278,7 +284,7 @@ public class DataHandlerBean implements DataHandler
         {
             ClassLoader cl = this.getClass().getClassLoader();
             InputStream fileIn = cl.getResourceAsStream("resources/sources.xml");
-            BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, this.enc));
             String line = null;
             while ((line = br.readLine()) != null)
             {
@@ -324,7 +330,7 @@ public class DataHandlerBean implements DataHandler
             this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
             
             // Select harvesting method
-            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
+            if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("oai-pmh"))
             {
                 this.logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
                 item = fetchOAIRecord(md);
@@ -332,13 +338,13 @@ public class DataHandlerBean implements DataHandler
                 protocolHandler.checkOAIRecord(item);
                 supportedProtocol = true;
             }
-            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("ejb"))
+            if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("ejb"))
             {
                 this.logger.debug("Fetch record via EJB.");
                 item = this.fetchEjbRecord(md, identifier);
                 supportedProtocol = true;
             }
-            if (this.currentSource.getHarvestProtocol().toLowerCase().equals("http"))
+            if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("http"))
             {
                 this.logger.debug("Fetch record via http.");
                 item = this.fetchHttpRecord(md);
@@ -352,7 +358,7 @@ public class DataHandlerBean implements DataHandler
             fetchedItem = item;
             
             // Transform the itemXML if necessary
-            if (item != null && !trgFormatName.trim().toLowerCase().equals(md.getName().toLowerCase()))
+            if (item != null && !trgFormatName.trim().equalsIgnoreCase(md.getName().toLowerCase()))
             {               
                 TransformationBean transformer = new TransformationBean();
                 
@@ -360,7 +366,7 @@ public class DataHandlerBean implements DataHandler
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
-                item = new String(transformer.transform(item.getBytes("UTF-8"), srcFormat, trgFormat, "escidoc"),"UTF-8");  
+                item = new String(transformer.transform(item.getBytes(this.enc), srcFormat, trgFormat, "escidoc"),this.enc);  
                 if (this.currentSource.getItemUrl()!= null)
                 {
                     this.setItemUrl(new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier)));
@@ -368,16 +374,19 @@ public class DataHandlerBean implements DataHandler
                 
                 try
                 {
-                    //Transform item component
+                    //Create component if supported
                     String name = trgFormatName.replace("item", "component");
                     Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
-                    byte[] componentBytes = transformer.transform(fetchedItem.getBytes("UTF-8"), srcFormat, trgFormatComponent, "escidoc");
-                    
-                    if (componentBytes != null)
-                    {   String componentXml = new String(componentBytes, "UTF-8");               
-                        InitialContext initialContext = new InitialContext();
-                        XmlTransforming xmlTransforming = (XmlTransforming)initialContext .lookup(XmlTransforming.SERVICE_NAME);
-                        this.componentVO = xmlTransforming.transformToFileVO(componentXml);
+                    if (transformer.checkTransformation(srcFormat, trgFormatComponent))
+                    {
+                        byte[] componentBytes = transformer.transform(fetchedItem.getBytes(this.enc), srcFormat, trgFormatComponent, "escidoc");
+                        
+                        if (componentBytes != null)
+                        {   String componentXml = new String(componentBytes, this.enc);               
+                            InitialContext initialContext = new InitialContext();
+                            XmlTransforming xmlTransforming = (XmlTransforming)initialContext .lookup(XmlTransforming.SERVICE_NAME);
+                            this.componentVO = xmlTransforming.transformToFileVO(componentXml);
+                        }
                     }
                 }
                 catch(Exception e)
@@ -529,7 +538,7 @@ public class DataHandlerBean implements DataHandler
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
                 
                 //escidoc file
-                if (this.currentSource.getHarvestProtocol().equals("ejb"))
+                if (this.currentSource.getHarvestProtocol().equalsIgnoreCase("ejb"))
                 {
                     in = this.fetchEjbFile(fulltext, identifier);
                 }
@@ -693,19 +702,9 @@ public class DataHandlerBean implements DataHandler
                     throw new RuntimeException("An error occurred during importing from external system: "
                             + responseCode + ": " + httpConn.getResponseMessage());
             }
-            String contentTypeHeader = conn.getHeaderField("Content-Type");
-            this.setContentType(contentTypeHeader);
-            if (this.getContentType().contains(";"))
-            {
-                this.setContentType(this.getContentType().substring(0, this.getContentType().indexOf(";")));
-                if (contentTypeHeader.contains("encoding="))
-                {
-                    charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
-                    this.logger.debug("Charset found: " + charset);
-                }
-            }
+            
             // Get itemXML
-            isReader = new InputStreamReader(md.getMdUrl().openStream(), charset);
+            isReader = new InputStreamReader(md.getMdUrl().openStream(), this.enc);
             bReader = new BufferedReader(isReader);
             String line = "";
             while ((line = bReader.readLine()) != null)
@@ -738,22 +737,17 @@ public class DataHandlerBean implements DataHandler
     {
         try
         {
-            if (this.currentSource.getName().toLowerCase().equals("escidoc"))
+            if (this.currentSource.getName().equalsIgnoreCase("escidoc"))
             {
                 return ServiceLocator.getItemHandler().retrieve(identifier);
             }  
             if (this.currentSource.getName().toLowerCase().equals("escidocdev") 
-                    || this.currentSource.getName().toLowerCase().equals("escidocqa") 
-                    || this.currentSource.getName().toLowerCase().equals("escidocprod") 
-                    || this.currentSource.getName().toLowerCase().equals("escidoctest"))
+                    || this.currentSource.getName().equalsIgnoreCase("escidocqa") 
+                    || this.currentSource.getName().equalsIgnoreCase("escidocprod") 
+                    || this.currentSource.getName().equalsIgnoreCase("escidoctest"))
             {
                 return ServiceLocator.getItemHandler(md.getMdUrl().toString()).retrieve(identifier);
-            } 
-            if (md.getName().toLowerCase().equals("virr-mets"))
-            {
-                Login login = new Login();
-                return  ServiceLocator.getItemHandler(login.loginSysAdmin()).retrieve(identifier);
-            }   
+            }    
         }
         catch (ItemNotFoundException e)
         {
@@ -788,14 +782,14 @@ public class DataHandlerBean implements DataHandler
         
         try
         {
-            if (this.currentSource.getName().toLowerCase().equals("escidoc"))
+            if (this.currentSource.getName().equalsIgnoreCase("escidoc"))
             {
                 itemXML = ServiceLocator.getItemHandler().retrieve(identifier);  
                 coreservice = ServiceLocator.getFrameworkUrl();
             }  
-            if (this.currentSource.getName().toLowerCase().equals("escidocdev") 
-                    || this.currentSource.getName().toLowerCase().equals("escidocqa") 
-                    || this.currentSource.getName().toLowerCase().equals("escidocprod"))
+            if (this.currentSource.getName().equalsIgnoreCase("escidocdev") 
+                    || this.currentSource.getName().equalsIgnoreCase("escidocqa") 
+                    || this.currentSource.getName().equalsIgnoreCase("escidocprod"))
             {
                 itemXML = ServiceLocator.getItemHandler(ft.getFtUrl().toString()).retrieve(identifier);
                 coreservice = ft.getFtUrl().toString();
@@ -923,7 +917,7 @@ public class DataHandlerBean implements DataHandler
         String sourceName = this.util.trimSourceName("escidoc", identifier);
         DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
 
-        if (sourceName.toLowerCase().equals("escidoc"))
+        if (sourceName.equalsIgnoreCase("escidoc"))
         {
             try
             {
@@ -935,8 +929,8 @@ public class DataHandlerBean implements DataHandler
                 return null;
             }
         }  
-        if (sourceName.toLowerCase().equals("escidocdev") || sourceName.equals("escidocqa") 
-                || sourceName.toLowerCase().equals("escidocprod") || sourceName.toLowerCase().equals("escidoctest"))
+        if (sourceName.equalsIgnoreCase("escidocdev") || sourceName.equalsIgnoreCase("escidocqa") 
+                || sourceName.equalsIgnoreCase("escidocprod") || sourceName.equalsIgnoreCase("escidoctest"))
         {
             //escidoc source has only one dummy ft record
             FullTextVO ft = source.getFtFormats().get(0);

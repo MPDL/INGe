@@ -191,10 +191,10 @@ public class ThirdPartyTransformationInterface implements de.mpg.escidoc.service
         boolean supported = false;
         
         if (this.transformer.checkXsltTransformation(srcFormat.getName(), trgFormat.getName()))
-        {
-            String transformedXml = this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src));
+        {   
             try
             {
+                String transformedXml = this.transformer.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src, "UTF-8"));
                 result = transformedXml.getBytes("UTF-8");
             }
             catch (UnsupportedEncodingException e)

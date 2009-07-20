@@ -12,7 +12,7 @@
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<status>published</status>
+		<status>in design</status>
 			
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
@@ -52,6 +52,7 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<source-identifier>bmc</source-identifier>
+		<source-identifier>bmcid</source-identifier>
 		<source-identifier-example>bmc:1471-2121-2-1</source-identifier-example>
 		<harvest-protocol>oai-pmh</harvest-protocol>
 		<retry-after>3</retry-after>
@@ -116,7 +117,7 @@
 		<source-identifier>spires</source-identifier>
 		<source-identifier-example>spires:hep-ph/0001001</source-identifier-example>
 		<source-identifier-example>spires:arXiv:0812.2902</source-identifier-example>
-		<source-identifier-example>spires:10.1016/J.NIMA.2008.08.135) </source-identifier-example>
+		<source-identifier-example>spires:10.1016/J.NIMA.2008.08.135</source-identifier-example>
 		<harvest-protocol>http</harvest-protocol>
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
@@ -138,12 +139,14 @@
 	</Import-Source>
 	
 	<Import-Source name="eSciDoc">
-		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
+		<dc:description>eSciDoc is a eScience-aware knowledge and information management system from the Max Plack Society.</dc:description>
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://current-pubman:8080/pubman/item/escidoc:GETID</item-url>
 		<source-identifier>escidoc</source-identifier>
+		<source-identifier-example>escidoc:176137</source-identifier-example>
+		<source-identifier-example>escidoc:http://test-pubman.mpdl.mpg.de/pubman/item/escidoc:12001:2</source-identifier-example>
 		<source-identifier-example>escidoc:176137</source-identifier-example>
 		<harvest-protocol>ejb</harvest-protocol>
 		<retry-after>0</retry-after>
@@ -181,6 +184,7 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
+		<source-identifier>pmcid</source-identifier>
 		<source-identifier>pmc</source-identifier>
 		<source-identifier-example>pmc:2581620</source-identifier-example>
 		<harvest-protocol>OAI-PMH</harvest-protocol>

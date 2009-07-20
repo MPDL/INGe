@@ -55,7 +55,7 @@ public class DataSourceVO
 
     private String copyright;
     //Identifier prefix
-    private String identifier;
+    private Vector <String> identifier;
     private String sourceOAIIdentifier;
     
     private Vector<String> identifierExample;
@@ -191,12 +191,12 @@ public class DataSourceVO
         this.type = type;
     }
 
-    public String getIdentifier()
+    public Vector <String> getIdentifier()
     {
         return this.identifier;
     }
 
-    public void setIdentifier(String identifier)
+    public void setIdentifier(Vector <String> identifier)
     {
         this.identifier = identifier;
     }

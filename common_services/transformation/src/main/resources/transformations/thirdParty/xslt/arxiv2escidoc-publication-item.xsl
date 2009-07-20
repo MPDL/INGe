@@ -44,7 +44,7 @@
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/">
 
-	<xsl:output method="xml" indent="yes" />
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 
 	<xsl:include href="msc.xsl" />
 

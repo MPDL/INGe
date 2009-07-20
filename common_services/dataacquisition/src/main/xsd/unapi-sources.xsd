@@ -25,7 +25,7 @@
 			<!-- The sources description -->
 			<xs:element ref="dc:description" minOccurs="0" maxOccurs="1"/>
 			<!-- The sources identifier prefix -->
-			<xs:element name="identifier-prefix" type="dc:SimpleLiteral"/>
+			<xs:element name="identifier-prefix" type="dc:SimpleLiteral" maxOccurs="unbounded"/>
 			<!-- The sources identifier delimiter -->
 			<xs:element name="identifier-delimiter" type="dc:SimpleLiteral"/>
 			<!-- identifier example -->
