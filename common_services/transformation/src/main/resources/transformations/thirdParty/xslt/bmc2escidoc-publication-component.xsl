@@ -43,7 +43,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
 	
 	<xsl:template match="/">
-		      <ec:component objid="escidoc:dummy">	      	
+		      <ec:component>	      	
 		        <ec:properties>
 		        	<prop:visibility>public</prop:visibility>
 		        </ec:properties>

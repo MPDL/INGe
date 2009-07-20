@@ -68,7 +68,7 @@
 																 oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/pm:article/pm:front/pm:article-meta/pm:license/@xlink:href)"/>
 
 	<xsl:template match="/">
-		      <ec:component objid="escidoc:dummy">	      	
+		      <ec:component>	      	
 		        <ec:properties>
 		        	<prop:visibility>public</prop:visibility>
 		        </ec:properties>

@@ -65,7 +65,7 @@
 	
 <!--	COMOPONENTS-->
 	<xsl:template name="createComponent">
-		      <ec:component objid="escidoc:dummy">
+		      <ec:component>
 		        <!-- Default values we need to tansform item in itemVO -->
 		        <ec:properties>
 		        	<prop:visibility>public</prop:visibility>

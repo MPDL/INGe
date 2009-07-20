@@ -207,7 +207,6 @@ public class TransformationBean implements Transformation
 
                 //Execute the method
                 result = (byte[])method.invoke(transformationClass.newInstance(), src, srcFormat, trgFormat, service);
-                System.out.println(new String (result, "UTF-8"));
             }
             catch(Exception e)
             {
