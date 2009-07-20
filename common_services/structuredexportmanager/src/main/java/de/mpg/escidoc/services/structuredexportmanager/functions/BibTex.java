@@ -40,7 +40,7 @@ import java.util.Map;
  *
  * @author Vlad Makarenko (initial creation)
  * @author $Author$ (last modification)
- * @version $Revision:$ $LastChangedDate:$
+ * @version $Revision$ $LastChangedDate$
  *
  */ 
 
@@ -532,6 +532,7 @@ public class BibTex {
 	 */
 	public static String texString(String str)
 	{
+		if ( str==null ) return null;
 		for( Map.Entry<String, String> entry: ENTITIES.entrySet() )
 			str = str.replace(entry.getKey(), entry.getValue());
 		return str;
