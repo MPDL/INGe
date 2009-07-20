@@ -29,15 +29,16 @@
 */ 
 package test.xmltransforming.component;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
@@ -47,9 +48,6 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-
-import test.TestBase;
-import test.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test of {@link XmlTransforming} methods for statistic transformings.

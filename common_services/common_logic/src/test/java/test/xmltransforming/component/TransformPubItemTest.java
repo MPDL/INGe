@@ -455,6 +455,27 @@ public class TransformPubItemTest extends XmlTransformingTestBase
             throw (e);
         }
     }
+    
+    @Test
+    public void testIdentifierTypeRoundrip() throws Exception
+    {
+        logger.info("### testIdentifierTypeRoundrip ###");
+
+        // read item[XML] from file
+        String savedPubItemXML = readFile(SAVED_ITEM_FILE);
+        logger.info("Item[XML] read from file.");
+        logger.debug("Item[XML]: " + savedPubItemXML.length() + " chars, " + savedPubItemXML.getBytes("UTF-8").length + " bytes, ü = " + (savedPubItemXML.contains("ü")));
+        
+        // transform the item directly into a PubItemVO
+        long zeit = -System.currentTimeMillis();
+        PubItemVO savedItem = xmlTransforming.transformToPubItem(savedPubItemXML);
+        zeit += System.currentTimeMillis();
+        savedItem.getMetadata().setDateCreated(null);
+        
+        String newxml = xmlTransforming.transformToItem(savedItem);
+        System.out.println(newxml);
+        
+    }
 
     /**
      * Test method for checking the correct transformation of the creator in the metadata.

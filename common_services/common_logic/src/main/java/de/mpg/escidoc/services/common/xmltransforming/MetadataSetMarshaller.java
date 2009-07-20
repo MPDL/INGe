@@ -123,4 +123,10 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
         return ictx.isAt(m_uri, m_name);
     }
 
+    public boolean isExtension(String arg0)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

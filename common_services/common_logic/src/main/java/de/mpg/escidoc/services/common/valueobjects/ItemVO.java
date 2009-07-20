@@ -54,6 +54,9 @@ public class ItemVO extends ValueObject implements Searchable
      * @author Johannes Mueller
      */
  
+    public enum ItemAction{
+        RETRIEVE, SUBMIT, RELEASE
+    }
 
     /**
      * The possible states of an item.

@@ -292,4 +292,10 @@ public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasa
 
     }
 
+    public boolean isExtension(String arg0)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

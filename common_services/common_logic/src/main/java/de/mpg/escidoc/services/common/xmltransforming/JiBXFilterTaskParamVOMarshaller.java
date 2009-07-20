@@ -372,4 +372,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
     {
         this.m_uri = m_uri;
     }
+
+    public boolean isExtension(String arg0)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

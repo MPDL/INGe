@@ -29,16 +29,7 @@
 */
 package de.mpg.escidoc.services.common.valueobjects.statistics;
 
-import java.util.Date;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
-import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
-
-import net.sf.saxon.value.StringValue;
 
 /**
  * VO class representing a parameter of a statistic report-record or a report-parameters
@@ -101,6 +92,11 @@ public class StatisticReportRecordParamVO extends ValueObject
         super();
         this.paramValue = paramValue;
         this.name = name;
+    }
+    
+    public StatisticReportRecordParamVO()
+    {
+        super();
     }
     
    

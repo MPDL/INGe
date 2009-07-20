@@ -64,6 +64,7 @@
 										<include name="bindings_ExportFormat.xml" />
 										<include name="bindings_Grant.xml" />
 										<include name="bindings_StatisticReportVO.xml" />
+										<include name="bindings_StatisticRecordVO.xml" />
 										<include name="bindings_TocItemVO_input.xml" />
 										<include name="bindings_TocItemVO_output.xml" />
 										<include name="bindings_SearchResultVO_input.xml" />
@@ -244,5 +245,10 @@
 	    	<version>8.7</version>
 	    	<scope>compile</scope>
 	    </dependency>
+	    <dependency>
+	      	<groupId>com.maxmind.geoip</groupId>
+	      	<artifactId>geoip</artifactId>
+	      	<version>1.2.3</version>
+    	</dependency>
 	</dependencies>
 </project>
