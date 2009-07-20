@@ -41,19 +41,19 @@ public class TEITransformation {
             	
             if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
             {
-                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc.xsl");
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/peer_tei2escidoc.xsl");
                 transformer = factory.newTransformer(new StreamSource(stylesheet));
                 transformer.setParameter("is-item-list", Boolean.TRUE);
             }
             else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
             {
-                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc.xsl");
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/peer_tei2escidoc.xsl");
                 transformer = factory.newTransformer(new StreamSource(stylesheet));
                 transformer.setParameter("is-item-list", Boolean.FALSE);
             }
             else if (trgFormat.matches(ESCIDOC_COMPONENT_FORMAT))
             {
-                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/tei2escidoc_component.xsl");
+                stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/peer_tei2escidoc_component.xsl");
                 transformer = factory.newTransformer(new StreamSource(stylesheet));
             	transformer.setParameter("is-item-list", Boolean.FALSE);
             }
