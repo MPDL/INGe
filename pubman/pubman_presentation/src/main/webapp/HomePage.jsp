@@ -47,6 +47,11 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
+				<link href="./resources/eSciDoc_CSS_v2/tc.css" type="text/css" rel="stylesheet"/>
+				<script type="text/javascript" src="http://www.google.com/jsapi">;</script>
+			    <script type="text/javascript" src="./resources/eSciDoc_JavaScript/tagCloud.js">;</script>
+			    
+
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
@@ -100,6 +105,7 @@
 					<div class="full_area0">
 						<div class="full_area0 infoPage">
 							<!-- Main Content -->
+							
 							<h:panelGroup styleClass="half_area0_p8 mainSection" rendered="#{!PubManSessionBean.loggedIn}">
 								<jsp:directive.include file="home/StartPageLoggedOut.jspf" />
 							</h:panelGroup>
@@ -113,6 +119,9 @@
 							</h:panelGroup>
 							<h:panelGroup styleClass="free_area0_p8 sideSection">
 								<jsp:directive.include file="home/BlogIntegration.jspf" />
+							</h:panelGroup>
+							<h:panelGroup styleClass="free_area0_p8">
+								<div id="searchCloudDiv"></div>
 							</h:panelGroup>
 							
 							
@@ -132,6 +141,21 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
 				});
 				</script>
+
+				<script type="text/javascript">
+				      google.load("visualization", "1");
+				      google.setOnLoadCallback(draw);
+				      function draw() {
+				        data = new google.visualization.DataTable({<h:outputText value="#{HomePage.searchTagCloud}"/>});
+				        var outputDiv = document.getElementById('searchCloudDiv');
+				        var tc = new TermCloud(outputDiv);
+				        tc.draw(data, null);
+				      }
+				    </script>
+
+
+
+				
 			</body>
 		</html>
 	</f:view>

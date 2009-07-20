@@ -43,10 +43,13 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.statistics.StatisticSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
@@ -67,6 +70,8 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     public FacesBean()
     {
     	super();
+    	//Call statistic session bean in order to log user
+    	
     	
 
     	
@@ -78,6 +83,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     protected void init() 
     {
         testLogin();
+        getSessionBean(StatisticSessionBean.class);
         //restore messages if from redirect
         //((FacesMessagesSessionBean) getSessionBean(FacesMessagesSessionBean.class)).restoreMessages();
     }
@@ -416,4 +422,21 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         return number;
     }
     
+    public String getIP()
+    {
+        HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
+        return requ.getRemoteUser();
+    }
+    
+    public String getSessionId()
+    {
+        HttpSession session = (HttpSession)getExternalContext().getSession(false);
+        return session.getId();
+    }
+    
+    public String getReferer()
+    {
+        HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
+        return requ.getHeader("Referer");
+    }
 }

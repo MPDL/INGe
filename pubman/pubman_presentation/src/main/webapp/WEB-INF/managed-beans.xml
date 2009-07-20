@@ -579,9 +579,9 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>ImportItems</managed-bean-name>
-        <managed-bean-class>de.mpg.escidoc.pubman.multipleimport.beans.ImportItems</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-name>CollaboratorSessionBean</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.collaborator.CollaboratorSessionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>AudienceBean</managed-bean-name>
@@ -591,6 +591,11 @@
     <managed-bean>
         <managed-bean-name>AudienceSessionBean</managed-bean-name>
         <managed-bean-class>de.mpg.escidoc.pubman.audience.AudienceSessionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+     <managed-bean>
+        <managed-bean-name>StatisticSessionBean</managed-bean-name>
+        <managed-bean-class>de.mpg.escidoc.pubman.statistics.StatisticSessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

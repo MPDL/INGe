@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -66,7 +67,15 @@ public class Search extends FacesBean
         
         try
         {
-            getExternalContext().redirect("SearchResultListPage.jsp?cql="+generateUrlEncodedCQLRequest(searchString, includeFiles));
+            String cql = generateCQLRequest(searchString, includeFiles);
+            
+            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
+        }
+        catch( de.mpg.escidoc.services.search.parser.ParseException e) 
+        {
+            logger.error("Search criteria includes some lexical error", e);
+            error(getMessage("search_ParseError"));
+            return "";
         }
         catch(Exception e ) 
         {
@@ -78,11 +87,10 @@ public class Search extends FacesBean
         return "";           
     }
 
-    private String generateUrlEncodedCQLRequest(String searchString, boolean includeFiles)
+    public static String generateCQLRequest(String searchString, boolean includeFiles) throws Exception
     {
         String cql = "";
-        try
-        {
+        
             ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
                         
             if( includeFiles == true ) {
@@ -107,9 +115,22 @@ public class Search extends FacesBean
             ArrayList<String> contentTypes = new ArrayList<String>();
             String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
             contentTypes.add( contentTypeIdPublication );
-            
+
             MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
-            cql = URLEncoder.encode(query.getCqlQuery(),"UTF-8");
+            cql = query.getCqlQuery();
+       
+            return cql;
+    }
+
+    public String getOpenSearchRequest()
+    {
+        String requestDummy = "dummyTermToBeReplaced";
+       
+        try
+        {
+            String cql = generateCQLRequest(requestDummy, false);
+            String openSearchRequest = "SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8");
+            return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
         }
         catch( de.mpg.escidoc.services.search.parser.ParseException e) 
         {
@@ -117,20 +138,12 @@ public class Search extends FacesBean
             error(getMessage("search_ParseError"));
             return "";
         }
-        catch(Exception e ) 
+        catch (Exception e)
         {
             logger.error("Technical problem while retrieving the search results", e);
             error(getMessage("search_TechnicalError"));
             return "";
         }
-        return cql;
-    }
-
-    public String getOpenSearchRequest()
-    {
-        String requestDummy = "dummyTermToBeReplaced";
-        String openSearchRequest = "SearchResultListPage.jsp?cql="+generateUrlEncodedCQLRequest(requestDummy, false);
-        return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
         
     }
 

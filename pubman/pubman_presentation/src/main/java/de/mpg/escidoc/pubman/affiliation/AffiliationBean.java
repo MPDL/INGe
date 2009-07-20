@@ -9,6 +9,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
@@ -23,11 +24,14 @@ import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
@@ -281,6 +285,20 @@ public class AffiliationBean extends FacesBean
             MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
             
             String cql = query.getCqlQuery();
+            
+            try
+            {
+                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
+                InitialContext ic = new InitialContext();
+                StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+                sl.logSearch(getSessionId(), getIP(), affiliation.getDefaultMetadata().getName(), cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
+            }
+           
+            catch (Exception e)
+            {
+               logger.error("Could not log statistical data", e);
+            }
+            
             
             //redirect to SearchResultPage which processes the query
             getExternalContext().redirect("SearchResultListPage.jsp?"

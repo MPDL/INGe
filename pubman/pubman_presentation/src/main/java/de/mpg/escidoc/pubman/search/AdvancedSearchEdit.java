@@ -32,9 +32,11 @@ package de.mpg.escidoc.pubman.search;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-import org.apache.myfaces.trinidad.component.UIXIterator;
+import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import bibtex.parser.ParseException;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
@@ -49,8 +51,13 @@ import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.ObjectCriterion;
+import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
@@ -234,6 +241,37 @@ public class AdvancedSearchEdit extends SearchResultList
             MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, searchCriteria );
             
             String cql = query.getCqlQuery();
+            
+            try
+            {
+                String searchString = "";
+                
+                for(Criterion c : anyFieldCriterionCollection.getFilledCriterion())
+                {
+                    searchString += c.getSearchString() + " ";
+                }
+                
+                for(Criterion c : personCriterionCollection.getFilledCriterion())
+                {
+                    searchString += c.getSearchString() + " ";
+                }
+                
+                searchString = searchString.substring(0, searchString.length()-1);
+                
+                //log search for statistics
+                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
+                
+                
+                InitialContext ic = new InitialContext();
+                StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+                sl.logSearch(getSessionId(), getIP(), searchString, cql, loginHelper.getLoggedIn(), "pubman", AdminHelper.getAdminUserHandle());
+                
+            }
+           
+            catch (Exception e)
+            {
+               logger.error("Could not log statistical data", e);
+            }
             
             //redirect to SearchResultPage which processes the query
             getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql, "UTF-8")+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");

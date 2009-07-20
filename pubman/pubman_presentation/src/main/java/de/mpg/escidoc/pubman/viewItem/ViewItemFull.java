@@ -58,7 +58,6 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
-import de.mpg.escidoc.pubman.HomePage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
@@ -103,10 +102,10 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -115,6 +114,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminD
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -281,6 +281,7 @@ public class ViewItemFull extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String itemID = "";
+        this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         
         // populate the core service Url
         try {
@@ -322,6 +323,7 @@ public class ViewItemFull extends FacesBean
                     //pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null, PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(), request.getHeader("referer"), request.getRemoteHost());
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
+                logViewAction();
             }
             catch (AuthorizationException e)
             {
@@ -356,7 +358,7 @@ public class ViewItemFull extends FacesBean
         
         if(this.pubItem != null)
         {
-            this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            
             
             //DiT: multiple new conditions for link-activation added
             this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
@@ -2449,5 +2451,53 @@ public class ViewItemFull extends FacesBean
 	public void setItemPattern(String itemPattern) {
 		this.itemPattern = itemPattern;
 	}
+	
+	private void logViewAction()
+	{
+	    final String ip = getIP();
+	    final String sessId = getSessionId();
+	    final String referer = getReferer();
+	    new Thread(){
+	        public void run()
+	        {
+	            try
+	            {
+	                PubItemSimpleStatistics statistics = new SimpleStatistics();
+	                statistics.logPubItemAction(getPubItem(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), false, referer);
+	            }
+	           
+	            catch (Exception e)
+	            {
+	               logger.error("Could not log statistical data", e);
+	            }
+	        }
+	    }.start();
+	   
+	}
     
+	public String getStatisticString()
+	{
+	    
+	    LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+	    String url = "ViewItemPage";
+	    url += "?itemId=" + getPubItem().getVersion().getObjectId();
+	    url += "&loggedIn=" + loginHelper.getLoggedIn();
+	    
+	    List<CreatorVO> creatorList = getPubItem().getMetadata().getCreators();
+	    
+	    int i=0;
+	    
+	    for(CreatorVO creator : creatorList)
+	    {
+	        if (creator.getPerson()!=null && creator.getPerson().getIdentifier()!=null && creator.getPerson().getIdentifier().getId()!=null && !creator.getPerson().getIdentifier().getId().equals(""))
+	        {
+	            url += "auth" + i++ + "=" + creator.getPerson().getIdentifier().getId();
+	        }
+	        
+	       
+	    }
+	    
+	    return url;
+	    
+	}
 }    
