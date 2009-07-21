@@ -34,10 +34,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.common.StatisticLogger;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
@@ -68,6 +73,19 @@ public class Search extends FacesBean
         try
         {
             String cql = generateCQLRequest(searchString, includeFiles);
+            
+            try
+            {
+                LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class); 
+                InitialContext ic = new InitialContext();
+                StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+                sl.logSearch(getSessionId(), getIP(), searchString, cql, loginHelper.getLoggedIn(),"pubman", AdminHelper.getAdminUserHandle());
+            }
+           
+            catch (Exception e)
+            {
+               logger.error("Could not log statistical data", e);
+            }
             
             getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql,"UTF-8"));
         }
