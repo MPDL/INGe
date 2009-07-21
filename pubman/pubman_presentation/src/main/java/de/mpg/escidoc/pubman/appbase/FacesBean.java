@@ -425,7 +425,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     public String getIP()
     {
         HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
-        return requ.getRemoteUser();
+        return requ.getRemoteAddr();
     }
     
     public String getSessionId()
