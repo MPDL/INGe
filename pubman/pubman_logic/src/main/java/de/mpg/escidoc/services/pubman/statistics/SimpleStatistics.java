@@ -266,7 +266,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     
     
     
-    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
+    public void logPubItemAction(PubItemVO pubItem, List<OrganizationVO> orgList, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
     {
         
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -310,6 +310,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                 */
             }
             
+            /*
             if(creator.getPerson()!=null && creator.getPerson().getOrganizationsSize()>0)
             {
                 for(OrganizationVO org : creator.getPerson().getOrganizations())
@@ -318,16 +319,16 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                     {
                         //sl.logOrgAction(sessionId, ip, org.getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
                         orgIds += org.getIdentifier() + ",";
-                        /*
-                        StatisticReportRecordParamVO orgIdsParam = new StatisticReportRecordParamVO();
-                        orgIdsParam.setName("orgId");
-                        orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(org.getIdentifier()));
-                        paramList.add(orgIdsParam);
-                        */
+                        
+//                        StatisticReportRecordParamVO orgIdsParam = new StatisticReportRecordParamVO();
+//                        orgIdsParam.setName("orgId");
+//                        orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(org.getIdentifier()));
+//                        paramList.add(orgIdsParam);
+                        
                     }
                 }
             }
-            
+            */
             if(creator.getOrganization()!=null && creator.getOrganization().getIdentifier()!= null && !creator.getOrganization().getIdentifier().equals(""))
             {
                 //sl.logOrgAction(sessionId, ip, creator.getOrganization().getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
@@ -342,6 +343,14 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                 
             }
             
+        }
+        
+        for(OrganizationVO org : orgList)
+        {
+            if(org.getIdentifier()!=null && !org.getIdentifier().equals(""))
+            {
+                orgIds += org.getIdentifier() + ",";
+            }
         }
         authorIds += "}";
         orgIds += "}";
