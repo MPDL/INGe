@@ -257,7 +257,7 @@ public class UserAgentAnalyser
       if ((pos=userAgent.indexOf("Nintendo Wii"))>-1) {
           res = getArray("Nintendo Wii","Nintendo Wii","Nintendo Wii"+getVersionNumber(userAgent,pos+10));
       } else
-      res = getArray("<b>?</b>","<b>?</b>","<b>?</b>");
+      res = getArray("unknown","unknown","unknown");
       return res;
     }
 
@@ -373,7 +373,7 @@ public class UserAgentAnalyser
           userAgent.indexOf("Mozilla/4.5 ")<0) {
           res = getArray("Communicator","Communicator","Communicator"+getVersionNumber(userAgent,pos+8));
       } else
-      return getArray("<B>?</B>","<B>?</B>","<B>?</B>");
+      return getArray("unknown","unknown","unknown");
       return res;
     }
 
