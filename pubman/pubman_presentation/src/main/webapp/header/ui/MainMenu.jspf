@@ -64,10 +64,10 @@
 	
 	<h:outputLink id="lnkCartItems" styleClass="free_area0" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'CartItemsPage'}" >
 		<h:outputText value="#{lbl.mainMenu_lblCart} "/>
-		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
+		<h:outputText value=" (#{PubItemStorageSessionBean.displayNumber})" />
 	</h:outputLink>
 	<h:panelGroup styleClass="free_area0" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier == 'CartItemsPage'}">
 		<h:outputText value="#{lbl.mainMenu_lblCart}"  />
-		<h:outputText value=" (#{PubItemStorageSessionBean.storedPubItemsSize})" />
+		<h:outputText value=" (#{PubItemStorageSessionBean.displayNumber})" />
 	</h:panelGroup>
 </div>

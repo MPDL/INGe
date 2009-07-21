@@ -24,6 +24,14 @@ public class PubItemStorageSessionBean extends FacesBean
      */
     private Map<String, ItemRO> storedPubItems;
     
+    /**
+     * The number that represents the difference between the real number of items in the basket and the number that is displayed. 
+     * These might differ due to the problem that items can change their state and are then not retrieved by the filter any more.
+     * In this case, this number is adapted to the number of items retrieved via the filter query.
+     */
+    private int diffDisplayNumber = 0;
+    
+    
     public PubItemStorageSessionBean()
     {
         storedPubItems = new HashMap<String, ItemRO>();
@@ -52,5 +60,25 @@ public class PubItemStorageSessionBean extends FacesBean
     {
         return storedPubItems;
     }
+
+
+    public void setDiffDisplayNumber(int diffDisplayNumber)
+    {
+        this.diffDisplayNumber = diffDisplayNumber;
+    }
+
+
+    public int getDiffDisplayNumber()
+    {
+        return diffDisplayNumber;
+    }
+    
+    public int getDisplayNumber()
+    {
+        return getStoredPubItemsSize() - diffDisplayNumber;
+    }
+
+
+   
 
 }
