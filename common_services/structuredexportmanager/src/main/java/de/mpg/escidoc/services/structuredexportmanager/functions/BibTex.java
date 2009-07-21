@@ -532,7 +532,7 @@ public class BibTex {
 	 */
 	public static String texString(String str)
 	{
-		if ( str==null ) return null;
+		if ( str==null || "".equals(str.trim()) ) return null;
 		for( Map.Entry<String, String> entry: ENTITIES.entrySet() )
 			str = str.replace(entry.getKey(), entry.getValue());
 		return str;
