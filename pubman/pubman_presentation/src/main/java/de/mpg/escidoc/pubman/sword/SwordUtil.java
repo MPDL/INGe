@@ -54,8 +54,6 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
-import net.sf.saxon.om.Validation;
-
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
@@ -67,7 +65,6 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
-import org.purl.sword.base.Collection;
 import org.purl.sword.base.Deposit;
 import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
@@ -79,7 +76,6 @@ import org.w3.atom.Source;
 import org.w3.atom.Summary;
 import org.w3.atom.Title;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidItemStatusException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -135,9 +131,9 @@ public class SwordUtil extends FacesBean
     //Format of the provided Metadata
     private String format = "";
     private String depositXml ="";
-    
+
     private String validationPoint;
-    
+
 
     //Constants
     private final String acceptedFormat = "application/zip";
@@ -145,7 +141,7 @@ public class SwordUtil extends FacesBean
     private final String mdFormatEscidoc = ".xml";
     private final String mdFormatBibTex = ".bib";
     private final String mdFormatEndnote = ".enl";
-    
+
     private final String itemPath = "/pubman/item/";
     private final String serviceDocUrl = "faces/sword/servicedocument";
     private final String validationPointAccept = "accept_item";
@@ -155,13 +151,16 @@ public class SwordUtil extends FacesBean
     private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
 
     /**
-     * Public constructor
+     * Public constructor.
      */
     public SwordUtil()
     {
         this.init();
     }
 
+    /**
+     * Initialisation method.
+     */
     public void init()
     {
         this.depositServlet = new PubManDepositServlet();
@@ -189,7 +188,7 @@ public class SwordUtil extends FacesBean
             {
                 String handle = this.loginUser(username, pwd);
                 loginHelper.setESciDocUserHandle(handle);
-                userVO = loginHelper.getAccountUser();                
+                userVO = loginHelper.getAccountUser();
             }
             catch (Exception e)
             {
@@ -199,11 +198,11 @@ public class SwordUtil extends FacesBean
         }
         return userVO;
     }
-//    
+//
 //    /**
 //     * Retrieves all collections a user may deposit to.
 //     * @param user
-//     * @return Vector with all collections 
+//     * @return Vector with all collections
 //     */
 //    public Vector <Collection> getDepositCollection (AccountUserVO user)
 //    {
@@ -215,7 +214,7 @@ public class SwordUtil extends FacesBean
 //        for (int i = 0; i < contextList.size(); i++)
 //        {
 //            PubContextVOPresentation pubContext = contextList.get(i);
-//            //Create collection object for all PubContextVOPresentation objects
+//            //Create collection for all PubContextVOPresentation objects
 //            Collection col = new Collection();
 //            col.setTitle(pubContext.getName());
 //            col.setAbstract(pubContext.getDescription());
@@ -244,49 +243,49 @@ public class SwordUtil extends FacesBean
      */
     public boolean checkCollection (String collection, AccountUserVO user)
     {
-        List <PubContextVOPresentation> contextList = null;
+        List < PubContextVOPresentation > contextList = null;
         ContextListSessionBean contextListBean = new ContextListSessionBean();
         contextList = contextListBean.getDepositorContextList();
-        for (int i =0; i < contextList.size(); i++)
+        for (int i = 0; i < contextList.size(); i++)
         {
             String context = contextList.get(i).getReference().getObjectId();
             if (context.toLowerCase().equals(collection.toLowerCase().trim()))
             {
                 return true;
             }
-        }      
+        }
         return false;
     }
 
     /**
      * Logs in the given user with the given password.
-     * 
      * @param userid The id of the user to log in.
      * @param password The password of the user to log in.
      * @return The handle for the logged in user.
      * @throws HttpException
      * @throws IOException
      * @throws ServiceException
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
-    public String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
+    public String loginUser(String userid, String password)
+        throws HttpException, IOException, ServiceException, URISyntaxException
     {
         String frameworkUrl = ServiceLocator.getFrameworkUrl();
-        StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//" );
-        if (tokens.countTokens() != NUMBER_OF_URL_TOKENS ) 
+        StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
+        if (tokens.countTokens() != NUMBER_OF_URL_TOKENS )
         {
-            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+            throw new IOException ( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
         }
         tokens.nextToken();
         StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
 
-        if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) 
+        if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS )
         {
             throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
         }
         String host = hostPort.nextToken();
-        int port = Integer.parseInt(hostPort.nextToken() );
-        
+        int port = Integer.parseInt(hostPort.nextToken());
+
         HttpClient client = new HttpClient();
 
         client.getHostConfiguration().setHost(host, port, "http");
@@ -300,7 +299,7 @@ public class SwordUtil extends FacesBean
 
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(host, port, "/", false, 
+        Cookie[] logoncookies = cookiespec.match(host, port, "/", false,
                 client.getState().getCookies());
 
         Cookie sessionCookie = logoncookies[0];
@@ -332,24 +331,25 @@ public class SwordUtil extends FacesBean
         }
         return userHandle;
     }
-    
+
     /**
      * @param fc
      * @throws IOException
      * @throws ServiceException
      * @throws URISyntaxException
      */
-    public void logoutUser() throws IOException, ServiceException, URISyntaxException
+    public void logoutUser()
+        throws IOException, ServiceException, URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
 
         fc.getExternalContext().redirect(
                 ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target="
                 + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + "?logout=true", "UTF-8"));   
+                        + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                        + "?logout=true", "UTF-8"));
     }
-    
+
     /**
      * Creates a Account User.
      * @param user
@@ -360,7 +360,7 @@ public class SwordUtil extends FacesBean
     {
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         String handle = "";
-        
+
         try
         {
             handle = this.loginUser(user, pwd);
@@ -376,15 +376,16 @@ public class SwordUtil extends FacesBean
     /**
      * This method takes a zip file and reads out the entries.
      * @param in
-     * @throws TechnicalException 
-     * @throws NamingException 
-     * @throws SWORDContentTypeException 
+     * @throws TechnicalException
+     * @throws NamingException
+     * @throws SWORDContentTypeException
      */
-    public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws ItemInvalidException, ContentStreamNotFoundException, Exception
+    public PubItemVO readZipFile(InputStream in, AccountUserVO user)
+        throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         String item = null;
-        Vector <byte[]> attachements = new Vector<byte[]>();
-        Vector <String> attachementsNames = new Vector<String>();
+        Vector < byte[]> attachements = new Vector< byte[]>();
+        Vector < String> attachementsNames = new Vector< String>();
         PubItemVO pubItem = null;
         int size = 0;
         final int bufLength = 1024;
@@ -398,27 +399,27 @@ public class SwordUtil extends FacesBean
             ZipEntry zipentry;
             ZipInputStream zipinputstream = new ZipInputStream(in);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            
-            while ((zipentry = zipinputstream.getNextEntry()) != null) 
-            { 
+
+            while ((zipentry = zipinputstream.getNextEntry()) != null)
+            {
                 count++;
                 this.logger.debug("Processing zip entry file: " + zipentry.getName());
                 baos = new ByteArrayOutputStream();
-                while ((readReturn = zipinputstream.read( buffer ))!= -1)
+                while ((readReturn = zipinputstream.read(buffer)) != -1)
                 {
-                   baos.write(buffer, 0, readReturn );
-                } 
+                   baos.write(buffer, 0, readReturn);
+                }
 
                 this.filenames.add(zipentry.getName());
                 //Retrieve the metadata
-                
+
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEscidoc))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.depositXml = item;
-                    this.format=this.mdFormatEscidoc;
+                    this.format = this.mdFormatEscidoc;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatTEI))
                 {
@@ -426,7 +427,7 @@ public class SwordUtil extends FacesBean
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.depositXml = item;
-                    this.format=this.mdFormatTEI;
+                    this.format = this.mdFormatTEI;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatBibTex))
                 {
@@ -434,7 +435,7 @@ public class SwordUtil extends FacesBean
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.depositXml = item;
-                    this.format=this.mdFormatBibTex;
+                    this.format = this.mdFormatBibTex;
                 }
                 if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEndnote))
                 {
@@ -442,22 +443,22 @@ public class SwordUtil extends FacesBean
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
                     this.logger.debug("Provided Metadata:" + item);
                     this.depositXml = item;
-                    this.format=this.mdFormatEndnote;
+                    this.format = this.mdFormatEndnote;
                 }
 
                     attachements.add(baos.toByteArray());
                     attachementsNames.add(zipentry.getName());
-      
+
                 zipinputstream.closeEntry();
             }
-            zipinputstream.close();            
+        zipinputstream.close();
 
         }
         catch (Exception e)
         {
             //TODO exception handling
             e.printStackTrace();
-        }        
+        }
         if (count == 0)
         {
             this.logger.info("No zip file was provided.");
@@ -470,60 +471,64 @@ public class SwordUtil extends FacesBean
     }
 
     /**
-     * 
      * @param item
      * @param files
      * @return
      * @throws NamingException
      * @throws TechnicalException
-     * @throws SWORDContentTypeException 
+     * @throws SWORDContentTypeException
      */
-    private PubItemVO processFiles(String item, Vector<byte[]> files, Vector<String> names, AccountUserVO user) throws ItemInvalidException, ContentStreamNotFoundException, Exception
+    private PubItemVO processFiles(String item, Vector<byte[]> files, Vector<String> names, AccountUserVO user)
+        throws ItemInvalidException, ContentStreamNotFoundException, Exception
     {
         PubItemVO itemVO = null;
 
         if (item == null)
         {
             throw new ContentStreamNotFoundException();
-        } 
+        }
 
         try
         {
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            
+            XmlTransforming xmlTransforming = (XmlTransforming)
+                initialContext.lookup(XmlTransforming.SERVICE_NAME);
+
             if (this.format.equals(this.mdFormatEscidoc))
             {
                 //No transformation needed
             }
-            
+
             //Transform from tei to escidoc-publication-item
             if (this.format.equals(this.mdFormatTEI))
             {
-                TransformationBean transformer = new TransformationBean ();
+                TransformationBean transformer = new TransformationBean();
                 Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
                 Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-                item = new String (transformer.transform(item.getBytes(), teiFormat, escidocFormat, this.transformationService), "UTF-8");
-            }     
-            
+                item = new String(transformer.transform(item.getBytes(), teiFormat,
+                        escidocFormat, this.transformationService), "UTF-8");
+            }
+
             //Transform from bibtex to escidoc-publication-item
             if (this.format.equals(this.mdFormatBibTex))
             {
-                TransformationBean transformer = new TransformationBean ();
+                TransformationBean transformer = new TransformationBean();
                 Format bibFormat = new Format("bibtex", "text/plain", "*");
                 Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-                item = new String (transformer.transform(item.getBytes(), bibFormat, escidocFormat, this.transformationService), "UTF-8");
+                item = new String(transformer.transform(item.getBytes(),
+                        bibFormat, escidocFormat, this.transformationService), "UTF-8");
             }
-            
+
             //Transform from endnote to escidoc-publication-item
             if (this.format.equals(this.mdFormatEndnote))
             {
-                TransformationBean transformer = new TransformationBean ();
+                TransformationBean transformer = new TransformationBean();
                 Format endFormat = new Format("endnote", "text/plain", "UTF-8");
                 Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-                item = new String (transformer.transform(item.getBytes(), endFormat, escidocFormat, this.transformationService), "UTF-8");
+                item = new String(transformer.transform(item.getBytes(), endFormat,
+                        escidocFormat, this.transformationService), "UTF-8");
             }
-            
+
             //Create item
             itemVO = xmlTransforming.transformToPubItem(item);
             this.logger.debug("Item successfully created.");
@@ -536,40 +541,41 @@ public class SwordUtil extends FacesBean
            ValidationReportVO report = new ValidationReportVO();
            report.getItems().add(itemReport);
            throw new ItemInvalidException(report);
-        }       
-        
+        }
+
         //Attach files to the item
-        for (int i = 0; i< files.size(); i++)
+        for (int i = 0; i < files.size(); i++)
         {
-            byte[] file = files.get(i);   
+            byte[] file = files.get(i);
             String name = names.get(i);
             FileVO fileVO = this.convertToFile(file, name, user);
             itemVO.getFiles().add(fileVO);
         }
-        
+
         return itemVO;
     }
-    
+
     /**
-     * 
      * @param user
      * @param item
      * @return Saved pubItem
-     * @throws NamingException 
+     * @throws NamingException
      * @throws AuthorizationException
      * @throws SecurityException
      * @throws TechnicalException
      * @throws URISyntaxException
-     * @throws NamingException 
-     * @throws ItemInvalidException 
-     * @throws PubManException 
-     * @throws DepositingException 
+     * @throws NamingException
+     * @throws ItemInvalidException
+     * @throws PubManException
+     * @throws DepositingException
      */
-    public PubItemVO doDeposit (AccountUserVO user, PubItemVO item) throws ItemInvalidException, PubItemStatusInvalidException, Exception
+    public PubItemVO doDeposit(AccountUserVO user, PubItemVO item)
+        throws ItemInvalidException, PubItemStatusInvalidException, Exception
     {
         PubItemVO depositedItem = null;
         InitialContext initialContext = new InitialContext();
-        PubItemDepositing depositBean = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+        PubItemDepositing depositBean = (PubItemDepositing) 
+            initialContext.lookup(PubItemDepositing.SERVICE_NAME);
         String method = this.getMethod(item);
 
         if (method == null)
@@ -600,11 +606,13 @@ public class SwordUtil extends FacesBean
     public PublicationAdminDescriptorVO.Workflow getWorkflow()
     {
 
-        if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD))
+        if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()
+                == PublicationAdminDescriptorVO.Workflow.STANDARD))
         {
             return Workflow.STANDARD;
         }
-        if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE))
+        if ((getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()
+                == PublicationAdminDescriptorVO.Workflow.SIMPLE))
         {
             return Workflow.SIMPLE;
         }
@@ -630,15 +638,21 @@ public class SwordUtil extends FacesBean
             isStateReleased = item.getVersion().getState().equals(PubItemVO.State.RELEASED);
             isStateInRevision = item.getVersion().getState().equals(PubItemVO.State.IN_REVISION);
         }
-        
-        isWorkflowStandard = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
-        isWorkflowSimple = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
+
+        isWorkflowStandard = getItemControllerSessionBean().getCurrentContext()
+            .getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO
+            .Workflow.STANDARD;
+        isWorkflowSimple = getItemControllerSessionBean().getCurrentContext()
+            .getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO
+            .Workflow.SIMPLE;
 
         boolean isModerator = loginHelper.getAccountUser().isModerator(item.getContext());
         boolean isOwner = true;
         if (item.getOwner() != null)
         {
-            isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(item.getOwner().getObjectId()) : false);
+            isOwner = (loginHelper.getAccountUser().getReference() != null ?
+                    loginHelper.getAccountUser().getReference().getObjectId()
+                    .equals(item.getOwner().getObjectId()) : false);
         }
 
         if ((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner)
@@ -666,9 +680,9 @@ public class SwordUtil extends FacesBean
      */
     public String getWorkflowAsString(PubContextVOPresentation pubContext)
     {
-        boolean isWorkflowStandard = pubContext.getAdminDescriptor().getWorkflow() == 
+        boolean isWorkflowStandard = pubContext.getAdminDescriptor().getWorkflow() ==
             PublicationAdminDescriptorVO.Workflow.STANDARD;
-        boolean isWorkflowSimple = pubContext.getAdminDescriptor().getWorkflow() == 
+        boolean isWorkflowSimple = pubContext.getAdminDescriptor().getWorkflow() ==
             PublicationAdminDescriptorVO.Workflow.SIMPLE;
 
 
@@ -687,7 +701,8 @@ public class SwordUtil extends FacesBean
     }
 
     /**
-     * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
+     * Returns a reference to the scoped data bean
+     * (the ItemControllerSessionBean).
      * @return a reference to the scoped data bean
      */
     protected de.mpg.escidoc.pubman.ItemControllerSessionBean getItemControllerSessionBean()
@@ -695,7 +710,7 @@ public class SwordUtil extends FacesBean
         return (de.mpg.escidoc.pubman.ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
-    public Vector<String> getFileNames ()
+    public Vector<String> getFileNames()
     {
         return this.filenames;
     }
@@ -708,7 +723,8 @@ public class SwordUtil extends FacesBean
      * @return FileVO
      * @throws Exception
      */
-    private FileVO convertToFile (byte[] file, String name, AccountUserVO user) throws Exception
+    private FileVO convertToFile (byte[] file, String name, AccountUserVO user)
+        throws Exception
     {
         MdsFileVO mdSet = new MdsFileVO();
         FileVO fileVO = new FileVO();
@@ -718,7 +734,7 @@ public class SwordUtil extends FacesBean
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
         TransformationBean transformer = new TransformationBean();
-        
+
         //Hack: FileNameMap class does not know tei, bibtex and endnote
         if (name.toLowerCase().endsWith(".tei"))
         {
@@ -729,29 +745,32 @@ public class SwordUtil extends FacesBean
             mimeType = "text/plain";
         }
 
-        URL fileURL = this.uploadFile(in, mimeType, user.getHandle()); 
-        
+        URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
+
         if (fileURL != null && !fileURL.toString().trim().equals(""))
-        {                           
+        {
             if (this.format.equals(this.mdFormatTEI))
             {
                 //Copyright information are imported from metadata file
                 InitialContext initialContext = new InitialContext();
                 XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
-                Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
-                fileXml = new String (transformer.transform(this.depositXml.getBytes(), teiFormat, escidocComponentFormat, "escidoc"),"UTF-8");
+                Format teiFormat = 
+                    new Format("peer_tei", "application/xml", "UTF-8");
+                Format escidocComponentFormat = 
+                    new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
+                fileXml = new String (transformer.transform(this.depositXml.getBytes(),
+                        teiFormat, escidocComponentFormat, "escidoc"),"UTF-8");
                 try
                 {
                     fileVO = xmlTransforming.transformToFileVO(fileXml);
                     mdSet = fileVO.getDefaultMetadata();
                 }
-                catch(TechnicalException e)
+                catch (TechnicalException e)
                 {
                     this.logger.error("File Xml could not be transformed into FileVO. " , e);
                 }
             }
-            
+
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
             fileVO.setDefaultMetadata(mdSet);
@@ -765,7 +784,7 @@ public class SwordUtil extends FacesBean
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(fileURL.toString());
             fileVO.getDefaultMetadata().setSize(file.length);
-            //This is the provided metadata which we store as a component 
+            //This is the provided metadata which we store as a component
             if (name.endsWith(this.mdFormatEscidoc) || name.endsWith(this.mdFormatTEI))
             {
                 fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
@@ -773,22 +792,22 @@ public class SwordUtil extends FacesBean
             else
             {
                 fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.toString());
-            }           
+            }
         }
 
         return fileVO;
     }
-    
+
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
-     * 
      * @param InputStream to upload
      * @param mimetype The mimetype of the file
      * @param userHandle The userhandle to use for upload
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception
+    protected URL uploadFile(InputStream in, String mimetype, String userHandle)
+        throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
@@ -807,7 +826,7 @@ public class SwordUtil extends FacesBean
 
     public SWORDEntry createResponseAtom (PubItemVO item, Deposit deposit, boolean valid)
     {
-        SWORDEntry se = new SWORDEntry();        
+        SWORDEntry se = new SWORDEntry();
         PubManSwordServer server = new PubManSwordServer();
 
         //This info can only be filled if item was successfully created
@@ -821,14 +840,15 @@ public class SwordUtil extends FacesBean
             TimeZone utc = TimeZone.getTimeZone("UTC");
             sdf.setTimeZone(utc);
             String milliFormat = sdf.format(new Date());
-            se.setUpdated(milliFormat);          
+            se.setUpdated(milliFormat);
 
             //Add the author names
-            for (int i=0; i< item.getMetadata().getCreators().size(); i++)
+            for (int i =0; i< item.getMetadata().getCreators().size(); i++)
             {
                 Author author = new Author();
-                if (item.getMetadata().getCreators().get(i).getPerson().getCompleteName() != null && 
-                        !item.getMetadata().getCreators().get(i).getPerson().getCompleteName().equals(""))
+                if (item.getMetadata().getCreators().get(i).getPerson().getCompleteName() 
+                        != null && !item.getMetadata().getCreators().get(i).getPerson()
+                        .getCompleteName().equals(""))
                 {
                     author.setName(item.getMetadata().getCreators().get(i).getPerson().getCompleteName());
                 }
@@ -838,57 +858,58 @@ public class SwordUtil extends FacesBean
                     if (item.getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
                     {
                         name += item.getMetadata().getCreators().get(i).getPerson().getGivenName()  + ", ";
-                    }                         
+                    }
                     name += item.getMetadata().getCreators().get(i).getPerson().getFamilyName();
                     author.setName(name);
                 }
-                se.addAuthors(author);     
-            }   
+                se.addAuthors(author);
+            }
         }
 
         Summary s = new Summary();
-        Vector <String> filenames = this.getFileNames();
+        Vector < String> filenames = this.getFileNames();
         String filename = "";
-        for (int i = 0; i< filenames.size(); i++)
+        for (int i = 0; i < filenames.size(); i++)
         {
             if (filename.equals(""))
             {
-                filename = filenames.get(i);    
+                filename = filenames.get(i);
             }
             else
             {
-                filename = filename + " ," + filenames.get(i);    
-            }                           
-        }   
+                filename = filename + " ," + filenames.get(i);
+            }
+        }
         s.setContent(filename);
         se.setSummary(s);
 
         //Only set content if item was deposited
-        if (! deposit.isNoOp() && item != null && valid)
+        if (!deposit.isNoOp() && item != null && valid)
         {
             Content content = new Content();
             content.setSource(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
             se.setContent(content);
         }
-        
+
         Source source = new Source();
         Generator generator = new Generator();
         generator.setContent(server.getBaseURL());
         source.setGenerator(generator);
         se.setSource(source);
 
-        se.setTreatment(this.treatmentText);           
-        se.setNoOp(deposit.isNoOp());              
+        se.setTreatment(this.treatmentText);
+        se.setNoOp(deposit.isNoOp());
 
         return se;
     }
 
-    public ValidationReportVO validateItem(PubItemVO item) throws NamingException
+    public ValidationReportVO validateItem(PubItemVO item)
+        throws NamingException
     {
         InitialContext initialContext = new InitialContext();
         ItemValidating itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         String error = "";
-        
+
         //To set the validation point
         this.getMethod(item);
 
@@ -902,14 +923,14 @@ public class SwordUtil extends FacesBean
 //            {
 //                for (int i = 0; i < report.getItems().size(); i++)
 //                {
-//                    itemReport = report.getItems().get(i);                   
+//                    itemReport = report.getItems().get(i);
 //                    if (itemReport.isRestrictive())
 //                    {
 //                        error +=  itemReport.getContent() + "\n";
 //                    }
 //                }
 //            }
-//            else 
+//            else
 //            {
 //                error = null;
 //            }
@@ -920,8 +941,7 @@ public class SwordUtil extends FacesBean
         }
         return report;
     }
-    
-    
+
     public String getValidationPoint()
     {
         return this.validationPoint;
@@ -931,12 +951,12 @@ public class SwordUtil extends FacesBean
     {
         this.validationPoint = validationPoint;
     }
-    
+
     public String getAcceptedFormat()
     {
         return acceptedFormat;
     }
-    
+
     public String getTreatmentText()
     {
         return treatmentText;

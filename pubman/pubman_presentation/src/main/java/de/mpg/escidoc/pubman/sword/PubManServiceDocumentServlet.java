@@ -32,37 +32,18 @@ package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URISyntaxException;
-import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
-import org.purl.sword.base.Collection;
 import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.ServiceDocumentRequest;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 
@@ -78,56 +59,58 @@ public class PubManServiceDocumentServlet extends HttpServlet {
     private AccountUserVO currentUser;
     private PubManSwordServer swordServer = new PubManSwordServer();
 
-    
-    /** 
-     * Initialise the servlet. 
+
+    /**
+     * Initialise the servlet.
      */
-    public void init() {
+    public void init()
+    {
         // Instantiate the correct SWORD Server class
         String className = getServletContext().getInitParameter("server-class");
-        if (className == null) 
+        if (className == null)
         {
             this.log.fatal("Unable to read value of 'sword-server-class' from Servlet context");
-        } 
-        else 
+        }
+        else
         {
-            try 
+            try
             {
                 this.swordServer = (PubManSwordServer)Class.forName(className).newInstance();
-            } 
-            catch (Exception e) 
+            }
+            catch (Exception e)
             {
                 this.log.fatal("Unable to instantiate class from 'sword-server-class': " + className);
             }
         }
     }
-    
+
     /**
-     * Process the GET request. 
+     * Process the GET request.
      * @param HttpServletRequest
      * @param HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
     protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException, IOException
+                         HttpServletResponse response) 
+                         throws ServletException, IOException
     {
         // Create the ServiceDocumentRequest
         ServiceDocumentRequest sdr = new ServiceDocumentRequest();
         SwordUtil util = new SwordUtil();
         AccountUserVO user = null;
-        
+
         String usernamePassword = this.getUsernamePassword(request);
-        if ((usernamePassword != null) && (!usernamePassword.equals(""))) 
+        if ((usernamePassword != null) && (!usernamePassword.equals("")))
         {
             int p = usernamePassword.indexOf(":");
             if (p != -1) {
                 sdr.setUsername(usernamePassword.substring(0, p));
-                sdr.setPassword(usernamePassword.substring(p+1));
+                sdr.setPassword(usernamePassword.substring(p + 1));
                 user = util.getAccountUser(sdr.getUsername(), sdr.getPassword());
                 this.currentUser = user;
-            } 
-        } 
+            }
+        }
         else
         {
             String s = "Basic realm=\"SWORD\"";
@@ -135,8 +118,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        
-        try 
+
+        try
         {
             String doc = swordServer.doServiceDocument(sdr);
             this.currentUser = null;
@@ -147,8 +130,8 @@ public class PubManServiceDocumentServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.write(doc);
             out.flush();
-        } 
-        catch (SWORDAuthenticationException sae) 
+        }
+        catch (SWORDAuthenticationException sae)
         {
             response.setHeader("WWW-Authenticate", sae.getLocalizedMessage());
             response.setStatus(401);
@@ -160,23 +143,30 @@ public class PubManServiceDocumentServlet extends HttpServlet {
             this.log.error(e);
         }
     }
-   
+
     /** 
-     * Process the POST request. This will return an unimplemented response. 
+     * Process the POST request. This will return an unimplemented response.
+     * @param HttpServletRequest
+     * @param HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
      */
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException
+                          HttpServletResponse response) 
+                          throws ServletException, IOException
     {
         response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
     }
-    
+
     /**
-     * Utiliy method to return the username and password (separated by a colon ':')
+     * Utiliy method to return the username and password
+     * (separated by a colon ':').
      * 
      * @param request
      * @return The username and password combination
      */
-    private String getUsernamePassword(HttpServletRequest request) {
+    private String getUsernamePassword (HttpServletRequest request)
+    {
        try {
           String authHeader = request.getHeader("Authorization");
           if (authHeader != null) {
@@ -195,6 +185,4 @@ public class PubManServiceDocumentServlet extends HttpServlet {
        }
        return null;
     }
-    
-    
 }

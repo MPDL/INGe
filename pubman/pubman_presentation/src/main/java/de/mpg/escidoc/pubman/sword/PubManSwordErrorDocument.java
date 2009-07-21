@@ -2,8 +2,6 @@ package de.mpg.escidoc.pubman.sword;
 
 import java.io.StringWriter;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,48 +14,69 @@ import javax.xml.transform.stream.StreamResult;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
-import org.apache.xmlbeans.XmlOptions;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
+/**
+ * This class implements the SWORD error document.
+ *
+ * @author kleinfe1 (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class PubManSwordErrorDocument
 {
-    
+
     private String href;
     private String summary ="";
     private int status;
     private swordError errorDesc;
 
-    //[415] Wrong metadata format 
+    //[415] Wrong metadata format
     private static String ErrorContent = "http://purl.org/net/sword/error/ErrorContent";
-    //[400] Error in request 
-    private static String ErrorBadRequest = "http://purl.org/net/sword/error/ErrorBadRequest";       
+    //[400] Error in request
+    private static String ErrorBadRequest = "http://purl.org/net/sword/error/ErrorBadRequest";
     //[412]
     private static String MediationNotAllowed = "http://purl.org/net/sword/error/MediationNotAllowed";
     //[400]
     private static String ValidationFailure = "http://purl.org/escidoc/sword/error/ValidationFailure";
-    //[400] User not recognized 
-    private static String AuthentificationFailure = "http://purl.org/escidoc/sword/error/AuthentificationFailure"; 
-    //[403] User has no depositing rights at all, or for the provided collection 
-    private static String AuthorisationFailure = "http://purl.org/escidoc/sword/error/AuthorisationFailure"; 
+    //[400] User not recognized
+    private static String AuthentificationFailure = "http://purl.org/escidoc/sword/error/AuthentificationFailure";
+    //[403] User has no depositing rights at all, or for the provided collection
+    private static String AuthorisationFailure = "http://purl.org/escidoc/sword/error/AuthorisationFailure";
     //[500] 
-    private static String InternalError = "http://purl.org/escidoc/sword/error/InternalError"; 
-    
+    private static String InternalError = "http://purl.org/escidoc/sword/error/InternalError";
+
+    /**
+     * Public constructor.
+     */
     public PubManSwordErrorDocument()
     {
-        
+
     }
-    
-    public enum swordError{
-        ErrorContent,  ErrorBadRequest, MediationNotAllowed, ValidationFailure, AuthentificationFailure, AuthorisationFailure, InternalError
+
+    /**
+     * Poosible errors during sword deposit.
+     */
+    public enum swordError
+    {
+        ErrorContent,  ErrorBadRequest, MediationNotAllowed,
+        ValidationFailure, AuthentificationFailure,
+        AuthorisationFailure, InternalError
     }
-    
-    public String createErrorDoc() throws ParserConfigurationException, TransformerException
+
+    /**
+     * Creation of the atom error document.
+     * @return XML
+     * @throws ParserConfigurationException
+     * @throws TransformerException
+     */
+    public String createErrorDoc()
+        throws ParserConfigurationException, TransformerException
     {
         DocumentBuilder documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
-        
+
         this.processError();
         Document document = documentBuilder.newDocument();
         Element error = document.createElementNS("http://purl.org/net/sword/","error");
@@ -77,17 +96,17 @@ public class PubManSwordErrorDocument
         PubManSwordServer server = new PubManSwordServer();
         generator.setTextContent(server.getBaseURL());
         Element treatment = document.createElementNS("http://purl.org/net/sword/", "treatment");
-        treatment.setTextContent("Deposit failed");      
+        treatment.setTextContent("Deposit failed");
         treatment.setPrefix("sword");
-        
+
         error.appendChild(title);
         error.appendChild(updated);
         error.appendChild(summary);
         error.appendChild(generator);
         error.appendChild(treatment);
-        
+
         document.appendChild(error);
-        
+
         //Transform to xml
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -96,10 +115,13 @@ public class PubManSwordErrorDocument
         transformer.transform(source, result);
         String xmlString = result.getWriter().toString();
 
-        
         return xmlString;
     }
-    
+
+
+    /**
+     * Error classifiaction.
+     */
     public void processError()
     {
         if (this.errorDesc.equals(swordError.AuthentificationFailure))
@@ -138,7 +160,7 @@ public class PubManSwordErrorDocument
             this.setHref(this.InternalError);
         }
     }
-    
+
 //    public PubManSwordErrorDocument getErrorStatus (PubManSwordErrorDocument errorDoc)
 //    {
 //        if (errorDoc.errorDesc.equals(swordError.AuthentificationFailure))
@@ -178,18 +200,18 @@ public class PubManSwordErrorDocument
 //        }
 //        return errorDoc;
 //    }
-    
+
     private String getCurrentTimeAsString ()
     {
         Date date;
         String dateS;
-        
-        date = new Date (System.currentTimeMillis());
+
+        date = new Date(System.currentTimeMillis());
         dateS = date.toLocaleString();
-        
-        return dateS;        
+
+        return dateS;
     }
-    
+
     public String getHref()
     {
         return this.href;
@@ -199,7 +221,7 @@ public class PubManSwordErrorDocument
     {
         this.href = href;
     }
-    
+
     public String getSummary()
     {
         return this.summary;
@@ -209,7 +231,7 @@ public class PubManSwordErrorDocument
     {
         this.summary += summary;
     }
-    
+
     public void resetSummary()
     {
         this.summary = "";
