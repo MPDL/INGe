@@ -1005,7 +1005,6 @@ public class EasySubmission extends FacesBean
         PubItemVO itemVO = null;
         byte[] fetchedItemByte = null;
         DataHandlerBean dataHandler = new DataHandlerBean();
-        Util dataHandlerUtil = new Util();
         
        //Fetch data from external system 
         if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean().getImportMethod()))
@@ -1026,7 +1025,7 @@ public class EasySubmission extends FacesBean
             if (this.getEasySubmissionSessionBean().isFulltext() 
                         && ((!this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().equals(this.FULLTEXT_NONE))
                         && !fetchedItem.equals("")) 
-                        && !service.toLowerCase().equals("escidoc"))
+                        && !service.equalsIgnoreCase("escidoc"))
                 {                   
                     DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
                     Vector<FullTextVO>ftFormats = source.getFtFormats();
@@ -1070,9 +1069,9 @@ public class EasySubmission extends FacesBean
                          fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                          fileVO.setVisibility(dataHandler.getVisibility());
                          fileVO.setDefaultMetadata(fileMd);
-                         fileVO.getDefaultMetadata().setTitle(new TextVO(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding()));
+                         fileVO.getDefaultMetadata().setTitle(new TextVO(getServiceID().trim()+ dataHandler.getFileEnding()));
                          fileVO.setMimeType(dataHandler.getContentType());
-                         fileVO.setName(dataHandlerUtil.trimIdentifier(service,getServiceID()).trim()+ dataHandler.getFileEnding());
+                         fileVO.setName(getServiceID().trim()+ dataHandler.getFileEnding());
                                 
                          FormatVO formatVO = new FormatVO();
                          formatVO.setType("dcterms:IMT");
@@ -1135,7 +1134,7 @@ public class EasySubmission extends FacesBean
                   if (this.getEasySubmissionSessionBean().isFulltext()
                           && this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue() != null 
                           && this.getEasySubmissionSessionBean().getRadioSelectFulltext().getValue().toString().equals(this.FULLTEXT_ALL) 
-                          && service.toLowerCase().equals("escidoc"))
+                          && service.equalsIgnoreCase("escidoc"))
                   {
                         boolean hasFile = false;
                         List <FileVO> fetchedFileList = itemVO.getFiles(); 
