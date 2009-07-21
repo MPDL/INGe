@@ -117,7 +117,7 @@ public class Format implements Serializable
     
     public String toString()
     {
-        return "Format[" + name + "," + type + "," + encoding + "]";
+        return "Format[" + this.name + "," + this.type + "," + this.encoding + "]";
     }
     
     /**     
@@ -136,16 +136,16 @@ public class Format implements Serializable
         }        
         else        
         {            
-            return (this.name == null ? ((Format)other).name == null : this.name.equalsIgnoreCase(((Format) other).name))                    
-                && (this.type == null ? ((Format)other).type == null : this.type.equalsIgnoreCase(((Format) other).type))                    
-                && (this.encoding == null ? ((Format)other).encoding == null : this.encoding.equalsIgnoreCase(((Format) other).encoding));        
+            return (this.name == null ? ((Format) other).name == null : this.name.equalsIgnoreCase(((Format) other).name))                    
+                && (this.type == null ? ((Format) other).type == null : this.type.equalsIgnoreCase(((Format) other).type))                    
+                && (this.encoding == null ? ((Format) other).encoding == null : this.encoding.equalsIgnoreCase(((Format) other).encoding));        
          }
     }
     
     /**     
      * Returns true if this format is contained in the other format.
      */   
-    public boolean matches(Format other)    
+    public boolean matches(Format other)
     {        
         if (other == null)        
         {            

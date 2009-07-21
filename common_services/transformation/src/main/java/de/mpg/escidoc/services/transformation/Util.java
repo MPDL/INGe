@@ -31,7 +31,6 @@
 package de.mpg.escidoc.services.transformation;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Vector;
@@ -49,12 +48,10 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatType;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.transformation.FormatsType;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -139,8 +136,10 @@ public class Util
         }
         else 
         {
-            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) {return false;}
-            else {return true;}
+            if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
+            {return false;}
+            else 
+            {return true;}
         }
     }
     
@@ -240,7 +239,7 @@ public class Util
     }
     
     /**
-     * Normalizes a given mimetype
+     * Normalizes a given mimetype.
      * @param mimetype
      * @return
      */

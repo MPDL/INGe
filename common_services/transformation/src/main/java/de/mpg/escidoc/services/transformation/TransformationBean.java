@@ -33,18 +33,12 @@ package de.mpg.escidoc.services.transformation;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.Set;
 import java.util.Vector;
 
 import javax.ejb.Init;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 
 import org.apache.log4j.Logger;
-import org.jboss.annotation.ejb.RemoteBinding;
 import org.scannotation.AnnotationDB;
 import org.scannotation.ClasspathUrlFinder;
 
@@ -78,7 +72,7 @@ public class TransformationBean implements Transformation
     }
     
     /**
-     * Initializes the Transformation service
+     * Initializes the Transformation service.
      */
     @Init
     public void initialize()
@@ -183,7 +177,7 @@ public class TransformationBean implements Transformation
     {
         Class transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
         byte[] result = null;
-        String methodName ="transform";
+        String methodName = "transform";
         
         if (transformationClass == null)
         {
@@ -194,21 +188,22 @@ public class TransformationBean implements Transformation
         }
         else 
         {
-            try{
+            try
+            {
                 //Instanciate the class
                 ClassLoader cl = this.getClass().getClassLoader();
                 transformationClass = cl.loadClass(transformationClass.getName());
     
                 //Set methods parameters
-                Class[] parameterTypes = new Class[]{ byte[].class, Format.class, Format.class, String.class };
+                Class[] parameterTypes = new Class[]{byte[].class, Format.class, Format.class, String.class };
                 
                 //Call the method
                 Method method = transformationClass.getMethod(methodName, parameterTypes);
 
                 //Execute the method
-                result = (byte[])method.invoke(transformationClass.newInstance(), src, srcFormat, trgFormat, service);
+                result = (byte[]) method.invoke(transformationClass.newInstance(), src, srcFormat, trgFormat, service);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new RuntimeException(e);
             }
@@ -233,7 +228,7 @@ public class TransformationBean implements Transformation
             classPath = classPathFinder.findClassBase(this.getClass());
             //Small hack due to problems with blanks in URLs
             String classPathStr = classPath.toExternalForm();
-            classPath = new URL (java.net.URLDecoder.decode(classPathStr));          
+            classPath = new URL (java.net.URLDecoder.decode(classPathStr));
             
             AnnotationDB anDB = new AnnotationDB();
             anDB.scanArchives(classPath);
@@ -242,7 +237,7 @@ public class TransformationBean implements Transformation
             entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());           
             entetiesV.addAll(entities);
                 
-            for (int i = 0; i< entetiesV.size(); i++)
+            for (int i = 0; i < entetiesV.size(); i++)
             {
                 this.logger.debug(entetiesV.get(i));
                 transformationClass = cl.loadClass(entetiesV.get(i).toString());
@@ -262,12 +257,13 @@ public class TransformationBean implements Transformation
         }
     }
     
-    private Format[] callMethodOnTransformationModules (String methodName, Format param) throws RuntimeException
+    private Format[] callMethodOnTransformationModules(String methodName, Format param) 
+        throws RuntimeException
     {
         Vector<Format[]> allFormats = new Vector<Format[]>();
         Format[] formats = null;
         
-        for (int i=0; i<this.transformationClasses.size(); i++)
+        for (int i = 0; i < this.transformationClasses.size(); i++)
         {
             try
             {
@@ -282,22 +278,22 @@ public class TransformationBean implements Transformation
                     Method method = transformationClass.getMethod(methodName, null);
 
                     //Execute the method
-                    formats = (Format[])method.invoke(transformationClass.newInstance(), null);
+                    formats = (Format[]) method.invoke(transformationClass.newInstance(), null);
                 }
                 else
                 {
                     //Set methods parameters
-                    Class[] parameterTypes = new Class[]{ Format.class }; 
+                    Class[] parameterTypes = new Class[]{Format.class }; 
                     
                     //Call the method
                     Method method = transformationClass.getMethod(methodName, parameterTypes);
                     
                     //Execute the method
-                    formats = (Format[])method.invoke(transformationClass.newInstance(), param);
+                    formats = (Format[]) method.invoke(transformationClass.newInstance(), param);
                 }
                 allFormats.add(formats);
             } 
-            catch(Exception e)
+            catch (Exception e)
             {
                 this.logger.error("An error occurred during the allocation of transformation classes.", e);
                 throw new RuntimeException(e);
@@ -307,13 +303,14 @@ public class TransformationBean implements Transformation
         return this.util.mergeFormats(allFormats);    
     }
     
-    private Class getTransformationClassForTransformation (Format source, Format target) throws RuntimeException
+    private Class getTransformationClassForTransformation(Format source, Format target) 
+        throws RuntimeException
     {
         Class transformationClass = null;
         Format[] targets;
         String methodName = "getTargetFormats";
         
-        for (int i=0; i<this.transformationClasses.size(); i++)
+        for (int i = 0; i < this.transformationClasses.size(); i++)
         {
             try
             {
@@ -323,13 +320,13 @@ public class TransformationBean implements Transformation
                 transformationClass = cl.loadClass(transformationClass.getName());
     
                 //Set methods parameters
-                Class[] parameterTypes = new Class[]{ Format.class };
+                Class[] parameterTypes = new Class[]{Format.class };
                 
                 //Call the method
                 Method method = transformationClass.getMethod(methodName, parameterTypes);
     
                 //Execute the method
-                targets = (Format[])method.invoke(transformationClass.newInstance(), source);
+                targets = (Format[]) method.invoke(transformationClass.newInstance(), source);
                 if (this.util.containsFormat(targets, target))
                 {
                     return transformationClass;
@@ -351,16 +348,15 @@ public class TransformationBean implements Transformation
      * @param to
      * @return true if 'from' can be transformed into 'to', else false
      */
-    public boolean checkTransformation (Format from, Format to)
+    public boolean checkTransformation(Format from, Format to)
     {
         boolean check = false;
-        Util util = new Util();
         
         Format[] targetArr = this.getTargetFormats(from);
-        for (int i=0; i< targetArr.length; i++)
+        for (int i = 0; i < targetArr.length; i++)
         {
             Format target = targetArr[i];
-            if (util.isFormatEqual(target, to))
+            if (this.util.isFormatEqual(target, to))
             {
                 return true;
             }
