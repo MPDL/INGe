@@ -138,7 +138,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 numberOfRecords = 0;
             }
             
-            if (numberOfRecords < pssb.getStoredPubItemsSize() - pssb.getDiffDisplayNumber())
+            if (pssb.getDiffDisplayNumber()>0)
             {
                 error(pssb.getDiffDisplayNumber() + getMessage("basket_ItemsChanged"));
             }
