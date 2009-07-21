@@ -291,16 +291,23 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         oaParam.setParamValue(new StatisticReportRecordStringParamValueVO(String.valueOf(hasOA)));
         paramList.add(oaParam);
         
-        InitialContext ic = new InitialContext();
-        StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-        sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
+       
         
+        String authorIds = "{";
+        String orgIds = "{";
         List<CreatorVO> creatorList = pubItem.getMetadata().getCreators();
         for(CreatorVO creator : creatorList)
         {
             if (creator.getPerson()!=null && creator.getPerson().getIdentifier()!=null && creator.getPerson().getIdentifier().getId()!=null && !creator.getPerson().getIdentifier().getId().equals(""))
             {
-                sl.logAuthorAction(sessionId, ip, creator.getPerson().getIdentifier().getId(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                //sl.logAuthorAction(sessionId, ip, creator.getPerson().getIdentifier().getId(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                authorIds +=  creator.getPerson().getIdentifier().getId() + ","; 
+                /*
+                StatisticReportRecordParamVO authorIdsParam = new StatisticReportRecordParamVO();
+                authorIdsParam.setName("authorId");
+                authorIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(creator.getPerson().getIdentifier().getId()));
+                paramList.add(authorIdsParam);
+                */
             }
             
             if(creator.getPerson()!=null && creator.getPerson().getOrganizationsSize()>0)
@@ -309,17 +316,51 @@ public class SimpleStatistics implements PubItemSimpleStatistics
                 {
                     if(org.getIdentifier()!= null && !org.getIdentifier().equals(""))
                     {
-                        sl.logOrgAction(sessionId, ip, org.getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                        //sl.logOrgAction(sessionId, ip, org.getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                        orgIds += org.getIdentifier() + ",";
+                        /*
+                        StatisticReportRecordParamVO orgIdsParam = new StatisticReportRecordParamVO();
+                        orgIdsParam.setName("orgId");
+                        orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(org.getIdentifier()));
+                        paramList.add(orgIdsParam);
+                        */
                     }
                 }
             }
             
             if(creator.getOrganization()!=null && creator.getOrganization().getIdentifier()!= null && !creator.getOrganization().getIdentifier().equals(""))
             {
-                sl.logOrgAction(sessionId, ip, creator.getOrganization().getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                //sl.logOrgAction(sessionId, ip, creator.getOrganization().getIdentifier(), loggedIn, referer, "pubman", null, AdminHelper.getAdminUserHandle());
+                orgIds += creator.getOrganization().getIdentifier() + ",";
+                
+                /*
+                StatisticReportRecordParamVO orgIdsParam = new StatisticReportRecordParamVO();
+                orgIdsParam.setName("orgId");
+                orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(creator.getOrganization().getIdentifier()));
+                paramList.add(orgIdsParam);
+                */
+                
             }
             
         }
+        authorIds += "}";
+        orgIds += "}";
+        
+        
+        StatisticReportRecordParamVO authorIdsParam = new StatisticReportRecordParamVO();
+        authorIdsParam.setName("authorIds");
+        authorIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(authorIds));
+        paramList.add(authorIdsParam);
+        
+        StatisticReportRecordParamVO orgIdsParam = new StatisticReportRecordParamVO();
+        orgIdsParam.setName("orgIds");
+        orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(orgIds));
+        paramList.add(orgIdsParam);
+        
+        
+        InitialContext ic = new InitialContext();
+        StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
+        sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
         
         
 
