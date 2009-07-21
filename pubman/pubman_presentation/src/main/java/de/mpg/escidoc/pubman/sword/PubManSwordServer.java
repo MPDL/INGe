@@ -30,7 +30,9 @@
 
 package de.mpg.escidoc.pubman.sword;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,6 +55,7 @@ import org.purl.sword.base.ServiceDocumentRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
