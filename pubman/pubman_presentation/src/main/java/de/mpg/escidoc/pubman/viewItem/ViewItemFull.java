@@ -307,8 +307,9 @@ public class ViewItemFull extends FacesBean
         }
        
         
-        
+        boolean logViewAction = false;
         // Try to get a pubitem either via the controller session bean or an URL Parameter
+        
         itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
         if(itemID != null)
         {
@@ -323,7 +324,8 @@ public class ViewItemFull extends FacesBean
                     //pubManStatistics.logStatisticPubItemEvent(new PubItemVO(pubItem), null, PubItemSimpleStatistics.StatisticItemEventType.retrieval, session.getId(), request.getHeader("referer"), request.getRemoteHost());
                 }
                 this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
-                logViewAction();
+                logViewAction = true;
+                
             }
             catch (AuthorizationException e)
             {
@@ -539,6 +541,11 @@ public class ViewItemFull extends FacesBean
             catch (Exception e) {
                 logger.error("Error getting unapi url property", e);
                 throw new RuntimeException(e);
+            }
+            
+            if(logViewAction)
+            {
+                logViewAction();
             }
 
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
@@ -2463,7 +2470,7 @@ public class ViewItemFull extends FacesBean
 	            try
 	            {
 	                PubItemSimpleStatistics statistics = new SimpleStatistics();
-	                statistics.logPubItemAction(getPubItem(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), false, referer);
+	                statistics.logPubItemAction(getPubItem(), getAffiliatedOrganizationsList(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), false, referer);
 	            }
 	           
 	            catch (Exception e)
