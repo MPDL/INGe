@@ -30,6 +30,10 @@
 
 package de.mpg.escidoc.services.common.statistics;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +45,14 @@ import javax.ejb.TransactionAttributeType;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
 import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 
 import de.mpg.escidoc.services.common.StatisticLogger;
+import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticRecordVO;
@@ -70,7 +78,8 @@ public class StatisticLoggerBean implements StatisticLogger
     
     private final static String PROPERTY_GEOIP_FILE_LOCATION = "escidoc.statistics.max_mind_geo_lite_city_db.location";
     
-    private LookupService ipLookUpService;
+    private static LookupService ipLookUpService = null;
+    private static boolean geoIpCopySaved = false;
     
     /**
      * Logger for this class.
@@ -78,15 +87,55 @@ public class StatisticLoggerBean implements StatisticLogger
     private static final Logger logger = Logger.getLogger(StatisticLoggerBean.class);
     
     public StatisticLoggerBean()
-    {
-        try
+    {   
+        //Check if there is already a copy of geo ip country db
+        File geopIpCopyFile = new File(System.getProperty("java.io.tmpdir"),"GeoIPCopy.dat");
+        
+        if (ipLookUpService == null || (geoIpCopySaved && !geopIpCopyFile.exists()))
         {
-            String dir = PropertyReader.getProperty(PROPERTY_GEOIP_FILE_LOCATION);
-            this.ipLookUpService = new LookupService(dir, LookupService.GEOIP_MEMORY_CACHE );
-        }
-        catch (Exception e)
-        {
-            logger.error("Cannot find Geo IP lookup database. Statistic data is stored with unknown geo locations.", e);
+            try
+            {
+                String dir = PropertyReader.getProperty(PROPERTY_GEOIP_FILE_LOCATION);
+                if (dir != null)
+                {
+                    ipLookUpService = new LookupService(dir, LookupService.GEOIP_MEMORY_CACHE );
+                    logger.info("Geo IP City db found at: " + dir);
+                    logger.info("Geo IP City functionality is activated.");
+                }
+                else
+                {
+            
+                     //Make a copy of the country db file, because GeoIP API requires a file object that cannot be created from a file within a jar
+                     logger.info("Trying to save GeoIp db file to: " + geopIpCopyFile.getPath());
+                     if (geopIpCopyFile.exists())
+                     {
+                         geopIpCopyFile.delete();
+                         geopIpCopyFile.createNewFile();
+                     }
+                     geopIpCopyFile.deleteOnExit();
+                     
+                     FileOutputStream fos = new FileOutputStream(geopIpCopyFile);
+                     InputStream is = ResourceUtil.getResourceAsStream("GeoIP.dat");
+                     int b;
+                     while((b = is.read())!=-1)
+                     {
+                         fos.write(b);
+                     }
+                     fos.flush();
+                     fos.close();
+                    
+                     geoIpCopySaved = true;
+                     ipLookUpService = new LookupService(geopIpCopyFile, LookupService.GEOIP_MEMORY_CACHE);
+                     
+                     logger.info("Geo ip db file saved to: " + geopIpCopyFile.getPath());
+                     logger.info("Geo IP Country functionality is activated. For city functionality please provide GeoLiteCity.db and add location to pubman.properties.");
+                }
+            
+            }
+            catch (Exception e)
+            {
+                logger.error("Cannot find Geo IP lookup database. Statistic data is stored with unknown geo locations.", e);
+            }
         }
     }
     
