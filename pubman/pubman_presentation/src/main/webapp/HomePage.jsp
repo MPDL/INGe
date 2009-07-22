@@ -47,11 +47,6 @@
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 				
 				<jsp:directive.include file="home/HomePageFeedLinks.jspf" />
-				<link href="./resources/eSciDoc_CSS_v2/tc.css" type="text/css" rel="stylesheet"/>
-				<script type="text/javascript" src="http://www.google.com/jsapi">;</script>
-			    <script type="text/javascript" src="./resources/eSciDoc_JavaScript/tagCloud.js">;</script>
-			    
-
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
