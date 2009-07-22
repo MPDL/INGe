@@ -195,27 +195,37 @@ public class TransformationTest
          
      }
 	
-    @Test
+    
      public void mods2oaidcTest () throws Exception
      {
          Format mods = new Format("mods", "application/xml", "UTF-8");
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");
          
          byte[] result;
-         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/mods.xml").getBytes("UTF-8"), mods, oai, "escidoc");
-         this.logger.info("OAI_DC:");
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
          this.logger.info(new String(result, "UTF-8"));           
      }
      
-    @Test
+    
      public void mods2marcTest () throws Exception
      {
          Format mods = new Format("mods", "application/xml", "UTF-8");
-         Format marc = new Format("marc21", "text/plain", "*");
+         Format marc = new Format("marc21", "application/xml", "UTF-8");
          
          byte[] result;
          result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
-         this.logger.info("MARC21:");
          this.logger.info(new String(result, "UTF-8"));           
      }
+    
+    @Test
+    public void escidoc2oaiTest () throws Exception
+    {
+        Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+        Format oai = new Format("oai_dc", "application/xml", "UTF-8");
+        
+        byte[] result;
+        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/escidocItem.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
+        this.logger.info("escidoc -> oai_dc");
+        this.logger.info(new String(result, "UTF-8"));           
+    }
 }

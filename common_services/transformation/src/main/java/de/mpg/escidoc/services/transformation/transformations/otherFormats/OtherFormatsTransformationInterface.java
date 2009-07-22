@@ -223,6 +223,19 @@ public class OtherFormatsTransformationInterface implements Transformation
             result = otherTrans.transformEscidocToMets(src);
             supported = true;
         }  
+        if (trgFormat.getName().equals("oai_dc"))
+        {
+            OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
+            try
+            {
+                result = otherTrans.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src,"UTF-8")).getBytes();
+            }
+            catch(Exception e)
+            {
+                this.logger.warn("An error occurred during String Cast." , e);
+            }
+            supported = true;
+        }  
         if (!supported)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 

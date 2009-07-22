@@ -1,37 +1,48 @@
-<mods xmlns="http://www.loc.gov/mods/v3" version="3.2">
-	<genre authority="MAB2-051/1-3">u</genre>
-	<titleInfo type="uniform">
-		<title>Vollständiges corpus gravaminum evangelicorum</title>
-	</titleInfo>
-	<name type="personal">
-		<displayForm>Oertel, Christian Gottfried</displayForm>
-		<role>
-			<roleTerm authority="marcrelator" type="code">aut</roleTerm>
-		</role>
-	</name>
-	<originInfo>
-		<dateIssued encoding="w3cdtf" keyDate="yes">1775</dateIssued>
-	</originInfo>
-	<recordInfo>
-		<recordIdentifier source="MPIER catalog">66237</recordIdentifier>
-	</recordInfo>
-	<language>
-		<languageTerm type="text">ger</languageTerm>
-	</language>
-	<relatedItem type="host">
-		<identifier type="local">66230</identifier>
-		<part>
-		<detail>
-			<number>7</number>
-		</detail>
-	</part>
-	</relatedItem>
-	<recordInfo>
-		<recordIdentifier source="MPIER catalog">66237</recordIdentifier>
-	</recordInfo>
-	<identifier type="local">66237</identifier>
-	<location>
-		<physicalLocation>MPI für Europäische Rechtsgeschichte, Dt 9 Bg 20 Q [7]</physicalLocation>
-	</location>
-</mods>
-
+<mods version="3.3" xmlns="http://www.loc.gov/mods/v3" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:virrAppProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement" xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/">
+                    <recordInfo>
+                        <recordIdentifier source="mab001">515624</recordIdentifier>
+                        <recordIdentifier source="mab720">066231</recordIdentifier>
+                    </recordInfo>
+                    <relatedItem type="host">
+                        <identifier type="local">66230</identifier>
+                    </relatedItem>
+                    <language>
+                        <languageTerm type="text">ger</languageTerm>
+                    </language>
+                    <part type="host" order="1">
+                        <detail>
+                            <number>1</number>
+                        </detail>
+                    </part>
+                    <originInfo>
+                        <dateIssued keyDate="yes" encoding="w3cdtf">1775</dateIssued>
+                    </originInfo>
+                    <physicalDescription>
+                        <extent>[9] Bl., 270 S.</extent>
+                    </physicalDescription>
+                    <note>Erscheinungsjahr auf dem Lfg.-Titelbl.: 1771</note>
+                    <location>
+                        <physicalLocation>Dt 9 Bg 20 Q [1]</physicalLocation>
+                    </location>
+                    <titleInfo ID="title331" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                        <title>Vollständiges Corpus Gravaminum Evangelicorum</title>
+                    </titleInfo>
+                    <titleInfo ID="title335" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                        <subTitle>mit doppelten Registern</subTitle>
+                    </titleInfo>
+                    <name ID="name100" authority="pnd" type="personal" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                        <namePart>Oertel, Christian Gottfried</namePart>
+                        <role>
+                            <roleTerm authority="marcrelator" type="code">aut</roleTerm>
+                        </role>
+                    </name>
+                    <name ID="name104b" authority="pnd" type="personal" xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                        <namePart>Majer, Johann Christian</namePart>
+                        <role>
+                            <roleTerm authority="marcrelator" type="code">asn</roleTerm>
+                        </role>
+                    </name>
+                    <subject xmlns:vir="http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement">
+                        <topic>|Corpus Evangelicorum  |Gravamen  |Quelle</topic>
+                    </subject>
+                </mods>

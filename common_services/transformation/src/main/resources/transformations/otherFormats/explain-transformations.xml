@@ -48,4 +48,16 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>escidoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>oai_dc</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
 </Transformations>
