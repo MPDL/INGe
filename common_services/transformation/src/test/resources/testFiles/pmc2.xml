@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2009-06-08T12:28:50Z</responseDate><request verb="getRecord" identifier="oai:pubmedcentral.nih.gov:1838911" metadataPrefix="pmc_fm">http://www.pubmedcentral.nih.gov/oai/oai.cgi</request><GetRecord><record><header><identifier>oai:pubmedcentral.nih.gov:1838911</identifier><datestamp>2007-03-29</datestamp><setSpec>bmcps</setSpec><setSpec>pmc-open</setSpec></header><metadata><article xmlns="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dtd.nlm.nih.gov/2.0/xsd/archivearticle http://dtd.nlm.nih.gov/2.0/xsd/archivearticle.xsd" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">BMC Plant Biol</journal-id>
+      <journal-title>BMC Plant Biology</journal-title>
+
+      <issn pub-type="epub">1471-2229</issn>
+      <publisher>
+        <publisher-name>BioMed Central</publisher-name>
+        <publisher-loc>London</publisher-loc>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+
+      <article-id pub-id-type="pmc">1838911</article-id>
+      <article-id pub-id-type="publisher-id">1471-2229-7-13</article-id>
+      <article-id pub-id-type="pmid">17359535</article-id>
+      <article-id pub-id-type="doi">10.1186/1471-2229-7-13</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Evidence for the rapid expansion of microRNA-mediated regulation in early land plant evolution</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib id="A1" contrib-type="author">
+          <name>
+
+            <surname>Fattash</surname>
+            <given-names>Isam</given-names>
+          </name>
+          <xref ref-type="aff" rid="I1">1</xref>
+          <email>isam.fattash@biologie.uni-freiburg.de</email>
+        </contrib>
+        <contrib id="A2" contrib-type="author">
+
+          <name>
+            <surname>Voß</surname>
+            <given-names>Björn</given-names>
+          </name>
+          <xref ref-type="aff" rid="I2">2</xref>
+          <email>bjoern.voss@biologie.uni-freiburg.de</email>
+        </contrib>
+
+        <contrib id="A3" contrib-type="author">
+          <name>
+            <surname>Reski</surname>
+            <given-names>Ralf</given-names>
+          </name>
+          <xref ref-type="aff" rid="I1">1</xref>
+          <email>ralf.reski@biologie.uni-freiburg.de</email>
+
+        </contrib>
+        <contrib id="A4" contrib-type="author">
+          <name>
+            <surname>Hess</surname>
+            <given-names>Wolfgang R</given-names>
+          </name>
+          <xref ref-type="aff" rid="I2">2</xref>
+
+          <email>wolfgang.hess@biologie.uni-freiburg.de</email>
+        </contrib>
+        <contrib id="A5" corresp="yes" contrib-type="author">
+          <name>
+            <surname>Frank</surname>
+            <given-names>Wolfgang</given-names>
+          </name>
+
+          <xref ref-type="aff" rid="I1">1</xref>
+          <email>wolfgang.frank@biologie.uni-freiburg.de</email>
+        </contrib>
+      </contrib-group>
+      <aff id="I1"><label>1</label>Faculty of Biology, Institute of Biology II, Plant Biotechnology, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</aff>
+      <aff id="I2"><label>2</label>Faculty of Biology, Institute of Biology II, Experimental Bioinformatics, University of Freiburg, Schaenzlestrasse 1, 79104 Freiburg, Germany</aff>
+
+      <pub-date pub-type="collection">
+        <year>2007</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>14</day>
+        <month>3</month>
+        <year>2007</year>
+
+      </pub-date>
+      <volume>7</volume>
+      <fpage>13</fpage>
+      <lpage>13</lpage>
+      <ext-link ext-link-type="uri" xlink:href="http://www.biomedcentral.com/1471-2229/7/13"/>
+      <history>
+        <date date-type="received">
+
+          <day>22</day>
+          <month>2</month>
+          <year>2007</year>
+        </date>
+        <date date-type="accepted">
+          <day>14</day>
+          <month>3</month>
+
+          <year>2007</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Copyright © 2007 Fattash et al; licensee BioMed Central Ltd.</copyright-statement>
+        <copyright-year>2007</copyright-year>
+        <copyright-holder>Fattash et al; licensee BioMed Central Ltd.</copyright-holder>
+
+        <license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by/2.0">
+          <p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License (<ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by/2.0"/>), which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</p>
+<!--<rdf xmlns="http://web.resource.org/cc/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1" xmlns:dcterms="http://purl.org/dc/terms"><Work xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" rdf:about=""><license rdf:resource="http://creativecommons.org/licenses/by/2.0"/><dc:type rdf:resource="http://purl.org/dc/dcmitype/Text"/><dc:author>
+               Fattash
+               Isam
+               
+               isam.fattash@biologie.uni-freiburg.de
+            </dc:author><dc:title>
+            Evidence for the rapid expansion of microRNA-mediated regulation in early land plant evolution
+         </dc:title><dc:date>2007</dc:date><dcterms:bibliographicCitation>BMC Plant Biology 7(1): 13-. (2007)</dcterms:bibliographicCitation><dc:identifier type="sici">1471-2229(2007)7:1&#x0003c;13&#x0003e;</dc:identifier><dcterms:isPartOf>urn:ISSN:1471-2229</dcterms:isPartOf><License rdf:about="http://creativecommons.org/licenses/by/2.0"><permits rdf:resource="http://web.resource.org/cc/Reproduction" xmlns=""/><permits rdf:resource="http://web.resource.org/cc/Distribution" xmlns=""/><requires rdf:resource="http://web.resource.org/cc/Notice" xmlns=""/><requires rdf:resource="http://web.resource.org/cc/Attribution" xmlns=""/><permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" xmlns=""/></License></Work></rdf>-->
+        </license>
+      </permissions>
+      <abstract>
+        <sec>
+          <title>Background</title>
+
+          <p>MicroRNAs (miRNAs) are regulatory RNA molecules that are specified by their mode of action, the structure of primary transcripts, and their typical size of 20–24 nucleotides. Frequently, not only single miRNAs but whole families of closely related miRNAs have been found in animals and plants. Some families are widely conserved among different plant taxa. Hence, it is evident that these conserved miRNAs are of ancient origin and indicate essential functions that have been preserved over long evolutionary time scales. In contrast, other miRNAs seem to be species-specific and consequently must possess very distinct functions. Thus, the analysis of an early-branching species provides a window into the early evolution of fundamental regulatory processes in plants.</p>
+        </sec>
+        <sec>
+          <title>Results</title>
+          <p>Based on a combined experimental-computational approach, we report on the identification of 48 novel miRNAs and their putative targets in the moss <italic>Physcomitrella patens</italic>. From these, 18 miRNAs and two targets were verified in independent experiments. As a result of our study, the number of known miRNAs in <italic>Physcomitrella </italic>has been raised to 78. Functional assignments to mRNAs targeted by these miRNAs revealed a bias towards genes that are involved in regulation, cell wall biosynthesis and defense. Eight miRNAs were detected with different expression in protonema and gametophore tissue. The miRNAs 1–50 and 2–51 are located on a shared precursor that are separated by only one nucleotide and become processed in a tissue-specific way.</p>
+
+        </sec>
+        <sec>
+          <title>Conclusion</title>
+          <p>Our data provide evidence for a surprisingly diverse and complex miRNA population in <italic>Physcomitrella</italic>. Thus, the number and function of miRNAs must have significantly expanded during the evolution of early land plants. As we have described here within, the coupled maturation of two miRNAs from a shared precursor has not been previously identified in plants.</p>
+        </sec>
+      </abstract>
+    </article-meta>
+
+  </front>
+</article>
+
+</metadata></record></GetRecord></OAI-PMH>

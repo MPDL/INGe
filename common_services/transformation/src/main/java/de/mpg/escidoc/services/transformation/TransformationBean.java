@@ -239,7 +239,7 @@ public class TransformationBean implements Transformation
                 
             for (int i = 0; i < entetiesV.size(); i++)
             {
-                this.logger.debug(entetiesV.get(i));
+                //this.logger.info(entetiesV.get(i));
                 transformationClass = cl.loadClass(entetiesV.get(i).toString());
                 this.transformationClasses.add(transformationClass);
             }       
@@ -318,6 +318,7 @@ public class TransformationBean implements Transformation
                 transformationClass = (Class) transformationClasses.get(i);
                 ClassLoader cl = this.getClass().getClassLoader();
                 transformationClass = cl.loadClass(transformationClass.getName());
+                
     
                 //Set methods parameters
                 Class[] parameterTypes = new Class[]{Format.class };
