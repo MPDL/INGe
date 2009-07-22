@@ -243,11 +243,22 @@
 	</pluginRepositories>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
+	
+	<resources>
+	      <resource>
+	        <directory>src/main/resources</directory>
+	        <filtering>true</filtering>
+	        <excludes>
+	          <exclude>**/*.dat</exclude>
+	        </excludes>
+	      </resource>
+	      <resource>
+	        <directory>src/main/resources</directory>
+	        <filtering>false</filtering>
+	        <includes>
+	          <include>**/*.dat</include>
+	        </includes>
+	      </resource>
 			<resource>
 				<directory>src/main/jibx</directory>
 				<filtering>true</filtering>
