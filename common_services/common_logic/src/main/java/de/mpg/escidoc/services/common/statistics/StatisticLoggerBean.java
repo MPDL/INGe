@@ -220,7 +220,7 @@ public class StatisticLoggerBean implements StatisticLogger
             //use GeoIpCityLite
             country = loc.countryCode;
         }
-        else if (ipLookUpService!=null)
+        else if (geoIpCountryOnly && ipLookUpService!=null)
         {
             //use GeoIpLite
             Country c = ipLookUpService.getCountry(ip);
