@@ -76,8 +76,10 @@ public class DatasetCreatorPanel extends IzPanel
        config.store(idata.getInstallPath() + "/jboss-4.2.2.GA/server/default/conf/pubman.properties");
    }
    
-   private void checkContentModel() {
-       
+   private void checkContentModel() throws MalformedURLException, ServiceException, IOException {
+       InitialDataset dataset = new InitialDataset( new URL(idata.getVariable("CoreserviceUrl") ), 
+               idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword") );
+     
    }
    
    private void createDataset() throws MalformedURLException, ServiceException, IOException {
@@ -86,21 +88,17 @@ public class DatasetCreatorPanel extends IzPanel
    }
    
    public void panelActivate() {
-       try
-    {
-        storeConfiguration();
-    } catch (IOException e)
-    {
-        e.printStackTrace();
-    }
+       try {
+           storeConfiguration();
+       } 
+       catch (IOException e) {
+           e.printStackTrace();
+       }
     
-    
-     try
-    {
+     try {
         createDataset();
-    } catch (Exception e)
-    {
-        // TODO Auto-generated catch block
+     } 
+     catch (Exception e) {
         e.printStackTrace();
     } 
     

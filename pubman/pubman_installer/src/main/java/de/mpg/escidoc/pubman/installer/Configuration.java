@@ -67,7 +67,7 @@ public class Configuration
     
     public Configuration(String fileName) throws IOException
     {
-        logger = logger = Logger.getLogger(Configuration.class);
+        logger = Logger.getLogger(Configuration.class);
         InputStream inStream = getClass().getClassLoader().getResourceAsStream(fileName);
         properties = new Properties();
         properties.load(inStream);

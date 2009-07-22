@@ -2,6 +2,7 @@
 
 <installation version="1.0">
 
+
     <!-- 
         The info section.
         The meaning of the tags should be natural ...
@@ -49,7 +50,8 @@
         <res id="LicencePanel.licence" src="Licence.txt"/>
         <res id="InfoPanel.info" src="Readme.txt"/>
         <res id="userInputSpec.xml" src="res/userInputSpec.xml" />
-        <res id="userInputSpec.xml_eng" src="res/userInputSpec.xml_eng" />
+        <res id="userInputLang.xml_eng" src="res/userInputLang.xml_eng" />
+        <res id="Heading.image" src="img/escidoc-logo-small.jpg" />
     </resources>
 
     <!-- 
@@ -57,42 +59,83 @@
         We indicate here which panels we want to use. The order will be respected.
     -->
     <panels>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.MyHelloPanel"/>
-        <panel classname="InfoPanel"/>
-        <panel classname="LicencePanel"/>
-        <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.0"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.1"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.2"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.3"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.4"/>
+<!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
+        <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
-        <panel classname="UserInputPanel"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetCreatorPanel"/>
         <panel classname="FinishPanel"/>
+<!--        <panel classname="DataCheckPanel" id="Debug"/>-->
+<!--        <panel classname="InfoPanel"/>-->
+<!--        <panel classname="LicencePanel"/>-->
+<!--        <panel classname="TargetPanel"/>-->
+<!--        <panel classname="PacksPanel"/>-->
+<!--        <panel classname="InstallPanel"/>-->
+<!--        <panel classname="FinishPanel"/>-->
     </panels>
 
     <jar src="dependency/plexus-utils.jar"/>
     <jar src="../pubman_installer.jar"/>
+    <jar src="dependency/commons-httpclient.jar"/>
+    <jar src="dependency/commons-codec.jar"/>
+    <jar src="dependency/commons-discovery.jar"/>
+    <jar src="dependency/commons-logging.jar"/>
+    <jar src="dependency/javaee.jar"/>
+    <jar src="dependency/wss4j.jar"/>
+    <jar src="dependency/axis.jar"/>
+    <jar src="dependency/axis-jaxrpc.jar"/>
+    <jar src="dependency/axis-saaj.jar"/>
+    <jar src="dependency/axis-wsdl4j.jar"/>
+    <jar src="dependency/log4j.jar"/>
+    <jar src="dependency/framework_access.jar"/>
+    <jar src="dependency/xmlsec.jar"/>
 
     <!-- 
         The packs section.
         We specify here our packs.
     -->
     <packs>
-        <pack name="Base" required="yes">
-            <description>The base files</description>
-            <file src="Readme.txt" targetdir="$INSTALL_PATH"/>
-            <file src="Licence.txt" targetdir="$INSTALL_PATH"/>
-            <file src="script.bat" targetdir="$INSTALL_PATH"/>
-            <file src="pubman_ear.ear" targetdir="$INSTALL_PATH"/>
-            <parsable targetfile="$INSTALL_PATH/script.bat"/>
-            <!-- The file will be parsed -->
+        <pack name="PubMan" required="yes">
+            <description>PubMan binary and configuration</description>
+            <file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
+            <file src="jboss/jboss-service.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/conf"/>
+            <file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
         </pack>
-        <pack name="Docs" required="no">
-            <description>The documentation</description>
-            <file src="doc" targetdir="$INSTALL_PATH"/>
-            <!-- Reccursive adding -->
+        <pack name="Application Server" parent="PubMan" required="no">
+            <description>JBoss Application Server 4.2.2 GA</description>
+            <file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
         </pack>
-        <pack name="Sources" required="no">
-            <description>The sources</description>
-            <file src="src" targetdir="$INSTALL_PATH"/>
+        <pack name="Initial dataset" required="no">
+            <description>Creates an initial dataset on the coreservice instance</description>
         </pack>
     </packs>
+    
+    <variables>
+        <!-- Hostname of the installation server -->
+        <variable name="CoreserviceUrl" value="http://"/>
+        <variable name="CoreserviceAdminUser" value="sysadmin"/>
+        <variable name="CoreserviceAdminPassword" value=""/>
+        <variable name="InitialUserPassword" value=""/>
+        <variable name="InstanceUrl" value="http://"/>
+        <variable name="MailHost" value=""/>
+        <variable name="MailSenderAdress" value=""/>
+        <variable name="MailUseAuthentication" value=""/>
+        <variable name="MailUsername" value=""/>
+        <variable name="MailPassword" value=""/>
+        <variable name="ConeHost" value=""/>
+        <variable name="ConePort" value="5432"/>
+        <variable name="ConeUser" value="postgres"/>
+        <variable name="ConePassword" value="postgres"/>
+    </variables>
+    
+    <listeners>
+        <listener installer="SummaryLoggerInstallerListener" />
+        <listener installer="AntActionInstallerListener" />
+    </listeners>
 
 </installation>
