@@ -54,7 +54,10 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -266,7 +269,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
     }
     
-    private void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer, List<StatisticReportRecordParamVO> additionalParams) throws Exception
+    private void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, String referer, List<StatisticReportRecordParamVO> additionalParams) throws Exception
     {
         
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -288,7 +291,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
         StatisticReportRecordParamVO oaParam = new StatisticReportRecordParamVO();
         oaParam.setName("hasOAComponent");
-        oaParam.setParamValue(new StatisticReportRecordStringParamValueVO(String.valueOf(hasOA)));
+        oaParam.setParamValue(new StatisticReportRecordStringParamValueVO(String.valueOf(getHasOAComponent(pubItem))));
         paramList.add(oaParam);
         
        
@@ -376,12 +379,12 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
     }
     
-    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
+    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, String referer) throws Exception
     {
-        this.logPubItemAction(pubItem, ip, action, sessionId, loggedIn, hasOA, referer, null);
+        this.logPubItemAction(pubItem, ip, action, sessionId, loggedIn, referer, null);
     }
     
-    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, boolean hasOA, String referer, ExportFormatVO exportFormat) throws Exception
+    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception
     {
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         StatisticReportRecordParamVO exportFormatParam = new StatisticReportRecordParamVO();
@@ -394,7 +397,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         exportFileFormatParam.setParamValue(new StatisticReportRecordStringParamValueVO(exportFormat.getSelectedFileFormat().getName()));
         paramList.add(exportFileFormatParam);
         
-        this.logPubItemAction(pubItem, ip, ItemAction.EXPORT, sessionId, loggedIn, hasOA, referer, paramList);
+        this.logPubItemAction(pubItem, ip, ItemAction.EXPORT, sessionId, loggedIn, referer, paramList);
     }
     
     private List<OrganizationVO> getAffiliatedOrganizations(PubItemVO pubItem)
@@ -431,5 +434,20 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         }
         // save the List in the backing bean for later use.
         return sortOrganizationList;
+    }
+    
+    private boolean getHasOAComponent(PubItemVO pubItem)
+    {
+        if (pubItem.getFiles()!=null)
+        {
+            for(FileVO file : pubItem.getFiles())
+            {
+                if(file.getStorage()!=Storage.EXTERNAL_URL && file.getVisibility()==Visibility.PUBLIC)
+                {
+                    return true;   
+                }
+            }
+        }
+        return false;
     }
 }

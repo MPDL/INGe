@@ -154,9 +154,9 @@ public interface PubItemSimpleStatistics
      */
     public  List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception;
     
-    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId, boolean loggedIn, boolean hasOA, String referer) throws Exception;
+    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId, boolean loggedIn, String referer) throws Exception;
     
-    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, boolean hasOA, String referer, ExportFormatVO exportFormat) throws Exception;
+    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception;
     
     //public void logUser(HttpServletRequest requ, HttpSession session) throws Exception;
     
