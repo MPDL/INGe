@@ -313,7 +313,7 @@ public class StatisticLoggerBean implements StatisticLogger
         statisticRecord.setParamList(paramList);
         StatisticReportRecordParamVO actionParam = new StatisticReportRecordParamVO();
         actionParam.setName("action");
-        actionParam.setParamValue(new StatisticReportRecordStringParamValueVO(action.toString()));
+        actionParam.setParamValue(new StatisticReportRecordStringParamValueVO(action.toString().toLowerCase()));
         paramList.add(actionParam);
         StatisticReportRecordParamVO itemIdParam = new StatisticReportRecordParamVO();
         itemIdParam.setName("itemId");
@@ -420,10 +420,20 @@ public class StatisticLoggerBean implements StatisticLogger
         }
         statisticRecord.createInCoreservice(userHandle);
     }
-    /*
-     * public String ipToCountry(String ip) { String c = ""; //c += ipLookUpService.getCountry(ip).getCode(); c +=
-     * " - "; //c += ipLookUpService.getRegion(ip).countryCode; c += " - "; Location loc =
-     * ipLookUpService.getLocation(ip); c+=loc.countryCode; c+=loc.region; c+=loc.city; c+=loc.postalCode;
-     * c+=loc.longitude; return c; }
-     */
+    
+     public String ipToCountry(String ip) { 
+         String c = ""; 
+         c += ipLookUpService.getCountry(ip).getCode();
+         //c +=" - ";
+         //c += ipLookUpService.getRegion(ip).countryCode;
+         c += " - "; 
+         //Location loc = ipLookUpService.getLocation(ip); 
+         //c+=loc.countryCode; 
+//         c+=loc.region; 
+//         c+=loc.city; 
+//         c+=loc.postalCode;
+//         c+=loc.longitude; 
+         return c; 
+         }
+     
 }
