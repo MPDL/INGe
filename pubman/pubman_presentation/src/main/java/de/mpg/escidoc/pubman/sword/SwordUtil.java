@@ -38,6 +38,7 @@ import java.net.FileNameMap;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -410,10 +411,12 @@ public class SwordUtil extends FacesBean
                    baos.write(buffer, 0, readReturn);
                 }
 
-                this.filenames.add(zipentry.getName());
+                String name = URLDecoder.decode(zipentry.getName(), "UTF-8");
+                name = name.replaceAll("/", "_");
+                this.filenames.add(name);
                 //Retrieve the metadata
 
-                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEscidoc))
+                if (name.toLowerCase().endsWith(this.mdFormatEscidoc))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
@@ -421,7 +424,7 @@ public class SwordUtil extends FacesBean
                     this.depositXml = item;
                     this.format = this.mdFormatEscidoc;
                 }
-                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatTEI))
+                if (name.toLowerCase().endsWith(this.mdFormatTEI))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
@@ -429,7 +432,7 @@ public class SwordUtil extends FacesBean
                     this.depositXml = item;
                     this.format = this.mdFormatTEI;
                 }
-                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatBibTex))
+                if (name.toLowerCase().endsWith(this.mdFormatBibTex))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
@@ -437,7 +440,7 @@ public class SwordUtil extends FacesBean
                     this.depositXml = item;
                     this.format = this.mdFormatBibTex;
                 }
-                if (zipentry.getName().toLowerCase().endsWith(this.mdFormatEndnote))
+                if (name.toLowerCase().endsWith(this.mdFormatEndnote))
                 {
                     size = (int) zipentry.getSize();
                     item = new String(baos.toByteArray(), 0, size, "UTF-8");
@@ -447,7 +450,7 @@ public class SwordUtil extends FacesBean
                 }
 
                     attachements.add(baos.toByteArray());
-                    attachementsNames.add(zipentry.getName());
+                    attachementsNames.add(name);
 
                 zipinputstream.closeEntry();
             }
