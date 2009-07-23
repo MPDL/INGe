@@ -86,49 +86,53 @@ public class StatisticLoggerBean implements StatisticLogger
         {
             try
             {
-                //String dir = "C:/MPDL/Programs/GeoIPJava-1.2.3/GeoLiteCity.dat";
+                //First try to find GeoIpCityLite db
                 String dir = PropertyReader.getProperty(PROPERTY_GEOIP_FILE_LOCATION);
-                if (dir != null)
-                {
-                    ipLookUpService = new LookupService(dir, LookupService.GEOIP_MEMORY_CACHE);
-                    logger.info("Geo IP City db found at: " + dir);
-                    logger.info("Geo IP City functionality is activated.");
-                    geoIpCountryOnly = false;
-                }
-                else
-                {
-                    // Make a copy of the country db file, because GeoIP API requires a file object that cannot be
-                    // created from a file within a jar
-                   
-                    
-                    
-                    logger.info("Trying to save GeoIp db file to: " + geopIpCopyFile.getPath());
-                    if (geopIpCopyFile.exists())
-                    {
-                        geopIpCopyFile.delete();
-                        geopIpCopyFile.createNewFile();
-                    }
-                    geopIpCopyFile.deleteOnExit();
-                    FileOutputStream fos = new FileOutputStream(geopIpCopyFile);
-                    InputStream is = ResourceUtil.getResourceAsStream("statistics/GeoIP.dat");
-                    byte[] buf = new byte[1024];
-                    int i = 0;
-                    while ((i = is.read(buf)) != -1)
-                    {
-                        fos.write(buf, 0, i);
-                    }
-                    fos.flush();
-                    fos.close();
-                    geoIpCountryOnly = true;
-                    ipLookUpService = new LookupService(geopIpCopyFile, LookupService.GEOIP_MEMORY_CACHE);
-                    logger.info("Geo ip db file saved to: " + geopIpCopyFile.getPath());
-                    logger.info("Geo IP Country functionality is activated. For city functionality please provide GeoLiteCity.db and add location to pubman.properties.");
-                }
+                ipLookUpService = new LookupService(dir, LookupService.GEOIP_MEMORY_CACHE);
+                logger.info("Geo IP City db found at: " + dir);
+                logger.info("Geo IP City functionality is activated.");
+                geoIpCountryOnly = false;
             }
             catch (Exception e)
             {
-                logger.error("Cannot find Geo IP lookup database. Statistic data is stored with unknown geo locations.", e);
+                //if GeoIpCityLite db is not found, continue witg GeoIpLite db (countries only)
+                getStandardIPLookupService(geopIpCopyFile);
             }
+            
+        }
+    }
+
+    private void getStandardIPLookupService(File geopIpCopyFile)
+    {
+        // Make a copy of the country db file, because GeoIP API requires a file object that cannot be
+        // created from a file within a jar
+        try
+        {
+            logger.info("Trying to save GeoIp db file to: " + geopIpCopyFile.getPath());
+            if (geopIpCopyFile.exists())
+            {
+                geopIpCopyFile.delete();
+                geopIpCopyFile.createNewFile();
+            }
+            geopIpCopyFile.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(geopIpCopyFile);
+            InputStream is = ResourceUtil.getResourceAsStream("statistics/GeoIP.dat");
+            byte[] buf = new byte[1024];
+            int i = 0;
+            while ((i = is.read(buf)) != -1)
+            {
+                fos.write(buf, 0, i);
+            }
+            fos.flush();
+            fos.close();
+            geoIpCountryOnly = true;
+            ipLookUpService = new LookupService(geopIpCopyFile, LookupService.GEOIP_MEMORY_CACHE);
+            logger.info("Geo ip db file saved to: " + geopIpCopyFile.getPath());
+            logger.info("Geo IP Country functionality is activated. For city functionality please provide GeoLiteCity.db and add location to pubman.properties.");
+        }
+        catch (Exception e)
+        {
+            logger.error("Cannot find any Geo IP lookup database. Statistic data is stored with unknown geo locations.", e);
         }
     }
 
@@ -186,7 +190,6 @@ public class StatisticLoggerBean implements StatisticLogger
 
     private List<StatisticReportRecordParamVO> getUserStats(String sessionId, String ip) throws Exception
     {
-       
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         StatisticReportRecordParamVO sessionIdParam = new StatisticReportRecordParamVO();
         sessionIdParam.setName("sessionId");
@@ -196,48 +199,42 @@ public class StatisticLoggerBean implements StatisticLogger
         ipParam.setName("ip");
         ipParam.setParamValue(new StatisticReportRecordStringParamValueVO(ip));
         paramList.add(ipParam);
-        
         String country = "unknown";
         String region = "unknown";
         String city = "unknown";
         String longitude = "unknown";
         String latitude = "unknown";
-        
-        //Location object can only be used with GeoIpLiteCity, not with GeoIpLite
+        // Location object can only be used with GeoIpLiteCity, not with GeoIpLite
         Location loc = null;
         if (ipLookUpService != null && !geoIpCountryOnly)
         {
             loc = ipLookUpService.getLocation(ip);
-//            country = "--";
-//            region = "--";
-//            city = "--";
-//            longitude = "--";
-//            latitude = "--";
+            // country = "--";
+            // region = "--";
+            // city = "--";
+            // longitude = "--";
+            // latitude = "--";
         }
-        
-        
         if (loc != null && loc.countryCode != null)
         {
-            //use GeoIpCityLite
+            // use GeoIpCityLite
             country = loc.countryCode;
-            logger.debug("IP "+ ip + "was mapped to country " + loc.countryCode);
+            logger.debug("IP " + ip + "was mapped to country " + loc.countryCode);
         }
-        else if (geoIpCountryOnly && ipLookUpService!=null)
+        else if (geoIpCountryOnly && ipLookUpService != null)
         {
-            //use GeoIpLite
+            // use GeoIpLite
             Country c = ipLookUpService.getCountry(ip);
-            if (c!=null && c.getCode()!=null && !c.getCode().equals("--"))
+            if (c != null && c.getCode() != null && !c.getCode().equals("--"))
             {
                 country = c.getCode();
-                
             }
-            logger.debug("IP "+ ip + "was mapped to country "+c.getCode());
+            logger.debug("IP " + ip + "was mapped to country " + c.getCode());
         }
         StatisticReportRecordParamVO countryParam = new StatisticReportRecordParamVO();
         countryParam.setName("countryCode");
         countryParam.setParamValue(new StatisticReportRecordStringParamValueVO(country));
         paramList.add(countryParam);
-        
         if (loc != null && loc.region != null)
         {
             region = loc.region;
@@ -246,7 +243,6 @@ public class StatisticLoggerBean implements StatisticLogger
         regionParam.setName("region");
         regionParam.setParamValue(new StatisticReportRecordStringParamValueVO(region));
         paramList.add(regionParam);
-        
         if (loc != null && loc.city != null)
         {
             city = loc.city;
@@ -255,7 +251,6 @@ public class StatisticLoggerBean implements StatisticLogger
         cityParam.setName("city");
         cityParam.setParamValue(new StatisticReportRecordStringParamValueVO(city));
         paramList.add(cityParam);
-        
         if (loc != null)
         {
             longitude = String.valueOf(loc.longitude);
@@ -264,7 +259,6 @@ public class StatisticLoggerBean implements StatisticLogger
         longitudeParam.setName("longitude");
         longitudeParam.setParamValue(new StatisticReportRecordStringParamValueVO(longitude));
         paramList.add(longitudeParam);
-        
         if (loc != null)
         {
             latitude = String.valueOf(loc.latitude);
@@ -426,22 +420,10 @@ public class StatisticLoggerBean implements StatisticLogger
         }
         statisticRecord.createInCoreservice(userHandle);
     }
-
     /*
-    public String ipToCountry(String ip)
-    {
-        String c = "";
-        //c += ipLookUpService.getCountry(ip).getCode();
-        c += " - ";
-         //c += ipLookUpService.getRegion(ip).countryCode;
-        c += " - ";
-        Location loc = ipLookUpService.getLocation(ip);
-         c+=loc.countryCode;
-         c+=loc.region;
-         c+=loc.city;
-         c+=loc.postalCode;
-         c+=loc.longitude;
-        return c;
-    }
-    */
+     * public String ipToCountry(String ip) { String c = ""; //c += ipLookUpService.getCountry(ip).getCode(); c +=
+     * " - "; //c += ipLookUpService.getRegion(ip).countryCode; c += " - "; Location loc =
+     * ipLookUpService.getLocation(ip); c+=loc.countryCode; c+=loc.region; c+=loc.city; c+=loc.postalCode;
+     * c+=loc.longitude; return c; }
+     */
 }
