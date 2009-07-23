@@ -124,7 +124,7 @@ function bunny() {
 
 function raiseBunny() {
 	if(BrowserDetect.browser == 'Firefox') {
-		$('link[id]:first').before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
+		$($('link[id]')[0]).before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
 		applyCookieStyle();
 	};
 }
