@@ -55,7 +55,7 @@ public class ItemVO extends ValueObject implements Searchable
      */
  
     public enum ItemAction{
-        RETRIEVE, SUBMIT, RELEASE
+        RETRIEVE, SUBMIT, RELEASE, EXPORT
     }
 
     /**
