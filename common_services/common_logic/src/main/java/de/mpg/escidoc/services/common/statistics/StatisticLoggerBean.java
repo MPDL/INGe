@@ -135,6 +135,7 @@ public class StatisticLoggerBean implements StatisticLogger
     public void logNewUser(String sessionId, String ip, String userAgent, String referer, String solutionId,
             String userHandle) throws Exception
     {
+        logger.debug("Logging new user for statistics...");
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
         statisticRecord.setScope("2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -219,6 +220,7 @@ public class StatisticLoggerBean implements StatisticLogger
         {
             //use GeoIpCityLite
             country = loc.countryCode;
+            logger.debug("IP "+ ip + "was mapped to country " + loc.countryCode);
         }
         else if (geoIpCountryOnly && ipLookUpService!=null)
         {
@@ -227,7 +229,9 @@ public class StatisticLoggerBean implements StatisticLogger
             if (c!=null && c.getCode()!=null && !c.getCode().equals("--"))
             {
                 country = c.getCode();
+                
             }
+            logger.debug("IP "+ ip + "was mapped to country "+c.getCode());
         }
         StatisticReportRecordParamVO countryParam = new StatisticReportRecordParamVO();
         countryParam.setName("countryCode");
@@ -275,6 +279,7 @@ public class StatisticLoggerBean implements StatisticLogger
     public void logSearch(String sessionId, String ip, String keywords, String cql, boolean loggedIn,
             String solutionId, String userHandle) throws Exception
     {
+        logger.debug("Logging new search with keywwords" + keywords);
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
         statisticRecord.setScope("2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -307,6 +312,7 @@ public class StatisticLoggerBean implements StatisticLogger
             String referer, String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle)
             throws Exception
     {
+        logger.debug("Logging new action " + action.toString() + "for item" + item.getVersion().getObjectId());
         StatisticRecordVO statisticRecord = new StatisticRecordVO();
         statisticRecord.setScope("2");
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
