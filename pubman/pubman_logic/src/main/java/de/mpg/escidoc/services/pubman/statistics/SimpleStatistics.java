@@ -53,6 +53,8 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -264,9 +266,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
     }
     
-    
-    
-    public void logPubItemAction(PubItemVO pubItem, List<OrganizationVO> orgList, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
+    private void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer, List<StatisticReportRecordParamVO> additionalParams) throws Exception
     {
         
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -345,7 +345,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
             
         }
         
-        for(OrganizationVO org : orgList)
+        for(OrganizationVO org : getAffiliatedOrganizations(pubItem))
         {
             if(org.getIdentifier()!=null && !org.getIdentifier().equals(""))
             {
@@ -366,13 +366,70 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         orgIdsParam.setParamValue(new StatisticReportRecordStringParamValueVO(orgIds));
         paramList.add(orgIdsParam);
         
+        if (additionalParams!=null)
+        {
+            paramList.addAll(additionalParams);
+        }
         
         InitialContext ic = new InitialContext();
         StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
         sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
+    }
+    
+    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, boolean hasOA, String referer) throws Exception
+    {
+        this.logPubItemAction(pubItem, ip, action, sessionId, loggedIn, hasOA, referer, null);
+    }
+    
+    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, boolean hasOA, String referer, ExportFormatVO exportFormat) throws Exception
+    {
+        List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
+        StatisticReportRecordParamVO exportFormatParam = new StatisticReportRecordParamVO();
+        exportFormatParam.setName("exportFormat");
+        exportFormatParam.setParamValue(new StatisticReportRecordStringParamValueVO(exportFormat.getName()));
+        paramList.add(exportFormatParam);
         
+        StatisticReportRecordParamVO exportFileFormatParam = new StatisticReportRecordParamVO();
+        exportFileFormatParam.setName("exportFileFormat");
+        exportFileFormatParam.setParamValue(new StatisticReportRecordStringParamValueVO(exportFormat.getSelectedFileFormat().getName()));
+        paramList.add(exportFileFormatParam);
         
-
-
+        this.logPubItemAction(pubItem, ip, ItemAction.EXPORT, sessionId, loggedIn, hasOA, referer, paramList);
+    }
+    
+    private List<OrganizationVO> getAffiliatedOrganizations(PubItemVO pubItem)
+    {
+        List<CreatorVO> tempCreatorList;
+        List<OrganizationVO> tempOrganizationList = new ArrayList<OrganizationVO>();
+        List<OrganizationVO> sortOrganizationList = new ArrayList<OrganizationVO>();
+        tempCreatorList = pubItem.getMetadata().getCreators();
+        int affiliationPosition = 0;
+        for (int i = 0; i < tempCreatorList.size(); i++)
+        {
+            CreatorVO creator = new CreatorVO();
+            creator = tempCreatorList.get(i);
+            if (creator.getPerson() != null)
+            {
+                if (creator.getPerson().getOrganizations().size() > 0)
+                {
+                    for (int listSize = 0; listSize < creator.getPerson().getOrganizations().size(); listSize++)
+                    {
+                        tempOrganizationList.add(creator.getPerson().getOrganizations().get(listSize));
+                    }
+                    for (int j = 0; j < tempOrganizationList.size(); j++)
+                    {
+                        // if the organization is not in the list already, put
+                        // it in.
+                        if (!sortOrganizationList.contains(tempOrganizationList.get(j)))
+                        {
+                            affiliationPosition++;
+                            sortOrganizationList.add(tempOrganizationList.get(j));
+                        }
+                    }
+                }
+            }
+        }
+        // save the List in the backing bean for later use.
+        return sortOrganizationList;
     }
 }
