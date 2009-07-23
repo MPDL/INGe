@@ -1927,7 +1927,7 @@ public class ItemControllerSessionBean extends FacesBean
               {
                   try
                 {
-                    pubItemStatistic.logPubItemExport(pubItem, ip, sessId, loginHelper.getLoggedIn(), false, referer, exportFormatVO);
+                    pubItemStatistic.logPubItemExport(pubItem, ip, sessId, loginHelper.getLoggedIn(), referer, exportFormatVO);
                 }
                 catch (Exception e)
                 {
