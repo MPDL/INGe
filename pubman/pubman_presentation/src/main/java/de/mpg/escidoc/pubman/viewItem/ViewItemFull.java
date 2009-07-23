@@ -2470,7 +2470,7 @@ public class ViewItemFull extends FacesBean
 	            try
 	            {
 	                PubItemSimpleStatistics statistics = new SimpleStatistics();
-	                statistics.logPubItemAction(getPubItem(), getAffiliatedOrganizationsList(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), false, referer);
+	                statistics.logPubItemAction(getPubItem(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), false, referer);
 	            }
 	           
 	            catch (Exception e)

@@ -1884,7 +1884,7 @@ public class ItemControllerSessionBean extends FacesBean
     * @param itemsToExportList is the list of selected items to be exported
     * @return the export data stream as array of bytes 
     */
-  public byte[] retrieveExportData(ExportFormatVO exportFormatVO, List<PubItemVO> itemsToExportList) 
+  public byte[] retrieveExportData(final ExportFormatVO exportFormatVO, final List<PubItemVO> itemsToExportList) 
       throws TechnicalException{
       if (logger.isDebugEnabled())
       {
@@ -1914,7 +1914,30 @@ public class ItemControllerSessionBean extends FacesBean
       if (logger.isDebugEnabled())
       {
           logger.debug("retrieveExportData result: " + new String(res) );
-      }        
+      }
+      
+      //log the export for statistics
+      final String ip = getIP();
+      final String sessId = getSessionId();
+      final String referer = getReferer();
+      new Thread(){
+          public void run()
+          {
+              for(PubItemVO pubItem : itemsToExportList)
+              {
+                  try
+                {
+                    pubItemStatistic.logPubItemExport(pubItem, ip, sessId, loginHelper.getLoggedIn(), false, referer, exportFormatVO);
+                }
+                catch (Exception e)
+                {
+                    logger.error("Could not log export for item" + pubItem.getVersion().getObjectId(), e);
+                }
+              }
+          }
+      }.start();
+     
+      
       return res;
      }
 
