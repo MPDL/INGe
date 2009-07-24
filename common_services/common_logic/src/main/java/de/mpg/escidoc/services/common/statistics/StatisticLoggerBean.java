@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class StatisticLoggerBean implements StatisticLogger
 {
     private final static String PROPERTY_GEOIP_FILE_LOCATION = "escidoc.statistics.max_mind_geo_lite_city_db.location";
+    private final static String PROPERTY_SHORTENED_IPS = "escidoc.statistics.shortenedIps";
     private static LookupService ipLookUpService = null;
     private static boolean geoIpCountryOnly = false;
     /**
@@ -195,10 +196,20 @@ public class StatisticLoggerBean implements StatisticLogger
         sessionIdParam.setName("sessionId");
         sessionIdParam.setParamValue(new StatisticReportRecordStringParamValueVO(sessionId));
         paramList.add(sessionIdParam);
+        
+        String storeShortenedIPs = PropertyReader.getProperty(PROPERTY_SHORTENED_IPS);
+        String shortenedIp = ip;
+        if (storeShortenedIPs == null || !storeShortenedIPs.equals("false"))
+        {
+            shortenedIp = ip.substring(0, ip.lastIndexOf("."));
+            shortenedIp += ".*";
+        }
+        
         StatisticReportRecordParamVO ipParam = new StatisticReportRecordParamVO();
         ipParam.setName("ip");
-        ipParam.setParamValue(new StatisticReportRecordStringParamValueVO(ip));
+        ipParam.setParamValue(new StatisticReportRecordStringParamValueVO(shortenedIp));
         paramList.add(ipParam);
+        
         String country = "unknown";
         String region = "unknown";
         String city = "unknown";
