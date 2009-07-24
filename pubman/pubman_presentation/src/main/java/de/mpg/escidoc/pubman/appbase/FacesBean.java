@@ -439,4 +439,10 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
         return requ.getHeader("Referer");
     }
+    
+    public String getUserAgent()
+    {
+        HttpServletRequest requ = (HttpServletRequest)getExternalContext().getRequest();
+        return requ.getHeader("User-Agent");
+    }
 }

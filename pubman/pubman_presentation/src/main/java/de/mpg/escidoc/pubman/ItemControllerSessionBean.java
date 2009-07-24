@@ -1920,6 +1920,7 @@ public class ItemControllerSessionBean extends FacesBean
       final String ip = getIP();
       final String sessId = getSessionId();
       final String referer = getReferer();
+      final String userAgent = getUserAgent();
       new Thread(){
           public void run()
           {
@@ -1927,7 +1928,7 @@ public class ItemControllerSessionBean extends FacesBean
               {
                   try
                 {
-                    pubItemStatistic.logPubItemExport(pubItem, ip, sessId, loginHelper.getLoggedIn(), referer, exportFormatVO);
+                    pubItemStatistic.logPubItemExport(pubItem, ip, userAgent, sessId, loginHelper.getLoggedIn(), referer, exportFormatVO);
                 }
                 catch (Exception e)
                 {

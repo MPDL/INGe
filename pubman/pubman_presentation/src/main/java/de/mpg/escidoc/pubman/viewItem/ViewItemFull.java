@@ -2464,13 +2464,14 @@ public class ViewItemFull extends FacesBean
 	    final String ip = getIP();
 	    final String sessId = getSessionId();
 	    final String referer = getReferer();
+	    final String userAgent = getUserAgent();
 	    new Thread(){
 	        public void run()
 	        {
 	            try
 	            {
 	                PubItemSimpleStatistics statistics = new SimpleStatistics();
-	                statistics.logPubItemAction(getPubItem(), ip, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), referer);
+	                statistics.logPubItemAction(getPubItem(), ip, userAgent, ItemAction.RETRIEVE, sessId, loginHelper.getLoggedIn(), referer);
 	            }
 	           
 	            catch (Exception e)

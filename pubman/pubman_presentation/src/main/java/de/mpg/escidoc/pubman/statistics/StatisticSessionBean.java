@@ -38,9 +38,7 @@ public class StatisticSessionBean extends FacesBean
         {
             InitialContext ic = new InitialContext();
             StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-            HttpServletRequest httpRequ = (HttpServletRequest)getExternalContext().getRequest();
-            HttpSession session = (HttpSession)getExternalContext().getSession(false);
-            sl.logNewUser(session.getId(), httpRequ.getRemoteAddr(), httpRequ.getHeader("User-Agent"), httpRequ.getHeader("Referer"), "pubman", AdminHelper.getAdminUserHandle());
+            sl.logNewUser(getSessionId(), getIP(), getUserAgent(), getReferer(), "pubman", AdminHelper.getAdminUserHandle());
         }
         catch (Exception e)
         {
