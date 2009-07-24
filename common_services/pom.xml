@@ -525,6 +525,10 @@
 				
 				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 				<escidoc.validation.source.classname>de.mpg.escidoc.services.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
+				
+				<escidoc.statistics.max_mind_geo_lite_city_db.location></escidoc.statistics.max_mind_geo_lite_city_db.location>
+				<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+				
 			</properties>
 
 			<distributionManagement>
