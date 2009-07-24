@@ -78,6 +78,11 @@
 							<artifactId>validation_presentation</artifactId>
 							<contextRoot>/validation</contextRoot>
 						</webModule>
+                        <jarModule>         
+                            <groupId>com.maxmind.geoip</groupId>
+                            <artifactId>geoip</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
 						<!-- <webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>cone_presentation</artifactId>
