@@ -91,7 +91,7 @@ public class CreateOrganizationsTest extends TestBase
     public static void tearDownAfterClass() throws Exception
     { 
         // Remove all affiliations that were created before the tests
-        AffiliationCreator.deleteAllAffiliationsContainingThreeAsteriskes();
+        // AffiliationCreator.deleteAllAffiliationsContainingThreeAsteriskes();
     }
 
     /**
