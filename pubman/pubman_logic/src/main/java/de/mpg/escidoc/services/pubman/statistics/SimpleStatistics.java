@@ -269,7 +269,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
     }
     
-    private void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, String referer, List<StatisticReportRecordParamVO> additionalParams) throws Exception
+    private void logPubItemAction(PubItemVO pubItem, String ip, String userAgent, ItemAction action, String sessionId,  boolean loggedIn, String referer, List<StatisticReportRecordParamVO> additionalParams) throws Exception
     {
         
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
@@ -376,15 +376,15 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
         InitialContext ic = new InitialContext();
         StatisticLogger sl = (StatisticLogger) ic.lookup(StatisticLogger.SERVICE_NAME);
-        sl.logItemAction(sessionId, ip, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
+        sl.logItemAction(sessionId, ip, userAgent, new PubItemVO(pubItem), action, loggedIn, referer, "pubman", paramList, AdminHelper.getAdminUserHandle());
     }
     
-    public void logPubItemAction(PubItemVO pubItem, String ip, ItemAction action, String sessionId,  boolean loggedIn, String referer) throws Exception
+    public void logPubItemAction(PubItemVO pubItem, String ip, String userAgent, ItemAction action, String sessionId,  boolean loggedIn, String referer) throws Exception
     {
-        this.logPubItemAction(pubItem, ip, action, sessionId, loggedIn, referer, null);
+        this.logPubItemAction(pubItem, ip,userAgent, action, sessionId, loggedIn, referer, null);
     }
     
-    public void logPubItemExport(PubItemVO pubItem, String ip, String sessionId,  boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception
+    public void logPubItemExport(PubItemVO pubItem, String ip, String userAgent, String sessionId,  boolean loggedIn, String referer, ExportFormatVO exportFormat) throws Exception
     {
         List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
         StatisticReportRecordParamVO exportFormatParam = new StatisticReportRecordParamVO();
@@ -397,7 +397,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         exportFileFormatParam.setParamValue(new StatisticReportRecordStringParamValueVO(exportFormat.getSelectedFileFormat().getName()));
         paramList.add(exportFileFormatParam);
         
-        this.logPubItemAction(pubItem, ip, ItemAction.EXPORT, sessionId, loggedIn, referer, paramList);
+        this.logPubItemAction(pubItem, userAgent, ip, ItemAction.EXPORT, sessionId, loggedIn, referer, paramList);
     }
     
     private List<OrganizationVO> getAffiliatedOrganizations(PubItemVO pubItem)
