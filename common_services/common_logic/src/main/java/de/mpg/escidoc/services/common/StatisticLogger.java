@@ -26,7 +26,7 @@ public interface StatisticLogger
     
     public void logSearch(String sessionId, String ip, String keywords, String cql, boolean loggedIn, String solutionId, String userHandle) throws Exception;
     
-    public void logItemAction(String sessionId, String ip, ItemVO item, ItemAction action,  boolean loggedIn, String referer, String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle) throws Exception;
+    public void logItemAction(String sessionId, String ip, String userAgent, ItemVO item, ItemAction action,  boolean loggedIn, String referer, String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle) throws Exception;
     
     public void logAuthorAction(String sessionId, String ip, String authorId, boolean loggedIn, String referer, String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle) throws Exception;
     

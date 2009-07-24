@@ -313,7 +313,7 @@ public class StatisticLoggerBean implements StatisticLogger
         statisticRecord.createInCoreservice(userHandle);
     }
 
-    public void logItemAction(String sessionId, String ip, ItemVO item, ItemAction action, boolean loggedIn,
+    public void logItemAction(String sessionId, String ip, String userAgent, ItemVO item, ItemAction action, boolean loggedIn,
             String referer, String solutionId, List<StatisticReportRecordParamVO> additionalParams, String userHandle)
             throws Exception
     {
