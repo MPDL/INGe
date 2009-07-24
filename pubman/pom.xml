@@ -569,6 +569,7 @@
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
 				
                 <escidoc.statistics.max_mind_geo_lite_city_db.location></escidoc.statistics.max_mind_geo_lite_city_db.location>
+				<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
 			</properties>
 			
 				<distributionManagement>
