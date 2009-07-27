@@ -542,7 +542,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>sword_presentation</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
