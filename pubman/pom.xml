@@ -568,8 +568,6 @@
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
 				
-                <escidoc.statistics.max_mind_geo_lite_city_db.location></escidoc.statistics.max_mind_geo_lite_city_db.location>
-				<escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
 			</properties>
 			
 				<distributionManagement>
@@ -753,7 +751,6 @@
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
 				
-                <escidoc.statistics.max_mind_geo_lite_city_db.location></escidoc.statistics.max_mind_geo_lite_city_db.location>
 			</properties>
 				<distributionManagement>
 				<repository>
