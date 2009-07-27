@@ -2,14 +2,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.25-SNAPSHOT</version>
+		<version>1.0.24-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>dataacquisition_ear</name>
-	<version>1.0.20-SNAPSHOT</version>
+	<version>1.0.19-SNAPSHOT</version>
 	<scm>
 	  <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</connection>
     <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/dataacquisition_ear</developerConnection>
@@ -196,7 +196,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.26-SNAPSHOT</version>
+			<version>1.0.25-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -250,14 +250,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.20-SNAPSHOT</version>
+			<version>1.0.19-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition_presentation</artifactId>
-			<version>1.0.20-SNAPSHOT</version>
+			<version>1.0.19-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>
@@ -265,7 +265,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.11-SNAPSHOT</version>
+			<version>1.0.10-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>

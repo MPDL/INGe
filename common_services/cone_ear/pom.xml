@@ -3,14 +3,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.25-SNAPSHOT</version>
+		<version>1.0.24-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone_ear</artifactId>
 	<name>cone_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.18-SNAPSHOT</version>
+	<version>1.0.17-SNAPSHOT</version>
 	
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</connection>
@@ -201,7 +201,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.23-SNAPSHOT</version>
+			<version>1.1.22-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -214,14 +214,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.0.22-SNAPSHOT</version>
+			<version>1.0.21-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.26-SNAPSHOT</version>
+			<version>1.0.25-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>jar</type>
 		</dependency>
