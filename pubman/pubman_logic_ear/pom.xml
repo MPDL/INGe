@@ -111,6 +111,11 @@
 							<artifactId>javabib</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+                        <jarModule>         
+                            <groupId>com.maxmind.geoip</groupId>
+                            <artifactId>geoip</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -191,41 +196,41 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.25-SNAPSHOT</version>
+			<version>1.0.25</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.22-SNAPSHOT</version>
+			<version>1.1.22</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.28-SNAPSHOT</version>
+			<version>1.0.28</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 	    <dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.25-SNAPSHOT</version>
+			<version>1.0.25</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.26-SNAPSHOT</version>
+			<version>1.0.26</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.28-SNAPSHOT</version>
+			<version>1.0.28</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>

@@ -31,29 +31,30 @@
                 </configuration>
             </plugin>
             
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                       <id>make-assembly</id>   
-                        <phase>package</phase>   
-                        <goals>
-                            <goal>single</goal>   
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <addClasspath>true</addClasspath>-->
+<!--                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                       <id>make-assembly</id>   -->
+<!--                        <phase>package</phase>   -->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>   -->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <!--  copy other checked resource into staging area, expected by install.xml -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -152,7 +153,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.25-SNAPSHOT</version>
+            <version>1.0.25</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
