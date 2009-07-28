@@ -351,6 +351,11 @@
       						<artifactId>commons-io</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+                        <jarModule>         
+                            <groupId>com.maxmind.geoip</groupId>
+                            <artifactId>geoip</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
                     </modules>
                 </configuration>
             </plugin>
