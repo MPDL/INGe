@@ -335,7 +335,7 @@ public class PubItemDepositingTest extends TestBase
         savedItem.getMetadata().setDatePublishedInPrint(getActualDateString());
         // save changed item
         savedItem = savePubItem(savedItem, user);
-        assertEquals(PubItemVO.State.SUBMITTED, savedItem.getVersion().getState());
+        assertEquals(PubItemVO.State.PENDING, savedItem.getVersion().getState());
     }
 
     /**
@@ -614,6 +614,8 @@ public class PubItemDepositingTest extends TestBase
         
         logger.debug("Object state: " + pubItem.getVersion().getState());
         
+        assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
+        pubItem = pmDepositing.submitPubItem(pubItem, "Test Submit", user);
         assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
         // accept the item
         pubItem = pmDepositing.acceptPubItem(pubItem, "Test Accept", user);

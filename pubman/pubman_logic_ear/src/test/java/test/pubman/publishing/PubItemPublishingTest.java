@@ -270,8 +270,9 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
         assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
         String withdrawalComment = "Dies ist dör withdrawal comment"; //"Dies ist dör „withdrawal comment“"
+        
         pmPublishing.withdrawPubItem(releasedPubItem, releasedPubItem.getModificationDate(),
-                withdrawalComment, otherUser);
+                withdrawalComment, getUserSystemAdministratorWithHandle());
 
         PubItemVO withdrawnPubItem = getPubItemFromFramework(pubItemRef, user);
         assertNotNull(withdrawnPubItem);
