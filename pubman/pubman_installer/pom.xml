@@ -2,19 +2,19 @@
     <parent>
         <artifactId>pubman</artifactId>
         <groupId>de.mpg.escidoc.pubman</groupId>
-        <version>5.0.1-SNAPSHOT</version>
+        <version>5.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.mpg.escidoc.pubman</groupId>
     <artifactId>pubman_installer</artifactId>
     <name>pubman_installer</name>
     <packaging>jar</packaging>
-    <version>5.0.1-SNAPSHOT</version>
+    <version>5.0.1</version>
 
     <scm>
-        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</connection>
-        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_installer</developerConnection>
-        <url>https://zim02.gwdg.de/repos/pubman/</url>
+        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-5.0.1/pubman_installer</connection>
+        <developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-5.0.1/pubman_installer</developerConnection>
+        <url>https://zim02.gwdg.de/repos/pubman/tags/pubman-5.0.1</url>
     </scm>
 
     <build>
@@ -146,7 +146,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_ear</artifactId>
-            <version>5.0.1-SNAPSHOT</version>
+            <version>5.0.1</version>
             <scope>provided</scope>
             <type>ear</type>
         </dependency>
