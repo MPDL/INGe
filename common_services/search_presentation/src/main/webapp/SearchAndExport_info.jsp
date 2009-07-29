@@ -29,6 +29,9 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
+
+<jsp:forward page="index.jsp" />
+
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
