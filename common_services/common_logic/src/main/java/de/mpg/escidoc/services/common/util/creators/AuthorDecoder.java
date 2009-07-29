@@ -123,23 +123,29 @@ public class AuthorDecoder
         {
 
             logger.debug(authorFormat.getName() + ": " + authorFormat.getPattern());
-
-            Pattern pattern = Pattern.compile(authorFormat.getPattern());
-            Matcher matcher = pattern.matcher(authors);
-            if (matcher.find())
+            try
             {
-                logger.debug("Pattern found!");
-
-                List<Author> authorList = authorFormat.getAuthors(authors);
-                if (authorList != null)
+                Pattern pattern = Pattern.compile(authorFormat.getPattern());
+                Matcher matcher = pattern.matcher(authors);
+                if (matcher.find())
                 {
-                    authorListList.add(authorList);
-                    if (bestFormat == null)
-                    {
-                        bestFormat = authorFormat;
-                    }
-                }
+                    logger.debug("Pattern found!");
 
+                    List<Author> authorList = authorFormat.getAuthors(authors);
+                    if (authorList != null)
+                    {
+                        authorListList.add(authorList);
+                        if (bestFormat == null)
+                        {
+                            bestFormat = authorFormat;
+                        }
+                    }
+
+                }
+            }
+            catch (StackOverflowError e)
+            {
+                logger.error("Could not apply format \"" + authorFormat.getName() +"\"", e);
             }
         }
     }
