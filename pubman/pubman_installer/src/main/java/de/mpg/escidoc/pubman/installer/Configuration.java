@@ -77,7 +77,7 @@ public class Configuration
     public void store(String FileName) throws IOException
     {
         FileOutputStream outStream = new FileOutputStream(FileName);
-        this.properties.store(outStream, "header");
+        this.properties.store(outStream, "Automatic created configuration file");
     }
     
     public void setProperty( String key, String value)

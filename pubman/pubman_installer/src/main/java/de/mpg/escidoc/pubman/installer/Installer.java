@@ -64,7 +64,7 @@ public class Installer
     /** configuration of pubman */
     private Configuration config = null ;
     /** content model to be checked */
-    private static final String CHECK_CONTENT_MODEL = "escidoc:persistent4";
+    public static final String CHECK_CONTENT_MODEL = "escidoc:persistent4";
     /** filename of ear */
     private static final String PUBMAN_EAR_FILENAME = "bin/pubman_ear.ear";
     /** filename of validation */
