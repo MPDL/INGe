@@ -1266,12 +1266,7 @@
 					<delimiter value=" " />
 				</parameters>
 				<elements>
-					<layout-element ref="title-with-dot">
-						<parameters>
-							<font-style ref="ITALIC" />
-						</parameters>
-						<elements />
-					</layout-element>
+					<layout-element ref="title-italic"/>
 					<layout-element ref="(publication/identifier[@type='eidt:OTHER'])[1]">
 						<parameters>
 							<starts-with value="(" />

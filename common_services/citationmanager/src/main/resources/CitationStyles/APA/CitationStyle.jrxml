@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="APA" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.scriptlets.ScriptletForRepeatableElements_APA">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="APA" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.scriptlets.ScriptletForRepeatableElements_APA">
 	<property name="ireport.scriptlethandling" value="2"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<queryString>
@@ -662,7 +660,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_18}!=null ? (!($V{CS_1_PLE_18}).trim().equals("") ? $V{CS_1_PLE_18} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_15_P_default_E_3_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[$V{CS_1_PLE_26}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!($V{CS_1_PLE_26}).trim().equals("") ? $V{CS_1_PLE_26} : "")+"</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$V{CS_1_PLE_27}!=null ? (!($V{CS_1_PLE_27}).trim().equals("") ? $V{CS_1_PLE_27} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_15_P_default_E_3_P_default_E_2" class="java.lang.String">
 		<variableExpression><![CDATA[$F{(publication/identifier[@type='eidt:OTHER'])[1]}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{(publication/identifier[@type='eidt:OTHER'])[1]}))).trim().equals("") ? "(" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{(publication/identifier[@type='eidt:OTHER'])[1]})) + ")" : "") : ""]]></variableExpression>
@@ -744,7 +742,12 @@
 		<band height="52">
 			<staticText>
 				<reportElement key="staticText" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="13" width="533" height="32" forecolor="#000000" backcolor="#FFFFFF"/>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
 					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" pdfFontName="ARIALBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -752,11 +755,15 @@
 			</staticText>
 			<line direction="BottomUp">
 				<reportElement key="line" mode="Opaque" x="0" y="50" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
-				<graphicElement pen="2Point" fill="Solid"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
 			</line>
 			<line>
 				<reportElement key="line" mode="Opaque" x="0" y="0" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
-				<graphicElement pen="2Point" fill="Solid"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
 			</line>
 		</band>
 	</title>
@@ -768,12 +775,17 @@
 	</columnHeader>
 	<detail>
 		<band height="31">
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" hyperlinkType="None">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
 				<reportElement key="textField-1" mode="Opaque" x="0" y="0" width="533" height="31" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{citation}==null ? Boolean.FALSE : Boolean.TRUE]]></printWhenExpression>
 				</reportElement>
-				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" isStyledText="true">
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" markup="styled">
 					<font reportFont="Normal"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$V{citation} + "\n"]]></textFieldExpression>
