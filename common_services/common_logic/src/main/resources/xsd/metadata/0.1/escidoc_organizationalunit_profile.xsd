@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:kml="http://earth.google.com/kml/2.1" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
 
@@ -11,7 +11,7 @@
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
 	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dcterms.xsd"/>
 	<xs:import namespace="http://purl.org/escidoc/metadata/terms/0.1/" schemaLocation="../../metadata/0.1/escidoctypes.xsd"/>
-	<xs:import namespace="http://earth.google.com/kml/2.1" schemaLocation="http://code.google.com/apis/kml/schema/kml21.xsd"/>
+	<xs:import namespace="http://www.opengis.net/kml/2.2" schemaLocation="http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd"/>
 	
 	<!--*******************************
     Organization Unit
