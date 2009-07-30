@@ -44,7 +44,7 @@
 				<h:outputText value="#{lbl.AudiencePage_allFiles}" /><span class="noDisplay"> </span>
 			</b>
 			<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Anzahl #{AudienceBean.numberOfFiles}"/>
+				<h:outputLabel styleClass="quad_label" value="#{lbl.AudiencePage_numberOf} } #{AudienceBean.numberOfFiles}"/>
 			</h:panelGroup>
 			<tr:iterator var="grantForAllFiles" id="grantListForAllFiles" value="#{AudienceBean.grantsForAllFiles}" >
 				<h:panelGroup>
