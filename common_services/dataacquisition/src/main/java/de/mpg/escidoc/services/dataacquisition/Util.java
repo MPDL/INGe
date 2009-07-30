@@ -49,7 +49,6 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
-import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.MetadataVO;
@@ -88,32 +87,41 @@ public class Util
      */
     public Util()
     {
-            this.transformer = new TransformationBean();       
+        this.transformer = new TransformationBean();
     }
     
     /**
+     * Retrieves the default encoding ("UTF-8").
      * @param formatName
-     * @return
+     * @return default encoding
      */
-    public String getDefaultEncoding (String formatName)
+    public String getDefaultEncoding(String formatName)
     {
-        if (formatName.equalsIgnoreCase(this.getInternalFormat())){return "UTF-8";}
+        if (formatName.equalsIgnoreCase(this.getInternalFormat())) 
+        { return "UTF-8"; }
         return "*";
     }
     
     /**
      * @param formatName
-     * @return
+     * @return default mimetype
      */
-    public String getDefaultMimeType (String formatName)
+    public String getDefaultMimeType(String formatName)
     {
-        if (formatName.equalsIgnoreCase("apa")) { return "text/html"; }      
-        if (formatName.equalsIgnoreCase("ajp")) { return "text/html"; }       
-        if (formatName.equalsIgnoreCase("endnote")) { return "text/plain"; } 
-        if (formatName.equalsIgnoreCase("bibtex")) { return "text/plain"; } 
-        if (formatName.equalsIgnoreCase("coins")) { return "text/plain"; } 
-        if (formatName.equalsIgnoreCase("pdf")) { return "application/pdf"; } 
-        if (formatName.equalsIgnoreCase("ps")) { return "application/gzip"; } 
+        if (formatName.equalsIgnoreCase("apa")) 
+        { return "text/html"; }      
+        if (formatName.equalsIgnoreCase("ajp")) 
+        { return "text/html"; }       
+        if (formatName.equalsIgnoreCase("endnote")) 
+        { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("bibtex")) 
+        { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("coins")) 
+        { return "text/plain"; } 
+        if (formatName.equalsIgnoreCase("pdf")) 
+        { return "application/pdf"; } 
+        if (formatName.equalsIgnoreCase("ps")) 
+        { return "application/gzip"; } 
         
         return "application/xml";
     }
@@ -153,7 +161,7 @@ public class Util
             }
             
             if (fetchMd)
-            { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
+            { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName()); }
         }
         
         // Second: check which format can be transformed into the given format
@@ -174,14 +182,14 @@ public class Util
                 { fetchMd = false; }
                 if ((!sourceMd.getEncoding().equals("*")) && (!possibleFormat.getEncoding().equals("*")))
                 {
-                    if (!sourceMd.getEncoding().equalsIgnoreCase( possibleFormat.getEncoding())) 
+                    if (!sourceMd.getEncoding().equalsIgnoreCase(possibleFormat.getEncoding())) 
                     {
                         fetchMd = false;
                     }
                 }
                     
                 if (fetchMd)
-                { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());}
+                { return sourceHandler.getMdObjectfromSource(source, sourceMd.getName()); }
             }
         }
         return null;
@@ -193,12 +201,12 @@ public class Util
      * @param trgFormatName
      * @param trgFormatType
      * @param trgFormatEncoding
-     * @return
+     * @return true if transformation is provided, else false
      */
     public boolean checkEscidocTransform(String trgFormatName, String trgFormatType, String trgFormatEncoding)
     {
-        Format target = new Format (trgFormatName, trgFormatType, trgFormatEncoding);
-        Format escidoc = new Format (this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
+        Format target = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
+        Format escidoc = new Format(this.getInternalFormat(), this.getDefaultMimeType(this.getInternalFormat()), 
                 this.getDefaultEncoding(this.getInternalFormat()));
         Format[] formats;
 
@@ -257,7 +265,7 @@ public class Util
     
     /**
      * Trims the given identifier according to description in source.xml, for a more flexible user input handling.
-     * @param sourceName
+     * @param source
      * @param identifier
      * @return a trimed identifier
      */
@@ -265,13 +273,13 @@ public class Util
     {
         Vector <String> idPrefVec = source.getIdentifier();
         
-        for (int i = 0; i< idPrefVec.size(); i++)
+        for (int i = 0; i < idPrefVec.size(); i++)
         {
             String idPref = idPrefVec.get(i);
             if (identifier.toLowerCase().startsWith(idPref))
             {
                 //Plus one because of the delimiter (:)
-                identifier = identifier.substring(idPref.length()+ 1);
+                identifier = identifier.substring(idPref.length() + 1);
             }
         }
 
@@ -321,9 +329,9 @@ public class Util
     /**
      * Checks if a format can use escidoc as transition format.
      * @param metadataV
-     * @return
+     * @return true if escidoc format can be transition format, else false
      */
-    public boolean checkEscidocTransition (Vector<MetadataVO> metadataV, String identifier)
+    public boolean checkEscidocTransition(Vector<MetadataVO> metadataV, String identifier)
     {
         if (identifier.toLowerCase().contains(this.getInternalFormat()))
         {
@@ -335,7 +343,7 @@ public class Util
             for (int i = 0; i < metadataV.size(); i++)
             {
                 MetadataVO md = metadataV.get(i);
-                Format format = new Format (md.getName(), md.getMdFormat(), md.getEncoding());
+                Format format = new Format(md.getName(), md.getMdFormat(), md.getEncoding());
                 Format[] trgFormats = this.transformer.getTargetFormats(format);
                 for (int x = 0; x < trgFormats.length; x++)
                 {
@@ -352,7 +360,7 @@ public class Util
     
     /**
      * Eliminates duplicates in a Vector.
-     * @param dirtyVector as Vector<MetadataVO>
+     * @param dirtyVector as MetadataVO Vector
      * @return Vector with unique entries
      */
     public Vector<MetadataVO> getRidOfDuplicatesInVector(Vector<MetadataVO> dirtyVector)
@@ -391,14 +399,17 @@ public class Util
      */
     public boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2)
     {
-        if (!src1.getName().equalsIgnoreCase(src2.getName())) { return false;}
-        if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) { return false;}
+        if (!src1.getName().equalsIgnoreCase(src2.getName())) 
+        { return false; }
+        if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) 
+        { return false; }
         
-        if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")){return true;}
+        if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")) 
+        { return true; }
         else
         {
             if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) 
-            { return false;}
+            { return false; }
         }
         
         return true;
@@ -412,8 +423,10 @@ public class Util
      */
     public boolean isFormatEqual(Format src1, Format src2)
     {
-        if (!src1.getName().equalsIgnoreCase(src2.getName())) { return false;}
-        if (!src1.getType().equalsIgnoreCase(src2.getType())) { return false;}
+        if (!src1.getName().equalsIgnoreCase(src2.getName())) 
+        { return false; }
+        if (!src1.getType().equalsIgnoreCase(src2.getType())) 
+        { return false; }
         if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
         {
             return true;
@@ -421,14 +434,14 @@ public class Util
         else 
         {
             if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) 
-            { return false;}
+            { return false; }
             else 
-            { return true;}
+            { return true; }
         }
     }
     
     /**
-     * Creates the source description xml
+     * Creates the source description xml.
      * @return xml as byte[]
      */
     public byte[] createUnapiSourcesXml()
@@ -465,7 +478,7 @@ public class Util
                 desc.set(sourceDesc);
                 //Identifier prefix
                 Vector <String> idPreVec = source.getIdentifier();
-                for (int x = 0; x< idPreVec.size(); x++)
+                for (int x = 0; x < idPreVec.size(); x++)
                 {
                     SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
                     XmlString sourceidPre = XmlString.Factory.newInstance();
@@ -550,7 +563,7 @@ public class Util
         {
             if (!identifier.toLowerCase().startsWith("escidoc:"))
             {
-                return "escidoc"+ ":" + identifier;
+                return "escidoc" + ":" + identifier;
             }
             else
             {
@@ -565,19 +578,19 @@ public class Util
      * @param formats
      * @return Vector of FormatVOs
      */
-    private Format[] handleDuplicateFormatNames (Format[] formats)
+    private Format[] handleDuplicateFormatNames(Format[] formats)
     {       
-        for (int i=0; i<formats.length; i++)
+        for (int i = 0; i < formats.length; i++)
         {
             Format currentFormat = formats[i];
             Format[] currentVector = formats;
-            for (int x = i+1; x< currentVector.length; x++)
+            for (int x = i + 1; x < currentVector.length; x++)
             {
                 Format compareFormat = currentVector[x];
                 if (currentFormat.getName().equalsIgnoreCase(compareFormat.getName()))
                 {
-                    Format updatedFormat = new Format (currentFormat.getName() + "_" + currentFormat.getType(),
-                            currentFormat.getType(),currentFormat.getEncoding());
+                    Format updatedFormat = new Format(currentFormat.getName() + "_" + currentFormat.getType(),
+                            currentFormat.getType(), currentFormat.getEncoding());
                     formats[i] = updatedFormat;
                 }
             }
@@ -587,7 +600,7 @@ public class Util
     }
     
     /**
-     * Retrieves the fileending for a given mimetype from the cone service
+     * Retrieves the fileending for a given mimetype from the cone service.
      * @param mimeType
      * @return fileending as String
      */
@@ -601,7 +614,8 @@ public class Util
         try
         {
 
-            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" + this.coneMethod + "/" + this.coneRel + mimeType);
+            URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" 
+                    + this.coneMethod + "/" + this.coneRel + mimeType);
             conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -621,13 +635,13 @@ public class Util
             {
                 if (line.contains("suffix"))
                 {
-                    suffix= line.substring(line.indexOf("<suffix>")+ "<suffix>".length(), line.indexOf("</suffix>"));
+                    suffix = line.substring(line.indexOf("<suffix>") + "<suffix>".length(), line.indexOf("</suffix>"));
                 }
             }
         }
         catch (Exception e)
         {
-            this.logger.warn("Suffix could not be retrieved from cone service (mimetype: "+ mimeType + ")", e);
+            this.logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
             return null;
         }
         

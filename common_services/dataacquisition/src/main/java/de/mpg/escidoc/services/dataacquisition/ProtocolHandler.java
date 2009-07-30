@@ -68,8 +68,9 @@ public class ProtocolHandler
      * @throws FormatNotRecognisedException
      * @throws RuntimeException
      */
-    public void checkOAIRecord(String record) throws    BadArgumentException, IdentifierNotRecognisedException, 
-                                                        FormatNotRecognisedException, RuntimeException
+    public void checkOAIRecord(String record) 
+        throws BadArgumentException, IdentifierNotRecognisedException, 
+               FormatNotRecognisedException, RuntimeException
     {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
         domFactory.setNamespaceAware(true);

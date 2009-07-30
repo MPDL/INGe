@@ -62,7 +62,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
      * @param request
      * @param response
      */
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request,
+            HttpServletResponse response)
     {
         try
         {
@@ -226,11 +227,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
         if (util.checkEscidocTransition(metadataV, identifier))
         {
             String transitionFormatName = util.getInternalFormat();
-            MetadataVO transitionFormat = new MetadataVO ();
+            MetadataVO transitionFormat = new MetadataVO();
             transitionFormat.setName(transitionFormatName);
             transitionFormat.setEncoding(util.getDefaultEncoding(transitionFormatName));
             transitionFormat.setMdFormat(util.getDefaultMimeType(transitionFormatName));
-            Vector<MetadataVO> transitionFormatV = new Vector<MetadataVO> ();
+            Vector<MetadataVO> transitionFormatV = new Vector<MetadataVO>();
             transitionFormatV.add(transitionFormat);
             //Call method with transition format escidoc
             metadataV.addAll(util.getTransformFormats(transitionFormatV));
@@ -338,7 +339,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
         catch (ArrayIndexOutOfBoundsException e)
         {
             //Given identifier has wrong encoding (type : value)
-            throw new IdentifierNotRecognisedException ();
+            throw new IdentifierNotRecognisedException();
         }
         catch (Exception e)
         {
@@ -350,8 +351,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
     private String checkIdentifier(String identifier, String format)
     {
         identifier = identifier.toLowerCase().trim();
-        if (identifier.contains("escidoc:") || identifier.contains("escidoctoc:") || identifier.contains("escidocdev:")
-                || identifier.contains("escidocqa:") || identifier.contains("escidoctest:") || identifier.contains("escidocprod:"))
+        if (identifier.startsWith("escidoc"))
         {
             return this.idTypeEscidoc;
         }

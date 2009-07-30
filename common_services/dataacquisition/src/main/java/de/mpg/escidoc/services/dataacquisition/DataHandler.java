@@ -66,7 +66,8 @@ public interface DataHandler
      * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
@@ -85,7 +86,8 @@ public interface DataHandler
      * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, String formatName) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
@@ -105,7 +107,8 @@ public interface DataHandler
      * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, String trgFormatName, String trgFormatType, String trgFormatEncoding) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
 
     
     /**
@@ -124,7 +127,8 @@ public interface DataHandler
      * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, Format[] formats) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
     
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
@@ -143,5 +147,6 @@ public interface DataHandler
      * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
 }

@@ -35,14 +35,14 @@ import org.junit.Test;
 import de.mpg.escidoc.services.dataacquisition.Util;
 
 /**
- * 
- * Test suite for unit test of dataAcquisition service
+ * Test suite for unit test of dataAcquisition service.
  *
  * @author Friederike Kleinfercher (initial creation)
  */           
-public class DataAcquisitionUnitTest {
+public class DataAcquisitionUnitTest 
+{
 
-    private Logger LOGGER = Logger.getLogger(DataHandlerTest.class);
+    private Logger logger = Logger.getLogger(DataAcquisitionUnitTest.class);
 
     @Test
     public void fetchFromCone() throws Exception
@@ -50,7 +50,7 @@ public class DataAcquisitionUnitTest {
         Util util = new Util();
         String fileEnding = util.retrieveFileEndingFromCone("application/pdf");
         
-        System.out.println("Suffix: " + fileEnding);
+        this.logger.info("Suffix: " + fileEnding);
         
     }
     

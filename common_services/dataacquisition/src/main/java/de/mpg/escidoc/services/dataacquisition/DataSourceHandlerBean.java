@@ -31,7 +31,7 @@ public class DataSourceHandlerBean
     private ThirdPartyTransformation thirdPartyTransformer = null;
     private static final Logger LOGGER = Logger.getLogger(DataHandlerBean.class);
     private String transformationFormat = null;
-    private final String sourceXmlPath ="resources/sources.xml";
+    private final String sourceXmlPath = "resources/sources.xml";
 
     /**
      * Public constructor for DataSourceHandlerBean class.
@@ -46,7 +46,8 @@ public class DataSourceHandlerBean
      * @return Vector of DataSourceVO
      * @throws RuntimeException
      */
-    public Vector<DataSourceVO> getSources()throws RuntimeException
+    public Vector<DataSourceVO> getSources()
+        throws RuntimeException
     {
         Vector<DataSourceVO> sourceVec = new Vector<DataSourceVO>();
         
@@ -59,7 +60,7 @@ public class DataSourceHandlerBean
             this.thirdPartyTransformer = new ThirdPartyTransformation();
             this.sourceType = this.sourceDoc.getImportSources();
             ImportSourceType[] sources = this.sourceType.getImportSourceArray();
-            for (int i =0; i< sources.length; i++)
+            for (int i = 0; i < sources.length; i++)
             {
                 ImportSourceType source = sources[i];
                 Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
@@ -67,7 +68,8 @@ public class DataSourceHandlerBean
 
                 String status = simpleLiteralTostring(source.getStatus());
                 if (status.equalsIgnoreCase("published"))
-                {   DataSourceVO sourceVO = new DataSourceVO();
+                {
+                    DataSourceVO sourceVO = new DataSourceVO();
                     sourceVO.setName(source.getName());
                     sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
                     sourceVO.setUrl(new URL(simpleLiteralTostring(source.getIdentifier())));
@@ -79,7 +81,7 @@ public class DataSourceHandlerBean
                     //Accepted identifier Prefixes
                     SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
                     Vector <String> idPrefVec = new Vector <String>();
-                    for (int x=0; x<idPrefArr.length; x++)
+                    for (int x = 0; x < idPrefArr.length; x++)
                     {
                         String idPref = simpleLiteralTostring(idPrefArr[x]);
                         idPrefVec.add(idPref);
@@ -88,7 +90,7 @@ public class DataSourceHandlerBean
                     //Identifier Examples
                     SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
                     Vector <String> idExVec = new Vector <String>();
-                    for (int y=0; y<idExArr.length; y++)
+                    for (int y = 0; y < idExArr.length; y++)
                     {
                         String idEx = simpleLiteralTostring(idExArr[y]);
                         idExVec.add(idEx);
@@ -176,7 +178,8 @@ public class DataSourceHandlerBean
      * @return DataSourceVO
      * @throws RuntimeException
      */
-    public Vector<DataSourceVO> getSources(String format) throws RuntimeException
+    public Vector<DataSourceVO> getSources(String format) 
+        throws RuntimeException
     {
         this.transformationFormat = format;
         return this.getSources();
@@ -189,7 +192,8 @@ public class DataSourceHandlerBean
      * @return corresponding source
      * @throws RuntimeException
      */
-    public DataSourceVO getSourceByName(String name) throws RuntimeException
+    public DataSourceVO getSourceByName(String name) 
+        throws RuntimeException
     {
         DataSourceVO sourceVO = new DataSourceVO();
         Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
@@ -224,7 +228,7 @@ public class DataSourceHandlerBean
                 //Accepted identifier Prefixes
                 SimpleLiteral[] idPrefArr = source.getSourceIdentifierArray();
                 Vector <String> idPrefVec = new Vector <String>();
-                for (int i=0; i<idPrefArr.length; i++)
+                for (int i = 0; i < idPrefArr.length; i++)
                 {
                     String idPref = simpleLiteralTostring(idPrefArr[i]);
                     idPrefVec.add(idPref);
@@ -233,7 +237,7 @@ public class DataSourceHandlerBean
                 //Identifier Examples
                 SimpleLiteral[] idExArr = source.getSourceIdentifierExampleArray();
                 Vector <String> idExVec = new Vector <String>();
-                for (int y=0; y<idExArr.length; y++)
+                for (int y = 0; y < idExArr.length; y++)
                 {
                     String idEx = simpleLiteralTostring(idExArr[y]);
                     idExVec.add(idEx);
@@ -316,7 +320,8 @@ public class DataSourceHandlerBean
      * @return corresponding source
      * @throws RuntimeException
      */
-    public DataSourceVO getSourceByIdentifier(String id) throws RuntimeException
+    public DataSourceVO getSourceByIdentifier(String id) 
+        throws RuntimeException
     {
         try
         {
@@ -357,7 +362,8 @@ public class DataSourceHandlerBean
      * @return corresponding source name
      * @throws RuntimeException
      */
-    public String getSourceNameByIdentifier(String id) throws RuntimeException
+    public String getSourceNameByIdentifier(String id)
+        throws RuntimeException
     {
         try
         {
@@ -399,7 +405,8 @@ public class DataSourceHandlerBean
      * @param format the format of which the metadata will be retrieved
      * @return metadata informations
      */
-    public MetadataVO getMdObjectfromSource(DataSourceVO source, String format)
+    public MetadataVO getMdObjectfromSource(DataSourceVO source, 
+            String format)
     {
         MetadataVO md = null;
         for (int i = 0; i < source.getMdFormats().size(); i++)
@@ -440,7 +447,8 @@ public class DataSourceHandlerBean
      * @param md the metadata object which will be updated
      * @return ImportSourceVO with updated metadata informations
      */
-    public DataSourceVO updateMdEntry(DataSourceVO source, MetadataVO md)
+    public DataSourceVO updateMdEntry(DataSourceVO source, 
+            MetadataVO md)
     {
         Vector<MetadataVO> mdv = source.getMdFormats();
         if (md != null)

@@ -45,5 +45,6 @@ public interface Unapi
      * @throws AccessException (Restricted access to the source)
      */
     public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
+            SourceNotAvailableException, FormatNotRecognisedException, 
+            RuntimeException, AccessException, FormatNotAvailableException;
 }

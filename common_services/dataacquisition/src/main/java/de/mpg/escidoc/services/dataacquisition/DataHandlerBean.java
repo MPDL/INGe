@@ -27,7 +27,6 @@
  */
 package de.mpg.escidoc.services.dataacquisition;
 
-import java.beans.Encoder;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,7 +35,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.rmi.AccessException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -310,10 +308,11 @@ public class DataHandlerBean implements DataHandler
      * @throws AccessException
      * @throws FormatNotSupportedException
      */
-    private String fetchTextualData(String identifier, String trgFormatName, 
+    private String fetchTextualData(String identifier, String trgFormatName,
             String trgFormatType, String trgFormatEncoding) 
-            throws IdentifierNotRecognisedException, AccessException, SourceNotAvailableException, 
-            FormatNotAvailableException, FormatNotRecognisedException
+            throws  IdentifierNotRecognisedException, AccessException,
+                    SourceNotAvailableException, FormatNotAvailableException, 
+                    FormatNotRecognisedException
     {
         String fetchedItem = null;
         String item = null;
@@ -322,7 +321,8 @@ public class DataHandlerBean implements DataHandler
         
         try
         {
-            MetadataVO md = this.util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding);
+            MetadataVO md = this.util.getMdObjectToFetch(this.currentSource, trgFormatName, 
+                    trgFormatType, trgFormatEncoding);
             
             String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), this.currentSource.getEncoding());
             md.setMdUrl(new URL(decoded));
@@ -366,7 +366,8 @@ public class DataHandlerBean implements DataHandler
                 Format srcFormat = new Format(md.getName(), md.getMdFormat(), "*");
                 Format trgFormat = new Format(trgFormatName, trgFormatType, trgFormatEncoding);
 
-                item = new String(transformer.transform(item.getBytes(this.enc), srcFormat, trgFormat, "escidoc"),this.enc);  
+                item = new String(transformer.transform(item.getBytes(this.enc), srcFormat, 
+                        trgFormat, "escidoc"),this.enc);  
                 if (this.currentSource.getItemUrl()!= null)
                 {
                     this.setItemUrl(new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier)));
@@ -379,17 +380,18 @@ public class DataHandlerBean implements DataHandler
                     Format trgFormatComponent = new Format(name, trgFormatType, trgFormatEncoding);
                     if (transformer.checkTransformation(srcFormat, trgFormatComponent))
                     {
-                        byte[] componentBytes = transformer.transform(fetchedItem.getBytes(this.enc), srcFormat, trgFormatComponent, "escidoc");
+                        byte[] componentBytes = transformer.transform(fetchedItem.getBytes(this.enc), 
+                                srcFormat, trgFormatComponent, "escidoc");
                         
                         if (componentBytes != null)
-                        {   String componentXml = new String(componentBytes, this.enc);               
+                        {   String componentXml = new String(componentBytes, this.enc);
                             InitialContext initialContext = new InitialContext();
-                            XmlTransforming xmlTransforming = (XmlTransforming)initialContext .lookup(XmlTransforming.SERVICE_NAME);
+                            XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
                             this.componentVO = xmlTransforming.transformToFileVO(componentXml);
                         }
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.logger.info("No component was created from external sources metadata");
                 }
@@ -404,8 +406,8 @@ public class DataHandlerBean implements DataHandler
         }
         catch (IdentifierNotRecognisedException e)
         {
-            this.logger.error("The Identifier " + identifier + "was not recognized by source " + this.currentSource.getName()
-                    + ".", e);
+            this.logger.error("The Identifier " + identifier + "was not recognized by source " 
+                    + this.currentSource.getName()+ ".", e);
             throw new IdentifierNotRecognisedException(e);
         }
         catch (BadArgumentException e)
@@ -435,7 +437,8 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      * @throws AccessException
      */
-    public byte[] fetchMetadatafromURL(URL url) throws SourceNotAvailableException, RuntimeException, AccessException
+    public byte[] fetchMetadatafromURL(URL url) throws SourceNotAvailableException, 
+        RuntimeException, AccessException
     {
         byte[] input = null;
         URLConnection conn = null;
@@ -532,7 +535,8 @@ public class DataHandlerBean implements DataHandler
                 fulltext = this.util.getFtObjectToFetch(this.currentSource, format.getName(), format.getType(), 
                         format.getEncoding());
                 // Replace regex with identifier
-                String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), this.currentSource.getEncoding());
+                String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), 
+                        this.currentSource.getEncoding());
                 fulltext.setFtUrl(new URL(decoded));
                 fulltext.setFtUrl(new URL(fulltext.getFtUrl().toString().replaceAll(this.regex, identifier.trim())));
                 this.logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
@@ -614,7 +618,8 @@ public class DataHandlerBean implements DataHandler
             {
                 case 503:
                     //request was not processed by source
-                    this.logger.warn("Import source " + this.currentSource.getName() + "did not provide data in format " 
+                    this.logger.warn("Import source " + this.currentSource.getName() 
+                            + "did not provide data in format " 
                             + fulltext.getFtLabel());
                     throw new FormatNotAvailableException(fulltext.getFtLabel());
                 case 302:
@@ -663,7 +668,6 @@ public class DataHandlerBean implements DataHandler
         String itemXML = "";
         URLConnection conn;
         Date retryAfter;
-        String charset = this.currentSource.getEncoding();
         InputStreamReader isReader;
         BufferedReader bReader;
         try
@@ -1037,7 +1041,7 @@ public class DataHandlerBean implements DataHandler
      */
     private String getFetchingType(String trgFormatName, 
             String trgFormatType, String trgFormatEncoding) 
-            throws FormatNotAvailableException
+        throws FormatNotAvailableException
     {
         //Native metadata format
         if (this.util.getMdObjectToFetch(this.currentSource, trgFormatName, trgFormatType, trgFormatEncoding) != null)
@@ -1156,13 +1160,13 @@ public class DataHandlerBean implements DataHandler
     {
         if (this.componentVO != null)
         {
-            if (this.componentVO.getDefaultMetadata().getRights() == null || 
-                    this.componentVO.getDefaultMetadata().getRights().equals(""))
+            if (this.componentVO.getDefaultMetadata().getRights() == null 
+                    || this.componentVO.getDefaultMetadata().getRights().equals(""))
             {
                 this.componentVO.getDefaultMetadata().setRights(this.currentSource.getCopyright());
             }
-            if (this.componentVO.getDefaultMetadata().getLicense() == null || 
-                    this.componentVO.getDefaultMetadata().getLicense().equals(""))
+            if (this.componentVO.getDefaultMetadata().getLicense() == null 
+                    || this.componentVO.getDefaultMetadata().getLicense().equals(""))
             {
                 this.componentVO.getDefaultMetadata().setLicense(this.currentSource.getLicense());
             }
