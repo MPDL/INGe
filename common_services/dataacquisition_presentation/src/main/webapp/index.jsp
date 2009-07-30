@@ -23,7 +23,7 @@
 */
 
 /*
-* Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -39,7 +39,7 @@
 			eSciDoc DataAcquisition Service
 		</h1>
 		<p>
-			The eSciDoc DataAcquisition Service is a interface for harvesting data from external servers.</br>
+			The eSciDoc DataAcquisition Service is a interface for harvesting data from external servers.
 		</p>
 		<p>
 			<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Services_DataAcquisitionHandler">[more]</a>
