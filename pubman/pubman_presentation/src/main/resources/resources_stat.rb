@@ -62,6 +62,7 @@ IGNORE_UNTRANSLATED = {
    "ok" => "Ok",
    "openSearch_shortDesc" => "eSciDoc PubMan",
    "title" => "Publication Manager",
+   "multipleImport_checkboxSomething" => "multipleImport_checkboxSomething",
 }
 
 def parse_resource_file( filename )
