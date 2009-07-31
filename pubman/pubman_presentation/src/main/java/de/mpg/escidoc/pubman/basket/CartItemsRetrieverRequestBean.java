@@ -40,7 +40,9 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
     public CartItemsRetrieverRequestBean()
     {
-        super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), false);
+        //refreshAlways is needed due to workarround (latest-version problem, filter only retrieves latest versions and therefore 
+        //number of items in the basket could change -> message is displayed to the user.
+        super((PubItemListSessionBean) getSessionBean(PubItemListSessionBean.class), true);
     }
 
     @Override
@@ -138,11 +140,12 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 numberOfRecords = 0;
             }
             
+            pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - numberOfRecords);
             if (pssb.getDiffDisplayNumber()>0)
             {
-                error(pssb.getDiffDisplayNumber() + getMessage("basket_ItemsChanged"));
+                error(pssb.getDiffDisplayNumber() + " " + getMessage("basket_ItemsChanged"));
             }
-            pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - numberOfRecords);
+            
                       
 
         }
