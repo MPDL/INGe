@@ -184,8 +184,10 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=GETID%26tool=pmcentrez%26rendertype=abstract</item-url>
+		<source-identifier>pmcid:pmc</source-identifier>
+		<source-identifier>pmcid: pmc</source-identifier>
 		<source-identifier>pmcid</source-identifier>
-		<source-identifier>pmc</source-identifier>
+		<source-identifier>pmc</source-identifier>		
 		<source-identifier-example>pmc:2581620</source-identifier-example>
 		<harvest-protocol>OAI-PMH</harvest-protocol>
 		<retry-after>3</retry-after>

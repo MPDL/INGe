@@ -715,6 +715,7 @@ public class DataHandlerBean implements DataHandler
             {
                 itemXML += line + "\n";
             }
+            httpConn.disconnect();
         }
         catch (AccessException e)
         {
@@ -893,6 +894,7 @@ public class DataHandlerBean implements DataHandler
             {
                 item += line + "\n";
             }
+            httpConn.disconnect();
         }
         catch (AccessException e)
         {

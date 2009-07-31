@@ -292,7 +292,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
             String fullId = tmp[1];
     
             String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
-            String idType = this.checkIdentifier(trimmedId, format);
+            String idType = this.checkIdentifier(identifier, format);
             
             if (idType.equals(this.idTypeUri))
             {
@@ -305,11 +305,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
             {
                 return this.dataHandler.fetchMetadatafromURL(new URL(identifier));
             }
-            if (idType.equals(this.idTypeEscidoc))
-            {
-                this.filename = trimmedId;
-                return this.dataHandler.doFetch(sourceName, trimmedId, format);
-            }
+//            if (idType.equals(this.idTypeEscidoc))
+//            {
+//                this.filename = trimmedId;
+//                return this.dataHandler.doFetch(sourceName, trimmedId, format);
+//            }
             if (idType.equals(this.idTypeUnknown) || sourceId == null)
             {
                 this.logger.warn("The type of the identifier (" + identifier + ") was not recognised.");
@@ -350,12 +350,12 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
     private String checkIdentifier(String identifier, String format)
     {
-        identifier = identifier.toLowerCase().trim();
-        if (identifier.startsWith("escidoc"))
-        {
-            return this.idTypeEscidoc;
-        }
-        if (identifier.startsWith("http") & format.equalsIgnoreCase("url"))
+//        identifier = identifier.toLowerCase().trim();
+//        if (identifier.startsWith("escidoc"))
+//        {
+//            return this.idTypeEscidoc;
+//        }
+        if (identifier.startsWith("http"))
         {
             // Fetch from url => only download possible
             this.view = false;

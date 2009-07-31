@@ -275,13 +275,15 @@ public class Util
         
         for (int i = 0; i < idPrefVec.size(); i++)
         {
-            String idPref = idPrefVec.get(i);
+            String idPref = idPrefVec.get(i).toLowerCase();
+            System.out.println(identifier.toLowerCase());
+            System.out.println(idPref);
             if (identifier.toLowerCase().startsWith(idPref))
             {               
                 identifier = identifier.substring(idPref.length());
                 if (identifier.startsWith(":"))
                 {
-                    //Plus one because of the delimiter (:)
+                    //because of the delimiter (:)
                     identifier = identifier.substring(1);
                 }
             }
@@ -642,6 +644,7 @@ public class Util
                     suffix = line.substring(line.indexOf("<suffix>") + "<suffix>".length(), line.indexOf("</suffix>"));
                 }
             }
+            httpConn.disconnect();
         }
         catch (Exception e)
         {
