@@ -277,9 +277,13 @@ public class Util
         {
             String idPref = idPrefVec.get(i);
             if (identifier.toLowerCase().startsWith(idPref))
-            {
-                //Plus one because of the delimiter (:)
-                identifier = identifier.substring(idPref.length() + 1);
+            {               
+                identifier = identifier.substring(idPref.length());
+                if (identifier.startsWith(":"))
+                {
+                    //Plus one because of the delimiter (:)
+                    identifier = identifier.substring(1);
+                }
             }
         }
 
