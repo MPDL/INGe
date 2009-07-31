@@ -231,7 +231,7 @@ public class TestHelper
                     "Maximal execution time exceeded (max. time was "
                     + maxTime
                     + ", exec. took "
-                    + duration + ")");
+                    + duration + ")");        
         }
         if (warnTime != -1 && duration > warnTime)
         {

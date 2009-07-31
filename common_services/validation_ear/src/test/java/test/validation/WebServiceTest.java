@@ -99,7 +99,7 @@ public class WebServiceTest
         String itemXml = validXml;
         TestHelper.initTimeLog("Start REST call");
         String report = TestHelper.callRestWebservice(null, itemXml);
-        TestHelper.logTime("End REST call", 200, 500);
+        TestHelper.logTime("End REST call", 200);
 
         logger.debug("Report: " + report);
 
@@ -135,7 +135,7 @@ public class WebServiceTest
 
         TestHelper.initTimeLog("Start SOAP call");
         String report = TestHelper.callSoapWebservice(new Object[]{itemXml});
-        TestHelper.logTime("End SOAP call", 750, 1200);
+        TestHelper.logTime("End SOAP call", 750);
 
         logger.debug("Report: " + report);
 
@@ -146,23 +146,22 @@ public class WebServiceTest
      * Test SOAP web service with a semi valid item object.
      * @throws Exception Any exception.
      */
-    // FIXME tendres: "This test has to be made runnnable"
+    @Ignore
     @Test
-    @Ignore( "This test has to be made runnnable" )
     public final void testSemiValidItemSoapValidation() throws Exception
     {
         String itemXml = semiValidXml;
 
         TestHelper.initTimeLog("Start SOAP call 1");
         String report = TestHelper.callSoapWebservice(new Object[]{itemXml, "default"});
-        TestHelper.logTime("End SOAP call 1", 750, 1000);
+        TestHelper.logTime("End SOAP call 1", 750);
 
         logger.debug("Report: " + report);
 
         // Validation point default should validate
         assertTrue(!report.contains("<failure"));
         report = TestHelper.callSoapWebservice(new Object[]{itemXml, "submit_item"});
-        TestHelper.logTime("End SOAP call 2", 750, 1000);
+        TestHelper.logTime("End SOAP call 2", 750);
 
         logger.info("Report: " + report);
 
