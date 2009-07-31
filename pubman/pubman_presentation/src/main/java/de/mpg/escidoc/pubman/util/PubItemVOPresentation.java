@@ -1322,4 +1322,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
     }
     
+    public String getIdentifier() throws Exception
+    {
+        String id = this.getLink().toString();
+        String [] idSplit = id.split("/");
+        
+        return idSplit[idSplit.length - 1];
+    }
+    
 }

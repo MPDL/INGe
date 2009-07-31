@@ -32,7 +32,7 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:panelGroup layout="block" styleClass="full_area0 shortView">
-	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
+	<h:outputText value="<abbr class='unapi-id' title='#{item.identifier}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
  			<div><a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText value="#{lbl.ViewItemShort_lblDetails}"/></span></a>
