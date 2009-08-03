@@ -1559,7 +1559,7 @@ public class EditItem extends FacesBean
         }
         
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
-        this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner);
+        this.lnkRelease.setRendered((isStatePending || isStateSubmitted || isStateReleased) && isWorkflowSimple && isOwner);
         this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision || isStateReleased) &&  isWorkflowStandard && isOwner);
         this.lnkSave.setRendered(((isStatePending || isStateInRevision || isStateReleased) && isOwner) || (isStateSubmitted && isModerator));
