@@ -306,6 +306,80 @@ public class ItemControllerSessionBean extends FacesBean
     }
     
     /**
+     * saves and submits a pub item
+     * 
+     * @param submissionComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String saveAndSubmitCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
+    {
+        try
+        {
+            if (this.currentPubItem == null)
+            {
+                TechnicalException technicalException = new TechnicalException("No current PubItem is set.");
+                throw technicalException;
+            }
+
+            getPubItemListSessionBean().setHasChanged();
+           
+            
+            if (currentPubItem != null && currentPubItem.getVersion() != null)
+            {
+                logger.debug("Saving/submitting PubItem: " + currentPubItem.getVersion().getObjectId());
+            }
+            else
+            {
+                logger.debug("Saving/submitting a new PubItem.");
+            }
+            
+            
+            /*
+             * FrM: Validation with validation point "submit_item"
+             */
+            ValidationReportVO report = this.itemValidating.validateItemObject(new PubItemVO(currentPubItem), "submit_item");
+            currentItemValidationReport = report;
+
+            logger.debug("Validation Report: " + report);
+            
+            if (report.isValid())
+            {
+                // clean up the item from unused sub-VOs
+                this.cleanUpItem(currentPubItem);
+                
+                if (logger.isDebugEnabled())
+                {
+                    logger.debug("Submitting item...");
+                }
+        
+                // submit the item
+               
+                PubItemVO submittedPubItem = pubItemDepositing.submitPubItem(new PubItemVO(currentPubItem), submissionComment, loginHelper.getAccountUser());
+        
+            }
+          
+            else
+            {           
+                // Item is invalid, do not submit anything.
+                return null;          
+            }        
+            
+            
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not submit item." + "\n" + e.toString());
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+            
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        
+        return navigationRuleWhenSuccessfull;
+    }
+    
+    /**
      * Submits a PubItem and handles navigation afterwards.
      * 
      * @param submissionComment A comment
