@@ -28,7 +28,9 @@
  */
 package de.mpg.escidoc.services.search.query;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.parser.ParseException;
@@ -41,12 +43,11 @@ import de.mpg.escidoc.services.search.parser.QueryParser;
  * 
  */
 public class MetadataDateSearchCriterion extends MetadataSearchCriterion
-{
-
+{    
     /** Serial identifier. */
     private static final long serialVersionUID = 1L;
-
-    private String toField = null;
+    
+    private String majorSearchTerm = null;
 
     /**
      * Constructor with date types and from and to search query.
@@ -63,7 +64,7 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         {
             throw new TechnicalException("Invalid query. Either 'from' or 'to' should have a value.");
         }
-        toField = to;
+        majorSearchTerm = to;
     }
     
     /**
@@ -78,7 +79,7 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         throws TechnicalException 
     {
         super(types, from, operator);
-        toField = to;
+        majorSearchTerm = to;
     }
 
     /**
@@ -86,6 +87,10 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
      */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
+       return composeCqlFragments(getMinorSearchTerm(), getMajorSearchTerm());
+    }
+    
+    private String composeCqlFragments(String minor, String major) throws ParseException, TechnicalException {
         StringBuffer buffer = new StringBuffer();
         buffer.append(" ( ");
         for (int i = 0; i < getSearchIndexes().size(); i++)
@@ -93,11 +98,11 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
             if (i == (getSearchIndexes().size() - 1))
             {
                
-                buffer.append(createCqlFragment(getSearchIndexes().get(i)));
+                buffer.append(createCqlFragment(getSearchIndexes().get(i), minor, major));
             }
             else 
             {
-                buffer.append(createCqlFragment(getSearchIndexes().get(i)));
+                buffer.append(createCqlFragment(getSearchIndexes().get(i), minor, major));
                 buffer.append(" " + CQL_OR + " ");
             }
         }
@@ -106,21 +111,21 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         return buffer.toString();
     }
     
-    private String createCqlFragment(String index) 
+    private String createCqlFragment(String index, String minor, String major) 
         throws ParseException, TechnicalException
     {
         String fromQuery = null;
         String toQuery = null;
         if (getSearchTerm() != null)
         {
-            QueryParser parserFrom = new QueryParser(getSearchTerm(),
+            QueryParser parserFrom = new QueryParser(minor,
                     booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
             parserFrom.addCQLIndex(index);
             fromQuery = parserFrom.parse();
         }
-        if (this.toField != null)
+        if (major != null)
         {
-            QueryParser parserTo = new QueryParser(this.toField, 
+            QueryParser parserTo = new QueryParser(major, 
                     booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
             parserTo.addCQLIndex(index);
             toQuery = parserTo.parse();
@@ -142,5 +147,17 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
             buffer.append(" ( " + fromQuery + " " + CQL_AND + " " + toQuery + " ) ");
         }
         return buffer.toString();
+    }
+    
+    private void setMajorSearchTerm( String major ) {
+        this.majorSearchTerm = major;
+    }
+    
+    private String getMajorSearchTerm() {
+        return this.majorSearchTerm;
+    }
+    
+    private String getMinorSearchTerm() {
+        return getSearchTerm();
     }
 }

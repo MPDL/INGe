@@ -39,6 +39,7 @@ import org.junit.Test;
 import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.SearchDate;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
@@ -235,8 +236,27 @@ public class TestMetadataSearchQuery
         logger.debug(query);
         String expected = "( ( escidoc.component.file.dateCopyrighted=\"testing\" ) ) and  ( escidoc.content-model.objid=\"escidoc:persistent4\" ) ";
         assertNotNull(query);
-        assertEquals(expected, query);
-        
+        assertEquals(expected, query);       
     }
     
+    @Test
+    public void testSearchDateParsing() throws Exception {
+        logger.info("Testing SearchDateParsing");
+        SearchDate searchdate = new SearchDate("2007");
+        assertEquals(SearchDate.DateType.Year, searchdate.getDateType());
+        assertEquals("2007", searchdate.toString());
+        searchdate = new SearchDate("2007-12");
+        assertEquals(SearchDate.DateType.Year_Month, searchdate.getDateType());
+        assertEquals("2007-12", searchdate.toString());
+        searchdate = new SearchDate("2007-12-11");
+        assertEquals(SearchDate.DateType.Year_Month_Day, searchdate.getDateType());
+        assertEquals("2007-12-11", searchdate.toString());
+    }
+    
+    @Test (expected=java.text.ParseException.class)
+    public void testSearchDateParsingError() throws Exception {
+        logger.info("Testing SearchDateParsingError"); 
+        SearchDate searchdate = new SearchDate("abc");
+        assertNull( searchdate );
+    }  
 }
