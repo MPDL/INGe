@@ -604,7 +604,15 @@ public class Bibtex
         XmlTransforming xmlTransforming = new XmlTransformingBean();
         try
         {
-            return xmlTransforming.transformToItem(itemVO);
+            if (entryFound )
+            {
+                return xmlTransforming.transformToItem(itemVO);
+            }
+            else
+            {
+                this.logger.warn("No entry found in BibTex record.");
+                throw new RuntimeException();
+            }
         }
         catch (TechnicalException e)
         {
