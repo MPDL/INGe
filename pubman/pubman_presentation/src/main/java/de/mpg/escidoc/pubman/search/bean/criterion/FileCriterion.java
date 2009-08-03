@@ -128,7 +128,7 @@ public class FileCriterion extends Criterion
        if( getSearchForEmbargoFiles() == true )
        {
            MetadataSearchCriterion criterion = 
-               new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COPYRIGHT_DATE,
+               new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.EMBARGO_DATE,
                         MetadataSearchCriterion.LogicalOperator.AND);
            criterions.add(criterion);
        }
