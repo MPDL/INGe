@@ -341,6 +341,7 @@
 						</h:panelGroup>
 					</span>
 				</div>
+			</div>
 			</h:panelGroup>
 			<%-- Source --%>
 			<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!(genre.sources_display == 'false' && genre.sources_form_id == 'easy-submission' || genre.sources_display == 'false' && genre.sources_form_id == 'all')}">
