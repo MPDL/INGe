@@ -63,6 +63,13 @@ IGNORE_UNTRANSLATED = {
    "openSearch_shortDesc" => "eSciDoc PubMan",
    "title" => "Publication Manager",
    "multipleImport_checkboxSomething" => "multipleImport_checkboxSomething",
+   "ViewItemFull_lblNoAccess" => "(No access)",
+   "ViewItemFull_lblRelation" => "Relation",
+   "ViewItemFull_lblSocialBookmarkingDescription" => "eSciDoc PubMan:",
+   "EditItem_lblDateFormat" => "(YYYY-MM-DD)",
+   "EditItem_lblDimension" => "KB",
+   "EditItem_lblURL" => "URL",
+   "ViewItem_lblRelation1" => "Relation:",
 }
 
 def parse_resource_file( filename )
