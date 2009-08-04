@@ -376,7 +376,9 @@ public class EasySubmission extends FacesBean
         // set the current submission step to step2
         if(contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1)
         {
-            easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        	// create a dummy item in the first context to avoid an empty item
+        	contextListSessionBean.getDepositorContextList().get(0).selectForEasySubmission();
+        	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
         }
         // Skip Collection selection for Import & Easy Sub if only one Collection
         else
