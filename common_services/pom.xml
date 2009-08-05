@@ -374,6 +374,13 @@
                 <!--                    http://www.kclee.de/clemens/java/javancss/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>javancss-maven-plugin</artifactId>
+                <configuration>
+                    <forceEncoding>utf-8</forceEncoding>
+                    <excludes>
+                        <exclude>**/BibTex.java</exclude>
+                        <exclude>**/Transformation.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <!-- A Java package dependency analyzer that generates
