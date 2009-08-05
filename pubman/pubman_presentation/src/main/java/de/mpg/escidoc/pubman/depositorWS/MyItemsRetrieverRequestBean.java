@@ -25,7 +25,6 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -134,7 +133,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         try
         {
             Connection connection = ImportLog.getConnection();
-            String sql = "select * from ESCIDOC_IMPORT_LOG where userid = ?";
+            String sql = "select * from ESCIDOC_IMPORT_LOG where userid = ? order by STARTDATE desc";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             statement.setString(1, this.userVO.getReference().getObjectId());
@@ -143,13 +142,15 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             
             while (resultSet.next())
             {
-                SelectItem selectItem = new SelectItem(resultSet.getString("name") + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
+                SelectItem selectItem = new SelectItem(resultSet.getString("name")
+                        + " " + ImportLog.DATE_FORMAT.format(resultSet.getTimestamp("startdate")));
                 importSelectItems.add(selectItem);
             }
             resultSet.close();
             statement.close();
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             logger.error("Error getting imports from database", e);
             error("Error getting imports from database");
         }
