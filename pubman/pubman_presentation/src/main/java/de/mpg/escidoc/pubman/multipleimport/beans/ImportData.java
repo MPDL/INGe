@@ -48,6 +48,7 @@ public class ImportData extends FacesBean
 {
     private int importId = 0;
     private String userid = null;
+    private String userHandle = null;
     private ImportLog log = null;
     
     /**
@@ -65,6 +66,7 @@ public class ImportData extends FacesBean
         if (loginHelper.getAccountUser() != null && loginHelper.getAccountUser().getReference() != null)
         {
             this.userid = loginHelper.getAccountUser().getReference().getObjectId();
+            this.userHandle = loginHelper.getAccountUser().getHandle();
         }
     }
     
@@ -78,6 +80,8 @@ public class ImportData extends FacesBean
         if (this.log == null && this.importId != 0 && this.userid != null)
         {
             this.log = ImportLog.getImportLog(this.importId, false, false);
+            this.log.setUser(this.userid);
+            this.log.setUserHandle(this.userHandle);
         }
         return this.log;
     }
