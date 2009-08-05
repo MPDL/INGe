@@ -91,16 +91,16 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         TITLE ("escidoc.publication.title", "/md-records/md-record/publication/title", OrderFilter.ORDER_ASCENDING),
         GENRE ("escidoc.any-genre", "/md-records/md-record/publication/type", OrderFilter.ORDER_ASCENDING),
         DATE ("escidoc.any-dates", "", OrderFilter.ORDER_DESCENDING),
-        CREATOR ("escidoc.family-name", "/md-records/md-record/publication/creator/person/family-name", OrderFilter.ORDER_ASCENDING), //TODO: Change back to sort.escidoc.complete-name when complete name is filled!!
-        PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher", OrderFilter.ORDER_ASCENDING),
+        CREATOR ("escidoc.publication.creator.person.family-name", "/md-records/md-record/publication/creator/person/family-name", OrderFilter.ORDER_ASCENDING), //TODO: Change back to sort.escidoc.complete-name when complete name is filled!!
+        PUBLISHING_INFO ("escidoc.publication.publishing-info.publisher", "/md-records/md-record/publication/source/publishing-info/publisher", OrderFilter.ORDER_ASCENDING),
         MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date", OrderFilter.ORDER_DESCENDING),
-        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING),
+        EVENT_TITLE ("escidoc.publication.event.compound.title-place", "/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING),
         SOURCE_TITLE ("", "/md-records/md-record/publication/source/title", OrderFilter.ORDER_ASCENDING),
         SOURCE_CREATOR("", "/md-records/md-record/publication/source/creator/person/family-name", OrderFilter.ORDER_ASCENDING),
         REVIEW_METHOD("", "/md-records/md-record/publication/review-method", OrderFilter.ORDER_ASCENDING),
         FILE("","", OrderFilter.ORDER_ASCENDING),
-        STATE("escidoc.version.status", "/properties/version/status", OrderFilter.ORDER_ASCENDING),
-        OWNER("escidoc.created-by.name", "/properties/created-by/title", OrderFilter.ORDER_ASCENDING),
+        STATE("escidoc.property.version.status", "/properties/version/status", OrderFilter.ORDER_ASCENDING),
+        OWNER("escidoc.property.created-by.name", "/properties/created-by/title", OrderFilter.ORDER_ASCENDING),
         COLLECTION("escidoc.context.name", "/properties/context/title", OrderFilter.ORDER_ASCENDING);
         
          
