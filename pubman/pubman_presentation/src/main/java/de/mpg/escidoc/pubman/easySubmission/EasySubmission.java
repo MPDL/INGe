@@ -76,6 +76,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
@@ -234,7 +235,7 @@ public class EasySubmission extends FacesBean
         SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
         SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
         SUBMISSION_METHOD_OPTIONS = new SelectItem[] { this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT };
-        
+        EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
         this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation
@@ -297,7 +298,6 @@ public class EasySubmission extends FacesBean
         }
         
         //Get informations about import sources if submission method = fetching import
-        EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
         if((this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2) || this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
                 &&this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT"))
         {
@@ -595,7 +595,6 @@ public class EasySubmission extends FacesBean
      */
     public String save()
     {
-        //mapSelectedDate();
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFiles();
         parseAndSetAlternativeSourceTitlesAndIds();
@@ -607,7 +606,7 @@ public class EasySubmission extends FacesBean
         }
         EditItem editItem = (EditItem)getRequestBean(EditItem.class);
         editItem.setFromEasySubmission(true);
-        return (editItem.save());
+        return (this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false));
         // /*
         // * FrM: Validation with validation point "default"
         // */
@@ -1444,8 +1443,6 @@ public class EasySubmission extends FacesBean
 
     public String loadPreview()
     {
-        // Map entered date to entered type
-        //mapSelectedDate();
         parseAndSetAlternativeSourceTitlesAndIds();
         // validate
         return validateStep5("loadEditItem");
