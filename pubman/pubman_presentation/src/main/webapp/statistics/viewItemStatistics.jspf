@@ -76,7 +76,7 @@
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" /><span class="noDisplay">: </span>
 			</span>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{lbl.statistics_lblAllUsers}" />
