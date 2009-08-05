@@ -253,9 +253,9 @@ public abstract class FileLocatorUploadBean extends FacesBean
                     fileVO = new FileVO();
                     fileVO.getMetadataSets().add(new MdsFileVO());
                     fileVO.getDefaultMetadata().setSize(this.getSize());
-                    fileVO.getDefaultMetadata().setTitle(new TextVO(this.name));
+                    fileVO.getDefaultMetadata().setTitle(new TextVO(this.getFileName(this.getLocator())));
                     fileVO.setMimeType(this.getType());
-                    fileVO.setName(this.getLocator());
+                    fileVO.setName(this.name);
 
                     FormatVO formatVO = new FormatVO();
                     formatVO.setType("dcterms:IMT");
@@ -330,4 +330,15 @@ public abstract class FileLocatorUploadBean extends FacesBean
         this.locator = locator;
     }
 
+    /**
+     * Extracts the filename out of a URL.
+     * @return Filename as String
+     */
+    public String getFileName (String URL)
+    {
+        String name ="";
+        String[] names = URL.split("/");
+        name = names [names.length -1];        
+        return name;
+    }
 }

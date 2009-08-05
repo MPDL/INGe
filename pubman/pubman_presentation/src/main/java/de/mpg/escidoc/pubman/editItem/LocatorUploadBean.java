@@ -67,9 +67,9 @@ public class LocatorUploadBean extends FileLocatorUploadBean
                 FileVO fileVO = new FileVO();
                 fileVO.getMetadataSets().add(new MdsFileVO());
                 fileVO.getDefaultMetadata().setSize(this.getSize());
-                fileVO.getDefaultMetadata().setTitle(new TextVO(super.name));
+                fileVO.getDefaultMetadata().setTitle(new TextVO(super.getFileName(this.getLocator())));
                 fileVO.setMimeType(this.getType());
-                fileVO.setName(this.getLocator());
+                fileVO.setName(super.name);
 
                 FormatVO formatVO = new FormatVO();
                 formatVO.setType("dcterms:IMT");
