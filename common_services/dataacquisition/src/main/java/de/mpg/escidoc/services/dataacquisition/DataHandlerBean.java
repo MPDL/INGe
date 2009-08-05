@@ -562,6 +562,12 @@ public class DataHandlerBean implements DataHandler
                 else
                 {
                     ZipEntry ze = new ZipEntry(identifier + this.getFileEnding());
+                    // If cone service is not available (we do not get a fileEndning) we have
+                    // to make sure that the zip entries differ in name.
+                    if (this.getFileEnding().equals(""))
+                    {
+                        identifier = identifier + "_" +i;
+                    }
                     ze.setSize(in.length);
                     ze.setTime(this.currentDate());
                     CRC32 crc321 = new CRC32();
