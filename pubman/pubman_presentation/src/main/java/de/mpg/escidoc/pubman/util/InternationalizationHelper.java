@@ -97,7 +97,7 @@ public class InternationalizationHelper
     */
     public enum SelectComponentVisibility
     {
-        SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC
+        SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC, SELECT_COMPONENT_RESTRICTED
     }
     
     Locale userLocale;
