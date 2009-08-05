@@ -542,7 +542,7 @@
                 </snapshotRepository>
                 <site>
                     <id>website</id>
-                    <url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
+                    <url>scp://escidoc1.escidoc.mpg.de:/srv/www/staging/projects/common_services</url>
                 </site>
             </distributionManagement>
         </profile>
