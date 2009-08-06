@@ -561,13 +561,14 @@ public class DataHandlerBean implements DataHandler
                 // If more than one file => add it to zip
                 else
                 {
-                    ZipEntry ze = new ZipEntry(identifier + this.getFileEnding());
-                    // If cone service is not available (we do not get a fileEndning) we have
+                    // If cone service is not available (we do not get a fileEnding) we have
                     // to make sure that the zip entries differ in name.
+                    String fileName = identifier;
                     if (this.getFileEnding().equals(""))
                     {
-                        identifier = identifier + "_" +i;
+                        fileName = fileName + "_" +i;
                     }
+                    ZipEntry ze = new ZipEntry(fileName + this.getFileEnding());
                     ze.setSize(in.length);
                     ze.setTime(this.currentDate());
                     CRC32 crc321 = new CRC32();
