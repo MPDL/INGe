@@ -66,6 +66,15 @@ public class QAWSSessionBean extends FacesBean
     
     private List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
     
+    /**
+     * The currently selected context filter.
+     */
+    private String selectedContext;
+    
+    /**
+     * The currently selected org unit.
+     */
+    private String selectedOrgUnit;
 
  
     
@@ -132,7 +141,19 @@ public class QAWSSessionBean extends FacesBean
         this.selectedItemState = selectedItemState;
     }
 
-    
-   
+	public String getSelectedContext() {
+		return selectedContext;
+	}
 
+	public void setSelectedContext(String selectedContext) {
+		this.selectedContext = selectedContext;
+	}
+
+	public String getSelectedOrgUnit() {
+		return selectedOrgUnit;
+	}
+
+	public void setSelectedOrgUnit(String selectedOrgUnit) {
+		this.selectedOrgUnit = selectedOrgUnit;
+	}
 }

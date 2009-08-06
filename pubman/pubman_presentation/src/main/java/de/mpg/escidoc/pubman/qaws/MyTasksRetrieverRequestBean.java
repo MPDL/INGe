@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.multipleimport.ImportLog;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
@@ -48,16 +49,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     private static Logger logger = Logger.getLogger(MyTasksRetrieverRequestBean.class);
     private int numberOfRecords;
     
-    /**
-     * The currently selected context filter.
-     */
-    private String selectedContext;
-    
-    /**
-     * The currently selected org unit.
-     */
-    private String selectedOrgUnit;
-
     /**
      * The HTTP GET parameter name for the context filter.
      */
@@ -299,7 +290,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public void setSelectedContext(String selectedContext)
     {
-        this.selectedContext = selectedContext;
+        this.getQAWSSessionBean().setSelectedContext(selectedContext);
         getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedContext, selectedContext);
     }
 
@@ -309,7 +300,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      */
     public String getSelectedContext()
     {
-        return selectedContext;
+        return this.getQAWSSessionBean().getSelectedContext();
     }
     
     /**
@@ -537,6 +528,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             return "";
     }
     
+    /**
+     * Returns the QAWSSessionBean.
+     * 
+     * @return a reference to the scoped data bean (QAWSSessionBean)
+     */
+    protected QAWSSessionBean getQAWSSessionBean()
+    {
+        return (QAWSSessionBean)getSessionBean(QAWSSessionBean.class);
+    }
+    
     @Override
     public String getListPageName()
     {
@@ -555,13 +556,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
 
     public void setSelectedOrgUnit(String selectedOrgUnit)
     {
-        this.selectedOrgUnit = selectedOrgUnit;
+        this.getQAWSSessionBean().setSelectedOrgUnit(selectedOrgUnit);
         getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedOrgUnit, selectedOrgUnit);
     }
 
     public String getSelectedOrgUnit()
     {
-        return selectedOrgUnit;
+        return this.getQAWSSessionBean().getSelectedOrgUnit();
     }    
     
 }
