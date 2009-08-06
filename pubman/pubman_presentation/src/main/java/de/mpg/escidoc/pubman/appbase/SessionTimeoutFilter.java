@@ -83,9 +83,19 @@ public class SessionTimeoutFilter implements Filter
             try
             {
                 String homePage = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-                
+                // define some exceptions (pages that don't require a logged in user)
                 if (!"/viewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
-                        && httpServletRequest.getRequestedSessionId() != null
+                		&& !"/HomePage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/AffiliationTreePage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/AdvancedSearchPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/SearchResultListPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/ViewItemReleaseHistoryPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/ViewItemRevisionsPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/ViewItemStatisticsPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/CartItemsPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/AffiliationDetailPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& !"/ExportEmailPage.jsp".equals(httpServletRequest.getPathInfo())
+                		&& httpServletRequest.getRequestedSessionId() != null
                         && httpServletRequest.getParameter("expired") == null
                         && httpServletRequest.getParameter("logout") == null
                         && !httpServletRequest.isRequestedSessionIdValid())
