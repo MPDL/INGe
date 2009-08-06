@@ -52,17 +52,29 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
+import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * Bean for storing the information of files attached to items.
@@ -90,6 +102,7 @@ public class FileBean extends FacesBean
      */
     public FileBean(FileVO file,  State itemState)
 	{
+        loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
 		this.file = file;
 		this.itemState = itemState;
 	}
@@ -562,5 +575,85 @@ public class FileBean extends FacesBean
             
        
 }
+    
+    /**
+     * Current workaround for the detection if the current user belongs to the audience group of this file. Gets the audience grants of the file object via filter method.
+     * Then it retrieves the user groups of the grants, takes the org unit id of its selector and checks if the user belongs to this org unit or if it is a child org unit of him.
+     * @return
+     */
+    public boolean getIsAudience()
+    {
+        return file.getVisibility().equals(FileVO.Visibility.AUDIENCE) && loginHelper.isLoggedIn();
+        
+        /*
+        boolean isAudience = false; 
+        try
+        {
+            if (loginHelper.getAccountUser()!=null && loginHelper.getAccountUser().getHandle()!=null && !loginHelper.getAccountUser().getHandle().equals(""))
+            {
+                GrantList gl = GrantList.Factory.retrieveGrantsForObject(AdminHelper.getAdminUserHandle(), file.getReference().getObjectId(), Grant.CoreserviceRole.AUDIENCE.getRoleId());
+                
+               
+                for(Grant g: gl.getGrants())
+                {
+                    logger.info("Grant for file: " + g.getAssignedOn() + " " + g.getGrantedTo() + " " + g.getGrantType() + " ");
+                    if (g.getGrantType().equals("user-group"))
+                    {
+                        UserGroup ug = new UserGroup(g.getGrantedTo(), AdminHelper.getAdminUserHandle());
+                        Selector sel = ug.getSelectors().getSelectors().get(0);
+                       
+                        for (AffiliationRO aff : loginHelper.getAccountUser().getAffiliations())
+                        {
+                            isAudience = isAudience || checkAffiliationId(aff, sel.getObjid());
+                        }
+                    }
+                }
+                
+               
+                
+            }
+        }
+        
+        catch (Exception e)
+        {
+            logger.error("Error while detecting audience grants of current user for file");
+        }
+        return isAudience;
+        */
+    }
+
+    /**Helper method for checking audience rights
+     * 
+     * @param aff
+     * @param objid
+     * @return
+     * @throws Exception
+     */
+    private static boolean checkAffiliationId(AffiliationRO aff, String objid) throws Exception
+    {
+        logger.info("Check affiliation id" + aff.getObjectId() + " with " +objid);
+        if (aff.getObjectId().equals(objid))
+        {
+            return true;
+        }
+        else
+        {
+            AffiliationTree affTree = (AffiliationTree)getSessionBean(AffiliationTree.class);
+            affTree.getAffiliationSelectItems();
+            AffiliationVOPresentation affVO = affTree.getAffiliationMap().get(aff.getObjectId());
+       
+            if (affVO!=null && affVO.getChildren()!=null)
+            {
+                
+                for (AffiliationVO childAffVO : affVO.getChildren())
+                {
+                    return checkAffiliationId(childAffVO.getReference(), objid);
+                }
+            }
+                
+        }
+        return false;
+        
+    }
     
 }
