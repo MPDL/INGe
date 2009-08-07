@@ -357,10 +357,7 @@ public class EasySubmission extends FacesBean
         EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
         this.getItemControllerSessionBean().setCurrentPubItem(null);
         // clean the EasySubmissionSessionBean
-        easySubmissionSessionBean.getFiles().clear();
-        easySubmissionSessionBean.getLocators().clear();
-        easySubmissionSessionBean.setSelectedDate("");
-        easySubmissionSessionBean.initAuthorCopyPasteCreatorBean();
+        easySubmissionSessionBean.cleanup();
         // also make sure that the EditItemSessionBean is cleaned, too
         this.getEditItemSessionBean().getFiles().clear();
         this.getEditItemSessionBean().getLocators().clear();
@@ -403,10 +400,7 @@ public class EasySubmission extends FacesBean
         EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
         this.getItemControllerSessionBean().setCurrentPubItem(null);
         // clean the EasySubmissionSessionBean
-        easySubmissionSessionBean.getFiles().clear();
-        easySubmissionSessionBean.getLocators().clear();
-        easySubmissionSessionBean.setSelectedDate("");
-        easySubmissionSessionBean.initAuthorCopyPasteCreatorBean();
+        easySubmissionSessionBean.cleanup();
         // also make sure that the EditItemSessionBean is cleaned, too
         this.getEditItemSessionBean().getFiles().clear();
         this.getEditItemSessionBean().getLocators().clear();

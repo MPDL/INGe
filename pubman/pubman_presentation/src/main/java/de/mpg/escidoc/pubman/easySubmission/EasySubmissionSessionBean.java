@@ -131,6 +131,19 @@ public class EasySubmissionSessionBean extends FacesBean
 
     }
     
+    /**
+     * This method cleans up the EasySubmissionSessionBean
+     * 
+     */
+    public void cleanup()
+    {
+    	this.getFiles().clear();
+    	this.getLocators().clear();
+    	this.setGenreBundle("Genre_ARTICLE");
+    	this.setSelectedDate("");
+    	this.initAuthorCopyPasteCreatorBean();
+    }
+    
 	public String getCurrentSubmissionMethod() {
 		return currentSubmissionMethod;
 	}
