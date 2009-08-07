@@ -1532,7 +1532,7 @@ public class EditItem extends FacesBean
         boolean isStateReleased = false;
         boolean isStateInRevision = false;
 
-        boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
+        boolean itemHasID = this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
         if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null)
         {
             isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
