@@ -39,7 +39,7 @@ public class GrantVOPresentation extends FacesBean
 	 */
 	public GrantVOPresentation(Grant grant, int index, int fileIndex)
 	{
-		this.grant = grant;
+		this.grant = new Grant(grant);
 		this.index = index;
 		this.fileIndex = fileIndex;
 	}
