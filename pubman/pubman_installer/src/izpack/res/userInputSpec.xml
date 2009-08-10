@@ -5,9 +5,10 @@
     <panel order="0">
         <!-- Coreservice credentials -->
         <createForPack name="PubMan" />
-        <field type="title" txt="Coreservice credentials" bold="true" size="1" />
+        <field type="title" txt="Coreservice connectivity" bold="true" size="1" />
+        <field type="staticText" align="left"
+            txt="Used to establish a connection to the coreservice server." />
         <field type="divider" align="top" />
-        <!-- Underlying RDBMS -->
         <field type="staticText" align="left"
             txt="The URL of the server you are using for for the coreservice installation. The installer requires 'up and running' coreservice installation." />
         <field type="staticText" align="left" txt="Please use this form: http://hostname.domain:port" />
@@ -32,7 +33,11 @@
         <!-- General settings -->
         <createForPack name="PubMan" />
         <field type="title" txt="General settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="General settings for PubMan." />
         <field type="divider" align="top" />
+        <field type="staticText" align="left"
+            txt="Define here the local instance Url of PubMan, like 'http://host.domain:port'" />
         <field type="text" align="left" variable="InstanceUrl">
             <spec txt="Url of this PubMan instance:" size="25" set="${InstanceUrl}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Instance Url must not be empty string." />
@@ -42,6 +47,8 @@
     <panel order="2">
         <createForPack name="PubMan" />
         <field type="title" txt="Mailserver settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="A mailserver is needed to " />
         <field type="divider" align="top" />
         <field type="text" align="left" variable="MailHost">
             <spec txt="Mailserver hostname:" size="25" set="${MailHost}" />

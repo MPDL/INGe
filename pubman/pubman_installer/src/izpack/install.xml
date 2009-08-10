@@ -59,6 +59,8 @@
         We indicate here which panels we want to use. The order will be respected.
     -->
     <panels>
+        <panel classname="InfoPanel"/>
+        <panel classname="LicencePanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.0"/>
         <panel classname="UserInputPanel" id="UserInputPanel.1"/>
@@ -68,15 +70,8 @@
 <!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetCreatorPanel"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetCreatorPanel" condition="dataset_selected"/>
         <panel classname="FinishPanel"/>
-<!--        <panel classname="DataCheckPanel" id="Debug"/>-->
-<!--        <panel classname="InfoPanel"/>-->
-<!--        <panel classname="LicencePanel"/>-->
-<!--        <panel classname="TargetPanel"/>-->
-<!--        <panel classname="PacksPanel"/>-->
-<!--        <panel classname="InstallPanel"/>-->
-<!--        <panel classname="FinishPanel"/>-->
     </panels>
 
     <jar src="dependency/plexus-utils.jar"/>
@@ -100,20 +95,33 @@
         We specify here our packs.
     -->
     <packs>
-        <pack name="PubMan" required="yes">
+        <pack name="PubMan" required="yes" id="pack_pubman">
             <description>PubMan binary and configuration</description>
             <file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
             <file src="jboss/jboss-service.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/conf"/>
             <file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
         </pack>
-        <pack name="Application Server" parent="PubMan" required="no">
+        <pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
             <description>JBoss Application Server 4.2.2 GA</description>
             <file src="jboss/jboss-4.2.2.GA.zip" targetdir="$INSTALL_PATH" unpack="true"/>
+            <file src="jboss/jboss_license.txt" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/"/>
         </pack>
-        <pack name="Initial dataset" required="no">
+        <pack name="Initial dataset" required="no" id="pack_dataset">
             <description>Creates an initial dataset on the coreservice instance</description>
         </pack>
     </packs>
+
+    <conditions>
+        <condition type="packselection" id="pubman_selected">
+            <packid>pack_pubman</packid>
+        </condition>
+        <condition type="packselection" id="jboss_selected">
+            <packid>pack_jboss</packid>
+        </condition>
+        <condition type="packselection" id="dataset_selected">
+            <packid>pack_dataset</packid>
+        </condition>
+    </conditions>
     
     <variables>
         <!-- Hostname of the installation server -->
