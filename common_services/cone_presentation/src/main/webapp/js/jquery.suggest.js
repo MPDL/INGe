@@ -102,17 +102,21 @@
 							break;
 	
 						case 9:  // tab
+							mouseOverResults = false;
+							break;
+							
 						case 13: // return
 							selectCurrentResult();
 							break;
 							
 						case 27: //	escape
+							mouseOverResults = false;
 							$results.hide();
 							break;
 	
 					}
 					
-				} else if ($input.val().length != prevLength) {
+				} else if ($input.val().length != prevLength && e.keyCode != 9) {
 
 					if (timeout) 
 						clearTimeout(timeout);
