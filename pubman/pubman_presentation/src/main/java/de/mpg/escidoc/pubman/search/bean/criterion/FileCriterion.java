@@ -103,6 +103,13 @@ public class FileCriterion extends Criterion
                           "public", MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
           }
+          else if(this.componentVisibility.equals(InternationalizationHelper.SelectComponentVisibility.SELECT_COMPONENT_RESTRICTED.toString()))
+          {
+              MetadataSearchCriterion criterion = 
+                  new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
+                          "restricted", MetadataSearchCriterion.LogicalOperator.AND);
+                  criterions.add(criterion);
+          }
       }
            
        // content category
