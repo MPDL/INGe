@@ -171,9 +171,11 @@
 
 		fillField('familyName', familyName, parent);
 		fillField('givenName', givenName, parent);
-		fillField('personIdentifier', personId, parent);
 		fillField('orgName', orgName, parent);
 		fillField('orgIdentifier', orgId, parent);
+		$input.blur();
+		$input.focus();
+		fillField('personIdentifier', personId, parent);
 	}
 	
 	function removeConeId(element)
