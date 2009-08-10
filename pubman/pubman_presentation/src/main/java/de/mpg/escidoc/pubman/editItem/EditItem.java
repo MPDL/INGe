@@ -1576,7 +1576,7 @@ public class EditItem extends FacesBean
     {
         ViewItemFull viewItemFull = (ViewItemFull) getRequestBean(ViewItemFull.class);
 
-        return !viewItemFull.getIsStateWithdrawn() && viewItemFull.getIsLatestVersion() && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() && (viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull.getIsOwner() && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateInRevision())));
+        return !viewItemFull.getIsStateWithdrawn() && viewItemFull.getIsLatestVersion() && ((viewItemFull.getIsModerator() && !viewItemFull.getIsModifyDisabled() && (viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())) || (viewItemFull.getIsOwner() && (viewItemFull.getIsStatePending() || viewItemFull.getIsStateReleased() || viewItemFull.getIsStateInRevision())));
         
     }
 

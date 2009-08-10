@@ -140,6 +140,14 @@ public class SiteMapTask extends Thread
             if (files.size() == 1)
             {
                 File finalFile = new File(appPath + "sitemap.xml");
+                try
+                {
+                    finalFile.delete();
+                }
+                catch (Exception e)
+                {
+                    // Unable to delete file, it probably didn't exist
+                }
                 files.get(0).renameTo(finalFile);
             }
             else
@@ -158,6 +166,14 @@ public class SiteMapTask extends Thread
                 for (int i = 0; i < files.size(); i++)
                 {
                     File finalFile = new File(appPath + "sitemap" + (i + 1) + ".xml");
+                    try
+                    {
+                        finalFile.delete();
+                    }
+                    catch (Exception e)
+                    {
+                        // Unable to delete file, it probably didn't exist
+                    }
                     files.get(i).renameTo(finalFile);
                     
                     indexFileWriter.write("\t<sitemap>\n\t\t<loc>"
@@ -172,8 +188,18 @@ public class SiteMapTask extends Thread
                 indexFileWriter.close();
                 
                 File finalFile = new File(appPath + "sitemap.xml");
-                indexFile.renameTo(finalFile);
+                logger.info("Sitemap file: " + finalFile.getAbsolutePath());
+                try
+                {
+                    finalFile.delete();
+                }
+                catch (Exception e)
+                {
+                    // Unable to delete file, it probably didn't exist
+                }
+                logger.debug("Renaming succeeded: " + indexFile.renameTo(finalFile));
             }
+            
             
             logger.info("Finished creating Sitemap.");
 
