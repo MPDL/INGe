@@ -48,7 +48,7 @@
 	<div class="free_area0 itemBlockContent endline">
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="Publication" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ReviseItem_lblPublication}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ReviseItem.itemControllerSessionBean.currentPubItem.version.objectId}" />
@@ -56,7 +56,7 @@
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="Creator" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ReviseItem_lblCreator}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{ReviseItem.creators}" />
