@@ -146,6 +146,19 @@
 	padding-bottom: 0.74em;
 }
 
+.itemLine sup {
+	line-height: normal;
+}
+
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .itemLine sup {
+	line-height: 1.83em;
+}
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child+html .itemLine sup {
+	line-height: 1.83em;
+}
+
 .itemLine .affiliation {
 	width: 42em;
 }
