@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
@@ -37,6 +39,8 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     private int numberOfRecords;
     
     public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBasket_NoItemSelected";
+    
+    Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
 
     public CartItemsRetrieverRequestBean()
     {
@@ -152,6 +156,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         catch (Exception e)
         {
             error("Error in retrieving items");
+            logger.error("Error while retrieving items for basket", e);
         }
         return returnList;
 
