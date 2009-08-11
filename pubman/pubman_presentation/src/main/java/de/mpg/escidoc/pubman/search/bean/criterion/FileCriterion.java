@@ -107,7 +107,7 @@ public class FileCriterion extends Criterion
           {
               MetadataSearchCriterion criterion = 
                   new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.COMPONENT_VISIBILITY,
-                          "restricted", MetadataSearchCriterion.LogicalOperator.AND);
+                          "audience", MetadataSearchCriterion.LogicalOperator.AND);
                   criterions.add(criterion);
           }
       }
