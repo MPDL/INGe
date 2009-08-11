@@ -100,6 +100,7 @@
             <file src="pubman_ear.ear" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
             <file src="jboss/jboss-service.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/conf"/>
             <file src="jboss/validation-ds.xml" overwrite="true" targetdir="$INSTALL_PATH/jboss-4.2.2.GA/server/default/deploy"/>
+            <file src="jboss/escidoc_persistent4.xml" overwrite="true" targetdir="$INSTALL_PATH"/>
         </pack>
         <pack name="Application Server" parent="PubMan" required="no" id="pack_jboss">
             <description>JBoss Application Server 4.2.2 GA</description>

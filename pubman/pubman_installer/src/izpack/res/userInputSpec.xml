@@ -10,7 +10,7 @@
             txt="Used to establish a connection to the coreservice server." />
         <field type="divider" align="top" />
         <field type="staticText" align="left"
-            txt="The URL of the server you are using for for the coreservice installation. The installer requires 'up and running' coreservice installation." />
+            txt="The URL of the server you are using for for the coreservice installation. The installer requires an 'up and running' coreservice installation." />
         <field type="staticText" align="left" txt="Please use this form: http://hostname.domain:port" />
         <field type="text" align="left" variable="CoreserviceUrl">
             <spec txt="Url:" size="25" set="${CoreserviceUrl}" />
@@ -48,7 +48,7 @@
         <createForPack name="PubMan" />
         <field type="title" txt="Mailserver settings" bold="true" size="1" />
          <field type="staticText" align="left"
-            txt="A mailserver is needed to " />
+            txt="PubMan needs a mailserver to deliver mails to users." />
         <field type="divider" align="top" />
         <field type="text" align="left" variable="MailHost">
             <spec txt="Mailserver hostname:" size="25" set="${MailHost}" />
@@ -76,6 +76,8 @@
     <panel order="3">
         <createForPack name="PubMan" />
         <field type="title" txt="CoNE settings" bold="true" size="1" />
+         <field type="staticText" align="left"
+            txt="CoNE is a Control-Of-Named-Entities service of PubMan. It needs a postgresql database, where the data is stored. A dump can be downloaded here: https://zim02.gwdg.de/repos/common/trunk/common_services/cone_presentation/src/test/resources/database.sql" />
         <field type="divider" align="top" />
         <field type="space" />
         <field type="text" align="left" variable="ConeHost">
@@ -99,10 +101,12 @@
     </panel>
     <panel order="4">
         <createForPack name="Initial dataset" />
+         <field type="staticText" align="left"
+            txt="Here information for the initial dataset on coreservice is collected. E.g initial user passwords etc." />
         <field type="title" txt="Dataset settings" bold="true" size="1" />
         <field type="divider" align="top" />
         <field type="text" align="left" variable="InitialUserPassword">
-            <spec txt="Initial user password:" size="25" set="${InitialUserPassword}" />
+            <spec txt="Initial user passwords:" size="25" set="${InitialUserPassword}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty string." />
         </field>
         <field type="divider" align="bottom" />
