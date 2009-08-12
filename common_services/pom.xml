@@ -685,6 +685,9 @@
                 <escidoc.syndication.service.url>http://localhost:8080/syndication/</escidoc.syndication.service.url>
                 <escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
                 <escidoc.syndication.ttl>0</escidoc.syndication.ttl>
+                
+                <escidoc.statistics.max_mind_geo_lite_city_db.location />
+                <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
 
             </properties>
 
