@@ -158,8 +158,8 @@
 				setFeedLink('rss_0.9');
 				setFeedAnchor('rss_0.91N');
 				setFeedLink('rss_0.91N');
-				setFeedAnchor('rss_0.91U');
-				setFeedLink('rss_0.91U');
+				//setFeedAnchor('rss_0.91U');
+				//setFeedLink('rss_0.91U');
 				setFeedAnchor('rss_0.92');
 				setFeedLink('rss_0.92');
 				setFeedAnchor('rss_0.93');
@@ -338,7 +338,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 									 	<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="language">Output Format</label>
+											<label class="double_label" for="language">Language</label>
 											<select class="double_select" name="language">
 							                    <option value="all">all languages</option>
 												<option value="en">English</option>
@@ -416,7 +416,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_0.9" class="xHuge_area0">RSS version 0.9</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -424,7 +424,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_0.91N" class="xHuge_area0">RSS version 0.91N</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -432,7 +432,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_0.92" class="xHuge_area0">RSS version 0.92</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -440,7 +440,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_0.93" class="xHuge_area0">RSS version 0.93</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -448,7 +448,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_0.94" class="xHuge_area0">RSS version 0.94</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -456,7 +456,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="rss_1.0" class="xHuge_area0">RSS version 1.0</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -472,7 +472,7 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<a id="atom_0.3" class="xHuge_area0">Atom, version 0.3</a>
-									</span
+									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
