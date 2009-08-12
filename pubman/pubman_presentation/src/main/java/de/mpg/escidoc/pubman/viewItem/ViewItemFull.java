@@ -88,6 +88,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.CreatorDisplay;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -102,6 +103,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -394,6 +396,23 @@ public class ViewItemFull extends FacesBean
             if (this.pubItem.getOwner() != null)
             {
                 this.isOwner = (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+                /*
+                 * Check if user has grants on context
+                 */
+                if (this.isOwner)
+                {
+                    this.isOwner = false;
+                    for (GrantVO grant : this.loginHelper.getAccountUser().getGrants())
+                    {
+                        if (grant.getObjectRef() != null && grant.getObjectRef().equals(this.pubItem.getContext().getObjectId()) && 
+                                (grant.getRole().equals("escidoc:role-system-administrator") ||
+                                grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) ||
+                                grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())))
+                        {
+                            this.isOwner = true;
+                        }
+                    }
+                }
             }
             this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
             this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
