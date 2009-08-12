@@ -2122,7 +2122,7 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
-        else if (this.pubItem.getPublicStatus() != State.RELEASED || !getIsModerator())
+        else if (this.pubItem.getVersion().getState() != State.RELEASED || !getIsModerator())
         {
             return false;
         }
