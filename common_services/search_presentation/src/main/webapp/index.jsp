@@ -52,6 +52,69 @@
 		<script src="/pubman/resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_full_item.js" language="JavaScript" type="text/javascript">;</script>
 		<script type="text/javascript">$(document).ready(function(){installFullItem();});</script>
 
+		<script language="JavaScript" type="text/javascript">
+			  function applyCookieStyle() {
+					var cookieValue = ""
+					var cookie = "layout=";
+					var dc = document.cookie;
+					if (dc.length > 0) {
+						var start = dc.indexOf(cookie);
+						if (start != -1) {
+							start += cookie.length;
+							var stop = dc.indexOf(";", start);
+							if (stop == -1) stop = dc.length;
+							cookieValue = unescape(dc.substring(start,stop));
+						}
+					}
+					var enableHiddenShemes = false;
+					cookie = "enableHiddenSchemes=";
+					if (dc.length > 0) {
+						var start = dc.indexOf(cookie);
+						if (start != -1) {
+							start += cookie.length;
+							var stop = dc.indexOf(";", start);
+							if (stop == -1) stop = dc.length;
+							if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+						}
+					}
+					if (cookieValue != "" && document.getElementsByTagName) {
+						var el = document.getElementsByTagName("link");
+						for (var i = 0; i < el.length; i++ ) {
+							if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
+								el[i].setAttribute("title", el[i].getAttribute("id"));
+							}
+							if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
+								el[i].disabled = true;
+								if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
+							}
+						}
+					}
+				}
+			
+				function setStyleCookie() {
+					var cookieValue = "";
+					if(document.getElementsByTagName) {
+						var el = document.getElementsByTagName("link");
+						for (var i = 0; i < el.length; i++ ) {
+							var enabledCounter = 0;
+							if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
+								cookieValue = el[i].getAttribute("id");
+								enabledCounter++;
+							}
+						}
+					}
+					var now = new Date();
+					var exp = new Date(now.getTime() + (1000*60*60*24*30));
+					if(cookieValue != "") {
+						document.cookie = "layout=" + escape(cookieValue) + ";" +
+											"expires=" + exp.toGMTString() + ";" +
+											"path=/";
+					}
+				}
+				applyCookieStyle();
+				window.onunload=function(e){setStyleCookie();};
+		</script>
+
 		<link rel="search" href="opensearch_apa_html_all.xml" type="application/opensearchdescription+xml" title="eSciDoc SearchAndExport APA" />
 		<link rel="search" href="opensearch_endnote_all.xml" type="application/opensearchdescription+xml" title="eSciDoc SearchAndExport EndNote" />
 
