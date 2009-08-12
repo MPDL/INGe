@@ -31,7 +31,74 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+
+	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css" id="highContrastTheme" type="text/css" title="kontrastreich" rel="alternate stylesheet"/>
+	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css" id="classicTheme" type="text/css" title="classic" rel="alternate stylesheet"/>	
 	<link href="/pubman/resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css" id="PubManTheme" type="text/css" title="PubMan" rel="stylesheet"/>
+
+	<script language="JavaScript" type="text/javascript">
+		  function applyCookieStyle() {
+				var cookieValue = ""
+				var cookie = "layout=";
+				var dc = document.cookie;
+				if (dc.length > 0) {
+					var start = dc.indexOf(cookie);
+					if (start != -1) {
+						start += cookie.length;
+						var stop = dc.indexOf(";", start);
+						if (stop == -1) stop = dc.length;
+						cookieValue = unescape(dc.substring(start,stop));
+					}
+				}
+				var enableHiddenShemes = false;
+				cookie = "enableHiddenSchemes=";
+				if (dc.length > 0) {
+					var start = dc.indexOf(cookie);
+					if (start != -1) {
+						start += cookie.length;
+						var stop = dc.indexOf(";", start);
+						if (stop == -1) stop = dc.length;
+						if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
+					}
+				}
+				if (cookieValue != "" && document.getElementsByTagName) {
+					var el = document.getElementsByTagName("link");
+					for (var i = 0; i < el.length; i++ ) {
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
+							el[i].setAttribute("title", el[i].getAttribute("id"));
+						}
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
+							el[i].disabled = true;
+							if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
+						}
+					}
+				}
+			}
+		
+			function setStyleCookie() {
+				var cookieValue = "";
+				if(document.getElementsByTagName) {
+					var el = document.getElementsByTagName("link");
+					for (var i = 0; i < el.length; i++ ) {
+						var enabledCounter = 0;
+						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
+							cookieValue = el[i].getAttribute("id");
+							enabledCounter++;
+						}
+					}
+				}
+				var now = new Date();
+				var exp = new Date(now.getTime() + (1000*60*60*24*30));
+				if(cookieValue != "") {
+					document.cookie = "layout=" + escape(cookieValue) + ";" +
+										"expires=" + exp.toGMTString() + ";" +
+										"path=/";
+				}
+			}
+			applyCookieStyle();
+			window.onunload=function(e){setStyleCookie();};
+		</script>
+
 	<script type="text/javascript">
 
 			function remove(element)
