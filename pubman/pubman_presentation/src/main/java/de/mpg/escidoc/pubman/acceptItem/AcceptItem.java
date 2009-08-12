@@ -44,6 +44,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -308,6 +309,24 @@ public class AcceptItem extends FacesBean
     public void setCreators(String creators)
     {
         this.creators = creators;
+    }
+    
+    /**
+     * Checks if the item to submit has files with visibility Audience
+     * @return boolean true if at least one of the files has visibility Audience
+     */
+    public boolean getHasAudienceFiles()
+    {
+        PubItemVO pubItemVO = getItemControllerSessionBean().getCurrentPubItem();
+        for (FileVO file : pubItemVO.getFiles())
+        {
+            if (file.getVisibility() != null
+                    && file.getVisibility().equals(Visibility.AUDIENCE))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

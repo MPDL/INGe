@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -71,6 +71,16 @@
 				<h:outputText value="#{lbl.SubmitItem_lblSubmitCopyrightNoticeRelease}" rendered="#{SubmitItem.isSimpleWorkflow}" />
 			</span>
 		</h:panelGroup>
+
+		<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AcceptItem.hasAudienceFiles}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.SubmitItem_lblSubmitAudienceNotice}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.AcceptItem_lblAudienceNoticeAccept}" />
+			</span>
+		</h:panelGroup>
+			
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText id="lblComment" value="#{lbl.AcceptItem_lblComment}" />&#160;<span class="noDisplay">: </span>

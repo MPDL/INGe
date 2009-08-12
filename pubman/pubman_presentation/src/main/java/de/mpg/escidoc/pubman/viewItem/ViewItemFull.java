@@ -2122,11 +2122,7 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
-        else if (this.pubItem.getVersion().getState() != State.RELEASED || !getIsModerator())
-        {
-            return false;
-        }
-        else
+        else if (this.pubItem.getVersion().getState() == State.RELEASED && getIsModerator())
         {
             for (FileVO file : this.pubItem.getFiles())
             {
@@ -2137,6 +2133,7 @@ public class ViewItemFull extends FacesBean
             }
             return false;
         }
+        return false;
     }
     
     public UIXIterator getSourceCreatorOrganizationsIterator()
