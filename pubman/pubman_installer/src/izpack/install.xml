@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
 
 <installation version="1.0">
-
-
     <!-- 
         The info section.
         The meaning of the tags should be natural ...
@@ -48,7 +46,7 @@
     -->
     <resources>
         <res id="LicencePanel.licence" src="Licence.txt"/>
-        <res id="InfoPanel.info" src="Readme.txt"/>
+        <res id="HTMLInfoPanel.info" src="Info.html"/>
         <res id="userInputSpec.xml" src="res/userInputSpec.xml" />
         <res id="userInputLang.xml_eng" src="res/userInputLang.xml_eng" />
         <res id="Heading.image" src="img/escidoc-logo-small.jpg" />
@@ -59,7 +57,7 @@
         We indicate here which panels we want to use. The order will be respected.
     -->
     <panels>
-        <panel classname="InfoPanel"/>
+        <panel classname="HTMLInfoPanel"/>
         <panel classname="LicencePanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.0"/>

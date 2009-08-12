@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+       "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>PubMan Readme</title>
+</head>
+<body>
+
+<h3>PubMan $APP_VER Installer</h3>
+<p>
+PubMan is a web-based solution for the management of publication data for research organisations. 
+It is based on a service-oriented architecture (escidoc.org) and comprises several web-services.
+</p>
+
+<h3>PubMan Requirements:</h3>
+<ul>
+    <li>Java JRE 1.6</li>
+    <li>eSciDoc coreservice Server 1.1</li>
+    <li>JBoss 4.2.3 (included with this installer)</li>
+    <li>Ingested PubMan content model 'escidoc:persistent4' (see description below to get this done)</li>
+</ul>
+
+<h3>Ingest needed PubMan content model into coreservice Server</h3>
+<ul>
+    <li>Copy the file 'escidoc_persistent4.xml' to the coreservice server. You can find
+    this file in the root of the PubMan installation path.</li> 
+    <li>Login to coreservice instance</li>
+    <li>Ingest the the content model with this command into the fedora system:<br/>
+  <font size="-2">${FEDORA_HOME}/client/bin/fedora-ingest.sh  
+  f escidoc_persistent4.xml info:fedora/fedora-system:FOXML-1.1 localhost:8082 
+  ${FEDORA_USER} ${FEDORA_PASSWORD} http ""</font></li>
+</ul>
+
+<h3>Interesting Web resources:</h3>
+<p>  
+An overview of current functionalities can be found here:<br/>
+<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Functionalities">http://colab.mpdl.mpg.de/mediawiki/PubMan_Functionalities</a>
+</p>
+<p>
+An overview of services in use can be found here:
+<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_SOA">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_SOA</a>
+</p>
+<p>
+For questions on installation and set-up, please subscribe to the developers list here: 
+<a href="https://listserv.gwdg.de/mailman/listinfo/escidoc-dev-ext">https://listserv.gwdg.de/mailman/listinfo/escidoc-dev-ext</a>
+</p>
+<p>
+In case you have functional questions, please contact <a href="mailto:pubman-support@gwdg.de">pubman-support@gwdg.de</a>
+</p>
+</body>
