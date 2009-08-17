@@ -1,7 +1,6 @@
 package de.mpg.mpdl.migration.foxml;
 
 import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 
 /**

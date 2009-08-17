@@ -72,15 +72,15 @@ public class Foxml implements MigrationConstants
         if (baseDir.isDirectory())
         {
             File[] files = baseDir.listFiles();
-            for (File file : files)
+            for (File foxml : files)
             {
-                if (file.isFile() && file.getName().matches("escidoc_\\w*"))
+                if (foxml.isFile() && foxml.getName().matches("escidoc_\\w*"))
                 {
-                    allFiles.add(file);
+                    allFiles.add(foxml);
                 }
                 else
                 {
-                    fileList(file);
+                    fileList(foxml);
                 }
             }
         }
