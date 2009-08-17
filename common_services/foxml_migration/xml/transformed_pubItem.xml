@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://latest-coreservice.mpdl.mpg.de:8080/xsl/Resource2Html.xsl"?>
+<escidocMetadataRecords:md-record name="escidoc" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="http://latest-coreservice.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:64477/md-records/md-record/escidoc" last-modification-date="2009-04-23T06:48:51.349Z">
+	<publication xmlns="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" type="book">
+		<eterms:creator role="author">
+			<person:person>
+				<eterms:complete-name></eterms:complete-name>
+				<eterms:family-name>Skiba</eterms:family-name>
+				<eterms:given-name>Romuald</eterms:given-name>
+				<organization:organization>
+
+					<dc:title>Freie Universität Berlin</dc:title>
+					<eterms:address></eterms:address>
+					<dc:identifier></dc:identifier>
+				</organization:organization>
+				<dc:identifier xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="idtype:CONE">urn:cone:persons169</dc:identifier>
+			</person:person>
+		</eterms:creator>
+		<dc:title>Fachsprachenforschung in wissenschaftstheoretischer Perspektive</dc:title>
+
+		<dc:language xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:RFC3066">de</dc:language>
+		<dc:identifier xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="idtype:ISBN">3-8233-5353-5</dc:identifier>
+		<eterms:publishing-info>
+			<dc:publisher>Gunter Narr</dc:publisher>
+			<eterms:place>Tübingen</eterms:place>
+			<eterms:edition></eterms:edition>
+		</eterms:publishing-info>
+
+		<dcterms:created xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+		<dcterms:modified xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+		<dcterms:dateSubmitted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+		<dcterms:dateAccepted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+		<eterms:published-online xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></eterms:published-online>
+		<dcterms:issued xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">1998</dcterms:issued>
+		<source:source type="series">
+			<dc:title>Forum fur Fachsprachen-Forschung </dc:title>
+
+			<eterms:volume>47</eterms:volume>
+			<eterms:sequence-number></eterms:sequence-number>
+			<eterms:total-number-of-pages></eterms:total-number-of-pages>
+		</source:source>
+		<eterms:total-number-of-pages>202</eterms:total-number-of-pages>
+		<dc:subject></dc:subject>
+		<dc:subject></dc:subject>
+		<dcterms:tableOfContents></dcterms:tableOfContents>
+
+	</publication>
+</escidocMetadataRecords:md-record>
+
+
