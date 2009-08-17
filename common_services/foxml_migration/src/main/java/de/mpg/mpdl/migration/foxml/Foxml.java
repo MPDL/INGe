@@ -26,23 +26,47 @@ import fedora.fedoraSystemDef.foxml.DatastreamType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
 import fedora.fedoraSystemDef.foxml.XmlContentType;
 
+
+/**
+ * 
+ * TODO Description.
+ *
+ * @author frank (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class Foxml implements MigrationConstants
 {
     
-    static ArrayList<File> allFiles = new ArrayList<File>();
-    static Logger logger = Logger.getLogger("migration");
-    static int publication = 0;
-    static int file = 1;
-    static int faces = 2;
-    static int facesalbum = 3;
-    static int orgunit = 4;
-    static int virrelement = 5;
+    private static ArrayList<File> allFiles = new ArrayList<File>();
+    private static Logger logger = Logger.getLogger("migration");
+    private static int publication = 0;
+    private static int file = 1;
+    private static int faces = 2;
+    private static int facesalbum = 3;
+    private static int orgunit = 4;
+    private static int virrelement = 5;
 
+    private Foxml()
+    {
+        
+    }
+    
+    /**
+     * 
+     * @param args {@link String[]}
+     */
     public static void main(String[] args)
     {
         migrate();
     }
 
+    /**
+     * 
+     * @param baseDir {@link File}
+     * @return {@link ArrayList}
+     */
     public static ArrayList<File> fileList(File baseDir)
     {
         if (baseDir.isDirectory())
@@ -63,6 +87,13 @@ public class Foxml implements MigrationConstants
         return allFiles;
     }
 
+    /**
+     * 
+     * @param rdfStream {@link InputStream}
+     * @param resourceUri {@link String}
+     * @param streamVersion {@value int}
+     * @return {@link String[]}
+     */
     public static String[] getResourceType(InputStream rdfStream, String resourceUri, int streamVersion)
     {
         String id = resourceUri.substring(resourceUri.indexOf("/") + 1);
@@ -84,9 +115,13 @@ public class Foxml implements MigrationConstants
                 context = about.getProperty(ESCIDOCPROPERTIES.contentcategory).getString();
             }
         }
-        return new String[] { id, resourceType, Integer.toString(streamVersion), context };
+        return new String[] {id, resourceType, Integer.toString(streamVersion), context};
     }
 
+    /**
+     * 
+     * @return {@link DigitalObjectDocument}
+     */
     public static DigitalObjectDocument migrate()
     {
         ArrayList<File> files = null;
@@ -171,7 +206,6 @@ public class Foxml implements MigrationConstants
                                     {
                                         transMD = "unable to determine new metadata";
                                     }
-                                    // transformed = null;
                                 }
                             }
                             else
@@ -222,7 +256,6 @@ public class Foxml implements MigrationConstants
                                     {
                                         transMD = "unable to determine new metadata";
                                     }
-                                    // transformed = null;
                                 }
                             }
                             else
@@ -274,6 +307,12 @@ public class Foxml implements MigrationConstants
         return null;
     }
 
+    /**
+     * 
+     * @param source {@link File}
+     * @param schematype {@value int}
+     * @return {@link File}
+     */
     public static File xsltTransformation(File source, int schematype)
     {
         String xsltFileName = null;
@@ -298,6 +337,8 @@ public class Foxml implements MigrationConstants
                 break;
             case 5:
                 xsltFileName = "xml/foxml_virrElement.xsl";
+                break;
+            default:
                 break;
         }
         xslt = new File(xsltFileName);

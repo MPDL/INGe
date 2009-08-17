@@ -4,40 +4,49 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 
+/**
+ * 
+ * TODO Description.
+ *
+ * @author frank (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class ESCIDOCPROPERTIES extends Object
 {
     // URIs for vocabulary elements
-    protected static final String propUri = "http://escidoc.de/core/01/properties/";
-    protected static final String srelUri = "http://escidoc.de/core/01/structural-relations/";
-    protected static final String versionUri = "http://escidoc.de/core/01/properties/version/";
-    protected static final String releaseUri = "http://escidoc.de/core/01/properties/release/";
+    protected static final String PROPERTIES_URI = "http://escidoc.de/core/01/properties/";
+    protected static final String STRUCTURAL_RELATIONS_URI = "http://escidoc.de/core/01/structural-relations/";
+    protected static final String VERSION_URI = "http://escidoc.de/core/01/properties/version/";
+    protected static final String RELEASE_URI = "http://escidoc.de/core/01/properties/release/";
 
     // Return properties URI for vocabulary elements
     public static String getPropertiesURI()
     {
-        return propUri;
+        return PROPERTIES_URI;
     }
     
     // Return structural-relations URI for vocabulary elements
     public static String getStructuralRelationsURI()
     {
-        return srelUri;
+        return STRUCTURAL_RELATIONS_URI;
     }
     
     // Return version URI for vocabulary elements
     public static String getVersionURI()
     {
-        return versionUri;
+        return VERSION_URI;
     }
     
     // Return release URI for vocabulary elements
     public static String getReleaseURI()
     {
-        return releaseUri;
+        return RELEASE_URI;
     }
 
     // Define the property labels and objects
-    static final String slocatorurl = "locator-url";
+    static final String S_LOCATORURL = "locator-url";
     public static Property locatorurl = null;
     static final String sname = "name";
     public static Property name = null;
@@ -172,70 +181,70 @@ public class ESCIDOCPROPERTIES extends Object
         try
         {
             // Instantiate the properties
-            locatorurl = new PropertyImpl(propUri, slocatorurl);
-            name = new PropertyImpl(propUri, sname);
-            description = new PropertyImpl(propUri, sdescription);
-            loginname = new PropertyImpl(propUri, sloginname);
-            email = new PropertyImpl(propUri, semail);
-            creationdate = new PropertyImpl(propUri, screationdate);
-            publicstatus = new PropertyImpl(propUri, spublicstatus);
-            publicstatuscomment = new PropertyImpl(propUri, spublicstatuscomment);
-            active = new PropertyImpl(propUri, sactive);
-            visibility = new PropertyImpl(propUri, svisibility);
-            validstatus = new PropertyImpl(propUri, svalidstatus);
-            type = new PropertyImpl(propUri, stype);
-            haschildren = new PropertyImpl(propUri, shaschildren);
-            lockdate = new PropertyImpl(propUri, slockdate);
-            lockstatus = new PropertyImpl(propUri, slockstatus);
-            contentcategory = new PropertyImpl(propUri, scontentcategory);
-            filename = new PropertyImpl(propUri, sfilename);
-            filesize = new PropertyImpl(propUri, sfilesize);
-            mimetype = new PropertyImpl(propUri, smimetype);
-            checksum = new PropertyImpl(propUri, schecksum);
-            checksumalgorithm = new PropertyImpl(propUri, schecksumalgorithm);
-            pid = new PropertyImpl(propUri, spid);
-            contentmodelspecific = new PropertyImpl(propUri, scontentmodelspecific);
-            version = new PropertyImpl(propUri, sversion);
-            latestversion = new PropertyImpl(propUri, slatestversion);
-            latestrelease = new PropertyImpl(propUri, slatestrelease);
-            contexttitle = new PropertyImpl(propUri, scontexttitle);
-            contentmodeltitle = new PropertyImpl(propUri, scontentmodeltitle);
-            createdbytitle = new PropertyImpl(propUri, screatedbytitle);
-            modifiedbytitle = new PropertyImpl(propUri, smodifiedbytitle);
-            grantremark = new PropertyImpl(propUri, sgrantremark);
-            revocationremark = new PropertyImpl(propUri, srevocationremark);
-            revocationdate = new PropertyImpl(propUri, srevocationdate);
-            externalids = new PropertyImpl(propUri, sexternalids);
-            organizationalunits = new PropertyImpl(propUri, sorganizationalunits);
-            affiliations = new PropertyImpl(propUri, saffiliations);
-            versionnumber = new PropertyImpl(versionUri, sversionnumber);
-            versiondate = new PropertyImpl(versionUri, sversiondate);
-            versionstatus = new PropertyImpl(versionUri, sversionstatus);
-            versionmodifiedby = new PropertyImpl(srelUri, sversionmodifiedby);
-            versioncomment = new PropertyImpl(versionUri, sversioncomment);
-            versionpid = new PropertyImpl(versionUri, sversionpid);
-            releasenumber = new PropertyImpl(releaseUri, sreleasenumber);
-            releasedate = new PropertyImpl(releaseUri, sreleasedate);
-            releasepid = new PropertyImpl(releaseUri, sreleasepid);
-            createdby = new PropertyImpl(srelUri, screatedby);
-            modifiedby = new PropertyImpl(srelUri, smodifiedby);
-            revokedby = new PropertyImpl(srelUri, srevokedby);
-            grantedto = new PropertyImpl(srelUri, sgrantedto);
-            context = new PropertyImpl(srelUri, scontext);
-            contentmodel = new PropertyImpl(srelUri, scontentmodel);
-            lockowner = new PropertyImpl(srelUri, slockowner);
-            organizationalunit = new PropertyImpl(srelUri, sorganizationalunit);
-            affiliation = new PropertyImpl(srelUri, saffiliation);
-            person = new PropertyImpl(srelUri, sperson);
-            role = new PropertyImpl(srelUri, srole);
-            assignedon = new PropertyImpl(srelUri, sassignedon);
-            parent = new PropertyImpl(srelUri, sparent);
-            child = new PropertyImpl(srelUri, schild);
-            predecessor = new PropertyImpl(srelUri, spredecessor);
-            member = new PropertyImpl(srelUri, smember);
-            item = new PropertyImpl(srelUri, sitem);
-            container = new PropertyImpl(srelUri, scontainer);
-            component = new PropertyImpl(srelUri, scomponent);
+            locatorurl = new PropertyImpl(PROPERTIES_URI, S_LOCATORURL);
+            name = new PropertyImpl(PROPERTIES_URI, sname);
+            description = new PropertyImpl(PROPERTIES_URI, sdescription);
+            loginname = new PropertyImpl(PROPERTIES_URI, sloginname);
+            email = new PropertyImpl(PROPERTIES_URI, semail);
+            creationdate = new PropertyImpl(PROPERTIES_URI, screationdate);
+            publicstatus = new PropertyImpl(PROPERTIES_URI, spublicstatus);
+            publicstatuscomment = new PropertyImpl(PROPERTIES_URI, spublicstatuscomment);
+            active = new PropertyImpl(PROPERTIES_URI, sactive);
+            visibility = new PropertyImpl(PROPERTIES_URI, svisibility);
+            validstatus = new PropertyImpl(PROPERTIES_URI, svalidstatus);
+            type = new PropertyImpl(PROPERTIES_URI, stype);
+            haschildren = new PropertyImpl(PROPERTIES_URI, shaschildren);
+            lockdate = new PropertyImpl(PROPERTIES_URI, slockdate);
+            lockstatus = new PropertyImpl(PROPERTIES_URI, slockstatus);
+            contentcategory = new PropertyImpl(PROPERTIES_URI, scontentcategory);
+            filename = new PropertyImpl(PROPERTIES_URI, sfilename);
+            filesize = new PropertyImpl(PROPERTIES_URI, sfilesize);
+            mimetype = new PropertyImpl(PROPERTIES_URI, smimetype);
+            checksum = new PropertyImpl(PROPERTIES_URI, schecksum);
+            checksumalgorithm = new PropertyImpl(PROPERTIES_URI, schecksumalgorithm);
+            pid = new PropertyImpl(PROPERTIES_URI, spid);
+            contentmodelspecific = new PropertyImpl(PROPERTIES_URI, scontentmodelspecific);
+            version = new PropertyImpl(PROPERTIES_URI, sversion);
+            latestversion = new PropertyImpl(PROPERTIES_URI, slatestversion);
+            latestrelease = new PropertyImpl(PROPERTIES_URI, slatestrelease);
+            contexttitle = new PropertyImpl(PROPERTIES_URI, scontexttitle);
+            contentmodeltitle = new PropertyImpl(PROPERTIES_URI, scontentmodeltitle);
+            createdbytitle = new PropertyImpl(PROPERTIES_URI, screatedbytitle);
+            modifiedbytitle = new PropertyImpl(PROPERTIES_URI, smodifiedbytitle);
+            grantremark = new PropertyImpl(PROPERTIES_URI, sgrantremark);
+            revocationremark = new PropertyImpl(PROPERTIES_URI, srevocationremark);
+            revocationdate = new PropertyImpl(PROPERTIES_URI, srevocationdate);
+            externalids = new PropertyImpl(PROPERTIES_URI, sexternalids);
+            organizationalunits = new PropertyImpl(PROPERTIES_URI, sorganizationalunits);
+            affiliations = new PropertyImpl(PROPERTIES_URI, saffiliations);
+            versionnumber = new PropertyImpl(VERSION_URI, sversionnumber);
+            versiondate = new PropertyImpl(VERSION_URI, sversiondate);
+            versionstatus = new PropertyImpl(VERSION_URI, sversionstatus);
+            versionmodifiedby = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sversionmodifiedby);
+            versioncomment = new PropertyImpl(VERSION_URI, sversioncomment);
+            versionpid = new PropertyImpl(VERSION_URI, sversionpid);
+            releasenumber = new PropertyImpl(RELEASE_URI, sreleasenumber);
+            releasedate = new PropertyImpl(RELEASE_URI, sreleasedate);
+            releasepid = new PropertyImpl(RELEASE_URI, sreleasepid);
+            createdby = new PropertyImpl(STRUCTURAL_RELATIONS_URI, screatedby);
+            modifiedby = new PropertyImpl(STRUCTURAL_RELATIONS_URI, smodifiedby);
+            revokedby = new PropertyImpl(STRUCTURAL_RELATIONS_URI, srevokedby);
+            grantedto = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sgrantedto);
+            context = new PropertyImpl(STRUCTURAL_RELATIONS_URI, scontext);
+            contentmodel = new PropertyImpl(STRUCTURAL_RELATIONS_URI, scontentmodel);
+            lockowner = new PropertyImpl(STRUCTURAL_RELATIONS_URI, slockowner);
+            organizationalunit = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sorganizationalunit);
+            affiliation = new PropertyImpl(STRUCTURAL_RELATIONS_URI, saffiliation);
+            person = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sperson);
+            role = new PropertyImpl(STRUCTURAL_RELATIONS_URI, srole);
+            assignedon = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sassignedon);
+            parent = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sparent);
+            child = new PropertyImpl(STRUCTURAL_RELATIONS_URI, schild);
+            predecessor = new PropertyImpl(STRUCTURAL_RELATIONS_URI, spredecessor);
+            member = new PropertyImpl(STRUCTURAL_RELATIONS_URI, smember);
+            item = new PropertyImpl(STRUCTURAL_RELATIONS_URI, sitem);
+            container = new PropertyImpl(STRUCTURAL_RELATIONS_URI, scontainer);
+            component = new PropertyImpl(STRUCTURAL_RELATIONS_URI, scomponent);
 
             
         }

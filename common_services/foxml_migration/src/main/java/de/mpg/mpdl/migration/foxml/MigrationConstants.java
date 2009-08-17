@@ -1,5 +1,15 @@
 package de.mpg.mpdl.migration.foxml;
 
+/**
+ * 
+ * TODO Description.
+ *
+ * @author frank (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+        
 public interface MigrationConstants
 {
     public static final String OLD_PUBLICATION = "de.mpg.escidoc.metadataprofile.schema.x01.PublicationDocument";

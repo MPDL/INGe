@@ -19,21 +19,41 @@ import fedora.fedoraSystemDef.foxml.DatastreamVersionType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
 import fedora.fedoraSystemDef.foxml.XmlContentType;
 
+/**
+ * 
+ * TODO Description.
+ *
+ * @author frank (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class PIDReplacement implements MigrationConstants
 {
-    static Logger pidlogger = Logger.getLogger("pidreplacement");
-    static TreeMap<String, String> dummyPIDs = null;
+    private static Logger pidlogger = Logger.getLogger("pidreplacement");
+    private static TreeMap<String, String> dummyPIDs = null;
 
+    private PIDReplacement()
+    {
+        
+    }
+    /**
+     * 
+     * @param args {@link String[]}
+     */
     public static void main(String[] args)
     {
         replacePIDs();
     }
 
+    /**
+     * 
+     */
     public static void replacePIDs()
     {
         ArrayList<File> files = null;
         String resourceURI = null;
-        String props[] = null;
+        String[] props = null;
         files = Foxml.fileList(new File(System.getenv("FEDORA_HOME") + "/data/objects/2008/1106"));
         pidlogger.info("attempting to replace PIDs in " + files.size() + " files");
         int filenum = 0;
@@ -56,8 +76,10 @@ public class PIDReplacement implements MigrationConstants
                             XmlContentType rdf = version.getXmlContent();
                             resourceURI = "info:fedora/escidoc:"
                                 + f.getName().substring(f.getName().indexOf("_") + 1, f.getName().length());
-                            props = Foxml.getResourceType(rdf.newInputStream(), resourceURI, Integer.valueOf(version.getID().substring(version.getID().indexOf(".") + 1)));
-                            pidlogger.info(props[1] + "   " + props[0] + " in context " + props[3] + "   RELS-EXT." + props[2]);
+                            props = Foxml.getResourceType(rdf.newInputStream(), resourceURI,
+                                    Integer.valueOf(version.getID().substring(version.getID().indexOf(".") + 1)));
+                            pidlogger.info(props[1] + "   " + props[0] + " in context " + props[3]
+                                    + "   RELS-EXT." + props[2]);
                             getExistingPids(rdf.newInputStream(), resourceURI);
                             //XmlObject xo = XmlObject.Factory.parse(changed);
                             //rdf.set(xo);
@@ -93,6 +115,11 @@ public class PIDReplacement implements MigrationConstants
         }
     }
     
+    /**
+     * 
+     * @param is {@link InputStream}
+     * @param uri {@link String}
+     */
     public static void getExistingPids(InputStream is, String uri)
     {
         String objectPid = null;
@@ -141,7 +168,8 @@ public class PIDReplacement implements MigrationConstants
                 //about.addProperty(ESCIDOCPROPERTIES.pid, pid);
             }
         }
-        pidlogger.info("        " + objectPid + "        " + versionPid + "        " + releasePid + "        " + contentPid);
+        pidlogger.info("        " + objectPid + "        " + versionPid + "        "
+                + releasePid + "        " + contentPid);
         //ByteArrayOutputStream out = new ByteArrayOutputStream();
         //model.write(out, "RDF/XML");
         
