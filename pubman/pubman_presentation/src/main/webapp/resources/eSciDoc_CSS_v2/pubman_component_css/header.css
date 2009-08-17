@@ -85,6 +85,10 @@
 	.searchMenu .quickSearchIcon {
 		margin-right: 0.34em;
 	}
+	
+	.quickSearchCheckBoxMenu > label {
+		margin-top: 0.19em;
+	}
 /*
 	.quickSearchTextInput, .quickSearchCheckBoxMenu, .advancedSearchMenu *, .organisationSearchMenu * {
 		padding: 0px;
