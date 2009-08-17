@@ -1477,9 +1477,9 @@ public class EditItem extends FacesBean
      * Returns a reference to the scoped data bean (the PubManSessionBean).
      * @return a reference to the scoped data bean
      */
-    protected de.mpg.escidoc.pubman.PubManSessionBean getPubManSessionBean()
+    protected static PubManSessionBean getPubManSessionBean()
     {
-        return (PubManSessionBean)getSessionBean(PubManSessionBean.class);
+        return (PubManSessionBean) getSessionBean(PubManSessionBean.class);
     }
 
     /**
@@ -1551,17 +1551,24 @@ public class EditItem extends FacesBean
             isStateInRevision = this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
         }
         
-        boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+        boolean isModerator = false;
+        if (loginHelper.getAccountUser() != null && this.getPubItem() != null)
+        {
+            isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+        }
         boolean isOwner = true;
-        if (this.getPubItem().getOwner() != null)
+        if (this.getPubItem() != null && this.getPubItem().getOwner() != null)
         {
             isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.getPubItem().getOwner().getObjectId()) : false);
         }
         
         try
         {
-            isWorkflowStandard = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-            isWorkflowSimple = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            if (getItemControllerSessionBean().getCurrentContext() != null && getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null)
+            {
+                isWorkflowStandard = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+                isWorkflowSimple = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            }
         }
         catch (Exception e)
         {
@@ -2137,10 +2144,15 @@ public class EditItem extends FacesBean
     
     public String getCcScriptTag()
     {
-    	PubManSessionBean sessionBean = this.getPubManSessionBean();
-        return "<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.97/complete.js?locale=" + sessionBean.getLocale() + "&amp;want_a_license=definitely'>;</script>";
+        return EditItem.getCcScriptTagForAll();
     }
 
+    public static String getCcScriptTagForAll()
+    {
+        PubManSessionBean sessionBean = EditItem.getPubManSessionBean();
+        return "<script type='text/javascript' src='http://api.creativecommons.org/jswidget/tags/0.97/complete.js?locale=" + sessionBean.getLocale() + "&amp;want_a_license=definitely'>;</script>";
+    }
+    
     public void setSuggestConeUrl(String suggestConeUrl)
     {
         this.suggestConeUrl = suggestConeUrl;

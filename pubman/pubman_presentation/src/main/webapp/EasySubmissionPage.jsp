@@ -94,7 +94,7 @@
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
 			</script>
-			<h:inputHidden id="CCScriptTag" value="#{EditItem.ccScriptTag}"/>
+			<h:inputHidden id="CCScriptTag" value="#{EasySubmission.ccScriptTag}"/>
 			</body>
 		</html>
 	</f:view>

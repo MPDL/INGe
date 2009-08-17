@@ -2658,5 +2658,8 @@ public class EasySubmission extends FacesBean
 		this.locatorUpload = locatorUpload;
 	}
 	
-	
+	public String getCcScriptTag()
+    {
+        return EditItem.getCcScriptTagForAll();
+    }
 }
