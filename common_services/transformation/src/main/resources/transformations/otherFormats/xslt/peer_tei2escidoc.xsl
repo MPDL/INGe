@@ -166,13 +166,13 @@
 						
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
-				<xsl:value-of select="normalize-space(
+				<xsl:value-of select="
 					if (exists($fDesc/t:titleStmt/t:title[@type='main']))
 					then $fDesc/t:titleStmt/t:title[@type='main']
 					else if (exists($sDesc/t:biblStruct/t:analytic/t:title[@type='main']))
 					then $sDesc/t:biblStruct/t:analytic/t:title[@type='main']
 					else error(QName('http://www.escidoc.de', 'err:NoTitleDefined' ), 'No title is defined for the item')
-				)"/>
+				"/>
 			</xsl:element>
 			
 			<!-- LANGUAGE -->
