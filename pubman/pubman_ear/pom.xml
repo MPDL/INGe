@@ -499,7 +499,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.12</version>
+            <version>1.0.13-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
