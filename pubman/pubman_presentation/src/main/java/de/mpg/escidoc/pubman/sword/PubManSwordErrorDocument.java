@@ -127,37 +127,37 @@ public class PubManSwordErrorDocument
         if (this.errorDesc.equals(swordError.AuthentificationFailure))
         {
             this.setStatus(400);
-            this.setHref(this.AuthentificationFailure);
+            this.setHref(PubManSwordErrorDocument.AuthentificationFailure);
         }
         if (this.errorDesc.equals(swordError.AuthorisationFailure))
         {
             this.setStatus(403);
-            this.setHref(this.AuthorisationFailure);
+            this.setHref(PubManSwordErrorDocument.AuthorisationFailure);
         }
         if (this.errorDesc.equals(swordError.ValidationFailure))
         {
             this.setStatus(400);
-            this.setHref(this.ValidationFailure);
+            this.setHref(PubManSwordErrorDocument.ValidationFailure);
         }
         if (this.errorDesc.equals(swordError.MediationNotAllowed))
         {
             this.setStatus(412);
-            this.setHref(this.MediationNotAllowed);
+            this.setHref(PubManSwordErrorDocument.MediationNotAllowed);
         }
         if (this.errorDesc.equals(swordError.ErrorBadRequest))
         {
             this.setStatus(400);
-            this.setHref(this.ErrorBadRequest);
+            this.setHref(PubManSwordErrorDocument.ErrorBadRequest);
         }
         if (this.errorDesc.equals(swordError.ErrorContent))
         {
             this.setStatus(415);
-            this.setHref(this.ErrorContent);
+            this.setHref(PubManSwordErrorDocument.ErrorContent);
         }
         if (this.errorDesc.equals(swordError.InternalError))
         {
             this.setStatus(500);
-            this.setHref(this.InternalError);
+            this.setHref(PubManSwordErrorDocument.InternalError);
         }
     }
 
@@ -239,7 +239,7 @@ public class PubManSwordErrorDocument
 
     public int getStatus()
     {
-        return status;
+        return this.status;
     }
 
     public void setStatus(int status)
@@ -249,7 +249,7 @@ public class PubManSwordErrorDocument
 
     public swordError getErrorDesc()
     {
-        return errorDesc;
+        return this.errorDesc;
     }
 
     public void setErrorDesc(swordError errorDesc)

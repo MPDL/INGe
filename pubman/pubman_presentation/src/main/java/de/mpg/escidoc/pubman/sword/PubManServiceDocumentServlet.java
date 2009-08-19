@@ -121,7 +121,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
 
         try
         {
-            String doc = swordServer.doServiceDocument(sdr);
+            String doc = this.swordServer.doServiceDocument(sdr);
             this.currentUser = null;
             
             // Print out the Service Document

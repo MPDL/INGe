@@ -67,6 +67,7 @@ public class PubManDepositServlet extends HttpServlet
     PubManSwordServer pubMan;
     private String error = "";
     private PubManSwordErrorDocument errorDoc;
+    private boolean validDeposit = true;
 
     /**
     * Process the GET request. This will return an unimplemented response.
@@ -107,7 +108,6 @@ public class PubManDepositServlet extends HttpServlet
        SwordUtil util = new SwordUtil();
        Deposit deposit = new Deposit();
        AccountUserVO user = null;
-       boolean validDeposit = true;
        this.errorDoc = new PubManSwordErrorDocument();
        DepositResponse dr = null;
 
@@ -117,7 +117,7 @@ public class PubManDepositServlet extends HttpServlet
        {
            this.errorDoc.setSummary("No user credentials provided.");
            this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
-           validDeposit = false;
+           this.validDeposit = false;
        }
        else
        {
@@ -135,69 +135,45 @@ public class PubManDepositServlet extends HttpServlet
        {
            // Deposit --------------------------------------------------
            //Check if login was successfull
-           if (this.pubMan.getCurrentUser() == null && validDeposit)
+           if (this.pubMan.getCurrentUser() == null && this.validDeposit)
            {
                this.errorDoc.setSummary("Login user: "+deposit.getUsername()+" failed.");
                this.errorDoc.setErrorDesc(swordError.AuthentificationFailure);
-               validDeposit = false;
+               this.validDeposit = false;
            }
 
            //Check if collection was provided
            this.collection = request.getParameter("collection");
-           if ((this.collection == null || this.collection.equals("")) && validDeposit)
+           if ((this.collection == null || this.collection.equals("")) && this.validDeposit)
            {
                this.collection = request.getParameter("collection");
                this.errorDoc.setSummary("No collection provided in request.");
                this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
-               validDeposit = false;
+               this.validDeposit = false;
            }
 
            //Check if user has depositing rights for this collection
            else
            {
-               if (!util.checkCollection(this.collection, user) && validDeposit)
+               if (!util.checkCollection(this.collection, user) && this.validDeposit)
                {
                    this.errorDoc.setSummary("User: " + deposit.getUsername()
                            +" does not have depositing rights for collection " + this.collection +".");
                    this.errorDoc.setErrorDesc(swordError.AuthorisationFailure);
-                   validDeposit = false;
+                   this.validDeposit = false;
                }
            }
 
            deposit.setFile(request.getInputStream());
-
-           // Set the X-No-Op header
-           String noop = request.getHeader("X-No-Op");
-           if ((noop != null) && (noop.equals("true")))
+           deposit = this.readHttpHeader(deposit, request);
+           
+           //Check if metadata format is supported
+           if (!util.checkMetadatFormat(deposit.getFormatNamespace()))
            {
-              deposit.setNoOp(true);
-           }
-           else
-           {
-              deposit.setNoOp(false);
+               throw new SWORDContentTypeException();
            }
 
-           // Set the X-Verbose header
-           String verbose = request.getHeader("X-Verbose");
-           if ((verbose != null) && (verbose.equals("true")))
-           {
-              deposit.setVerbose(true);
-           }
-           else
-           {
-              deposit.setVerbose(false);
-           }
-
-           //Check X-On-Behalf-Of header
-           String mediation = request.getHeader("X-On-Behalf-Of");
-           if ((mediation != null) && (mediation.equals("")))
-           {
-               this.errorDoc.setSummary("Mediation not supported.");
-               this.errorDoc.setErrorDesc(swordError.MediationNotAllowed);
-               validDeposit = false;
-           }
-
-           if (validDeposit)
+           if (this.validDeposit)
            {
                // Get the DepositResponse
                dr = this.pubMan.doDeposit(deposit, this.collection);
@@ -207,20 +183,20 @@ public class PubManDepositServlet extends HttpServlet
        {
            response.sendError(HttpServletResponse.SC_FORBIDDEN, this.getError());
            this.logger.error(sae.toString());
-           validDeposit = false;
+           this.validDeposit = false;
 
        }
        catch (SWORDContentTypeException e)
        {
            this.errorDoc.setSummary("File format not supported.");
            this.errorDoc.setErrorDesc(swordError.ErrorContent);
-           validDeposit = false;
+           this.validDeposit = false;
        }
        catch (ContentStreamNotFoundException e)
        {
            this.errorDoc.setSummary("No metadata File was found.");
            this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
-           validDeposit = false;
+           this.validDeposit = false;
        }
        catch (ItemInvalidException e)
        {
@@ -234,24 +210,24 @@ public class PubManDepositServlet extends HttpServlet
            }
            this.errorDoc.setSummary(error);
            this.errorDoc.setErrorDesc(swordError.ValidationFailure);
-           validDeposit = false;
+           this.validDeposit = false;
        }
        catch (PubItemStatusInvalidException e)
        {
            this.errorDoc.setSummary("Provided item has wrong status.");
            this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
-           validDeposit = false;
+           this.validDeposit = false;
        }
        catch (Exception ioe)
        {
           this.errorDoc.setSummary("An internal server error occurred.");
           this.errorDoc.setErrorDesc(swordError.InternalError);
-          validDeposit = false;
+          this.validDeposit = false;
        }
        try
        {
            //Write response atom
-           if (validDeposit)
+           if (this.validDeposit)
            {
                response.setStatus(dr.getHttpResponse());
                response.setContentType("application/xml");
@@ -279,6 +255,7 @@ public class PubManDepositServlet extends HttpServlet
        }
 
        this.pubMan.setCurrentUser(null);
+       this.validDeposit = true;
      }
 
 
@@ -308,6 +285,73 @@ public class PubManDepositServlet extends HttpServlet
          this.logger.debug(e.toString());
       }
       return null;
+   }
+   
+   /**
+    * Reads out the values in the http header and sets the
+    * Deposit object.
+    * @param deposit
+    * @return
+    */
+   private Deposit readHttpHeader(Deposit deposit, HttpServletRequest request) throws SWORDContentTypeException
+   {
+       // Set the X-No-Op header
+       String noop = request.getHeader("X-No-Op");
+       if ((noop != null) && (noop.equals("true")))
+       {
+          deposit.setNoOp(true);
+       }
+       else
+       {
+          deposit.setNoOp(false);
+       }
+
+       // Set the X-Verbose header
+       String verbose = request.getHeader("X-Verbose");
+       if ((verbose != null) && (verbose.equals("true")))
+       {
+          deposit.setVerbose(true);
+       }
+       else
+       {
+          deposit.setVerbose(false);
+       }
+
+       //Check X-On-Behalf-Of header
+       String mediation = request.getHeader("X-On-Behalf-Of");
+       if ((mediation != null) && (mediation.equals("")))
+       {
+           this.errorDoc.setSummary("Mediation not supported.");
+           this.errorDoc.setErrorDesc(swordError.MediationNotAllowed);
+           this.validDeposit = false;
+       }
+       
+       //Check X-Packaging header
+       String packaging = request.getHeader("X-Packaging");
+       if ((packaging != null) && (!packaging.equals("")))
+       {
+           deposit.setFormatNamespace(packaging);
+       }
+       else
+       {
+           throw new SWORDContentTypeException();
+       }
+       
+       //Check Content-deposition  header
+       String filename = request.getHeader("Content-Disposition:filename");
+       if ((filename != null) && (filename.equals("")))
+       {
+           deposit.setContentDisposition(filename);
+       }
+       
+       //Check ContentType  header
+       String contentType = request.getHeader("Content-Type");
+       if ((contentType != null) && (contentType.equals("")))
+       {
+           deposit.setContentType(contentType);
+       }
+       
+       return deposit;
    }
 
 

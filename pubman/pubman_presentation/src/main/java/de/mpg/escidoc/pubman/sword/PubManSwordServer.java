@@ -102,6 +102,7 @@ public class PubManSwordServer
             this.setVerbose("Start depositing process ... ");
 
                 //Create item
+                util.setCurrentDeposit(deposit);
                 depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
                 this.setVerbose("Escidoc Publication Item successfully created.");
                 ContextRO context = new ContextRO();
@@ -216,29 +217,26 @@ public class PubManSwordServer
                     Element treat = document.createElementNS("http://purl.org/net/sword/", "treatment");
                     treat.setPrefix("sword");
                     treat.setTextContent(util.getTreatmentText());
-                    //static value
-                    Element format1 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
-                    format1.setPrefix("sword");
-                    format1.setTextContent("http://www.tei-c.org/ns/1.0");
-                    Element format2 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
-                    format2.setPrefix("sword");
-                    format2.setTextContent("http://purl.org/escidoc/metadata/schemas/0.1/publication");
-                    Element format3 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
-                    format3.setPrefix("sword");
-                    format3.setTextContent("bibTex");
-                    Element format4 = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
-                    format4.setPrefix("sword");
-                    format4.setTextContent("EndNote");
-
+                    
                     collection.appendChild(colTitle);
                     collection.appendChild(abst);
                     collection.appendChild(med);
                     collection.appendChild(policy);
                     collection.appendChild(treat);
-                    collection.appendChild(format1);
-                    collection.appendChild(format2);
-                    collection.appendChild(format3);
-                    collection.appendChild(format4);
+                    
+                    //static value
+                    for (int x = 0; x < util.Packaging.length; x++)
+                    {
+                        Element format = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+                        format.setPrefix("sword");
+                        format.setTextContent(util.Packaging[x]);                       
+                        collection.appendChild(format);
+                    }
+
+//                    collection.appendChild(format1);
+//                    collection.appendChild(format2);
+//                    collection.appendChild(format3);
+//                    collection.appendChild(format4);
 
                     workspace.appendChild(collection);
             }

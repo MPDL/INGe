@@ -55,6 +55,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
+
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
@@ -130,18 +131,21 @@ public class SwordUtil extends FacesBean
 
     private Vector<String> filenames = new Vector<String>();
     //Format of the provided Metadata
-    private String format = "";
     private String depositXml ="";
 
     private String validationPoint;
 
 
-    //Constants
+    //Packaging Format
     private final String acceptedFormat = "application/zip";
-    private final String mdFormatTEI = ".tei";
-    private final String mdFormatEscidoc = ".xml";
-    private final String mdFormatBibTex = ".bib";
-    private final String mdFormatEndnote = ".enl";
+    //Metadata Format
+    private final String mdFormatTEI = "http://www.tei-c.org/ns/1.0";   //Not yet supported
+    private final String mdFormatEscidoc = "http://purl.org/escidoc/metadata/schemas/0.1/publication";
+    private final String mdFormatBibTex = "BibTex";
+    private final String mdFormatEndnote = "EndNote";
+    private final String mdFormatPeerTEI = "http://purl.org/net/sword-types/tei/peer";
+    private final String[] fileEndings = {".xml",".bib", ".tei", ".enl"};
+    private Deposit currentDeposit;
 
     private final String itemPath = "/pubman/item/";
     private final String serviceDocUrl = "faces/sword/servicedocument";
@@ -151,6 +155,11 @@ public class SwordUtil extends FacesBean
     private final String transformationService = "escidoc";
     private final String treatmentText = "Zip archives recognised as content packages are opened and the individual files contained in them are stored.";
 
+    /**
+     * Accepted packagings.
+     */
+    public String[] Packaging = { this.mdFormatEscidoc, this.mdFormatBibTex, this.mdFormatEndnote, this.mdFormatPeerTEI };
+    
     /**
      * Public constructor.
      */
@@ -166,6 +175,7 @@ public class SwordUtil extends FacesBean
     {
         this.depositServlet = new PubManDepositServlet();
         this.setValidationPoint(this.validationPointDefault);
+        this.filenames.clear();
         super.init();
     }
 
@@ -392,7 +402,6 @@ public class SwordUtil extends FacesBean
         final int bufLength = 1024;
         byte[] buffer = new byte[ bufLength ];
         int readReturn;
-        this.filenames.clear();
         int count = 0;
 
         try
@@ -414,43 +423,22 @@ public class SwordUtil extends FacesBean
                 String name = URLDecoder.decode(zipentry.getName(), "UTF-8");
                 name = name.replaceAll("/", "_");
                 this.filenames.add(name);
-                //Retrieve the metadata
-
-                if (name.toLowerCase().endsWith(this.mdFormatEscidoc))
+                
+                //check if the file is a metadata file
+                for (int i = 0; i < this.fileEndings.length; i++)
                 {
-                    size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
-                    this.logger.debug("Provided Metadata:" + item);
-                    this.depositXml = item;
-                    this.format = this.mdFormatEscidoc;
-                }
-                if (name.toLowerCase().endsWith(this.mdFormatTEI))
-                {
-                    size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
-                    this.logger.debug("Provided Metadata:" + item);
-                    this.depositXml = item;
-                    this.format = this.mdFormatTEI;
-                }
-                if (name.toLowerCase().endsWith(this.mdFormatBibTex))
-                {
-                    size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
-                    this.logger.debug("Provided Metadata:" + item);
-                    this.depositXml = item;
-                    this.format = this.mdFormatBibTex;
-                }
-                if (name.toLowerCase().endsWith(this.mdFormatEndnote))
-                {
-                    size = (int) zipentry.getSize();
-                    item = new String(baos.toByteArray(), 0, size, "UTF-8");
-                    this.logger.debug("Provided Metadata:" + item);
-                    this.depositXml = item;
-                    this.format = this.mdFormatEndnote;
+                    String ending = this.fileEndings[i];
+                    if (name.endsWith(ending))
+                    {
+                        //Retrieve the metadata
+                        size = (int) zipentry.getSize();
+                        item = new String(baos.toByteArray(), 0, size, "UTF-8");
+                        this.depositXml = item;
+                    }
                 }
 
-                    attachements.add(baos.toByteArray());
-                    attachementsNames.add(name);
+                attachements.add(baos.toByteArray());
+                attachementsNames.add(name);
 
                 zipinputstream.closeEntry();
             }
@@ -459,8 +447,7 @@ public class SwordUtil extends FacesBean
         }
         catch (Exception e)
         {
-            //TODO exception handling
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         if (count == 0)
         {
@@ -496,38 +483,32 @@ public class SwordUtil extends FacesBean
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming)
                 initialContext.lookup(XmlTransforming.SERVICE_NAME);
-
-            if (this.format.equals(this.mdFormatEscidoc))
-            {
-                //No transformation needed
-            }
-
+            
+            Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+            
             //Transform from tei to escidoc-publication-item
-            if (this.format.equals(this.mdFormatTEI))
+            if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatPeerTEI))
             {
                 TransformationBean transformer = new TransformationBean();
-                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
-                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");                
                 item = new String(transformer.transform(item.getBytes(), teiFormat,
                         escidocFormat, this.transformationService), "UTF-8");
             }
 
             //Transform from bibtex to escidoc-publication-item
-            if (this.format.equals(this.mdFormatBibTex))
+            if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatBibTex))
             {
                 TransformationBean transformer = new TransformationBean();
                 Format bibFormat = new Format("bibtex", "text/plain", "*");
-                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
                 item = new String(transformer.transform(item.getBytes(),
                         bibFormat, escidocFormat, this.transformationService), "UTF-8");
             }
 
             //Transform from endnote to escidoc-publication-item
-            if (this.format.equals(this.mdFormatEndnote))
+            if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatEndnote))
             {
                 TransformationBean transformer = new TransformationBean();
                 Format endFormat = new Format("endnote", "text/plain", "UTF-8");
-                Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
                 item = new String(transformer.transform(item.getBytes(), endFormat,
                         escidocFormat, this.transformationService), "UTF-8");
             }
@@ -739,11 +720,11 @@ public class SwordUtil extends FacesBean
         TransformationBean transformer = new TransformationBean();
 
         //Hack: FileNameMap class does not know tei, bibtex and endnote
-        if (name.toLowerCase().endsWith(".tei"))
+        if (name.endsWith(".tei"))
         {
             mimeType = "application/xml";
         }
-        if (name.toLowerCase().endsWith(".bib") || name.toLowerCase().endsWith(".enl"))
+        if (name.endsWith(".bib") || name.endsWith(".enl"))
         {
             mimeType = "text/plain";
         }
@@ -752,7 +733,7 @@ public class SwordUtil extends FacesBean
 
         if (fileURL != null && !fileURL.toString().trim().equals(""))
         {
-            if (this.format.equals(this.mdFormatTEI))
+            if (this.currentDeposit.getFormatNamespace().equals(this.mdFormatPeerTEI))
             {
                 //Copyright information are imported from metadata file
                 InitialContext initialContext = new InitialContext();
@@ -773,6 +754,12 @@ public class SwordUtil extends FacesBean
                     this.logger.error("File Xml could not be transformed into FileVO. " , e);
                 }
             }
+            
+            if (this.currentDeposit.getContentDisposition()!= null
+                    && !this.currentDeposit.getContentDisposition().equals(""))
+            {
+                name = this.currentDeposit.getContentDisposition();
+            }
 
             fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
             fileVO.setVisibility(FileVO.Visibility.PUBLIC);
@@ -787,8 +774,8 @@ public class SwordUtil extends FacesBean
             fileVO.getDefaultMetadata().getFormats().add(formatVO);
             fileVO.setContent(fileURL.toString());
             fileVO.getDefaultMetadata().setSize(file.length);
-            //This is the provided metadata which we store as a component
-            if (name.endsWith(this.mdFormatEscidoc) || name.endsWith(this.mdFormatTEI))
+            //This is the provided metadata file which we store as a component
+            if (!name.endsWith(".pdf"))
             {
                 fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
             }
@@ -911,38 +898,35 @@ public class SwordUtil extends FacesBean
     {
         InitialContext initialContext = new InitialContext();
         ItemValidating itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
-        String error = "";
 
         //To set the validation point
         this.getMethod(item);
 
-        ValidationReportItemVO itemReport = null;
         ValidationReportVO report = new ValidationReportVO();
 
         try
         {
             report = itemValidating.validateItemObject(item, this.getValidationPoint());
-//            if (!report.isValid())
-//            {
-//                for (int i = 0; i < report.getItems().size(); i++)
-//                {
-//                    itemReport = report.getItems().get(i);
-//                    if (itemReport.isRestrictive())
-//                    {
-//                        error +=  itemReport.getContent() + "\n";
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                error = null;
-//            }
         }
         catch (Exception e)
         {
             this.logger.error("Validation error", e);
         }
         return report;
+    }
+    
+    public boolean checkMetadatFormat(String format)
+    {
+        for (int i = 0; i < this.Packaging.length; i++) 
+        {
+            String pack = this.Packaging[i];
+            if (format.equalsIgnoreCase(pack))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public String getValidationPoint()
@@ -957,11 +941,22 @@ public class SwordUtil extends FacesBean
 
     public String getAcceptedFormat()
     {
-        return acceptedFormat;
+        return this.acceptedFormat;
     }
 
     public String getTreatmentText()
     {
-        return treatmentText;
+        return this.treatmentText;
+    }   
+
+
+    public Deposit getCurrentDeposit()
+    {
+        return this.currentDeposit;
+    }
+
+    public void setCurrentDeposit(Deposit currentDeposit)
+    {
+        this.currentDeposit = currentDeposit;
     }
 }
