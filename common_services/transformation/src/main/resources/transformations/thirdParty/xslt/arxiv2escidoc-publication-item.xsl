@@ -42,11 +42,13 @@
 	xmlns:release="http://escidoc.de/core/01/properties/release/" 	 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
-	xmlns:arxiv="http://arxiv.org/OAI/arXiv/">
+	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
+	xmlns:dcterms="${xsd.metadata.dcterms}">
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 
 	<xsl:include href="msc.xsl" />
+	<xsl:include href="arxiv_subjects.xsl" />
 
 	<xsl:param name="external_organization_id" />
 
@@ -194,8 +196,13 @@
 						</dcterms:abstract>
 						
 						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories != ''">
-							<dcterms:subject>
-								<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />
+							<dcterms:subject> 
+								<!-- <xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />-->
+								<xsl:call-template name="parseCategories">   
+										<xsl:with-param name="string"
+											select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />
+								</xsl:call-template>	
+								
 								<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class != ''">
 									<xsl:text>, </xsl:text>							
 									<xsl:call-template name="msc">
@@ -232,6 +239,28 @@
 			</escidocComponents:components>
 		</escidocItem:item>
 
+	</xsl:template>
+	
+	<xsl:template name="parseCategories">
+		<xsl:param name="string"/>
+
+		<xsl:choose>
+			<xsl:when test="substring-before($string,' ')=''">								
+					<xsl:call-template name="arxiv_subjects"> 	
+						<xsl:with-param name="subject" select="$string" />
+					</xsl:call-template>				
+			</xsl:when>
+  			<xsl:when test="substring-before($string,' ')!=''">	
+				<xsl:call-template name="arxiv_subjects">   
+							<xsl:with-param name="subject"
+									select="substring-before($string,' ')" />
+				</xsl:call-template>
+				<xsl:value-of select="','"/>
+				<xsl:call-template name="parseCategories">
+					<xsl:with-param name="string" select="substring-after($string,' ')"/>
+				</xsl:call-template>				
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>
