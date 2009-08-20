@@ -461,7 +461,7 @@
 							<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{!(genre.sources_source_volume_issue_pages_source_start_page_display == 'false' && genre.sources_source_volume_issue_pages_source_start_page_form_id == 'easy-submission' || genre.sources_source_volume_issue_pages_source_start_page_display == 'false' && genre.sources_source_volume_issue_pages_source_start_page_form_id == 'all')}">
 								<span class="large_area0">
 									<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_volume_issue_pages_source_start_page_optional != 'true'}" />
-									<h:outputText value="#{genre.sources_source_volume_issue_pages_source_start_page_label}" converter="GenreLabelConverter"/>
+									<h:outputLabel styleClass="large_label" value="#{genre.sources_source_volume_issue_pages_source_start_page_label}" converter="GenreLabelConverter"/>
 								</span>
 								<h:inputText styleClass="large_txtInput" value="#{EasySubmission.source.startPage}" />
 							</h:panelGroup>
