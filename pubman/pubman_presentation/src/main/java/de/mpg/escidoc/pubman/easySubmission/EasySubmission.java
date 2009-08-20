@@ -1234,7 +1234,8 @@ public class EasySubmission extends FacesBean
                    this.getItemControllerSessionBean().getCurrentPubItem().getFiles().clear();
                    this.getItemControllerSessionBean().getCurrentPubItem().getFiles().addAll(itemVO.getFiles());
                    //Reset info for next call
-                   this.setImportSourcesInfo();
+                   
+                   //this.setImportSourcesInfo(); Commented out because of browser back button problem.
                    this.setBibTexInfo();
              }
              catch (TechnicalException e)

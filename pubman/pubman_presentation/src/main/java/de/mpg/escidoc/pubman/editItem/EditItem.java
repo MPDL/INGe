@@ -378,7 +378,7 @@ public class EditItem extends FacesBean
                 //This is a small hack for locators generated out of Bibtex files
                 if (locatorpres.getLocator()==null)
                 {
-                    locatorpres.setLocator(locatorpres.getFile().getName());
+                    locatorpres.setLocator(locatorpres.getFile().getName().trim());
                     locatorpres.getFile().getMetadataSets().add(new MdsFileVO());
                     locatorpres.getFile().getDefaultMetadata().setTitle(new TextVO(locatorpres.getFile().getName()));
                 }
@@ -1390,7 +1390,7 @@ public class EditItem extends FacesBean
                     || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
             {
                 this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().setTitle
-                    (new TextVO(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent()));
+                    (new TextVO(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent().trim()));
             }
             
             List <PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
