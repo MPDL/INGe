@@ -75,6 +75,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{locator.file.defaultMetadata.copyrightDate}" rendered="true"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.copyrightDate == null  || locator.file.defaultMetadata.copyrightDate == ''}"/>
 				</span>
 			</h:panelGroup>
 
@@ -85,6 +86,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{locator.file.defaultMetadata.rights}" rendered="true"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.rights == null  || locator.file.defaultMetadata.rights == ''}"/>
 				</span>
 			</h:panelGroup>
 
@@ -95,6 +97,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputLink value="#{locator.file.defaultMetadata.license}" target="_blank" title="#{lbl.ViewItemFull_lblFileLicenseShow}" rendered="#{locator.file.defaultMetadata.license != ''}"><h:outputText value="#{locator.file.defaultMetadata.license}" rendered="true"/></h:outputLink>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.file.defaultMetadata.license == null  || locator.file.defaultMetadata.license == ''}"/>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection" rendered="true">
 					<h:graphicImage styleClass="sectionTool" url="#{locator.urlToLicenceImage}" value="#{locator.urlToLicenceImage}" rendered="#{locator.urlToLicenceImage != ''}"/>

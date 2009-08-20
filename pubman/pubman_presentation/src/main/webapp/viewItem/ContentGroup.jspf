@@ -57,6 +57,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:outputText value="#{subject.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{subject.value == null || subject.value == ''}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
