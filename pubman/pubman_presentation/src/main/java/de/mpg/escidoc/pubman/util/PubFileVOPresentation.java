@@ -390,7 +390,7 @@ public class PubFileVOPresentation extends FacesBean
     
     public void setLocator(String locator)
     {
-        this.file.setContent(locator);
+        this.file.setContent(locator.trim());
     }
 
     public void setFileType(String fileType)
