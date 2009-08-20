@@ -85,6 +85,7 @@ public static final String BEAN_NAME = "FileCriterionBean";
      */
     public String clearCriterion()
     {
+        fileCriterionVO.setSearchForEmbargoFiles(false);
         fileCriterionVO.setExcludeCategory(false);
         fileCriterionVO.setComponentVisibility(null);
         fileCriterionVO.setComponentAvailability(null);

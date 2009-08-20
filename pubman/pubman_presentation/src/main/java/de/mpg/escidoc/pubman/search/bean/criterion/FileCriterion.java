@@ -31,7 +31,6 @@ package de.mpg.escidoc.pubman.search.bean.criterion;
 import java.util.ArrayList;
 
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
@@ -56,6 +55,7 @@ public class FileCriterion extends Criterion
     public FileCriterion()
     {
         this.excludeCategory = false;
+        this.searchForEmbargoFiles = false;
     }
 
     @Override
