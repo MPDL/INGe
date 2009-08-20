@@ -43,19 +43,19 @@
 	<h2>Submission</h2>      	
           <b>Enter a new Publication to PubMan?</b><br/>
 	   ... by using the 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Easy Submission method"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+			<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... by 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Data Import"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+			<h:outputText value="Import" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+		</h:commandLink>
 		<br/>
 	  ... by using the 
-		<h:outputLink value="#{ApplicationBean.appContext}SubmissionPage.jsp">
-			<h:outputText value="Full Submission method"/>
-		</h:outputLink>
+		<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+			<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+		</h:commandLink>
     </span>
 	</h:panelGroup>
 
