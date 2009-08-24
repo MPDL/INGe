@@ -483,36 +483,31 @@ public class SwordUtil extends FacesBean
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming)
                 initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            TransformationBean transformer = new TransformationBean();
             
             Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+            Format trgFormat = null;
             
             //Transform from tei to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatPeerTEI))
-            {
-                TransformationBean transformer = new TransformationBean();
-                Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");                
-                item = new String(transformer.transform(item.getBytes(), teiFormat,
-                        escidocFormat, this.transformationService), "UTF-8");
+            {               
+                trgFormat = new Format("peer_tei", "application/xml", "UTF-8");                
             }
 
             //Transform from bibtex to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatBibTex))
             {
-                TransformationBean transformer = new TransformationBean();
-                Format bibFormat = new Format("bibtex", "text/plain", "*");
-                item = new String(transformer.transform(item.getBytes(),
-                        bibFormat, escidocFormat, this.transformationService), "UTF-8");
+                trgFormat = new Format("bibtex", "text/plain", "*");
             }
 
             //Transform from endnote to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatEndnote))
             {
-                TransformationBean transformer = new TransformationBean();
-                Format endFormat = new Format("endnote", "text/plain", "UTF-8");
-                item = new String(transformer.transform(item.getBytes(), endFormat,
-                        escidocFormat, this.transformationService), "UTF-8");
+                trgFormat = new Format("endnote", "text/plain", "UTF-8");
             }
 
+            item = new String(transformer.transform(item.getBytes("UTF-8"), trgFormat,
+                    escidocFormat, this.transformationService), "UTF-8");
             //Create item
             itemVO = xmlTransforming.transformToPubItem(item);
             this.logger.debug("Item successfully created.");
