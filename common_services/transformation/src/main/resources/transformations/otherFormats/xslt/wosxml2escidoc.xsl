@@ -473,7 +473,7 @@
 					<xsl:when test="$monthStr='FEB'">02</xsl:when>
 					<xsl:when test="$monthStr='MAR'">03</xsl:when>
 					<xsl:when test="$monthStr='APR'">04</xsl:when>
-					<xsl:when test="$monthStr='MAI'">05</xsl:when>
+					<xsl:when test="$monthStr='MAY'">05</xsl:when>
 					<xsl:when test="$monthStr='JUN'">06</xsl:when>
 					<xsl:when test="$monthStr='JUL'">07</xsl:when>
 					<xsl:when test="$monthStr='AUG'">08</xsl:when>
