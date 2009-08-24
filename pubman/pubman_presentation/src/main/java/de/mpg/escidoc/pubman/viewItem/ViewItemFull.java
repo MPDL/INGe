@@ -1121,7 +1121,7 @@ public class ViewItemFull extends FacesBean
         {
             for (int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
             {
-                identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
+                identifiers.append(this.getLabel("ENUM_IDENTIFIERTYPE_" + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString()));
                 identifiers.append(": ");
                 if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
                 {
