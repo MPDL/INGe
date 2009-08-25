@@ -102,7 +102,7 @@ public class WoSImport{
     public String[] getItemListFromString(String string, String pattern){
     	
     	String strItemList[] = string.split(pattern);
-    	strItemList[0] = "\n"+strItemList[0].split("(FN ISI Export Format)\\n(VR 1.0)\\n")[1]; // cut file header
+    	//strItemList[0] = "\n"+strItemList[0].split("(FN ISI Export Format)\\n(VR 1.0)\\n")[0]; // cut file header
     	
     	return strItemList;
     }
@@ -132,8 +132,8 @@ public class WoSImport{
      */
     public Pair createWoSPairByString(String line){
     	
-       	String key = line.substring(0, 3);
-    	String value = line.substring(4);
+       	String key = line.substring(0, 2);
+    	String value = line.substring(3);
     	Pair pair = null;    	
     	pair = new Pair(key.trim(), escape(value.trim()));
     	    		
