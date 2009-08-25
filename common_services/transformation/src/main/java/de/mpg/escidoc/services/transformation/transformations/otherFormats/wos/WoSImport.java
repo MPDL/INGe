@@ -82,16 +82,16 @@ public class WoSImport{
      * @param string
      * @return
      */
-    public List<String> getItemFromString(String string, String patternString){    	
+    public List<String> getItemFromString(String itemStr, String patternString){    	
     	   	
-    	//Pattern p = Pattern.compile("([A-Z0-9]{2})  - ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))");     	
-    	Pattern pattern = Pattern.compile(patternString);
-    	Matcher matcher = pattern.matcher(string);
-    	List<String> strArr = new ArrayList();
+    	Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*\\n)((\\s\\s\\s.*\\n)?)*)");
+    	Matcher matcher = pattern.matcher(itemStr);
+    	List<String> lineStrArr = new ArrayList();
     	while(matcher.find()){
-    		strArr.add(matcher.group());    		
+    		lineStrArr.add(matcher.group());    		
     	}
-    	return strArr;
+    	    	
+    	return lineStrArr;
     }
     
     /**
@@ -101,8 +101,9 @@ public class WoSImport{
      */
     public String[] getItemListFromString(String string, String pattern){
     	
-    	//String s[] = string.split("ER\\s -");
     	String strItemList[] = string.split(pattern);
+    	strItemList[0] = "\n"+strItemList[0].split("(FN ISI Export Format)\\n(VR 1.0)\\n")[1]; // cut file header
+    	
     	return strItemList;
     }
     
@@ -130,17 +131,12 @@ public class WoSImport{
      * @return Pair - key-value pair created by string line
      */
     public Pair createWoSPairByString(String line){
-    	String key = line.substring(0, 3);
-    	//String lineArr[] = line.split(key);
-    	String value = "";
-    	/*if(lineArr.length>0){
-    		value = lineArr[lineArr.length-1];
-    	}*/
-    	Pair pair = null;
-    	value= line.trim().substring(3);
-    	pair = new Pair(key.trim(), escape(value));
-    			
-    		
+    	
+       	String key = line.substring(0, 3);
+    	String value = line.substring(4);
+    	Pair pair = null;    	
+    	pair = new Pair(key.trim(), escape(value.trim()));
+    	    		
     	return pair;
     }
     
