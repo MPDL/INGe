@@ -31,7 +31,12 @@
 package de.mpg.escidoc.pubman.task;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,7 +153,10 @@ public class SiteMapTask extends Thread
                 {
                     // Unable to delete file, it probably didn't exist
                 }
-                files.get(0).renameTo(finalFile);
+                fileWriter = new FileWriter(appPath + "sitemap.xml");
+                
+                File newSiteMap = new File(appPath + "sitemap.xml");
+                this.copySiteMap(files.get(0), finalFile, (int) files.get(0).length(), true);
             }
             else
             {
@@ -174,7 +182,7 @@ public class SiteMapTask extends Thread
                     {
                         // Unable to delete file, it probably didn't exist
                     }
-                    files.get(i).renameTo(finalFile);
+                    this.copySiteMap(files.get(i), finalFile, (int) files.get(i).length(), true);
                     
                     indexFileWriter.write("\t<sitemap>\n\t\t<loc>"
                             + instanceUrl + contextPath + "/sitemap"
@@ -197,7 +205,7 @@ public class SiteMapTask extends Thread
                 {
                     // Unable to delete file, it probably didn't exist
                 }
-                logger.debug("Renaming succeeded: " + indexFile.renameTo(finalFile));
+                logger.debug("Renaming succeeded: " + this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true));
             }
             
             
@@ -217,6 +225,48 @@ public class SiteMapTask extends Thread
         }
 
     }
+    
+    private boolean copySiteMap(File src, File dest, int bufSize,
+            boolean force) throws IOException {
+        boolean successful = false;
+    	if(dest.exists()) {
+            if(force) {
+                dest.delete();
+            } else {
+                throw new IOException(
+                        "Cannot overwrite existing file: " + dest.getName());
+            }
+        }
+        byte[] buffer = new byte[bufSize];
+        int read = 0;
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(src);
+            out = new FileOutputStream(dest);
+            while(true) {
+                read = in.read(buffer);
+                if (read == -1) {
+                    break;
+                }
+                out.write(buffer, 0, read);
+                successful = true;
+            }
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                }
+                finally {
+                    if (out != null) {
+                        out.close();
+                    }
+                }
+            }
+        }
+        return successful;
+    }
+
 
     private int addViewItemPages()
     {
