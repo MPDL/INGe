@@ -226,8 +226,8 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
 						<xsl:choose>
-							<xsl:when test="$genre='series' or $genre='journal'">ISSN</xsl:when>
-							<xsl:otherwise>ISBN</xsl:otherwise>
+							<xsl:when test="$genre='series' or $genre='journal'">eidt:ISSN</xsl:when>
+							<xsl:otherwise>eidt:ISBN</xsl:otherwise>
 						</xsl:choose>						
 					</xsl:attribute>
 					<xsl:value-of select="SN"/>
@@ -519,8 +519,8 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
 						<xsl:choose>
-							<xsl:when test="$genre='series' or $genre='journal'">ISSN</xsl:when>
-							<xsl:otherwise>ISBN</xsl:otherwise>
+							<xsl:when test="$genre='series' or $genre='journal'">eidt:ISSN</xsl:when>
+							<xsl:otherwise>eidt:ISBN</xsl:otherwise>
 						</xsl:choose>						
 					</xsl:attribute>
 					<xsl:value-of select="SN"/>
