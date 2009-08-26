@@ -220,8 +220,9 @@
 			<xsl:apply-templates select="UR"/>
 			<xsl:apply-templates select="L1"/>
 			<xsl:apply-templates select="L2"/>
-			<xsl:apply-templates select="ID"/>			
-			<xsl:if test="SN and ($genre='journal' or $genre='series' or $genre='book' or $genre='thesis' or $genre='proceedings' or $genre='report')">
+			<xsl:apply-templates select="ID"/>
+						
+			<xsl:if test="SN and ($gen='journal' or $gen='series' or $gen='book' or $gen='thesis' or $gen='proceedings' or $gen='report')">
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
 						<xsl:choose>
@@ -234,6 +235,20 @@
 			</xsl:if>	
 			<!-- PUBLISHING-INFO -->
 			<xsl:apply-templates select="VL"/>
+			<xsl:if test="not($gen='article' or $gen='paper' or $gen='issue' or $gen='other' or $gen='conference-paper' or $gen='book-item') and (PB or CY)">
+				<xsl:element name="pub:publishing-info">
+					<xsl:element name="dc:publisher">
+						<xsl:choose>
+							<xsl:when test="PB">
+								<xsl:value-of select="PB"/>
+							</xsl:when>
+							<xsl:when test="CY">
+								<xsl:value-of select="CY"/>
+							</xsl:when>
+						</xsl:choose>
+					</xsl:element>
+				</xsl:element>
+			</xsl:if>
 			<!-- DATES -->
 			<xsl:call-template name="createDate"/>
 			<!-- SOURCE -->
@@ -309,6 +324,10 @@
       	</xsl:for-each>		
 	</xsl:template>
 	<xsl:template match="AU">
+		<xsl:variable name="var">
+           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
+      	</xsl:variable>
+       	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:call-template name="createPerson">
@@ -317,8 +336,13 @@
 				<xsl:with-param name="title" select="title"/>
 			</xsl:call-template>
 		</xsl:element>
+		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="A2">
+		<xsl:variable name="var">
+           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
+      	</xsl:variable>
+       	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
 			<xsl:call-template name="createPerson">
@@ -327,8 +351,13 @@
 				<xsl:with-param name="title" select="title"/>
 			</xsl:call-template>
 		</xsl:element>
+		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="ED">
+		<xsl:variable name="var">
+           	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
+      	</xsl:variable>
+       	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
 			<xsl:call-template name="createPerson">
@@ -337,6 +366,7 @@
 				<xsl:with-param name="title" select="title"/>
 			</xsl:call-template>
 		</xsl:element>
+		</xsl:for-each>
 	</xsl:template>
 	<xsl:template name="parseCreators">
 		<xsl:param name="string"/>
@@ -467,7 +497,7 @@
 					<xsl:value-of select="SP"/>
 				</xsl:element>
 			</xsl:if>
-			<!-- SOURCE PUBLISHINGINFO -->
+			<!-- SOURCE PUBLISHINGINFO -->			
 			<xsl:if test="($genre='article' or $genre='paper' or $genre='issue' or $genre='other' or $genre='conference-paper' or $genre='book-item') and (PB or CY)">
 				<xsl:element name="e:publishing-info">
 					<xsl:element name="e:publisher">
@@ -483,6 +513,7 @@
 					</xsl:if>
 				</xsl:element>
 			</xsl:if>
+			
 			<!-- SOURCE IDENTIFIER -->
 			<xsl:if test="SN and not($genre='journal' or $genre='series' or $genre='book' or $genre='thesis' or $genre='proceedings' or $genre='report')">
 				<xsl:element name="dc:identifier">
@@ -555,7 +586,10 @@
 				<xsl:if test="not($day='')">
 					<xsl:value-of select="concat('-',$day)"/>
 				</xsl:if>
-			</xsl:if>				
+			</xsl:if>	
+			<xsl:if test="$year='' and not(.='')">
+				<xsl:value-of select="."/>
+			</xsl:if>			
 		</xsl:variable>
 		<xsl:value-of select="$date"/>
 	</xsl:template>
