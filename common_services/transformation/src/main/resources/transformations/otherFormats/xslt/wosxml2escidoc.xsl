@@ -81,6 +81,7 @@
 			<xsl:when test="count(//item) = 1">
 				<xsl:apply-templates select="//item"/>
 			</xsl:when>
+			
 			<xsl:when test="count(//item) = 0">
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSourceForSingleTarget' ), 'Single item was selected as target, but the source contained no items')"/>
 			</xsl:when>
@@ -154,7 +155,7 @@
 			
 			<!-- TITLE -->
 			<xsl:element name="dc:title">				
-						<xsl:value-of select="TI"/>					
+				<xsl:value-of select="TI"/>					
 			</xsl:element>
 			<!-- LANGUAGE -->
 			<xsl:apply-templates select="LA"/>
@@ -196,7 +197,7 @@
 					<xsl:when test="$monthStr='FEB'">02</xsl:when>
 					<xsl:when test="$monthStr='MAR'">03</xsl:when>
 					<xsl:when test="$monthStr='APR'">04</xsl:when>
-					<xsl:when test="$monthStr='MAI'">05</xsl:when>
+					<xsl:when test="$monthStr='MAY'">05</xsl:when>
 					<xsl:when test="$monthStr='JUN'">06</xsl:when>
 					<xsl:when test="$monthStr='JUL'">07</xsl:when>
 					<xsl:when test="$monthStr='AUG'">08</xsl:when>
@@ -210,10 +211,22 @@
 			<xsl:variable name="day2" select="substring-after(substring-before(CY,', '),'-')"/>
 			<xsl:variable name="year" select="substring-after(CY,', ')"/>
 			<xsl:element name="e:start-date">
-				<xsl:value-of select="concat($year,'-',$month,'-',$day1)"/>
+				<xsl:value-of select="$year"/>
+				<xsl:if test="not($month='')">
+					<xsl:value-of select="concat('-',$month)"/>
+				</xsl:if>
+				<xsl:if test="not($day1='')">
+					<xsl:value-of select="concat('-',$day1)"/>
+				</xsl:if>
 			</xsl:element>
 			<xsl:element name="e:end-date">
-				<xsl:value-of select="concat($year,'-',$month,'-',$day2)"/>
+				<xsl:value-of select="$year"/>
+				<xsl:if test="not($month='')">
+					<xsl:value-of select="concat('-',$month)"/>
+				</xsl:if>
+				<xsl:if test="not($day2='')">
+					<xsl:value-of select="concat('-',$day2)"/>
+				</xsl:if>
 			</xsl:element>
 			<xsl:element name="e:place">
 				<xsl:value-of select="CL"/>
@@ -465,7 +478,8 @@
 	</xsl:template>
 	<!-- DATES -->
 	<xsl:template name="createDate">
-		<xsl:if test="PD">
+		<xsl:if test="PY">
+			
 			<xsl:variable name="monthStr" select="PD"/>
 			<xsl:variable name="month">
 				<xsl:choose>
@@ -483,6 +497,7 @@
 					<xsl:when test="$monthStr='DEC'">12</xsl:when>
 				</xsl:choose>
 			</xsl:variable>
+			
 			<xsl:element name="dcterms:created">				
 				<xsl:value-of select="PY"/>
 				<xsl:if test="not($month='')">
