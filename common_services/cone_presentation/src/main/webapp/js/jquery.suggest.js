@@ -137,6 +137,8 @@
 
 				if (q.length >= options.minchars) {
 					
+					$results.html('<li>loading..<span style="text-decoration: blink;">.</span></li>').show();
+					
 					cached = checkCache(q);
 					
 					if (cached) {
