@@ -58,6 +58,12 @@
 				<xsl:element name="dc:type">
 					<xsl:value-of select="@type" />
 				</xsl:element>
+				
+				<xsl:element name="dc:type">
+					<xsl:attribute name="xsi:type">dcterms:DCMIType</xsl:attribute>
+					<xsl:text>Text</xsl:text>
+				</xsl:element>
+				
 				<xsl:if test="eterms:degree!=''">
 					<xsl:element name="dc:type">
 						<xsl:value-of select="eterms:degree" />
@@ -130,7 +136,6 @@
 				<xsl:copy-of select="eterms:publishing-info/dc:publisher"
 					copy-namespaces="no" />
 
-
 				<!-- dc:date +-->
 				<xsl:variable name="date"
 					select="
@@ -175,9 +180,7 @@
 					<xsl:value-of select="concat(' ', source:source/eterms:issue)" />
 					<xsl:for-each
 						select="source:source[@type=('journal', 'series')]/eterms:publishing-info">
-						<xsl:value-of select="concat(' ', ./dc:publisher)" />
-						<xsl:value-of select="concat(' ', ./eterms:place)" />
-						<xsl:value-of select="concat(' ', ./eterms:edition)" />
+						<xsl:value-of select="concat(' ', ./dc:publisher, ' ', ./eterms:place, ' ', ./eterms:edition)" />
 					</xsl:for-each>
 				</xsl:variable>
 				<xsl:variable name="source" select="normalize-space($source)" />
@@ -187,15 +190,13 @@
 					</xsl:element>
 				</xsl:if>
 
-
-
 				<!-- dc:format + -->
 				<xsl:variable name="format">
 					<xsl:value-of
 						select="concat(string-join((source:source/eterms:start-page, source:source/eterms:end-page), '-'), ' ', source:source/eterms:total-number-of-pages )" />
 				</xsl:variable>
 				<xsl:variable name="format" select="normalize-space($format)" />
-				<xsl:if test="$format!=''">
+				<xsl:if test="$format!='' and $format!='-'">
 					<xsl:element name="dc:format">
 						<xsl:value-of select="$format" />
 					</xsl:element>
@@ -205,7 +206,7 @@
 				<!-- dc:relation -->
 				<xsl:if test="event:event!=''">
 					<xsl:variable name="event-dates"
-						select="string-join((event:event/eterms:start-date, event:event/eterms:end-date), '-')" />
+						select="string-join((event:event/eterms:start-date, event:event/eterms:end-date), '&#8212;')" />
 					<xsl:variable name="event"
 						select="string-join((event:event/dc:title, event:event/eterms:place, $event-dates), ', ')" />
 					<xsl:if test="$event!=''">
@@ -216,10 +217,13 @@
 				</xsl:if>
 
 				<!-- dc:description -->
-				<xsl:for-each select="dcterms:abstract|dcterms:tableOfContents">
-					<xsl:element name="dc:description">
-						<xsl:value-of select="." />
-					</xsl:element>
+				<xsl:for-each select="dcterms:abstract, dcterms:tableOfContents">
+					<xsl:variable name="desc" select="normalize-space(.)"	/>
+					<xsl:if test="$desc!=''">
+						<xsl:element name="dc:description">
+							<xsl:value-of select="$desc" />
+						</xsl:element>
+					</xsl:if>
 				</xsl:for-each>
 
 				<!-- dc:subject -->
