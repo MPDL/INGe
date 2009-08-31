@@ -78,6 +78,7 @@ import org.w3c.dom.traversal.NodeIterator;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
@@ -101,8 +102,8 @@ public class Export implements ExportHandler {
 	
 	public static enum ExportFormatTypes { STRUCTURED, LAYOUT };
 	
-	public static final String COMPONENTS_NS = "http://www.escidoc.de/schemas/components/0.7";
-	public static final String MDRECORDS_NS = "http://www.escidoc.de/schemas/metadatarecords/0.4";
+	public static String COMPONENTS_NS;
+	public static String MDRECORDS_NS;
 	public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
 	public static final String PROPERTIES_NS = "http://escidoc.de/core/01/properties/";
 	public static final String LICENSE_AGREEMENT_NAME = "Faces_Release_Agreement_Export.pdf";
@@ -122,6 +123,18 @@ public class Export implements ExportHandler {
 		return Long.toString(Math.abs(r.nextLong()), 36);
 	}
 
+	public Export()
+	{
+	    try
+	    {
+	        COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
+	        MDRECORDS_NS = PropertyReader.getProperty("xsd.soap.common.mdrecords");
+	    }
+	    catch (Exception e) {
+            logger.error("Error getting properties", e);
+        }
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#explainFormatsXML()
@@ -322,6 +335,8 @@ public class Export implements ExportHandler {
 		
 		FileOutputStream fos = null;
 			
+		System.out.println("Hello Export");
+		
 		File tmpFile = File.createTempFile(generateTmpFileName(), "." +	getFileExt(archiveFormat)); 
 		try {
 			fos = new FileOutputStream(tmpFile);
@@ -890,16 +905,23 @@ public class Export implements ExportHandler {
 
 // NodeFilters for XML Traversing 
 class ComponentNodeFilter implements NodeFilter {
-	
-	public static final String COMPONENTS_NS = "http://www.escidoc.de/schemas/components/0.7";
 
 	public short acceptNode(Node n) {
 		Element e = (Element) n;
 		//System.out.println(e.getNodeName());
-		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
-//			System.out.println("component--->" + e.getNodeName());
-			return FILTER_ACCEPT;
+		
+		try
+		{
+    		String COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
+    		
+    		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
+    //			System.out.println("component--->" + e.getNodeName());
+    			return FILTER_ACCEPT;
+    		}
 		}
+		catch (Exception ex) {
+            throw new RuntimeException("Error evaluating export filter", ex);
+        }
 		return FILTER_SKIP;
 	}
 }
