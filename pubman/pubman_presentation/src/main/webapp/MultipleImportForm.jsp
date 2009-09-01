@@ -47,7 +47,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-				<tr:form rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<tr:form usesUpload="true" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<div class="full wrapper">
 						<h:inputHidden id="offset"></h:inputHidden>
 						
