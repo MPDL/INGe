@@ -127,13 +127,16 @@
 		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
 		
 		<xsl:choose>
+			<xsl:when test="$refType=''">
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoGenreFound' ), 'Endnote import must have a filled &quot;%0&quot; type to describe the publication genre.')"/>
+			</xsl:when>
 			<xsl:when test="$curGenre != ''">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="$curGenre"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoGenreFound' ), concat('Endnote import must have a &quot;%0&quot; tag to describe the publication genre: ', .))"/>
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NotMappedGenre' ), concat('Endnote genre: ', $refType,' is not mapped.'))"/>
 			</xsl:otherwise>
 		</xsl:choose>
 
@@ -525,7 +528,8 @@
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="V and $refType = ('Generic', ' Conference Paper', ' Conference Proceedings', ' Electronic Article', ' Electronic Book', ' Journal Article', ' Magazine Article', ' Newspaper Article', 'Manuscript')">
+			
+			<xsl:if test="V and $refType = ('Generic', 'Conference Paper', 'Conference Proceedings', 'Electronic Article', 'Electronic Book', 'Journal Article', ' Magazine Article', 'Newspaper Article', 'Manuscript')">
 				<xsl:element name="e:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
