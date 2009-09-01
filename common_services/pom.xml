@@ -208,7 +208,7 @@
         <repository>
             <id>deployment.webdav</id>
             <name>Archiva Managed Internal Repository</name>
-            <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal</url>
+            <url>http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -219,7 +219,7 @@
         <repository>
             <id>snapshots.webdav</id>
             <name>Archiva Managed Snapshot Repository</name>
-            <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+            <url>http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -232,9 +232,19 @@
     <pluginRepositories>
         <pluginRepository>
             <id>Archiva plugin snapshots</id>
-            <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+            <url>http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>Archiva plugins internal</id>
+            <url>http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
+            <snapshots>
+                <enabled>false</enabled>
             </snapshots>
             <releases>
                 <enabled>true</enabled>
@@ -541,11 +551,11 @@
                 <repository>
                     <id>deployment.webdav</id>
                     <name>Archiva deployment</name>
-                    <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+                    <url>dav:http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
                 </repository>
                 <snapshotRepository>
                     <id>snapshots.webdav</id>
-                    <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+                    <url>dav:http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
@@ -695,11 +705,11 @@
                 <repository>
                     <id>deployment.webdav</id>
                     <name>Archiva deployment</name>
-                    <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+                    <url>dav:http://archiva.mpdl.mpg.de/archiva/repository/internal</url>
                 </repository>
                 <snapshotRepository>
                     <id>snapshots.webdav</id>
-                    <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+                    <url>dav:http://archiva.mpdl.mpg.de/archiva/repository/snapshots</url>
                 </snapshotRepository>
                 <site>
                     <id>website</id>
