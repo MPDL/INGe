@@ -36,7 +36,7 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-	PubMan - an eSciDoc solution for publication data management 
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - an eSciDoc solution for publication data management 
 	</h2>
 	<p>PubMan supports research organizations in the management, dissemination and re-use of <b>publications and supplementary material</b>.
 		The solution PubMan is a component of the eResearch infrastructure of the Max Planck Society and is based on the service-oriented architecture of eSciDoc.
@@ -78,7 +78,7 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-	PubMan - eine eSciDoc Lösung für Publikationsdaten-Management 
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eine eSciDoc Lösung für Publikationsdaten-Management 
 	</h2>
 	<p>PubMan unterstützt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von <b>Publikationen und Supplementary Material</b>.
 		Die Anwendung PubMan ist eine Komponente der eResearch Infrastruktur der Max-Planck-Gesellschaft und basiert auf der service-orientierten Architektur von eSciDoc.
@@ -119,7 +119,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PubMan - eSciDoc文献管理ソリューション
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eSciDoc文献管理ソリューション
 	</h2>
 	<p>PubManは研究成果文献の管理とデジタル保存および発信に関し、<b>科学者</b>および<b>研究機関</b>を支援するソリューションとして開発されました。</p>
 	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、技術者を支援します。研究機関における方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>

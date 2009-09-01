@@ -131,16 +131,28 @@ public class ApplicationBean extends FacesBean
         {
             this.appTitle = this.APP_TITLE;
 
-            try
+            // hide the version information if system type is production
+            try 
             {
-                this.appTitle += " " + this.getVersion();
-                logger.info("Version retrieved.");
-            }
-            catch (PubManVersionNotAvailableException e)
+				if(!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server))
+				{
+				    try
+				    {
+				        this.appTitle += " " + this.getVersion();
+				        logger.info("Version retrieved.");
+				    }
+				    catch (PubManVersionNotAvailableException e)
+				    {
+				        // version cannot be retrieved; just show the application title
+				        logger.warn("The version of the application cannot be retrieved.");
+				    }
+				}
+			} 
+            catch (PubManVersionNotAvailableException e) 
             {
-                // version cannot be retrieved; just show the application title
-                logger.warn("The version of the application cannot be retrieved.");
-            }
+            	// version cannot be retrieved; just show the application title
+		        logger.warn("The version of the application cannot be retrieved.");
+			}
         }
 
         return appTitle;
@@ -163,6 +175,32 @@ public class ApplicationBean extends FacesBean
         {
             throw new PubManVersionNotAvailableException(e);
         }
+    }
+    
+    /**
+     * Provides the escidoc version string without build date.
+     *
+     * @return the escidoc version without build date
+     * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
+     */
+    public String getShortVersion()
+    {
+    	String versionWithoutBuildDate = "";
+    	int whereToCut;
+    	try
+        {
+            Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
+            versionWithoutBuildDate = properties.getProperty("escidoc.pubman.version");
+            // get the position of the first blank before the word 'build'
+            whereToCut = versionWithoutBuildDate.indexOf(" ");
+            versionWithoutBuildDate = versionWithoutBuildDate.substring(0, whereToCut + 1);
+            
+        }
+        catch (IOException e)
+        {
+        	logger.warn("The version of the application cannot be retrieved.");
+        }
+        return versionWithoutBuildDate;
     }
     
     /**
