@@ -167,10 +167,10 @@
 			<!-- TITLE -->
 			<xsl:element name="dc:title">
 				<xsl:value-of select="
-					if (exists($fDesc/t:titleStmt/t:title[@type='main']))
-					then $fDesc/t:titleStmt/t:title[@type='main']
-					else if (exists($sDesc/t:biblStruct/t:analytic/t:title[@type='main']))
-					then $sDesc/t:biblStruct/t:analytic/t:title[@type='main']
+					if (exists($fDesc/t:titleStmt/t:title[@type='main'][1]))
+					then normalize-space($fDesc/t:titleStmt/t:title[@type='main'][1])
+					else if (exists($sDesc/t:biblStruct/t:analytic/t:title[@type='main'][1]))
+					then normalize-space($sDesc/t:biblStruct/t:analytic/t:title[@type='main'][1])
 					else error(QName('http://www.escidoc.de', 'err:NoTitleDefined' ), 'No title is defined for the item')
 				"/>
 			</xsl:element>
@@ -185,9 +185,9 @@
 			
 			<!--ALTTITLE -->
 			<xsl:for-each select="
-				$sDesc/t:titleStmt/t:title[empty(@type) or @type!='main']
+				$fDesc/t:titleStmt/t:title[empty(@type) or @type!='main' or (@type='main' and position()>1) ]
 				|
-				$sDesc/t:biblStruct/t:analytic/t:title[empty(@type) or @type!='main']
+				$sDesc/t:biblStruct/t:analytic/t:title[empty(@type) or @type!='main' or (@type='main' and position()>1)]
 			">
 				<xsl:element name="dcterms:alternative">
 					<xsl:value-of select="normalize-space(.)"/>
