@@ -85,7 +85,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for persons. */
     private static final String INDEX_PERSON = "escidoc.publication.creator.person.compound.person-complete-name";
     /** Index for creator roles. */
-    private static final String INDEX_PERSON_ROLE = "escidoc.creator.role";
+    private static final String INDEX_PERSON_ROLE = "escidoc.publication.creator.role";
     /** Index for organizations. */
     private static final String INDEX_ORGANIZATION = "escidoc.any-organizations";
     /** Index for organization pids. */
@@ -93,7 +93,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for genre. */
     private static final String INDEX_GENRE = "escidoc.publication.type";
     /** Index for dates. */
-    private static final String INDEX_DATE_ANY = "escidoc.publication.any-dates";
+    private static final String INDEX_DATE_ANY = "escidoc.publication.compound.dates";
     /** Index for creation date. */
     private static final String INDEX_DATE_CREATED = "escidoc.publication.created";
     /** Index for the accepted date. */
@@ -117,7 +117,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for object ids of contexts. */
     private static final String INDEX_CONTEXT_OBJECTID = "escidoc.context.objid";
     /** Index for the created-by object id. */
-    private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.created-by.objid";
+    private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.component.created-by.objid";
     /** Index for languages. */
     private static final String INDEX_LANGUAGE = "escidoc.publication.language";
     /** Index for object types. */
