@@ -159,7 +159,7 @@
 
     <ciManagement>
         <system>Continuum</system>
-        <url>http://escidoc1.escidoc.mpg.de:8888/continuum</url>
+        <url>http://continuum.mpdl.mpg.de/continuum</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
