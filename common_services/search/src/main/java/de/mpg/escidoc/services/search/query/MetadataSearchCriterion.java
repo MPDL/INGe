@@ -77,7 +77,7 @@ public class MetadataSearchCriterion implements Serializable
     /** Index for the content-type. */
     private static final String INDEX_CONTENT_TYPE = "escidoc.content-model.objid";
     /** Index for any-title. */
-    private static final String INDEX_TITLE = "escidoc.any-title";
+    private static final String INDEX_TITLE = "escidoc.publication.title";
     /** Index for metadata. */
     private static final String INDEX_METADATA = "escidoc.metadata";
     /** Index for fulltexts. */
