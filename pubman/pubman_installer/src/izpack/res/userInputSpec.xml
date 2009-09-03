@@ -37,7 +37,7 @@
             txt="General settings for PubMan." />
         <field type="divider" align="top" />
         <field type="staticText" align="left"
-            txt="Define here the local instance Url of PubMan, like 'http://host.domain:port'" />
+            txt="The Url of your PubMan instance. This value can't be defined here. It is given by the jboss configuration. The initial value of this installation is 'http://host.domain:8080'." />
         <field type="text" align="left" variable="InstanceUrl">
             <spec txt="Url of this PubMan instance:" size="25" set="${InstanceUrl}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Instance Url must not be empty string." />
