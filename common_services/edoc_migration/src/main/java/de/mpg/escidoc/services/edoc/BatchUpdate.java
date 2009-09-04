@@ -80,7 +80,7 @@ public class BatchUpdate
     {
         CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
         
-        String userHandle = loginUser("import_user", "haydn");
+        String userHandle = loginUser("import_user", "");
         
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
