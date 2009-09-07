@@ -56,7 +56,16 @@
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
-
+<%-- Locator description --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{locator.fileDescription}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.lbl_noEntry}" rendered ="#{locator.fileDescription == null  || locator.fileDescription == ''}"/>
+				</span>
+			</h:panelGroup>
 <%-- Locator visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine">
