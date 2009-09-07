@@ -113,9 +113,11 @@ public class Export implements ExportHandler {
 	
 	public static final short BUFFER_SIZE = 1024;
 	private static final int NUMBER_OF_URL_TOKENS = 2;
-	private static final String USER_ID = "roland";
-	private static final String PASSWORD = "beethoven";
 	
+	private static String USER_ID;
+	private static String PASSWORD;
+    private static final String PROPERTY_USER_ID = "framework.admin.username";
+    private static final String PROPERTY_PASSWORD = "framework.admin.password";
 	
 
 	private String generateTmpFileName() {
@@ -127,8 +129,10 @@ public class Export implements ExportHandler {
 	{
 	    try
 	    {
-	        COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
-	        MDRECORDS_NS = PropertyReader.getProperty("xsd.soap.common.mdrecords");
+	    	USER_ID = PropertyReader.getProperty(PROPERTY_USER_ID);
+	    	PASSWORD =  PropertyReader.getProperty(PROPERTY_PASSWORD);
+	    	COMPONENTS_NS = PropertyReader.getProperty("xsd.soap.item.components");
+	    	MDRECORDS_NS = PropertyReader.getProperty("xsd.soap.common.mdrecords");
 	    }
 	    catch (Exception e) {
             logger.error("Error getting properties", e);
