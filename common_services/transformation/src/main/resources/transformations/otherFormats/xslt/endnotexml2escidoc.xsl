@@ -338,6 +338,7 @@
 						   , 'Edited Book'
 						   , 'Journal Article'
 						   , 'Magazine Article'
+						   , 'Newspaper Article'						   
 						   , 'Manuscript'  
 						   , 'Report' 
 						   , 'Thesis' 
@@ -364,6 +365,7 @@
 					</xsl:for-each>			
 				</xsl:if>
 			</xsl:variable>
+			
 			<xsl:if test="$year">
 				<dcterms:created xsi:type="dcterms:W3CDTF"><xsl:value-of select="concat($year, if ($year!='' and $date!='') then '-' else '', $date)"/></dcterms:created>				
 			</xsl:if>
@@ -371,11 +373,6 @@
 				   $refType = 'Journal Article' 
 				)">
 				<pub:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="NUM_7"/></pub:published-online>
-			</xsl:if>
-			<xsl:if test="NUM_8 and (
-				   $refType = 'Newspaper Article' 
-				)">
-				<dcterms:issued xsi:type="dcterms:W3CDTF"><xsl:value-of select="NUM_8"/></dcterms:issued>
 			</xsl:if>
 			<xsl:if test="EQUAL">
 				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="EQUAL"/></dcterms:modified>
