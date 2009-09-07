@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ce="http://www.elsevier.com/xml/common/dtd" xmlns:mml="http://www.w3.org/1998/Math/MathML" xml:lang="en">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main" xml:lang="en">
+   The investigation of basic processes of rapidly hardening wood-cement-water mixture with CO<hi rend="subscript">2</hi>
+				</title>
+				<title level="a">
+   Untersuchung der Vorgänge bei der schnellen Härtung einer Holz-Zement-Wasser-Mischung mit CO<hi rend="subscript">2</hi>
+				</title>
+			</titleStmt>
+			<publicationStmt>
+				<authority>Springer-Verlag</authority>
+				<date>2009</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName>
+								<forename type="first">Hucheng</forename>
+								<surname>Qi</surname>
+							</persName>
+							<email>hqi@durisol.com</email>
+							<affiliation>
+								<orgName type="institution">Durisol, A division of Armtec Limited Partnership</orgName>
+								<address>
+									<Street>51 Arthur Street South</Street>
+									<postCode>N0K 1N0</postCode>
+									<settlement>Mitchell</settlement>
+									<region>ON</region>
+									<country>Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Paul</forename>
+								<forename type="first">A.</forename>
+								<surname>Cooper</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Faculty of Forestry</orgName>
+								<orgName type="institution">University of Toronto</orgName>
+								<address>
+									<Street>33 Willcocks Street</Street>
+									<postCode>M5S 3B3</postCode>
+									<settlement>Toronto</settlement>
+									<region>ON</region>
+									<country>Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName>
+								<forename type="first">Doug</forename>
+								<surname>Hooton</surname>
+							</persName>
+							<affiliation>
+								<orgName type="department">Department of Civil Engineering</orgName>
+								<orgName type="institution">University of Toronto</orgName>
+								<address>
+									<Street>35 St. George Street</Street>
+									<postCode>M5S 1A4</postCode>
+									<settlement>Toronto</settlement>
+									<region>ON</region>
+									<country>Canada</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main" xml:lang="en">
+   The investigation of basic processes of rapidly hardening wood-cement-water mixture with CO<hi rend="subscript">2</hi>
+						</title>
+						<title level="a" type="main" xml:lang="">
+   Untersuchung der Vorgänge bei der schnellen Härtung einer Holz-Zement-Wasser-Mischung mit CO<hi rend="subscript">2</hi>
+						</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date when="2009-05-30">Online</date>
+							<biblScope type="fpage">1</biblScope>
+							<biblScope type="lpage">7</biblScope>
+						</imprint>
+					</monogr>
+					<idno type="DOI">10.1007/s00107-009-0351-z</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<revisionDesc>
+			<change when="2009-05-14">Registration</change>
+			<change when="2008-12-09">Received</change>
+			<change when="2009-05-30">Online</change>
+		</revisionDesc>
+	</teiHeader>
+	<text>
+		<front>
+			<div type="abstract">
+				<head>Abstract</head>
+				<p>The rapid hardening of wood-cement-water mixture in a carbon dioxide enriched environment
+  was investigated, by studying the development of carbonation degree and monitoring the phase changes
+  in the mixture. The carbonation reaction was a diffusion-controlled process. It occurred very
+  quickly in the first two minutes of reaction. After that, its rate decreased drastically, due to the
+  increasing difficulty of transporting reactants to reaction sites. Jander’s model was found ineffective
+  in predicting the carbonation process. However, its modified version, developed by Kroger and Ziegler,
+  could describe this progress accurately. In addition, the rapid hardening appeared to result mainly
+  from the reactions of calcium silicates in cement with carbon dioxide. The reaction between ettringite
+  and carbon dioxide might also contribute to this rapid hardening process. However, the reaction between
+  calcium hydroxide and carbon dioxide was not confirmed.
+ </p>
+			</div>
+			<div type="abstract">
+				<head>Zusammenfassung</head>
+				<p>Untersucht wurde die schnelle Härtung einer Holz-Zement-Wasser-Mischung in einer mit Kohlendioxid
+  angereicherten Atmosphäre. Dabei wurde der Fortschritt des Karbonatisierungsgrades sowie der Phasenwechsel
+  in der Mischung bestimmt. Bei der Karbonatisierungsreaktion handelt es sich um einen diffusionsgesteuerten
+  Prozess. Dieser verläuft in den ersten zwei Minuten der Reaktion sehr schnell und verlangsamt
+  sich danach sehr stark, da der Transport der Reaktanten zu den Reaktionsstellen zunehmend schwieriger
+  wird. Das Modell von Jander erwies sich für die Vorhersage des Karbonatisierungsprozesses als ungeeignet.
+  Allerdings konnte durch die von Kroger und Ziegler modifizierte Version der Ablauf genau beschrieben
+  werden. Außerdem schien die schnelle Härtung hauptsächlich auf den Reaktionen der Kalziumsilikate
+  im Zement mit dem Kohlendioxid zu beruhen. Die Reaktion zwischen Ettringit und Kohlendioxid könnte
+  auch zur schnellen Härtung beigetragen haben. Die Reaktion zwischen Kalziumhydroxid und Kohlendioxid
+  wurde jedoch nicht bestätigt.
+ </p>
+			</div>
+		</front>
+		<body/>
+		<back>
+			<div type="references" xml:id="Bib1">
+				<head>References</head>
+				<listBibl>
+					<listBibl type="Citation" xml:id="CR1">
+						<CitationNumber>1.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">WA</forename>
+										<surname>Klemm</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Accelerated curing of cementitious systems by carbon dioxide; Part II:
+    Hydraulic calcium silicates and aluminates</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1972</date>
+									<biblScope type="vol">2</biblScope>
+									<biblScope type="issue">6</biblScope>
+									<biblScope type="fpage">647</biblScope>
+									<biblScope type="lpage">652</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Berger RL, Klemm WA (1972) Accelerated curing of cementitious systems by carbon dioxide; Part II:
+  Hydraulic calcium silicates and aluminates. Cement Concrete Res 2(6):647–652</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR2">
+						<CitationNumber>2.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">JM</forename>
+										<surname>Bukowski</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Reactivity and strength development of CO<hi rend="subscript">2</hi> activated
+  non-hydraulic calcium silicates</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1979</date>
+									<biblScope type="vol">9</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">57</biblScope>
+									<biblScope type="lpage">68</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Bukowski JM, Berger RL (1979) Reactivity and strength development of CO<hi rend="subscript">2</hi> activated
+  non-hydraulic calcium silicates. Cement Concrete Res 9(1):57–68</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR3">
+						<CitationNumber>3.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">AM</forename>
+										<surname>Dunster</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">An investigation of the carbonation of cement paste using trimethylsilylation</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Adv Cement Res</title>
+								<imprint>
+									<date type="year">1989</date>
+									<biblScope type="vol">2</biblScope>
+									<biblScope type="issue">7</biblScope>
+									<biblScope type="fpage">99</biblScope>
+									<biblScope type="lpage">106</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Dunster AM (1989) An investigation of the carbonation of cement paste using trimethylsilylation.
+  Adv Cement Res 2(7):99–106</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR4">
+						<CitationNumber>4.</CitationNumber>
+						<bibl>
+  Geimer RL, Leao A, Armbruster D, Pablo A (1994) Property enhancement of wood composites using gas
+  injection. In: Maloney M (ed) Proceedings of the 28th Washington State University International
+  Particleboard/Composite Materials Symposium, Pullman, WA, pp 243–259</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR5">
+						<CitationNumber>5.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Geimer</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">MR</forename>
+										<surname>Souza</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">AA</forename>
+										<surname>Moslemi</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Low-density cement-bonded wood composites made conventionally and with
+  carbon dioxide injection</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Drvna Industrija</title>
+								<imprint>
+									<date type="year">1996</date>
+									<biblScope type="vol">47</biblScope>
+									<biblScope type="issue">2</biblScope>
+									<biblScope type="fpage">55</biblScope>
+									<biblScope type="lpage">62</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Geimer RL, Souza MR, Moslemi AA (1996) Low-density cement-bonded wood composites made conventionally
+  and with carbon dioxide injection. Drvna Industrija 47(2):55–62</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR6">
+						<CitationNumber>6.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">CJ</forename>
+										<surname>Goodbreak</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">JF</forename>
+										<surname>Young</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Reaction of Beta dicalcium silicate and tricalcium silicate with carbon
+  dioxide and water vapour</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Am Ceram Soc</title>
+								<imprint>
+									<date type="year">1979</date>
+									<biblScope type="vol">62</biblScope>
+									<biblScope type="issue">3/4</biblScope>
+									<biblScope type="fpage">168</biblScope>
+									<biblScope type="lpage">171</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Goodbreak CJ, Young JF, Berger RL (1979a) Reaction of Beta dicalcium silicate and tricalcium silicate
+  with carbon dioxide and water vapour. J Am Ceram Soc 62(3/4):168–171</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR7">
+						<CitationNumber>7.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">CJ</forename>
+										<surname>Goodbreak</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">JF</forename>
+										<surname>Young</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Reaction of hydraulic calcium silicates with carbon dioxide and water</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Am Ceram Soc</title>
+								<imprint>
+									<date type="year">1979</date>
+									<biblScope type="vol">62</biblScope>
+									<biblScope type="issue">9/10</biblScope>
+									<biblScope type="fpage">488</biblScope>
+									<biblScope type="lpage">491</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Goodbreak CJ, Young JF, Berger RL (1979b) Reaction of hydraulic calcium silicates with carbon dioxide
+  and water. J Am Ceram Soc 62(9/10):488–491</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR8">
+						<CitationNumber>8.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Goto</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Suenaga</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Kado</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Calcium silicate carbonation products</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Am Ceram Soc</title>
+								<imprint>
+									<date type="year">1995</date>
+									<biblScope type="vol">78</biblScope>
+									<biblScope type="issue">11</biblScope>
+									<biblScope type="fpage">2867</biblScope>
+									<biblScope type="lpage">2872</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Goto S, Suenaga K, Kado T (1995) Calcium silicate carbonation products. J Am Ceram Soc 78(11):2867–2872</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR9">
+						<CitationNumber>9.</CitationNumber>
+						<BibChapter>
+							<author>
+								<persName>
+									<forename full="init">LG</forename>
+									<surname>Harrison</surname>
+								</persName>
+							</author>
+							<date type="year">1969</date>
+							<ChapterTitle>The theory of solid phase kinetics</ChapterTitle>
+							<BibEditorName>
+								<forename full="init">CH</forename>
+								<surname>Bamford</surname>
+							</BibEditorName>
+							<BibEditorName>
+								<forename full="init">CFH</forename>
+								<surname>Tipper</surname>
+							</BibEditorName>
+							<Eds/>
+							<title level="m">Comprehensive Chemical Kinetics</title>
+							<publisher>Elsevier Publishing Company</publisher>
+							<pubPlace>Amsterdam</pubPlace>
+							<biblScope type="fpage">377</biblScope>
+							<biblScope type="lpage">462</biblScope>
+						</BibChapter>
+						<bibl>
+  Harrison LG (1969) The theory of solid phase kinetics. In: Bamford CH, Tipper CFH (eds) Comprehensive
+  Chemical Kinetics. Elsevier Publishing Company, Amsterdam, pp 377–462</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR10">
+						<CitationNumber>10.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">D</forename>
+										<surname>Hermawan</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Hata</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Umemura</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Kawai</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Kaneko</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">Y</forename>
+										<surname>Kuroki</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">New technology for manufacturing high-strength cement-bonded particleboard
+  using supercritical carbon dioxide</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Wood Sci</title>
+								<imprint>
+									<date type="year">2000</date>
+									<biblScope type="vol">46</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">85</biblScope>
+									<biblScope type="lpage">88</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Hermawan D, Hata T, Umemura K, Kawai S, Kaneko S, Kuroki Y (2000) New technology for manufacturing
+  high-strength cement-bonded particleboard using supercritical carbon dioxide. J Wood Sci 46(1):85–88</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR11">
+						<CitationNumber>11.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">D</forename>
+										<surname>Hermawan</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Hata</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Umemura</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Kawai</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">W</forename>
+										<surname>Nagadomi</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">Y</forename>
+										<surname>Kuroki</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Rapid production of high-strength cement-bonded particleboard using gaseous
+  or supercritical carbon dioxide</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Wood Sci</title>
+								<imprint>
+									<date type="year">2001</date>
+									<biblScope type="vol">47</biblScope>
+									<biblScope type="issue">4</biblScope>
+									<biblScope type="fpage">294</biblScope>
+									<biblScope type="lpage">300</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Hermawan D, Hata T, Umemura K, Kawai S, Nagadomi W, Kuroki Y (2001) Rapid production of high-strength
+  cement-bonded particleboard using gaseous or supercritical carbon dioxide. J Wood Sci 47(4):294–300</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR12">
+						<CitationNumber>12.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">SF</forename>
+										<surname>Hulbert</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Models for solid-state reactions in powdered compacts: a review</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Brit Ceram Soc</title>
+								<imprint>
+									<date type="year">1969</date>
+									<biblScope type="vol">6</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">11</biblScope>
+									<biblScope type="lpage">19</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Hulbert SF (1969) Models for solid-state reactions in powdered compacts: a review. J Brit Ceram
+  Soc 6(1):11–19</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR13">
+						<CitationNumber>13.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">WA</forename>
+										<surname>Klemm</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Accelerated curing of cementitious systems by carbon dioxide; Part I:
+  Portland cement</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1972</date>
+									<biblScope type="vol">2</biblScope>
+									<biblScope type="issue">5</biblScope>
+									<biblScope type="fpage">567</biblScope>
+									<biblScope type="lpage">576</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Klemm WA, Berger RL (1972) Accelerated curing of cementitious systems by carbon dioxide; Part I:
+  Portland cement. Cement Concrete Res 2(5):567–576</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR14">
+						<CitationNumber>14.</CitationNumber>
+						<bibl>
+  Lahtinen PK (1990) Experience with cement-bonded particleboard manufacturing when using a short-cycle
+  press line. In: Moslemi AA (ed) Proceedings, Inorganic-Bonded Wood and Fiber Composite Materials,
+  Forest Products Research Society, Madison, WI, pp 32–34</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR15">
+						<CitationNumber>15.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">F</forename>
+										<surname>Matsushita</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">Y</forename>
+										<surname>Aono</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Shibata</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Carbonation degree of autoclaved aerated concrete</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">2000</date>
+									<biblScope type="vol">30</biblScope>
+									<biblScope type="issue">11</biblScope>
+									<biblScope type="fpage">1741</biblScope>
+									<biblScope type="lpage">1745</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Matsushita F, Aono Y, Shibata S (2000) Carbonation degree of autoclaved aerated concrete. Cement
+  Concrete Res 30(11):1741–1745</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR16">
+						<CitationNumber>16.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">HG</forename>
+										<surname>Midgley</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">The determination of calcium hydroxide in set Portland cement</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1979</date>
+									<biblScope type="vol">9</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">77</biblScope>
+									<biblScope type="lpage">82</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Midgley HG (1979) The determination of calcium hydroxide in set Portland cement. Cement Concrete
+  Res 9(1):77–82</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR17">
+						<CitationNumber>17.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">DR</forename>
+										<surname>Moorehead</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Cementation by the carbonation of hydrated lime</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1986</date>
+									<biblScope type="vol">16</biblScope>
+									<biblScope type="issue">5</biblScope>
+									<biblScope type="fpage">700</biblScope>
+									<biblScope type="lpage">708</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Moorehead DR (1986) Cementation by the carbonation of hydrated lime. Cement Concrete Res 16(5):700–708</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR18">
+						<CitationNumber>18.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">T</forename>
+										<surname>Nishikawa</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">K</forename>
+										<surname>Suzuki</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Ito</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Decomposition of synthesized ettringite by carbonation</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1992</date>
+									<biblScope type="vol">22</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">6</biblScope>
+									<biblScope type="lpage">14</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Nishikawa T, Suzuki K, Ito S (1992) Decomposition of synthesized ettringite by carbonation. Cement
+  Concrete Res 22(1):6–14</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR19">
+						<CitationNumber>19.</CitationNumber>
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">WR</forename>
+										<surname>Pearce</surname>
+									</persName>
+								</author>
+								<title level="m">Mill test report – CSA A5 Type 10</title>
+								<imprint>
+									<date type="year">2002</date>
+									<pubPlace>St. Marys, Ontario</pubPlace>
+									<publisher>St. Marys Cement Inc.</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Pearce WR (2002) Mill test report – CSA A5 Type 10. St. Marys Cement Inc., St. Marys, Ontario</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR20">
+						<CitationNumber>20.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Porandowski</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">PA</forename>
+										<surname>Cooper</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">ML</forename>
+										<surname>Kaldas</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">YT</forename>
+										<surname>Ung</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Evolution of CO<hi rend="subscript">2</hi> during the fixation of chromium
+  containing wood preservatives on wood</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Wood Sci Technol</title>
+								<imprint>
+									<date type="year">1998</date>
+									<biblScope type="vol">32</biblScope>
+									<biblScope type="issue">1</biblScope>
+									<biblScope type="fpage">15</biblScope>
+									<biblScope type="lpage">24</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Porandowski J, Cooper PA, Kaldas ML, Ung YT (1998) Evolution of CO<hi rend="subscript">2</hi> during
+  the fixation of chromium containing wood preservatives on wood. Wood Sci Technol 32(1):15–24</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR21">
+						<CitationNumber>21.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Qi</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">PA</forename>
+										<surname>Cooper</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">The effects of composition and carbon dioxide injection time on the properties
+  of wood-cement composites</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Holz Roh- Werkst</title>
+								<imprint>
+									<date type="year">2007</date>
+									<biblScope type="vol">65</biblScope>
+									<biblScope type="issue">4</biblScope>
+									<biblScope type="fpage">267</biblScope>
+									<biblScope type="lpage">273</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Qi H, Cooper PA (2007) The effects of composition and carbon dioxide injection time on the properties
+  of wood-cement composites. Holz Roh- Werkst 65(4):267–273</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR22">
+						<CitationNumber>22.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Qi</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">PA</forename>
+										<surname>Cooper</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Wan</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Effect of carbon dioxide injection on production of wood cement composites
+  from waste medium density fiberboard (MDF)</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Waste Manag</title>
+								<imprint>
+									<date type="year">2006</date>
+									<biblScope type="vol">26</biblScope>
+									<biblScope type="issue">5</biblScope>
+									<biblScope type="fpage">509</biblScope>
+									<biblScope type="lpage">515</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Qi H, Cooper PA, Wan H (2006) Effect of carbon dioxide injection on production of wood cement composites
+  from waste medium density fiberboard (MDF). Waste Manag 26(5):509–515</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR23">
+						<CitationNumber>23.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">EJ</forename>
+										<surname>Reardon</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">BR</forename>
+										<surname>James</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Abouchar</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">High pressure carbonation of cementitious grout</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1988</date>
+									<biblScope type="vol">19</biblScope>
+									<biblScope type="issue">3</biblScope>
+									<biblScope type="fpage">385</biblScope>
+									<biblScope type="lpage">399</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Reardon EJ, James BR, Abouchar J (1988) High pressure carbonation of cementitious grout. Cement
+  Concrete Res 19(3):385–399</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR24">
+						<CitationNumber>24.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">AV</forename>
+										<surname>Saetta</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">BA</forename>
+										<surname>Schrefler</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RV</forename>
+										<surname>Vitaliani</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">The carbonation of concrete and the mechanism of moisture, heat and carbon
+  dioxide flow through porous materials</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">23</biblScope>
+									<biblScope type="issue">4</biblScope>
+									<biblScope type="fpage">761</biblScope>
+									<biblScope type="lpage">772</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Saetta AV, Schrefler BA, Vitaliani RV (1993) The carbonation of concrete and the mechanism of moisture,
+  heat and carbon dioxide flow through porous materials. Cement Concrete Res 23(4):761–772</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR25">
+						<CitationNumber>25.</CitationNumber>
+						<bibl>
+  Schmidt E (1988) Requirements and demands for further processing of cement-bonded boards. In: Moslemi
+  AA (ed) Proceedings, Inorganic-Bonded Wood and Fiber Composite Materials, Forest Products Society,
+  Madison, WI, pp 88–90</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR26">
+						<CitationNumber>26.</CitationNumber>
+						<bibl>
+  Simatupang MH, Geimer RL (1991) Inorganic binder for wood composites: feasibility and limitations.
+  In: Conner AH (ed) Wood Adhesives 1990, Forest Products Research Society, Madison, WI, pp 169–176</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR27">
+						<CitationNumber>27.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">MH</forename>
+										<surname>Simatupang</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">C</forename>
+										<surname>Habighorst</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Lange</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Neubauer</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Investigations on the influence of the addition of carbon dioxide on
+  the production and properties of rapidly set wood-cement composites</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Compos</title>
+								<imprint>
+									<date type="year">1995</date>
+									<biblScope type="vol">17</biblScope>
+									<biblScope type="issue">3</biblScope>
+									<biblScope type="fpage">187</biblScope>
+									<biblScope type="lpage">197</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Simatupang MH, Habighorst C, Lange H, Neubauer A (1995) Investigations on the influence of the addition
+  of carbon dioxide on the production and properties of rapidly set wood-cement composites. Cement
+  Concrete Compos 17(3):187–197</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR28">
+						<CitationNumber>28.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">MH</forename>
+										<surname>Simatupang</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Neubauer</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Manufacture and properties of rapid-hardening cement-bonded particleboards
+  made by carbon-dioxide injection: influence of cement strength class</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Holz Roh- Werkst</title>
+								<imprint>
+									<date type="year">1993</date>
+									<biblScope type="vol">51</biblScope>
+									<biblScope type="issue">5</biblScope>
+									<biblScope type="fpage">309</biblScope>
+									<biblScope type="lpage">311</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Simatupang MH, Neubauer A (1993) Manufacture and properties of rapid-hardening cement-bonded particleboards
+  made by carbon-dioxide injection: influence of cement strength class. Holz Roh- Werkst 51(5):309–311</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR29">
+						<CitationNumber>29.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">MA</forename>
+										<surname>Sorochkin</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">AF</forename>
+										<surname>Shchurov</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">AS</forename>
+										<surname>Makarychev</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">IA</forename>
+										<surname>Safonov</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Physicochemical studies of the effect of hydration of calcium silicates
+  in carbon dioxide</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Appl Chem USSR</title>
+								<imprint>
+									<date type="year">1975</date>
+									<biblScope type="vol">48</biblScope>
+									<biblScope type="issue">5</biblScope>
+									<biblScope type="fpage">1039</biblScope>
+									<biblScope type="lpage">1042</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Sorochkin MA, Shchurov AF, Makarychev AS, Safonov IA (1975) Physicochemical studies of the effect
+  of hydration of calcium silicates in carbon dioxide. J Appl Chem USSR 48(5):1039–1042</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR30">
+						<CitationNumber>30.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">P</forename>
+										<surname>Soroushian</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Won</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">H</forename>
+										<surname>Chowdhury</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">A</forename>
+										<surname>Nossoni</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Development of accelerated processing techniques for cement-bonded wood
+  particleboard</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Compos</title>
+								<imprint>
+									<date type="year">2003</date>
+									<biblScope type="vol">25</biblScope>
+									<biblScope type="issue">7</biblScope>
+									<biblScope type="fpage">721</biblScope>
+									<biblScope type="lpage">727</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Soroushian P, Won J, Chowdhury H, Nossoni A (2003) Development of accelerated processing techniques
+  for cement-bonded wood particleboard. Cement Concrete Compos 25(7):721–727</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR31">
+						<CitationNumber>31.</CitationNumber>
+						<biblStruct type="book">
+							<monogr>
+								<author>
+									<persName>
+										<forename full="init">HFW</forename>
+										<surname>Taylor</surname>
+									</persName>
+								</author>
+								<title level="m">Cement chemistry</title>
+								<imprint>
+									<date type="year">1990</date>
+									<pubPlace>London</pubPlace>
+									<publisher>Academic Press Limited</publisher>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Taylor HFW (1990) Cement chemistry. Academic Press Limited, London</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR32">
+						<CitationNumber>32.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">AS</forename>
+										<surname>Wagh</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">D</forename>
+										<surname>Singh</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">L</forename>
+										<surname>Knox</surname>
+										<genName>Jr</genName>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">An environmentally friendly technology: lab studying greenhouse effect
+  on concrete setting</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Concrete Int</title>
+								<imprint>
+									<date type="year">1995</date>
+									<biblScope type="vol">1995</biblScope>
+									<biblScope type="issue">4</biblScope>
+									<biblScope type="fpage">41</biblScope>
+									<biblScope type="lpage">42</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Wagh AS, Singh D, Knox Jr L (1995) An environmentally friendly technology: lab studying greenhouse
+  effect on concrete setting. Concrete Int 1995(4):41–42</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR33">
+						<CitationNumber>33.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">JF</forename>
+										<surname>Young</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">RL</forename>
+										<surname>Berger</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">J</forename>
+										<surname>Breese</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Accelerated curing of compacted calcium silicate mortars on exposure
+  to CO<hi rend="subscript">2</hi>
+								</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">J Am Ceram Soc</title>
+								<imprint>
+									<date type="year">1974</date>
+									<biblScope type="vol">57</biblScope>
+									<biblScope type="issue">9</biblScope>
+									<biblScope type="fpage">394</biblScope>
+									<biblScope type="lpage">397</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Young JF, Berger RL, Breese J (1974) Accelerated curing of compacted calcium silicate mortars on
+  exposure to CO<hi rend="subscript">2</hi>. J Am Ceram Soc 57(9):394–397</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR34">
+						<CitationNumber>34.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">M</forename>
+										<surname>Yudenfreund</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">I</forename>
+										<surname>Odler</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">S</forename>
+										<surname>Brunauer</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Hardened Portland cement pastes of low porosity, I. Materials and experimental
+  methods</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Cement Concrete Res</title>
+								<imprint>
+									<date type="year">1972</date>
+									<biblScope type="vol">2</biblScope>
+									<biblScope type="issue">3</biblScope>
+									<biblScope type="fpage">313</biblScope>
+									<biblScope type="lpage">330</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Yudenfreund M, Odler I, Brunauer S (1972) Hardened Portland cement pastes of low porosity, I. Materials
+  and experimental methods. Cement Concrete Res 2(3):313–330</bibl>
+					</listBibl>
+					<listBibl type="Citation" xml:id="CR35">
+						<CitationNumber>35.</CitationNumber>
+						<biblStruct type="article">
+							<analytic>
+								<author>
+									<persName>
+										<forename full="init">Q</forename>
+										<surname>Zhou</surname>
+									</persName>
+								</author>
+								<author>
+									<persName>
+										<forename full="init">FP</forename>
+										<surname>Glasser</surname>
+									</persName>
+								</author>
+								<title level="a" type="main" xml:lang="">Kinetics and mechanism of the carbonation of ettringite</title>
+							</analytic>
+							<monogr>
+								<title level="j" type="main">Adv Cement Res</title>
+								<imprint>
+									<date type="year">2000</date>
+									<biblScope type="vol">12</biblScope>
+									<biblScope type="issue">3</biblScope>
+									<biblScope type="fpage">131</biblScope>
+									<biblScope type="lpage">136</biblScope>
+								</imprint>
+							</monogr>
+						</biblStruct>
+						<bibl>
+  Zhou Q, Glasser FP (2000) Kinetics and mechanism of the carbonation of ettringite. Adv Cement Res
+  12(3):131–136</bibl>
+					</listBibl>
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

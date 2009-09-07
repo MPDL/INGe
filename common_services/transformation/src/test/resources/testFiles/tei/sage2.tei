@@ -41,7 +41,7 @@
                             <biblScope type="lpage">155</biblScope>
                         </imprint>
                     </monogr>
-                    <idno type="doi">10.1177/1474474007072824</idno>
+                    <idno type="DoI">10.1177/1474474007072824</idno>
                 </biblStruct>
             </sourceDesc>
         </fileDesc>

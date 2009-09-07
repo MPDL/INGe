@@ -7,22 +7,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -31,7 +26,7 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class TransformationTest
 {
     private TransformationBean trans;
-    Util util = new Util();
+    private Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
     /**
@@ -40,13 +35,14 @@ public class TransformationTest
     @Before
     public void initTransformation()
     {
-        trans = new TransformationBean();
+        this.trans = new TransformationBean();
     }
 
     
     public void test() throws Exception
     {
-        try{
+        try
+        {
 
             this.logger.debug("Check sources xml:");
             this.logger.debug(this.trans.getSourceFormatsAsXml());
@@ -61,8 +57,10 @@ public class TransformationTest
             this.logger.info("-----OK");
             
             this.logger.debug("Check source xml for escidoc item:");
-            Format[] tmp = this.trans.getSourceFormats(new Format ("eSciDoc-publication-item", "application/xml", "UTF-8"));
-            this.logger.debug(this.util.createFormatsXml(tmp));            this.logger.debug("-----OK");
+            Format[] tmp = this.trans.getSourceFormats(
+                    new Format ("eSciDoc-publication-item", "application/xml", "UTF-8"));
+            this.logger.debug(this.util.createFormatsXml(tmp));            
+            this.logger.debug("-----OK");
             
             this.logger.debug("Check Transformation");
             ClassLoader cl = this.getClass().getClassLoader();
@@ -82,7 +80,7 @@ public class TransformationTest
         }
         catch (Exception e)
         {
-            this.logger.error("An error occurred during transformation",e);
+            this.logger.error("An error occurred during transformation", e);
             throw new Exception(e);
         }
         
@@ -98,7 +96,7 @@ public class TransformationTest
         Format escidocFormat = new Format("escidoc-virr-item", "application/xml", "UTF-8");
         Format metsFormat = new Format("virr-mets", "application/xml", "UTF-8");
         
-        byte[] result = trans.transform(itemXml.getBytes(), escidocFormat, metsFormat, "escidoc");
+        byte[] result = this.trans.transform(itemXml.getBytes(), escidocFormat, metsFormat, "escidoc");
         
         
         File f = new File("dfg_mets.xml");
@@ -107,38 +105,39 @@ public class TransformationTest
         fileStream.flush();
         fileStream.close();
         
-        logger.info(new String(result));
+        this.logger.info(new String(result));
     }
 
     /* 
      * test TEI2 to eSciDoc item transformation 
      * */
-    
+    @Test
     public void tei2escidoc() throws Exception
-    {    	
-    	Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
-    	Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
-    	Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
-    	
-    	byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Wiley1.tei").getBytes(), teiFormat, escidocFormat, "escidoc");   	
-    	this.logger.info(new String(result));
-    	
-        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S2.tei").getBytes(), teiFormat, escidocComponentFormat, "escidoc");    
-        this.logger.info(new String(result));
-    	
-    	this.logger.info("Get all target formats for peer_tei: ");
-    	this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
+    {
+        Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
+        Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
+        Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
+
+        byte[] result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/tei1.tei")
+                .getBytes("UTF-8"), teiFormat, escidocFormat, "escidoc");
+        this.logger.info(new String(result, "UTF-8"));
+
+        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/tei/Springer-351-S2.tei")
+                .getBytes("UTF-8"), teiFormat, escidocComponentFormat, "escidoc");    
+        this.logger.info(new String(result, "UTF-8"));
+   
+        this.logger.info("Get all target formats for peer_tei: ");
+        this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
     }
     
-     public void bmcArticleTest() throws Exception
-     {
-         Format xml = new Format("bmc-fulltext-xml", "application/xml", "UTF-8");
-         Format html = new Format("bmc-fulltext-html", "text/html", "UTF-8");
+    public void bmcArticleTest() throws Exception
+    {
+        Format xml = new Format("bmc-fulltext-xml", "application/xml", "UTF-8");
+        Format html = new Format("bmc-fulltext-html", "text/html", "UTF-8");
          
-         
-         byte[] result;
-         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc_article.xml").getBytes(), xml, html, "escidoc");
-         this.logger.info(new String(result));     
+        byte[] result;
+        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc_article.xml").getBytes(), xml, html, "escidoc");
+        this.logger.info(new String(result));
      }
      
   
@@ -150,7 +149,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
-         this.logger.info(new String(result));     
+         this.logger.info(new String(result));
      }
      
      public void arxivTest() throws Exception
@@ -214,18 +213,17 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
-         this.logger.info(new String(result, "UTF-8"));           
+         this.logger.info(new String(result, "UTF-8"));
      }
     
-    @Test
-    public void escidoc2oaiTest () throws Exception
-    {
-        Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
-        Format oai = new Format("oai_dc", "application/xml", "UTF-8");
+     public void escidoc2oaiTest () throws Exception
+     {
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         Format oai = new Format("oai_dc", "application/xml", "UTF-8");
         
-        byte[] result;
-        result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/escidocItem.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
-        this.logger.info("escidoc -> oai_dc");
-        this.logger.info(new String(result, "UTF-8"));           
-    }
+         byte[] result;
+         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/escidocItem.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
+         this.logger.info("escidoc -> oai_dc");
+         this.logger.info(new String(result, "UTF-8"));
+     }
 }
