@@ -437,7 +437,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.27</version>
+            <version>1.0.29-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -457,7 +457,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.21</version>
+            <version>1.0.23-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -499,7 +499,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.13-SNAPSHOT</version>
+            <version>1.0.14-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>

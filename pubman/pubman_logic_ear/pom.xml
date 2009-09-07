@@ -196,7 +196,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.27</version>
+			<version>1.0.29-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -323,7 +323,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
+						<artifactId>cargo-maven-plugin</artifactId>
 						<version>0.3.1</version>
 						<executions>
 							<execution>
@@ -370,7 +370,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven2-plugin</artifactId>
+						<artifactId>cargo-maven-plugin</artifactId>
 						<executions>
 							<execution>
 								<id>start-container</id>
