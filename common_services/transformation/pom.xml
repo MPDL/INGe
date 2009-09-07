@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project 	xmlns="http://maven.apache.org/POM/4.0.0" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+			
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
@@ -33,18 +36,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-<!--		<resources>-->
-<!--			<resource>-->
-<!--				<targetPath>resources</targetPath>-->
-<!--				<filtering>false</filtering>-->
-<!--				<directory>${basedir}/src/main/resources</directory>-->
-<!--			</resource>-->
-<!--			<resource>-->
-<!--				<targetPath>test/resources</targetPath>-->
-<!--				<filtering>false</filtering>-->
-<!--				<directory>${basedir}/src/test/resources</directory>-->
-<!--			</resource>-->
-<!--		</resources>-->
 	</build>
 	<dependencies>
 		<dependency>
@@ -87,7 +78,6 @@
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 		</dependency>
-
 		<dependency>
 			<groupId>jboss-annotations-ejb3</groupId>
 			<artifactId>jboss-annotations-ejb3</artifactId>
@@ -143,26 +133,6 @@
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-container</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-item</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlbeans</groupId>
-			<artifactId>escidoc-toc</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
@@ -181,5 +151,17 @@
 			<version>3.9.0</version>
       		<scope>compile</scope>
 		</dependency>
-		<dependency>			<groupId>xmlbeans</groupId>			<artifactId>xbean</artifactId>			<version>2.4.0</version>			<scope>compile</scope>		</dependency>		<dependency>			<groupId>xmlbeans</groupId>			<artifactId>xbean_xpath</artifactId>			<version>2.4.0</version>			<scope>compile</scope>		</dependency>	</dependencies>
+		<dependency>			
+			<groupId>xmlbeans</groupId>			
+			<artifactId>xbean</artifactId>			
+			<version>2.4.0</version>			
+			<scope>compile</scope>		
+		</dependency>		
+		<dependency>			
+			<groupId>xmlbeans</groupId>			
+			<artifactId>xbean_xpath</artifactId>			
+			<version>2.4.0</version>			
+			<scope>compile</scope>		
+		</dependency>	
+	</dependencies>
 </project>

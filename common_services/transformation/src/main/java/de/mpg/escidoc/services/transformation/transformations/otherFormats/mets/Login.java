@@ -2,6 +2,7 @@ package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -97,23 +99,17 @@ public class Login
     }
 
     /**
-     * Logs in the virr user and returns the corresponding user handle.
-     * 
-     * @return A handle for the logged in user.
-     * @throws Exception
-     */
-    public String loginVirrUser() throws Exception
-    {
-        return login("virr_user", "PubManR2");
-    }
-
-    /**
      * Logs in the system administrator and returns the corresponding user handle.
      * @return A handle for the logged in user.
      * @throws Exception
      */
     public String loginSysAdmin() throws Exception
     {
-        return login("roland", "beethoven");
+        String user = "";
+        String pw = "";
+        
+        user = PropertyReader.getProperty("framework.admin.username");
+        pw = PropertyReader.getProperty("framework.admin.password");
+        return login(user, pw);
     }
 }
