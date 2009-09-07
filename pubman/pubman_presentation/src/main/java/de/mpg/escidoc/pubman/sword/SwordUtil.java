@@ -826,29 +826,8 @@ public class SwordUtil extends FacesBean
             sdf.setTimeZone(utc);
             String milliFormat = sdf.format(new Date());
             se.setUpdated(milliFormat);
-
-            //Add the author names
-            for (int i =0; i< item.getMetadata().getCreators().size(); i++)
-            {
-                Author author = new Author();
-                if (item.getMetadata().getCreators().get(i).getPerson().getCompleteName() 
-                        != null && !item.getMetadata().getCreators().get(i).getPerson()
-                        .getCompleteName().equals(""))
-                {
-                    author.setName(item.getMetadata().getCreators().get(i).getPerson().getCompleteName());
-                }
-                else
-                {
-                    String name = "";
-                    if (item.getMetadata().getCreators().get(i).getPerson().getGivenName() != null)
-                    {
-                        name += item.getMetadata().getCreators().get(i).getPerson().getGivenName()  + ", ";
-                    }
-                    name += item.getMetadata().getCreators().get(i).getPerson().getFamilyName();
-                    author.setName(name);
-                }
-                se.addAuthors(author);
-            }
+            
+            se.setId(item.getPid());
         }
 
         Summary s = new Summary();
@@ -868,13 +847,14 @@ public class SwordUtil extends FacesBean
         s.setContent(filename);
         se.setSummary(s);
 
+        Content content = new Content();
+        content.setSource("");
         //Only set content if item was deposited
         if (!deposit.isNoOp() && item != null && valid)
-        {
-            Content content = new Content();
-            content.setSource(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
-            se.setContent(content);
+        {            
+            content.setSource(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());                     
         }
+        se.setContent(content);
 
         Source source = new Source();
         Generator generator = new Generator();
@@ -884,6 +864,11 @@ public class SwordUtil extends FacesBean
 
         se.setTreatment(this.treatmentText);
         se.setNoOp(deposit.isNoOp());
+        
+        //Add the login name
+        Author author = new Author();
+        author.setName(deposit.getUsername());
+        se.addAuthors(author);
 
         return se;
     }
