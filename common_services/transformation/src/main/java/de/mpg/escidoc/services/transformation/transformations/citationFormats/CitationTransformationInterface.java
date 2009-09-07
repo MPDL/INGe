@@ -57,8 +57,8 @@ public class CitationTransformationInterface implements Transformation
 
     private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
     
-    private final String EXPLAIN_FILE_PATH ="transformations/citations/";
-    private final String EXPLAIN_FILE_NAME="explain-transformations.xml";
+    private final String EXPLAIN_FILE_PATH = "transformations/citations/";
+    private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
 
     private Util util;
     

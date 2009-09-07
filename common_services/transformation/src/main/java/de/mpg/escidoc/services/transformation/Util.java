@@ -128,8 +128,10 @@ public class Util
      */
     public boolean isFormatEqual(Format src1, Format src2)
     {       
-        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) {return false;}
-        if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) {return false;}
+        if (!src1.getName().toLowerCase().trim().equals(src2.getName().toLowerCase().trim())) 
+        { return false; }
+        if (!src1.getType().toLowerCase().trim().equals(src2.getType().toLowerCase().trim())) 
+        { return false; }
         if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*"))
         {
             return true;
@@ -137,9 +139,9 @@ public class Util
         else 
         {
             if (!src1.getEncoding().toLowerCase().trim().equals(src2.getEncoding().toLowerCase().trim())) 
-            {return false;}
+            { return false; }
             else 
-            {return true;}
+            { return true; }
         }
     }
     
@@ -160,7 +162,7 @@ public class Util
     
     /**
      * Eliminates duplicates in a Vector.
-     * @param dirtyVector as Vector<Format>
+     * @param dirtyVector as Format Vector
      * @return Vector with unique entries
      */
     public Vector<Format> getRidOfDuplicatesInVector(Vector<Format> dirtyVector)
@@ -217,7 +219,7 @@ public class Util
 
     /**
      * Merges a Vector of Format[] into Format[].
-     * @param allFormatsV as Vector<Format[]>
+     * @param allFormatsV as Format[] Vector
      * @return Format[]
      */
     public Format[] mergeFormats(Vector<Format[]> allFormatsV)
@@ -278,7 +280,7 @@ public class Util
      * </authors>
      * 
      * @param authors
-     * @return
+     * @return 
      */
     public static Node queryCone(String model, String query)
     {

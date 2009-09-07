@@ -27,7 +27,8 @@ public class EndNoteImport
      * reads the import file and transforms the items to XML  
      * @return xml 
      */
-    public String transformEndNote2XML(String file){
+    public String transformEndNote2XML(String file)
+    {
     	String result = "";
     	
     	List<String> itemList = splitItems(file);    	

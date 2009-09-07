@@ -198,6 +198,11 @@ public class OtherFormatsTransformationInterface implements Transformation
         }     
         if (srcFormat.getName().toLowerCase().startsWith("peer_tei"))
         {
+            try{
+            System.out.println("3:____________________________________" + new String (src, "UTF-8"));
+            }
+            catch(Exception e)
+            {}
             result = this.peerTeiTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }  

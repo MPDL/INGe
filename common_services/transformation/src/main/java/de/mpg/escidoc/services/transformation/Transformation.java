@@ -54,8 +54,8 @@ public interface Transformation
      * @version $Revision$ $LastChangedDate$
      *
      */
-    @Retention( RetentionPolicy.RUNTIME )
-    public @interface TransformationModule {}
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface TransformationModule { }
  
     /**
      * The name of the EJB service.

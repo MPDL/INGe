@@ -179,6 +179,8 @@ public class TransformationBean implements Transformation
         byte[] result = null;
         String methodName = "transform";
         
+        
+        
         if (transformationClass == null)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
@@ -190,6 +192,7 @@ public class TransformationBean implements Transformation
         {
             try
             {
+                System.out.println("2:____________________________________" + new String (src, "UTF-8"));
                 //Instanciate the class
                 ClassLoader cl = this.getClass().getClassLoader();
                 transformationClass = cl.loadClass(transformationClass.getName());

@@ -1,23 +1,19 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
 import gov.loc.mets.DivType;
-import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +28,6 @@ import org.apache.xmlbeans.XmlObject;
 
 import org.apache.xmlbeans.XmlOptions;
 
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
-import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
-
 import de.escidoc.schemas.container.x07.ContainerDocument;
 import de.escidoc.schemas.container.x07.ContainerDocument.Container;
 import de.escidoc.schemas.item.x08.ItemDocument;
@@ -47,8 +37,6 @@ import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.mpg.escidoc.metadataprofile.schema.x01.virrelement.VirrelementDocument;
 import de.mpg.escidoc.services.common.DataGathering;
-import de.mpg.escidoc.services.common.datagathering.DataGatheringBean;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -85,7 +73,7 @@ public class METSTransformation
         }
         catch (NamingException e)
         {
-            logger.error("could not find data gathering service",e);
+            this.logger.error("could not find data gathering service",e);
         }
     }
 
@@ -179,7 +167,7 @@ public class METSTransformation
             
             ModsType volumeMods = retrieveMods(volumeContainerId);
             
-            List<RelationVO> multiVolumeContainerRel = dataGathering.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
+            List<RelationVO> multiVolumeContainerRel = this.dataGathering.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
             if (multiVolumeContainerRel!=null && multiVolumeContainerRel.size()>0)
             {
                 String multiVolContainerId = multiVolumeContainerRel.get(0).getSourceItemRef().getObjectId();
@@ -212,7 +200,7 @@ public class METSTransformation
                 }
                 
             }
-            this.writeMETS.createDmdSec(volumeMods, "dmd" + String.valueOf(dmdIdCounter++));
+            this.writeMETS.createDmdSec(volumeMods, "dmd" + String.valueOf(this.dmdIdCounter++));
         }
         catch (Exception e)
         {
@@ -252,7 +240,7 @@ public class METSTransformation
         }
         catch (Exception e)
         {
-            logger.error("Could not retrieve MODS metadata from container "+containerId, e);
+            this.logger.error("Could not retrieve MODS metadata from container "+containerId, e);
         }
         return mods;
     }
@@ -401,14 +389,14 @@ public class METSTransformation
             if (metadataChildren.length>0)
             {
                 DivType metsDivNew = metsDivParent.addNewDiv();
-                currentLogicalMetsDivId = "logstruct" + divCounter++;
-                metsDivNew.setID(currentLogicalMetsDivId);
+                this.currentLogicalMetsDivId = "logstruct" + this.divCounter++;
+                metsDivNew.setID(this.currentLogicalMetsDivId);
                 try
                 {
                     XmlObject virrElementChild = metadataChildren[0];
                     VirrelementDocument virrMetadataDoc = VirrelementDocument.Factory.parse(virrElementChild.getDomNode());
                     ModsType mods = virrMetadataDoc.getVirrelement().getMods();
-                    String dmdId = "dmd" + String.valueOf(dmdIdCounter++);
+                    String dmdId = "dmd" + String.valueOf(this.dmdIdCounter++);
                     this.writeMETS.createDmdSec(mods, dmdId);
                     List<String> dmdList = new ArrayList<String>();
                     dmdList.add(dmdId);
@@ -423,7 +411,7 @@ public class METSTransformation
                 }
                 catch (XmlException e)
                 {
-                    logger.error("Error while parsing structural metadata of TOC div",e);
+                    this.logger.error("Error while parsing structural metadata of TOC div",e);
                 }
                 
                 
@@ -435,7 +423,7 @@ public class METSTransformation
         }
         else if(tocDiv.getTYPE().equals("page"))
         {
-            this.writeMETS.addStructLink(currentLogicalMetsDivId, tocDiv.getPtrArray(0).getHref());
+            this.writeMETS.addStructLink(this.currentLogicalMetsDivId, tocDiv.getPtrArray(0).getHref());
             
         }
         
@@ -467,9 +455,9 @@ public class METSTransformation
             
             //workaroound due to framework bug: login as sysadmin. Currently only logged-in users can retrieve
             //components that have a latest-version pendings
-            String userHandle = login.loginSysAdmin();
+            String userHandle = this.login.loginSysAdmin();
             
-            if (login.loginSysAdmin() != null)
+            if (this.login.loginSysAdmin() != null)
             {
                 GetMethod get = new GetMethod(tocUrl.toString());
                 get.setFollowRedirects(false);
