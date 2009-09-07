@@ -384,6 +384,8 @@ public class ServiceLocator
     {
         try
         {
+            //reset, needed when different fw urls are used
+            authorizedItemHandlerServiceLocator = null;
             return getItemHandler("", new URL(getFrameworkUrl()));
         } catch (MalformedURLException e)
         {
@@ -393,6 +395,8 @@ public class ServiceLocator
     
     public static ItemHandler getItemHandler(URL frameworkUrl) throws ServiceException, URISyntaxException
     {
+      //reset, needed when different fw urls are used
+        authorizedItemHandlerServiceLocator = null;
         return getItemHandler("", frameworkUrl );
     }
     
