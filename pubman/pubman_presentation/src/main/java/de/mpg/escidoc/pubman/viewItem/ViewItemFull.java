@@ -431,6 +431,12 @@ public class ViewItemFull extends FacesBean
             this.isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
             this.isPublicStateReleased = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.RELEASED.toString());
             
+            // display a warn message  if the item version is not the latest
+            if(this.isLatestVersion == false)
+            {
+            	warn(getMessage("itemIsNotLatestVersion"));
+            }
+            
             try
             {
                 this.isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
