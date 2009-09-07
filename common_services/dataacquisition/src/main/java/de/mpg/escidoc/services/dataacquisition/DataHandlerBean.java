@@ -753,22 +753,22 @@ public class DataHandlerBean implements DataHandler
             {
                 return ServiceLocator.getItemHandler().retrieve(identifier);
             }  
-            if (this.currentSource.getName().toLowerCase().equals("escidocdev") 
+            if (this.currentSource.getName().equalsIgnoreCase("escidocdev") 
                     || this.currentSource.getName().equalsIgnoreCase("escidocqa") 
                     || this.currentSource.getName().equalsIgnoreCase("escidocprod") 
                     || this.currentSource.getName().equalsIgnoreCase("escidoctest"))
             {
-                return ServiceLocator.getItemHandler(md.getMdUrl().toString()).retrieve(identifier);
+                return ServiceLocator.getItemHandler(md.getMdUrl()).retrieve("escidoc:" + identifier);
             }    
         }
         catch (ItemNotFoundException e)
         {
-            this.logger.error("Item with identifier " + identifier + " was not found.", e);
+            this.logger.error("Item with identifier " + identifier + " was not found.");
             throw new IdentifierNotRecognisedException(e);
         }
         catch (Exception e)
         {
-            this.logger.error("An error occurred while retrieving the item " + identifier + ".", e);
+            this.logger.error("An error occurred while retrieving the item " + identifier + ".");
             throw new RuntimeException(e);
         }
         
