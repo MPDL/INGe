@@ -421,7 +421,7 @@ public class SwordUtil extends FacesBean
                 }
 
                 String name = URLDecoder.decode(zipentry.getName(), "UTF-8");
-                name = name.replaceAll("/", "_");
+                name = name.replaceAll("/", "_slsh_");
                 this.filenames.add(name);
                 
                 //check if the file is a metadata file
