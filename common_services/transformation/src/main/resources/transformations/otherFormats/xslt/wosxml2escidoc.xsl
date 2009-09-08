@@ -265,7 +265,7 @@
 			</xsl:choose>
 		</xsl:element>
 	</xsl:template>
-	<xsl:template match="AF">
+	<xsl:template match="AF|AU">
 		<xsl:variable name="var">
            <xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
@@ -283,12 +283,15 @@
          
 		
 	</xsl:template>
+	
+	<!--  
 	<xsl:template match="AU">
 		<xsl:element name="pub:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>
 	</xsl:template>
+	-->
 	
 	<xsl:template match="ED">
 		<xsl:element name="pub:creator">
