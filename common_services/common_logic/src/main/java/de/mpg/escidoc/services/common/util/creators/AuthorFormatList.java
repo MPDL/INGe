@@ -64,8 +64,8 @@ public final class AuthorFormatList
         //new LooseFormat(),
         //new LooseFormatSurnameFirst(),
         new LooseFormatWithInfoInBraces(),
-        new ResidualFormat()
-        
+        new ResidualFormat(),
+        new EndnoteFormat()
 
     };
 
