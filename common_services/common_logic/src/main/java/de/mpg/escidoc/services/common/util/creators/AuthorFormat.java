@@ -56,14 +56,14 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     //protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
     protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
     protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
-    protected static final String NAME = "(" + WORD + "( *- *" + WORD + ")*)";
+    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
+    protected static final String NAME = "(" + PREFIX + "? *" + WORD + "( *- *" + WORD + ")*)";
     protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
     protected static final String INITIALS = "(" + INITIAL + "( *-? *" + INITIAL + ")*)";
     protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor|Kardinal|Geheimrat|Bischof|)";
-    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
     protected static final String SUFFIX = "(,*)? (sen.?|Sen.?|jr.?|Jr.?)";
     protected static final String MIDDLEFIX = "(y|dela|de la)";
-    protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*( +" + PREFIX + ")?)";
+    protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
     protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIALS + ")( *(" + NAME + "|" + INITIALS + "))*)";
     
     protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|email|written|et al)";
@@ -236,13 +236,40 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
         List<Author> result = new ArrayList<Author>();
         for (String authorString : authors)
         {
+           
+            String[] parts = authorString.split(separator);
+            
+            String givenName = "";
+            String surname = parts[parts.length-1];
+            for(int i = parts.length-2; i>=0; i--)
+            {
+                if (parts[i].matches(PREFIX))
+                {
+                    surname = parts[i] + " " + surname;
+                }
+                else
+                {
+                    givenName = parts[i] + " " + givenName;
+                }
+                
+            }
+            Author author = new Author();
+
+            author.setGivenName(givenName.trim());
+            author.setSurname(surname);
+            author.setFormat(this);
+            result.add(author);
+            
+            /*
             int lastSpace = authorString.lastIndexOf(separator);
+            
             Author author = new Author();
 
             author.setGivenName(authorString.substring(0, lastSpace));
             author.setSurname(authorString.substring(lastSpace + 1));
             author.setFormat(this);
             result.add(author);
+            */
         }
 
         return result;
