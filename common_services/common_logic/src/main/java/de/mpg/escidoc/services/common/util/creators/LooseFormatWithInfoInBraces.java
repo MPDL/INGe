@@ -52,8 +52,11 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
+        
+        
+        
         //string contains semicolons and commas -> interprete as format with surname first
-        if (authorsString.contains(",") && authorsString.contains(";"))
+        if ((authorsString.contains(",") && authorsString.contains(";")) || (authorsString.contains(",") && authorsString.contains(" and ")) || (authorsString.contains(";") && authorsString.contains(" and ")))
         {
             String[] authors = authorsString.split("(;| and | AND | und | et )");
             return getAuthorListLooseFormatSurnameFirst(authors);

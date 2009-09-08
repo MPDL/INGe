@@ -528,6 +528,17 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 
                 String[] surnameParts = parts[0].split("\\s");
                 String[] givenNameParts = parts[1].split("\\s");
+                
+                //look for other parts that are seperated by a comma, e.g. "Jun." or "Sen."
+                String additionalParts  = "";
+                if (parts.length > 2)
+                {
+                    for(int i = 2; i < parts.length; i++)
+                    {
+                        additionalParts += parts[i] + " ";
+                    }
+                }
+                additionalParts = additionalParts.trim();
                                               
                 String surname = "";
                 String prefix = "";
@@ -568,8 +579,14 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                     
                 }
                 
+                if (additionalParts.matches(FORBIDDEN_CHARACTERS))
+                {
+                    additionalParts = "";
+                }
+                
                 author.setGivenName(givenName.trim());
-                author.setSurname(prefix.trim() + " " + surname.trim());
+                author.setSurname(prefix.trim() + " " + surname.trim() + " " + additionalParts);
+                author.setSurname(author.getSurname().trim());
                 author.setTitle(title.trim());
                
             }
