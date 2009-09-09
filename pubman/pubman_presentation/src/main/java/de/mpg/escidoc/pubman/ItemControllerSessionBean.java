@@ -67,6 +67,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -650,6 +651,7 @@ public class ItemControllerSessionBean extends FacesBean
         newItem.getVersion().setObjectId(null);
         newItem.getVersion().setVersionNumber(0);
         newItem.getVersion().setState(ItemVO.State.PENDING);
+        newItem.setPublicStatus(State.PENDING);
         newItem.setOwner(null);
         newItem.getFiles().clear();
         //clear the relation list according to PUBMAN-357
