@@ -370,7 +370,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
-						<artifactId>cargo-maven-plugin</artifactId>
+						<artifactId>cargo-maven2-plugin</artifactId>
 						<executions>
 							<execution>
 								<id>start-container</id>
