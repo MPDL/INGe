@@ -98,7 +98,7 @@ FORM BG			#F2F8FC
 			font-family: Trebuchet, "Trebuchet MS", sans-serif;
 		}
 		input[type=text], textarea {
-			font-family : "Georgia", sans-serif;
+			font-family : Courier, "Courier New", serif;
 		}
 		h1, h4, h5 {
 			font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
