@@ -28,6 +28,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LocalTagFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -173,6 +174,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 addOrgFiltersRecursive(affTree.getAffiliationMap().get(getSelectedOrgUnit()), filter);
             }
             
+            if (!getSelectedImport().toLowerCase().equals("all"))
+            {
+                Filter f10 = filter.new LocalTagFilter(getSelectedImport());
+                filter.getFilterList().add(f10);
+            }
+            
             Filter f11 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
             filter.getFilterList().add(f11);
             Filter f8 = filter.new LimitFilter(String.valueOf(limit));
@@ -237,6 +244,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     @Override
     public void readOutParameters()
     {
+        /*
         String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
         if (selectedItemState==null)
         {
@@ -246,6 +254,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         {
             setSelectedItemState(selectedItemState);
         }
+        */
+        super.readOutParameters();
         
         String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
         if (context==null)
@@ -348,7 +358,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     public List<SelectItem> getItemStateSelectItems()
     {
         List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
-        itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
+        itemStateSelectItems.add(new SelectItem("all",getLabel("ItemList_filterAllExceptPendingWithdrawn")));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
