@@ -35,7 +35,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' && LoginHelper.isDepositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -59,7 +59,7 @@
     </span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='en'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -74,7 +74,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{(LoginHelper.isModerator || LoginHelper.isMdEditor) && PubManSessionBean.locale =='en'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='en' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -109,7 +109,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' && LoginHelper.isDepositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -132,7 +132,7 @@
 		</h:commandLink>
     </span>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='de'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -147,7 +147,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{LoginHelper.isModerator && PubManSessionBean.locale =='de'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='de' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
@@ -182,7 +182,7 @@
 	</h2>
 	<br/>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' && LoginHelper.isDepositor}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'  and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon submIcon">&#160;</span>
 	</span>
@@ -206,7 +206,7 @@
     </span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{LoginHelper.isDepositor && PubManSessionBean.locale =='ja'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and LoginHelper.isDepositor and ContextListSessionBean.depositorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon myItemsIcon">&#160;</span>
 	</span>
@@ -221,7 +221,7 @@
 	</span>
 	</h:panelGroup>
 
-	<h:panelGroup rendered="#{LoginHelper.isModerator && PubManSessionBean.locale =='ja'}">
+	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja' and (LoginHelper.isModerator || LoginHelper.isMdEditor) and ContextListSessionBean.moderatorContextListSize>0}">
 	<span class="small_area0">
 		<span class="big_imgArea startPageIcon qaWSIcon">&#160;</span>
 	</span>
