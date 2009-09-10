@@ -149,10 +149,6 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
         return buffer.toString();
     }
     
-    private void setMajorSearchTerm( String major ) {
-        this.majorSearchTerm = major;
-    }
-    
     private String getMajorSearchTerm() {
         return this.majorSearchTerm;
     }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
@@ -602,5 +603,18 @@ public class MetadataSearchCriterion implements Serializable
     public ArrayList<MetadataSearchCriterion> getSubCriteriaList() 
     {
         return this.subCriteria;
+    }
+    
+    /**
+     * Returns all used indices in a string array. 
+     * @return string array list of all indices.
+     */
+    public List<String> getAllSupportedIndicesAsString() throws TechnicalException {
+        List<String> indices = new ArrayList<String>();
+        
+        for( CriterionType type : CriterionType.values() ) {
+            indices.addAll( setIndexByEnum(type) );
+        }
+        return indices;
     }
 }

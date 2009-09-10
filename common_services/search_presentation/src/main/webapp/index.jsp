@@ -148,7 +148,7 @@
 
 						<span class="free_area0">Description</span>
 					
-						<a href="SearchAndExport_rest_sample.jsp" class="free_area0" title="Go to the REST example page.">REST Examle</a>
+						<a href="SearchAndExport_rest_sample.jsp" class="free_area0" title="Go to the REST example page.">REST Example</a>
 
 						<!-- main Menu ends here -->
 					</div>
