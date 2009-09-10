@@ -76,6 +76,10 @@ public abstract class FileLocatorUploadBean extends FacesBean
     public boolean checkLocator(String locator)
     {
         this.locator = locator;
+        if(locator != null)
+        {
+        	this.locator = this.locator.trim();
+        }
         URLConnection conn = null;
         byte[] input = null;
         String mimeType = null;
