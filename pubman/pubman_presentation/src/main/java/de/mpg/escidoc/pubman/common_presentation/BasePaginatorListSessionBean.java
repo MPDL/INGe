@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.common_presentation;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -636,7 +637,14 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         
         for (Entry<String, String> entrySet: redirectParameterMap.entrySet())
         {
-            parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey()) + "=" + URLEncoder.encode(entrySet.getValue()) + "&";
+            try
+            {
+                parameterUrl = parameterUrl + URLEncoder.encode(entrySet.getKey(), "ISO-8859-1") + "=" + URLEncoder.encode(entrySet.getValue(), "ISO-8859-1") + "&";
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
         
         parameterUrl = parameterUrl.substring(0, parameterUrl.length()-1);

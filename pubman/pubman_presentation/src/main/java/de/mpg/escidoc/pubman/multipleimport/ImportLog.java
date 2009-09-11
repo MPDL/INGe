@@ -1679,7 +1679,7 @@ public class ImportLog
         try
         {
             return "DepositorWSPage.jsp?import=" + URLEncoder.encode(
-                    getMessage() + " " + getStartDateFormatted(), "UTF-8");
+                    getMessage() + " " + getStartDateFormatted(), "ISO-8859-1");
         }
         catch (UnsupportedEncodingException usee)
         {
