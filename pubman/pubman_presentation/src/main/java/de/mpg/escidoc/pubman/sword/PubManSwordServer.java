@@ -289,4 +289,17 @@ public class PubManSwordServer
             }
             return "";
          }
+        
+        public String getCoreserviceURL()
+        {
+            try
+            {
+                return PropertyReader.getProperty("escidoc.framework_access.framework.url");
+            }
+            catch (Exception e)
+            {
+                this.log.warn("Coreservice URL could not be read from property file.", e);
+            }
+            return "";
+         }
 }

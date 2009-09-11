@@ -49,6 +49,7 @@ import org.purl.sword.base.SWORDContentTypeException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.escidoc.pubman.sword.PubManSwordErrorDocument.swordError;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -232,6 +233,7 @@ public class PubManDepositServlet extends HttpServlet
                response.setStatus(dr.getHttpResponse());
                response.setContentType("application/xml");
                response.setCharacterEncoding("UTF-8");
+               response.setHeader("Location", dr.getEntry().getContent().getSource());
                PrintWriter out = response.getWriter();
                out.write(dr.marshall());
                out.flush();

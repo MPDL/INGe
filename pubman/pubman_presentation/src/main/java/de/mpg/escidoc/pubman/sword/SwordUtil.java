@@ -825,9 +825,7 @@ public class SwordUtil extends FacesBean
             TimeZone utc = TimeZone.getTimeZone("UTC");
             sdf.setTimeZone(utc);
             String milliFormat = sdf.format(new Date());
-            se.setUpdated(milliFormat);
-            
-            se.setId(item.getPid());
+            se.setUpdated(milliFormat);            
         }
 
         Summary s = new Summary();
@@ -852,7 +850,8 @@ public class SwordUtil extends FacesBean
         //Only set content if item was deposited
         if (!deposit.isNoOp() && item != null && valid)
         {            
-            content.setSource(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());                     
+            content.setSource(server.getCoreserviceURL() + "/ir/item/" + item.getVersion().getObjectId());     
+            se.setId(server.getBaseURL() + this.itemPath + item.getVersion().getObjectId());
         }
         se.setContent(content);
 
