@@ -34,8 +34,6 @@ public class TEITransformation {
         {	
             StringWriter result = new StringWriter();
             String teiSource = new String(src,"UTF-8");
-            
-            System.out.println("5:____________________________________" + teiSource);
             	
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             InputStream stylesheet;

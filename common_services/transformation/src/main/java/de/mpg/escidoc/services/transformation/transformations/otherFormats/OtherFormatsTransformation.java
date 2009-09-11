@@ -96,7 +96,6 @@ public class OtherFormatsTransformation
         TEITransformation teiTrans = new TEITransformation ();
         try
         {
-        System.out.println("4:____________________________________" + new String (src, "UTF-8"));
         }catch(Exception e){}
         return teiTrans.transform(src, trgFormat);
     }
