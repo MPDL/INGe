@@ -35,13 +35,13 @@ public class WesternFormat4 extends AuthorFormat {
 
     @Override
     public String getPattern() {
-        return "^(" + INITIALS + "[ -]?)+ ?" + NAME + "( *(;| and | AND | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
+        return "^(" + INITIALS + "[ -]?)+ ?" + NAME + "( *(;| and | AND | und | et |\\n) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) {
 
-        String[] authors = authorsString.split(" *(;| and | AND | und | et ) *");
+        String[] authors = authorsString.split(" *(;| and | AND | und | et |\\n) *");
 
         return getAuthorListWithInitials(authors);
     }

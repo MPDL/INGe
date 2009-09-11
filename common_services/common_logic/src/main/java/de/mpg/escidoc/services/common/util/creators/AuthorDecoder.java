@@ -101,19 +101,35 @@ public class AuthorDecoder
      */
     public AuthorDecoder(String authors) throws Exception
     {
-
+        //Remove newlines that have a seperator before or after it
         
-        //System.out.println(authors);
-        //Replace newline with "and" (and, thus, interprete as new author) if no seperation like ", ; and und et" is found before or after
-        //otherwise replace with "and" including the seperator
-        authors = authors.replaceAll("((,|;| and| und| et))\\s*\\n\\s*", " and ").trim();
-        authors = authors.replaceAll("\\s*\\n\\s*(,|;|and |und |et )", " and ").trim();
-        authors = authors.replaceAll("\\n", " and ").trim();
+        //replace newlines before or after commas
+        authors = authors.replaceAll(",\\s*\\n\\s*", ", ");
+        authors = authors.replaceAll("\\s*\\n\\s*,", ",");
         
+        //replace newlines before or after semicolons
+        authors = authors.replaceAll(";\\s*\\n\\s*", "; ");
+        authors = authors.replaceAll("\\s*\\n\\s*;", ";");
+        
+       //replace newlines before or after "and"
+        authors = authors.replaceAll(" and\\s*\\n\\s*", " and ");
+        authors = authors.replaceAll("\\s*\\n\\s*and ", " and ");
+        
+        //replace newlines before or after "und"
+        authors = authors.replaceAll(" und\\s*\\n\\s*", " und ");
+        authors = authors.replaceAll("\\s*\\n\\s*und ", " und ");
+        
+        //replace newlines before or after "et"
+        authors = authors.replaceAll(" et\\s*\\n\\s*", " et ");
+        authors = authors.replaceAll("\\s*\\n\\s*et ", " et ");
+        
+        //replace ", and"
+        authors = authors.replaceAll(",\\s*and\\s+", ", ");
+        authors = authors.replaceAll(";\\s*and\\s+", "; ");
+ 
         //normalize the string
-        authors = authors.replaceAll("\\s+", " ").trim();
-
-        //System.out.println(authors);
+        //authors = authors.replaceAll("(\\s)+", " ").trim();
+        authors = authors.trim();
         
         logger.debug("Testing '" + authors + "'");
 

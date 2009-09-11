@@ -511,6 +511,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                 
                 author.setGivenName(givenName.trim());
                 author.setSurname(prefix.trim() + " " + surname.trim());
+                author.setSurname(author.getSurname().trim());
                 author.setTitle(title.trim());
                 author.setFormat(this);
                 result.add(author);

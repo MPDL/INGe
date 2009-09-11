@@ -35,14 +35,14 @@ public class WesternFormat8 extends AuthorFormat {
     
     @Override
     public String getPattern() {
-        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
 
-        String[] authors = authorsString.split(" *(,| and | AND | und | et ) *");
+        String[] authors = authorsString.split(" *(,| and | AND | und | et |\\n) *");
         
         return getAuthorListCheckingNames(authorsString, authors);
     }

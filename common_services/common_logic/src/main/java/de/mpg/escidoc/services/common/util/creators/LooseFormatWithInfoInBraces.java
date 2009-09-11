@@ -53,87 +53,117 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     public List<Author> getAuthors(String authorsString) throws Exception
     {
         
+        //Check 4 versions (new line as separator or blank, surname or given name first) and choose the best result
+        String newLineAsBlank = authorsString.replaceAll("\\s+", " ").trim();
+        String newLineAsSeparator = authorsString.replaceAll("\\n", " and ").trim();
+        newLineAsSeparator = newLineAsSeparator.replaceAll("\\s+", " ");
         
+        List<Author> newLineAsBlankSurnameFirst = getAuthorListLooseFormatSurnameFirst(newLineAsBlank.split("(;| and | AND | und | et )"));
+        List<Author> newLineAsSeparatorSurnameFirst = getAuthorListLooseFormatSurnameFirst(newLineAsSeparator.split("(;| and | AND | und | et )"));
+        List<Author> newLineAsBlankGivenNameFirst = getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsBlank));
+        List<Author> newLineAsSeparatorGivenNameFirst = getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsSeparator));
         
-        //string contains semicolons and commas -> interprete as format with surname first
-        if ((authorsString.contains(",") && authorsString.contains(";")) || (authorsString.contains(",") && authorsString.contains(" and ")) || (authorsString.contains(";") && authorsString.contains(" and ")))
+
+        
+        if (testAuthors(newLineAsSeparatorGivenNameFirst))
         {
-            String[] authors = authorsString.split("(;| and | AND | und | et )");
-            return getAuthorListLooseFormatSurnameFirst(authors);
+            return newLineAsSeparatorGivenNameFirst;
+        }
+        else if (testAuthors(newLineAsBlankGivenNameFirst))
+        {
+            return newLineAsBlankGivenNameFirst;
+        }
+        else if (testAuthors(newLineAsSeparatorSurnameFirst))
+        {
+            return newLineAsSeparatorSurnameFirst;
+        }
+        else if (testAuthors(newLineAsBlankSurnameFirst))
+        {
+            return newLineAsBlankSurnameFirst;
         }
         
-        //interprete as format with given name first and info in brackets
-        else
-        {
-            
-        
-            List<String> parts = new ArrayList<String>();
-            String currentString = "";
-            String currentStringWithoutBracketContent="";
-            
-            //remove last comma or semicolon
-            
-            String openedBracketsRegEx = "(\\(|\\{|\\[)";
-            String closedBracketsRegEx = "(\\)|\\}|\\])";
-            String seperatorsRegEX = "(,|;)";
-            int brackets = 0;
-            
-            //split string by commas and semicolons (if they are not inside a bracket)
-            for (int i = 0; i < authorsString.length(); i++)
-            {
-                String currentChar = String.valueOf(authorsString.charAt(i));
-                if (currentChar.matches(openedBracketsRegEx))
-                {
-                    brackets+=1;
-                    currentString+=currentChar;
-                    
-                }
-                else if (currentChar.matches(closedBracketsRegEx))
-                {
-                    brackets-=1;
-                    currentString+=currentChar;
-                }
-                else if (currentChar.matches(seperatorsRegEX) && brackets == 0)
-                {
-                    parts.add(new String(currentString));
-                    currentString="";
-                    
-                }
-                else
-                {
-                    currentString+=currentChar;
-                }
-                
-            }
-            // add last Part if not empty
-            if (!currentString.trim().equals(""))
-            {
-                parts.add(currentString);
-            }
-            
-            
-            
-            //split strings by rest of seperators
-            String seperatorsRegEX2 = "( and | und | et )";
-            List<String> parts2 = new ArrayList<String>();
-            for (int i = 0; i < parts.size(); i++)
-            {
-                String part = parts.get(i);
-                String[] newSeps = part.split(seperatorsRegEX2);
-                for (int j = 0; j < newSeps.length; j++)
-                {
-                    parts2.add(newSeps[j]);
-                }
-            }
-           
-            
-            String[] authors = parts2.toArray(new String[0]);
-            
-            return getAuthorListLooseFormat(authors);
-        }
+        return newLineAsSeparatorGivenNameFirst;
     }
 
+    private String[] prepareAuthorsLooseFormat(String authorsString)
+    {
+        List<String> parts = new ArrayList<String>();
+        String currentString = "";
+        String currentStringWithoutBracketContent="";
+        
+        //remove last comma or semicolon
+        
+        String openedBracketsRegEx = "(\\(|\\{|\\[)";
+        String closedBracketsRegEx = "(\\)|\\}|\\])";
+        String seperatorsRegEX = "(,|;)";
+        int brackets = 0;
+        
+        //split string by commas and semicolons (if they are not inside a bracket)
+        for (int i = 0; i < authorsString.length(); i++)
+        {
+            String currentChar = String.valueOf(authorsString.charAt(i));
+            if (currentChar.matches(openedBracketsRegEx))
+            {
+                brackets+=1;
+                currentString+=currentChar;
+                
+            }
+            else if (currentChar.matches(closedBracketsRegEx))
+            {
+                brackets-=1;
+                currentString+=currentChar;
+            }
+            else if (currentChar.matches(seperatorsRegEX) && brackets == 0)
+            {
+                parts.add(new String(currentString));
+                currentString="";
+                
+            }
+            else
+            {
+                currentString+=currentChar;
+            }
+            
+        }
+        // add last Part if not empty
+        if (!currentString.trim().equals(""))
+        {
+            parts.add(currentString);
+        }
+        
+        
+        
+        //split strings by rest of seperators
+        String seperatorsRegEX2 = "( and | und | et )";
+        List<String> parts2 = new ArrayList<String>();
+        for (int i = 0; i < parts.size(); i++)
+        {
+            String part = parts.get(i);
+            String[] newSeps = part.split(seperatorsRegEX2);
+            for (int j = 0; j < newSeps.length; j++)
+            {
+                parts2.add(newSeps[j]);
+            }
+        }
+       
+        
+        String[] authors = parts2.toArray(new String[0]);
+        
+        return authors;
+    }
     
+    private boolean testAuthors(List<Author> authorList)
+    {
+      
+        for (Author a : authorList)
+        {
+            if (a.getGivenName()==null || a.getGivenName().equals("") || a.getSurname()==null || a.getSurname().equals("") || a.getSurname().trim().split(" ").length > 4)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public int getSignificance() {
