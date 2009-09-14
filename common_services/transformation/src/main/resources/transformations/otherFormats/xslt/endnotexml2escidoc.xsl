@@ -526,7 +526,7 @@
 				</xsl:element>
 			</xsl:if>
 			
-			<xsl:if test="V and $refType = ('Generic', 'Conference Paper', 'Conference Proceedings', 'Electronic Article', 'Electronic Book', 'Journal Article', ' Magazine Article', 'Newspaper Article', 'Manuscript')">
+			<xsl:if test="V and $refType = ('Generic', 'Conference Paper', 'Conference Proceedings', 'Electronic Article', 'Electronic Book', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Manuscript')">
 				<xsl:element name="e:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
