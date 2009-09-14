@@ -66,6 +66,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	
 	</iso:phase>
 	
@@ -76,6 +77,7 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	</iso:phase>
 	
 	<iso:phase id="easy_submission_step_4">
@@ -88,6 +90,7 @@
 		<iso:active pattern="source_creator_role_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	</iso:phase>
 	
 	<iso:phase id="easy_submission_step_5">
@@ -106,6 +109,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -125,6 +129,7 @@
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	</iso:phase>
 	
 	<iso:phase id="accept_item">
@@ -144,6 +149,7 @@
 		<iso:active pattern="uri_as_locator"/>
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
+		<iso:active pattern="no_slashes_in_filename"/>
 	</iso:phase>
 
 	<!-- Mime-Types -->
@@ -353,5 +359,11 @@
 		</iso:rule>
 	</iso:pattern>
 
+	<!-- The file name of a component must not contain slashes "/" -->
+	<iso:pattern name="no_slashes_in_filename" id="no_slashes_in_filename">
+		<iso:rule context="escidocComponents:component">
+			<iso:assert test="not(escidocComponents:content/@storage = 'internal-managed') or (not(contains(escidocComponents:properties/prop:file-name, '/')) and not(contains(escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:title, '/')))">SlashInFilename</iso:assert>
+		</iso:rule>
+	</iso:pattern>
 
 </iso:schema>
