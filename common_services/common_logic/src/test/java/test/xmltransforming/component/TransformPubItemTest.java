@@ -336,7 +336,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
 
         // transform the item into XML
         String itemXml = xmlTransforming.transformToItem(pubItem);
-        logger.debug("Transformed item(XML):\n" + itemXml);
+        logger.info("Transformed item(XML):\n" + itemXml);
         Node itemDoc = getDocument(itemXml, false);
         // check validity of item
         assertXMLValid(toString(itemDoc, false));

@@ -171,11 +171,15 @@
 
 		<!-- Node: item.components -->
 		<!-- Field: PubItemVO.files -->
-		<collection name="components" ns="${xsd.soap.item.components}" field="files"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.FileVO" test-method="hasFiles" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
-		</collection>
+		<structure name="components" ns="${xsd.soap.item.components}">
+			<value style="attribute" name="base" ns="http://www.w3.org/XML/1998/namespace" field="baseUrl" usage="optional"/>
+			<collection field="files"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory"
+				item-type="de.mpg.escidoc.services.common.valueobjects.FileVO"
+				test-method="hasFiles" usage="optional">
+				<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
+			</collection>
+		</structure>
 
 		<!-- Node: item.relations -->
 		<!-- Field: relations [List<PubItemRelationVO>] -->

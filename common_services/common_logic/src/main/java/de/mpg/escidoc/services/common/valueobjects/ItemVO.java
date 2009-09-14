@@ -82,6 +82,8 @@ public class ItemVO extends ValueObject implements Searchable
     private java.util.List<String> localTags = new java.util.ArrayList<String>();
     private List<MetadataSetVO> metadataSets = new java.util.ArrayList<MetadataSetVO>();
 
+    private String baseUrl;
+    
     private AccountUserRO owner;
     /**
      * The persistent identifier of the released item.
@@ -148,6 +150,9 @@ public class ItemVO extends ValueObject implements Searchable
     public ItemVO(ItemVO other)
     {
         this.setCreationDate(other.getCreationDate());
+
+        this.setBaseUrl(other.getBaseUrl());
+        
         for (FileVO file : other.getFiles())
         {
             this.getFiles().add((FileVO) file.clone());
@@ -460,5 +465,14 @@ public class ItemVO extends ValueObject implements Searchable
         return localTags;
     }
 
+    public String getBaseUrl()
+    {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl)
+    {
+        this.baseUrl = baseUrl;
+    }
 
 }

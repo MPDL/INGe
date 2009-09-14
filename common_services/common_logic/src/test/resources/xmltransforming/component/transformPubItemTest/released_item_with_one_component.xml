@@ -59,7 +59,7 @@
             </escidocMetadataProfile:publication>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
-    <escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
+    <escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}" xml:base="http://myBaseUrl.org">
         <escidocComponents:component objid="escidoc:376" last-modification-date="2007-04-24T16:20:19.308Z">
             <escidocComponents:properties xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <prop:creation-date>2007-04-24T16:20:19.308Z</prop:creation-date>

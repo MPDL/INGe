@@ -215,6 +215,8 @@ public class TestBase
     protected PubItemVO getPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
+        
+        item.setBaseUrl("http://myBaseUrl.org");
 
         // Metadata
         MdsPublicationVO mds = getMdsPublication1();
@@ -276,6 +278,8 @@ public class TestBase
     {
         PubItemVO item = new PubItemVO();
 
+        item.setBaseUrl("http://myBaseUrl.org");
+        
         // properties of the item
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();

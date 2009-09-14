@@ -80,7 +80,6 @@ public class FileVO extends ValueObject implements Cloneable
         MD5, SHA1
     }
 
-
     private FileRO reference;
     
     /**
@@ -530,6 +529,5 @@ public class FileVO extends ValueObject implements Cloneable
     {
         this.checksumAlgorithm = checksumAlgorithm;
     }
-    
-    
+
 }
