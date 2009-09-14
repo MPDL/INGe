@@ -497,6 +497,7 @@
 				<escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
 				<!-- Change transformation service properties as well when changing  'escidoc.pubman.external.organisation.id'-->
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+				<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
 				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
@@ -678,6 +679,7 @@
 				<escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+				<escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
