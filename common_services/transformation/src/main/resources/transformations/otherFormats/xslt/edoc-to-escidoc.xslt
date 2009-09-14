@@ -67,6 +67,8 @@
 	
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:57277'"/>
+	<xsl:param name="external-ou"/>
+	<xsl:param name="root-ou" select="'escidoc:persistent13'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -202,6 +204,10 @@
 			<edoc-collection>Utterance Encoding</edoc-collection>
 			<escidoc-ou>Utterance Encoding</escidoc-ou>
 		</mapping>
+		<mapping>
+			<edoc-collection>Utterance Encoding</edoc-collection>
+			<escidoc-ou>Utterance Encoding</escidoc-ou>
+		</mapping>
 	</xsl:variable>
 	
 	<xsl:variable name="authors">
@@ -209,18 +215,26 @@
 	</xsl:variable>
 	
 	<xsl:variable name="organizational-units">
-		<organizational-units/>
+		<organizational-units>
+			<ou name="root" id="{$root-ou}"/>
+			<ou name="external" id="{$external-ou}"/>
+		</organizational-units>
 	</xsl:variable>
 	
 	<xsl:function name="escidocFunctions:ou-name">
 		<xsl:param name="name"/>
 
-		<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@name"/>
+		<xsl:choose>
+			<xsl:when test="$organizational-units//ou[@name = $name or @alias = $name]">
+				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@name"/>
 
-		<xsl:if test="$organizational-units//ou[@name = $name or @alias = $name]/../@name != $name">
-			<xsl:text>, </xsl:text>
-			<xsl:value-of select="escidocFunctions:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
-		</xsl:if>
+				<xsl:if test="$organizational-units//ou[@name = $name or @alias = $name]/../@name != $name">
+					<xsl:text>, </xsl:text>
+					<xsl:value-of select="escidocFunctions:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>Max Planck Society</xsl:otherwise>
+		</xsl:choose>
 		
 	</xsl:function>
 	
@@ -232,7 +246,7 @@
 				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@id"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="$organizational-units//ou[@name = 'external']/@id"/>
+				<xsl:value-of select="$organizational-units//ou[@name = 'root']/@id"/>
 			</xsl:otherwise>
 		</xsl:choose>
 		
@@ -1117,7 +1131,7 @@
 									</xsl:if>
 								
 								</xsl:when>
-								<xsl:when test="@internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
+								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
 									<xsl:for-each select="../../../docaff/affiliation">
 										<xsl:element name="e:organization">
 											<xsl:element name="e:organization-name">
@@ -1143,7 +1157,7 @@
 										</xsl:element>
 									</xsl:for-each>
 									
-									<xsl:variable name="collection" select="../../../docaff/collection"/>
+									<!-- <xsl:variable name="collection" select="../../../docaff/collection"/>
 									
 									<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
 										<e:organization>
@@ -1154,21 +1168,29 @@
 												<xsl:value-of select="escidocFunctions:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
 											</e:identifier>
 										</e:organization>
-									</xsl:if>
+									</xsl:if> -->
 								
 								</xsl:when>
-								<xsl:otherwise>
-									<xsl:if test="../../../docaff/docaff_external">
-										<e:organization>
-											<e:organization-name>
-												<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
-											</e:organization-name>
-											<e:identifier>
-												<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
-											</e:identifier>
-										</e:organization>
-									</xsl:if>
-								</xsl:otherwise>
+								<xsl:when test="../../../docaff/docaff_external">
+									<e:organization>
+										<e:organization-name>
+											<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
+										</e:organization-name>
+										<e:identifier>
+											<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
+										</e:identifier>
+									</e:organization>
+								</xsl:when>
+								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and not(../../../docaff/affiliation) and not(../../../docaff_external)">
+									<e:organization>
+										<e:organization-name>
+											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
+										</e:organization-name>
+										<e:identifier>
+											<xsl:value-of select="escidocFunctions:ou-id('root')"/>
+										</e:identifier>
+									</e:organization>
+								</xsl:when>
 							</xsl:choose>
 						</xsl:element>
 					</xsl:when>

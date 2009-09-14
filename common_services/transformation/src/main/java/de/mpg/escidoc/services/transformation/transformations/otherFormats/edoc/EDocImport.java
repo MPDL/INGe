@@ -179,7 +179,6 @@ public class EDocImport extends DefaultHandler implements Transformation
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH);
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-            OutputStream fwout = new FileOutputStream(new File("edoc_export_out.xml"), false);
             
             if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
             {
@@ -195,6 +194,8 @@ public class EDocImport extends DefaultHandler implements Transformation
             }
             
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+            transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+            transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));
