@@ -443,7 +443,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.26</version>
+            <version>1.1.26-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -499,7 +499,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.14</version>
+            <version>1.0.14-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
