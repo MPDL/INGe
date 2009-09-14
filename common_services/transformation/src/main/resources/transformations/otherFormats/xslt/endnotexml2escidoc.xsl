@@ -315,6 +315,7 @@
 							, 'Book' 
 							, 'Book Section' 
 							, 'Conference Paper' 
+						    , 'Conference Proceedings'
 							, 'Edited Book' 
 							, 'Electronic Article' 
 							, 'Electronic Book' 
