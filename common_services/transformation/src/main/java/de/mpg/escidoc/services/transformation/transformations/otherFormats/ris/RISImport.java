@@ -37,12 +37,16 @@ public class RISImport{
     public String transformRIS2XML(String file){
     	String result = "";
     	
-    	String[] itemList = getItemListFromString(file, "(\\n|\\r|\\r\\n)ER\\s-");    	// extract items to array
+    	String[] itemList = getItemListFromString(file, "(\\n|\\r|\\r\\n)ER\\s\\s-");    	// extract items to array
+    	    	
     	List<List<Pair>> items = new ArrayList();
     	if(itemList!=null && itemList.length>1){ //transform items to XML
     		
     		for (String item : itemList) {
     			List<Pair> itemPairs = getItemPairs(getItemFromString(item, "([A-Z0-9]{2})\\s+- ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
+    			for(Pair p : itemPairs){
+    				System.out.print(p.getKey()+" : "+p.getValue()+"\n");
+    			}
     			items.add(itemPairs);  
 			}
     		result = transformItemListToXML(items); 
