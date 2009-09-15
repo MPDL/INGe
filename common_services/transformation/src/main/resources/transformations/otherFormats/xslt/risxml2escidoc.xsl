@@ -233,41 +233,79 @@
 					<xsl:value-of select="SN"/>
 				</xsl:element>
 			</xsl:if>	
-			<!-- PUBLISHING-INFO -->
-			<xsl:apply-templates select="VL"/>
+			<!-- PUBLISHING-INFO -->			
 			<xsl:if test="not($gen='article' or $gen='paper' or $gen='issue' or $gen='other' or $gen='conference-paper' or $gen='book-item') and (PB or CY)">
 				<xsl:element name="pub:publishing-info">
-					<xsl:element name="dc:publisher">
-						<xsl:choose>
-							<xsl:when test="PB">
-								<xsl:value-of select="PB"/>
-							</xsl:when>
-							<xsl:when test="CY">
-								<xsl:value-of select="CY"/>
-							</xsl:when>
-						</xsl:choose>
-					</xsl:element>
+					<xsl:if test="PB">
+						<xsl:element name="dc:publisher">						
+							<xsl:value-of select="PB"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:if test="CY">
+						<xsl:element name="e:place">
+							<xsl:value-of select="CY"/>
+						</xsl:element>
+					</xsl:if>
+					<xsl:if test="VL and not(ET or JF or JO or T3)">				
+						<xsl:element name="e:edition">
+							<xsl:value-of select="VL"/>					
+						</xsl:element>
+					</xsl:if>
 				</xsl:element>
 			</xsl:if>
 			<!-- DATES -->
 			<xsl:call-template name="createDate"/>
 			<!-- SOURCE -->
+			
 			<xsl:choose>
 				<xsl:when test="BT">
-					<xsl:if test="not($gen='book' or $gen='proceedings' or $gen='thesis' or $gen='journal' or $gen='series' or $gen='other')">
+					<xsl:if test="not($gen='book' or $gen='proceedings' or $gen='thesis' or $gen='journal' or $gen='other')">
+						<xsl:if test="JF">
+							<xsl:call-template name="createSource">
+								<xsl:with-param name="genre" select="$gen"/>
+								<xsl:with-param name="title" select="JF"/>
+							</xsl:call-template>
+						</xsl:if>
+						<xsl:if test="JO">
+							<xsl:call-template name="createSource">
+								<xsl:with-param name="genre" select="$gen"/>
+								<xsl:with-param name="title" select="JO"/>
+							</xsl:call-template>
+						</xsl:if>	
+					</xsl:if>					
+					<xsl:if test="((T1 or TI or CT) and T3)">
+						<!-- 2nd source series -->
 						<xsl:call-template name="createSource">
 							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="T3"/>
 						</xsl:call-template>
 					</xsl:if>
 				</xsl:when>
-				<xsl:when test="T3">
-					<xsl:if test="(count(T1) + count(TI) + count(CT) + count(BT))>2">
+				<xsl:otherwise>
+				<!-- not BT -->
+					<xsl:if test="JO">
 						<xsl:call-template name="createSource">
 							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="JO"/>
 						</xsl:call-template>
 					</xsl:if>
-				</xsl:when>
+					<xsl:if test="JF">
+						<xsl:call-template name="createSource">
+							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="JF"/>
+						</xsl:call-template>
+					</xsl:if>
+					<xsl:if test="T3">
+						<!-- source series -->
+						<xsl:call-template name="createSource">
+							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="T3"/>
+						</xsl:call-template>
+					</xsl:if>
+				</xsl:otherwise>
 			</xsl:choose>
+			
+						
 			<!-- ABSTRACT -->
 			<xsl:call-template name="createAbstract"/>
 			<!-- SUBJECT -->
@@ -389,7 +427,7 @@
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
 		<xsl:param name="genre"/>
-				
+		<xsl:param name="title"/>		
 		<xsl:element name="pub:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -397,34 +435,15 @@
 					<xsl:when test="not($genre='book' or $genre='proceedings' or $genre='thesis' or $genre='journal' or $genre='series' or $genre='other') and BT">journal</xsl:when>
 					<xsl:when test="TY='CHAP'">book</xsl:when>
 					<xsl:when test="TY='JOUR'">journal</xsl:when>
-					<xsl:when test="TY='MGZN'">article</xsl:when>
-					<xsl:when test="TY='NEWS'">article</xsl:when>
+					<xsl:when test="TY='MGZN'">series</xsl:when>
+					<xsl:when test="TY='NEWS'">series</xsl:when>
+					<xsl:when test="T3">series</xsl:when>
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:choose>
-				<xsl:when test="not($genre='book' or $genre='proceedings' or $genre='thesis' or $genre='journal' or $genre='series' or $genre='other')">
-					<xsl:element name="dc:title">
-						<xsl:value-of select="BT"/>
-					</xsl:element>	
-					<xsl:apply-templates select="JF"/>
-					<xsl:apply-templates select="JO"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="JF">
-							<xsl:element name="dc:title">
-								<xsl:value-of select="JF"/>
-							</xsl:element>
-						</xsl:when>
-						<xsl:when test="JO">
-							<xsl:element name="dc:title">
-								<xsl:value-of select="JO"/>
-							</xsl:element>
-						</xsl:when>
-					</xsl:choose>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:element name="dc:title">
+				<xsl:value-of select="$title"/>
+			</xsl:element>
 			
 			<!-- SOURCE ALTTITLE -->
 			<xsl:choose>
@@ -464,7 +483,7 @@
 				
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
-			<xsl:if test="ET and VL">
+			<xsl:if test="(VL and (JF or JO or T3 or ET))">
 				<xsl:element name="e:volume">
 					<xsl:value-of select="VL"/>
 				</xsl:element>
@@ -477,9 +496,11 @@
 					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:element name="e:issue">
-						<xsl:value-of select="CP"/>
-					</xsl:element>
+					<xsl:if test="CP">
+						<xsl:element name="e:issue">
+							<xsl:value-of select="CP"/>
+						</xsl:element>
+					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 			<!-- SOURCE PAGES -->
