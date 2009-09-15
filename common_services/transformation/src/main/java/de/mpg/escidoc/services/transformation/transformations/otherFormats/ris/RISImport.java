@@ -62,7 +62,8 @@ public class RISImport{
      * reads the file and stores it in a string
      * @return List<String> with file lines
      */
-    public String readFile(){
+    public String readFile()
+    {
     	
     	String file = "";        	
     	try{    		
@@ -106,6 +107,9 @@ public class RISImport{
     public String[] getItemListFromString(String string, String pattern){
     	
     	//String s[] = string.split("ER\\s -");
+    	
+    	//replace first empty lines and BOM
+    	string = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
     	String itemList[] = string.split(pattern);
     	return itemList;
     }
