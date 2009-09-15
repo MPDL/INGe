@@ -60,6 +60,7 @@ public class METSTransformation
     
     @EJB
     private DataGathering dataGathering;
+    private Div physicalRootDiv;
 
     /**
      * Public Constructor METSTransformation.
@@ -284,15 +285,15 @@ public class METSTransformation
             // Dummy root div
             Div div = tocDoc.getToc().getDiv();
             Div[] children = div.getDivArray();
-            Div physical = null;
+            physicalRootDiv = null;
             for (int i = 0; i < children.length; i++)
             {
                 if (children[i].getTYPE().equals("physical"))
                 {
-                    physical = children[i];
+                    physicalRootDiv = children[i];
                 }
             }
-            Div[] physChilds = physical.getDivArray();
+            Div[] physChilds = physicalRootDiv.getDivArray();
             for (int x = 0; x < physChilds.length; x++)
             {
                 Div page = physChilds[x];
@@ -361,7 +362,13 @@ public class METSTransformation
             // Create the root element for the logical structMap
             Div logRoot = logical.getDivArray(0);
             this.writeMETS.createStructMap(this.writeMETS.getTypeLOGICAL(), logRoot.getTYPE());
+            
             this.writeMETS.createStructLink();
+            
+            //create a struct link for the book element, linked with first page (required by DFG-Viewer)
+            this.writeMETS.addStructLink("logstruct0", physicalRootDiv.getDivArray(0).getID());
+            
+            
             
             for(Div childDiv : logRoot.getDivArray())
             {
