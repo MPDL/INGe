@@ -2,6 +2,8 @@ package de.mpg.escidoc.services.transformation.transformations.otherFormats.endn
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -82,16 +84,56 @@ public class EndNoteImport
     public List<String> splitItems(String itemsStr)
     {
     	List<String> l = new ArrayList<String>();
-    	String pattern = "(\\r\\n){2,3}|\\n{2,3}|\\r{2,3}";
-    	Pattern p = Pattern.compile(pattern);
-    	for (String s: p.split(itemsStr) )
-			if (checkVal(s) && s.length() > 1)
-			{
-				//s = s.replaceAll("^.*?(%0)","$1" );
-    			//l.add( s.startsWith("%0 ")? s : "%0 " + s );
-				l.add(s.trim());
-			}
-//    	logger.info("count:" + i);
+    	String buff;
+    	boolean firstItem = true;
+    	StringBuffer sb = null;
+    	int counter = 0;
+    	
+    	BufferedReader reader = new BufferedReader(new StringReader(itemsStr));
+    	
+    	//replace first empty lines and BOM
+    	itemsStr = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(itemsStr).replaceFirst("%");
+    	
+    	try {
+    		while ((buff = reader.readLine()) != null) 
+    		{
+    			if ( ! checkVal(buff) )
+    			{
+    				counter++; 
+    			}
+    			else
+    			{
+    				//first item handling
+    				if ( firstItem )
+    				{
+    					firstItem = false;
+    					sb = new StringBuffer();
+    				}
+    				// new item 
+    				else if ( counter >= 1 ) 
+    				{
+    					l.add(sb.toString().trim());
+    					counter = 0;
+    					sb = new StringBuffer();
+    				}
+    				sb.append(buff).append("\n");    						
+    			}
+
+    		}
+    		//add last item
+    		if ( sb != null )
+    		{
+    			l.add(sb.toString().trim());
+    		}
+
+    		reader.close();
+
+    	} 
+		catch (IOException e) 
+		{
+			throw new RuntimeException("error by reading of items string", e);
+		}    	
+		
     	return l;
     }
     
