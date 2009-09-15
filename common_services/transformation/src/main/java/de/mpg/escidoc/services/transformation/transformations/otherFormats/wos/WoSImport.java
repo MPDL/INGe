@@ -25,8 +25,7 @@ public class WoSImport{
     /**
      * Public Constructor RISImport.
      */
-    public WoSImport(){
-    	 
+    public WoSImport(){  	 
     	
     }
     
@@ -42,13 +41,14 @@ public class WoSImport{
     	if(itemList!=null && itemList.length>1){ //transform items to XML
     		 
     		for (String item : itemList) {
-    			List<Pair> itemPairs = getItemPairs(getItemFromString(item+"\n", "(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)"));
+    			List<Pair> itemPairs = getItemPairs(getItemFromString(item+"\n"));
+    			
     			items.add(itemPairs);  
 			}
     		result = transformItemListToXML(items); 
     		
     	}else if(itemList!=null && itemList.length==1){
-    		List<Pair> item = getItemPairs(getItemFromString(itemList[0]+"\n", "(([A-Z]{1}[0-9]{1})|[A-Z]{2}) ((.*(\\r\\n|\\r|\\n))+?)"));
+    		List<Pair> item = getItemPairs(getItemFromString(itemList[0]+"\n"));
     		result = transformItemToXML(item);
     	}
     	return result;
@@ -62,7 +62,7 @@ public class WoSImport{
     	
     	String file = "";        	
     	try{    		
-    		BufferedReader input = new BufferedReader(new FileReader("/home/kurt/Dokumente/wok-isi.txt"));
+    		BufferedReader input = new BufferedReader(new FileReader("/home/kurt/Dokumente/wok-isi-test.txt"));
     		// string buffer for file reading  
             String str;               
             // reading line by line from file   
@@ -82,15 +82,17 @@ public class WoSImport{
      * @param string
      * @return
      */
-    public List<String> getItemFromString(String itemStr, String patternString){    	
+    public List<String> getItemFromString(String itemStr){    	
     	   	
-    	Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*\\n)((\\s\\s\\s.*\\n)?)*)");
+    	Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
+    	//Pattern pattern = Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
+    	
     	Matcher matcher = pattern.matcher(itemStr);
     	List<String> lineStrArr = new ArrayList();
     	while(matcher.find()){
     		lineStrArr.add(matcher.group());    		
     	}
-    	    	
+    	
     	return lineStrArr;
     }
     
@@ -119,6 +121,7 @@ public class WoSImport{
     		
     		for (String line : lines) {
     			Pair pair = createWoSPairByString(line);
+    			
     			pairList.add(pair);
 			}
     	}    	
@@ -136,7 +139,7 @@ public class WoSImport{
     	String value = line.substring(3);
     	Pair pair = null;    	
     	pair = new Pair(key.trim(), escape(value.trim()));
-    	    		
+    			
     	return pair;
     }
     
