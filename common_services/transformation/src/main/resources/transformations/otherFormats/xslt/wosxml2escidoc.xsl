@@ -166,10 +166,8 @@
 			
 			<!-- DATES -->
 			<xsl:call-template name="createDate"/>
-			<!-- SOURCE -->
-			<xsl:if test="SO">
-				<xsl:call-template name="createSource"/>
-			</xsl:if>
+			<!-- SOURCE -->			
+			<xsl:call-template name="createSource"/>			
 			<!-- EVENT -->
 			<xsl:if test="CT">
 				<xsl:call-template name="createEvent"/>
@@ -327,6 +325,7 @@
 	<xsl:template name="createSource">
 		<xsl:param name="genre"/>
 				
+		<xsl:if test="SO">
 		<xsl:element name="pub:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -347,12 +346,12 @@
 			</xsl:element>					
 			
 			<!-- SOURCE ALTTITLE -->
-			<xsl:if test="JI and not(SE)">
+			<xsl:if test="JI and SE">
 				<xsl:element name="dcterms:alternative">
 					<xsl:value-of select="JI"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:if test="J9 and not(SE)">
+			<xsl:if test="J9 and SE">
 				<xsl:element name="dcterms:alternative">
 					<xsl:value-of select="J9"/>
 				</xsl:element>
@@ -372,8 +371,7 @@
 								<xsl:with-param name="title" select="title"/>
 							</xsl:call-template>
 						</xsl:element>          
-      			 </xsl:for-each>
-				
+      			 </xsl:for-each>				
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="VL and not(SE)">
@@ -410,8 +408,7 @@
 					</xsl:element>
 					<xsl:element name="e:place">
 						<xsl:value-of select="PA"/>
-					</xsl:element>
-					
+					</xsl:element>					
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE IDENTIFIER -->
@@ -428,8 +425,9 @@
 				</xsl:element>
 			</xsl:if>
 		</xsl:element>
+		</xsl:if>
 		<!-- SECOND SOURCE -->
-		<xsl:if test="BS">
+		<xsl:if test="SE">
 			<xsl:element name="pub:source">
 				<xsl:attribute name="type">series</xsl:attribute>
 				<xsl:element name="dc:title">
