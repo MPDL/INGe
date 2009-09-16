@@ -250,34 +250,6 @@
                             </includeInApplicationXml>
                         </jarModule>
                         <jarModule>
-                            <groupId>richfaces</groupId>
-                            <artifactId>richfaces-api</artifactId>
-                            <includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>richfaces</groupId>
-                            <artifactId>richfaces-impl</artifactId>
-                            <includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>richfaces</groupId>
-                            <artifactId>richfaces-ui</artifactId>
-                            <includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-                        </jarModule>
-                        <jarModule>
-                            <groupId>jsf-facelets</groupId>
-                            <artifactId>jsf-facelets</artifactId>
-                            <includeInApplicationXml>
-                                true
-                            </includeInApplicationXml>
-                        </jarModule>
-                        <jarModule>
                             <groupId>postgresql</groupId>
                             <artifactId>postgresql</artifactId>
                             <includeInApplicationXml>
@@ -443,49 +415,49 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>common_logic</artifactId>
-            <version>1.1.26-SNAPSHOT</version>
+            <version>1.1.27-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.32</version>
+            <version>1.0.33-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.23</version>
+            <version>1.0.24-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>structuredexportmanager</artifactId>
-            <version>1.0.29</version>
+            <version>1.0.30-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation</artifactId>
-            <version>1.0.30</version>
+            <version>1.0.31-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.32</version>
+            <version>1.0.33-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.25</version>
+            <version>1.0.26-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -499,7 +471,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.14-SNAPSHOT</version>
+            <version>1.0.15-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -672,30 +644,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>richfaces</groupId>
-            <artifactId>richfaces-api</artifactId>
-            <version>3.1.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>richfaces</groupId>
-            <artifactId>richfaces-impl</artifactId>
-            <version>3.1.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>richfaces</groupId>
-            <artifactId>richfaces-ui</artifactId>
-            <version>3.1.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>jsf-facelets</groupId>
-            <artifactId>jsf-facelets</artifactId>
-            <version>1.1.13</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>8.3-604.jdbc3</version>
@@ -734,43 +682,43 @@
             <version>1.0-beta-1</version>
             <scope>test</scope>
         </dependency>
-    	<dependency>
+        <dependency>
 			<groupId>xmlbeans.dataacquisition</groupId>
 			<artifactId>sources</artifactId>
 			<version>1.1</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
+        <dependency>
 			<groupId>xmlbeans.dataacquisition</groupId>
 			<artifactId>unapisources</artifactId>
 			<version>1.1</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
+        <dependency>
 			<groupId>xmlbeans.dataacquisition</groupId>
 			<artifactId>unapiformats</artifactId>
 			<version>1.1</version>
 			<scope>compile</scope>
 		</dependency>
-    	<dependency>
+        <dependency>
       		<groupId>sword</groupId>
       		<artifactId>swordcommon</artifactId>
       		<version>1.0</version>
       		<scope>compile</scope>		
     	</dependency>
-    	<dependency>
+        <dependency>
       		<groupId>sword</groupId>
       		<artifactId>xom</artifactId>
       		<version>1.2.1</version>
       		<scope>compile</scope>
     	</dependency>
-    	<dependency>
+        <dependency>
 	    	<groupId>commons-fileupload</groupId>
 	    	<artifactId>commons-fileupload</artifactId>
 	    	<version>1.2</version>
 	    	<scope>compile</scope>
 	    </dependency>
-	    <dependency>
+        <dependency>
 	    	<groupId>commons-io</groupId>
 	    	<artifactId>commons-io</artifactId>
 	    	<version>1.4</version>
