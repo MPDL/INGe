@@ -196,20 +196,20 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.29</version>
+			<version>1.0.30</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.26</version>
+			<version>1.1.27</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.32</version>
+			<version>1.0.33</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
