@@ -79,6 +79,10 @@
 	border-top-width: 0.10em !important;
 }
 
+.infoPage .sideSectionArea { 
+	width: 34em;
+}
+
 .infoPage .sideSection {
 	padding: 0px;
 	width: 31.28em;

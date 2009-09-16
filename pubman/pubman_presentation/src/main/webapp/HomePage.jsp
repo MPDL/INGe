@@ -109,16 +109,17 @@
 							</h:panelGroup>
 
 							<!-- Side Panels -->
-							<h:panelGroup styleClass="free_area0_p8 sideSection">
-								<jsp:directive.include file="home/LastReleased.jspf" />
+							<h:panelGroup styleClass="sideSectionArea">
+								<h:panelGroup styleClass="free_area0_p8 sideSection">
+									<jsp:directive.include file="home/LastReleased.jspf" />
+								</h:panelGroup>
+								<h:panelGroup styleClass="free_area0_p8 sideSection">
+									<jsp:directive.include file="home/BlogIntegration.jspf" />
+								</h:panelGroup>
+								<h:panelGroup styleClass="free_area0_p8">
+									<div id="searchCloudDiv"></div>
+								</h:panelGroup>
 							</h:panelGroup>
-							<h:panelGroup styleClass="free_area0_p8 sideSection">
-								<jsp:directive.include file="home/BlogIntegration.jspf" />
-							</h:panelGroup>
-							<h:panelGroup styleClass="free_area0_p8">
-								<div id="searchCloudDiv"></div>
-							</h:panelGroup>
-							
 							
 						</div>	
 					</div>
