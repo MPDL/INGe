@@ -77,13 +77,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>dataacquisition</artifactId>
-			<version>1.0.23</version>
+			<version>1.0.24-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>transformation</artifactId>
-			<version>1.0.14-SNAPSHOT</version>
+			<version>1.0.15-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
