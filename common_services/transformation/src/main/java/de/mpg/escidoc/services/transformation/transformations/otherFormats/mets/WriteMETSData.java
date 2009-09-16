@@ -197,7 +197,7 @@ public class WriteMETSData
      * @param type the type of the structMap (physical or logical)
      * @param logElem the type of the element if it's logical, otherwise null
      */
-    public void createStructMap(String type, String logElem)
+    public void createStructMap(String type, String logElem, String label)
     {
         this.structMap = this.mets.addNewStructMap();
         this.structMap.setTYPE(type);
@@ -225,6 +225,7 @@ public class WriteMETSData
             this.logRoot.setADMID(amd);
             this.logRoot.setDMDID(dmd);
             this.logRoot.setTYPE(logElem);
+            logRoot.setLABEL(label);
             this.currentDiv = this.logRoot;
             this.currentFather = this.logRoot;
         }

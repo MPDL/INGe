@@ -61,6 +61,7 @@ public class METSTransformation
     @EJB
     private DataGathering dataGathering;
     private Div physicalRootDiv;
+    private ModsType volumeMods;
 
     /**
      * Public Constructor METSTransformation.
@@ -166,7 +167,7 @@ public class METSTransformation
                 }
             }
             
-            ModsType volumeMods = retrieveMods(volumeContainerId);
+            volumeMods = retrieveMods(volumeContainerId);
             
             List<RelationVO> multiVolumeContainerRel = this.dataGathering.findParentContainer(this.login.loginSysAdmin(), volumeContainerId);
             if (multiVolumeContainerRel!=null && multiVolumeContainerRel.size()>0)
@@ -274,7 +275,7 @@ public class METSTransformation
     private void createPhysicals(TocDocument tocDoc) throws RuntimeException
     {
         int divId = 1;
-        this.writeMETS.createStructMap(this.writeMETS.getTypePHYSICAL(), null);
+        this.writeMETS.createStructMap(this.writeMETS.getTypePHYSICAL(), null, null);
         this.writeMETS.createFileSec();
         this.writeMETS.createFileGroup(this.writeMETS.getFileGrpDEFAULT());
         this.writeMETS.createFileGroup(this.writeMETS.getFileGrpMIN());
@@ -361,7 +362,19 @@ public class METSTransformation
             }
             // Create the root element for the logical structMap
             Div logRoot = logical.getDivArray(0);
-            this.writeMETS.createStructMap(this.writeMETS.getTypeLOGICAL(), logRoot.getTYPE());
+            
+            String label = null;
+            try
+            {
+                label = volumeMods.getTitleInfoArray(0).getTitleArray(0);
+            }
+            catch (Exception e)
+            {
+                logger.info("No title for volume found", e);
+            }
+
+            //create struct map for book root element and set volume title as label 
+            this.writeMETS.createStructMap(this.writeMETS.getTypeLOGICAL(), logRoot.getTYPE(), label);
             
             this.writeMETS.createStructLink();
             
@@ -389,7 +402,7 @@ public class METSTransformation
      */
     private void createLogicalStructMapRec(Div tocDiv, DivType metsDivParent)
     {
-        if(tocDiv.getTYPE().equals("structural-element"))
+        if(tocDiv.getTYPE().equals("structural-element") || tocDiv.getTYPE().equals("book"))
         {
             
             XmlObject[] metadataChildren = tocDiv.selectChildren(new QName("http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement","virrelement"));
