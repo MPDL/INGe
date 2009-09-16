@@ -129,7 +129,7 @@ public class RisProcessor extends FormatProcessor
                 }
             }
             
-            if (line != null && line.matches("ER\\s+-"))
+            if (lastLine != null && lastLine.matches("ER\\s+-\\s*"))
             {
                 itemList.add(stringWriter.toString());
             }
