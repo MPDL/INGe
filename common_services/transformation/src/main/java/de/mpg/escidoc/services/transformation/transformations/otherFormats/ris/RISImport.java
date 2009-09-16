@@ -108,7 +108,7 @@ public class RISImport{
     	
     	//String s[] = string.split("ER\\s -");
     	
-    	//replace first empty lines and BOM
+    	//replace first empty lines and BOM 
     	string = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
     	String itemList[] = string.split(pattern);
     	return itemList;
