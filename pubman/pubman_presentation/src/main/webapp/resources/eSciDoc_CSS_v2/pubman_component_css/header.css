@@ -178,6 +178,7 @@
 		/*REPLACEMENT HACK FOR IE LESS THAN 6*/
 		* html .contentMenu .action {
 			margin-top: -1.28em;
+			width: 100%;
 		}
 		* html .contentMenu .ieFilter {
 			width: 50em;
