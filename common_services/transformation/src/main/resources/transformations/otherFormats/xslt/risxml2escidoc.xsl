@@ -521,7 +521,7 @@
 			<!-- SOURCE PUBLISHINGINFO -->			
 			<xsl:if test="($genre='article' or $genre='paper' or $genre='issue' or $genre='other' or $genre='conference-paper' or $genre='book-item') and (PB or CY)">
 				<xsl:element name="e:publishing-info">
-					<xsl:element name="e:publisher">
+					<xsl:element name="dc:publisher">
 						<xsl:value-of select="PB"/>
 					</xsl:element>
 					<xsl:element name="e:place">
