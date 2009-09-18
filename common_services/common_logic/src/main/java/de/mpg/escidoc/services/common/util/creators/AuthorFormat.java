@@ -66,7 +66,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
     protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIALS + ")( *(" + NAME + "|" + INITIALS + "))*)";
     
-    protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|email|written|et al)";
+    protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|†|‡||email|written|et al)";
     protected static final String IGNORE_CHARACTERS = ".*(@).*";
     
 
