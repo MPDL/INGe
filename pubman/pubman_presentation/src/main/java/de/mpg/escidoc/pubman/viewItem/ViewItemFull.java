@@ -859,9 +859,6 @@ public class ViewItemFull extends FacesBean
             
             //redirect to last breadcrumb, if available
             BreadcrumbItemHistorySessionBean bhsb = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
-            PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
-            pilsb.setHasChanged();
-            
             
             try
             {

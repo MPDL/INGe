@@ -12,6 +12,8 @@ import java.util.Map.Entry;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
@@ -30,6 +32,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  */
 public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> extends FacesBean
 {
+    
+    private static Logger logger = Logger.getLogger(BasePaginatorListSessionBean.class);
     
     /**
      * The GET parameter name for the elements per page value
@@ -132,6 +136,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
      * Indicates if the list should be upadated even if no parameters have changed
      */
     private boolean hasChanged;
+
+    private boolean noListUpdate;
     
     /**
      * Initializes a new BasePaginatorListSessionBean
@@ -187,8 +193,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         
         readOutParameters();
         
-        
-        if (parametersChanged() || getHasChanged())
+        logger.info("No List update: "+noListUpdate);
+        if (!getNoListUpdate())
         {
             
             currentPartList = getPaginatorListRetriever().retrieveList(getOffset(), elementsPerPage, getAdditionalFilters());
@@ -873,6 +879,25 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     {
         boolean returnVal = hasChanged;
         hasChanged=false;
+        return returnVal;
+    }
+    
+    /**
+     * Set this method if during the next call of the retriever request bean the list should not be updated;
+     */
+    public void setNoListUpdate(boolean noListUpdate)
+    {
+        this.noListUpdate=noListUpdate;
+    }
+    
+    /**
+     * Returns the value of noListUpdate and resets it to false.
+     * @return
+     */
+    private boolean getNoListUpdate()
+    {
+        boolean returnVal = noListUpdate;
+        noListUpdate=false;
         return returnVal;
     }
     

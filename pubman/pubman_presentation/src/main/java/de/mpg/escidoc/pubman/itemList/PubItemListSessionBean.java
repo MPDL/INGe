@@ -428,6 +428,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSubMenu("VIEW");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)
@@ -448,6 +449,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSubMenu("EXPORT");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)
@@ -468,6 +470,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSubMenu("FILTER");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)
@@ -488,6 +491,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSubMenu("SORTING");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)
@@ -508,6 +512,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setListType("BIB");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)
@@ -528,6 +533,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setListType("GRID");
+            setNoListUpdate(true);
             redirect();
         }
         catch (Exception e)

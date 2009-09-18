@@ -186,7 +186,6 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             error(getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
         }
        
-        getBasePaginatorListSessionBean().setHasChanged();
         getBasePaginatorListSessionBean().redirect();
        
         return "";

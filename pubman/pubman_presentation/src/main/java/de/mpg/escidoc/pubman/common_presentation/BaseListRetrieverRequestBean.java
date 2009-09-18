@@ -38,7 +38,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
         getBasePaginatorListSessionBean().setPageType(getType());
         if (refreshAlways)
         {
-            getBasePaginatorListSessionBean().setHasChanged();
+            getBasePaginatorListSessionBean().setNoListUpdate(false);
         }
         init();
 

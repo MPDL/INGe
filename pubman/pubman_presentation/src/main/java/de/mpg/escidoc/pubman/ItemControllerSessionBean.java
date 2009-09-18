@@ -324,7 +324,6 @@ public class ItemControllerSessionBean extends FacesBean
                 throw technicalException;
             }
 
-            getPubItemListSessionBean().setHasChanged();
            
             
             if (currentPubItem != null && currentPubItem.getVersion() != null)
@@ -617,7 +616,6 @@ public class ItemControllerSessionBean extends FacesBean
      */
     private PubItemVO createNewRevision(ContextRO pubContextRO, PubItemVO pubItem, String revisionDescription) throws Exception
     {
-        getPubItemListSessionBean().setHasChanged();
         // create the new item
         PubItemVO newRevision = this.pubItemDepositing.createRevisionOfItem(new PubItemVO(pubItem), revisionDescription, pubContextRO, loginHelper.getAccountUser());
                     
@@ -719,7 +717,6 @@ public class ItemControllerSessionBean extends FacesBean
            logger.debug("Creating a new PubItem for Collection with ID: " + pubContextRO.getObjectId());
         }
         
-        getPubItemListSessionBean().setHasChanged();
         
         // create the new item
         PubItemVO newPubItem = this.pubItemDepositing.createPubItem(pubContextRO, loginHelper.getAccountUser());
@@ -896,7 +893,6 @@ public class ItemControllerSessionBean extends FacesBean
         // work with a clone of the metadata so the item can be cleaned up before saving and the item in 
         // EditItem stays in the same (uncleaned) state so we can continue editing when saving fails for 
         // some reason
-        getPubItemListSessionBean().setHasChanged();
         
         PubItemVO pubItem = (PubItemVO) pubItemToSave.clone();
         
@@ -976,7 +972,6 @@ public class ItemControllerSessionBean extends FacesBean
      */
     private ItemRO submitOrReleasePubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
     {
-        getPubItemListSessionBean().setHasChanged();
         if (logger.isDebugEnabled())
         {
             if (pubItem != null && pubItem.getVersion() != null)
@@ -1054,7 +1049,6 @@ public class ItemControllerSessionBean extends FacesBean
      */
     private ItemRO saveAndSubmitOrReleasePubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
     {
-        getPubItemListSessionBean().setHasChanged();
         if (logger.isDebugEnabled())
         {
             if (pubItem != null && pubItem.getVersion() != null)
@@ -1148,7 +1142,6 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Withdrawing item...");
         }
 
-        getPubItemListSessionBean().setHasChanged();
         Date lastModificationDate = pubItem.getModificationDate();
         //withdrawalComment = pubItem.getWithdrawalComment();
 
@@ -1190,7 +1183,6 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Deleting item...");
         }
         
-        getPubItemListSessionBean().setHasChanged();
         // delete the item
         this.pubItemDepositing.deletePubItem(pubItem, loginHelper.getAccountUser());
     }
@@ -2229,9 +2221,6 @@ public class ItemControllerSessionBean extends FacesBean
      */
     private ItemRO acceptPubItem(PubItemVO pubItem, String acceptanceComment, boolean ignoreInformativeMessages) throws Exception
     {
-        
-        getPubItemListSessionBean().setHasChanged();
-        
         if (logger.isDebugEnabled())
         {
             logger.debug("Accepting PubItem: " + pubItem.getVersion().getObjectId());
@@ -2505,7 +2494,6 @@ public class ItemControllerSessionBean extends FacesBean
                 logger.debug("Revising item...");
             }
             
-            getPubItemListSessionBean().setHasChanged();
             // delete the item
             this.qualityAssurance.revisePubItem(currentPubItem.getVersion(), reviseComment, loginHelper.getAccountUser());
             
