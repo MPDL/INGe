@@ -454,7 +454,8 @@ public class PubItemDepositingBean implements PubItemDepositing
             throw new TechnicalException("Error validation item", e);
         }
         // first save the item
-        PubItemVO savedPubItem = savePubItem(pubItem, user);
+        PubItemVO savedPubItem = pubItem;
+        //PubItemVO savedPubItem = savePubItem(pubItem, user);
         PubItemVO pubItemActual = null;
         // then submit the item
         try
