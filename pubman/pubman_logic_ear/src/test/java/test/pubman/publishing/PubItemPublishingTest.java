@@ -93,7 +93,8 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        PubItemVO savedItem = pmDepositing.savePubItem(item, user);
+        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -141,7 +142,8 @@ public class PubItemPublishingTest extends TestBase
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         item.getFiles().add(file);
 
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        PubItemVO savedItem = pmDepositing.savePubItem(item, user);
+        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -233,7 +235,8 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        PubItemVO savedItem = pmDepositing.savePubItem(item, user);
+        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -261,7 +264,8 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        PubItemVO savedItem = pmDepositing.savePubItem(item, user);
+        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);

@@ -49,6 +49,7 @@ import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundExcept
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
@@ -319,6 +320,7 @@ public class PubItemDepositingTest extends TestBase
      * @throws Exception
      */
     @Test
+    
     public void testSaveExistingReleasedPubItem() throws Exception
     {
         user = getUserTestDepLibWithHandle();
@@ -326,7 +328,8 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
         // submit the item
-        PubItemVO savedItem = pmDepositing.submitAndReleasePubItem(item, "testSaveExistingReleasedPubItem", user);
+        PubItemVO savedItem = savePubItem(item, user);
+        savedItem = pmDepositing.submitAndReleasePubItem(savedItem, "testSaveExistingReleasedPubItem", user);
         assertEquals(PubItemVO.State.RELEASED, savedItem.getVersion().getState());
 
         assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
@@ -442,7 +445,8 @@ public class PubItemDepositingTest extends TestBase
 
         // submit and release the item
         // in R2, the PubItemDepositing.submit method automatically releases the item, too!
-        PubItemVO releasedItem = pmDepositing.submitAndReleasePubItem(item, "Test Submit", libUser);
+        PubItemVO savedItem = savePubItem(item, user);
+        PubItemVO releasedItem = pmDepositing.submitAndReleasePubItem(savedItem, "Test Submit", libUser);
         assertNotNull(releasedItem);
         assertEquals(PubItemVO.State.RELEASED, releasedItem.getVersion().getState());
         logger.info("Item was submitted and released. ObjId: " + releasedItem.getVersion().getObjectId());
@@ -506,7 +510,8 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
         item.setVersion(null);
-        PubItemVO submittedPubItem = pmDepositing.submitPubItem(item, "Test Submit", user);
+        PubItemVO savedItem = savePubItem(item, user);
+        PubItemVO submittedPubItem = pmDepositing.submitPubItem(savedItem, "Test Submit", user);
         assertNotNull(submittedPubItem);
         assertNotNull(submittedPubItem.getVersion());
 
@@ -545,7 +550,7 @@ public class PubItemDepositingTest extends TestBase
      * 
      * @throws Exception
      */
-    @Test(expected = AuthorizationException.class)
+    @Test(expected = TechnicalException.class)
     public void testSubmitExistingPubItemWithOtherUser() throws Exception
     {
         // create pubItem to get Reference
@@ -604,7 +609,8 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO pubItem = getNewPubItemWithoutFiles();
         // submit the item
-        pubItem = pmDepositing.submitAndReleasePubItem(pubItem, "testAcceptExistingReleasedPubItem", user);
+        PubItemVO savedItem = savePubItem(pubItem, user);
+        pubItem = pmDepositing.submitAndReleasePubItem(savedItem, "testAcceptExistingReleasedPubItem", user);
         assertEquals(PubItemVO.State.RELEASED, pubItem.getVersion().getState());
 
         assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
