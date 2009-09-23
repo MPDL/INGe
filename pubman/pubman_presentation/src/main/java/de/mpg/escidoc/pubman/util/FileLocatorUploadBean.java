@@ -259,7 +259,7 @@ public abstract class FileLocatorUploadBean extends FacesBean
                     fileVO.getDefaultMetadata().setSize(this.getSize());
                     fileVO.getDefaultMetadata().setTitle(new TextVO(this.getFileName(this.getLocator())));
                     fileVO.setMimeType(this.getType());
-                    fileVO.setName(this.name);
+                    fileVO.setName(this.getFileName(this.getLocator()));
 
                     FormatVO formatVO = new FormatVO();
                     formatVO.setType("dcterms:IMT");

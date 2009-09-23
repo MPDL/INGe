@@ -1070,9 +1070,9 @@ public class EasySubmission extends FacesBean
                          fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                          fileVO.setVisibility(dataHandler.getVisibility());
                          fileVO.setDefaultMetadata(fileMd);
-                         fileVO.getDefaultMetadata().setTitle(new TextVO(getServiceID().trim()+ dataHandler.getFileEnding()));
+                         fileVO.getDefaultMetadata().setTitle(new TextVO(this.replaceSlashes(getServiceID().trim()+ dataHandler.getFileEnding())));
                          fileVO.setMimeType(dataHandler.getContentType());
-                         fileVO.setName(getServiceID().trim()+ dataHandler.getFileEnding());
+                         fileVO.setName(this.replaceSlashes(getServiceID().trim()+ dataHandler.getFileEnding()));
 
                          FormatVO formatVO = new FormatVO();
                          formatVO.setType("dcterms:IMT");
@@ -1160,9 +1160,9 @@ public class EasySubmission extends FacesBean
                                         newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
                                         newFile.setVisibility(file.getVisibility());
                                         newFile.setDefaultMetadata(new MdsFileVO());
-                                        newFile.getDefaultMetadata().setTitle(file.getDefaultMetadata().getTitle());
+                                        newFile.getDefaultMetadata().setTitle(new TextVO(this.replaceSlashes(file.getDefaultMetadata().getTitle().getValue())));
                                         newFile.setMimeType(file.getMimeType());
-                                        newFile.setName(file.getName());
+                                        newFile.setName(this.replaceSlashes(file.getName()));
 
                                         FormatVO formatVO = new FormatVO();
                                         formatVO.setType("dcterms:IMT");
@@ -2649,6 +2649,25 @@ public class EasySubmission extends FacesBean
 //            }
             error(getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
         }
+    }
+    
+    
+    /**
+     * This method replaces forward  and backslases in a given String (e.g. in a filename) with an underscore
+     * @param fileName
+     * @return String the cleaned String
+     */
+    private String replaceSlashes(String fileName)
+    {
+    	String newFileName = "";
+    	if(fileName != null)
+    	{
+    		// replace forward slahes
+    		newFileName = fileName.replaceAll("\\/", "_");
+    		// replace back slashes
+    		newFileName = newFileName.replaceAll("\\\\", "_");
+    	}
+    	return newFileName;
     }
 
 	public String getLocatorUpload() {

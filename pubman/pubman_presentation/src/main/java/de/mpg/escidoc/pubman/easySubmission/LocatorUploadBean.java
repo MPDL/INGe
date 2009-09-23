@@ -69,7 +69,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean
                 fileVO.getDefaultMetadata().setSize(this.getSize());
                 fileVO.getDefaultMetadata().setTitle(new TextVO(super.getFileName(this.getLocator())));
                 fileVO.setMimeType(this.getType());
-                fileVO.setName(super.name);
+                fileVO.setName(super.getFileName(this.getLocator()));
 
                 FormatVO formatVO = new FormatVO();
                 formatVO.setType("dcterms:IMT");
