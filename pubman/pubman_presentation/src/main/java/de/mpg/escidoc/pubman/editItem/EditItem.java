@@ -1087,7 +1087,9 @@ public class EditItem extends FacesBean
             {
 	            if(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getState().equals(ItemVO.State.RELEASED))
 	            {
-	                retVal = this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem("Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
+	            	// save the item first manually due to a change in the saveAndSubmitCurrentPubItem method (save removed there)
+	            	this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+	            	retVal = this.getItemControllerSessionBean().saveAndSubmitCurrentPubItem("Submission during saving released item.", AcceptItem.LOAD_ACCEPTITEM);
 	            }
 	            else
 	            {
