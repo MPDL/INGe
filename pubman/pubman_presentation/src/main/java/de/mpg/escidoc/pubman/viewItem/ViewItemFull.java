@@ -331,13 +331,30 @@ public class ViewItemFull extends FacesBean
             }
             catch (AuthorizationException e)
             {
-                Login login = (Login)getSessionBean(Login.class);
-                login.forceLogout(itemID);
+                if (loginHelper.isLoggedIn())
+                {
+                    error(getMessage("ViewItemFull_noPermission"));
+                }
+                else
+                {
+                    //redirect to login
+                    Login login = (Login)getSessionBean(Login.class);
+                    login.forceLogout(itemID);
+                }
+               
             }
             catch (AuthenticationException e)
             {
-                Login login = (Login)getSessionBean(Login.class);
-                login.forceLogout(itemID);
+                if (loginHelper.isLoggedIn())
+                {
+                    error(getMessage("ViewItemFull_noPermission"));
+                }
+                else
+                {
+                    //redirect to login
+                    Login login = (Login)getSessionBean(Login.class);
+                    login.forceLogout(itemID);
+                }
             }
             catch (Exception e)
             {
