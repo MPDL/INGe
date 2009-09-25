@@ -122,7 +122,7 @@
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
 	
-		<xsl:variable name="refType" select="NUM_0"/>
+		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
 		
@@ -146,7 +146,7 @@
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
 		
-		<xsl:variable name="refType" select="NUM_0"/>
+		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="sourceGenre" select="
 				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript') ) then 'series' else
@@ -460,13 +460,13 @@
 		</xsl:element>
 		
 	</xsl:template>
-	
+
 	
 	
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
 		<xsl:param name="sgen"/>
-		<xsl:variable name="refType" select="NUM_0"/>
+		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:element name="pub:source">
 
@@ -617,7 +617,7 @@
 	
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
-		<xsl:variable name="refType" select="NUM_0"/>
+		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		<xsl:for-each select="A|E|Y|QUESTION">
 			<xsl:if test="name(.)='A'">
 				<xsl:choose>
