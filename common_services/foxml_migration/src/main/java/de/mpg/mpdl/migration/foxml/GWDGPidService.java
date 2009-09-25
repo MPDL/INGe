@@ -40,25 +40,22 @@ public class GWDGPidService implements MigrationConstants
     public static void main(String[] args)
     {
         // TODO Auto-generated method stub
+        getSetDefinitions();
     }
     
-    /**
-     * 
-     * @param url2register {@link String}
-     * @return a handle
-     */
-    public static String registerNewPID(String url2register)
+    
+    public static String getSetDefinitions()
     {
-        String urlParameter = null;
+        String body = null;
         
         try
         {
-            urlParameter = "url=" + URLEncoder.encode(url2register, URL_ENCODING_SCHEME);
-            URL url = new URL(GWDG_PIDSERVICE_CREATE);
+            body = "<param><limit>100</limit><offset>0</offset></param>";
+            URL url = new URL("http://coreservice.mpdl.mpg.de:8080/oai/set-definitions/filter");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", URL_ENCODING_FORMAT);
-            conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameter.getBytes().length));
+            conn.setRequestProperty("Content-Length", "" + Integer.toString(body.getBytes().length));
             conn.setRequestProperty("Content-Language", "en-US");  
             conn.setUseCaches(false);
             conn.setDoInput(true);
@@ -66,7 +63,7 @@ public class GWDGPidService implements MigrationConstants
             Authenticator.setDefault(new GWDGAuthentication(GWDG_PIDSERVICE_USER, GWDG_PIDSERVICE_PASS));
             
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            wr.writeBytes(urlParameter);
+            wr.writeBytes(body);
             wr.flush();
             wr.close();
 
@@ -140,6 +137,58 @@ public class GWDGPidService implements MigrationConstants
             e.printStackTrace();
         }
         catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * 
+     * @param url2register {@link String}
+     * @return a handle
+     */
+    public static String registerNewPID(String url2register)
+    {
+        String urlParameter = null;
+        
+        try
+        {
+            urlParameter = "url=" + URLEncoder.encode(url2register, URL_ENCODING_SCHEME);
+            URL url = new URL(GWDG_PIDSERVICE_CREATE);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", URL_ENCODING_FORMAT);
+            conn.setRequestProperty("Content-Length", "" + Integer.toString(urlParameter.getBytes().length));
+            conn.setRequestProperty("Content-Language", "en-US");  
+            conn.setUseCaches(false);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            Authenticator.setDefault(new GWDGAuthentication(GWDG_PIDSERVICE_USER, GWDG_PIDSERVICE_PASS));
+            
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+            wr.writeBytes(urlParameter);
+            wr.flush();
+            wr.close();
+
+            InputStream is = conn.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            String line;
+            StringBuffer response = new StringBuffer();
+            while ((line = rd.readLine()) != null)
+            {
+                response.append(line);
+                response.append('\r');
+            }
+            rd.close();
+            return response.toString();
+            
+        }
+        catch (MalformedURLException e)
         {
             e.printStackTrace();
         }

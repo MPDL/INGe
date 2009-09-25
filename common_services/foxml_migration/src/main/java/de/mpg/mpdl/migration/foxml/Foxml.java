@@ -29,7 +29,7 @@ import fedora.fedoraSystemDef.foxml.XmlContentType;
 
 /**
  * 
- * TODO Description.
+ * Main class in foxml_migartion-jar-with-dependencies.jar.
  *
  * @author frank (initial creation)
  * @author $Author$ (last modification)
