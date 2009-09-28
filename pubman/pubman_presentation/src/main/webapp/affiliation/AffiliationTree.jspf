@@ -35,7 +35,7 @@
 
 <div class="full_area0 itemHeader">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.AffiliationTree_txtHeadline}" />
+		<h:outputText id="lblAffiliationTree_txtHeadline" value="#{lbl.AffiliationTree_txtHeadline}" />
 	</h3>
 	<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
@@ -45,10 +45,10 @@
 					<h:panelGroup layout="block" styleClass="std_imgArea affTreeOUIcon mpgUnit" style="float: left;" rendered="#{node.mps}"></h:panelGroup>
 					<h:panelGroup layout="block" styleClass="std_imgArea affTreeOUIcon organisationalUnit" style="float: left;" rendered="#{!node.mps && node.topLevel}"></h:panelGroup>
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px"  style="float: left;" rendered="#{!node.topLevel}"/>
-					<tr:commandLink styleClass="line-height: 2.10em;" text="#{node.name}" action="#{node.startSearch}"/>
+					<tr:commandLink id="lnkAffiliationName" styleClass="line-height: 2.10em;" text="#{node.name}" action="#{node.startSearch}"/>
 					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
 					&#160;
-					<h:outputLink title="#{tip.Affiliation_details}" value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 980, 400, 'Details');return false">   [<h:outputText value="#{lbl.AffiliationTree_lnkDescription}"/>]</h:outputLink>
+					<h:outputLink id="lnkAffiliationDetails" title="#{tip.Affiliation_details}" value="" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 980, 400, 'Details');return false">   [<h:outputText value="#{lbl.AffiliationTree_lnkDescription}"/>]</h:outputLink>
 				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
