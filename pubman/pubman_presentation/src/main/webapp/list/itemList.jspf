@@ -69,71 +69,71 @@
  	</div>
 
  	<div class="small_marginLExcl pageBrowser">
- 		<label class="noDisplay pageLabel">Page</label>
- 		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
- 		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
+ 		<label id="lblPage" class="noDisplay pageLabel">Page</label>
+ 		<tr:goButton id="btPartListSize" styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
+ 		<tr:goButton id="btList_lkPrevious" styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
  		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
- 			<tr:goButton styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
- 			<tr:goButton styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
+ 			<tr:goButton id="btPageNumber1" styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
+ 			<tr:goButton id="btPageNumber2" styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
  			<h:panelGroup styleClass="seperator" />
  		
  		</tr:iterator>
- 		<tr:goButton styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
- 		<tr:goButton styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
+ 		<tr:goButton id="btList_lkNext" styleClass="forward" text="#{lbl.List_lkNext}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForNextPage}"/>
+ 		<tr:goButton id="btLinkForLastPage" styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
  	</div>
 
  	<div class="gotoBox">
- 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}"/></label>
- 		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}"/>
- 		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
- 		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
- 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="#{lbl.list_btGo}" title="#{tip.List_btGo}" action="#{PubItemListSessionBean.goToPageTop}"/>
+ 		<label class="free_label gotoLabel"><h:outputText id="lblList_lblGoToPage" value="#{lbl.List_lblGoToPage}"/></label>
+ 		<h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}"/>
+ 		<h:outputLabel id="lblItemList_of" styleClass="free_label" value="#{lbl.ItemList_of} " />
+ 		<h:outputLabel id="lblPaginatorPageSize" styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
+ 		<h:commandButton id="btList_btGo" styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="#{lbl.list_btGo}" title="#{tip.List_btGo}" action="#{PubItemListSessionBean.goToPageTop}"/>
  	</div>
 
  </div>
 
 
- <div class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />">
+ <div class="full_area0 itemList <h:outputText id="lblLoggedIn" value='loggedIn' rendered='#{LoginHelper.loggedIn}' />">
  	<div class="full_area0 listHeader">
  		<span class="free_area0_p8 endline itemSelectArea">
- 			<input type="button" class="min_imgBtn checkboxSelectButton"/>
+ 			<input type="button" id="btCheckboxSelectButton" class="min_imgBtn checkboxSelectButton"/>
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
- 				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
+ 				<input type="button" id="btCheckBoxCloseSelectButton" class="min_imgBtn checkBoxCloseSelectButton"></input>
  				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
- 				<h:commandLink title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
+ 				<h:commandLink id="lnkList_lkAll" title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAllOnPage}"/></span></h:commandLink>
  				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
- 				<h:commandLink title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
+ 				<h:commandLink id="lnkList_lkNone" title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
  			</div>
  			&nbsp;
  		</span>
  		<span class="seperator"></span>
  		<span class="free_area0 endline status statusArea">
- 			<h:commandLink title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
+ 			<h:commandLink id="lnkSelectedSortByState" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText id="lblSortByState" value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
+ 			<h:commandLink id="lnkAscSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText id="lblSortByAsc" value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
+ 			<h:commandLink id="lnkDescSort" title="#{tip.ItemList_SortBy}" styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText id="lblSortByDesc" value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>	
  		</span>
  		<span class="seperator status"></span>
  		<span class="half_area0_p6 headerSwitchView">
- 			<a class="expand"><span class="noDisplay"><h:outputText title="#{tip.List_Show}" value="#{lbl.List_Show}"/> </span><h:outputText title="#{tip.List_MedView}" value="#{lbl.List_MedView}"/></a>
- 			<a class="collapse"><span class="noDisplay"><h:outputText title="#{tip.List_SelectItem}" value="#{lbl.List_SelectItem}"/> </span><h:outputText title="#{tip.List_ShortView}" value="#{lbl.List_ShortView}"/></a>
+ 			<a class="expand"><span class="noDisplay"><h:outputText id="lblList_Show" title="#{tip.List_Show}" value="#{lbl.List_Show}"/> </span><h:outputText title="#{tip.List_MedView}" value="#{lbl.List_MedView}"/></a>
+ 			<a class="collapse"><span class="noDisplay"><h:outputText id="lblList_SelectItem" title="#{tip.List_SelectItem}" value="#{lbl.List_SelectItem}"/> </span><h:outputText title="#{tip.List_ShortView}" value="#{lbl.List_ShortView}"/></a>
  		</span>
  	</div>
  	<ol>
 
- 	<tr:iterator var="item" value="#{PubItemListSessionBean.currentPartList}" rows="0">
+ 	<tr:iterator id="iterCurrentPartList" var="item" value="#{PubItemListSessionBean.currentPartList}" rows="0">
  	<h:panelGroup>
  		<li class="full_area0 listItem">
  			<h:panelGroup layout="block" styleClass="free_area0 itemHeader">
  				<span class="free_area0_p8 endline itemSelectArea">
- 					<h:selectBooleanCheckbox styleClass="itemCheckBox" value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
+ 					<h:selectBooleanCheckbox id="selItemSelect" styleClass="itemCheckBox" value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
 					&#160;
  				</span>
  				<span class="seperator"></span>
@@ -145,17 +145,17 @@
  					<h:panelGroup styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{item.isStateInRevision}" />
 					<span class="noDisplay">(</span>
  					<h:outputLabel styleClass="medium_label endline" rendered="#{item.isStateWithdrawn}">
- 						<h:outputText value="#{item.itemPublicState}" />
+ 						<h:outputText id="lblItemPublicState" value="#{item.itemPublicState}" />
  					</h:outputLabel>
  					<h:outputLabel styleClass="medium_label endline" rendered="#{!item.isStateWithdrawn}">
- 						<h:outputText value="#{item.itemState}" />
+ 						<h:outputText id="lblItemState" value="#{item.itemState}" />
  					</h:outputLabel>
  					<span class="noDisplay">)</span>
  				</span>
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
- 					<h:outputLink title="#{tip.list_shortTitle}" value="#{item.link}">
- 						<b><h:outputText value="#{item.shortTitle}"/></b>
+ 					<h:outputLink id="lnkList_shortTitle" title="#{tip.list_shortTitle}" value="#{item.link}">
+ 						<b><h:outputText id="lblShortTitle" value="#{item.shortTitle}"/></b>
  					</h:outputLink>
 					
  				</span>
