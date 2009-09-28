@@ -48,11 +48,11 @@
 		<div class="contentMenu">
 		<!-- content menu starts here -->
 			<div class="free_area0 sub">
-				<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
@@ -60,11 +60,11 @@
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</span>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 				</h:outputLink>
 			</div>
@@ -113,23 +113,23 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 largeFormPush">
-							<h:outputLabel styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
-							<h:selectOneMenu styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
-								<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
+							<h:outputLabel id="lblIDType" styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
+							<h:selectOneMenu id="selCurrentExternalServiceType" styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
+								<f:selectItems id="selExternalServiceOptions" value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
 							</h:selectOneMenu>
 							<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
 						</span>
 						<span class="xDouble_area0">
-							<h:outputLabel styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
-							<h:inputText styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
+							<h:outputLabel id="lblIDValue" styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
+							<h:inputText id="inpServiceID" styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
 						</span>
 					</span>
 					<b class="xLarge_area0 endline labelLine">
 						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
-							<f:selectItems value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
+						<h:selectOneRadio id="selSelectFulltext" styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmissionSessionBean.fulltext}">										
+							<f:selectItems id="selFulltextOptions" value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
 						</h:selectOneRadio>
 					</span>
 				</h:panelGroup>
@@ -140,19 +140,19 @@
 						<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-						<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
+						<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" />
 						<%-- 
 						<span class="quad_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="quad_label" value="#{lbl.easy_submission_lblBibtexPath}"/>
+							<h:outputLabel id="lblBibtexPath" styleClass="quad_label" value="#{lbl.easy_submission_lblBibtexPath}"/>
 							<span class="xDouble_area0 tiny_marginRIncl">
-								<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
+								<input id="inpBibtexPath" class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
 							</span>
 							<span class="large_area0 large_negMarginRIncl">
 								<span class="large_area0 fileInputPositioner">
-									<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
+									<tr:inputFile id="inpUploadedBibTexFile" styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
 								</span>
 							</span>
-							<h:outputLabel styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
+							<h:outputLabel id="lblChooseFile" styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
 						</span>
 						 --%>
 					</span>
@@ -162,8 +162,8 @@
 						<h:outputText value="#{lbl.easy_submission_lblReference}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneRadio styleClass="xLarge_radioBtn tiny_marginRIncl xHuge_area0" value="REFERENCE" binding="#{EasySubmissionSessionBean.radioSelectReference}">										
-							<f:selectItems value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
+						<h:selectOneRadio id="selSelectReference"  styleClass="xLarge_radioBtn tiny_marginRIncl xHuge_area0" value="REFERENCE" binding="#{EasySubmissionSessionBean.radioSelectReference}">										
+							<f:selectItems id="selReferenceOptions" value="#{EasySubmissionSessionBean.REFERENCE_OPTIONS}"/>
 						</h:selectOneRadio>
 					</span>
 				</h:panelGroup>
@@ -172,8 +172,8 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">		
-	<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-	<tr:commandLink shortDesc="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
+	<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+	<tr:commandLink id="lnkImport" shortDesc="#{tip.easy_submission_btnImport}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
 </div>
 
 </f:subview>

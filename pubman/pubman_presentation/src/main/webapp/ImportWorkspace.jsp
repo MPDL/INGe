@@ -76,20 +76,20 @@
 										<div class="contentMenu">
 										<!-- content menu starts here -->
 											<div class="free_area0 sub">
-												<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+												<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 													<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
-												<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+												<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 													<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
-												<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+												<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
 													<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
 												<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-													<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+													<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 														<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 													</h:commandLink>
 												</h:panelGroup>
@@ -122,61 +122,61 @@
 									      	</th>
 									      	<th class="free_area0 endline status statusArea">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STATUS'}">
+									      		<h:outputLink id="lnkSort1" value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STATUS'}">
 													<h:outputText styleClass="medium_area0_p8" value="#{lbl.import_workspace_status}"/>
 												</h:outputLink>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+												<h:outputLink id="lnkSort2" value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'ASCENDING'}">
 													<h:outputText styleClass="medium_area0_p8 ascSort" value="#{lbl.import_workspace_status}"/>
 												</h:outputLink>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+												<h:outputLink id="lnkSort3" value="ImportWorkspace.jsp?sortColumn=STATUS&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STATUS' and ImportWorkspace.sortDirection == 'DESCENDING'}">
 													<h:outputText styleClass="medium_area0_p8 desSort" value="#{lbl.import_workspace_status}"/>
 												</h:outputLink>
 											</th>
 									      	<th class="large_area0">
 									      		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									      		<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'NAME'}">
+									      		<h:outputLink id="lnkSort4" value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'NAME'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_name}"/>
 												</h:outputLink>	
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+												<h:outputLink id="lnkSort5" value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'ASCENDING'}">
 													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_name}"/>
 												</h:outputLink>	
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+												<h:outputLink id="lnkSort6" value="ImportWorkspace.jsp?sortColumn=NAME&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'NAME' and ImportWorkspace.sortDirection == 'DESCENDING'}">
 													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_name}"/>
 												</h:outputLink>	
 									      	</th>
 									      <th class="large_area0">
 									     		<h:panelGroup styleClass="seperator"></h:panelGroup>
-									     		<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'FORMAT'}">
+									     		<h:outputLink id="lnkSort7" value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'FORMAT'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_format}"/>
 												</h:outputLink>	
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+												<h:outputLink id="lnkSort8" value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'ASCENDING'}">
 													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_format}"/>
 												</h:outputLink>	
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+												<h:outputLink id="lnkSort9" value="ImportWorkspace.jsp?sortColumn=FORMAT&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'FORMAT' and ImportWorkspace.sortDirection == 'DESCENDING'}">
 													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_format}"/>
 												</h:outputLink>
 									      </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STARTDATE'}">
+												<h:outputLink id="lnkSort10" value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'STARTDATE'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_startdate}"/>
 												</h:outputLink>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+												<h:outputLink id="lnkSort11" value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
 													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_startdate}"/>
 												</h:outputLink>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+												<h:outputLink id="lnkSort12" value="ImportWorkspace.jsp?sortColumn=STARTDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'STARTDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
 													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_startdate}"/>
 												</h:outputLink>
 										  </th>
 									      <th class="large_area0">
 												<h:panelGroup styleClass="seperator"></h:panelGroup>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'ENDDATE'}">
+												<h:outputLink id="lnkSort13" value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn != 'ENDDATE'}">
 													<h:outputText styleClass="large_area0_p8" value="#{lbl.import_workspace_enddate}"/>
 												</h:outputLink>	
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
+												<h:outputLink id="lnkSort14" value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'ASCENDING'}">
 													<h:outputText styleClass="large_area0_p8 ascSort" value="#{lbl.import_workspace_enddate}"/>
 												</h:outputLink>
-												<h:outputLink value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
+												<h:outputLink id="lnkSort15" value="ImportWorkspace.jsp?sortColumn=ENDDATE&amp;currentColumn=#{ImportWorkspace.sortColumn}&amp;currentDirection=#{ImportWorkspace.sortDirection}" rendered="#{ImportWorkspace.sortColumn == 'ENDDATE' and ImportWorkspace.sortDirection == 'DESCENDING'}">
 													<h:outputText styleClass="large_area0_p8 desSort" value="#{lbl.import_workspace_enddate}"/>
 												</h:outputLink>
 										  </th>
@@ -203,19 +203,19 @@
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 											      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
 															<h:panelGroup styleClass="big_imgArea statusIcon #{import.status} import#{import.status}#{import.errorLevel}" />
-															<h:outputLabel styleClass="medium_label endline" title="#{import.errorLevel}">
+															<h:outputLabel id="lblErrorLevel" styleClass="medium_label endline" title="#{import.errorLevel}">
 																<h:panelGroup rendered="#{!import.finished}">
 																	<h:outputText value="#{import.percentage}"/>% - 
 																</h:panelGroup>
 																<h:outputText value="#{import.status}"/>	
 															</h:outputLabel>
-															<h:inputHidden value="#{import.logLink}" />
+															<h:inputHidden id="inpImportLogLink" value="#{import.logLink}" />
 														</h:panelGroup>
 											      	</td>
 											      	<td class="free_area0 endline">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 											      		<span class="large_area0_p8">
-											      			<h:outputLink value="#{import.myItemsLink}" rendered="#{import.importedItems}">
+											      			<h:outputLink id="lnkItems" value="#{import.myItemsLink}" rendered="#{import.importedItems}">
 																<h:outputText value="#{import.message}"/>
 															</h:outputLink>
 															<h:outputText value="#{import.message}" rendered="#{!import.importedItems}"/>
@@ -242,7 +242,7 @@
 											      	<td class="free_area0 endline">
 											      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 											      		<span class="large_area0_p8 detailsLinkArea">
-															<h:inputHidden value="#{import.itemsLink}" />
+															<h:inputHidden id="inpImportItemsLink" value="#{import.itemsLink}" />
 															<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 									 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
 										 					</a>
@@ -255,19 +255,19 @@
 																<h:outputText value="#{import.errorLevel}"/>
 															</h:panelGroup>
 											      			<h:panelGroup rendered="#{import.finished}">
-																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
+																<tr:commandLink id="lnkRemove" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.remove}">
 																	<h:outputText value="#{lbl.import_workspace_remove_import}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
+																<tr:commandLink id="lnkDeleteAll" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.deleteAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_delete_items}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow}">
+																<tr:commandLink id="lnkSubmitAll" styleClass="small_area0_p8 noPaddingTopBottom endline" action="#{import.submitAll}" rendered="#{import.importedItems and !import.simpleWorkflow}">
 																	<h:outputText value="#{lbl.import_workspace_submit_items}"/>
 																</tr:commandLink>
 	
-																<tr:commandLink styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
+																<tr:commandLink id="lnkSubmitAndReleaseAll" styleClass="large_area0_p8 noPaddingTopBottom endline" action="#{import.submitAndReleaseAll}" rendered="#{import.importedItems}">
 																	<h:outputText value="#{lbl.import_workspace_submit_release_items}"/>
 																</tr:commandLink>
 															</h:panelGroup>

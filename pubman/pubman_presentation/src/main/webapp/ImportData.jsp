@@ -45,19 +45,19 @@
 	      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 	      		<h:panelGroup styleClass="free_area0_p8 endline statusArea">
 					<h:panelGroup styleClass="big_imgArea statusIcon ajaxedImport #{ImportData.import.status} import#{ImportData.import.status}#{ImportData.import.errorLevel}" />
-					<h:outputLabel styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
+					<h:outputLabel id="lblErrorLevel" styleClass="medium_label endline" title="#{ImportData.import.errorLevel}">
 						<h:panelGroup rendered="#{!ImportData.import.finished}">
 							<h:outputText value="#{ImportData.import.percentage}"/>% - 
 						</h:panelGroup>
 						<h:outputText value="#{ImportData.import.status}"/>	
 					</h:outputLabel>
-					<h:inputHidden value="#{ImportData.import.logLink}" />
+					<h:inputHidden id="inpImportLogLink" value="#{ImportData.import.logLink}" />
 				</h:panelGroup>
 	      	</td>
 	      	<td class="free_area0 endline">
 	      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 	      		<span class="large_area0_p8">
-					<h:outputLink value="#{ImportData.import.myItemsLink}" rendered="#{ImportData.import.importedItems}">
+					<h:outputLink id="lnkImportMyItems" value="#{ImportData.import.myItemsLink}" rendered="#{ImportData.import.importedItems}">
 						<h:outputText value="#{ImportData.import.message}"/>
 					</h:outputLink>
 					<h:outputText value="#{ImportData.import.message}" rendered="#{!ImportData.import.importedItems}"/>
@@ -84,7 +84,7 @@
 	      	<td class="free_area0 endline">
 	      		<h:panelGroup styleClass="seperator"></h:panelGroup>
 	      		<span class="large_area0_p8 detailsLinkArea">
-					<h:inputHidden value="#{ImportData.import.itemsLink}" />
+					<h:inputHidden id="inpImportItemsLink" value="#{ImportData.import.itemsLink}" />
 					<a onclick="if(!$(this).parents('tr').next('tr').hasClass('importDetails')) {$(this).parents('tr').after(detailsAwaiting); $(this).parents('tr').next('.importDetails').find('td').load($(this).siblings('input').val())} else {$(this).parents('tr').next('.importDetails').remove();}">
 							<b><h:outputText value="#{lbl.import_workspace_details}"/></b>
  					</a>

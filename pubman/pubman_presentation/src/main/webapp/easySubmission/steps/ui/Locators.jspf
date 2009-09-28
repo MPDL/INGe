@@ -45,11 +45,11 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblLocator}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
-					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
+					<h:outputLabel id="lblURL" styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText id="inpLocatorLocator1" styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+					<tr:commandButton id="lblEasySubmissionSaveLocator" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
@@ -57,11 +57,11 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblNewLocator}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
-					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}"/>
+					<h:outputLabel id="lblEditItemURL" styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText id="inpLocatorLocator2" styleClass="quad_txtInput" value="#{locator.locator}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
+					<tr:commandButton id="tr" styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_lnkSave}" action="#{EasySubmission.saveLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -90,7 +90,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.locators_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.locators_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-						<h:outputLabel styleClass="double_label" value="#{locator.contentCategory}" />
+						<h:outputLabel id="lblContentCategory" styleClass="double_label" value="#{locator.contentCategory}" />
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
@@ -104,14 +104,14 @@
 					<h:panelGroup rendered="#{!(genre.locators_component_name_display == 'false' && genre.locators_component_name_form_id == 'easy-submission' || genre.locators_component_name_display == 'false' && genre.locators_component_name_form_id == 'all')}">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
+						<h:inputText id="inpLocatorFileDefaultMetadataTitle" styleClass="xDouble_txtInput" value="#{locator.file.defaultMetadata.title.value}"/>
 					</span>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{!(genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'easy-submission' || genre.locators_component_visibility_display == 'false' && genre.locators_component_visibility_form_id == 'all')}">
 					<span class="large_area0 endline">
 						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.locators_component_visibility_optional != 'true'}"/></span><h:outputText value="#{genre.locators_component_visibility_label}" converter="GenreLabelConverter"/></label>
-						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
-							<f:selectItems value="#{EasySubmission.visibilities}" />
+						<h:selectOneRadio id="selLocatorFileVisibility" styleClass="small_radioBtn large_area0" value="#{locator.file.visibility}">
+							<f:selectItems id="selLocatorFileVisibilities" value="#{EasySubmission.visibilities}" />
 						</h:selectOneRadio>
 					</span>
 					</h:panelGroup>
@@ -126,8 +126,8 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="xDouble_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
-							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3"/>
+							<h:outputLabel id="lblLocatorsComponentDescription" styleClass="xDouble_label" value="#{genre.locators_component_description_label}" converter="GenreLabelConverter"/>
+							<h:inputTextarea id="inpLocatorFileDescription" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3"/>
 						</span>
 					</span>
 				</h:panelGroup>
@@ -140,14 +140,14 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
-						<h:outputLabel styleClass="xDouble_label">
+						<h:outputLabel id="lblMandatoryField" styleClass="xDouble_label">
 							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
 							<h:outputText value="#{lbl.easy_submission_lblCopyrightStatement}" />
 						</h:outputLabel>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
+						<h:inputTextarea id="inpLocatorFileDefaultMetadataRights" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.easy_submission_lblCopyrightDate}" />
+						<h:outputLabel id="lblCopyrightDate" styleClass="large_label labelToTextAreaBottom" value="#{lbl.easy_submission_lblCopyrightDate}" />
 						<h:inputText id="locatorLicenseDate" styleClass="large_txtInput dateJSInput" value="#{locator.file.defaultMetadata.copyrightDate}" />
 					</span>
 				</span>
@@ -157,18 +157,18 @@
 				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.easy_submission_lblLicencingInfo}"/></label>
-						<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
+						<h:inputText id="inpLocatorFileDefaultMetadataLicense" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
 						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
-						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
+						<input type="button" id="btnNoDisplay" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
 						<div class="ccContent">&#160;</div>
 						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicenseApply}" styleClass="activeButton" onclick="$(this).parents('.licenseArea').find('.licenseURL').val($(this).parents('.messageArea').find('#cc_js_result_uri').val()); $(this).parents('.messageArea').find('.ccContent').html('&nbsp;'); $(this).parents('.messageArea').addClass('noDisplay');"/>
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveLocatorEasySubmission" styleClass="min_imgBtn sectionTool remove" text=" " action="#{locator.removeLocatorEasySubmission}" rendered="#{genre.locators_repeatable != 'false'}"/>	
+					<tr:commandButton id="btnEasySubmissionAddLocator" styleClass="min_imgBtn sectionTool add" text=" " action="#{EasySubmission.addLocator}" disabled="#{EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == null || EasySubmission.locators[EasySubmission.numberOfLocators-1].locator == '' }" rendered="#{genre.locators_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 

@@ -37,7 +37,7 @@
 			
 		<div class="xHuge_area2_p8 messageArea" style="height: 28.37em; overflow-y: auto;">
 
-			<input type="button" onclick="$.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn" style="position: fixed;"/>
+			<input type="button" id="btnClose" onclick="$.closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn" style="position: fixed;"/>
 
 			<h2><h:outputText value="#{lbl.import_workspace_details}"/></h2>
 			
@@ -60,7 +60,7 @@
 					</span>
 					<span class="double_area0">
 						<h:outputText value="#{detail.localizedMessage}" converter="HTMLEscapeConverter" escape="false" rendered="#{detail.itemId == null}"/>
-						<h:outputLink value="#{detail.link}" rendered="#{detail.itemId != null}">
+						<h:outputLink id="lnkDetail" value="#{detail.link}" rendered="#{detail.itemId != null}">
 							<h:outputText value="#{detail.localizedMessage}" converter="HTMLEscapeConverter" escape="false"/>&#160;
 						</h:outputLink>&#160;
 					</span>

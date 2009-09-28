@@ -52,32 +52,32 @@
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblToRecipient}" />
-				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailRecipients}" />
+				<h:outputLabel id="lblToRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblToRecipient}" />
+				<h:inputText id="inpEmailRecipients" styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailRecipients}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblCCRecipient}" />
-				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailCCRecipients}" />
+				<h:outputLabel id="lblCCRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblCCRecipient}" />
+				<h:inputText id="inpEmailCCRecipients" styleClass="quad_txtInput" value="#{ExportItemsSessionBean.emailCCRecipients}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblSubject}" />
+				<h:outputLabel id="lblSubject" styleClass="quad_label" value="#{lbl.ExportEmail_lblSubject}" />
 				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.exportEmailSubject}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="Body" />
+				<h:outputLabel id="lblBody" styleClass="quad_label" value="Body" />
 				<h:outputText styleClass="quad_area0" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="quad_area0 xTiny_marginLExcl endline">
-				<h:outputLabel styleClass="quad_label" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
-				<h:inputText styleClass="quad_txtInput" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
+				<h:outputLabel id="lblReturnToRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
+				<h:inputText id="inpExportEmailReplyToAddr" styleClass="quad_txtInput" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
 			</span>
 		</div>
 		<div class="free_area0 endline itemLine noTopBorder">

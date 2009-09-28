@@ -55,7 +55,7 @@
 									  layout="pageDirection"
 									  styleClass="borderless trinidadRadiobuttonTable"
 									  binding="#{EasySubmission.radioSelect}">
-							 <f:selectItems value="#{EasySubmission.SUBMISSION_METHOD_OPTIONS}"/>
+							 <f:selectItems id="selItems" value="#{EasySubmission.SUBMISSION_METHOD_OPTIONS}"/>
 				</h:selectOneRadio>
 			</div>
 		</div>
@@ -64,14 +64,14 @@
 		<div>
 			
 			<div class="easySubmissionsBackSection deactivatedControl">
-			<h:commandLink title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}">
+			<h:commandLink id="lnkBack" title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}">
 				<h:panelGroup styleClass="easySubmissionBackButton"/>
-				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
+				<h:outputLabel id="lblBack" value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink title="#{tip.easy_submission_btnNext}" action="#{EasySubmission.selectSubmissionMethod}">
-				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
+			<h:commandLink id="lnkNext" title="#{tip.easy_submission_btnNext}" action="#{EasySubmission.selectSubmissionMethod}">
+				<h:outputLabel id="lblNext" value="#{lbl.easy_submission_btnNext}" />
 				<h:panelGroup styleClass="easySubmissionNextButton"/>
 			</h:commandLink>
 			</div>

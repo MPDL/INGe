@@ -49,9 +49,9 @@
 	<h3>Search for publications here</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<input class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
+		<input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();"/>
 	</p>
 	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... or search for publications by organization</a>
@@ -90,9 +90,9 @@
 	<h3>Suchen Sie hier nach Publikationen</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<input class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
 	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... oder gehen Sie zur Organisationssuche</a>
@@ -130,9 +130,9 @@
 	<h3>文献検索</h3>
 	<p class="huge_area0 xSmall_marginLIncl searchMenu clear" style="float: left; margin-top: 0px;">
 		<span class="quickSearchMenu">
-			<input class="large_txtInput quickSearchTextInput" type="text">
+			<input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text">
 		</span>
-		<input class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
+		<input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn" value="Go" style="float: left;" type="button" onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();">
 	</p>
 	<br/><br/>
 	<a onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">... また、組織一覧からも探せます</a>

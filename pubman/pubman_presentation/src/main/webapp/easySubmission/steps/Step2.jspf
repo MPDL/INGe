@@ -49,29 +49,29 @@
 		<!-- content menu starts here -->
 			<div class="sub">
 			<!-- content menu lower line starts here -->										
-				<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'MANUAL'}">
+				<h:commandLink id="lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'MANUAL'}">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:panelGroup styleClass=" " rendered="#{EasySubmissionSessionBean.currentSubmissionMethod == 'MANUAL'}">
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:panelGroup>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'FETCH_IMPORT'}">
+				<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}" rendered="#{EasySubmissionSessionBean.currentSubmissionMethod != 'FETCH_IMPORT'}">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:panelGroup styleClass=" " rendered="#{EasySubmissionSessionBean.currentSubmissionMethod == 'FETCH_IMPORT'}">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:panelGroup>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport"  title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 				</h:outputLink>
 			<!-- content menu lower line ends here -->
@@ -103,7 +103,7 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">		
-	<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:outputLink>
+	<h:outputLink id="lnkBack" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:outputLink>
 </div>
 
 </f:subview>

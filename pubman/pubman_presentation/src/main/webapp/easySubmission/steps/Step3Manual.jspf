@@ -53,19 +53,19 @@
 					<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</span>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 					<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+				<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
 					<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+				<h:commandLink id="lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
 					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 				<h:outputText styleClass="seperator void" />
-				<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+				<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 					<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 				</h:outputLink>
 			<!-- content menu lower line ends here -->
@@ -129,8 +129,8 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_genre_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_genre_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
-							<f:selectItems value="#{EasySubmission.genres}" />
+						<h:selectOneMenu id="selGenre" value="#{EasySubmission.item.metadata.genre}" styleClass="large_select replace" onchange="document.getElementById('easySubmission:easySubmissionStep1Manual:btnChangeGenre').click();" binding="#{EasySubmission.genreSelect}">
+							<f:selectItems id="selGenres" value="#{EasySubmission.genres}" />
 						</h:selectOneMenu>
 						<h:commandButton action="#{EasySubmission.changeGenre}" immediate="true" styleClass="hiddenButton" id="btnChangeGenre" value="" style="visibility:hidden;"/>
 					</span>
@@ -142,7 +142,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" ></h:inputTextarea>
+						<h:inputTextarea id="inpItemMetadataTitle" styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.item.metadata.title.value}" cols="15" rows="3" ></h:inputTextarea>
 					</span>
 				</h:panelGroup>
 			</div>
@@ -156,8 +156,8 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">	
-	<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep2}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
-	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
+	<h:commandLink id="lnkLoadStep2" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep2}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink id="lnkNext" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
 </div>
 
 </f:subview>

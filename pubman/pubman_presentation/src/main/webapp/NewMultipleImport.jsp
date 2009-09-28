@@ -73,15 +73,15 @@
 										<div class="contentMenu">
 										<!-- content menu starts here -->
 											<div class="free_area0 sub">
-												<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+												<h:commandLink id="lnkNewEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 													<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
-												<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+												<h:commandLink id="lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
 													<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
-												<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+												<h:commandLink id="lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
 													<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</h:commandLink>
 												<h:outputText styleClass="seperator void" />
@@ -89,7 +89,7 @@
 													<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 												</span>
 												<h:outputText styleClass="seperator void" />
-												<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+												<h:outputLink id="lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 													<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
 												</h:outputLink>
 											</div>
@@ -120,8 +120,8 @@
 														<h:outputText value="#{lbl.multipleImport_importFormat}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline">
-														<h:selectOneMenu value="#{MultipleImport.format}" converter="#{MultipleImport.formatConverter}">
-															<f:selectItems value="#{MultipleImport.importFormats}"/>
+														<h:selectOneMenu id="selFormat" value="#{MultipleImport.format}" converter="#{MultipleImport.formatConverter}">
+															<f:selectItems id="selFormats" value="#{MultipleImport.importFormats}"/>
 														</h:selectOneMenu>
 													</span>
 												</h:panelGroup>	
@@ -130,15 +130,15 @@
 														<h:outputText value="#{lbl.multipleImport_uploadFile}" /><span class="noDisplay">: </span>
 													</b>
 													<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
-														<tr:inputFile styleClass="fileInput" value="#{MultipleImport.uploadedImportFile}" />
+														<tr:inputFile id="inpMultipleImportUploadedImportFile" styleClass="fileInput" value="#{MultipleImport.uploadedImportFile}" />
 													</span>
 												</h:panelGroup>
 											</div>
 										</div>
 									</div>
 									<div class="full_area0 formButtonArea">
-										<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
-										<tr:commandLink styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
+										<h:outputLink id="lnkCancel" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" value="#{ApplicationBean.appContext}SubmissionPage.jsp"><h:outputText value="#{lbl.EditItem_lnkCancel}" /></h:outputLink>
+										<tr:commandLink id="lnkUploadFile" styleClass="free_area1_p8 activeButton" shortDesc="#{tip.easy_submission_btnImport}" action="#{MultipleImport.uploadFile}"><h:outputText value="#{lbl.easy_submission_btnImport}" /></tr:commandLink>
 									</div>
 								</div>
 							<!-- end: content section -->

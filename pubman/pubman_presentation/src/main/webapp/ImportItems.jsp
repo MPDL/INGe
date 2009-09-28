@@ -51,7 +51,7 @@
 						</div>
 						<div class="huge_area0_p8 noPaddingTopBottom" style="margin-left: 0.36em; margin-right: 0.19em">
 							<h:outputText value="#{item.localizedMessage}" rendered="#{item.itemId == null}"/>
-							<h:outputLink value="#{item.link}" rendered="#{item.itemId != null}">
+							<h:outputLink id="lnkItem" value="#{item.link}" rendered="#{item.itemId != null}">
 								<h:outputText value="#{item.localizedMessage}"/>&#160;
 							</h:outputLink>
 						</div>
@@ -62,7 +62,7 @@
 							<h:outputText value="#{item.endDateFormatted}"/>&#160;
 						</div>
 						<div class="large_area0_p8 noPaddingTopBottom">
-							<h:inputHidden value="#{item.detailsLink}"/>
+							<h:inputHidden id="inpItemDetailsLink" value="#{item.detailsLink}"/>
 							<a onmouseover="$(this).createDialog({addr: $(this).siblings('input').val(), bg: '#FFF',opacity: 0.5});">
 								Details
 							</a>
