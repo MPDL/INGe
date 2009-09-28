@@ -42,7 +42,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<title><h:outputText id="lblAppTitle" value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.ReviseItemPage}" /></h1>
+								<h1><h:outputText id="lblReviseItemPage" value="#{lbl.ReviseItemPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
