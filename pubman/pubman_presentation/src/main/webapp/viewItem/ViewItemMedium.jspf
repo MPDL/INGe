@@ -34,77 +34,77 @@
 <h:panelGroup layout="block" styleClass="full_area0 mediumView">
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblPublishingInfo}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblPublishingInfo" value="#{lbl.ViewItemMedium_lblPublishingInfo}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.publishingInfo}" />
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfo==null || item.publishingInfo==''}"/>
+			<h:outputText id="lblPublishingInfo" value="#{item.publishingInfo}" />
+			<h:outputText id="lblViewItemFull_lblNoEntryPublInfo" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfo==null || item.publishingInfo==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblEventTitle}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblEventTitle" value="#{lbl.ViewItemMedium_lblEventTitle}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.eventTitle}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.eventTitle==null || item.eventTitle==''}"/>
+			<h:outputText id="lblEventTitle" value="#{item.eventTitle}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntryEventTitle" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.eventTitle==null || item.eventTitle==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourceGenre}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourceGenre" value="#{lbl.ViewItemMedium_lblSourceGenre}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.sourceGenre}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceGenre==null || item.sourceGenre==''}"/>
+			<h:outputText id="lblSourceGenre" value="#{item.sourceGenre}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntrySGenre" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceGenre==null || item.sourceGenre==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourceTitle}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourceTitle" value="#{lbl.ViewItemMedium_lblSourceTitle}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.sourceTitle}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceTitle==null || item.sourceTitle==''}"/>
+			<h:outputText id="lblSourceTitle" value="#{item.sourceTitle}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntrySTitle" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceTitle==null || item.sourceTitle==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourceVolumeIssue" value="#{lbl.ViewItemMedium_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.firstSource.volume}"/>
+			<h:outputText id="lbl1stSourceVol" value="#{item.firstSource.volume}"/>
 			<h:outputText value=" (" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
-			<h:outputText value="#{item.firstSource.issue}"/>
+			<h:outputText id="lbl1stSourceIssue" value="#{item.firstSource.issue}"/>
 			<h:outputText value=")" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource==null || (item.firstSource.volume==null and item.firstSource.issue==null) || (item.firstSource.volume=='' and item.firstSource.issue=='')}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntrySVolIssue" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource==null || (item.firstSource.volume==null and item.firstSource.issue==null) || (item.firstSource.volume=='' and item.firstSource.issue=='')}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourceStartEndPage" value="#{lbl.ViewItemMedium_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.startEndPageSource}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.startEndPageSource==null || item.startEndPageSource==''}"/>
+			<h:outputText id="lblStartEndPageSource" value="#{item.startEndPageSource}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntrySPEP" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.startEndPageSource==null || item.startEndPageSource==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourceSequenceNo" value="#{lbl.ViewItemMedium_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.firstSource.sequenceNumber}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource.sequenceNumber==null || item.firstSource.sequenceNumber==''}"/>
+			<h:outputText id="lblSequenceNumber" value="#{item.firstSource.sequenceNumber}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntrySeqNo" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource.sequenceNumber==null || item.firstSource.sequenceNumber==''}"/>
 		</span>
 	</div>
 	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemMedium_lblSourcePublishingInfo}"/><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemMedium_lblSourcePublishingInfo" value="#{lbl.ViewItemMedium_lblSourcePublishingInfo}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.publishingInfoSource}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfoSource==null || item.publishingInfoSource==''}"/>
+			<h:outputText id="lblPublishingInfoSource" value="#{item.publishingInfoSource}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntryPublInfoSource" value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfoSource==null || item.publishingInfoSource==''}"/>
 		</span>
 	</div>
 	<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{item.furtherSources > 0}">
@@ -112,19 +112,19 @@
 			&#160;<span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<h:outputText value="#{item.furtherSources} #{lbl.ViewItemMedium_lblSourceFurtherSources}"/>
+			<h:outputText id="lblFurtherSources" value="#{item.furtherSources} #{lbl.ViewItemMedium_lblSourceFurtherSources}"/>
 		</span>
 	</h:panelGroup>
 	<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{item.hasSearchHits}">
 		<span class="huge_area0_p8 endline labelLine">
-			<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
+			<h:outputText id="lblViewItemFull_lblFulltextSearchResults" value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<tr:iterator var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
+			<tr:iterator id="fileSearchHitIterator" var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
 				<h:panelGroup styleClass="xHuge_area0 endline">
-					<h:outputText value="#{hit.beforeSearchHitString}"/>
-					<h:outputText styleClass="searchHit" value="#{hit.searchHitString}"/>
-					<h:outputText value="#{hit.afterSearchHitString}"/>
+					<h:outputText id="lblBeforeSearchHitString" value="#{hit.beforeSearchHitString}"/>
+					<h:outputText id="lblSearchHitString" styleClass="searchHit" value="#{hit.searchHitString}"/>
+					<h:outputText id="lblAfterSearchHitString" value="#{hit.afterSearchHitString}"/>
 				</h:panelGroup>
 			</tr:iterator>
 		</span>
