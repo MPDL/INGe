@@ -66,7 +66,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.CartItemsPage}" /></h1>
+								<h1><h:outputText id="lblCartItemsPage" value="#{lbl.CartItemsPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -75,25 +75,25 @@
 							<!-- content menu starts here -->
 								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
-									<h:commandLink styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
+									<h:commandLink id="lnkList_lblViewOptions" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
+									<h:outputText id="lblList_lblViewOptions" styleClass="free_area0" value="#{lbl.List_lblViewOptions}" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
+									<h:commandLink id="lnkList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
+									<h:outputText id="lblList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+									<h:commandLink id="lnkList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
+									<h:outputText id="lblList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="#{lbl.Basket_lblRemoveSelected}" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
+									<h:commandLink id="lnkBasket_lblRemoveSelected" styleClass="free_area0" value="#{lbl.Basket_lblRemoveSelected}" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+									<h:selectOneMenu id="selExportFormatName" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{CartItemsRetrieverRequestBean.updateExportOptions}" value="updateExportFormats" />	
-									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
+									<h:commandButton id="btnUpdateExportOptions" styleClass="noDisplay exportUpdateButton" action="#{CartItemsRetrieverRequestBean.updateExportOptions}" value="updateExportFormats" />	
+									<h:selectOneMenu id="selFileFormat" value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 								</h:panelGroup>
@@ -109,15 +109,15 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
+									<h:commandLink id="lnkChangeListTypeToBib" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="#{lbl.List_lblBibList}" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
+									<h:outputText id="lblList_lblBibList" styleClass="free_area0" value="#{lbl.List_lblBibList}" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
+									<h:commandLink id="lnkChangeListTypeToGrid" styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
 										<h:outputText value="#{lbl.List_lblGridList}" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+									<h:outputText id="lblList_lblGridList" styleClass="free_area0" value="#{lbl.List_lblGridList}" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
@@ -134,7 +134,7 @@
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
-								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
+								<h:outputText id="txtTotalNumberOfElements" value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
  								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
 								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
@@ -144,11 +144,11 @@
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ExportItemsSessionBean.hasErrorMessages and ExportItemsSessionBean.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h2><h:outputText id="lblWarning_lblMessageHeader" value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ExportItemsSessionBean.hasMessages and !ExportItemsSessionBean.hasErrorMessages and ExportItemsSessionBean.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h2><h:outputText id="lblInfo_lblMessageHeader" value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
@@ -162,7 +162,7 @@
 						<jsp:directive.include file="list/gridList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
-						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.basket_NoItems}"/>
+						<h:outputText id="txtBasket_NoItems" styleClass="free_area0 small_marginLExcl" value="#{msg.basket_NoItems}"/>
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
