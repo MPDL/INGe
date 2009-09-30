@@ -41,7 +41,7 @@
 <%-- Collaborators --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.CollaboratorPage_group}" /><span class="noDisplay"> </span>
+				<h:outputText id="lblCollaboratorPage_group" value="#{lbl.CollaboratorPage_group}" /><span class="noDisplay"> </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:selectOneMenu styleClass="xDouble_select tiny_marginRIncl">
@@ -49,12 +49,12 @@
 				</h:selectOneMenu>
 				<h:panelGroup styleClass="large_checkbox">
 					<h:selectBooleanCheckbox id="grantModifyRights"/>
-					<h:outputLabel for="grantModifyRights" value="#{lbl.CollaboratorPage_modify}" />
+					<h:outputLabel id="lblGrantModifyRights" for="grantModifyRights" value="#{lbl.CollaboratorPage_modify}" />
 				</h:panelGroup>
 			</span>
 			<span class="large_area0_p8 lineToolSection citationBlock">
-				<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " />
-				<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " />
+				<tr:commandButton id="btnAddCollaborator" styleClass="min_imgBtn groupTool add" text=" " />
+				<tr:commandButton id="btnRemoveCollaborator" styleClass="min_imgBtn groupTool remove" text=" " />
 			</span>
 		</h:panelGroup>
 
