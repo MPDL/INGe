@@ -410,6 +410,23 @@
         <!-- this profile is used by developers -->
         <profile>
             <id>env-development</id>
+            <build>
+               <plugins>
+                   <plugin>
+                       <groupId>org.zeroturnaround</groupId>
+                       <artifactId>javarebel-maven-plugin</artifactId>
+                       <executions>
+                           <execution>
+                               <id>generate-rebel-xml</id>
+                               <phase>process-resources</phase>
+                               <goals>
+                                   <goal>generate</goal>
+                               </goals>
+                           </execution>
+                       </executions>
+                   </plugin>
+               </plugins>
+           </build> 
             <properties>
                 <!-- the jdk version to use -->
                 <jdk.version>1.5</jdk.version>
