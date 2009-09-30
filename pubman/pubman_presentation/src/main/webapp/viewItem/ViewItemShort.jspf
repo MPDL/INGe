@@ -67,7 +67,7 @@
 			<span class="files"><h:outputLink id="lnkFiles" value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink></span>
 		</h:panelGroup>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfFiles == 0}">
-			<h:outputText id="lblViewItemFull_lblNoEntry" value="#{lbl.ViewItemFull_lblNoEntry}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntryFile" value="#{lbl.ViewItemFull_lblNoEntry}"/>
 		</h:panelGroup>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
@@ -78,7 +78,7 @@
 			<span class="locators"><h:outputLink id="lnkLocatorInfo" value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink></span>
 		</h:panelGroup>
 		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfLocators == 0}">
-			<h:outputText id="lblViewItemFull_lblNoEntry" value="#{lbl.ViewItemFull_lblNoEntry}"/>
+			<h:outputText id="lblViewItemFull_lblNoEntryLocator" value="#{lbl.ViewItemFull_lblNoEntry}"/>
 		</h:panelGroup>
 	</div>
 </h:panelGroup>
