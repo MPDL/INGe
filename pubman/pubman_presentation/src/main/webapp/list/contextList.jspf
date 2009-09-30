@@ -40,7 +40,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink title="#{tip.list_select}" action="#{context.select}">
+				<h:commandLink id="lnkSelectContextFirst" title="#{tip.list_select}" action="#{context.select}">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>
@@ -53,7 +53,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink title="#{tip.list_select}" action="#{context.select}">
+				<h:commandLink id="lnkSelectContext" title="#{tip.list_select}" action="#{context.select}">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>
@@ -67,10 +67,10 @@ All rights reserved. Use is subject to license terms.
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+					<h:outputText id="lblSubmission_lblDescription" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{context.description}"/>
+					<h:outputText id="txtContextDescription" value="#{context.description}"/>
 				</span>
 			</div>
 		</div>
