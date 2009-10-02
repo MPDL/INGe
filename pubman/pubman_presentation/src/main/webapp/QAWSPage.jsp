@@ -124,7 +124,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action ieFilter" style="width: 50em;" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText id="lblENUM_CRITERIA_STATE" styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE} "/>
+									<h:outputText id="lblENUM_CRITERIA_STATE1" styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE} "/>
 									<h:selectOneMenu id="selSelectedItemState" styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
@@ -165,7 +165,7 @@
 							<div class="subHeader">
 								<h:outputText id="lblTotalNumberOfElements" value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
 								<h:outputText value=" ("/>
-								<h:outputText id="lblENUM_CRITERIA_STATE" value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyTasksRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyTasksRetrieverRequestBean.selectedItemState != null and MyTasksRetrieverRequestBean.selectedItemState != 'all'}"/>
+								<h:outputText id="lblENUM_CRITERIA_STATE2" value="#{lbl.ENUM_CRITERIA_STATE} &#34;#{MyTasksRetrieverRequestBean.selectedItemStateLabel}&#34;, " rendered="#{MyTasksRetrieverRequestBean.selectedItemState != null and MyTasksRetrieverRequestBean.selectedItemState != 'all'}"/>
 								<h:outputText id="lblSelectedContextLabel" value="#{MyTasksRetrieverRequestBean.selectedContextLabel}, " rendered="#{MyTasksRetrieverRequestBean.selectedContext != 'all'}"/>
 								<h:outputText id="lblSelectedOrgUnitLabel" value="#{MyTasksRetrieverRequestBean.selectedOrgUnitLabel}, " rendered="#{MyTasksRetrieverRequestBean.selectedOrgUnit != 'all'}"/>
  								<h:outputText id="lblENUM_SORTORDER_ASCENDING" value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
