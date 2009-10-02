@@ -41,7 +41,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<title><h:outputText id="lblAppTitle" value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -65,8 +65,8 @@
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
 								<h1>
-									<h:outputText value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
-									<h:outputText value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
+									<h:outputText id="lblSubmitItemPage_Submit" value="#{lbl.SubmitItemPage_Submit}" rendered="#{SubmitItem.isStandardWorkflow}"/>
+									<h:outputText id="lblSubmitItemPage_Release" value="#{lbl.SubmitItemPage_Release}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
 								</h1>
 								<!-- Headline ends here -->
 							</div>

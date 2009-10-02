@@ -42,7 +42,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<title><h:outputText id="lblAppTitle" value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -65,7 +65,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.submission_lblSubmissionStart}" /></h1>
+								<h1><h:outputText id="lblsubmission_lblSubmissionStart" value="#{lbl.submission_lblSubmissionStart}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -74,26 +74,26 @@
 							<!-- content menu starts here -->
 								<div class="free_area0 sub">
 								<!-- content menu lower line starts here -->										
-									<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-										<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+									<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+										<h:outputText id="lblSubmission_lnkEasySubmission" value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
-										<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+									<h:commandLink id="lnkSubmission_lnkNewSubmission" title="#{tip.submission_lnkNewSubmission}" action="#{CreateItem.newSubmission}" immediate="true">
+										<h:outputText id="lblSubmission_lnkNewSubmission" value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 									</h:commandLink>
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-										<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+									<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+										<h:outputText id="lblSubmission_lnkImport" value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 									</h:commandLink>
 									<h:panelGroup rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 										<h:outputText styleClass="seperator void" />
-										<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-											<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
+										<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+											<h:outputText id="lblSubmission_lnkMultipleImport" value="#{lbl.submission_lnkMultipleImport}"/>
 										</h:commandLink>
 									</h:panelGroup>
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
-										<h:outputText value="#{lbl.submission_lnkImportWorkspace}"/>
+									<h:outputLink id="lnkSubmission_lnkImportWorkspace" title="#{tip.submission_lnkImportWorkspace}" value="ImportWorkspace.jsp" rendered="#{LoginHelper.isModerator and DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+										<h:outputText id="lblSubmission_lnkImportWorkspace" value="#{lbl.submission_lnkImportWorkspace}"/>
 									</h:outputLink>
 								<!-- content menu lower line ends here -->
 								</div>
