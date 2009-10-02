@@ -36,8 +36,8 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
-				<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+			<h:commandLink id="lnkSubmission_lnkEasySubmission" title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
+				<h:outputText id="lblSubmission_lnkEasySubmission" value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 			</h:commandLink>
 		</b>
 	</span>
@@ -49,10 +49,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				<h:outputText id="lblSubmission_lblDescription" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.submission_descEasySubmission}" />
+				<h:outputText id="lblSubmission_descEasySubmission" value="#{lbl.submission_descEasySubmission}" />
 			</span>
 		</div>
 	</div>
@@ -65,7 +65,7 @@
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
 			<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
-				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+				<h:outputText id="lblSubmission_lnkNewSubmission" value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 			</h:commandLink>
 		</b>
 	</span>
@@ -77,10 +77,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				<h:outputText id="lblSubmission_lblDescription" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.submission_descNewSubmission}" />
+				<h:outputText id="lblSubmission_descNewSubmission" value="#{lbl.submission_descNewSubmission}" />
 			</span>
 		</div>
 	</div>
@@ -92,8 +92,8 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
-				<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+			<h:commandLink id="lnkSubmission_lnkImport" title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
+				<h:outputText id="lblSubmission_lnkImport" value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 			</h:commandLink>
 		</b>
 	</span>
@@ -105,10 +105,10 @@
 	<div class="free_area0 itemBlockContent endline">		
 		<div class="free_area0 endline itemLine firstLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+				<h:outputText id="lblSubmission_lblDescription" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.submission_descImport}" />
+				<h:outputText id="lblSubmission_descImport" value="#{lbl.submission_descImport}" />
 			</span>
 		</div>
 	</div>
@@ -121,8 +121,8 @@
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
-					<h:outputText value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
+				<h:commandLink id="lnkSubmission_lnkMultipleImport" title="#{tip.submission_lnkMultipleImport}" action="#{MultipleImport.newImport}">
+					<h:outputText id="lblSubmission_lnkMultipleImport" value="#{lbl.submission_lnkMultipleImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 				</h:commandLink>
 			</b>
 		</span>
@@ -134,10 +134,10 @@
 		<div class="free_area0 itemBlockContent endline">		
 			<div class="free_area0 endline itemLine firstLine">
 				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+					<h:outputText id="lblSubmission_lblDescription" value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{lbl.submission_descMultipleImport}" />
+					<h:outputText id="lblSubmission_descMultipleImport" value="#{lbl.submission_descMultipleImport}" />
 				</span>
 			</div>
 		</div>
