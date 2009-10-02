@@ -125,7 +125,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
-									<h:outputText id="lblENUM_CRITERIA_STATE" styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
+									<h:outputText id="lblCRITERIA_STATE" styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="cboItemstate" value="#{MyItemsRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
 										<f:selectItems id="selectItems" value="#{MyItemsRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
