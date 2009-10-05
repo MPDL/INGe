@@ -1,5 +1,6 @@
 
 <project>
+<version position="left"/>
 	<body>
 		<menu name="Overview">
 			<item name="Introduction" href="index.html"/>
