@@ -62,7 +62,7 @@
 			<h3>Installation instructions (graphical installer)</h3>
 			<ul>
 				<li>Download the PubMan installer</li>
-                <li>Install and setup a coreservice instance (<a hfref="https://www.escidoc.org/JSPWiki/en/DownloadInfrastructure">Installation instructions</a>) on a currently separate jboss</li>
+                <li>Install and setup a coreservice instance ( <a hfref="https://www.escidoc.org/JSPWiki/en/DownloadInfrastructure">Installation instructions</a> ) on a currently separate jboss</li>
                 <li>Start the installer (a Java JRE 1.6 has to be installed)</li>
                 <li>Provide necessary information and wait until the installation procedure has finished</li>
                 <li>Start the PubMan jboss server</li>
