@@ -42,26 +42,26 @@
 <%-- Add File from local system--%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
-					<tr:inputFile styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
+					<h:outputLabel id="lblLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
+					<tr:inputFile id="inpFile" styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
+					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
+					&#160;<h:outputText id="lblMultiMandatoryPath" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
-					<tr:inputFile styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
+					<h:outputLabel id="lblMultiLocalPath" styleClass="quad_label" value="#{lbl.EditItem_localPath}"/>
+					<tr:inputFile id="inpMultiFile" styleClass="quad_area0 fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
+					<tr:commandButton id="btnMultiUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
 
@@ -71,11 +71,11 @@
 						&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
-					<h:inputText styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
+					<h:outputLabel id="lblAddFileFromUrl" styleClass="quad_label" value="#{lbl.EditItem_lblURL}" />
+					<h:inputText id="inpAddFileFromUrl" styleClass="quad_txtInput" value="#{EditItem.locatorUpload}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btUpload}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
+					<tr:commandButton id="btnUploadFileFromUrl" styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btUpload}" shortDesc="#{tip.EditItem_btUploadLocator}" action="#{EditItem.uploadLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -86,7 +86,7 @@
 						&#160;<span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputText value="#{component.file.name}" />
+						<h:outputText id="txtComponentFileName" value="#{component.file.name}" />
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
@@ -96,7 +96,7 @@
 						&#160;<span class="noDisplay"> </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:outputText value="#{component.file.name}" />
+						<h:outputText id="txtMultiComponentFileName" value="#{component.file.name}" />
 					</span>
 				</h:panelGroup>
 			</h:panelGroup>
@@ -104,10 +104,10 @@
 <%-- File content category --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText id="txtTitleFileContentCategory" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
-					<h:selectOneMenu styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
+					<h:selectOneMenu id="selFileContentCategory" styleClass="double_select replace" value="#{component.contentCategoryAsXmlString}">
 						<f:selectItems value="#{EditItem.contentCategories}" />
 					</h:selectOneMenu>
 				</span>
@@ -117,12 +117,12 @@
 <%-- Filename --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
+					&#160;<h:outputText id="txtTitleFilename" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="quad_area0" rendered="#{!(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="#{genre.files_component_name_optional != 'true'}"/></span><h:outputText value="#{genre.files_component_name_label}" converter="GenreLabelConverter"/></label>
-						<h:inputText styleClass="quad_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
+						<h:inputText id="inpFilename" styleClass="quad_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
 					</h:panelGroup>
 				</span>
 			</h:panelGroup>
@@ -130,12 +130,12 @@
 <%-- File visibility, Embargo Date --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+					&#160;<h:outputText id="txtTitleFileVisibility" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl endline" rendered="#{!(genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'full-submission' || genre.files_component_visibility_display == 'false' && genre.files_component_visibility_form_id == 'all')}">
-						<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_visibility_display != 'false'}"/>
-						<h:selectOneMenu styleClass="xDouble_select" value="#{component.file.visibility}" rendered="#{genre.files_component_visibility_display != 'false'}" onchange="this.form.submit()">
+						<h:outputLabel id="txtFileVisibility" styleClass="xDouble_label" value="#{genre.files_component_visibility_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_visibility_display != 'false'}"/>
+						<h:selectOneMenu id="selFileVisibility" styleClass="xDouble_select" value="#{component.file.visibility}" rendered="#{genre.files_component_visibility_display != 'false'}" onchange="this.form.submit()">
 							<f:selectItems value="#{EditItem.visibilities}" />
 						</h:selectOneMenu>
 					</h:panelGroup>
@@ -149,19 +149,19 @@
 <%-- File description, MIME type --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					&#160;<h:outputText id="txtTitleFileDescription" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="#{!(genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'full-submission' || genre.files_component_description_display == 'false' && genre.files_component_description_form_id == 'all')}">
 						<span class="large_area0">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
-							<h:outputLabel styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_description_display != 'false'}"/>
+							<h:outputText id="txtExtraFileDescription" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
+							<h:outputLabel id="lblExtraFileDescription" styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_description_display != 'false'}"/>
 						</span>
 						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.description}" cols="15" rows="3" rendered="#{genre.files_component_description_display != 'false'}"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
-						<h:inputText styleClass="large_txtInput" value="#{component.mimeType}" />
+						<h:outputLabel id="txtMimeType" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
+						<h:inputText id="inpMimeType" styleClass="large_txtInput" value="#{component.mimeType}" />
 					</span>
 				</span>
 			</h:panelGroup>
@@ -169,29 +169,29 @@
 <%-- Copyright Statement, Copyright Date, File Licence --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblRights}" /><span class="noDisplay">:</span>
+					&#160;<h:outputText id="txtHeaderCopyrightInformation" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblRights}" /><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<h:panelGroup styleClass="xDouble_area0 tiny_marginRIncl" rendered="true">
 						<h:outputLabel styleClass="xDouble_label">
-							<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
-							<h:outputText value="#{lbl.EditItem_lblCopyrightStatement}" />
+							<h:outputText id="txtTitleMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
+							<h:outputText id="txtTitleCopyrightStatement" value="#{lbl.EditItem_lblCopyrightStatement}" />
 						</h:outputLabel>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
+						<h:inputTextarea id="inpFileDescription" styleClass="xDouble_txtArea inputTxtArea" value="#{component.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
-						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblCopyrightDate}" />
+						<h:outputLabel id="lblTitleLicensingDate" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblCopyrightDate}" />
 						<h:inputText id="fileLicenseDate" styleClass="large_txtInput dateJSInput" value="#{component.file.defaultMetadata.copyrightDate}" />
 					</span>
 				</span>
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
+					&#160;<h:outputText id="txtFileTitleMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
 						<label class="quad_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
-						<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
-						<tr:goButton text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
+						<h:inputText id="inpLicenseUrl" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{component.file.defaultMetadata.license}"/>
+						<tr:goButton id="btnLicenseUrl" text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
 					</h:panelGroup>
 					<h:panelGroup id="cc_js_widget_container" styleClass="xHuge_area2_p8 messageArea noDisplay" style="margin-top: -1.82em;">
 						<input type="button" onclick="$(this).parents('.messageArea').addClass('noDisplay');" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
@@ -200,13 +200,13 @@
 				     </h:panelGroup>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddFile" styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeFile}" action="#{component.removeFile}" rendered="#{genre.files_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveFile" styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" rendered="#{genre.files_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 
 		</tr:iterator>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>	
+		<a class="free_area0 collapse"><h:outputText id="txtViewItemFullFile_lblHideGroup" value="#{lbl.ViewItemFull_lblHideGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>
+	<a class="free_area0 expand"><h:outputText id="txtViewItemFullFile_lblShowGroup" value="#{lbl.ViewItemFull_lblShowGroup} " /><h:outputText value="#{genre.files_label}" converter="GenreLabelConverter"/></a>
 </h:panelGroup>

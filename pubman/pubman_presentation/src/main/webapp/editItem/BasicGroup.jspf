@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -54,14 +54,14 @@
 <%-- Title --%>
 		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'full-submission' || genre.item_basic_item_title_display == 'false' && genre.item_basic_item_title_form_id == 'all')}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/><span class="noDisplay">: </span>
+				&#160;<h:outputText id="txtTitleDisplay" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_optional == 'false'}" /><h:outputText value="#{genre.item_basic_item_title_label}" converter="GenreLabelConverter" rendered="#{genre.item_basic_item_title_display == 'true'}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
+				<h:inputTextarea id="inputTitleText" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.titleCollection.titleIF.title.value}" cols="15" rows="3" ></h:inputTextarea>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<h:commandButton title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-				<h:commandButton title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+				<h:commandButton id="btnAddTitle" title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.titleCollection.addTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+				<h:commandButton id="btnRemoveTitle" title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.titleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 			</span>
 		</h:panelGroup>
 

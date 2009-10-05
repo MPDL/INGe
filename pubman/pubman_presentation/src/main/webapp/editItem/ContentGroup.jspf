@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" id="editContent" styleClass="full_area0 itemBlock" rendered="#{!(genre.content_display == 'false' && genre.content_form_id == 'full-submission' || genre.content_display == 'false' && genre.content_form_id == 'all')}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/>
+		<h:outputText id="txtOutputTxt" value="#{genre.content_label}" converter="GenreLabelConverter"/>
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -44,7 +44,7 @@
 				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{genre.content_item_subject_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.freeKeywords.value}" cols="15" rows="3" />
+				<h:inputTextarea id="inputFreeKeywords" styleClass="quad_txtArea inputTxtArea" value="#{EditItem.pubItem.metadata.freeKeywords.value}" cols="15" rows="3" />
 			</span>
 		</h:panelGroup>
 
@@ -55,11 +55,11 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblDDCSubject}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputText styleClass="quad_txtInput subjectSuggest" value="#{subject.value}" />
+					<h:inputText id="inputSubjectSuggest" styleClass="quad_txtInput subjectSuggest" value="#{subject.value}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddSubject" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addSubject}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.addObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveSubject" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeSubject}" disabled="#{EditItem.contentSubjectCollection.contentSubjectManager.size == 1}" action="#{EditItem.contentSubjectCollection.contentSubjectManager.removeObject}" rendered="#{genre.content_item_subject_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
@@ -68,19 +68,19 @@
 		<tr:iterator var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText id="txtGenreContentLabel" value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
+					<h:inputTextarea id="inputAbstractValue" styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddAbstract" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveAbstract" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{genre.content_item_abstract_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
 
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>	
+		<a class="free_area0 collapse"><h:outputText id="txtViewItemFull_lblHideGroup" value="#{lbl.ViewItemFull_lblHideGroup} " /> <h:outputText id="txtViewItemFull_lblHideGroupcontent_label" value="#{genre.content_label}" converter="GenreLabelConverter"/></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
+	<a class="free_area0 expand"><h:outputText id="txtViewItemFull_lblShowGroup" value="#{lbl.ViewItemFull_lblShowGroup} " /> <h:outputText id="txtViewItemFull_lblShowGroupcontent_label" value="#{genre.content_label}" converter="GenreLabelConverter"/></a>
 </h:panelGroup>
