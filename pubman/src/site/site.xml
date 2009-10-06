@@ -7,6 +7,7 @@
 		</menu>
 		<menu name="Get PubMan">
 			<item name="Download" href="get_pubman/download.html"/>
+			<item name="FAQ" href="faq.html"/>
 			<item name="License" href="license.html"/>
 		</menu>
 		<menu ref="parent"/> <!-- Erzeugt Link zum Parent-Modul-->
