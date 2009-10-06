@@ -76,10 +76,10 @@
 							<!-- content menu starts here -->
 								<div class="free_area0 sub">
 								<!-- content menu upper line starts here -->
-									<h:outputLink id="lnkLinkForActionsView" styleClass="free_area0" value="#{ViewItemFull.linkForActionsView}" rendered="#{ViewItemSessionBean.subMenu != 'ACTIONS'}" ><h:outputText id="lblViewItemFull_lblItemActions" value="#{lbl.ViewItemFull_lblItemActions}"/></h:outputLink>
+									<h:outputLink id="lnkLinkForActionsView" styleClass="free_area0" value="#{ViewItemFull.linkForActionsView}" rendered="#{ViewItemSessionBean.subMenu != 'ACTIONS'}" ><h:outputText id="lblViewItemFull_lblItemActionsLink" value="#{lbl.ViewItemFull_lblItemActions}"/></h:outputLink>
 									<h:outputText id="lblViewItemFull_lblItemActions" styleClass="free_area0" value="#{lbl.ViewItemFull_lblItemActions}" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:outputLink id="lnkLinkForExportView" styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT' and !ViewItemFull.isStateWithdrawn}"><h:outputText id="lblList_lblExportOptions" value="#{lbl.List_lblExportOptions}"/></h:outputLink>
+									<h:outputLink id="lnkLinkForExportView" styleClass="free_area0" value="#{ViewItemFull.linkForExportView}" rendered="#{ViewItemSessionBean.subMenu != 'EXPORT' and !ViewItemFull.isStateWithdrawn}"><h:outputText id="lblList_lblExportOptionsLink" value="#{lbl.List_lblExportOptions}"/></h:outputLink>
 									<h:outputText id="lblList_lblExportOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT' and !ViewItemFull.isStateWithdrawn}" />
 								<!-- content menu upper line ends here -->
 								</div>
