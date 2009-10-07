@@ -82,7 +82,7 @@
 				</h:panelGroup>
 	
 		<%-- Source alternative title --%>
-				<h:dataTable styleClass="free_area0" var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'all')}">
+				<h:dataTable id="iterSourceAlternativeTitle" styleClass="free_area0" var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'full-submission' || genre.sources_source_basic_source_title_alternative_display == 'false' && genre.sources_source_basic_source_title_alternative_form_id == 'all')}">
 					<h:column>
 					<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
@@ -101,7 +101,7 @@
 			</h:panelGroup>
 	<%-- Source creator --%>
 				<h:panelGroup layout="block" rendered="#{!(genre.sources_source_person_organization_display == 'false' && genre.sources_source_person_organization_form_id == 'full-submission' || genre.sources_source_person_organization_display == 'false' && genre.sources_source_person_organization_form_id == 'all')}">
-					<h:dataTable styleClass="free_area0" var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" >
+					<h:dataTable id="iterSourceGroupCreator" styleClass="free_area0" var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" >
 		            <h:column>
 						<div class="suggestAnchor">
 							<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{sourceBean.creatorCollection.creatorManager.objectDM.rowIndex == 0}">
@@ -173,7 +173,7 @@
 			
 				<%-- Source creator person affiliation --%>
 							<h:panelGroup layout="block" rendered="#{!(genre.sources_source_person_organization_source_organizations_display == 'false' && genre.sources_source_person_organization_source_organizations_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_display == 'false' && genre.sources_source_person_organization_source_organizations_form_id == 'all')}">
-								<h:dataTable styleClass="free_area0" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
+								<h:dataTable id="iterSourceCreatorPersonAffiliation" styleClass="free_area0" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType && genre.sources_source_person_organization_source_persons_display != 'false'}">
 									<h:column>
 									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'full-submission' || genre.sources_source_person_organization_source_organizations_organization_name_display == 'false' && genre.sources_source_person_organization_source_organizations_organization_name_form_id == 'all')}">
 										<b class="xLarge_area0_p8 endline labelLine clear">
@@ -314,7 +314,7 @@
 					</div>
 		
 			<%-- Source details identifier --%>
-					<h:dataTable styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'full-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
+					<h:dataTable id="iterSourceDetailsIdentifier" styleClass="free_area0" var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{!(genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'full-submission' || genre.sources_source_identifiers_display == 'false' && genre.sources_source_identifiers_form_id == 'all')}">
 						<h:column>
 						<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">

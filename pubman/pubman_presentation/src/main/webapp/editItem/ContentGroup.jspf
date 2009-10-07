@@ -49,7 +49,7 @@
 		</h:panelGroup>
 
 <%-- DDC Subject (List) --%>		
-		<tr:iterator var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
+		<tr:iterator id="iterContentGroupDDCSubjectList" var="subject" value="#{EditItem.contentSubjectCollection.contentSubjectManager.objectDM}" rendered="#{!(genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'full-submission' || genre.content_item_subject_display == 'false' && genre.content_item_subject_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_subject_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblDDCSubject}"/><span class="noDisplay">: </span>
@@ -65,7 +65,7 @@
 		</tr:iterator>
 
 <%-- Abstract --%>		
-		<tr:iterator var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
+		<tr:iterator id="iterContentGroupAbstract" var="abstract" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{!(genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'full-submission' || genre.content_item_abstract_display == 'false' && genre.content_item_abstract_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.content_item_abstract_optional != 'true'}" /><h:outputText id="txtGenreContentLabel" value="#{genre.content_item_abstract_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>

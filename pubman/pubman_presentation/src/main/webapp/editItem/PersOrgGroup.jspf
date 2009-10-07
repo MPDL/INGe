@@ -62,7 +62,7 @@
 	
 						<%--Copy&Paste Organisations for Authors--%>
 							
-				<tr:iterator var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
+				<tr:iterator id="iterCopyPasteOrganisationAuthors" var="pasteOrga" value="#{EditItemSessionBean.authorCopyPasteOrganizationsCreatorBean.personOrganisationManager.objectDM}">
 						<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText id="txtOrganisationsforAuthorsRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
@@ -97,7 +97,7 @@
 					<h:commandButton id="btnAddAuthors" title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn sectionTool" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
 				</h:panelGroup>
 			</h:panelGroup>
-				<tr:iterator var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
+				<tr:iterator id="iterCreatorOrganisationAuthors" var="creatorBean" value="#{EditItem.creatorCollection.creatorManager.objectDM}" rows="0">
 					<h:panelGroup layout="block" styleClass="suggestAnchor">
 						<%-- Creator role --%>
 						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' && genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
@@ -180,7 +180,7 @@
 		
 												<%-- Creator person affiliation --%>
 						<h:panelGroup layout="block" rendered="#{!(genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_display == 'false' && genre.creator_person_organization_creator_organizations_form_id == 'all')}">
-							<tr:iterator var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+							<tr:iterator id="iterCreatorPersonAffiliation" var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 									<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{!(genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'full-submission' || genre.creator_person_organization_creator_organizations_organization_name_display == 'false' && genre.creator_person_organization_creator_organizations_organization_name_form_id == 'all')}">
 										<b class="xLarge_area0_p8 endline labelLine clear">
 								&#160;<h:outputText id="txtTitleCreatorPersonAffiliationRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
