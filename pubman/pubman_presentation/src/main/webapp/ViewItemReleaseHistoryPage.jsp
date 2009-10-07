@@ -103,12 +103,12 @@
 								<!-- Subheadline starts here -->
 								<h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}"/>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
+									<h2><h:outputText id="txtViewItemReleaseHistoryWarnMessageLabel" value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages id="txtViewItemReleaseHistoryWarnMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
-									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
+									<h2><h:outputText id="txtViewItemReleaseHistoryInfoMessageLabel" value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages id="txtViewItemReleaseHistoryInfoMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								&#160;
 								<!-- Subheadline ends here -->
@@ -120,36 +120,36 @@
 							<div class="full_area0 fullItemControls">
 								<span class="full_area0_p5">
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
-									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
-										<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
+									<h:outputLink id="lnkViewItemReleaseHistoryLocalTags" styleClass="free_area0" value="#{ApplicationBean.appContext}ViewLocalTagsPage.jsp" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+										<h:outputText id="txtViewItemReleaseHistoryLocalTags" value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.hasAudience}"/>
-									<h:commandLink styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
-										<h:outputText value="#{lbl.AudiencePage}" />
+									<h:commandLink id="lnkViewItemReleaseHistoryAudience" styleClass="free_area0" action="#{AudienceBean.manageAudience}" rendered="#{ViewItemFull.hasAudience}">
+										<h:outputText id="txtViewItemReleaseHistoryAudience" value="#{lbl.AudiencePage}" />
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="false"/>
-									<h:outputLink styleClass="free_area0" value="#{ApplicationBean.appContext}CollaboratorPage.jsp" rendered="false">
-										<h:outputText value="#{lbl.CollaboratorPage}" />
+									<h:outputLink id="lnkViewItemReleaseHistoryCollaborator" styleClass="free_area0" value="#{ApplicationBean.appContext}CollaboratorPage.jsp" rendered="false">
+										<h:outputText id="txtViewItemReleaseHistoryCollaborator" value="#{lbl.CollaboratorPage}" />
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}" />
-									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}">
-										<h:outputText value="#{lbl.ViewItemLogPage}"/>
+									<h:commandLink id="lnkViewItemReleaseHistoryLog" styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}">
+										<h:outputText id="txtViewItemReleaseHistoryLog" value="#{lbl.ViewItemLogPage}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
+									<h:commandLink id="lnkViewItemReleaseHistoryStatistics" styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
+										<h:outputText id="txtViewItemReleaseHistoryStatistics" value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
+									<h:commandLink id="lnkViewItemReleaseHistoryRevisions" styleClass="free_area0" action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
+										<h:outputText id="txtViewItemReleaseHistoryRevisions" value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
-									<h:outputLink styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
+									<h:outputLink id="lnkViewItemReleaseHistoryVersions" styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
+										<h:outputText id="txtViewItemReleaseHistoryVersions" value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.citationURL}">
-										<h:outputText value="#{lbl.ViewItemPage}"/>
+										<h:outputText id="txtViewItemReleaseHistoryItemPage" value="#{lbl.ViewItemPage}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>
@@ -160,7 +160,7 @@
 								</h:panelGroup>
 									<h:panelGroup styleClass="seperator" />
 								<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-									<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
+									<b><h:outputText id="txtViewItemReleaseHistoryTitleValue" value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
 								</h:panelGroup>	
 								<h:panelGroup layout="block" styleClass="medium_area0_p4 statusArea" >
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl withdrawnItem" rendered="#{ViewItemFull.isStateWithdrawn}" />
@@ -168,12 +168,12 @@
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl submittedItem" rendered="#{ViewItemFull.isStateSubmitted}" />
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
-									<h:outputText styleClass="noDisplay" value="Item is " />
-									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{ViewItemFull.itemPublicState}" />
+									<h:outputText id="txtViewItemReleaseHistoryItemIs" styleClass="noDisplay" value="Item is " />
+									<h:outputLabel id="lblViewItemReleaseHistoryPublicState" styleClass="medium_label endline" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
+										<h:outputText id="txtViewItemReleaseHistoryPublicState" value="#{ViewItemFull.itemPublicState}" />
 									</h:outputLabel>
-									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{ViewItemFull.itemState}" />
+									<h:outputLabel id="lblViewItemReleaseHistoryItemState" styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
+										<h:outputText id="txtViewItemReleaseHistoryItemState" value="#{ViewItemFull.itemState}" />
 									</h:outputLabel>
 								</h:panelGroup>
 							</div>

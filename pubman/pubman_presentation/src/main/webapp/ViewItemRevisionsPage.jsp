@@ -42,8 +42,8 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText value="#{ApplicationBean.appTitle} #{ViewItemFull.pubItem.metadata.title.value}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
+				<title><h:outputText id="txtViewItemRevisionsPageTitle" value="#{ApplicationBean.appTitle} #{ViewItemFull.pubItem.metadata.title.value}"/></title>
+				<link id="lnkViewItemRevisionsPageTitle" rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -55,17 +55,17 @@
 			<div class="full wrapper">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
-				<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the main menu"/>
+				<h:outputLink id="lnkViewItemRevisionsPageMainMenu" styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
+					<h:outputText id="txtViewItemRevisionsPageMainMenu" value="Skip to the main menu"/>
 				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
-					<h:outputText value="Skip to the page content"/>
+				<h:outputLink id="lnkViewItemRevisionsPageContent" styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
+					<h:outputText id="txtViewItemRevisionsPageContent" value="Skip to the page content"/>
 				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the search menu"/>
+				<h:outputLink id="lnkViewItemRevisionsPageSearch" styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
+					<h:outputText id="txtViewItemRevisionsPageSearch" value="Skip to the search menu"/>
 				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the meta menu"/>
+				<h:outputLink id="lnkViewItemRevisionsPageMeta" styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
+					<h:outputText id="txtViewItemRevisionsPageMeta" value="Skip to the meta menu"/>
 				</h:outputLink>
 			<!-- end: skip link navigation -->
 			
