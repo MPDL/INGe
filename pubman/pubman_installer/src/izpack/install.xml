@@ -65,10 +65,12 @@
         <panel classname="UserInputPanel" id="UserInputPanel.2"/>
         <panel classname="UserInputPanel" id="UserInputPanel.3"/>
         <panel classname="UserInputPanel" id="UserInputPanel.4"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.5"/>
 <!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetCreatorPanel" condition="dataset_selected"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetConfigurationCreatorPanel" condition="dataset_selected"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" condition="!dataset_selected"/>
         <panel classname="FinishPanel"/>
     </panels>
 
@@ -134,6 +136,7 @@
         <variable name="MailUseAuthentication" value=""/>
         <variable name="MailUsername" value=""/>
         <variable name="MailPassword" value=""/>
+        <variable name="ExternalOrganisationID" value=""/>
         <variable name="ConeHost" value=""/>
         <variable name="ConePort" value="5432"/>
         <variable name="ConeUser" value="postgres"/>

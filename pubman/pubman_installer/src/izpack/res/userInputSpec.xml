@@ -37,9 +37,9 @@
             txt="General settings for PubMan." />
         <field type="divider" align="top" />
         <field type="staticText" align="left"
-            txt="The Url of your PubMan instance. This value can't be defined here. It is given by the jboss configuration. The initial value of this installation is 'http://host.domain:8080'." />
+            txt="The Url of your PubMan instance. This value can't be defined here. It is given by the jboss configuration. The initial value of jboss is 'http://host.domain:8080'." />
         <field type="text" align="left" variable="InstanceUrl">
-            <spec txt="Url of this PubMan instance:" size="25" set="${InstanceUrl}" />
+            <spec txt="Url of this Jboss instance:" size="25" set="${InstanceUrl}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Instance Url must not be empty string." />
         </field>
         <field type="divider" align="bottom" />
@@ -108,6 +108,18 @@
         <field type="text" align="left" variable="InitialUserPassword">
             <spec txt="Initial user passwords:" size="25" set="${InitialUserPassword}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Initial user password must not be empty string." />
+        </field>
+        <field type="divider" align="bottom" />
+    </panel>
+     <panel order="5">
+        <createForUnselectedPack name="Initial dataset" />
+         <field type="staticText" align="left"
+            txt="PubMan needs to know which organisation on coreservice should be treated as the external organisation. " />
+        <field type="title" txt="External organisation on coreservice" bold="true" size="1" />
+        <field type="divider" align="top" />
+        <field type="text" align="left" variable="ExternalOrganisationID">
+            <spec txt="eSciDoc ID of external organisation:" size="25" set="${ExternalOrganisationID}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="External organisation ID must not be empty string." />
         </field>
         <field type="divider" align="bottom" />
     </panel>

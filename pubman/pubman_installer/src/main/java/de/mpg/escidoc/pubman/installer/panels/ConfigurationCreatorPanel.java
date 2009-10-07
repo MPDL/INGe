@@ -2,19 +2,14 @@ package de.mpg.escidoc.pubman.installer.panels;
 
 import java.awt.LayoutManager2;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JLabel;
-import javax.xml.rpc.ServiceException;
 
-import com.izforge.izpack.Info;
 import com.izforge.izpack.gui.IzPanelLayout;
 import com.izforge.izpack.gui.LabelFactory;
-import com.izforge.izpack.gui.LayoutConstants;
 import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
@@ -23,11 +18,13 @@ import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.Installer;
 
-public class DatasetCreatorPanel extends IzPanel
+public class ConfigurationCreatorPanel extends IzPanel
 {
    private static final long serialVersionUID = 3257848774955905587L;
    
    private Configuration configuration = null;
+   
+   private boolean isValid = true;
    
    /**
     * The constructor.
@@ -36,7 +33,7 @@ public class DatasetCreatorPanel extends IzPanel
     * @param idata  The installation data.
  * @throws IOException 
     */
-   public DatasetCreatorPanel(InstallerFrame parent, InstallData idata) throws IOException
+   public ConfigurationCreatorPanel(InstallerFrame parent, InstallData idata) throws IOException
    {
        this(parent, idata, new IzPanelLayout());
    }
@@ -52,12 +49,12 @@ public class DatasetCreatorPanel extends IzPanel
  * @throws IOException 
     */
 
-   public DatasetCreatorPanel(InstallerFrame parent, InstallData idata, LayoutManager2 layout) throws IOException
+   public ConfigurationCreatorPanel(InstallerFrame parent, InstallData idata, LayoutManager2 layout) throws IOException
    {
        super(parent, idata, layout);
        // We create and put the labels
        String str;
-       str = "Creating initial data...";
+       str = "Writting configuration...";
        JLabel welcomeLabel = LabelFactory.create(str, parent.icons.getImageIcon("host"), LEADING);
       
        add(welcomeLabel, NEXT_LINE);
@@ -74,7 +71,7 @@ public class DatasetCreatorPanel extends IzPanel
     */
    public boolean isValidated()
    {
-       return true;
+       return isValid;
    }
    
    private void storeConfiguration() throws IOException {
@@ -92,6 +89,7 @@ public class DatasetCreatorPanel extends IzPanel
        userConfigValues.put(Configuration.KEY_CONE_PORT, idata.getVariable("ConePort"));
        userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
        userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
+       userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
        configuration.setProperties(userConfigValues);
        configuration.store(idata.getInstallPath() + "/jboss-4.2.2.GA/server/default/conf/pubman.properties");
    }
@@ -102,27 +100,8 @@ public class DatasetCreatorPanel extends IzPanel
        dataset.retrieveContentModel(Installer.CHECK_CONTENT_MODEL);
    }
    
-   private void createDataset() throws Exception {
-       InitialDataset dataset = new InitialDataset( new URL(idata.getVariable("CoreserviceUrl") ), 
-               idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword") );
-       
-       String ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
-       String ouDefaultObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_default.xml");
-       
-       configuration.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);      
-       String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
-       String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", 
-               idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
-       String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml", 
-               idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
-       
-       dataset.createGrantForUser(
-               "datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
-       dataset.createGrantForUser(
-               "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
-   }
-   
    public void panelActivate() {
+       boolean success = true;
        try {
            JLabel label = LabelFactory.create("Checking content model...", parent.icons.getImageIcon("host"), LEADING);
            add(label, NEXT_LINE);
@@ -133,26 +112,16 @@ public class DatasetCreatorPanel extends IzPanel
            getLayoutHelper().completeLayout();
        } 
        catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. Content model("+Installer.CHECK_CONTENT_MODEL+") not available", parent.icons.getImageIcon("host"), LEADING);
+           JLabel welcomeLabel = LabelFactory.create("Error. Content model("+Installer.CHECK_CONTENT_MODEL+") not available."
+                   , parent.icons.getImageIcon("host"), LEADING);
            add(welcomeLabel, NEXT_LINE);
+           JLabel welcomeLabel2 = LabelFactory.create("Please ingest content model as described at first information page."
+                   , parent.icons.getImageIcon("host"), LEADING);
+           add(welcomeLabel2, NEXT_LINE);
            getLayoutHelper().completeLayout();
+           success = false;
        }
-       
-       try {
-           JLabel label = LabelFactory.create("Creating dataset on coreservice...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-           createDataset();
-           JLabel label2 = LabelFactory.create("Good. Dataset created.", parent.icons.getImageIcon("host"), LEADING);
-           add(label2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-       } 
-       catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. Dataset creation error", parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-       }
-    
+      
        try {
            JLabel label = LabelFactory.create("Writting configuration...", parent.icons.getImageIcon("host"), LEADING);
            add(label, NEXT_LINE);
@@ -166,7 +135,7 @@ public class DatasetCreatorPanel extends IzPanel
            JLabel welcomeLabel = LabelFactory.create("Error. Configuration error", parent.icons.getImageIcon("host"), LEADING);
            add(welcomeLabel, NEXT_LINE);
            getLayoutHelper().completeLayout();
+           success = false;
        }
    }
 }
-
