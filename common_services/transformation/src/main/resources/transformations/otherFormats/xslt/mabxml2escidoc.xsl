@@ -293,9 +293,17 @@
 					</xsl:element>
 				</xsl:if>-->	
 				<xsl:element name="e:organization">
-					<xsl:element name="e:organization-name">
-						<xsl:value-of select="../mab103"/>
-					</xsl:element>
+					<xsl:choose>
+						<xsl:when test="../mab103">
+							<xsl:element name="e:organization-name">
+								<xsl:value-of select="../mab103"/>
+							</xsl:element>
+						</xsl:when>
+						<xsl:otherwise>
+							<e:organization-name>External Organizations</e:organization-name>
+							<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+						</xsl:otherwise>
+					</xsl:choose>					
 				</xsl:element>
 			</xsl:element>
 		</xsl:element>
@@ -530,11 +538,16 @@
 		<xsl:element name="pub:publishing-info">
 		<xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
 		<xsl:variable name="place" select="substring-before(mab519,',')"/>
-			<xsl:if test="not(mab412)">
+		<xsl:choose>
+			<xsl:when test="not(mab412)">
 				<xsl:element name="dc:publisher">
 					<xsl:value-of select="$publisher"/>
 				</xsl:element>
-			</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="dc:publisher">N.A.</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>	
 			<xsl:if test="not($place='')">
 				<xsl:element name="e:place">
 					<xsl:value-of select="$place"/>
@@ -644,7 +657,7 @@
 	
 	<xsl:template match="mab594">
 		<xsl:element name="e:publishing-info">
-			<xsl:element name="dc:publisher"/>
+			<xsl:element name="dc:publisher">N.A.</xsl:element>
 			<xsl:element name="e:place">
 				<xsl:value-of select="."/>
 			</xsl:element>
