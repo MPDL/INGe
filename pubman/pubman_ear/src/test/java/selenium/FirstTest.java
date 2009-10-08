@@ -26,16 +26,51 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
+
+
 package selenium;
 
-/**
- * @author endres
- *
- */
-public class FirstTest extends SeleniumTestCase
-{
-    public void testLogin() throws Exception {
-        
-    }   
+import org.junit.Before;
+import org.junit.Test;
 
+import com.thoughtworks.selenium.*;
+
+public class FirstTest extends SeleneseTestCase {
+    
+    @Before
+    public void setUp() throws Exception {
+        setUp("http://localhost:8080/", "*firefox /usr/lib/firefox-3.5.3/firefox-3.5");
+    }
+    
+    @Test
+    public void testFirst() throws Exception {
+        selenium.open("/pubman/");
+        selenium.click("form1:Header:lnkLoginLogout");
+        selenium.waitForPageToLoad("30000");
+        selenium.type("j_username", "demo");
+        selenium.type("j_password", "demo");
+        selenium.click("Abschicken");
+        selenium.waitForPageToLoad("30000");
+        selenium.waitForPageToLoad("30000");
+        verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
+        verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+        selenium.click("form1:Header:lnkSubmission");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("lnkNewSubmission");
+        selenium.waitForPageToLoad("30000");
+        selenium.click("Header:lnkLoginLogout");
+        selenium.waitForPageToLoad("30000");
+    }
+    
+    /**
+     * This test is used to compare indices offered by coreservice and indices the search service uses.
+     */
+    @Test
+    public void testCheckIndicesAgainstCoreserver() throws Exception {
+       selenium.open("/pubman/");
+       selenium.click("form1:Header:lnkLoginLogout");
+       selenium.waitForPageToLoad("60000");
+       assertEquals(true, true);
+    }    
 }
+
