@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSystemDetails and !ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}" />
+		<h:outputText id="lblViewItemFull_lblSubHeaderSystemDetails" value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
@@ -41,46 +41,46 @@
 <%-- Item identifier --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblSystemIdentifiers" value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
+				<h:outputText id="txtObjectIdAndVersion" value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
 			</span>
 		</div>
 
 <%-- Date of last modification --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblLastModified}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblLastModified" value="#{lbl.ViewItemFull_lblLastModified}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.modificationDate}"/>
+				<h:outputText id="txtModificationDate" value="#{ViewItemFull.modificationDate}"/>
 			</span>
 		</div>
 
 <%-- Item state --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblItemState" value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-				<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+				<h:outputText id="txtItemPublicState" value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+				<h:outputText id="txtItemState" value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 			</span>
 		</div>
 
 <%-- Collection name --%>
 		<h:panelGroup styleClass="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblnameOfCollection" value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
+				<h:outputText id="txtContextNameAffiliations" value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
 			</span>
 		</h:panelGroup>
 
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>	
+		<a id="lnkHideGroupSystemDetails" class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>	
 	</h:panelGroup>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>
+	<a id="lnkShowGroupSystemDetails" class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>
 
 </h:panelGroup>
