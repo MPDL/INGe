@@ -29,7 +29,7 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="RMIObjectPort"/>
-         <binding port="4444"/>
+         <binding port="14444"/>
       </service-config>
 
       <service-config name="jboss:service=invoker,type=pooled"

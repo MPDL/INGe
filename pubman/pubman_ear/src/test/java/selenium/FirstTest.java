@@ -61,16 +61,5 @@ public class FirstTest extends SeleneseTestCase {
         selenium.click("Header:lnkLoginLogout");
         selenium.waitForPageToLoad("30000");
     }
-    
-    /**
-     * This test is used to compare indices offered by coreservice and indices the search service uses.
-     */
-    @Test
-    public void testCheckIndicesAgainstCoreserver() throws Exception {
-       selenium.open("/pubman/");
-       selenium.click("form1:Header:lnkLoginLogout");
-       selenium.waitForPageToLoad("60000");
-       assertEquals(true, true);
-    }    
 }
 

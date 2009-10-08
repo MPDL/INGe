@@ -731,7 +731,7 @@
         <dependency>
             <groupId>org.openqa.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0-beta-1</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     	<dependency>
@@ -912,7 +912,8 @@
                                         <taskdef resource="selenium-ant.properties">
                                             <classpath refid="maven.plugin.classpath" />
                                         </taskdef>
-                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*firefox /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180" port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}/pubman/" />
+<!--                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*chrome /usr/lib/firefox/firefox-2-bin" timeoutInSeconds="180" port="5555" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}" />-->
+<!--                                        <selenese suite="src/test/resources/selenium/TestSuite.html" browser="*chrome /usr/lib/firefox-3.5.3/firefox-3.5" timeoutInSeconds="180" port="4445" results="${project.build.directory}/selenium-firefox-results.html" startURL="http://localhost:${cargo.port}" />-->
                                     </tasks>
                                 </configuration>
                                 <goals>
@@ -929,14 +930,14 @@
                             <dependency>
                                 <groupId>org.openqa.selenium.server</groupId>
                                 <artifactId>selenium-server</artifactId>
-                                <version>1.0-beta-1</version>
+                                <version>1.0-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>selenium-maven-plugin</artifactId>
-                        <version>1.0-beta-1</version>
+                        <version>1.0-SNAPSHOT</version>
                         <executions>
                             <execution>
                                 <id>start-selenium</id>
@@ -946,7 +947,7 @@
                                 </goals>
                                 <configuration>
                                     <background>true</background>
-                                    <port>6666</port>
+                                    <port>4444</port>
                                     <logOutput>true</logOutput>
                                     <multiWindow>true</multiWindow>
                                 </configuration>
@@ -963,11 +964,12 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
+                                    <skip>false</skip>
                                     <excludes>
                                         <exclude>none</exclude>
                                     </excludes>
                                     <includes>
-                                        <include>**/selenium/*Test.java</include>
+                                        <include>**/selenium/*</include>
                                     </includes>
                                 </configuration>
                             </execution>
