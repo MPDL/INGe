@@ -33,7 +33,7 @@
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblBasic} (#{ViewItemFull.itemPublicState})" />
+		<h:outputText id="txtStateWithdrawn" value="#{lbl.EditItem_lblBasic} (#{ViewItemFull.itemPublicState})" />
 	</h3>
 	<span class="seperator"></span>
 	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
@@ -41,42 +41,42 @@
 <%-- Date of withdrawal --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalDate}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblWithdrawalDate" styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalDate}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.withdrawalDate}"/>
+				<h:outputText id="txtWithdrawalDate" styleClass="messageWarn" value="#{ViewItemFull.withdrawalDate}"/>
 			</span>
 		</div>
 
 <%-- Withdrawal comment --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalComment}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblWithdrawalComment" styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalComment}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.pubItem.withdrawalComment}"/>
+				<h:outputText id="txtWithdrawalComment" styleClass="messageWarn" value="#{ViewItemFull.pubItem.withdrawalComment}"/>
 			</span>
 		</div>
 
 <%-- Creators --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0 endline labelLine">
-				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+				<sup>&nbsp;</sup><h:outputText id="lblViewItemFull_lblCreatorsWithdrawn" value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
 					<h:panelGroup styleClass="free_area0 creator">
-						<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
+						<h:outputText id="txtCreatorPersonFormattedDisplayWithdrawn" value="#{creatorPerson.formattedDisplay}" escape="false"/>
 						<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
 							&#160;
-							<h:outputLink value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank"><img src="images/researcher_portfolio.gif" border="0"/></h:outputLink>
+							<h:outputLink id="lnkCreatorPersonPortfolioLinkWithdrawn" value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank"><img src="images/researcher_portfolio.gif" border="0"/></h:outputLink>
 						</h:panelGroup>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
 				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" binding="#{ViewItemFull.creatorOrganizationsIterator}" varStatus="index">
 					<h:panelGroup styleClass="free_area0 creator">
-						<h:outputText value="#{creatorOrganization.organizationName}"/>
+						<h:outputText id="txtCreatorOrganizationOrganizationNameWithdrawn" value="#{creatorOrganization.organizationName}"/>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>		
@@ -86,12 +86,12 @@
 <%-- Affiliations --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
+				<h:outputText id="lblViewItemFull_lblAffiliationsWithdrawn" value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
-					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
-					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
+					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText id="txtCreatorAffiliationPositionWithdrawn" value="#{creatorAffiliation.position}"/></h:panelGroup>
+					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText id="txtCreatorAffiliationOrganizationNameAddressWithdrawn" value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
 			</span>
@@ -100,32 +100,32 @@
 <%-- Dates --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDates}"/><span class="noDisplay">: </span>
+				&#160;<h:outputText id="lblViewItemFull_lblDates" value="#{lbl.ViewItemFull_lblDates}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " />
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
+					<h:outputLabel id="lblViewItem_lblDateCreatedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateCreated}: " />
+					<h:outputText id="txtDateCreatedWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateModified != null && ViewItemFull.pubItem.metadata.dateModified != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " />
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
+					<h:outputLabel id="lblViewItem_lblDateModifiedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateModified}: " />
+					<h:outputText id="txtDateModifiedWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null && ViewItemFull.pubItem.metadata.dateSubmitted != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: "/>
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
+					<h:outputLabel id="lblViewItem_lblDateSubmittedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateSubmitted}: "/>
+					<h:outputText id="txtDateSubmittedWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null && ViewItemFull.pubItem.metadata.dateAccepted != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: "/>
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
+					<h:outputLabel id="lblViewItem_lblDateAcceptedWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDateAccepted}: "/>
+					<h:outputText id="txtDateAcceptedWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null && ViewItemFull.pubItem.metadata.datePublishedOnline != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
+					<h:outputLabel id="lblViewItem_lblDatePublishedOnlineWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedOnline}: "/>
+					<h:outputText id="txtDatePublishedOnlineWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
 				</h:panelGroup>
 				<h:panelGroup styleClass="large_area0 tiny_marginRIncl" rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}" >
-					<h:outputLabel styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
-					<h:outputText styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
+					<h:outputLabel id="lblViewItem_lblDatePublishedInPrintWithdrawn" styleClass="large_label" value="#{lbl.ViewItem_lblDatePublishedInPrint}: "/>
+					<h:outputText id="txtDatePublishedInPrintWithdrawn" styleClass="large_area0" value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 				</h:panelGroup>
 			</span>
 		</div>
@@ -133,52 +133,52 @@
 <%-- Files total --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemMedium_lblSubHeaderFileWithdrawn" value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFileAttached}" rendered="#{ViewItemFull.amountOfFiles == 1}"/>
-				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFilesAttached}" rendered="#{ViewItemFull.amountOfFiles != 1}"/>
+				<h:outputText id="txtAmountOfFilesAttachedOneWithdrawn" value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFileAttached}" rendered="#{ViewItemFull.amountOfFiles == 1}"/>
+				<h:outputText id="txtAmountOfFilesAttachedMoreWithdrawn" value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFilesAttached}" rendered="#{ViewItemFull.amountOfFiles != 1}"/>
 			</span>
 		</div>
 
 <%-- Locators total --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblSubHeaderLocatorsWithdrawn" value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorAttached}" rendered="#{ViewItemFull.amountOfLocators == 1}"/>
-				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorsAttached}" rendered="#{ViewItemFull.amountOfLocators != 1}"/>
+				<h:outputText id="txtAmountOfLocatorsAttachedOneWithdrawn" value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorAttached}" rendered="#{ViewItemFull.amountOfLocators == 1}"/>
+				<h:outputText id="txtAmountOfLocatorsAttachedMoreWithdrawn" value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorsAttached}" rendered="#{ViewItemFull.amountOfLocators != 1}"/>
 			</span>
 		</div>
 
 <%-- Item identifier --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblSystemIdentifiersWithdrawn" value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
+				<h:outputText id="txtObjectIdAndVersionWithdrawn" value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
 			</span>
 		</div>
 
 <%-- Item state --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblItemStateWithdrawn" value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.itemPublicState}"/>
+				<h:outputText id="txtItemPublicStateWithdrawn" styleClass="messageWarn" value="#{ViewItemFull.itemPublicState}"/>
 			</span>
 		</div>
 
 <%-- Collection name --%>
 		<h:panelGroup styleClass="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
+				<h:outputText id="lblViewItemFull_lblnameOfCollectionWithdrawn" value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
+				<h:outputText id="txtContextNameAffiliationsWithdrawn" value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
 			</span>
 		</h:panelGroup>
 
