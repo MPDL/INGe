@@ -38,8 +38,12 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
+import com.ctc.wstx.ent.IntEntity;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -66,6 +70,7 @@ public class ApplicationBean extends FacesBean
         Production_Server
     }
     public static final String BEAN_NAME = "ApplicationBean";
+    public static final String DEFAULT_STYLESHEET_URL = "";
     private static Logger logger = Logger.getLogger(ApplicationBean.class);
 
     private final String APP_TITLE = "Publication Manager";
@@ -221,6 +226,52 @@ public class ApplicationBean extends FacesBean
         {
             throw new PubManVersionNotAvailableException(e);
         }
+        
+    }
+    
+    /**
+     * Provides the URLs of the pubman stylsheets.
+     *
+     * @return the escidoc instance
+     */
+    public String getPubmanStyleSheetTags() throws PubManStylesheetNotAvailableException
+    {
+        StringBuffer stylesheetTags = new StringBuffer();
+        
+        // First append the standard PubMan Stylesheet
+        try {
+			stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+        } catch (IOException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        }
+        
+        // Then append the high contrast Stylesheet
+        try {
+			stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+        } catch (IOException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        }
+        
+        // Then append the classic Stylesheet
+        try {
+			stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+        } catch (IOException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        }
+        
+        return stylesheetTags.toString();
         
     }
     
