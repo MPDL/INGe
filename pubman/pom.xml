@@ -487,6 +487,21 @@
 				<escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Repository_Policy</escidoc.pubman.policy.url>
 				<escidoc.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</escidoc.pubman.contact.url>
 				
+				<!-- Properties for PubMan standard theme-->
+				<escidoc.pubman.stylesheet.standard.url>./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
+				<escidoc.pubman.stylesheet.standard.type>stylesheet</escidoc.pubman.stylesheet.standard.type>
+				
+				<!-- Properties for PubMan contrast theme-->
+				<escidoc.pubman.stylesheet.contrast.url>./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
+				<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
+				
+				<!-- Properties for PubMan classic theme-->
+				<escidoc.pubman.stylesheet.clasic.url>./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.clasic.url>
+				<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
+				
+				<!-- URL of the favicon-->
+				<escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
+				
 				<!-- Sitemaps -->
 				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
 				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
