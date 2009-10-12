@@ -106,7 +106,7 @@ public class PropertyReader
      * @throws IOException If the properties file could not be found neither in the file system nor in the classpath. 
      * @throws URISyntaxException 
      */
-    private static void loadProperties() throws IOException, URISyntaxException
+    public static void loadProperties() throws IOException, URISyntaxException
     {
         String propertiesFile = null;
         Properties solProperties = new Properties();
@@ -141,7 +141,7 @@ public class PropertyReader
         properties.putAll(solProperties);
             
         Logger.getLogger(PropertyReader.class).info("Properties loaded from " + propertiesFile);
-        //Logger.getLogger(PropertyReader.class).info(properties.toString());
+        Logger.getLogger(PropertyReader.class).info(properties.toString());
     }
 
     /**
