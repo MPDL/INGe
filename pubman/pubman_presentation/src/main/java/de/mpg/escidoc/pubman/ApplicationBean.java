@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
@@ -348,6 +349,13 @@ public class ApplicationBean extends FacesBean
             return true;
         else 
             return false;
+    }
+    
+    public String reloadResourceBundlesAndProperties() throws Exception
+    {
+    	ResourceBundle.clearCache();
+    	PropertyReader.loadProperties();
+    	return "resource bundles and properties reloaded";
     }
 
 }
