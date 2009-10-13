@@ -351,7 +351,7 @@ public class ApplicationBean extends FacesBean
             return false;
     }
     
-    public String reloadResourceBundlesAndProperties() throws Exception
+    public String getReloadResourceBundlesAndProperties() throws Exception
     {
     	ResourceBundle.clearCache();
     	PropertyReader.loadProperties();
