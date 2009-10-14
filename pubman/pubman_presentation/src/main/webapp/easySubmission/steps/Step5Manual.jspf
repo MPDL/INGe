@@ -193,7 +193,7 @@
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<span class="large_area0 tiny_marginRIncl">
-								<h:outputLabel id="lblTotalNoOfPages" styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
+								<h:outputLabel id="lblTotalNoOfPages" styleClass="large_label" for="txtTotalNoOfPages" value="#{genre.details_total_number_of_pages_item_total_number_of_pages_label}" converter="GenreLabelConverter"/>
 								<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}" />
 							</span>
 						</span>
