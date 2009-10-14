@@ -115,8 +115,8 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.creator_person_organization_creator_select_roles_optional != 'true'}" /><h:outputText value="#{genre.creator_person_organization_creator_select_roles_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:selectOneMenu id="selRoleString" styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
-						<f:selectItems id="selRoleStrings" value="#{creatorBean.creatorRoles}"/>
+					<h:selectOneMenu id="selCreatorRoleStrings" styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+						<f:selectItems value="#{creatorBean.creatorRoles}"/>
 					</h:selectOneMenu>
 				</span>
 			</h:panelGroup>
