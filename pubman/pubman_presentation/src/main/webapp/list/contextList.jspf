@@ -31,7 +31,7 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<tr:iterator id="iterdepositorContextList" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" varStatus="index">
+<tr:iterator id="iterdepositorContextList2" var="context" value="#{ContextListSessionBean.depositorContextList}" binding="#{ContextListSessionBean.contextIterator}" varStatus="index">
 
 	<h:panelGroup layout="block" styleClass="full_area0 itemHeader noTopBorder" rendered="#{ContextListSessionBean.contextIterator.rowIndex == 0}">
 		<span class="xLarge_area0 endline">
