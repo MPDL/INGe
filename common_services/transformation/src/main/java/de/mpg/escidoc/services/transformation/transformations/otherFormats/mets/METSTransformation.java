@@ -1,6 +1,7 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.mets;
 
 import gov.loc.mets.DivType;
+import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
 
 import java.io.ByteArrayOutputStream;
@@ -23,10 +24,12 @@ import javax.xml.rpc.ServiceException;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 
 import org.apache.xmlbeans.XmlOptions;
+import org.purl.escidoc.metadata.profiles.x01.virrelement.VirrelementDocument;
 
 import de.escidoc.schemas.container.x07.ContainerDocument;
 import de.escidoc.schemas.container.x07.ContainerDocument.Container;
@@ -35,7 +38,6 @@ import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.TocDocument;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
-import de.mpg.escidoc.metadataprofile.schema.x01.virrelement.VirrelementDocument;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -234,9 +236,16 @@ public class METSTransformation
 //                System.out.println(modsCursor.xmlText());        
 //                ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
 //                System.out.println(mdr.xmlText());
-                    VirrelementDocument virrElementDoc= VirrelementDocument.Factory.parse(mdr.xmlText());
+                    
+                	
+                	XmlCursor modsCursor = mdr.newCursor();
+                	modsCursor.toFirstChild();
+                	modsCursor.toFirstChild();
+                	ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
+                	modsCursor.dispose();
+                	//VirrelementDocument virrElementDoc= VirrelementDocument.Factory.parse(mdr.xmlText());
                     //ModsDocument modsDoc = ModsDocument.Factory.parse(mdr.xmlText());
-                    mods = virrElementDoc.getVirrelement().getMods();
+                    mods = modsDoc.getMods();
                 }
             }
         }
@@ -263,6 +272,7 @@ public class METSTransformation
         logo = "http://www.mpier.uni-frankfurt.de/images/minerva_logo.gif ";
         url = "http://www.mpier.uni-frankfurt.de ";
         reference = "http://virr.mpdl.mpg.de/";
+        
         this.writeMETS.createAmdSec(amdId, owner, logo, url, reference);
     }
 
@@ -405,7 +415,7 @@ public class METSTransformation
         if(tocDiv.getTYPE().equals("structural-element") || tocDiv.getTYPE().equals("book"))
         {
             
-            XmlObject[] metadataChildren = tocDiv.selectChildren(new QName("http://escidoc.mpg.de/metadataprofile/schema/0.1/virrelement","virrelement"));
+            XmlObject[] metadataChildren = tocDiv.selectChildren(new QName("http://purl.org/escidoc/metadata/profiles/0.1/virrelement","virrelement"));
             if (metadataChildren.length>0)
             {
                 DivType metsDivNew = metsDivParent.addNewDiv();

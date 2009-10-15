@@ -127,8 +127,8 @@
 		</dependency>
 		<dependency>
 			<groupId>xmlbeans</groupId>
-			<artifactId>virr_ap</artifactId>
-			<version>1.0</version>
+			<artifactId>escidoc_profiles</artifactId>
+			<version>0.1.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
