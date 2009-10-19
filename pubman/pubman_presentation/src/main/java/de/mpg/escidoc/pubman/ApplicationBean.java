@@ -248,14 +248,17 @@ public class ApplicationBean extends FacesBean
         
         // First append the standard PubMan Stylesheet
         try {
-			if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
-			{
-				stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
-			}
-			else
-			{
-				StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
-			}
+        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.apply").equals("true"))
+	        	{
+	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
+				{
+					stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+				}
+				else
+				{
+					StylesheetStandard = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>";
+				}
+        	}
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
@@ -266,13 +269,16 @@ public class ApplicationBean extends FacesBean
         
         // Then append the high contrast Stylesheet
         try {
-        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
-			{
-        		stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
-			}
-        	else
+        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.apply").equals("true"))
         	{
-        		StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
+	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
+				{
+	        		stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+				}
+	        	else
+	        	{
+	        		StylesheetContrast = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>";
+	        	}
         	}
         } catch (IOException e)
         {
@@ -284,14 +290,17 @@ public class ApplicationBean extends FacesBean
         
         // Then append the classic Stylesheet
         try {
-			if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
-			{
-				stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
-			}
-			else
-			{
-				StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
-			}
+        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.apply").equals("true"))
+	        	{
+	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
+				{
+					stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+				}
+				else
+				{
+					StylesheetClassic = "<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>";
+				}
+        	}
         } catch (IOException e)
         {
             throw new PubManStylesheetNotAvailableException(e);
