@@ -26,41 +26,13 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-package de.mpg.escidoc.pubman.test.gui;
-
-import java.io.IOException;
-
-import org.junit.Test;
-
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanGuiModules;
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.LoginType;
+package de.mpg.escidoc.pubman.test.gui.modules.item;
 
 /**
  * @author endres
  *
  */
-public abstract class PubmanGuiTestcase extends PubmanGuiModules
+public class PubmanItemSource
 {
-    public PubmanGuiTestcase() throws IOException
-    {
-        super();
-    }
 
-    /**
-     *  Checks if the various user logins works. Also checks if the links appear for which the user has rights. 
-     */
-//    @Test
-//    public void testPMTS3LogonProcedure() {
-//        for( LoginType type : LoginType.values() ) {
-//            loginPubmanForType(type);
-//            logoutPubman();
-//        }
-//    }
-    
-    @Test
-    public void testPMTS1SaveItem() {
-        loginPubmanForType(LoginType.DepositorModeratorSimpleStandardWF);
-        doEasySubmission();
-        logoutPubman();
-    }
 }

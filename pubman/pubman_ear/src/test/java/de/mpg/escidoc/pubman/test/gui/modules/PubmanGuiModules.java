@@ -57,38 +57,8 @@ public abstract class PubmanGuiModules extends SeleneseTestCase {
         properties.load(instream);
     }
     
-    public enum LoginType {
-        DepositorModeratorSimpleWF,
-        ModeratorSimpleWF,
-        DepositorSimpleWF,
-        DepositorModeratorStandardWF,
-        ModeratorStandardWF,
-        DepositorStandardWF,
-        DepositorModeratorSimpleStandardWF,
-        ModeratorSimpleStandardWF,
-        DepositorSimpleStandardWF,
-    };
-    
-    public enum UploadFileType {
-        Pdf,
-        PdfJapanese,
-        Word,
-        Ascii,
-        Xml
-    }
-    
-    public enum ItemType {
-        ItemWithFileAttachment
-    }
-    
-    public enum LanguageSelection {
-        English,
-        German,
-        Japanese
-    }
-    
     // modules section
-    public void loginPubmanForType( LoginType type ) {
+    public void loginPubmanForType( PubmanTypesDefinitions.LoginType type ) {
         switch( type ) {
             case DepositorModeratorSimpleWF:
                 loginPubman( properties.getProperty("selenium.depositorModerator.simpleWF.username"), 
@@ -159,6 +129,7 @@ public abstract class PubmanGuiModules extends SeleneseTestCase {
         this.selenium.isCookiePresent("escidocCookie");
     }
     public void logoutPubman() {
+        this.selenium.open("/pubman/");
         selenium.click("form1:Header:lnkLoginLogout");
         this.selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         verifyFalse(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
@@ -184,7 +155,7 @@ public abstract class PubmanGuiModules extends SeleneseTestCase {
         selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpFileUploaded", "/home/endres/projects/escidoc/workdir/solutions/pubman/pubman_ear/src/test/resources/uploadData/ABC_Pt_Mor_May_2009_final.ppt");
         selenium.click("easySubmission:easySubmissionStep1Manual:fileUploads:0:btnUploadFile");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.select("easySubmission:easySubmissionStep1Manual:fileUploads:0:selContentCategory", "label=beliebiger Volltext");
+        selenium.select("easySubmission:easySubmissionStep1Manual:fileUploads:0:selContentCategory", "value=any-fulltext");
         selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentDescription", "description_uploadFile");
         selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentFileDefaultMetadataRights", "copyright_info");
         selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorLocator1", "http://external.org");
@@ -198,43 +169,25 @@ public abstract class PubmanGuiModules extends SeleneseTestCase {
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.select("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:selRoleString", "value=AUTHOR");
         selenium.click("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:selCreatorTypeString:0");
-        selenium.type("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:inpCreatorPersonFamilyName", "creator_");
-        selenium.type("search", "nachname");
-        selenium.click("//input[@value='Go']");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.type("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:inpCreatorPersonFamilyName", "creator_family_name");
         selenium.type("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:inpCreatorPersonGivenName", "creator_first_name");
         selenium.type("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:iterCreatorPersonOrganisation:0:inpPersOrgaName", "creator_orga");
         selenium.type("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:iterCreatorPersonOrganisation:0:inpPersOrgaAddress", "creator_orga_address");
-        selenium.type("search", "inhalt");
-        selenium.click("//input[@value='Go']");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.type("easySubmission:easySubmissionStep2Manual:inpFreeKeywords", "contents_");
-        selenium.type("search", "stichwort");
-        selenium.click("//input[@value='Go']");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.type("easySubmission:easySubmissionStep2Manual:inpFreeKeywords", "contents_keyword");
         selenium.type("easySubmission:easySubmissionStep2Manual:inpSubject", "011 - Bibliographies");
         selenium.type("easySubmission:easySubmissionStep2Manual:inpAbstract", "contents_abstract");
         selenium.click("easySubmission:easySubmissionStep2Manual:lnkNext");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.type("easySubmission:easySubmissionStep3Manual:txtDatePublishedInPrint", "2008-10-10");
-        selenium.type("easySubmission:easySubmissionStep3Manual:txtaPublisher", "details_");
-        selenium.type("search", "verlag");
-        selenium.click("//input[@value='Go']");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.type("easySubmission:easySubmissionStep3Manual:txtaPublisher", "details_publisher");
-        selenium.type("easySubmission:easySubmissionStep3Manual:txtPlace", "details_publisher_");
-        selenium.type("search", "ort");
-        selenium.click("//input[@value='Go']");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.type("easySubmission:easySubmissionStep3Manual:txtPlace", "details_publisher_city");
+        selenium.select("easySubmission:easySubmissionStep3Manual:selSourceGenre", "value=BOOK");
+        selenium.type("easySubmission:easySubmissionStep3Manual:inpSourceTitle", "quelle_titel");
+        selenium.type("easySubmission:easySubmissionStep3Manual:inpSourceDetailsVolume", "12");
+        selenium.type("easySubmission:easySubmissionStep3Manual:inpSourceDetailsIssue", "122");
+        selenium.type("easySubmission:easySubmissionStep3Manual:inpSourceDetailsStartPage", "23");
+        selenium.type("easySubmission:easySubmissionStep3Manual:inpSourceDetailsEndPage", "233");
         selenium.click("easySubmission:easySubmissionStep3Manual:lnkSave");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:fileLicenseDate", "2009-10-14");
-        selenium.click("easySubmission:easySubmissionStep3Manual:lnkSave");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        String objectId = selenium.getValue("txtObjectIdAndVersion");
+        String objectId = selenium.getText("txtObjectIdAndVersion");
         log.info("Created object: " + objectId ); 
         return objectId;
     }
