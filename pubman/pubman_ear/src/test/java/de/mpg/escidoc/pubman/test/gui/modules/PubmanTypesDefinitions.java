@@ -46,41 +46,9 @@ public class PubmanTypesDefinitions
         DepositorSimpleStandardWF,
     }
     
-    public enum GenreType {
-        ARTICLE, 
-        BOOK, 
-        BOOK_ITEM, 
-        PROCEEDINGS, 
-        CONFERENCE_PAPER, 
-        TALK_AT_EVENT, 
-        CONFERENCE_REPORT, 
-        POSTER, 
-        COURSEWARE_LECTURE, 
-        THESIS, 
-        PAPER, 
-        REPORT, 
-        ISSUE, 
-        JOURNAL, 
-        MANUSCRIPT, 
-        SERIES, 
-        OTHER
-    }
-    
     public enum LanguageSelection {
         English,
         German,
         Japanese
-    }
-    
-    public enum FileContentCategory
-    {
-        ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS,
-        SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT
-    }
-    public enum ComponentVisibility {
-        PUBLIC,
-        PRIVATE,
-        /** aka restricted */
-        AUDIENCE
     }
 }
