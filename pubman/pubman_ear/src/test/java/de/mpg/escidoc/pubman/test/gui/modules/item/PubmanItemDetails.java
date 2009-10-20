@@ -28,11 +28,49 @@
 */
 package de.mpg.escidoc.pubman.test.gui.modules.item;
 
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
+
 /**
  * @author endres
  *
  */
 public class PubmanItemDetails
 {
-
+    public enum ReviewType {
+        INTERNAL,
+        PEER,
+        NO_REVIEW
+    }
+    
+    public String languagePublication = null;
+    public String datePublishedInPrint = null;
+    public String datePublishedOnline = null;
+    public String dateAccepted = null;
+    public String dateSubmitted = null;
+    public String dateModified = null;
+    public String dateCreated = null;
+    
+    public String numberOfPages = null;
+    public String tableOfContent = null;
+    
+    public ReviewType reviewType = null;
+    public IdentifierType identifierType = null;
+    public String identifierValue = null;
+    
+    public PubmanItemDetails( String languagePublication, String datePublishedInPrint, String datePublishedOnline,
+            String dateAccepted, String dateSubmitted, String dateModified, String dateCreated, String numberOfPages,
+            String tableOfContent, ReviewType reviewType, IdentifierType identifierType, String identifierValue) {
+        
+        this.languagePublication = languagePublication;
+        this.datePublishedInPrint = datePublishedInPrint;
+        this.datePublishedOnline = datePublishedOnline;
+        this.dateAccepted = dateAccepted;
+        this.dateSubmitted = dateSubmitted;
+        this.dateModified = dateCreated;
+        this.numberOfPages = numberOfPages;
+        this.tableOfContent = tableOfContent;
+        this.reviewType = reviewType;
+        this.identifierType = identifierType;
+        this.identifierValue = identifierValue;
+    }
 }

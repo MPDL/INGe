@@ -31,18 +31,78 @@ package de.mpg.escidoc.pubman.test.gui.modules.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.GenreType;
-
 /**
  * @author endres
  * 
  */
 public class PubmanItem
 {
+    public enum GenreType {
+        ARTICLE, 
+        BOOK, 
+        BOOK_ITEM, 
+        PROCEEDINGS, 
+        CONFERENCE_PAPER, 
+        TALK_AT_EVENT, 
+        CONFERENCE_REPORT, 
+        POSTER, 
+        COURSEWARE_LECTURE, 
+        THESIS, 
+        PAPER, 
+        REPORT, 
+        ISSUE, 
+        JOURNAL, 
+        MANUSCRIPT, 
+        SERIES, 
+        OTHER
+    }
+    
+    public enum ComponentVisibility {
+        PUBLIC,
+        PRIVATE,
+        /** aka restricted */
+        AUDIENCE
+    }
+    
+    public enum CreatorRole {
+        ARTIST,
+        AUTHOR,
+        EDITOR,
+        PAINTER,
+        ILLUSTRATOR,
+        PHOTOGRAPHER,
+        COMMENTATOR,
+        TRANSCRIBER,
+        ADVISOR,
+        TRANSLATOR,
+        CONTRIBUTOR
+    }
+    public enum CreatorType {
+        Person,
+        Organization
+    }
+    
+    public enum IdentifierType {
+        URI,
+        ISBN,
+        ISSN,
+        DOI,
+        URN,
+        PII,
+        EDOC,
+        ESCIDOC,
+        ISI,
+        PND,
+        ZDB,
+        PMID,
+        ARXIV,
+        PMC,
+        BMC,
+        OTHER
+   }
+      
     public GenreType genreType;
     
-    
-
     List<PubmanItemBasic> basicList = new ArrayList<PubmanItemBasic>();
     List<PubmanItemFile> fileList = new ArrayList<PubmanItemFile>();
     List<PubmanItemFileLocators> locatorsList = new ArrayList<PubmanItemFileLocators>();

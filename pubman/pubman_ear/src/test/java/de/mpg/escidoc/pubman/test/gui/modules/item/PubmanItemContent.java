@@ -35,5 +35,13 @@ package de.mpg.escidoc.pubman.test.gui.modules.item;
  */
 public class PubmanItemContent
 {
+    public String keywords = null;
+    public String ddcSubject = null;
+    public String contentAbstract = null;
     
+    public PubmanItemContent( String keywords, String ddcSubject, String contentAbstract ) {
+        this.keywords = keywords;
+        this.ddcSubject = ddcSubject;
+        this.contentAbstract = contentAbstract;
+    }
 }

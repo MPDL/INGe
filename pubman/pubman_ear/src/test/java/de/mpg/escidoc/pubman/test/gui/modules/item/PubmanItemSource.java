@@ -28,11 +28,68 @@
 */
 package de.mpg.escidoc.pubman.test.gui.modules.item;
 
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
+
 /**
  * @author endres
  *
  */
 public class PubmanItemSource
 {
-
+    public enum Genre {
+        BOOK,
+        ISSUE,
+        JOURNAL,
+        PROCEEDINGS,
+        SERIES
+    }
+    
+    public Genre genre = null;
+    public String title = null;
+    public CreatorRole creatorRole = null;
+    public CreatorType creatorType = null;
+    public String familyName = null;
+    public String givenName = null;
+    public String orgaName = null;
+    public String orgaAdress = null;
+    
+    public String volume = null;
+    public String totalNumberOfPages = null;
+    public String publisher = null;
+    public String place = null;
+    public IdentifierType identifier = null;
+    public String identifierValue = null;
+    
+    public String edition = null;
+    public String issue = null;
+    public String startPage = null;
+    public String endPage = null;
+    public String sequenceNumber = null;
+    
+    public PubmanItemSource( Genre genre, String title, CreatorRole creatorRole, CreatorType creatorType, String familyName,
+            String givenName, String orgaName, String orgaAdress, String volume, String totalNumberOfPages, String publisher,
+            String place, IdentifierType identifier, String identifierValue, String edition, String issue, String startPage,
+            String endPage, String sequenceNumber) {
+        this.genre = genre;
+        this.title = title;
+        this.creatorRole = creatorRole;
+        this.creatorType = creatorType;
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.orgaName = orgaName;
+        this.orgaAdress = orgaAdress;
+        this.volume = volume;
+        this.totalNumberOfPages = totalNumberOfPages;
+        this.publisher = publisher;
+        this.place = place;
+        this.identifier = identifier;
+        this.identifierValue = identifierValue;
+        this.edition = edition;
+        this.issue = issue;
+        this.startPage = startPage;
+        this.endPage = endPage;
+        this.sequenceNumber = sequenceNumber;
+    }
 }

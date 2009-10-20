@@ -28,8 +28,9 @@
 */
 package de.mpg.escidoc.pubman.test.gui.modules.item;
 
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.ComponentVisibility;
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.FileContentCategory;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.ComponentVisibility;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItemFile.FileContentCategory;
+
 
 /**
  * @author endres

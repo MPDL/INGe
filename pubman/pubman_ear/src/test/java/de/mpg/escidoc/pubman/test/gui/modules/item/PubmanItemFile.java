@@ -28,8 +28,8 @@
 */
 package de.mpg.escidoc.pubman.test.gui.modules.item;
 
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.ComponentVisibility;
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanTypesDefinitions.FileContentCategory;
+import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.ComponentVisibility;
+
 
 /**
  * @author endres
@@ -43,6 +43,12 @@ public class PubmanItemFile
         Word,
         Ascii,
         Xml
+    }
+    
+    public enum FileContentCategory
+    {
+        ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS,
+        SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT
     }
      
     public String localPath = null;

@@ -34,5 +34,15 @@ package de.mpg.escidoc.pubman.test.gui.modules.item;
  */
 public class PubmanItemEvent
 {
-
+    public String title = null;
+    public String placeOfEvent = null;
+    public String startDate = null;
+    public String endDate = null;
+    
+    public PubmanItemEvent(String title, String placeOfEvent, String startDate, String endDate) {
+        this.title = title;
+        this.placeOfEvent = placeOfEvent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
