@@ -65,54 +65,63 @@ public abstract class PubmanGuiModules extends SeleneseTestCase {
                         properties.getProperty("selenium.depositorModerator.simpleWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case ModeratorSimpleWF:
                 loginPubman( properties.getProperty("selenium.moderator.simpleWF.username"), 
                         properties.getProperty("selenium.moderator.simpleWF.password"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyFalse(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case DepositorSimpleWF:
                 loginPubman( properties.getProperty("selenium.depositor.simpleWF.username"), 
                         properties.getProperty("selenium.depositor.simpleWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case DepositorModeratorStandardWF:
                 loginPubman( properties.getProperty("selenium.depositorModerator.standardWF.username"), 
                         properties.getProperty("selenium.depositorModerator.standardWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case ModeratorStandardWF:
                 loginPubman( properties.getProperty("selenium.moderator.standardWF.username"), 
                         properties.getProperty("selenium.moderator.standardWF.password"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyFalse(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case DepositorStandardWF:
                 loginPubman( properties.getProperty("selenium.depositor.standardWF.username"), 
                         properties.getProperty("selenium.depositor.standardWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case DepositorModeratorSimpleStandardWF:
                 loginPubman( properties.getProperty("selenium.depositorModerator.simpleStandardWF.username"), 
                         properties.getProperty("selenium.depositorModerator.simpleStandardWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case ModeratorSimpleStandardWF:
                 loginPubman( properties.getProperty("selenium.moderator.simpleStandardWF.username"), 
                         properties.getProperty("selenium.moderator.simpleStandardWF.password"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyFalse(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             case DepositorSimpleStandardWF:
                 loginPubman( properties.getProperty("selenium.depositor.simpleStandardWF.username"), 
                         properties.getProperty("selenium.depositor.simpleStandardWF.password"));
                 verifyTrue(selenium.isElementPresent("form1:Header:lnkDepWorkspace"));
                 verifyFalse(selenium.isElementPresent("form1:Header:lnkQAWorkspace"));
+                verifyTrue(selenium.isElementPresent("form1:Header:lnkSubmission"));
                 break;
             default:
                 throw new VerifyError("Unknown login type requested.");
