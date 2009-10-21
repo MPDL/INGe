@@ -502,8 +502,9 @@
 				<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
 				<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
 				
-				<!-- URL of the favicon-->
+				<!-- Properties of the favicon-->
 				<escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
+				<escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
 				
 				<!-- Sitemaps -->
 				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
