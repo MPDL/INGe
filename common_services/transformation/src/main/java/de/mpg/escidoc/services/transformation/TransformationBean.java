@@ -30,8 +30,8 @@
 
 package de.mpg.escidoc.services.transformation;
 
+import java.io.File;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 import java.util.Vector;
@@ -60,13 +60,21 @@ public class TransformationBean implements Transformation
     private final Logger logger = Logger.getLogger(TransformationBean.class);    
     private Util util;
     private Vector<Class> transformationClasses = new Vector<Class>();
-   
-    
+    private boolean local = false;
+
+
     /**
      * Public constructor.
      */
     public TransformationBean()
     {
+        this.util = new Util();
+        this.initializeTransformationModules();
+    }
+    
+    public TransformationBean(boolean local)
+    {
+        this.local = local;
         this.util = new Util();
         this.initializeTransformationModules();
     }
@@ -214,6 +222,10 @@ public class TransformationBean implements Transformation
         return result;
     }
     
+    /**
+     * Searches for all classes which implement the transformation module.
+     * @throws RuntimeException
+     */
     private void initializeTransformationModules() throws RuntimeException
     {
         this.logger.debug("Classes which implement the transformation interface:");
@@ -223,34 +235,62 @@ public class TransformationBean implements Transformation
         ClassLoader cl = this.getClass().getClassLoader();
         Class transformationClass;
         ClasspathUrlFinder classPathFinder = new ClasspathUrlFinder();
-        
-        try
-        {
-            //Location of classes to search
-            classPath = classPathFinder.findClassBase(this.getClass());
-            //Small hack due to problems with blanks in URLs
-            String classPathStr = classPath.toExternalForm();
-            classPath = new URL (java.net.URLDecoder.decode(classPathStr));
-            
-            AnnotationDB anDB = new AnnotationDB();
-            anDB.scanArchives(classPath);
-            anDB.setScanClassAnnotations(true);
+        String searchDir= "";
 
-            entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());           
-            entetiesV.addAll(entities);
+        try
+        {              
+            //For local testing, only search in Transformation module
+            if (this.local)
+            {
+                //Location of classes to search
+                classPath = classPathFinder.findClassBase(this.getClass());
+                //Small hack due to problems with blanks in URLs
+                String classPathStr = classPath.toExternalForm();
+                classPath = new URL (java.net.URLDecoder.decode(classPathStr));
                 
+                AnnotationDB anDB = new AnnotationDB();
+                anDB.scanArchives(classPath);
+                anDB.setScanClassAnnotations(true);
+
+                entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());           
+                entetiesV.addAll(entities);
+            }
+            //Search in jboss directory
+            else
+            {
+                searchDir = this.setJbossSearchPath();   
+                File dir = new File(searchDir);       
+                String[] children = dir.list();
+              
+                if (children != null)
+                {
+                    for (int i=0; i<children.length; i++) 
+                    {
+                        String filename = children[i];
+                        if (filename.endsWith(".jar"))
+                        {
+                            URL url = new URL ("file:" + searchDir + "\\" +filename);
+                            AnnotationDB anDB = new AnnotationDB();
+                            anDB.scanArchives(url);
+                            anDB.setScanClassAnnotations(true);
+                
+                            entities = anDB.getAnnotationIndex().get(TransformationModule.class.getName());     
+                            if (entities != null)
+                            {
+                                entetiesV.addAll(entities);
+                            }
+                        }                            
+                    }
+                }
+            }
+  
             for (int i = 0; i < entetiesV.size(); i++)
             {
-                //this.logger.info(entetiesV.get(i));
+                this.logger.info(entetiesV.get(i));
                 transformationClass = cl.loadClass(entetiesV.get(i).toString());
                 this.transformationClasses.add(transformationClass);
             }       
 
-        }
-        catch (MalformedURLException e)
-        {
-            this.logger.error("Invalid classpath: " + classPath.toString(), e);
-            throw new RuntimeException(e);
         }
         catch (Exception e)
         {
@@ -367,4 +407,46 @@ public class TransformationBean implements Transformation
         
         return check;
     }
+    
+    /**
+     * This method returns the path to the pubman_ear file
+     * in the jboss directory.
+     * @return path to ear file
+     */
+    private String setJbossSearchPath ()
+    {
+        String path = "";
+        path = System.getProperty("jboss.server.home.dir");
+        path += "\\tmp\\deploy\\";
+        
+        File dir = new File(path);           
+        String[] children = dir.list();
+  
+        if (children != null)
+        {
+            //Search children
+            for (int i=0; i<children.length; i++) 
+            {
+                String filename = children[i];
+                if (filename.contains("pubman_ear") && filename.contains("contents"))
+                {
+                    return path + filename;
+                }
+            }
+        }
+
+        return path;
+    }
+      
+    
+    public boolean getLocal()
+    {
+        return local;
+    }
+
+    public void setLocal(boolean local)
+    {
+        this.local = local;
+    }
+
 }

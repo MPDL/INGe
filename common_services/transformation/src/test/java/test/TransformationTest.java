@@ -35,10 +35,10 @@ public class TransformationTest
     @Before
     public void initTransformation()
     {
-        this.trans = new TransformationBean();
+        this.trans = new TransformationBean(true);
     }
 
-    
+    @Test
     public void test() throws Exception
     {
         try
@@ -111,7 +111,6 @@ public class TransformationTest
     /* 
      * test TEI2 to eSciDoc item transformation 
      * */
-    @Test
     public void tei2escidoc() throws Exception
     {
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
@@ -152,6 +151,7 @@ public class TransformationTest
          this.logger.info(new String(result));
      }
      
+     @Test
      public void arxivTest() throws Exception
      {
          Format arxivItem = new Format("arxiv", "application/xml", "UTF-8");
@@ -160,7 +160,7 @@ public class TransformationTest
          Format bibtex = new Format("bibtex", "text/plain", "*");
          
          byte[] result;
-         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
          this.logger.info(new String(result));     
          
          result = this.trans.transform(result, escidoc, bibtex, "escidoc");
@@ -170,7 +170,7 @@ public class TransformationTest
 //         this.logger.info(new String(result));   
      }
      
-     
+    
      public void pmcTest() throws Exception
      {
          Format pmcItem = new Format("pmc", "application/xml", "UTF-8");
@@ -180,13 +180,13 @@ public class TransformationTest
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          
          byte[] result;
-         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/pmc2.xml").getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/pmc2.xml").getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
          this.logger.info(new String(result, "UTF-8"));   
          
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
          System.out.println("itemVO successfully created. ");
          
-         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/pmc2.xml").getBytes(), pmcItem, escidocComponent, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/pmc2.xml").getBytes(), pmcItem, escidocComponent, "escidoc");
          this.logger.info(new String(result));   
          
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result));
@@ -216,7 +216,7 @@ public class TransformationTest
          this.logger.info(new String(result, "UTF-8"));
      }
     
-     public void escidoc2oaiTest () throws Exception
+     public void escidoc2oaidcTest () throws Exception
      {
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");

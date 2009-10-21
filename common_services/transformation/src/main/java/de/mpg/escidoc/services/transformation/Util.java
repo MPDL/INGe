@@ -30,8 +30,15 @@
 
 package de.mpg.escidoc.services.transformation;
 
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.Vector;
 
@@ -335,5 +342,49 @@ public class Util
         {
             throw new RuntimeException(e);
         }
+    }
+    
+    /**
+     * Gets a resource as String.
+     *
+     * @param fileName The path and name of the file relative from the working directory.
+     * @return The resource as String.
+     * @throws IOException Thrown if the resource cannot be located.
+     */
+    public String getResourceAsString(final String fileName) throws IOException
+    {
+        InputStream fileIn = getResourceAsStream(fileName);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+        String line = null;
+        StringBuffer result = new StringBuffer();
+        while ((line = br.readLine()) != null)
+        {
+            result.append(line).append("\n");
+        }
+        return result.toString();
+    }
+    
+    /**
+     * Gets a resource as InputStream.
+     *
+     * @param fileName The path and name of the file relative from the working directory.
+     * @return The resource as InputStream.
+     * @throws FileNotFoundException Thrown if the resource cannot be located.
+     */
+    public InputStream getResourceAsStream(final String fileName) throws FileNotFoundException
+    {
+        InputStream fileIn = null;
+        
+        File file = new File(fileName);
+        if (file.exists())
+        {
+            fileIn = new FileInputStream(fileName);
+        }
+        else
+        {
+            fileIn = this.getClass().getClassLoader().getResourceAsStream(fileName);
+        }
+        return fileIn;
+        
     }
 }
