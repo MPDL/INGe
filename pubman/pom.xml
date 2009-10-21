@@ -495,7 +495,7 @@
 				<!-- Properties for PubMan contrast theme-->
 				<escidoc.pubman.stylesheet.contrast.url>./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
 				<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
-				<escidoc.pubman.stylesheet.contrast.apply>false</escidoc.pubman.stylesheet.contrast.apply>
+				<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
 				
 				<!-- Properties for PubMan classic theme-->
 				<escidoc.pubman.stylesheet.classic.url>./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
