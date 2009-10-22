@@ -33,8 +33,7 @@
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 				
 <link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-<h:outputText value="#{ApplicationBean.pubmanStyleSheetTags}" escape="false"/>
-<link rel="SHORTCUT ICON" href="./resources/pubman_favicon.ico"/>
+<h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
 <link rel="search" type="application/opensearchdescription+xml" title="<h:outputText value='#{lbl.openSearch_desc} #{lbl.openSearch_shortDesc} #{Header.type}'/>" href="<h:outputText value='#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}' />search/OpenSearch.jsp" />
 <meta http-equiv="pragma" content="no-cache"/>
 <meta http-equiv="cache-control" content="no-cache"/>
