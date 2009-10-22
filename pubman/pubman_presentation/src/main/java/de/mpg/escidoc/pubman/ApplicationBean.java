@@ -239,9 +239,9 @@ public class ApplicationBean extends FacesBean
      *
      * @return the escidoc instance
      */
-    public String getPubmanStyleSheetTags() throws PubManStylesheetNotAvailableException
+    public String getPubmanStyleTags() throws PubManStylesheetNotAvailableException
     {
-        StringBuffer stylesheetTags = new StringBuffer();
+        StringBuffer styleTags = new StringBuffer();
         String StylesheetStandard = "";
         String StylesheetContrast = "";
         String StylesheetClassic = "";
@@ -252,7 +252,7 @@ public class ApplicationBean extends FacesBean
 	        	{
 	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type").equals(this.ALTERNATE_STYLESHEET))
 				{
-					stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
+	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.url") +"' id='PubManTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblPubMan") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.standard.type") +"'/>");
 				}
 				else
 				{
@@ -273,7 +273,7 @@ public class ApplicationBean extends FacesBean
         	{
 	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type").equals(this.ALTERNATE_STYLESHEET))
 				{
-	        		stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
+	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.url") +"' id='highContrastTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblHighContrast") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.contrast.type") +"'/>");
 				}
 	        	else
 	        	{
@@ -294,7 +294,7 @@ public class ApplicationBean extends FacesBean
 	        	{
 	        	if(PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type").equals(this.ALTERNATE_STYLESHEET))
 				{
-					stylesheetTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
+	        		styleTags.append("<link href='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.url") +"' id='classicTheme' type='text/css' title='"+ this.i18nHelper.getLabel("styleTheme_lblClassic") +"' rel='"+ PropertyReader.getProperty("escidoc.pubman.stylesheet.classic.type") +"'/>");
 				}
 				else
 				{
@@ -310,11 +310,24 @@ public class ApplicationBean extends FacesBean
         }
         
         // then append the stylesheet String variables (no matter if empty) to ensure that the stylesheet with the standard rel tag is the last entry in the list.
-        stylesheetTags.append(StylesheetStandard);
-        stylesheetTags.append(StylesheetContrast);
-        stylesheetTags.append(StylesheetClassic);
+        styleTags.append(StylesheetStandard);
+        styleTags.append(StylesheetContrast);
+        styleTags.append(StylesheetClassic);
         
-        return stylesheetTags.toString();
+        // Last Step: add Favicon information if it should be applied
+        try {
+	        if(PropertyReader.getProperty("escidoc.pubman.favicon.apply").equals("true"))
+	        {
+	        	styleTags.append("<link rel='SHORTCUT ICON' href='" + PropertyReader.getProperty("escidoc.pubman.favicon.url") + "'/>");
+	        }
+        } catch (IOException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManStylesheetNotAvailableException(e);
+        }
+        return styleTags.toString();
         
     }
     
