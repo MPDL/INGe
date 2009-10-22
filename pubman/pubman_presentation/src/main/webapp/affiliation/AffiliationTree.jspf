@@ -39,7 +39,7 @@
 	</h3>
 	<h:panelGroup styleClass="seperator" />
 	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
-		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
+		<tr:tree id="treeAffiliation" var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
 				<h:panelGroup>
 					<h:panelGroup layout="block" styleClass="std_imgArea affTreeOUIcon mpgUnit" style="float: left;" rendered="#{node.mps}"></h:panelGroup>
