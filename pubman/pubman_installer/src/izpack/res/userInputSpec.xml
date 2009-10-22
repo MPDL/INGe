@@ -2,7 +2,7 @@
 
 <userInput>
     <!-- Install -->
-    <panel order="6">
+    <panel order="0">
         <!-- Coreservice credentials -->
         <createForPack name="PubMan" />
         <field type="title" txt="Coreservice connectivity" bold="true" size="1" />
@@ -123,7 +123,7 @@
         </field>
         <field type="divider" align="bottom" />
     </panel>
-    <panel order="0">
+    <panel order="6">
         <createForPack name="PubMan" />
          <field type="staticText" align="left"
             txt="External Stylesheets and an external FavIcon can be specified here by entering absolute or relative URLs. The Stylesheet or FavIcon can also be switched off completely by deselecting the checkbox. For Stylesheets one has to be set to 'stylesheet' (rel tag). The others have to be 'alternate stylesheet'. If nothing is changed here, PubMan will come with its standard Stylesheets and FavIcon." />
