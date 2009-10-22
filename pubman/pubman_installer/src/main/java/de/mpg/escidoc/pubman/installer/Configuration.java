@@ -64,6 +64,17 @@ public class Configuration
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
     public static final String KEY_CONE_USER = "escidoc.cone.database.user.name";
     public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";
+    public static final String KEY_PM_STYLESHEET_STANDARD_URL = "escidoc.pubman.stylesheet.standard.url";
+    public static final String KEY_PM_STYLESHEET_STANDARD_TYPE = "escidoc.pubman.stylesheet.standard.type";
+    public static final String KEY_PM_STYLESHEET_STANDARD_APPLY = "escidoc.pubman.stylesheet.standard.apply";
+    public static final String KEY_PM_STYLESHEET_CONTRAST_URL = "escidoc.pubman.stylesheet.contrast.url";
+    public static final String KEY_PM_STYLESHEET_CONTRAST_TYPE = "escidoc.pubman.stylesheet.contrast.type";
+    public static final String KEY_PM_STYLESHEET_CONTRAST_APPLY = "escidoc.pubman.stylesheet.contrast.apply";
+    public static final String KEY_PM_STYLESHEET_CLASSIC_URL = "escidoc.pubman.stylesheet.classic.url";
+    public static final String KEY_PM_STYLESHEET_CLASSIC_TYPE = "escidoc.pubman.stylesheet.classic.type";
+    public static final String KEY_PM_STYLESHEET_CLASSIC_APPLY = "escidoc.pubman.stylesheet.classic.apply";
+    public static final String KEY_PM_FAVICON_URL = "escidoc.pubman.favicon.url";
+    public static final String KEY_PM_FAVICON_APPLY = "escidoc.pubman.favicon.apply";
     
     public Configuration(String fileName) throws IOException
     {

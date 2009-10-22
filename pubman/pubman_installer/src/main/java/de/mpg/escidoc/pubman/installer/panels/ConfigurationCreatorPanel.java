@@ -90,6 +90,17 @@ public class ConfigurationCreatorPanel extends IzPanel
        userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
        userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
        userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_APPLY, idata.getVariable("StyleSheetStandardApply"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_URL, idata.getVariable("StyleSheetStandardURL"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_STANDARD_TYPE, idata.getVariable("StyleSheetStandardType"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CONTRAST_APPLY, idata.getVariable("StyleSheetContrastApply"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CONTRAST_URL, idata.getVariable("StyleSheetContrastURL"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CONTRAST_TYPE, idata.getVariable("StyleSheetContrastType"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_APPLY, idata.getVariable("StyleSheetClassicApply"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_URL, idata.getVariable("StyleSheetClassicURL"));
+       userConfigValues.put(Configuration.KEY_PM_STYLESHEET_CLASSIC_TYPE, idata.getVariable("StyleSheetClassicType"));
+       userConfigValues.put(Configuration.KEY_PM_FAVICON_URL, idata.getVariable("FavIconURL"));
+       userConfigValues.put(Configuration.KEY_PM_FAVICON_APPLY, idata.getVariable("FavIconApply"));
        configuration.setProperties(userConfigValues);
        configuration.store(idata.getInstallPath() + "/jboss-4.2.2.GA/server/default/conf/pubman.properties");
    }

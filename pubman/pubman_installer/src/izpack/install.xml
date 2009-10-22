@@ -18,7 +18,7 @@
         The gui preferences indication.
         Sets the installer window to 640x480. It will not be able to change the size.
     -->
-    <guiprefs width="640" height="480" resizable="no">
+    <guiprefs width="800" height="600" resizable="no">
         <modifier key="useButtonIcons" value="no"/>
         <modifier key="labelGap" value="2"/>
         <modifier key="layoutAnchor" value="NORTHWEST"/>
@@ -66,6 +66,7 @@
         <panel classname="UserInputPanel" id="UserInputPanel.3"/>
         <panel classname="UserInputPanel" id="UserInputPanel.4"/>
         <panel classname="UserInputPanel" id="UserInputPanel.5"/>
+        <panel classname="UserInputPanel" id="UserInputPanel.6"/>
 <!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
@@ -141,6 +142,17 @@
         <variable name="ConePort" value="5432"/>
         <variable name="ConeUser" value="postgres"/>
         <variable name="ConePassword" value="postgres"/>
+        <variable name="StyleSheetStandardURL" value="./resources/eSciDoc_CSS_v2/themes/skin_PubMan/styles/theme.css"/>
+        <variable name="StyleSheetStandardType" value="stylesheet"/>
+        <variable name="StyleSheetStandardApply" value="true"/>
+        <variable name="StyleSheetContrastURL" value="./resources/eSciDoc_CSS_v2/themes/skin_highContrast/styles/theme.css"/>
+        <variable name="StyleSheetContrastType" value="alternate stylesheet"/>
+        <variable name="StyleSheetContrastApply" value="true"/>
+        <variable name="StyleSheetClassicURL" value="./resources/eSciDoc_CSS_v2/themes/skin_classic/styles/theme.css"/>
+        <variable name="StyleSheetClassicType" value="alternate stylesheet"/>
+        <variable name="StyleSheetClassicApply" value="true"/>
+        <variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
+        <variable name="FavIconApply" value="true"/>
     </variables>
     
     <listeners>
