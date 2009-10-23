@@ -69,14 +69,14 @@
 		<tr:iterator id="iterAlternativeTitle" var="altTitle" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{!(genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'full-submission' || genre.item_basic_item_title_alternative_display == 'false' && genre.item_basic_item_title_alternative_form_id == 'all')}">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
+					&#160;<h:outputText id="txtAlternativeTitleMandatory" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.item_basic_item_title_alternative_optional != 'true'}" /><h:outputText value="#{genre.item_basic_item_title_alternative_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3"/>
+					<h:inputTextarea id="inpAlternativeTitle" styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+					<tr:commandButton id="btnAddAlternativeTitle" styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
+					<tr:commandButton id="btnRemoveAlternativeTitle" styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" rendered="#{genre.item_basic_item_title_alternative_repeatable != 'false'}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>	
