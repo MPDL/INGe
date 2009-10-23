@@ -34,21 +34,4 @@ package de.mpg.escidoc.pubman.test.gui.modules;
  */
 public class PubmanTypesDefinitions
 {
-    public enum LoginType {
-        DepositorModeratorSimpleWF,
-        ModeratorSimpleWF,
-        DepositorSimpleWF,
-        DepositorModeratorStandardWF,
-        ModeratorStandardWF,
-        DepositorStandardWF,
-        DepositorModeratorSimpleStandardWF,
-        ModeratorSimpleStandardWF,
-        DepositorSimpleStandardWF,
-    }
-    
-    public enum LanguageSelection {
-        English,
-        German,
-        Japanese
-    }
 }

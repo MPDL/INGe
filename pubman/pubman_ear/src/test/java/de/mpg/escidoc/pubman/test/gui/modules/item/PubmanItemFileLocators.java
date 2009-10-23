@@ -59,4 +59,39 @@ public class PubmanItemFileLocators
         this.copyrightDate = copyrightDate;
         this.license = license;
     }
+
+    public String getUploadUrl()
+    {
+        return uploadUrl;
+    }
+
+    public FileContentCategory getContentCategory()
+    {
+        return contentCategory;
+    }
+
+    public ComponentVisibility getComponentVisibility()
+    {
+        return componentVisibility;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getCopyrightStatement()
+    {
+        return copyrightStatement;
+    }
+
+    public String getCopyrightDate()
+    {
+        return copyrightDate;
+    }
+
+    public String getLicense()
+    {
+        return license;
+    }
 }

@@ -33,4 +33,54 @@ public class PubmanItemPersonOrganizations
         this.orgaName = orgaName;
         this.orgaAddress = orgaAddress;
     }
+
+    public String getMultipleAuthors()
+    {
+        return multipleAuthors;
+    }
+
+    public boolean isOverwriteOldOnes()
+    {
+        return overwriteOldOnes;
+    }
+
+    public String getMultipleOrgaName()
+    {
+        return multipleOrgaName;
+    }
+
+    public String getMultipleOrgaAddress()
+    {
+        return multipleOrgaAddress;
+    }
+
+    public CreatorRole getCreatorRole()
+    {
+        return creatorRole;
+    }
+
+    public CreatorType getCreatorType()
+    {
+        return creatorType;
+    }
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public String getOrgaName()
+    {
+        return orgaName;
+    }
+
+    public String getOrgaAddress()
+    {
+        return orgaAddress;
+    }
 }

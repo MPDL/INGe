@@ -76,4 +76,49 @@ public class PubmanItemFile
         this.copyrightDate = copyrightDate;
         this.license = license;
     }
+
+    public String getLocalPath()
+    {
+        return localPath;
+    }
+
+    public String getUploadUrl()
+    {
+        return uploadUrl;
+    }
+
+    public UploadFileType getUploadFileType()
+    {
+        return uploadFileType;
+    }
+
+    public FileContentCategory getContentCategory()
+    {
+        return contentCategory;
+    }
+
+    public ComponentVisibility getComponentVisibility()
+    {
+        return componentVisibility;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getCopyrightStatement()
+    {
+        return copyrightStatement;
+    }
+
+    public String getCopyrightDate()
+    {
+        return copyrightDate;
+    }
+
+    public String getLicense()
+    {
+        return license;
+    }
 }

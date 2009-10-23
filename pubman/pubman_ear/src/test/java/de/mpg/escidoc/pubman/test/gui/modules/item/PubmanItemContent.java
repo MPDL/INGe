@@ -44,4 +44,19 @@ public class PubmanItemContent
         this.ddcSubject = ddcSubject;
         this.contentAbstract = contentAbstract;
     }
+
+    public String getKeywords()
+    {
+        return keywords;
+    }
+
+    public String getDdcSubject()
+    {
+        return ddcSubject;
+    }
+
+    public String getContentAbstract()
+    {
+        return contentAbstract;
+    }
 }

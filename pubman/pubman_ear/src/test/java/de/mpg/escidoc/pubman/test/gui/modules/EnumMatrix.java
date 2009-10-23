@@ -26,43 +26,26 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-package de.mpg.escidoc.pubman.test.gui;
-
-import java.io.IOException;
-
-import org.junit.Test;
-
-import de.mpg.escidoc.pubman.test.gui.modules.PubmanGuiModules;
-import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem;
-import de.mpg.escidoc.pubman.test.gui.modules.login.PubmanUser;
+package de.mpg.escidoc.pubman.test.gui.modules;
 
 /**
  * @author endres
  *
  */
-public abstract class PubmanGuiTestcase extends PubmanGuiModules
+public class EnumMatrix<E extends Enum, T extends Enum>
 {
-    public PubmanGuiTestcase() throws IOException
-    {
-        super();
-    }
-
-    /**
-     *  Checks if the various user logins works. Also checks if the links appear for which the user has rights. 
-     */
-//    @Test
-//    public void testPMTS3LogonProcedure() {
-//        for( PubmanUser.UserType userType : PubmanUser.UserType.values() ) {
-//            loginPubmanForType( userType );
-//            logoutPubman();
-//        }
-//    }
+    public boolean[][] array = null;
     
-    @Test
-    public void testPMTS1SaveItem() {
-        loginPubmanForType( PubmanUser.UserType.DepositorModeratorSimpleStandardWF);
-        PubmanItem item = createPubItem(PubmanItem.ItemType.Item);
-        doEasySubmission( item );
-        logoutPubman();
+    public EnumMatrix( int initialSize )
+    {
+        array = new boolean[initialSize][initialSize];
     }
+    
+    public boolean getValue( E line, T row ) {
+       return array[line.ordinal()][row.ordinal()]; 
+    }
+    
+    public void setValue( E line, T row, boolean value ) {
+        array[line.ordinal()][row.ordinal()] = value; 
+     }
 }

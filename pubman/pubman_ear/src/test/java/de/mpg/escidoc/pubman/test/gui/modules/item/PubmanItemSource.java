@@ -38,7 +38,7 @@ import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.IdentifierType;
  */
 public class PubmanItemSource
 {
-    public enum Genre {
+    public enum SourceGenre {
         BOOK,
         ISSUE,
         JOURNAL,
@@ -46,7 +46,7 @@ public class PubmanItemSource
         SERIES
     }
     
-    public Genre genre = null;
+    public SourceGenre genre = null;
     public String title = null;
     public CreatorRole creatorRole = null;
     public CreatorType creatorType = null;
@@ -68,7 +68,7 @@ public class PubmanItemSource
     public String endPage = null;
     public String sequenceNumber = null;
     
-    public PubmanItemSource( Genre genre, String title, CreatorRole creatorRole, CreatorType creatorType, String familyName,
+    public PubmanItemSource( SourceGenre genre, String title, CreatorRole creatorRole, CreatorType creatorType, String familyName,
             String givenName, String orgaName, String orgaAdress, String volume, String totalNumberOfPages, String publisher,
             String place, IdentifierType identifier, String identifierValue, String edition, String issue, String startPage,
             String endPage, String sequenceNumber) {
@@ -91,5 +91,100 @@ public class PubmanItemSource
         this.startPage = startPage;
         this.endPage = endPage;
         this.sequenceNumber = sequenceNumber;
+    }
+
+    public SourceGenre getGenre()
+    {
+        return genre;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public CreatorRole getCreatorRole()
+    {
+        return creatorRole;
+    }
+
+    public CreatorType getCreatorType()
+    {
+        return creatorType;
+    }
+
+    public String getFamilyName()
+    {
+        return familyName;
+    }
+
+    public String getGivenName()
+    {
+        return givenName;
+    }
+
+    public String getOrgaName()
+    {
+        return orgaName;
+    }
+
+    public String getOrgaAdress()
+    {
+        return orgaAdress;
+    }
+
+    public String getVolume()
+    {
+        return volume;
+    }
+
+    public String getTotalNumberOfPages()
+    {
+        return totalNumberOfPages;
+    }
+
+    public String getPublisher()
+    {
+        return publisher;
+    }
+
+    public String getPlace()
+    {
+        return place;
+    }
+
+    public IdentifierType getIdentifier()
+    {
+        return identifier;
+    }
+
+    public String getIdentifierValue()
+    {
+        return identifierValue;
+    }
+
+    public String getEdition()
+    {
+        return edition;
+    }
+
+    public String getIssue()
+    {
+        return issue;
+    }
+
+    public String getStartPage()
+    {
+        return startPage;
+    }
+
+    public String getEndPage()
+    {
+        return endPage;
+    }
+
+    public String getSequenceNumber()
+    {
+        return sequenceNumber;
     }
 }

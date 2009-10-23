@@ -73,4 +73,64 @@ public class PubmanItemDetails
         this.identifierType = identifierType;
         this.identifierValue = identifierValue;
     }
+
+    public String getLanguagePublication()
+    {
+        return languagePublication;
+    }
+
+    public String getDatePublishedInPrint()
+    {
+        return datePublishedInPrint;
+    }
+
+    public String getDatePublishedOnline()
+    {
+        return datePublishedOnline;
+    }
+
+    public String getDateAccepted()
+    {
+        return dateAccepted;
+    }
+
+    public String getDateSubmitted()
+    {
+        return dateSubmitted;
+    }
+
+    public String getDateModified()
+    {
+        return dateModified;
+    }
+
+    public String getDateCreated()
+    {
+        return dateCreated;
+    }
+
+    public String getNumberOfPages()
+    {
+        return numberOfPages;
+    }
+
+    public String getTableOfContent()
+    {
+        return tableOfContent;
+    }
+
+    public ReviewType getReviewType()
+    {
+        return reviewType;
+    }
+
+    public IdentifierType getIdentifierType()
+    {
+        return identifierType;
+    }
+
+    public String getIdentifierValue()
+    {
+        return identifierValue;
+    }
 }

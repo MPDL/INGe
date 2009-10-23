@@ -45,4 +45,24 @@ public class PubmanItemEvent
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public String getPlaceOfEvent()
+    {
+        return placeOfEvent;
+    }
+
+    public String getStartDate()
+    {
+        return startDate;
+    }
+
+    public String getEndDate()
+    {
+        return endDate;
+    }
 }
