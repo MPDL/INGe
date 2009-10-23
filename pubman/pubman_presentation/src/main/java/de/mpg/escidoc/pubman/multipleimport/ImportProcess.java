@@ -49,6 +49,7 @@ import de.mpg.escidoc.pubman.multipleimport.processor.EdocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EndnoteProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.EscidocProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor;
+import de.mpg.escidoc.pubman.multipleimport.processor.MabProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.RisProcessor;
 import de.mpg.escidoc.pubman.multipleimport.processor.WosProcessor;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -121,8 +122,10 @@ public class ImportProcess extends Thread
     private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
     private static final Format ARXIV_FORMAT = new Format("arxiv", "application/xml", "utf-8");
     private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
+    private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "utf-8");
     private static final Format RIS_FORMAT = new Format("ris", "text/plain", "utf-8");
     private static final Format WOS_FORMAT = new Format("wos", "text/plain", "utf-8");
+    private static final Format MAB_FORMAT = new Format("mab", "text/plain", "UTF-8");
     
     private String name;
     
@@ -263,6 +266,8 @@ public class ImportProcess extends Thread
         
         Format[] allSourceFormats = transformation.getSourceFormats(ESCIDOC_FORMAT);
         
+        System.out.println(allSourceFormats);
+        
         boolean found = false;
         for (Format sourceFormat : allSourceFormats)
         {
@@ -324,9 +329,13 @@ public class ImportProcess extends Thread
             {
                 this.formatProcessor = new EscidocProcessor();
             }
-            else if (EDOC_FORMAT.matches(format))
+            else if (EDOC_FORMAT.matches(format) || EDOC_FORMAT_AEI.matches(format))
             {
                 this.formatProcessor = new EdocProcessor();
+            }
+            else if (MAB_FORMAT.matches(format))
+            {
+                this.formatProcessor = new MabProcessor();
             }
             else
             {
