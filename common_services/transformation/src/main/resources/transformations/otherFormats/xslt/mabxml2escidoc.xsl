@@ -61,6 +61,9 @@
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>
 	<xsl:param name="is-item-list" select="true()"/>
+	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
+	<xsl:param name="localPrefix" select="'http://localhost/fulltexts/'"/>
+	<xsl:param name="localSuffix" select="'.pdf'"/>
 	<!--
 		DC XML  Header
 	-->
@@ -251,10 +254,10 @@
 				</xsl:element>
 			</xsl:if>
 			<!-- DEGREE -->
-			<xsl:variable name="degree" select="substring-after(substring-after(mab519,','),',')"/>
+			<xsl:variable name="degree" select="substring-after(mab519,',')"/>
+			<!-- <xsl:variable name="degree" select="substring-after(substring-after(mab519,','),',')"/> -->
 			<xsl:if test="not($degree='')">
 				<xsl:element name="pub:degree">
-					<xsl:value-of>
 					<xsl:choose>
 						<xsl:when test="contains($degree,'Dipl') or contains($degree,'Diplom')">diploma</xsl:when>
 						<xsl:when test="contains($degree,'Master')">master</xsl:when>
@@ -262,8 +265,10 @@
 						<xsl:when test="contains($degree,'Diss') or contains($degree,'PhD')">phd</xsl:when>
 						<xsl:when test="contains($degree,'Habil.-Schr.')">habilitation</xsl:when>
 						<xsl:when test="contains($degree,'BA') or contains($degree,'B.A.') or contains($degree,'Bachelor')">bachelor</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:DegreeTypeNotRecognized' ), concat('The following value was read as the degree, but was not recognized as a valid eSciDoc degree: [', $degree, ']'))"/>
+						</xsl:otherwise>
 					</xsl:choose>
-					</xsl:value-of>
 				</xsl:element>
 			</xsl:if>
 			<!-- ABSTRACT -->
@@ -277,8 +282,9 @@
 	<!-- CREATOR -->
 	<xsl:template match="mab100">
 		<xsl:element name="pub:creator">
+			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:element name="e:person">
-				<xsl:attribute name="role">author</xsl:attribute>
+				<xsl:call-template name="createPersonName"/>
 				<xsl:element name="e:complete-name">
 					<xsl:value-of select="."/>
 				</xsl:element>
@@ -287,11 +293,6 @@
 						<xsl:value-of select="../mab101"/>
 					</xsl:element>
 				</xsl:if>
-				<!-- <xsl:if test="../mab359">
-					<xsl:element name="e:alternative-name">
-						<xsl:value-of select="../mab101"/>
-					</xsl:element>
-				</xsl:if>-->	
 				<xsl:element name="e:organization">
 					<xsl:choose>
 						<xsl:when test="../mab103">
@@ -311,70 +312,81 @@
 	
 	<xsl:template match="mab104_a">
 		<xsl:element name="pub:creator">
+			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:element name="e:person">
-				<xsl:attribute name="role">author</xsl:attribute>
-				<xsl:element name="e:complete-name">
-					<xsl:value-of select="."/>
-				</xsl:element>
+				<xsl:call-template name="createPersonName"/>
 				<xsl:if test="../mab105">
 					<xsl:element name="e:alternative-name">
 						<xsl:value-of select="../mab105"/>
 					</xsl:element>			
 				</xsl:if>	
-				<!-- <xsl:if test="../mab359">
-					<xsl:element name="e:alternative-name">
-						<xsl:value-of select="../mab101"/>
-					</xsl:element>
-				</xsl:if>-->	
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="mab100_b">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="org" select="true()"/>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab104_b">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab100_c">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab108_b">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab112_b">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab112_f">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">honoree</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template name="createPersonCreator">
 		<xsl:param name="role"/>
+		<xsl:param name="org" select="false()"/>
 		<xsl:element name="pub:creator">
+			<xsl:attribute name="role" select="$role"/>
 			<xsl:element name="e:person">
-				<xsl:attribute name="role" select="$role"/>
-				<xsl:element name="e:complete-name">
-					<xsl:value-of select="."/>
-				</xsl:element>
-				<!-- <xsl:if test="../mab359">
-					<xsl:element name="e:alternative-name">
-						<xsl:value-of select="../mab101"/>
+				<xsl:call-template name="createPersonName"/>
+				<xsl:if test="$org">
+					<xsl:element name="e:organization">
+						<xsl:choose>
+							<xsl:when test="../mab103">
+								<xsl:element name="e:organization-name">
+									<xsl:value-of select="../mab103"/>
+								</xsl:element>
+							</xsl:when>
+							<xsl:otherwise>
+								<e:organization-name>External Organizations</e:organization-name>
+								<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+							</xsl:otherwise>
+						</xsl:choose>					
 					</xsl:element>
-				</xsl:if>-->	
+				</xsl:if>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="mab200">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
@@ -677,29 +689,128 @@
 	<!-- FILE -->
 	<xsl:template name="createFile">
 		<xsl:if test="not(normalize-space(.)='-')">
-		<xsl:element name="ec:component">
-		<xsl:element name="file:file">
-			<xsl:variable name="fileurl" select="."/>
+		
+			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename(.)"/>
+
 			<xsl:choose>
-				<xsl:when test="contains($fileurl,'serveg5.eva.mpg.de')">
-					<xsl:call-template name="createTitle">
-						<xsl:with-param name="title" select="."/>
-					</xsl:call-template>			
+				<xsl:when test="starts-with($filename, $localPrefix)"> 
+					<xsl:element name="ec:component">
+						<ec:properties>               
+			                <prop:visibility>public</prop:visibility>
+			                <prop:content-category>any-fulltext</prop:content-category>
+			                <prop:file-name><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></prop:file-name>
+			                <prop:mime-type>application/pdf</prop:mime-type>
+			            </ec:properties>
+			            <ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
+			            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+			            	<mdr:md-record name="escidoc">
+								<xsl:element name="file:file">
+									<dc:title><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></dc:title>
+									<xsl:element name="dc:identifier">
+										<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+										<xsl:value-of select="."/>
+									</xsl:element>	
+									<file:content-category>any-fulltext</file:content-category>
+									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+								</xsl:element>
+							</mdr:md-record>
+						</mdr:md-records>
+					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:element name="dc:title"/>
-					
+					<xsl:element name="ec:component">
+						<ec:properties>
+			                <prop:visibility>public</prop:visibility>
+			                <prop:content-category>any-fulltext</prop:content-category>
+			                <prop:file-name>farbtest.gif</prop:file-name>
+			            </ec:properties>
+			            <ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
+			            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+			            	<mdr:md-record name="escidoc">
+								<xsl:element name="file:file">
+									<dc:title><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></dc:title>
+									<xsl:element name="dc:identifier">
+										<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+									</xsl:element>	
+									<xsl:element name="file:content-category">any-fulltext</xsl:element>	
+								</xsl:element>
+							</mdr:md-record>
+						</mdr:md-records>
+					</xsl:element>
 				</xsl:otherwise>
 			</xsl:choose>
-			<xsl:element name="dc:identifier">	
-				<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
-				<xsl:value-of select="."/>
-			</xsl:element>	
-			<xsl:element name="file:content-category">any-fulltext</xsl:element>	
-			<xsl:element name="dc:format">application/pdf</xsl:element>	
-		</xsl:element>
-		</xsl:element>
+		
+			
 		</xsl:if>
 	</xsl:template>
+	
+	<xsl:template name="createPersonName">
+		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
+			<xsl:element name="e:family-name">
+				<xsl:value-of select="$person/familyname"/>
+			</xsl:element>
+			<xsl:element name="e:given-name">
+				<xsl:value-of select="$person/givenname"/>
+			</xsl:element>
+	</xsl:template>
+	
+	<xsl:function name="escidoc:computeFilename" as="xs:string">
+		<xsl:param name="src" as="xs:string"/>
+		
+		<xsl:variable name="srcWithoutSpaces" select="translate($src, ' &#xA;&#xD;	', '')" as="xs:string"/>
+		
+		<xsl:variable name="result">
+			<xsl:choose>
+				<xsl:when test="contains($srcWithoutSpaces, $localIdentifier)">
+					<xsl:value-of select="$localPrefix"/>
+					<xsl:value-of select="escidoc:substring-before-last(escidoc:substring-after-last($srcWithoutSpaces, '/'), '.')"/>
+					<xsl:value-of select="$localSuffix"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$srcWithoutSpaces"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
+	</xsl:function>
+	
+	<xsl:function name="escidoc:substring-after-last" as="xs:string">
+		<xsl:param name="str" as="xs:string"/>
+		<xsl:param name="delim" as="xs:string"/>
+		
+		<xsl:variable name="result">
+			<xsl:choose>
+				<xsl:when test="contains($str, $delim)">
+					<xsl:value-of select="escidoc:substring-after-last(substring-after($str, $delim), $delim)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$str"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
+	</xsl:function>
+	
+	<xsl:function name="escidoc:substring-before-last" as="xs:string">
+		<xsl:param name="str" as="xs:string"/>
+		<xsl:param name="delim" as="xs:string"/>
+		
+		<xsl:variable name="result">
+			<xsl:choose>
+				<xsl:when test="contains($str, $delim)">
+					<xsl:value-of select="substring-before($str, $delim)"/>
+					<xsl:if test="contains(substring-after($str, $delim), $delim)">
+						<xsl:value-of select="$delim"/>
+					</xsl:if>
+					<xsl:value-of select="escidoc:substring-before-last(substring-after($str, $delim), $delim)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$str"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="$result"/>
+	</xsl:function>
 	
 </xsl:stylesheet>

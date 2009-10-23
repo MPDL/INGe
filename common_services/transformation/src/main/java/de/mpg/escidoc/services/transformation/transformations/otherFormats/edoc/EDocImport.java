@@ -82,6 +82,7 @@ public class EDocImport extends DefaultHandler implements Transformation
         = new Format("eSciDoc-publication-item-list", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
     private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
+    private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
     
     private static final String XSLT_PATH = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
     
@@ -90,7 +91,7 @@ public class EDocImport extends DefaultHandler implements Transformation
      */
     public Format[] getSourceFormats()
     {
-        return new Format[]{EDOC_FORMAT};
+        return new Format[]{EDOC_FORMAT, EDOC_FORMAT_AEI};
     }
 
     /**
@@ -100,7 +101,7 @@ public class EDocImport extends DefaultHandler implements Transformation
     {
         if (trg != null && (trg.matches(ESCIDOC_ITEM_FORMAT) || trg.matches(ESCIDOC_ITEM_LIST_FORMAT)))
         {
-            return new Format[]{EDOC_FORMAT};
+            return new Format[]{EDOC_FORMAT, EDOC_FORMAT_AEI};
         }
         else
         {
@@ -122,7 +123,7 @@ public class EDocImport extends DefaultHandler implements Transformation
      */
     public Format[] getTargetFormats(Format src) throws RuntimeException
     {
-        if (src != null && src.matches(EDOC_FORMAT))
+        if (src != null && (src.matches(EDOC_FORMAT) || src.matches(EDOC_FORMAT_AEI)))
         {
             return new Format[]{ESCIDOC_ITEM_FORMAT, ESCIDOC_ITEM_LIST_FORMAT};
         }
@@ -196,6 +197,7 @@ public class EDocImport extends DefaultHandler implements Transformation
             transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             transformer.setParameter("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
             transformer.setParameter("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
+            transformer.setParameter("source-name", srcFormat.getName());
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new StringReader(newXml.toString())), new StreamResult(result));

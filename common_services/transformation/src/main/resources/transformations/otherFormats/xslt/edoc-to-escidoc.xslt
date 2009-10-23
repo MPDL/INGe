@@ -88,123 +88,189 @@
 	</xsl:variable>
 	
 	<xsl:variable name="collection-mapping">
-		<mapping>
+
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Geometric Analysis and Gravitation</edoc-collection>
+			<escidoc-ou>Geometric Analysis and Gravitation</escidoc-ou>
+			<escidoc-id>escidoc:2006</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>GEO 600</edoc-collection>
+			<escidoc-ou>AEI Hannover</escidoc-ou>
+			<escidoc-id>escidoc:</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Astrophysical Relativity</edoc-collection>
+			<escidoc-ou>Astrophysical Relativity</escidoc-ou>
+			<escidoc-id>escidoc:2007</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Quantum Gravity and Unified Theories</edoc-collection>
+			<escidoc-ou>Quantum Gravity &amp; Unified Theories</escidoc-ou>
+			<escidoc-id>escidoc:2008</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Teilinstitut Hannover</edoc-collection>
+			<escidoc-ou>AEI Hannover</escidoc-ou>
+			<escidoc-id>escidoc:</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Cactus group</edoc-collection>
+			<escidoc-ou>Cactus Group</escidoc-ou>
+			<escidoc-id>escidoc:2003</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Laser Interferometry &amp; Gravitational Wave Astronomy</edoc-collection>
+			<escidoc-ou>Laser Interferometry &amp; Gravitational Wave Astronomy</escidoc-ou>
+			<escidoc-id>escidoc:</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Observational Relativity and Cosmology</edoc-collection>
+			<escidoc-ou>Observational Relativity and Cosmology</escidoc-ou>
+			<escidoc-id>escidoc:</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Microscopic Quantum Structure &amp; Dynamics of Spacetime</edoc-collection>
+			<escidoc-ou>Microscopic Quantum Structure &amp; Dynamics of Spacetime</escidoc-ou>
+			<escidoc-id>escidoc:2005</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Duality &amp; Integrable Structures</edoc-collection>
+			<escidoc-ou>Duality &amp; Integrable Structures</escidoc-ou>
+			<escidoc-id>escidoc:2010</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Theoretical Gravitational Wave Physics</edoc-collection>
+			<escidoc-ou>Theoretical Gravitational Wave Physics</escidoc-ou>
+			<escidoc-id>escidoc:2009</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>IT Department</edoc-collection>
+			<escidoc-ou>IT Department</escidoc-ou>
+			<escidoc-id>escidoc:2004</escidoc-id>
+		</mapping>
+		<mapping ou="AEI-Golm">
+			<edoc-collection>Canonical and Covariant Dynamics of Quantum Gravity</edoc-collection>
+			<escidoc-ou>Canonical and Covariant Dynamics of Quantum Gravity</escidoc-ou>
+			<escidoc-id>escidoc:</escidoc-id>
+		</mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Language Acquisition</edoc-collection>
 			<escidoc-ou>Language Acquisition Group</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Acquisition Group</edoc-collection>
 			<escidoc-ou>Language Acquisition Group</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Adaptive Listening</edoc-collection>
 			<escidoc-ou>Adaptive Listening</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Language and Cognition Group</edoc-collection>
 			<escidoc-ou>Categories across Language and Cognition</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Categories across Language and Cognition</edoc-collection>
 			<escidoc-ou>Categories across Language and Cognition</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Communication Before Language</edoc-collection>
 			<escidoc-ou>Communication before Language</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Comparative Cognitive Anthropology</edoc-collection>
 			<escidoc-ou>Comparative Cognitive Anthropology</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Decoding Continuous Speech</edoc-collection>
 			<escidoc-ou>Decoding Continuous Speech</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Event Representation</edoc-collection>
 			<escidoc-ou>Event Representation</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Evolutionary Processes in Language and Culture</edoc-collection>
 			<escidoc-ou>Evolutionary Processes in Language and Culture</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Gesture</edoc-collection>
 			<escidoc-ou>Gesture</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Information Structure in Language Acquisition</edoc-collection>
 			<escidoc-ou>Information Structure in Language Acquisition</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Language and Genetics</edoc-collection>
 			<escidoc-ou>Language and Genetics</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Language in Action</edoc-collection>
 			<escidoc-ou>Language in Action</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Island Melanesia</edoc-collection>
 			<escidoc-ou>Pioneers of Island Melanesia</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Multimodal Interaction</edoc-collection>
 			<escidoc-ou>Multimodal Interaction</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Neurocognition of Language Processing</edoc-collection>
 			<escidoc-ou>Neurocognition of Language Processing</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Other Research</edoc-collection>
 			<escidoc-ou>Other Research</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Phonological Learning for Speech Perception</edoc-collection>
 			<escidoc-ou>Phonological Learning for Speech Perception</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Sign Language Typology</edoc-collection>
 			<escidoc-ou>Sign Language Typology</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Space</edoc-collection>
 			<escidoc-ou>Space</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Technical Group</edoc-collection>
 			<escidoc-ou>Technical Group</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>The Comparative Study of L2 Acquisition</edoc-collection>
 			<escidoc-ou>The Comparative Study of L2 Acquisition</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>The Dynamics of Learner Varieties</edoc-collection>
 			<escidoc-ou>The Dynamics of Learner Varieties</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>The Dynamics of Multilingual Processing</edoc-collection>
 			<escidoc-ou>The Dynamics of Multilingual Processing</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>The Neurobiology of Language</edoc-collection>
 			<escidoc-ou>The Neurobiology of Language</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Unification</edoc-collection>
 			<escidoc-ou>Unification</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>The Role of Finiteness</edoc-collection>
 			<escidoc-ou>The Role of Finiteness</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Utterance Encoding</edoc-collection>
 			<escidoc-ou>Utterance Encoding</escidoc-ou>
 		</mapping>
-		<mapping>
+		<mapping ou="MPIPL">
 			<edoc-collection>Utterance Encoding</edoc-collection>
 			<escidoc-ou>Utterance Encoding</escidoc-ou>
 		</mapping>
@@ -225,6 +291,10 @@
 		<xsl:param name="name"/>
 
 		<xsl:choose>
+			<xsl:when test="$name = 'root'">
+				<!-- TODO: Externalize MPS name -->
+				<xsl:value-of select="'Max Planck Society'"/>
+			</xsl:when>
 			<xsl:when test="$organizational-units//ou[@name = $name or @alias = $name]">
 				<xsl:value-of select="$organizational-units//ou[@name = $name or @alias = $name]/@name"/>
 
@@ -233,7 +303,6 @@
 					<xsl:value-of select="escidocFunctions:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
 				</xsl:if>
 			</xsl:when>
-			<xsl:otherwise>Max Planck Society</xsl:otherwise>
 		</xsl:choose>
 		
 	</xsl:function>
@@ -441,124 +510,103 @@
 	
 	<!-- BASIC -->
 	<xsl:template match="basic">
-		<xsl:variable name="genre"/>
 		<xsl:choose>
 			<xsl:when test="genre='Article'">
-				<xsl:variable name="genre" select="'article'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'article'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Report'">
-				<xsl:variable name="genre" select="'report'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'report'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Book'">
-				<xsl:variable name="genre" select="'book'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'book'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Conference-Paper'">
-				<xsl:variable name="genre" select="'conference-paper'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'conference-paper'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Conference-Report'">
-				<xsl:variable name="genre" select="'conference-report'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'conference-report'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Habilitation'">
-				<xsl:variable name="genre" select="'thesis'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'thesis'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='InBook'">
-				<xsl:variable name="genre" select="'book-item'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'book-item'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Issue'">
-				<xsl:variable name="genre" select="'issue'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'issue'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Interactive Resource'">
-				<xsl:variable name="genre" select="'other'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'other'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Journal'">
-				<xsl:variable name="genre" select="'journal'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'journal'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Lecture / Courseware'">
-				<xsl:variable name="genre" select="'courseware-lecture'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'courseware-lecture'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Other'">
-				<xsl:variable name="genre" select="'other'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'other'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Paper'">
-				<xsl:variable name="genre" select="'paper'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'paper'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='PhD-Thesis'">
-				<xsl:variable name="genre" select="'thesis'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'thesis'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Poster'">
-				<xsl:variable name="genre" select="'poster'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'poster'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Proceedings'">
-				<xsl:variable name="genre" select="'proceedings'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'proceedings'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Series'">
-				<xsl:variable name="genre" select="'series'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'series'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Software'">
-				<xsl:variable name="genre" select="'other'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'other'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Talk at Event'">
-				<xsl:variable name="genre" select="'talk-at-event'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'talk-at-event'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="genre='Thesis'">
-				<xsl:variable name="genre" select="'thesis'"/>
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'thesis'"/>
 				</xsl:call-template>
@@ -591,7 +639,9 @@
 			<!--ALTTITLE -->
 			<xsl:apply-templates select="titlealt"/>
 			<!-- IDENTIFIER -->
-			<xsl:call-template name="createIdentifier"/>			
+			<xsl:call-template name="createIdentifier">
+				<xsl:with-param name="gen" select="$gen"/>
+			</xsl:call-template>			
 			<!-- PUBLISHING-INFO -->
 			<xsl:if test="exists(publisher) or exists(editiondescription)">
 				<xsl:choose>
@@ -769,45 +819,54 @@
 	</xsl:template>
 	
 	<xsl:template name="createIdentifier">
+		<xsl:param name="gen"/>
+		
 		<!-- eDoc ID -->
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type" select="'eidt:EDOC'"/>
 			<xsl:value-of select="../../@id"/>
 		</xsl:element>
 		<xsl:for-each select="../identifiers/identifier">
-			<xsl:call-template name="createOtherIDs"/>
+			<xsl:call-template name="createOtherIDs">
+				<xsl:with-param name="gen" select="$gen"/>
+			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template name="createOtherIDs">
-		<xsl:element name="dc:identifier">
-			<xsl:choose>
-				<xsl:when test="@type='doi'">
-					<xsl:attribute name="xsi:type" select="'eidt:DOI'"/>
-					<xsl:value-of select="."/>
-				</xsl:when>
-				<xsl:when test="@type='issn'">
-					<xsl:attribute name="xsi:type" select="'eidt:ISSN'"/>
-					<xsl:value-of select="."/>
-				</xsl:when>
-				<xsl:when test="@type='isbn'">
-					<xsl:attribute name="xsi:type" select="'eidt:ISBN'"/>
-					<xsl:value-of select="."/>
-				</xsl:when>
-				<xsl:when test="@type='uri'">
-					<xsl:attribute name="xsi:type" select="'eidt:URI'"/>
-					<xsl:value-of select="."/>
-				</xsl:when>
-				<xsl:when test="@type='isi'">
-					<xsl:attribute name="xsi:type" select="'eidt:ISI'"/>
-					<xsl:value-of select="."/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:attribute name="xsi:type" select="'eidt:OTHER'"/>
-					<xsl:value-of select="."/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:element>
+		<xsl:param name="gen"/>
+		<xsl:if test="not($dependentGenre[type = $gen]) or (not(@type='issn') and not(@type='isbn'))">
+			<xsl:element name="dc:identifier">
+				<xsl:choose>
+					<xsl:when test="@type='doi'">
+						<xsl:attribute name="xsi:type" select="'eidt:DOI'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='issn'">
+						<xsl:attribute name="xsi:type" select="'eidt:ISSN'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='isbn'">
+						<xsl:attribute name="xsi:type" select="'eidt:ISBN'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='uri'">
+						<xsl:attribute name="xsi:type" select="'eidt:URI'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='isi'">
+						<xsl:attribute name="xsi:type" select="'eidt:ISI'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:attribute name="xsi:type" select="'eidt:OTHER'"/>
+						<xsl:value-of select="."/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:element>
+			
+		</xsl:if>
+			
 	</xsl:template>
 	
 <!-- ***********************************************SOURCE TEMPLATES ***************************************************************** -->	
@@ -846,6 +905,29 @@
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
+
+		<xsl:call-template name="createSourceIdentifiers"/>
+
+	</xsl:template>
+	
+	<!-- SOURCE IDENTIFIERS -->
+	<xsl:template name="createSourceIdentifiers">
+		<xsl:for-each select="../identifiers/identifier[@type = 'issn' or type = 'isbn']">
+
+			<xsl:element name="dc:identifier">
+				<xsl:choose>
+					<xsl:when test="@type='issn'">
+						<xsl:attribute name="xsi:type" select="'eidt:ISSN'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+					<xsl:when test="@type='isbn'">
+						<xsl:attribute name="xsi:type" select="'eidt:ISBN'"/>
+						<xsl:value-of select="."/>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:element>
+			
+		</xsl:for-each>
 	</xsl:template>
 	
 	<!-- ISSUE TEMPLATE -->
@@ -867,6 +949,9 @@
 
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
+		
+		<xsl:call-template name="createSourceIdentifiers"/>
+		
 	</xsl:template>
 	
 	<!-- BOOK TEMPLATE -->
@@ -904,6 +989,9 @@
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
+		
+		<xsl:call-template name="createSourceIdentifiers"/>
+		
 	</xsl:template>
 	
 	<xsl:template name="phydescPubl">
@@ -953,6 +1041,9 @@
 		<xsl:apply-templates select="seriescorporatebody"/>		
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
+		
+		<xsl:call-template name="createSourceIdentifiers"/>
+		
 	</xsl:template>
 	
 	<!-- PROCEEDINGS TEMPLATE -->
@@ -992,6 +1083,8 @@
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
 		<xsl:apply-templates select="epage"/>
+	
+		<xsl:call-template name="createSourceIdentifiers"/>
 	
 	</xsl:template>
 	
@@ -1090,67 +1183,80 @@
 									</xsl:element>
 								</xsl:otherwise>
 							</xsl:choose>
+							<xsl:variable name="collection" select="../../../docaff/collection"/>
+							<xsl:variable name="position" select="position()"/>
 							<xsl:choose>
-								<xsl:when test="@internextern='mpg'">
-									<xsl:for-each select="../../../docaff/affiliation">
-										<xsl:element name="e:organization">
-											<xsl:element name="e:organization-name">
-												<xsl:choose>
-													<xsl:when test="mpgsunit">
-														<xsl:value-of select="escidocFunctions:ou-name(mpgsunit)"/>
-													</xsl:when>
-													<xsl:otherwise>
-														<xsl:value-of select="escidocFunctions:ou-name(mpgunit)"/>
-													</xsl:otherwise>
-												</xsl:choose>
-											</xsl:element>
-											<e:identifier>
-												<xsl:choose>
-													<xsl:when test="mpgsunit">
-														<xsl:value-of select="escidocFunctions:ou-id(mpgsunit)"/>
-													</xsl:when>
-													<xsl:otherwise>
-														<xsl:value-of select="escidocFunctions:ou-id(mpgunit)"/>
-													</xsl:otherwise>
-												</xsl:choose>
-											</e:identifier>
-										</xsl:element>
-									</xsl:for-each>
-									
-									<xsl:variable name="collection" select="../../../docaff/collection"/>
-									
-									<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
-										<e:organization>
-											<e:organization-name>
-												<xsl:value-of select="escidocFunctions:ou-name($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
-											</e:organization-name>
-											<e:identifier>
-												<xsl:value-of select="escidocFunctions:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
-											</e:identifier>
-										</e:organization>
-									</xsl:if>
+								<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and exists($collection-mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))])">
 								
+									<xsl:comment>
+										<xsl:value-of select="exists($collection-mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))])"/>
+									</xsl:comment>
+								
+									<xsl:for-each select="../../../docaff/affiliation">
+										<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
+										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
+
+										<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]">
+											<xsl:element name="e:organization">
+												<xsl:element name="e:organization-name">
+													<xsl:choose>
+														<xsl:when test="mpgsunit">
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgunit)]/escidoc-ou"/>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:element>
+												<e:identifier>
+													<xsl:choose>
+														<xsl:when test="mpgsunit">
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
+														</xsl:otherwise>
+													</xsl:choose>
+												</e:identifier>
+											</xsl:element>
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:when test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
+									<e:organization>
+										<e:organization-name>
+											<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou"/>
+										</e:organization-name>
+										<e:identifier>
+											<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-id"/>
+										</e:identifier>
+									</e:organization>
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
+								
+									<xsl:comment>XXX</xsl:comment>
+								
 									<xsl:for-each select="../../../docaff/affiliation">
+										<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
+										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 										<xsl:element name="e:organization">
 											<xsl:element name="e:organization-name">
 												<xsl:choose>
 													<xsl:when test="mpgsunit">
-														<xsl:value-of select="escidocFunctions:ou-name(mpgsunit)"/>
+														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-ou"/>
 													</xsl:when>
 													<xsl:otherwise>
-														<xsl:value-of select="escidocFunctions:ou-name(mpgunit)"/>
+														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-ou"/>
 													</xsl:otherwise>
 												</xsl:choose>
 											</xsl:element>
 											<e:identifier>
 												<xsl:choose>
 													<xsl:when test="mpgsunit">
-														<xsl:value-of select="escidocFunctions:ou-id(mpgsunit)"/>
+														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
 													</xsl:when>
 													<xsl:otherwise>
-														<xsl:value-of select="escidocFunctions:ou-id(mpgunit)"/>
+														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
 													</xsl:otherwise>
 												</xsl:choose>
 											</e:identifier>
@@ -1181,7 +1287,17 @@
 										</e:identifier>
 									</e:organization>
 								</xsl:when>
-								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and not(../../../docaff/affiliation) and not(../../../docaff_external)">
+								<xsl:when test=". = ../creator[1] and not(../creator[@internextern = 'mpg'])">
+									<e:organization>
+										<e:organization-name>
+											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
+										</e:organization-name>
+										<e:identifier>
+											<xsl:value-of select="escidocFunctions:ou-id('root')"/>
+										</e:identifier>
+									</e:organization>
+								</xsl:when>
+								<xsl:when test="@internextern = 'mpg' and not(../creator[position() &lt; $position and @internextern = 'mpg'])">
 									<e:organization>
 										<e:organization-name>
 											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
@@ -1379,12 +1495,12 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="discipline">
-		<xsl:element name="dc:subject">
+		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="keywords">
-		<xsl:element name="dc:subject">
+		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>

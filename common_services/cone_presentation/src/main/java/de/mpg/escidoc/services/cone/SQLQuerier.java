@@ -107,6 +107,8 @@ public class SQLQuerier implements Querier
             language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
         }
 
+        language = language.replace("'", "''");
+        
         String[] searchStringsWithWildcards = formatSearchString(searchString);
         String subQuery = "select id from matches where model = '" + model + "'";
         for (int i = 0; i < searchStringsWithWildcards.length; i++)
@@ -152,7 +154,7 @@ public class SQLQuerier implements Querier
      */
     private String[] formatSearchString(String searchString)
     {
-        String[] result = searchString.trim().split(" ");
+        String[] result = searchString.replace("'", "''").trim().split(" ");
         for (int i = 0; i < result.length; i++)
         {
             result[i] = "%" + result[i].replaceAll("\\*|%", "") + "%";
