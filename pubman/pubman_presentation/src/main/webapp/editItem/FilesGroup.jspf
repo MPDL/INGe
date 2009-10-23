@@ -157,7 +157,7 @@
 							<h:outputText id="txtExtraFileDescription" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_description_optional != 'true'}" />
 							<h:outputLabel id="lblExtraFileDescription" styleClass="xDouble_label" value="#{genre.files_component_description_label}" converter="GenreLabelConverter" rendered="#{genre.files_component_description_display != 'false'}"/>
 						</span>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.description}" cols="15" rows="3" rendered="#{genre.files_component_description_display != 'false'}"/>
+						<h:inputTextarea id="inpExtraFileDescription" styleClass="xDouble_txtArea inputTxtArea" value="#{component.description}" cols="15" rows="3" rendered="#{genre.files_component_description_display != 'false'}"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel id="txtMimeType" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
