@@ -50,13 +50,13 @@ public abstract class PubmanGuiTestcase extends PubmanGuiModules
     /**
      *  Checks if the various user logins works. Also checks if the links appear for which the user has rights. 
      */
-//    @Test
-//    public void testPMTS3LogonProcedure() {
-//        for( PubmanUser.UserType userType : PubmanUser.UserType.values() ) {
-//            loginPubmanForType( userType );
-//            logoutPubman();
-//        }
-//    }
+    @Test
+    public void testPMTS3LogonProcedure() {
+        for( PubmanUser.UserType userType : PubmanUser.UserType.values() ) {
+            loginPubmanForType( userType );
+            logoutPubman();
+        }
+    }
     
     @Test
     public void testPMTS1SaveItem() {

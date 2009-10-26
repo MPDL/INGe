@@ -226,28 +226,27 @@ public abstract class PubmanGuiModules extends SeleneseTestCase
         selenium.select("easySubmission:easySubmissionStep1Manual:selGenre", "value=" + item.getGenre());
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.type("easySubmission:easySubmissionStep1Manual:inpItemMetadataTitle", item.getBasicList().get(0).title);
-
-                selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpFileUploaded",
-                        "/home/endres/projects/escidoc/workdir/solutions/pubman/pubman_ear/src/test/resources/uploadData/ABC_Pt_Mor_May_2009_final.ppt");
-        selenium.click("easySubmission:easySubmissionStep1Manual:fileUploads:0:btnUploadFile");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.select("easySubmission:easySubmissionStep1Manual:fileUploads:0:selContentCategory",
-                "value=any-fulltext");
-        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentDescription",
-                "description_uploadFile");
-        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentFileDefaultMetadataRights",
-                "copyright_info");
-        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorLocator1",
-                "http://external.org");
-        selenium.click("easySubmission:easySubmissionStep1Manual:locatorUploads:0:lblEasySubmissionSaveLocator");
-        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
-        selenium.click("easySubmission:easySubmissionStep1Manual:locatorUploads:0:selLocatorFileVisibility:0");
-        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorFileDescription",
-                "external_locator_info");
-        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorFileDefaultMetadataRights",
-                "external_locator_info");
-        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:locatorLicenseDate", "2009-10-14");
- 
+//        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpFileUploaded",
+//                        "/home/endres/projects/escidoc/workdir/solutions/pubman/pubman_ear/src/test/resources/uploadData/ABC_Pt_Mor_May_2009_final.ppt");
+//        selenium.click("easySubmission:easySubmissionStep1Manual:fileUploads:0:btnUploadFile");
+//        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+//        selenium.select("easySubmission:easySubmissionStep1Manual:fileUploads:0:selContentCategory",
+//                "value=any-fulltext");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentDescription",
+//                "description_uploadFile");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:fileUploads:0:inpComponentFileDefaultMetadataRights",
+//                "copyright_info");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorLocator1",
+//                "http://external.org");
+//        selenium.click("easySubmission:easySubmissionStep1Manual:locatorUploads:0:lblEasySubmissionSaveLocator");
+//        selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
+//        selenium.click("easySubmission:easySubmissionStep1Manual:locatorUploads:0:selLocatorFileVisibility:0");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorFileDescription",
+//                "external_locator_info");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:inpLocatorFileDefaultMetadataRights",
+//                "external_locator_info");
+//        selenium.type("easySubmission:easySubmissionStep1Manual:locatorUploads:0:locatorLicenseDate", "2009-10-14");
+// 
         selenium.click("easySubmission:easySubmissionStep1Manual:lnkNext");
         selenium.waitForPageToLoad(MAX_PAGELOAD_TIMEOUT);
         selenium.select("easySubmission:easySubmissionStep2Manual:iterCreatorCollection:0:selRoleString",
