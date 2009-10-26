@@ -2006,9 +2006,7 @@ public class EditItem extends FacesBean
         {
             CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size() - 1);
             CreatorVO creatorVO  = lastCreatorBean.getCreator();
-            if (creatorVO.getPerson().getFamilyName().equals("")
-                    && creatorVO.getPerson().getGivenName().equals("")
-                    && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
+            if (creatorVO.getPerson()!=null && creatorVO.getPerson().getFamilyName().equals("") && creatorVO.getPerson().getGivenName().equals("") && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
                 creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size() - 1);
@@ -2072,6 +2070,7 @@ public class EditItem extends FacesBean
         }
         catch (Exception e)
         {
+        	logger.error("Could not parse creator string",e);
             error(getMessage("ErrorParsingCreatorString"));
             return null;
             
