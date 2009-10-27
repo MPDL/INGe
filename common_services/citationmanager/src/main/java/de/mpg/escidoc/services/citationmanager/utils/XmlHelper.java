@@ -29,6 +29,7 @@
 
 package de.mpg.escidoc.services.citationmanager.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,6 +46,9 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 
 import net.sf.saxon.event.SaxonOutputKeys;
 
@@ -52,6 +56,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
@@ -90,6 +95,7 @@ public class XmlHelper {
     	"{http://purl.org/dc/terms/}bibliographicCitation" 	// Snippet output
     	;
 
+    private static XPath xpath = XPathFactory.newInstance().newXPath();
     
     /**
      * Builds new DocumentBuilder
@@ -114,7 +120,7 @@ public class XmlHelper {
     }
     
     /**
-     * Creates new org.w3c.dom.Document 
+     * Creates new empty org.w3c.dom.Document 
      * @return org.w3c.dom.Document
      * @throws CitationStyleManagerException
      */
@@ -123,6 +129,30 @@ public class XmlHelper {
     	return createDocumentBuilder().newDocument(); 
     }
 
+    /**
+     * Creates new org.w3c.dom.Document 
+     * @param xml
+     * @return org.w3c.dom.Document
+     * @throws Exception
+     */
+    public static Document createDocument(String xml) throws Exception
+    {
+    	return createDocument(xml.getBytes("UTF-8")); 
+    }
+    
+    /**
+     * Creates new org.w3c.dom.Document 
+     * @param xml
+     * @return org.w3c.dom.Document
+     * @throws Exception
+     */
+    public static Document createDocument(byte[] xml) throws Exception
+    {
+    	DocumentBuilder db = createDocumentBuilder();
+    	return db.parse(
+    			new ByteArrayInputStream(xml), "UTF-8" 
+    	); 
+    }      
     
     /**
      * Creates new org.w3c.dom.Document with Traversing possibility 
@@ -520,6 +550,32 @@ public class XmlHelper {
 		return ni;
 	} 	
 	
+	/*****************/
+	/** XPATH Utils **/
+	/*****************/
+    public static NodeList xpathNodeList(String expr, String xml) throws Exception
+    {
+    	return xpathNodeList(expr, createDocument(xml)); 
+    }
+    
+    public static NodeList xpathNodeList(String expr, Document doc) throws Exception
+    {
+    	return (NodeList) xpath.evaluate(
+    			expr, 
+    			doc, 
+    			XPathConstants.NODESET
+    	);
+    }    
+    
+    public static String xpathString(String expr, Document doc) throws Exception
+    {
+    	return (String) xpath.evaluate(
+    				expr, 
+    				doc, 
+    				XPathConstants.STRING
+    	);
+    } 	
+	
 	
 }
 
@@ -558,6 +614,7 @@ class OutputFormatNodeFilter implements NodeFilter {
 		return FILTER_SKIP;
 	}
 }
+
 
 class ExportFormatNodeFilter implements NodeFilter {
 	
