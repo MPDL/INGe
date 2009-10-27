@@ -215,7 +215,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		//logger.info(pcst.explainStyles());
 		logger.info(
 				new String (
-						cse.getOutput("APA", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
+						cse.getOutput("APA_new", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
 						)));
 		logger.info(
 				new String (
