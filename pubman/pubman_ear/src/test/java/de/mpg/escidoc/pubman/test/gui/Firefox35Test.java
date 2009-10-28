@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import org.junit.Before;
 
-public class Firefox3Test extends PubmanGuiTestcase
+public class Firefox35Test extends PubmanGuiTestcase
 {
-    public Firefox3Test() throws IOException
+    public Firefox35Test() throws IOException
     {
         super();
     }

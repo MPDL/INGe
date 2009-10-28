@@ -1,5 +1,8 @@
 package de.mpg.escidoc.pubman.test.gui.modules.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorRole;
 import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
 
@@ -7,6 +10,18 @@ import de.mpg.escidoc.pubman.test.gui.modules.item.PubmanItem.CreatorType;
 
 public class PubmanItemPersonOrganizations
 {
+    public class Organization {
+        public String orgaName = null;
+        public String orgaAddress = null;
+        public Organization(String orgaName, String orgaAddress)
+        {
+            super();
+            this.orgaName = orgaName;
+            this.orgaAddress = orgaAddress;
+        }
+        
+    }
+    
     public String multipleAuthors = null;
     public boolean overwriteOldOnes = false;
     public String multipleOrgaName = null;
@@ -17,8 +32,8 @@ public class PubmanItemPersonOrganizations
     
     public String firstName = null;
     public String lastName = null;
-    public String orgaName = null;
-    public String orgaAddress = null;
+    
+    public List<Organization> organizationList = new ArrayList<Organization>();
     
     public PubmanItemPersonOrganizations( String multipleAuthors, boolean overwriteOldOnes, 
             String multipleOrgaName, String multipleOrgaAddress, CreatorRole creatorRole,
@@ -30,8 +45,7 @@ public class PubmanItemPersonOrganizations
         this.creatorRole = creatorRole;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.orgaName = orgaName;
-        this.orgaAddress = orgaAddress;
+        this.organizationList.add( new Organization( orgaName, orgaAddress ) );
     }
 
     public String getMultipleAuthors()
@@ -74,13 +88,7 @@ public class PubmanItemPersonOrganizations
         return lastName;
     }
 
-    public String getOrgaName()
-    {
-        return orgaName;
-    }
-
-    public String getOrgaAddress()
-    {
-        return orgaAddress;
+    public List<Organization> getOrganizationList() {
+        return this.organizationList;
     }
 }
