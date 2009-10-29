@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-var cookieVersion = "1.1";
+/*var cookieVersion = "1.1";*/
 var hiddenThemesEnabled = false;
 
 function applyCookieStyle() {

@@ -506,6 +506,9 @@
 				<escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
 				<escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
 				
+				<!-- version of the pubman cookie (has to be changed if style information is changed)-->
+				<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
+				
 				<!-- Sitemaps -->
 				<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
 				<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
@@ -705,6 +708,9 @@
                 <!-- Properties of the favicon-->
                 <escidoc.pubman.favicon.url>./resources/pubman_favicon.ico</escidoc.pubman.favicon.url>
                 <escidoc.pubman.favicon.apply>true</escidoc.pubman.favicon.apply>
+                
+                <!-- version of the pubman cookie (has to be changed if style information is changed)-->
+				<escidoc.pubman.cookie.version>1.0</escidoc.pubman.cookie.version>
                 
                 <!-- Sitemaps -->
                 <escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>

@@ -331,6 +331,31 @@ public class ApplicationBean extends FacesBean
         
     }
     
+    
+    /**
+     * This method returns the cookie version for PubMan hold in the  pubman.properties
+     * @return String cookie version for PubMan
+     * @throws PubManVersionNotAvailableException
+     */
+    public String getCookieVersion() throws PubManVersionNotAvailableException 
+    {
+    	String cookieVersion = "";
+    	
+    	try
+        {
+    		cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
+        } catch (IOException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        } catch (URISyntaxException e)
+        {
+            throw new PubManVersionNotAvailableException(e);
+        }
+        
+    	return cookieVersion;
+    	
+    }
+    
 
     /**
      * Returns the current application context.
