@@ -119,6 +119,7 @@ public class ImportProcess extends Thread
     private static final Format ESCIDOC_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "utf-8");
     
     private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "utf-8");
+    private static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "utf-8");
     private static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "utf-8");
     private static final Format ARXIV_FORMAT = new Format("arxiv", "application/xml", "utf-8");
     private static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "utf-8");
@@ -305,7 +306,7 @@ public class ImportProcess extends Thread
             {
                 return false;
             }
-            else if (ENDNOTE_FORMAT.matches(format))
+            else if (ENDNOTE_FORMAT.matches(format) || ENDNOTE_ICE_FORMAT.matches(format))
             {
                 this.formatProcessor = new EndnoteProcessor();
             }

@@ -71,6 +71,7 @@ public class MultipleImport extends FacesBean
     public static final Format ESCIDOC_FORMAT = new Format("escidoc-publication-item", "application/xml", "UTF-8");
     
     public static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
+    public static final Format ENDNOTE_ICE_FORMAT = new Format("endnote-ice", "text/plain", "UTF-8");
     public static final Format BIBTEX_FORMAT = new Format("bibtex", "text/plain", "UTF-8");
     public static final Format EDOC_FORMAT = new Format("edoc", "application/xml", "UTF-8");
     public static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "UTF-8");
@@ -137,6 +138,7 @@ public class MultipleImport extends FacesBean
 //            importFormats.put(format.getName(), format);
 //        }
         importFormats.put("Endnote", ENDNOTE_FORMAT);
+        importFormats.put("Endnote-ICE", ENDNOTE_ICE_FORMAT);
         importFormats.put("BibTeX", BIBTEX_FORMAT);
         importFormats.put("eDoc", EDOC_FORMAT);
         importFormats.put("eDoc-AEI", EDOC_FORMAT_AEI);
