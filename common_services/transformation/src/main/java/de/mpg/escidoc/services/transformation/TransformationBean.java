@@ -269,7 +269,7 @@ public class TransformationBean implements Transformation
                         String filename = children[i];
                         if (filename.endsWith(".jar"))
                         {
-                            URL url = new URL ("file:" + searchDir + "\\" +filename);
+                            URL url = new URL ("file:" + searchDir + "/" +filename);
                             AnnotationDB anDB = new AnnotationDB();
                             anDB.scanArchives(url);
                             anDB.setScanClassAnnotations(true);
@@ -370,6 +370,7 @@ public class TransformationBean implements Transformation
     
                 //Execute the method
                 targets = (Format[]) method.invoke(transformationClass.newInstance(), source);
+                
                 if (this.util.containsFormat(targets, target))
                 {
                     return transformationClass;
@@ -417,7 +418,7 @@ public class TransformationBean implements Transformation
     {
         String path = "";
         path = System.getProperty("jboss.server.home.dir");
-        path += "\\tmp\\deploy\\";
+        path += "/tmp/deploy/";
         
         File dir = new File(path);           
         String[] children = dir.list();
@@ -430,11 +431,14 @@ public class TransformationBean implements Transformation
                 String filename = children[i];
                 if (filename.contains("pubman_ear") && filename.contains("contents"))
                 {
+                    logger.debug("PubMan contents at: " + path + filename);
                     return path + filename;
                 }
             }
         }
 
+        logger.debug("PubMan contents at: " + path);
+        
         return path;
     }
       

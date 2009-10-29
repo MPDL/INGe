@@ -69,6 +69,7 @@
 	<xsl:param name="context" select="'escidoc:57277'"/>
 	<xsl:param name="external-ou"/>
 	<xsl:param name="root-ou" select="'escidoc:persistent13'"/>
+	<xsl:param name="source-name" select="'eDoc'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
 	
@@ -303,6 +304,9 @@
 					<xsl:value-of select="escidocFunctions:ou-name($organizational-units//ou[@name = $name or @alias = $name]/../@name)"/>
 				</xsl:if>
 			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="'External Organizations'"/>
+			</xsl:otherwise>
 		</xsl:choose>
 		
 	</xsl:function>
@@ -416,19 +420,46 @@
 		<!-- FILE -->
 		<xsl:element name="ec:component">
 			<ec:properties>
-				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<xsl:choose>
 					<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
 						<prop:visibility>private</prop:visibility>
-						<prop:content-category>publisher-version</prop:content-category>
 					</xsl:when>
 					<xsl:when test="$access='PUBLIC'">
 						<prop:visibility>public</prop:visibility>
-						<prop:content-category>any-fulltext</prop:content-category>
 					</xsl:when>
 					<xsl:otherwise>
 						<!-- ERROR -->
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+					</xsl:otherwise>
+				</xsl:choose>
+				
+				<xsl:choose>
+					<!-- Customized - AEI: prop:content-category -->
+					<xsl:when test="$source-name = 'eDoc-AEI'">
+						<xsl:choose>
+							<xsl:when test="contains(lower-case(@comment), 'arxiv')"><prop:content-category>pre-print</prop:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'preprint')"><prop:content-category>pre-print</prop:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'online journal')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'open access journal')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'open access article')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
+							<xsl:when test="@comment = '' or not(exists(@comment))"><prop:content-category>publisher-version</prop:content-category></xsl:when>
+							<xsl:otherwise><prop:content-category>any-fulltext</prop:content-category></xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<!-- Default: prop:content-category -->
+					<xsl:otherwise>
+						<xsl:choose>
+							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+								<prop:content-category>publisher-version</prop:content-category>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<prop:content-category>any-fulltext</prop:content-category>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:otherwise>
 				</xsl:choose>
 				<prop:mime-type>application/pdf</prop:mime-type>
@@ -443,7 +474,35 @@
 						<xsl:element name="dc:title">
 							<xsl:value-of select="@filename"/>
 						</xsl:element>
-						<xsl:element name="file:content-category">any-fulltext</xsl:element>
+						<xsl:choose>
+					<!-- Customized - AEI: prop:content-category -->
+					<xsl:when test="$source-name = 'eDoc-AEI'">
+						<xsl:choose>
+							<xsl:when test="contains(lower-case(@comment), 'arxiv')"><file:content-category>pre-print</file:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'preprint')"><file:content-category>pre-print</file:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'online journal')"><file:content-category>publisher-version</file:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'open access journal')"><file:content-category>publisher-version</file:content-category></xsl:when>
+							<xsl:when test="contains(lower-case(@comment), 'open access article')"><file:content-category>publisher-version</file:content-category></xsl:when>
+							<xsl:when test="@comment = '' or not(exists(@comment))"><file:content-category>publisher-version</file:content-category></xsl:when>
+							<xsl:otherwise><file:content-category>any-fulltext</file:content-category></xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<!-- Default: prop:content-category -->
+					<xsl:otherwise>
+						<xsl:choose>
+							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+								<file:content-category>publisher-version</file:content-category>
+							</xsl:when>
+							<xsl:when test="$access='PUBLIC'">
+								<file:content-category>any-fulltext</file:content-category>
+							</xsl:when>
+							<xsl:otherwise>
+								<!-- ERROR -->
+								<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', $access, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:otherwise>
+				</xsl:choose>
 						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 						<dcterms:extent>
 							<xsl:value-of select="@size"/>
@@ -755,7 +814,7 @@
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="genre='Habilitation'">
-				<xsl:element name="mdp:degree">
+				<xsl:element name="publ:degree">
 					<xsl:value-of select="'habilitation'"/>
 				</xsl:element>
 			</xsl:if>
@@ -1233,9 +1292,7 @@
 									</e:organization>
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
-								
-									<xsl:comment>XXX</xsl:comment>
-								
+
 									<xsl:for-each select="../../../docaff/affiliation">
 										<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
@@ -1277,7 +1334,7 @@
 									</xsl:if> -->
 								
 								</xsl:when>
-								<xsl:when test="../../../docaff/docaff_external">
+								<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
 									<e:organization>
 										<e:organization-name>
 											<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
@@ -1381,7 +1438,7 @@
 	<!-- REVIEW-METHOD TEMPLATE -->
 	<xsl:template match="refereed">
 		<xsl:choose>
-			<xsl:when test="../genre='Article' and exists(../journaltitle)">
+			<xsl:when test="../genre='Article' and exists(../journaltitle) and $source-name = 'eDoc-MPIPL'">
 				<xsl:element name="publ:review-method">
 					<xsl:value-of select="'peer'"/>
 				</xsl:element>

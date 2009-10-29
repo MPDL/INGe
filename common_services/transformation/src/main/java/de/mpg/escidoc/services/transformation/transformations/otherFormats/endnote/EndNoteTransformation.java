@@ -24,7 +24,8 @@ public class EndNoteTransformation implements Transformation{
 	
 	private Logger logger = Logger.getLogger(getClass());
 	
-	private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
+    private static final Format ENDNOTE_FORMAT = new Format("EndNote", "text/plain", "UTF-8");
+    private static final Format ENDNOTE_ICE_FORMAT = new Format("EndNote-ICE", "text/plain", "UTF-8");
 
 	private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
 	private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
@@ -36,7 +37,7 @@ public class EndNoteTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getSourceFormats() throws RuntimeException{
-    	return new Format[]{ENDNOTE_FORMAT};
+    	return new Format[]{ENDNOTE_FORMAT, ENDNOTE_ICE_FORMAT};
     }
     
     /**
@@ -48,7 +49,7 @@ public class EndNoteTransformation implements Transformation{
     public Format[] getSourceFormats(Format targetFormat) throws RuntimeException{
     	if (targetFormat != null && (targetFormat.matches(ESCIDOC_ITEM_FORMAT) || targetFormat.matches(ESCIDOC_ITEM_LIST_FORMAT)))
         {
-            return new Format[]{ENDNOTE_FORMAT};
+            return new Format[]{ENDNOTE_FORMAT, ENDNOTE_ICE_FORMAT};
         }
         else
         {
@@ -73,7 +74,7 @@ public class EndNoteTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException{
-    	if (ENDNOTE_FORMAT.equals(sourceFormat))
+    	if (ENDNOTE_FORMAT.matches(sourceFormat) || ENDNOTE_ICE_FORMAT.matches(sourceFormat))
         {
             return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT};
         }
@@ -110,7 +111,7 @@ public class EndNoteTransformation implements Transformation{
             
             StringWriter result = new StringWriter();
             
-            if(srcFormat.matches(ENDNOTE_FORMAT))
+            if(srcFormat.matches(ENDNOTE_FORMAT) || srcFormat.matches(ENDNOTE_ICE_FORMAT))
             {
             	
             	String endnoteSource = new String(src,"UTF-8");
@@ -135,6 +136,7 @@ public class EndNoteTransformation implements Transformation{
             	}
             	
             	transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+            	transformer.setParameter("source-name", srcFormat.getName().toLowerCase());
             	
             	transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             	transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
