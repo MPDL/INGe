@@ -133,7 +133,7 @@ public class Syndication implements SyndicationHandler
 	{
 		Writer writer = new StringWriter();
         getFeed( uri, writer );
-		return writer.toString().getBytes();
+		return writer.toString().getBytes("UTF-8");
 	}
 	
 	/**
