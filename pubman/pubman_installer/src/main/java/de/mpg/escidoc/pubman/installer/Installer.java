@@ -73,6 +73,20 @@ public class Installer
     private static final String JBOSS_DEPLOY = "/server/default/deploy";   
     /** jboss relative conf path */
     private static final String jBOSS_CONF = "/server/default/conf";
+    /** SQL script for creating cone database structure */
+    private static final String CONE_CREATE_SCRIPT = "coneData/database_create.sql";
+    /** SQL script for creating indexing cone database */
+    private static final String CONE_INDEX_SCRIPT = "coneData/database_index.sql";
+    /** SQL script for insertig ddc data into cone database */
+    private static final String CONE_INSERT_DDC = "coneData/ddc.sql";
+    /** SQL script for insertig ddc data into cone database */
+    private static final String CONE_INSERT_ESCIDOC_MIMETYPES = "coneData/escidoc_mimetypes.sql";
+    /** SQL script for insertig escidoc mimetypes into cone database */
+    private static final String CONE_INSERT_JOURNALS = "coneData/journals.sql";
+    /** SQL script for insertig languages into cone database */
+    private static final String CONE_INSERT_LANGUAGES = "coneData/languages.sql";
+    /** SQL script for insertig mimetypes into cone database */
+    private static final String CONE_INSERT_MIMETYPES = "coneData/mimetypes.sql";
     /**
      * Default constructor
      * @throws IOException 
@@ -378,4 +392,14 @@ public class Installer
 
         return buffer.toString();
     }
+    
+    /**
+     * This method cheks which data has to be inserted into cone service and inserts it
+     */
+    private void insertConeData()
+    {
+    	
+    }
+    
+    
 }

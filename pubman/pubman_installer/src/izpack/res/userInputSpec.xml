@@ -24,8 +24,10 @@
         <field type="password" align="left" variable="CoreserviceAdminPassword">
             <spec>
                 <pwd txt="Admin Password:" size="25" set="" />
+                <pwd txt="Retype Admin Password:" size="25" set=""/>
             </spec>
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Admin password must not be empty string." />
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." />
         </field>
         <field type="divider" align="bottom" />
     </panel>
@@ -68,8 +70,13 @@
         <field type="text" align="left" variable="MailUsername">
             <spec txt="Mailserver user name:" size="25" set="${MailUsername}" />
         </field>
-        <field type="text" align="left" variable="MailPassword">
-            <spec txt="Mailserver user password:" size="25" set="${MailPassword}" />
+        <field type="password" align="left" variable="MailPassword">
+            <spec>
+	            <pwd txt="The Password:" size="25" set=""/>
+	    		<pwd txt="Retype Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Mailserver password must not be empty string." />
         </field>
         <field type="divider" align="bottom" />
     </panel>
@@ -93,8 +100,10 @@
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="User name must not be empty string." />
         </field>
         <field type="text" align="left" variable="ConePassword">
-            <spec txt="User password:" size="25" set="${ConePassword}" />
-            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="User password must not be empty string." />
+            <spec>
+	            <pwd txt="Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="CoNE password must not be empty string." />
         </field>
         <field type="space" />
         <field type="divider" align="bottom" />

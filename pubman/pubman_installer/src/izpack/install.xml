@@ -60,6 +60,7 @@
         <panel classname="HTMLInfoPanel"/>
         <panel classname="LicencePanel"/>
         <panel classname="PacksPanel"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.0"/>
         <panel classname="UserInputPanel" id="UserInputPanel.1"/>
         <panel classname="UserInputPanel" id="UserInputPanel.2"/>
@@ -153,6 +154,11 @@
         <variable name="StyleSheetClassicApply" value="true"/>
         <variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
         <variable name="FavIconApply" value="true"/>
+        <variable name="ConeCreateJournals" value="true"/>
+        <variable name="ConeCreateLanguages" value="true"/>
+        <variable name="ConeCreateDDC" value="true"/>
+        <variable name="ConeCreateMimetypes" value="true"/>
+        <variable name="ConeCreateEscidocMimeTypes" value="true"/>
     </variables>
     
     <listeners>
