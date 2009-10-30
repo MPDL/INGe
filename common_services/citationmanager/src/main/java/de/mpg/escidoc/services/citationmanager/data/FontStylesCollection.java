@@ -29,9 +29,9 @@
 
 package de.mpg.escidoc.services.citationmanager.data;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.digester.Digester;
@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 /**
@@ -59,6 +60,14 @@ public class FontStylesCollection implements Cloneable {
     
 //  Default FONTSTYLE_NAME (hardcoded). Should be taken from from defaultFontStyle.getName() 
     public static final String DEFAULT_FONTSTYLE_NAME = "NORMAL";  
+
+    //Hash for the quick search of Fonts with the Name of Style 
+    private HashMap<String, FontStyle> namesMap = new HashMap<String, FontStyle>();
+    
+//Hash for the quick search of Fonts with the css Name of Style 
+    private HashMap<String, FontStyle> cssMap = new HashMap<String, FontStyle>();
+    
+    
 
 	public FontStylesCollection(){
     	setDefault();
@@ -82,13 +91,28 @@ public class FontStylesCollection implements Cloneable {
     }
 
     public void addFontStyle(FontStyle fs) {
-        for ( FontStyle fstemp: fontStyles ) {
-        // do not add if there is font with same name
-            if ( fstemp.getName().equals(fs.getName()) ) {
-                return;
-            }
+//        for ( FontStyle fstemp: fontStyles ) {
+//        // do not add if there is font with same name
+//            if ( fstemp.getName().equals(fs.getName()) ) {
+//                return;
+//            }
+//        }
+    	
+        String name = fs.getName();
+        if ( namesMap.containsKey(name) )
+        {
+        	return; 
         }
+        namesMap.put(name, fs);
+        
         fontStyles.add(fs);
+        
+        String cssn = fs.getCssClass();
+        if (Utils.checkVal(cssn))
+        {
+            cssMap.put(cssn, fs);
+        }
+        
     }
 
     public void setDefaultFontStyle(FontStyle defaultFontStyle) {
@@ -109,15 +133,23 @@ public class FontStylesCollection implements Cloneable {
     }
 
     public FontStyle getFontStyleByName( String name ) {
-        for ( FontStyle fs: fontStyles ) {
-            if (fs.getName().equals(name)) {
-                return fs;
-            }
-        }
-//      throws Exception if not found (should be organized )
-        return null;
+        return Utils.checkVal(name) ? namesMap.get(name) : null;    
+//        for ( FontStyle fs: fontStyles ) {
+//            if (fs.getName().equals(name)) {
+//                return fs;
+//            }
+//        }
+////      throws Exception if not found (should be organized )
+//        return null;
     }
 
+    
+    public FontStyle getFontStyleByCssClass( String name ) 
+    {
+        return Utils.checkVal(name) ? cssMap.get(name) : null;    
+    }
+    
+    
     
     public void removeCssClass()
     {

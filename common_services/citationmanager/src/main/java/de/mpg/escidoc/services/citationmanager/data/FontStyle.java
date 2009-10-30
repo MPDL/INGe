@@ -260,6 +260,22 @@ public class FontStyle implements Cloneable{
         return clone;
     }
 
+	public String getStyleAttributes ()
+	{
+		return
+	        " fontName=\\\"" + fontName + "\\\"" +
+	        " fontSize=\\\"" + fontSize + "\\\"" +
+	        " isBold=\\\"" + isBold + "\\\"" +
+	        " isItalic=\\\"" + isItalic + "\\\"" +
+	        " isUnderline=\\\"" + isUnderline + "\\\"" +
+	        " isStrikeThrough=\\\"" + isStrikeThrough + "\\\"" +
+	        " pdfFontName=\\\"" + pdfFontName + "\\\"" +
+	        " forecolor=\\\"" + foreColor + "\\\"" +
+	        " backcolor=\\\"" + backColor + "\\\"" +
+	        " pdfEncoding=\\\"" + pdfEncoding + "\\\"" +
+	        " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\""; 
+			
+	}
  
     /**
      * Creates JasperReport representation of the style 
@@ -273,17 +289,7 @@ public class FontStyle implements Cloneable{
         	def ?
         			expr :
 		            "\"<style" +
-		            " fontName=\\\"" + fontName + "\\\"" +
-		            " fontSize=\\\"" + fontSize + "\\\"" +
-		            " isBold=\\\"" + isBold + "\\\"" +
-		            " isItalic=\\\"" + isItalic + "\\\"" +
-		            " isUnderline=\\\"" + isUnderline + "\\\"" +
-		            " isStrikeThrough=\\\"" + isStrikeThrough + "\\\"" +
-		            " pdfFontName=\\\"" + pdfFontName + "\\\"" +
-		            " forecolor=\\\"" + foreColor + "\\\"" +
-		            " backcolor=\\\"" + backColor + "\\\"" +
-		            " pdfEncoding=\\\"" + pdfEncoding + "\\\"" +
-		            " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" +
+		            	getStyleAttributes() +
 	//	            " cssClass=\\\"" + cssClass + "\\\"" +
 		            ">\"+" + expr + "+\"</style>\"";
 	    }
