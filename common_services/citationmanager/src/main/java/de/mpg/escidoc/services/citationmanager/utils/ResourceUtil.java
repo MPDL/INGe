@@ -73,6 +73,7 @@ public class ResourceUtil
     public final static String CITATIONSTYLES_DIRECTORY = "CitationStyles/";
     public static final String SCHEMAS_DIRECTORY = "Schemas/";
     public static final String SORTINGS_DIRECTORY = "Transformations/";
+    public static final String TRANSFORMATIONS_DIRECTORY = "Transformations/";
     
     public final static String FONTSTYLES_FILENAME = "FontStyles";
     
