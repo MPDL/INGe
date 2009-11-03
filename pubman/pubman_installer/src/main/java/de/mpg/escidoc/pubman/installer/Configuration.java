@@ -61,6 +61,7 @@ public class Configuration
     public static final String KEY_CORESERVICE_ADMINPW = "framework.admin.password";
     public static final String KEY_EXTERNAL_OU = "escidoc.pubman.external.organisation.id";
     public static final String KEY_CONE_SERVER = "escidoc.cone.database.server.name";
+    public static final String KEY_CONE_DATABASE = "escidoc.cone.database.name";
     public static final String KEY_CONE_PORT = "escidoc.cone.database.server.port";
     public static final String KEY_CONE_USER = "escidoc.cone.database.user.name";
     public static final String KEY_CONE_PW = "escidoc.cone.database.user.password";

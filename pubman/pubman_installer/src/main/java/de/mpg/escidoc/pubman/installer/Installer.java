@@ -39,6 +39,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +50,18 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import com.izforge.izpack.installer.InstallData;
+import com.izforge.izpack.installer.InstallerBase;
+
+import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
+
 
 /**
  * @author endres
  *
  */
-public class Installer
+public class Installer extends InstallerBase
 {    
     private Logger logger = null;
     
@@ -73,6 +83,10 @@ public class Installer
     private static final String JBOSS_DEPLOY = "/server/default/deploy";   
     /** jboss relative conf path */
     private static final String jBOSS_CONF = "/server/default/conf";
+    /** driver class for the cone database */
+    private static final String CONE_DB_DRIVER_CLASS = "org.postgresql.Driver";
+    /** connection type for the cone database */
+    private static final String CONE_DB_CONNECTION_TYPE = "jdbc:postgresql://";
     /** SQL script for creating cone database structure */
     private static final String CONE_CREATE_SCRIPT = "coneData/database_create.sql";
     /** SQL script for creating indexing cone database */
@@ -87,6 +101,10 @@ public class Installer
     private static final String CONE_INSERT_LANGUAGES = "coneData/languages.sql";
     /** SQL script for insertig mimetypes into cone database */
     private static final String CONE_INSERT_MIMETYPES = "coneData/mimetypes.sql";
+    /** the connection to the cone DB */
+    private Connection connection;
+    
+    
     /**
      * Default constructor
      * @throws IOException 
@@ -401,5 +419,39 @@ public class Installer
     	
     }
     
-    
+    public void runConeScript(String sqlScript) throws Exception
+    {
+    	logger.info("Initializing import database");
+        
+        Class.forName(CONE_DB_DRIVER_CLASS);
+        connection = DriverManager.getConnection(CONE_DB_CONNECTION_TYPE +
+        		userConfigValues.get(Configuration.KEY_CONE_SERVER) +
+                ":" +
+                userConfigValues.get(Configuration.KEY_CONE_PORT) +
+                "/" +
+                userConfigValues.get(Configuration.KEY_CONE_DATABASE),
+                userConfigValues.get(Configuration.KEY_CONE_USER),
+                userConfigValues.get(Configuration.KEY_CONE_PW));
+        
+        String dbScript = ResourceUtil.getResourceAsString(sqlScript);
+        
+        String[] queries = dbScript.split(";");
+        
+        try
+        {
+            for (String query : queries)
+            {
+                logger.debug("Executing statement: " + query);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(query);
+                statement.close();
+            }
+        }
+        catch (SQLException e)
+        {
+            logger.debug("Error description", e);
+            logger.info("Import database is set up already");
+        }
+        logger.info("Import database initialized");
+    }
 }

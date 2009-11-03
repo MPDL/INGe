@@ -91,6 +91,7 @@
     <jar src="dependency/log4j.jar"/>
     <jar src="dependency/framework_access.jar"/>
     <jar src="dependency/xmlsec.jar"/>
+    <jar src="dependency/postgresql.jar"/>
 
     <!-- 
         The packs section.
@@ -139,7 +140,8 @@
         <variable name="MailUsername" value=""/>
         <variable name="MailPassword" value=""/>
         <variable name="ExternalOrganisationID" value=""/>
-        <variable name="ConeHost" value=""/>
+        <variable name="ConeHost" value="127.0.0.1"/>
+        <variable name="ConeDatabase" value="cone"/>
         <variable name="ConePort" value="5432"/>
         <variable name="ConeUser" value="postgres"/>
         <variable name="ConePassword" value="postgres"/>
@@ -154,11 +156,11 @@
         <variable name="StyleSheetClassicApply" value="true"/>
         <variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
         <variable name="FavIconApply" value="true"/>
-        <variable name="ConeCreateJournals" value="true"/>
-        <variable name="ConeCreateLanguages" value="true"/>
-        <variable name="ConeCreateDDC" value="true"/>
-        <variable name="ConeCreateMimetypes" value="true"/>
-        <variable name="ConeCreateEscidocMimeTypes" value="true"/>
+        <variable name="ConeCreateJournals" value="false"/>
+        <variable name="ConeCreateLanguages" value="false"/>
+        <variable name="ConeCreateDDC" value="false"/>
+        <variable name="ConeCreateMimetypes" value="false"/>
+        <variable name="ConeCreateEscidocMimeTypes" value="false"/>
     </variables>
     
     <listeners>

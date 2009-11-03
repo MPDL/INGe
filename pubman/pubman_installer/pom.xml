@@ -167,6 +167,12 @@
             <artifactId>plexus-utils</artifactId>
             <version>1.5.6</version>
         </dependency>
+        <dependency>
+	    	<groupId>postgresql</groupId>
+	    	<artifactId>postgresql</artifactId>
+	    	<version>8.3-604.jdbc3</version>
+	    	<scope>compile</scope>
+	    </dependency>
 
     </dependencies>
 </project>

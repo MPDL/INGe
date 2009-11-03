@@ -91,6 +91,10 @@
             <spec txt="Database hostname:" size="25" set="${ConeHost}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database hostname must not be empty string." />
         </field>
+        <field type="text" align="left" variable="ConeDatabase">
+            <spec txt="Database name:" size="25" set="${ConeDatabase}" />
+            <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database name must not be empty string." />
+        </field>
         <field type="text" align="left" variable="ConePort">
             <spec txt="Database port:" size="25" set="${ConePort}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Database port must not be empty string." />

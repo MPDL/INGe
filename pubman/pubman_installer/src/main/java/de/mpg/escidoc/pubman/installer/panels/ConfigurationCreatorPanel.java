@@ -14,6 +14,7 @@ import com.izforge.izpack.installer.InstallData;
 import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
 
+import de.mpg.escidoc.pubman.installer.ConeDataset;
 import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.Installer;
@@ -87,6 +88,7 @@ public class ConfigurationCreatorPanel extends IzPanel
        userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
        userConfigValues.put(Configuration.KEY_CONE_SERVER, idata.getVariable("ConeHost"));
        userConfigValues.put(Configuration.KEY_CONE_PORT, idata.getVariable("ConePort"));
+       userConfigValues.put(Configuration.KEY_CONE_DATABASE, idata.getVariable("ConeDatabase"));
        userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
        userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
        userConfigValues.put(Configuration.KEY_EXTERNAL_OU, idata.getVariable("ExternalOrganisationID"));
@@ -111,8 +113,89 @@ public class ConfigurationCreatorPanel extends IzPanel
        dataset.retrieveContentModel(Installer.CHECK_CONTENT_MODEL);
    }
    
+   /**
+    * evaluates if some data has to be inserted into cone database
+    * @return boolean true if data has to be inserted into cone database
+    */
+   private boolean haveToInsertConeData()
+   {
+	   boolean insertConeData = false;
+	   
+	   if(idata.getVariable("ConeCreateJournals").equals("true") 
+			   || idata.getVariable("ConeCreateLanguages").equals("true") 
+			   || idata.getVariable("ConeCreateDDC").equals("true") 
+			   || idata.getVariable("ConeCreateMimetypes").equals("true") 
+			   || idata.getVariable("ConeCreateEscidocMimeTypes").equals("true"))
+	   {
+		   insertConeData = true;
+	   }
+	   return insertConeData;
+   }
+   
+   private void insertConeData() throws Exception
+   {
+	   if(this.haveToInsertConeData() == true)
+	   {
+		   ConeDataset coneDataset = new ConeDataset(idata.getVariable("ConeHost"), idata.getVariable("ConePort"), idata.getVariable("ConeDatabase"), idata.getVariable("ConeUser"), idata.getVariable("ConePassword"));
+		   
+		   // check if cone database already exists on the Postgres server or not. if not create it.
+		   if(coneDataset.isConeDBAvailable(ConeDataset.CONE_CHECK_DATABASES) == false)
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_CREATE_DATABASE);
+		   }
+			   
+		   // first create tables
+		   coneDataset.runConeScript(ConeDataset.CONE_CREATE_SCRIPT);
+		   
+		   // then insert data if needed
+		   if(idata.getVariable("ConeCreateJournals").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_JOURNALS);
+		   }
+		   if(idata.getVariable("ConeCreateLanguages").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_LANGUAGES);
+		   }
+		   if(idata.getVariable("ConeCreateDDC").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_DDC);
+		   }
+		   if(idata.getVariable("ConeCreateMimetypes").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_MIMETYPES);
+		   }
+		   if(idata.getVariable("ConeCreateEscidocMimeTypes").equals("true"))
+		   {
+			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_ESCIDOC_MIMETYPES);
+		   }
+		   
+		   // at least index the tables
+		   coneDataset.runConeScript(ConeDataset.CONE_INDEX_SCRIPT);
+	   }
+   }
+   
    public void panelActivate() {
        boolean success = true;
+       try {
+           JLabel label = LabelFactory.create("Inserting CoNE data...", parent.icons.getImageIcon("host"), LEADING);
+           add(label, NEXT_LINE);
+           getLayoutHelper().completeLayout();
+           insertConeData();
+           JLabel label2 = LabelFactory.create("Good. CoNE data inserted.", parent.icons.getImageIcon("host"), LEADING);
+           add(label2, NEXT_LINE);
+           getLayoutHelper().completeLayout();
+       } 
+       catch( Exception e ) {
+           JLabel welcomeLabel = LabelFactory.create("Error. CoNE data could not be inserted. Please see the log files for further information."
+                   , parent.icons.getImageIcon("host"), LEADING);
+           add(welcomeLabel, NEXT_LINE);
+           JLabel welcomeLabel2 = LabelFactory.create("Please insert CoNE data manually."
+                   , parent.icons.getImageIcon("host"), LEADING);
+           add(welcomeLabel2, NEXT_LINE);
+           getLayoutHelper().completeLayout();
+           success = false;
+       }
+       
        try {
            JLabel label = LabelFactory.create("Checking content model...", parent.icons.getImageIcon("host"), LEADING);
            add(label, NEXT_LINE);

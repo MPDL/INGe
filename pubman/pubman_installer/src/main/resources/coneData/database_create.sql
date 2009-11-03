@@ -1,8 +1,4 @@
 
-CREATE DATABASE cone WITH TEMPLATE = template0 ENCODING = 'UTF8';
-
-\connect cone
-
 SET client_encoding = 'UTF8';
 
 SET default_tablespace = '';
@@ -12,6 +8,15 @@ SET default_tablespace = '';
 -- Dependencies: 6
 -- Name: matches; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
+DROP TABLE IF EXISTS matches CASCADE;
+
+DROP TABLE IF EXISTS properties CASCADE;
+
+DROP TABLE IF EXISTS results CASCADE;
+
+DROP TABLE IF EXISTS triples CASCADE;
+
+DROP VIEW IF EXISTS triples CASCADE;
 
 CREATE TABLE matches (
     id character varying NOT NULL,
@@ -26,6 +31,7 @@ CREATE TABLE matches (
 -- Name: properties; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
+
 CREATE TABLE properties (
     name character varying NOT NULL,
     value character varying
@@ -36,6 +42,7 @@ CREATE TABLE properties (
 -- Dependencies: 6
 -- Name: results; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
+
 
 CREATE TABLE results (
     id character varying NOT NULL,
@@ -50,6 +57,7 @@ CREATE TABLE results (
 -- Name: triples; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
+
 CREATE TABLE triples (
     subject character varying,
     predicate character varying,
@@ -63,6 +71,7 @@ CREATE TABLE triples (
 -- Dependencies: 1570 6
 -- Name: vw_search; Type: VIEW; Schema: public; Owner: postgres
 --
+
 
 CREATE VIEW vw_search AS
     SELECT triples.subject, triples.predicate, triples.object, triples.lang, triples.model FROM triples WHERE (((((((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/identifier'::text) OR ((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/title'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/alternative'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/identifier'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/terms/publisher'::text)) OR ((triples.predicate)::text = 'http://purl.org/dc/elements/1.1/publisher'::text));

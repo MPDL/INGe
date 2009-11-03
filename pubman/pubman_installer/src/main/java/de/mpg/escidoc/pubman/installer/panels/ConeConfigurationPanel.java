@@ -1,6 +1,8 @@
 package de.mpg.escidoc.pubman.installer.panels;
 
 import java.awt.LayoutManager2;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -21,7 +23,7 @@ import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.Installer;
 
-public class ConeConfigurationPanel extends IzPanel
+public class ConeConfigurationPanel extends IzPanel implements ActionListener
 {
 	/**
 	 * 
@@ -33,7 +35,12 @@ public class ConeConfigurationPanel extends IzPanel
    private String ouExternalObjectId = null;
    boolean isValid = true;
    private JLabel emptyLabel = LabelFactory.create(" ", LEADING);
-	   
+   private JCheckBox checkBoxJournals;
+   private JCheckBox checkBoxLanguages;
+   private JCheckBox checkBoxDDC;
+   private JCheckBox checkBoxMimeTypes;
+   private JCheckBox checkBoxEscidocMimeTypes;
+      
 	   /**
 	    * The constructor.
 	    *
@@ -43,7 +50,7 @@ public class ConeConfigurationPanel extends IzPanel
 	    */
 	   public ConeConfigurationPanel(InstallerFrame parent, InstallData idata) throws IOException
 	   {
-	       this(parent, idata, new IzPanelLayout());
+		   this(parent, idata, new IzPanelLayout());
 	   }
 
 	   /**
@@ -60,6 +67,11 @@ public class ConeConfigurationPanel extends IzPanel
 	   public ConeConfigurationPanel(InstallerFrame parent, InstallData idata, LayoutManager2 layout) throws IOException
 	   {
 	       super(parent, idata, layout);
+	       checkBoxJournals = null;
+	       checkBoxLanguages = null;
+	       checkBoxDDC = null;
+	       checkBoxMimeTypes = null;
+	       checkBoxEscidocMimeTypes = null;
 	       // We create and put the labels
 	       String str;
 	       str = "Collecting Information for CoNE configuration...";
@@ -84,70 +96,32 @@ public class ConeConfigurationPanel extends IzPanel
 	       return isValid;
 	   }
 	   
-	   private void storeConfiguration() throws IOException {
-	       Map<String, String> userConfigValues = new HashMap<String, String>();
-	       userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
-	       userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
-	       userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINPW, idata.getVariable("CoreserviceAdminPassword"));
-	       userConfigValues.put(Configuration.KEY_INSTANCEURL, idata.getVariable("InstanceUrl"));
-	       userConfigValues.put(Configuration.KEY_MAILSERVER, idata.getVariable("MailHost"));
-	       userConfigValues.put(Configuration.KEY_MAIL_SENDER, idata.getVariable("MailSenderAdress"));
-	       userConfigValues.put(Configuration.KEY_MAIL_USE_AUTHENTICATION, idata.getVariable("MailUseAuthentication"));
-	       userConfigValues.put(Configuration.KEY_MAILUSER, idata.getVariable("MailUsername"));
-	       userConfigValues.put(Configuration.KEY_MAILUSERPW, idata.getVariable("MailPassword"));
-	       userConfigValues.put(Configuration.KEY_CONE_SERVER, idata.getVariable("ConeHost"));
-	       userConfigValues.put(Configuration.KEY_CONE_PORT, idata.getVariable("ConePort"));
-	       userConfigValues.put(Configuration.KEY_CONE_USER, idata.getVariable("ConeUser"));
-	       userConfigValues.put(Configuration.KEY_CONE_PW, idata.getVariable("ConePassword"));
-	       userConfigValues.put(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
-	       configuration.setProperties(userConfigValues);
-	       configuration.store(idata.getInstallPath() + "/jboss-4.2.2.GA/server/default/conf/pubman.properties");
-	   }
-	   
-	   private void checkContentModel() throws Exception {
-	       InitialDataset dataset = new InitialDataset( new URL(idata.getVariable("CoreserviceUrl") ), 
-	               idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword") );
-	       dataset.retrieveContentModel(Installer.CHECK_CONTENT_MODEL);
-	   }
-	   
-	   private void createDataset() throws Exception {
-	       InitialDataset dataset = new InitialDataset( new URL(idata.getVariable("CoreserviceUrl") ), 
-	               idata.getVariable("CoreserviceAdminUser"), idata.getVariable("CoreserviceAdminPassword") );
-	       
-	       ouExternalObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_external.xml");
-	       String ouDefaultObjectId = dataset.createAndOpenOrganizationalUnit("datasetObjects/ou_default.xml");
-	       
-	       configuration.setProperty(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);      
-	       String contextObjectId = dataset.createAndOpenContext("datasetObjects/context.xml", ouDefaultObjectId);
-	       String userModeratorId = dataset.createUser("datasetObjects/user_moderator.xml", 
-	               idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
-	       String userDepositorId = dataset.createUser("datasetObjects/user_depositor.xml", 
-	               idata.getVariable("InitialUserPassword"), ouDefaultObjectId);
-	       
-	       dataset.createGrantForUser(
-	               "datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
-	       dataset.createGrantForUser(
-	               "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
-	   }
-	   
 	   public void panelActivate() {
 	       
 	       JLabel label = LabelFactory.create("Please select the data types you want to have installed into CoNE.", parent.icons.getImageIcon("host"), LEADING);
 	       add(label, NEXT_LINE);
 	       add(emptyLabel, NEXT_LINE);
-	       JCheckBox checkBoxJournals = new JCheckBox("Journals");
+	       checkBoxJournals = new JCheckBox("Journals");
+	       checkBoxJournals.addActionListener(this);
 	       add(checkBoxJournals, NEXT_LINE);
-	       JCheckBox checkBoxLanguages = new JCheckBox("Languages");
+	       checkBoxLanguages = new JCheckBox("Languages");
+	       checkBoxJournals.addActionListener(this);
 	       add(checkBoxLanguages, NEXT_LINE);
-	       JCheckBox checkBoxDDC = new JCheckBox("DDC");
+	       checkBoxDDC = new JCheckBox("DDC");
+	       checkBoxDDC.addActionListener(this);
 	       add(checkBoxDDC, NEXT_LINE);
-	       JCheckBox checkBoxMimeTypes = new JCheckBox("Mimetypes");
+	       checkBoxMimeTypes = new JCheckBox("Mimetypes");
+	       checkBoxDDC.addActionListener(this);
 	       add(checkBoxMimeTypes, NEXT_LINE);
-	       JCheckBox checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
+	       checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
+	       checkBoxEscidocMimeTypes.addActionListener(this);
 	       add(checkBoxEscidocMimeTypes, NEXT_LINE);
 	       getLayoutHelper().completeLayout();
-	       
-	       // store settings in iData
+	   }
+	   
+	   public void actionPerformed(ActionEvent e)
+	    {
+		// store settings in iData
 	       if(checkBoxJournals.isSelected())
 	       {
 	    	   idata.setVariable("ConeCreateJournals", "true");
@@ -192,6 +166,5 @@ public class ConeConfigurationPanel extends IzPanel
 	       {
 	    	   idata.setVariable("ConeCreateEscidocMimeTypes", "false");
 	       }
-	       
-	   }
+	    }
 }
