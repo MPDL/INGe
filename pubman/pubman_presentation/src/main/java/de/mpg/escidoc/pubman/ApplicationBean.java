@@ -433,7 +433,7 @@ public class ApplicationBean extends FacesBean
     
     public String getReloadResourceBundlesAndProperties() throws Exception
     {
-    	//ResourceBundle.clearCache();
+    	ResourceBundle.clearCache();
     	PropertyReader.loadProperties();
     	return "... Resource bundles and properties reloaded";
     }
