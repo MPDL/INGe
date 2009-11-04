@@ -111,7 +111,7 @@
 								String id;
 								if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
 								{
-									id = model.getIdentifierPrefix() + querier.createUniqueIdentifier(model.getName());
+									id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
 								}
 								else if (((TreeFragment) result).getSubject() != null)
 								{

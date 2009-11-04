@@ -54,7 +54,7 @@
 	while (params.hasMoreElements())
 	{
 	    String param = params.nextElement().toString();
-	    queryString += param + "=" + URLEncoder.encode(request.getParameter(param), "ASCII");
+	    queryString += param + "=" + URLEncoder.encode(request.getParameter(param), "ISO-8859-15");
 	    if (params.hasMoreElements())
 	    {
 	        queryString += "&";
