@@ -42,7 +42,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title><h:outputText id="lblAppTitle" value="#{ApplicationBean.appTitle}"/></title>
+				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
