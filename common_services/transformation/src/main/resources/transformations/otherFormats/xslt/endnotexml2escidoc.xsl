@@ -67,6 +67,8 @@
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
 	
+	<xsl:param name="fulltext-location" select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
+	
 	<xsl:param name="refType" />
 
 	<xsl:variable name="genreMap">
@@ -223,7 +225,11 @@
 					<xsl:call-template name="itemMetadata"/>
 				</mdr:md-record>
 			</xsl:element>
-			<xsl:element name="ec:components"/>
+			<xsl:element name="ec:components">
+				<xsl:if test="F and $source-name = 'endnote-ice'">
+					<xsl:call-template name="component"/>
+				</xsl:if>
+			</xsl:element>
 		</xsl:element>
 	</xsl:template>
 		
@@ -371,6 +377,14 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
+			<xsl:if test="$source-name = 'endnote-ice'">
+				<xsl:for-each select="DOLLAR">
+					<xsl:element name="dc:identifier">
+						<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+						<xsl:value-of select="."/>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:if>
 			<!-- END OF IDENTIFIERS -->
 			
 			
@@ -833,31 +847,44 @@
 			<xsl:when test="$source-name = 'endnote-ice'">
 			
 				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
-			
-				<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
-					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
-				</xsl:if>
-			
+
 				<xsl:variable name="iris-id" select="substring-before(substring-after($additionalAuthorInformation, '-'), '-')"/>
 				<xsl:variable name="ou-id" select="substring-after(substring-after($additionalAuthorInformation, '-'), '-')"/>
 			
-				<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat($person/familyname, ' ', $iris-id)"/>´</xsl:comment>
-				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ' ', $iris-id))"/>
-				<xsl:if test="not(exists($cone-creator/rdf:Description))"> 
+				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
+			
+				<xsl:variable name="cone-creator">
+					<xsl:if test="not(($pos = 0) or (substring-after($additionalAuthorInformation, '-') = '-'))">
+						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
+							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
+						</xsl:if>
+						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat($person/familyname, ' ', $iris-id)"/>´</xsl:comment>
+						<xsl:copy-of select="Util:queryCone('persons', concat($person/familyname, ' ', $iris-id))"/>
+					</xsl:if>
+				</xsl:variable>
+				
+				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
+		
+				<xsl:if test="$multiplePersonsFound">
+					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
+				</xsl:if>
+				
+				<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))"> 
 					<xsl:comment>Iris-ID <xsl:value-of select="$iris-id"/> not found in CoNE service!</xsl:comment>
 				</xsl:if>
+				
 				<xsl:choose>
-					<xsl:when test="exists($cone-creator/rdf:Description)">
+					<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
 						<e:person>
 							<e:family-name><xsl:value-of select="$person/familyname"/></e:family-name>
 							<e:given-name><xsl:value-of select="$person/givenname"/></e:given-name>
 							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
 								<e:organization>
-									<e:organization-name><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/></e:organization-name>
+									<e:organization-name><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</e:organization-name>
 									<e:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></e:identifier>
 								</e:organization>
 							</xsl:if>
-							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/rdf:Description/@rdf:about"/></dc:identifier>
+							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/></e:identifier>
 						</e:person>
 					</xsl:when>
 					<xsl:otherwise>
@@ -894,7 +921,7 @@
 						<xsl:value-of select="."/>
 					</xsl:element>
 					<xsl:choose>
-						<xsl:when test="exists($cone-creator/rdf:Description/escidoc:position)">
+						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidoc:position)">
 							<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidoc:position">
 								<e:organization>
 									<e:organization-name>
@@ -914,8 +941,8 @@
 						</xsl:when>
 					</xsl:choose>
 					<xsl:choose>
-						<xsl:when test="exists($cone-creator/rdf:Description)">
-							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/rdf:Description/@rdf:about"/></dc:identifier>
+						<xsl:when test="exists($cone-creator/cone/rdf:Description)">
+							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF/rdf:Description/@rdf:about"/></e:identifier>
 						</xsl:when>
 					</xsl:choose>
 					
@@ -928,5 +955,31 @@
 	
 <!--	END OF CREATORS-->	
 	
+	<xsl:template name="component">
+		<ec:component>
+            <ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">               
+                <prop:visibility>
+					<xsl:choose>
+						<xsl:when test="NUM_4 = 'OA'">public</xsl:when>
+						<xsl:otherwise>private</xsl:otherwise>
+					</xsl:choose>
+				</prop:visibility>
+                <prop:content-category>any-fulltext</prop:content-category>
+                <prop:file-name><xsl:value-of select="F"/>.pdf</prop:file-name>
+                <prop:mime-type>application/pdf</prop:mime-type>
+            </ec:properties>
+            <ec:content xlink:type="simple" xlink:title="{F}.pdf" xlink:href="{$fulltext-location}{F}.pdf" storage="internal-managed"/>
+            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+            	<mdr:md-record name="escidoc">
+            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<dc:title><xsl:value-of select="F"/>.pdf</dc:title>
+						<file:content-category>any-fulltext</file:content-category>
+						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+						<dcterms:extent><xsl:value-of select="Util:getSize(concat($fulltext-location, F, '.pdf'))"/></dcterms:extent>
+					</file:file>
+            	</mdr:md-record>
+            </mdr:md-records>
+        </ec:component>
+	</xsl:template>
 
 </xsl:stylesheet>

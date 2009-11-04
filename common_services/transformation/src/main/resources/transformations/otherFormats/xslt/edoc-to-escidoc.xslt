@@ -123,12 +123,12 @@
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Laser Interferometry &amp; Gravitational Wave Astronomy</edoc-collection>
 			<escidoc-ou>Laser Interferometry &amp; Gravitational Wave Astronomy</escidoc-ou>
-			<escidoc-id>escidoc:</escidoc-id>
+			<escidoc-id>escidoc:2012</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Observational Relativity and Cosmology</edoc-collection>
 			<escidoc-ou>Observational Relativity and Cosmology</escidoc-ou>
-			<escidoc-id>escidoc:</escidoc-id>
+			<escidoc-id>escidoc:2013</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Microscopic Quantum Structure &amp; Dynamics of Spacetime</edoc-collection>

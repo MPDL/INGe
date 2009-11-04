@@ -47,6 +47,7 @@
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
    xmlns:escidoc="urn:escidoc:functions"
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
@@ -62,7 +63,7 @@
 	<xsl:param name="context" select="'escidoc:31013'"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
-	<xsl:param name="localPrefix" select="'http://localhost/fulltexts/'"/>
+	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
 	<!--
 		DC XML  Header
@@ -711,7 +712,7 @@
 			                <prop:file-name><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></prop:file-name>
 			                <prop:mime-type>application/pdf</prop:mime-type>
 			            </ec:properties>
-			            <ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
+			            <ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="{$filename}" storage="internal-managed"/>
 			            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			            	<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
@@ -730,7 +731,7 @@
 				<xsl:otherwise>
 					<xsl:element name="ec:component">
 						<ec:properties>
-			                <prop:visibility>public</prop:visibility>
+			                <prop:visibility>private</prop:visibility>
 			                <prop:content-category>any-fulltext</prop:content-category>
 			                <prop:file-name>farbtest.gif</prop:file-name>
 			            </ec:properties>
@@ -744,6 +745,7 @@
 										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 									</xsl:element>	
 									<xsl:element name="file:content-category">any-fulltext</xsl:element>	
+									<dcterms:extent><xsl:value-of select="Util:getSize($filename)"/></dcterms:extent>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>
@@ -802,6 +804,7 @@
 		<xsl:value-of select="$result"/>
 	</xsl:function>
 	
+	<!-- katu_costello1991_o.html -->
 	<xsl:function name="escidoc:substring-before-last" as="xs:string">
 		<xsl:param name="str" as="xs:string"/>
 		<xsl:param name="delim" as="xs:string"/>
@@ -812,8 +815,8 @@
 					<xsl:value-of select="substring-before($str, $delim)"/>
 					<xsl:if test="contains(substring-after($str, $delim), $delim)">
 						<xsl:value-of select="$delim"/>
+						<xsl:value-of select="escidoc:substring-before-last(substring-after($str, $delim), $delim)"/>
 					</xsl:if>
-					<xsl:value-of select="escidoc:substring-before-last(substring-after($str, $delim), $delim)"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$str"/>

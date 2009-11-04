@@ -48,6 +48,7 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
@@ -302,7 +303,7 @@ public class Util
             document.appendChild(element);
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                + "jquery/" + model + "/query?q=" + URLEncoder.encode(query, "UTF-8");
+                + "jquery/" + model + "/query?q=" + URLEncoder.encode(query, "ISO-8859-15");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
                 + "rdf/" + model + "/details/";
             HttpClient client = new HttpClient();
@@ -336,6 +337,29 @@ public class Util
                 logger.error("Error querying CoNE: Status "
                         + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
             }
+            return document;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public static Node getSize(String url)
+    {
+        DocumentBuilder documentBuilder;
+        
+        HttpClient httpClient = new HttpClient();
+        HeadMethod headMethod = new HeadMethod(url);
+        
+        try
+        {
+            httpClient.executeMethod(headMethod);
+            documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+            Element element = document.createElement("size");
+            document.appendChild(element);
+            element.setTextContent(headMethod.getResponseHeader("Content-Length").getValue());
             return document;
         }
         catch (Exception e)
