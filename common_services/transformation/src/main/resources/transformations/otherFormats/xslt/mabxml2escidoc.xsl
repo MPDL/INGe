@@ -142,9 +142,14 @@
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
-			<!-- CREATOR -->			
+			<!-- CREATOR : AUTHOR-->			
 			<xsl:apply-templates select="mab100"/>
+			<xsl:apply-templates select="mab104_a"/>
+			<xsl:apply-templates select="mab108_a"/>
+			<xsl:apply-templates select="mab112_a"/>
+			<!-- CREATOR : EDITOR -->
 			<xsl:apply-templates select="mab100_b"/>
+			<xsl:apply-templates select="mab104_b"/>
 			<xsl:apply-templates select="mab100_c"/>
 			<xsl:apply-templates select="mab108_b"/>
 			<xsl:apply-templates select="mab112_b"/>
@@ -152,11 +157,9 @@
 			<!-- TITLE -->			
 			<xsl:choose>
 				<xsl:when test="mab331 and mab335">
+					
+					<xsl:variable name="add335" select="concat(concat(mab331,' : '),mab335)"/>
 					<xsl:call-template name="createTitle">
-						<xsl:with-param name="title" select="mab331"/>
-					</xsl:call-template>
-					<xsl:variable name="add335" select="concat(' : ',mab335)"/>
-					<xsl:call-template name="createAlternative">
 						<xsl:with-param name="title" select="$add335"/>
 					</xsl:call-template>
 				</xsl:when>				
@@ -393,8 +396,15 @@
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="mab200_b">
+		<xsl:variable name="role">
+			<xsl:choose>
+				<xsl:when test="../mab100">editor</xsl:when>
+				<xsl:otherwise>editor</xsl:otherwise>
+			</xsl:choose>
+			
+		</xsl:variable>
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$role"/>
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="mab204_a">
@@ -538,17 +548,17 @@
 	</xsl:template>
 	<!-- PUBLISHINGINFO -->
 	<xsl:template match="mab519">		
-		<xsl:analyze-string select="." regex="\d\d\d\d">
+		<!-- <xsl:analyze-string select="." regex="\d\d\d\d">
 				<xsl:matching-substring>
 					<xsl:element name="dcterms:dateAccepted">
 						<xsl:value-of select="."/>
 					</xsl:element>
 				</xsl:matching-substring>
-			</xsl:analyze-string>
+			</xsl:analyze-string>-->
 	</xsl:template>
 	<xsl:template name="createPublInfo">
-		<xsl:element name="pub:publishing-info">
-		<xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
+		<!--<xsl:element name="pub:publishing-info">
+		 <xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
 		<xsl:variable name="place" select="substring-before(mab519,',')"/>
 		<xsl:choose>
 			<xsl:when test="not(mab412)">
@@ -565,7 +575,7 @@
 					<xsl:value-of select="$place"/>
 				</xsl:element>		
 			</xsl:if>			
-		</xsl:element>
+		</xsl:element>-->
 	</xsl:template>
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
