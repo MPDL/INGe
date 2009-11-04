@@ -435,7 +435,7 @@ public class ApplicationBean extends FacesBean
     {
     	//ResourceBundle.clearCache();
     	PropertyReader.loadProperties();
-    	return "resource bundles and properties reloaded";
+    	return "... Resource bundles and properties reloaded";
     }
 
 }
