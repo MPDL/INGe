@@ -96,7 +96,7 @@ public class ImportSurveyor extends Thread
             String query = "select id from escidoc_import_log where "
             		+ "(status = 'PENDING' or status = 'ROLLBACK') "
             		+ "and id not in (select parent from escidoc_import_log_item where "
-            		+ "datediff('minute', startdate, now()) <= 15)";
+            		+ "datediff('minute', startdate, now()) <= 60)";
             ResultSet resultSet = null;
             PreparedStatement statement = null;
             try

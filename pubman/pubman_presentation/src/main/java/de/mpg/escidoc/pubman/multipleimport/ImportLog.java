@@ -442,6 +442,11 @@ public class ImportLog
         newDetail.setItemId(detailId);
         newDetail.setStatus(Status.FINISHED);
         
+        if (this.currentItem == null)
+        {
+            startItem("");
+        }
+        
         this.currentItem.getItems().add(newDetail);
         
         saveDetail(newDetail);

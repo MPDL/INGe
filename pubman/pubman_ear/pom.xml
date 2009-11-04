@@ -485,7 +485,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>cone_presentation</artifactId>
-            <version>1.0.29</version>
+            <version>1.0.30-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>
         </dependency>
@@ -499,7 +499,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.18</version>
+            <version>1.0.19-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>

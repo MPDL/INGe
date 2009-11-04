@@ -427,8 +427,8 @@ public class ImportProcess extends Thread
                 {
                     logger.error("Error during import", e);
                     
-                    log.finishItem();
-                    log.startItem(ErrorLevel.ERROR, "import_process_item_error");
+                    //log.finishItem();
+                    //log.startItem(ErrorLevel.ERROR, "import_process_item_error");
                     log.addDetail(ErrorLevel.ERROR, e);
                     log.finishItem();
                     
@@ -472,8 +472,8 @@ public class ImportProcess extends Thread
                     catch (Exception e)
                     {
                         logger.error("Error during import", e);
-                        log.finishItem();
-                        log.startItem(ErrorLevel.ERROR, "import_process_item_error");
+                        //log.finishItem();
+                        //log.startItem(ErrorLevel.ERROR, "import_process_item_error");
                         log.addDetail(ErrorLevel.ERROR, e);
                         log.finishItem();
                         
@@ -571,7 +571,7 @@ public class ImportProcess extends Thread
         }
         else
         {
-            return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;");
+            return string.replace("&", "&amp;").replace("\"", "&quot;").replace("<", "&lt;").replace(">", "&gt;");
         }
     }
 
