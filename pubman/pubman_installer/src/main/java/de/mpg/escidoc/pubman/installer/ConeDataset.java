@@ -120,19 +120,25 @@ public class ConeDataset
                 this.coneUser + ", "+
                 this.conePassword);
         
-        String dbScript = ResourceUtil.getResourceAsString(sqlScript);
-        
-        String[] queries = dbScript.split(";\n");
-        int i =0;
         try
         {
-            for (String query : queries)
+            InputStream fileIn = ResourceUtil.getResourceAsStream(sqlScript);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
+            String query = "";
+            String queryPart = "";
+            while ((queryPart = br.readLine()) != null)
             {
-                i++;
-            	Statement statement = connection.createStatement();
-                statement.executeUpdate(query);
-                statement.close();
-                System.out.println(i+". Query: " + query);
+            	query += queryPart;
+            	if(queryPart != null && queryPart.endsWith(";"))
+	            {
+	            	if(!query.trim().equals(""))
+	            	{
+		            	Statement statement = connection.createStatement();
+		                statement.executeUpdate(query);
+		                statement.close();
+		                query = "";
+	            	}
+            	}
             }
         }
         catch (SQLException e)
