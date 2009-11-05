@@ -39,9 +39,13 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
+import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
@@ -196,6 +200,35 @@ public class ViewItemStatistics extends FacesBean
     
     public boolean getFilesAvailable() {
         return fileList.size() > 0;
+    }
+    
+    
+    /**
+     * Tests the names of responsible affiliations of the current context for occurrences of the String "NIMS" or "National Institute of..." 
+     * @return
+     */
+    public boolean getShowNIMSLink()
+    {
+    	ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    	ContextVO currentContext = icsb.getCurrentContext();
+    	if(currentContext.getName().contains("NIMS") || currentContext.getName().contains("National Institute for Materials Science"))
+		{
+			return true;
+		}
+    	
+    	/*
+    	for(AffiliationRO aff : currentContext.getResponsibleAffiliations())
+    	{
+    		AffiliationVOPresentation affVO = affTree.getAffiliationMap().get(aff.getObjectId());
+    		if(affVO.getName().contains("NIMS") || affVO.getName().contains("National Institute for Materials Science"))
+    		{
+    			return true;
+    		}
+    	}
+    	*/
+    	return false;
+    	
+    	
     }
     
   

@@ -32,6 +32,23 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.showNIMSLink}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.statistics_NIMSLink}"/>
+	</h3>
+	<h:panelGroup styleClass="seperator" />
+	<div class="free_area0 itemBlockContent endline">
+		<div class="free_area0 endline itemLine noTopBorder">
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+			<h:outputLink value="http://kagaku.nims.go.jp/escidoc/statistics/" target="_blank">
+				<h:outputText value="http://kagaku.nims.go.jp/escidoc/statistics/" />
+			</h:outputLink>
+			</span>
+		</div>
+	</div>
+
+</h:panelGroup>
+
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.statistics_lblItemRetrievals}"/>
@@ -58,7 +75,8 @@
 			<h:graphicImage url="./statisticchart/?id=#{ViewItemStatistics.pubItem.version.objectId}&type=item&lang=#{InternationalizationHelper.locale}"/>
 		</div>
 	</div>
-</h:panelGroup>
+	</h:panelGroup>
+
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.filesAvailable}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
@@ -120,6 +138,5 @@
 				<h:graphicImage url="./statisticchart/?id=#{file.file.reference.objectId}&type=file&lang=#{InternationalizationHelper.locale}"/>
 			</div>
 		</tr:iterator>
-
 	</div>
 </h:panelGroup>
