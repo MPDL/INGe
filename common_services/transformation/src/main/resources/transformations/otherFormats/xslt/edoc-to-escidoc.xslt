@@ -1319,20 +1319,6 @@
 											</e:identifier>
 										</xsl:element>
 									</xsl:for-each>
-									
-									<!-- <xsl:variable name="collection" select="../../../docaff/collection"/>
-									
-									<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
-										<e:organization>
-											<e:organization-name>
-												<xsl:value-of select="escidocFunctions:ou-name($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
-											</e:organization-name>
-											<e:identifier>
-												<xsl:value-of select="escidocFunctions:ou-id($collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou)"/>
-											</e:identifier>
-										</e:organization>
-									</xsl:if> -->
-								
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
 									<e:organization>

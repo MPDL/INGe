@@ -34,29 +34,30 @@
 	$LastChangedDate: 2009-09-15 18:09:23 +0200 (Di, 15 Sep 2009) $
 -->
 <xsl:stylesheet version="2.0"
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:dc="${xsd.metadata.dc}"
-   xmlns:dcterms="${xsd.metadata.dcterms}"    
-   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
-   xmlns:srel="${xsd.soap.common.srel}"   
-   xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
-   xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
-   xmlns:escidoc="urn:escidoc:functions"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}">
- 
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:dc="${xsd.metadata.dc}"
+		xmlns:dcterms="${xsd.metadata.dcterms}"
+		xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+		xmlns:srel="${xsd.soap.common.srel}"
+		xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+		xmlns:file="${xsd.metadata.file}"
+		xmlns:pub="${xsd.metadata.publication}"
+		xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+		xmlns:escidoc="urn:escidoc:functions"
+		xmlns:ei="${xsd.soap.item.item}"
+		xmlns:mdr="${xsd.soap.common.mdrecords}"
+		xmlns:mdp="${xsd.metadata.escidocprofile}"
+		xmlns:e="${xsd.metadata.escidocprofile.types}"
+		xmlns:ec="${xsd.soap.item.components}"
+		xmlns:prop="${xsd.soap.common.prop}"
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
+	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
@@ -73,7 +74,7 @@
 	<!-- VARIABLEN -->
 	
 	
-	<xsl:variable name="genre"/>		
+	<xsl:variable name="genre"/>
 	
 	<xsl:template match="/">
 		<xsl:choose>
@@ -94,12 +95,12 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-
+	
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
 				<srel:content-model objid="escidoc:persistent4"/>
-				<xsl:element name="prop:content-model-specific"/>				
+				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">
@@ -116,23 +117,23 @@
 	
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
-			<xsl:choose>
-				<xsl:when test="mab029_m='B'">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'book'"/>
-					</xsl:call-template>
-				</xsl:when>				
-				<xsl:when test="mab029_m='P'">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'article'"/>
-					</xsl:call-template>
-				</xsl:when>					
-				<xsl:otherwise>
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'other'"/>
-					</xsl:call-template>
-				</xsl:otherwise>
-			</xsl:choose>
+		<xsl:choose>
+			<xsl:when test="mab029_m='B'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="gen" select="'book'"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="mab029_m='P'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="gen" select="'article'"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="gen" select="'other'"/>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<!-- Create eSciDoc Entry -->
@@ -143,7 +144,7 @@
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
-			<!-- CREATOR : AUTHOR-->			
+			<!-- CREATOR : AUTHOR-->
 			<xsl:apply-templates select="mab100"/>
 			<xsl:apply-templates select="mab104_a"/>
 			<xsl:apply-templates select="mab108_a"/>
@@ -155,7 +156,7 @@
 			<xsl:apply-templates select="mab108_b"/>
 			<xsl:apply-templates select="mab112_b"/>
 			<xsl:apply-templates select="mab112_f"/>
-			<!-- TITLE -->			
+			<!-- TITLE -->
 			<xsl:choose>
 				<xsl:when test="mab331 and mab335">
 					
@@ -163,7 +164,7 @@
 					<xsl:call-template name="createTitle">
 						<xsl:with-param name="title" select="$add335"/>
 					</xsl:call-template>
-				</xsl:when>				
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="createTitle">
 						<xsl:with-param name="title" select="mab331"/>
@@ -196,12 +197,12 @@
 					<xsl:with-param name="title" select="mab304"/>
 				</xsl:call-template>
 			</xsl:if>
-			<!-- LANGUAGE -->			
+			<!-- LANGUAGE -->
 			<xsl:apply-templates select="mab037_c"/>
 			<!-- IDENTIFIER -->
-			<xsl:apply-templates select="mab001"/>			
+			<xsl:apply-templates select="mab001"/>
 			<xsl:apply-templates select="mab025_z"/>
-			<xsl:apply-templates select="mab088"/>			
+			<xsl:apply-templates select="mab088"/>
 			<xsl:apply-templates select="mab655"/>
 			<xsl:apply-templates select="mab655_e"/>
 			<xsl:apply-templates select="mab540"/>
@@ -216,7 +217,7 @@
 			<xsl:apply-templates select="mab425"/>
 			<xsl:apply-templates select="mab519"/>
 			
-			<!-- SOURCE -->			
+			<!-- SOURCE -->
 			<xsl:if test="mab451">
 				<xsl:call-template name="createSource">
 					<xsl:with-param name="title" select="mab451"/>
@@ -251,10 +252,10 @@
 			
 			<!-- PAGES -->
 			<xsl:if test="mab433">
-				<xsl:element name="pub:total-number-of-pages">				
+				<xsl:element name="pub:total-number-of-pages">
 					<xsl:if test="mab433">
 						<xsl:value-of select="mab433"/>
-					</xsl:if>					
+					</xsl:if>
 				</xsl:element>
 			</xsl:if>
 			<!-- DEGREE -->
@@ -308,7 +309,7 @@
 							<e:organization-name>External Organizations</e:organization-name>
 							<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
 						</xsl:otherwise>
-					</xsl:choose>					
+					</xsl:choose>
 				</xsl:element>
 			</xsl:element>
 		</xsl:element>
@@ -322,8 +323,8 @@
 				<xsl:if test="../mab105">
 					<xsl:element name="e:alternative-name">
 						<xsl:value-of select="../mab105"/>
-					</xsl:element>			
-				</xsl:if>	
+					</xsl:element>
+				</xsl:if>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
@@ -384,7 +385,7 @@
 								<e:organization-name>External Organizations</e:organization-name>
 								<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
 							</xsl:otherwise>
-						</xsl:choose>					
+						</xsl:choose>
 					</xsl:element>
 				</xsl:if>
 			</xsl:element>
@@ -402,7 +403,7 @@
 				<xsl:when test="../mab100">editor</xsl:when>
 				<xsl:otherwise>editor</xsl:otherwise>
 			</xsl:choose>
-			
+		
 		</xsl:variable>
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role" select="$role"/>
@@ -463,42 +464,42 @@
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab655">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab655_e">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab540">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab540_a">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab540_b">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab542">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISSN</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="mab542_a">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISSN</xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template name="createID">
 		<xsl:param name="idtype"/>
 		<xsl:element name="dc:identifier">
@@ -519,9 +520,11 @@
 	</xsl:template>
 	<!-- LANGUAGE -->
 	<xsl:template match="mab037_c">
-		<!-- <xsl:element name="dc:language">
-			
-		</xsl:element>-->
+		<xsl:element name="dc:language">
+			<xsl:variable name="language-identifier" select="."/>
+			<xsl:variable name="cone-language" select="Util:queryCone('languages', .)"/>
+			<xsl:value-of select="$cone-language/cone/rdf:RDF[rdf:Description/dc:identifier = $language-identifier]/rdf:Description/dc:identifier[string-length(.) = 2]"/>
+		</xsl:element>
 	</xsl:template>
 	<!-- SUBJECT -->
 	<xsl:template name="createSubject">
@@ -542,7 +545,7 @@
 		<xsl:analyze-string select="." regex="\d\d\d\d">
 			<xsl:matching-substring>
 				<xsl:element name="dcterms:issued">
-					<xsl:value-of select="."/>		
+					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:matching-substring>
 		</xsl:analyze-string>
@@ -555,8 +558,7 @@
 						<xsl:value-of select="."/>
 					</xsl:element>
 				</xsl:matching-substring>
-			</xsl:analyze-string>-->
-	</xsl:template>
+			</xsl:analyze-string>--></xsl:template>
 	<xsl:template name="createPublInfo">
 		<!--<xsl:element name="pub:publishing-info">
 		 <xsl:variable name="publisher" select="substring-before(substring-after(mab519,','),',')"/>
@@ -576,8 +578,7 @@
 					<xsl:value-of select="$place"/>
 				</xsl:element>		
 			</xsl:if>			
-		</xsl:element>-->
-	</xsl:template>
+		</xsl:element>--></xsl:template>
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
 		<xsl:param name="title"/>
@@ -595,7 +596,7 @@
 					<xsl:apply-templates select="mab542"/>
 					<xsl:apply-templates select="mab542_a"/>	
 					<!-- VOLUME -->
-					<xsl:apply-templates select="mab455"/>				
+					<xsl:apply-templates select="mab455"/>
 				</xsl:when>
 				<xsl:when test="$sourceNo=2">
 					<!-- TITLE -->
@@ -687,11 +688,11 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="mab596">
-	<xsl:variable name="str" select="replace(.,' ','')"/>
-	<xsl:variable name="ep" select="substring-after(.,'-')"/>
-	<xsl:variable name="sp" select="substring-after(substring-before(.,'-'),',')"/>
+		<xsl:variable name="str" select="replace(.,' ','')"/>
+		<xsl:variable name="ep" select="substring-after(.,'-')"/>
+		<xsl:variable name="sp" select="substring-after(substring-before(.,'-'),',')"/>
 		<xsl:element name="e:start-page">
-			<xsl:value-of select="normalize-space($sp)"/>			
+			<xsl:value-of select="normalize-space($sp)"/>
 		</xsl:element>
 		<xsl:element name="e:end-page">
 			<xsl:value-of select="normalize-space($ep)"/>
@@ -700,27 +701,31 @@
 	<!-- FILE -->
 	<xsl:template name="createFile">
 		<xsl:if test="not(normalize-space(.)='-')">
-		
+			
 			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename(.)"/>
-
+			
 			<xsl:choose>
-				<xsl:when test="starts-with($filename, $localPrefix)"> 
+				<xsl:when test="starts-with($filename, $localPrefix)">
 					<xsl:element name="ec:component">
-						<ec:properties>               
-			                <prop:visibility>public</prop:visibility>
-			                <prop:content-category>any-fulltext</prop:content-category>
-			                <prop:file-name><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></prop:file-name>
-			                <prop:mime-type>application/pdf</prop:mime-type>
-			            </ec:properties>
-			            <ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="{$filename}" storage="internal-managed"/>
-			            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
-			            	<mdr:md-record name="escidoc">
+						<ec:properties>
+							<prop:visibility>public</prop:visibility>
+							<prop:content-category>any-fulltext</prop:content-category>
+							<prop:file-name>
+								<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+							</prop:file-name>
+							<prop:mime-type>application/pdf</prop:mime-type>
+						</ec:properties>
+						<ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="{$filename}" storage="internal-managed"/>
+						<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+							<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
-									<dc:title><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></dc:title>
+									<dc:title>
+										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
 										<xsl:value-of select="."/>
-									</xsl:element>	
+									</xsl:element>
 									<file:content-category>any-fulltext</file:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 								</xsl:element>
@@ -731,46 +736,50 @@
 				<xsl:otherwise>
 					<xsl:element name="ec:component">
 						<ec:properties>
-			                <prop:visibility>private</prop:visibility>
-			                <prop:content-category>any-fulltext</prop:content-category>
-			                <prop:file-name>farbtest.gif</prop:file-name>
-			            </ec:properties>
-			            <ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
-			            <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
-			            	<mdr:md-record name="escidoc">
+							<prop:visibility>private</prop:visibility>
+							<prop:content-category>any-fulltext</prop:content-category>
+							<prop:file-name>farbtest.gif</prop:file-name>
+						</ec:properties>
+						<ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
+						<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+							<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
-									<dc:title><xsl:value-of select="escidoc:substring-after-last($filename, '/')"/></dc:title>
+									<dc:title>
+										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
 										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
-									</xsl:element>	
-									<xsl:element name="file:content-category">any-fulltext</xsl:element>	
-									<dcterms:extent><xsl:value-of select="Util:getSize($filename)"/></dcterms:extent>
+									</xsl:element>
+									<xsl:element name="file:content-category">any-fulltext</xsl:element>
+									<dcterms:extent>
+										<xsl:value-of select="Util:getSize($filename)"/>
+									</dcterms:extent>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>
 					</xsl:element>
 				</xsl:otherwise>
 			</xsl:choose>
-		
 			
+		
 		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template name="createPersonName">
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
-			<xsl:element name="e:family-name">
-				<xsl:value-of select="$person/familyname"/>
-			</xsl:element>
-			<xsl:element name="e:given-name">
-				<xsl:value-of select="$person/givenname"/>
-			</xsl:element>
+		<xsl:element name="e:family-name">
+			<xsl:value-of select="$person/familyname"/>
+		</xsl:element>
+		<xsl:element name="e:given-name">
+			<xsl:value-of select="$person/givenname"/>
+		</xsl:element>
 	</xsl:template>
 	
 	<xsl:function name="escidoc:computeFilename" as="xs:string">
 		<xsl:param name="src" as="xs:string"/>
 		
-		<xsl:variable name="srcWithoutSpaces" select="translate($src, ' &#xA;&#xD;	', '')" as="xs:string"/>
+		<xsl:variable name="srcWithoutSpaces" select="translate($src, ' &#xA;&#xD; ', '')" as="xs:string"/>
 		
 		<xsl:variable name="result">
 			<xsl:choose>
@@ -825,5 +834,5 @@
 		</xsl:variable>
 		<xsl:value-of select="$result"/>
 	</xsl:function>
-	
+
 </xsl:stylesheet>
