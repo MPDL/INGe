@@ -73,8 +73,7 @@
 		
 	<!-- VARIABLEN -->
 	
-	
-	<xsl:variable name="genre"/>
+
 	
 	<xsl:template match="/">
 		<xsl:choose>
