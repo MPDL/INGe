@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import com.izforge.izpack.gui.IzPanelLayout;
 import com.izforge.izpack.gui.LabelFactory;
@@ -15,17 +17,18 @@ import com.izforge.izpack.installer.InstallerFrame;
 import com.izforge.izpack.installer.IzPanel;
 
 import de.mpg.escidoc.pubman.installer.ConeDataset;
+import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
 import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.Installer;
 
-public class DatasetConfigurationCreatorPanel extends IzPanel
+public class DatasetConfigurationCreatorPanel extends ConfigurationPanel
 {
    private static final long serialVersionUID = 3257848774955905587L;
    
    private Configuration configuration = null;
    private String ouExternalObjectId = null;
-   boolean isValid = true;
+   ConeInsertProcess coneInsertProcess;
    
    /**
     * The constructor.
@@ -146,116 +149,68 @@ public class DatasetConfigurationCreatorPanel extends IzPanel
 	   {
 		   ConeDataset coneDataset = new ConeDataset(idata.getVariable("ConeHost"), idata.getVariable("ConePort"), idata.getVariable("ConeDatabase"), idata.getVariable("ConeUser"), idata.getVariable("ConePassword"));
 		   
-		   // check if cone database already exists on the Postgres server or not. if not create it.
-		   if(coneDataset.isConeDBAvailable(ConeDataset.CONE_CHECK_DATABASES) == false)
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_CREATE_DATABASE);
-		   }
+		   this.coneInsertProcess = new ConeInsertProcess(coneDataset, idata, this);
 		   
-		   // first create tables
-		   coneDataset.runConeScript(ConeDataset.CONE_CREATE_SCRIPT);
-		   
-		   // then insert data if needed
-		   if(idata.getVariable("ConeCreateJournals").equals("true"))
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_JOURNALS);
-		   }
-		   if(idata.getVariable("ConeCreateLanguages").equals("true"))
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_LANGUAGES);
-		   }
-		   if(idata.getVariable("ConeCreateDDC").equals("true"))
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_DDC);
-		   }
-		   if(idata.getVariable("ConeCreateMimetypes").equals("true"))
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_MIMETYPES);
-		   }
-		   if(idata.getVariable("ConeCreateEscidocMimeTypes").equals("true"))
-		   {
-			   coneDataset.runConeScript(ConeDataset.CONE_INSERT_ESCIDOC_MIMETYPES);
-		   }
-		   
-		   // at least index the tables
-		   coneDataset.runConeScript(ConeDataset.CONE_INDEX_SCRIPT);
+		   JLabel label = LabelFactory.create("Inserting CoNE data...", parent.icons.getImageIcon("host"), LEADING);
+           add(label, NEXT_LINE);
+           getLayoutHelper().completeLayout();
+           
+		   this.coneInsertProcess.start();
+		   return;
 	   }
    }
    
    public void panelActivate() {
        boolean success = true;
-       try {
-           JLabel label = LabelFactory.create("Inserting CoNE data...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-           insertConeData();
-           JLabel label2 = LabelFactory.create("Good. CoNE data inserted.", parent.icons.getImageIcon("host"), LEADING);
-           add(label2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-       } 
-       catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. CoNE data could not be inserted. Olease see the log files for further information."
-                   , parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel, NEXT_LINE);
-           JLabel welcomeLabel2 = LabelFactory.create("Please insert CoNE data manually."
-                   , parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
-           success = false;
-       }
        
+       this.textArea = new JTextArea();
+       JScrollPane pane = new JScrollPane(textArea);
+       this.add(pane);
+       
+       textArea.append("Performing configuration and data ingestion. This may take a while...\n");
+       textArea.append("The 'Next' button will be activated after all data has been inserted.\n");
+       textArea.append("\n\n");
        try {
-           JLabel label = LabelFactory.create("Checking content model...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           
+           textArea.append("Checking content model...\n");
            checkContentModel();
-           JLabel label2 = LabelFactory.create("Good. Content Model checked.", parent.icons.getImageIcon("host"), LEADING);
-           add(label2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           textArea.append("Good. Content Model checked.\n\n");
        } 
        catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. Content model("+Installer.CHECK_CONTENT_MODEL+") not available."
-                   , parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel, NEXT_LINE);
-           JLabel welcomeLabel2 = LabelFactory.create("Please ingest content model as described at first information page."
-                   , parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           
+           textArea.append("Error. Content model("+Installer.CHECK_CONTENT_MODEL+") not available.\n Please ingest content model as described at first information page.\n\n");
            success = false;
        }
        
        try {
-           JLabel label = LabelFactory.create("Creating dataset on coreservice...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           
+           textArea.append("Creating dataset on coreservice...\n");
            createDataset();
-           JLabel label2 = LabelFactory.create("Good. Dataset created.", parent.icons.getImageIcon("host"), LEADING);
-           add(label2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           textArea.append("Good. Dataset created.\n\n");
        } 
        catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. Dataset creation error", parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           
+           textArea.append("Error. Dataset creation error.\n\n");
            success = false;
        }
-    
+      
        try {
-           JLabel label = LabelFactory.create("Writting configuration...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           textArea.append("Writing configuration...\n");
            storeConfiguration();
-           JLabel label2 = LabelFactory.create("Good. Configuration written.", parent.icons.getImageIcon("host"), LEADING);
-           add(label2, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           textArea.append("Good. Configuration written.\n\n");
        } 
        catch( Exception e ) {
-           JLabel welcomeLabel = LabelFactory.create("Error. Configuration error", parent.icons.getImageIcon("host"), LEADING);
-           add(welcomeLabel, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+           textArea.append("Error. Configuration error\n\n");
            success = false;
        }
-       isValid = success;
+       
+       try {
+    	   insertConeData();
+       } 
+       catch( Exception e ) {
+           textArea.append("Error. CoNE data could not be inserted. Please see the log files for further information. Please insert CoNE data manually.\n");
+           success = false;
+       }
    }
 }
 

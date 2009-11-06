@@ -60,11 +60,11 @@
         <panel classname="HTMLInfoPanel"/>
         <panel classname="LicencePanel"/>
         <panel classname="PacksPanel"/>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.0"/>
         <panel classname="UserInputPanel" id="UserInputPanel.1"/>
         <panel classname="UserInputPanel" id="UserInputPanel.2"/>
         <panel classname="UserInputPanel" id="UserInputPanel.3"/>
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConeConfigurationPanel"/>
         <panel classname="UserInputPanel" id="UserInputPanel.4"/>
         <panel classname="UserInputPanel" id="UserInputPanel.5"/>
         <panel classname="UserInputPanel" id="UserInputPanel.6"/>
@@ -140,7 +140,7 @@
         <variable name="MailUsername" value=""/>
         <variable name="MailPassword" value=""/>
         <variable name="ExternalOrganisationID" value=""/>
-        <variable name="ConeHost" value="127.0.0.1"/>
+        <variable name="ConeHost" value="localhost"/>
         <variable name="ConeDatabase" value="cone"/>
         <variable name="ConePort" value="5432"/>
         <variable name="ConeUser" value="postgres"/>

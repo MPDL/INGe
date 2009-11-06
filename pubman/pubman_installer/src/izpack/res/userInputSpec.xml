@@ -103,7 +103,7 @@
             <spec txt="User name:" size="25" set="${ConeUser}" />
             <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="User name must not be empty string." />
         </field>
-        <field type="text" align="left" variable="ConePassword">
+        <field type="password" align="left" variable="ConePassword">
             <spec>
 	            <pwd txt="Password:" size="25" set=""/>
             </spec>
