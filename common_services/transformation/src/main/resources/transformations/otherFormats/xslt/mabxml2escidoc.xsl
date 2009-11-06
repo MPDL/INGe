@@ -118,22 +118,57 @@
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
 		<xsl:choose>
-			<xsl:when test="mab029_m='B'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'book'"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:when test="mab029_m='P'">
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'article'"/>
-				</xsl:call-template>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'other'"/>
-				</xsl:call-template>
-			</xsl:otherwise>
-		</xsl:choose>
+				<xsl:when test="mab029_m='B'">
+					<xsl:variable name="genre" select="substring-after(mab519,',')"/>
+					<xsl:choose>
+						<xsl:when test="contains($genre,'Dipl') or contains($genre,'Diplom')">
+							<xsl:variable name="genre">thesis</xsl:variable>
+						</xsl:when>
+						<xsl:when test="contains($genre,'Master')">
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="contains($genre,'MA') or contains($genre,'M.A.') or contains($genre,'Magister')">
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="contains($genre,'Diss') or contains($genre,'PhD')">
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="contains($genre,'Habil.-Schr.')">
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="contains($genre,'BA') or contains($genre,'B.A.') or contains($genre,'Bachelor')">
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">book</xsl:with-param>
+							</xsl:call-template>						
+						</xsl:otherwise>
+					</xsl:choose>				
+					
+				</xsl:when>				
+				<xsl:when test="mab029_m='P'">
+					<xsl:call-template name="createEntry">
+						<xsl:with-param name="gen" select="'article'"/>
+					</xsl:call-template>
+				</xsl:when>					
+				<xsl:otherwise>
+					<xsl:call-template name="createEntry">
+						<xsl:with-param name="gen" select="'other'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+
 	</xsl:template>
 	
 	<!-- Create eSciDoc Entry -->
@@ -280,7 +315,9 @@
 			<xsl:apply-templates select="mab750"/>
 			<xsl:apply-templates select="mab526"/>
 			<!-- SUBJECT -->
-			
+			<xsl:apply-templates select="mab711_b"/>
+			<xsl:apply-templates select="mab711_t"/>
+			<xsl:apply-templates select="mab740_s"/>
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
@@ -527,17 +564,20 @@
 		</xsl:element>
 	</xsl:template>
 	<!-- SUBJECT -->
-	<xsl:template name="createSubject">
+	
+	<xsl:template match="mab711_b">
 		<xsl:element name="dcterms:subject">
-			<xsl:if test="mab711_b">
-				<xsl:value-of select="concat(mab711_b,'; ')"/>
-			</xsl:if>
-			<xsl:if test="mab711_t">
-				<xsl:value-of select="concat(mab711_t,'; ')"/>
-			</xsl:if>
-			<xsl:if test="mab740_s">
-				<xsl:value-of select="concat(mab740_s,'; ')"/>
-			</xsl:if>
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="mab711_t">
+		<xsl:element name="dcterms:subject">
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>
+	<xsl:template match="mab740_s">
+		<xsl:element name="dcterms:subject">
+			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- DATES -->
@@ -550,7 +590,7 @@
 			</xsl:matching-substring>
 		</xsl:analyze-string>
 	</xsl:template>
-	<!-- PUBLISHINGINFO -->
+	<!-- PUBLISHING INFO -->
 	<xsl:template match="mab519">		
 		<!-- <xsl:analyze-string select="." regex="\d\d\d\d">
 				<xsl:matching-substring>
