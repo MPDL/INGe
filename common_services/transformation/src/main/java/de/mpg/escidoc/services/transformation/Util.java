@@ -46,6 +46,7 @@ import javax.xml.parsers.DocumentBuilder;
 
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
@@ -354,13 +355,23 @@ public class Util
         
         try
         {
+            logger.info("Getting size of " + url);
             httpClient.executeMethod(headMethod);
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
             Document document = documentBuilder.newDocument();
             Element element = document.createElement("size");
             document.appendChild(element);
-            element.setTextContent(headMethod.getResponseHeader("Content-Length").getValue());
-            return document;
+            Header header = headMethod.getResponseHeader("Content-Length");
+            if (header != null)
+            {
+                element.setTextContent(header.getValue());
+                return document;
+            }
+            else
+            {
+                return null;
+            }
+            
         }
         catch (Exception e)
         {

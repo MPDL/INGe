@@ -121,7 +121,9 @@
 					<xsl:variable name="genre" select="substring-after(mab519,',')"/>
 					<xsl:choose>
 						<xsl:when test="contains($genre,'Dipl') or contains($genre,'Diplom')">
-							<xsl:variable name="genre">thesis</xsl:variable>
+							<xsl:call-template name="createEntry">
+								<xsl:with-param name="gen">thesis</xsl:with-param>
+							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="contains($genre,'Master')">
 							<xsl:call-template name="createEntry">
@@ -767,6 +769,12 @@
 									</xsl:element>
 									<file:content-category>any-fulltext</file:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+									<xsl:variable name="file-size" select="Util:getSize($filename)"/>
+									<xsl:if test="exists($file-size)">
+										<dcterms:extent>
+											<xsl:value-of select="$file-size"/>
+										</dcterms:extent>
+									</xsl:if>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>
@@ -791,9 +799,6 @@
 										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 									</xsl:element>
 									<xsl:element name="file:content-category">any-fulltext</xsl:element>
-									<dcterms:extent>
-										<xsl:value-of select="Util:getSize($filename)"/>
-									</dcterms:extent>
 								</xsl:element>
 							</mdr:md-record>
 						</mdr:md-records>

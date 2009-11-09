@@ -40,7 +40,7 @@ public class MABImport{
     	   for(String item: itemList){
     		//   System.out.print(item+"\n*******************************************");
     	   }
-    	List<List<Pair>> items = new ArrayList();
+    	List<List<Pair>> items = new ArrayList<List<Pair>>();
     	if(itemList!=null && itemList.length>1){ //transform items to XML
     		
     		for (String item : itemList) {
@@ -97,7 +97,7 @@ public class MABImport{
     		strArr.add(matcherLine1.group());
     	}
     	
-    	Pattern pattern = Pattern.compile("(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)");
+    	Pattern pattern = Pattern.compile("(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n)?)*)");
     	Matcher matcher = pattern.matcher(string);   	
     	
     	while(matcher.find()){
