@@ -30,31 +30,31 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-            
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <descriptorRefs>-->
-<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                    </descriptorRefs>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addClasspath>true</addClasspath>-->
-<!--                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                       <id>make-assembly</id>   -->
-<!--                        <phase>package</phase>   -->
-<!--                        <goals>-->
-<!--                            <goal>single</goal>   -->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-assembly-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <descriptorRefs>-->
+            <!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+            <!--                    </descriptorRefs>-->
+            <!--                    <archive>-->
+            <!--                        <manifest>-->
+            <!--                            <addClasspath>true</addClasspath>-->
+            <!--                            <mainClass>de.mpg.escidoc.pubman.installer.Installer</mainClass>-->
+            <!--                        </manifest>-->
+            <!--                    </archive>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                       <id>make-assembly</id>   -->
+            <!--                        <phase>package</phase>   -->
+            <!--                        <goals>-->
+            <!--                            <goal>single</goal>   -->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
             <!--  copy other checked resource into staging area, expected by install.xml -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -102,8 +102,35 @@
                         </goals>
                         <configuration>
                             <stripVersion>true</stripVersion>
-                            <includeArtifactIds>pubman_ear</includeArtifactIds> <!-- dont want standalone compiler -->
+                            <includeArtifactIds>pubman_ear</includeArtifactIds>
                             <outputDirectory>${staging.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>validation-dependency</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>de.mpg.escidoc.services</groupId>
+                                    <artifactId>validation_presentation</artifactId>
+                                    <version>1.0.37-SNAPSHOT</version>
+                                    <type>war</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>${project.build.directory}/validation</outputDirectory>
+                                    <destFileName>validation-presentation.war</destFileName>
+                                    <includes>**/*.xml</includes>
+                                    <excludes>**/*.class</excludes>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*.java</includes>
+                            <excludes>**/*.properties</excludes>
+                            <outputDirectory>${project.build.directory}/validation</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
                     </execution>
                 </executions>
@@ -149,6 +176,13 @@
             <version>5.0.11-SNAPSHOT</version>
             <scope>provided</scope>
             <type>ear</type>
+        </dependency>
+        <dependency>
+            <groupId>de.mpg.escidoc.services</groupId>
+            <artifactId>validation_presentation</artifactId>
+            <version>1.0.37-SNAPSHOT</version>
+            <scope>provided</scope>
+            <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
