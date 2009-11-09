@@ -32,7 +32,8 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.showNIMSLink}">
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemStatistics.showNIMSLink and ViewItemStatistics.nimsLink!=null}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.statistics_NIMSLink}"/>
 	</h3>
@@ -40,8 +41,8 @@
 	<div class="free_area0 itemBlockContent endline">
 		<div class="free_area0 endline itemLine noTopBorder">
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-			<h:outputLink value="http://kagaku.nims.go.jp/escidoc/statistics/" target="_blank">
-				<h:outputText value="http://kagaku.nims.go.jp/escidoc/statistics/" />
+			<h:outputLink value="#{ViewItemStatistics.nimsLink}" target="_blank">
+				<h:outputText value="#{ViewItemStatistics.nimsLink}" />
 			</h:outputLink>
 			</span>
 		</div>

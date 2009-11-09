@@ -31,6 +31,8 @@
 package de.mpg.escidoc.pubman.statistics;
 
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 
 /**
@@ -202,6 +205,19 @@ public class ViewItemStatistics extends FacesBean
         return fileList.size() > 0;
     }
     
+    public String getNimsLink()
+    {
+    	try 
+    	{
+			return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link");
+		} 
+    	catch (Exception e)
+		{
+			logger.error("Could not read escidoc.pubman.statistics.nims.link from properties");
+			return null;
+		}
+    	
+    }
     
     /**
      * Tests the names of responsible affiliations of the current context for occurrences of the String "NIMS" or "National Institute of..." 
@@ -209,6 +225,9 @@ public class ViewItemStatistics extends FacesBean
      */
     public boolean getShowNIMSLink()
     {
+    	
+    	
+    	
     	ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     	ContextVO currentContext = icsb.getCurrentContext();
     	if(currentContext.getName().contains("NIMS") || currentContext.getName().contains("National Institute for Materials Science"))
