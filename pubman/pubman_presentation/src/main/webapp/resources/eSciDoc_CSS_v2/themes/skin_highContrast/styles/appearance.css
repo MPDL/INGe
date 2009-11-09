@@ -199,7 +199,7 @@ FORM BG			#F2F8FC
 	}
 /*HEADER*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
-	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, contentMenu a  {
+	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a  {
 		background-color: #FFFFFF;
 		color: #0076C9;
 	}
@@ -217,7 +217,7 @@ FORM BG			#F2F8FC
 		color: #343434;
 	}
 	
-	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, contentMenu a:hover, contentMenu a:focus  {
+	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus  {
 		color: #343434;
 	}
 	
