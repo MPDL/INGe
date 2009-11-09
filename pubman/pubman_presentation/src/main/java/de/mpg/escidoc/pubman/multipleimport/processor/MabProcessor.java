@@ -135,7 +135,7 @@ public class MabProcessor extends FormatProcessor
                 }
             }
             
-            if (line != null && !"".equals(line.trim()))
+            if (!"".equals(stringWriter.toString().trim()))
             {
                 itemList.add(stringWriter.toString().trim());
             }
