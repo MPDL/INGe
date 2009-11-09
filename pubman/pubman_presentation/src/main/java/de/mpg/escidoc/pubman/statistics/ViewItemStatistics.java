@@ -229,7 +229,7 @@ public class ViewItemStatistics extends FacesBean
     	
     	try 
     	{
-    		String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.contexts");
+    		String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.context.ids");
     		ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
         	ContextVO currentContext = icsb.getCurrentContext();
         	//logger.info(currentContext.getReference().getObjectId());
