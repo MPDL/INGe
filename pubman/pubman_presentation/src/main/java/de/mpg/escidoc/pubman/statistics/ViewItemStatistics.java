@@ -227,24 +227,30 @@ public class ViewItemStatistics extends FacesBean
     {
     	
     	
-    	
-    	ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-    	ContextVO currentContext = icsb.getCurrentContext();
-    	if(currentContext.getName().contains("NIMS") || currentContext.getName().contains("National Institute for Materials Science"))
+    	try 
+    	{
+    		String contexts = PropertyReader.getProperty("escidoc.pubman.statistics.nims.contexts");
+    		ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+        	ContextVO currentContext = icsb.getCurrentContext();
+        	//logger.info(currentContext.getReference().getObjectId());
+    		if (contexts!=null)
+    		{
+    			String[] contextArray = contexts.split(",");
+    			for(String contextId: contextArray)
+    			{
+    				if (contextId.trim().equals(currentContext.getReference().getObjectId()))
+    				{
+    					return true;
+    				}
+    			}
+    		}
+		} 
+    	catch (Exception e)
 		{
-			return true;
+			logger.error("Could not read escidoc.pubman.statistics.nims.contexts");
+			return false;
 		}
     	
-    	/*
-    	for(AffiliationRO aff : currentContext.getResponsibleAffiliations())
-    	{
-    		AffiliationVOPresentation affVO = affTree.getAffiliationMap().get(aff.getObjectId());
-    		if(affVO.getName().contains("NIMS") || affVO.getName().contains("National Institute for Materials Science"))
-    		{
-    			return true;
-    		}
-    	}
-    	*/
     	return false;
     	
     	
