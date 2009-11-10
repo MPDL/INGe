@@ -106,33 +106,6 @@
                             <outputDirectory>${staging.dir}</outputDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>validation-dependency</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>de.mpg.escidoc.services</groupId>
-                                    <artifactId>validation_presentation</artifactId>
-                                    <version>1.0.37-SNAPSHOT</version>
-                                    <type>war</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}/validation</outputDirectory>
-                                    <destFileName>validation-presentation.war</destFileName>
-                                    <includes>**/*.xml</includes>
-                                    <excludes>**/*.class</excludes>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>**/*.java</includes>
-                            <excludes>**/*.properties</excludes>
-                            <outputDirectory>${project.build.directory}/validation</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <!--  see install.xml to see how MyHelloPanel is used -->
@@ -180,14 +153,13 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.37-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.0.37</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.31</version>
+            <version>1.0.34</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

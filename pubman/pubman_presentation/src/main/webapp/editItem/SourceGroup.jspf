@@ -287,7 +287,7 @@
 								<h:outputText id="txtSourceDetailPublisherOptionalRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.sources_source_publishing_info_publishing_info_publisher_optional != 'true'}" />
 								<h:outputText id="txtSourceDetailPublisherOptional" value="#{genre.sources_source_publishing_info_publishing_info_publisher_label}" converter="GenreLabelConverter"/>
 							</span>
-							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
+							<h:inputTextarea id="inpSourceDetailPublisher" styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0 xTiny_marginRIncl" rendered="#{!(genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'full-submission' || genre.sources_source_publishing_info_publishing_info_place_display == 'false' && genre.sources_source_publishing_info_publishing_info_place_form_id == 'all')}">
 							<span class="large_area0">

@@ -376,7 +376,7 @@ public class EditItem extends FacesBean
                 PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
                 
                 //This is a small hack for locators generated out of Bibtex files
-                if (locatorpres.getLocator()==null && locatorpres.getFile() != null)
+                if (locatorpres.getLocator()==null && locatorpres.getFile() != null && locatorpres.getFile().getName()  != null )
                 {
                     locatorpres.setLocator(locatorpres.getFile().getName().trim());
                     locatorpres.getFile().getMetadataSets().add(new MdsFileVO());

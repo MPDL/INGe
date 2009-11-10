@@ -139,7 +139,7 @@
 							<h:outputText id="txtTitleCopyrightStatementRequired" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
 							<h:outputText id="txtTitleCopyrightStatement" value="#{lbl.EditItem_lblCopyrightStatement}" />
 						</h:outputLabel>
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
+						<h:inputTextarea id="inpCopyrightStatement" styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.defaultMetadata.rights}" cols="15" rows="3" rendered="true"/>
 					</h:panelGroup>
 					<span class="large_area0 xTiny_marginRIncl">
 						<h:outputLabel id="txtTitleCopyrightStatementInput" styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblCopyrightDate}" />
