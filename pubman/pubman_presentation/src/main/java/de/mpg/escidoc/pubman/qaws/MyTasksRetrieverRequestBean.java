@@ -68,6 +68,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
      * A list with the menu entries for the org units filter menu.
      */
     private List<SelectItem> orgUnitSelectItems;
+	// Faces navigation string
+	public static final String LOAD_QAWS = "loadQAWSPage";
     
     //private Map<String, AffiliationVOPresentation> affiliationMap;
     

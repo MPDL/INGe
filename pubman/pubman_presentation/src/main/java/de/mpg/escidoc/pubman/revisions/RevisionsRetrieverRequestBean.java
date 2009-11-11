@@ -25,6 +25,8 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 {
     
     private int numberOfRecords;
+	// Faces navigation string
+	public final static String LOAD_REVISION_LIST = "loadRevisionList";
     
     public RevisionsRetrieverRequestBean()
     {

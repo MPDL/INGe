@@ -62,7 +62,6 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -96,7 +95,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminD
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
-import de.mpg.escidoc.services.dataacquisition.Util;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -663,16 +661,6 @@ public class EasySubmission extends FacesBean
         // this.showValidationMessages(report);
         // return null;
         // }
-    }
-
-    /**
-     * Returns the ItemListSessionBean.
-     * 
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**

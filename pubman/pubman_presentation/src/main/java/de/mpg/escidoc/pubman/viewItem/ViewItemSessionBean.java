@@ -36,7 +36,6 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -59,8 +58,7 @@ public class ViewItemSessionBean extends FacesBean
     // from
     private String itemIdViaURLParam = null;
     
-    // The according ItemListSessionBean
-    private ItemListSessionBean itemListSessionBean = null;
+
     
     // the action links
     private HtmlCommandLink lnkEdit = new HtmlCommandLink();
@@ -195,16 +193,6 @@ public class ViewItemSessionBean extends FacesBean
         this.itemIdViaURLParam = itemIdViaURLParam;
     }
 
-    public ItemListSessionBean getItemListSessionBean()
-    {
-        return itemListSessionBean;
-    }
-
-    public void setItemListSessionBean(ItemListSessionBean ItemListSessionBean)
-    {
-        this.itemListSessionBean = ItemListSessionBean;
-    }
-    
     public HtmlCommandLink getLnkDelete()
     {
         return lnkDelete;
@@ -351,7 +339,8 @@ public class ViewItemSessionBean extends FacesBean
 
     public String getSubMenu()
     {
-        return subMenu;
+    	return subMenu;
+        
     } 
     
     public void itemChanged()

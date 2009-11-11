@@ -2,7 +2,11 @@ package de.mpg.escidoc.pubman.common_presentation;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated list.
@@ -21,7 +25,9 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  */
 public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbPage
 {
+	private static Logger logger = Logger.getLogger(BaseListRetrieverRequestBean.class);
     private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
+	private String unapiURLview;
     
     /**
      * This super constructor must be called by any implementation of this class. It automatically sets the implementing class as retriever in
@@ -33,6 +39,12 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     public BaseListRetrieverRequestBean (BasePaginatorListSessionBean<ListElementType, FilterType> plb, boolean refreshAlways)
     {
         super.init();
+        try 
+        {
+            this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+        } 
+        catch (Exception e) {logger.warn("Reading in unAPI server URL from properties failed.", e);} 
+        
         this.setBasePaginatorListSessionBean(plb);
         getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
         getBasePaginatorListSessionBean().setPageType(getType());
@@ -111,6 +123,14 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
     {
         return basePaginatorListSessionBean;
     }
+
+	public void setUnapiURLview(String unapiURLview) {
+		this.unapiURLview = unapiURLview;
+	}
+
+	public String getUnapiURLview() {
+		return unapiURLview;
+	}
     
    
     

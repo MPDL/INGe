@@ -55,6 +55,19 @@ public class DepositorWSPage extends BreadcrumbPage
     
     // the referring GUI Tool Page
     public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
+	// constants for error and status messages
+	public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
+	public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
+	public static final String MESSAGE_SUCCESSFULLY_SUBMITTED = "depositorWS_SuccessfullySubmitted";
+	public static final String MESSAGE_SUCCESSFULLY_RELEASED = "depositorWS_SuccessfullyReleased";
+	public static final String MESSAGE_NOT_SUCCESSFULLY_SUBMITTED = "depositorWS_NotSuccessfullySubmitted";
+	public static final String MESSAGE_SUCCESSFULLY_WITHDRAWN = "depositorWS_SuccessfullyWithdrawn";
+	public static final String MESSAGE_SUCCESSFULLY_DELETED = "depositorWS_SuccessfullyDeleted";
+	public static final String MESSAGE_SUCCESSFULLY_SAVED = "depositorWS_SuccessfullySaved";
+	public static final String MESSAGE_SUCCESSFULLY_ACCEPTED = "depositorWS_SuccessfullyAccepted";
+	public static final String MESSAGE_MANY_ITEMS_SELECTED = "depositorWS_ManyItemsSelected";
+	public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
+	public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
 
     /**
      * Public constructor.

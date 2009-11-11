@@ -37,11 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -165,11 +165,11 @@ public class SubmitItem extends FacesBean
             // distinguish between simple and standard workflow
         	if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
         	{
-        		info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_RELEASED));
+        		info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_RELEASED));
         	}
         	else
         	{
-        	info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
+        	info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
         	}
         }
         
@@ -206,7 +206,7 @@ public class SubmitItem extends FacesBean
         catch (IOException e) {
             logger.error("Could not redirect to View Item Page", e);
         }
-        return DepositorWS.LOAD_DEPOSITORWS;
+        return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
     }
 
   
@@ -276,15 +276,7 @@ public class SubmitItem extends FacesBean
         return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     }
 
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected final ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
-    }
-
+   
     /**
      * Returns the DepositorWSSessionBean.
      * @return a reference to the scoped data bean (DepositorWSSessionBean)

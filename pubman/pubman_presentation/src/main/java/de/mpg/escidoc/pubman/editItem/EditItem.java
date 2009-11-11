@@ -59,17 +59,17 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.EditItemPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.PubManSessionBean;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
 import de.mpg.escidoc.pubman.editItem.bean.ContentSubjectCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
@@ -78,13 +78,10 @@ import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
-import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
-import de.mpg.escidoc.pubman.util.GenreSecificItemManager;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -649,8 +646,7 @@ public class EditItem extends FacesBean
                 logger.debug("Saving item...");
             }
 
-            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
-            this.getItemListSessionBean().setListDirty(true);
+
             String retVal = "";
             try
             {
@@ -676,7 +672,7 @@ public class EditItem extends FacesBean
                 // redirect to the view item page afterwards (if no error occured)
                 try 
                 {
-                    info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
+                    info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
                     FacesContext fc = FacesContext.getCurrentInstance();
                     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
                     if (isFromEasySubmission())
@@ -696,9 +692,7 @@ public class EditItem extends FacesBean
         }
         else if (report.isValid())
         {
-            // TODO FrM: Informative messages
-            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false);
-            this.getItemListSessionBean().setListDirty(true);
+
             String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
 
             if (retVal == null)
@@ -747,7 +741,7 @@ public class EditItem extends FacesBean
     	String retVal = "";
     	try
         {
-        	retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, true);
+        	retVal = this.getItemControllerSessionBean().saveCurrentPubItem(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS, true);
         }
         catch (RuntimeException rE)
         {
@@ -765,7 +759,7 @@ public class EditItem extends FacesBean
         {
             // set the current submission method to empty string (for GUI purpose)
             this.getEditItemSessionBean().setCurrentSubmission("");
-        	info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
+        	info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED));
         }
         
         // initialize viewItem
@@ -786,7 +780,7 @@ public class EditItem extends FacesBean
     {
         logger.error("This is a call to \"EditItem.submit\" which should not happen.");
         
-        String retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("", DepositorWS.LOAD_DEPOSITORWS); 
+        String retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("", MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS); 
 
         if (retVal == null)
         {
@@ -795,7 +789,7 @@ public class EditItem extends FacesBean
         }
         else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SUBMITTED));
         }
         
         return retVal;
@@ -867,8 +861,8 @@ public class EditItem extends FacesBean
             {
                 // set the current submission method to empty string (for GUI purpose)
                 this.getEditItemSessionBean().setCurrentSubmission("");
-            	getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
-                String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            	getSubmitItemSessionBean().setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+                String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
@@ -888,8 +882,8 @@ public class EditItem extends FacesBean
             {
                 // set the current submission method to empty string (for GUI purpose)
                 this.getEditItemSessionBean().setCurrentSubmission("");
-            	getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
-                String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            	getSubmitItemSessionBean().setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
+                String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
@@ -916,12 +910,12 @@ public class EditItem extends FacesBean
         }
 
         // delete the currently edited item
-        String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
+        String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
         
         // show message in DepositorWS
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
         }
 
         return retVal;
@@ -1118,7 +1112,7 @@ public class EditItem extends FacesBean
                 // set the current submission method to empty string (for GUI purpose)
                 this.getEditItemSessionBean().setCurrentSubmission("");
             	getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
-                String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_SAVED);
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
@@ -1140,7 +1134,7 @@ public class EditItem extends FacesBean
                 // set the current submission method to empty string (for GUI purpose)
                 this.getEditItemSessionBean().setCurrentSubmission("");
             	getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
-                String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED);
+                String localMessage = getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED);
                 info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
@@ -1494,14 +1488,6 @@ public class EditItem extends FacesBean
         return (ContextListSessionBean)getBean(ContextListSessionBean.class);
     }
 
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
-    }
 
     /**
      * Displays validation messages.

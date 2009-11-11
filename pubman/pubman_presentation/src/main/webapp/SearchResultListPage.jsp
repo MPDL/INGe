@@ -44,7 +44,7 @@
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 				<!-- unapi interface for zotero -->
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchRetrieverRequestBean.unapiURLview}"/>
 				<!-- rss feed for search result -->
 				<jsp:directive.include file="search/SearchResultFeedLinks.jspf" />
 

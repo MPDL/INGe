@@ -528,8 +528,6 @@ public class ItemControllerSessionBean extends FacesBean
             return ErrorPage.LOAD_ERRORPAGE;
         }
         
-        // Reload list
-        ((ItemListSessionBean) getSessionBean(ItemListSessionBean.class)).init();
         
         return navigationRuleWhenSuccessfull;
     }
@@ -2436,14 +2434,6 @@ public class ItemControllerSessionBean extends FacesBean
         this.currentContext = currentCollection;
     }
     
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
-    }
     
     private PubItemVO submitOrSubmitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws Exception
     {
@@ -2505,9 +2495,6 @@ public class ItemControllerSessionBean extends FacesBean
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
-        
-        // Reload list
-        ((ItemListSessionBean) getSessionBean(ItemListSessionBean.class)).init();
         
         return navigationStringToGoBack;
     }

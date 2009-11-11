@@ -57,9 +57,9 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
@@ -70,7 +70,7 @@ import de.mpg.escidoc.pubman.basket.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -88,7 +88,6 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.CreatorDisplay;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -101,6 +100,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO.PredefinedRoles;
@@ -511,7 +511,8 @@ public class ViewItemFull extends FacesBean
             
             // the list of files
             // Check if the item is also in the search result list
-            List<PubItemVOPresentation> currentPubItemList = this.getItemListSessionBean().getCurrentPubItemList();
+            PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+            List<PubItemVOPresentation> currentPubItemList = pilsb.getCurrentPartList();
             List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
             for(int i = 0; i < currentPubItemList.size(); i++)
             {
@@ -640,7 +641,6 @@ public class ViewItemFull extends FacesBean
     {
         WithdrawItemSessionBean withdrawItemSessionBean = getWithdrawItemSessionBean();
         withdrawItemSessionBean.setNavigationStringToGoBack(getViewItemSessionBean().getNavigationStringToGoBack());
-        withdrawItemSessionBean.setItemListSessionBean(getViewItemSessionBean().getItemListSessionBean());
         return WithdrawItem.LOAD_WITHDRAWITEM;
     }
 
@@ -863,7 +863,7 @@ public class ViewItemFull extends FacesBean
     {
         if (getViewItemSessionBean().getNavigationStringToGoBack()==null)
         {
-            getViewItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+            getViewItemSessionBean().setNavigationStringToGoBack(MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS);
         }
         
         String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(
@@ -872,7 +872,7 @@ public class ViewItemFull extends FacesBean
         // show message
         if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE))
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_DELETED));
             
             //redirect to last breadcrumb, if available
             BreadcrumbItemHistorySessionBean bhsb = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
@@ -1564,17 +1564,6 @@ public class ViewItemFull extends FacesBean
     }
     
   
-    
-    
-    /**
-     * Returns a reference to the scoped data bean (the ItemListSessionBean).
-     * 
-     * @return a reference to the scoped data bean
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
-    }
 
     /**
      * Returns the ItemControllerSessionBean.

@@ -37,12 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.qaws.QAWS;
+import de.mpg.escidoc.pubman.qaws.MyTasksRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -160,7 +159,7 @@ public class ReviseItem extends FacesBean
         
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_REVISED));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
         }
         
         
@@ -189,7 +188,7 @@ public class ReviseItem extends FacesBean
         
         
         
-        return QAWS.LOAD_QAWS;
+        return MyTasksRetrieverRequestBean.LOAD_QAWS;
     }
 
    
@@ -204,16 +203,6 @@ public class ReviseItem extends FacesBean
     {
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
-
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected final ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
-    }
-
 
 	public String getValMessage() {
 		return valMessage;

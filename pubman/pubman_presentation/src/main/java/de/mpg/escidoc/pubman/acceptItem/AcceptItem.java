@@ -37,11 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -161,7 +161,7 @@ public class AcceptItem extends FacesBean
         
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_ACCEPTED));
         }
         
         // redirect to the view item page afterwards (if no error occured)
@@ -203,7 +203,7 @@ public class AcceptItem extends FacesBean
         {
             logger.error("Could not redirect to View Item Page", e);
         }
-        return DepositorWS.LOAD_DEPOSITORWS;
+        return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
     }
 
     /**
@@ -251,15 +251,6 @@ public class AcceptItem extends FacesBean
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
         return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
-    }
-
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected final ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
     }
 
     /**

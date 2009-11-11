@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman.withdrawItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
@@ -53,9 +52,6 @@ public class WithdrawItemSessionBean extends FacesBean
     // navigationString to go back to the list where withdrawItem has been called from
     private String navigationStringToGoBack = null;
     
-    // The according ItemListSessionBean
-    private ItemListSessionBean itemListSessionBean = null;
-
     /**
      * Public constructor.
      */
@@ -83,16 +79,6 @@ public class WithdrawItemSessionBean extends FacesBean
     public final void setNavigationStringToGoBack(final String navigationStringToGoBack)
     {
         this.navigationStringToGoBack = navigationStringToGoBack;
-    }
-
-    public ItemListSessionBean getItemListSessionBean()
-    {
-        return itemListSessionBean;
-    }
-
-    public void setItemListSessionBean(ItemListSessionBean itemListSessionBean)
-    {
-        this.itemListSessionBean = itemListSessionBean;
     }
 
 }

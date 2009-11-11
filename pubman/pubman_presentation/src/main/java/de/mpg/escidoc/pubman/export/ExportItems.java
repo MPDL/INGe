@@ -42,7 +42,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
@@ -255,7 +255,7 @@ public class ExportItems extends FacesBean
     	cleanUpEmailFields();	
     	return sb.getNavigationStringToGoBack() != null ? 
     		sb.getNavigationStringToGoBack() : 
-    		SearchResultList.LOAD_SEARCHRESULTLIST;
+    		SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
     }
     
     /**
@@ -356,8 +356,7 @@ public class ExportItems extends FacesBean
             }
             
             if (status.equals("sent")){
-                logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
-                SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
+                logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);           
                 info(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
                 
                 //redirect to last breadcrumb

@@ -23,6 +23,7 @@ import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.SearchResultElement;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
@@ -74,10 +75,14 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
      * The type of the search (simple, advanced, ...)
      */
     private String searchType;
+
+	// Faces navigation string
+	public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
     
     public SearchRetrieverRequestBean()
     {
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class), false);
+       
     }
     
     @Override
@@ -326,4 +331,5 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 	{
 		return false;
 	}
+
 }

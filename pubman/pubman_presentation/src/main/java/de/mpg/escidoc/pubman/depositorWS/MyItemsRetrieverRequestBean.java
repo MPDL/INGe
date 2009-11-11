@@ -43,6 +43,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 {
     private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
     public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
+    public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
    
     /**
      * This workspace's user.

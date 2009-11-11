@@ -37,11 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -155,7 +155,7 @@ public class WithdrawItem extends FacesBean
 
         if (withdrawalComment == null || "".equals(withdrawalComment))
         {
-            error(getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
+            error(getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
             return null;
         }
 
@@ -175,20 +175,7 @@ public class WithdrawItem extends FacesBean
         
         if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal))
         {
-
-            // If successful, remove item from the list.
-
-            // Unfortunately, this does not work, still the whole list is displayed.
-            //this.getItemListSessionBean().getCurrentPubItemList().remove(this.getPubItem());
-            // DiT: 29.11.2007: That's because in the CurrentPubItemList there are SearchResultVOs, while the CurrentPubItem is an PubItemVO,
-            //                  because it has been newly loaded by ViewItem; 
-            //                  you won't find the right item in the list so we have to remove the right item by comparing the IDs
-            
-            // remove the item by ID/version of the reference
-        	this.getItemListSessionBean().setListDirty(true);
-            this.getItemListSessionBean().removeFromCurrentListByRO(this.getPubItem().getVersion());
-
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_WITHDRAWN));
+            info(getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
         }
 
         return retVal;
@@ -209,7 +196,7 @@ public class WithdrawItem extends FacesBean
         catch (IOException e) {
             logger.error("Could not redirect to View Item Page", e);
         }
-        return DepositorWS.LOAD_DEPOSITORWS;
+        return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
     }
 
   
@@ -221,15 +208,6 @@ public class WithdrawItem extends FacesBean
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
         return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
-    }
-
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected final ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**

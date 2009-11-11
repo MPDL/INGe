@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.viewItem.ViewItem;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
 /**
@@ -74,12 +73,11 @@ public class viewItemPage extends BreadcrumbPage
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String itemID = request.getParameter(viewItemPage.PARAMETERNAME_ITEM_ID);
         // initialize viewItem
-        ViewItem viewItem = (ViewItem)getViewItem();
+       
         // insert the itemID into the view item session bean
         if (itemID != null && !itemID.equals(""))
         {
             this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
-            viewItem.loadItem();
         }
 
         // redirect to the referring GUI Tool page if the application has been started as GUI Tool
@@ -129,15 +127,6 @@ public class viewItemPage extends BreadcrumbPage
         return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
-    /**
-     * Returns a reference to the scoped data bean (the ViewItemBean).
-     * 
-     * @return a reference to the scoped data bean
-     */
-    protected ViewItem getViewItem()
-    {
-        return (ViewItem)getBean(ViewItem.class);
-    }
 
 	@Override
 	public boolean isItemSpecific() 

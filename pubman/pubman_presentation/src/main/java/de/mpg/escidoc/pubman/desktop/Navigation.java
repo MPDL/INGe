@@ -39,24 +39,22 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
-import de.mpg.escidoc.pubman.qaws.QAWS;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
-import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -76,11 +74,7 @@ public class Navigation extends FacesBean
     private List<NavigationRule> navRules;
     
     private boolean showExportMenuOption;
-
-    /** identifier from the breadcrump component in the page */
-
-    private ItemListSessionBean itemListSessionBean
-        = (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
+  
     /**
      * Public constructor.
      */
@@ -103,17 +97,15 @@ public class Navigation extends FacesBean
         this.navRules.add(new NavigationRule("/faces/HomePage.jsp",
                 Home.LOAD_HOME));
         this.navRules.add(new NavigationRule("/faces/DepositorWSPage.jsp",
-                DepositorWS.LOAD_DEPOSITORWS));
+                MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS));
         this.navRules.add(new NavigationRule("/faces/EditItemPage.jsp",
                 EditItem.LOAD_EDITITEM));
         this.navRules.add(new NavigationRule("/faces/viewItemFullPage.jsp",
                 ViewItemFull.LOAD_VIEWITEM));
         this.navRules.add(new NavigationRule("/faces/SearchResultListPage.jsp",
-                SearchResultList.LOAD_SEARCHRESULTLIST));
+                SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST));
         this.navRules.add(new NavigationRule("/faces/AffiliationTreePage.jsp",
                 AffiliationBean.LOAD_AFFILIATION_TREE));
-        this.navRules.add(new NavigationRule("/faces/AffiliationSearchResultListPage.jsp",
-                SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST));
         this.navRules.add(new NavigationRule("/faces/ViewItemRevisionsPage.jsp",
                 ViewItemRevisionsPage.LOAD_VIEWREVISIONS));
         this.navRules.add(new NavigationRule("/faces/ViewItemReleaseHistoryPage.jsp",
@@ -168,14 +160,11 @@ public class Navigation extends FacesBean
         // initialize the nav string with null. if it won't be changed the page would just be reloaded
         String navigationString = "";
 
-        DepositorWS depositorWorkspace;
         ViewItemFull viewItem;
-        SearchResultList searchResultList;
         EditItem editItem;
         CreateRevision createRevision;
         ReleaseHistory releaseHistory;
         ViewItemLog viewItemLog;
-        QAWS qaws;
 
         // special re-initializaion for pages with dynamic page elements which
         // must be re-inited
@@ -202,21 +191,11 @@ public class Navigation extends FacesBean
             editItem = (EditItem) getRequestBean(EditItem.class);
             editItem.init();
         }
-        else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
-        {
-            depositorWorkspace = (DepositorWS) getRequestBean(DepositorWS.class);
-            this.getItemListSessionBean().setListDirty(true);
-            depositorWorkspace.init();
-        }
+        
         else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM))
         {
             viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
             viewItem.init();
-        }
-        else if (navigationString.equals(SearchResultList.LOAD_SEARCHRESULTLIST))
-        {
-            searchResultList = (SearchResultList) getSessionBean(SearchResultList.class);
-            searchResultList.init();
         }
         else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
         {
@@ -234,12 +213,6 @@ public class Navigation extends FacesBean
             this.getItemVersionSessionBean().resetVersionLists();
             viewItemLog = (ViewItemLog) getRequestBean(ViewItemLog.class);
             viewItemLog.init();
-        }
-        else if (navigationString.equals(QAWS.LOAD_QAWS))
-        {
-            qaws = (QAWS) getRequestBean(QAWS.class);
-            this.getItemListSessionBean().setListDirty(true);
-            qaws.init();
         }
         else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION))
         {
@@ -266,8 +239,6 @@ public class Navigation extends FacesBean
             logger.debug("New Submission");
         }
 
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
 
         // if there is only one context for this user we can skip the
         // CreateItem-Dialog and create the new item directly
@@ -344,16 +315,6 @@ public class Navigation extends FacesBean
     }
 
     /**
-     * Returns the ItemListSessionBean.
-     *
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return itemListSessionBean;
-    }
-
-    /**
      * Returns the ContextListSessionBean.
      *
      * @return a reference to the scoped data bean (ContextListSessionBean)
@@ -379,15 +340,6 @@ public class Navigation extends FacesBean
     protected AdvancedSearchEdit getAdvancedSearchEdit()
     {
         return (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
-    }
-
-    /**
-     * Returns the SearchResultList session bean.
-     * @return AdvancedSearchEdit session bean.
-     */
-    protected SearchResultList getSearchResultList()
-    {
-        return (SearchResultList) getSessionBean(SearchResultList.class);
     }
 
     public void setShowExportMenuOption(boolean showExportMenuOption)

@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -192,15 +191,6 @@ public class CreateItem extends FacesBean
     protected ContextListSessionBean getSessionBean()
     {
         return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-    }
-
-    /**
-     * Returns the ItemListSessionBean.
-     * @return a reference to the scoped data bean (ItemListSessionBean)
-     */
-    protected ItemListSessionBean getItemListSessionBean()
-    {
-        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
     }
     
     /**

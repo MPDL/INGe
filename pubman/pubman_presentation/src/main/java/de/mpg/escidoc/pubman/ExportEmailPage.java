@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
@@ -67,7 +67,7 @@ public class ExportEmailPage extends BreadcrumbPage
  
         ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
         
-        sb.setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);    
+        sb.setNavigationStringToGoBack(SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST);    
         sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
         sb.setEnableExport(false);
     }

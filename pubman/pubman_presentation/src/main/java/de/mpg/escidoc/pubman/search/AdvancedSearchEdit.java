@@ -36,8 +36,10 @@ import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
@@ -69,8 +71,10 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
  * @author Hugo Niedermaier, endres
  * @version $Revision$ $LastChangedDate$
  */
-public class AdvancedSearchEdit extends SearchResultList
+public class AdvancedSearchEdit extends FacesBean
 {
+	private static Logger logger = Logger.getLogger(AdvancedSearchEdit.class);
+	
     private static final String PROPERTY_CONTENT_MODEL = 
         "escidoc.framework_access.content-model.id.publication";
     
