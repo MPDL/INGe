@@ -289,41 +289,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>GTSearching</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTSearching</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTSearchResultListPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTSearchResultListPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTDepositorWSPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTDepositorWSPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTEditItemPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTEditItemPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTViewItemFullPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTViewItemFullPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTAffiliationPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTAffiliationPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>GTAdvancedSearchPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.GTAdvancedSearchPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>AffiliationSearchResultListPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationSearchResultListPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
