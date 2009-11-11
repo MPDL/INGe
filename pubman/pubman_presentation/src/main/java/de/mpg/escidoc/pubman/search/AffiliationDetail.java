@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.search;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 
-import de.mpg.escidoc.pubman.search.ui.AffiliationDetailUI;
-import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
@@ -53,8 +51,6 @@ public class AffiliationDetail
     private boolean renderDetails = false;
     
     private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
-    private AffiliationDetailUI affiliationDetailUI;
-    private HTMLElementUI htmlElement = new HTMLElementUI();
     private HtmlPanelGroup panDetail = new HtmlPanelGroup();
     private HtmlOutputText txtName = new HtmlOutputText();
     
