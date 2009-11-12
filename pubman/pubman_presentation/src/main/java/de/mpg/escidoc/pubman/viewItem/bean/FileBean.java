@@ -34,8 +34,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
-import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -66,15 +63,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.Grant;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.GrantList;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.grants.CurrentGrants.UserType;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.Selector;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroup;
-import de.mpg.escidoc.services.common.valueobjects.intelligent.usergroup.UserGroupList;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * Bean for storing the information of files attached to items.
@@ -288,19 +277,7 @@ public class FileBean extends FacesBean
         .resolveVariable(FacesContext.getCurrentInstance(), ItemControllerSessionBean.BEAN_NAME);
         return itemControllerSessionBean;
     }
-    
-    /**
-     * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-    	CommonSessionBean commonSessionBean = (CommonSessionBean)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), CommonSessionBean.BEAN_NAME);
-        return commonSessionBean;
-    }
-    
+   
     
     
     /**
@@ -415,7 +392,7 @@ public class FileBean extends FacesBean
 		String fileSize = "0";
 		if(this.file.getDefaultMetadata() != null)
 		{
-			fileSize = this.getCommonSessionBean().computeFileSize(this.file.getDefaultMetadata().getSize());
+			fileSize = computeFileSize(this.file.getDefaultMetadata().getSize());
 		}
 		return fileSize;
 	}
@@ -655,5 +632,27 @@ public class FileBean extends FacesBean
         return false;
         
     }
+    
+    /**
+     * Generate a string for displaying file sizes.
+     * Added by FrM to compute a better result for values < 1024.
+     * 
+     * @param size The size of an uploaded file.
+     * @return A string representing the file size in a readable format.
+     */
+	public String computeFileSize(long size) {
+		if (size < 1024)
+		{
+			return size + getLabel("ViewItemMedium_lblFileSizeB");
+		}
+		else if (size < 1024 * 1024)
+		{
+			return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
+		}
+		else
+		{
+			return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+		}
+	}
     
 }

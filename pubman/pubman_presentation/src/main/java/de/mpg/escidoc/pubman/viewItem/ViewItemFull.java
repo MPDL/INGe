@@ -56,7 +56,6 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.pubman.ApplicationBean;
-import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.DepositorWSPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -1656,15 +1655,7 @@ public class ViewItemFull extends FacesBean
         return (RelationListSessionBean)getSessionBean(RelationListSessionBean.class);
     }
     
-    /**
-     * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getSessionBean()
-    {
-        return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
-    }
+    
     
     /**
      * Returns the ContextListSessionBean.
