@@ -67,14 +67,6 @@ public class ViewItemReleaseHistoryPage extends BreadcrumbPage
         this.getViewItemSessionBean().setHasBeenRedirected(true);
     }
 
-    /**
-     * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean) getBean(CommonSessionBean.class);
-    }
 
     /**
      * Returns the ViewItemSessionBean.

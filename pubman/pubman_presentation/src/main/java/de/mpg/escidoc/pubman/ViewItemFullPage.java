@@ -95,12 +95,6 @@ public class ViewItemFullPage extends BreadcrumbPage
             logger.error("Could not login." + "\n" + e.toString());
         }
 
-         // redirect to the referring GUI Tool page if the application has been started as GUI Tool
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        if (sessionBean.isRunAsGUITool())
-        {
-            redirectToGUITool();
-        }
     }
 
     /**
@@ -123,15 +117,7 @@ public class ViewItemFullPage extends BreadcrumbPage
         return "";
     }
 
-    /**
-     * Returns the CommonSessionBean.
-     *
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
-    }
+   
 
     /**
      * Returns the ViewItemSessionBean.

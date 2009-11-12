@@ -73,11 +73,7 @@ public class EditItemPage extends BreadcrumbPage
         super.init();
         
         //redirect to the referring GUI Tool page if the application has been started as GUI Tool
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        if(sessionBean.isRunAsGUITool() == true)
-        {
-            redirectToGUITool();
-        }
+       
     }
     
     /**
@@ -99,15 +95,6 @@ public class EditItemPage extends BreadcrumbPage
         return "";
     }
     
-    /**
-     * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
-    }
-
 	@Override
 	protected Method getDefaultAction() throws NoSuchMethodException
 	{

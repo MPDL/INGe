@@ -66,14 +66,6 @@ public class ViewItemStatisticsPage extends BreadcrumbPage
         
     }
 
-    /**
-     * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean) getBean(CommonSessionBean.class);
-    }
 
     /**
      * Returns the ViewItemSessionBean.

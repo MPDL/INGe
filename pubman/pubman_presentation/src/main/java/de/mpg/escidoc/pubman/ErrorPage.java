@@ -97,12 +97,7 @@ public class ErrorPage extends BreadcrumbPage
         // show the pageAlert
         this.createPageAlert();
         
-        //redirect to the referring GUI Tool page if the application has been started as GUI Tool
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        if(sessionBean.isRunAsGUITool() == true)
-        {
-            redirectToGUITool();
-        }
+       
     }
 
     /**
@@ -200,15 +195,7 @@ public class ErrorPage extends BreadcrumbPage
     	return buffer.toString();
     }
     
-    /**
-     * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
-    }
-    
+  
     /**
      * Returns the panel with the pageAlert.
      * @return the panel with the pageAlert

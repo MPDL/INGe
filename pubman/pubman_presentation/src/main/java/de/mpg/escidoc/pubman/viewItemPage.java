@@ -80,12 +80,6 @@ public class viewItemPage extends BreadcrumbPage
             this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
         }
 
-        // redirect to the referring GUI Tool page if the application has been started as GUI Tool
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        if (sessionBean.isRunAsGUITool() == true)
-        {
-            redirectToGUITool();
-        }
     }
 
     /**
@@ -107,16 +101,7 @@ public class viewItemPage extends BreadcrumbPage
         return "";
     }
 
-    /**
-     * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
-    }
-
+   
     /**
      * Returns a reference to the scoped data bean (the ViewItemSessionBean).
      * 

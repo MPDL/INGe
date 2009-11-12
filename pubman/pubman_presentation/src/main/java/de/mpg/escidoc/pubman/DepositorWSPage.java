@@ -111,12 +111,7 @@ public class DepositorWSPage extends BreadcrumbPage
         
         this.getViewItemSessionBean().setHasBeenRedirected(true);
         
-        //redirect to the referring GUI Tool page if the application has been started as GUI Tool
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        if(sessionBean.isRunAsGUITool() == true)
-        {
-            redirectToGUITool();
-        }
+      
     }
 
    
@@ -141,15 +136,7 @@ public class DepositorWSPage extends BreadcrumbPage
         
         return "";
     }
-    
-    /**
-     * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
-    }
+  
     
     /**
      * Returns the ViewItemSessionBean.
