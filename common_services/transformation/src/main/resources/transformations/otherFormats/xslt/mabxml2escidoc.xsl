@@ -186,6 +186,8 @@
 			<xsl:apply-templates select="mab108_a"/>
 			<xsl:apply-templates select="mab112_a"/>
 			<!-- CREATOR : EDITOR -->
+			<xsl:apply-templates select="mab200"/>
+			<xsl:apply-templates select="mab200_b"/>
 			<xsl:apply-templates select="mab100_b"/>
 			<xsl:apply-templates select="mab104_b"/>
 			<xsl:apply-templates select="mab100_c"/>
