@@ -1,5 +1,7 @@
 package de.mpg.escidoc.pubman.installer;
 
+import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -16,6 +18,7 @@ public class ConeInsertProcess extends Thread
 	private ConeDataset coneDataset;
 	private InstallData idata;
 	private ConfigurationPanel panel;
+	private static final String coneInsertDataFile = "/jboss-4.2.2.GA/server/default/conf/initializeConeDatabase";
 	/**
 	 * Public constructor
 	 */
@@ -75,6 +78,8 @@ public class ConeInsertProcess extends Thread
 			   panel.getTextArea().append("Good. CoNE data inserted.\n");
 			   panel.getTextArea().append("\n\n\n");
 			   panel.getTextArea().append("DONE. You can proceed with 'Next' now.\n");
+			   File pf = new File(idata.getInstallPath() + coneInsertDataFile);
+			   pf.createNewFile();
 			   successful = true;
 			   panel.setValid(successful);
 			}

@@ -144,9 +144,7 @@ public class ConfigurationCreatorPanel extends ConfigurationPanel
 		   
 		   this.coneInsertProcess = new ConeInsertProcess(coneDataset, idata, this);
 		   
-		   JLabel label = LabelFactory.create("Inserting CoNE data...", parent.icons.getImageIcon("host"), LEADING);
-           add(label, NEXT_LINE);
-           getLayoutHelper().completeLayout();
+		   getLayoutHelper().completeLayout();
            
 		   this.coneInsertProcess.start();
 		   return;
