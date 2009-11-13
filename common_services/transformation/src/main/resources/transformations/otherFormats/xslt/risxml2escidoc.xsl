@@ -215,7 +215,9 @@
 				</xsl:choose>
 			</xsl:element>
 			<!--ALTTITLE --> 
-			<xsl:apply-templates select="T2"/>
+			<xsl:if test="not($gen='book-item')">
+				<xsl:apply-templates select="T2"/>
+			</xsl:if>
 			<!-- IDENTIFIER -->
 			<xsl:apply-templates select="UR"/>
 			<xsl:apply-templates select="L1"/>
@@ -271,8 +273,15 @@
 								<xsl:with-param name="genre" select="$gen"/>
 								<xsl:with-param name="title" select="JO"/>
 							</xsl:call-template>
-						</xsl:if>	
-					</xsl:if>					
+						</xsl:if>
+						<xsl:if test="T2 and ($gen='book-item')">
+						<xsl:call-template name="createSource">
+							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="T2"/>
+						</xsl:call-template>
+					</xsl:if>	
+					</xsl:if>
+										
 					<xsl:if test="((T1 or TI or CT) and T3)">
 						<!-- 2nd source series -->
 						<xsl:call-template name="createSource">
@@ -281,6 +290,7 @@
 						</xsl:call-template>
 					</xsl:if>
 				</xsl:when>
+				
 				<xsl:otherwise>
 				<!-- not BT -->
 					<xsl:if test="JO">
@@ -303,9 +313,7 @@
 						</xsl:call-template>
 					</xsl:if>
 				</xsl:otherwise>
-			</xsl:choose>
-			
-						
+			</xsl:choose>			
 			<!-- ABSTRACT -->
 			<xsl:call-template name="createAbstract"/>
 			<!-- SUBJECT -->
@@ -433,11 +441,11 @@
 			<xsl:attribute name="type">
 				<xsl:choose>
 					<xsl:when test="not($genre='book' or $genre='proceedings' or $genre='thesis' or $genre='journal' or $genre='series' or $genre='other') and BT">journal</xsl:when>
-					<xsl:when test="TY='CHAP'">book</xsl:when>
+					<xsl:when test="TY='CHAP' and not($title=T3)">book</xsl:when>
 					<xsl:when test="TY='JOUR'">journal</xsl:when>
 					<xsl:when test="TY='MGZN'">series</xsl:when>
 					<xsl:when test="TY='NEWS'">series</xsl:when>
-					<xsl:when test="T3">series</xsl:when>
+					<xsl:when test="T3 and ($title=T3)">series</xsl:when>
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
@@ -466,6 +474,7 @@
 				</xsl:otherwise>
 			</xsl:choose>
 			<!-- SOURCE CREATOR -->
+			<xsl:if test="not($title=T3)">
 			<xsl:if test="A3">
 				<xsl:variable name="var">
            			<xsl:copy-of select="AuthorDecoder:parseAsNode(A3)"/>
@@ -546,8 +555,10 @@
 					</xsl:attribute>
 					<xsl:value-of select="SN"/>
 				</xsl:element>
-			</xsl:if>			
+			</xsl:if>		
+				</xsl:if>	
 		</xsl:element>
+	
 	</xsl:template>
 	
 	<xsl:template match="JF">
@@ -616,6 +627,7 @@
 	</xsl:template>
 	<!-- ALTTITLE -->
 	<xsl:template match="T2">
+		
 		<xsl:element name="dcterms:alternative">
 			<xsl:value-of select="."/>
 		</xsl:element>
