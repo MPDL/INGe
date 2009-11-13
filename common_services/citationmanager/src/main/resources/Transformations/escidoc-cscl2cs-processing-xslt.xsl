@@ -29,7 +29,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
 	xmlns:cit="http://www.escidoc.de/citationstyle"
-	xmlns:snippet="http://www.escidoc.de/citationstyle/snippet"
+
 	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
 	xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
 	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
@@ -46,9 +46,11 @@
 	
 	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style-new.xsd"
 	>
-	<xsl:output method="xml" encoding="UTF-8" indent="yes"
+<!--	xmlns:snippet="http://www.escidoc.de/citationstyle/snippet"-->	
+	<xsl:output method="xml" encoding="UTF-8" indent="no"
 		cdata-section-elements="" />
-		
+	
+	<!-- Default delimiter for undefined delimiter and internal-delimiter	-->
 	<xsl:param name="default-delimiter" select="' '"/>
 	
 	<xsl:template match="/*">
@@ -56,7 +58,7 @@
 			>
 			<xsl:namespace name="xsl">http://www.w3.org/1999/XSL/Transform</xsl:namespace>
 			<xsl:namespace name="cit">http://www.escidoc.de/citationstyle</xsl:namespace>
-			<xsl:namespace name="snippet">http://www.escidoc.de/citationstyle/snippet</xsl:namespace>
+<!--			<xsl:namespace name="snippet">http://www.escidoc.de/citationstyle/snippet</xsl:namespace>-->
 			<xsl:namespace name="fn">http://www.w3.org/2005/xpath-functions</xsl:namespace>
 			<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
 			<xsl:namespace name="jfunc">java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper</xsl:namespace>
@@ -67,6 +69,7 @@
 			<xsl:namespace name="mdp">http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsl:namespace>
 			<xsl:namespace name="pub">http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsl:namespace>
 			<xsl:namespace name="e">http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsl:namespace>
+			<xsl:namespace name="prop">http://escidoc.de/core/01/properties/</xsl:namespace>
 			<xsl:namespace name="dc">http://purl.org/dc/elements/1.1/</xsl:namespace>
 			<xsl:namespace name="dcterms">http://purl.org/dc/terms/</xsl:namespace>
 			
@@ -79,7 +82,8 @@
 				<xsl:attribute name="method">xml</xsl:attribute>
 				<xsl:attribute name="encoding">UTF-8</xsl:attribute>
 				<xsl:attribute name="indent">yes</xsl:attribute>
-<!--				<xsl:attribute name="cdata-section-elements">snippet:snippet</xsl:attribute>-->
+ 				<xsl:attribute name="cdata-section-elements" select="@citation-placeholder-tag"/>
+ 				 
 			</xsl:element> 
 
 			<xsl:variable name="variables" >
@@ -94,31 +98,61 @@
 				<xsl:call-template name="createCitationStyleLayoutDefinitions"/>
 			</xsl:variable>	
 
-
 			<xsl:element name="xsl:template">
-				<xsl:attribute name="match" select="'/'"/>
-				
-				<xsl:element name="snippet:snippets">
-				
-					<xsl:element name="xsl:for-each">
-						<xsl:attribute name="select" select="@md-xpath"/>
-						
-						<xsl:copy-of select="$variables"/>
-						<xsl:copy-of select="$predefinedLayoutElements"/>
-						<xsl:copy-of select="$citationStyleLayoutDefinitions"/>
-						
+				<xsl:attribute name="match" select="'node() | @*'"/>
+				<xsl:element name="xsl:copy">
+					<xsl:element name="xsl:apply-templates">
+						<xsl:attribute name="select" select="'@* | node ()'"/>
 					</xsl:element>
 				</xsl:element>
-				
+			</xsl:element>
+
+
+			<xsl:element name="xsl:template">
+				<xsl:attribute name="match" select="@source-placeholder-tag"/>
+				<xsl:element name="xsl:element">
+					<xsl:attribute name="name" select="'{name(.)}'"/>
+					
+					<xsl:element name="xsl:copy-of">
+						<xsl:attribute name="select" select="'child::node()'" />
+					</xsl:element>
+		
+					<xsl:element name="xsl:element">
+						<xsl:attribute name="name" select="@citation-placeholder-tag" />
+		
+						<xsl:element name="xsl:variable">
+								<xsl:attribute name="name" select="'citation'" />
+								<xsl:element name="xsl:for-each">
+									<xsl:attribute name="select" select="@md-xpath" />
+									<xsl:copy-of select="$variables" />
+									<xsl:copy-of select="$predefinedLayoutElements" />
+									<xsl:copy-of select="$citationStyleLayoutDefinitions" />
+								</xsl:element>
+						</xsl:element>
+						
+						<xsl:element name="xsl:value-of">
+							<xsl:attribute name="select" select="'normalize-space($citation)'" />
+						</xsl:element>
+		
+					</xsl:element>
+			
+			
+				</xsl:element>
 			</xsl:element>
 			
 			<xsl:call-template name="createRuntimeTemplates"/>
 			
-				
 		</xsl:element>
+		
 		
 	</xsl:template>
 	
+
+
+	<!-- Font Styles -->
+	<xsl:variable name="font-styles">
+	   <xsl:copy-of select="document('../CitationStyles/font-styles.xml')/font-styles-collection/*"/>
+	 </xsl:variable>
 	
 	
 	<!-- ##### VARIABLES ##### -->
@@ -180,26 +214,27 @@
 						<xsl:if test="cit:parameters/cit:valid-if">
 							<xsl:element name="xsl:when">
 									<xsl:attribute name="test" select="cit:parameters/cit:valid-if"/>
-									<xsl:element name="snippet:snippet"><!--
+<!--									<xsl:element name="snippet:snippet">-->
+									<!--
 								
 										NOTE: 
 										objid should be always defined to ensure item-snippet binding!!!
 									
-										-->
+										
 										<xsl:element name="xsl:attribute">
 											<xsl:attribute name="name" select="'objid'"/>
 											<xsl:attribute name="select" select="'$objid'"/>
-										</xsl:element>
+										</xsl:element>-->
 										
 										<xsl:call-template name="createLayoutElement">
 											<xsl:with-param name="le" select="."/>
 										</xsl:call-template>
-									</xsl:element>
+<!--									</xsl:element>-->
 							</xsl:element>
 						</xsl:if>
 						<xsl:if test="not(cit:parameters/cit:valid-if)">
 							<xsl:element name="xsl:otherwise">
-								<xsl:element name="snippet:snippet"><!--
+								<!--<xsl:element name="snippet:snippet">
 								
 									NOTE: 
 									objid should be always defined to ensure item-snippet binding!!!
@@ -212,7 +247,7 @@
 									<xsl:call-template name="createLayoutElement">
 										<xsl:with-param name="le" select="."/>
 									</xsl:call-template>
-								</xsl:element>
+<!--								</xsl:element>-->
 							</xsl:element>
 						</xsl:if>
 									
@@ -372,9 +407,10 @@
 		<!-- start value for val -->
 		<xsl:element name="xsl:variable">
 			<xsl:attribute name="name" select="'var'" />
+<!--			<xsl:attribute name="select" select="concat('concat(', $start-val, ', '''')')" />-->
 			<xsl:attribute name="select" select="$start-val" />
 		</xsl:element>
-
+		
 		<!-- check valid-if firstly-->
 		
 		<xsl:choose>
@@ -463,9 +499,15 @@
 							 
 						</xsl:element>
 						
+						
+						<!-- set internal-delimiter to the $default-delimiter if it is not defined -->
+						<xsl:variable
+							name="internal-delimiter" 
+							select="if ($params/cit:internal-delimiter/@value) then $params/cit:internal-delimiter/@value else $default-delimiter" 
+						/>
 						<xsl:element name="xsl:with-param">
 							<xsl:attribute name="name" select="'delimiter'"/>
-							<xsl:attribute name="select" select="concat('''', $params/cit:internal-delimiter/@value, '''')"/>
+							<xsl:attribute name="select" select="concat('''', $internal-delimiter, '''')"/>
 						</xsl:element>
 					</xsl:element>
 				</le>
@@ -502,7 +544,7 @@
 								<xsl:attribute name="test" select="
 									concat( 
 										if ($params/cit:starts-with/@mode='static') then 'true() or ' else '',
-										'not($var='''')'
+										'exists($var) and $var!='''''
 									)
 								" />
 									<xsl:element name="xsl:text">
@@ -521,7 +563,7 @@
 								<xsl:attribute name="test" select="
 									concat( 
 										if ($params/cit:ends-with/@mode='static') then 'true() or ' else '',
-										'not($var='''')'
+										'exists($var) and $var!='''''
 									)
 								" />
 								<xsl:element name="xsl:text">
@@ -555,9 +597,10 @@
 					<xsl:attribute name="test" select="
 									concat( 
 										if ($params/cit:max-length-ends-with/@mode='static') then 'true() or ' else '',
-										'not($var='''')'
+										'exists($var) and $var!='''''
 									)
 					" />
+					
 					<xsl:element name="xsl:value-of">
 						<xsl:attribute name="select" select="
 							concat(
@@ -579,20 +622,52 @@
 	<!--#### FONT-STYLE ####-->
 	<xsl:template name="applyFontStyle">
 		<xsl:param name="params" />
-		<xsl:if test="$params/cit:font-style/@ref">
+		<xsl:variable name="ref" select="$params/cit:font-style/@ref"/>
+		
+		<xsl:if test="$ref!=''">
 			<!--#### TODO: rename to the <style> ####-->
 			<xsl:comment>font-style</xsl:comment>
 			
 			<xsl:element name="xsl:variable">
 				<xsl:attribute name="name" select="'var'"/>
 				<xsl:element name="xsl:if">
-					<xsl:attribute name="test" select="'not($var='''')'" />			
-					<xsl:element name="span">
-						<xsl:attribute name="class" select="$params/cit:font-style/@ref"/>
+					<xsl:attribute name="test" select="'exists($var) and $var!='''''" />
+					
+					<xsl:value-of select="concat (
+						'&lt;span class=&quot;',
+						if ($font-styles/font-style[@name=$ref]/@css-class) 
+						then $font-styles/font-style[@name=$ref]/@css-class
+						else
+							error(
+								QName('http://www.escidoc.de/citationstyle', 'err:FontStyleIsNotDefined' ), 
+								concat ('Font Style is not defined: ', $ref )
+							),
+						'&quot;&gt;'	
+							)"/>
 						<xsl:element name="xsl:copy-of">
 							<xsl:attribute name="select" select="'$var'"/>
 						</xsl:element>
-					</xsl:element>
+					<xsl:value-of select="'&lt;/span&gt;'"/>
+										
+<!--					<xsl:element name="span">-->
+<!--						<xsl:attribute name="class">-->
+<!--							<xsl:value-of select="-->
+<!--								if ($font-styles/font-style[@name=$ref]/@css-class) -->
+<!--								then $font-styles/font-style[@name=$ref]/@css-class-->
+<!--								else-->
+<!--									error(-->
+<!--										QName('http://www.escidoc.de/citationstyle', 'err:FontStyleIsNotDefined' ), -->
+<!--										concat ('Font Style is not defined: ', $ref )-->
+<!--									)-->
+<!--							"/>-->
+<!--						</xsl:attribute>-->
+<!--						<xsl:element name="xsl:copy-of">-->
+<!--							<xsl:attribute name="select" select="'$var'"/>-->
+<!--						</xsl:element>-->
+<!--					</xsl:element>-->
+					
+					
+					
 				</xsl:element> 
 			</xsl:element>
 			
@@ -703,7 +778,7 @@
 					
 					<xsl:element name="xsl:with-param">
 						<xsl:attribute name="name" select="'delimiter'"/> 
-						<xsl:attribute name="select" select="concat('''', $params[1]/cit:delimiter/@value, '''')"/>
+						<xsl:attribute name="select" select="concat('''', $params[not(@position) or @position='default']/cit:delimiter/@value, '''')"/>
 					</xsl:element>
 					
 				</xsl:element>		
@@ -752,6 +827,8 @@
 	</xsl:text>
 		<xsl:copy-of select="document('../CitationStyles/functions.xml')/xsl:functions/*"/>	
 	</xsl:template>
+	
+
 	
 
 </xsl:stylesheet>
