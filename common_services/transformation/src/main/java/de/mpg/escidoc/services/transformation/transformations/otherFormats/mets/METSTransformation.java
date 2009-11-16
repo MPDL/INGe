@@ -219,7 +219,7 @@ public class METSTransformation
         ModsType mods = null;
         try
         {
-            String xml = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieve(containerId);
+            String xml = ServiceLocator.getContainerHandler().retrieve(containerId);
             ContainerDocument cDoc = ContainerDocument.Factory.parse(xml);
             Container container = cDoc.getContainer();
             MdRecord[] mdrecords = container.getMdRecords().getMdRecordArray();
