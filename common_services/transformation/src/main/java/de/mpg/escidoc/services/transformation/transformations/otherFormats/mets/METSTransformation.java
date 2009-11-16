@@ -485,8 +485,8 @@ public class METSTransformation
             
             //workaroound due to framework bug: login as sysadmin. Currently only logged-in users can retrieve
             //components that have a latest-version pendings
+            /*
             String userHandle = this.login.loginSysAdmin();
-            
             if (this.login.loginSysAdmin() != null)
             {
                 GetMethod get = new GetMethod(tocUrl.toString());
@@ -503,6 +503,9 @@ public class METSTransformation
             {
                 toc = TocDocument.Factory.parse(tocUrl);
             }
+            */
+            
+            toc = TocDocument.Factory.parse(tocUrl);
             
             
             return toc;
