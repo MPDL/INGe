@@ -42,7 +42,7 @@
 	.headerLogo {
 		background-image: url('../images/logo_pubman.gif');
 		background-repeat: no-repeat;
-		background-position: center center;
+		background-position: top left;
 	}
 		/*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
 		@media print {
@@ -55,7 +55,7 @@
 		background: inherit;
 	/*	background-image: url('../images/logo_overlay_beta.gif');*/
 		background-repeat: no-repeat;
-		background-position: center center;
+		background-position: top left;
 	}
 	
 	.overlayDev {

@@ -56,8 +56,8 @@
 
 	<div class="full_area0 LogoNSearch">
 		<h:outputLink id="lnkStartPage" title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
-			<span class="xTiny_marginLExcl huge_area0 headerLogo">
-				<h:panelGroup styleClass="huge_area0 themePark #{Header.serverLogo}"></h:panelGroup>
+			<span class="xTiny_marginLExcl half_area0 headerLogo">
+				<h:panelGroup styleClass="half_area0 themePark #{Header.serverLogo}"></h:panelGroup>
 			</span>
 		</h:outputLink>
 
