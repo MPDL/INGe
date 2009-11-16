@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.citationFormats;
+package de.mpg.escidoc.services.transformation.transformations.outputFormats;
 
 import java.util.Vector;
 
@@ -47,17 +47,17 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 /**
  * Implementation of the transformation interface for citation formats.
  * @author Friederike Kleinfercher (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: kleinfercher $ (last modification)
+ * @version $Revision: 2285 $ $LastChangedDate: 2009-09-07 15:17:02 +0200 (Mo, 07 Sep 2009) $
  *
  */
 @TransformationModule
-public class CitationTransformationInterface implements Transformation
+public class OutputTransformationInterface implements Transformation
 {
 
-    private final Logger logger = Logger.getLogger(CitationTransformationInterface.class);
+    private final Logger logger = Logger.getLogger(OutputTransformationInterface.class);
     
-    private final String EXPLAIN_FILE_PATH = "transformations/citations/";
+    private final String EXPLAIN_FILE_PATH = "transformations/outputFormats/";
     private final String EXPLAIN_FILE_NAME = "explain-transformations.xml";
 
     private Util util;
@@ -65,7 +65,7 @@ public class CitationTransformationInterface implements Transformation
     /**
      * Public constructor.
      */
-    public CitationTransformationInterface()
+    public OutputTransformationInterface()
     {
         this.util = new Util();
     }
@@ -192,46 +192,7 @@ public class CitationTransformationInterface implements Transformation
         
         try
         {   
-            CitationTransformation citeTrans = new CitationTransformation();
-            if (srcFormat.getName().toLowerCase().startsWith("escidoc"))
-            {
-                if (trgFormat.getName().toLowerCase().equals("apa"))
-                {
-                    result = citeTrans.transformEscdocToApa(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
-                }
-                 
-                if (trgFormat.getName().toLowerCase().equals("ajp"))
-                {
-                    result = citeTrans.transformEscidocToAjp(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
-                }    
-                if (trgFormat.getName().toLowerCase().equals("apa(snippet)"))
-                {
-                    trgFormat.setType("snippet");
-                    result = citeTrans.transformEscdocToApa(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
-                }
-                 
-                if (trgFormat.getName().toLowerCase().equals("ajp(snippet)"))
-                {
-                    trgFormat.setType("snippet");
-                    result = citeTrans.transformEscidocToAjp(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
-                } 
-            }
+           
         }
         catch (Exception e)
         {
