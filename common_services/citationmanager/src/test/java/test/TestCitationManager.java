@@ -36,9 +36,6 @@ public class TestCitationManager {
 	private XmlHelper xh = new XmlHelper();
 	
 	private final static String dsFileName = "APA_revised_item-list.xml";  
-//	private final String dsFileName = "MPIPL.xml";  
-//	private final static String dsFileName = "APA_output-long.xml";  
-//	private final String dsFileName = "bad_snippet.xml";  
 	
 	private static String itemList;
 	 
