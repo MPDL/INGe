@@ -36,6 +36,8 @@ import javax.ejb.TransactionAttributeType;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
+
 import net.sf.jasperreports.engine.JRException;
 import java.io.IOException;
 
@@ -61,6 +63,7 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
      */
     private static Logger logger = Logger.getLogger(CitationStyleHandlerBean.class);
     ProcessCitationStyles citStylesMan = new ProcessCitationStyles();
+    CitationStyleExecutor cse = new CitationStyleExecutor();
 
     
     
@@ -84,7 +87,9 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
         logger.debug("CitationStyleHandlerBean getOutput with outputFormat " + outputFormat);
        
         byte[] exportData = null;
-        exportData = citStylesMan.getOutput(citationStyle, outputFormat, itemList);
+        exportData = "APA_new".equals(citationStyle) ?
+        	cse.getOutput(citationStyle, outputFormat, itemList) :
+        	citStylesMan.getOutput(citationStyle, outputFormat, itemList);
         return exportData;
     }
 
