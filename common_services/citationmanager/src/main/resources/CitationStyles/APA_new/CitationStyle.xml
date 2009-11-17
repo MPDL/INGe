@@ -24,7 +24,12 @@
 	xmlns="http://www.escidoc.de/citationstyle" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style-new.xsd"
-	read-only="no" element-specific="no" md-xpath="//ei:item/mdr:md-records/mdr:md-record">
+	read-only="no" 
+	element-specific="no" 
+	md-xpath="../../mdr:md-records/mdr:md-record"
+	source-placeholder-tag="prop:content-model-specific"
+	citation-placeholder-tag="dcterms:bibliographicCitation"
+	>
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
 		<!-- variables which use xpath directly in DataSource NS-->
@@ -39,13 +44,13 @@
 		<!--  -->
 		<variable name="genre"><![CDATA[mdp:publication/@type]]></variable>
 		<variable name="source-type"><![CDATA[mdp:publication/pub:source[1]/@type]]></variable>
-		<variable name="hasPublication"><![CDATA[exists(mdp:publication)]]></variable>
+		<variable name="hasPublication" type="xs:boolean"><![CDATA[exists(mdp:publication)]]></variable>
 		<variable name="authorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='author'])]]></variable>
 		<variable name="editorsCount"><![CDATA[count(mdp:publication/pub:creator[@role='editor'])]]></variable>
 		<variable name="ed-postfix"><![CDATA[if ($editorsCount=1) then ' (Ed.)' else ' (Eds.)']]></variable>
-		<variable name="sourceEditorsCount"><![CDATA[count(mdp:publication/pub:source[1]/pub:creator[@role='editor'])]]></variable>
+		<variable name="sourceEditorsCount"><![CDATA[count(mdp:publication/pub:source[1]/e:creator[@role='editor'])]]></variable>
 		<variable name="source-ed-postfix"><![CDATA[if ($sourceEditorsCount=1) then ' (Ed.)' else ' (Eds.)']]></variable>
-		<variable name="genre-exception"><![CDATA[$genre=( 'poster', 'talk-at-event', 'courseware-lecture' )]]></variable>
+		<variable name="genre-exception" type="xs:boolean"><![CDATA[$genre=( 'poster', 'talk-at-event', 'courseware-lecture' )]]></variable>
 
 		<!-- Dates block -->
 		<variable name="date">
@@ -99,30 +104,30 @@
 		</variable>
 		
 		<!-- see http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Citation_of_not_yet_published_works_.28valid_for_all_genres.2C_except_for_manuscript.2C_teaching_.28Lecture.2FCourseware.29.2C_Talk_at_event.2C_Poster.29 -->
-		<variable name="notPublishedRule">
+		<variable name="notPublishedRule" type="xs:boolean">
 			<![CDATA[
-				($date = ( 'submitted', 'in preparation')) and
+				$date = ( 'submitted', 'in preparation') and
 				not( $genre = ('manuscript', 'courseware-lecture', 'talk-at-event', 'poster') )
 			]]>
 		</variable>		
 		
+		
 		<variable name="degree">
 			<![CDATA[
-					if (mdp:publication/pub:degree)
-					then 
-						concat (
-							if (mdp:publication/pub:degree='phd')
-							then 'PhD'
-							else mdp:publication/pub:degree,
-							' Thesis'	
-						)
-					else ''
+					concat (
+						(if (not(mdp:publication/pub:degree))
+						then ''
+						else if (mdp:publication/pub:degree/text()='phd')
+						then 'PhD '
+						else concat (mdp:publication/pub:degree/text(), ' ')),
+						'Thesis'
+					)		
 			]]>
 		</variable>
 		
 		
-		<variable name="doi"><![CDATA[(mdp:publication/e:identifier[@type='eidt:DOI'])[1]]]></variable>
-		<variable name="uri"><![CDATA[(mdp:publication/e:identifier[@type='dcterms:URI'])[1]]]></variable>
+		<variable name="doi"><![CDATA[(mdp:publication/dc:identifier[@xsi:type='eidt:DOI'])[1]/text()]]></variable>
+		<variable name="uri"><![CDATA[(mdp:publication/dc:identifier[@xsi:type='dcterms:URI'])[1]/text()]]></variable>
 		
 		<variable name="published-online-and-external-locator">
 			<![CDATA[
@@ -166,7 +171,7 @@
 				<layout-element name="editors-MoreThan1LessOrEqual6"
 					ref="mdp:publication/pub:creator[@role='editor']" repeatable="yes">
 					<parameters position="last">
-						<delimiter value=", &amp; " />
+						<delimiter value=", &amp;amp; " />
 						<internal-delimiter value=", " />
 					</parameters>
 					<parameters>
@@ -235,7 +240,7 @@
 						<layout-element name="authors-MoreThan1LessOrEqual6"
 							ref="mdp:publication/pub:creator[@role='author']" repeatable="yes">
 							<parameters position="last">
-								<delimiter value=", &amp; " />
+								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
 							</parameters>
 							<parameters>
@@ -286,7 +291,7 @@
 			</parameters>
 			<elements>
 				<layout-element name="source-editors-Equal1"
-					ref="mdp:publication/pub:source[1]/pub:creator[@role='editor']" repeatable="yes">
+					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$sourceEditorsCount=1]]></valid-if>
 					</parameters>
@@ -298,9 +303,9 @@
 				</layout-element>
 		
 				<layout-element name="source-editors-MoreThan1LessOrEqual6"
-					ref="mdp:publication/pub:source[1]/pub:creator[@role='editor']" repeatable="yes">
+					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
 					<parameters position="last">
-						<delimiter value=", &amp; " />
+						<delimiter value=", &amp;amp; " />
 					</parameters>
 					<parameters>
 						<valid-if><![CDATA[$sourceEditorsCount>1 and $sourceEditorsCount<=6]]></valid-if>
@@ -314,7 +319,7 @@
 				</layout-element>
 		
 				<layout-element name="source-editors-MoreThan6"
-					ref="mdp:publication/pub:source[1]/pub:creator[@role='editor']" repeatable="yes">
+					ref="mdp:publication/pub:source[1]/e:creator[@role='editor']" repeatable="yes">
 					<parameters>
 						<valid-if><![CDATA[$sourceEditorsCount>6]]></valid-if>
 						<delimiter value=", " />
@@ -335,16 +340,16 @@
 		<layout-element name="year" ref="$date">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS" />
-				<starts-with value=" (" />
-				<ends-with value="). " />
+				<starts-with value="(" />
+				<ends-with value=")." />
 			</parameters>
 		</layout-element>
 
 		<layout-element name="year-for-thesis" ref="$date-for-thesis">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS" />
-				<starts-with value=" (" />
-				<ends-with value="). " />
+				<starts-with value="(" />
+				<ends-with value=")." />
 			</parameters>
 		</layout-element>
 
@@ -352,8 +357,8 @@
 		<layout-element name="year-with-event-start-date">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS" />
-				<starts-with value=" (" />
-				<ends-with value="). " />
+				<starts-with value="(" />
+				<ends-with value=")." />
 			</parameters>
 			<elements>
 				<layout-element ref="$start-date-or-date"/>
@@ -361,28 +366,23 @@
 		</layout-element>
 
 
-		<layout-element name="published-online-and-external-locator">
+		<layout-element name="published-online-and-external-locator" ref="$published-online-and-external-locator">
 			<parameters>
-				<starts-with value=". " />
-				<delimiter value=". " />
+				<starts-with value=" "/>
+				<ends-with value="."/>
 			</parameters>
-			<elements>
-				<layout-element ref="$published-online-and-external-locator"/>
-			</elements>
 		</layout-element>
 
 
 		<layout-element name="year-authors-or-editors-are-presented" ref="$year">
 			<parameters>
 				<valid-if><![CDATA[$authorsCount>0 or $editorsCount>0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
 		<layout-element name="year-authors-or-editors-are-not-presented" ref="$year">
 			<parameters>
 				<valid-if><![CDATA[$authorsCount=0 and $editorsCount=0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
@@ -390,8 +390,8 @@
 		<layout-element name="year-and-month-name">
 			<parameters>
 				<font-style ref="DISPLAY_DATE_STATUS" />
-				<starts-with value=" (" />
-				<ends-with value="). " />
+				<starts-with value="(" />
+				<ends-with value=")." />
 			</parameters>
 			<elements>
 				<layout-element>
@@ -415,14 +415,12 @@
 		<layout-element name="year-and-month-authors-are-presented" ref="$year-and-month-name">
 			<parameters>
 				<valid-if><![CDATA[$authorsCount>0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
 		<layout-element name="year-and-month-authors-are-not-presented" ref="$year-and-month-name">
 			<parameters>
 				<valid-if><![CDATA[$authorsCount=0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
@@ -430,14 +428,12 @@
 		<layout-element name="year-editors-are-presented" ref="$year">
 			<parameters>
 				<valid-if><![CDATA[$editorsCount>0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
 		<layout-element name="year-editors-are-not-presented" ref="$year">
 			<parameters>
 				<valid-if><![CDATA[$editorsCount=0]]></valid-if>
-				<ends-with value=". " />
 			</parameters>
 		</layout-element>
 
@@ -445,7 +441,7 @@
 		<layout-element name="title-with-dot" ref="mdp:publication/dc:title/text()">
 			<parameters>
 				<starts-with value=" " />
-				<ends-with value=". " />
+				<ends-with value="." />
 			</parameters>
 		</layout-element>
 
@@ -458,7 +454,7 @@
 		<layout-element name="title-with-dot-italic" ref="$title-italic">
 			<parameters>
 				<starts-with value=" " />
-				<ends-with value=". " />
+				<ends-with value="." />
 			</parameters>
 		</layout-element>
 
@@ -467,8 +463,8 @@
 				<delimiter value="-" />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:start-page" />
-				<layout-element ref="mdp:publication/pub:source[1]/e:end-page" />
+				<layout-element ref="mdp:publication/pub:source[1]/e:start-page/text()" />
+				<layout-element ref="mdp:publication/pub:source[1]/e:end-page/text()" />
 			</elements>
 		</layout-element>
 
@@ -479,7 +475,7 @@
 				<delimiter value=", " />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:edition"/>
+				<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:edition/text()"/>
 				<layout-element ref="$start-page-end-page">
 					<parameters>
 						<starts-with value="pp. " />
@@ -491,16 +487,15 @@
 
 		<layout-element name="volume-issue">
 			<parameters>
-				<starts-with value=", " />
 				<delimiter value="" />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:volume">
+				<layout-element ref="mdp:publication/pub:source[1]/e:volume/text()">
 					<parameters>
 						<font-style ref="ITALIC" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/pub:source[1]/e:issue">
+				<layout-element ref="mdp:publication/pub:source[1]/e:issue/text()">
 					<parameters>
 						<starts-with value="(" />
 						<ends-with value=")" />
@@ -509,39 +504,11 @@
 			</elements>
 		</layout-element>
 
-		<!-- ???????-->
-<!--		<layout-element name="in-press-or-preparation" ref="$inPressOrPreparation">-->
-<!--			<parameters>-->
-<!--				<font-style ref="DISPLAY_DATE_STATUS" />-->
-<!--			</parameters>-->
-<!--		</layout-element>-->
-
-<!--		<layout-element name="in-press-or-preparation-title">-->
-<!--			<parameters>-->
-<!--				<ends-with value=". " />-->
-<!--			</parameters>-->
-<!--			<elements>-->
-<!--				<layout-element ref="$in-press-or-preparation" />-->
-<!--				<layout-element ref="mdp:publication/dc:title/text()" />-->
-<!--			</elements>-->
-<!--		</layout-element>-->
-
 		<layout-element name="source-title" ref="mdp:publication/pub:source[1]/dc:title/text()">
 			<parameters>
 				<font-style ref="ITALIC" />
 				<starts-with value=" " />
 			</parameters>
-		</layout-element>
-
-		<layout-element name="source-place-publisher">
-			<parameters>
-				<starts-with value=" " />
-				<delimiter value=": " />
-			</parameters>
-			<elements>
-				<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:place/text()" />
-				<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/dc:publisher/text()" />
-			</elements>
 		</layout-element>
 
 		<layout-element name="place-publisher">
@@ -550,14 +517,34 @@
 				<delimiter value=": " />
 			</parameters>
 			<elements>
-				<layout-element ref="mdp:publication/e:publishing-info/e:place/text()" />
-				<layout-element ref="mdp:publication/e:publishing-info/dc:publisher/text()" />
+				<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
+				<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
 			</elements>
 		</layout-element>
+		
+		
+		<layout-element name="event-place-start-date-end-date-with-dot">
+			<parameters>
+				<starts-with value=" " />
+				<delimiter value=", " />
+				<ends-with value="." />
+			</parameters>
+			<elements>
+				<layout-element ref="mdp:publication/pub:event/e:place/text()" />
+				<layout-element>
+					<parameters>
+						<delimiter value=" - " />
+					</parameters>
+					<elements>
+						<layout-element ref="mdp:publication/pub:event/e:start-date/text()" />
+						<layout-element ref="mdp:publication/pub:event/e:end-date/text()" />
+					</elements>
+				</layout-element>
+			</elements>
+		</layout-element>		
 
 		<!-- COMMONS -->
 		<layout-element name="authors-or-editors-and-year-and-title-with-dot">
-			<parameters/>
 			<elements>
 				<layout-element ref="$authors-or-editors" />			
 				<layout-element ref="$year-authors-or-editors-are-presented" />
@@ -593,15 +580,15 @@
 				</layout-element>
 				<layout-element ref="$genre" />
 				<layout-element ref="mdp:publication/dc:title/text()" />
-				<layout-element ref="mdp:publication/dcterms:abstract[contains(.,'APA')]" />
-				<layout-element ref="mdp:publication/dc:subject" />
+				<layout-element ref="mdp:publication/dcterms:abstract[contains(.,'APA')]/text()" />
+				<layout-element ref="mdp:publication/dc:subject/text()" />
 
 				<layout-element ref="mdp:publication/dcterms:issued/text()">
 					<parameters>
 						<starts-with value="issued:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/e:published-online">
+				<layout-element ref="mdp:publication/e:published-online/text()">
 					<parameters>
 						<starts-with value="published-online:" />
 					</parameters>
@@ -611,26 +598,26 @@
 						<starts-with value="doi:" />
 					</parameters>
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:dateAccepted">
+				<layout-element ref="mdp:publication/dcterms:dateAccepted/text()">
 					<parameters>
 						<starts-with value="dateAccepted:" />
 					</parameters>
 					<elements />
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:dateSubmitted">
+				<layout-element ref="mdp:publication/dcterms:dateSubmitted/text()">
 					<parameters>
 						<starts-with value="dateSubmitted:" />
 					</parameters>
 					<elements />
 				</layout-element>
-				<layout-element ref="mdp:publication/dcterms:modified">
+				<layout-element ref="mdp:publication/dcterms:modified/text()">
 					<parameters>
 						<starts-with value="modified:" />
 					</parameters>
 					<elements />
 				</layout-element>
 
-				<layout-element ref="mdp:publication/dcterms:created">
+				<layout-element ref="mdp:publication/dcterms:created/text()">
 					<parameters>
 						<starts-with value="created:" />
 					</parameters>
@@ -662,43 +649,39 @@
 		<parameters>
 			<valid-if><![CDATA[$notPublishedRule]]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 <!--						<layout-element ref="$debugBlock" />-->
 
-<!--			<layout-element ref="$authors-or-editors" />-->
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
 		</elements>
 	</cs-layout-definition>
 	
 	<!--
-		JOURNAL ARTICLE, (OTHER OR CONFERENCE-REPORT)+source.genre=journal
+		JOURNAL ARTICLE OR PAPER, (OTHER OR CONFERENCE-REPORT, etc.)+source.genre=journal
 	-->
 	<cs-layout-definition name="journal-article-etc">
 		<parameters>
 			<valid-if><![CDATA[
-				$genre = ( 'article', 'paper') 
+				$genre = ( 'article', 'paper' ) 
 				or ( $genre = ( 'other', 'paper', 'conference-report', 'conference-paper') and $source-type = 'journal' )  
 			]]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 		
-			<layout-element ref="$debugBlock" />
+<!--			<layout-element ref="$debugBlock" />-->
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element ref="$source-title" />
-
-			<layout-element>
+			<layout-element name="volume-issue-start-page-end-page">
 				<parameters>
-					<starts-with value=", " />
+					<ends-with value="."/>
 					<delimiter value=", " />
 				</parameters>
 				<elements>
+					<layout-element ref="$source-title" />
 					<layout-element ref="$volume-issue" />
 					<layout-element ref="$start-page-end-page" />
 				</elements>
@@ -724,10 +707,9 @@
 				)  
 				or ( $genre = 'other' and not($source-type) )
 			]]></valid-if>
-			<ends-with value="." />
 		</parameters>
 		<elements>
-			<!--			<layout-element ref="$debugBlock" />-->
+<!--						<layout-element ref="$debugBlock" />-->
 
 			<layout-element ref="$authors-or-editors" />
 
@@ -739,21 +721,24 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="mdp:publication/e:publishing-info/e:edition">
+					<layout-element ref="mdp:publication/pub:publishing-info/e:edition/text()">
 						<parameters>
 							<valid-if><![CDATA[$genre = 'book']]></valid-if>
 							<starts-with value=" (" />
 							<ends-with value=")" />
 						</parameters>
-						<elements />
 					</layout-element>
 				</elements>
 			</layout-element>
 
 			<layout-element ref="$year-authors-or-editors-are-not-presented" />
 
-			<layout-element ref="$place-publisher" />
-
+			<layout-element ref="$place-publisher">
+				<parameters>
+					<ends-with value="."/>
+				</parameters>
+			</layout-element>
+			
 			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
@@ -766,8 +751,7 @@
 	-->
 	<cs-layout-definition name="thesis-in-print-or-accepted">
 		<parameters>
-			<valid-if><![CDATA[ $genre = 'thesis' and (mdp:publication/dcterms:issued/text() or mdp:publication/dcterms:dateAccepted) ]]></valid-if>
-			<ends-with value="." />
+			<valid-if><![CDATA[ $genre = 'thesis' and (mdp:publication/dcterms:issued or mdp:publication/dcterms:dateAccepted)]]></valid-if>
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -776,21 +760,18 @@
 
 			<layout-element ref="$year-for-thesis" />
 
-			<layout-element ref="mdp:publication/dc:title/text()">
-				<parameters>
-					<ends-with value="." />
-				</parameters>
-				<elements />
-			</layout-element>
+			<layout-element ref="$title-with-dot"/>
 
 			<layout-element name="degree-place-publisher">
 				<parameters>
+					<starts-with value=" "/>
+					<ends-with value="." />
 					<delimiter value=", " />
 				</parameters>
 				<elements>
 					<layout-element ref="$degree" />
-					<layout-element ref="mdp:publication/e:publishing-info/dc:publisher/text()" />
-					<layout-element ref="mdp:publication/e:publishing-info/e:place/text()" />
+					<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
+					<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
 				</elements>
 			</layout-element>
 
@@ -812,26 +793,31 @@
 
 			<layout-element ref="$year-for-thesis" />
 
-			<layout-element ref="$title-italic" />
-
 			<layout-element name="degree-place-publisher-year">
 				<parameters>
-					<starts-with value="(" />
-					<ends-with value=")." />
-					<delimiter value=", " />
+					<ends-with value="." />
 				</parameters>
 				<elements>
-					<layout-element ref="$degree" />
-					<layout-element ref="mdp:publication/e:publishing-info/dc:publisher/text()" />
-					<layout-element ref="mdp:publication/e:publishing-info/e:place/text()" />
-					<layout-element ref="$date-for-thesis" />
+					<layout-element ref="$title-italic" />
+					<layout-element name="degree-place-publisher-year">
+						<parameters>
+							<starts-with value="(" />
+							<ends-with value=")" />
+							<delimiter value=", " />
+						</parameters>
+						<elements>
+							<layout-element ref="$degree" />
+							<layout-element ref="mdp:publication/pub:publishing-info/dc:publisher/text()" />
+							<layout-element ref="mdp:publication/pub:publishing-info/e:place/text()" />
+							<layout-element ref="$date-for-thesis" />
+						</elements>
+					</layout-element>	
 				</elements>
 			</layout-element>
 
 			<layout-element ref="$uri">
 				<parameters>
 					<starts-with value=" Retrieved from " />
-					<ends-with value=". " />
 				</parameters>
 			</layout-element>
 
@@ -853,7 +839,7 @@
 					 and  $source-type = ( 'book', 'proceedings' )  
 				)  
 			]]></valid-if>
-			<ends-with value="." />
+			<delimiter value="" />
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -871,20 +857,27 @@
 							<ends-with value=", " />
 						</parameters>
 					</layout-element>
-					<layout-element name="book-title">
+					<layout-element ref="mdp:publication/pub:source[1]/dc:title/text()">
 						<parameters>
 							<font-style ref="ITALIC" />
 						</parameters>
-						<elements>
-							<layout-element ref="mdp:publication/pub:source[1]/dc:title/text()" />
-						</elements>
 					</layout-element>
 					<layout-element ref="$source-edition-start-page-end-page" />
 				</elements>
 			</layout-element>
 
-			<layout-element ref="$source-place-publisher" />
-
+			<layout-element name="source-place-publisher">
+				<parameters>
+					<starts-with value=" " />
+					<ends-with value="." />
+					<delimiter value=": " />
+				</parameters>
+				<elements>
+					<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/e:place/text()" />
+					<layout-element ref="mdp:publication/pub:source[1]/e:publishing-info/dc:publisher/text()" />
+				</elements>
+			</layout-element>
+		
 			<layout-element ref="$published-online-and-external-locator" />
 
 		</elements>
@@ -896,7 +889,6 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'issue']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -905,21 +897,25 @@
 
 			<layout-element ref="$year-editors-are-presented" />
 
-			<layout-element>
+			<layout-element ref="mdp:publication/dc:title/text()">
 				<parameters>
 					<starts-with value=" " />
-					<ends-with value=" [Special Issue]." />
+					<ends-with value=" [Special Issue]. " />
 				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/dc:title/text()" />
-				</elements>
 			</layout-element>
 
 			<layout-element ref="$year-editors-are-not-presented" />
 
-			<layout-element ref="$source-title" />
-
-			<layout-element ref="$volume-issue" />
+			<layout-element >
+				<parameters>
+					<ends-with value="." />
+					<delimiter value=", "/>
+				</parameters>
+				<elements>
+					<layout-element ref="$source-title" />
+					<layout-element ref="$volume-issue" />
+				</elements>
+			</layout-element>
 
 		</elements>
 
@@ -932,16 +928,19 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'journal']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
-			<!--			<layout-element ref="$debugBlock" />-->
+<!--						<layout-element ref="$debugBlock" />-->
 
 			<layout-element ref="$editors-with-dot" />
 
 			<layout-element ref="$title-with-dot-italic" />
 
-			<layout-element ref="$place-publisher" />
+			<layout-element ref="$place-publisher" >
+				<parameters>
+					<ends-with value="."/>
+				</parameters>
+			</layout-element>
 
 		</elements>
 
@@ -955,11 +954,9 @@
 	<cs-layout-definition name="manuscript">
 		<parameters>
 			<valid-if><![CDATA[$genre = 'manuscript']]></valid-if>
-			<delimiter value="" />
-			<ends-with value=". Unpublished Manuscript." />
+			<ends-with value=" Unpublished Manuscript." />
 		</parameters>
 		<elements>
-			<!--			<layout-element ref="$debugBlock" />-->
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot-italic" />
 
@@ -972,7 +969,6 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'series']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 <!--						<layout-element ref="$debugBlock" />-->
@@ -985,17 +981,18 @@
 				start-volume / end-volume are not presented in MD, only volume!!!
 				TODO:  to be updated!!! : http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA#Series
 			-->
-			<layout-element name="volumes">
+			<layout-element ref="mdp:publication/pub:source[1]/e:volume">
 				<parameters>
 					<starts-with value=" (Vols. " />
 					<ends-with value=")." />
 				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/pub:source[1]/e:volume" />
-				</elements>
 			</layout-element>
 
-			<layout-element ref="$place-publisher" />
+			<layout-element ref="$place-publisher" >
+				<parameters>
+					<ends-with value="."/>
+				</parameters>
+			</layout-element>
 
 		</elements>
 
@@ -1009,7 +1006,6 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'talk-at-event']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 
@@ -1017,36 +1013,15 @@
 
 			<layout-element ref="$authors-or-editors-and-year-and-title-with-dot" />
 
-			<layout-element name="event-title">
+			<layout-element ref="mdp:publication/pub:event/dc:title/text()">
 				<parameters>
-					<starts-with value=" " />
-					<ends-with value="." />
-					<font-style ref="ITALIC" />
+					<font-style ref="ITALIC"/>
+					<starts-with value=" "/>
+					<ends-with value="."/>
 				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/pub:event/dc:title/text()" />
-				</elements>
 			</layout-element>
 
-			<layout-element name="event-place">
-				<parameters>
-					<starts-with value=" " />
-				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/pub:event/e:place/text()" />
-				</elements>
-			</layout-element>
-
-			<layout-element name="dates-of-event">
-				<parameters>
-					<starts-with value=", " />
-					<delimiter value=" - " />
-				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/pub:event/e:start-date" />
-					<layout-element ref="mdp:publication/pub:event/e:end-date" />
-				</elements>
-			</layout-element>
+			<layout-element ref="$event-place-start-date-end-date-with-dot" />
 
 		</elements>
 
@@ -1062,7 +1037,6 @@
 					$genre = 'courseware-lecture'
 				]]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 
@@ -1075,28 +1049,10 @@
 					<starts-with value=" " />
 					<ends-with value="." />
 				</parameters>
-				<elements />
 			</layout-element>
 
-			<layout-element>
-				<parameters>
-					<starts-with value=" " />
-					<delimiter value=", " />
-				</parameters>
-				<elements>
-					<layout-element ref="mdp:publication/pub:event/e:place/text()" />
-					<layout-element>
-						<parameters>
-							<delimiter value=" - " />
-						</parameters>
-						<elements>
-							<layout-element ref="mdp:publication/pub:event/e:start-date" />
-							<layout-element ref="mdp:publication/pub:event/e:end-date" />
-						</elements>
-					</layout-element>
-				</elements>
-			</layout-element>
-
+			<layout-element ref="$event-place-start-date-end-date-with-dot" />
+			
 		</elements>
 
 	</cs-layout-definition>
@@ -1109,7 +1065,6 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'poster']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 
@@ -1119,8 +1074,9 @@
 
 			<layout-element name="event-title-and-place">
 				<parameters>
-					<valid-if><![CDATA[mdp:publication/pub:event/dc:title/text()]]></valid-if>
+					<valid-if><![CDATA[exists(mdp:publication/pub:event/dc:title/text()) and mdp:publication/pub:event/dc:title/text()!='']]></valid-if>
 					<starts-with value=" Poster presented at the " />
+					<ends-with value="." />
 					<delimiter value=", " />
 				</parameters>
 				<elements>
@@ -1139,7 +1095,6 @@
 		<parameters>
 			<valid-if><![CDATA[$genre = 'report']]></valid-if>
 			<delimiter value="" />
-			<ends-with value="." />
 		</parameters>
 		<elements>
 			<!--			<layout-element ref="$debugBlock" />-->
@@ -1156,7 +1111,7 @@
 				</parameters>
 				<elements>
 					<layout-element ref="$title-italic"/>
-					<layout-element ref="(mdp:publication/e:identifier[@type='eidt:OTHER'])[1]">
+					<layout-element ref="(mdp:publication/e:identifier[@xsi:type='eidt:OTHER'])[1]/text()">
 						<parameters>
 							<starts-with value="(" />
 							<ends-with value=")" />
@@ -1167,7 +1122,11 @@
 
 			<layout-element ref="$year-authors-or-editors-are-not-presented" />
 
-			<layout-element ref="$place-publisher" />
+			<layout-element ref="$place-publisher" >
+				<parameters>
+					<ends-with value="." />
+				</parameters>
+			</layout-element>
 
 		</elements>
 
