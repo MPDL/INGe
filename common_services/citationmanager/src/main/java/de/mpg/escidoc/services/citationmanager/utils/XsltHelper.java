@@ -69,8 +69,8 @@ public class XsltHelper
 		{
 			fsc = FontStylesCollection.loadFromXml( 
 					ResourceUtil.getPathToCitationStyles()
-					+ "Default" 
-					+ "/" + ResourceUtil.FONTSTYLES_FILENAME + ".xml");
+					+ "font-styles.xml"
+			);
 			
 		} 
 		catch (Exception e) 
