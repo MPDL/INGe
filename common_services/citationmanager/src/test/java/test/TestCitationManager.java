@@ -3,13 +3,15 @@
  */
 package test;
 
-import java.io.FileOutputStream;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,12 +20,9 @@ import org.xml.sax.SAXException;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
-
-import static org.junit.Assert.*;
 
 /**
  * @author endres 
@@ -148,7 +147,8 @@ public class TestCitationManager {
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
     	
-    	for (String cs : pcs.getStyles() )
+//    	for (String cs : pcs.getStyles() )
+   		for (String cs : new String[]{"APA","AJP"} )
     	{
     		logger.info("Validate Citation Style: " + cs);
         	String csName = 
