@@ -57,24 +57,27 @@
 		<xsl:element name="xsl:stylesheet"  
 			>
 			<xsl:namespace name="xsl">http://www.w3.org/1999/XSL/Transform</xsl:namespace>
+			<xsl:namespace name="xlink">http://www.w3.org/1999/xlink</xsl:namespace>
 			<xsl:namespace name="cit">http://www.escidoc.de/citationstyle</xsl:namespace>
-<!--			<xsl:namespace name="snippet">http://www.escidoc.de/citationstyle/snippet</xsl:namespace>-->
 			<xsl:namespace name="fn">http://www.w3.org/2005/xpath-functions</xsl:namespace>
-			<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
 			<xsl:namespace name="jfunc">java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper</xsl:namespace>
 			<xsl:namespace name="func">http://www.escidoc.de/citationstyle/functions</xsl:namespace>
 			
+			<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
 			<xsl:namespace name="ei">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
 			<xsl:namespace name="mdr">http://www.escidoc.de/schemas/metadatarecords/0.4</xsl:namespace>
 			<xsl:namespace name="mdp">http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsl:namespace>
 			<xsl:namespace name="pub">http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsl:namespace>
 			<xsl:namespace name="e">http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsl:namespace>
 			<xsl:namespace name="prop">http://escidoc.de/core/01/properties/</xsl:namespace>
+			<xsl:namespace name="escidocComponents">http://www.escidoc.de/schemas/components/0.8</xsl:namespace>
+			
 			<xsl:namespace name="dc">http://purl.org/dc/elements/1.1/</xsl:namespace>
 			<xsl:namespace name="dcterms">http://purl.org/dc/terms/</xsl:namespace>
 			
 			<xsl:namespace name="xsi">http://www.w3.org/2001/XMLSchema-instance</xsl:namespace>
 			<xsl:namespace name="xs">http://www.w3.org/2001/XMLSchema</xsl:namespace>
+			
 			
 			<xsl:attribute name="version">2.0</xsl:attribute>
 			
@@ -85,6 +88,11 @@
  				<xsl:attribute name="cdata-section-elements" select="@citation-placeholder-tag"/>
  				 
 			</xsl:element> 
+			
+			<xsl:element name="xsl:param" >
+				<xsl:attribute name="name" select="'pubman_instance'"/>
+			</xsl:element>
+			
 
 			<xsl:variable name="variables" >
 				<xsl:call-template name="createVariables"/>
@@ -140,7 +148,9 @@
 				</xsl:element>
 			</xsl:element>
 			
-			<xsl:call-template name="createRuntimeTemplates"/>
+			<xsl:call-template name="insertIncludes"/>
+			
+			<xsl:call-template name="insertFunctions"/>
 			
 		</xsl:element>
 		
@@ -816,19 +826,24 @@
 		</xsl:element>
 
 		
-		
 	</xsl:template>
 	
 	<!--#############################################################-->
-	<!-- Runtime Templates -->
-	<xsl:template name="createRuntimeTemplates">
-		<xsl:comment>### Runtime Templates ###</xsl:comment>
+	<!-- Includes -->
+	<xsl:template name="insertIncludes">
+		<xsl:comment>### Includes ###</xsl:comment>
+		<xsl:text>
+	</xsl:text>
+		<xsl:copy-of select="document('cs-processing-xslt-includes.xml')/xsl:includes/*"/>	
+	</xsl:template>
+	
+	<xsl:template name="insertFunctions">
+		<xsl:comment>### Runtime Functions ###</xsl:comment>
 		<xsl:text>
 	</xsl:text>
 		<xsl:copy-of select="document('../CitationStyles/functions.xml')/xsl:functions/*"/>	
 	</xsl:template>
 	
-
 	
 
 </xsl:stylesheet>
