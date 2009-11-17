@@ -106,6 +106,21 @@
                             <outputDirectory>${staging.dir}</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack-validation</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>validation_presentation</includeArtifactIds>
+                            <includes>**/*.xml</includes>
+                            <excludes>**/*.class</excludes>
+                            <outputDirectory>${project.build.directory}/classes/validation_presentation</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <!--  see install.xml to see how MyHelloPanel is used -->
@@ -174,11 +189,11 @@
             <version>1.5.6</version>
         </dependency>
         <dependency>
-	    	<groupId>postgresql</groupId>
-	    	<artifactId>postgresql</artifactId>
-	    	<version>8.3-604.jdbc3</version>
-	    	<scope>compile</scope>
-	    </dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.3-604.jdbc3</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 </project>
