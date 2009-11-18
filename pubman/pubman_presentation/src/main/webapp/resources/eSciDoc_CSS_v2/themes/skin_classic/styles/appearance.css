@@ -530,13 +530,13 @@ FORM BG			#FFFFFF
 	.activeButton {
 		float: right;
 		color: #FFFFFF !important;
-		background-color: #307086;
+		background-color: #307086 !important;
 		border-color: #307086;
 	}
 	
 	.activeButton:hover {
 		color: #FFFFFF !important;
-		background-color: #222222;
+		background-color: #222222 !important;
 		border-color: #222222;
 	}
 	
