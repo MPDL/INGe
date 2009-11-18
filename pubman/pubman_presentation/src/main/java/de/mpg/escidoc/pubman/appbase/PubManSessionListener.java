@@ -67,13 +67,16 @@ public class PubManSessionListener implements HttpSessionListener
     {
         logger.warn("Session timed out.");
         Login login = (Login) event.getSession().getAttribute(Login.BEAN_NAME);
-        try
+        if (login != null)
         {
-            login.logout();
-        }
-        catch (Exception e)
-        {
-            logger.warn("Error logging out user", e);
+            try
+            {
+                login.logout();
+            }
+            catch (Exception e)
+            {
+                logger.warn("Error logging out user", e);
+            }
         }
     }
 }
