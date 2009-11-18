@@ -513,24 +513,27 @@ public class ViewItemFull extends FacesBean
             PubItemListSessionBean pilsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
             List<PubItemVOPresentation> currentPubItemList = pilsb.getCurrentPartList();
             List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
-            for(int i = 0; i < currentPubItemList.size(); i++)
-            {
-            	if(this.pubItem.getVersion().getObjectId().equals(currentPubItemList.get(i).getVersion().getObjectId()))
-            	{
-            		if(this.pubItem.getVersion().getVersionNumber() == currentPubItemList.get(i).getVersion().getVersionNumber())
-            		{
-            			if(currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i).getSearchHitList().size() > 0)
-            			{
-            				for(int j = 0; j < currentPubItemList.get(i).getSearchHitList().size(); j++)
-            				{
-            					searchHitList.add(currentPubItemList.get(i).getSearchHitList().get(j));
-            				}
-            				
-            			}
-            		}
-            	}
-            }
             
+            if (currentPubItemList != null)
+            {
+                for(int i = 0; i < currentPubItemList.size(); i++)
+                {
+                	if(this.pubItem.getVersion().getObjectId().equals(currentPubItemList.get(i).getVersion().getObjectId()))
+                	{
+                		if(this.pubItem.getVersion().getVersionNumber() == currentPubItemList.get(i).getVersion().getVersionNumber())
+                		{
+                			if(currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i).getSearchHitList().size() > 0)
+                			{
+                				for(int j = 0; j < currentPubItemList.get(i).getSearchHitList().size(); j++)
+                				{
+                					searchHitList.add(currentPubItemList.get(i).getSearchHitList().get(j));
+                				}
+                				
+                			}
+                		}
+                	}
+                }
+            }
           
             // Clear file and locator list first
             this.fileList.clear();
