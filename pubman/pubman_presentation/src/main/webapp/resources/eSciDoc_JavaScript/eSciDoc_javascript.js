@@ -161,11 +161,11 @@ function install_javascripts() {
 function include_javascripts() {
 	if(!included){
 		if(typeof jsURL!='undefined') {
-			include_dom(jsURL + '/jquery/jquery.min.js');
-			include_dom(jsURL + '/eSciDoc_component_JavaScript/eSciDoc_ext_paginator.js');
-			include_dom(jsURL + '/eSciDoc_component_JavaScript/eSciDoc_item_list.js');
-			include_dom(jsURL + '/eSciDoc_component_JavaScript/eSciDoc_full_item.js');
-			include_dom(jsURL + '/eSciDoc_component_JavaScript/eSciDoc_single_elements.js');
+			include_dom(jsURL + 'jquery/jquery.min.js');
+			include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_ext_paginator.js');
+			include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_item_list.js');
+			include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_full_item.js');
+			include_dom(jsURL + 'eSciDoc_component_JavaScript/eSciDoc_single_elements.js');
 		} else {
 			include_dom('./resources/eSciDoc_JavaScript/jquery/jquery.min.js');
 			include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_ext_paginator.js');
@@ -174,12 +174,12 @@ function include_javascripts() {
 			include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_single_elements.js');
 		}
 		if(typeof coneURL!='undefined') {
-			include_dom(coneURL + '/js/jquery.suggest.js')
+			include_dom(coneURL + 'js/jquery.suggest.js')
 		} else {
 			include_dom('../../cone/js/jquery.suggest.js');
 		}
 		if(typeof jsURL!='undefined') {
-			include_dom(jsURL + '/autoSuggestFunctions.js');
+			include_dom(jsURL + 'autoSuggestFunctions.js');
 		} else {
 			include_dom('./resources/eSciDoc_JavaScript/autoSuggestFunctions.js');
 		}

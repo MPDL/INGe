@@ -125,7 +125,7 @@ function bunny() {
 function raiseBunny() {
 	if(BrowserDetect.browser == 'Firefox') {
 		if(typeof jsURL!='undefined') {
-			$($('link[id]')[0]).before('<link href="' + jsURL + '/eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
+			$($('link[id]')[0]).before('<link href="' + jsURL + 'eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
 		} else {
 			$($('link[id]')[0]).before('<link href="./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/easterEggs/skin_PubWoman/styles/theme.css" id="PubWomanTheme" type="text/css" rel="alternate stylesheet"/>');
 		}
@@ -458,7 +458,7 @@ function installDateTextbox() {
 	if(language != '') language = '-'+language;
 	/*INCLUDE RIGHT LANGUAGE HERE*/
 	if(typeof jsURL!='undefined') {
-		include_dom(jsURL + '/eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
+		include_dom(jsURL + 'eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
 	} else {
 		include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
 	}
