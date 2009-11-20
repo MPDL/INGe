@@ -40,6 +40,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.util.Properties;
 
 import net.sf.jasperreports.engine.JRException;
@@ -182,7 +183,8 @@ public class ResourceUtil
 //        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
         return 
         	result.indexOf(".jar!") == -1 ?
-        		result : RESOURCES_DIRECTORY_JAR;
+        	    //Decode necessary for windows paths
+        		URLDecoder.decode(result, "cp1253") : RESOURCES_DIRECTORY_JAR;
     }
 
 
