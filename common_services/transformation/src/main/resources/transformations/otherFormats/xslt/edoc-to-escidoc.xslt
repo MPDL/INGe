@@ -90,9 +90,14 @@
 	
 	<xsl:variable name="collection-mapping">
 
+		<mapping ou="AEI">
+			<edoc-collection>MPI für Gravitationsphysik</edoc-collection>
+			<escidoc-ou>MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
+			<escidoc-id>escidoc:2001</escidoc-id>
+		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Geometric Analysis and Gravitation</edoc-collection>
-			<escidoc-ou>Geometric Analysis and Gravitation</escidoc-ou>
+			<escidoc-ou>Geometric Analysis and Gravitation, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2006</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
@@ -102,12 +107,12 @@
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Astrophysical Relativity</edoc-collection>
-			<escidoc-ou>Astrophysical Relativity</escidoc-ou>
+			<escidoc-ou>Astrophysical Relativity, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2007</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Quantum Gravity and Unified Theories</edoc-collection>
-			<escidoc-ou>Quantum Gravity &amp; Unified Theories</escidoc-ou>
+			<escidoc-ou>Quantum Gravity &amp; Unified Theories, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2008</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
@@ -117,42 +122,42 @@
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Cactus group</edoc-collection>
-			<escidoc-ou>Cactus Group</escidoc-ou>
+			<escidoc-ou>Cactus Group, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2003</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Laser Interferometry &amp; Gravitational Wave Astronomy</edoc-collection>
-			<escidoc-ou>Laser Interferometry &amp; Gravitational Wave Astronomy</escidoc-ou>
+			<escidoc-ou>Laser Interferometry &amp; Gravitational Wave Astronomy, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2012</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Observational Relativity and Cosmology</edoc-collection>
-			<escidoc-ou>Observational Relativity and Cosmology</escidoc-ou>
+			<escidoc-ou>Observational Relativity and Cosmology, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2013</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Microscopic Quantum Structure &amp; Dynamics of Spacetime</edoc-collection>
-			<escidoc-ou>Microscopic Quantum Structure &amp; Dynamics of Spacetime</escidoc-ou>
+			<escidoc-ou>Microscopic Quantum Structure &amp; Dynamics of Spacetime, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2005</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Duality &amp; Integrable Structures</edoc-collection>
-			<escidoc-ou>Duality &amp; Integrable Structures</escidoc-ou>
+			<escidoc-ou>Duality &amp; Integrable Structures, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2010</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Theoretical Gravitational Wave Physics</edoc-collection>
-			<escidoc-ou>Theoretical Gravitational Wave Physics</escidoc-ou>
+			<escidoc-ou>Theoretical Gravitational Wave Physics, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2009</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>IT Department</edoc-collection>
-			<escidoc-ou>IT Department</escidoc-ou>
+			<escidoc-ou>IT Department, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:2004</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Canonical and Covariant Dynamics of Quantum Gravity</edoc-collection>
-			<escidoc-ou>Canonical and Covariant Dynamics of Quantum Gravity</escidoc-ou>
+			<escidoc-ou>Canonical and Covariant Dynamics of Quantum Gravity, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
 			<escidoc-id>escidoc:</escidoc-id>
 		</mapping>
 		<mapping ou="MPIPL">
@@ -1244,22 +1249,21 @@
 							</xsl:choose>
 							<xsl:variable name="collection" select="../../../docaff/collection"/>
 							<xsl:variable name="position" select="position()"/>
+							
+							<xsl:comment><xsl:value-of select="$position"/> - <xsl:value-of select="exists($collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))])"/></xsl:comment>
+							
 							<xsl:choose>
-								<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and exists($collection-mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))])">
-								
-									<xsl:comment>
-										<xsl:value-of select="exists($collection-mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))])"/>
-									</xsl:comment>
-								
+								<xsl:when test="@internextern='mpg' and exists(../../../docaff/affiliation) and (exists($collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgsunit))]) or exists($collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case(/record/docaff/affiliation/mpgunit))]))">
+
 									<xsl:for-each select="../../../docaff/affiliation">
 										<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 
-										<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]">
+										<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)] or $collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgunit)]">
 											<xsl:element name="e:organization">
 												<xsl:element name="e:organization-name">
 													<xsl:choose>
-														<xsl:when test="mpgsunit">
+														<xsl:when test="$mpgsunit != ''">
 															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
 														</xsl:when>
 														<xsl:otherwise>
@@ -1290,6 +1294,18 @@
 											<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-id"/>
 										</e:identifier>
 									</e:organization>
+								</xsl:when>
+								<xsl:when test="@internextern='mpg' and ../../../docaff/affiliation and not(../../../docaff_external)">
+
+									<xsl:element name="e:organization">
+										<xsl:element name="e:organization-name">
+											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
+										</xsl:element>
+										<e:identifier>
+											<xsl:value-of select="$root-ou"/>
+										</e:identifier>
+									</xsl:element>
+
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and @internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">
 

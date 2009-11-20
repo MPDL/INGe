@@ -454,40 +454,56 @@
 				</xsl:if>
 			</xsl:variable>
 			<xsl:variable name="date">
-				<xsl:if test="NUM_8 and 
-					   $refType = (
-						     'Book'
-						   , 'Conference Paper'
-						   , 'Conference Proceedings'
-						   , 'Edited Book'
-						   , 'Journal Article'
-						   , 'Magazine Article'
-						   , 'Newspaper Article'						   
-						   , 'Manuscript'  
-						   , 'Report' 
-						   , 'Thesis' 
-					)">
-					<xsl:for-each select="tokenize(NUM_8, ' ')">
-						<xsl:value-of select="
-							if (position()=1) then
-							  (
-							  	if (.='Jan') then '01' else
-							  	if (.='Feb') then '02' else
-							  	if (.='Mar') then '03' else
-							  	if (.='Apr') then '04' else
-							  	if (.='May') then '05' else
-							  	if (.='Jun') then '06' else
-							  	if (.='Jul') then '07' else
-							  	if (.='Aug') then '08' else
-							  	if (.='Sep') then '09' else
-							  	if (.='Oct') then '10' else
-							  	if (.='Nov') then '11' else
-							  	'12'
-							  )	
-							else concat('-', if (string-length(.)=1) then concat('0', .) else .  )	
-							   "/>
-					</xsl:for-each>			
-				</xsl:if>
+				<xsl:choose>
+					<xsl:when test="not(matches(., '^[A-Z][a-z][a-z]( .+)?')) and 
+						   $refType = (
+							     'Book'
+							   , 'Conference Paper'
+							   , 'Conference Proceedings'
+							   , 'Edited Book'
+							   , 'Journal Article'
+							   , 'Magazine Article'
+							   , 'Newspaper Article'						   
+							   , 'Manuscript'  
+							   , 'Report' 
+							   , 'Thesis' 
+						)"></xsl:when>
+					<xsl:when test="NUM_8 and 
+						   $refType = (
+							     'Book'
+							   , 'Conference Paper'
+							   , 'Conference Proceedings'
+							   , 'Edited Book'
+							   , 'Journal Article'
+							   , 'Magazine Article'
+							   , 'Newspaper Article'						   
+							   , 'Manuscript'  
+							   , 'Report' 
+							   , 'Thesis' 
+						)">
+						<xsl:for-each select="tokenize(NUM_8, ' ')">
+							<xsl:value-of select="
+								if (position()=1) then
+								  (
+								  	if (.='Jan') then '01' else
+								  	if (.='Feb') then '02' else
+								  	if (.='Mar') then '03' else
+								  	if (.='Apr') then '04' else
+								  	if (.='May') then '05' else
+								  	if (.='Jun') then '06' else
+								  	if (.='Jul') then '07' else
+								  	if (.='Aug') then '08' else
+								  	if (.='Sep') then '09' else
+								  	if (.='Oct') then '10' else
+								  	if (.='Nov') then '11' else
+								  	if (.='Dec') then '12' else
+								  	error(QName('http://www.escidoc.de', 'err:MonthNotRecognized' ), concat('Do not know the month ', ., ' in %8'))
+								  )	
+								else concat('-', if (string-length(.)=1) then concat('0', .) else .  )	
+								   "/>
+						</xsl:for-each>			
+					</xsl:when>
+				</xsl:choose>
 			</xsl:variable>
 			
 			<xsl:if test="$year">
@@ -858,8 +874,8 @@
 						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
 						</xsl:if>
-						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat($person/familyname, ' ', $iris-id)"/>´</xsl:comment>
-						<xsl:copy-of select="Util:queryCone('persons', concat($person/familyname, ' ', $iris-id))"/>
+						<xsl:comment>Querying CoNE for ´<xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
+						<xsl:copy-of select="Util:queryCone('persons', concat('Chemical Ecology ', $iris-id))"/>
 					</xsl:if>
 				</xsl:variable>
 				

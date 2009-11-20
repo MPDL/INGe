@@ -437,6 +437,7 @@
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab200_b">
 		<xsl:variable name="role">
 			<xsl:choose>
@@ -449,21 +450,25 @@
 			<xsl:with-param name="role" select="$role"/>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab204_a">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab204_b">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab208_a">
 		<xsl:call-template name="createPersonCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template name="createOrganizationCreator">
 		<xsl:param name="role"/>
 		<xsl:element name="pub:creator">
@@ -475,6 +480,7 @@
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- TITLE -->
 	<xsl:template name="createTitle">
 		<xsl:param name="title"/>
@@ -489,57 +495,68 @@
 			<xsl:value-of select="$title"/>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- IDENTIFIER -->
 	<xsl:template match="mab001">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:OTHER</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab025_z">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ZDB</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab088">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab655">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab655_e">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:URI</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab540">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab540_a">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab540_b">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISBN</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab542">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISSN</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template match="mab542_a">
 		<xsl:call-template name="createID">
 			<xsl:with-param name="idtype">eidt:ISSN</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+	
 	<xsl:template name="createID">
 		<xsl:param name="idtype"/>
 		<xsl:element name="dc:identifier">
@@ -547,17 +564,20 @@
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- ABSTRACT -->
 	<xsl:template match="mab750">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="mab526">
 		<xsl:element name="dcterms:abstract">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- LANGUAGE -->
 	<xsl:template match="mab037_c">
 		<xsl:element name="dc:language">
@@ -573,16 +593,19 @@
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="mab711_t">
 		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<xsl:template match="mab740_s">
 		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
+	
 	<!-- DATES -->
 	<xsl:template match="mab425">
 		<xsl:analyze-string select="." regex="\d\d\d\d">
@@ -593,6 +616,7 @@
 			</xsl:matching-substring>
 		</xsl:analyze-string>
 	</xsl:template>
+	
 	<!-- PUBLISHING INFO -->
 	<xsl:template match="mab519">		
 		<!-- <xsl:analyze-string select="." regex="\d\d\d\d">
@@ -751,14 +775,14 @@
 				<xsl:when test="starts-with($filename, $localPrefix)">
 					<xsl:element name="ec:component">
 						<ec:properties>
-							<prop:visibility>public</prop:visibility>
+							<prop:visibility>private</prop:visibility>
 							<prop:content-category>any-fulltext</prop:content-category>
 							<prop:file-name>
 								<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 							</prop:file-name>
 							<prop:mime-type>application/pdf</prop:mime-type>
 						</ec:properties>
-						<ec:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="{$filename}" storage="internal-managed"/>
+						<ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="internal-managed"/>
 						<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 							<mdr:md-record name="escidoc">
 								<xsl:element name="file:file">
@@ -785,9 +809,9 @@
 				<xsl:otherwise>
 					<xsl:element name="ec:component">
 						<ec:properties>
-							<prop:visibility>private</prop:visibility>
+							<prop:visibility>public</prop:visibility>
 							<prop:content-category>any-fulltext</prop:content-category>
-							<prop:file-name>farbtest.gif</prop:file-name>
+							<prop:file-name><xsl:value-of select="$filename"/></prop:file-name>
 						</ec:properties>
 						<ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
 						<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -798,7 +822,7 @@
 									</dc:title>
 									<xsl:element name="dc:identifier">
 										<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
-										<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
+										<xsl:value-of select="$filename"/>
 									</xsl:element>
 									<xsl:element name="file:content-category">any-fulltext</xsl:element>
 								</xsl:element>

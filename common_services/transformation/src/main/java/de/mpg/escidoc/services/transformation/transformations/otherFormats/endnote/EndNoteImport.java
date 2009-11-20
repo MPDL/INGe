@@ -88,14 +88,14 @@ public class EndNoteImport
     	boolean firstItem = true;
     	StringBuffer sb = null;
     	int counter = 0;
+        
+        //replace first empty lines and BOM
+        itemsStr = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(itemsStr).replaceFirst("%");
     	
     	BufferedReader reader = new BufferedReader(new StringReader(itemsStr));
     	
-    	//replace first empty lines and BOM
-    	itemsStr = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(itemsStr).replaceFirst("%");
-    	
     	try {
-    		while ((buff = reader.readLine()) != null) 
+    		while ((buff = reader.readLine()) != null)
     		{
     			if ( ! checkVal(buff) )
     			{
