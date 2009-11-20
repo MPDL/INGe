@@ -120,7 +120,7 @@
 			<h:outputText id="lblViewItemFull_lblFulltextSearchResults" value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">
-			<tr:iterator id="fileSearchHitIterator" var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
+			<tr:iterator id="fileSearchHitIterator" var="hit" value="#{item.searchHits}" rendered="#{item.hasSearchHits}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
 				<h:panelGroup styleClass="xHuge_area0 endline">
 					<h:outputText id="lblBeforeSearchHitString" value="#{hit.beforeSearchHitString}"/>
 					<h:outputText id="lblSearchHitString" styleClass="searchHit" value="#{hit.searchHitString}"/>
