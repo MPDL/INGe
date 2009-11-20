@@ -326,6 +326,12 @@ FORM BG			#F2F8FC
 		border-bottom-color: #AEAEAE;
 	}
 	
+	/*PRE-HEADER*/
+
+	.preListHeader {
+		border-top-color: #AEAEAE;
+	}
+	
 	/*LIST HEADER*/
 	
 		/*GENERAL*/
@@ -383,11 +389,7 @@ FORM BG			#F2F8FC
 		background-color: #99C8E9;
 	}
 	
-	.fullItem {
-		background-color: #FFFFFF;
-	}
-	
-	.listBackground, .listBackground .seperator {
+	.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 		background-color: #FFFFFF;
 	}
 

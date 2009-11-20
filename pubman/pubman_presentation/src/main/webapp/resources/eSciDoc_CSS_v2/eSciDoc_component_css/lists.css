@@ -46,6 +46,14 @@
 	margin: 0px;
 }
 
+/*PRE-HEADER*/
+
+.preListHeader {
+	border-top: 0.09em solid !important;
+	padding-top: 0.19em;
+	padding-bottom: 0.19em;
+}
+
 /*LIST HEADER*/
 
 	/*GENERAL*/
