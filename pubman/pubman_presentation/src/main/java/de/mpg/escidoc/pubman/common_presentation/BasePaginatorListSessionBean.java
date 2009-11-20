@@ -193,7 +193,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         
         readOutParameters();
         
-        logger.info("No List update: "+noListUpdate);
+        //logger.info("No List update: "+noListUpdate);
         if (!getNoListUpdate())
         {
             
