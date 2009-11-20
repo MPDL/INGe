@@ -44,7 +44,6 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
