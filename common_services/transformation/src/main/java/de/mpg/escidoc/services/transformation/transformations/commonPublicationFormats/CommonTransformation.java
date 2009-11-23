@@ -65,21 +65,25 @@ public class CommonTransformation
      * @throws TransformationNotSupportedException
      * @throws RuntimeException
      */
-    public byte[] transformEscidocToBibtex (byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transformEscidocToBibtex (byte[] src, Format srcFormat, Format trgFormat, String service, boolean list)
         throws TransformationNotSupportedException, RuntimeException
     {
         byte[] bib = null;
         try
         {
-            //InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             StructuredExportHandler structExport = new StructuredExportHandlerBean();
-
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src));
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-//            ItemVO itemVO = xmlTransforming.transformToItem(new String(src));
-//            List<ItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
+            String itemList = "";
+            if (! list)
+            {
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+                itemList = xmlTransforming.transformToItemList(pubitemList);
+            }
+            else
+            {
+                itemList = new String(src, "UTF-8");
+            }
             bib = structExport.getOutput(itemList, "BIBTEX");
 
         }
@@ -101,7 +105,7 @@ public class CommonTransformation
      * @return endnote as byte[]
      * @throws RuntimeException
      */
-    public byte[] transformEscidocToEndnote(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transformEscidocToEndnote(byte[] src, Format srcFormat, Format trgFormat, String service, boolean list)
         throws RuntimeException
     {
         byte[] endnote = null;
@@ -109,9 +113,17 @@ public class CommonTransformation
         {
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             StructuredExportHandler structExport = new StructuredExportHandlerBean();
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src));
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
+            String itemList = "";
+            if (! list)
+            {
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+                itemList = xmlTransforming.transformToItemList(pubitemList);
+            }
+            else
+            {
+                itemList = new String(src, "UTF-8");
+            }
             endnote = structExport.getOutput(itemList, "ENDNOTE");
         }
         catch (Exception e)

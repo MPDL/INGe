@@ -30,25 +30,52 @@
 
 package de.mpg.escidoc.services.transformation.transformations.outputFormats;
 
-import org.apache.log4j.Logger;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRTextExporterParameter;
+import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.util.JRXmlUtils;
+
+import org.w3c.dom.Document;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.Util.Styles;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
- * Implements transformations for citation styles.
+ * Implements transformations for output formats.
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author: mfranke $ (last modification)
  * @version $Revision: 1953 $ $LastChangedDate: 2009-05-07 10:40:57 +0200 (Do, 07 Mai 2009) $
  *
  */
 public class OutputTransformation
-{
-    private final Logger logger = Logger.getLogger(OutputTransformation.class);
+{   
+    // Output Formats enum
+    public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
     
-    private final String typeHTML = "text/html";
-    private final String typeRTF1 = "text/richtext";
-    private final String typeRTF2 = "application/rtf";
-    private final String typeODT =  "application/vnd.oasis.opendocument.text";
-    private final String typePDF =  "application/pdf";
-    private final String typeSnippet = "snippet";
     
     /**
      * Public constructor.
@@ -57,30 +84,81 @@ public class OutputTransformation
     {
     }
     
-    
-    private String getOutputFormat(String type)
+    /**
+     * This method transforms an item in format snippet into an item in a given output format.
+     * @param src
+     * @param srcFormat
+     * @param trgFormat
+     * @param service
+     * @return The transformed item
+     * @throws TransformationNotSupportedException 
+     * @throws JRException 
+     * @throws IOException 
+     * @throws TechnicalException 
+     */
+    public byte[] transformSnippetToOutput(byte[] src, Format srcFormat, Format trgFormat, String service) 
+        throws TransformationNotSupportedException, JRException, IOException, TechnicalException
     {
-        if (type.toLowerCase().equals(this.typeHTML)) 
-        { 
-            return "html"; 
-        }
-        if (type.toLowerCase().equals(this.typeODT)) 
-        { 
-            return "odt"; 
-        }
-        if (type.toLowerCase().equals(this.typePDF)) 
-        { 
-            return "pdf";
-        }
-        if (type.toLowerCase().equals(this.typeRTF1) || type.toLowerCase().equals(this.typeRTF2)) 
-        { 
-            return "rtf"; 
-        }
-        if (type.toLowerCase().equals(this.typeSnippet)) 
-        { 
-            return "snippet"; 
+        byte[] output = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Map<String, Object> params = new HashMap<String, Object>();
+        Util util = new Util();
+        Document document = null;
+        JRExporter exporter = null;   
+        Styles style = util.getStyleInfo (srcFormat);
+        
+        ByteArrayInputStream bais = new ByteArrayInputStream(src);
+        BufferedInputStream bis = new BufferedInputStream(bais);
+
+        document = JRXmlUtils.parse(bis);
+       
+        String path = OutputUtil.getPathToCitationStyles() + "/" + "jasper" + "/"
+            + style.toString() 
+            + "/CitationStyle.jasper";
+
+        System.out.println("PATH: " + path);
+        InputStream csj =  util.getResourceAsStream(path);       
+        JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
+
+        params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
+
+        JasperPrint jasperPrint= JasperFillManager.fillReport(jr, params, new JRXmlDataSource(document, jr.getQuery().getText()));  
+        
+        switch ( OutFormats.valueOf(trgFormat.getName().toLowerCase()) ) 
+        {
+            case pdf:
+                exporter = new JRPdfExporter();
+                break;
+            case html:
+                exporter = new JRHtmlExporter();
+                /* Switch off pagination and null pixel alignment for JRHtmlExporter */
+                exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
+                exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);
+                break;
+            case rtf:
+                exporter = new JRRtfExporter();
+                break;
+            case odt:
+                exporter = new JROdtExporter();
+                break;
+            case txt:
+                exporter = new JRTextExporter();    
+                exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
+                exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
+                exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
+                break;
+            default:    
+                throw new TransformationNotSupportedException (
+                        "Transformation to format " + trgFormat.getName() + " is not supported");
         }
         
-        return null;
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+
+        exporter.exportReport();
+
+        output = baos.toByteArray();
+        return output;
     }
 }

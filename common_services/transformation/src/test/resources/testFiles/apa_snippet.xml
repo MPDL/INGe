@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<escidocItemList:item-list xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.8"
+                           xmlns:mods-md="http://www.loc.gov/mods/v3"
+                           xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                           xmlns:prop="http://escidoc.de/core/01/properties/"
+                           xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3"
+                           xmlns:version="http://escidoc.de/core/01/properties/version/"
+                           xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
+                           xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.6"
+                           xmlns:container="http://www.escidoc.de/schemas/container/0.7"
+                           xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.6"
+                           xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+                           xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                           xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.7"
+                           xmlns:xlink="http://www.w3.org/1999/xlink"
+                           xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.8"
+                           xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7"
+                           xmlns:release="http://escidoc.de/core/01/properties/release/"
+                           xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.8"
+                           xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
+    <escidocItem:item last-modification-date="2009-09-24T18:36:16.388Z" objid="escidoc:249099">
+        <escidocItem:properties>
+            <prop:creation-date>2009-09-22T07:40:47.384Z</prop:creation-date>
+            <srel:created-by objid="escidoc:4417"/>
+            <prop:public-status>released</prop:public-status>
+            <prop:public-status-comment/>
+            <srel:context objid="escidoc:24061"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
+            <prop:pid>hdl:someHandle/test/escidoc:249099</prop:pid>
+            <prop:version objid="escidoc:249099:4">
+                <version:number>4</version:number>
+                <version:date>2009-09-24T18:36:16.388Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:4417"/>
+                <version:comment/>
+                <version:pid>hdl:someHandle/test/escidoc:249099:4</version:pid>
+            </prop:version>
+            <prop:latest-version objid="escidoc:249099:4">
+                <version:number>4</version:number>
+                <version:date>2009-09-24T18:36:16.388Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:249099:4">
+                <release:number>4</release:number>
+                <release:date>2009-09-24T18:36:16.388Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:249099:4</release:pid>
+            </prop:latest-release>
+            <prop:content-model-specific>
+                <local-tags>
+                    <local-tag>multiple_import</local-tag>
+                    <local-tag>MPI Privatrecht Multiple eDoc Import Test 2009-09-22 09:40</local-tag>
+                    <local-tag>nek tag</local-tag>
+                </local-tags>
+                <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/"><![CDATA[<span class="Default">Drobnig, U., &amp; Mossavi, K. <span class="DisplayDateStatus"> (2007).</span> Abschied vom BGB?</span><span class="Italic">&nbsp;Deutsche Richter-Zeitung</span><span class="Default">, 257-261.</span>]]></dcterms:bibliographicCitation>
+            </prop:content-model-specific>
+        </escidocItem:properties>
+        <escidocMetadataRecords:md-records>
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                                                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                                    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+                                                    xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                                                    xmlns:dcterms="http://purl.org/dc/terms/"
+                                                    xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                                                    type="article">
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name>Ulrich Drobnig</escidoc:complete-name>
+                            <escidoc:family-name>Drobnig</escidoc:family-name>
+                            <escidoc:given-name>Ulrich</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="author">
+                        <escidoc:person>
+                            <escidoc:complete-name/>
+                            <escidoc:family-name>Mossavi</escidoc:family-name>
+                            <escidoc:given-name>Kasem</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Laser Interferometry &amp; Gravitational Wave Astronomy, AEI-Hannover, MPI for Gravitational Physics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:address/>
+                                <escidoc:identifier>escidoc:24010</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:identifier xsi:type="eidt:CONE">urn:cone:persons20757</escidoc:identifier>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title>Abschied vom BGB?</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066">de</dc:language>
+                    <dc:identifier xsi:type="eidt:EDOC">343690</dc:identifier>
+                    <dc:identifier xsi:type="eidt:OTHER">6511</dc:identifier>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+                    <publication:review-method>peer</publication:review-method>
+                    <publication:source type="journal">
+                        <dc:title>Deutsche Richter-Zeitung</dc:title>
+                        <escidoc:volume/>
+                        <escidoc:issue/>
+                        <escidoc:start-page>257</escidoc:start-page>
+                        <escidoc:end-page>261</escidoc:end-page>
+                        <escidoc:sequence-number/>
+                        <escidoc:total-number-of-pages/>
+                    </publication:source>
+                    <publication:total-number-of-pages/>
+                    <dcterms:subject/>
+                    <dc:subject/>
+                    <dcterms:tableOfContents/>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xml:base="http://qa-coreservice.mpdl.mpg.de:8080"/>
+    </escidocItem:item>
+</escidocItemList:item-list>

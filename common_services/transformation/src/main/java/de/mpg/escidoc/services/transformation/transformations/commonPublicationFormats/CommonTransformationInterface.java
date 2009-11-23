@@ -219,10 +219,16 @@ public class CommonTransformationInterface implements Transformation
     {
         byte[] result = null;
         boolean supported = false;
+        boolean list = false;
+        
+        if (srcFormat.getName().equalsIgnoreCase("eSciDoc-publication-item-list"))
+        {
+            list = true;
+        }
          
         if (trgFormat.getName().toLowerCase().equals("bibtex"))
         {       
-            result = this.commonTrans.transformEscidocToBibtex(src, srcFormat, trgFormat, service);
+            result = this.commonTrans.transformEscidocToBibtex(src, srcFormat, trgFormat, service, list);
             if (result != null)
             {
                 supported = true;
@@ -231,7 +237,7 @@ public class CommonTransformationInterface implements Transformation
         
         if (trgFormat.getName().toLowerCase().equals("endnote"))
         {
-            result = this.commonTrans.transformEscidocToEndnote(src, srcFormat, trgFormat, service);
+            result = this.commonTrans.transformEscidocToEndnote(src, srcFormat, trgFormat, service, list);
             if (result != null)
             {
                 supported = true;

@@ -36,9 +36,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
-	
-	<!--Start to be fixed  -->
-		<Transformation>
+	<Transformation>
 		<Source>
 			<Name>eSciDoc-publication-item</Name>
 			<Type>application/xml</Type>
@@ -61,7 +59,5 @@
 			<Type>text/plain</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
-	</Transformation>
-	<!--End to be fixed  -->
-	
+	</Transformation>	
 </Transformations>

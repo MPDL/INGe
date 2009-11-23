@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSuppor
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
- * Implementation of the transformation interface for citation formats.
+ * Implementation of the transformation interface for output formats.
  * @author Friederike Kleinfercher (initial creation)
  * @author $Author: kleinfercher $ (last modification)
  * @version $Revision: 2285 $ $LastChangedDate: 2009-09-07 15:17:02 +0200 (Mo, 07 Sep 2009) $
@@ -192,7 +192,19 @@ public class OutputTransformationInterface implements Transformation
         
         try
         {   
-           
+            OutputTransformation output = new OutputTransformation();
+            if (service.equalsIgnoreCase("escidoc"))
+            {
+                if (srcFormat.getName().toLowerCase().startsWith("snippet"))
+                {   
+                    this.logger.debug("Transform snippet into output format " + trgFormat.getName());
+                    result = output.transformSnippetToOutput(src, srcFormat, trgFormat, service);
+                    if (result != null)
+                    {
+                        supported = true;
+                    }              
+                }
+            }
         }
         catch (Exception e)
         {

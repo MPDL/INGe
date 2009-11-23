@@ -39,6 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Vector;
 
@@ -75,6 +76,9 @@ import de.mpg.escidoc.services.transformation.valueObjects.Format;
 public class Util
 {
     private static Logger logger = Logger.getLogger(Util.class);
+    
+    // Jasper styles enum
+    public static enum Styles { APA, AJP, Default }; 
     
     /**
      * Converts a simpleLiteral Objects into a String Object.
@@ -422,4 +426,25 @@ public class Util
         return fileIn;
         
     }
+    
+    
+    
+    /**
+     * This methods reads out the style information from the format name.
+     * @param type
+     * @return type of style (APA | AJP | Default)
+     */
+    public Styles getStyleInfo(Format format)
+    {
+        if (format.getName().toLowerCase().contains("apa"))
+        {
+            return Styles.APA;
+        }
+        if (format.getName().toLowerCase().contains("ajp"))
+        {
+            return Styles.AJP;
+        }
+        else return Styles.Default;
+    }
+
 }
