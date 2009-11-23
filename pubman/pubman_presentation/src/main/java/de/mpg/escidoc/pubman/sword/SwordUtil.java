@@ -55,7 +55,6 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
-
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
@@ -80,9 +79,11 @@ import org.w3.atom.Title;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
@@ -102,7 +103,7 @@ import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.exceptions.PubManException;
-import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -483,7 +484,8 @@ public class SwordUtil extends FacesBean
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming)
                 initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            TransformationBean transformer = new TransformationBean();
+            ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+            Transformation transformer = appBean.getTransformationService();
             
             Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
             Format trgFormat = null;
@@ -712,7 +714,8 @@ public class SwordUtil extends FacesBean
         ByteArrayInputStream in = new ByteArrayInputStream(file);
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
         String mimeType = fileNameMap.getContentTypeFor(name);
-        TransformationBean transformer = new TransformationBean();
+        ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+        Transformation transformer = appBean.getTransformationService();
 
         //Hack: FileNameMap class does not know tei, bibtex and endnote
         if (name.endsWith(".tei"))

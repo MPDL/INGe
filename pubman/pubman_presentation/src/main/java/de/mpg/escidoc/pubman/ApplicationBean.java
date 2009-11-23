@@ -39,14 +39,13 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
-import com.ctc.wstx.ent.IntEntity;
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
 
 /**
  * ApplicationBean which stores all application wide values.
@@ -86,6 +85,9 @@ public class ApplicationBean extends FacesBean
     /** Stylesheet distinguation */
     private static final String STANDARD_STYLESHEET = "stylesheet";
     private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
+    
+    /** Initialization of the Transformation Service*/
+    private Transformation transformationService;
 
     /**
      * Public constructor.
@@ -101,6 +103,8 @@ public class ApplicationBean extends FacesBean
            logger.warn("System type is not retrievable! Setting now to PRODUCTION");
            this.systemType=SystemType.Production_Server;
         }
+        this.transformationService = new TransformationBean();
+        
         this.init();
     }
 
@@ -436,6 +440,17 @@ public class ApplicationBean extends FacesBean
     	ResourceBundle.clearCache();
     	PropertyReader.loadProperties();
     	return "... Resource bundles and properties reloaded";
+    }
+    
+
+    public Transformation getTransformationService()
+    {
+        return this.transformationService;
+    }
+
+    public void setTransformationService(Transformation transformationService)
+    {
+        this.transformationService = transformationService;
     }
 
 }

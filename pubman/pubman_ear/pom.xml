@@ -457,7 +457,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.28</version>
+            <version>1.0.29-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -512,7 +512,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search</artifactId>
-            <version>1.0.31</version>
+            <version>1.0.32-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>

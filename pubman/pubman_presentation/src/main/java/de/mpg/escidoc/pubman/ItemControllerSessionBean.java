@@ -47,6 +47,7 @@ import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -93,6 +94,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -1951,18 +1953,16 @@ public class ItemControllerSessionBean extends FacesBean
     * @return the export data stream as array of bytes 
     */
   public byte[] retrieveExportData(final ExportFormatVO exportFormatVO, final List<PubItemVO> itemsToExportList) 
-      throws TechnicalException{
+      throws TechnicalException
+      {
+      
+      ExportItems itemExporter = new ExportItems();
+      
       if (logger.isDebugEnabled())
       {
           logger.debug("retrieveExportData...");
       }
 
-      if (this.itemExporting == null) {
-          if (logger.isDebugEnabled())
-          {
-              logger.debug("this.itemExporting interface is null");
-          }
-      }     
       byte[] res = null;
       // retrieve the export data calling the interface method
       
@@ -1971,7 +1971,8 @@ public class ItemControllerSessionBean extends FacesBean
       {
           pubItemList.add(new PubItemVO(pubItem));
       }
-      res = this.itemExporting.getOutput(exportFormatVO, pubItemList);
+      
+      res = itemExporter.getOutput(exportFormatVO, pubItemList);
   
       if ( (res == null) || (new String(res)).trim().equals("") ){ 
           logger.debug("Empty OR NULL string came from external export service!");

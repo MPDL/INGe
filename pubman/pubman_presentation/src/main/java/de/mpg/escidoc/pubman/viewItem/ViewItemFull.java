@@ -576,12 +576,13 @@ public class ViewItemFull extends FacesBean
             //Unapi Export 
             try
             {
-                this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
-                this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
-                this.unapiEscidoc = this.unapiURLdownload+"?id="+itemID+"&format=escidoc";
-                this.unapiEndnote = this.unapiURLdownload+"?id="+itemID+"&format=endnote";
-                this.unapiBibtex = this.unapiURLdownload+"?id="+itemID+"&format=bibtex";
-                this.unapiApa = this.unapiURLdownload+"?id="+itemID+"&format=apa";
+                //TODO
+//                this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+//                this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+//                this.unapiEscidoc = this.unapiURLdownload+"?id="+itemID+"&format=escidoc";
+//                this.unapiEndnote = this.unapiURLdownload+"?id="+itemID+"&format=endnote";
+//                this.unapiBibtex = this.unapiURLdownload+"?id="+itemID+"&format=bibtex";
+//                this.unapiApa = this.unapiURLdownload+"?id="+itemID+"&format=apa";
             }
             catch (Exception e) {
                 logger.error("Error getting unapi url property", e);

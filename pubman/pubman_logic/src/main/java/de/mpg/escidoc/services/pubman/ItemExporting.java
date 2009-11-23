@@ -35,6 +35,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.transformation.Transformation;
 
 /**
  * Interface for retrieving of export formats as well as an export file containing

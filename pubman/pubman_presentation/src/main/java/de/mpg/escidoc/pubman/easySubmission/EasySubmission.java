@@ -60,6 +60,7 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -102,7 +103,6 @@ import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -212,7 +212,8 @@ public class EasySubmission extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            this.transformer = new TransformationBean();
+            ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+            this.transformer = appBean.getTransformationService();
             this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         }

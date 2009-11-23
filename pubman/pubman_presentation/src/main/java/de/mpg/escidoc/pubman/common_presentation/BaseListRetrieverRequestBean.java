@@ -129,7 +129,10 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
 	}
 
 	public String getUnapiURLview() {
-		return unapiURLview;
+	    
+	    System.out.println("NEW");
+	    return "";
+		//TODO return unapiURLview;
 	}
     
    

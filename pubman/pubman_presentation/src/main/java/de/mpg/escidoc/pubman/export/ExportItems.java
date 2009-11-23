@@ -30,22 +30,32 @@
 package de.mpg.escidoc.pubman.export;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 
 /**
@@ -373,6 +383,65 @@ public class ExportItems extends FacesBean
                
             } 
             return status;
+      }
+      
+      /**
+       * {@inheritDoc}
+       */
+      public byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) 
+      throws TechnicalException
+      {
+          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+          
+         if (exportFormat == null)   
+            logger.debug(">>>  getOutput with ExportFormatVO NULL!");   
+         else if (logger.isDebugEnabled())
+          {
+              logger.debug(">>>  getOutput in Format "+exportFormat.getName()+" "+exportFormat.getSelectedFileFormat().getName());                     
+          }
+         
+         String itemList = xmlTransforming.transformToItemList(pubItemVOList);
+
+         byte[] exportData = null;
+         try{
+             exportData = getOutput(
+                     exportFormat.getName(), 
+                     exportFormat.getSelectedFileFormat().getMimeType(), 
+                     itemList
+             );
+         }  catch (Exception e) 
+         {
+             throw new TechnicalException(e);
+         }   
+
+         if (logger.isDebugEnabled())
+         {
+             logger.debug("getOutput result: " + new String(exportData) );
+         }        
+
+         return exportData;
+      }
+ 
+      /**
+       * Call the transformation service for retrieving the data in the right export format  
+      * @param exportFormat - export format
+      * @param outputFormat - output format type
+      * @param itemList - xml item list in item-list.xsd schema  
+      * @return generated export 
+      */
+     private byte[] getOutput(String exportFormat, String outputFormat, String itemList) 
+         throws  TechnicalException, UnsupportedEncodingException, TransformationNotSupportedException
+      {
+         byte[] exportData = null;
+         String service = "escidoc";    //Use the escidoc transformation service
+         
+         ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+         Transformation transformer = appBean.getTransformationService();
+         Format input = new Format ("escidoc-publication-item-list", "application/xml", "UTF-8");        
+         Format output = new Format (exportFormat, outputFormat, "*");
+         exportData = transformer.transform(itemList.getBytes("UTF-8"), input, output, service);
+
+       return exportData;
       }
        
 }
