@@ -450,14 +450,14 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.38-SNAPSHOT</version>
+            <version>1.0.37</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>dataacquisition</artifactId>
-            <version>1.0.29-SNAPSHOT</version>
+            <version>1.0.28</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -499,7 +499,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>transformation</artifactId>
-            <version>1.0.20-SNAPSHOT</version>
+            <version>1.0.19</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -512,7 +512,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search</artifactId>
-            <version>1.0.32-SNAPSHOT</version>
+            <version>1.0.31</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
