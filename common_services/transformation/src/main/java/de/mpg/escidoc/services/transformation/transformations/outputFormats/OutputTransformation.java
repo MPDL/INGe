@@ -112,9 +112,7 @@ public class OutputTransformation
 
         document = JRXmlUtils.parse(bis);
        
-        String path = OutputUtil.getPathToCitationStyles() + "/" + "jasper" + "/"
-            + style.toString() 
-            + "/CitationStyle.jasper";
+        String path = OutputUtil.getPathToCitationStyles() + "/jasper" + "/citation-style.jasper";
 
         System.out.println("PATH: " + path);
         InputStream csj =  util.getResourceAsStream(path);       
