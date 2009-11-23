@@ -424,8 +424,9 @@ public class SearchBean implements Search
         // structured export
         if (formatType == FormatType.LAYOUT)
         {
+            //TODO call only transformation service
             logger.info("Calling citationStyleHandler");
-            exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
+            exportData = citationStyleHandler.getOutput(exportFormat, itemList);
             logger.info("Returning from citationStyleHandler");
         } 
         else if (formatType == FormatType.STRUCTURED)
