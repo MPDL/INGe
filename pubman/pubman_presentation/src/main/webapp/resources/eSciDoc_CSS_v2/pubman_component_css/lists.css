@@ -32,11 +32,21 @@
 
 /*GENERAL*/
 
-.itemList {
+.itemList, .tiledList {
 	border-top-width: 0.19em !important;
 	border-bottom-width: 0.10em !important;
 	border-top-style: solid;
 	border-bottom-style: solid; 
+}
+
+.tiledList {
+	float: left;
+	margin-bottom: 0.74em;
+}
+
+.tiledList .fullBrowse {
+	width: 75em;
+	overflow: visible !important;
 }
 
 .itemList input {
@@ -145,6 +155,32 @@
 .listItem {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
+}
+
+.itemTile {
+	margin-right: 0.74em;
+	margin-top: 0.74em;
+}
+
+.itemTile .tileIconArea {
+	border: 0.10em;
+	height: 11.56em;
+	line-height: 11.56em;
+	text-align: center;
+}
+
+.itemTile .tileIconArea img {
+	border: 0px;
+}
+
+.itemTile .tileIconArea img.horizontal {
+	width: 96%;
+	vertical-align:middle;
+}
+		
+.itemTile .tileIconArea img.vertical {
+	height: 96%;
+	margin: 0 auto 0 auto !important;
 }
 
 .itemList tr.listItem {

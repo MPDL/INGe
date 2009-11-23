@@ -32,7 +32,7 @@
 
 /*GENERAL*/
 
-.itemList .seperator {
+.itemList .seperator, .tiledList .seperator {
 	float: left;
 }
 
@@ -40,7 +40,7 @@
 	display: none;
 }
 
-.itemList ol, .itemList ul {
+.itemList ol, .itemList ul, .tiledList ol, tiledList ul {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;

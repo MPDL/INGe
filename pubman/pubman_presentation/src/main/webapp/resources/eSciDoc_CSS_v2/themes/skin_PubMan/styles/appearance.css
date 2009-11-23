@@ -171,7 +171,7 @@ FORM BG			#FFFFFF
 		background-color: #EAF4F7;
 	}
 	
-	.fullItem .seperator {
+	.fullItem .seperator, .tiledList .seperator {
 		background-color: #FFFFFF;
 	}
 	
@@ -318,11 +318,11 @@ FORM BG			#FFFFFF
 
 	/*GENERAL*/
 	
-	.itemList, .fullItem {
+	.itemList, .tiledList, .fullItem {
 		border-top-color: #147DA2;
 	}
 	
-	.itemList, .fullItem {
+	.itemList, .tiledList, .fullItem {
 		border-bottom-color: #BAB4B3;
 	}
 	
@@ -385,11 +385,21 @@ FORM BG			#FFFFFF
 		border-top-color: #BAB4B3 !important;
 	}
 	
+	.itemTile .tileIconArea {
+		border-color: #BAB4B3 !important;
+		border-style: solid;
+	}
+	
+	.itemTile .inAlbum {
+		background-color: #DAE160;
+		border-color: #56871B;
+	}
+	
 	.searchHit {
 		background-color: #A1CBDA;
 	}
 	
-	.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
+	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
 		background-color: #FFFFFF;
 	}
 

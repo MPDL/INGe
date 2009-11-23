@@ -171,7 +171,7 @@ FORM BG			#F2F8FC
 		background-color: #FFFFFF;
 	}
 	
-	.fullItem .seperator {
+	.fullItem .seperator, .tiledList .seperator {
 		background-color: #FFFFFF;
 	}
 	
@@ -318,11 +318,11 @@ FORM BG			#F2F8FC
 
 	/*GENERAL*/
 	
-	.itemList, .fullItem {
+	.itemList, .tiledList, .fullItem {
 		border-top-color: #0076C9;
 	}
 	
-	.itemList, .fullItem {
+	.itemList, .tiledList, .fullItem {
 		border-bottom-color: #AEAEAE;
 	}
 	
@@ -385,11 +385,21 @@ FORM BG			#F2F8FC
 		border-top-color: #AEAEAE !important;
 	}
 	
+	.itemTile .tileIconArea {
+		border-color: #AEAEAE !important;
+		border-style: solid;
+	}
+	
+	.itemTile .inAlbum {
+		background-color: #BADF4A;
+		border-color: #548E00;
+	}
+	
 	.searchHit {
 		background-color: #99C8E9;
 	}
 	
-	.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
+	.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
 		background-color: #FFFFFF;
 	}
 
@@ -536,13 +546,13 @@ FORM BG			#F2F8FC
 	.activeButton {
 		float: right;
 		color: #FFFFFF !important;
-		background-color: #0076C9 !important;
+		background-color: #0076C9  !important;
 		border-color: #0076C9;
 	}
 	
 	.activeButton:hover {
 		color: #FFFFFF !important;
-		background-color: #1B1B1B !important;
+		background-color: #1B1B1B  !important;
 		border-color: #1B1B1B;
 	}
 	
