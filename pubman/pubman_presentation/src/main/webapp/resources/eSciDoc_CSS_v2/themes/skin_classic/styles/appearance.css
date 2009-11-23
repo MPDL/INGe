@@ -385,7 +385,7 @@ FORM BG			#FFFFFF
 		border-top-color: #B9B9B9 !important;
 	}
 	
-	.itemTile .tileIconArea {
+	.tiledList .metaDataSection, .itemTile .tileIconArea {
 		border-color: #B9B9B9 !important;
 		border-style: solid;
 	}
