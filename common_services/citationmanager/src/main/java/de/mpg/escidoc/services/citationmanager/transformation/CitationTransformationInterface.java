@@ -189,48 +189,33 @@ public class CitationTransformationInterface implements Transformation
     {
         byte[] result = null;
         boolean supported = false;
+        boolean list = false;
         
         try
         {   
             CitationTransformation citeTrans = new CitationTransformation();
             if (srcFormat.getName().toLowerCase().startsWith("escidoc"))
             {
-                if (trgFormat.getName().toLowerCase().equals("apa"))
+                //  1. Transform to citation format with output snippet
+                if (srcFormat.getName().equalsIgnoreCase("eSciDoc-publication-item-list"))
                 {
-                    result = citeTrans.transformEscdocToApa(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
+                    list = true;
                 }
-                 
-                if (trgFormat.getName().toLowerCase().equals("ajp"))
+                result = citeTrans.transformEscidocItemToCitation(src, srcFormat, trgFormat, service, list);
+                if (result != null)
                 {
-                    result = citeTrans.transformEscidocToAjp(src, srcFormat, trgFormat, service);
+                    supported = true;
+                }              
+ 
+                //  2. Transform to given outputformat using the transformation service
+                if (!trgFormat.getType().equalsIgnoreCase("application/xml"))
+                {
+                    result = citeTrans.transformOutputFormat(src, srcFormat, trgFormat, service);
                     if (result != null)
                     {
                         supported = true;
-                    }              
-                }    
-                if (trgFormat.getName().toLowerCase().equals("apa(snippet)"))
-                {
-                    trgFormat.setType("snippet");
-                    result = citeTrans.transformEscdocToApa(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
+                    }  
                 }
-                 
-                if (trgFormat.getName().toLowerCase().equals("ajp(snippet)"))
-                {
-                    trgFormat.setType("snippet");
-                    result = citeTrans.transformEscidocToAjp(src, srcFormat, trgFormat, service);
-                    if (result != null)
-                    {
-                        supported = true;
-                    }              
-                } 
             }
         }
         catch (Exception e)

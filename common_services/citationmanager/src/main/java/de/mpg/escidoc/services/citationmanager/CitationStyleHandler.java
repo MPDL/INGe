@@ -96,16 +96,15 @@ public interface CitationStyleHandler {
 	String getMimeType(String cs, String ouf) throws CitationStyleManagerException;
     
 	/**
-	 * This method provides the formatted output in the desired citation style.
+	 * This method provides the desired citation style.
 	 * 
 	 * @param citationStyle  Identifier (i.e. the name) of the citation style.
-	 * @param outputFormat   Identifier (i.e. the name) of the output file format.
 	 * @param itemList       A XML containing the item list for which the output should be taken.
 	 * Item list should be formatted in accordance with item-list.xsd
 	 * Metadata record for each item in the item list should be specified in
 	 * accordance with escidoc_publication_profile.xsd
 	 */
-	byte[] getOutput(String citationStyle, String ouputFormat, String itemList)
+	byte[] getOutput(String citationStyle, String itemList)
 		throws IOException, JRException, CitationStyleManagerException;
 	
 }

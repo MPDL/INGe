@@ -115,7 +115,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>AJP(Snippet)</Name>
+			<Name>AJP</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
@@ -127,13 +127,11 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>APA(Snippet)</Name>
+			<Name>APA</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
-	
-	<!--Start to be fixed -->	
 	<Transformation>
 		<Source>
 			<Name>eSciDoc-publication-item</Name>
@@ -249,7 +247,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>AJP(Snippet)</Name>
+			<Name>AJP</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
@@ -261,11 +259,9 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>APA(Snippet)</Name>
+			<Name>APA</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
-	
-	<!--End to be fixed -->
 </Transformations>

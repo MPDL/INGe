@@ -191,7 +191,7 @@ public class TestCitationManager {
         		logger.info("Test Citation Style: " + cs);
     			
     	    	start = System.currentTimeMillis();
-    	    	result = pcs.getOutput(cs, format, itemList);
+    	    	result = pcs.getOutput(cs, itemList);
     	    	
 //        		logger.info("ItemList\n: " + itemList);
 //        		logger.info("Result\n: " + new String(result));

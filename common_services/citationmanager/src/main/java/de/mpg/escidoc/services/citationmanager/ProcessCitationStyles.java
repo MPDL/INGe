@@ -178,8 +178,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final String TASK_VALIDATE_DS = "validate-ds";
     private static final String TASK_VALIDATE_CS = "validate-cs";
     
-    // Output Formats enum
-    public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
+
     
 
 
@@ -202,6 +201,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     // ProcessScriptlet class instance
     public ProcessScriptlet ps = null;
 
+    
+    // Output Formats enum
+    public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
     
 	public ProcessCitationStyles() {
 
@@ -1220,13 +1222,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * Fills Citation Style to an OutputStream
 	 * @param citationStyle
 	 * @param os
-	 * @param outFormat
 	 * @param itemList
 	 * @throws JRException
 	 * @throws IOException
 	 * @throws CitationStyleManagerException
 	 */
-	private void fillReportToOutputStream(String citationStyle, OutputStream os, String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException   {
+	private void fillReportToOutputStream(String citationStyle, OutputStream os, String itemList) throws JRException, IOException, CitationStyleManagerException   {
 
 
 		long start;
@@ -1245,8 +1246,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			ResourceUtil.getPathToCitationStyles() 
 			+ citationStyle 
 			+ "/CitationStyle" 
-			+ ( OutFormats.snippet == OutFormats.valueOf(outFormat) ? 
-					CSS_CLASS_POSTFIX : "" )
+			+ CSS_CLASS_POSTFIX 
 			+	".jasper";
 		
 		JasperReport jr = null;
@@ -1268,65 +1268,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 		// generate snippet export
 		start = System.currentTimeMillis();
-		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
-		{
-			ProcessSnippet psn = new ProcessSnippet();
-			psn.export(document, params, jr, os);
-			logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
-			return;
-		}
-		
-		//all other exports
-		start = System.currentTimeMillis();
-		JasperPrint jasperPrint= JasperFillManager.fillReport(
-				jr,
-				params,
-				new JRXmlDataSource(document, jr.getQuery().getText())
-		);
-		
-		logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
-		
-		start = System.currentTimeMillis();
-
-		JRExporter exporter = null;    
-		
-		switch ( OutFormats.valueOf(outFormat) ) {
-			case pdf:
-				exporter = new JRPdfExporter();
-				break;
-			case html:
-				exporter = new JRHtmlExporter();
-				/* Switch off pagination and null pixel alignment for JRHtmlExporter */
-		        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
-		        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);
-				break;
-			case rtf:
-				exporter = new JRRtfExporter();
-				break;
-			case odt:
-				exporter = new JROdtExporter();
-				break;
-			case txt:
-				exporter = new JRTextExporter();    
-		        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
-		        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
-		        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
-				break;
-			default: 	
-				throw new CitationStyleManagerException (
-						"Output format " + outFormat + " is not supported");
-		}
-		
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, os);
-
-		exporter.exportReport();
-		
-
-		logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
-		
-
+		ProcessSnippet psn = new ProcessSnippet();
+		psn.export(document, params, jr, os);
+		logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
+		return;
 	}
 	
 	
@@ -1456,39 +1401,18 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	}
 	
 	
-	public byte[] getOutput(String citationStyle, final String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
-		
-		Utils.checkCondition( !Utils.checkVal(outFormat), "Output format is not defined");
-		
-		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
-		
-		int slashPos = outFormat.indexOf( "/" );
-		String ouf = slashPos == -1 ? outFormat : outFormat.substring( slashPos + 1 );
-		// TODO: mapping should be taken from explain-styles.xml 
-		if (ouf.equals("vnd.oasis.opendocument.text")) 
-			ouf = "odt";
-		 
-		try {
-			OutFormats.valueOf(ouf);
-		} catch (Exception e) {
-			throw new CitationStyleManagerException( "Output format: " + outFormat + " is not supported" );
-		}
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	public byte[] getOutput(String citationStyle, String itemList) throws JRException, IOException, CitationStyleManagerException  {
 
+		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		long start = System.currentTimeMillis();
 		byte[] result = null;
 		
-		fillReportToOutputStream(citationStyle, baos, ouf, itemList);
+		fillReportToOutputStream(citationStyle, baos, itemList);
 		result = baos.toByteArray();
 		logger.info("export total: " + (System.currentTimeMillis() - start));
-		
-//		start = System.currentTimeMillis();
-//		if ("pdf".equals(outFormat))
-//		{
-//			result = fillReportToByteArray(citationStyle, outFormat, itemList);
-//		}
-//		logger.info("export total (2): " + (System.currentTimeMillis() - start));
 		
 		return result;
 		

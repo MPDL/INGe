@@ -33,15 +33,18 @@ package de.mpg.escidoc.services.citationmanager.transformation;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandlerBean;
+import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.Util.Styles;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -71,42 +74,42 @@ public class CitationTransformation
     }
     
     /**
-     * Transformation in APA style.
+     * Transformation to citation style in snippet format.
      * @param src
      * @param srcFormat
      * @param trgFormat
+     * @param itemListBool - checks if the provided object is an itemList
      * @param service
      * @return transformed item as byte[]
      * @throws TransformationNotSupportedException
      * @throws RuntimeException
      */
 
-    public byte[] transformEscdocToApa(byte[] src, Format srcFormat, Format trgFormat, String service)
+    public byte[] transformEscidocItemToCitation(byte[] src, Format srcFormat, Format trgFormat, String service, boolean itemListBool)
         throws TransformationNotSupportedException, RuntimeException
     {
-        byte[] apa = null;
-        
+            
+        byte[] citation = null;
         try 
         {
-            //InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = new XmlTransformingBean();
             CitationStyleHandler citeHandler = new CitationStyleHandlerBean();
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src));
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            
-            String type = this.getOutputFormat(trgFormat.getType());
-            if (type == null)
+            String itemList = "";
+            if (! itemListBool)
             {
-                this.logger.warn("Transformation not supported: /n " + srcFormat.getName() + ", " + srcFormat.getType() 
-                        + ", " + srcFormat.getEncoding() + "/n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                        + ", " + trgFormat.getEncoding());
-                throw new TransformationNotSupportedException();
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src, "UTF-8"));
+                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+                itemList = xmlTransforming.transformToItemList(pubitemList);
             }
             else
             {
-                apa = citeHandler.getOutput("APA", type, itemList);
-            }          
+                itemList = new String(src, "UTF-8");
+            }
+
+            citation = citeHandler.getOutput(trgFormat.getName().toUpperCase(), itemList);     
+        }
+        catch (CitationStyleManagerException e) {
+            throw new TransformationNotSupportedException(e);
         }
         catch (Exception e)
         {
@@ -114,54 +117,34 @@ public class CitationTransformation
             throw new RuntimeException(e);
         }
         
-        return apa;
+        return citation;
     }
     
     /**
-     * Transformation in AJP style.
+     * This method calls the transformation service for the transformation from citation snippet
+     * to a given output format.
      * @param src
      * @param srcFormat
      * @param trgFormat
      * @param service
-     * @return transformed item as byte[]
-     * @throws TransformationNotSupportedException
-     * @throws RuntimeException
+     * @return
      */
-    public byte[] transformEscidocToAjp(byte[] src, Format srcFormat, Format trgFormat, String service)
-        throws TransformationNotSupportedException, RuntimeException
+    public byte[] transformOutputFormat (byte[] src, Format srcFormat, Format trgFormat, String service)
+    throws TransformationNotSupportedException, RuntimeException
     {
-        byte[] ajp = null;
+        byte[] result = null;
+        Transformation transformer = new TransformationBean();
+        Util util = new Util();
         
-        try 
-        {
-            InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
-                    .lookup(CitationStyleHandler.SERVICE_NAME);
-            PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(src));
-            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
-            String itemList = xmlTransforming.transformToItemList(pubitemList);
-            
-            String type = this.getOutputFormat(trgFormat.getType());
-            if (type == null)
-            {
-                this.logger.warn("Transformation not supported: /n " + srcFormat.getName() + ", " + srcFormat.getType() 
-                        + ", " + srcFormat.getEncoding() + "/n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                        + ", " + trgFormat.getEncoding());
-                throw new TransformationNotSupportedException();
-            }
-            else
-            {
-                ajp = citeHandler.getOutput("AJP", type, itemList);
-            }          
-        }
-        catch (Exception e)
-        {
-            this.logger.error("An error occurred during a citation transformation.", e);
-            throw new RuntimeException(e);
-        }
-        
-        return ajp;
+        //Create input format
+        Styles style = util.getStyleInfo (trgFormat);
+        String formatName = "snippet";
+        if (style == Styles.APA || style == Styles.AJP) {formatName += "_" + style.toString();}
+        Format input = new Format (formatName, "application/xml", "UTF-8");
+        //Create output format
+        Format output = new Format (this.getOutputFormat(trgFormat.getType()), trgFormat.getType(), trgFormat.getEncoding());
+        //Do the transformation
+        return result = transformer.transform(src, input, output, service);
     }
     
     private String getOutputFormat(String type)
