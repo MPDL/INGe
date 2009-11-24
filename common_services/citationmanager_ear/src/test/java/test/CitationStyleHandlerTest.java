@@ -124,7 +124,7 @@ public class CitationStyleHandlerTest {
         		logger.info("Test Citation Style: " + cs);
     			
     	    	start = System.currentTimeMillis();
-    	    	result = pcs.getOutput(cs, format, itemList);
+    	    	result = pcs.getOutput(cs, format, itemList); 
 //    	    	result = pcs.getOutput(cs, itemList);
     	    	
 //        		logger.info("ItemList\n: " + itemList);
