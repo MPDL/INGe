@@ -53,13 +53,13 @@ public interface CitationStyleHandler {
      * The name to obtain this service.
      */
     String SERVICE_NAME = "ejb/de/mpg/escidoc/services/citationmanager/CitationStyleHandler";
-	
+    
   /**
-	 * This method provides XML formatted output of the citation styles (layout
-	 * formats) with their supported output file formats.
-	 * The XML formatted output of the citation styles is created in accordance with
-	 * the explain_styles.xsd. 
-	 */
+     * This method provides XML formatted output of the citation styles (layout
+     * formats) with their supported output file formats.
+     * The XML formatted output of the citation styles is created in accordance with
+     * the explain_styles.xsd. 
+     */
     String explainStyles() throws IllegalArgumentException, IOException, CitationStyleManagerException;
 
     /**
@@ -80,31 +80,32 @@ public interface CitationStyleHandler {
     /**
      * The method returns the list of available output formats for 
      * citation style <code>cs</code>   
-	 * @param cs - name of citation style
-	 * @return list of available output formats
-	 * @throws CitationStyleManagerException
-	 */
-	String[] getOutputFormats(String cs) throws CitationStyleManagerException; 
+     * @param cs - name of citation style
+     * @return list of available output formats
+     * @throws CitationStyleManagerException
+     */
+    String[] getOutputFormats(String cs) throws CitationStyleManagerException; 
     
-	/**
-	 * Returns the mime-type for output format of the citation style
-	 * @param cs is name of citation style
-	 * @param ouf is the output format 
-	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
-	 * @throws CitationStyleManagerException if no <code>cs</code> or <code>ouf</code> are defined 
-	 */ 
-	String getMimeType(String cs, String ouf) throws CitationStyleManagerException;
+    /**
+     * Returns the mime-type for output format of the citation style
+     * @param cs is name of citation style
+     * @param ouf is the output format 
+     * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
+     * @throws CitationStyleManagerException if no <code>cs</code> or <code>ouf</code> are defined 
+     */ 
+    String getMimeType(String cs, String ouf) throws CitationStyleManagerException;
     
-	/**
-	 * This method provides the desired citation style.
-	 * 
-	 * @param citationStyle  Identifier (i.e. the name) of the citation style.
-	 * @param itemList       A XML containing the item list for which the output should be taken.
-	 * Item list should be formatted in accordance with item-list.xsd
-	 * Metadata record for each item in the item list should be specified in
-	 * accordance with escidoc_publication_profile.xsd
-	 */
-	byte[] getOutput(String citationStyle, String itemList)
-		throws IOException, JRException, CitationStyleManagerException;
-	
+    /**
+     * This method provides the formatted output in the desired citation style.
+     * 
+     * @param citationStyle  Identifier (i.e. the name) of the citation style.
+     * @param outputFormat   Identifier (i.e. the name) of the output file format.
+     * @param itemList       A XML containing the item list for which the output should be taken.
+     * Item list should be formatted in accordance with item-list.xsd
+     * Metadata record for each item in the item list should be specified in
+     * accordance with escidoc_publication_profile.xsd
+     */
+    byte[] getOutput(String citationStyle, String ouputFormat, String itemList)
+        throws IOException, JRException, CitationStyleManagerException;
+    
 }

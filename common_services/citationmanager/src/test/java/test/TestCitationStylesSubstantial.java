@@ -181,7 +181,7 @@ public class TestCitationStylesSubstantial {
     			Document tmpDoc = JRXmlUtils.createDocument(n);
 
     			//generate text citation form the current item
-    			generatedCit = new String(pcs.getOutput(cs, XmlHelper.outputString(tmpDoc)));
+    			generatedCit = new String(pcs.getOutput(cs,"", XmlHelper.outputString(tmpDoc)));
     			generatedCit = cleanCit(generatedCit);
     			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
     			//    	    logger.info( "generated citation:" + generatedCit );

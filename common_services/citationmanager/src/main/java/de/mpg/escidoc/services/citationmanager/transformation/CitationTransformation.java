@@ -106,7 +106,7 @@ public class CitationTransformation
                 itemList = new String(src, "UTF-8");
             }
 
-            citation = citeHandler.getOutput(trgFormat.getName().toUpperCase(), itemList);     
+            citation = citeHandler.getOutput(trgFormat.getName().toUpperCase(),"snippet", itemList);     
         }
         catch (CitationStyleManagerException e) {
             throw new TransformationNotSupportedException(e);

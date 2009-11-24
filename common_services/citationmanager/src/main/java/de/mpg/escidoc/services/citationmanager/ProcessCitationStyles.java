@@ -1401,7 +1401,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	}
 	
 	
-	public byte[] getOutput(String citationStyle, String itemList) throws JRException, IOException, CitationStyleManagerException  {
+	public byte[] getOutput(String citationStyle, String outputFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
 
 		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
 

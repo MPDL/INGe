@@ -80,7 +80,7 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
      /**
       * {@inheritDoc}
       */
-    public byte[] getOutput(String citationStyle, String itemList)
+    public byte[] getOutput(String citationStyle, String outputFormat, String itemList)
         throws JRException, CitationStyleManagerException, IOException
     {
         logger.debug("CitationStyleHandlerBean getOutput with citationStyle " + citationStyle);
@@ -89,8 +89,8 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
         //exportData = citStylesMan.getOutput(citationStyle, itemList);
         //TODO
         exportData = "APA_new".equals(citationStyle) ?
-                cse.getOutput(citationStyle, itemList) :
-                citStylesMan.getOutput(citationStyle, itemList);
+                cse.getOutput(citationStyle, outputFormat, itemList) :
+                citStylesMan.getOutput(citationStyle, outputFormat, itemList);
         return exportData;
     }
 

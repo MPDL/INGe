@@ -29,23 +29,23 @@ import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
  *
  */
 public class TestCitationManager {
-	
-	private static Logger logger = Logger.getLogger(TestCitationManager.class);
-	
-	private XmlHelper xh = new XmlHelper();
-	
-	private final static String dsFileName = "APA_revised_item-list.xml";  
-	
-	private static String itemList;
-	 
-	private CitationStyleHandler pcs = new ProcessCitationStyles();
+    
+    private static Logger logger = Logger.getLogger(TestCitationManager.class);
+    
+    private XmlHelper xh = new XmlHelper();
+    
+    private final static String dsFileName = "APA_revised_item-list.xml";  
+    
+    private static String itemList;
+     
+    private CitationStyleHandler pcs = new ProcessCitationStyles();
 
-	private static int itemsNumber;
-	
-	/**
+    private static int itemsNumber;
+    
+    /**
      * Tests CitationStyle.xml (APA by default)
      * TODO: At the moment only the Validation method is being tested, 
-     * 		 Citation Style Processing will tested by TestCitationStylesSubstantial later  
+     *       Citation Style Processing will tested by TestCitationStylesSubstantial later  
      * TODO endres: unittest is ignored because of com.topologi.schematron.SchtrnValidator's unusual
      *              relative path behavior. maven resource paths are not recognized.      
      * @throws IOException 
@@ -58,31 +58,31 @@ public class TestCitationManager {
     @BeforeClass 
     public static void getItemList() throws Exception
     {
-    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
-    	logger.info("Data Source:" + ds);
-    	itemList = ResourceUtil.getResourceAsString(ds);
-    	assertNotNull("Item list xml is not found:", ds);
-    	itemsNumber =  TestHelper.getItemsNumber(ds);
-    	
-////    	itemList = TestHelper.getItemsFromFramework_APA();
-//    	itemList = TestHelper.getTestItemListFromFramework();
-//		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
-//		logger.info("item list from framework:\n" + itemList);
-		   
-    	
-//		TestHelper.writeToFile("porverka.xml", itemList.getBytes());
+        String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
+        logger.info("Data Source:" + ds);
+        itemList = ResourceUtil.getResourceAsString(ds);
+        assertNotNull("Item list xml is not found:", ds);
+        itemsNumber =  TestHelper.getItemsNumber(ds);
+        
+////        itemList = TestHelper.getItemsFromFramework_APA();
+//      itemList = TestHelper.getTestItemListFromFramework();
+//      assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
+//      logger.info("item list from framework:\n" + itemList);
+           
+        
+//      TestHelper.writeToFile("porverka.xml", itemList.getBytes());
 
-    }	
-	
+    }   
+    
     /**
      * Test list of styles
      * @throws Exception Any exception.
      */
     @Test
     public final void testGetStyles() throws Exception {
-    	logger.info("List of citation styles: " );
-    	for (String s : pcs.getStyles() )
-    		logger.info("Citation Style: " + s);
+        logger.info("List of citation styles: " );
+        for (String s : pcs.getStyles() )
+            logger.info("Citation Style: " + s);
     }
      
     /**
@@ -91,25 +91,25 @@ public class TestCitationManager {
      */
     @Test
     public final void testExplainStuff() throws Exception {
-    	
-    	String explain = pcs.explainStyles();
-    	assertTrue("Empty explain xml", Utils.checkVal(explain) );
-    	logger.info("Explain file:" + explain);
-    	
-    	logger.info("List of citation styles with output formats: " );
-    	for (String s : pcs.getStyles() )
-    	{
-    		logger.info("Citation Style: " + s);
-    		for(String of : pcs.getOutputFormats(s))
-    		{
-        		logger.info("--Output Format: " + of);
-        		logger.info("--Mime Type: " + pcs.getMimeType(s, of));
-    		}
-    		
-    	}	
-    	
-    	
-    	
+        
+        String explain = pcs.explainStyles();
+        assertTrue("Empty explain xml", Utils.checkVal(explain) );
+        logger.info("Explain file:" + explain);
+        
+        logger.info("List of citation styles with output formats: " );
+        for (String s : pcs.getStyles() )
+        {
+            logger.info("Citation Style: " + s);
+            for(String of : pcs.getOutputFormats(s))
+            {
+                logger.info("--Output Format: " + of);
+                logger.info("--Mime Type: " + pcs.getMimeType(s, of));
+            }
+            
+        }   
+        
+        
+        
     }       
     
     /**
@@ -119,14 +119,14 @@ public class TestCitationManager {
     @Test
     @Ignore
     public final void testDataSourceValidation() throws IOException{
-    	
-    	//TODO: always recent schema should be provided
-		long start = 0;
-		String dsName = ResourceUtil.getPathToDataSources() + dsFileName;
-	      
+        
+        //TODO: always recent schema should be provided
+        long start = 0;
+        String dsName = ResourceUtil.getPathToDataSources() + dsFileName;
+          
         try {
-        	start = System.currentTimeMillis();
-        	xh.validateDataSourceXML(dsName);
+            start = System.currentTimeMillis();
+            xh.validateDataSourceXML(dsName);
             logger.info("DataSource file:" + dsName + " is valid.");
             
         }catch (CitationStyleManagerException e){ 
@@ -146,26 +146,26 @@ public class TestCitationManager {
     @Test
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
-    	
-//    	for (String cs : pcs.getStyles() )
-   		for (String cs : new String[]{"APA","AJP"} )
-    	{
-    		logger.info("Validate Citation Style: " + cs);
-        	String csName = 
-        		 ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xml";;
-        	logger.info("CitationStyle URI: " + csName);
-        	long start = 0;
-        	try {
-        		start = -System.currentTimeMillis();
-        		xh.validateCitationStyleXML(csName);
-        		logger.info("CitationStyle XML file: " + csName + " is valid.");
-        		
-        	}catch (CitationStyleManagerException e){ 
-        		logger.info("CitationStyle XML file: " + csName + " is not valid.\n", e);
-        		fail();
-        	}
-        	logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
-    	}
+        
+//      for (String cs : pcs.getStyles() )
+        for (String cs : new String[]{"APA","AJP"} )
+        {
+            logger.info("Validate Citation Style: " + cs);
+            String csName = 
+                 ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xml";;
+            logger.info("CitationStyle URI: " + csName);
+            long start = 0;
+            try {
+                start = -System.currentTimeMillis();
+                xh.validateCitationStyleXML(csName);
+                logger.info("CitationStyle XML file: " + csName + " is valid.");
+                
+            }catch (CitationStyleManagerException e){ 
+                logger.info("CitationStyle XML file: " + csName + " is not valid.\n", e);
+                fail();
+            }
+            logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
+        }
     }
 
 
@@ -175,39 +175,39 @@ public class TestCitationManager {
      */
     @Test
     public final void testCitManOutput() throws Exception {
-    	
-    	
-//    	for (String cs : pcs.getStyles() )
-//    	for (String cs : new String[]{"AJP",/*"AJP"*/} )
-    		for (String cs : new String[]{"APA"} )
-    	{
-    		long start;
-        	byte[] result;
-    		for ( String format : 
-//    				pcs.getOutputFormats(cs)
-    				new String[]{/*"snippet"/*,*/ "pdf"}
-//    		new String[]{"snippet"}
-    		) {
-        		logger.info("Test Citation Style: " + cs);
-    			
-    	    	start = System.currentTimeMillis();
-    	    	result = pcs.getOutput(cs, itemList);
-    	    	
-//        		logger.info("ItemList\n: " + itemList);
-//        		logger.info("Result\n: " + new String(result));
-    	    	
-    	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-    	    	assertTrue(format + " output should not be empty", result.length > 0);
-    	    	
-        		logger.info("Number of proceeded items: " + itemsNumber);
-    	        logger.info(format + " length: " + result.length);
-    	        logger.info(format + " is OK");
-    	        
-    	        TestHelper.writeToFile(cs + "." + format, result);
-    			
-    		}
-    		
-    	}
+        
+        
+//      for (String cs : pcs.getStyles() )
+//      for (String cs : new String[]{"AJP",/*"AJP"*/} )
+            for (String cs : new String[]{"APA"} )
+        {
+            long start;
+            byte[] result;
+            for ( String format : 
+//                  pcs.getOutputFormats(cs)
+                    new String[]{/*"snippet"/*,*/ "pdf"}
+//          new String[]{"snippet"}
+            ) {
+                logger.info("Test Citation Style: " + cs);
+                
+                start = System.currentTimeMillis();
+                result = pcs.getOutput(cs, format, itemList);
+                
+//              logger.info("ItemList\n: " + itemList);
+//              logger.info("Result\n: " + new String(result));
+                
+                logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+                assertTrue(format + " output should not be empty", result.length > 0);
+                
+                logger.info("Number of proceeded items: " + itemsNumber);
+                logger.info(format + " length: " + result.length);
+                logger.info(format + " is OK");
+                
+                TestHelper.writeToFile(cs + "." + format, result);
+                
+            }
+            
+        }
     }
     
  

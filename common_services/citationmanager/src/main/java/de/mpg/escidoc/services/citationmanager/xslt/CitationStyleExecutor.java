@@ -384,7 +384,7 @@ public class CitationStyleExecutor implements CitationStyleHandler{
                         )));
         logger.info(
                 new String (
-                        pcs.getOutput("APA", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
+                        pcs.getOutput("APA","", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
                         )));
 
     }
