@@ -39,20 +39,24 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import net.sf.jasperreports.engine.JRException;
+
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
 
 
 /**
@@ -87,6 +91,7 @@ public class ItemExportingBean implements ItemExporting
      */
     @EJB
     private StructuredExportHandler structuredExportHandler;
+    
 
     private java.lang.String structuredFormat = "ENDNOTE";
 
@@ -111,6 +116,86 @@ public class ItemExportingBean implements ItemExporting
         result = xmlTransforming.transformToExportFormatVOList(layoutFormats);                
         appendStructuredFormat(result);
         return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) 
+    throws TechnicalException
+    {
+       if (exportFormat == null)   
+          logger.debug(">>>  getOutput with ExportFormatVO NULL!");   
+       else if (logger.isDebugEnabled())
+        {
+            logger.debug(">>>  getOutput in Format "+exportFormat.getName()+" "+exportFormat.getSelectedFileFormat().getName());                     
+        }
+       
+       String itemList = xmlTransforming.transformToItemList(pubItemVOList);
+
+       byte[] exportData = null;
+       try{
+           exportData = getOutput(
+                   exportFormat.getName(), 
+                   exportFormat.getFormatType(), 
+                   exportFormat.getSelectedFileFormat().getName(), 
+                   itemList 
+           );
+       }  catch (Exception e) 
+       {
+           throw new TechnicalException(e);
+       }   
+
+       if (logger.isDebugEnabled())
+       {
+           logger.debug("getOutput result: " + new String(exportData) );
+       }        
+
+       return exportData;
+    }
+    
+    
+    /**
+     * Output wrapper for structuredExportHandler.getOutput and citationStyleHandler.getOutput.
+     * Parameters should be controlled in the colling methods!  
+    * @param exportFormat - export format
+    * @param formatType - export format type
+    * @param outputFormat - output format type
+    * @param itemList - xml item list in item-list.xsd schema  
+    * @return generated export 
+    * @throws TechnicalException
+    * @throws StructuredExportXSLTNotFoundException
+    * @throws StructuredExportManagerException
+    * @throws IOException
+    * @throws JRException
+    * @throws CitationStyleManagerException
+    */
+   private byte[] getOutput(
+         String exportFormat, 
+         FormatType formatType, 
+         String outputFormat,
+         String itemList
+    ) throws TechnicalException, StructuredExportXSLTNotFoundException, StructuredExportManagerException, IOException, JRException, CitationStyleManagerException 
+    {
+     
+     byte[] exportData = null;
+     
+     //structured export
+     if ( formatType == FormatType.LAYOUT )
+     {   
+           if (logger.isDebugEnabled()) logger.debug(">>> start citationStyleHandler " + itemList);
+           exportData = citationStyleHandler.getOutput( exportFormat, outputFormat, itemList );
+     }  
+     else if ( formatType == FormatType.STRUCTURED )
+     {
+        if (logger.isDebugEnabled()) logger.debug(">>> start structuredExportHandler " + itemList);
+        exportData = structuredExportHandler.getOutput( itemList, exportFormat );
+     }  
+     else 
+        // no export format found!!!
+        throw new TechnicalException("format Type: " + formatType + " is not supported");
+
+     return exportData;
     }
         
     /**
@@ -152,13 +237,6 @@ public class ItemExportingBean implements ItemExporting
       listExportFormatVO.add(exportFormat);
       
       return listExportFormatVO;
-    }
-
-    public byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
-            throws TechnicalException
-    {
-        // TODO Auto-generated method stub
-        return null;
     }
      
      

@@ -47,7 +47,6 @@ import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.itemList.PubItemListSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -94,7 +93,6 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
-import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -243,11 +241,11 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (TechnicalException tE)
         {
-        	if(tE.getCause() instanceof OptimisticLockingException)
-        	{
-	        	logger.error("Could not save item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
-	            throw new RuntimeException("Could not save item because it has been changed by another user in the meantime.", tE);
-        	}
+            if(tE.getCause() instanceof OptimisticLockingException)
+            {
+                logger.error("Could not save item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
+                throw new RuntimeException("Could not save item because it has been changed by another user in the meantime.", tE);
+            }
         }
         catch (Exception e)
         {
@@ -290,11 +288,11 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (TechnicalException tE)
         {
-        	if(tE.getCause() instanceof OptimisticLockingException)
-        	{
-	        	logger.error("Could not submit or release item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
-	            throw new RuntimeException("Could not submit or release item because it has been changed by another user in the meantime.", tE);
-        	}
+            if(tE.getCause() instanceof OptimisticLockingException)
+            {
+                logger.error("Could not submit or release item because it has been changed by another user in the meantime." + "\n" + tE.toString(), tE);
+                throw new RuntimeException("Could not submit or release item because it has been changed by another user in the meantime.", tE);
+            }
         }
         catch (Exception e)
         {
@@ -1953,16 +1951,18 @@ public class ItemControllerSessionBean extends FacesBean
     * @return the export data stream as array of bytes 
     */
   public byte[] retrieveExportData(final ExportFormatVO exportFormatVO, final List<PubItemVO> itemsToExportList) 
-      throws TechnicalException
-      {
-      
-      ExportItems itemExporter = new ExportItems();
-      
+      throws TechnicalException{
       if (logger.isDebugEnabled())
       {
           logger.debug("retrieveExportData...");
       }
 
+      if (this.itemExporting == null) {
+          if (logger.isDebugEnabled())
+          {
+              logger.debug("this.itemExporting interface is null");
+          }
+      }     
       byte[] res = null;
       // retrieve the export data calling the interface method
       
@@ -1971,8 +1971,7 @@ public class ItemControllerSessionBean extends FacesBean
       {
           pubItemList.add(new PubItemVO(pubItem));
       }
-      
-      res = itemExporter.getOutput(exportFormatVO, pubItemList);
+      res = this.itemExporting.getOutput(exportFormatVO, pubItemList);
   
       if ( (res == null) || (new String(res)).trim().equals("") ){ 
           logger.debug("Empty OR NULL string came from external export service!");

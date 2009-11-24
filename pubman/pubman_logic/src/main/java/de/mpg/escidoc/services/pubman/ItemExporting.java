@@ -35,7 +35,6 @@ import java.util.List;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.transformation.Transformation;
 
 /**
  * Interface for retrieving of export formats as well as an export file containing
@@ -65,13 +64,13 @@ public interface ItemExporting {
      */
     public String explainExportFormatsXML() throws TechnicalException;
     
-	/**
+    /**
      * This method provides the formatted output in the specified export format.
      * 
      * @param exportFormat  This ExportFormatVO contains the export format type, name and file format
      *                      according to which the output is created. 
      * @param pubItemVOList      A XML containing the item list for which the output should be prepared.
      *                      Item list should be formatted in accordance with item-list.xsd
- 	 */
-	public byte[] getOutput(ExportFormatVO exportFormat, java.util.List<PubItemVO> pubItemVOList) throws TechnicalException;
+     */
+    public byte[] getOutput(ExportFormatVO exportFormat, java.util.List<PubItemVO> pubItemVOList) throws TechnicalException;
 }

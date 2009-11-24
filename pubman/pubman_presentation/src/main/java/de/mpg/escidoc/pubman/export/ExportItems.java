@@ -30,32 +30,22 @@
 package de.mpg.escidoc.pubman.export;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.search.SearchRetrieverRequestBean;
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
-import de.mpg.escidoc.services.transformation.Transformation;
-import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 
 /**
@@ -207,9 +197,9 @@ public class ExportItems extends FacesBean
     public void updateExportFormats(){
         
         // get the selected export format by the FacesBean
-    	
+        
 
-    	ExportItemsSessionBean sb = this.getSessionBean(); 
+        ExportItemsSessionBean sb = this.getSessionBean(); 
 //        String selExportFormat = sb.getExportFormatType(); 
         String selExportFormat = sb.getExportFormatName(); 
         
@@ -226,18 +216,18 @@ public class ExportItems extends FacesBean
             //set default fileFormat for APA or AJP to pdf 
             String fileFormat = sb.getFileFormat();  
             if ( fileFormat != null || fileFormat.trim().equals("") || 
-            		fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
-            	)
-            	sb.setFileFormat(FileFormatVO.PDF_NAME); 
+                    fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
+                )
+                sb.setFileFormat(FileFormatVO.PDF_NAME); 
         }
         else
         {
-        		sb.setFileFormat(
-        				"XML".equals(selExportFormat) ?
-    						FileFormatVO.XML_NAME :	
-    			        	//txt for all other
-    						FileFormatVO.TEXT_NAME
-        		);
+                sb.setFileFormat(
+                        "XML".equals(selExportFormat) ?
+                            FileFormatVO.XML_NAME : 
+                            //txt for all other
+                            FileFormatVO.TEXT_NAME
+                );
         }
         
     }
@@ -261,11 +251,11 @@ public class ExportItems extends FacesBean
      */
     public String backToList()
     {
-    	ExportItemsSessionBean sb = this.getSessionBean();
-    	cleanUpEmailFields();	
-    	return sb.getNavigationStringToGoBack() != null ? 
-    		sb.getNavigationStringToGoBack() : 
-    		SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
+        ExportItemsSessionBean sb = this.getSessionBean();
+        cleanUpEmailFields();   
+        return sb.getNavigationStringToGoBack() != null ? 
+            sb.getNavigationStringToGoBack() : 
+            SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
     }
     
     /**
@@ -273,16 +263,16 @@ public class ExportItems extends FacesBean
      */
     private void cleanUpEmailFields() 
     {
-    	ExportItemsSessionBean sb = this.getSessionBean();
-    	//To
+        ExportItemsSessionBean sb = this.getSessionBean();
+        //To
         sb.setEmailRecipients(null);
         //CC
         sb.setEmailCCRecipients(null);
         //ReplyTo
         sb.setExportEmailReplyToAddr(null);
-	}
+    }
 
-	public HtmlMessages getValMessage()
+    public HtmlMessages getValMessage()
     {
         return valMessage;
     }
@@ -320,34 +310,34 @@ public class ExportItems extends FacesBean
             boolean OK = false;
             if ( recipientsAddressesStr != null && ! recipientsAddressesStr.trim().equals("") )
             {
-            	recipientsAddresses = recipientsAddressesStr.split(",");
+                recipientsAddresses = recipientsAddressesStr.split(",");
                 FOR: for ( String ra : recipientsAddresses )
                 {
-                	if ( !ra.trim().equals("") )
-                	{
-                		OK = true;
-                		break FOR;
-                	}
+                    if ( !ra.trim().equals("") )
+                    {
+                        OK = true;
+                        break FOR;
+                    }
                 }
 
             }
             
             if ( !OK )
             {
-            	error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED));
-            	return null;
+                error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED));
+                return null;
             }
            
            String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
            
             try { 
                  status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
-                		 senderAddress, 
-                		 recipientsAddresses, 
-                		 recipientsCCAddresses,
-                		 null,
-                		 replyToAddresses, 
-                		 subject, text, attachments);
+                         senderAddress, 
+                         recipientsAddresses, 
+                         recipientsCCAddresses,
+                         null,
+                         replyToAddresses, 
+                         subject, text, attachments);
                  cleanUpEmailFields();
             }
             catch (TechnicalException e)
@@ -357,8 +347,8 @@ public class ExportItems extends FacesBean
                 Throwable ecc = e.getCause().getCause();
                 if ( ecc != null && ecc instanceof com.sun.mail.smtp.SMTPAddressFailedException )
                 {
-                	error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
-                	return null;                	
+                    error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
+                    return null;                    
                 }
                 
                 ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
@@ -383,65 +373,6 @@ public class ExportItems extends FacesBean
                
             } 
             return status;
-      }
-      
-      /**
-       * {@inheritDoc}
-       */
-      public byte[] getOutput(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) 
-      throws TechnicalException
-      {
-          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-          
-         if (exportFormat == null)   
-            logger.debug(">>>  getOutput with ExportFormatVO NULL!");   
-         else if (logger.isDebugEnabled())
-          {
-              logger.debug(">>>  getOutput in Format "+exportFormat.getName()+" "+exportFormat.getSelectedFileFormat().getName());                     
-          }
-         
-         String itemList = xmlTransforming.transformToItemList(pubItemVOList);
-
-         byte[] exportData = null;
-         try{
-             exportData = getOutput(
-                     exportFormat.getName(), 
-                     exportFormat.getSelectedFileFormat().getMimeType(), 
-                     itemList
-             );
-         }  catch (Exception e) 
-         {
-             throw new TechnicalException(e);
-         }   
-
-         if (logger.isDebugEnabled())
-         {
-             logger.debug("getOutput result: " + new String(exportData) );
-         }        
-
-         return exportData;
-      }
- 
-      /**
-       * Call the transformation service for retrieving the data in the right export format  
-      * @param exportFormat - export format
-      * @param outputFormat - output format type
-      * @param itemList - xml item list in item-list.xsd schema  
-      * @return generated export 
-      */
-     private byte[] getOutput(String exportFormat, String outputFormat, String itemList) 
-         throws  TechnicalException, UnsupportedEncodingException, TransformationNotSupportedException
-      {
-         byte[] exportData = null;
-         String service = "escidoc";    //Use the escidoc transformation service
-         
-         ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
-         Transformation transformer = appBean.getTransformationService();
-         Format input = new Format ("escidoc-publication-item-list", "application/xml", "UTF-8");        
-         Format output = new Format (exportFormat, outputFormat, "*");
-         exportData = transformer.transform(itemList.getBytes("UTF-8"), input, output, service);
-
-       return exportData;
       }
        
 }
