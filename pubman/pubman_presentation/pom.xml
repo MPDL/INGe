@@ -51,6 +51,7 @@
 		<plugin>
  <groupId>org.apache.maven.plugins</groupId>
  <artifactId>maven-eclipse-plugin</artifactId>
+ <version>2.7</version>
  <configuration>
    <wtpversion>1.5</wtpversion>
  </configuration>
@@ -69,7 +70,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>5.0.13-SNAPSHOT</version>
+			<version>5.0.13</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

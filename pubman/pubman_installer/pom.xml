@@ -161,20 +161,20 @@
         <dependency>
             <groupId>de.mpg.escidoc.pubman</groupId>
             <artifactId>pubman_ear</artifactId>
-            <version>5.0.13-SNAPSHOT</version>
+            <version>5.0.13</version>
             <scope>provided</scope>
             <type>ear</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>validation_presentation</artifactId>
-            <version>1.0.37</version>
+            <version>1.0.38</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>framework_access</artifactId>
-            <version>1.0.34</version>
+            <version>1.0.35</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
