@@ -30,17 +30,10 @@
 
 package de.mpg.escidoc.services.transformation;
 
-import java.io.File;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.Set;
 import java.util.Vector;
 
-import javax.ejb.Init;
-
 import org.apache.log4j.Logger;
-import org.scannotation.AnnotationDB;
-import org.scannotation.ClasspathUrlFinder;
 
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
