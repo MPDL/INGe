@@ -116,6 +116,7 @@ public class Initializer extends Thread
             Context ctx = new InitialContext();
             itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);
             itemValidating.refreshValidationSchemaCache();
+            /*
             String contextsXml = FrameworkUtil.getAllContexts();
             LOGGER.debug("Contexts: " + contextsXml);
             String[] contextSnippets = contextsXml.split("<context:context");
@@ -162,6 +163,7 @@ public class Initializer extends Thread
                     LOGGER.debug("Context not found in database");
                 }
             }
+            */
         }
         catch (Exception e)
         {
