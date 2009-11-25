@@ -31,6 +31,7 @@ package de.mpg.escidoc.services.citationmanager.xslt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -41,20 +42,21 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.design.JRCompilationUnit;
+import net.sf.jasperreports.engine.design.JRDesignStaticText;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -64,12 +66,11 @@ import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.apache.log4j.Logger;
-import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
@@ -95,314 +96,408 @@ public class CitationStyleExecutor implements CitationStyleHandler{
     private static final String PARENT_ELEMENT_NAME = "content-model-specific";
     private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
-    
-    
-    private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class); 
-    /**
-     * @param args
-     */
-    private static ProcessCitationStyles pcs = new ProcessCitationStyles();
-    
-    private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
-    private HashMap<String, Templates> cache = new HashMap<String, Templates>(20);
 
-    public String explainStyles() throws IllegalArgumentException, IOException,
-            CitationStyleManagerException {
-        
-        return pcs.explainStyles();
-    }
+	private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();		
 
-    public String getMimeType(String cs, String ouf)
-            throws CitationStyleManagerException {
-        // TODO Auto-generated method stub
-        return pcs.getMimeType(cs, ouf);
-    }
+	
+	private static final Logger logger = Logger.getLogger(CitationStyleExecutor.class);	
 
-    public byte[] getOutput(String cs, String itemList) 
-        throws IOException, JRException, CitationStyleManagerException  {
-        
-        Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
+	private static ProcessCitationStyles pcs = new ProcessCitationStyles();
 
-        StringWriter result = new StringWriter();
-        
-        TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();     
-        InputStream stylesheet = ResourceUtil.getResourceAsStream(
-                ResourceUtil.CITATIONSTYLES_DIRECTORY 
-                + "/" + cs  
-                + "/CitationStyle.xsl"
-        );
+	
+	private HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
+	private HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
 
-        Document itemListDoc; 
-        try 
-        {
-            Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-            transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(result));
+	
 
-            itemListDoc = XmlHelper.createDocument(itemList);
-            
-            logger.info(result.toString());
-                        
-            NodeList itemListNodes;
-            Object [] snipArr = extractSnippets(result.toString());
-            try {
-                itemListNodes = XmlHelper.xpathNodeList( "/item-list/item/properties/content-model-specific", itemListDoc);
-                
-                for (int i = 0; i < itemListNodes.getLength(); i++)         
-                {
-                    
-                    Element snippetElement = itemListDoc.createElement(SNIPPET_ELEMENT_NAME);
-                    snippetElement.setAttribute("xmlns:dcterms", SNIPPET_NS);
-                    
-                    CDATASection snippetCDATASection = itemListDoc.createCDATASection(
-                            (String)snipArr[i]
-                    );
-                    snippetElement.appendChild(snippetCDATASection);
-                    itemListNodes.item(i).appendChild(snippetElement);
-                }
-            } 
-            catch (Exception e) 
-            {
-                throw new RuntimeException("Cannot insert snippet into item-list:", e);
-            }       
-            
-        }   
-        catch (Exception e) 
-        {
-                throw new RuntimeException("Error by transformation:", e);
+	public String explainStyles() throws IllegalArgumentException, IOException,
+			CitationStyleManagerException {
+		
+		return pcs.explainStyles();
+	}
+
+	
+	
+	public String getMimeType(String cs, String ouf)
+			throws CitationStyleManagerException {
+		// TODO Auto-generated method stub
+		return pcs.getMimeType(cs, ouf);
+	}
+
+	
+	
+	public byte[] getOutput(String cs, String outputFormat,
+			String itemList) throws IOException, JRException,
+			CitationStyleManagerException  {
+
+		Utils.checkCondition( !Utils.checkVal(outputFormat), "Output format is not defined");
+		
+//		Utils.checkCondition( !"snippet".equals(ouputFormat), "The only snippet format is supported for the moment");
+		
+		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
+		
+		int slashPos = outputFormat.indexOf( "/" );
+		String ouf = slashPos == -1 ? outputFormat : outputFormat.substring( slashPos + 1 );
+		
+		// TODO: mapping should be taken from explain-styles.xml 
+		if (ouf.equals("vnd.oasis.opendocument.text")) 
+			ouf = "odt";
+		 
+		try {
+			OutFormats.valueOf(ouf);
+		} catch (Exception e) {
+			throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported" );
+		}		
+		
+
+		byte[] result;
+		String snippet;
+		long start; 
+		Transformer transformer;
+		try 
+		{
+			
+			start = System.currentTimeMillis();
+			
+			StringWriter sw = new StringWriter();
+			
+			String path = ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xsl"; 
+			
+			/* get xslt from the templCache */
+			transformer = tryTemplCache(path).newTransformer();
+			
+			//set parameters
+			String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
+			transformer.setParameter("pubman_instance", pub_inst);
+			transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
+			
+			logger.info("Transformation item-list 2 snippet: " + (System.currentTimeMillis() - start));
+			
+			snippet = sw.toString(); 
+			
+			if ("snippet".equals(outputFormat))
+			{
+				result = snippet.getBytes("UTF-8");
+			}
+			else
+			{
+
+				start = System.currentTimeMillis();
+
+				String jrds = generateJasperReportDataSource(snippet);
+				
+				logger.info("Transformation snippet 2 JasperDS: " + (System.currentTimeMillis() - start));
+//				logger.info ("DS:" + jrds);
+				
+
+				
+				JasperReport jr = null;
+				String csj = null;
+				try 
+				{
+					start = System.currentTimeMillis();
+					
+					//get JasperReport from cache
+					jr = tryJasperCache(cs);
+					
+//					JRXmlWriter.writeReport(jr, ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml", "UTF-8");
+					
+//					Document doc = JRXmlUtils.parse(new InputSource(new StringReader(jrds) ));
+					Document doc = XmlHelper.createDocument(jrds);
+//					Document doc = XmlHelper.createDocument(snippet);
+					
+					Map<String, Object> params = new HashMap<String, Object>();
+					params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
+					
+
+					JasperPrint jasperPrint= JasperFillManager.fillReport(
+							jr,
+							params,
+							new JRXmlDataSource(doc, jr.getQuery().getText())
+//							new JRXmlDataSource(doc)
+					);
+					
+					
+					logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
+					
+//					jasperPrint
+
+//					JRXmlExporter jrxe = new JRXmlExporter();
+//					
+//					jrxe.setParameter(JRXmlExporterParameter.JASPER_PRINT, jasperPrint);
+//					
+//					jrxe.setParameter(JRXmlExporterParameter.OUTPUT_FILE_NAME, "Report.jrpxml");
+//					
+//					jrxe.exportReport();
+					
+					
+					start = System.currentTimeMillis();
+
+					JRExporter exporter = null;    
+					
+					if ("pdf".equals(outputFormat))
+					{
+						exporter = new JRPdfExporter();
+					} 
+					else if ("html".equals(outputFormat))
+					{
+						exporter = new JRHtmlExporter();
+						/* Switch off pagination and null pixel alignment for JRHtmlExporter */
+				        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
+				        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+		                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);						
+					}
+					else if ("rtf".equals(outputFormat))
+					{
+						exporter = new JRRtfExporter();
+					}
+					else if ("odt".equals(outputFormat))
+					{
+						exporter = new JROdtExporter();
+					}
+					else if ("txt".equals(outputFormat))
+					{
+						exporter = new JRTextExporter();    
+				        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
+				        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
+				        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
+					}
+					else 
+						throw new CitationStyleManagerException (
+								"Output format " + outputFormat + " is not supported");
+					
+					
+					exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+					
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+					
+					exporter.exportReport();
+					
+					result = baos.toByteArray();
+
+					logger.info("export to " + outputFormat + ": " + (System.currentTimeMillis() - start));					
+					
+					
+					
+				} 
+				catch (Exception e) 
+				{
+					throw new RuntimeException("Cannot load JasperReport: " + csj, e);
+				}
+				
+				
+				
+			}
+			
+			
+//			logger.info( "snippet: " + extractBibliographicCitation(snippet) );
+
+		}	
+		catch (Exception e) 
+		{
+	            throw new RuntimeException("Error by transformation:", e);
+	    }
+		//
+		return result;
+//		return XmlHelper.outputString(itemListDoc).getBytes("UTF-8");
+		
+	}
+	
+
+	public byte[] getOutput(String citationStyle, String itemList)
+			throws IOException, JRException, CitationStyleManagerException {
+
+		return getOutput(citationStyle, "snippet", itemList);
+	}	
+	
+	
+	
+	public String[] getOutputFormats(String cs)
+			throws CitationStyleManagerException {
+		return pcs.getOutputFormats(cs);
+	}
+
+	public String[] getStyles() throws CitationStyleManagerException {
+		// TODO Auto-generated method stub
+		return pcs.getStyles();
+	}
+
+	public boolean isCitationStyle(String cs)
+			throws CitationStyleManagerException {
+		// TODO Auto-generated method stub
+		return pcs.isCitationStyle(cs);
+	}
+
+	private String generateJasperReportDataSource (String snippets)
+	{
+		
+		StringWriter result = new StringWriter();
+		
+		try 
+		{
+			
+			Transformer transformer = tryTemplCache(ResourceUtil.TRANSFORMATIONS_DIRECTORY + "escidoc-publication-snippet2jasper_DS.xsl").newTransformer();
+			transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
+			
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException("Cannot transform to JasperReport DataSource", e);
+		}
+
+		return result.toString();
+	}
+	
+	private Object[] extractSnippets(String snippetsXml)
+	{
+		Pattern p = Pattern.compile("<snippet:snippet\\s.*?>(.*?)</snippet:snippet>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	    Matcher m = p.matcher(snippetsXml);
+	    
+	    ArrayList<String> al = new ArrayList<String>();
+	    while (m.find())
+	    {
+	    	al.add(m.group(1));
+	    }
+	    return al.toArray(); 
+	}
+	
+	
+	private static ArrayList<String> extractTag(String xml, String tag)
+	{
+		Pattern p = Pattern.compile("<(" +tag +")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+		Matcher m = p.matcher(xml);
+		
+		ArrayList<String> al = new ArrayList<String>();
+		while (m.find())
+		{
+			al.add(m.group(2));
+		}
+		return al; 
+	}
+	
+	private static ArrayList<String> extractBibliographicCitation(String xml)
+	{
+		return extractTag(xml, "dcterms:bibliographicCitation"); 
+	}
+	
+	private static ArrayList<String> extractAbstract(String xml)
+	{
+		return extractTag(xml, "dcterms:abstract"); 
+	}
+
+   /**
+	* Maintain prepared stylesheets in memory for reuse
+	*/
+   private Templates tryTemplCache(String path) throws TransformerException, FileNotFoundException, CitationStyleManagerException 
+   {
+	   Utils.checkName(path, "Empty XSLT name.");
+
+	   InputStream is = ResourceUtil.getResourceAsStream(path);
+	   
+        Templates x = templCache.get(path);
+        if (x==null) {
+            x = tf.newTemplates(new StreamSource(is));
+            templCache.put(path, x);
         }
-        //
-//      return result.toString().getBytes("UTF-8");
-        return XmlHelper.outputString(itemListDoc).getBytes("UTF-8");
-        
+        return x;
     }
-    
-    
-    public byte[] getOutput(String cs, String outputFormat,
-            String itemList) throws IOException, JRException,
-            CitationStyleManagerException  {
+   
+/**
+ * Maintain prepared JasperReports in memory for reuse
+ * @throws CitationStyleManagerException 
+ * @throws IOException 
+ * @throws JRException 
+    */
+   private JasperReport tryJasperCache(String cs) throws CitationStyleManagerException, IOException, JRException   
+   {
+	   Utils.checkName(cs, "Empty style name.");
+	   
+	   JasperReport jr = jasperCache.get(cs);
+	   
+	   if (jr==null) {
 
-        Utils.checkCondition( !Utils.checkVal(outputFormat), "Output format is not defined");
-        
-//      Utils.checkCondition( !"snippet".equals(ouputFormat), "The only snippet format is supported for the moment");
-        
-        Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
-        
-        int slashPos = outputFormat.indexOf( "/" );
-        String ouf = slashPos == -1 ? outputFormat : outputFormat.substring( slashPos + 1 );
-        
-        // TODO: mapping should be taken from explain-styles.xml 
-        if (ouf.equals("vnd.oasis.opendocument.text")) 
-            ouf = "odt";
-         
-        try {
-            OutFormats.valueOf(ouf);
-        } catch (Exception e) {
-            throw new CitationStyleManagerException( "Output format: " + outputFormat + " is not supported" );
-        }       
-        
+		   //get default JasperDesign 
+		   String path = ResourceUtil.getPathToCitationStyles() + "citation-style.jrxml";
+		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
+			
+		   //populate page header
+		   jd.setName(cs);
+		   JRDesignStaticText st = (JRDesignStaticText)jd.getTitle().getElementByKey("staticText");
+	        if ( st != null )
+	        	st.setText("Citation Style: " + cs);
+			
+	        //compile to the JasperReport
+			jr = JasperCompileManager.compileReport(jd);
+		   
+			jasperCache.put(path, jr);
+	   }
+	   
+	   return jr;
+   }
+	
+	public static void main(String[] args) throws Exception {
+		
+		CitationStyleExecutor cse = new CitationStyleExecutor();
+		
+		
+		//logger.info(pcst.explainStyles());
+		
+//		byte[] cit = cse.getOutput("APA_new", "pdf", ResourceUtil.getResourceAsString("DataSources/export_xml.xml"));
+		
+		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/backup/CitationStyleTestCollection_new-NS.xml");
+		
+		long start = System.currentTimeMillis();
+		byte[] cit;
+ 
+		cit = cse.getOutput("AJP_new", "snippet", items);
+		
+		float itogo = (System.currentTimeMillis() - start);
+		logger.info("Itogo: " + itogo + "; pro item:" + (itogo/2) );
 
-        byte[] result;
-        String snippet;
-        long start; 
-        Transformer transformer;
-        try 
-        {
-            
-            start = System.currentTimeMillis();
-            
-            StringWriter sw = new StringWriter();
-            
-            String path = ResourceUtil.getPathToCitationStyles() + cs + "/CitationStyle.xsl"; 
-            
-            /* get xslt from the cache */
-            transformer = tryCache(path).newTransformer();
-            
-            //set parameters
-            String pub_inst = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"); 
-            transformer.setParameter("pubman_instance", pub_inst);
-            transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
-            
-            logger.info("Transformation item-list 2 snippet: " + (System.currentTimeMillis() - start));
-            
-            snippet = sw.toString(); 
-            
-            if ("snippet".equals(outputFormat))
-            {
-                result = snippet.getBytes("UTF-8");
-            }
-            else
-            {
-                //Hier: Call transformation service for transformation to output format from snippet to outputformat
-                start = System.currentTimeMillis();
+		int item_num = 1;
+		logger.info("NEW: " + extractBibliographicCitation(new String (cit)).get(item_num - 1) );
+		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
+//		cit = pcs.getOutput("APA", "pdf", items);
+//		FileOutputStream fos = new FileOutputStream("Report.pdf");
+		
+//		cit = cse.getOutput("APA_new", "pdf", items);
+//		cit = cse.getOutput("AJP_new", "snippet", items);
+//		FileOutputStream fos = new FileOutputStream("Report_snippet.xml");
+//		FileOutputStream fos = new FileOutputStream("Report.pdf");
+		
+//    	fos.write(cit);
+//    	fos.close();
 
-                String jrds = generateJasperReportDataSource(snippet);
-                
-                logger.info("Transformation snippet 2 JasperDS: " + (System.currentTimeMillis() - start));
-//              logger.info ("DS:" + jrds);
-                
+//		logger.info(new String (cit));
+//		logger.info(extractBibliographicCitation(new String (cit)));
+//		logger.info(extractAbstract(new String (cit)));
+		
+		
+//		String s1 = new String (cit); 
+//		logger.info( s1);
+		
+    	
+//		String s1 = new String (
+//				cse.getOutput("APA_new", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
+//				)); 
+//		logger.info( cse.extractBibliographicCitation(s1));
+//		logger.info( cse.extractBibliographicCitation(
+//				new String (
+//						pcs.getOutput("APA", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
+//						))
+//		));
+//		logger.info(
+//				new String (
+//						pcs.getOutput("APA", "snippet", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
+//						)));
 
-                
-                JasperReport jr = null;
-                String csj = null;
-                try 
-                {
-                    start = System.currentTimeMillis();
-                    csj = ResourceUtil.getPathToCitationStyles() + "citation-style.jasper";
-                    jr = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj));
-//                  Document doc = JRXmlUtils.parse(new InputSource(new StringReader(jrds) ));
-                    Document doc = XmlHelper.createDocument(jrds);
-                    
-                    Map<String, Object> params = new HashMap<String, Object>();
-                    params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
-                    
+	}
 
-                    JasperPrint jasperPrint= JasperFillManager.fillReport(
-                            jr,
-                            params,
-                            new JRXmlDataSource(doc, jr.getQuery().getText())
-//                          new JRXmlDataSource(doc)
-                    );
-                    
-                    logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
 
-                    start = System.currentTimeMillis();
 
-                    JRExporter exporter = null;    
-                    
-                    if ("pdf".equals(outputFormat))
-                    {
-                        exporter = new JRPdfExporter();
-                    } 
-                    else if ("html".equals(outputFormat))
-                    {
-                        exporter = new JRHtmlExporter();
-                        /* Switch off pagination and null pixel alignment for JRHtmlExporter */
-                        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
-                        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-                        exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);                       
-                    }
-                    else if ("rtf".equals(outputFormat))
-                    {
-                        exporter = new JRRtfExporter();
-                    }
-                    else if ("odt".equals(outputFormat))
-                    {
-                        exporter = new JROdtExporter();
-                    }
-                    else if ("txt".equals(outputFormat))
-                    {
-                        exporter = new JRTextExporter();    
-                        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
-                        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
-                        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
-                    }
-                    else 
-                        throw new CitationStyleManagerException (
-                                "Output format " + outputFormat + " is not supported");
-                    
-                    
-                    exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-                    
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
-                    
-                    exporter.exportReport();
-                    
-                    result = baos.toByteArray();
 
-                    logger.info("export to " + outputFormat + ": " + (System.currentTimeMillis() - start));                 
-                    
-                    
-                    
-                } 
-                catch (Exception e) 
-                {
-                    throw new RuntimeException("Cannot load JasperReport????: " + csj, e);
-                }
-                
-                
-                
-            }
 
-        }   
-        catch (Exception e) 
-        {
-                throw new RuntimeException("Error by transformation:", e);
-        }
-        //
-        return result;
-//      return XmlHelper.outputString(itemListDoc).getBytes("UTF-8");
-        
-    }
-    
 
-    public String[] getOutputFormats(String cs)
-            throws CitationStyleManagerException {
-        return pcs.getOutputFormats(cs);
-    }
 
-    public String[] getStyles() throws CitationStyleManagerException {
-        // TODO Auto-generated method stub
-        return pcs.getStyles();
-    }
-
-    public boolean isCitationStyle(String cs)
-            throws CitationStyleManagerException {
-        // TODO Auto-generated method stub
-        return pcs.isCitationStyle(cs);
-    }
-
-    private String generateJasperReportDataSource (String snippets)
-    {
-        return null;
-    }
-    
-    private Object[] extractSnippets(String snippetsXml)
-    {
-        Pattern p = Pattern.compile("<snippet:snippet\\s.*?>(.*?)</snippet:snippet>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-        Matcher m = p.matcher(snippetsXml);
-        
-        ArrayList<String> al = new ArrayList<String>();
-        while (m.find())
-        {
-            al.add(m.group(1));
-        }
-        return al.toArray(); 
-    }
-
-    
-    
-    public static void main(String[] args) throws Exception {
-        
-        CitationStyleExecutor cse = new CitationStyleExecutor();
-        
-        
-        //logger.info(pcst.explainStyles());
-        logger.info(
-                new String (
-                        cse.getOutput("APA_new", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
-                        )));
-        logger.info(
-                new String (
-                        pcs.getOutput("APA","", ResourceUtil.getResourceAsString("DataSources/export_xml.xml")
-                        )));
-
-    }
-    
-    /**
-     * Maintain prepared stylesheets in memory for reuse
-     */
-    private Templates tryCache(String path) throws TransformerException, FileNotFoundException, CitationStyleManagerException 
-    {
-        Utils.checkName(path, "Empty XSLT name.");
-
-        InputStream is = ResourceUtil.getResourceAsStream(path);
-        
-         Templates x = cache.get(path);
-         if (x==null) {
-             x = tf.newTemplates(new StreamSource(is));
-             cache.put(path, x);
-         }
-         return x;
-     }
 }
