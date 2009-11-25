@@ -199,11 +199,11 @@
 							<SubjectAttributeDesignator SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 						</Apply>
 					</Apply>
-					<Apply FunctionId="info:escidoc/names:aa:1.0:function:string-contains">
-						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
+					<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
 						<Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-one-and-only">
 							<ResourceAttributeDesignator AttributeId="info:escidoc/names:aa:1.0:resource:item:version-status" DataType="http://www.w3.org/2001/XMLSchema#string"/>
 						</Apply>
+						<AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pending</AttributeValue>
 					</Apply>
 				</Apply>
 			</Apply>
