@@ -906,6 +906,9 @@ public final class ValidationSchemaCache
             if (adminDescriptorVO instanceof Validatable)
             {
                 String validateSchemaId = ((Validatable) adminDescriptorVO).getValidationSchema();
+                
+                validationSchemaContextMap.put(context, validateSchemaId);
+                
                 return validateSchemaId; 
             }
         }
