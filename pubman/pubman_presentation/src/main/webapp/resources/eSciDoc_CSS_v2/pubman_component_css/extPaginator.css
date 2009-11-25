@@ -130,10 +130,6 @@
 	.pageBrowser input, .pageBrowser button {
 		height: 2.45em;
 	}
-	
-	.pageBrowser a {
-		padding-top: 0.19em;
-	}
 
 	.pageBrowser .seperator, .pageBrowser .actualSeperator {
 		width: 0.09em;
@@ -164,7 +160,7 @@
 		margin-left: 0.45em;
 	}
 	
-	.pageBrowser label {
+	.pageBrowser label, .pageBrowser span, .pageBrowser a {
 		margin-top: 0.28em;
 	}
 
