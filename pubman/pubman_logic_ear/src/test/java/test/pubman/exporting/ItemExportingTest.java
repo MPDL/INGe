@@ -115,7 +115,7 @@ public class ItemExportingTest extends TestBase
         {
             logger.debug(formatVO);
         }
-        assertEquals(3, exportFormatsVOList.size());
+        assertEquals(4, exportFormatsVOList.size());
         
 
     }
@@ -125,7 +125,7 @@ public class ItemExportingTest extends TestBase
      * {@link de.mpg.escidoc.services.external.exportformathandling.ItemExporting#getOutput(Sring, String, String)}.
      * @throws Exception 
      */
-   //TODO rewrite tests
+   @Test
     public void testGetLayoutFormatOutput() throws TechnicalException
     {
         logger.debug("\n\n\n###ItemExportingTest testGetLayoutFormatOutput ###");
@@ -159,7 +159,7 @@ public class ItemExportingTest extends TestBase
      * 
      * @throws Exception 
      */
-    //TODO: rewrite tests
+    @Test
     public void testGetStructuredFormatOutput() throws TechnicalException
     {
         logger.debug("\n\n\n###ItemExportingTest testGetStructuredFormatOutput ###");
