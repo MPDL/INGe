@@ -35,9 +35,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import javax.xml.rpc.ServiceException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -54,7 +57,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
+import de.escidoc.www.services.adm.AdminHandler;
 import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
@@ -62,8 +68,11 @@ import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.escidoc.services.citationmanager.xslt.CitationStyleExecutor;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+
+import test.TestHelper;
 
 /**
  * Test class for citation manager processing component
@@ -81,9 +90,9 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestCitationStylesSubstantial {
 
     private Logger logger = Logger.getLogger(getClass());
-	
-    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
-    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+	 
+    private static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    private static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
 
 	private static final String USER_NAME = "citman_user"; 
 	private static final String USER_PASSWD = "citman_user";
@@ -116,19 +125,19 @@ public class TestCitationStylesSubstantial {
 	private static String userHandle, adminHandle;   
 	private static UserAccountHandler uah_user, uah_admin; 
 	
-	
-
 	private static CitationStyleHandler pcs;    
+	private static CitationStyleExecutor cse;
 	private static XPath xpath;
 	 
 	 @BeforeClass
 	 public static void setUp() throws Exception
 	 {
 		 pcs = new ProcessCitationStyles();
-		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
-		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
-		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
-		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
+		 cse = new CitationStyleExecutor();
+//		 userHandle = TestHelper.loginUser(USER_NAME, USER_PASSWD);
+//		 uah_user = ServiceLocator.getUserAccountHandler(userHandle);
+//		 adminHandle = TestHelper.loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+//		 uah_admin = ServiceLocator.getUserAccountHandler(adminHandle);
 		 XPathFactory factory = XPathFactory.newInstance();
 		 xpath = factory.newXPath();
 	 }
@@ -139,6 +148,7 @@ public class TestCitationStylesSubstantial {
      * @throws Exception
      */
     @Test
+    @Ignore
     public final void testCitationStylesGeneration() throws Exception  {
 
     	int FAILED = 0;
@@ -147,7 +157,7 @@ public class TestCitationStylesSubstantial {
     	StringBuffer failedCits = new StringBuffer();
     	String itemList;
     	
-		ItemHandler ih = ServiceLocator.getItemHandler(userHandle);
+//		ItemHandler ih = ServiceLocator.getItemHandler(userHandle);
 
     	// for all citation styles
     	for (String cs : /*pcs.getStyles()*/ new String[]{"APA"} )    	
@@ -164,10 +174,11 @@ public class TestCitationStylesSubstantial {
     		String FILTER = tp.getProperty("data.source.filter");
     		String EXPECTED_KEY = tp.getProperty("data.source.expected.key");
     		String EXPECTED_XPATH = tp.getProperty("data.source.expected.xpath");
+    		
 
     		//get items from framework
-    		itemList = ih.retrieveItems( FILTER_CITATION_STYLE_TEST_COLLECTION );
-//    		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
+//    		itemList = ih.retrieveItems( FILTER_CITATION_STYLE_TEST_COLLECTION );
+    		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
 
     		NodeList nodes = xpathNodeList("/item-list/item", itemList);
 
@@ -181,7 +192,7 @@ public class TestCitationStylesSubstantial {
     			Document tmpDoc = JRXmlUtils.createDocument(n);
 
     			//generate text citation form the current item
-    			generatedCit = new String(pcs.getOutput(cs,"", XmlHelper.outputString(tmpDoc)));
+    			generatedCit = new String(pcs.getOutput(cs, XmlHelper.outputString(tmpDoc)));
     			generatedCit = cleanCit(generatedCit);
     			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
     			//    	    logger.info( "generated citation:" + generatedCit );
@@ -219,6 +230,94 @@ public class TestCitationStylesSubstantial {
     	}
     }
 
+	 /**
+     * Tests all citation styles snippets from file 
+     * 
+     * @throws Exception
+     */
+    @Test
+    //@Ignore
+    public final void testCitationStyleSnippetGeneration() throws Exception  {
+
+    	int FAILED = 0;
+    	String generatedCit;
+    	String expectedCit;
+    	StringBuffer failedCits = new StringBuffer();
+    	String itemList;
+    	
+
+    	// for all citation styles
+    	for (String cs : /*pcs.getStyles()*/ new String[]{"APA_new"} )    	
+    	{
+
+    		logger.info("Citation Style: " + cs);
+    		Properties tp = TestHelper.getTestProperties(cs);
+    		
+    		//get item list from file
+//    		boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
+    		//    	
+    		String EXPECTED_KEY = tp.getProperty("data.source.expected.key");
+    		String EXPECTED_XPATH = tp.getProperty("data.source.expected.xpath");
+    		String SNIPPET_XPATH = tp.getProperty("snippet.placeholder.xpath");
+    		
+    		//get items from file
+    		itemList = getFileAsString(CITATION_STYLE_TEST_COLLECTION_FILE_NAME);
+    		
+    		
+    		Document doc = XmlHelper.createDocument(itemList);
+    		Element root = doc.getDocumentElement();
+    		
+    		Node[] itemsArr = TestHelper.getItemNodes(root);
+
+    		assertFalse("No items have been found", itemsArr.length==0);
+    		
+    		for ( int i = 0; i < itemsArr.length; i++ )
+    		{
+    			root.appendChild(itemsArr[i]);
+    			Node n = itemsArr[i];
+    			String objid = n.getAttributes().getNamedItem("objid") + "";  
+    			logger.info(objid);
+
+    			//generate text citation form the current item
+    			String snippet = new String(cse.getOutput(cs, "snippet", XmlHelper.outputString(doc))); 
+    			Node snippetNode = xpathNode(SNIPPET_XPATH, snippet);
+    			generatedCit = snippetNode.getTextContent();
+    			generatedCit = generatedCit.replaceFirst("^.*" + cs +"\\s+?", "");
+    			//    	    logger.info( "generated citation:" + generatedCit );
+
+    			//get expected result from the abstract field 
+    			Node checkNode = xpathNode(EXPECTED_XPATH, doc);
+    			String comment = objid + ", xpath:" + EXPECTED_XPATH + ", item:" + XmlHelper.outputString(doc);
+    			assertNotNull("expected citation has not been found for " + comment, checkNode);
+    			expectedCit = checkNode.getTextContent();
+    			assertNotNull("expected citation element is empty for " + comment, checkNode);
+    			expectedCit = expectedCit.replaceFirst("^" + EXPECTED_KEY , "");
+    			//    	    logger.info( "expected citation:" + expectedCit );
+
+    			//compare generated and expected items
+    			if ( !diffStrings(generatedCit, expectedCit) )
+    			{
+    				FAILED++;
+    				failedCits.append(
+    						"\n " + objid  
+    						+ "\nThe generated citation:\n"
+    						+ "[" +generatedCit + "]"
+    						+ "\n does not match expected citation:\n"
+    						+ "[" + expectedCit + "]"
+    				);
+    			}
+
+    			root.removeChild(itemsArr[i]);
+    		}        		
+    		assertTrue(
+    				"There (is/are) " + FAILED + " wrong generated citation(s):" 
+    				+ failedCits.toString()
+    				, FAILED == 0
+    		);
+
+    	}
+    }
+    
 	/* CITATION STYLE TEST COLLECTION MANAGEMENT BLOCK */
     /**
      * Saves complete bundle of the XMLs related to citation style testing collection:
@@ -249,10 +348,13 @@ public class TestCitationStylesSubstantial {
     @Ignore
     public void restoreAll() throws Exception
     {
-    	restoreUser();
-    	restoreContext();
+//    	restoreUser();
+//    	restoreContext();
     	restoreGrants();
-    	restoreItems();
+//    	for (int i = 1; i <= 35; i++) {
+//    		restoreItems();	
+//		}
+        
     }
     
     
@@ -261,6 +363,7 @@ public class TestCitationStylesSubstantial {
      * @return <code>true</code> if successful, <code>false</code> otherwise   
      * @throws Exception
      */
+    
     private boolean restoreUser() throws Exception
     {
     	String userXml = null;
@@ -268,7 +371,7 @@ public class TestCitationStylesSubstantial {
     	
     	try 
     	{
-    		userXml = uah_user.retrieve(USER_NAME);
+    		userXml = uah_admin.retrieve(USER_NAME);
     	}
     	catch (Exception e) 
     	{
@@ -292,6 +395,23 @@ public class TestCitationStylesSubstantial {
     	
     	//create user
     	uah_admin.create( userXml );
+    	
+    	//change password
+    	userXml = uah_admin.retrieve(USER_NAME);
+    	String user_id = xpathString("/user-account/@objid", userXml);
+    	String ldm = xpathString("/user-account/@last-modification-date", userXml);;
+    	
+//    	DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'");
+//    	df.setTimeZone(TimeZone.getTimeZone("GMT"));
+//    	String ldm = df.format(new Date(System.currentTimeMillis()));
+    	
+    	uah_admin.updatePassword(
+    			user_id,
+    		"<param last-modification-date=\"" + ldm + "\">"
+    	+ 		"<password>" + USER_PASSWD + "</password>"
+    	+	"</param>"
+    			
+    	);
     	
     	return true;
 	}
@@ -331,6 +451,7 @@ public class TestCitationStylesSubstantial {
     		Node n = (Node) nodes.item(i);
     		
     		//remove old objid of the item
+    		logger.info("objid:" + ((Element)n).getAttribute("objid"));
     		((Element)n).removeAttribute("objid");
     		Document tmpDoc = JRXmlUtils.createDocument(n);
     		
@@ -344,7 +465,9 @@ public class TestCitationStylesSubstantial {
     		} )
     		{
         		Node nnn = xpathNode("/item/properties/" + expr, tmpDoc);
-        		nnn.getParentNode().removeChild(nnn);
+        		logger.info("xpath:" + "/item/properties/" + expr);
+        		if ( nnn != null )
+        			nnn.getParentNode().removeChild(nnn);
     		}
     		
     		//set context_id
@@ -517,6 +640,7 @@ public class TestCitationStylesSubstantial {
      * Saves Items of the Context into the file  
      * @throws Exception
      */
+	
 	public void backupItems() throws Exception
     {
     	String itemList = ServiceLocator.getItemHandler(userHandle).retrieveItems( FILTER_CITATION_STYLE_TEST_COLLECTION );    	
@@ -531,7 +655,7 @@ public class TestCitationStylesSubstantial {
     {
     	ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
     	String contextList = ch.retrieveContexts(FILTER_CITATION_STYLE_CONTEXT); 
-    	writeToFile(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME, contextList);
+    	writeToFile(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME+ ".xml", contextList);
     }
 
     
@@ -543,14 +667,49 @@ public class TestCitationStylesSubstantial {
     {
     	//GET USER ACCOUNT INFO 
     	String userXml = uah_user.retrieve(USER_NAME);
-    	writeToFile(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME, userXml);
+    	writeToFile(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME + ".xml", userXml);
     	
     	//GET GRANTS FOR THE USER 
     	//get user_id for citman_user
         String user_id = getUserId(userXml);
         
         String grants = uah_admin.retrieveCurrentGrants(user_id);
-    	writeToFile(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME, grants);
+    	writeToFile(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME + ".xml", grants);
+    }
+    
+    /*
+private static void administration(String userHandle) throws Exception
+   {
+       File f = new File("/home/frank/data/escidoc/VIRR/ingestion/cleanup/ids.txt");
+       AdminHandler admHandler = ServiceLocator.getAdminHandler(userHandle);
+                 String param = createTaskParam(f);
+           //admHandler.deleteObjects(param);
+           System.out.println(admHandler.getPurgeStatus());
+         }
+     private static String createTaskParam(File file) throws Exception
+   {
+       BufferedReader reader = new BufferedReader(new FileReader(file));
+       StringBuffer ids = new StringBuffer("<param>");
+       String line;
+       while ((line = reader.readLine()) != null)
+       {
+           ids.append("<id>" + line + "</id>");
+       }
+       ids.append("</param>");
+       System.out.println(ids.toString());
+       return ids.toString();
+   }     * 
+     */
+    
+//    @Test
+    public void purgeItems() throws ServiceException, URISyntaxException, InvalidXmlException, SystemException, RemoteException
+    {
+    	AdminHandler ah = ServiceLocator.getAdminHandler(adminHandle);
+    	String param = //"<param><id>escidoc:25202</id></param>";
+//"<param><id>escidoc:25207</id><id>escidoc:25201</id><id>escidoc:25200</id><id>escidoc:25199</id><id>escidoc:25198</id><id>escidoc:25197</id><id>escidoc:25196</id><id>escidoc:25195</id><id>escidoc:25194</id><id>escidoc:25193</id><id>escidoc:25192</id><id>escidoc:25191</id><id>escidoc:25190</id><id>escidoc:25189</id><id>escidoc:25188</id><id>escidoc:25187</id><id>escidoc:25186</id><id>escidoc:25185</id><id>escidoc:25184</id><id>escidoc:25183</id><id>escidoc:25182</id><id>escidoc:25181</id><id>escidoc:25180</id><id>escidoc:25179</id><id>escidoc:25178</id><id>escidoc:25177</id><id>escidoc:25176</id><id>escidoc:25175</id><id>escidoc:25174</id><id>escidoc:25173</id><id>escidoc:25172</id><id>escidoc:25171</id><id>escidoc:25170</id><id>escidoc:25169</id><id>escidoc:25168</id><id>escidoc:25167</id><id>escidoc:25166</id><id>escidoc:25165</id><id>escidoc:25164</id><id>escidoc:25163</id><id>escidoc:25162</id><id>escidoc:25161</id><id>escidoc:25160</id><id>escidoc:25159</id><id>escidoc:25158</id><id>escidoc:25157</id><id>escidoc:25156</id><id>escidoc:25155</id><id>escidoc:25154</id><id>escidoc:25153</id><id>escidoc:25152</id><id>escidoc:25151</id><id>escidoc:25150</id><id>escidoc:25149</id><id>escidoc:25148</id><id>escidoc:25147</id><id>escidoc:25146</id><id>escidoc:25145</id><id>escidoc:25144</id><id>escidoc:25143</id><id>escidoc:25142</id><id>escidoc:25141</id><id>escidoc:25140</id><id>escidoc:25139</id><id>escidoc:25138</id><id>escidoc:25137</id><id>escidoc:25136</id><id>escidoc:25135</id><id>escidoc:25134</id><id>escidoc:25133</id><id>escidoc:25132</id><id>escidoc:25131</id><id>escidoc:25130</id><id>escidoc:25129</id><id>escidoc:25128</id><id>escidoc:25127</id><id>escidoc:25126</id><id>escidoc:25125</id><id>escidoc:25124</id><id>escidoc:25123</id><id>escidoc:25122</id><id>escidoc:25121</id><id>escidoc:25120</id><id>escidoc:25119</id><id>escidoc:25118</id><id>escidoc:25117</id><id>escidoc:25116</id><id>escidoc:25115</id><id>escidoc:25114</id><id>escidoc:25113</id><id>escidoc:25112</id><id>escidoc:25111</id><id>escidoc:25110</id><id>escidoc:25109</id><id>escidoc:25108</id><id>escidoc:25107</id><id>escidoc:25106</id><id>escidoc:25105</id><id>escidoc:25104</id><id>escidoc:25103</id></param>";    	
+    	"<param><id>escidoc:24655</id></param>";    	
+    	ah.deleteObjects(param);
+    	logger.info("deletion status:" + ah.getPurgeStatus());
     }
     
     
