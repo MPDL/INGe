@@ -30,38 +30,27 @@
 package de.mpg.escidoc.services.citationmanager; 
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map; 
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -69,8 +58,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.base.JRBaseParameter;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -86,18 +73,14 @@ import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
-import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRProperties;
-import net.sf.jasperreports.engine.util.JRStringUtil;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.data.CitationStyle;
 import de.mpg.escidoc.services.citationmanager.data.CitationStylesCollection;
@@ -107,7 +90,6 @@ import de.mpg.escidoc.services.citationmanager.data.LayoutElement;
 import de.mpg.escidoc.services.citationmanager.data.LayoutElementsCollection;
 import de.mpg.escidoc.services.citationmanager.data.Loaders;
 import de.mpg.escidoc.services.citationmanager.data.Parameters;
-import de.mpg.escidoc.services.citationmanager.data.Writers;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
@@ -1218,16 +1200,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		fillReportBase(csName, ouf, dsFile, DEFAULT_REPORTNAME);
 	};
 
+	
+	
 	/**
      * Fills Citation Style to an OutputStream
 	 * @param citationStyle
 	 * @param os
+	 * @param outFormat
 	 * @param itemList
 	 * @throws JRException
 	 * @throws IOException
 	 * @throws CitationStyleManagerException
 	 */
-	private void fillReportToOutputStream(String citationStyle, OutputStream os, String itemList) throws JRException, IOException, CitationStyleManagerException   {
+	private void fillReportToOutputStream(String citationStyle, OutputStream os, String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException   {
 
 
 		long start;
@@ -1246,7 +1231,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			ResourceUtil.getPathToCitationStyles() 
 			+ citationStyle 
 			+ "/CitationStyle" 
-			+ CSS_CLASS_POSTFIX 
+			+ ( OutFormats.snippet == OutFormats.valueOf(outFormat) ? 
+					CSS_CLASS_POSTFIX : "" )
 			+	".jasper";
 		
 		JasperReport jr = null;
@@ -1268,12 +1254,66 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 		// generate snippet export
 		start = System.currentTimeMillis();
-		ProcessSnippet psn = new ProcessSnippet();
-		psn.export(document, params, jr, os);
-		logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
-		return;
-	}
-	
+		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
+		{
+			ProcessSnippet psn = new ProcessSnippet();
+			psn.export(document, params, jr, os);
+			logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
+			return;
+		}
+		
+		//all other exports
+		start = System.currentTimeMillis();
+		JasperPrint jasperPrint= JasperFillManager.fillReport(
+				jr,
+				params,
+				new JRXmlDataSource(document, jr.getQuery().getText())
+		);
+		
+		logger.info("JasperFillManager.fillReportToStream : " + (System.currentTimeMillis() - start));
+		
+		start = System.currentTimeMillis();
+
+		JRExporter exporter = null;    
+		
+		switch ( OutFormats.valueOf(outFormat) ) {
+			case pdf:
+				exporter = new JRPdfExporter();
+				break;
+			case html:
+				exporter = new JRHtmlExporter();
+				/* Switch off pagination and null pixel alignment for JRHtmlExporter */
+		        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
+		        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);
+				break;
+			case rtf:
+				exporter = new JRRtfExporter();
+				break;
+			case odt:
+				exporter = new JROdtExporter();
+				break;
+			case txt:
+				exporter = new JRTextExporter();    
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_WIDTH, new Integer(10));
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_HEIGHT, new Integer(10));
+		        exporter.setParameter(JRTextExporterParameter.CHARACTER_ENCODING, "UTF-8");
+				break;
+			default: 	
+				throw new CitationStyleManagerException (
+						"Output format " + outFormat + " is not supported");
+		}
+		
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, os);
+
+		exporter.exportReport();
+		
+
+		logger.info("export to " + outFormat + ": " + (System.currentTimeMillis() - start));
+		
+
+	}	
 	
 	/**
 	 * View report in different output formats
@@ -1401,23 +1441,42 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	}
 	
 	
-	public byte[] getOutput(String citationStyle, String outputFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
+	public byte[] getOutput(String citationStyle, String itemList) throws JRException, IOException, CitationStyleManagerException  {
 
+		return getOutput(citationStyle, "snippet", itemList);
+		
+	}
+	
+	public byte[] getOutput(String citationStyle, final String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
+		
+		Utils.checkCondition( !Utils.checkVal(outFormat), "Output format is not defined");
+		
 		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
-
+		
+		int slashPos = outFormat.indexOf( "/" );
+		String ouf = slashPos == -1 ? outFormat : outFormat.substring( slashPos + 1 );
+		// TODO: mapping should be taken from explain-styles.xml 
+		if (ouf.equals("vnd.oasis.opendocument.text")) 
+			ouf = "odt";
+		 
+		try {
+			OutFormats.valueOf(ouf);
+		} catch (Exception e) {
+			throw new CitationStyleManagerException( "Output format: " + outFormat + " is not supported" );
+		}
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
 		
 		long start = System.currentTimeMillis();
 		byte[] result = null;
 		
-		fillReportToOutputStream(citationStyle, baos, itemList);
+		fillReportToOutputStream(citationStyle, baos, ouf, itemList);
 		result = baos.toByteArray();
 		logger.info("export total: " + (System.currentTimeMillis() - start));
 		
 		return result;
 		
-	}
-	
+	}	
 	
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#isCitationStyle(java.lang.String)
