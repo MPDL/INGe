@@ -385,57 +385,73 @@ public class ImportProcess extends Thread
      */
     public void run()
     {
+        int counter = 0;
+        int itemCount = 1;
+        
         if (!failed)
         {
-            log.startItem("import_process_start_import");
-            this.formatProcessor.setSource(inputStream);
-            
-            int itemCount = 1;
-            if (this.formatProcessor.hasNext())
+            try
             {
-                itemCount = this.formatProcessor.getLength();
-            }
-            
-            int counter = 0;
-            log.finishItem();
-            
-            while (this.formatProcessor.hasNext() && !failed)
-            {
-                try
+                log.startItem("import_process_start_import");
+                this.formatProcessor.setSource(inputStream);
+                
+                if (this.formatProcessor.hasNext())
                 {
-                    if (log.getCurrentItem() == null)
-                    {
-                        log.startItem("import_process_import_item");
-                    }
-    
-                    String singleItem = this.formatProcessor.next();
-
-                    if (failed)
-                    {
-                        return;
-                    }
-                    
-                    if (singleItem != null && !"".equals(singleItem.trim()))
-                    {
-                        prepareItem(singleItem);
-                    }
-                    counter++;
-                    
-                    log.setPercentage(30 * counter / itemCount + 10);
+                    itemCount = this.formatProcessor.getLength();
                 }
-                catch (Exception e)
+                
+                
+                log.finishItem();
+                
+                while (this.formatProcessor.hasNext() && !failed)
                 {
-                    logger.error("Error during import", e);
-                    
-                    //log.finishItem();
-                    //log.startItem(ErrorLevel.ERROR, "import_process_item_error");
-                    log.addDetail(ErrorLevel.ERROR, e);
-                    log.finishItem();
-                    
-                    if (this.rollback)
+                    try
                     {
-                        fail();
+                        if (log.getCurrentItem() == null)
+                        {
+                            log.startItem("import_process_import_item");
+                        }
+        
+                        String singleItem = this.formatProcessor.next();
+    
+                        if (failed)
+                        {
+                            return;
+                        }
+                        
+                        if (singleItem != null && !"".equals(singleItem.trim()))
+                        {
+                            prepareItem(singleItem);
+                        }
+                        counter++;
+                        
+                        log.setPercentage(30 * counter / itemCount + 10);
                     }
+                    catch (Exception e)
+                    {
+                        logger.error("Error during import", e);
+                        
+                        //log.finishItem();
+                        //log.startItem(ErrorLevel.ERROR, "import_process_item_error");
+                        log.addDetail(ErrorLevel.ERROR, e);
+                        log.finishItem();
+                        
+                        if (this.rollback)
+                        {
+                            fail();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                logger.error("Error during import", e);
+                log.addDetail(ErrorLevel.ERROR, e);
+                log.finishItem();
+                
+                if (this.rollback)
+                {
+                    fail();
                 }
             }
             
