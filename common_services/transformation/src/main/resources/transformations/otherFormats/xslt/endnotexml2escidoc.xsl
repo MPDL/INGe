@@ -299,23 +299,46 @@
 			
 			
 			<!--ALTTITLE -->
-			<xsl:for-each select="
-				B[$refType = ('Generic', 'Electronic Book')]
-				|
-				F
-				|
-				J[$refType = ('Book', 'Book Section', 'Manuscript', 'Edited Book', 'Electronic Article', 'Report')]
-				|
-				Q
-				|
-				EXCLAMATION
-				|
-				S[$refType = ('Generic')]
-				">
-				<xsl:element name="dcterms:alternative">
-					<xsl:value-of select="."/>
-				</xsl:element>
-			</xsl:for-each>
+			<xsl:choose>
+				<!-- ICE puts filename into %F -->
+				<xsl:when test="$source-name = 'endnote-ice'">
+					<xsl:for-each select="
+						B[$refType = ('Generic', 'Electronic Book')]
+						|
+						J[$refType = ('Book', 'Book Section', 'Manuscript', 'Edited Book', 'Electronic Article', 'Report')]
+						|
+						Q
+						|
+						EXCLAMATION
+						|
+						S[$refType = ('Generic')]
+						">
+						<xsl:element name="dcterms:alternative">
+							<xsl:value-of select="."/>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:for-each select="
+						B[$refType = ('Generic', 'Electronic Book')]
+						|
+						F
+						|
+						J[$refType = ('Book', 'Book Section', 'Manuscript', 'Edited Book', 'Electronic Article', 'Report')]
+						|
+						Q
+						|
+						EXCLAMATION
+						|
+						S[$refType = ('Generic')]
+						">
+						<xsl:element name="dcterms:alternative">
+							<xsl:value-of select="."/>
+						</xsl:element>
+					</xsl:for-each>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 			
 									
 			<!-- IDENTIFIERS -->
@@ -620,13 +643,18 @@
 			<xsl:element name="dc:title">
 				<xsl:choose>
 					<xsl:when test="B"><xsl:value-of select="B"/></xsl:when>
-					<xsl:when test="J"><xsl:value-of select="J"/></xsl:when>
+					<xsl:when test="J[ 
+						$refType = 
+							('Journal Article', 'Magazin Article') 
+						]"><xsl:value-of select="J"/></xsl:when>
 				</xsl:choose>
 			</xsl:element>
 
 
 			<!-- SOURCE ALTTITLE -->
-			<xsl:for-each select="J[ 
+			<xsl:for-each select="J[
+				exists(B)
+					and
 				$refType = 
 					('Journal Article', 'Magazin Article') 
 				]">

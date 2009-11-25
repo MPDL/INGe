@@ -66,7 +66,7 @@
 	<xsl:param name="createLocatorsForPublicComponents" select="false()"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:57277'"/>
+	<xsl:param name="context" select="'dummy-context'"/>
 	<xsl:param name="external-ou"/>
 	<xsl:param name="root-ou" select="'escidoc:persistent13'"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
