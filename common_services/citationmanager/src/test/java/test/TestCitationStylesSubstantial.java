@@ -125,7 +125,7 @@ public class TestCitationStylesSubstantial {
 	private static String userHandle, adminHandle;   
 	private static UserAccountHandler uah_user, uah_admin; 
 	
-	private static CitationStyleHandler pcs;    
+	private static ProcessCitationStyles pcs;    
 	private static CitationStyleExecutor cse;
 	private static XPath xpath;
 	 
