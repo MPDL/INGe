@@ -645,7 +645,7 @@
 					<xsl:when test="B"><xsl:value-of select="B"/></xsl:when>
 					<xsl:when test="J[ 
 						$refType = 
-							('Journal Article', 'Magazin Article') 
+							('Journal Article', 'Magazine Article') 
 						]"><xsl:value-of select="J"/></xsl:when>
 				</xsl:choose>
 			</xsl:element>
@@ -656,7 +656,7 @@
 				exists(B)
 					and
 				$refType = 
-					('Journal Article', 'Magazin Article') 
+					('Journal Article', 'Magazine Article') 
 				]">
 				<xsl:element name="dcterms:alternative">
 					<xsl:value-of select="."/>
