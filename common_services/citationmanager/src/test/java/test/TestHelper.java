@@ -66,6 +66,9 @@ import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
@@ -73,7 +76,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 
 // import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
-/** 
+/**  
  * Helper class for all test classes.
  *
  * @author Johannes M&uuml;ller (initial)
@@ -82,7 +85,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestHelper
 {
-
+ 
 	private static Logger logger = Logger.getLogger(TestHelper.class);
 	
 	public static final String ITEMS_LIMIT = "50"; 
@@ -169,7 +172,7 @@ public class TestHelper
     	fos.write(content);
     	fos.close();
     }
-    
+     
     
     protected static int getItemsNumber(String itemListUri) throws Exception
     {
@@ -205,10 +208,11 @@ public class TestHelper
     	ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
     	return ch.retrieveItems(filter);
     }
-    
-    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
+
+    public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
     	String frameworkUrl = ServiceLocator.getFrameworkUrl();
+    	logger.info("frameworkUrl:" + frameworkUrl);
     	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
     	if( tokens.countTokens() != 2 ) {
     		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
@@ -269,6 +273,8 @@ public class TestHelper
     	}
     	return userHandle;
     }
+    
+    
     public static String getItemsFromFramework(String cql) throws Exception {
     	
 //    	http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
@@ -337,6 +343,41 @@ public class TestHelper
 //			" </filter>" +
 //		"</param>";
     	);	
+    }   
+    
+    /** 
+     * Split item-list document (passed as root element)
+     * to the the Node array
+     * @param root - document root element
+     * @return Node[] of the items
+     */
+    public static Node[] getItemNodes (Element root)
+    {
+
+		NodeList itemElements = root.getChildNodes(); 
+		int length = itemElements.getLength( ) ;
+		
+		//remove all text nodes
+		int k = 0;
+		for ( int i = 0; i < length; i++ )
+		{
+			Node n = itemElements.item(k);
+			if ( n.getNodeType() == Node.TEXT_NODE )
+				root.removeChild(n);
+			else
+				k++;
+		}
+		
+		itemElements = root.getChildNodes(); 
+		length = itemElements.getLength( ) ; 
+		Node[] itemsArr = new Node[length];
+		
+		// clean up doc and populate items array
+		for ( int i = 0; i < length; i++ )
+		{
+			itemsArr[i] = root.removeChild(itemElements.item(0));
+		}    	
+		return itemsArr;
     }    
 }
 
