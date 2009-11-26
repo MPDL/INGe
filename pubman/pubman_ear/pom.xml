@@ -450,7 +450,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>citationmanager</artifactId>
-            <version>1.0.38</version>
+            <version>1.0.39-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
@@ -512,7 +512,7 @@
         <dependency>
             <groupId>de.mpg.escidoc.services</groupId>
             <artifactId>search</artifactId>
-            <version>1.0.32</version>
+            <version>1.0.33-SNAPSHOT</version>
             <scope>compile</scope>
             <type>ejb</type>
         </dependency>
