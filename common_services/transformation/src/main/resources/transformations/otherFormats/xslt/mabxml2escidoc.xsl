@@ -433,7 +433,7 @@
 	</xsl:template>
 	
 	<xsl:template match="mab200">
-		<xsl:call-template name="createPersonCreator">
+		<xsl:call-template name="createOrganizationCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
@@ -446,25 +446,25 @@
 			</xsl:choose>
 		
 		</xsl:variable>
-		<xsl:call-template name="createPersonCreator">
+		<xsl:call-template name="createOrganizationCreator">
 			<xsl:with-param name="role" select="$role"/>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab204_a">
-		<xsl:call-template name="createPersonCreator">
+		<xsl:call-template name="createOrganizationCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab204_b">
-		<xsl:call-template name="createPersonCreator">
+		<xsl:call-template name="createOrganizationCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	
 	<xsl:template match="mab208_a">
-		<xsl:call-template name="createPersonCreator">
+		<xsl:call-template name="createOrganizationCreator">
 			<xsl:with-param name="role">editor</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
@@ -473,7 +473,7 @@
 		<xsl:param name="role"/>
 		<xsl:element name="pub:creator">
 			<xsl:element name="e:organization">
-				<xsl:attribute name="role" select="$role"/>
+				<!-- <xsl:attribute name="role" select="$role"/>-->
 				<xsl:element name="e:organization-name">
 					<xsl:value-of select="."/>
 				</xsl:element>
