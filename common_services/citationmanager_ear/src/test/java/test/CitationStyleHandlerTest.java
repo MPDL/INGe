@@ -152,6 +152,7 @@ public class CitationStyleHandlerTest {
      */
     
     @Test(expected = CitationStyleManagerException.class) 
+    @Ignore
     public final void testWrongStyleCitManOutput() throws Exception  {
     	byte[] result = pcs.getOutput("XYZ", "pdf", itemList);
 //    	byte[] result = pcs.getOutput("XYZ",  itemList);
