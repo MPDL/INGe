@@ -413,7 +413,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
    {
 	   Utils.checkName(cs, "Empty style name.");
 	   
-	   JasperReport jr = jasperCache.get(cs);
+	   //TODO: should be cleaned after complete migration to the XSLT version
+	   String tmp_cs_name = cs.toUpperCase().startsWith("APA") ? "APA" : cs; 
+
+	   JasperReport jr = jasperCache.get(tmp_cs_name);
 	   
 	   if (jr==null) {
 
@@ -422,15 +425,16 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		   JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path));
 			
 		   //populate page header
-		   jd.setName(cs);
+		    
+		   jd.setName(tmp_cs_name);
 		   JRDesignStaticText st = (JRDesignStaticText)jd.getTitle().getElementByKey("staticText");
 	        if ( st != null )
-	        	st.setText("Citation Style: " + cs);
+	        	st.setText("Citation Style: " + tmp_cs_name);
 			
 	        //compile to the JasperReport
 			jr = JasperCompileManager.compileReport(jd);
 		   
-			jasperCache.put(path, jr);
+			jasperCache.put(tmp_cs_name, jr);
 	   }
 	   
 	   return jr;
@@ -445,29 +449,32 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		
 //		byte[] cit = cse.getOutput("APA_new", "pdf", ResourceUtil.getResourceAsString("DataSources/export_xml.xml"));
 		
-		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/backup/CitationStyleTestCollection_new-NS.xml");
+		String items = ResourceUtil.getResourceAsString("/home/vlad/Projects/escidoc/common_services/citationmanager/src/test/resources/backup/CitationStyleTestCollection.xml");
 		
 		long start = System.currentTimeMillis();
 		byte[] cit;
  
+		/*
 		cit = cse.getOutput("AJP_new", "snippet", items);
 		
 		float itogo = (System.currentTimeMillis() - start);
 		logger.info("Itogo: " + itogo + "; pro item:" + (itogo/2) );
 
-		int item_num = 1;
+		int item_num = 18;
 		logger.info("NEW: " + extractBibliographicCitation(new String (cit)).get(item_num - 1) );
 		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
-//		cit = pcs.getOutput("APA", "pdf", items);
-//		FileOutputStream fos = new FileOutputStream("Report.pdf");
+		*/
+		
+		cit = cse.getOutput("APA_new", "pdf", items);
+		FileOutputStream fos = new FileOutputStream("Report.pdf");
 		
 //		cit = cse.getOutput("APA_new", "pdf", items);
 //		cit = cse.getOutput("AJP_new", "snippet", items);
 //		FileOutputStream fos = new FileOutputStream("Report_snippet.xml");
 //		FileOutputStream fos = new FileOutputStream("Report.pdf");
 		
-//    	fos.write(cit);
-//    	fos.close();
+    	fos.write(cit);
+    	fos.close();
 
 //		logger.info(new String (cit));
 //		logger.info(extractBibliographicCitation(new String (cit)));
