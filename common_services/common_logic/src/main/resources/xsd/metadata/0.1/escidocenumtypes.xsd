@@ -13,9 +13,9 @@
 			<xs:documentation>The review method for the publication.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="internal"/>
-			<xs:enumeration value="peer"/>
-			<xs:enumeration value="no-review"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/review-methods/internal"/>
+			<xs:enumeration value="http://purl.org/eprint/status/PeerReviewed"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/review-methods/no-review"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -26,13 +26,13 @@
 			<xs:documentation>The degree which is achieved with the publication. Applicable to thesis publications.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="master"/>
-			<xs:enumeration value="diploma"/>
-			<xs:enumeration value="magister"/>
-			<xs:enumeration value="staatsexamen"/>
-			<xs:enumeration value="phd"/>
-			<xs:enumeration value="habilitation"/>
-			<xs:enumeration value="bachelor"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/master"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/diploma"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/magister"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/phd"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
@@ -62,7 +62,7 @@
 	<!--*******************************
     DateTypeEnum
     ********************************-->
-	<xs:simpleType name="DateTypeEnum">
+	<!-- <xs:simpleType name="DateTypeEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="created"/>
 			<xs:enumeration value="submitted"/>
@@ -71,7 +71,7 @@
 			<xs:enumeration value="published-in-print"/>
 			<xs:enumeration value="published-online"/>
 		</xs:restriction>
-	</xs:simpleType>
+	</xs:simpleType>-->
 	<!--*******************************
     InvitationStatusEnum
     ********************************-->
