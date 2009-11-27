@@ -56,6 +56,7 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:esc="http://escidoc.mpg.de/"
    >
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -965,11 +966,11 @@
 						<xsl:value-of select="."/>
 					</xsl:element>
 					<xsl:choose>
-						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/escidoc:position)">
-							<xsl:for-each select="$cone-creator/cone/rdf:RDF/rdf:Description/escidoc:position">
+						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
+							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
 								<e:organization>
 									<e:organization-name>
-										<xsl:value-of select="rdf:Description/escidoc:organization"/>
+										<xsl:value-of select="rdf:Description/esc:organization"/>
 									</e:organization-name>
 									<e:identifier>
 										<xsl:value-of select="rdf:Description/dc:identifier"/>
@@ -977,16 +978,16 @@
 								</e:organization>
 							</xsl:for-each>
 						</xsl:when>
-						<xsl:when test="not($isSource) and position()=1">
+						<xsl:when test="not($isSource)">
 							<e:organization>
-								<e:organization-name>External Organizations</e:organization-name>
-								<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+								<e:organization-name>Max Planck Society</e:organization-name>
+								<e:identifier>${escidoc.pubman.root.organisation.id}</e:identifier>
 							</e:organization>
 						</xsl:when>
 					</xsl:choose>
 					<xsl:choose>
-						<xsl:when test="exists($cone-creator/cone/rdf:Description)">
-							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF/rdf:Description/@rdf:about"/></e:identifier>
+						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
+							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></e:identifier>
 						</xsl:when>
 					</xsl:choose>
 					

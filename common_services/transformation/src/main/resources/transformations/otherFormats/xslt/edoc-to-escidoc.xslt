@@ -102,8 +102,8 @@
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>GEO 600</edoc-collection>
-			<escidoc-ou>AEI Hannover</escidoc-ou>
-			<escidoc-id>escidoc:</escidoc-id>
+			<escidoc-ou>AEI Hannover, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
+			<escidoc-id>escidoc:2011</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Astrophysical Relativity</edoc-collection>
@@ -117,8 +117,8 @@
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Teilinstitut Hannover</edoc-collection>
-			<escidoc-ou>AEI Hannover</escidoc-ou>
-			<escidoc-id>escidoc:</escidoc-id>
+			<escidoc-ou>AEI Hannover, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
+			<escidoc-id>escidoc:2011</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Cactus group</edoc-collection>
@@ -158,7 +158,7 @@
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Canonical and Covariant Dynamics of Quantum Gravity</edoc-collection>
 			<escidoc-ou>Canonical and Covariant Dynamics of Quantum Gravity, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:</escidoc-id>
+			<escidoc-id>escidoc:2011</escidoc-id>
 		</mapping>
 		<mapping ou="MPIPL">
 			<edoc-collection>Language Acquisition</edoc-collection>

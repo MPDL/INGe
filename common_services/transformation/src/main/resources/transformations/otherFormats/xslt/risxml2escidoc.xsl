@@ -434,8 +434,8 @@
 	</xsl:template>
 	<!-- SOURCE -->
 	<xsl:template name="createSource">
-		<xsl:param name="genre"/>
-		<xsl:param name="title"/>		
+		<xsl:param name="genre" />
+		<xsl:param name="title" />		
 		<xsl:element name="pub:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -450,25 +450,25 @@
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
 			<xsl:element name="dc:title">
-				<xsl:value-of select="$title"/>
+				<xsl:value-of select="$title" />
 			</xsl:element>
 			
 			<!-- SOURCE ALTTITLE -->
 			<xsl:choose>
 				<xsl:when test="JA">
 					<xsl:element name="dcterms:alternative">
-						<xsl:value-of select="JA"/>
+						<xsl:value-of select="JA" />
 					</xsl:element>
 				</xsl:when>
 				<xsl:when test="J1">
 					<xsl:element name="dcterms:alternative">
-						<xsl:value-of select="J1"/>
+						<xsl:value-of select="J1" />
 					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="J2">
 						<xsl:element name="dcterms:alternative">
-							<xsl:value-of select="J2"/>
+							<xsl:value-of select="J2" />
 						</xsl:element>
 					</xsl:if>
 				</xsl:otherwise>
@@ -477,15 +477,15 @@
 			<xsl:if test="not($title=T3)">
 			<xsl:if test="A3">
 				<xsl:variable name="var">
-           			<xsl:copy-of select="AuthorDecoder:parseAsNode(A3)"/>
+           			<xsl:copy-of select="AuthorDecoder:parseAsNode(A3)" />
       			</xsl:variable>
        			<xsl:for-each select="$var/authors/author">
         			<xsl:element name="e:creator">
 						<xsl:attribute name="role">author</xsl:attribute>						
 						<xsl:call-template name="createPerson">
-							<xsl:with-param name="familyname" select="familyname"/>
-							<xsl:with-param name="givenname" select="givenname"/>
-							<xsl:with-param name="title" select="title"/>
+							<xsl:with-param name="familyname" select="familyname" />
+							<xsl:with-param name="givenname" select="givenname" />
+							<xsl:with-param name="title" select="title" />
 						</xsl:call-template>
 					</xsl:element>          
       			</xsl:for-each>
@@ -494,20 +494,20 @@
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="(VL and (JF or JO or T3 or ET))">
 				<xsl:element name="e:volume">
-					<xsl:value-of select="VL"/>
+					<xsl:value-of select="VL" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE ISSUE -->
 			<xsl:choose>
 				<xsl:when test="IS">
 					<xsl:element name="e:issue">
-						<xsl:value-of select="IS"/>
+						<xsl:value-of select="IS" />
 					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="CP">
 						<xsl:element name="e:issue">
-							<xsl:value-of select="CP"/>
+							<xsl:value-of select="CP" />
 						</xsl:element>
 					</xsl:if>
 				</xsl:otherwise>
@@ -515,30 +515,30 @@
 			<!-- SOURCE PAGES -->
 			<xsl:if test="EP">
 				<xsl:element name="e:start-page">
-					<xsl:value-of select="SP"/>
+					<xsl:value-of select="SP" />
 				</xsl:element>
 				<xsl:element name="e:end-page">
-					<xsl:value-of select="EP"/>
+					<xsl:value-of select="EP" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE TOTAL NUMBER OF PAGES -->
 			<xsl:if test="not(EP) and SP">
 				<xsl:element name="e:total-number-of-pages">
-					<xsl:value-of select="SP"/>
+					<xsl:value-of select="SP" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE PUBLISHINGINFO -->			
 			<xsl:if test="($genre='article' or $genre='paper' or $genre='issue' or $genre='other' or $genre='conference-paper' or $genre='book-item') and (PB or CY)">
 				<xsl:element name="e:publishing-info">
 					<xsl:element name="dc:publisher">
-						<xsl:value-of select="PB"/>
+						<xsl:value-of select="PB" />
 					</xsl:element>
 					<xsl:element name="e:place">
-						<xsl:value-of select="CY"/>
+						<xsl:value-of select="CY" />
 					</xsl:element>
 					<xsl:if test="ET and ($genre='book' or $genre='thesis' or $genre='proceedings' or $genre='report')">
 						<xsl:element name="e:edition">
-							<xsl:value-of select="ET"/>
+							<xsl:value-of select="ET" />
 						</xsl:element>
 					</xsl:if>
 				</xsl:element>
@@ -553,7 +553,7 @@
 							<xsl:otherwise>eidt:ISBN</xsl:otherwise>
 						</xsl:choose>						
 					</xsl:attribute>
-					<xsl:value-of select="SN"/>
+					<xsl:value-of select="SN" />
 				</xsl:element>
 			</xsl:if>		
 				</xsl:if>	

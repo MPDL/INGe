@@ -472,6 +472,7 @@
 	<xsl:template name="createOrganizationCreator">
 		<xsl:param name="role"/>
 		<xsl:element name="pub:creator">
+			<xsl:attribute name="role" select="$role"/>
 			<xsl:element name="e:organization">
 				<!-- <xsl:attribute name="role" select="$role"/>-->
 				<xsl:element name="e:organization-name">

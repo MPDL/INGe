@@ -361,6 +361,12 @@ public class Util
         {
             logger.info("Getting size of " + url);
             httpClient.executeMethod(headMethod);
+            
+            if (headMethod.getStatusCode() != 200)
+            {
+                logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
+            }
+            
             documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
             Document document = documentBuilder.newDocument();
             Element element = document.createElement("size");
