@@ -483,7 +483,7 @@
                 <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
                 <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
 
-
+                <escidoc.pubman.root.organisation.id>escidoc:persistent13</escidoc.pubman.root.organisation.id>
                 <escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
                 <escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
