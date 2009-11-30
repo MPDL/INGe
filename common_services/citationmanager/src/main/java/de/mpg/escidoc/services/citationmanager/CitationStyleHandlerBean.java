@@ -88,9 +88,9 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
         byte[] exportData = null;
         //exportData = citStylesMan.getOutput(citationStyle, itemList);
         //TODO
-        exportData = "AJP".equals(citationStyle) ?
-        		citStylesMan.getOutput(citationStyle, outputFormat, itemList):
-                cse.getOutput("APA_new", outputFormat, itemList);
+        exportData = citationStyle.startsWith("AJP") ?
+        			cse.getOutput("AJP_new", outputFormat, itemList) : 
+                	cse.getOutput("APA_new", outputFormat, itemList);
         return exportData;
     }
 
