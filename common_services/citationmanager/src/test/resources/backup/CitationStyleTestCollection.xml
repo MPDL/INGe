@@ -67,6 +67,18 @@
               </escidoc:organization>
             </escidoc:person>
           </publication:creator>
+          <publication:creator role="author">
+            <escidoc:person>
+              <escidoc:complete-name/>
+              <escidoc:family-name>Bäumel</escidoc:family-name>
+              <escidoc:given-name>S.</escidoc:given-name>
+              <escidoc:organization>
+                <escidoc:organization-name>test</escidoc:organization-name>
+                <escidoc:address/>
+                <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:person>
+          </publication:creator>
           <dc:title>A perfect example for a thesis.THESIS</dc:title>
           <dcterms:alternative></dcterms:alternative>
           <publication:publishing-info>
@@ -77,7 +89,7 @@
           <publication:total-number-of-pages/>
           <publication:degree>phd</publication:degree>
           <dcterms:abstract><![CDATA[APA: Bäumel, S. <span class="DisplayDateStatus">(2008).</span> A perfect example for a thesis.THESIS. PhD Thesis, Universität Greifswald.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: S. Bäumel, PhD-Thesis, Universität Greifswald, 2008.</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: S. Bäumel and S. Bäumel, PhD Thesis, Universität Greifswald, 2008.]]></dcterms:abstract>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents>Commentar</dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -168,7 +180,7 @@
           </publication:event>
           <publication:total-number-of-pages>555</publication:total-number-of-pages>
           <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2006).</span> It's raining todayTALK.<span class="Italic"> 9th Symposium on Rain.</span> Garching, 2006.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: H. Knözinger and E. Taglauer, "It's raining today", (Wiley-VCH, Weinheim, 2008), pp. 555.</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining todayTALK", in <span class="Italic">Acta Anatomica</span>, (S. Karger, Basel, 2008), pp. 555.]]></dcterms:abstract>
           <dc:subject>PLEASE NOTE: AJP CITATION = GENERIC WITHOUT SOURCE</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -244,7 +256,7 @@
           <dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Grote, R., &amp; Kraus, D. <span class="DisplayDateStatus">(2008).</span> <span class="Italic">Fälle zu den GrundrechtenBOOK</span> (3.). München: Beck.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: Rainer Grote and Dieter Kraus, Fälle zu den Grundrechten. (Beck, München, 2008), 3. ed. </dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Rainer Grote and Dieter Kraus,<span class="Italic"> Fälle zu den GrundrechtenBOOK.</span> (Beck, München, 2008), 3. ed.]]></dcterms:abstract>
           <dc:subject>PLEASE NOTE: GENRE SPECIFIC SUBMISSION DOES NOT CONTAIN PUBLISHER; PLACE AND EDITION INFORMATION FOR BOOKS. ITEM NEEDS TO BE EDITED ACCORDINGLY AFTER PROBLEM IS FIXED.</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -359,7 +371,7 @@
           </publication:source>
           <publication:total-number-of-pages>16</publication:total-number-of-pages>
           <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> Spreading and Wetting.BOOKCHAPTER. In G. Ertl, H. Knötzinger, F. Schüth, &amp; J. Weikamp (Eds.), <span class="Italic">Handbook of Heterogenous Catalysis</span> (pp. 555-571). Weinheim: Wiley-VCH.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: H. Knözinger and E. Taglauer, "Spreading and Wetting", in Handbook of Heterogeneous Catalysis, edited by G. Ertl, H. Knözinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), Vol.1, pp. 555-571. </dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "Spreading and Wetting.BOOKCHAPTER", in <span class="Italic">Handbook of Heterogenous Catalysis</span>, edited by G. Ertl, H. Knötzinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), pp. 555-571.]]></dcterms:abstract>
           <dc:subject>PLEASE NOTE: SOURCE VOLUME IS MISSING. PLEASE EDIT ITEM WHEN PROBLEM IS FIXED.</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -367,6 +379,7 @@
     </escidocMetadataRecords:md-records>
     <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de:8080"/>
   </escidocItem:item>
+   
    <escidocItem:item objid="escidoc:24483" last-modification-date="2009-04-10T10:38:40.958Z">
     <escidocItem:properties>
       <prop:creation-date>2009-04-10T10:38:39.096Z</prop:creation-date>
@@ -480,8 +493,7 @@
           </publication:source>
           <publication:total-number-of-pages>555</publication:total-number-of-pages>
           <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (Eds.), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: H. Knözinger and E. Taglauer, "It's raining today", in Heterogeneous Catalysis, edited by G. Ertl, H. Knözinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), Vol.1, pp. 555. </dcterms:abstract>
-          <dcterms:abstract>APA: Knötzinger, H., &amp; Taglauer, E. (2008). It's raining today. In G. Ertl, H. Knözinger, F. Schüth, &amp; J. Weikamp (Eds.), Heterogenous Catalysis (pp. 555-589). Weinheim: Wiley- VCH.</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining today - update PROCEEDINGS PAPER", in <span class="Italic">Heterogeneous Catalysis</span>, edited by G. Ertl, H. Knözinger, and F. Schüth (Wiley-VCH, Weinheim, 2008), Vol. 1, pp. 555.]]></dcterms:abstract>
           <dc:subject>AJP CITATION = GENERIC WITH SOURCE
 APA= please note that rule might need correction, so that periodical and non periodical procedings will be covered. This one is a non periodical.</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -584,7 +596,7 @@ APA= please note that rule might need correction, so that periodical and non per
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Hirsch, T. M., &amp; Müller, H. W. <span class="DisplayDateStatus">(2006).</span> <span class="Italic">The meaning of life as it should be.PROCEEDINGS</span>.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: T. M. Hirsch and H. W. Müller, presented at the IPP Summer University for Plasma Physics, Garching, 2006. </dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: T. M. Hirsch and H. W. Müller,<span class="Italic"> The meaning of life as it should be.PROCEEDINGS.</span> (2006).]]></dcterms:abstract>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -659,7 +671,7 @@ APA= please note that rule might need correction, so that periodical and non per
           <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W. (Eds.) <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: R. Behrisch and W. Eckstein (eds), Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies. (Springer Verlag, Berlin, 2007).</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: R. Behrisch and W. Eckstein (eds),<span class="Italic"> Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS.</span> (Springer Verlag, Berlin, 2007).]]></dcterms:abstract>
           <dc:subject>ITEM MODIFIED (PUBLISHER AND PLACE ADDED)</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -721,7 +733,7 @@ APA= please note that rule might need correction, so that periodical and non per
           <dcterms:issued xsi:type="dcterms:W3CDTF">2006</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Naujoks, D. (Ed.) <span class="DisplayDateStatus">(2006).</span> <span class="Italic">Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR</span>.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: D. Naujoks (ed), Plasma-Material Interaction in Controlled Fusion. (Springer, Berlin, 2006). </dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: D. Naujoks (ed),<span class="Italic"> Plasma-Material Interaction in Controlled Fusion.BOOK WITH EDITOR.</span> (2006).]]></dcterms:abstract>
           <dc:subject>PLEASE NOTE: GENRE SPECIFIC SUBMISSION DOES NOT CONTAIN PUBLISHER; PLACE AND EDITION INFORMATION FOR BOOKS. ITEM NEEDS TO BE EDITED ACCORDINGLY AFTER PROBLEM IS FIXED. </dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -843,8 +855,7 @@ APA= please note that rule might need correction, so that periodical and non per
           </publication:source>
           <publication:total-number-of-pages>555</publication:total-number-of-pages>
           <dcterms:abstract><![CDATA[APA: Knözinger, H., &amp; Taglauer, E. <span class="DisplayDateStatus">(2008).</span> It's raining today - update PROCEEDINGS PAPER. In G. Ertl, H. Knözinger, &amp; F. Schüth (Eds.), <span class="Italic">Heterogeneous Catalysis</span>. Weinheim: Wiley-VCH. doi:doi:10.1017/q.knozler.2008.01.27.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: H. Knözinger and E. Taglauer, "It's raining today", in Heterogeneous Catalysis, edited by G. Ertl, H. Knözinger, F. Schüth, and J. Weikamp (Wiley-VCH, Weinheim, 2008), Vol.1, pp. 555. </dcterms:abstract>
-          <dcterms:abstract>APA: Knötzinger, H., &amp; Taglauer, E. (2008). It's raining today. In G. Ertl, H. Knözinger, F. Schüth, &amp; J. Weikamp (Eds.), Heterogenous Catalysis (pp. 555-589). Weinheim: Wiley- VCH.</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: H. Knözinger and E. Taglauer, "It's raining today - update PROCEEDINGS PAPER", in <span class="Italic">Heterogeneous Catalysis</span>, edited by G. Ertl, H. Knözinger, and F. Schüth (Wiley-VCH, Weinheim, 2008), Vol. 1, pp. 555.]]></dcterms:abstract>
           <dc:subject>AJP CITATION = GENERIC WITH SOURCE
 APA= please note that rule might need correction, so that periodical and non periodical procedings will be covered. This one is a non periodical.</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -921,7 +932,7 @@ APA= please note that rule might need correction, so that periodical and non per
           <dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Behrisch, R., &amp; Eckstein, W. (Eds.) <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS</span>. Berlin: Springer Verlag.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: R. Behrisch and W. Eckstein (eds), Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies. (Springer Verlag, Berlin, 2007).</dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: R. Behrisch and W. Eckstein (eds),<span class="Italic"> Sputtering by Particle Bombardment: Experiments and Computer Calculations from Threshold to MeV Energies.BOOKWITHMOREEDITORS.</span> (Springer Verlag, Berlin, 2007).]]></dcterms:abstract>
           <dc:subject>ITEM MODIFIED (PUBLISHER AND PLACE ADDED)</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -929,6 +940,7 @@ APA= please note that rule might need correction, so that periodical and non per
     </escidocMetadataRecords:md-records>
     <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de:8080"/>
   </escidocItem:item>
+   
    <escidocItem:item objid="escidoc:2095" last-modification-date="2009-04-01T13:19:43.079Z">
     <escidocItem:properties>
       <prop:creation-date>2009-04-01T13:19:41.761Z</prop:creation-date>
@@ -1022,7 +1034,7 @@ APA= please note that rule might need correction, so that periodical and non per
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Hirsch, T. M., &amp; Müller, H. W. <span class="DisplayDateStatus">(2006).</span> <span class="Italic">The meaning of life as it should be.PROCEEDINGS</span>.]]></dcterms:abstract>
-          <dcterms:abstract>AJP: T. M. Hirsch and H. W. Müller, presented at the IPP Summer University for Plasma Physics, Garching, 2006. </dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: T. M. Hirsch and H. W. Müller,<span class="Italic"> The meaning of life as it should be.PROCEEDINGS.</span> (2006).]]></dcterms:abstract>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
         </escidocMetadataProfile:publication>
@@ -1031,9 +1043,7 @@ APA= please note that rule might need correction, so that periodical and non per
     <escidocComponents:components xml:base="http://dev-coreservice.mpdl.mpg.de:8080"/>
   </escidocItem:item>
  
-     
-	
-	<escidocItem:item objid="escidoc:24945"
+ 	<escidocItem:item objid="escidoc:24945"
 		last-modification-date="2009-04-10T11:24:07.383Z">
 		<escidocItem:properties>
 			<prop:creation-date>2009-04-10T11:24:06.024Z</prop:creation-date>
@@ -1114,7 +1124,8 @@ APA= please note that rule might need correction, so that periodical and non per
 					</publication:creator>
 					<dc:title>Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE</dc:title>
 					<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
-					<dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued>
+					 
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2008</dcterms:issued> 
 					<publication:review-method>peer</publication:review-method>
 					<publication:source type="journal">
 						<dc:title>Journal of Physics: Condensed Matter</dc:title>
@@ -1145,11 +1156,7 @@ APA= please note that rule might need correction, so that periodical and non per
 					<publication:total-number-of-pages>7
 					</publication:total-number-of-pages>
 					<dcterms:abstract><![CDATA[APA: Hickel, T., Uijttewaal, M., Grabowski, B., &amp; Neugebauer, J. <span class="DisplayDateStatus">(2008).</span> Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE.<span class="Italic"> Journal of Physics: Condensed Matter</span>, <span class="Italic">20</span>(6), 28-35.]]></dcterms:abstract>
-					<dcterms:abstract>AJP: Tilmann Hickel, Matthe Uijttewaal, Blazej
-						Grabowski, and Jörg Neugebauer, "Determination of symmetry reduced
-						structures using a soft phonon analysis for magnetic shape memory
-						alloys," Journal of Physics: Condensed Matter 20 (6), 28-35
-						(2008). </dcterms:abstract>
+					<dcterms:abstract><![CDATA[AJP: Tilmann Hickel, Matthe Uijttewaal, Blazej Grabowski, and Jörg Neugebauer, "Determination of symmetry reduced structures using a soft phonon analysis for magnetic shape memory alloysJOURNALARTICLE," Journal of Physics: Condensed Matter<span class="Bold"> 20</span> (6), 28-35 (2008).]]></dcterms:abstract>
 					<dc:subject></dc:subject>
 					<dcterms:tableOfContents></dcterms:tableOfContents>
 				</escidocMetadataProfile:publication>
@@ -1254,6 +1261,7 @@ APA= please note that rule might need correction, so that periodical and non per
           </publication:source>
           <publication:total-number-of-pages/>
 		<dcterms:abstract><![CDATA[APA: Schutz, B. F., LIGO Scientific Collaboration, &amp; et al <span class="DisplayDateStatus">(2005).</span> Search for gravitational waves from primordial black hole binary coalescences in the galactic halo.<span class="Italic"> Physical Review D</span>, <span class="Italic">72</span>(8). doi:10.1103/PhysRevD.72.082002.]]></dcterms:abstract>
+		<dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, LIGO Scientific Collaboration, and et al, "Search for gravitational waves from primordial black hole binary coalescences in the galactic halo," Physical Review D<span class="Bold"> 72</span> (8), 082002 (2005).]]></dcterms:abstract>
           <dcterms:abstract>We use data from the second science run of the LIGO gravitational-wave detectors to search for the gravitational waves from primordial black hole binary coalescence with component masses in the range 0.2–1.0M[sun]. The analysis requires a signal to be found in the data from both LIGO observatories, according to a set of coincidence criteria. No inspiral signals were found. Assuming a spherical halo with core radius 5 kpc extending to 50 kpc containing nonspinning black holes with masses in the range 0.2–1.0M[sun], we place an observational upper limit on the rate of primordial black hole coalescence of 63 per year per Milky Way halo (MWH) with 90% confidence.</dcterms:abstract>
           <dcterms:subject></dcterms:subject>
           <dc:subject></dc:subject>
@@ -1293,6 +1301,8 @@ APA= please note that rule might need correction, so that periodical and non per
       </escidocComponents:component>
     </escidocComponents:components>
   </escidocItem:item>
+ 
+ 
  <escidocItem:item objid="escidoc:39139" last-modification-date="2009-11-04T14:10:26.715Z">
     <escidocItem:properties>
       <prop:creation-date>2008-11-17T15:06:53.227Z</prop:creation-date>
@@ -1367,6 +1377,7 @@ APA= please note that rule might need correction, so that periodical and non per
           <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2008</dcterms:dateAccepted>
           <publication:total-number-of-pages>8 pages, 2 figures</publication:total-number-of-pages>
 		<dcterms:abstract><![CDATA[APA: Ansorg, M., &amp; Hennig, J. <span class="DisplayDateStatus">(in press).</span> The inner Cauchy horizon of axisymmetric and stationary black holes with surrounding matter.]]></dcterms:abstract>
+		<dcterms:abstract><![CDATA[AJP: Marcus Ansorg and Jörg Hennig, "The inner Cauchy horizon of axisymmetric and stationary black holes with surrounding matter", pp. 8 pages, 2 figures.]]></dcterms:abstract>
           <dcterms:abstract>We investigate the interior of regular axisymmetric and stationary black
 holes surrounded by matter and find that for non-vanishing angular momentum of
 the black hole the space time can always be extended regularly up to and
@@ -1829,6 +1840,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
 
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., Plissi, M. V., et al. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_JOURNAL.<span class="Italic"> Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, <span class="Italic">volume</span>(issue), 176-193.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Kenneth A. Strain, M. M. Casey, J. Hough, P. W. McNamara, G. Newton, M. V. Plissi, N. A. Robertson, S. Rowan, D. I. Robertson, K. D. Skeldon, C. I. Torrie, S. M. Twyford, H. Ward, Karsten Danzmann, Peter Aufmuth, Harald Lück, Kasem Mossavi, J. Mizuno, Albrecht Rüdiger, Roland Schilling, Walter Winkler, Bernard F. Schutz, B. S. Sathyaprakash, and I. Taylor, "Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_JOURNAL", in <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, edited by Tsvi Piran (World Scientific, Singapore, 1999), Vol. volume, pp. 176-193.]]></dcterms:abstract>
           <dcterms:subject></dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -2008,6 +2020,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
 
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Strain, K. A., Casey, M. M., Hough, J., McNamara, P. W., Newton, G., &amp; Plissi, M. V. <span class="DisplayDateStatus">(1999).</span> Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_PROCEEDINGS. In T. Piran (Ed.), <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span> (pp. 176-193). Singapore: World Scientific.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Kenneth A. Strain, M. M. Casey, J. Hough, P. W. McNamara, G. Newton, and M. V. Plissi, "Laser interferometric gravitational wave detectors spanning 7 decades of frequency.SOURCE_GENRE_PROCEEDINGS", in <span class="Italic">Eighth Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Gravitation, and Relativistic Field Theories</span>, edited by Tsvi Piran (World Scientific, Singapore, 1999), Vol. volume, pp. 176-193.]]></dcterms:abstract>
           <dcterms:subject></dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -2106,6 +2119,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Schutz, B. F. <span class="DisplayDateStatus">(1994).</span> <span class="Italic">Searching for gravitational waves</span>. Geneva: CERN, Geneva.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz,<span class="Italic"> Searching for gravitational waves.</span> (CERN, Geneva, Geneva, 1994).]]></dcterms:abstract>
           <dcterms:subject></dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -2194,6 +2208,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:source>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Schutz, B. F. (Ed.) <span class="DisplayDateStatus">(2003).</span> <span class="Italic">Gravity from the Ground Up: An Introductory Guide to Gravity and General Relativity</span> (edition). Place: Publisher.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz (ed),<span class="Italic"> Gravity from the Ground Up: An Introductory Guide to Gravity and General Relativity.</span> (Publisher, Place, 2003), edition ed.]]></dcterms:abstract>
           <dcterms:abstract>This book invites the reader to understand our Universe, not just marvel at it. From the clock-like motions of the planets to the catastrophic collapse of a star into a black hole, gravity controls the Universe. Gravity is central to modern physics, helping to answer the deepest questions about the nature of time, the origin of the Universe and the unification of the forces of nature. Linking key experiments and observations through careful physical reasoning, the author builds the reader's insight step-by-step from simple but profound facts about gravity on Earth to the frontiers of research. Topics covered include the nature of stars and galaxies, the mysteries of dark matter and dark energy, black holes, gravitational waves, inflation and the Big Bang. Suitable for general readers and for undergraduate courses, the treatment uses only high-school level mathematics, supplemented by optional computer programs, to explain the laws of physics governing gravity.</dcterms:abstract>
           <dcterms:subject></dcterms:subject>
 
@@ -2285,6 +2300,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           <publication:total-number-of-pages>188 p.</publication:total-number-of-pages>
           <publication:degree>phd</publication:degree>
           <dcterms:abstract><![CDATA[APA: Kooijman, V. <span class="DisplayDateStatus">(2007).</span> Continuous-speech segmentation at the beginning of language acquisition: Electrophysiological evidence.ISSUED. PhD Thesis, Radboud University Nijmegen, Nijmegen.]]></dcterms:abstract>          
+          <dcterms:abstract><![CDATA[AJP: Valesca Kooijman, PhD Thesis, Radboud University Nijmegen, 2007.]]></dcterms:abstract>          
           <dcterms:abstract>Word segmentation, or detecting word boundaries in continuous speech, is not an easy task. Spoken language does not contain silences to indicate word boundaries and words partly overlap due to coarticalution. Still, adults listening to their native language perceive speech as individual words. They are able to combine different distributional cues in the language, such as the statistical distribution of sounds and metrical cues, with lexical information, to efficiently detect word boundaries. Infants in the first year of life do not command these cues. However, already between seven and ten months of age, before they know word meaning, infants learn to segment words from speech. This important step in language acquisition is the topic of this dissertation. In chapter 2, the first Event Related Brain Potential (ERP) study on word segmentation in Dutch ten-month-olds is discussed. The results show that ten-month-olds can already segment words with a strong-weak stress pattern from speech and they need roughly the first half of a word to do so. Chapter 3 deals with segmentation of words beginning with a weak syllable, as a considerable number of words in Dutch do not follow the predominant strong-weak stress pattern. The results show that ten-month-olds still largely rely on the strong syllable in the language, and do not show an ERP response to the initial weak syllable. In chapter 4, seven-month-old infants' segmentation of strong-weak words was studied. An ERP response was found to strong-weak words presented in sentences. However, a behavioral response was not found in an additional Headturn Preference Procedure study. There results suggest that the ERP response is a precursor to the behavioral response that infants show at a later age.</dcterms:abstract>
         </escidocMetadataProfile:publication>
       </escidocMetadataRecords:md-record>
@@ -2371,6 +2387,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           <publication:total-number-of-pages>188 p.</publication:total-number-of-pages>
           <publication:degree>phd</publication:degree>
           <dcterms:abstract><![CDATA[APA: Kooijman, V. <span class="DisplayDateStatus">(2007).</span> <span class="Italic">Continuous-speech segmentation at the beginning of language acquisition: Electrophysiological evidence.PUBLISHED-ONLINE</span> (PhD Thesis, Radboud University Nijmegen, Nijmegen, 2007). Retrieved from http://webdoc.ubn.ru.nl/]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Valesca Kooijman, PhD Thesis, Radboud University Nijmegen, 2007.]]></dcterms:abstract>
           <dcterms:abstract>Word segmentation, or detecting word boundaries in continuous speech, is not an easy task. Spoken language does not contain silences to indicate word boundaries and words partly overlap due to coarticalution. Still, adults listening to their native language perceive speech as individual words. They are able to combine different distributional cues in the language, such as the statistical distribution of sounds and metrical cues, with lexical information, to efficiently detect word boundaries. Infants in the first year of life do not command these cues. However, already between seven and ten months of age, before they know word meaning, infants learn to segment words from speech. This important step in language acquisition is the topic of this dissertation. In chapter 2, the first Event Related Brain Potential (ERP) study on word segmentation in Dutch ten-month-olds is discussed. The results show that ten-month-olds can already segment words with a strong-weak stress pattern from speech and they need roughly the first half of a word to do so. Chapter 3 deals with segmentation of words beginning with a weak syllable, as a considerable number of words in Dutch do not follow the predominant strong-weak stress pattern. The results show that ten-month-olds still largely rely on the strong syllable in the language, and do not show an ERP response to the initial weak syllable. In chapter 4, seven-month-old infants' segmentation of strong-weak words was studied. An ERP response was found to strong-weak words presented in sentences. However, a behavioral response was not found in an additional Headturn Preference Procedure study. There results suggest that the ERP response is a precursor to the behavioral response that infants show at a later age.</dcterms:abstract>
         </escidocMetadataProfile:publication>
       </escidocMetadataRecords:md-record>
@@ -2479,6 +2496,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:source>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Sengbusch, R. v. <span class="DisplayDateStatus">(1942).</span> Süßlupinen und Öllupinen. Teil II. Eine züchterisch brauchbare Schnellmethode zur Bestimmung des Ölgehaltes von Samen und ihre erstmalige Anwendung bei der Züchtung von Öllupinen. In E. Editor1, &amp; E. Editor2 (Eds.), <span class="Italic">Landwirtschaftliche Jahrbücher</span> (Edition, pp. 763-792). Berlin: Paul Parey.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Reinhold von Sengbusch, "Süßlupinen und Öllupinen. Teil II. Eine züchterisch brauchbare Schnellmethode zur Bestimmung des Ölgehaltes von Samen und ihre erstmalige Anwendung bei der Züchtung von Öllupinen", edited by Editor Editor1 and Editor Editor2 (Paul Parey, Berlin, 1942), Vol. 91, pp. 763-792.]]></dcterms:abstract>
           <dcterms:subject>Lupins</dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -2596,6 +2614,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:source>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Ein Beitrag zur Strohzersetzung durch höhere Pilze (Basidiomycetes) und Nutzung für Ernährungs- und Düngungszwecke [Special Issue]. <span class="DisplayDateStatus">(1975).</span><span class="Italic"> Landwirtschaftliche Forschung</span>, <span class="Italic">32</span>(2).]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Frantisek Zadrazil, "Ein Beitrag zur Strohzersetzung durch höhere Pilze (Basidiomycetes) und Nutzung für Ernährungs- und Düngungszwecke", in <span class="Italic">Landwirtschaftliche Forschung</span>, (J.D. Sauerländer's Verlag, Frankfurt am Main, 1975), Vol. 32, pp. 153-167.]]></dcterms:abstract>
           <dcterms:subject>Methods</dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -2832,6 +2851,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           <dcterms:created xsi:type="dcterms:W3CDTF">1995</dcterms:created>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al. (Eds.) <span class="DisplayDateStatus">(in preparation).</span> Living Reviews in Relativity.IN_PREPARATION.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, Robert Beig, Bernd Brügmann, C. Isham, B. Iyer, Renate Loll, J. Pullin, Jürgen Renn, Edward Seidel, J. Wambsganss, and C. Will (eds), "Living Reviews in Relativity.IN_PREPARATION".]]></dcterms:abstract>
           <dc:subject></dc:subject>
 
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -3067,6 +3087,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           <dcterms:issued xsi:type="dcterms:W3CDTF">2009</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Schutz, B. F., Beig, R., Brügmann, B., Isham, C., Iyer, B., Loll, R., et al. (Eds.). <span class="Italic">Living Reviews in Relativity.ISSUED</span>. Golm near Potsdam, Germany: Max-Planck-Institut für Gravitationsphysik.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, Robert Beig, Bernd Brügmann, C. Isham, B. Iyer, Renate Loll, J. Pullin, Jürgen Renn, Edward Seidel, J. Wambsganss, and C. Will (eds), "Living Reviews in Relativity.ISSUED", (2009).]]></dcterms:abstract>
           <dc:subject></dc:subject>
 
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -3196,6 +3217,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           <dcterms:issued xsi:type="dcterms:W3CDTF">1970</dcterms:issued>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Baumunk, E., Kallistratos, G., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1970).</span> <span class="Italic">Eine Gefriertrocknungs-Versuchsanlage zum Studium qualitativer Veränderuncen und technologischer Prozesse während der Gefriertrocknung</span>. Unpublished Manuscript.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Edeltraud Baumunk, Georg Kallistratos, and Reinhold von Sengbusch, "Eine Gefriertrocknungs-Versuchsanlage zum Studium qualitativer Veränderuncen und technologischer Prozesse während der Gefriertrocknung", (1970).]]></dcterms:abstract>
           <dcterms:subject>Technique</dcterms:subject>
           <dc:subject></dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
@@ -3313,6 +3335,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:source>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: <span class="Italic">Title</span>. (Vols. 56).]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Auth Author1, "Title", in <span class="Italic">Journal title</span>, (Publisher, Place, 2008), Vol. 56.]]></dcterms:abstract>
           <dcterms:abstract>Abstarct</dcterms:abstract>
           <dc:subject>optical fuse, patent</dc:subject>
           <dcterms:tableOfContents>TOC</dcterms:tableOfContents>
@@ -3463,6 +3486,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Brozinski, M., Knothe, W., &amp; Sengbusch, R. v. <span class="DisplayDateStatus">(1960).</span> Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse.<span class="Italic"> 85. Kongress der Vereinigung Nordwestdeutscher Chirurgen.</span> Berlin, 1960-06-25 - 1960-06-30.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: M. Brozinski, W. Knothe, and Reinhold von Sengbusch, "Oxalatsteinauflösung in der menschlichen Niere durch Chemolyse", in <span class="Italic">Deutsche medizinische Wochenschrift</span>, (Georg Thieme, Leipzig, 1960), Vol. 86, pp. 255-256.]]></dcterms:abstract>
           <dcterms:subject>Kidney stones, Methods</dcterms:subject>
           <dc:subject></dc:subject>
 
@@ -3572,6 +3596,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Schutz, B. F. <span class="DisplayDateStatus">(2002).</span> Cosmology with Gravitational Waves. LMU Physics Colloquium, Munich. Munich, 2002-02-05 - 2002-02-05.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Bernard F. Schutz, "Cosmology with Gravitational Waves".]]></dcterms:abstract>
           <dc:subject>Colloquium</dc:subject>
           <dcterms:tableOfContents></dcterms:tableOfContents>
           <publication:location/>
@@ -3721,6 +3746,7 @@ that in the limit $J \to 0$ the inner Cauchy horizon becomes singular.
           </publication:event>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Strange, W., Weber, A., Levy, E., Shafiro, V., &amp; Nishi, K. <span class="DisplayDateStatus">(2002).</span> <span class="Italic">Within- and across-language acoustic variability of vowels spoken in different phonetic and prosodic contexts: American English, North German, and Parisian French</span>. Poster presented at the 144th meeting of the Acoustical Society of America, Cancun, Mexico.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: W. Strange, A. Weber, E. Levy, V. Shafiro, and K. Nishi, "Within- and across-language acoustic variability of vowels spoken in different phonetic and prosodic contexts: American English, North German, and Parisian French", in <span class="Italic">Journal of the Acoustical Society of America</span>, (Acoustical Society of America through the American Institute of Physics, Woodbury, NY, 2002), Vol. 112, pp. 2384-2384.]]></dcterms:abstract>
           <dcterms:abstract>This project investigates the acoustic variability of vowels produced in multisyllabic nonsense words /cvC1VC2(v)/ in carrier sentences by speakers of American English (AE), Parisian French (PF), and North German (NG). Variables under examination are (1) immediate phonetic context (C1=b,d; C2=b,d,p,t), (2) sentence prominence (narrow focus versus
 postfocus), and speaking rate (normal vs rapid). Preliminary results show that for AE vowels, phonetic context produces large differences (2–3 bark) in midpoint F2 values for mid-to-high back vowels, reflecting allophonic fronting of these vowels in alveolar context. Much smaller increases in F2 (~1 bark) were found for both PF and NG mid/high back vowels in alveolar contexts. Most AE speakers showed little or no effect of sentence
 focus or speaking rate on the degree of fronting of back vowels in alveolar context. PF speakers produced more fronted mid/high back vowels in postfocused context than did NG and AE speakers. NG and PF speakers showed relatively greater F1 undershoot in low vowels in postfocus context than for AE speakers. These within- and across-language differences in the effect of prosodic and phonetic context on vowel acoustics reflect
@@ -3811,6 +3837,7 @@ both language-universal constraints and language-specific rules for contextual w
           </publication:source>
           <publication:total-number-of-pages/>
           <dcterms:abstract><![CDATA[APA: Levelt, W. J. M.<span class="DisplayDateStatus">(1964).</span> <span class="Italic">Optische geleiding door remmingwerken en richtmiddelen</span> (REPORT_IDENTIFIER_SHOULD_BE _LISTED_FIRST). Report IZF-1964-C1. Soesterberg: Institute for Perception RVO-TNO.]]></dcterms:abstract>
+          <dcterms:abstract><![CDATA[AJP: Willem J. M. Levelt, "Optische geleiding door remmingwerken en richtmiddelen", in <span class="Italic">Institute for Perception RVO-TNO</span>, (1964), Vol. Report IZF-1964-C1.]]></dcterms:abstract>
           <dcterms:subject></dcterms:subject>
 
           <dc:subject></dc:subject>
