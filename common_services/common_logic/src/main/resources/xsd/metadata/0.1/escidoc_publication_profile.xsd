@@ -35,6 +35,7 @@ targetNamespace="http://purl.org/escidoc/metadata/profiles/0.1/publication" elem
 			<xs:element ref="eterms:publishing-info" minOccurs="0"/>
 			<xs:group ref="PublicationDatesGroup" minOccurs="0"/>
 			<xs:element ref="eterms:review-method" minOccurs="0"/>
+			<xs:element ref="eterms:court" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="source:source" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="event:event" minOccurs="0"/>
 			<xs:element ref="eterms:total-number-of-pages" minOccurs="0"/>
