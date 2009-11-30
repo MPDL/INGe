@@ -70,7 +70,15 @@
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/book-review"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/opinion"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/case-study"/>
-			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/case-note"/>			
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/case-note"/>				
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/monograph"/>	
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/newspaper"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/commentary"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/handbook"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/festschrift"/>	
 		</xs:restriction>
 	</xs:simpleType>
 	<!--*******************************
