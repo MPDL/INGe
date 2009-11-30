@@ -414,7 +414,10 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 	   Utils.checkName(cs, "Empty style name.");
 	   
 	   //TODO: should be cleaned after complete migration to the XSLT version
-	   String tmp_cs_name = cs.toUpperCase().startsWith("APA") ? "APA" : cs; 
+	   String tmp_cs_name = 
+		   	cs.toUpperCase().startsWith("APA") ? "APA" : 
+	   		cs.toUpperCase().startsWith("AJP") ? "AJP" : 
+			cs; 
 
 	   JasperReport jr = jasperCache.get(tmp_cs_name);
 	   
@@ -454,28 +457,24 @@ public class CitationStyleExecutor implements CitationStyleHandler{
 		long start = System.currentTimeMillis();
 		byte[] cit;
  
-		/*
+		
 		cit = cse.getOutput("AJP_new", "snippet", items);
 		
 		float itogo = (System.currentTimeMillis() - start);
 		logger.info("Itogo: " + itogo + "; pro item:" + (itogo/2) );
 
-		int item_num = 18;
+		int item_num = 11;
 		logger.info("NEW: " + extractBibliographicCitation(new String (cit)).get(item_num - 1) );
 		logger.info("OLD: " + extractBibliographicCitation(new String (pcs.getOutput("AJP", "snippet", items))).get(item_num - 1) );
-		*/
 		
+/*		
 		cit = cse.getOutput("APA_new", "pdf", items);
 		FileOutputStream fos = new FileOutputStream("Report.pdf");
 		
-//		cit = cse.getOutput("APA_new", "pdf", items);
-//		cit = cse.getOutput("AJP_new", "snippet", items);
-//		FileOutputStream fos = new FileOutputStream("Report_snippet.xml");
-//		FileOutputStream fos = new FileOutputStream("Report.pdf");
-		
+	
     	fos.write(cit);
     	fos.close();
-
+*/
 //		logger.info(new String (cit));
 //		logger.info(extractBibliographicCitation(new String (cit)));
 //		logger.info(extractAbstract(new String (cit)));
