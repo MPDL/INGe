@@ -122,6 +122,7 @@
 			<xs:enumeration value="http://www.loc.gov/loc.terms/relators/CTB"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/creator-roles/publisher"/>
 			<xs:enumeration value="http://www.loc.gov/loc.terms/relators/HNR"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/creator-roles/founder"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
