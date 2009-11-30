@@ -31,6 +31,7 @@
 			<xs:element ref="eterms:creator" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element ref="eterms:volume" minOccurs="0"/>
 			<xs:element ref="eterms:issue" minOccurs="0"/>
+			<xs:element ref="dcterms:issued" minOccurs="0"/>
 			<xs:element ref="eterms:start-page" minOccurs="0"/>
 			<xs:element ref="eterms:end-page" minOccurs="0"/>
 			<xs:element ref="eterms:sequence-number" minOccurs="0"/>
