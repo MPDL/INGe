@@ -66,6 +66,10 @@
 	<xs:element name="condition" type="xs:string"/>
 	<xs:element name="temperature" type="TemperatureType"/>
 	
+	<!-- JusCMS -->
+	<xs:element name="court" type="xs:string"/>
+
+	
 	<!--*******************************
     TemperatureType
     ********************************-->
