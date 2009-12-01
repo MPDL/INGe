@@ -129,31 +129,31 @@
 	<!-- FACES-ITEM TYPES -->
 	<xs:simpleType name="EmotionEnumType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="happiness"/>
-			<xs:enumeration value="anger"/>
-			<xs:enumeration value="neutrality"/>
-			<xs:enumeration value="sadness"/>
-			<xs:enumeration value="fear"/>
-			<xs:enumeration value="disgust"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/happiness"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/anger"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/neutrality"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/sadness"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/fear"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/emotions/disgust"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PictureGroupEnumType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="a"/>
-			<xs:enumeration value="b"/>			
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/picture-group/a"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/picture-group/b"/>			
 		</xs:restriction>
 	</xs:simpleType>
     <xs:simpleType name="AgeGroupEnumType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="young"/>
-			<xs:enumeration value="middle"/>
-			<xs:enumeration value="old"/>			
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/age-group/young"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/age-group/middle"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/age-group/old"/>			
 		</xs:restriction>
 	</xs:simpleType>           
 	<xs:simpleType name="GenderEnumType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="female"/>
-			<xs:enumeration value="male"/>						
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/genders/female"/>
+			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/genders/male"/>						
 		</xs:restriction>
 	</xs:simpleType>      
 	
