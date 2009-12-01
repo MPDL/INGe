@@ -209,7 +209,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.39-SNAPSHOT</version>
+			<version>1.0.39</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
