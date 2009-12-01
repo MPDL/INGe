@@ -39,6 +39,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.pubman.TestBase;
@@ -104,7 +105,7 @@ public class ItemExportingTest extends TestBase
      * 
      * @throws Exception 
      */
-    @Test
+    @Ignore
     public void testExplainExportFormats() throws TechnicalException
     {
         logger.debug("\n\n\n###ItemExportingTest testExplainExportFormats ###");        
