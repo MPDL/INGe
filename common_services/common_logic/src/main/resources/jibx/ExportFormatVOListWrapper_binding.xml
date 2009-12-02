@@ -30,21 +30,21 @@
    <mapping name="export-formats" ns="http://escidoc.mpg.de/export/schema/0.1/explain-formats" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper" ordered="false">
       <collection field="exportFormatVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.exportFormatVOListFactory">
             <structure name="export-format" ns="http://escidoc.mpg.de/export/schema/0.1/explain-formats" type="de.mpg.escidoc.services.common.valueobjects.ExportFormatVO">
-                <value name="title" field="name" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String" style="element"/>
-                <value name="identifier" field="id" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String" style="element"/>
-                <value name="description" field="description" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String" style="element" usage="optional"/>
+                <value name="title" field="name" ns="${xsd.metadata.dc}" type="java.lang.String" style="element"/>
+                <value name="identifier" field="id" ns="${xsd.metadata.dc}" type="java.lang.String" style="element"/>
+                <value name="description" field="description" ns="${xsd.metadata.dc}" type="java.lang.String" style="element" usage="optional"/>
                 <collection factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.fileFormatVOListFactory" field="fileFormats">
                     <structure name="output-format" ns="http://escidoc.mpg.de/export/schema/0.1/explain-formats" type="de.mpg.escidoc.services.common.valueobjects.FileFormatVO"/>
                 </collection>
                 <collection factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" field="creators">
-                    <value name="creator" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
+                    <value name="creator" ns="${xsd.metadata.dc}" type="java.lang.String"/>
                 </collection>
                 <structure name="selected-file-format" field="selectedFileFormat" type="de.mpg.escidoc.services.common.valueobjects.FileFormatVO" usage="optional"/>
             </structure>
         </collection>
    </mapping>
    <mapping  abstract="true" ns="http://escidoc.mpg.de/export/schema/0.1/explain-formats" class="de.mpg.escidoc.services.common.valueobjects.FileFormatVO">
-        <value name="title" style="element" field="name" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
-        <value name="format" style="element" field="mimeType" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
+        <value name="title" style="element" field="name" ns="${xsd.metadata.dc}" type="java.lang.String"/>
+        <value name="format" style="element" field="mimeType" ns="${xsd.metadata.dc}" type="java.lang.String"/>
    </mapping>
 </binding>

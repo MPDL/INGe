@@ -291,7 +291,7 @@ public class XmlComparator
 
         public TextNode(String content)
         {
-            this.content = content;
+            this.content = content.replace(">", "&gt;");
         }
 
         @Override

@@ -1,21 +1,21 @@
-<pubman-admin-descriptor>
+<?xml version="1.0" encoding="UTF-8"?><pubman-admin-descriptor>
 	<allowed-genres>
-		<allowed-genre>article</allowed-genre>
-		<allowed-genre>book</allowed-genre>
-		<allowed-genre>book-item</allowed-genre>
-		<allowed-genre>proceedings</allowed-genre>
-		<allowed-genre>conference-paper</allowed-genre>
-		<allowed-genre>talk-at-event</allowed-genre>
-		<allowed-genre>conference-report</allowed-genre>
-		<allowed-genre>poster</allowed-genre>
-		<allowed-genre>courseware-lecture</allowed-genre>
-		<allowed-genre>thesis</allowed-genre>
-		<allowed-genre>paper</allowed-genre>
-		<allowed-genre>report</allowed-genre>
-		<allowed-genre>journal</allowed-genre>
-		<allowed-genre>issue</allowed-genre>
-		<allowed-genre>series</allowed-genre>
-		<allowed-genre>other</allowed-genre>
+		<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/article</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/Book</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/BookItem</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/proceedings</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/ConferencePaper</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/conference-report</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/ConferencePoster</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/Thesis</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/paper</allowed-genre>
+			<allowed-genre>http://purl.org/eprint/type/Report</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/journal</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/issue</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/series</allowed-genre>
+			<allowed-genre>http://purl.org/escidoc/metadata/ves/publication-types/other</allowed-genre>
 	</allowed-genres>
 	<template-item>escidoc:123</template-item>
 	<validation-schema>publication</validation-schema>

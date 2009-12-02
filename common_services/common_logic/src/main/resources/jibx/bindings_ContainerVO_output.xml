@@ -49,7 +49,9 @@
 	<namespace prefix="version" uri="${xsd.soap.common.version}" default="none" />
 	<namespace prefix="release" uri="${xsd.soap.common.release}" default="none" />
 	<namespace prefix="mods" uri="http://www.loc.gov/mods/v3" default="none" />
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
+	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
+	<namespace prefix="face" uri="${xsd.metadata.face}" default="none" />
 	
 
 	<format type="java.util.Date"

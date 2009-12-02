@@ -84,6 +84,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
@@ -665,6 +666,18 @@ public class JiBXHelper
         }
         else
         {
+        	for(CreatorRole cr: CreatorRole.values())
+        	{
+        		if (enumValue.equals(cr.getUri()))
+        		{
+        			return cr;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+        	throw new WrongEnumException("CreatorRoleEnum value is '" + enumValue + "'.");
+        	
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -674,8 +687,25 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("CreatorRoleEnum value is '" + enumValue + "'.", e);
             }
+            */
         }
-        return creatorRole;
+        //return creatorRole;
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeCreatorRoleEnumToString(CreatorRole enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
 
     
@@ -789,6 +819,19 @@ public class JiBXHelper
         }
         else
         {
+        	
+        	for(DegreeType dt: DegreeType.values())
+        	{
+        		if (enumValue.equals(dt.getUri()))
+        		{
+        			return dt;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+        	throw new WrongEnumException("DegreeTypeEnum value is '" + enumValue + "'.");
+        	
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -798,8 +841,26 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("DegreeTypeEnum value is '" + enumValue + "'.", e);
             }
+        	 */    
         }
-        return degreeType;
+        
+        //return degreeType;
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeDegreeTypeEnumToString(DegreeType enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
 
     /**
@@ -825,6 +886,18 @@ public class JiBXHelper
         }
         else
         {
+        	for(Visibility v: Visibility.values())
+        	{
+        		if (enumValue.equals(v.getUri()))
+        		{
+        			return v;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+        	throw new WrongEnumException("FileVisibilityEnum value is '" + enumValue + "'.");
+        	
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -834,6 +907,7 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("FileVisibilityEnum value is '" + enumValue + "'.");
             }
+            */
         }
         return visibility;
     }
@@ -848,13 +922,25 @@ public class JiBXHelper
      */
     public static MdsPublicationVO.Genre deserializeGenreEnum(String enumValue) throws WrongEnumException
     {
-        MdsPublicationVO.Genre genre = null;
         if (enumValue == null)
         {
             throw new WrongEnumException("genre is null.");
         }
         else
         { 
+        	
+        	for(MdsPublicationVO.Genre g: MdsPublicationVO.Genre.values())
+        	{
+        		if (enumValue.equals(g.getUri()))
+        		{
+        			return g;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+             
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -864,8 +950,24 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
             }
+            */
         }
-        return genre;
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeGenreEnum(MdsPublicationVO.Genre enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
 
     /**
@@ -1163,6 +1265,19 @@ public class JiBXHelper
         }
         else
         {
+        	
+        	for(ReviewMethod rm: ReviewMethod.values())
+        	{
+        		if (enumValue.equals(rm.getUri()))
+        		{
+        			return rm;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+        	throw new WrongEnumException("ReviewMethodEnum value is '" + enumValue + "'.");
+        	
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -1172,8 +1287,26 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("ReviewMethodEnum value is '" + enumValue + "'.");
             }
+            */
+            
         }
-        return reviewMethod;
+        //return reviewMethod;
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeReviewMethodEnumToString(ReviewMethod enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
 
     /**
@@ -1219,7 +1352,20 @@ public class JiBXHelper
         SourceVO.Genre genre = null;
         if (enumValue != null)
         {
-            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+        	
+        	for(SourceVO.Genre g: SourceVO.Genre.values())
+        	{
+        		if (enumValue.equals(g.getUri()))
+        		{
+        			return g;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+            
+            /*
+        	String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
                 genre = SourceVO.Genre.valueOf(upperCaseText);
@@ -1228,8 +1374,25 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
             }
+            */
         }
         return genre; // null is a possible return value
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeSourceGenreEnum(SourceVO.Genre enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
     
     /**
@@ -1550,6 +1713,18 @@ public class JiBXHelper
         }
         else
         {
+        	
+        	for(Visibility v: Visibility.values())
+        	{
+        		if (enumValue.equals(v.getUri()))
+        		{
+        			return v;
+        		}
+        	}
+        	 
+        	//throw exception if not found
+            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+        	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
@@ -1559,8 +1734,24 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("visibilityvalue  is '" + enumValue + "'.", e);
             }
+            */
         }
-        return visibility;
+    }
+    
+    /**
+     * Serializes enums to strings 
+     * 
+     * @param enumeration The enum
+     * @return The searialized string
+     */
+    public static String serializeVisibilityEnumToString(Visibility enumeration)
+    {
+        String enumString = "";
+        if (enumeration != null)
+        {
+            enumString = enumeration.getUri();
+        }
+        return enumString;
     }
     
     /**

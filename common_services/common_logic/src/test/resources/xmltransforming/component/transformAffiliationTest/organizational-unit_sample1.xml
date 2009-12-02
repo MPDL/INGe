@@ -1,34 +1,22 @@
-
-<organizational-unit:organizational-unit 
-	xmlns:organizational-unit="${xsd.soap.ou.ou}" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:prop="${xsd.soap.common.prop}" 
-	xmlns:srel="${xsd.soap.common.srel}" 
-	xmlns:md-records="${xsd.soap.common.mdrecords}" 
-	xmlns:ou-details="${xsd.metadata.organization}" 
-	xmlns:dc="${xsd.metadata.dc}" 
-	xmlns:dcterms="${xsd.metadata.dcterms}" 
-	xmlns:kml="http://www.opengis.net/kml/2.2" 
-	objid="escidoc:persistent1" 
-	last-modification-date="2007-03-19T12:16:19.322Z">
+<?xml version="1.0" encoding="UTF-8"?><organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:ou-details="${xsd.metadata.organization}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:kml="http://www.opengis.net/kml/2.2" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 	<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 		<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
-		<srel:created-by objid="escidoc:user42" />
+		<srel:created-by objid="escidoc:user42"/>
 		<prop:public-status>opened</prop:public-status>
 		<prop:has-children>true</prop:has-children>
 	</organizational-unit:properties>
 	<md-records:md-records>
 		<md-records:md-record name="escidoc">
-			<ou-details:organization-details>
+			<organizationalunit:organization-details xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}">
 				<dc:title>MPI for the History of Science</dc:title>
 				<dcterms:alternative>MPIWG</dcterms:alternative>
 				<dc:identifier xsi:type="dcterms:URI">http://www.mpgwg-berlin.mpg.de</dc:identifier>
 				<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
-				<ou-details:city>Berlin</ou-details:city>
-				<ou-details:country>DE</ou-details:country>
+				<escidoc:city>Berlin</escidoc:city>
+				<escidoc:country>DE</escidoc:country>
 				<kml:coordinates>-122.0822035425683,37.42228990140251,0</kml:coordinates>
-				<ou-details:start-date>2007-03-15T08:07:11.015Z</ou-details:start-date>
-			</ou-details:organization-details>
+				<escidoc:start-date>2007-03-15T08:07:11.015Z</escidoc:start-date>
+			</organizationalunit:organization-details>
 		</md-records:md-record>
 	</md-records:md-records>
 </organizational-unit:organizational-unit>

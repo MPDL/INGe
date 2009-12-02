@@ -62,7 +62,22 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public enum Visibility
     {
-        PUBLIC, PRIVATE, AUDIENCE
+        PUBLIC("http://purl.org/escidoc/metadata/ves/access-types/public"), 
+        PRIVATE("http://purl.org/escidoc/metadata/ves/access-types/private"), 
+        AUDIENCE("http://purl.org/escidoc/metadata/ves/access-types/restricted");
+        
+        private String uri;
+        
+        private Visibility(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
+        
     }
 
     /**

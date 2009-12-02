@@ -73,7 +73,27 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public enum DegreeType
     {
-        MASTER, DIPLOMA, MAGISTER, PHD, STAATSEXAMEN, HABILITATION
+        MASTER("http://purl.org/escidoc/metadata/ves/academic-degrees/master"),
+        DIPLOMA("http://purl.org/escidoc/metadata/ves/academic-degrees/diploma"),
+        MAGISTER("http://purl.org/escidoc/metadata/ves/academic-degrees/magister"),
+        PHD("http://purl.org/escidoc/metadata/ves/academic-degrees/phd"),
+        STAATSEXAMEN("http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen"),
+        HABILITATION("http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation");
+        
+        private String uri;
+        
+        private DegreeType(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
+        
+        
+        
     }
 
         /**
@@ -82,7 +102,22 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public enum ReviewMethod
     {
-        INTERNAL, PEER, NO_REVIEW
+        INTERNAL("http://purl.org/escidoc/metadata/ves/review-methods/internal"),
+        PEER("http://purl.org/eprint/status/PeerReviewed"),
+        NO_REVIEW("http://purl.org/escidoc/metadata/ves/review-methods/no-review");
+        
+        private String uri;
+        
+        private ReviewMethod(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
+        
     }
 
     /**
@@ -90,7 +125,36 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     public enum Genre
     {
-        ARTICLE, BOOK, BOOK_ITEM, PROCEEDINGS, CONFERENCE_PAPER, TALK_AT_EVENT, CONFERENCE_REPORT, POSTER, COURSEWARE_LECTURE, THESIS, PAPER, REPORT, ISSUE, JOURNAL, MANUSCRIPT, SERIES, OTHER
+    	
+        ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"),
+        BOOK("http://purl.org/eprint/type/Book"),
+        BOOK_ITEM("http://purl.org/eprint/type/BookItem"),
+        PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"),
+        CONFERENCE_PAPER("http://purl.org/eprint/type/ConferencePaper"),
+        TALK_AT_EVENT("http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"),
+        CONFERENCE_REPORT("http://purl.org/escidoc/metadata/ves/publication-types/conference-report"),
+        POSTER("http://purl.org/eprint/type/ConferencePoster"),
+        COURSEWARE_LECTURE("http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"),
+        THESIS("http://purl.org/eprint/type/Thesis"),
+        PAPER("http://purl.org/escidoc/metadata/ves/publication-types/paper"),
+        REPORT("http://purl.org/eprint/type/Report"),
+        ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"),
+        JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"),
+        MANUSCRIPT("http://purl.org/escidoc/metadata/ves/publication-types/manuscript"),
+        SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"),
+        OTHER("http://purl.org/escidoc/metadata/ves/publication-types/other");
+        
+        private String uri;
+        
+        private Genre(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
     }
 
     /**

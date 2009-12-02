@@ -36,16 +36,16 @@
 		<!-- Field: CreatorVO.role [CreatorVO.CreatorRole] -->
 		<value style="attribute" name="role" field="role"
 			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeCreatorRoleEnum"
-			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional"/>
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeCreatorRoleEnumToString" usage="optional"/>
 
 		<!-- Node: creator.person -->
 		<!-- Field: CreatorVO.person [PersonVO] -->
-		<structure name="person" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="person"
+		<structure name="person" ns="${xsd.metadata.person}" field="person"
 			set-method="setPerson" usage="optional" />
 
 		<!-- Node: creator.organization -->
 		<!-- Field: CreatorVO.organization [OrganizationVO] -->
-		<structure name="organization" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="organization"
+		<structure name="organization" ns="${xsd.metadata.organization}" field="organization"
 			set-method="setOrganization" usage="optional" />
 
 	</mapping>

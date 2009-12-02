@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="${xsd.soap.statistic.report}">
+<?xml version="1.0" encoding="UTF-8"?><report xmlns="${xsd.soap.statistic.report}">
     <report-definition objid="86"/>
     <report-record>
         <parameter name="itemid">

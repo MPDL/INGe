@@ -11,14 +11,14 @@
 	- Uses organizational unit schema in version 0.6
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6"
+	xmlns:organizational-unit="${xsd.soap.ou.ou}"
 	targetNamespace="http://www.escidoc.de/schemas/organizationalunitlist/0.6"
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
 		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 	<xs:import
-		namespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
+		namespace="${xsd.soap.ou.ou}"
 		schemaLocation="../../../soap/organizational-unit/0.6/organizational-unit.xsd" />
 	<xs:element name="organizational-unit-list">
 		<xs:complexType>

@@ -57,7 +57,30 @@ public class CreatorVO extends ValueObject implements Cloneable
      */
     public enum CreatorRole
     {
-        ARTIST, AUTHOR, EDITOR, PAINTER, ILLUSTRATOR, PHOTOGRAPHER, COMMENTATOR, TRANSCRIBER, ADVISOR, TRANSLATOR, CONTRIBUTOR, HONOREE
+        ARTIST("http://www.loc.gov/loc.terms/relators/ART"),
+        AUTHOR("http://www.loc.gov/loc.terms/relators/AUT"),
+        EDITOR("http://www.loc.gov/loc.terms/relators/EDT"),
+        PAINTER("http://purl.org/escidoc/metadata/ves/creator-roles/painter"),
+        ILLUSTRATOR("http://www.loc.gov/loc.terms/relators/ILL"),
+        PHOTOGRAPHER("http://www.loc.gov/loc.terms/relators/PHT"),
+        COMMENTATOR("http://www.loc.gov/loc.terms/relators/CMM"),
+        TRANSCRIBER("http://www.loc.gov/loc.terms/relators/TRC"),
+        ADVISOR("http://www.loc.gov/loc.terms/relators/SAD"),
+        TRANSLATOR("http://www.loc.gov/loc.terms/relators/TRL"),
+        CONTRIBUTOR("http://www.loc.gov/loc.terms/relators/CTB"),
+        HONOREE("http://www.loc.gov/loc.terms/relators/HNR");
+        
+        private String uri;
+        
+        private CreatorRole(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
     }
 
     /**

@@ -73,7 +73,23 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
      */
     public enum Genre
     {
-        BOOK, PROCEEDINGS, JOURNAL, ISSUE, SERIES;
+        BOOK("http://purl.org/eprint/type/Book"),
+        PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"),
+        JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"),
+        ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"),
+        SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series");
+        
+        private String uri;
+        
+        private Genre(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
     }
 
     /**

@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<escidocItem:item
-		xmlns:relations="${xsd.soap.common.relations}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
-	<escidocItem:properties>
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:176155" last-modification-date="2009-02-02T18:13:00.853Z">
+	<escidocItem:properties xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}">
 		<prop:creation-date>2009-02-02T18:10:33.241Z</prop:creation-date>
-		<srel:created-by objid="escidoc:user42" />
+		<srel:created-by objid="escidoc:user42"/>
 		<prop:public-status>released</prop:public-status>
 		<prop:public-status-comment>Release Comment.</prop:public-status-comment>
-		<srel:context objid="escidoc:2001" />
-		<srel:content-model objid="escidoc:faces40" />
+		<srel:context objid="escidoc:2001"/>
+		<srel:content-model objid="escidoc:faces40"/>
 		<prop:lock-status>unlocked</prop:lock-status>
 		<prop:pid>hdl:someHandle/test/escidoc:176155</prop:pid>
 		<prop:version objid="escidoc:176155:2">
 			<version:number>2</version:number>
 			<version:date>2009-02-02T18:13:00.853Z</version:date>
 			<version:status>released</version:status>
-			<srel:modified-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42"/>
 			<version:comment>Release Comment.</version:comment>
 			<version:pid>hdl:someHandle/test/escidoc:176155</version:pid>
 		</prop:version>
@@ -27,44 +25,42 @@
 			<release:date>2009-02-02T18:12:58.790Z</release:date>
 			<release:pid>hdl:someHandle/test/escidoc:176155</release:pid>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}">
+		<prop:content-model-specific>
 			<local-tags/>
 		</prop:content-model-specific>
 	</escidocItem:properties>
-	<escidocMetadataRecords:md-records>
+	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}">
 		<escidocMetadataRecords:md-record name="escidoc">
-			<face-item>
-				<emotion>disgust</emotion>
-				<picture-group>a</picture-group>
-				<dc:identifier xmlns:dc="${xsd.metadata.dc}">004</dc:identifier>
-				<age>70</age>
-				<age-group>old</age-group>
-				<gender>male</gender>
-			</face-item>
+			<face:face xmlns:face="${xsd.metadata.face}">
+				<eterms:emotion>disgust</eterms:emotion>
+				<eterms:picture-group>a</eterms:picture-group>
+				<dc:identifier>004</dc:identifier>
+				<eterms:age>70</eterms:age>
+				<eterms:age-group>old</eterms:age-group>
+				<eterms:gender>male</eterms:gender>
+			</face:face>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-	<escidocComponents:components>
-		<escidocComponents:component
-				objid="escidoc:176158">
+	<escidocComponents:components xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}">
+		<escidocComponents:component objid="escidoc:176158">
 			<escidocComponents:properties>
 				<prop:creation-date>2009-02-02T18:10:33.154Z</prop:creation-date>
-				<srel:created-by objid="escidoc:user42" />
+				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>high resolution</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>public</prop:visibility>
+				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 				<prop:content-category>high resolution</prop:content-category>
 				<prop:file-name>004_o_m_d_a_high_resolution.jpg</prop:file-name>
 			</escidocComponents:properties>
-			<escidocComponents:content
-					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_high_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176158/content" storage="internal-managed"/>
+			<escidocComponents:content xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_high_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176158/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="${xsd.metadata.file}">
-						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_high_resolution.jpg</dc:title>
-						<dc:description xmlns:dc="${xsd.metadata.dc}">high resolution</dc:description>
+					<file:file>
+						<dc:title>004_o_m_d_a_high_resolution.jpg</dc:title>
+						<dc:description>high resolution</dc:description>
 						<file:content-category>high resolution</file:content-category>
-						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">1086756</dcterms:extent>
+						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent>1086756</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
@@ -187,10 +183,10 @@
 														<property>
 															<name>XMP</name>
 															<values arity="Scalar" type="String">
-																<value>&lt;x:xmpmeta xmlns:x=&apos;adobe:ns:meta/&apos; x:xmptk=&apos;XMP toolkit 3.0-28, framework 1.6&apos;&gt;
-&lt;rdf:RDF xmlns:rdf=&apos;http://www.w3.org/1999/02/22-rdf-syntax-ns#&apos; xmlns:iX=&apos;http://ns.adobe.com/iX/1.0/&apos;&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:exif=&apos;http://ns.adobe.com/exif/1.0/&apos;&gt;
+																<value>&lt;x:xmpmeta xmlns:x='adobe:ns:meta/' x:xmptk='XMP toolkit 3.0-28, framework 1.6'&gt;
+&lt;rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:iX='http://ns.adobe.com/iX/1.0/'&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:exif='http://ns.adobe.com/exif/1.0/'&gt;
   &lt;exif:ExposureTime&gt;10/6400&lt;/exif:ExposureTime&gt;
   &lt;exif:FNumber&gt;71/10&lt;/exif:FNumber&gt;
   &lt;exif:ExposureProgram&gt;1&lt;/exif:ExposureProgram&gt;
@@ -221,7 +217,7 @@
     &lt;rdf:li&gt;64&lt;/rdf:li&gt;
    &lt;/rdf:Seq&gt;
   &lt;/exif:ISOSpeedRatings&gt;
-  &lt;exif:Flash rdf:parseType=&apos;Resource&apos;&gt;
+  &lt;exif:Flash rdf:parseType='Resource'&gt;
    &lt;exif:Fired&gt;True&lt;/exif:Fired&gt;
    &lt;exif:Return&gt;0&lt;/exif:Return&gt;
    &lt;exif:Mode&gt;1&lt;/exif:Mode&gt;
@@ -229,15 +225,15 @@
    &lt;exif:RedEyeMode&gt;False&lt;/exif:RedEyeMode&gt;
   &lt;/exif:Flash&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:pdf=&apos;http://ns.adobe.com/pdf/1.3/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:pdf='http://ns.adobe.com/pdf/1.3/'&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:photoshop=&apos;http://ns.adobe.com/photoshop/1.0/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:photoshop='http://ns.adobe.com/photoshop/1.0/'&gt;
   &lt;photoshop:History&gt;&lt;/photoshop:History&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:tiff=&apos;http://ns.adobe.com/tiff/1.0/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:tiff='http://ns.adobe.com/tiff/1.0/'&gt;
   &lt;tiff:Make&gt;SONY&lt;/tiff:Make&gt;
   &lt;tiff:Model&gt;DSC-F828&lt;/tiff:Model&gt;
   &lt;tiff:Orientation&gt;1&lt;/tiff:Orientation&gt;
@@ -246,23 +242,23 @@
   &lt;tiff:ResolutionUnit&gt;2&lt;/tiff:ResolutionUnit&gt;
   &lt;tiff:YCbCrPositioning&gt;2&lt;/tiff:YCbCrPositioning&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:xap=&apos;http://ns.adobe.com/xap/1.0/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:xap='http://ns.adobe.com/xap/1.0/'&gt;
   &lt;xap:CreateDate&gt;2005-12-15T11:32:48+01:00&lt;/xap:CreateDate&gt;
   &lt;xap:ModifyDate&gt;2007-02-28T02:34:05+01:00&lt;/xap:ModifyDate&gt;
   &lt;xap:MetadataDate&gt;2007-02-28T02:34:05+01:00&lt;/xap:MetadataDate&gt;
   &lt;xap:CreatorTool&gt;Adobe Photoshop CS Windows&lt;/xap:CreatorTool&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:xapMM=&apos;http://ns.adobe.com/xap/1.0/mm/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:xapMM='http://ns.adobe.com/xap/1.0/mm/'&gt;
   &lt;xapMM:DocumentID&gt;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&lt;/xapMM:DocumentID&gt;
  &lt;/rdf:Description&gt;
- &lt;rdf:Description rdf:about=&apos;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&apos;
-  xmlns:dc=&apos;http://purl.org/dc/elements/1.1/&apos;&gt;
+ &lt;rdf:Description rdf:about='uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0'
+  xmlns:dc='http://purl.org/dc/elements/1.1/'&gt;
   &lt;dc:format&gt;image/jpeg&lt;/dc:format&gt;
   &lt;dc:description&gt;
    &lt;rdf:Alt&gt;
-    &lt;rdf:li xml:lang=&apos;x-default&apos;&gt;                               &lt;/rdf:li&gt;
+    &lt;rdf:li xml:lang='x-default'&gt;                               &lt;/rdf:li&gt;
    &lt;/rdf:Alt&gt;
   &lt;/dc:description&gt;
  &lt;/rdf:Description&gt;
@@ -293,27 +289,25 @@
 				</escidocMetadataRecords:md-record>
 			</escidocMetadataRecords:md-records>
 		</escidocComponents:component>
-		<escidocComponents:component
-				objid="escidoc:176156">
+		<escidocComponents:component objid="escidoc:176156">
 			<escidocComponents:properties>
 				<prop:creation-date>2009-02-02T18:10:33.012Z</prop:creation-date>
-				<srel:created-by objid="escidoc:user42" />
+				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>web resolution</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>public</prop:visibility>
+				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 				<prop:content-category>web resolution</prop:content-category>
 				<prop:file-name>004_o_m_d_a_web_resolution.jpg</prop:file-name>
 			</escidocComponents:properties>
-			<escidocComponents:content
-					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_web_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176156/content" storage="internal-managed"/>
+			<escidocComponents:content xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_web_resolution.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176156/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="${xsd.metadata.file}">
-						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_web_resolution.jpg</dc:title>
-						<dc:description xmlns:dc="${xsd.metadata.dc}">web resolution</dc:description>
+					<file:file>
+						<dc:title>004_o_m_d_a_web_resolution.jpg</dc:title>
+						<dc:description>web resolution</dc:description>
 						<file:content-category>web resolution</file:content-category>
-						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">59723</dcterms:extent>
+						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent>59723</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
@@ -436,7 +430,7 @@
 														<property>
 															<name>XMP</name>
 															<values arity="Scalar" type="String">
-																<value>&lt;x:xmpmeta xmlns:x=&quot;adobe:ns:meta/&quot; x:xmptk=&quot;Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        &quot;&gt; &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt; &lt;rdf:Description rdf:about=&quot;&quot; xmlns:exif=&quot;http://ns.adobe.com/exif/1.0/&quot; xmlns:tiff=&quot;http://ns.adobe.com/tiff/1.0/&quot; xmlns:xap=&quot;http://ns.adobe.com/xap/1.0/&quot; xmlns:xapMM=&quot;http://ns.adobe.com/xap/1.0/mm/&quot; xmlns:stRef=&quot;http://ns.adobe.com/xap/1.0/sType/ResourceRef#&quot; xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:photoshop=&quot;http://ns.adobe.com/photoshop/1.0/&quot; exif:ExposureTime=&quot;10/6400&quot; exif:FNumber=&quot;71/10&quot; exif:ExposureProgram=&quot;1&quot; exif:ExifVersion=&quot;0220&quot; exif:DateTimeOriginal=&quot;2005-12-15T11:32:48+01:00&quot; exif:DateTimeDigitized=&quot;2005-12-15T11:32:48+01:00&quot; exif:CompressedBitsPerPixel=&quot;8/1&quot; exif:ExposureBiasValue=&quot;0/10&quot; exif:MaxApertureValue=&quot;33/16&quot; exif:MeteringMode=&quot;5&quot; exif:LightSource=&quot;255&quot; exif:FocalLength=&quot;281/10&quot; exif:FlashpixVersion=&quot;0100&quot; exif:ColorSpace=&quot;1&quot; exif:PixelXDimension=&quot;335&quot; exif:PixelYDimension=&quot;419&quot; exif:FileSource=&quot;3&quot; exif:SceneType=&quot;1&quot; exif:CustomRendered=&quot;0&quot; exif:ExposureMode=&quot;1&quot; exif:WhiteBalance=&quot;1&quot; exif:SceneCaptureType=&quot;0&quot; exif:Contrast=&quot;0&quot; exif:Saturation=&quot;0&quot; exif:Sharpness=&quot;0&quot; exif:NativeDigest=&quot;36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;75E5C73763A0AC516F06147F94EAA817&quot; tiff:Make=&quot;SONY&quot; tiff:Model=&quot;DSC-F828&quot; tiff:Orientation=&quot;1&quot; tiff:XResolution=&quot;3000000/10000&quot; tiff:YResolution=&quot;3000000/10000&quot; tiff:ResolutionUnit=&quot;2&quot; tiff:YCbCrPositioning=&quot;2&quot; tiff:NativeDigest=&quot;256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;A861E3FBEBE1CC54637EA52A332BA58A&quot; xap:CreateDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:ModifyDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:MetadataDate=&quot;2008-09-18T11:51:43+02:00&quot; xap:CreatorTool=&quot;Adobe Photoshop CS3 Macintosh&quot; xapMM:DocumentID=&quot;uuid:EC3D717D0A87DD119C39868BEC2CCDB5&quot; xapMM:InstanceID=&quot;uuid:ED3D717D0A87DD119C39868BEC2CCDB5&quot; dc:format=&quot;image/jpeg&quot; photoshop:ColorMode=&quot;3&quot; photoshop:ICCProfile=&quot;sRGB IEC61966-2.1&quot; photoshop:History=&quot;&quot;&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired=&quot;True&quot; exif:Return=&quot;0&quot; exif:Mode=&quot;1&quot; exif:Function=&quot;False&quot; exif:RedEyeMode=&quot;False&quot;/&gt; &lt;xapMM:DerivedFrom stRef:instanceID=&quot;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&quot; stRef:documentID=&quot;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&quot;/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang=&quot;x-default&quot;&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
+																<value>&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        "&gt; &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt; &lt;rdf:Description rdf:about="" xmlns:exif="http://ns.adobe.com/exif/1.0/" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xap="http://ns.adobe.com/xap/1.0/" xmlns:xapMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" exif:ExposureTime="10/6400" exif:FNumber="71/10" exif:ExposureProgram="1" exif:ExifVersion="0220" exif:DateTimeOriginal="2005-12-15T11:32:48+01:00" exif:DateTimeDigitized="2005-12-15T11:32:48+01:00" exif:CompressedBitsPerPixel="8/1" exif:ExposureBiasValue="0/10" exif:MaxApertureValue="33/16" exif:MeteringMode="5" exif:LightSource="255" exif:FocalLength="281/10" exif:FlashpixVersion="0100" exif:ColorSpace="1" exif:PixelXDimension="335" exif:PixelYDimension="419" exif:FileSource="3" exif:SceneType="1" exif:CustomRendered="0" exif:ExposureMode="1" exif:WhiteBalance="1" exif:SceneCaptureType="0" exif:Contrast="0" exif:Saturation="0" exif:Sharpness="0" exif:NativeDigest="36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;75E5C73763A0AC516F06147F94EAA817" tiff:Make="SONY" tiff:Model="DSC-F828" tiff:Orientation="1" tiff:XResolution="3000000/10000" tiff:YResolution="3000000/10000" tiff:ResolutionUnit="2" tiff:YCbCrPositioning="2" tiff:NativeDigest="256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;A861E3FBEBE1CC54637EA52A332BA58A" xap:CreateDate="2008-09-18T11:51:43+02:00" xap:ModifyDate="2008-09-18T11:51:43+02:00" xap:MetadataDate="2008-09-18T11:51:43+02:00" xap:CreatorTool="Adobe Photoshop CS3 Macintosh" xapMM:DocumentID="uuid:EC3D717D0A87DD119C39868BEC2CCDB5" xapMM:InstanceID="uuid:ED3D717D0A87DD119C39868BEC2CCDB5" dc:format="image/jpeg" photoshop:ColorMode="3" photoshop:ICCProfile="sRGB IEC61966-2.1" photoshop:History=""&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired="True" exif:Return="0" exif:Mode="1" exif:Function="False" exif:RedEyeMode="False"/&gt; &lt;xapMM:DerivedFrom stRef:instanceID="uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0" stRef:documentID="adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0"/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang="x-default"&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
 															</values>
 														</property>
 													</values>
@@ -462,27 +456,25 @@
 				</escidocMetadataRecords:md-record>
 			</escidocMetadataRecords:md-records>
 		</escidocComponents:component>
-		<escidocComponents:component
-				objid="escidoc:176157">
+		<escidocComponents:component objid="escidoc:176157">
 			<escidocComponents:properties>
 				<prop:creation-date>2009-02-02T18:10:33.086Z</prop:creation-date>
-				<srel:created-by objid="escidoc:user42" />
+				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>thumbnail</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>public</prop:visibility>
+				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 				<prop:content-category>thumbnail</prop:content-category>
 				<prop:file-name>004_o_m_d_a_thumbnail.jpg</prop:file-name>
 			</escidocComponents:properties>
-			<escidocComponents:content
-					xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_thumbnail.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176157/content" storage="internal-managed"/>
+			<escidocComponents:content xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:title="004_o_m_d_a_thumbnail.jpg" xlink:href="/ir/item/escidoc:176155/components/component/escidoc:176157/content" storage="internal-managed"/>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<file:file xmlns:file="${xsd.metadata.file}">
-						<dc:title xmlns:dc="${xsd.metadata.dc}">004_o_m_d_a_thumbnail.jpg</dc:title>
-						<dc:description xmlns:dc="${xsd.metadata.dc}">thumbnail</dc:description>
+					<file:file>
+						<dc:title>004_o_m_d_a_thumbnail.jpg</dc:title>
+						<dc:description>thumbnail</dc:description>
 						<file:content-category>thumbnail</file:content-category>
-						<dc:format xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="${xsd.metadata.dcterms}" xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<dcterms:extent xmlns:dcterms="${xsd.metadata.dcterms}">30846</dcterms:extent>
+						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<dcterms:extent>30846</dcterms:extent>
 					</file:file>
 				</escidocMetadataRecords:md-record>
 				<escidocMetadataRecords:md-record name="technical-md">
@@ -605,7 +597,7 @@
 														<property>
 															<name>XMP</name>
 															<values arity="Scalar" type="String">
-																<value>&lt;x:xmpmeta xmlns:x=&quot;adobe:ns:meta/&quot; x:xmptk=&quot;Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        &quot;&gt; &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt; &lt;rdf:Description rdf:about=&quot;&quot; xmlns:exif=&quot;http://ns.adobe.com/exif/1.0/&quot; xmlns:tiff=&quot;http://ns.adobe.com/tiff/1.0/&quot; xmlns:xap=&quot;http://ns.adobe.com/xap/1.0/&quot; xmlns:xapMM=&quot;http://ns.adobe.com/xap/1.0/mm/&quot; xmlns:stRef=&quot;http://ns.adobe.com/xap/1.0/sType/ResourceRef#&quot; xmlns:dc=&quot;http://purl.org/dc/elements/1.1/&quot; xmlns:photoshop=&quot;http://ns.adobe.com/photoshop/1.0/&quot; exif:ExposureTime=&quot;10/6400&quot; exif:FNumber=&quot;71/10&quot; exif:ExposureProgram=&quot;1&quot; exif:ExifVersion=&quot;0220&quot; exif:DateTimeOriginal=&quot;2005-12-15T11:32:48+01:00&quot; exif:DateTimeDigitized=&quot;2005-12-15T11:32:48+01:00&quot; exif:CompressedBitsPerPixel=&quot;8/1&quot; exif:ExposureBiasValue=&quot;0/10&quot; exif:MaxApertureValue=&quot;33/16&quot; exif:MeteringMode=&quot;5&quot; exif:LightSource=&quot;255&quot; exif:FocalLength=&quot;281/10&quot; exif:FlashpixVersion=&quot;0100&quot; exif:ColorSpace=&quot;1&quot; exif:PixelXDimension=&quot;111&quot; exif:PixelYDimension=&quot;139&quot; exif:FileSource=&quot;3&quot; exif:SceneType=&quot;1&quot; exif:CustomRendered=&quot;0&quot; exif:ExposureMode=&quot;1&quot; exif:WhiteBalance=&quot;1&quot; exif:SceneCaptureType=&quot;0&quot; exif:Contrast=&quot;0&quot; exif:Saturation=&quot;0&quot; exif:Sharpness=&quot;0&quot; exif:NativeDigest=&quot;36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;4C412CE1E630B631712B04227A569184&quot; tiff:Make=&quot;SONY&quot; tiff:Model=&quot;DSC-F828&quot; tiff:Orientation=&quot;1&quot; tiff:XResolution=&quot;3000000/10000&quot; tiff:YResolution=&quot;3000000/10000&quot; tiff:ResolutionUnit=&quot;2&quot; tiff:YCbCrPositioning=&quot;2&quot; tiff:NativeDigest=&quot;256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;87339FC437AAF0AEFFD1AE0E7D30EE58&quot; xap:CreateDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:ModifyDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:MetadataDate=&quot;2008-09-17T11:49:33+02:00&quot; xap:CreatorTool=&quot;Adobe Photoshop CS3 Macintosh&quot; xapMM:DocumentID=&quot;uuid:6F54FA054186DD11A7908A3170F4F3F0&quot; xapMM:InstanceID=&quot;uuid:7054FA054186DD11A7908A3170F4F3F0&quot; dc:format=&quot;image/jpeg&quot; photoshop:ColorMode=&quot;3&quot; photoshop:ICCProfile=&quot;sRGB IEC61966-2.1&quot; photoshop:History=&quot;&quot;&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired=&quot;True&quot; exif:Return=&quot;0&quot; exif:Mode=&quot;1&quot; exif:Function=&quot;False&quot; exif:RedEyeMode=&quot;False&quot;/&gt; &lt;xapMM:DerivedFrom stRef:instanceID=&quot;uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0&quot; stRef:documentID=&quot;adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0&quot;/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang=&quot;x-default&quot;&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
+																<value>&lt;x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.1-c036 46.276720, Mon Feb 19 2007 22:13:43        "&gt; &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt; &lt;rdf:Description rdf:about="" xmlns:exif="http://ns.adobe.com/exif/1.0/" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:xap="http://ns.adobe.com/xap/1.0/" xmlns:xapMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:photoshop="http://ns.adobe.com/photoshop/1.0/" exif:ExposureTime="10/6400" exif:FNumber="71/10" exif:ExposureProgram="1" exif:ExifVersion="0220" exif:DateTimeOriginal="2005-12-15T11:32:48+01:00" exif:DateTimeDigitized="2005-12-15T11:32:48+01:00" exif:CompressedBitsPerPixel="8/1" exif:ExposureBiasValue="0/10" exif:MaxApertureValue="33/16" exif:MeteringMode="5" exif:LightSource="255" exif:FocalLength="281/10" exif:FlashpixVersion="0100" exif:ColorSpace="1" exif:PixelXDimension="111" exif:PixelYDimension="139" exif:FileSource="3" exif:SceneType="1" exif:CustomRendered="0" exif:ExposureMode="1" exif:WhiteBalance="1" exif:SceneCaptureType="0" exif:Contrast="0" exif:Saturation="0" exif:Sharpness="0" exif:NativeDigest="36864,40960,40961,37121,37122,40962,40963,37510,40964,36867,36868,33434,33437,34850,34852,34855,34856,37377,37378,37379,37380,37381,37382,37383,37384,37385,37386,37396,41483,41484,41486,41487,41488,41492,41493,41495,41728,41729,41730,41985,41986,41987,41988,41989,41990,41991,41992,41993,41994,41995,41996,42016,0,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,22,23,24,25,26,27,28,30;4C412CE1E630B631712B04227A569184" tiff:Make="SONY" tiff:Model="DSC-F828" tiff:Orientation="1" tiff:XResolution="3000000/10000" tiff:YResolution="3000000/10000" tiff:ResolutionUnit="2" tiff:YCbCrPositioning="2" tiff:NativeDigest="256,257,258,259,262,274,277,284,530,531,282,283,296,301,318,319,529,532,306,270,271,272,305,315,33432;87339FC437AAF0AEFFD1AE0E7D30EE58" xap:CreateDate="2008-09-17T11:49:33+02:00" xap:ModifyDate="2008-09-17T11:49:33+02:00" xap:MetadataDate="2008-09-17T11:49:33+02:00" xap:CreatorTool="Adobe Photoshop CS3 Macintosh" xapMM:DocumentID="uuid:6F54FA054186DD11A7908A3170F4F3F0" xapMM:InstanceID="uuid:7054FA054186DD11A7908A3170F4F3F0" dc:format="image/jpeg" photoshop:ColorMode="3" photoshop:ICCProfile="sRGB IEC61966-2.1" photoshop:History=""&gt; &lt;exif:ISOSpeedRatings&gt; &lt;rdf:Seq&gt; &lt;rdf:li&gt;64&lt;/rdf:li&gt; &lt;/rdf:Seq&gt; &lt;/exif:ISOSpeedRatings&gt; &lt;exif:Flash exif:Fired="True" exif:Return="0" exif:Mode="1" exif:Function="False" exif:RedEyeMode="False"/&gt; &lt;xapMM:DerivedFrom stRef:instanceID="uuid:bf7e24a1-c6cb-11db-9290-fdb8a3196ed0" stRef:documentID="adobe:docid:photoshop:47aa8b0e-c6ad-11db-9290-fdb8a3196ed0"/&gt; &lt;dc:description&gt; &lt;rdf:Alt&gt; &lt;rdf:li xml:lang="x-default"&gt;                               &lt;/rdf:li&gt; &lt;/rdf:Alt&gt; &lt;/dc:description&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt;</value>
 															</values>
 														</property>
 													</values>
@@ -632,5 +624,4 @@
 			</escidocMetadataRecords:md-records>
 		</escidocComponents:component>
 	</escidocComponents:components>
-</escidocItem:item>
-
+</item:item>

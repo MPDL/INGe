@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
 <rdf:Description rdf:about="info:fedora/escidoc:287">
    <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/RELS-EXT"/>
@@ -42,4 +40,3 @@
 </rdf:Description>
 
 </rdf:RDF>
-

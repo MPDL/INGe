@@ -30,11 +30,12 @@
 <binding>
 
 	<!--  Namespaces -->
-	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
-	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
-	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
-	<namespace prefix="metadata" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
+	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
+	<namespace prefix="metadata" uri="${xsd.metadata.publication}" default="none" />
+	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
+	<namespace prefix="face" uri="${xsd.metadata.face}" default="none" />
 	
 	<!-- concrete mapping for MdsFacesContainerVO -->
 	<mapping abstract="true" ns="${xsd.soap.common.mdrecords}"
@@ -50,7 +51,7 @@
 			
 			<collection field="creators"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory" usage="optional">
-				<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+				<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
 					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
 			</collection>
 

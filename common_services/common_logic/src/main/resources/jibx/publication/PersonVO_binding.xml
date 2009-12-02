@@ -31,40 +31,40 @@
 	<mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"
 		abstract="true">
 
-		<!-- structure name="person" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<!-- structure name="person" ns="${xsd.metadata.escidocprofile.types}"
 			type="de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO" ordered="false" allow-repeats="true"-->
 
-		<value style="element" name="complete-name" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="complete-name" ns="${xsd.metadata.escidocprofile.types}"
 			field="completeName" usage="optional"/>
 
-		<value style="element" name="family-name" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="family-name" ns="${xsd.metadata.escidocprofile.types}"
 			field="familyName" usage="optional" />
 
-		<value style="element" name="given-name" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="given-name" ns="${xsd.metadata.escidocprofile.types}"
 			field="givenName" usage="optional" />
 
 		<collection field="alternativeNames" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
-			<value style="element" name="alternative-name" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<value style="element" name="alternative-name" ns="${xsd.metadata.escidocprofile.types}"
 				type="java.lang.String" />
 		</collection>
 
 		<collection field="titles" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
-			<value style="element" name="person-title" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<value style="element" name="person-title" ns="${xsd.metadata.escidocprofile.types}"
 				type="java.lang.String" />
 		</collection>
 
 		<collection field="pseudonyms" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
-			<value style="element" name="pseudonym" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<value style="element" name="pseudonym" ns="${xsd.metadata.escidocprofile.types}"
 				type="java.lang.String" />
 		</collection>
 
 		<collection field="organizations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.organizationVOListFactory" usage="optional">
-			<structure name="organization" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<structure name="organization" ns="${xsd.metadata.organization}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO" usage="optional" />
 		</collection>
 
-		<structure name="identifier" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="identifier"
+		<structure name="identifier" ns="${xsd.metadata.dc}" field="identifier"
 			usage="optional" />
 
 		<!-- /structure-->

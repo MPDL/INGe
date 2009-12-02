@@ -32,14 +32,14 @@
     <!-- Field: PubItemVO.metadata.creators(*).organization [OrganizationVO] -->
     <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO" abstract="true">
 
-        <!-- structure name="organization" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+        <!-- structure name="organization" ns="${xsd.metadata.escidocprofile.types}"
             type="de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO"-->
 
         <!-- Node: item.md-records.md-record.publication.creator(*).organization.organization-name -->
         <!-- Field: PubItemVO.metadata.creators(*).organization.name [TextVO] -->
-        <structure name="organization-name" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="name" usage="optional" />
-        <value style="element" name="address" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="address" usage="optional" />
-        <value style="element" name="identifier" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="identifier" usage="optional" />
+        <structure name="title" ns="${xsd.metadata.dc}" field="name" usage="optional" />
+        <value style="element" name="address" ns="${xsd.metadata.escidocprofile.types}" field="address" usage="optional" />
+        <value style="element" name="identifier" ns="${xsd.metadata.dc}" field="identifier" usage="optional" />
 
     </mapping>
 </binding>

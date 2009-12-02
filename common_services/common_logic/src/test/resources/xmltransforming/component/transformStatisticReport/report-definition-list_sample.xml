@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<report-definition-list xmlns="${xsd.soap.statistic.reportdefinitionlist}">
+<?xml version="1.0" encoding="UTF-8"?><report-definition-list xmlns="${xsd.soap.statistic.reportdefinitionlist}">
 
 <report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="1"><name>Successful Framework Requests</name><scope objid="1"/><sql>select handler, request, day, month, year, sum(requests) from _1_request_statistics group by handler, request, day, month, year;</sql></report-definition>
 <report-definition xmlns="${xsd.soap.statistic.reportdefinition}" objid="2"><name>Unsuccessful Framework Requests</name>  <scope objid="1"/><sql>select * from _2_error_statistics;	</sql> </report-definition>

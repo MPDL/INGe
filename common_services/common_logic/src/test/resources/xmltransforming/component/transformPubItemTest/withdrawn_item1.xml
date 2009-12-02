@@ -1,26 +1,16 @@
-
-<escidocItem:item 
-	xmlns:prop="${xsd.soap.common.prop}" 
-	xmlns:srel="${xsd.soap.common.srel}"
-	xmlns:escidocItem="${xsd.soap.item.item}" 
-	xmlns:xlink="http://www.w3.org/1999/xlink" 
-	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
-	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-	objid="escidoc:82" 
-	last-modification-date="2007-11-26T13:50:43.601Z">
-	<escidocItem:properties>
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:82" last-modification-date="2007-11-26T13:50:43.601Z">
+	<escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<prop:creation-date>2007-11-26T13:50:00.303Z</prop:creation-date>
-		<srel:created-by objid="escidoc:user2" />
+		<srel:created-by objid="escidoc:user2"/>
 		<prop:public-status>withdrawn</prop:public-status>
-		<srel:context objid="escidoc:persistent3" />
-		<srel:content-model objid="escidoc:persistent4" />
+		<srel:context objid="escidoc:persistent3"/>
+		<srel:content-model objid="escidoc:persistent4"/>
 		<prop:lock-status>unlocked</prop:lock-status>
 		<prop:version objid="escidoc:82:1">
 			<version:number>1</version:number>
 			<version:date>2007-11-26T13:50:43.601Z</version:date>
 			<version:status>withdrawn</version:status>
-			<srel:modified-by objid="escidoc:user2" />
+			<srel:modified-by objid="escidoc:user2"/>
 			<version:comment>Withdraw withdraw</version:comment>
 		</prop:version>
 		<prop:latest-version objid="escidoc:82:1">
@@ -31,22 +21,21 @@
 			<release:number>1</release:number>
 			<release:date>2007-11-26T13:50:14.941Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
+		<prop:content-model-specific/>
 	</escidocItem:properties>
-	<escidocMetadataRecords:md-records
-			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<escidocMetadataRecords:md-record name="escidoc">
-			<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="poster">
-				<publication:creator xmlns:publication="${xsd.metadata.publication}" role="commentator">
-					<escidoc:organization xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-						<escidoc:organization-name>Test</escidoc:organization-name>
-					</escidoc:organization>
-				</publication:creator>
-				<dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="">Test FrM 1</dc:title>
-				<dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-12-31</dcterms:dateSubmitted>
-				<dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:subject>
-				<dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang=""></dcterms:tableOfContents>
-			</escidocMetadataProfile:publication>
+			<publication:publication type="http://purl.org/eprint/type/ConferencePoster">
+				<escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/CMM">
+					<organization:organization>
+						<dc:title>Test</dc:title>
+					</organization:organization>
+				</escidoc:creator>
+				<dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="">Test FrM 1</dc:title>
+				<dcterms:dateSubmitted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007-12-31</dcterms:dateSubmitted>
+				<dcterms:subject xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang=""/>
+				<dcterms:tableOfContents xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang=""/>
+			</publication:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-</escidocItem:item>
+</item:item>

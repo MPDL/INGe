@@ -1,33 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-<toc:toc
-	objid="escidoc:375"
-	last-modification-date="2007-04-24T16:20:26.823Z" 
-	xmlns:dc="${xsd.metadata.dc}" 
-    xmlns:dcterms="${xsd.metadata.dcterms}"
-	xmlns:toc="${xsd.soap.toc.toc}" 
-	xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:prop="${xsd.soap.common.prop}"
-    xmlns:srel="${xsd.soap.common.srel}"
-	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+<toc:toc xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" objid="escidoc:375" last-modification-date="2007-04-24T16:20:26.823Z" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
     <toc:properties>
         <prop:creation-date>2007-04-24T16:20:19.495Z</prop:creation-date>
-        <srel:created-by objid="escidoc:user1" />
+        <srel:created-by objid="escidoc:user1"/>
         <prop:public-status>released</prop:public-status>
-        <srel:context objid="escidoc:persistent3" />
-        <srel:content-model objid="escidoc:persistent4" />        
+        <srel:context objid="escidoc:persistent3"/>
+        <srel:content-model objid="escidoc:persistent4"/>        
         <prop:lock-status>unlocked</prop:lock-status>
         <prop:version>
             <version:number>1</version:number>
             <version:date>2007-04-24T16:20:26.823Z</version:date>
             <version:status>released</version:status>
             <version:valid-status>valid</version:valid-status>
-            <srel:modified-by objid="escidoc:user1" />
+            <srel:modified-by objid="escidoc:user1"/>
             <version:comment>Current version comment</version:comment>            
         	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>
         </prop:version>
@@ -40,50 +25,31 @@
             <release:date>2007-04-24T16:20:26.823Z</release:date>
             <release:pid>hdl:someHandle/test/escidoc:375</release:pid>            
         </prop:latest-release>
-        <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
+        <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"/>
     </toc:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
-        <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" name="escidoc">
-            <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="book" xmlns:publication="${xsd.metadata.publication}">
-                <publication:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="author">
-                    <escidoc:person>
+        <escidocMetadataRecords:md-record name="escidoc">
+            <publication:publication xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" type="http://purl.org/eprint/type/Book">
+                <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
+                    <person:person>
                         <escidoc:complete-name>Hans Meier</escidoc:complete-name>
                         <escidoc:family-name>Meier</escidoc:family-name>
                         <escidoc:given-name>Hans</escidoc:given-name>
-                    </escidoc:person>
-                </publication:creator>
-                <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="en">PubMan: The first of all.</dc:title>
-            </escidocMetadataProfile:publication>
+                    </person:person>
+                </escidoc:creator>
+                <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">PubMan: The first of all.</dc:title>
+            </publication:publication>
         </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
     
-    <table-of-content:toc ID="meins" TYPE="LOGICAL" LABEL="Table of Content" 
-xml:base="http://localhost:8080" 
-xmlns:table-of-content="${xsd.soap.toc.table-of-content}" 
-xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
-	<!-- 
-		ID: 	xsd:ID       optional 
-						an optional XML ID value.
-		TYPE: 	xsd:string   optional  
-						an optional string attribute specifying the type of toc provided. 
-						Typical values will be "PHYSICAL" for a map which describes 
-						the physical composition of the original work (a series with individual 
-						monographs with pages) and "LOGICAL" for one which describes 
-						the intellectual structure of the work (a monograph with TOC, 
-						forward, chapters, index., etc.);
-		LABEL: 	xsd:string   optional  
-						an optional string attribute which may be used to describe the toc
-						to users. This is primarily useful where more than one toc is 
-						provided for a single object (e.g., both logical and physical toc).
-	-->
+    <table-of-content:toc xmlns:table-of-content="${xsd.soap.toc.table-of-content}" ID="meins" TYPE="LOGICAL" LABEL="Table of Content" xml:base="http://localhost:8080" xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
+	
 	<table-of-content:div ID="rootNode" LABEL="root title" TYPE="monograph">
-		<table-of-content:ptr ID="rootNodePtr" USE="DEFAULT" LOCTYPE="URL" xlink:href="/ir/container/escidoc:10" xlink:type="simple" 
-                xlink:title="[the containers title]"/>
-		<!-- attribute LOCTYPE has fixed value "URL" -->
-		<!-- type of "table-of-content:ptr" refers xlink:simpleLink in http://www.loc.gov/standards/mets/xlink.xsd -->
+		<table-of-content:ptr ID="rootNodePtr" USE="DEFAULT" LOCTYPE="URL" xlink:href="/ir/container/escidoc:10" xlink:type="simple" xlink:title="[the containers title]"/>
+		
+		
 		<table-of-content:div ID="container11" ORDER="1" ORDERLABEL="1." LABEL="title1.1" TYPE="chapter">
-			<table-of-content:ptr ID="container11Ptr" USE="DEFAULT" MIMETYPE="text/xml" xlink:href="/ir/container/escidoc:11" 
-                        xlink:title="[the containers title]" xlink:type="[The link type]"/>
+			<table-of-content:ptr ID="container11Ptr" USE="DEFAULT" MIMETYPE="text/xml" xlink:href="/ir/container/escidoc:11" xlink:title="[the containers title]" xlink:type="[The link type]"/>
 			<table-of-content:div ID="item287" ORDER="1" ORDERLABEL="1.1" LABEL="[the items title]" TYPE="page">
 				<table-of-content:ptr ID="item287Ptr" xlink:href="/ir/item/escidoc:287" xlink:title="[the items title]" xlink:type="[The link type]"/>
 				<my:additional-metadata xmlns:my="http://my.domain.org">
@@ -94,29 +60,24 @@ xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
 				<my:additional-metadata xmlns:my="http://my.domain.org">
 					<my:description>A textual description.</my:description>
 				</my:additional-metadata>
-				<table-of-content:ptr ID="item289Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:289" 
-                                xlink:title="[the items title]" xlink:type="[The link type]"/>
+				<table-of-content:ptr ID="item289Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:289" xlink:title="[the items title]" xlink:type="[The link type]"/>
 			</table-of-content:div>
 		</table-of-content:div>
 		<table-of-content:div ID="container12" ORDER="2" ORDERLABEL="2." LABEL="[the containers title]" TYPE="chapter">
-			<table-of-content:ptr ID="container12Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:12" 
-                        xlink:title="[the containers title]" xlink:type="[The link type]"/>
+			<table-of-content:ptr ID="container12Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:12" xlink:title="[the containers title]" xlink:type="[The link type]"/>
 			<table-of-content:div ID="container13" ORDER="1" ORDERLABEL="2.1" LABEL="[the containers title]" TYPE="section">
-				<table-of-content:ptr ID="container13Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:13" 
-                                xlink:title="[the containers title]" xlink:type="[The link type]"/>
+				<table-of-content:ptr ID="container13Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:13" xlink:title="[the containers title]" xlink:type="[The link type]"/>
 				<my:additional-metadata xmlns:my="http://my.domain.org">
 					<my:description>The back side.</my:description>
 				</my:additional-metadata>
 				<table-of-content:div ID="item275" ORDER="1" ORDERLABEL="2.1.1" LABEL="[the items title]" TYPE="page">
-					<table-of-content:ptr ID="item275Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:275" 
-                                        xlink:title="[the items title]" xlink:type="[The link type]"/>
+					<table-of-content:ptr ID="item275Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:275" xlink:title="[the items title]" xlink:type="[The link type]"/>
 					<my:additional-metadata xmlns:my="http://my.domain.org">
 						<my:description>A photo of the back side.</my:description>
 					</my:additional-metadata>
 				</table-of-content:div>
 				<table-of-content:div ID="item277" ORDER="2" ORDERLABEL="2.1.2" LABEL="[the items title]" TYPE="page">
-					<table-of-content:ptr ID="item277Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:277" 
-                                        xlink:title="[the items title]" xlink:type="[The link type]"/>
+					<table-of-content:ptr ID="item277Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:277" xlink:title="[the items title]" xlink:type="[The link type]"/>
 					<my:additional-metadata xmlns:my="http://my.domain.org">
 						<my:description>A textual description.</my:description>
 					</my:additional-metadata>
@@ -128,29 +89,3 @@ xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
 </table-of-content:toc>
     
 </toc:toc>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,134 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<il:item-list 
-	xmlns:il="${xsd.soap.item.itemlist}"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:prop="${xsd.soap.common.prop}"
-	xmlns:srel="${xsd.soap.common.srel}"
-	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../../../../misc/xsd/soap/item/0.3/item-list.xsd">
-    <escidocItem:item 
-    xmlns:escidocItem="${xsd.soap.item.item}" 
-    xmlns:xlink="http://www.w3.org/1999/xlink" 
-    xmlns:xml="http://www.w3.org/XML/1998/namespace" 
-    objid="escidoc:295"
-    last-modification-date="2007-10-30T18:07:42.210Z">
-        <escidocItem:properties>
+<?xml version="1.0" encoding="UTF-8"?><il:item-list xmlns:il="${xsd.soap.item.itemlist}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../../../../misc/xsd/soap/item/0.3/item-list.xsd">
+    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:295" last-modification-date="2007-10-30T18:07:42.210Z">
+        <escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <prop:creation-date>2007-10-30T18:07:41.976Z</prop:creation-date>
-            <srel:created-by objid="escidoc:user2" />
+            <srel:created-by objid="escidoc:user2"/>
             <prop:public-status>pending</prop:public-status>
-            <srel:context objid="escidoc:persistent3" />
-            <srel:content-model objid="escidoc:persistent4" />
+            <srel:context objid="escidoc:persistent3"/>
+            <srel:content-model objid="escidoc:persistent4"/>
             <prop:lock-status>unlocked</prop:lock-status>
             <prop:version objid="escidoc:295:1">
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:07:42.210Z</version:date>
                 <version:status>pending</version:status>
-                <srel:modified-by objid="escidoc:user2" />
+                <srel:modified-by objid="escidoc:user2"/>
                 <version:comment>Object escidoc:295 created.</version:comment>
             </prop:version>
             <prop:latest-version objid="escidoc:295:1">
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:07:42.210Z</version:date>
             </prop:latest-version>
-            <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
+            <prop:content-model-specific/>
         </escidocItem:properties>
-        <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+        <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <escidocMetadataRecords:md-record name="escidoc">
-                <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ ../../../../misc/xsd/metadata/0.1/escidocprofile.xsd" type="talk-at-event">
-                    <publication:creator xmlns:publication="${xsd.metadata.publication}" role="artist">
-                        <escidoc:person xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-                            <escidoc:complete-name></escidoc:complete-name>
+                <publication:publication xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ ../../../../misc/xsd/metadata/0.1/escidocprofile.xsd" type="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">
+                    <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
+                        <person:person>
+                            <escidoc:complete-name/>
                             <escidoc:family-name>DiT</escidoc:family-name>
-                            <escidoc:organization>
-                                <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+                            <organization:organization>
+                                <dc:title>Max Planck Society</dc:title>
                                 <escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
-                                <escidoc:identifier>escidoc:persistent13</escidoc:identifier>
-                            </escidoc:organization>
-                        </escidoc:person>
-                    </publication:creator>
-                    <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="">Test DiT 01</dc:title>
-                    <dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
-                </escidocMetadataProfile:publication>
+                                <dc:identifier>escidoc:persistent13</dc:identifier>
+                            </organization:organization>
+                        </person:person>
+                    </escidoc:creator>
+                    <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="">Test DiT 01</dc:title>
+                    <dcterms:created xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
+                </publication:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
-    </escidocItem:item>
-    <escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:302"
-        last-modification-date="2007-10-30T18:13:52.257Z">
-        <escidocItem:properties>
+    </item:item>
+    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:302" last-modification-date="2007-10-30T18:13:52.257Z">
+        <escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <prop:creation-date>2007-10-30T18:13:52.023Z</prop:creation-date>
-            <srel:created-by objid="escidoc:user2" />
+            <srel:created-by objid="escidoc:user2"/>
             <prop:public-status>pending</prop:public-status>
-            <srel:context objid="escidoc:persistent3" />
-            <srel:content-model objid="escidoc:persistent4" />
+            <srel:context objid="escidoc:persistent3"/>
+            <srel:content-model objid="escidoc:persistent4"/>
             <prop:lock-status>unlocked</prop:lock-status>
             <prop:version objid="escidoc:302:1">
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:13:52.257Z</version:date>
                 <version:status>pending</version:status>
-                <srel:modified-by objid="escidoc:user2" />
+                <srel:modified-by objid="escidoc:user2"/>
                 <version:comment>Object escidoc:302 created.</version:comment>
             </prop:version>
             <prop:latest-version objid="escidoc:302:1">
                 <version:number>1</version:number>
                 <version:date>2007-10-30T18:13:52.257Z</version:date>
             </prop:latest-version>
-            <prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
-                <anything></anything>
+            <prop:content-model-specific>
+                <anything/>
             </prop:content-model-specific>
         </escidocItem:properties>
-        <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+        <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <escidocMetadataRecords:md-record name="escidoc">
-                <md-profile-escidoc:publication xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:publication="${xsd.metadata.publication}" type="book">
-                    <publication:creator xmlns:escidoc="${xsd.metadata.escidocprofile.types}" role="artist">
-                        <escidoc:organization>
-                            <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Department of Physics, University of California</escidoc:organization-name>
+                <publication:publication type="http://purl.org/eprint/type/Book">
+                    <escidoc:creator xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
+                        <organization:organization>
+                            <dc:title xml:lang="fr">Department of Physics, University of California</dc:title>
                             <escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-                            <escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">P4711</escidoc:identifier>
-                        </escidoc:organization>
-                    </publication:creator>
-                    <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Observation of inertial energy cascade in interplanetary space plasma</dc:title>
-                    <dc:language xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">German</dc:language>
-                    <dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="jp">Direct evidence for the presence of an inertial energy cascade</dcterms:alternative>
-                    <dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ISSN">
+                            <dc:identifier xsi:type="eidt:ESCIDOC">P4711</dc:identifier>
+                        </organization:organization>
+                    </escidoc:creator>
+                    <dc:title xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Observation of inertial energy cascade in interplanetary space plasma</dc:title>
+                    <dc:language xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">German</dc:language>
+                    <dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">Direct evidence for the presence of an inertial energy cascade</dcterms:alternative>
+                    <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
                         0361-526X
                     </dc:identifier>
-                    <publication:publishing-info xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-                        <dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Dipartimento di Fisica</dc:publisher>
+                    <escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
+                        <dc:publisher xml:lang="fr">Dipartimento di Fisica</dc:publisher>
                         <escidoc:place>Universita della Calabria</escidoc:place>
                         <escidoc:edition>2.</escidoc:edition>
-                    </publication:publishing-info>
-                    <dcterms:created xmlns:dcterms="${xsd.metadata.dcterms}">2007-07-17</dcterms:created>
-                    <dcterms:modified xmlns:dcterms="${xsd.metadata.dcterms}">2008-08-17</dcterms:modified>
-                    <dcterms:dateSubmitted xmlns:dcterms="${xsd.metadata.dcterms}">2009-09-17</dcterms:dateSubmitted>
-                    <dcterms:issued xmlns:dcterms="${xsd.metadata.dcterms}">2010-10-17</dcterms:issued>
-                    <publication:review-method xmlns:escidoc="${xsd.metadata.escidocprofile.types}">peer</publication:review-method>
-                    <publication:source xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-                        <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
-                        <dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Relevant issue for spacecrafts and communication satellites operations</dcterms:alternative>
-                        <escidoc:creator role="transcriber">
-                            <escidoc:person>
-                                <escidoc:complete-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Miklos Csuros</escidoc:complete-name>
-                                <escidoc:family-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csuros</escidoc:family-name>
-                                <escidoc:given-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="jp">Miklos</escidoc:given-name>
-                                <escidoc:alternative-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="jp">Mike</escidoc:alternative-name>
-                                <escidoc:alternative-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Csu</escidoc:alternative-name>
-                                <escidoc:person-title xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Earl</escidoc:person-title>
-                                <escidoc:person-title xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Majesty</escidoc:person-title>
-                                <escidoc:pseudonym xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="it">Humphrey C.</escidoc:pseudonym>
-                                <escidoc:pseudonym xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="it">Iklos Makaba</escidoc:pseudonym>
-                                <escidoc:organization>
-                                    <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="fr">Facultad de Ciencias</escidoc:organization-name>
+                    </escidoc:publishing-info>
+                    <dcterms:created xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2007-07-17</dcterms:created>
+                    <dcterms:modified xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2008-08-17</dcterms:modified>
+                    <dcterms:dateSubmitted xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2009-09-17</dcterms:dateSubmitted>
+                    <dcterms:issued xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2010-10-17</dcterms:issued>
+                    <escidoc:review-method xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/eprint/status/PeerReviewed</escidoc:review-method>
+                    <source:source xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
+                        <dc:title xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
+                        <dcterms:alternative xml:lang="fr">Relevant issue for spacecrafts and communication satellites operations</dcterms:alternative>
+                        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/TRC">
+                            <person:person>
+                                <escidoc:complete-name xml:lang="fr">Miklos Csuros</escidoc:complete-name>
+                                <escidoc:family-name xml:lang="fr">Csuros</escidoc:family-name>
+                                <escidoc:given-name xml:lang="jp">Miklos</escidoc:given-name>
+                                <escidoc:alternative-name xml:lang="jp">Mike</escidoc:alternative-name>
+                                <escidoc:alternative-name xml:lang="fr">Csu</escidoc:alternative-name>
+                                <escidoc:person-title xml:lang="fr">Earl</escidoc:person-title>
+                                <escidoc:person-title xml:lang="fr">Majesty</escidoc:person-title>
+                                <escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+                                <escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+                                <organization:organization>
+                                    <dc:title xml:lang="fr">Facultad de Ciencias</dc:title>
                                     <escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-                                    <escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">ASG 2233-3</escidoc:identifier>
-                                </escidoc:organization>
-                                <escidoc:organization>
-                                    <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="it">Instituta Geometra y Topologa</escidoc:organization-name>
+                                    <dc:identifier xsi:type="eidt:ESCIDOC">ASG 2233-3</dc:identifier>
+                                </organization:organization>
+                                <organization:organization>
+                                    <dc:title xml:lang="it">Instituta Geometra y Topologa</dc:title>
                                     <escidoc:address>Placo Dominico, Madrid</escidoc:address>
-                                    <escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:ESCIDOC">IOP 998</escidoc:identifier>
-                                </escidoc:organization>
-                                <escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:PND">HJKS 1-23-24434</escidoc:identifier>
-                            </escidoc:person>
+                                    <dc:identifier xsi:type="eidt:ESCIDOC">IOP 998</dc:identifier>
+                                </organization:organization>
+                                <dc:identifier xsi:type="eidt:PND">HJKS 1-23-24434</dc:identifier>
+                            </person:person>
                         </escidoc:creator>
                         <escidoc:volume>2.</escidoc:volume>
                         <escidoc:issue>9.</escidoc:issue>
@@ -136,38 +122,38 @@
                         <escidoc:end-page>678</escidoc:end-page>
                         <escidoc:sequence-number>444</escidoc:sequence-number>
                         <escidoc:publishing-info>
-                            <dc:publisher xmlns:dc="${xsd.metadata.dc}" xml:lang="de">University of Pittsburgh</dc:publisher>
+                            <dc:publisher xml:lang="de">University of Pittsburgh</dc:publisher>
                             <escidoc:place>Pittsburgh</escidoc:place>
                             <escidoc:edition>1.</escidoc:edition>
                         </escidoc:publishing-info>
-                        <dc:identifier xmlns:dc="${xsd.metadata.dc}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">2387928 233</dc:identifier>
-                    </publication:source>
-                    <publication:event xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-                        <dc:title xmlns:dc="${xsd.metadata.dc}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-                        <dcterms:alternative xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">text</dcterms:alternative>
+                        <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">2387928 233</dc:identifier>
+                    </source:source>
+                    <event:event xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
+                        <dc:title xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
+                        <dcterms:alternative xml:lang="fr">text</dcterms:alternative>
                         <escidoc:start-date>2001-12-17</escidoc:start-date>
                         <escidoc:end-date>2001-12-17</escidoc:end-date>
                         <escidoc:place>String</escidoc:place>
                         <escidoc:invitation-status>invited</escidoc:invitation-status>
-                    </publication:event>
-                    <publication:total-number-of-pages xmlns:escidoc="${xsd.metadata.escidocprofile.types}">899</publication:total-number-of-pages>
-                    <publication:degree xmlns:escidoc="${xsd.metadata.escidocprofile.types}">diploma</publication:degree>
-                    <dcterms:abstract xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
+                    </event:event>
+                    <escidoc:total-number-of-pages xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">899</escidoc:total-number-of-pages>
+                    <escidoc:degree xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</escidoc:degree>
+                    <dcterms:abstract xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">
                         We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the category of unbounded complexes of quasi-coherent sheaves over the projective line.
                         Concretely we will define a locally projective model structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects are the dg-locally projective
                         complexes. We also describe the fibrations of this model structure and show that the model structure is monoidal. We point out that this model structure is necessarily different from others model structures known
                         until now, like the injective model structure and the locally free model structure.
                     </dcterms:abstract>
-                    <dcterms:subject xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
-                    <dcterms:tableOfContents xmlns:dcterms="${xsd.metadata.dcterms}" xml:lang="fr">
+                    <dcterms:subject xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Estimators for local non-Gaussianities</dcterms:subject>
+                    <dcterms:tableOfContents xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">
                         Agamospermous reproduction in which seeds set without a pollen parent is widely spread in plants (Richards, 1986). The terms apomixis (Gustafsson, 1946, 1947; Asker and Jerling, 1992; Koltunow, 1993; Dresselhaus,
                         2000) and apozygoty (Khokhlov, 1967) are also used to designate the process. Under such reproduction, the embryo develops out of the cell which can be named apozygote (Maletskii et al., 2004). There are
                         classifications for ways of reproduction considering the cytoembryological origin of cell entering embryogenesis (Gustafsson, 1946, 1947). The genetic classification considering the cell genome transformation before
                         entering embryogenesis was suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic agamospermy are distinguished.
                     </dcterms:tableOfContents>
-                    <publication:location xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xml:lang="fr">Novosibirsk, Russia</publication:location>
-                </md-profile-escidoc:publication>
+                    <escidoc:location xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Novosibirsk, Russia</escidoc:location>
+                </publication:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
-    </escidocItem:item>
+    </item:item>
 </il:item-list>

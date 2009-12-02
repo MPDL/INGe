@@ -29,18 +29,22 @@
 
 <binding direction="output">
 
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
 	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
 	<!-- MdsPublicationVO relies on the "dcterms" prefix (=> DO NOT CHANGE!) -->
-	<namespace prefix="dcterms" uri="http://purl.org/dc/terms/" default="none" />
-	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
-	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
-	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
-	<namespace prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
+	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
+	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
+	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
+	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
-
+	<namespace prefix="person" uri="${xsd.metadata.person}" default="none" />
+	<namespace prefix="event" uri="${xsd.metadata.event}" default="none" />
+	<namespace prefix="source" uri="${xsd.metadata.source}" default="none" />
+	<namespace prefix="organization" uri="${xsd.metadata.organization}" default="none" />
+	
 	<!--  -->
 	<!-- The bindings for escidocprofile.xsd -->
 	<!--  -->
@@ -55,7 +59,7 @@
 	<include path="SourceVO_binding_abstract.xml" />	
 	<include path="TextVO_binding.xml" />
 
-	<mapping name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	<mapping name="publication" ns="${xsd.metadata.publication}"
 		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" value-style="attribute" ordered="false"
 		allow-repeats="true">
@@ -70,13 +74,13 @@
 		<!-- Field: PubItemVO.metadata.genre [MdsPublicationVO.Genre] -->
 		<value style="attribute" name="type" field="genre"
 			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum"
-			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeGenreEnum" usage="optional" />
 
 		<!-- Node: item.md-records.md-record.publication.creator(*) -->
 		<!-- Field: PubItemVO.metadata.creators [java.util.ArrayList<CreatorVO>]-->
 		<collection field="creators"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
-			<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+			<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
 		</collection>
 
@@ -90,9 +94,9 @@
 		<!-- Field: PubItemVO.metadata.language [List<String>]-->
 		<collection field="languages" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
 
-			<!-- value style="element" name="language" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String" /-->
+			<!-- value style="element" name="language" ns="${xsd.metadata.dc}" type="java.lang.String" /-->
 			<structure type="java.lang.String" usage="optional">
-				<structure name="language" ns="http://purl.org/dc/elements/1.1/" value-style="attribute"
+				<structure name="language" ns="${xsd.metadata.dc}" value-style="attribute"
 					usage="optional">
 					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:RFC3066" />
 					<value style="text" get-method="toString" usage="optional" />
@@ -106,7 +110,7 @@
 		<!-- Field: PubItemVO.metadata.alternativeTitles [List<TextVO>]-->
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-			<structure name="alternative" ns="http://purl.org/dc/terms/"
+			<structure name="alternative" ns="${xsd.metadata.dcterms}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
@@ -119,20 +123,20 @@
 		<!-- Field: PubItemVO.metadata.identifiers [List<IdentifierVO>]-->
 		<collection field="identifiers"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-			<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+			<structure name="identifier" ns="${xsd.metadata.dc}"
 				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 		</collection>
 
 
 		<!-- Node: item.md-records.md-record.publication.publishing-info -->
 		<!-- Field: PubItemVO.metadata.publishingInfo -->
-		<structure name="publishing-info" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+		<structure name="publishing-info" ns="${xsd.metadata.escidocprofile.types}"
 			field="publishingInfo" usage="optional" />
 
 		<!-- Node: item.md-records.md-record.publication.created -->
 		<!-- Field: PubItemVO.metadata.dateCreated [String]-->
 		<structure field="dateCreated" usage="optional">
-			<structure name="created" ns="http://purl.org/dc/terms/" value-style="attribute" usage="optional">
+			<structure name="created" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
 				<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 				<value style="text" get-method="toString" usage="optional" />
 			</structure>
@@ -141,7 +145,7 @@
 		<!-- Node: item.md-records.md-record.publication.modified -->
 		<!-- Field: PubItemVO.metadata.dateModified [String]-->
 		<structure field="dateModified" usage="optional">
-			<structure name="modified" ns="http://purl.org/dc/terms/" value-style="attribute" usage="optional">
+			<structure name="modified" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
 				<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 				<value style="text" get-method="toString" usage="optional" />
 			</structure>
@@ -150,7 +154,7 @@
 		<!-- Node: item.md-records.md-record.publication.dateSubmitted -->
 		<!-- Field: PubItemVO.metadata.dateSubmitted [String-->
 		<structure field="dateSubmitted" usage="optional">
-			<structure name="dateSubmitted" ns="http://purl.org/dc/terms/" value-style="attribute" usage="optional">
+			<structure name="dateSubmitted" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
 				<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 				<value style="text" get-method="toString" usage="optional" />
 			</structure>
@@ -159,7 +163,7 @@
 		<!-- Node: item.md-records.md-record.publication.dateAccepted -->
 		<!-- Field: PubItemVO.metadata.dateAccepted [String]-->
 		<structure field="dateAccepted" usage="optional">
-			<structure name="dateAccepted" ns="http://purl.org/dc/terms/" value-style="attribute" usage="optional">
+			<structure name="dateAccepted" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
 				<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 				<value style="text" get-method="toString" usage="optional" />
 			</structure>
@@ -168,7 +172,7 @@
         <!-- Node: item.md-records.md-record.publication.published-online -->
         <!-- Field: PubItemVO.metadata.datePublishedOnline [String]-->
         <structure field="datePublishedOnline" usage="optional">
-            <structure name="published-online" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" value-style="attribute" usage="optional">
+            <structure name="published-online" ns="${xsd.metadata.escidocprofile.types}" value-style="attribute" usage="optional">
                 <value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
                 <value style="text" get-method="toString" usage="optional" />
             </structure>
@@ -177,7 +181,7 @@
 		<!-- Node: item.md-records.md-record.publication.issued -->
 		<!-- Field: PubItemVO.metadata.datePublishedInPrint [String]-->
 		<structure field="datePublishedInPrint" usage="optional">
-			<structure name="issued" ns="http://purl.org/dc/terms/" value-style="attribute" usage="optional">
+			<structure name="issued" ns="${xsd.metadata.dcterms}" value-style="attribute" usage="optional">
 				<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 				<value style="text" get-method="toString" usage="optional" />
 			</structure>
@@ -185,10 +189,10 @@
 
 		<!-- Node: item.md-records.md-record.publication.review-method -->
 		<!-- Field: PubItemVO.metadata.reviewMethod [MdsPublicationVO.ReviewMethod] -->
-		<value style="element" name="review-method" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+		<value style="element" name="review-method" ns="${xsd.metadata.escidocprofile.types}"
 			field="reviewMethod"
 			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeReviewMethodEnum"
-			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeReviewMethodEnumToString" usage="optional" />
 
 
 		<!-- Node: item.md-records.md-record.publication.source(*) -->
@@ -196,7 +200,7 @@
 		<collection field="sources"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.sourceVOListFactory" usage="optional">
 			
-			<structure name="source" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+			<structure name="source" ns="${xsd.metadata.source}"
 				map-as="SourceVO_abstract" />
 				
 		</collection>
@@ -204,12 +208,12 @@
 
 		<!-- Node: item.md-records.md-record.publication.event -->
 		<!-- Field: PubItemVO.metadata.event [EventVO] -->
-		<structure name="event" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="event"
+		<structure name="event" ns="${xsd.metadata.event}" field="event"
 			ordered="false" allow-repeats="true" usage="optional">
 
 			<!-- Field: PubItemVO.metadata.event.title -->
 			<!-- Node: item.md-records.md-record.publication.event.title -->
-			<structure name="title" ns="http://purl.org/dc/elements/1.1/" field="title">
+			<structure name="title" ns="${xsd.metadata.dc}" field="title">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
 				<value style="text" field="value" usage="optional" />
@@ -219,7 +223,7 @@
 			<!-- Field: PubItemVO.metadata.event.alternativeTitles -->
 			<collection field="alternativeTitles"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-				<structure name="alternative" ns="http://purl.org/dc/terms/"
+				<structure name="alternative" ns="${xsd.metadata.dcterms}"
 					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
 					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 						usage="optional" />
@@ -230,7 +234,7 @@
 			<!-- Node: item.md-records.md-record.publication.event.start-date -->
 			<!-- Field: PubItemVO.metadata.event.startDate [String] -->
 			<structure field="startDate" usage="optional">
-				<structure name="start-date" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+				<structure name="start-date" ns="${xsd.metadata.escidocprofile.types}"
 					value-style="attribute" usage="optional">
 					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 					<value style="text" get-method="toString" usage="optional" />
@@ -240,7 +244,7 @@
 			<!-- Node: item.md-records.md-record.publication.event.end-date -->
 			<!-- Field: PubItemVO.metadata.event.endDate [String] -->
 			<structure field="endDate" usage="optional">
-				<structure name="end-date" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+				<structure name="end-date" ns="${xsd.metadata.escidocprofile.types}"
 					value-style="attribute" usage="optional">
 					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:W3CDTF" />
 					<value style="text" get-method="toString" usage="optional" />
@@ -249,11 +253,11 @@
 
 			<!-- Node: item.md-records.md-record.publication.event.place -->
 			<!-- Field: PubItemVO.metadata.event.place [TextVO] -->
-			<structure name="place" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="place" usage="optional"/>
+			<structure name="place" ns="${xsd.metadata.escidocprofile.types}" field="place" usage="optional"/>
 
 			<!-- Node: item.md-records.md-record.publication.event.invitation-status -->
 			<!-- Field: PubItemVO.metadata.event.invitationStatus -->
-			<value style="element" name="invitation-status" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<value style="element" name="invitation-status" ns="${xsd.metadata.escidocprofile.types}"
 				field="invitationStatus"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeInvitationStatusEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
@@ -264,22 +268,22 @@
 
 		<!-- Node: item.md-records.md-record.publication.total-number-of-pages -->
 		<!-- Field: PubItemVO.metadata.totalNumberOfPages [String] -->
-		<value style="element" name="total-number-of-pages" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+		<value style="element" name="total-number-of-pages" ns="${xsd.metadata.escidocprofile.types}"
 			field="totalNumberOfPages" usage="optional" />
 
 
 		<!-- Node: item.md-records.md-record.publication.degree -->
 		<!-- Field: PubItemVO.metadata.degree [MdsPublicationVO.DegreeType] -->
-		<value style="element" name="degree" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="degree"
+		<value style="element" name="degree" ns="${xsd.metadata.escidocprofile.types}" field="degree"
 			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDegreeTypeEnum"
-			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDegreeTypeEnumToString" usage="optional" />
 
 
 		<!-- Node: item.md-records.md-record.publication.abstract(*) -->
 		<!-- Field: PubItemVO.metadata.abstracts [List<TextVO>] -->
 		<collection field="abstracts"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-			<structure name="abstract" ns="http://purl.org/dc/terms/"
+			<structure name="abstract" ns="${xsd.metadata.dcterms}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
@@ -290,13 +294,13 @@
 
 		<!-- Node: item.md-records.md-record.publication.subject -->
 		<!-- Field: PubItemVO.metadata.subject [TextVO] -->
-        <structure name="subject" ns="http://purl.org/dc/terms/" field="freeKeywords" usage="optional"/>
+        <structure name="subject" ns="${xsd.metadata.dcterms}" field="freeKeywords" usage="optional"/>
 
         <!-- Node: item.md-records.md-record.publication.DDC -->
 		<!-- Field: PubItemVO.metadata.subjects -->
 		<collection field="subjects"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-			<structure name="subject" ns="http://purl.org/dc/elements/1.1/"
+			<structure name="subject" ns="${xsd.metadata.dc}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
 				<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
 					usage="optional" />
@@ -306,12 +310,12 @@
 		
 		<!-- Node: item.md-records.md-record.publication.tableOfContents -->
 		<!-- Field: PubItemVO.metadata.tableOfContents [TextVO] -->
-        <structure name="tableOfContents" ns="http://purl.org/dc/terms/" field="tableOfContents" usage="optional"/>
+        <structure name="tableOfContents" ns="${xsd.metadata.dcterms}" field="tableOfContents" usage="optional"/>
 
 
 		<!-- Node: item.md-records.md-record.publication.location -->
 		<!-- Field: PubItemVO.metadata.location [String] -->
-		<value style="element" name="location" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+		<value style="element" name="location" ns="${xsd.metadata.escidocprofile.types}"
 			field="location" usage="optional" />
 
 	</mapping>

@@ -29,27 +29,27 @@
 
 <binding direction="output">
 
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
 	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
 	<!-- MdsPublicationVO relies on the "dcterms" prefix (=> DO NOT CHANGE!) -->
-	<namespace prefix="dcterms" uri="http://purl.org/dc/terms/" default="none" />
-	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
-	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
-	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
-	<namespace prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
+	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
+	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
+	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
+	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
 
-	<mapping name="organization-details" ns="${xsd.metadata.organization}"
+	<mapping name="organization-details" ns="${xsd.metadata.organizationalunit}"
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO"
 		value-style="attribute" ordered="false"
 		allow-repeats="true">
 		
 			<!-- Node: organizational-unit.organization-details.title -->
 			<!-- Field: AffiliationVO.name [String] -->
-			<value style="element" name="title" ns="http://purl.org/dc/elements/1.1/"
+			<value style="element" name="title" ns="${xsd.metadata.dc}"
 				field="name" />
 				
 				
@@ -57,37 +57,37 @@
 			<!-- Field: AffiliationVO.alternativeNames [List<String>] -->
 			<collection field="alternativeNames"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-				<value name="alternative" style="element" ns="http://purl.org/dc/terms/" type="java.lang.String"/>
+				<value name="alternative" style="element" ns="${xsd.metadata.dcterms}" type="java.lang.String"/>
 			</collection>
 
 			<!-- Node: organizational-unit.organization-details.identifier -->
 			<!-- Field: AffiliationVO.identifiers [List<String>] -->
 			<collection field="identifiers"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-				<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+				<structure name="identifier" ns="${xsd.metadata.dc}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
 			<!-- Node: organizational-unit.organization-details.organization-type -->
 			<!-- Field: MdsOrganizationalUnitDetailsVO.type [Type] -->
-			<value style="element" name="organization-type" ns="${xsd.metadata.organization}"
+			<value style="element" name="organization-type" ns="${xsd.metadata.organizationalunit}"
 				field="type" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.description -->
 			<!-- Field: AffiliationVO.descriptions [List<String>] -->
 			<collection field="descriptions"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-				<value name="description" style="element" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
+				<value name="description" style="element" ns="${xsd.metadata.dc}" type="java.lang.String"/>
 			</collection>
 
 			<!-- Node: organizational-unit.organization-details.city -->
 			<!-- Field: AffiliationVO.city [String] -->
-			<value style="element" name="city" ns="${xsd.metadata.organization}" field="city"
+			<value style="element" name="city" ns="${xsd.metadata.escidocprofile.types}" field="city"
 				usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.country -->
 			<!-- Field: AffiliationVO.countryCode [String] -->
-			<value style="element" name="country" ns="${xsd.metadata.organization}"
+			<value style="element" name="country" ns="${xsd.metadata.escidocprofile.types}"
 				field="countryCode" usage="optional"/>
 				
 			<!-- Node: organizational-unit.organization-details.coordinates -->
@@ -97,12 +97,12 @@
 
 			<!-- Node: organizational-unit.organization-details.start-date -->
 			<!-- Field: AffiliationVO.startDate [Date] -->
-			<value style="element" name="start-date" ns="${xsd.metadata.organization}"
+			<value style="element" name="start-date" ns="${xsd.metadata.escidocprofile.types}"
 				field="startDate" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.end-date -->
 			<!-- Field: AffiliationVO.endDate [Date] -->
-			<value style="element" name="end-date" ns="${xsd.metadata.organization}"
+			<value style="element" name="end-date" ns="${xsd.metadata.escidocprofile.types}"
 				field="endDate" usage="optional" />
 						
 	</mapping>

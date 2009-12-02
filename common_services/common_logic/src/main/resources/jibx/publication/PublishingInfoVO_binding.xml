@@ -29,8 +29,8 @@
 
 <binding>
    <mapping class="de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO" abstract="true">
-      <value style="element" name="publisher" ns="http://purl.org/dc/elements/1.1/" field="publisher" usage="optional" />
-      <value style="element" name="place" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="place" usage="optional" />
-      <value style="element" name="edition" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="edition" usage="optional" />
+      <value style="element" name="publisher" ns="${xsd.metadata.dc}" field="publisher" usage="optional" />
+      <value style="element" name="place" ns="${xsd.metadata.escidocprofile.types}" field="place" usage="optional" />
+      <value style="element" name="edition" ns="${xsd.metadata.escidocprofile.types}" field="edition" usage="optional" />
    </mapping>
 </binding>

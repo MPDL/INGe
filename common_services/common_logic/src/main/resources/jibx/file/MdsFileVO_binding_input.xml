@@ -29,14 +29,14 @@
 
 <binding direction="input">
 
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
 	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
 	<!-- MdsPublicationVO relies on the "dcterms" prefix (=> DO NOT CHANGE!) -->
-	<namespace prefix="dcterms" uri="http://purl.org/dc/terms/" default="none" />
-	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
-	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
-	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
-	<namespace prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
+	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
+	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
+	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
+	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
@@ -53,14 +53,14 @@
 
 			<!-- Node: file.description -->
 			<!-- Field: MdsFileVO.description [String] -->
-			<value style="element" name="description" ns="http://purl.org/dc/elements/1.1/"
+			<value style="element" name="description" ns="${xsd.metadata.dc}"
 				field="description" usage="optional"/>
 
 			<!-- Node: file.identifier -->
 			<!-- Field: MdsFileVO.identifiers [List<IdentifierVO>] -->
 			<collection field="identifiers"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-				<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+				<structure name="identifier" ns="${xsd.metadata.dc}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
@@ -73,33 +73,33 @@
 			<!-- Field: MdsFileVO.formats [List<String>] -->
 			<collection field="formats"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.formatVOListFactory" usage="optional">
-				<structure name="format" ns="http://purl.org/dc/elements/1.1/"
+				<structure name="format" ns="${xsd.metadata.dc}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO" />
 			</collection>
 
 			<!-- Node: file.extent -->
 			<!-- Field: MdsFileVO.size [Long] -->
-			<value style="element" name="extent" ns="http://purl.org/dc/terms/"
+			<value style="element" name="extent" ns="${xsd.metadata.dcterms}"
 				field="size" usage="optional" />
 
 			<!-- Node: file.available -->
 			<!-- Field: MdsFileVO.embargoUntil [String] -->
-			<value style="element" name="available" ns="http://purl.org/dc/terms/"
+			<value style="element" name="available" ns="${xsd.metadata.dcterms}"
 				field="embargoUntil" usage="optional" />
 				
 			<!-- Node: file.dateCopyrighted -->
 			<!-- Field: MdsFileVO.copyrightDate [String] -->
-			<value style="element" name="dateCopyrighted" ns="http://purl.org/dc/terms/"
+			<value style="element" name="dateCopyrighted" ns="${xsd.metadata.dcterms}"
 				field="copyrightDate" usage="optional" />
 				
 			<!-- Node: file.rights -->
 			<!-- Field: MdsFileVO.rights [String] -->
-			<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/"
+			<value style="element" name="rights" ns="${xsd.metadata.dc}"
 				field="rights" usage="optional" />
 
 			<!-- Node: file.license -->
 			<!-- Field: MdsFileVO.license [String] -->
-			<value style="element" name="license" ns="http://purl.org/dc/terms/"
+			<value style="element" name="license" ns="${xsd.metadata.dcterms}"
 				field="license" usage="optional" />
 				
 <!--		</structure>-->

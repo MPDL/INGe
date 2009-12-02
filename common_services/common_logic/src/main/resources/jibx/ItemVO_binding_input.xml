@@ -165,10 +165,10 @@
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" ordered="false" allow-repeats="true">
 
 				<!-- Faces -->
-				<structure name="face-item"
+				<structure name="face" ns="${xsd.metadata.face}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional"/>
 				<!-- PubMan -->
-				<structure name="publication" ns="${xsd.metadata.escidocprofile}"
+				<structure name="publication" ns="${xsd.metadata.publication}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
 				<!-- ViRR -->
 				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>

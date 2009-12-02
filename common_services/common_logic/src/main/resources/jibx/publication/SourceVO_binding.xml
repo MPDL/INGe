@@ -29,7 +29,7 @@
 
 <binding>
 	<!-- concrete mapping for SourceVO -->
-	<mapping name="source" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+	<mapping name="source" ns="${xsd.metadata.source}"
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO" ordered="false" allow-repeats="true">
 		<!--
 			The following value element needs this dummy constructor in TextVO:
@@ -42,44 +42,44 @@
 			}      
 		-->
 
-		<structure name="title" ns="http://purl.org/dc/elements/1.1/" field="title" />
+		<structure name="title" ns="${xsd.metadata.dc}" field="title" />
 
 		<collection field="alternativeTitles"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
-			<structure name="alternative" ns="http://purl.org/dc/terms/"
+			<structure name="alternative" ns="${xsd.metadata.dcterms}"
 				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO" />
 		</collection>
 
 		<collection field="creators"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory" usage="optional">
-			<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			<structure name="creator" ns="${xsd.metadata.escidocprofile.types}"
 				type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
 		</collection>
 
-		<value style="element" name="volume" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="volume"
+		<value style="element" name="volume" ns="${xsd.metadata.escidocprofile.types}" field="volume"
 			usage="optional" />
 
-		<value style="element" name="issue" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="issue"
+		<value style="element" name="issue" ns="${xsd.metadata.escidocprofile.types}" field="issue"
 			usage="optional" />
 
-		<value style="element" name="start-page" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="start-page" ns="${xsd.metadata.escidocprofile.types}"
 			field="startPage" usage="optional" />
 
-		<value style="element" name="end-page" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="end-page" ns="${xsd.metadata.escidocprofile.types}"
 			field="endPage" usage="optional" />
 
-		<value style="element" name="sequence-number" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="sequence-number" ns="${xsd.metadata.escidocprofile.types}"
 			field="sequenceNumber" usage="optional" />
 
-		<value style="element" name="total-number-of-pages" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<value style="element" name="total-number-of-pages" ns="${xsd.metadata.escidocprofile.types}"
 			field="totalNumberOfPages" usage="optional" />
 
-		<structure name="publishing-info" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		<structure name="publishing-info" ns="${xsd.metadata.escidocprofile.types}"
 			field="publishingInfo" usage="optional" />
 
 		<collection field="identifiers"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
-			<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+			<structure name="identifier" ns="${xsd.metadata.dc}"
 				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 		</collection>
 

@@ -57,6 +57,7 @@
 	<namespace prefix="release" uri="${xsd.soap.common.release}" default="none" />
 	<!--  --><namespace prefix="mods-md" uri="http://www.loc.gov/mods/v3" default="none" />
 	<namespace prefix="file" uri="${xsd.metadata.file}" default="none" />-->
+	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	
 	
 	

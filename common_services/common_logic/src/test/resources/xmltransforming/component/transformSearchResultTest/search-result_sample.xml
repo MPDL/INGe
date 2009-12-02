@@ -1,55 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<search-result:search-result-record xml:base="http://www.escidoc.de/" xmlns:search-result="${xsd.soap.searchresult.searchresult}"
-	xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:prop="${xsd.soap.common.prop}"
-	xmlns:srel="${xsd.soap.common.srel}">
-	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441" xmlns:escidocItem="${xsd.soap.item.item}">
-		<escidocItem:properties>
+<?xml version="1.0" encoding="UTF-8"?><search-result:search-result-record xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xml:base="http://www.escidoc.de/">
+	<item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441">
+		<escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}">
 			<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>
 			<srel:created-by objid="escidoc:user1"/>
 			<prop:public-status>released</prop:public-status>
 			<srel:context objid="escidoc:persistent3"/>
 			<srel:content-model objid="escidoc:persistent4"/>
 			<prop:lock-status>unlocked</prop:lock-status>
-			<prop:content-model-specific />
+			<prop:content-model-specific/>
 		</escidocItem:properties>
-		<escidocMetadataRecords:md-records
-			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:publication="${xsd.metadata.publication}">
-					<publication:creator role="author" xmlns:escidoc="${xsd.metadata.escidocprofile.types}">
-						<escidoc:person>
+				<publication:publication type="http://purl.org/eprint/type/Book">
+					<escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 							<escidoc:family-name>Meier</escidoc:family-name>
 							<escidoc:given-name>Hans</escidoc:given-name>
-						</escidoc:person>
-					</publication:creator>
-					<dc:title xml:lang="en" xmlns:dc="${xsd.metadata.dc}">PubMan: The first of all.</dc:title>
-				</escidocMetadataProfile:publication>
+						</person:person>
+					</escidoc:creator>
+					<dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">PubMan: The first of all.</dc:title>
+				</publication:publication>
 			</escidocMetadataRecords:md-record>
 		</escidocMetadataRecords:md-records>
-		<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
+		<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}">
         <escidocComponents:component objid="escidoc:376" last-modification-date="2007-04-24T16:20:19.308Z">
-            <escidocComponents:properties xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <escidocComponents:properties>
                 <prop:creation-date>2007-04-24T16:20:19.308Z</prop:creation-date>
-                <srel:created-by objid="escidoc:user1" />
+                <srel:created-by objid="escidoc:user1"/>
                 <prop:description>Ein Farbtest.</prop:description>                
                 <prop:valid-status>valid</prop:valid-status>
-                <prop:visibility>public</prop:visibility>
+                <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
                 <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
-                <prop:content-category>publisher-version</prop:content-category>
+                <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
                 <prop:file-name>farbtest.gif</prop:file-name>
             </escidocComponents:properties>
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
             <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             	<escidocMetadataRecords:md-record name="escidoc">
-            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            		<file:file xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}">
 						<dc:title>My File</dc:title>
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>
 						<dc:identifier xsi:type="dcterms:URI">http://myFile.com</dc:identifier>
-						<file:content-category>any-fulltext</file:content-category>
+						<file:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
 					</file:file>
@@ -57,5 +51,5 @@
             </escidocMetadataRecords:md-records>
         </escidocComponents:component>
     </escidocComponents:components>
-	</escidocItem:item>
+	</item:item>
 </search-result:search-result-record>

@@ -112,7 +112,7 @@
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
 
-				<structure name="organization-details" ns="${xsd.metadata.organization}"
+				<structure name="organization-details" ns="${xsd.metadata.organizationalunit}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO" usage="optional" />
 				
 			</collection>

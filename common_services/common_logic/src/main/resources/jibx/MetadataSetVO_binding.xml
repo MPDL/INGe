@@ -29,7 +29,7 @@
 
 <binding>
    <mapping class="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" abstract="true">
-      <structure name="title" ns="http://purl.org/dc/elements/1.1/" field="title" usage="optional">
+      <structure name="title" ns="${xsd.metadata.dc}" field="title" usage="optional">
          <value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language" usage="optional" />
          <value style="text" field="value" usage="optional" />
       </structure>

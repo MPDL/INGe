@@ -45,7 +45,7 @@
 				<value style="element" name="allowed-genre"
 					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO$Genre"
 					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum"
-					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeGenreEnum" usage="optional" />
 
 			</collection>
 		</structure>
