@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<container:container
-		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
-	<container:properties>
+<?xml version="1.0" encoding="UTF-8"?><container:container xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
+	<container:properties xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="${xsd.core.properties}">
 		<prop:creation-date>2008-03-19T16:47:36.29Z</prop:creation-date>
-		<srel:created-by objid="escidoc:1047" />
+		<srel:created-by objid="escidoc:1047"/>
 		<prop:public-status>released</prop:public-status>
-		<prop:name>&quot;Vom Jahr 1663 bis 1752</prop:name>
-		<prop:description></prop:description>
-		<srel:context objid="escidoc:1036" />
-		<srel:content-model objid="escidoc:virrcm2" />
+		<prop:name>"Vom Jahr 1663 bis 1752</prop:name>
+		<prop:description/>
+		<srel:context objid="escidoc:1036"/>
+		<srel:content-model objid="escidoc:virrcm2"/>
 		<prop:lock-status>unlocked</prop:lock-status>
 		<prop:pid>hdl:someHandle/test/escidoc:1787</prop:pid>
 		<prop:version objid="escidoc:1787:2">
@@ -16,7 +14,7 @@
 			<version:date>2008-03-20T11:25:43.930Z</version:date>
 			<version:status>released</version:status>
 			<version:valid-status>valid</version:valid-status>
-			<srel:modified-by objid="escidoc:1047" />
+			<srel:modified-by objid="escidoc:1047"/>
 			<version:comment>ContainerHandler.release()</version:comment>
 			<version:pid>hdl:someHandle/test/escidoc:1787</version:pid>
 		</prop:version>
@@ -29,12 +27,12 @@
 			<release:number>2</release:number>
 			<release:date>2008-03-20T14:13:25.874Z</release:date>
 		</prop:latest-release>
-		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+		<prop:content-model-specific/>
 	</container:properties>
-	<escidocMetadataRecords:md-records>
+	<escidocMetadataRecords:md-records xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="${xsd.core.properties}">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<mods-md xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
+				<dc:title xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo>
@@ -71,7 +69,7 @@
 			</mods-md>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-	<struct-map:struct-map>
+	<struct-map:struct-map xmlns:struct-map="${xsd.soap.container.structmap}" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="${xsd.core.properties}">
 		<srel:item objid="escidoc:1790"/>
 		<srel:item objid="escidoc:1796"/>
 		<srel:item objid="escidoc:1802"/>

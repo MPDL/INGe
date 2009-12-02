@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<escidocVersions:version-history xml:base="http://192.129.1.111:8080" last-modification-date="2007-11-06T11:16:46.627Z"
-	xmlns:escidocVersions="${xsd.soap.common.versionhistory}">
-	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:3" timestamp="2007-11-06T11:16:10.830Z"
-		xlink:href="/ir/item/escidoc:896:3" xlink:title="Version 3" xlink:type="simple">
+<?xml version="1.0" encoding="UTF-8"?><escidocVersions:version-history xmlns:escidocVersions="${xsd.soap.common.versionhistory}" xml:base="http://192.129.1.111:8080" last-modification-date="2007-11-06T11:16:46.627Z">
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:3" timestamp="2007-11-06T11:16:10.830Z" xlink:href="/ir/item/escidoc:896:3" xlink:title="Version 3" xlink:type="simple">
 		<escidocVersions:pid timestamp="2007-11-06T11:16:48.455Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:3</escidocVersions:pid>
 		<escidocVersions:version-number>3</escidocVersions:version-number>
 		<escidocVersions:timestamp>2007-11-06T11:16:46.971Z</escidocVersions:timestamp>
@@ -63,8 +60,7 @@
 			</premis:event>
 		</escidocVersions:events>
 	</escidocVersions:version>
-	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:2" timestamp="2007-11-05T12:56:42.502Z"
-		xlink:href="/ir/item/escidoc:896:2" xlink:title="Version 2" xlink:type="simple">
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:2" timestamp="2007-11-05T12:56:42.502Z" xlink:href="/ir/item/escidoc:896:2" xlink:title="Version 2" xlink:type="simple">
 		<escidocVersions:pid timestamp="2007-11-05T12:56:46.924Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:2</escidocVersions:pid>
 		<escidocVersions:version-number>2</escidocVersions:version-number>
 		<escidocVersions:timestamp>2007-11-05T12:56:45.424Z</escidocVersions:timestamp>
@@ -125,8 +121,7 @@
 			</premis:event>
 		</escidocVersions:events>
 	</escidocVersions:version>
-	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:1" timestamp="2007-11-05T12:56:35.674Z"
-		xlink:href="/ir/item/escidoc:896:1" xlink:title="Version 1" xlink:type="simple">
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:1" timestamp="2007-11-05T12:56:35.674Z" xlink:href="/ir/item/escidoc:896:1" xlink:title="Version 1" xlink:type="simple">
 		<escidocVersions:pid timestamp="2007-11-05T12:56:39.393Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:1</escidocVersions:pid>
 		<escidocVersions:version-number>1</escidocVersions:version-number>
 		<escidocVersions:timestamp>2007-11-05T12:56:38.080Z</escidocVersions:timestamp>

@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<member-list:member-list xmlns:member-list="${xsd.soap.common.memberlist}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.soap.common.prop}">
-	<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:363" last-modification-date="2008-05-21T19:22:38.446Z">
-		<escidocItem:properties>
+<?xml version="1.0" encoding="UTF-8"?><member-list:member-list xmlns:member-list="${xsd.soap.common.memberlist}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.soap.common.prop}">
+	<item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:363" last-modification-date="2008-05-21T19:22:38.446Z">
+		<escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
 			<prop:creation-date>2007-11-09T12:43:43.552Z</prop:creation-date>
-			<srel:created-by objid="escidoc:user2" />
+			<srel:created-by objid="escidoc:user2"/>
 			<prop:public-status>released</prop:public-status>
-			<srel:context objid="escidoc:persistent3" />
-			<srel:content-model objid="escidoc:persistent4" />
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
 			<prop:lock-status>unlocked</prop:lock-status>
 			<escidocItem:version objid="escidoc:363:10">
 				<escidocItem:number>10</escidocItem:number>
 				<escidocItem:date>2008-05-21T19:22:38.446Z</escidocItem:date>
 				<escidocItem:version-status>pending</escidocItem:version-status>
 				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
+				<escidocItem:modified-by objid="escidoc:user2"/>
 				<escidocItem:comment>ItemHandler.update()</escidocItem:comment>
 				<escidocItem:pid>hdl:someHandle/test/escidoc:363:9</escidocItem:pid>
 			</escidocItem:version>
@@ -26,78 +25,78 @@
 				<escidocItem:date>2007-11-19T20:23:02.401Z</escidocItem:date>
 				<escidocItem:pid>hdl:someHandle/test/escidoc:363:9</escidocItem:pid>
 			</escidocItem:latest-release>
-			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
+			<prop:content-model-specific/>
 		</escidocItem:properties>
-		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<escidoc:complete-name></escidoc:complete-name>
-							<escidoc:family-name>Gruss</escidoc:family-name>
-							<escidoc:given-name>Peter</escidoc:given-name>
-							<escidoc:organization>
-								<escidoc:organization-name xml:lang="" xmlns:xml="http://www.w3.org/XML/1998/namespace">Max Planck Society</escidoc:organization-name>
-								<escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
-								<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
-							</escidoc:organization>
-							<escidoc:organization>
-								<escidoc:organization-name>MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
-								<escidoc:address>Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
-								<escidoc:identifier>escidoc:persistent28</escidoc:identifier>
-							</escidoc:organization>
-						</escidoc:person>
-					</publication:creator>
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<escidoc:complete-name></escidoc:complete-name>
-							<escidoc:family-name>Jaeckle</escidoc:family-name>
-							<escidoc:given-name>H.</escidoc:given-name>
-							<escidoc:organization>
-								<escidoc:organization-name>MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
-								<escidoc:address>Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
-								<escidoc:identifier>escidoc:persistent28</escidoc:identifier>
-							</escidoc:organization>
-						</escidoc:person>
-					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Die Wechselbeziehung von Wissenschaft und Technologie.</dc:title>
-					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Verlag Kommunikation und Wirtschaft GmbH</dc:publisher>
-						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Oldenburg</escidoc:place>
-						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:edition>
-					</publication:publishing-info>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
-					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
-					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
-					<dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
-					<publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
-					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
-					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no-review</publication:review-method>
-					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
-					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
-					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no local signature</publication:location>
-				</escidocMetadataProfile:publication>
+				<publication:publication xmlns:mdrecords="${xsd.soap.common.mdrecords}" type="http://purl.org/eprint/type/Book">
+					<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}"/>
+							<escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Gruss</escidoc:family-name>
+							<escidoc:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Peter</escidoc:given-name>
+							<organization:organization>
+								<dc:title xml:lang="">Max Planck Society</dc:title>
+								<escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
+								<dc:identifier>escidoc:persistent13</dc:identifier>
+							</organization:organization>
+							<organization:organization>
+								<dc:title>MPI for biophysical chemistry, Max Planck Society</dc:title>
+								<escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
+								<dc:identifier>escidoc:persistent28</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</escidoc:creator>
+					<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+						<person:person>
+							<escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}"/>
+							<escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Jaeckle</escidoc:family-name>
+							<escidoc:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">H.</escidoc:given-name>
+							<organization:organization>
+								<dc:title>MPI for biophysical chemistry, Max Planck Society</dc:title>
+								<escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
+								<dc:identifier>escidoc:persistent28</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</escidoc:creator>
+					<dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="de">Die Wechselbeziehung von Wissenschaft und Technologie.</dc:title>
+					<escidoc:publishing-info>
+						<dc:publisher xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Verlag Kommunikation und Wirtschaft GmbH</dc:publisher>
+						<escidoc:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Oldenburg</escidoc:place>
+						<escidoc:edition xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}"/>
+					</escidoc:publishing-info>
+					<dcterms:created xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF"/>
+					<dcterms:modified xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF"/>
+					<dcterms:dateSubmitted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF"/>
+					<dcterms:dateAccepted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF"/>
+					<escidoc:published-online xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"/>
+					<dcterms:issued xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
+					<escidoc:review-method>http://purl.org/escidoc/metadata/ves/review-methods/no-review</escidoc:review-method>
+					<escidoc:total-number-of-pages/>
+					<dc:subject xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang=""/>
+					<dcterms:tableOfContents xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang=""/>
+					<escidoc:location>no local signature</escidoc:location>
+				</publication:publication>
 			</escidocMetadataRecords:md-record>
 
 		</escidocMetadataRecords:md-records>
 
 
-	</escidocItem:item>
-	<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1003" last-modification-date="2007-11-19T08:52:38.448Z">
-		<escidocItem:properties>
+	</item:item>
+	<item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:1003" last-modification-date="2007-11-19T08:52:38.448Z">
+		<escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
 			<prop:creation-date>2007-11-19T08:52:25.448Z</prop:creation-date>
-			<srel:created-by objid="escidoc:994" />
+			<srel:created-by objid="escidoc:994"/>
 			<prop:public-status>released</prop:public-status>
-			<srel:context objid="escidoc:persistent3" />
-			<srel:content-model objid="escidoc:persistent4" />
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
 			<prop:lock-status>unlocked</prop:lock-status>
 			<escidocItem:version objid="escidoc:1003:1">
 				<escidocItem:number>1</escidocItem:number>
 				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
 				<escidocItem:version-status>released</escidocItem:version-status>
 				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:994" />
+				<escidocItem:modified-by objid="escidoc:994"/>
 				<escidocItem:comment>test submission</escidocItem:comment>
 			</escidocItem:version>
 			<escidocItem:latest-version objid="escidoc:1003:1">
@@ -108,35 +107,35 @@
 				<escidocItem:number>1</escidocItem:number>
 				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
 			</escidocItem:latest-release>
-			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
+			<prop:content-model-specific/>
 		</escidocItem:properties>
-		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
-					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
-						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
-							<escidoc:complete-name></escidoc:complete-name>
-							<escidoc:family-name>Bulatovic</escidoc:family-name>
-							<escidoc:given-name>Natasa</escidoc:given-name>
-							<escidoc:organization>
-								<escidoc:organization-name>Max Planck Society</escidoc:organization-name>
-								<escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
-								<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
-							</escidoc:organization>
-						</escidoc:person>
-					</publication:creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test article for submission</dc:title>
-					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
-					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">my source</dc:title>
-					</publication:source>
-					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
-					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
-				</escidocMetadataProfile:publication>
+				<publication:publication xmlns:mdrecords="${xsd.soap.common.mdrecords}" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+					<escidoc:creator role="http://www.loc.gov/loc.terms/relators/ART">
+						<person:person>
+							<escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}"/>
+							<escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Bulatovic</escidoc:family-name>
+							<escidoc:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Natasa</escidoc:given-name>
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
+								<dc:identifier>escidoc:persistent13</dc:identifier>
+							</organization:organization>
+						</person:person>
+					</escidoc:creator>
+					<dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="">Test article for submission</dc:title>
+					<dcterms:created xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
+					<source:source>
+						<dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="">my source</dc:title>
+					</source:source>
+					<dc:subject xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang=""/>
+					<dcterms:tableOfContents xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang=""/>
+				</publication:publication>
 			</escidocMetadataRecords:md-record>
 
 		</escidocMetadataRecords:md-records>
 
 
-	</escidocItem:item>
+	</item:item>
 </member-list:member-list>
