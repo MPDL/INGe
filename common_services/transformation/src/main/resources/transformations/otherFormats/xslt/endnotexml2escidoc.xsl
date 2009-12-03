@@ -42,16 +42,18 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
    xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile}idtypes"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:organization="${xsd.metadata.organization}"		
+	xmlns:eterms="${xsd.metadata.terms}"   
    xmlns:escidoc="urn:escidoc:functions"
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
@@ -273,7 +275,7 @@
 				''
 				"/>		
 		
-		<xsl:element name="mdp:publication">
+		<xsl:element name="pub:publication">
 		
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
@@ -345,21 +347,21 @@
 			<!-- IDENTIFIERS -->
 			<xsl:for-each select="L">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
 			<xsl:for-each select="M">
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
-						<xsl:value-of select="if (starts-with(upper-case(.), 'ISI:' )) then 'eidt:ISI' else 'eidt:OTHER'"/>
+						<xsl:value-of select="if (starts-with(upper-case(.), 'ISI:' )) then 'eterms:ISI' else 'eterms:OTHER'"/>
 					</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
 			<xsl:for-each select="R">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -367,7 +369,7 @@
 					$refType = 'Manuscript'
 				]">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -375,7 +377,7 @@
 				   $refType = ('Book', 'Book Section', 'Conference Proceedings', 'Edited Book', 'Electronic Book')   
 				]">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:ISBN</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -383,7 +385,7 @@
 					$refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article')			
 				]">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -391,13 +393,13 @@
 				      $refType = 'Report'
 				]">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
 			<xsl:for-each select="U">
 				<xsl:element name="dc:identifier">
-					<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
@@ -433,19 +435,19 @@
 			</xsl:variable>
 			
 			<xsl:if test="concat($publisher, $place, $edition)!=''">
-				<xsl:element name="pub:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:if test="$publisher!=''">
 						<xsl:element name="dc:publisher">
 							<xsl:value-of select="$publisher"/>
 						</xsl:element>
 					</xsl:if>
 					<xsl:if test="$place!=''">
-						<xsl:element name="e:place">
+						<xsl:element name="eterms:place">
 							<xsl:value-of select="$place"/>
 						</xsl:element>
 					</xsl:if>
 					<xsl:if test="$edition!=''">
-						<xsl:element name="e:edition">
+						<xsl:element name="eterms:edition">
 							<xsl:value-of select="$edition"/>
 						</xsl:element>
 					</xsl:if>
@@ -536,7 +538,7 @@
 			<xsl:if test="NUM_7 and (
 				   $refType = 'Journal Article' 
 				)">
-				<pub:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="NUM_7"/></pub:published-online>
+				<eterms:published-online xsi:type="dcterms:W3CDTF"><xsl:value-of select="NUM_7"/></eterms:published-online>
 			</xsl:if>
 			<xsl:if test="EQUAL">
 				<dcterms:modified xsi:type="dcterms:W3CDTF"><xsl:value-of select="EQUAL"/></dcterms:modified>
@@ -554,12 +556,12 @@
 			
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:if test="P and $refType = ('Book', 'Edited Book', 'Electronic Book', 'Thesis', 'Generic', 'Conference Proceeding', 'Manuscript', 'Report')">
-				<xsl:element name="pub:total-number-of-pages">
+				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="P"/>
 				</xsl:element>
 			</xsl:if>			
 			<xsl:if test="AMPERSAND and $refType = 'Book'">
-				<xsl:element name="pub:total-number-of-pages">
+				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="AMPERSAND"/>
 				</xsl:element>
 			</xsl:if>			
@@ -567,17 +569,17 @@
 			
 			<!-- EVENT -->
 			<xsl:if test="B and $refType = ('Conference Paper', 'Conference Proceedings')">
-				<xsl:element name="pub:event">
+				<xsl:element name="event:event">
 					<xsl:element name="dc:title">
 						<xsl:value-of select="B"/>
 					</xsl:element>
 					<xsl:if test="D and $refType = 'Conference Proceedings'">
-						<xsl:element name="e:start-date">
+						<xsl:element name="eterms:start-date">
 							<xsl:value-of select="D"/>
 						</xsl:element>
 					</xsl:if>
 					<xsl:if test="C">
-						<xsl:element name="e:place">
+						<xsl:element name="eterms:place">
 							<xsl:value-of select="C"/>
 						</xsl:element>
 					</xsl:if>
@@ -587,12 +589,12 @@
 			
 			<!-- DEGREE -->
 			<xsl:if test="V and $refType = 'Thesis'">
-				<xsl:element name="pub:degree">
+				<xsl:element name="eterms:degree">
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="NUM_9 and $refType = 'Thesis'">
-				<xsl:element name="pub:degree">diploma</xsl:element>
+				<xsl:element name="eterms:degree">diploma</xsl:element>
 			</xsl:if>
 			
 			
@@ -614,7 +616,7 @@
 			
 			<!-- LOCATION -->
 			<xsl:if test="I and $refType = 'Manuscript'">
-				<xsl:element name="pub:location">
+				<xsl:element name="eterms:location">
 					<xsl:value-of select="I"/>
 				</xsl:element>
 			</xsl:if>
@@ -631,7 +633,7 @@
 		<xsl:param name="sgen"/>
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
-		<xsl:element name="pub:source">
+		<xsl:element name="source:source">
 
 
 			<!-- SOURCE GENRE -->
@@ -685,28 +687,28 @@
 			
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="N and $refType = ('Book', 'Book Section', 'Edited Book')">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="N"/>
 				</xsl:element>
 			</xsl:if>	
 			<xsl:if test="V and not(N) and $refType = ('Book', 'Book Section', 'Edited Book', 'Report')">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
 			
 			<xsl:if test="V and $refType = ('Generic', 'Conference Paper', 'Conference Proceedings', 'Electronic Article', 'Electronic Book', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Manuscript')">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="V and not(NUM_6) and $refType = 'Report'">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="V"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="NUM_6 and $refType = 'Report'">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="NUM_6"/>
 				</xsl:element>
 			</xsl:if>
@@ -714,7 +716,7 @@
 			
 			<!-- SOURCE ISSUE -->
 			<xsl:if test="N and $refType = ('Electronic Article', 'Journal Article', 'Generic', 'Magazine Article')">
-				<xsl:element name="e:issue">
+				<xsl:element name="eterms:issue">
 					<xsl:value-of select="N"/>
 				</xsl:element>
 			</xsl:if>
@@ -724,23 +726,23 @@
 			<xsl:if test="P and $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Book Section', 'Conference Paper' )">
 				<xsl:variable name="pages" select="tokenize(normalize-space(P), '[-–]+')"/>
 				<xsl:if test="count($pages)>=1 and $pages[1]!=''">
-					<xsl:element name="e:start-page">
+					<xsl:element name="eterms:start-page">
 						<xsl:value-of select="$pages[1]"/>								
 					</xsl:element>						
 				</xsl:if>
 				<xsl:if test="count($pages)=2 and $pages[2]!=''">
-					<xsl:element name="e:end-page">
+					<xsl:element name="eterms:end-page">
 						<xsl:value-of select="$pages[2]"/>								
 					</xsl:element>						
 				</xsl:if>
 			</xsl:if>			
 			<xsl:if test="N and not(P) and $refType = 'Newspaper Article'">
-				<xsl:element name="e:start-page">
+				<xsl:element name="eterms:start-page">
 					<xsl:value-of select="N"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="AMPERSAND and not(P) and $refType = ('Journal Article', 'Magazine Article', 'Manuscript')">
-				<xsl:element name="e:start-page">
+				<xsl:element name="eterms:start-page">
 					<xsl:value-of select="AMPERSAND"/>
 				</xsl:element>
 			</xsl:if>
@@ -748,17 +750,17 @@
 			
 			<!-- SOURCE SEQUENCE NUMBER -->
 			<xsl:if test="N and $refType = 'Report'">
-				<xsl:element name="e:sequence-number">
+				<xsl:element name="eterms:sequence-number">
 					<xsl:value-of select="N"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="M and $refType = 'Manuscript'">
-				<xsl:element name="e:sequence-number">
+				<xsl:element name="eterms:sequence-number">
 					<xsl:value-of select="M"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="AMPERSAND and $refType = 'Book Section'">
-				<xsl:element name="e:sequence-number">
+				<xsl:element name="eterms:sequence-number">
 					<xsl:value-of select="AMPERSAND"/>
 				</xsl:element>
 			</xsl:if>
@@ -766,12 +768,12 @@
 					
 			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:if test="I and $refType = ('Generic', 'Book', 'Book Section', 'Conference Paper', 'Conference Proceedings', 'Edited Book', 'Electronic Article', 'Electronic Book', 'Magazine Article', 'Newspaper Article')">
-				<xsl:element name="e:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:element name="dc:publisher">
 						<xsl:value-of select="I"/>
 					</xsl:element>
 					<xsl:if test="NUM_7 and $refType = ('Book Section', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Report')">
-						<xsl:element name="e:edition">
+						<xsl:element name="eterms:edition">
 							<xsl:value-of select="NUM_7"/>
 						</xsl:element>
 					</xsl:if>
@@ -864,7 +866,7 @@
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
 		<xsl:if test="$isSource">
-			<xsl:element name="e:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
@@ -872,7 +874,7 @@
 			</xsl:element>
 		</xsl:if>
 		<xsl:if test="not($isSource)">
-			<xsl:element name="pub:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
@@ -920,29 +922,29 @@
 				
 				<xsl:choose>
 					<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
-						<e:person>
-							<e:family-name><xsl:value-of select="$person/familyname"/></e:family-name>
-							<e:given-name><xsl:value-of select="$person/givenname"/></e:given-name>
+						<person:person>
+							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
 							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
-								<e:organization>
-									<e:organization-name><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</e:organization-name>
-									<e:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></e:identifier>
-								</e:organization>
+								<organization:organization>
+									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</dc:title>
+									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
+								</organization:organization>
 							</xsl:if>
-							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/></e:identifier>
-						</e:person>
+							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/@rdf:about"/></dc:identifier>
+						</person:person>
 					</xsl:when>
 					<xsl:otherwise>
-						<e:person>
-							<e:family-name><xsl:value-of select="$person/familyname"/></e:family-name>
-							<e:given-name><xsl:value-of select="$person/givenname"/></e:given-name>
+						<person:person>
+							<eterms:family-name><xsl:value-of select="$person/familyname"/></eterms:family-name>
+							<eterms:given-name><xsl:value-of select="$person/givenname"/></eterms:given-name>
 							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
-								<e:organization>
-									<e:organization-name><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/></e:organization-name>
-									<e:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></e:identifier>
-								</e:organization>
+								<organization:organization>
+									<dc:title><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/></dc:title>
+									<dc:identifier><xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/></dc:identifier>
+								</organization:organization>
 							</xsl:if>
-						</e:person>
+						</person:person>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
@@ -955,39 +957,39 @@
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
 				</xsl:if>
 				
-				<xsl:element name="e:person">
-					<xsl:element name="e:family-name">
+				<xsl:element name="person:person">
+					<xsl:element name="eterms:family-name">
 						<xsl:value-of select="$person/familyname"/>
 					</xsl:element>
-					<xsl:element name="e:given-name">
+					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="$person/givenname"/>
 					</xsl:element>
-					<xsl:element name="e:complete-name">
+					<xsl:element name="eterms:complete-name">
 						<xsl:value-of select="."/>
 					</xsl:element>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description/esc:position)">
 							<xsl:for-each select="$cone-creator/cone/rdf:RDF[1]/rdf:Description/esc:position">
-								<e:organization>
-									<e:organization-name>
+								<organization:organization>
+									<dc:title>
 										<xsl:value-of select="rdf:Description/esc:organization"/>
-									</e:organization-name>
-									<e:identifier>
+									</dc:title>
+									<dc:identifier>
 										<xsl:value-of select="rdf:Description/dc:identifier"/>
-									</e:identifier>
-								</e:organization>
+									</dc:identifier>
+								</organization:organization>
 							</xsl:for-each>
 						</xsl:when>
 						<xsl:when test="not($isSource)">
-							<e:organization>
-								<e:organization-name>Max Planck Society</e:organization-name>
-								<e:identifier>${escidoc.pubman.root.organisation.id}</e:identifier>
-							</e:organization>
+							<organization:organization>
+								<dc:title>Max Planck Society</dc:title>
+								<dc:identifier>${escidoc.pubman.root.organisation.id}</dc:identifier>
+							</organization:organization>
 						</xsl:when>
 					</xsl:choose>
 					<xsl:choose>
 						<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
-							<e:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></e:identifier>
+							<dc:identifier xsi:type="CONE"><xsl:value-of select="$cone-creator/cone/rdf:RDF[1]/rdf:Description[1]/@rdf:about"/></dc:identifier>
 						</xsl:when>
 					</xsl:choose>
 					
