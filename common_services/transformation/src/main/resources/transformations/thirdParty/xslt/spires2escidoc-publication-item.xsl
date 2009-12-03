@@ -42,17 +42,18 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:dcterms="${xsd.metadata.dcterms}"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:mdr="${xsd.soap.common.mdrecords}"   
+   xmlns:ei="${xsd.soap.item.item}"   
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:organization="${xsd.metadata.organization}"		
+	xmlns:eterms="${xsd.metadata.terms}"   
    xmlns:escidoc="urn:escidoc:functions">
    
 	<xsl:param name="user" select="'dummy-user'"/>
@@ -116,7 +117,7 @@
 	<!-- CREATE MD-RECORD -->
 	<xsl:template name="createMDRecord">
 		<xsl:param name="genre"/>
-		<xsl:element name="mdp:publication">			
+		<xsl:element name="pub:publication">			
 			<xsl:attribute name="type">conference-paper</xsl:attribute>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="authaffgrp"/>
@@ -157,18 +158,18 @@
 	</xsl:template>
 	
 	<xsl:template match="author">		
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template name="createPerson">
-		<xsl:element name="e:person">
+		<xsl:element name="person:person">
 			
-			<xsl:element name="e:complete-name">
+			<xsl:element name="eterms:complete-name">
 				<xsl:value-of select="."/>
 			</xsl:element>	
-			<xsl:element name="e:family-name">
+			<xsl:element name="eterms:family-name">
 				<xsl:value-of select="."/>
 			</xsl:element>		
 			<xsl:if test="../aff">
@@ -179,8 +180,8 @@
 	
 	
 	<xsl:template name="createOrganization">		
-		<xsl:element name="e:organization">
-			<xsl:element name="e:organization-name">
+		<xsl:element name="organization:organization">
+			<xsl:element name="dc:title">
 				<xsl:value-of select="../aff"/>
 			</xsl:element>			
 		</xsl:element>		
@@ -197,26 +198,26 @@
 	<!-- IDENTIFIER -->	
 	<xsl:template match="doi">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>							
+			<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>							
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="eprint">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>							
+			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>							
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="spires_key">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>							
+			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>							
 			<xsl:value-of select="concat('spires:',.)"/>
 		</xsl:element>
 	</xsl:template>
 	
 	<!-- DATES -->
 	<xsl:template match="date">		
-		<xsl:element name="pub:published-online">
+		<xsl:element name="eterms:published-online">
 			<xsl:call-template name="createDate"/>
 		</xsl:element>		
 	</xsl:template>
@@ -297,7 +298,7 @@
 	
 	<!-- EVENT -->
 	<xsl:template match="conference">
-		<xsl:element name="pub:event">
+		<xsl:element name="event:event">
 			<xsl:apply-templates select="name"/>			
 			<xsl:choose>
 				<xsl:when test="dater">
@@ -312,7 +313,7 @@
 	</xsl:template>
 	
 	<xsl:template match="address">
-		<xsl:element name="e:place">
+		<xsl:element name="eterms:place">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -320,7 +321,7 @@
 	<!-- EVENT DATE -->
 	<xsl:template match="dates">
 			
-			<xsl:element name="e:start-date">
+			<xsl:element name="eterms:start-date">
 				<xsl:variable name="year" select="substring(.,1,4)"/>
 				<xsl:variable name="month" select="substring(.,5,2)"/>
 				<xsl:variable name="day" select="substring(.,7,2)"/>
@@ -339,7 +340,7 @@
 		
 	</xsl:template>
 	<xsl:template match="dater">
-		<xsl:element name="e:start-date">
+		<xsl:element name="eterms:start-date">
 			<xsl:call-template name="createEventDate"/>
 		</xsl:element>
 	</xsl:template>
@@ -347,14 +348,14 @@
 	
 	<!-- PAGES -->
 	<xsl:template match="pages">
-		<xsl:element name="pub:total-number-of-pages">
+		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	
 	<!-- CREATE JOURNAL -->
 	<xsl:template match="journal">		
-		<xsl:element name="pub:source">	
+		<xsl:element name="source:source">	
 			<xsl:attribute name="type">journal</xsl:attribute>
 			<!-- SOURCE TITLE -->
 			<xsl:apply-templates select="name"/>			
@@ -366,14 +367,14 @@
 	</xsl:template>
 	<!-- VOLUME -->	
 	<xsl:template match="volume">
-		<xsl:element name="e:volume">
+		<xsl:element name="eterms:volume">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	
 	<!-- PAGES -->
 	<xsl:template match="page">
-		<xsl:element name="e:start-page">
+		<xsl:element name="eterms:start-page">
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
