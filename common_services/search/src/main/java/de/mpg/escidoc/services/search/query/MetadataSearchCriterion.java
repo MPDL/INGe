@@ -36,9 +36,9 @@ public class MetadataSearchCriterion implements Serializable
     /** Criteria types for the search criterion. */
     public enum CriterionType
     {
-        TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
+        TITLE, ANY, ANY_INCLUDE, ABSTRACT, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
-        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
+        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CONTEXT_NAME, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE,
         COMPONENT_ACCESSABILITY, COMPONENT_VISIBILITY, COMPONENT_CONTENT_CATEGORY, LOCAL_TAG, COPYRIGHT_DATE, 
         EMBARGO_DATE
     };
@@ -81,6 +81,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_TITLE = "escidoc.publication.title";
     /** Index for metadata. */
     private static final String INDEX_METADATA = "escidoc.metadata";
+    /** Index for any-title. */
+    private static final String INDEX_ABSTRACT = "escidoc.publication.abstract";
     /** Index for fulltexts. */
     private static final String INDEX_FULLTEXT = "escidoc.fulltext";
     /** Index for persons. */
@@ -117,6 +119,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_IDENTIFIER = "escidoc.any-identifier";
     /** Index for object ids of contexts. */
     private static final String INDEX_CONTEXT_OBJECTID = "escidoc.context.objid";
+    /** Index for name of contexts. */
+    private static final String INDEX_CONTEXT_NAME = "escidoc.context.name";
     /** Index for the created-by object id. */
     private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.component.created-by.objid";
     /** Index for languages. */
@@ -377,6 +381,9 @@ public class MetadataSearchCriterion implements Serializable
                 indexes.add(INDEX_METADATA);
                 indexes.add(INDEX_FULLTEXT);
                 break;
+            case ABSTRACT:
+            	indexes.add(INDEX_ABSTRACT);
+            	break;
             case PERSON:
                 indexes.add(INDEX_PERSON);
                 break;
@@ -407,6 +414,9 @@ public class MetadataSearchCriterion implements Serializable
             case CONTEXT_OBJECTID:
                 indexes.add(INDEX_CONTEXT_OBJECTID);
                 break;
+            case CONTEXT_NAME:
+            	indexes.add(INDEX_CONTEXT_NAME);
+            	break;
             case CREATED_BY_OBJECTID:
                 indexes.add(INDEX_CREATED_BY_OBJECTID);
                 break;
