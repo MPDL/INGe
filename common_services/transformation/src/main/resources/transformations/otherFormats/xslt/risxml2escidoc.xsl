@@ -42,15 +42,17 @@
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+    xmlns:ei="${xsd.soap.item.item}"
+   xmlns:file="${xsd.metadata.file}"
+   xmlns:pub="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:organization="${xsd.metadata.organization}"		
+	xmlns:eterms="${xsd.metadata.terms}"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"   
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:escidoc="urn:escidoc:functions">
 
@@ -173,7 +175,7 @@
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
 		
-		<xsl:element name="mdp:publication">
+		<xsl:element name="pub:publication">
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
@@ -228,8 +230,8 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
 						<xsl:choose>
-							<xsl:when test="$genre='series' or $genre='journal'">eidt:ISSN</xsl:when>
-							<xsl:otherwise>eidt:ISBN</xsl:otherwise>
+							<xsl:when test="$genre='series' or $genre='journal'">eterms:ISSN</xsl:when>
+							<xsl:otherwise>eterms:ISBN</xsl:otherwise>
 						</xsl:choose>						
 					</xsl:attribute>
 					<xsl:value-of select="SN"/>
@@ -237,19 +239,19 @@
 			</xsl:if>	
 			<!-- PUBLISHING-INFO -->			
 			<xsl:if test="not($gen='article' or $gen='paper' or $gen='issue' or $gen='other' or $gen='conference-paper' or $gen='book-item') and (PB or CY)">
-				<xsl:element name="pub:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:if test="PB">
 						<xsl:element name="dc:publisher">						
 							<xsl:value-of select="PB"/>
 						</xsl:element>
 					</xsl:if>
 					<xsl:if test="CY">
-						<xsl:element name="e:place">
+						<xsl:element name="eterms:place">
 							<xsl:value-of select="CY"/>
 						</xsl:element>
 					</xsl:if>
 					<xsl:if test="VL and not(ET or JF or JO or T3)">				
-						<xsl:element name="e:edition">
+						<xsl:element name="eterms:edition">
 							<xsl:value-of select="VL"/>					
 						</xsl:element>
 					</xsl:if>
@@ -326,30 +328,30 @@
 		<xsl:param name="familyname"/>
 		<xsl:param name="givenname"/>
 		<xsl:param name="title"/>
-		<xsl:element name="e:person">
+		<xsl:element name="person:person">
 			
-			<xsl:element name="e:complete-name">
+			<xsl:element name="eterms:complete-name">
 				<xsl:value-of select="."/>
 			</xsl:element>
-			<xsl:element name="e:family-name">
+			<xsl:element name="eterms:family-name">
 				<xsl:value-of select="$familyname"/>
 			</xsl:element>
-			<xsl:element name="e:given-name">
+			<xsl:element name="eterms:given-name">
 				<xsl:value-of select="$givenname"/>
 			</xsl:element>
 			<xsl:choose>
 			<xsl:when test="../AD">
-				<xsl:element name="e:organization">
-					<xsl:element name="e:organization-name">
+				<xsl:element name="organization:organization">
+					<xsl:element name="dc:title">
 						<xsl:value-of select="../AD"/>
 					</xsl:element>
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<e:organization>
-					<e:organization-name>External Organizations</e:organization-name>
-					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
-				</e:organization>
+				<organization:organization>
+					<dc:title>External Organizations</dc:title>
+					<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+				</organization:organization>
 				</xsl:otherwise>
 			</xsl:choose>	
 		</xsl:element>
@@ -359,7 +361,7 @@
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
-        	<xsl:element name="pub:creator">
+        	<xsl:element name="eterms:creator">
 				<xsl:attribute name="role">author</xsl:attribute>						
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="familyname" select="familyname"/>
@@ -374,7 +376,7 @@
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
@@ -389,7 +391,7 @@
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
@@ -404,7 +406,7 @@
            	<xsl:copy-of select="AuthorDecoder:parseAsNode(.)"/>
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role">contributor</xsl:attribute>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
@@ -418,12 +420,12 @@
 		<xsl:param name="string"/>
 		<xsl:choose>
 			<xsl:when test="substring-before($string,';')=''">
-				<xsl:element name="e:complete-name">
+				<xsl:element name="eterms:complete-name">
 					<xsl:value-of select="$string"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="e:complete-name">
+				<xsl:element name="eterms:complete-name">
 					<xsl:value-of select="substring-before($string,';')"/>
 				</xsl:element>
 				<xsl:call-template name="parseCreators">
@@ -436,7 +438,7 @@
 	<xsl:template name="createSource">
 		<xsl:param name="genre" />
 		<xsl:param name="title" />		
-		<xsl:element name="pub:source">
+		<xsl:element name="source:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:choose>
@@ -480,7 +482,7 @@
            			<xsl:copy-of select="AuthorDecoder:parseAsNode(A3)" />
       			</xsl:variable>
        			<xsl:for-each select="$var/authors/author">
-        			<xsl:element name="e:creator">
+        			<xsl:element name="eterms:creator">
 						<xsl:attribute name="role">author</xsl:attribute>						
 						<xsl:call-template name="createPerson">
 							<xsl:with-param name="familyname" select="familyname" />
@@ -493,20 +495,20 @@
 			</xsl:if>
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="(VL and (JF or JO or T3 or ET))">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="VL" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE ISSUE -->
 			<xsl:choose>
 				<xsl:when test="IS">
-					<xsl:element name="e:issue">
+					<xsl:element name="eterms:issue">
 						<xsl:value-of select="IS" />
 					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:if test="CP">
-						<xsl:element name="e:issue">
+						<xsl:element name="eterms:issue">
 							<xsl:value-of select="CP" />
 						</xsl:element>
 					</xsl:if>
@@ -514,30 +516,30 @@
 			</xsl:choose>
 			<!-- SOURCE PAGES -->
 			<xsl:if test="EP">
-				<xsl:element name="e:start-page">
+				<xsl:element name="eterms:start-page">
 					<xsl:value-of select="SP" />
 				</xsl:element>
-				<xsl:element name="e:end-page">
+				<xsl:element name="eterms:end-page">
 					<xsl:value-of select="EP" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE TOTAL NUMBER OF PAGES -->
 			<xsl:if test="not(EP) and SP">
-				<xsl:element name="e:total-number-of-pages">
+				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="SP" />
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE PUBLISHINGINFO -->			
 			<xsl:if test="($genre='article' or $genre='paper' or $genre='issue' or $genre='other' or $genre='conference-paper' or $genre='book-item') and (PB or CY)">
-				<xsl:element name="e:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:element name="dc:publisher">
 						<xsl:value-of select="PB" />
 					</xsl:element>
-					<xsl:element name="e:place">
+					<xsl:element name="eterms:place">
 						<xsl:value-of select="CY" />
 					</xsl:element>
 					<xsl:if test="ET and ($genre='book' or $genre='thesis' or $genre='proceedings' or $genre='report')">
-						<xsl:element name="e:edition">
+						<xsl:element name="eterms:edition">
 							<xsl:value-of select="ET" />
 						</xsl:element>
 					</xsl:if>
@@ -549,8 +551,8 @@
 				<xsl:element name="dc:identifier">
 					<xsl:attribute name="xsi:type">
 						<xsl:choose>
-							<xsl:when test="$genre='series' or $genre='journal'">eidt:ISSN</xsl:when>
-							<xsl:otherwise>eidt:ISBN</xsl:otherwise>
+							<xsl:when test="$genre='series' or $genre='journal'">eterms:ISSN</xsl:when>
+							<xsl:otherwise>eterms:ISBN</xsl:otherwise>
 						</xsl:choose>						
 					</xsl:attribute>
 					<xsl:value-of select="SN" />
@@ -664,8 +666,8 @@
 	</xsl:template>
 	<!-- PUBLISHINGINFO -->
 	<xsl:template name="createEdition">
-		<xsl:element name="pub:publishing-info">
-			<xsl:element name="e:edition">
+		<xsl:element name="eterms:publishing-info">
+			<xsl:element name="eterms:edition">
 				<xsl:value-of select="ET"/>
 			</xsl:element>
 		</xsl:element>
@@ -673,25 +675,25 @@
 	<!-- IDENTIFIER -->
 	<xsl:template match="UR">		
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template match="L1">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template match="L2">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:URI</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template match="ID">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>

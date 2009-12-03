@@ -43,16 +43,18 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile}idtypes"
+   xmlns:file="${xsd.metadata.file}"
+   xmlns:pub="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:organization="${xsd.metadata.organization}"		
+	xmlns:eterms="${xsd.metadata.terms}"   
+   xmlns:ei="${xsd.soap.item.item}"   
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
    xmlns:escidoc="urn:escidoc:functions"
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    xmlns:ce="http://www.elsevier.com"
@@ -80,12 +82,12 @@
 	</xsl:variable>
 	
 	<xsl:variable name="identMap">
-			<m key="DOI">eidt:DOI</m>
-			<m key="ISSN">eidt:ISSN</m>
-			<m key="pISSN">eidt:ISSN</m>
-			<m key="eISSN">eidt:ISSN</m>
-			<m key="PMID">eidt:PMID</m>
-			<m key="PII">eidt:PII</m>
+			<m key="DOI">eterms:DOI</m>
+			<m key="ISSN">eterms:ISSN</m>
+			<m key="pISSN">eterms:ISSN</m>
+			<m key="eISSN">eterms:ISSN</m>
+			<m key="PMID">eterms:PMID</m>
+			<m key="PII">eterms:PII</m>
 	</xsl:variable>
 	
       	
@@ -93,7 +95,7 @@
 			<m key="Received">dcterms:created</m>
 			<m key="Revised">dcterms:modified</m>
 			<m key="Accepted">dcterms:dateAccepted</m>
-			<m key="Online">pub:published-online</m>
+			<m key="Online">eterms:published-online</m>
 			<m key="Submitted">dcterms:dateSubmitted</m>
 			<m key="publication">dcterms:issued</m>
 	</xsl:variable>
@@ -150,7 +152,7 @@
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
 		
-		<xsl:element name="mdp:publication">
+		<xsl:element name="pub:publication">
 		
 			<xsl:attribute name="type">
 				<xsl:value-of select="$gen"/>
@@ -243,7 +245,7 @@
 			
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='pp'])">
-				<xsl:element name="pub:total-number-of-pages">
+				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="$imprint/t:biblScope[@type='pp']"/>
 				</xsl:element>
 			</xsl:if>
@@ -286,7 +288,7 @@
 			
 			<!-- LOCATION -->
 			<xsl:if test="I and $refType = 'Manuscript'">
-				<xsl:element name="pub:location">
+				<xsl:element name="eterms:location">
 					<xsl:value-of select="I"/>
 				</xsl:element>
 			</xsl:if>
@@ -302,7 +304,7 @@
 	<xsl:template name="createSource">
 		<xsl:param name="monogr"/>
 		
-		<xsl:element name="pub:source">
+		<xsl:element name="source:source">
 
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -413,23 +415,23 @@
 
 	<xsl:template name="createCreator">
 		<xsl:param name="role"/>
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>
 	</xsl:template>	
 	
 	<xsl:template name="createPerson">
-		<xsl:element name="e:person">
+		<xsl:element name="person:person">
 			
 			<xsl:variable name="familyName">
 				<xsl:if test="empty(t:persName/t:surname)">
-					<xsl:element name="e:family-name">
+					<xsl:element name="eterms:family-name">
 						<xsl:value-of select="t:persName"/>
 					</xsl:element>				
 				</xsl:if>
 				<xsl:if test="exists(t:persName/t:surname)">
-					<xsl:element name="e:family-name">
+					<xsl:element name="eterms:family-name">
 						<xsl:value-of select="t:persName/t:surname"/>
 						<xsl:if test="exists(t:persName/t:nameLink)">
 							<xsl:value-of select="concat(' ', t:persName/t:nameLink)"/>
@@ -441,7 +443,7 @@
 			
 			<xsl:variable name="givenName">
 				<xsl:if test="exists(t:persName/t:forename)">
-					<xsl:element name="e:given-name">
+					<xsl:element name="eterms:given-name">
 						<xsl:value-of select="t:persName/t:forename"/>
 						<xsl:if test="exists(t:persName/t:genName)">
 							<xsl:value-of select="concat(', ', t:persName/t:genName)"/>
@@ -460,10 +462,10 @@
 				else 'External Organization'
 			"/>
 
-				<e:organization>
-					<e:organization-name>
+				<organization:organization>
+					<dc:title>
 						<xsl:value-of select="normalize-space($orgName)"/>
-					</e:organization-name>
+					</dc:title>
 					<xsl:variable name="addr" select="$a/t:address"/>
 					<xsl:if test="exists($addr)">
 						<xsl:variable name="emlCount" select="count(t:email)"/>
@@ -477,7 +479,7 @@
 								"/>
 							</xsl:for-each>
 						</xsl:variable>					
-						<e:address>
+						<eterms:address>
 							<xsl:value-of select="
 								replace(
 									normalize-space(
@@ -495,10 +497,10 @@
 									'\s+,',
 									','	
 								)"/>
-						</e:address>
+						</eterms:address>
 					</xsl:if>
-					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
-				</e:organization>
+					<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
+				</organization:organization>
 			
 		</xsl:element>
 	</xsl:template>
@@ -516,7 +518,7 @@
 					<xsl:variable name="idType" select="$identMap/m[upper-case(@key)=upper-case($ident/@type)]"/>
 					<xsl:attribute name="xsi:type">
 						<!-- TODO: not clear from specs -->
-						<xsl:value-of select="if (exists($idType)) then $idType else 'eidt:OTHER'"/>
+						<xsl:value-of select="if (exists($idType)) then $idType else 'eterms:OTHER'"/>
 					</xsl:attribute>
 					<xsl:value-of select="
 						if ($isISSN)

@@ -45,14 +45,18 @@
 		xmlns:ei="${xsd.soap.item.item}"
 		xmlns:mdr="${xsd.soap.common.mdrecords}"
 		xmlns:mdp="${xsd.metadata.escidocprofile}"
-		xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		xmlns:ec="${xsd.soap.item.components}"
 		xmlns:prop="${xsd.soap.common.prop}"
 		xmlns:srel="${xsd.soap.common.srel}"
 		xmlns:version="${xsd.soap.common.version}"
 		xmlns:release="${xsd.soap.common.release}"
 		xmlns:file="${xsd.metadata.file}"
-		xmlns:publ="${xsd.metadata.publication}"
+		xmlns:pub="${xsd.metadata.publication}"  
+		xmlns:person="${xsd.metadata.person}"
+		xmlns:source="${xsd.metadata.source}"
+		xmlns:eterms="${xsd.metadata.terms}"
+		xmlns:event="${xsd.metadata.event}"
+		xmlns:organization="${xsd.metadata.organization}"
 		xmlns:escidocFunctions="urn:escidoc:functions"
 		xmlns:escidoc="http://escidoc.mpg.de/"
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util">
@@ -685,11 +689,11 @@
 	<xsl:template name="createEntry">
 		<xsl:param name="gen"/>
 		
-		<xsl:element name="mdp:publication">
+		<xsl:element name="pub:publication">
 			<xsl:attribute name="type" select="$gen"/>	
 			<!-- creator -->
 			<xsl:for-each select="../creators/creator">
-				<xsl:element name="publ:creator">
+				<xsl:element name="eterms:creator">
 					<xsl:call-template name="createCreator"/>
 				</xsl:element>
 			</xsl:for-each>
@@ -711,14 +715,14 @@
 				<xsl:choose>
 					<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
 						<!-- case: book or proceedings -->
-						<xsl:element name="publ:publishing-info">
+						<xsl:element name="eterms:publishing-info">
 							<xsl:call-template name="createPublishinginfo"/>
 						</xsl:element>
 					</xsl:when>
 					<xsl:when test="$gen='book-item'">
 						<!-- case: book-item without source book -->
 						<xsl:if test="not(exists(booktitle))">
-							<xsl:element name="publ:publishing-info">
+							<xsl:element name="eterms:publishing-info">
 								<xsl:call-template name="createPublishinginfo"/>
 							</xsl:element>
 						</xsl:if>
@@ -737,42 +741,42 @@
 			<!-- SOURCE -->
 			<xsl:choose>
 				<xsl:when test="journaltitle">
-					<xsl:element name="publ:source">
+					<xsl:element name="source:source">
 						<xsl:call-template name="createJournal"/>
 					</xsl:element>
 					<xsl:if test="issuetitle">
-						<xsl:element name="publ:source">
+						<xsl:element name="source:source">
 							<xsl:call-template name="createIssue"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="issuetitle">
-					<xsl:element name="publ:source">
+					<xsl:element name="source:source">
 						<xsl:call-template name="createIssue"/>
 					</xsl:element>
 				</xsl:when>
 				<xsl:when test="booktitle">
-					<xsl:element name="publ:source">
+					<xsl:element name="source:source">
 						<xsl:call-template name="createBook"/>
 					</xsl:element>
 					<xsl:if test="titleofseries">
-						<xsl:element name="publ:source">
+						<xsl:element name="source:source">
 							<xsl:call-template name="createSeries"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="titleofproceedings">
-					<xsl:element name="publ:source">
+					<xsl:element name="source:source">
 						<xsl:call-template name="createProceedings"/>
 					</xsl:element>
 					<xsl:if test="exists(titleofseries)">
-						<xsl:element name="publ:source">
+						<xsl:element name="source:source">
 							<xsl:call-template name="createSeries"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="titleofseries">
-					<xsl:element name="publ:source">
+					<xsl:element name="source:source">
 						<xsl:call-template name="createSeries"/>
 					</xsl:element>
 				</xsl:when>
@@ -780,7 +784,7 @@
 			
 			<!-- isPartOf RELATION -->
 			<xsl:if test="../relations/relation[@reltype='ispartof']">
-				<xsl:element name="publ:source">
+				<xsl:element name="source:source">
 					<xsl:attribute name="type" select="'series'"/>
 					<xsl:element name="dc:title">
 						<xsl:value-of select="../relations/relation[@reltype='ispartof']"/>
@@ -814,12 +818,12 @@
 			
 			<!-- DEGREE -->
 			<xsl:if test="genre='PhD-Thesis'">
-				<xsl:element name="publ:degree">
+				<xsl:element name="eterms:degree">
 					<xsl:value-of select="'phd'"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="genre='Habilitation'">
-				<xsl:element name="publ:degree">
+				<xsl:element name="eterms:degree">
 					<xsl:value-of select="'habilitation'"/>
 				</xsl:element>
 			</xsl:if>
@@ -855,29 +859,29 @@
 	</xsl:template>
 	
 	<xsl:template name="createPublCreatorOrga">
-		<xsl:element name="publ:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role" select="'editor'"/>
-			<xsl:element name="e:organization">
-				<xsl:element name="e:organization-name">
+			<xsl:element name="organization:organization">
+				<xsl:element name="dc:title">
 					<xsl:value-of select="."/>
 				</xsl:element>
-				<e:identifier>
+				<dc:identifier>
 					<xsl:value-of select="$organizational-units/ou[@name = .]/@id"/>
-				</e:identifier>
+				</dc:identifier>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template name="createSourceCreatorOrga">
-		<xsl:element name="e:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role" select="'editor'"/>
-			<xsl:element name="e:organization">
-				<xsl:element name="e:organization-name">
+			<xsl:element name="organization:organization">
+				<xsl:element name="dc:title">
 					<xsl:value-of select="."/>
 				</xsl:element>
-				<e:identifier>
+				<dc:identifier>
 					<xsl:value-of select="$organizational-units/ou[@name = .]/@id"/>
-				</e:identifier>
+				</dc:identifier>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
@@ -887,7 +891,7 @@
 		
 		<!-- eDoc ID -->
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type" select="'eidt:EDOC'"/>
+			<xsl:attribute name="xsi:type" select="'eterms:EDOC'"/>
 			<xsl:value-of select="../../@id"/>
 		</xsl:element>
 		<xsl:for-each select="../identifiers/identifier">
@@ -903,27 +907,27 @@
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='doi'">
-						<xsl:attribute name="xsi:type" select="'eidt:DOI'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:DOI'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='issn'">
-						<xsl:attribute name="xsi:type" select="'eidt:ISSN'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:ISSN'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='isbn'">
-						<xsl:attribute name="xsi:type" select="'eidt:ISBN'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:ISBN'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='uri'">
-						<xsl:attribute name="xsi:type" select="'eidt:URI'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:URI'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='isi'">
-						<xsl:attribute name="xsi:type" select="'eidt:ISI'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:ISI'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:attribute name="xsi:type" select="'eidt:OTHER'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:OTHER'"/>
 						<xsl:value-of select="."/>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -965,7 +969,7 @@
 
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
-			<xsl:element name="e:publishing-info">
+			<xsl:element name="eterms:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
@@ -981,11 +985,11 @@
 			<xsl:element name="dc:identifier">
 				<xsl:choose>
 					<xsl:when test="@type='issn'">
-						<xsl:attribute name="xsi:type" select="'eidt:ISSN'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:ISSN'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 					<xsl:when test="@type='isbn'">
-						<xsl:attribute name="xsi:type" select="'eidt:ISBN'"/>
+						<xsl:attribute name="xsi:type" select="'eterms:ISBN'"/>
 						<xsl:value-of select="."/>
 					</xsl:when>
 				</xsl:choose>
@@ -1005,7 +1009,7 @@
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type = 'issuecontributorfn']">
-			<xsl:element name="e:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:call-template name="createCreator"/>
 			</xsl:element>
 		</xsl:for-each>
@@ -1029,7 +1033,7 @@
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type='bookcontributorfn' or @type='bookcreatorfn']">
-			<xsl:element name="e:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:call-template name="createCreator"/>
 			</xsl:element>
 		</xsl:for-each>
@@ -1049,7 +1053,7 @@
 			<xsl:call-template name="phydescSource"/>
 		</xsl:if>
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
-			<xsl:element name="e:publishing-info">
+			<xsl:element name="eterms:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
 		</xsl:if>
@@ -1059,30 +1063,30 @@
 	</xsl:template>
 	
 	<xsl:template name="phydescPubl">
-		<xsl:element name="publ:total-number-of-pages">
+		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template name="phydescSource">
-		<xsl:element name="e:sequence-number">
+		<xsl:element name="eterms:sequence-number">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="phydesc">
-		<xsl:element name="publ:total-number-of-pages">
+		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="publisheradd">
-		<xsl:element name="e:place">
+		<xsl:element name="eterms:place">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="editiondescription">
-		<xsl:element name="e:edition">
+		<xsl:element name="eterms:edition">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -1098,7 +1102,7 @@
 		</xsl:if>		
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type = 'seriescontributorfn']">
-			<xsl:element name="e:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:call-template name="createCreator"/>
 			</xsl:element>
 		</xsl:for-each>
@@ -1119,12 +1123,12 @@
 				<xsl:value-of select="titleofproceedings"/>
 			</xsl:element>
 			<xsl:if test="editiondescrition">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="editiondescription"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="issuenr">
-				<xsl:element name="e:issue">
+				<xsl:element name="eterms:issue">
 					<xsl:apply-templates select="issuenr"/>
 				</xsl:element>
 			</xsl:if>
@@ -1132,14 +1136,14 @@
 				<xsl:call-template name="phydescSource"/>
 			</xsl:if>
 			<xsl:if test="exists(publisher) or exists(editiondescription)">
-				<xsl:element name="e:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:call-template name="createPublishinginfo"/>
 				</xsl:element>
 			</xsl:if>
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator[@type = 'proceedingscontributorfn']">
-			<xsl:element name="e:creator">
+			<xsl:element name="eterms:creator">
 				<xsl:call-template name="createCreator"/>
 			</xsl:element>
 		</xsl:for-each>
@@ -1154,9 +1158,9 @@
 	
 	
 	<xsl:template match="volume">
-		<e:volume>
+		<eterms:volume>
 			<xsl:value-of select="."/>
-		</e:volume>
+		</eterms:volume>
 	</xsl:template>
 	
 	
@@ -1228,21 +1232,21 @@
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching --', concat($creatornfamily, ', ', creatorngiven), '--'))"/>
 					</xsl:when>
 					<xsl:when test="not(exists($coneCreator/cone/rdf:RDF/rdf:Description))">
-						<xsl:element name="e:person">
-							<xsl:element name="e:complete-name">
+						<xsl:element name="person:person">
+							<xsl:element name="eterms:complete-name">
 								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
 							</xsl:element>
-							<xsl:element name="e:family-name">
+							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="creatornfamily"/>
 							</xsl:element>
 							<xsl:choose>
 								<xsl:when test="exists(creatorngiven) and not(creatorngiven='')">
-									<xsl:element name="e:given-name">
+									<xsl:element name="eterms:given-name">
 										<xsl:value-of select="$creatorngivenNew"/>
 									</xsl:element>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:element name="e:given-name">
+									<xsl:element name="eterms:given-name">
 										<xsl:value-of select="$creatoriniNew"/>
 									</xsl:element>
 								</xsl:otherwise>
@@ -1260,8 +1264,8 @@
 										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 
 										<xsl:if test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)] or $collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgunit)]">
-											<xsl:element name="e:organization">
-												<xsl:element name="e:organization-name">
+											<xsl:element name="organization:organization">
+												<xsl:element name="dc:title">
 													<xsl:choose>
 														<xsl:when test="$mpgsunit != ''">
 															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
@@ -1271,7 +1275,7 @@
 														</xsl:otherwise>
 													</xsl:choose>
 												</xsl:element>
-												<e:identifier>
+												<dc:identifier>
 													<xsl:choose>
 														<xsl:when test="mpgsunit">
 															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
@@ -1280,30 +1284,30 @@
 															<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
 														</xsl:otherwise>
 													</xsl:choose>
-												</e:identifier>
+												</dc:identifier>
 											</xsl:element>
 										</xsl:if>
 									</xsl:for-each>
 								</xsl:when>
 								<xsl:when test="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
-									<e:organization>
-										<e:organization-name>
+									<organization:organization>
+										<dc:title>
 											<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou"/>
-										</e:organization-name>
-										<e:identifier>
+										</dc:title>
+										<dc:identifier>
 											<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-id"/>
-										</e:identifier>
-									</e:organization>
+										</dc:identifier>
+									</organization:organization>
 								</xsl:when>
 								<xsl:when test="@internextern='mpg' and ../../../docaff/affiliation and not(../../../docaff_external)">
 
-									<xsl:element name="e:organization">
-										<xsl:element name="e:organization-name">
+									<xsl:element name="organization:organization">
+										<xsl:element name="dc:title">
 											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
 										</xsl:element>
-										<e:identifier>
+										<dc:identifier>
 											<xsl:value-of select="$root-ou"/>
-										</e:identifier>
+										</dc:identifier>
 									</xsl:element>
 
 								</xsl:when>
@@ -1312,8 +1316,8 @@
 									<xsl:for-each select="../../../docaff/affiliation">
 										<xsl:variable name="mpgunit" select="normalize-space(mpgunit)"/>
 										<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
-										<xsl:element name="e:organization">
-											<xsl:element name="e:organization-name">
+										<xsl:element name="organization:organization">
+											<xsl:element name="dc:title">
 												<xsl:choose>
 													<xsl:when test="mpgsunit">
 														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-ou"/>
@@ -1323,7 +1327,7 @@
 													</xsl:otherwise>
 												</xsl:choose>
 											</xsl:element>
-											<e:identifier>
+											<dc:identifier>
 												<xsl:choose>
 													<xsl:when test="mpgsunit">
 														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
@@ -1332,79 +1336,79 @@
 														<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
 													</xsl:otherwise>
 												</xsl:choose>
-											</e:identifier>
+											</dc:identifier>
 										</xsl:element>
 									</xsl:for-each>
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
-									<e:organization>
-										<e:organization-name>
+									<organization:organization>
+										<dc:title>
 											<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
-										</e:organization-name>
-										<e:identifier>
+										</dc:title>
+										<dc:identifier>
 											<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
-										</e:identifier>
-									</e:organization>
+										</dc:identifier>
+									</organization:organization>
 								</xsl:when>
 								<xsl:when test=". = ../creator[1] and not(../creator[@internextern = 'mpg'])">
-									<e:organization>
-										<e:organization-name>
+									<organization:organization>
+										<dc:title>
 											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
-										</e:organization-name>
-										<e:identifier>
+										</dc:title>
+										<dc:identifier>
 											<xsl:value-of select="escidocFunctions:ou-id('root')"/>
-										</e:identifier>
-									</e:organization>
+										</dc:identifier>
+									</organization:organization>
 								</xsl:when>
 								<xsl:when test="@internextern = 'mpg' and not(../creator[position() &lt; $position and @internextern = 'mpg'])">
-									<e:organization>
-										<e:organization-name>
+									<organization:organization>
+										<dc:title>
 											<xsl:value-of select="escidocFunctions:ou-name('root')"/>
-										</e:organization-name>
-										<e:identifier>
+										</dc:title>
+										<dc:identifier>
 											<xsl:value-of select="escidocFunctions:ou-id('root')"/>
-										</e:identifier>
-									</e:organization>
+										</dc:identifier>
+									</organization:organization>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:element>
 					</xsl:when>
 					<xsl:otherwise>
-						<e:person>
-							<e:complete-name>
+						<person:person>
+							<eterms:complete-name>
 								<xsl:value-of select="$creatorngivenNew"/>
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="$creatornfamily"/>
-							</e:complete-name>
-							<e:family-name>
+							</eterms:complete-name>
+							<eterms:family-name>
 								<xsl:value-of select="$creatornfamily"/>
-							</e:family-name>
-							<e:given-name>
+							</eterms:family-name>
+							<eterms:given-name>
 								<xsl:value-of select="$creatorngivenNew"/>
-							</e:given-name>
+							</eterms:given-name>
 							
-							<e:identifier xsi:type="eidt:CONE">
+							<dc:identifier xsi:type="eterms:CONE">
 								<xsl:value-of select="$coneCreator/cone/rdf:RDF/rdf:Description[1]/@rdf:about"/>
-							</e:identifier>
+							</dc:identifier>
 
 							<xsl:for-each select="$coneCreator/cone/rdf:RDF/rdf:Description/escidoc:position">
-								<e:organization>
-									<e:organization-name>
+								<organization:organization>
+									<dc:title>
 										<xsl:value-of select="rdf:Description/escidoc:organization"/>
-									</e:organization-name>
-									<e:identifier>
+									</dc:title>
+									<dc:identifier>
 										<xsl:value-of select="rdf:Description/dc:identifier"/>
-									</e:identifier>
-								</e:organization>
+									</dc:identifier>
+								</organization:organization>
 							</xsl:for-each>
 
-						</e:person>
+						</person:person>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:element name="e:organization">
-					<xsl:element name="e:organization-name">
+				<xsl:element name="organization:organization">
+					<xsl:element name="dc:title">
 						<xsl:value-of select="creatornfamily"/>
 					</xsl:element>
 				</xsl:element>
@@ -1441,22 +1445,22 @@
 	<xsl:template match="refereed">
 		<xsl:choose>
 			<xsl:when test="../genre='Article' and exists(../journaltitle) and $source-name = 'eDoc-MPIPL'">
-				<xsl:element name="publ:review-method">
+				<xsl:element name="eterms:review-method">
 					<xsl:value-of select="'peer'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='joureview'">
-				<xsl:element name="publ:review-method">
+				<xsl:element name="eterms:review-method">
 					<xsl:value-of select="'peer'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='notrev'">
-				<xsl:element name="publ:review-method">
+				<xsl:element name="eterms:review-method">
 					<xsl:value-of select="'no review'"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="refereed='intrev'">
-				<xsl:element name="publ:review-method">
+				<xsl:element name="eterms:review-method">
 					<xsl:value-of select="'internal'"/>
 				</xsl:element>
 			</xsl:when>
@@ -1506,17 +1510,17 @@
 	</xsl:template>
 	<!-- EVENT TEMPLATE -->
 	<xsl:template name="createEvent">
-		<xsl:element name="publ:event">
+		<xsl:element name="event:event">
 			<xsl:element name="dc:title">
 				<xsl:value-of select="nameofevent"/>
 			</xsl:element>
-			<xsl:element name="e:start-date">
+			<xsl:element name="eterms:start-date">
 				<xsl:value-of select="dateofevent"/>
 			</xsl:element>
-			<xsl:element name="e:end-date">
+			<xsl:element name="eterms:end-date">
 				<xsl:value-of select="enddateofevent"/>
 			</xsl:element>
-			<xsl:element name="e:place">
+			<xsl:element name="eterms:place">
 				<xsl:value-of select="placeofevent"/>
 			</xsl:element>
 			<xsl:apply-templates select="invitationStatus[.='invited']"/>
@@ -1524,29 +1528,29 @@
 	</xsl:template>
 	
 	<xsl:template match="invitationStatus[.='invited']">
-		<xsl:element name="e:invitation-status">
+		<xsl:element name="eterms:invitation-status">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="artnum">
-		<e:sequence-number>
+		<eterms:sequence-number>
 			<xsl:value-of select="."/>
-		</e:sequence-number>
+		</eterms:sequence-number>
 	</xsl:template>
 	<xsl:template match="spage">
-		<e:start-page>
+		<eterms:start-page>
 			<xsl:value-of select="."/>
-		</e:start-page>
+		</eterms:start-page>
 	</xsl:template>
 	<xsl:template match="epage">
-		<e:end-page>
+		<eterms:end-page>
 			<xsl:value-of select="."/>
-		</e:end-page>
+		</eterms:end-page>
 	</xsl:template>
 	<xsl:template match="issuenr">
-		<e:issue>
+		<eterms:issue>
 			<xsl:value-of select="."/>
-		</e:issue>
+		</eterms:issue>
 	</xsl:template>
 	<xsl:template match="toc">
 		<xsl:element name="dcterms:tableOfContents">
