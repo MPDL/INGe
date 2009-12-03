@@ -36,10 +36,10 @@
 	xmlns:escidocRelations="${resources.xsd.soap.common.relations}"
 	xmlns:escidocSearchResult="${resources.xsd.soap.searchresult.searchresult}" 
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:prop="http://escidoc.de/core/01/properties/" 
-	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
-	xmlns:version="http://escidoc.de/core/01/properties/version/" 
-	xmlns:release="http://escidoc.de/core/01/properties/release/" 	 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:version="${xsd.soap.common.version}" 
+	xmlns:release="${xsd.soap.common.release}" 	 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
@@ -65,10 +65,9 @@
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
-						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-						xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-						xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					<publication:publication xmlns:dc="{xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}"
+						xmlns:eterms="${xsd.metadata.terms}" 
+						xmlns:publication="${xsd.metadata.publication}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						>
 						<xsl:attribute name="type">
 							<xsl:choose>
@@ -77,25 +76,25 @@
 							</xsl:choose>
 						</xsl:attribute>
 						<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:authors/arxiv:author">
-							<publication:creator role="author">
+							<eterms:creator role="author">
 								<escidoc:person>
-									<escidoc:family-name>
+									<eterms:family-name>
 										<xsl:value-of select="arxiv:keyname" />
-									</escidoc:family-name>
-									<escidoc:given-name>
+									</eterms:family-name>
+									<eterms:given-name>
 										<xsl:value-of select="arxiv:forenames" />
-									</escidoc:given-name>
-									<escidoc:organization>
-										<escidoc:organization-name>
+									</eterms:given-name>
+									<eterms:organization>
+										<eterms:organization-name>
 											<xsl:value-of select="arxiv:affiliation" />
-										</escidoc:organization-name>
-										<escidoc:address />
-										<escidoc:identifier>
+										</eterms:organization-name>
+										<eterms:address />
+										<eterms:identifier>
 											<xsl:value-of select="$external_organization_id" />
-										</escidoc:identifier>
-									</escidoc:organization>
+										</eterms:identifier>
+									</eterms:organization>
 								</escidoc:person>
-							</publication:creator>
+							</eterms:creator>
 						</xsl:for-each>
 						<dc:title>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:title" />
@@ -106,11 +105,11 @@
 								<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:doi" />
 							</dc:identifier>
 						</xsl:if>
-						<publication:publishing-info>
+						<eterms:publishing-info>
 							<dc:publisher></dc:publisher>
-							<escidoc:place></escidoc:place>
-							<escidoc:edition></escidoc:edition>
-						</publication:publishing-info>
+							<eterms:place></eterms:place>
+							<eterms:edition></eterms:edition>
+						</eterms:publishing-info>
 						<dcterms:created xsi:type="dcterms:W3CDTF">
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:created"/>
 						</dcterms:created>
@@ -120,11 +119,11 @@
 						<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
 						<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
 						<!--  -->
-						<publication:published-online xsi:type="dcterms:W3CDTF">
+						<eterms:published-online xsi:type="dcterms:W3CDTF">
 							<xsl:value-of select="OAI-PMH/GetRecord/record/datestamp" />
-						</publication:published-online>
+						</eterms:published-online>
 						<dcterms:issued xsi:type="dcterms:W3CDTF"></dcterms:issued>
-						<publication:source>
+						<source:source>
 							<xsl:choose>
 								<!-- Journal-Ref -->
 								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">
@@ -132,65 +131,65 @@
 									<dc:title>
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref" />
 									</dc:title>
-									<escidoc:creator>
+									<eterms:creator>
 										<escidoc:person>
-											<escidoc:family-name></escidoc:family-name>
-											<escidoc:given-name></escidoc:given-name>
-											<escidoc:organization>
-												<escidoc:organization-name></escidoc:organization-name>
-												<escidoc:address></escidoc:address>
-											</escidoc:organization>
+											<eterms:family-name></eterms:family-name>
+											<eterms:given-name></eterms:given-name>
+											<eterms:organization>
+												<eterms:organization-name></eterms:organization-name>
+												<eterms:address></eterms:address>
+											</eterms:organization>
 										</escidoc:person>
-									</escidoc:creator>
-									<escidoc:volume></escidoc:volume>
-									<escidoc:issue></escidoc:issue>
-									<escidoc:start-page></escidoc:start-page>
-									<escidoc:end-page></escidoc:end-page>
+									</eterms:creator>
+									<eterms:volume></eterms:volume>
+									<eterms:issue></eterms:issue>
+									<eterms:start-page></eterms:start-page>
+									<eterms:end-page></eterms:end-page>
 
 									<!-- Report-No -->
-									<escidoc:sequence-number>
+									<eterms:sequence-number>
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:report-no" />
-									</escidoc:sequence-number>
-									<escidoc:publishing-info>
+									</eterms:sequence-number>
+									<eterms:publishing-info>
 										<dc:publisher></dc:publisher>
-										<escidoc:place></escidoc:place>
-										<escidoc:edition></escidoc:edition>
-									</escidoc:publishing-info>
+										<eterms:place></eterms:place>
+										<eterms:edition></eterms:edition>
+									</eterms:publishing-info>
 								</xsl:when>
 								<xsl:otherwise>
 									<dc:title></dc:title>
-									<escidoc:creator>
+									<eterms:creator>
 										<escidoc:person>
-											<escidoc:family-name></escidoc:family-name>
-											<escidoc:given-name></escidoc:given-name>
-											<escidoc:organization>
-												<escidoc:organization-name></escidoc:organization-name>
-												<escidoc:address></escidoc:address>
-											</escidoc:organization>
+											<eterms:family-name></eterms:family-name>
+											<eterms:given-name></eterms:given-name>
+											<eterms:organization>
+												<eterms:organization-name></eterms:organization-name>
+												<eterms:address></eterms:address>
+											</eterms:organization>
 										</escidoc:person>
-									</escidoc:creator>
-									<escidoc:volume></escidoc:volume>
-									<escidoc:issue></escidoc:issue>
-									<escidoc:start-page></escidoc:start-page>
-									<escidoc:end-page></escidoc:end-page>
-									<escidoc:sequence-number></escidoc:sequence-number>
-									<escidoc:publishing-info>
+									</eterms:creator>
+									<eterms:volume></eterms:volume>
+									<eterms:issue></eterms:issue>
+									<eterms:start-page></eterms:start-page>
+									<eterms:end-page></eterms:end-page>
+									<eterms:sequence-number></eterms:sequence-number>
+									<eterms:publishing-info>
 										<dc:publisher></dc:publisher>
-										<escidoc:place></escidoc:place>
-										<escidoc:edition></escidoc:edition>
-									</escidoc:publishing-info>
+										<eterms:place></eterms:place>
+										<eterms:edition></eterms:edition>
+									</eterms:publishing-info>
 								</xsl:otherwise>
 							</xsl:choose>
-						</publication:source>
-						<publication:event>
+						</source:source>
+						<event:event>
 							<dc:title></dc:title>
-							<escidoc:start-date xsi:type="dcterms:W3CDTF"></escidoc:start-date>
-							<escidoc:end-date xsi:type="dcterms:W3CDTF"></escidoc:end-date>
-							<escidoc:place></escidoc:place>
-						</publication:event>
-						<publication:total-number-of-pages>
+							<eterms:start-date xsi:type="dcterms:W3CDTF"></eterms:start-date>
+							<eterms:end-date xsi:type="dcterms:W3CDTF"></eterms:end-date>
+							<eterms:place></eterms:place>
+						</event:event>
+						<eterms:total-number-of-pages>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:comments" />
-						</publication:total-number-of-pages>
+						</eterms:total-number-of-pages>
 						<dcterms:abstract>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:abstract" />
 						</dcterms:abstract>
@@ -213,8 +212,8 @@
 							</dcterms:subject>
 						</xsl:if>
 						<dcterms:tableOfContents></dcterms:tableOfContents>
-						<publication:location></publication:location>
-					</escidocMetadataProfile:publication>
+						<eterms:location></eterms:location>
+					</publication:publication>
 				</escidocMetadataRecords:md-record>
 			</escidocMetadataRecords:md-records>
 			<escidocComponents:components>

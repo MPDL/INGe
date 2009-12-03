@@ -44,15 +44,18 @@
    xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
+   xmlns:eterms="${xsd.metadata.terms}"
    xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
-   xmlns:publ="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+   xmlns:source="${xsd.metadata.source}"
+   xmlns:event="${xsd.metadata.event}"
+   xmlns:organization="${xsd.metadata.organization}"
+   xmlns:pub="${xsd.metadata.publication}"
    xmlns:escidoc="urn:escidoc:functions">
    
 
@@ -95,7 +98,7 @@
 	
 	<!-- CREATE MD-RECORD -->
 	<xsl:template match="pm:front/pm:article-meta">
-		<xsl:element name="mdp:publication">			
+		<xsl:element name="pub:publication">			
 			<xsl:attribute name="type" select="'article'"/>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="pm:contrib-group"/>
@@ -137,34 +140,34 @@
 		
 			<xsl:choose>
 				<xsl:when test="@contrib-type='author' or @contrib-type='Author'">
-					<publ:creator role="author">					
-						<xsl:element name="e:person">
-							<xsl:element name="e:family-name">
+					<eterms:creator role="author">					
+						<xsl:element name="person:person">
+							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="pm:name/pm:surname"/>
 							</xsl:element>
-							<xsl:element name="e:given-name">
+							<xsl:element name="eterms:given-name">
 								<xsl:value-of select="pm:name/pm:given-names"/>
 							</xsl:element>
 							<xsl:if test="pm:xref">
 								<xsl:call-template name="createOrganization"/>
 							</xsl:if>
 						</xsl:element>
-					</publ:creator>
+					</eterms:creator>
 				</xsl:when>
 				<xsl:otherwise>
-					<publ:creator role="contributor">					
-						<xsl:element name="e:person">
-							<xsl:element name="e:family-name">
+					<eterms:creator role="contributor">					
+						<xsl:element name="person:person">
+							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="pm:name/pm:surname"/>
 							</xsl:element>
-							<xsl:element name="e:given-name">
+							<xsl:element name="eterms:given-name">
 								<xsl:value-of select="pm:name/pm:given-names"/>
 							</xsl:element>
 							<xsl:if test="pm:xref">
 								<xsl:call-template name="createOrganization"/>
 							</xsl:if>
 						</xsl:element>
-					</publ:creator>
+					</eterms:creator>
 				</xsl:otherwise>
 			</xsl:choose>		
 	</xsl:template>
@@ -179,9 +182,9 @@
 			<xsl:choose>
 				<xsl:when test="../../../pm:aff[@id=$orgaRef]">
 					<xsl:variable name="orgaName" select="substring($orgaString1, 2)"/>
-					<xsl:element name="e:organization">
+					<xsl:element name="organization:organization">
 						<!--name-->
-						<xsl:element name="e:organization-name">
+						<xsl:element name="dc:title">
 							<xsl:choose>
 								<xsl:when test="../../../pm:aff[@id=$orgaRef]/pm:label">						
 									<xsl:value-of select="$orgaName"/>							
@@ -200,9 +203,9 @@
 				</xsl:when>
 				<xsl:when test="../../pm:aff[@id=$orgaRef]">
 					<xsl:variable name="orgaName" select="substring($orgaString2, 2)"/>
-					<xsl:element name="e:organization">
+					<xsl:element name="organization:organization">
 						<!--name-->
-						<xsl:element name="e:organization-name">
+						<xsl:element name="dc:title">
 							<xsl:choose>
 								<xsl:when test="../../pm:aff[@id=$orgaRef]/pm:label">						
 									<xsl:value-of select="$orgaName"/>							
@@ -230,7 +233,7 @@
 		<xsl:param name="orgaRef"/>
 		<xsl:param name="orgaPath"/>
 		<xsl:if test="$orgaPath/pm:addr-line">
-			<xsl:element name="e:address">
+			<xsl:element name="eterms:address">
 				<xsl:value-of select="$orgaPath/pm:addr-line"/>
 			</xsl:element>
 		</xsl:if>
@@ -249,19 +252,20 @@
 		<xsl:element name="dc:identifier">
 			<xsl:choose>
 				<xsl:when test="@pub-id-type='issn'">					
-					<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>					
+					<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>					
 				</xsl:when>
 				<xsl:when test="@pub-id-type='doi'">
-					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>
 				</xsl:when>
 				<xsl:when test="@pub-id-type='pmc'">
-					<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>					
+					<xsl:attribute name="xsi:type">eterms:PMC</xsl:attribute>					
 				</xsl:when>
 				<xsl:when test="@pub-id-type='pmid'">
-					<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>					
+					<xsl:attribute name="xsi:type">eterms:PMID</xsl:attribute>					
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
+					<xsl:value-of select="@pub-id-type"/>
 				</xsl:otherwise>
 			</xsl:choose>				
 			<xsl:value-of select="."/>
@@ -278,7 +282,7 @@
 	<xsl:template match="pm:pub-date">		
 		<xsl:choose>
 			<xsl:when test="@pub-type='epub'">
-				<xsl:element name="publ:published-online">
+				<xsl:element name="eterms:published-online">
 					<xsl:value-of select="pm:year"/>
 					<xsl:apply-templates select="pm:month"/>
 					<xsl:apply-templates select="pm:day"/>
@@ -297,7 +301,7 @@
 					<xsl:apply-templates select="pm:month"/>
 					<xsl:apply-templates select="pm:day"/>
 				</xsl:element>
-				<xsl:element name="publ:published-online">
+				<xsl:element name="eterms:published-online">
 					<xsl:value-of select="pm:year"/>
 					<xsl:apply-templates select="pm:month"/>
 					<xsl:apply-templates select="pm:day"/>
@@ -344,7 +348,7 @@
 	</xsl:template>
 	<!-- TOTAL NO OF PAGES  -->
 	<xsl:template match="pm:page-range">
-		<xsl:element name="publ:total-number-of-pages">
+		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -384,7 +388,7 @@
 	
 	<!-- CREATE JOURNAL -->
 	<xsl:template name="createJournal">		
-		<xsl:element name="publ:source">	
+		<xsl:element name="source:source">	
 			<xsl:attribute name="type" select="'journal'"/>
 			<xsl:for-each select="../pm:journal-meta">
 				<xsl:apply-templates select="pm:journal-title"/>
@@ -404,25 +408,25 @@
 	</xsl:template>
 	<!-- VOLUME -->	
 	<xsl:template name="createVolume">
-		<xsl:element name="e:volume">
+		<xsl:element name="eterms:volume">
 			<xsl:value-of select="../pm:article-meta/pm:volume"/>
 		</xsl:element>
 	</xsl:template>
 	<!-- ISSUE -->	
 	<xsl:template name="createIssueNo">
-		<xsl:element name="e:issue">
+		<xsl:element name="eterms:issue">
 			<xsl:value-of select="../pm:article-meta/pm:issue"/>
 		</xsl:element>
 	</xsl:template>
 	<!-- PAGES -->
 	<xsl:template name="createPages">
 		<xsl:for-each select="../pm:article-meta/pm:fpage">
-			<xsl:element name="e:start-page">
+			<xsl:element name="eterms:start-page">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
 		<xsl:for-each select="../pm:article-meta/pm:lpage">
-			<xsl:element name="e:end-page">
+			<xsl:element name="eterms:end-page">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
@@ -430,7 +434,7 @@
 	<!-- SEQ NO -->
 	<xsl:template name="createSeqNo">
 		<xsl:for-each select="../pm:article-meta/pm:elocation-id">
-			<xsl:element name="e:sequence-number">
+			<xsl:element name="eterms:sequence-number">
 				<xsl:value-of select="."/>
 			</xsl:element>
 		</xsl:for-each>
@@ -467,15 +471,15 @@
 		<xsl:element name="dc:identifier">
 			<xsl:choose>
 				<xsl:when test="@journal-id-type='issn'">
-					<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:when>
 				<xsl:when test="@journal-id-type='doi'">
-					<xsl:attribute name="xsi:type">eidt:DOI</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+					<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 					<xsl:value-of select="."/>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -483,17 +487,17 @@
 	</xsl:template>
 	<xsl:template match="pm:issn">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- PUBLISHINGINFO -->
 	<xsl:template match="pm:publisher">
-		<xsl:element name="e:publishing-info">
+		<xsl:element name="eterms:publishing-info">
 			<xsl:element name="dc:publisher">
 				<xsl:value-of select="pm:publisher-name"/>
 			</xsl:element>s
-			<xsl:element name="e:place">
+			<xsl:element name="eterms:place">
 				<xsl:value-of select="pm:publisher-loc"/>
 			</xsl:element>			
 		</xsl:element>
@@ -501,17 +505,17 @@
 	
 	<!-- SOURCE: ISSUE -->
 	<xsl:template name="createIssue">
-		<publ:source type="issue">
+		<source:source type="issue">
 			<xsl:element name="dc:title">
 				<xsl:value-of select="pm:issue-title"/>
 			</xsl:element>
 			
-		</publ:source>
+		</source:source>
 	</xsl:template>
 	
 	<!-- EVENT -->
 	<xsl:template match="pm:conference">
-		<xsl:element name="e:event">
+		<xsl:element name="event:event">
 			<xsl:apply-templates select="pm:conf-name"/>
 			<xsl:apply-templates select="pm:conf-num"/>
 			<xsl:apply-templates select="pm:conf-acronym"/>
@@ -536,12 +540,12 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="pm:conf-loc">
-		<xsl:element name="e:place">
+		<xsl:element name="eterms:place">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="pm:conf-date">
-		<xsl:element name="e:start-date">
+		<xsl:element name="eterms:start-date">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>

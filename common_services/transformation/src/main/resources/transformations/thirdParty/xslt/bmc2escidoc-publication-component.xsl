@@ -32,7 +32,7 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"

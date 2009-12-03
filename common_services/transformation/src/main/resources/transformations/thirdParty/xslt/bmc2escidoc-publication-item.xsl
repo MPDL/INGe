@@ -43,16 +43,16 @@
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+   xmlns:eterms="${xsd.metadata.terms}"
+   xmlns:ei="${xsd.soap.item.item}"  
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"   
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
+   xmlns:person="${xsd.metadata.person}"
+   xmlns:source="${xsd.metadata.source}"
    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
    
@@ -96,7 +96,7 @@
 	
 	<!-- CREATE MD-RECORD -->
 	<xsl:template name="createMDRecord">
-		<xsl:element name="mdp:publication">			
+		<xsl:element name="pub:publication">			
 			<xsl:attribute name="type">article</xsl:attribute>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="bmc:AuthorList"/>
@@ -128,20 +128,20 @@
 	
 	<xsl:template match="bmc:Author">
 	
-		<xsl:element name="pub:creator">
+		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role">author</xsl:attribute>
-			<xsl:element name="e:person">
+			<xsl:element name="person:person">
 			
-			<xsl:element name="e:complete-name">
+			<xsl:element name="eterms:complete-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
 				<xsl:value-of select="concat(bmc:MiddleName, ' ')"/>
 				<xsl:value-of select="bmc:LastName"/>
 			</xsl:element>
-			<xsl:element name="e:given-name">
+			<xsl:element name="eterms:given-name">
 				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
 				<xsl:value-of select="bmc:MiddleName"/>
 			</xsl:element>
-			<xsl:element name="e:family-name">
+			<xsl:element name="eterms:family-name">
 				<xsl:value-of select="bmc:LastName"/>
 			</xsl:element>
 			<xsl:apply-templates select="bmc:Affiliation"/>
@@ -157,15 +157,15 @@
 	
 	<xsl:template match="bmc:CollectiveName">
 	
-		<xsl:element name="pub:creator">	
+		<xsl:element name="eterms:creator">	
 				
 			<xsl:call-template name="createOrganization"/>
 		</xsl:element>
 	
 	</xsl:template>
 	<xsl:template name="createOrganization">		
-		<xsl:element name="e:organization">
-			<xsl:element name="e:organization-name">
+		<xsl:element name="eterms:organization">
+			<xsl:element name="eterms:organization-name">
 				<xsl:value-of select="."/>
 			</xsl:element>			
 		</xsl:element>		
@@ -196,46 +196,46 @@
 	
 	<xsl:template match="bmc:ArticleId[@IdType='pii']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:PII</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:PII</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='doi']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">edit:DOI</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:DOI</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='pmcpid']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 			<xsl:value-of select="'pmcpid:'"/>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='pmpid']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 			<xsl:value-of select="'pmpid:'"/>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='pmid']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:PMID</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:PMID</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='medline']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 			<xsl:value-of select="'medline:'"/>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="bmc:ArticleId[@IdType='pmcid']">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:PMC</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:PMC</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -254,7 +254,7 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@PubStatus='epublish'">
-				<xsl:element name="pub:published-online">
+				<xsl:element name="eterms:published-online">
 					<xsl:call-template name="createDate"/>
 				</xsl:element>
 			</xsl:when>
@@ -269,7 +269,7 @@
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@PubStatus='aheadofprint'">
-				<xsl:element name="pub:published-online">
+				<xsl:element name="eterms:published-online">
 					<xsl:call-template name="createDate"/>
 				</xsl:element>
 			</xsl:when>
@@ -310,7 +310,7 @@
 	
 	<!-- TOTAL NO OF PAGES  -->
 	<!-- <xsl:template match="pm:page-range">
-		<xsl:element name="pub:total-number-of-pages">
+		<xsl:element name="eterms:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>-->
@@ -330,7 +330,7 @@
 	
 	<!-- CREATE JOURNAL -->
 	<xsl:template match="bmc:Journal">		
-		<xsl:element name="pub:source">	
+		<xsl:element name="source:source">	
 			<xsl:attribute name="type">journal</xsl:attribute>
 			<!-- SOURCE TITLE -->
 			<xsl:apply-templates select="bmc:JournalTitle"/>			
@@ -351,30 +351,30 @@
 	</xsl:template>
 	<!-- VOLUME -->	
 	<xsl:template match="bmc:Volume">
-		<xsl:element name="e:volume">
+		<xsl:element name="eterms:volume">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- ISSUE -->	
 	<xsl:template match="bmc:Issue">
-		<xsl:element name="e:issue">
+		<xsl:element name="eterms:issue">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- PAGES -->
 	<xsl:template match="bmc:FirstPages">
-		<xsl:element name="e:start-page">
+		<xsl:element name="eterms:start-page">
 			<xsl:value-of select="."/>
 		</xsl:element>		
 	</xsl:template>
 	<xsl:template match="bmc:LastPage">
-		<xsl:element name="e:end-page">	
+		<xsl:element name="eterms:end-page">	
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- SEQ NO -->
 	<xsl:template match="bmc:ELocationID">
-		<xsl:element name="e:sequence-number">
+		<xsl:element name="eterms:sequence-number">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -390,13 +390,13 @@
 	
 	<xsl:template match="bmc:Issn">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">eidt:ISSN</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
 	<!-- SOURCE PUBLISHINGINFO -->
 	<xsl:template match="bmc:PublisherName">
-		<xsl:element name="e:publishing-info">
+		<xsl:element name="eterms:publishing-info">
 			<xsl:element name="dc:publisher">
 				<xsl:value-of select="."/>
 			</xsl:element>				
