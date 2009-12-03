@@ -87,8 +87,27 @@ public class PubFileVOPresentation extends FacesBean
      */
     public enum ContentCategory
     {
-        ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS,
-        SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT;
+        ANY_FULLTEXT("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"),
+        PRE_PRINT("http://purl.org/escidoc/metadata/ves/content-categories/pre-print"),
+        POST_PRINT("http://purl.org/escidoc/metadata/ves/content-categories/post-print"),
+        PUBLISHER_VERSION("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"),
+        ABSTRACT("http://purl.org/escidoc/metadata/ves/content-categories/abstract"),
+        TABLE_OF_CONTENTS("http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents"),     
+        SUPPLEMENTARY_MATERIAL("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material"),
+        CORRESPONDENCE("http://purl.org/escidoc/metadata/ves/content-categories/correspondence"),
+        COPYRIGHT_TRANSFER_AGREEMENT("http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement");
+        
+        private String uri;
+        
+        private ContentCategory(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
         
         /**
          * Overrides default toString method to transform from upper to lowercase and to turn
@@ -226,14 +245,19 @@ public class PubFileVOPresentation extends FacesBean
         InternationalizedImpl internationalized = new InternationalizedImpl();
         if (this.file.getContentCategory() != null)
         {
-            contentCategory = internationalized
-                .getLabel(
-                        this
-                            .i18nHelper
-                            .convertEnumToString(
-                                    PubFileVOPresentation.ContentCategory.valueOf(
-                                            CommonUtils.convertToEnumString(
-                                                    this.file.getContentCategory()))));
+        	
+        	for(ContentCategory contcat : ContentCategory.values())
+        	{
+        		if(contcat.getUri().equals(this.file.getContentCategory()))
+        		{
+        			 contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+        			 break;
+        		}
+        	}
+        	/*
+            contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(
+            		PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
+            		*/
         }
         return contentCategory;
     }
@@ -245,7 +269,9 @@ public class PubFileVOPresentation extends FacesBean
      */
     public String getContentCategoryAsXmlString()
     {
-        if (this.file.getContentCategory() != null)
+    	return file.getContentCategory();
+        /*
+    	if (this.file.getContentCategory() != null)
         {
             return this.file.getContentCategory().toLowerCase().replace("_", "-");
         }
@@ -253,6 +279,7 @@ public class PubFileVOPresentation extends FacesBean
         {
             return null;
         }
+        */
     }
     
     /**

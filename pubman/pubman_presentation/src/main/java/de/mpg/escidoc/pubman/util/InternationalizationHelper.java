@@ -442,7 +442,20 @@ public class InternationalizationHelper
     {
         PubFileVOPresentation.ContentCategory[] values = PubFileVOPresentation.ContentCategory.values();
 
-        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+        SelectItem[] selectItems = new SelectItem[values.length];
+
+        for (int i = 0; i < values.length; i++)
+        {
+            SelectItem selectItem = new SelectItem(values[i].getUri(), getLabel(convertEnumToString(values[i])));
+            selectItems[i] = selectItem;
+        }
+
+        if (includeNoItemSelectedEntry)
+        {
+            selectItems = this.addNoItemSelectedEntry(selectItems);
+        }
+        
+        return selectItems;
     }
 
     /**
