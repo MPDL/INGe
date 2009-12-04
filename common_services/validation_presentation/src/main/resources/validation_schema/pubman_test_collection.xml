@@ -321,14 +321,14 @@
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
 		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="(@type = 'series' or @type = 'journal' or @type = 'manuscript' or @type = 'other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
+			<iso:assert test="(@type = 'http://purl.org/escidoc/metadata/ves/publication-types/series' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/journal' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/manuscript' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
 	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
 		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = 'article' or @type = 'book-item' or @type = 'conference-paper') or (publication:source/dc:title != '')">SourceNotProvided</iso:assert>
+			<iso:assert test="not(@type = 'http://purl.org/escidoc/metadata/ves/publication-types/article' or @type = 'http://purl.org/eprint/type/BookItem' or @type = 'http://purl.org/eprint/type/ConferencePaper') or (publication:source/dc:title != '')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	

@@ -299,11 +299,13 @@
 	</iso:pattern>
 	 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
+	<!-- 
 	<iso:pattern name="genre_constraint" id="genre_constraint">
 		<iso:rule context="publication:publication">
 			<iso:assert test="@type = 'Proceedings' or @type = 'Conference Paper' or @type = 'Talk at event' or @type = 'Conference Report' or @type = 'Poster' or @type = 'Courseware/Lecture' or @type = 'Thesis' or @type = 'Paper' or @type = 'Report' or @type = 'Other'">GenreNotSuitable</iso:assert>
 		</iso:rule>
 	</iso:pattern>
+	-->
 
 	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
 	<iso:pattern name="creator_required" id="creator_required">
@@ -342,7 +344,7 @@
 	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
 	<iso:pattern name="event_required" id="event_required">
 		<iso:rule context="publication:publication">
-			<iso:assert test="not(@type = 'proceedings' or @type = 'talk-at-event' or @type = 'conference-paper' or @type = 'conference-report' or @type = 'courseware-lecture') or (publication:event/dc:title != '')">EventNotProvided</iso:assert>
+			<iso:assert test="not(@type = 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event' or @type = 'http://purl.org/eprint/type/ConferencePaper' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/conference-report' or @type = 'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture') or (publication:event/dc:title != '')">EventNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
