@@ -59,8 +59,10 @@ public class TransformationTest
     /* 
      * test TEI2 to eSciDoc item transformation 
      * */
+    
     public void tei2escidoc() throws Exception
     {
+        this.logger.info("---Transformation TEI to escidoc format ---");
         Format teiFormat = new Format("peer_tei", "application/xml", "UTF-8");
         Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
         Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
@@ -88,27 +90,29 @@ public class TransformationTest
      }
      
   
-     
+    
      public void bmcTest() throws Exception
      {
+         this.logger.info("---Transformation BMC to escidoc format ---");
          Format bmc = new Format("bmc", "application/xml", "UTF-8");
          Format escidocComponent = new Format("escidoc-publication-component",  "application/xml", "UTF-8");        
          
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
          this.logger.info(new String(result));
      }
      
      
      public void arxivTest() throws Exception
      {
+         this.logger.info("---Transformation arXiv to escidoc format ---");
          Format arxivItem = new Format("arxiv", "application/xml", "UTF-8");
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");        
          Format bibtex = new Format("bibtex", "text/plain", "*");
          
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
          this.logger.info(new String(result));     
          
          result = this.trans.transform(result, escidoc, bibtex, "escidoc");
@@ -175,7 +179,7 @@ public class TransformationTest
          this.logger.info(new String(result, "UTF-8"));
      }
      
-     @Test
+     
      public void snippetToOutputFormatTest() throws Exception
      {
          this.logger.info("snippet -> outputFormat");
