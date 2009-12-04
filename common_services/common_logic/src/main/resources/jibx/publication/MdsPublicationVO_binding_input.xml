@@ -35,7 +35,6 @@
 	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
 	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
 	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
-	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
 	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />

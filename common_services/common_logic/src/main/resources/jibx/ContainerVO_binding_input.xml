@@ -28,8 +28,6 @@
 -->
 
 <binding>
-
-	<namespace prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}" default="none" />
 	
 	<!-- concrete mapping for ContainerVO -->
 	<mapping name="container" ns="${xsd.soap.container.container}" class="de.mpg.escidoc.services.common.valueobjects.ContainerVO" ordered="false"
