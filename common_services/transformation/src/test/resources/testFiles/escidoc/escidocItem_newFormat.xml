@@ -1,12 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
-	<item:properties xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" 
+xmlns:item="${xsd.soap.item.item}" 
+xmlns:person="${xsd.metadata.person}" 
+xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" 
+xmlns:structmap="${xsd.soap.container.structmap}" 
+xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" 
+xmlns:context="${xsd.soap.context.context}" 
+xmlns:organizationalunit="${xsd.metadata.organizationalunit}" 
+xmlns:oupathlist="${xsd.soap.ou.oupathlist}" 
+xmlns:containerlist="${xsd.soap.container.containerlist}" 
+xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" 
+xmlns:components="${xsd.soap.item.components}" 
+xmlns:ou="${xsd.soap.ou.ou}" 
+xmlns:organization="${xsd.metadata.organization}" 
+xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" 
+xmlns:contextlist="${xsd.soap.context.contextlist}" 
+xmlns:oulist="${xsd.soap.ou.oulist}" 
+xmlns:file="${xsd.metadata.file}" 
+xmlns:toc="${xsd.soap.toc.toc}" 
+xmlns:itemlist="${xsd.soap.item.itemlist}" 
+xmlns:ouref="${xsd.soap.ou.ouref}" 
+xmlns:publication="${xsd.metadata.publication}" 
+xmlns:table-of-content="${xsd.soap.toc.table-of-content}" 
+xmlns:mdrecords="${xsd.soap.common.mdrecords}" 
+xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" 
+xmlns:escidocprofile="${xsd.metadata.escidocprofile}" 
+xmlns:result="${xsd.soap.result.result}" 
+xmlns:relations="${xsd.soap.common.relations}" 
+xmlns:commontypes="${xsd.soap.common.commontypes}" 
+xmlns:escidoc="${xsd.metadata.terms}" 
+xmlns:prop="${xsd.soap.common.prop}" 
+xmlns:dc="${xsd.metadata.dc}" 
+xmlns:searchresult="${xsd.soap.searchresult.searchresult}" 
+xmlns:grants="${xsd.soap.useraccount.grants}" 
+xmlns:srel="${xsd.soap.common.srel}" 
+xmlns:dcterms="${xsd.metadata.dcterms}" 
+xmlns:useraccount="${xsd.soap.useraccount.useraccount}" 
+xmlns:versionhistory="${xsd.soap.common.versionhistory}" 
+xmlns:properties="${xsd.core.properties}" 
+xmlns:version="${xsd.soap.common.version}" 
+xmlns:source="${xsd.metadata.source}" 
+xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" 
+xmlns:memberlist="${xsd.soap.common.memberlist}" 
+xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" 
+xmlns:release="${xsd.soap.common.release}" 
+xmlns:event="${xsd.metadata.event}" 
+xmlns:usergroup="${xsd.soap.usergroup.usergroup}" 
+xmlns:container="${xsd.soap.container.container}"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	<item:properties xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<srel:context objid="escidoc:persistent3"/>
 		<srel:content-model objid="escidoc:persistent4"/>
 		<prop:content-model-specific>
 			<anything/>
 		</prop:content-model-specific>
 	</item:properties>
-	<md-records:md-records xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<md-records:md-records xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<md-records:md-record name="escidoc">
 			<publication:publication type="http://purl.org/eprint/type/Book">
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
@@ -35,7 +84,7 @@
 							</escidoc:address>
 							<dc:identifier>ED-84378462846</dc:identifier>
 						</organization:organization>
-						<dc:identifier xsi:type="eidt:PND">HH-XY-2222</dc:identifier>
+						<dc:identifier xsi:type="escidoc:PND">HH-XY-2222</dc:identifier>
 					</person:person>
 				</escidoc:creator>
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/CTB">
@@ -51,8 +100,8 @@
 				<dc:language xsi:type="dcterms:RFC3066">fr</dc:language>
 				<dcterms:alternative xml:lang="de">Die Erste von allen.</dcterms:alternative>
 				<dcterms:alternative xml:lang="fr">Wulewu</dcterms:alternative>
-				<dc:identifier xsi:type="eidt:ISI">0815</dc:identifier>
-				<dc:identifier xsi:type="eidt:ISSN">issn</dc:identifier>
+				<dc:identifier xsi:type="escidoc:ISI">0815</dc:identifier>
+				<dc:identifier xsi:type="escidoc:ISSN">issn</dc:identifier>
 				<escidoc:publishing-info>
 					<dc:publisher>
 						O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
@@ -99,7 +148,7 @@
 						<escidoc:place>Hamburg-München</escidoc:place>
 						<escidoc:edition>III</escidoc:edition>
 					</escidoc:publishing-info>
-					<dc:identifier xsi:type="eidt:ISBN">XY-347H-112</dc:identifier>
+					<dc:identifier xsi:type="escidoc:ISBN">XY-347H-112</dc:identifier>
 					<escidoc:source>
 						<dc:title xml:lang="en">The source of the source.</dc:title>
 						<escidoc:creator role="http://www.loc.gov/loc.terms/relators/ART">
