@@ -56,6 +56,7 @@ import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation.ContentCategory;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -291,21 +292,28 @@ public class FileBean extends FacesBean
         
     }
     
-    public String getContentCategory()
+    public String getContentCategory() 
     {
     	String contentCategory = "";
     	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	if(this.file.getContentCategory() != null)
-    	{
-    	    contentCategory = internationalized
-            .getLabel(
-                    this
-                        .i18nHelper
-                        .convertEnumToString(
-                                PubFileVOPresentation.ContentCategory.valueOf(
-                                        CommonUtils.convertToEnumString(
-                                                this.file.getContentCategory()))));
-    	}
+ 
+		if (this.file.getContentCategory() != null)
+        {
+        	
+        	for(ContentCategory contcat : ContentCategory.values())
+        	{
+        		if(contcat.getUri().equals(this.file.getContentCategory()))
+        		{
+        			 contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(contcat));
+        			 break;
+        		}
+        	}
+        	/*
+            contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(
+            		PubFileVOPresentation.ContentCategory.valueOf(CommonUtils.convertToEnumString(this.file.getContentCategory()))));
+            		*/
+        }
+    	
     	return contentCategory;
     }
     
