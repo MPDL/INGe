@@ -46,6 +46,10 @@
 	<iso:ns prefix="prop" uri="${xsd.soap.common.prop}"/>
 	<iso:ns prefix="file" uri="${xsd.metadata.file}"/>
 	<iso:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+	<iso:ns prefix="person" uri="${xsd.metadata.person}" />
+	<iso:ns prefix="event" uri="${xsd.metadata.event}" />
+	<iso:ns prefix="source" uri="${xsd.metadata.source}" />
+	<iso:ns prefix="organization" uri="${xsd.metadata.organization}" />
    
 	
 	<!-- Validation points -->
