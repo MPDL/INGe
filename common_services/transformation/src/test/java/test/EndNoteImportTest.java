@@ -10,6 +10,7 @@ import org.junit.Test;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.endnote.EndNoteImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -20,6 +21,7 @@ public class EndNoteImportTest
 	
 	Transformation transformation = new TransformationBean();
 	EndNoteImport imp = new EndNoteImport();
+	private Util util = new Util();
 
 	
 	@Test
@@ -31,7 +33,7 @@ public class EndNoteImportTest
     	Format inputFormat = new Format("EndNote", "text/plain", "UTF-8");
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
     	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("./src/test/resources/testFiles/publikationsliste_2008_endnote.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("./src/test/resources/testFiles/endnote/publikationsliste_2008_endnote.txt");
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -44,6 +46,14 @@ public class EndNoteImportTest
     	logger.info(new String(result,"UTF-8"));
 	}
 	
-	
+	@Test
+	public void checkEndnoteListTransformation() throws Exception
+	{
+	    this.logger.info("Transform EndNote list to escidoc format");
+	    
+       	String result = imp.transformEndNote2XML(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote.txt"));
+       	this.logger.info("transformation successful");
+       	this.logger.info(result);
+	}
 
 }

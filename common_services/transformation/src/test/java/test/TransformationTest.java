@@ -79,8 +79,9 @@ public class TransformationTest
         this.logger.info(this.trans.getTargetFormatsAsXml("peer_tei", "application/xml", "UTF-8"));   	
     }
     
-    public void bmcArticleTest() throws Exception
+    public void bmcarticle2htmlTest() throws Exception
     {
+        this.logger.info("---Transformation mnc article to html format ---");
         Format xml = new Format("bmc-fulltext-xml", "application/xml", "UTF-8");
         Format html = new Format("bmc-fulltext-html", "text/html", "UTF-8");
          
@@ -90,8 +91,8 @@ public class TransformationTest
      }
      
   
-    
-     public void bmcTest() throws Exception
+     @Test
+     public void bmc2escidocTest() throws Exception
      {
          this.logger.info("---Transformation BMC to escidoc format ---");
          Format bmc = new Format("bmc", "application/xml", "UTF-8");
@@ -100,31 +101,91 @@ public class TransformationTest
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
          this.logger.info(new String(result));
+             
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
+         this.logger.info(new String(result));   
      }
      
      
-     public void arxivTest() throws Exception
+     public void arxiv2escidocTest() throws Exception
      {
          this.logger.info("---Transformation arXiv to escidoc format ---");
          Format arxivItem = new Format("arxiv", "application/xml", "UTF-8");
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");        
-         Format bibtex = new Format("bibtex", "text/plain", "*");
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
          this.logger.info(new String(result));     
          
-         result = this.trans.transform(result, escidoc, bibtex, "escidoc");
-         this.logger.info(new String(result)); 
-         
-//         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/arxivItem.xml").getBytes(), arxivItem, escidocComponent, "escidoc");
+//         result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes(), arxivItem, escidocComponent, "escidoc");
 //         this.logger.info(new String(result));   
      }
      
-    
-     public void pmcTest() throws Exception
+     @Test
+     public void spires2escidocTest() throws Exception
      {
+         this.logger.info("---Transformation spires to escidoc format ---");
+         Format spires = new Format("spires", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/spires.xml").getBytes(), spires, escidoc, "escidoc");
+         this.logger.info(new String(result));       
+     }
+     
+     //TODO Does not work doe to errornous jibx binding
+     public void bibtex2escidocTest() throws Exception
+     {
+         this.logger.info("---Transformation BibTex to escidoc format ---");
+         Format bibtex = new Format("BibTex", "text/plain", "*");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8"); 
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/bibtex/bib.bib").getBytes(), bibtex, escidoc, "escidoc");
+         this.logger.info(new String(result));     
+     }
+     
+     //TODO Does not work doe to errornous jibx binding
+     public void escidoc2bibtexTest() throws Exception
+     {
+         this.logger.info("---Transformation escidoc to BibTex format ---");
+         Format bibtex = new Format("BibTex", "text/plain", "*");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");   
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes(), escidoc, bibtex, "escidoc");
+         this.logger.info(new String(result));     
+     }
+     
+     //TODO Does not work doe to errornous jibx binding
+     public void endnote2escidocTest() throws Exception
+     {
+         this.logger.info("---Transformation EndNote to escidoc format ---");
+         Format endnote = new Format("EndNote", "text/plain", "*");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/endnote/endnote.txt").getBytes(), endnote, escidoc, "escidoc");
+         this.logger.info(new String(result));     
+     }
+     
+     //TODO Does not work doe to errornous jibx binding
+     public void escidoc2endnoteTest() throws Exception
+     {
+         this.logger.info("---Transformation EndNote to escidoc format ---");
+         Format endnote = new Format("EndNote", "text/plain", "*");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes(), escidoc, endnote, "escidoc");
+         this.logger.info(new String(result));     
+     }
+     
+     //TODO Does not work doe to errornous jibx binding
+     public void pmc2escidocTest() throws Exception
+     {
+         this.logger.info("---Transformation PMC to escidoc format ---");
          Format pmcItem = new Format("pmc", "application/xml", "UTF-8");
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          Format escidocComponent = new Format("escidoc-publication-component", "application/xml", "UTF-8");
@@ -132,7 +193,7 @@ public class TransformationTest
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/pmc2.xml").getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/pmc2.xml").getBytes("UTF-8"), pmcItem, escidoc, "escidoc");
          this.logger.info(new String(result, "UTF-8"));   
          
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
@@ -146,35 +207,55 @@ public class TransformationTest
          
      }
 	
-    
+     @Test
      public void mods2oaidcTest () throws Exception
      {
+         this.logger.info("---Transformation MODS to oai_dc format ---");
+         
          Format mods = new Format("mods", "application/xml", "UTF-8");
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");
          
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
          this.logger.info(new String(result, "UTF-8"));           
      }
      
-    
+     
      public void mods2marcTest () throws Exception
      {
+         this.logger.info("---Transformation MODS to MARC format ---");
+         
          Format mods = new Format("mods", "application/xml", "UTF-8");
          Format marc = new Format("marc21", "application/xml", "UTF-8");
          
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, marc, "escidoc");
          this.logger.info(new String(result, "UTF-8"));
      }
-    
+     
+     @Test
+     public void mods2escidocTest () throws Exception
+     {
+         this.logger.info("---Transformation MODS to escidoc format ---");
+         
+         Format mods = new Format("mods", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         
+         byte[] result;
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, escidoc, "escidoc");
+         this.logger.info(new String(result, "UTF-8"));
+     }
+  
+     @Test
      public void escidoc2oaidcTest () throws Exception
      {
+         this.logger.info("---Transformation escidoc to oai_dc format ---");
+         
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
          Format oai = new Format("oai_dc", "application/xml", "UTF-8");
         
          byte[] result;
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidocItem.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
          this.logger.info("escidoc -> oai_dc");
          this.logger.info(new String(result, "UTF-8"));
      }
@@ -194,25 +275,25 @@ public class TransformationTest
          
          byte[] result;
          this.logger.info("APA");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/apa_snippet.xml").getBytes("UTF-8"), input2, output1, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output1, "escidoc");
          this.logger.info("APA - pdf: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/apa_snippet.xml").getBytes("UTF-8"), input2, output2, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output2, "escidoc");
          this.logger.info(new String (result,"UTF-8"));
          this.logger.info("APA - html: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/apa_snippet.xml").getBytes("UTF-8"), input2, output3, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output3, "escidoc");
          this.logger.info("APA - rtf: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/apa_snippet.xml").getBytes("UTF-8"), input2, output4, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/apa_snippet_oldFormat.xml").getBytes("UTF-8"), input2, output4, "escidoc");
          this.logger.info("APA - odt: OK");
          
          this.logger.info("AJP");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/ajp_snippet.xml").getBytes("UTF-8"), input3, output1, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output1, "escidoc");
          this.logger.info("AJP - pdf: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/ajp_snippet.xml").getBytes("UTF-8"), input3, output2, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output2, "escidoc");
          this.logger.info(new String (result,"UTF-8"));
          this.logger.info("AJP - html: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/ajp_snippet.xml").getBytes("UTF-8"), input3, output3, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output3, "escidoc");
          this.logger.info("AJP - rtf: OK");
-         result = this.trans.transform(this.util.getResourceAsString("testFiles/ajp_snippet.xml").getBytes("UTF-8"), input3, output4, "escidoc");
+         result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output4, "escidoc");
          this.logger.info("AJP - odt: OK");
      }
 }

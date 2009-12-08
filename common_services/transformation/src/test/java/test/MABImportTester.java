@@ -7,14 +7,22 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.junit.Test;
+
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.Pair;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class MABImportTester {
+    
+    private final Logger logger = Logger.getLogger(MABImportTester.class);
+    private Util util = new Util();
+    MABImport imp = new MABImport();
 
 	/**
 	 * @param args
@@ -45,6 +53,14 @@ public class MABImportTester {
     	//System.out.print(new String(out.getBytes(),"utf-8"));
 	}
 	
-	
+	    //TODO: file fehlt
+	    public void mabListTransformation() throws Exception
+	    {
+	        this.logger.info("Transform MAB list to escidoc format");
+	        
+	        String result = imp.transformMAB2XML(this.util.getResourceAsString("testFiles/mab/???.txt"));
+	        this.logger.info("transformation successful");
+	        this.logger.info(result);
+	    }
 
 }
