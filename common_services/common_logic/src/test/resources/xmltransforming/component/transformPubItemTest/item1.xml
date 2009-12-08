@@ -8,7 +8,7 @@
 	<escidocMetadataRecords:md-records xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocContext="${xsd.soap.context.context}" xmlns:escidocContextList="${xsd.soap.context.contextlist}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocRelations="${xsd.soap.common.relations}" xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<publication:publication type="http://purl.org/eprint/type/Book">
-				<escidoc:creator xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
+				<escidoc:creator  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
 						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 						<escidoc:family-name>Meier</escidoc:family-name>
@@ -19,7 +19,7 @@
 						</organization:organization>
 					</person:person>
 				</escidoc:creator>
-				<escidoc:creator xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
+				<escidoc:creator  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
 						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 						<escidoc:family-name>Meier</escidoc:family-name>
@@ -30,12 +30,12 @@
 						</organization:organization>
 					</person:person>
 				</escidoc:creator>
-				<dc:title xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">PubMan: The first of all.</dc:title>
-				<dcterms:created xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+				<dc:title  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">PubMan: The first of all.</dc:title>
+				<dcterms:created  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
 				<escidoc:published-online xsi:type="dcterms:W3CDTF">2007-03-04</escidoc:published-online>
-				<dcterms:issued xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
-				<dcterms:subject xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dcterms:subject>
-				<dcterms:tableOfContents xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
+				<dcterms:issued  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
+				<dcterms:subject  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dcterms:subject>
+				<dcterms:tableOfContents  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
 			</publication:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>

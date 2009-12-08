@@ -82,7 +82,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -94,7 +94,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -128,7 +128,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -137,11 +137,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -156,7 +156,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -233,7 +233,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -245,7 +245,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -279,7 +279,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -288,11 +288,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -307,7 +307,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -384,7 +384,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -396,7 +396,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -430,7 +430,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -439,11 +439,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -458,7 +458,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -831,7 +831,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -843,7 +843,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -877,7 +877,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -886,11 +886,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -905,7 +905,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -982,7 +982,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -994,7 +994,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -1028,7 +1028,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1037,11 +1037,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -1056,7 +1056,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -1199,7 +1199,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1211,7 +1211,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -1245,7 +1245,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1254,11 +1254,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -1273,7 +1273,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -1350,7 +1350,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1362,7 +1362,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -1396,7 +1396,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1405,11 +1405,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -1424,7 +1424,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>
@@ -1501,7 +1501,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1513,7 +1513,7 @@
 					<dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">
 						Direct evidence for the presence of an inertial energy cascade
 					</dcterms:alternative>
-					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eidt:ISSN">
+					<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
 						0361-526X
 					</dc:identifier>
 					<escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
@@ -1547,7 +1547,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1556,11 +1556,11 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<escidoc:address>Placo Dominico, Madrid</escidoc:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:ESCIDOC">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
-								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eidt:PND">
+								<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="escidoc:PND">
 									HJKS 1-23-24434
 								</dc:identifier>
 							</person:person>
@@ -1575,7 +1575,7 @@
 							<escidoc:place>Pittsburgh</escidoc:place>
 							<escidoc:edition>1.</escidoc:edition>
 						</escidoc:publishing-info>
-						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xsi:type="eidt:DOI">
+						<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:type="escidoc:DOI">
 							2387928 233
 						</dc:identifier>
 					</source:source>

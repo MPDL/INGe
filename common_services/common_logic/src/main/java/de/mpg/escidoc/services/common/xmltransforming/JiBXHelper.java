@@ -115,7 +115,7 @@ public class JiBXHelper
      */
     // private static final Logger logger = Logger.getLogger(JiBXHelper.class);
     public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
-    public static final String IDTYPES_NAMESPACE_PREFIX = "eidt:";
+    public static final String IDTYPES_NAMESPACE_PREFIX = "escidoc:";
     /**
      * XML escaped characters mapping ("<" and "&" get escaped/unescaped automatically by JiBX) Note: Only the
      * characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and greater than signs are
