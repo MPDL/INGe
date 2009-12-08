@@ -43,7 +43,6 @@
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
    xmlns:eterms="${xsd.metadata.terms}"
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:srel="${xsd.soap.common.srel}"
