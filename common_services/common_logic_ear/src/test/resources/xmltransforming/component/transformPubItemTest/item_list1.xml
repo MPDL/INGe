@@ -72,13 +72,13 @@
                         <organization:organization>
                             <dc:title xml:lang="fr">Department of Physics, University of California</dc:title>
                             <escidoc:address xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Berkeley, CA 94720, USA</escidoc:address>
-                            <dc:identifier xsi:type="eidt:ESCIDOC">P4711</dc:identifier>
+                            <dc:identifier xsi:type="escidoc:ESCIDOC">P4711</dc:identifier>
                         </organization:organization>
                     </escidoc:creator>
                     <dc:title xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="fr">Observation of inertial energy cascade in interplanetary space plasma</dc:title>
                     <dc:language xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="fr">German</dc:language>
                     <dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="jp">Direct evidence for the presence of an inertial energy cascade</dcterms:alternative>
-                    <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eidt:ISSN">
+                    <dc:identifier  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="escidoc:ISSN">
                         0361-526X
                     </dc:identifier>
                     <escidoc:publishing-info>
@@ -108,14 +108,14 @@
                                 <organization:organization>
                                     <dc:title xml:lang="fr">Facultad de Ciencias</dc:title>
                                     <escidoc:address xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-                                    <dc:identifier xsi:type="eidt:ESCIDOC">ASG 2233-3</dc:identifier>
+                                    <dc:identifier xsi:type="escidoc:ESCIDOC">ASG 2233-3</dc:identifier>
                                 </organization:organization>
                                 <organization:organization>
                                     <dc:title xml:lang="it">Instituta Geometra y Topologa</dc:title>
                                     <escidoc:address xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Placo Dominico, Madrid</escidoc:address>
-                                    <dc:identifier xsi:type="eidt:ESCIDOC">IOP 998</dc:identifier>
+                                    <dc:identifier xsi:type="escidoc:ESCIDOC">IOP 998</dc:identifier>
                                 </organization:organization>
-                                <dc:identifier xsi:type="eidt:PND">HJKS 1-23-24434</dc:identifier>
+                                <dc:identifier xsi:type="escidoc:PND">HJKS 1-23-24434</dc:identifier>
                             </person:person>
                         </escidoc:creator>
                         <escidoc:volume xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">2.</escidoc:volume>
@@ -128,7 +128,7 @@
                             <escidoc:place>Pittsburgh</escidoc:place>
                             <escidoc:edition>1.</escidoc:edition>
                         </escidoc:publishing-info>
-                        <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eidt:DOI">2387928 233</dc:identifier>
+                        <dc:identifier  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="escidoc:DOI">2387928 233</dc:identifier>
                     </source:source>
                     <event:event>
                         <dc:title xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>

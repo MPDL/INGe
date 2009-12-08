@@ -35,7 +35,7 @@
 							</escidoc:address>
 							<dc:identifier>ED-84378462846</dc:identifier>
 						</organization:organization>
-						<dc:identifier xsi:type="eidt:PND">HH-XY-2222</dc:identifier>
+						<dc:identifier xsi:type="escidoc:PND">HH-XY-2222</dc:identifier>
 					</person:person>
 				</escidoc:creator>
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/CTB">
@@ -51,8 +51,8 @@
 				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:RFC3066">fr</dc:language>
 				<dcterms:alternative xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="de">Die Erste von allen.</dcterms:alternative>
 				<dcterms:alternative xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="fr">Wulewu</dcterms:alternative>
-				<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eidt:ISI">0815</dc:identifier>
-				<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eidt:ISSN">issn</dc:identifier>
+				<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="escidoc:ISI">0815</dc:identifier>
+				<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="escidoc:ISSN">issn</dc:identifier>
 				<escidoc:publishing-info>
 					<dc:publisher xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">
 						O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
@@ -99,7 +99,7 @@
 						<escidoc:place>Hamburg-München</escidoc:place>
 						<escidoc:edition>III</escidoc:edition>
 					</escidoc:publishing-info>
-					<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eidt:ISBN">XY-347H-112</dc:identifier>
+					<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="escidoc:ISBN">XY-347H-112</dc:identifier>
 					<source:source>
 						<dc:title xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="en">The source of the source.</dc:title>
 						<escidoc:creator xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" role="http://www.loc.gov/loc.terms/relators/ART">

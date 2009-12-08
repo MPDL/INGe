@@ -10,32 +10,32 @@
 			<publication:publication xmlns:mdrecords="${xsd.soap.common.mdrecords}" type="http://purl.org/eprint/type/Book">
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
-						<escidoc:complete-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans Meier</escidoc:complete-name>
-						<escidoc:family-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Meier</escidoc:family-name>
-						<escidoc:given-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans</escidoc:given-name>
+						<escidoc:complete-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans Meier</escidoc:complete-name>
+						<escidoc:family-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Meier</escidoc:family-name>
+						<escidoc:given-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans</escidoc:given-name>
 						<organization:organization>
 							<dc:title xml:lang="en">Test Organization</dc:title>
-							<escidoc:address xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Max-Planck-Str. 1</escidoc:address>
+							<escidoc:address  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Max-Planck-Str. 1</escidoc:address>
 						</organization:organization>
 					</person:person>
 				</escidoc:creator>
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
-						<escidoc:complete-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans Meier</escidoc:complete-name>
-						<escidoc:family-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Meier</escidoc:family-name>
-						<escidoc:given-name xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans</escidoc:given-name>
+						<escidoc:complete-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans Meier</escidoc:complete-name>
+						<escidoc:family-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Meier</escidoc:family-name>
+						<escidoc:given-name  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Hans</escidoc:given-name>
 						<organization:organization>
 							<dc:title xml:lang="en">Test Organization</dc:title>
-							<escidoc:address xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Max-Planck-Str. 1</escidoc:address>
+							<escidoc:address  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}">Max-Planck-Str. 1</escidoc:address>
 						</organization:organization>
 					</person:person>
 				</escidoc:creator>
-				<dc:title xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="en">PubMan: The first of all.</dc:title>
-				<dcterms:created xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+				<dc:title  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="en">PubMan: The first of all.</dc:title>
+				<dcterms:created  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
 				<escidoc:published-online xsi:type="dcterms:W3CDTF">2007-03-04</escidoc:published-online>
-				<dcterms:issued xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
-				<dc:subject xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dc:subject>
-				<dcterms:tableOfContents xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
+				<dcterms:issued  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
+				<dc:subject  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dc:subject>
+				<dcterms:tableOfContents  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
 			</publication:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xmlns:resources="http://www.escidoc.de/schemas/resources/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3"  xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xmlns:resources="http://www.escidoc.de/schemas/resources/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item:properties>
 		<item:context objid="escidoc:persistent3"/>
 		<item:content-model objid="escidoc:persistent4"/>
@@ -35,7 +35,7 @@
 							</escidoc:address>
 							<dc:identifier>ED-84378462846</dc:identifier>
 						</organization:organization>
-						<dc:identifier xsi:type="eidt:PND">HH-XY-2222</dc:identifier>
+						<dc:identifier xsi:type="escidoc:PND">HH-XY-2222</dc:identifier>
 					</person:person>
 				</escidoc:creator>
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/CTB">
@@ -51,8 +51,8 @@
 				<dc:language xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="dcterms:RFC3066">fr</dc:language>
 				<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="de">Die Erste von allen.</dcterms:alternative>
 				<dcterms:alternative xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="fr">Wulewu</dcterms:alternative>
-				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eidt:ISI">0815</dc:identifier>
-				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eidt:ISSN">issn</dc:identifier>
+				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="escidoc:ISI">0815</dc:identifier>
+				<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="escidoc:ISSN">issn</dc:identifier>
 				<escidoc:publishing-info>
 					<dc:publisher xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2">
 						O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
@@ -99,7 +99,7 @@
 						<escidoc:place>Hamburg-München</escidoc:place>
 						<escidoc:edition>III</escidoc:edition>
 					</escidoc:publishing-info>
-					<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="eidt:ISBN">XY-347H-112</dc:identifier>
+					<dc:identifier xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xsi:type="escidoc:ISBN">XY-347H-112</dc:identifier>
 					<source:source>
 						<dc:title xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" xml:lang="en">The source of the source.</dc:title>
 						<escidoc:creator xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:relations="http://www.escidoc.de/schemas/relations/0.2" role="http://www.loc.gov/loc.terms/relators/ART">

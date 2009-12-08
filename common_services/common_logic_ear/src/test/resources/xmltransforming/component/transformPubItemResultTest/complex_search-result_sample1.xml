@@ -106,9 +106,9 @@
                     <dc:language xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:RFC3066">ae</dc:language>
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Alternative ScT 01</dcterms:alternative>
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="de">nochn alternativer Titel</dcterms:alternative>
-                    <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eidt:ISBN">12761-45</dc:identifier>
-                    <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eidt:ESCIDOC">65</dc:identifier>
-                    <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eidt:ISSN">5646545-855</dc:identifier>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISBN">12761-45</dc:identifier>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ESCIDOC">65</dc:identifier>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISSN">5646545-855</dc:identifier>
                     <escidoc:publishing-info>
                         <dc:publisher xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Testpublisher</dc:publisher>
                         <escidoc:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Garching-Itzehoe-Capreton</escidoc:place>
@@ -155,8 +155,8 @@
                             <escidoc:place>Ort der ersten quelle</escidoc:place>
                             <escidoc:edition>edition 1</escidoc:edition>
                         </escidoc:publishing-info>
-                        <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eidt:ISBN">465465-88</dc:identifier>
-                        <dc:identifier xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eidt:ESCIDOC">99</dc:identifier>
+                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISBN">465465-88</dc:identifier>
+                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ESCIDOC">99</dc:identifier>
                     </source:source>
                     <source:source>
                         <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Source 2</dc:title>
