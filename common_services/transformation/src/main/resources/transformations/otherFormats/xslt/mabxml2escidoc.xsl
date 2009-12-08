@@ -425,7 +425,7 @@
 								</xsl:element>
 							</xsl:when>
 							<xsl:otherwise>
-								<dc:title>External Organizations</organization:organization-name>
+								<dc:title>External Organizations</dc:title>
 								<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
 							</xsl:otherwise>
 						</xsl:choose>
