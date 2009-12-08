@@ -91,7 +91,7 @@
 		<xsl:param name="genre"/>
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:context objid="escidoc:persistent3" />
+				<srel:context objid="escidoc:persistent3"/>
 				<!--<xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
 				</xsl:element>-->
