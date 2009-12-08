@@ -1,0 +1,365 @@
+
+ Stand 13.08.2
+
+
+
+
+
+
+    54,00
+      ###      LIBCONV h
+      001     54
+      029 m   B
+      037 c   eng
+      100     Kouwenberg, Silvia
+      331     ¬A¬ grammar of Berbice Dutch Creole
+      359     Silvia Kouwenberg
+      410     Berlin [u.a.]
+      412     Mouton de Gruyter
+      425     1994
+      433     xviii, 693 S.
+      451     Mouton Grammar Library ; 12
+      454     Mouton Grammar Library
+      455     12
+      537     Rechte wahrscheinlich beim Verlag
+      540 a   3-11-013736-4
+      544     PM 7864 KOU 1994
+      655 e   -
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/berbicedutch_kouwenberg1994.html
+      700 c   PM7864.G95
+      711 b   brc
+      740 s   Creole dialects, Dutch--Guyana--Berbice River
+              Valley--Grammar
+
+
+
+
+
+
+
+    200,00
+      ###      LIBCONV h
+      001     200a
+      029 m   B
+      037 c   ger
+      100     Ebert, Karen H.
+      331     Sprache und Tradition der Kera (Tschad)
+      359     Karen H. Ebert
+      410     Berlin
+      412     Reimer
+      425     1975
+      433     351 S.
+      451     Marburger Studien zur Afrika- und Asienkunde /
+              Serie A, Afrika ; 6, 8, 15
+      454     Marburger Studien zur Afrika- und Asienkunde /
+              Serie A, Afrika
+      455     6, 8, 15
+      537     Rechte beim Verlag?
+      544     GR 355 .52 EBE - ...
+      655 e   -
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/kera_ebert1979.html
+      700 c   GR355.52.K47
+      711 b   ker
+      740 s   Kera (African people)--Folklore
+      740 s   Kera (African people)
+      740 s   Kera language
+
+
+
+
+
+
+
+    244,00
+      ###      LIBCONV h
+      001     244
+      029 m   B
+      037 c   eng
+      100     Lehmann, Christian
+      331     Thoughts on grammaticalization
+      359     Christian Lehmann
+      410     München
+      412     Lincom Europa
+      425     1995
+      433     xii, 192 S.
+      451     Lincom Studies in Theoretical Linguistics ; 1
+      454     Lincom Studies in Theoretical Linguistics
+      455     1
+      537     Internet : Germany, Erfurt TARGET (Textarchiv
+              Gotha Erfurt) http://www.bibliothek.uni-erfurt
+              .de/target/assiduelink.html (Zugriff 15.01
+              .2009)
+      540 a   3-929075-50-4
+      544     P 299 .G73 LEH 1995
+      655 e   http://www.db-thueringen
+              .
+              de/servlets/DerivateServlet/Derivate-2058/ASSid
+              UE09.pdf
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/grammaticalization_lehmann2002_s
+              .html
+      700 c   P299.G73
+      711 b   -
+      740 s   Grammar, Comparative and
+              general--Grammaticalization
+
+
+
+
+
+
+
+    306,00
+      ###      LIBCONV h
+      001     305
+      029 m   B
+      037 c   eng
+      100     Lehmann, Christian
+      331     Possession in Yucatec
+      335     structures - functions - typology
+      359     Christian Lehmann
+      410     München
+      412     Lincom Europa
+      425     1998
+      433     xii, 135 S.
+      451     LINCOM Studies in Native American Linguistics
+              ; 4
+      454     LINCOM Studies in Native American Linguistics
+      455     4
+      537     Internet : Germany, Erfurt, Univ.,
+              Sprachwissenschaft http://www.uni-erfurt
+              .de/sprachwissenschaft/ (Zugriff 20.01.2009)
+      540 a   3-89586-060-3
+      544     PM 3963 LEH 1998
+      655 e   http://www.uni-erfurt
+              .de/sprachwissenschaft/ASSidUE/ASSidUE10.pdf
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/maya_lehmann2003_s.html
+      700 c   PM3963
+      711 b   yua
+      740 s   Maya language--Possessives
+
+
+
+
+
+
+
+    414,00
+      ###      LIBCONV h
+      001     413a
+      029 m   B
+      037 c   eng
+      100     Day, Christopher
+      331     ¬The¬ Jacaltec language
+      359     Christopher Day
+      410     Bloomington
+      412     Indiana Univ.
+      425     1973
+      433     136 S.
+      451     Indiana University publications : Language
+              science monographs ; 12
+      454     Indiana University publications : Language
+              science monographs
+      455     12
+      537     ?
+      540 a   0-87750-176-9
+      544     PM 3889 DAY 1973
+      655 e    -
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/jacaltec_day1973.html
+      700 c   PM3889
+      711 b   jai
+      740 s   Jacalteca language
+
+
+
+
+
+
+
+    454,00
+      ###      LIBCONV               h
+      001     453
+      029 m   B
+      037 c   eng
+      100 b   Alsina, Alex
+      104 b   Bresnan, Joan
+      108 b   Sells, Peter
+      331     Complex predicates
+      359     ed. by Alex Alsina, Joan Bresnan & Peter Sells
+      410     Stanford, Calif.
+      412     CSLI
+      425     1997
+      433     VI, 514 S.
+      434     graph. Darst.
+      451     CSLI Lecture Notes ; 64
+      454     CSLI Lecture Notes
+      455     64
+      537     Internet : USA, Stanford, Univ. http://library
+              .stanford.edu/ (Zugriff 13.10.2008)
+      540 a   1-57586-047-3
+      544     P 281 COM 1997
+      655 e   http://sul-derivatives.stanford
+              .
+              edu/derivative?CSNID=00000074&mediaType=applica
+              tion/pdf
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/predicates_alsina1997_s.html
+      700 c   P281
+      711 b   -
+      740 s   Grammar, Comparative and general--Verb phrase
+      740 s   Grammar, Comparative and general--Syntax
+
+
+
+
+
+
+
+    625,00
+      ###      LIBCONV h
+      001     624a
+      029 m   B
+      037 c   eng
+      100     Topping, Donald M.
+      331     Chamorro reference grammar
+      359     Donald M. Topping
+      410     Honolulu
+      412     University Press of Hawaii
+      425     1973
+      433     xii, 301 S.
+      451     Pali Language Texts : Micronesia
+      537     Internet : Google buchsuche http://books
+              .google.com/ (Zugriff 03.09.2008) ; nicht
+              gemeinfrei!! Google books nur Vorschau vö, wir
+              haben aber komplette PDF, doch woanders her?
+      540 a   0-8248-0269-1
+      544     PL 5295.1 TOP 1973
+      655 e   http://print.google.com/print?id=iUQle0R4Y3sC
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/chamorro_topping1973.html
+      700 c   PL5295.1
+      711 b   cha
+      740 s   Chamorro language--Grammar
+
+
+
+
+
+
+
+    649,00
+      ###      LIBCONV               h
+      001     648
+      029 m   B
+      037 c   ger
+      100     Seibert, Uwe
+      331     ¬Das¬ Ron von Daffo (Jos-Plateau,
+              Zentralnigeria)
+      335     morphologische, syntaktische und
+              textlinguistische Strukturen einer
+              westtschadischen Sprache
+      410     Frankfurt/M.
+      412     Lang
+      425     1998
+      433     XIV, 166 S.
+      451     Europäische Hoschschulschriften : Reihe 27,
+              Asiatische und Afrikanische Studien ; 66
+      454     Europäische Hoschschulschriften : Reihe 27,
+              Asiatische und Afrikanische Studien
+      455     66
+      537     ?
+      540 a   3-631-32992-X
+      544     PL 8607 .R61 SEI 1998
+      655 e   -
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/ron_seibert1998_o.html
+      700 c   PL8607.R61
+      711 b   cla
+      740 s   Ron language--Morphology
+      740 s   Ron language--Syntax
+
+
+
+
+
+
+
+    674,00
+      ###      LIBCONV h
+      001     674
+      029 m   MF
+      037 c   eng
+      037 c   mkh
+      100     Costello, Nancy A.
+      331     Nooq Paraaq Katu
+      335     Katu dictionary ; Katu-Vietnamese-English
+      359     Nancy A. Costello
+      410     Dallas
+      412     SIL
+      425     1991
+      433     vii, 172 S. (4 MF)
+      537     Microfiche vorhanden in Bibliothek
+      655 e   -
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/katu_costello1991_o.html
+      700 c   PL4351.K38
+      711 b   ktv
+      740 s   Katu language--Dictionaries--Vietnamese
+      740 s   Katu language--Dictionaries--English
+
+
+
+
+
+
+
+    677,00
+      ###      LIBCONV h
+      001     677
+      029 m   B
+      037 c   spa
+      100     Hilton, K. Simón
+      331     Diccionario Tarahumara de Samachique,
+              Chihuahua, Mexico
+      359     por K. Simón Hilton
+      403     ed. esp. corr. y act.
+      410     Tucson, AZ
+      412     Inst. Lingüístico de Verano
+      425     1993
+      433     viii, 146 S.
+      451     Serie de vocabularios y diccionarios indígenas
+              Mariano Silva y Aceves ; 101
+      454     Serie de vocabularios y diccionarios indígenas
+              Mariano Silva y Aceves
+      455     101
+      537     Internet : México, Tlalpan, Inst. Lingüístico
+              de Verano (SIL) http://www.sil.org/mexico/
+              (Zugriff 06.10.2008) ; copyright beim Autor,
+              Adresse versucht zu ermitteln
+      540 a   968-31-0271-9
+      544     PM 4291 .Z5 HIL 1993
+      655 e   http://www.sil
+              .
+              org/mexico/taracahita/tarahumara-samachique/S10
+              1-Vocabulario-TAR.htm
+      655 e   http://xserveg5.eva.mpg
+              .de/~info/tarahumara_hilton1993_s.html
+      700 c   PM4291.Z5
+      711 b   tar / spa
+      740 s   Tarahumara
+              language--Mexico--Samachic--Dictionaries--Spani
+              sh
+      740 s   Spanish
+              language--Mexico--Samachic--Dictionaries--Tarah
+              uma
+
+
+
+
+
+   3408
+

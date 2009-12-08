@@ -55,7 +55,7 @@ public class RISImportTester {
     @Test
     public void risListTransformation() throws Exception
     {
-        this.logger.info("Transform RIS list to escidoc format");
+        this.logger.info("Transform RIS list to xml format");
         
         String result = imp.transformRIS2XML(this.util.getResourceAsString("testFiles/ris/RIS.txt"));
         this.logger.info("transformation successful");

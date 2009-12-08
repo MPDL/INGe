@@ -53,12 +53,12 @@ public class MABImportTester {
     	//System.out.print(new String(out.getBytes(),"utf-8"));
 	}
 	
-	    //TODO: file fehlt
+	    @Test
 	    public void mabListTransformation() throws Exception
 	    {
-	        this.logger.info("Transform MAB list to escidoc format");
+	        this.logger.info("Transform MAB list to xml format");
 	        
-	        String result = imp.transformMAB2XML(this.util.getResourceAsString("testFiles/mab/???.txt"));
+	        String result = imp.transformMAB2XML(this.util.getResourceAsString("testFiles/mab/mab.txt"));
 	        this.logger.info("transformation successful");
 	        this.logger.info(result);
 	    }
