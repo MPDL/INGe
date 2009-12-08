@@ -12,7 +12,7 @@
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<escidocMetadataRecords:md-record name="escidoc">
-			<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="http://purl.org/eprint/type/Book">
+			<escidocMetadataProfile:publication xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}"  xmlns:publication="${xsd.metadata.publication}" type="http://purl.org/eprint/type/Book">
 				<publication:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<escidoc:person>
 						<escidoc:complete-name/>
@@ -33,7 +33,7 @@
 				</publication:creator>
 				<dc:title xml:lang="">Der Ödipus-Komplex</dc:title>
 				<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
-				<dc:identifier xsi:type="eidt:ISBN">1234567890123</dc:identifier>
+				<dc:identifier xsi:type="escidoc:ISBN">1234567890123</dc:identifier>
 				<publication:publishing-info>
 					<dc:publisher>Max Planck Society</dc:publisher>
 					<escidoc:place>Munich</escidoc:place>

@@ -26,8 +26,8 @@
 						<escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">Testartist</escidoc:family-name>
 					</person:person>
 				</escidoc:creator>
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="">Test ScT 05</dc:title>
-				<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">2006-12-31T23:00:00.000Z</dcterms:created>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test ScT 05</dc:title>
+				<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2006-12-31T23:00:00.000Z</dcterms:created>
 			</publication:publication>
 		</escidocMetadataRecords:md-record>
 
