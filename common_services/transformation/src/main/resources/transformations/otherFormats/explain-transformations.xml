@@ -60,4 +60,16 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>escidoc-publication-v1</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>escidoc-publication-v2</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
 </Transformations>
