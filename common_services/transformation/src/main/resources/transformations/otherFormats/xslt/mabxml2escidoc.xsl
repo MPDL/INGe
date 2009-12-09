@@ -59,9 +59,12 @@
 		xmlns:ec="${xsd.soap.item.components}"
 		xmlns:prop="${xsd.soap.common.prop}"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-
+	
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+	
+	
 	
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>
@@ -125,37 +128,37 @@
 					<xsl:choose>
 						<xsl:when test="contains($genre,'Dipl') or contains($genre,'Diplom')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
-							</xsl:call-template>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
+							</xsl:call-template>	
 						</xsl:when>
 						<xsl:when test="contains($genre,'Master')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="contains($genre,'MA') or contains($genre,'M.A.') or contains($genre,'Magister')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="contains($genre,'Diss') or contains($genre,'PhD')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="contains($genre,'Habil.-Schr.')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:when test="contains($genre,'BA') or contains($genre,'B.A.') or contains($genre,'Bachelor')">
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">thesis</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
 							</xsl:call-template>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen">book</xsl:with-param>
+								<xsl:with-param name="gen" select="$genre-ves/enum[.='book']/@uri"/>
 							</xsl:call-template>						
 						</xsl:otherwise>
 					</xsl:choose>				
@@ -163,12 +166,12 @@
 				</xsl:when>				
 				<xsl:when test="mab029_m='P'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'article'"/>
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='article']/@uri"/>
 					</xsl:call-template>
 				</xsl:when>					
 				<xsl:otherwise>
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'other'"/>
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='other']/@uri"/>
 					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -305,12 +308,24 @@
 			<xsl:if test="not($degree='')">
 				<xsl:element name="eterms:degree">
 					<xsl:choose>
-						<xsl:when test="contains($degree,'Dipl') or contains($degree,'Diplom')">diploma</xsl:when>
-						<xsl:when test="contains($degree,'Master')">master</xsl:when>
-						<xsl:when test="contains($degree,'MA') or contains($degree,'M.A.') or contains($degree,'Magister')">magister</xsl:when>
-						<xsl:when test="contains($degree,'Diss') or contains($degree,'PhD')">phd</xsl:when>
-						<xsl:when test="contains($degree,'Habil.-Schr.')">habilitation</xsl:when>
-						<xsl:when test="contains($degree,'BA') or contains($degree,'B.A.') or contains($degree,'Bachelor')">bachelor</xsl:when>
+						<xsl:when test="contains($degree,'Dipl') or contains($degree,'Diplom')">
+							<xsl:value-of select="$degree-ves/enum[.='diploma']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains($degree,'Master')">
+							<xsl:value-of select="$degree-ves/enum[.='master']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains($degree,'MA') or contains($degree,'M.A.') or contains($degree,'Magister')">
+							<xsl:value-of select="$degree-ves/enum[.='magister']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains($degree,'Diss') or contains($degree,'PhD')">
+							<xsl:value-of select="$degree-ves/enum[.='phd']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains($degree,'Habil.-Schr.')">
+							<xsl:value-of select="$degree-ves/enum[.='habilitation']/@uri"/>
+						</xsl:when>
+						<xsl:when test="contains($degree,'BA') or contains($degree,'B.A.') or contains($degree,'Bachelor')">
+							<xsl:value-of select="$degree-ves/enum[.='bachelor']/@uri"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:DegreeTypeNotRecognized' ), concat('The following value was read as the degree, but was not recognized as a valid eSciDoc degree: [', $degree, ']'))"/>
 						</xsl:otherwise>
@@ -330,7 +345,7 @@
 	<!-- CREATOR -->
 	<xsl:template match="mab100">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
 				<xsl:call-template name="createPersonName"/>
 				<xsl:element name="eterms:complete-name">
@@ -360,7 +375,7 @@
 	
 	<xsl:template match="mab104_a">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
 				<xsl:call-template name="createPersonName"/>
 				<xsl:if test="../mab105">
@@ -405,7 +420,7 @@
 	
 	<xsl:template match="mab112_f">
 		<xsl:call-template name="createPersonCreator">
-			<xsl:with-param name="role">honoree</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='honoree']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -468,7 +483,7 @@
 	
 	<xsl:template match="mab208_a">
 		<xsl:call-template name="createOrganizationCreator">
-			<xsl:with-param name="role">editor</xsl:with-param>
+			<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -586,8 +601,9 @@
 	<xsl:template match="mab037_c">
 		<xsl:element name="dc:language">
 			<xsl:variable name="language-identifier" select="."/>
-			<xsl:variable name="cone-language" select="Util:queryCone('languages', .)"/>
+		<!-- 	<xsl:variable name="cone-language" select="Util:queryCone('languages', .)"/>
 			<xsl:value-of select="$cone-language/cone/rdf:RDF[rdf:Description/dc:identifier = $language-identifier]/rdf:Description/dc:identifier[string-length(.) = 2]"/>
+			-->
 		</xsl:element>
 	</xsl:template>
 	<!-- SUBJECT -->
@@ -655,7 +671,7 @@
 		<xsl:param name="title"/>
 		<xsl:param name="sourceNo"/>
 		<xsl:element name="source:source">
-			<xsl:attribute name="type">series</xsl:attribute>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='series']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="$title"/>
 			</xsl:element>
@@ -741,7 +757,7 @@
 	</xsl:template>
 	<xsl:template match="mab591">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
 				<xsl:element name="eterms:complete-name">
 					<xsl:value-of select="."/>
