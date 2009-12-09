@@ -36,7 +36,8 @@ public class MABImportTester {
     	Format inputFormat = new Format("MAB", "text/plain", "utf-8");
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
     	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/metadateningest2009-08-13.txt");
+    	//InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/metadateningest2009-08-13_utf8.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/mab-metadata-mpi-eva.txt");
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -49,9 +50,10 @@ public class MABImportTester {
     	String out = imp.transformMAB2XML(new String(baos.toByteArray(),"utf-8"));
     	
     	
-    	
+    	System.out.print(new String(out.getBytes(),"utf-8"));
+    	System.out.print("\n\n\n\n\n\n********************");
     	System.out.print(new String(result,"UTF-8"));
-    	//System.out.print(new String(out.getBytes(),"utf-8"));
+    	
 	}
 	
 	    @Test
