@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import org.apache.log4j.Logger;
@@ -36,11 +37,25 @@ public class GWDGPidService implements MigrationConstants
     /**
      * 
      * @param args {@link String[]}
+     * @throws MalformedURLException 
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws MalformedURLException
     {
         // TODO Auto-generated method stub
-        getSetDefinitions();
+        //getSetDefinitions();
+        String url2register = "http://sample.com/Ölfilter/";
+        try
+        {
+            String urlParameter = URLEncoder.encode(url2register, URL_ENCODING_SCHEME);
+            System.out.println(urlParameter);
+            URL url = new URL(URLDecoder.decode(urlParameter, URL_ENCODING_SCHEME));
+            System.out.println(url);
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     

@@ -63,7 +63,8 @@ public class Foxml implements MigrationConstants
     }
 
     /**
-     * 
+     * Recursivly iterate over basedir (== $FEDORA_HOME/data/objects)
+     * and store all FOXML files in an ArrayList.
      * @param baseDir {@link File}
      * @return {@link ArrayList}
      */
@@ -88,7 +89,9 @@ public class Foxml implements MigrationConstants
     }
 
     /**
-     * 
+     * Query the most current RELS_EXT datastream to return
+     * the id, the resourceType, the version number of the stream and,
+     * in case of item / conatiner, the context as an array of Strings.
      * @param rdfStream {@link InputStream}
      * @param resourceUri {@link String}
      * @param streamVersion {@value int}
@@ -119,26 +122,28 @@ public class Foxml implements MigrationConstants
     }
 
     /**
+     * Do the migration.
      * 
      * @return {@link DigitalObjectDocument}
      */
     public static DigitalObjectDocument migrate()
     {
         ArrayList<File> files = null;
-        InputStream rdfStream = null;
-        String resourceUri = null;
-        String metadata = null;
-        String transMD = null;
-        File transformed = null;
-        String[] props = null;
-        XmlObject xo = null;
-        boolean updateRequired = true;
+        
         long time = -System.currentTimeMillis();
         files = fileList(new File(System.getenv("FEDORA_HOME") + "/data/objects"));
         logger.info("attempting to transform " + files.size() + " files");
         int filenum = 0;
         for (File f : files)
         {
+            InputStream rdfStream = null;
+            String resourceUri = null;
+            String metadata = null;
+            String transMD = null;
+            File transformed = null;
+            String[] props = null;
+            XmlObject xo = null;
+            boolean updateRequired = false;
             filenum = filenum + 1;
             DigitalObjectDocument dodo;
             try
@@ -174,7 +179,18 @@ public class Foxml implements MigrationConstants
                                 }
                                 if (metadata.equalsIgnoreCase(OLD_FILE))
                                 {
-                                    transformed = xsltTransformation(f, file);
+                                    if (props[1].equalsIgnoreCase("component"))
+                                    {
+                                        if (props[3].equalsIgnoreCase("high resolution") || props[3].equalsIgnoreCase("web resolution") || props[3].equalsIgnoreCase("thumbnail"))
+                                        {
+                                            transMD = "FACES component !!!";
+                                            updateRequired = false;
+                                        }
+                                        else
+                                        {
+                                            transformed = xsltTransformation(f, file);
+                                        }
+                                    }
                                 }
                                 if (metadata.equalsIgnoreCase(OLD_ORGUNIT))
                                 {
@@ -220,6 +236,10 @@ public class Foxml implements MigrationConstants
                             metadata = null;
                             transMD = null;
                         }
+                        /*
+                         * no transformation for FACES in this version
+                         */
+                        /*
                         else
                         {
                             metadata = "unknown metadata format";
@@ -270,6 +290,7 @@ public class Foxml implements MigrationConstants
                             metadata = null;
                             transMD = null;
                         }
+                        */
                     }
                 }
                 if (updateRequired)
@@ -308,6 +329,7 @@ public class Foxml implements MigrationConstants
     }
 
     /**
+     * Do the transformation.
      * 
      * @param source {@link File}
      * @param schematype {@value int}
