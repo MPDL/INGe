@@ -164,7 +164,7 @@ raiseBunny();
 /*QUICK SEARCH INITIALISATION*/
 
 function addQuickSearchFunction(){
-	bunny();
+	/*bunny();*/
 	$('.quickSearchTextInput').keyup(function(keyEvent){
 		if(keyEvent.keyCode == '13'){
 			$(this).parents('.searchMenu').find('.quickSearchBtn').click();
