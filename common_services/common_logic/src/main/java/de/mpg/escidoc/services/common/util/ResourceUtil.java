@@ -36,7 +36,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -77,7 +79,12 @@ public class ResourceUtil
         if (url != null)
         {
             logger.debug("Resource found: " + url.getFile());
-            file = new File(url.getFile());
+            try
+            {
+                //Decode necessary for windows paths
+                file = new File(URLDecoder.decode(url.getFile(), "cp1253"));
+            }
+            catch(UnsupportedEncodingException e){logger.warn(e);}
         }
 
         if (file == null)
@@ -191,6 +198,8 @@ public class ResourceUtil
     public static File[] getFilenamesInDirectory(String dir) throws IOException
     {
         File dirFile = getResourceAsFile(dir);
+        
+        
 
         logger.debug("dirFile: " + dirFile + " : " + dirFile.isDirectory() + " : " + dirFile.exists());
 
