@@ -30,10 +30,9 @@
 <binding direction="output">
 
 	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
-	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
+	<!-- Some methods in JiBXHelper rely on the "dcterms" prefixes (=> DO NOT CHANGE!) -->
 	<!-- MdsPublicationVO relies on the "dcterms" prefix (=> DO NOT CHANGE!) -->
 	<namespace prefix="dcterms" uri="${xsd.metadata.dcterms}" default="none" />
-	<namespace prefix="eidt" uri="${xsd.metadata.escidocprofile.idtypes}" default="none" />
 	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
 	<namespace prefix="publication" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
