@@ -14,6 +14,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABTransformation;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.Pair;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -22,7 +23,7 @@ public class MABImportTester {
     
     private final Logger logger = Logger.getLogger(MABImportTester.class);
     private Util util = new Util();
-    MABImport imp = new MABImport();
+    MABTransformation mapTransformer = new MABTransformation();
 
 	/**
 	 * @param args
@@ -58,9 +59,12 @@ public class MABImportTester {
 	    {
 	        this.logger.info("Transform MAB list to xml format");
 	        
-	        String result = imp.transformMAB2XML(this.util.getResourceAsString("testFiles/mab/mab.txt"));
+	        Format inputFormat = new Format("MAB", "text/plain", "utf-8");
+	        Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
+	        byte[] result = mapTransformer.transform(this.util.getResourceAsString("testFiles/mab/mab.txt").getBytes("UTF-8"), 
+	                inputFormat, outputFormat, "escidoc");
 	        this.logger.info("transformation successful");
-	        this.logger.info(result);
+	        this.logger.info(new String(result,"UTF-8"));
 	    }
 
 }
