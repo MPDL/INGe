@@ -1,24 +1,33 @@
 package test;
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 
 public class TransformationTest
 {
-    private TransformationBean trans;
+    public static TransformationBean trans;
     private Util util = new Util();
     private final Logger logger = Logger.getLogger(TransformationTest.class);
     
+
     /**
      * Initializes the {@link TransformationBean}.
      */
@@ -26,8 +35,8 @@ public class TransformationTest
     public void initTransformation()
     {
         this.trans = new TransformationBean(true);
-    }
-
+    }    
+    
     @Test
     public void explainTest() throws Exception
     {
@@ -295,5 +304,59 @@ public class TransformationTest
          this.logger.info("AJP - rtf: OK");
          result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/ajp_snippet_oldFormat.xml").getBytes("UTF-8"), input3, output4, "escidoc");
          this.logger.info("AJP - odt: OK");
+     }
+     
+     @Test 
+     public void eSciDocVer1toeSciDocVer2() throws TransformationNotSupportedException, RuntimeException, UnsupportedEncodingException, IOException
+     {
+    	 Format in_i = new Format("escidoc-publication-item-v1", "application/xml", "UTF-8");
+         Format out_i = new Format("escidoc-publication-item-v2", "application/xml", "UTF-8");
+         Format in_il = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
+         Format out_il = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
+         
+         byte[] result;
+         logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+         this.logger.info("OK");
+         
+         logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2, file with multiply items (Exception!)");
+         try 
+         {
+	         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+	         Assert.fail("Exception should be thrown!");
+         }
+         catch (Exception e)
+         {
+        	 this.logger.info("OK");
+         }
+         
+         logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         this.logger.info("OK");
+         
+         logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         this.logger.info("OK");
+         
+         logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         this.logger.info("OK");
+         
+         logger.info("escidoc-publication-item-list-v1 to escidoc-publication-item-v2, 0 items (Exception!)");
+         try 
+         {
+        	 result = trans.transform("<escidocItemList:item-list xmlns:escidocItemList=\"http://www.escidoc.de/schemas/itemlist/0.8\"></escidocItemList:item-list>".getBytes("UTF-8"), in_il, out_i, "escidoc");
+	         Assert.fail("Exception should be thrown!");
+         }
+         catch (Exception e)
+         {
+        	 this.logger.info("OK");
+         }
+        	 
+//         this.logger.info("output file: " + ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/testFiles/version2.xml");
+//         FileOutputStream fos = new FileOutputStream(ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/testFiles/version2.xml");
+//         fos.write(result);
+//         fos.close();
+         
      }
 }
