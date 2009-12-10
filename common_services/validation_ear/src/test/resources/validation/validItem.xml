@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:3051" last-modification-date="2007-07-16T11:12:22.064Z">
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:3051" last-modification-date="2007-07-16T11:12:22.064Z">
 	<escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<prop:creation-date>2007-07-16T11:04:13.736Z</prop:creation-date>
 		<srel:created-by objid="escidoc:user2"/>
@@ -20,25 +20,25 @@
 	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<publication:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article">
-				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/ART">
+				<eterms:creator role="http://www.loc.gov/loc.terms/relators/ART">
 					<person:person>
-						<escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}"/>
-						<escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">Testartist</escidoc:family-name>
+						<eterms:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}"/>
+						<eterms:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">Testartist</eterms:family-name>
 						<organization:organization>
 							<dc:title>Department für Physik</dc:title>
-							<escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">Ludwig-Maximilians-Universität, D-80797 München, Germany</escidoc:address>
+							<eterms:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">Ludwig-Maximilians-Universität, D-80797 München, Germany</eterms:address>
 						</organization:organization>
 					</person:person>
-				</escidoc:creator>
+				</eterms:creator>
 				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="">Test ScT 05</dc:title>
 				<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">2006-12-31</dcterms:created>
 				<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
 					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">Phys. Rev. Lett.</dc:title>
-					<escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
+					<eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
 						<person:person>
-							<escidoc:family-name>Meyer</escidoc:family-name>
+							<eterms:family-name>Meyer</eterms:family-name>
 						</person:person>
-					</escidoc:creator>
+					</eterms:creator>
 				</source:source>
 			</publication:publication>
 		</escidocMetadataRecords:md-record>

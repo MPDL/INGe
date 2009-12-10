@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:1297" last-modification-date="2007-11-12T10:43:02.040Z">
+<?xml version="1.0" encoding="UTF-8"?><item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:srel="${xsd.soap.common.srel}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:version="${xsd.soap.common.version}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:release="${xsd.soap.common.release}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:1297" last-modification-date="2007-11-12T10:43:02.040Z">
 	<escidocItem:properties xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<prop:creation-date>2007-11-12T10:42:28.561Z</prop:creation-date>
 		<srel:created-by objid="escidoc:user2"/>
@@ -12,32 +12,32 @@
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<escidocMetadataRecords:md-record name="escidoc">
-			<escidocMetadataProfile:publication xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}"  xmlns:publication="${xsd.metadata.publication}" type="http://purl.org/eprint/type/Book">
+			<escidocMetadataProfile:publication xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:eterms="${xsd.metadata.escidocprofile.types}"  xmlns:publication="${xsd.metadata.publication}" type="http://purl.org/eprint/type/Book">
 				<publication:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-					<escidoc:person>
-						<escidoc:complete-name/>
-						<escidoc:family-name>Huber</escidoc:family-name>
-						<escidoc:given-name>Karl</escidoc:given-name>
-						<escidoc:organization>
-							<escidoc:organization-name>Department Research and Development, Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
-							<escidoc:address>Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
-							<escidoc:identifier>escidoc:persistent1</escidoc:identifier>
-						</escidoc:organization>
-					</escidoc:person>
+					<eterms:person>
+						<eterms:complete-name/>
+						<eterms:family-name>Huber</eterms:family-name>
+						<eterms:given-name>Karl</eterms:given-name>
+						<eterms:organization>
+							<eterms:organization-name>Department Research and Development, Max Planck Digital Library, Max Planck Society</eterms:organization-name>
+							<eterms:address>Amalienstrasse 33, 80799, Munich, DE</eterms:address>
+							<eterms:identifier>escidoc:persistent1</eterms:identifier>
+						</eterms:organization>
+					</eterms:person>
 				</publication:creator>
 				<publication:creator role="http://www.loc.gov/loc.terms/relators/EDT">
-					<escidoc:organization>
-						<escidoc:organization-name>Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
-						<escidoc:address>Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
-					</escidoc:organization>
+					<eterms:organization>
+						<eterms:organization-name>Max Planck Digital Library, Max Planck Society</eterms:organization-name>
+						<eterms:address>Amalienstrasse 33, 80799, Munich, DE</eterms:address>
+					</eterms:organization>
 				</publication:creator>
 				<dc:title xml:lang="">Der Ödipus-Komplex</dc:title>
 				<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
-				<dc:identifier xsi:type="escidoc:ISBN">1234567890123</dc:identifier>
+				<dc:identifier xsi:type="eterms:ISBN">1234567890123</dc:identifier>
 				<publication:publishing-info>
 					<dc:publisher>Max Planck Society</dc:publisher>
-					<escidoc:place>Munich</escidoc:place>
-					<escidoc:edition>1st</escidoc:edition>
+					<eterms:place>Munich</eterms:place>
+					<eterms:edition>1st</eterms:edition>
 				</publication:publishing-info>
 				<dcterms:created xsi:type="dcterms:W3CDTF">2007-11-12</dcterms:created>
 				<dcterms:modified xsi:type="dcterms:W3CDTF">2007-11-12</dcterms:modified>
