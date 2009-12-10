@@ -32,7 +32,7 @@
 					</eterms:organization>
 				</publication:creator>
 				<dc:title xml:lang="">Der Ödipus-Komplex</dc:title>
-				<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+				<dc:language xsi:type="dcterms:ISO639-3">en</dc:language>
 				<dc:identifier xsi:type="eterms:ISBN">1234567890123</dc:identifier>
 				<publication:publishing-info>
 					<dc:publisher>Max Planck Society</dc:publisher>
