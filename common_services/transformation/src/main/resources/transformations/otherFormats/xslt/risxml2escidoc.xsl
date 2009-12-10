@@ -56,6 +56,8 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:escidoc="urn:escidoc:functions">
 
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="user" select="'dummy:user'"/>
@@ -120,52 +122,52 @@
 			<xsl:choose>
 				<xsl:when test="TY='BOOK'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'book'"/>
+						<xsl:with-param name="gen">book</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='CHAP'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'book-item'"/>
+						<xsl:with-param name="gen">book-item</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='CONF'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'proceedings'"/>
+						<xsl:with-param name="gen">proceedings</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='JFULL'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'journal'"/>
+						<xsl:with-param name="gen">journal</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='MGZN'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'article'"/>
+						<xsl:with-param name="gen">article</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='NEWS'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'article'"/>
+						<xsl:with-param name="gen">article</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='RPRT'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'report'"/>
+						<xsl:with-param name="gen">report</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='SER'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'series'"/>
+						<xsl:with-param name="gen">series</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="TY='THES'">
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'thesis'"/>
+						<xsl:with-param name="gen">thesis</xsl:with-param>
 					</xsl:call-template>
 				</xsl:when>				
 				<xsl:otherwise>
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'other'"/>
+						<xsl:with-param name="gen">other</xsl:with-param>
 					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -177,7 +179,7 @@
 		
 		<xsl:element name="pub:publication">
 			<xsl:attribute name="type">
-				<xsl:value-of select="$gen"/>
+				<xsl:value-of select="$genre-ves/enum[.=$gen]/@uri"/>
 			</xsl:attribute>
 			<!-- CREATOR -->
 			<xsl:choose>
@@ -277,11 +279,11 @@
 							</xsl:call-template>
 						</xsl:if>
 						<xsl:if test="T2 and ($gen='book-item')">
-						<xsl:call-template name="createSource">
-							<xsl:with-param name="genre" select="$gen"/>
-							<xsl:with-param name="title" select="T2"/>
-						</xsl:call-template>
-					</xsl:if>	
+							<xsl:call-template name="createSource">
+								<xsl:with-param name="genre" select="$gen"/>
+								<xsl:with-param name="title" select="T2"/>
+							</xsl:call-template>
+						</xsl:if>	
 					</xsl:if>
 										
 					<xsl:if test="((T1 or TI or CT) and T3)">
@@ -362,7 +364,7 @@
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
         	<xsl:element name="eterms:creator">
-				<xsl:attribute name="role">author</xsl:attribute>						
+				<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>						
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="familyname" select="familyname"/>
 					<xsl:with-param name="givenname" select="givenname"/>
@@ -377,7 +379,7 @@
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
 				<xsl:with-param name="givenname" select="givenname"/>
@@ -392,7 +394,7 @@
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">contributor</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
 				<xsl:with-param name="givenname" select="givenname"/>
@@ -407,7 +409,7 @@
       	</xsl:variable>
        	<xsl:for-each select="$var/authors/author">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">contributor</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
 			<xsl:call-template name="createPerson">
 				<xsl:with-param name="familyname" select="familyname"/>
 				<xsl:with-param name="givenname" select="givenname"/>
@@ -442,12 +444,25 @@
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:choose>
-					<xsl:when test="not($genre='book' or $genre='proceedings' or $genre='thesis' or $genre='journal' or $genre='series' or $genre='other') and BT">journal</xsl:when>
-					<xsl:when test="TY='CHAP' and not($title=T3)">book</xsl:when>
-					<xsl:when test="TY='JOUR'">journal</xsl:when>
-					<xsl:when test="TY='MGZN'">series</xsl:when>
-					<xsl:when test="TY='NEWS'">series</xsl:when>
-					<xsl:when test="T3 and ($title=T3)">series</xsl:when>
+					<xsl:when test="not($genre='book' or $genre='proceedings' or $genre='thesis' or $genre='journal' or $genre='series' or $genre='other') and BT">
+						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:when>
+					<xsl:when test="TY='CHAP' and not($title=T3)">
+						<xsl:value-of select="$genre-ves/enum[.='book']/@uri"/>
+					</xsl:when>
+					<xsl:when test="TY='JOUR'">
+						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:when>
+					<xsl:when test="TY='MGZN'">
+						<xsl:value-of select="$genre-ves/enum[.='series']/@uri"/>
+					</xsl:when>
+					<xsl:when test="TY='NEWS'">
+						<xsl:value-of select="$genre-ves/enum[.='series']/@uri"/>
+					</xsl:when>
+					<xsl:when test="T3 and ($title=T3)">
+						<xsl:value-of select="$genre-ves/enum[.='series']/@uri"/>
+					</xsl:when>
+					<xsl:otherwise>xxx</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
@@ -483,7 +498,7 @@
       			</xsl:variable>
        			<xsl:for-each select="$var/authors/author">
         			<xsl:element name="eterms:creator">
-						<xsl:attribute name="role">author</xsl:attribute>						
+						<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>					
 						<xsl:call-template name="createPerson">
 							<xsl:with-param name="familyname" select="familyname" />
 							<xsl:with-param name="givenname" select="givenname" />
