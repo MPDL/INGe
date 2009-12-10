@@ -26,7 +26,6 @@ public class RISTransformation implements Transformation{
 	 private static final Format ENDNOTE_FORMAT = new Format("endnote", "text/plain", "UTF-8");
 	 private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
 	 private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
-	 private static final Format WOS_FORMAT = new Format("WoS", "text/plain", "UTF-8");
 	 private static final Format RIS_FORMAT = new Format("RIS", "text/plain", "UTF-8");
 
 	public RISTransformation() {
@@ -39,7 +38,7 @@ public class RISTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getSourceFormats() throws RuntimeException{
-    	return new Format[]{WOS_FORMAT, RIS_FORMAT};
+    	return new Format[]{RIS_FORMAT};
     }
     
     /**
@@ -51,7 +50,7 @@ public class RISTransformation implements Transformation{
     public Format[] getSourceFormats(Format targetFormat) throws RuntimeException{
     	if (targetFormat != null && (targetFormat.matches(ESCIDOC_ITEM_FORMAT) || targetFormat.matches(ESCIDOC_ITEM_LIST_FORMAT)))
         {
-            return new Format[]{WOS_FORMAT, RIS_FORMAT};
+            return new Format[]{RIS_FORMAT};
         }
         else
         {
@@ -76,7 +75,7 @@ public class RISTransformation implements Transformation{
      * @throws RuntimeException
      */
     public Format[] getTargetFormats(Format sourceFormat) throws RuntimeException{
-    	if (WOS_FORMAT.equals(sourceFormat) || RIS_FORMAT.equals(sourceFormat))
+    	if (RIS_FORMAT.equals(sourceFormat))
         {
             return new Format[]{ESCIDOC_ITEM_LIST_FORMAT, ESCIDOC_ITEM_FORMAT};
         }
@@ -141,40 +140,7 @@ public class RISTransformation implements Transformation{
         		
         		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
               
-            }
-            else if(srcFormat.matches(WOS_FORMAT))
-            {
-            	
-            	//StreamSource stylesheet = new StreamSource(new FileInputStream(ResourceUtil.getResourceAsFile("transformations/otherFormats/xslt/wosxml2escidoc.xsl")));
-            	String wosSource = new String(src,"UTF-8");
-            	WoSImport wos = new WoSImport();
-            	output = wos.transformWoS2XML(wosSource);
-            	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl");
-                Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
-        		//Transformer transformer = factory.newTransformer(stylesheet);
-        		
-        		if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.TRUE);
-                }
-                else if (trgFormat.matches(ESCIDOC_ITEM_FORMAT))
-                {
-                    transformer.setParameter("is-item-list", Boolean.FALSE);
-                }
-                else
-                {
-                    throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
-                }
-        		
-        		transformer.setParameter("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-        		
-        		transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
-        		transformer.transform(new StreamSource(new StringReader(output)), new StreamResult(result));
-        		
-               // throw new TransformationNotSupportedException("Sorry, WoS is not yet implemented");
-                
-            }
+            }            
 
             return result.toString().getBytes("UTF-8");
            //return output.getBytes();
