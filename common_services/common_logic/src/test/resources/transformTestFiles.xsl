@@ -61,7 +61,7 @@
 	xmlns:file="${xsd.metadata.file}"
 	xmlns:publication="${xsd.metadata.publication}"
 	xmlns:escidocprofile="${xsd.metadata.escidocprofile}"
-	xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+	xmlns:eterms="${xsd.metadata.escidocprofile.types}"
 	xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}"
 	xmlns:properties="${xsd.core.properties}"
 	xmlns:metadatarecords="${xsd.soap.common.metadatarecords}"
@@ -127,7 +127,7 @@
 			xmlns:file="${xsd.metadata.file}"
 			xmlns:publication="${xsd.metadata.publication}"
 			xmlns:escidocprofile="${xsd.metadata.escidocprofile}"
-			xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+			xmlns:eterms="${xsd.metadata.escidocprofile.types}"
 			xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}"
 			xmlns:properties="${xsd.core.properties}"
 			xmlns:metadatarecords="${xsd.soap.common.metadatarecords}"
@@ -184,7 +184,7 @@
 			xmlns:file="${xsd.metadata.file}"
 			xmlns:publication="${xsd.metadata.publication}"
 			xmlns:escidocprofile="${xsd.metadata.escidocprofile}"
-			xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+			xmlns:eterms="${xsd.metadata.escidocprofile.types}"
 			xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}"
 			xmlns:properties="${xsd.core.properties}"
 			xmlns:metadatarecords="${xsd.soap.common.metadatarecords}"
@@ -208,10 +208,10 @@
 	</xsl:template>
 	
 	<xsl:template match="publication:creator">
-		<escidoc:creator>
+		<eterms:creator>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:creator>
+		</eterms:creator>
 	</xsl:template>
 	
 	<xsl:template match="escidocprofile:publication">
@@ -250,45 +250,45 @@
 	</xsl:template>
 	
 	<xsl:template match="publication:total-number-of-pages">
-		<escidoc:total-number-of-pages>
+		<eterms:total-number-of-pages>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:total-number-of-pages>
+		</eterms:total-number-of-pages>
 	</xsl:template>
 	
 	<xsl:template match="publication:degree">
-		<escidoc:degree>
+		<eterms:degree>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:degree>
+		</eterms:degree>
 	</xsl:template>
 	
 	<xsl:template match="publication:publishing-info">
-		<escidoc:publishing-info>
+		<eterms:publishing-info>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:publishing-info>
+		</eterms:publishing-info>
 	</xsl:template>
 	
 	<xsl:template match="publication:review-method">
-		<escidoc:review-method>
+		<eterms:review-method>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:review-method>
+		</eterms:review-method>
 	</xsl:template>
 	
 	<xsl:template match="publication:location">
-		<escidoc:location>
+		<eterms:location>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:location>
+		</eterms:location>
 	</xsl:template>
 	
 	<xsl:template match="publication:published-online">
-		<escidoc:published-online>
+		<eterms:published-online>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:published-online>
+		</eterms:published-online>
 	</xsl:template>
 
 	<xsl:template match="escidoc:organization">
@@ -327,31 +327,31 @@
 	</xsl:template>
 	
 	<xsl:template match="organization:organization-details/organization:city">
-		<escidoc:city>
+		<eterms:city>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:city>
+		</eterms:city>
 	</xsl:template>
 	
 	<xsl:template match="organization:organization-details/organization:country">
-		<escidoc:country>
+		<eterms:country>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:country>
+		</eterms:country>
 	</xsl:template>
 	
 	<xsl:template match="organization:organization-details/organization:start-date">
-		<escidoc:start-date>
+		<eterms:start-date>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:start-date>
+		</eterms:start-date>
 	</xsl:template>
 	
 	<xsl:template match="organization:organization-details/organization:end-date">
-		<escidoc:end-date>
+		<eterms:end-date>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</escidoc:end-date>
+		</eterms:end-date>
 	</xsl:template>
 
 </xsl:stylesheet>

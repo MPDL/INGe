@@ -30,7 +30,7 @@
 <binding>
 
 	<!--  Namespaces -->
-	<namespace prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}" default="none" />
+	<namespace prefix="eterms" uri="${xsd.metadata.escidocprofile.types}" default="none" />
 	<namespace prefix="metadata" uri="${xsd.metadata.publication}" default="none" />
 	<namespace prefix="dc" uri="${xsd.metadata.dc}" default="none" />
 	<namespace prefix="face" uri="${xsd.metadata.face}" default="none" />

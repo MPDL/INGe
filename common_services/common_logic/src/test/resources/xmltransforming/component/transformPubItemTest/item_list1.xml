@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><il:item-list xmlns:il="${xsd.soap.item.itemlist}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}" xmlns:version="${xsd.soap.common.version}" xmlns:release="${xsd.soap.common.release}" xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../../../../misc/xsd/soap/item/0.3/item-list.xsd">
-    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:295" last-modification-date="2007-10-30T18:07:42.210Z">
+    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:295" last-modification-date="2007-10-30T18:07:42.210Z">
         <escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <prop:creation-date>2007-10-30T18:07:41.976Z</prop:creation-date>
             <srel:created-by objid="escidoc:user2"/>
@@ -23,24 +23,24 @@
         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <escidocMetadataRecords:md-record name="escidoc">
                 <publication:publication xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ ../../../../misc/xsd/metadata/0.1/escidocprofile.xsd" type="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">
-                    <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
+                    <eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
                         <person:person>
-                            <escidoc:complete-name/>
-                            <escidoc:family-name>DiT</escidoc:family-name>
+                            <eterms:complete-name/>
+                            <eterms:family-name>DiT</eterms:family-name>
                             <organization:organization>
                                 <dc:title>Max Planck Society</dc:title>
-                                <escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
+                                <eterms:address>Hofgartenstr. 8, 80539, Munich, DE</eterms:address>
                                 <dc:identifier>escidoc:persistent13</dc:identifier>
                             </organization:organization>
                         </person:person>
-                    </escidoc:creator>
+                    </eterms:creator>
                     <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="">Test DiT 01</dc:title>
                     <dcterms:created xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
                 </publication:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
     </item:item>
-    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:302" last-modification-date="2007-10-30T18:13:52.257Z">
+    <item:item xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" objid="escidoc:302" last-modification-date="2007-10-30T18:13:52.257Z">
         <escidocItem:properties xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <prop:creation-date>2007-10-30T18:13:52.023Z</prop:creation-date>
             <srel:created-by objid="escidoc:user2"/>
@@ -66,78 +66,78 @@
         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink">
             <escidocMetadataRecords:md-record name="escidoc">
                 <publication:publication type="http://purl.org/eprint/type/Book">
-                    <escidoc:creator xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
+                    <eterms:creator xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" role="http://www.loc.gov/loc.terms/relators/ART">
                         <organization:organization>
                             <dc:title xml:lang="fr">Department of Physics, University of California</dc:title>
-                            <escidoc:address>Berkeley, CA 94720, USA</escidoc:address>
-                            <dc:identifier xsi:type="escidoc:ESCIDOC">P4711</dc:identifier>
+                            <eterms:address>Berkeley, CA 94720, USA</eterms:address>
+                            <dc:identifier xsi:type="eterms:ESCIDOC">P4711</dc:identifier>
                         </organization:organization>
-                    </escidoc:creator>
+                    </eterms:creator>
                     <dc:title xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Observation of inertial energy cascade in interplanetary space plasma</dc:title>
                     <dc:language xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">German</dc:language>
                     <dcterms:alternative xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="jp">Direct evidence for the presence of an inertial energy cascade</dcterms:alternative>
-                    <dc:identifier  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="escidoc:ISSN">
+                    <dc:identifier  xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xsi:type="eterms:ISSN">
                         0361-526X
                     </dc:identifier>
-                    <escidoc:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
+                    <eterms:publishing-info xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
                         <dc:publisher xml:lang="fr">Dipartimento di Fisica</dc:publisher>
-                        <escidoc:place>Universita della Calabria</escidoc:place>
-                        <escidoc:edition>2.</escidoc:edition>
-                    </escidoc:publishing-info>
+                        <eterms:place>Universita della Calabria</eterms:place>
+                        <eterms:edition>2.</eterms:edition>
+                    </eterms:publishing-info>
                     <dcterms:created xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2007-07-17</dcterms:created>
                     <dcterms:modified xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2008-08-17</dcterms:modified>
                     <dcterms:dateSubmitted xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2009-09-17</dcterms:dateSubmitted>
                     <dcterms:issued xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">2010-10-17</dcterms:issued>
-                    <escidoc:review-method xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/eprint/status/PeerReviewed</escidoc:review-method>
+                    <eterms:review-method xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
                     <source:source xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
                         <dc:title xml:lang="fr">Understanding of interplanetary turbulence</dc:title>
                         <dcterms:alternative xml:lang="fr">Relevant issue for spacecrafts and communication satellites operations</dcterms:alternative>
-                        <escidoc:creator role="http://www.loc.gov/loc.terms/relators/TRC">
+                        <eterms:creator role="http://www.loc.gov/loc.terms/relators/TRC">
                             <person:person>
-                                <escidoc:complete-name xml:lang="fr">Miklos Csuros</escidoc:complete-name>
-                                <escidoc:family-name xml:lang="fr">Csuros</escidoc:family-name>
-                                <escidoc:given-name xml:lang="jp">Miklos</escidoc:given-name>
-                                <escidoc:alternative-name xml:lang="jp">Mike</escidoc:alternative-name>
-                                <escidoc:alternative-name xml:lang="fr">Csu</escidoc:alternative-name>
-                                <escidoc:person-title xml:lang="fr">Earl</escidoc:person-title>
-                                <escidoc:person-title xml:lang="fr">Majesty</escidoc:person-title>
-                                <escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
-                                <escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+                                <eterms:complete-name xml:lang="fr">Miklos Csuros</eterms:complete-name>
+                                <eterms:family-name xml:lang="fr">Csuros</eterms:family-name>
+                                <eterms:given-name xml:lang="jp">Miklos</eterms:given-name>
+                                <eterms:alternative-name xml:lang="jp">Mike</eterms:alternative-name>
+                                <eterms:alternative-name xml:lang="fr">Csu</eterms:alternative-name>
+                                <eterms:person-title xml:lang="fr">Earl</eterms:person-title>
+                                <eterms:person-title xml:lang="fr">Majesty</eterms:person-title>
+                                <eterms:pseudonym xml:lang="it">Humphrey C.</eterms:pseudonym>
+                                <eterms:pseudonym xml:lang="it">Iklos Makaba</eterms:pseudonym>
                                 <organization:organization>
                                     <dc:title xml:lang="fr">Facultad de Ciencias</dc:title>
-                                    <escidoc:address>Campus de Teatinos, 29071 Malaga, Spain</escidoc:address>
-                                    <dc:identifier xsi:type="escidoc:ESCIDOC">ASG 2233-3</dc:identifier>
+                                    <eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
+                                    <dc:identifier xsi:type="eterms:ESCIDOC">ASG 2233-3</dc:identifier>
                                 </organization:organization>
                                 <organization:organization>
                                     <dc:title xml:lang="it">Instituta Geometra y Topologa</dc:title>
-                                    <escidoc:address>Placo Dominico, Madrid</escidoc:address>
-                                    <dc:identifier xsi:type="escidoc:ESCIDOC">IOP 998</dc:identifier>
+                                    <eterms:address>Placo Dominico, Madrid</eterms:address>
+                                    <dc:identifier xsi:type="eterms:ESCIDOC">IOP 998</dc:identifier>
                                 </organization:organization>
-                                <dc:identifier xsi:type="escidoc:PND">HJKS 1-23-24434</dc:identifier>
+                                <dc:identifier xsi:type="eterms:PND">HJKS 1-23-24434</dc:identifier>
                             </person:person>
-                        </escidoc:creator>
-                        <escidoc:volume>2.</escidoc:volume>
-                        <escidoc:issue>9.</escidoc:issue>
-                        <escidoc:start-page>302</escidoc:start-page>
-                        <escidoc:end-page>678</escidoc:end-page>
-                        <escidoc:sequence-number>444</escidoc:sequence-number>
-                        <escidoc:publishing-info>
+                        </eterms:creator>
+                        <eterms:volume>2.</eterms:volume>
+                        <eterms:issue>9.</eterms:issue>
+                        <eterms:start-page>302</eterms:start-page>
+                        <eterms:end-page>678</eterms:end-page>
+                        <eterms:sequence-number>444</eterms:sequence-number>
+                        <eterms:publishing-info>
                             <dc:publisher xml:lang="de">University of Pittsburgh</dc:publisher>
-                            <escidoc:place>Pittsburgh</escidoc:place>
-                            <escidoc:edition>1.</escidoc:edition>
-                        </escidoc:publishing-info>
-                        <dc:identifier  xsi:type="escidoc:DOI">2387928 233</dc:identifier>
+                            <eterms:place>Pittsburgh</eterms:place>
+                            <eterms:edition>1.</eterms:edition>
+                        </eterms:publishing-info>
+                        <dc:identifier  xsi:type="eterms:DOI">2387928 233</dc:identifier>
                     </source:source>
                     <event:event xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
                         <dc:title xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
                         <dcterms:alternative xml:lang="fr">text</dcterms:alternative>
-                        <escidoc:start-date>2001-12-17</escidoc:start-date>
-                        <escidoc:end-date>2001-12-17</escidoc:end-date>
-                        <escidoc:place>String</escidoc:place>
-                        <escidoc:invitation-status>invited</escidoc:invitation-status>
+                        <eterms:start-date>2001-12-17</eterms:start-date>
+                        <eterms:end-date>2001-12-17</eterms:end-date>
+                        <eterms:place>String</eterms:place>
+                        <eterms:invitation-status>invited</eterms:invitation-status>
                     </event:event>
-                    <escidoc:total-number-of-pages xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">899</escidoc:total-number-of-pages>
-                    <escidoc:degree xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</escidoc:degree>
+                    <eterms:total-number-of-pages xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">899</eterms:total-number-of-pages>
+                    <eterms:degree xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</eterms:degree>
                     <dcterms:abstract xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">
                         We will generalize the projective model structure in the category of unbounded complexes of modules over a commutative ring to the category of unbounded complexes of quasi-coherent sheaves over the projective line.
                         Concretely we will define a locally projective model structure in the category of complexes of quasicoherent sheaves on the projective line. In this model structure the cofibrant objects are the dg-locally projective
@@ -151,7 +151,7 @@
                         classifications for ways of reproduction considering the cytoembryological origin of cell entering embryogenesis (Gustafsson, 1946, 1947). The genetic classification considering the cell genome transformation before
                         entering embryogenesis was suggested (Levites, 2002a). In this classification, agamospermy is considered as a subsexual process in which meiotic and mitotic agamospermy are distinguished.
                     </dcterms:tableOfContents>
-                    <escidoc:location xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Novosibirsk, Russia</escidoc:location>
+                    <eterms:location xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}" xml:lang="fr">Novosibirsk, Russia</eterms:location>
                 </publication:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
