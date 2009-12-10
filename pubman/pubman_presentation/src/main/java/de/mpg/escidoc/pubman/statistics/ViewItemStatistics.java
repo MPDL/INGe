@@ -209,7 +209,7 @@ public class ViewItemStatistics extends FacesBean
     {
     	try 
     	{
-			return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link");
+			return PropertyReader.getProperty("escidoc.pubman.statistics.nims.link") + getItemID();
 		} 
     	catch (Exception e)
 		{
@@ -220,7 +220,7 @@ public class ViewItemStatistics extends FacesBean
     }
     
     /**
-     * Tests the names of responsible affiliations of the current context for occurrences of the String "NIMS" or "National Institute of..." 
+     * Gets context ids from properties and checks if this item belons to it
      * @return
      */
     public boolean getShowNIMSLink()
