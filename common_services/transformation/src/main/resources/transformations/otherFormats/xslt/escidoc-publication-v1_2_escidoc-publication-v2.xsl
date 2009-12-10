@@ -182,8 +182,27 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- person and organization identifiers, see http://colab.mpdl.mpg.de/mediawiki/Checklist_for_Metadata_Changes#Identifiers_from_CONE_in_Publication_Metadata  -->
+	<xsl:template match="escidoc:identifier" priority="999">
+		<xsl:element name="dc:identifier">
+			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
+			<xsl:if test="@*[name() = 'xsi:type']">
+				<xsl:attribute name="xsi:type" select="concat('eterms:', local-name-from-QName(resolve-QName(@xsi:type, .)))"/>
+				<xsl:value-of select="
+					if (contains(@xsi:type, 'CONE'))
+					then concat('http://cone.mpdl.mpg.de/persons/resource/', substring-after(., 'urn:cone:'))
+					else .
+				"/>
+			</xsl:if>
+			<xsl:if test="not(contains(@xsi:type, 'CONE'))">
+				<xsl:value-of select="."/>
+			</xsl:if>
+			<xsl:apply-templates select="*/*"/>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- person, organization and publication identifiers  --> 
-	<xsl:template match="dc:identifier | escidoc:identifier" priority="999">
+	<xsl:template match="dc:identifier" priority="999">
 		<xsl:element name="dc:identifier">
 			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
 			<xsl:if test="@*[name() = 'xsi:type']">
@@ -220,7 +239,8 @@
 	
 	<xsl:template match="publication:source | escidoc:source" priority="999">
 		<xsl:variable name="v1" select="@type"/>
-		<xsl:variable name="v2" select="$vm/source-type/v1-to-v2/map[@v1=$v1]"/>
+		<!-- no constrains for the source type:  mapping is taken from the publication type list-->
+		<xsl:variable name="v2" select="$vm/publication-type/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="source:source">
 			<xsl:copy-of select="@*[name()!='type']"/>
 			<!-- source type from the ves -->	
@@ -235,6 +255,28 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+
+	<!-- see http://colab.mpdl.mpg.de/mediawiki/Checklist_for_Metadata_Changes#Identifiers_from_CONE_in_Publication_Metadata  -->	
+	<xsl:template match="dc:language">
+		<xsl:variable name="v1" select="."/>
+		<xsl:variable name="v2" select="$vm/language/v1-to-v2/map[@v1=$v1]"/>
+		<xsl:element name="{name()}">
+			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
+			<xsl:if test="@*[name() = 'xsi:type']">
+				<xsl:attribute name="xsi:type" select="
+					if (@xsi:type=$vm/language/@v1) 
+					then $vm/language/@v2
+					else @xsi:type
+				"/>
+				<xsl:value-of select="
+					if ($v2!='')
+					then $v2
+					else $vm/language/v1-to-v2/@default
+				"/>
+			</xsl:if>
+			<xsl:apply-templates select="*/*"/>
+		</xsl:element>
+	</xsl:template>	
 
 	<xsl:template match="publication:event">
 		<xsl:element name="event:event">
@@ -268,6 +310,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	
 	<xsl:template match="publication:location">
 		<xsl:element name="eterms:location">
 			<xsl:copy-of select="@*"/>
@@ -281,6 +324,15 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
+
+	<xsl:template match="dcterms:subject">
+		<xsl:element name="dc:subject">
+			<xsl:copy-of select="@*"/>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
+
 	
 	<!-- all escidoc: prefixes to the eterms: 
 		Note: escidoc:identifier for person and organization has own processing  
@@ -300,12 +352,8 @@
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="dcterms:subject">
-		<xsl:element name="dc:subject">
-			<xsl:copy-of select="@*"/>
-			<xsl:apply-templates/>
-		</xsl:element>
-	</xsl:template>
+	
+	
 	
 
 	<!-- all namespaces which should be presented in item root element -->
