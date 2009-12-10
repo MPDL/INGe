@@ -1,0 +1,64 @@
+FN ISI Export Format
+VR 1.0
+PT C
+AU Donovan, MH
+AF Donovan, Maureen H.
+ED Lytras, MD; Carroll, JM; Damiani, E; Avison, D; Vossen, G; OrdonezDePablos, P
+BA Tennyson, RD
+TI Framing Knowledge: Global Youth Culture as Knowledge Society (Research
+   in Progress)
+SE COMMUNICATIONS IN COMPUTER AND INFORMATION SCIENCE
+SO OPEN KNOWLEDGE SOCIETY: A COMPUTER SCIENCE AND INFORMATION SYSTEMS
+   MANIFESTO
+LA English
+DT Proceedings Paper
+CT 1st World Summit on the Knowledge Society (WSKS 2008)
+CY SEP 24-26, 2008
+CL Athens, GREECE
+SP Open Res Soc, NGO, Amer Coll Greece
+DE global youth culture; manga; comics; books; Japan; Japanese culture;
+   knowledge society; social networking; contemplation; ethnography
+AB Widespread distribution of Japanese comics (manga) is part of a global
+   youth culture that can be viewed as a knowledge society. The paper
+   presents research in progress about how knowledge is being "framed" by
+   young people through established forms or structures, through
+   discipline associated with active learning and participation, and
+   through thoughtful reflection and discussion with peers. Historical and
+   qualitative methodologies are emphasized.
+C1 [Donovan, Maureen H.] Ohio State Univ Lib, Columbus, OH 43210 USA.
+CR ALLAND A, 1979, DRAMA REV, V23, P3
+   BOURDIEU P, 1993, FIELD CULTURAL PRODU
+   DICKERMAN L, 2005, DAD SEM LIB C WASH
+   DONOVAN MH, 2004, MANGA KENKYU, V6, P156
+   DONOVAN MH, 2006, LECT NOTES COMPUT SC, V4312, P410
+   FOSTER NF, 2007, STUDYING STUDENTS UN
+   IKEGAMI E, 2005, BONDS CIVILITY AESTH
+   JARVIE G, 2006, SPORT CULTURE SOC
+   LEVY DM, 2007, ETHICS INFORM TECHNO, V9, P237
+   MCCLOUD S, 1994, UNDERSTANDING COMICS
+   MCCLOUD S, 2006, MAKING COMICS
+   MINER E, 1966, JAPANESE TRADITION B
+   PIEPER J, 1952, LEISURE BASIS CULTUR
+   WEISENFELD G, 2002, MAVO
+   ZAID G, 2003, SO MANY BOOKS
+NR 15
+TC 0
+PU SPRINGER-VERLAG BERLIN
+PI BERLIN
+PA HEIDELBERGER PLATZ 3, D-14197 BERLIN, GERMANY
+SN 1865-0929
+BN 978-3-540-87782-0
+J9 COMM COM INF SC
+PY 2008
+VL 19
+BP 618
+EP 623
+PG 6
+SC Business; Computer Science, Hardware & Architecture; Computer Science,
+   Information Systems; Communication; Computer Science, Theory & Methods;
+   Education & Educational Research; Information Science & Library Science
+GA BII64
+UT ISI:000259863800079
+ER
+
+EF
