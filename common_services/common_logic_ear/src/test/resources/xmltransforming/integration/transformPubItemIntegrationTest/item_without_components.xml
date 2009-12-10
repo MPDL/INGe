@@ -46,9 +46,9 @@
 					</organization:organization>
 				</eterms:creator>
 				<dc:title xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="en">Über den Wölken. The first of all. Das Maß aller Dinge.</dc:title>
-				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:RFC3066">de</dc:language>
-				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:RFC3066">en</dc:language>
-				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:RFC3066">fr</dc:language>
+				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:ISO639-3">de</dc:language>
+				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:ISO639-3">en</dc:language>
+				<dc:language xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="dcterms:ISO639-3">fr</dc:language>
 				<dcterms:alternative xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="de">Die Erste von allen.</dcterms:alternative>
 				<dcterms:alternative xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xml:lang="fr">Wulewu</dcterms:alternative>
 				<dc:identifier xmlns:properties="http://www.escidoc.de/schemas/properties/0.2" xmlns:mdrecords="${xsd.soap.common.metadatarecords}" xsi:type="eterms:ISI">0815</dc:identifier>
