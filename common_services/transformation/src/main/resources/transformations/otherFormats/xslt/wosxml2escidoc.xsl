@@ -57,6 +57,7 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}">
  
+ <xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -143,7 +144,7 @@
 		
 		<xsl:element name="pub:publication">
 			<xsl:attribute name="type">
-				<xsl:value-of select="$gen"/>
+				<xsl:value-of select="$genre-ves/enum[.=$gen]/@uri"/>
 			</xsl:attribute>
 			<!-- CREATOR -->
 			<xsl:choose>
@@ -271,7 +272,7 @@
       	</xsl:variable>
         <xsl:for-each select="$var/authors/author">
         	<xsl:element name="eterms:creator">
-				<xsl:attribute name="role">author</xsl:attribute>
+				<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 					<xsl:call-template name="createPerson">
 						<xsl:with-param name="familyname" select="familyname"/>
 						<xsl:with-param name="givenname" select="givenname"/>
@@ -287,7 +288,7 @@
 	<!--  
 	<xsl:template match="AU">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>
 	</xsl:template>
@@ -295,7 +296,7 @@
 	
 	<xsl:template match="ED">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">contributor</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='contributor']/@uri"/>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>
 	</xsl:template>
@@ -332,12 +333,20 @@
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:choose>
-					<xsl:when test="SO and not(SN) and not(BN) and PT='C'">proceedings</xsl:when>
-					<xsl:when test="BN">proceedings</xsl:when>
+					<xsl:when test="SO and not(SN) and not(BN) and PT='C'">
+						<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+					</xsl:when>
+					<xsl:when test="BN">
+						<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+					</xsl:when>
 					<xsl:when test="SN">
 						<xsl:choose>
-							<xsl:when test="BN">proceedings</xsl:when>
-							<xsl:otherwise>journal</xsl:otherwise>
+							<xsl:when test="BN">
+								<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>					
 				</xsl:choose>
@@ -366,7 +375,7 @@
       			</xsl:variable>
        			<xsl:for-each select="$var/authors/author">
         			<xsl:element name="eterms:creator">
-						<xsl:attribute name="role">editor</xsl:attribute>						
+						<xsl:attribute name="role" select="$creator-ves/enum[.='editor']/@uri"/>					
 							<xsl:call-template name="createPerson">
 								<xsl:with-param name="familyname" select="familyname"/>
 								<xsl:with-param name="givenname" select="givenname"/>
@@ -431,7 +440,7 @@
 		<!-- SECOND SOURCE -->
 		<xsl:if test="SE">
 			<xsl:element name="source:source">
-				<xsl:attribute name="type">series</xsl:attribute>
+				<xsl:attribute name="type" select="$genre-ves/enum[.='series']/@uri"/>
 				<xsl:element name="dc:title">
 					<xsl:value-of select="SE"/>
 				</xsl:element>
