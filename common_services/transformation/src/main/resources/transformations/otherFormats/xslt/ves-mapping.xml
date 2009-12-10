@@ -100,20 +100,6 @@
 		</v2-to-v1>		
 	</publication-type>
 	
-	<source-type>
-		<v1-to-v2>
-			<map v1="book">http://purl.org/eprint/type/Book</map>
-			<map v1="proceedings">http://purl.org/escidoc/metadata/ves/publication-types/proceedings</map>
-			<map v1="journal">http://purl.org/escidoc/metadata/ves/publication-types/journal</map>
-			<map v1="issue">http://purl.org/escidoc/metadata/ves/publication-types/issue</map>
-			<map v1="series">http://purl.org/escidoc/metadata/ves/publication-types/series</map>
-		</v1-to-v2>
-		
-		<!-- later -->
-		<v2-to-v1>
-		</v2-to-v1>		
-	</source-type>	
-	
 	<creator-role>
 		<v1-to-v2>
 			<map v1="author">http://www.loc.gov/loc.terms/relators/AUT</map>
@@ -182,5 +168,45 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor">bachelor</map>		
 		</v2-to-v1>
 	</academic-degree>
+	
+	<language v1="dcterms:RFC3066" v2="dcterms:ISO639-3">
+		<v1-to-v2 default="eng">
+		   <map v1="da">dan</map>
+		   <map v1="de">deu</map>
+		   <map v1="el">ell</map>
+		   <map v1="en">eng</map>
+		   <map v1="es">spa</map>
+		   <map v1="fi">fin</map>
+		   <map v1="fr">fra</map>
+		   <map v1="it">ita</map>
+		   <map v1="ja">jpn</map>
+		   <map v1="ko">kor</map>
+		   <map v1="ne">nep</map>
+		   <map v1="nl">nld</map>
+		   <map v1="pl">pol</map>
+		   <map v1="pt">por</map>
+		   <map v1="zh">zho</map>
+		</v1-to-v2>
+		<v2-to-v1 default="en">
+		   <map v1="dan">da</map>
+		   <map v1="deu">de</map>
+		   <map v1="ell">el</map>
+		   <map v1="eng">en</map>
+		   <map v1="spa">es</map>
+		   <map v1="fin">fi</map>
+		   <map v1="fra">fr</map>
+		   <map v1="ita">it</map>
+		   <map v1="jpn">ja</map>
+		   <map v1="kor">ko</map>
+		   <map v1="nep">ne</map>
+		   <map v1="nld">nl</map>
+		   <map v1="pol">pl</map>
+		   <map v1="por">pt</map>
+		   <map v1="zho">zh</map>
+		</v2-to-v1>
+	</language>
+	
+	
+	
 	
 </mappings>
