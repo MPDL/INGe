@@ -45,10 +45,13 @@
 	xmlns:pub="${xsd.metadata.publication}"  
 	xmlns:person="${xsd.metadata.person}"
 	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
     xmlns:mdr="${xsd.soap.common.mdrecords}"	
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:ei="${xsd.soap.item.item}"	
 	xmlns:srel="${xsd.soap.common.srel}">
+	
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
 	
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	
@@ -60,7 +63,7 @@
 	
 	<!-- create ris entry -->
 	<xsl:template match="ei:item/mdr:md-records/mdr:md-record/pub:publication">		
-		<xsl:param name="genre" select="@type"/>
+		<xsl:param name="genre" select="$genre-ves/enum[/@uri=@type]"/>
 		
 		<!-- detect ris entry type -->		
 		<xsl:choose>
@@ -143,7 +146,7 @@
 				<xsl:for-each select="eterms:creator[@role='author']/eterms:organization">
 					<xsl:value-of select="concat(eterms:organization-name, '; ')"/>
 				</xsl:for-each>
-				<xsl:for-each select="source:source/e:creator[@role='author']/person:person">
+				<xsl:for-each select="source:source/eterms:creator[@role='author']/person:person">
 					<xsl:value-of select="concat(eterms:complete-name,'; ')"/>
 				</xsl:for-each>
 				<xsl:for-each select="source:source/eterms:creator[@role='author']/eterms:organization">
