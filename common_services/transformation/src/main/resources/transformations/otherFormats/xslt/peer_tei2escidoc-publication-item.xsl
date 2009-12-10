@@ -46,14 +46,11 @@
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
    xmlns:person="${xsd.metadata.person}"
-	xmlns:source="${xsd.metadata.source}"
-	xmlns:event="${xsd.metadata.event}"
-	xmlns:organization="${xsd.metadata.organization}"		
-	xmlns:eterms="${xsd.metadata.terms}"   
+   xmlns:source="${xsd.metadata.source}"
+   xmlns:event="${xsd.metadata.event}"
+   xmlns:organization="${xsd.metadata.organization}"		
+   xmlns:eterms="${xsd.metadata.terms}"   
    xmlns:ei="${xsd.soap.item.item}"   
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:eidt="${xsd.metadata.escidocprofile}idtypes"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.core.properties}"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
@@ -62,8 +59,9 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    xmlns:ce="http://www.elsevier.com"
    xmlns:mml="http://www.w3.org/1998/Math/MathML"   
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
-   >
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder">
+
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -144,8 +142,9 @@
 		<xsl:variable name="refType" select="/t:TEI/t:teiHeader/t:fileDesc/t:sourceDesc/t:biblStruct/@type"/>
 		
 		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
+		<xsl:variable name="curGenreURI" select="$genre-ves/enum[.=$curGenre]/@uri" />
 		<xsl:call-template name="createEntry">
-			<xsl:with-param name="gen" select="if (exists($curGenre)) then $curGenre else 'article'"/>
+			<xsl:with-param name="gen" select="if (exists($curGenre)) then $curGenreURI else $genre-ves/enum[.='article']/@uri"/>
 		</xsl:call-template>
 	</xsl:template>
 	
@@ -344,7 +343,7 @@
 			
 			<!-- SOURCE VOLUME -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='vol'])">
-				<xsl:element name="e:volume">
+				<xsl:element name="eterms:volume">
 					<xsl:value-of select="$imprint/t:biblScope[@type='vol']"/>
 				</xsl:element>
 			</xsl:if>	
@@ -352,26 +351,26 @@
 			
 			<!-- SOURCE ISSUE -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='issue'])">
-				<xsl:element name="e:issue">
+				<xsl:element name="eterms:issue">
 					<xsl:value-of select="$imprint/t:biblScope[@type='issue']"/>
 				</xsl:element>
 			</xsl:if>
 			
 			<!-- SOURCE PAGES -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='fpage'])">
-				<xsl:element name="e:start-page">
+				<xsl:element name="eterms:start-page">
 					<xsl:value-of select="$imprint/t:biblScope[@type='fpage']"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="exists($imprint/t:biblScope[@type='lpage'])">
-				<xsl:element name="e:end-page">
+				<xsl:element name="eterms:end-page">
 					<xsl:value-of select="$imprint/t:biblScope[@type='lpage']"/>								
 				</xsl:element>						
 			</xsl:if>
 			
 			<!-- SOURCE SEQUENCE NUMBER -->
 			<xsl:if test="exists($imprint/t:biblScope[@type='elocation-id'])">
-				<xsl:element name="e:sequence-number">
+				<xsl:element name="eterms:sequence-number">
 					<xsl:value-of select="$imprint/t:biblScope[@type='elocation-id']"/>
 				</xsl:element>
 			</xsl:if>
@@ -382,12 +381,12 @@
 			<xsl:variable name="place" select="$imprint/t:pubPlace"/>
 			
 			<xsl:if test="exists($publisher)">
-				<xsl:element name="e:publishing-info">
+				<xsl:element name="eterms:publishing-info">
 					<xsl:element name="dc:publisher">
 						<xsl:value-of select="$publisher"/>
 					</xsl:element>
 					<xsl:if test="exists($place)">
-						<xsl:element name="e:place">
+						<xsl:element name="eterms:place">
 							<xsl:value-of select="$place"/>
 						</xsl:element>
 					</xsl:if>
@@ -411,7 +410,7 @@
 		<xsl:variable name="authors" select="//t:teiHeader/t:fileDesc/t:sourceDesc/t:biblStruct/t:analytic/t:author"/>
 			<xsl:for-each select="($authors[@type='corresp'], $authors[empty(@type) or @type!='corresp'])">
 			<xsl:call-template name="createCreator">
-				<xsl:with-param name="role" select="'author'"/>
+				<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>

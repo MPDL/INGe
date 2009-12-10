@@ -56,6 +56,8 @@
 	xmlns:eterms="${xsd.metadata.terms}"   
    xmlns:escidoc="urn:escidoc:functions">
    
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>   
+   
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>	
 
@@ -74,12 +76,16 @@
 		<xsl:choose>
 			<xsl:when test="journal">
 				<xsl:call-template name="createItem">
-					<xsl:with-param name="genre">journal</xsl:with-param>
+					<xsl:with-param name="genre">
+						<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="createItem">
-					<xsl:with-param name="genre">conference-paper</xsl:with-param>
+					<xsl:with-param name="genre">
+						<xsl:value-of select="$genre-ves/enum[.='conference-paper']/@uri"/>
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>	
@@ -118,7 +124,7 @@
 	<xsl:template name="createMDRecord">
 		<xsl:param name="genre"/>
 		<xsl:element name="pub:publication">			
-			<xsl:attribute name="type">conference-paper</xsl:attribute>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='conference-paper']/@uri"/>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="authaffgrp"/>
 			<!-- TITLE -->
@@ -159,7 +165,7 @@
 	
 	<xsl:template match="author">		
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>		
 	</xsl:template>
@@ -356,7 +362,7 @@
 	<!-- CREATE JOURNAL -->
 	<xsl:template match="journal">		
 		<xsl:element name="source:source">	
-			<xsl:attribute name="type">journal</xsl:attribute>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
 			<!-- SOURCE TITLE -->
 			<xsl:apply-templates select="name"/>			
 			<!-- SOURCE VOLUME -->

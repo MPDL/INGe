@@ -56,7 +56,8 @@
    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
    
-
+   	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>   
+   
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>	
 
@@ -97,7 +98,7 @@
 	<!-- CREATE MD-RECORD -->
 	<xsl:template name="createMDRecord">
 		<xsl:element name="pub:publication">			
-			<xsl:attribute name="type">article</xsl:attribute>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='article']/@uri"/>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="bmc:AuthorList"/>
 			<!-- TITLE -->
@@ -129,7 +130,7 @@
 	<xsl:template match="bmc:Author">
 	
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role">author</xsl:attribute>
+			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 			<xsl:element name="person:person">
 			
 			<xsl:element name="eterms:complete-name">
@@ -331,7 +332,7 @@
 	<!-- CREATE JOURNAL -->
 	<xsl:template match="bmc:Journal">		
 		<xsl:element name="source:source">	
-			<xsl:attribute name="type">journal</xsl:attribute>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
 			<!-- SOURCE TITLE -->
 			<xsl:apply-templates select="bmc:JournalTitle"/>			
 			<!-- SOURCE VOLUME -->

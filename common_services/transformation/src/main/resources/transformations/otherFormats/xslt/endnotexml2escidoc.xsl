@@ -58,8 +58,9 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:esc="http://escidoc.mpg.de/"
-   >
+   xmlns:esc="http://escidoc.mpg.de/">
+
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -243,6 +244,7 @@
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="curGenre" select="$genreMap/m[@key=$refType]" />
+		<xsl:variable name="curGenreURI" select="$genre-ves/enum[.=$curGenre]/@uri"/>
 		
 		<xsl:choose>
 			<xsl:when test="$refType=''">
@@ -250,7 +252,7 @@
 			</xsl:when>
 			<xsl:when test="$curGenre != ''">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="$curGenre"/>
+					<xsl:with-param name="gen" select="$curGenreURI"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -267,18 +269,18 @@
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
 		
 		<xsl:variable name="sourceGenre" select="
-				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript') ) then 'series' else
-				if ( B and $refType = 'Book Section' ) then 'book' else
-				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then 'journal' else
-				if ( J and $refType = 'Journal Article' ) then 'journal' else
-				if ( S and $refType = ('Book Section', 'Conference Proceedings') ) then 'series' else
+				if ( B and $refType = ('Book', 'Edited Book', 'Manuscript') ) then $genre-ves/enum[.='series']/@uri else
+				if ( B and $refType = 'Book Section' ) then $genre-ves/enum[.='book']/@uri else
+				if ( B and $refType = ('Electronic Article', 'Newspaper Article', 'Magazine Article') ) then $genre-ves/enum[.='journal']/@uri else
+				if ( J and $refType = 'Journal Article' ) then $genre-ves/enum[.='journal']/@uri else
+				if ( S and $refType = ('Book Section', 'Conference Proceedings') ) then $genre-ves/enum[.='series']/@uri else
 				''
 				"/>		
 		
 		<xsl:element name="pub:publication">
 		
 			<xsl:attribute name="type">
-				<xsl:value-of select="$gen"/>
+				<xsl:value-of select="$genre-ves/enum[.=$gen]/@uri"/>
 			</xsl:attribute>
 			
 			
@@ -406,7 +408,7 @@
 			<xsl:if test="$source-name = 'endnote-ice'">
 				<xsl:for-each select="DOLLAR">
 					<xsl:element name="dc:identifier">
-						<xsl:attribute name="xsi:type">eidt:OTHER</xsl:attribute>
+						<xsl:attribute name="xsi:type">eterms:OTHER</xsl:attribute>
 						<xsl:value-of select="."/>
 					</xsl:element>
 				</xsl:for-each>
@@ -590,11 +592,11 @@
 			<!-- DEGREE -->
 			<xsl:if test="V and $refType = 'Thesis'">
 				<xsl:element name="eterms:degree">
-					<xsl:value-of select="V"/>
+					<xsl:value-of select="$degree-ves/enum[.=V]/@uri"/>
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="NUM_9 and $refType = 'Thesis'">
-				<xsl:element name="eterms:degree">diploma</xsl:element>
+				<xsl:element name="eterms:degree" select="$degree-ves/enum[.='diploma']/@uri"/>
 			</xsl:if>
 			
 			
@@ -638,7 +640,7 @@
 
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
-				<xsl:value-of select="$sgen"/>
+				<xsl:value-of select="$genre-ves/enum[.=$sgen]/@uri"/>
 			</xsl:attribute>
 			
 
@@ -679,7 +681,7 @@
 				]
 				">
 				<xsl:call-template name="createCreator">
-					<xsl:with-param name="role" select="'editor'"/>
+					<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 					<xsl:with-param name="isSource" select="true()"/>
 				</xsl:call-template>
 			</xsl:for-each>
@@ -809,13 +811,13 @@
 						)">
 						<xsl:variable name="currentAuthorPosition" select="position()"/>
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'author'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 							<xsl:with-param name="pos" select="count(../A[position() &lt; $currentAuthorPosition]) + 1"/>
 						</xsl:call-template>
 					</xsl:when>
 					<xsl:when test="$refType='Edited Book'">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'editor'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
@@ -825,12 +827,12 @@
 				<xsl:choose>
 					<xsl:when test="$refType='Generic'">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'author'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 						</xsl:call-template>					
 					</xsl:when>
 					<xsl:when test="$refType = ('Conference Paper', 'Electronic Book') ">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'editor'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 						</xsl:call-template>					
 					</xsl:when>
 				</xsl:choose>
@@ -840,12 +842,12 @@
 				<xsl:choose>
 					<xsl:when test="$refType='Generic'">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'author'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='author']/@uri"/>
 						</xsl:call-template>					
 					</xsl:when>
 					<xsl:when test="$refType='Thesis'">
 						<xsl:call-template name="createCreator">
-							<xsl:with-param name="role" select="'advisor'"/>
+							<xsl:with-param name="role" select="$creator-ves/enum[.='advisor']/@uri"/>
 						</xsl:call-template>
 					</xsl:when>
 				</xsl:choose>
@@ -854,7 +856,7 @@
 			<xsl:if test="name(.)='QUESTION'">
 				<xsl:if test="$refType = ('Book', 'Book Section', 'Edited Book')">
 					<xsl:call-template name="createCreator">
-						<xsl:with-param name="role" select="'translator'"/>
+						<xsl:with-param name="role" select="$creator-ves/enum[.='translator']/@uri"/>
 					</xsl:call-template>					
 				</xsl:if>
 			</xsl:if>		
@@ -867,7 +869,7 @@
 		<xsl:param name="pos" select="0"/>
 		<xsl:if test="$isSource">
 			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+				<xsl:attribute name="role"><xsl:value-of select="$creator-ves/enum[.=$role]/@uri"/></xsl:attribute>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
 				</xsl:call-template>				
@@ -875,7 +877,7 @@
 		</xsl:if>
 		<xsl:if test="not($isSource)">
 			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+				<xsl:attribute name="role"><xsl:value-of select="$creator-ves/enum[.=$role]/@uri"/></xsl:attribute>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
 					<xsl:with-param name="pos" select="$pos"/>

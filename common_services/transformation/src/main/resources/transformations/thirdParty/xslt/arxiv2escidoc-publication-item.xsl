@@ -45,6 +45,8 @@
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
 	xmlns:dcterms="${xsd.metadata.dcterms}">
 
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 
 	<xsl:include href="msc.xsl" />
@@ -71,12 +73,17 @@
 						>
 						<xsl:attribute name="type">
 							<xsl:choose>
-								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">article</xsl:when>
-								<xsl:otherwise>paper</xsl:otherwise>
+								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">
+									<xsl:value-of select="$genre-ves/enum[.='article']/@uri"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$genre-ves/enum[.='paper']/@uri"/>
+								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:attribute>
 						<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:authors/arxiv:author">
-							<eterms:creator role="author">
+							<xsl:element name="eterms:creator">
+								<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>							
 								<escidoc:person>
 									<eterms:family-name>
 										<xsl:value-of select="arxiv:keyname" />
@@ -93,8 +100,8 @@
 											<xsl:value-of select="$external_organization_id" />
 										</eterms:identifier>
 									</eterms:organization>
-								</escidoc:person>
-							</eterms:creator>
+								</escidoc:person>							
+							</xsl:element>
 						</xsl:for-each>
 						<dc:title>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:title" />
@@ -127,7 +134,7 @@
 							<xsl:choose>
 								<!-- Journal-Ref -->
 								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">
-									<xsl:attribute name="type">journal</xsl:attribute>
+									<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
 									<dc:title>
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref" />
 									</dc:title>
