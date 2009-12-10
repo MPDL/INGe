@@ -43,7 +43,7 @@
    xmlns:dc="${xsd.metadata.dc}"
    xmlns:dcterms="${xsd.metadata.dcterms}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+   xmlns:eterms="${xsd.metadata.terms}"
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:srel="${xsd.soap.common.srel}"
    xmlns:prop="${xsd.soap.common.prop}"
@@ -57,6 +57,8 @@
    xmlns:pub="${xsd.metadata.publication}"
    xmlns:escidoc="urn:escidoc:functions">
    
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>   
+	
 
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>	
@@ -98,7 +100,7 @@
 	<!-- CREATE MD-RECORD -->
 	<xsl:template match="pm:front/pm:article-meta">
 		<xsl:element name="pub:publication">			
-			<xsl:attribute name="type" select="'http://purl.org/escidoc/metadata/ves/publication-types/article'"/>
+			<xsl:attribute name="type" select="'article'"/>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="pm:contrib-group"/>
 			<!-- TITLE -->
@@ -139,7 +141,8 @@
 		
 			<xsl:choose>
 				<xsl:when test="@contrib-type='author' or @contrib-type='Author'">
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">					
+					<xsl:element name="eterms:creator">
+					<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>					
 						<xsl:element name="person:person">
 							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="pm:name/pm:surname"/>
@@ -150,11 +153,12 @@
 							<xsl:if test="pm:xref">
 								<xsl:call-template name="createOrganization"/>
 							</xsl:if>
-						</xsl:element>
-					</eterms:creator>
+						</xsl:element>					
+					</xsl:element>
 				</xsl:when>
 				<xsl:otherwise>
-					<eterms:creator role="http://www.loc.gov/loc.terms/relators/CTB">					
+					<xsl:element name="eterms:creator">
+					<xsl:attribute name="role" select="$creator-ves/enum[.='contributor']/@uri"/>				
 						<xsl:element name="person:person">
 							<xsl:element name="eterms:family-name">
 								<xsl:value-of select="pm:name/pm:surname"/>
@@ -166,7 +170,7 @@
 								<xsl:call-template name="createOrganization"/>
 							</xsl:if>
 						</xsl:element>
-					</eterms:creator>
+					</xsl:element>
 				</xsl:otherwise>
 			</xsl:choose>		
 	</xsl:template>
@@ -388,7 +392,7 @@
 	<!-- CREATE JOURNAL -->
 	<xsl:template name="createJournal">		
 		<xsl:element name="source:source">	
-			<xsl:attribute name="type" select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'"/>
+			<xsl:attribute name="type" select="'journal'"/>
 			<xsl:for-each select="../pm:journal-meta">
 				<xsl:apply-templates select="pm:journal-title"/>
 				<xsl:apply-templates select="pm:journal-subtitle"/>
