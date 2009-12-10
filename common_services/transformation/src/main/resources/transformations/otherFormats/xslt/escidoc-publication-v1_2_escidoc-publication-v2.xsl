@@ -67,7 +67,6 @@
 		)
 	)/mappings"/>
 
-
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
@@ -94,16 +93,13 @@
 		</xsl:choose>
 	</xsl:template>
 
-
 	<xsl:template match="node() | @*">
 		<xsl:copy copy-namespaces="no">
 			<xsl:apply-templates select="node() | @*"/>
 		</xsl:copy>
 	</xsl:template>
 
-
 	<xsl:template match="escidocItemList:item-list">
-	
 		<xsl:if test="$is-item-list">
 			<xsl:element name="{name(.)}">
 				<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>			
@@ -112,6 +108,7 @@
 			</xsl:element>
 		</xsl:if>
 		<xsl:if test="not($is-item-list)">
+			<!-- skip creation of the root item-list element and start with the item -->
 			<xsl:apply-templates/>
 		</xsl:if>
 	</xsl:template>
@@ -127,13 +124,12 @@
 	</xsl:template>
 	
 
-
 	<xsl:template match="escidocMetadataProfile:publication">
 		<xsl:variable name="v1" select="@type"/> 
 		<xsl:variable name="v2" select="$vm/publication-type/v1-to-v2/map[@v1=$v1]"/>
-		
 		<xsl:element name="publication" namespace="http://purl.org/escidoc/metadata/profiles/0.1/publication">
 			<xsl:copy-of select="@*[name()!='type']" />
+			<!-- publication type (genre) from the ves -->	
 			<xsl:attribute name="type" select="
 				if (exists($v2))  
 				then $v2
@@ -151,6 +147,7 @@
 		<xsl:variable name="v2" select="$vm/creator-role/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="eterms:creator">
 			<xsl:copy-of select="@*[name()!='role']" />
+			<!-- creator role from the ves -->	
 			<xsl:attribute name="role" select="
 				if (exists($v2))  
 				then $v2
@@ -185,25 +182,12 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="escidoc:organization/escidoc:identifier" priority="999">
+	<!-- person, organization and publication identifiers  --> 
+	<xsl:template match="dc:identifier | escidoc:identifier" priority="999">
 		<xsl:element name="dc:identifier">
 			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
 			<xsl:if test="@*[name() = 'xsi:type']">
-				<xsl:variable name="value" as="xs:string" select="string(local-name-from-QName(resolve-QName(@xsi:type, .)))"/>
-				<xsl:namespace name="idtype" select="'http://purl.org/escidoc/metadata/terms/0.1/'"/>
-				<xsl:attribute name="xsi:type" select="concat('idtype:', $value)"/>
-			</xsl:if>
-			<xsl:apply-templates/>
-		</xsl:element>
-	</xsl:template>
-	
-	 
-	<xsl:template match="escidoc:person/escidoc:identifier"  priority="999">
-		<xsl:element name="dc:identifier">
-			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
-			<xsl:if test="@*[name() = 'xsi:type']">
-				<xsl:variable name="value" as="xs:string" select="string(local-name-from-QName(resolve-QName(@xsi:type, .)))"/>
-				<xsl:attribute name="xsi:type" select="concat('idtype:', $value)"/>
+				<xsl:attribute name="xsi:type" select="concat('eterms:', local-name-from-QName(resolve-QName(@xsi:type, .)))"/>
 			</xsl:if>
 			<xsl:apply-templates/>
 		</xsl:element>
@@ -219,6 +203,7 @@
 	<xsl:template match="publication:review-method">
 		<xsl:variable name="v1" select="."/>
 		<xsl:variable name="v2" select="$vm/review-method/v1-to-v2/map[@v1=$v1]"/>
+		<!-- review method from the ves -->	
 		<xsl:element name="eterms:review-method">
 			<xsl:value-of select="
 				if (exists($v2))  
@@ -228,6 +213,7 @@
 						concat ('No mapping v1.0 to v2.0 for review method: ', $v1 )
 					)
 			" />
+			<!-- skip duplicated value of the element -->
 			<xsl:apply-templates select="*/*"/>
 		</xsl:element>
 	</xsl:template>
@@ -237,6 +223,7 @@
 		<xsl:variable name="v2" select="$vm/source-type/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="source:source">
 			<xsl:copy-of select="@*[name()!='type']"/>
+			<!-- source type from the ves -->	
 			<xsl:attribute name="type" select="
 				if (exists($v2))  
 				then $v2
@@ -248,7 +235,7 @@
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
-	
+
 	<xsl:template match="publication:event">
 		<xsl:element name="event:event">
 			<xsl:copy-of select="@*"/>
@@ -267,6 +254,7 @@
 		<xsl:variable name="v1" select="."/>
 		<xsl:variable name="v2" select="$vm/academic-degree/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="eterms:degree">
+			<!-- academic degree from the ves -->	
 			<xsl:value-of select="
 				if (exists($v2))  
 				then $v2
@@ -275,6 +263,7 @@
 						concat ('No mapping v1.0 to v2.0 for academic degree: ', $v1 )
 					)
 			" />
+			<!-- skip duplicated value of the element -->
 			<xsl:apply-templates select="*/*"/>
 		</xsl:element>
 	</xsl:template>
@@ -293,6 +282,9 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- all escidoc: prefixes to the eterms: 
+		Note: escidoc:identifier for person and organization has own processing  
+	-->
 	<xsl:template match="*[namespace-uri()='http://escidoc.mpg.de/metadataprofile/schema/0.1/types']" priority="1">
 		<xsl:element name="eterms:{local-name()}">
 			<xsl:copy-of select="@*"/>
@@ -300,6 +292,7 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- changes file namespace from http://escidoc.mpg.de/metadataprofile/schema/0.1/file to http://purl.org/metadata/profiles/0.1/file -->
 	<xsl:template match="*[namespace-uri()='http://escidoc.mpg.de/metadataprofile/schema/0.1/file']" priority="1">
 		<xsl:element name="{name()}" namespace="http://purl.org/metadata/profiles/0.1/file">
 			<xsl:copy-of select="@*"/>
@@ -314,28 +307,8 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="dc:identifier">
-		
-		<xsl:element name="dc:identifier">
-			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
-			<xsl:if test="@*[name() = 'xsi:type']">
-				<xsl:variable name="value" as="xs:string" select="@xsi:type"/>
-				<xsl:variable name="prefix" select="substring-before($value, ':')"/>
-				<xsl:variable name="name" select="substring-after($value, ':')"/>
-				<xsl:choose>
-					<xsl:when test="$prefix='eidt'">
-						<xsl:attribute name="xsi:type" select="concat('idtype:', $name)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:attribute name="xsi:type" select="concat(concat($prefix, ':'), $name)"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
-			<xsl:apply-templates/>
-		</xsl:element>
-	</xsl:template>
 
-
+	<!-- all namespaces which should be presented in item root element -->
 	<xsl:template name="item-namespaces">
 	
 		<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
