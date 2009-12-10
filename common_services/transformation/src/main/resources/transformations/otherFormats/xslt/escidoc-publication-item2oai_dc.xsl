@@ -80,9 +80,9 @@
 					<xsl:variable name="creatorType"
 						select="
 				if ($role='author') then 'dc:creator' 
-				else if ($role = ('advisor', 'contributor', 'transcriber', translator, 'honoree')) then 'dc:contrinutor'
+				else if ($role = ('advisor', 'contributor', 'transcriber', translator, 'honoree')) then 'dc:contributor'
 				else if (empty(preceding-sibling::*/@role-uri='author')) then 'dc:creator'
-				else 'dc:contrinutor'
+				else 'dc:contributor'
 			" />
 
 					<xsl:if test="person:person!=''">
