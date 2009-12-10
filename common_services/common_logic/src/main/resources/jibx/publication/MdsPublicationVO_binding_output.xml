@@ -96,7 +96,7 @@
 			<structure type="java.lang.String" usage="optional">
 				<structure name="language" ns="${xsd.metadata.dc}" value-style="attribute"
 					usage="optional">
-					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:RFC3066" />
+					<value name="type" ns="http://www.w3.org/2001/XMLSchema-instance" constant="dcterms:ISO639-3" />
 					<value style="text" get-method="toString" usage="optional" />
 				</structure>
 			</structure>
