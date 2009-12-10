@@ -16,7 +16,7 @@
                 </search-result:hit-word>
             </search-result:text-fragment>
             <search-result:text-fragment>
-                <search-result:text-fragment-data> xmlns:escidoc="${xsd.metadata.escidocprofile.types}"&gt; &lt;escidoc:complete-name/&gt; &lt;escidoc:family-name&gt;Tester</search-result:text-fragment-data>
+                <search-result:text-fragment-data> xmlns:eterms="${xsd.metadata.escidocprofile.types}"&gt; &lt;escidoc:complete-name/&gt; &lt;escidoc:family-name&gt;Tester</search-result:text-fragment-data>
                 <search-result:hit-word>
                     <search-result:start-index>119</search-result:start-index>
                     <search-result:end-index>124</search-result:end-index>
@@ -60,77 +60,77 @@
         </escidocItem:properties>
          <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
             <escidocMetadataRecords:md-record name="escidoc">
-                <publication:publication xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" type="http://purl.org/eprint/type/Book">
-                    <escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                <publication:publication xmlns:report="${xsd.soap.statistic.report}" xmlns:item="${xsd.soap.item.item}" xmlns:person="${xsd.metadata.person}" xmlns:usergrouplist="${xsd.soap.usergroup.usergrouplist}" xmlns:structmap="${xsd.soap.container.structmap}" xmlns:reportparameters="${xsd.soap.statistic.reportparameters}" xmlns:context="${xsd.soap.context.context}" xmlns:organizationalunit="${xsd.metadata.organizationalunit}" xmlns:oupathlist="${xsd.soap.ou.oupathlist}" xmlns:containerlist="${xsd.soap.container.containerlist}" xmlns:reportdefinitionlist="${xsd.soap.statistic.reportdefinitionlist}" xmlns:components="${xsd.soap.item.components}" xmlns:ou="${xsd.soap.ou.ou}" xmlns:organization="${xsd.metadata.organization}" xmlns:reportdefinition="${xsd.soap.statistic.reportdefinition}" xmlns:contextlist="${xsd.soap.context.contextlist}" xmlns:oulist="${xsd.soap.ou.oulist}" xmlns:file="${xsd.metadata.file}" xmlns:toc="${xsd.soap.toc.toc}" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:ouref="${xsd.soap.ou.ouref}" xmlns:publication="${xsd.metadata.publication}" xmlns:table-of-content="${xsd.soap.toc.table-of-content}" xmlns:mdrecords="${xsd.soap.common.mdrecords}" xmlns:stagingfile="${xsd.rest.stagingfile.stagingfile}" xmlns:escidocprofile="${xsd.metadata.escidocprofile}" xmlns:result="${xsd.soap.result.result}" xmlns:relations="${xsd.soap.common.relations}" xmlns:commontypes="${xsd.soap.common.commontypes}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:prop="${xsd.soap.common.prop}" xmlns:dc="${xsd.metadata.dc}" xmlns:searchresult="${xsd.soap.searchresult.searchresult}" xmlns:grants="${xsd.soap.useraccount.grants}" xmlns:idtypes="${xsd.metadata.escidocprofile.idtypes}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:useraccount="${xsd.soap.useraccount.useraccount}" xmlns:versionhistory="${xsd.soap.common.versionhistory}" xmlns:properties="${xsd.core.properties}" xmlns:source="${xsd.metadata.source}" xmlns:useraccountlist="${xsd.soap.useraccount.useraccountlist}" xmlns:memberlist="${xsd.soap.common.memberlist}" xmlns:metadatarecords="${xsd.soap.common.metadatarecords}" xmlns:event="${xsd.metadata.event}" xmlns:usergroup="${xsd.soap.usergroup.usergroup}" xmlns:container="${xsd.soap.container.container}" type="http://purl.org/eprint/type/Book">
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
                         <person:person>
-                            <escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}"/>
-                            <escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Tester</escidoc:family-name>
-                            <escidoc:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Franz</escidoc:given-name>
+                            <eterms:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}"/>
+                            <eterms:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Tester</eterms:family-name>
+                            <eterms:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Franz</eterms:given-name>
                             <organization:organization>
                                 <dc:title>MPI for Psycholinguistics, Max Planck Society</dc:title>
                                 <dc:identifier>escidoc:persistent14</dc:identifier>
                             </organization:organization>
                             <organization:organization>
                                 <dc:title>Projekt X, MPI for the History of Science, Max Planck Society</dc:title>
-                                <escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hauptstr. 7, 12345, Hintertupfingen, DE</escidoc:address>
+                                <eterms:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hauptstr. 7, 12345, Hintertupfingen, DE</eterms:address>
                                 <dc:identifier>escidoc:persistent31</dc:identifier>
                             </organization:organization>
                             <organization:organization>
                                 <dc:title>Projekt X, MPI für Plasmaphysik, Max Planck Society</dc:title>
-                                <escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hauptstr. 7, 12345, Hintertupfingen, DE</escidoc:address>
+                                <eterms:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hauptstr. 7, 12345, Hintertupfingen, DE</eterms:address>
                                 <dc:identifier>escidoc:persistent31</dc:identifier>
                             </organization:organization>
                         </person:person>
-                    </escidoc:creator>
-                    <escidoc:creator role="http://purl.org/escidoc/metadata/ves/creator-roles/painter">
+                    </eterms:creator>
+                    <eterms:creator role="http://purl.org/escidoc/metadata/ves/creator-roles/painter">
                         <organization:organization>
                             <dc:title>Malorganisation</dc:title>
-                            <escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Malstr. 11, 11223 Farbhausen</escidoc:address>
+                            <eterms:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Malstr. 11, 11223 Farbhausen</eterms:address>
                         </organization:organization>
-                    </escidoc:creator>
-                    <escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+                    </eterms:creator>
+                    <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
                         <person:person>
-                            <escidoc:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}"/>
-                            <escidoc:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Ersteller</escidoc:family-name>
-                            <escidoc:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hans</escidoc:given-name>
+                            <eterms:complete-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}"/>
+                            <eterms:family-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Ersteller</eterms:family-name>
+                            <eterms:given-name xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Hans</eterms:given-name>
                             <organization:organization>
                                 <dc:title>Department of evolutionary ecology, MPI for limnology, Max Planck Society</dc:title>
-                                <escidoc:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">August-Thienemann-Straße 2, 24306, Plön, DE</escidoc:address>
+                                <eterms:address xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">August-Thienemann-Straße 2, 24306, Plön, DE</eterms:address>
                                 <dc:identifier>escidoc:persistent36</dc:identifier>
                             </organization:organization>
                         </person:person>
-                    </escidoc:creator>
+                    </eterms:creator>
                     <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Test ScT 01</dc:title>
                     <dc:language xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:RFC3066">en</dc:language>
                     <dc:language xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:RFC3066">de</dc:language>
                     <dc:language xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:RFC3066">ae</dc:language>
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Alternative ScT 01</dcterms:alternative>
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="de">nochn alternativer Titel</dcterms:alternative>
-                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISBN">12761-45</dc:identifier>
-                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ESCIDOC">65</dc:identifier>
-                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISSN">5646545-855</dc:identifier>
-                    <escidoc:publishing-info>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eterms:ISBN">12761-45</dc:identifier>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eterms:ESCIDOC">65</dc:identifier>
+                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eterms:ISSN">5646545-855</dc:identifier>
+                    <eterms:publishing-info>
                         <dc:publisher xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Testpublisher</dc:publisher>
-                        <escidoc:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Garching-Itzehoe-Capreton</escidoc:place>
-                        <escidoc:edition xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">One and a half</escidoc:edition>
-                    </escidoc:publishing-info>
+                        <eterms:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Garching-Itzehoe-Capreton</eterms:place>
+                        <eterms:edition xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">One and a half</eterms:edition>
+                    </eterms:publishing-info>
                     <dcterms:created xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-06-28</dcterms:created>
                     <dcterms:modified xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-06-28</dcterms:modified>
                     <dcterms:dateSubmitted xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-06-28</dcterms:dateSubmitted>
                     <dcterms:dateAccepted xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-06-28</dcterms:dateAccepted>
                     <dcterms:issued xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-06-28</dcterms:issued>
-                    <escidoc:review-method>http://purl.org/escidoc/metadata/ves/review-methods/internal</escidoc:review-method>
+                    <eterms:review-method>http://purl.org/escidoc/metadata/ves/review-methods/internal</eterms:review-method>
                     <source:source>
                         <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">source 1</dc:title>
                         <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="de">quelle 1</dcterms:alternative>
-                        <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/AUT">
+                        <eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/AUT">
                             <person:person xmlns:prop="${xsd.soap.common.prop}">
-                                <escidoc:complete-name xmlns:prop="${xsd.core.properties}"/>
-                                <escidoc:family-name xmlns:prop="${xsd.core.properties}">Hanz</escidoc:family-name>
-                                <escidoc:given-name xmlns:prop="${xsd.core.properties}">Franz</escidoc:given-name>
+                                <eterms:complete-name xmlns:prop="${xsd.core.properties}"/>
+                                <eterms:family-name xmlns:prop="${xsd.core.properties}">Hanz</eterms:family-name>
+                                <eterms:given-name xmlns:prop="${xsd.core.properties}">Franz</eterms:given-name>
                                 <organization:organization>
                                     <dc:title>Department Research and Development, Max Planck Digital Library, Max Planck Society</dc:title>
-                                    <escidoc:address xmlns:prop="${xsd.core.properties}">Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
+                                    <eterms:address xmlns:prop="${xsd.core.properties}">Amalienstrasse 33, 80799, Munich, DE</eterms:address>
                                     <dc:identifier>escidoc:persistent1</dc:identifier>
                                 </organization:organization>
                                 <organization:organization>
@@ -138,84 +138,84 @@
                                     <dc:identifier>escidoc:persistent33</dc:identifier>
                                 </organization:organization>
                             </person:person>
-                        </escidoc:creator>
-                        <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/ILL">
+                        </eterms:creator>
+                        <eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/ILL">
                             <organization:organization xmlns:prop="${xsd.soap.common.prop}">
                                 <dc:title>Illustra</dc:title>
-                                <escidoc:address xmlns:prop="${xsd.core.properties}">Strasse 23, 12345 Ort</escidoc:address>
+                                <eterms:address xmlns:prop="${xsd.core.properties}">Strasse 23, 12345 Ort</eterms:address>
                             </organization:organization>
-                        </escidoc:creator>
-                        <escidoc:volume xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">1</escidoc:volume>
-                        <escidoc:issue xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">12</escidoc:issue>
-                        <escidoc:start-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">1</escidoc:start-page>
-                        <escidoc:end-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">87</escidoc:end-page>
-                        <escidoc:sequence-number xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">123</escidoc:sequence-number>
-                        <escidoc:publishing-info xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">
+                        </eterms:creator>
+                        <eterms:volume xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">1</eterms:volume>
+                        <eterms:issue xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">12</eterms:issue>
+                        <eterms:start-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">1</eterms:start-page>
+                        <eterms:end-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">87</eterms:end-page>
+                        <eterms:sequence-number xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">123</eterms:sequence-number>
+                        <eterms:publishing-info xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">
                             <dc:publisher>ersteller der ersten quelle</dc:publisher>
-                            <escidoc:place>Ort der ersten quelle</escidoc:place>
-                            <escidoc:edition>edition 1</escidoc:edition>
-                        </escidoc:publishing-info>
-                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ISBN">465465-88</dc:identifier>
-                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="escidoc:ESCIDOC">99</dc:identifier>
+                            <eterms:place>Ort der ersten quelle</eterms:place>
+                            <eterms:edition>edition 1</eterms:edition>
+                        </eterms:publishing-info>
+                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eterms:ISBN">465465-88</dc:identifier>
+                        <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="eterms:ESCIDOC">99</dc:identifier>
                     </source:source>
                     <source:source>
                         <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Source 2</dc:title>
                         <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="">Quelle 2</dcterms:alternative>
-                        <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/EDT">
+                        <eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/EDT">
                             <person:person xmlns:prop="${xsd.soap.common.prop}">
-                                <escidoc:complete-name xmlns:prop="${xsd.core.properties}"/>
-                                <escidoc:family-name xmlns:prop="${xsd.core.properties}">Van Haaren</escidoc:family-name>
-                                <escidoc:given-name xmlns:prop="${xsd.core.properties}">Hinni</escidoc:given-name>
+                                <eterms:complete-name xmlns:prop="${xsd.core.properties}"/>
+                                <eterms:family-name xmlns:prop="${xsd.core.properties}">Van Haaren</eterms:family-name>
+                                <eterms:given-name xmlns:prop="${xsd.core.properties}">Hinni</eterms:given-name>
                                 <organization:organization>
                                     <dc:title>Department Genes and behavior, MPI for biophysical chemistry, Max Planck Society</dc:title>
-                                    <escidoc:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</escidoc:address>
+                                    <eterms:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</eterms:address>
                                     <dc:identifier>escidoc:persistent34</dc:identifier>
                                 </organization:organization>
                                 <organization:organization>
                                     <dc:title>Research Group Solid State NMR, MPI for biophysical chemistry, Max Planck Society</dc:title>
-                                    <escidoc:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</escidoc:address>
+                                    <eterms:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</eterms:address>
                                     <dc:identifier>escidoc:persistent35</dc:identifier>
                                 </organization:organization>
                             </person:person>
-                        </escidoc:creator>
-                        <escidoc:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/PHT">
+                        </eterms:creator>
+                        <eterms:creator xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" role="http://www.loc.gov/loc.terms/relators/PHT">
                             <person:person xmlns:prop="${xsd.soap.common.prop}">
-                                <escidoc:complete-name xmlns:prop="${xsd.core.properties}"/>
-                                <escidoc:family-name xmlns:prop="${xsd.core.properties}">Fahrlässig</escidoc:family-name>
-                                <escidoc:given-name xmlns:prop="${xsd.core.properties}">Fred</escidoc:given-name>
+                                <eterms:complete-name xmlns:prop="${xsd.core.properties}"/>
+                                <eterms:family-name xmlns:prop="${xsd.core.properties}">Fahrlässig</eterms:family-name>
+                                <eterms:given-name xmlns:prop="${xsd.core.properties}">Fred</eterms:given-name>
                                 <organization:organization>
                                     <dc:title>Research Group Solid State NMR, MPI for biophysical chemistry, Max Planck Society</dc:title>
-                                    <escidoc:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</escidoc:address>
+                                    <eterms:address xmlns:prop="${xsd.core.properties}">Am Fassberg 11, 37077, Göttingen, DE</eterms:address>
                                     <dc:identifier>escidoc:persistent35</dc:identifier>
                                 </organization:organization>
                             </person:person>
-                        </escidoc:creator>
-                        <escidoc:volume xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">45</escidoc:volume>
-                        <escidoc:issue xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">32</escidoc:issue>
-                        <escidoc:start-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">2</escidoc:start-page>
-                        <escidoc:end-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">11</escidoc:end-page>
-                        <escidoc:sequence-number xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">445</escidoc:sequence-number>
-                        <escidoc:publishing-info xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">
+                        </eterms:creator>
+                        <eterms:volume xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">45</eterms:volume>
+                        <eterms:issue xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">32</eterms:issue>
+                        <eterms:start-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">2</eterms:start-page>
+                        <eterms:end-page xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">11</eterms:end-page>
+                        <eterms:sequence-number xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">445</eterms:sequence-number>
+                        <eterms:publishing-info xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">
                             <dc:publisher>Ersteller der zweiten Quelle</dc:publisher>
-                            <escidoc:place>Ort der zweiten Quelle</escidoc:place>
-                            <escidoc:edition>2</escidoc:edition>
-                        </escidoc:publishing-info>
+                            <eterms:place>Ort der zweiten Quelle</eterms:place>
+                            <eterms:edition>2</eterms:edition>
+                        </eterms:publishing-info>
                     </source:source>
                     <event:event>
                         <dc:title xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">Title of the event</dc:title>
                         <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="de">alternativer Titel der Veranstaltung</dcterms:alternative>
-                        <escidoc:start-date xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-08-10</escidoc:start-date>
-                        <escidoc:end-date xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-08-13</escidoc:end-date>
-                        <escidoc:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Washington</escidoc:place>
-                        <escidoc:invitation-status xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">invited</escidoc:invitation-status>
+                        <eterms:start-date xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-08-10</eterms:start-date>
+                        <eterms:end-date xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xsi:type="dcterms:W3CDTF">2007-08-13</eterms:end-date>
+                        <eterms:place xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">Washington</eterms:place>
+                        <eterms:invitation-status xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">invited</eterms:invitation-status>
                     </event:event>
-                    <escidoc:total-number-of-pages>899</escidoc:total-number-of-pages>
-                    <escidoc:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</escidoc:degree>
+                    <eterms:total-number-of-pages>899</eterms:total-number-of-pages>
+                    <eterms:degree>http://purl.org/escidoc/metadata/ves/academic-degrees/diploma</eterms:degree>
                     <dcterms:abstract xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">the abstract of the item</dcterms:abstract>
                     <dcterms:abstract xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}" xml:lang="en">another abstract</dcterms:abstract>
                     <dc:subject xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">The subject of the item</dc:subject>
                     <dcterms:tableOfContents xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xmlns:prop="${xsd.core.properties}">the table of contents of the item</dcterms:tableOfContents>
-                    <escidoc:location>Linnemann Buecherei Paderborn</escidoc:location>
+                    <eterms:location>Linnemann Buecherei Paderborn</eterms:location>
                 </publication:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
