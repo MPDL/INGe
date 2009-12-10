@@ -39,6 +39,8 @@
 	xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
 	xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
 
+	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 
 
@@ -66,19 +68,20 @@
 				
 				<xsl:if test="eterms:degree!=''">
 					<xsl:element name="dc:type">
-						<xsl:value-of select="eterms:degree" />
+						<xsl:value-of select="$degree-ves/enum[/@uri=eterms:degree]" />
 					</xsl:element>
 				</xsl:if>
 
 
 				<!-- CREATORS -->
 				<xsl:for-each select="eterms:creator">
-					<xsl:variable name="role" select="@role" />
+					<xsl:variable name="role" select="$creator-ves/enum[/@uri=@role]" />
+					<xsl:variable name="role-uri" select="@role" />
 					<xsl:variable name="creatorType"
 						select="
 				if ($role='author') then 'dc:creator' 
 				else if ($role = ('advisor', 'contributor', 'transcriber', translator, 'honoree')) then 'dc:contrinutor'
-				else if (empty(preceding-sibling::*/@role='author')) then 'dc:creator'
+				else if (empty(preceding-sibling::*/@role-uri='author')) then 'dc:creator'
 				else 'dc:contrinutor'
 			" />
 
@@ -153,7 +156,7 @@
 					</xsl:element>
 				</xsl:if>
 
-
+				<xsl:variable name="stype" select="$genre-ves/enum[/@uri=source:source/@type]"/>
 				<!-- dc:sources +? -->
 				<xsl:variable name="source">
 					<xsl:value-of select="eterms:publishing-info/eterms:place" />
@@ -161,7 +164,7 @@
 						select="concat(' ', eterms:publishing-info/eterms:edition)" />
 					<xsl:value-of select="concat(' ', source:source/dc:title)" />
 					<xsl:for-each
-						select="source:source[@type=('book', 'proceedings', 'issue', 'other')]/eterms:creator">
+						select="source:source[$stype=('book', 'proceedings', 'issue', 'other')]/eterms:creator">
 						<xsl:if test="./person:person!=''">
 							<xsl:if test="./person:person/eterms:complete-name!=''">
 								<xsl:value-of
