@@ -54,9 +54,7 @@
 				<dc:identifier xsi:type="eterms:ISI">0815</dc:identifier>
 				<dc:identifier xsi:type="eterms:ISSN">issn</dc:identifier>
 				<escidoc:publishing-info>
-					<dc:publisher>
-						O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
-					</dc:publisher>
+					<dc:publisher>O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol</dc:publisher>
 					<escidoc:place>Garching-Itzehoe-Capreton</escidoc:place>
 					<escidoc:edition>One and a half</escidoc:edition>
 				</escidoc:publishing-info>

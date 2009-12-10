@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+           xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+           xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+           xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+           xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+           xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+           xmlns:prefix-dc="http://purl.org/dc/elements/1.1/"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:dcterms="http://purl.org/dc/terms/">
+   <dc:type>http://purl.org/eprint/type/Book</dc:type>
+   <dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
+   <dc:type/>
+   <dc:contrinutor>Hans Meier</dc:contrinutor>
+   <dc:contributor>Vinzenzmurr</dc:contributor>
+   <dc:contrinutor>MPDL</dc:contrinutor>
+   <dc:title xml:lang="en">Über den Wölken. The first of all. Das Maß aller Dinge.</dc:title>
+   <dc:language xsi:type="dcterms:RFC3066">de</dc:language>
+   <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+   <dc:language xsi:type="dcterms:RFC3066">fr</dc:language>
+   <dc:title>Die Erste von allen.</dc:title>
+   <dc:title>Wulewu</dc:title>
+   <dc:identifier>eterms:ISI:0815</dc:identifier>
+   <dc:identifier>eterms:ISSN:issn</dc:identifier>
+   <dc:publisher>O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol</dc:publisher>
+   <dc:date>2006-02-01</dc:date>
+   <dc:source>Garching-Itzehoe-Capreton One and a half Dies ist die Wurzel allen Übels. 8a 13b</dc:source>
+   <dc:format>-12-131313</dc:format>
+   <dc:relation>Weekly progress meeting, Köln, 2004-11-11—2005-02-19</dc:relation>
+   <dc:description>Dies ist die Zusammenfassung der Veröffentlichung.</dc:description>
+   <dc:description>This is the summary of the publication.</dc:description>
+   <dc:description>1.Einleitung 2.Inhalt</dc:description>
+</oai_dc:dc>

@@ -36,7 +36,7 @@
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:eterms="${xsd.metadata.terms}"
+   xmlns:eterms="${xsd.metadata.escidocprofile.types}"
    xmlns:ei="${xsd.soap.item.item}"  
    xmlns:prop="${xsd.core.properties}"
    xmlns:ec="${xsd.soap.item.components}"
@@ -68,7 +68,7 @@
 	<xsl:template match="/">
 		      <ec:component>	      	
 		        <ec:properties>
-		        	<prop:visibility>public</prop:visibility>
+		        	<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 		        </ec:properties>
 		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>

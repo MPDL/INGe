@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.8">
+   <ei:properties>
+      <srel:context xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                    xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                    xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                    xmlns:prop="http://escidoc.de/core/01/properties/"
+                    xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                    xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                    xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                    xmlns:escidoc="urn:escidoc:functions"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                    xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                    xmlns:eterms="${xsd.metadata.terms}"
+                    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:dcterms="http://purl.org/dc/terms/"
+                    objid="escidoc:persistent3"/>
+      <srel:content-model xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+                          xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                          xmlns:escidoc="urn:escidoc:functions"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:eterms="${xsd.metadata.terms}"
+                          xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          objid="escidoc:persistent4"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4">
+      <mdr:md-record xmlns:file="http://purl.org/metadata/profiles/0.1/file"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+                     xmlns:escidoc="urn:escidoc:functions"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:fns="http://www.w3.org/2005/02/xpath-functions"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:eterms="${xsd.metadata.terms}"
+                     xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     name="escidoc">
+         <pub:publication type="article">
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:complete-name>Jed L Bruder</eterms:complete-name>
+                  <eterms:given-name>Jed L</eterms:given-name>
+                  <eterms:family-name>Bruder</eterms:family-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:complete-name>Tze-chen  Hsieh</eterms:complete-name>
+                  <eterms:given-name>Tze-chen </eterms:given-name>
+                  <eterms:family-name>Hsieh</eterms:family-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:complete-name>Kenneth M Lerea</eterms:complete-name>
+                  <eterms:given-name>Kenneth M</eterms:given-name>
+                  <eterms:family-name>Lerea</eterms:family-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:complete-name>Susan C Olson</eterms:complete-name>
+                  <eterms:given-name>Susan C</eterms:given-name>
+                  <eterms:family-name>Olson</eterms:family-name>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="author">
+               <person:person>
+                  <eterms:complete-name>Joseph M Wu</eterms:complete-name>
+                  <eterms:given-name>Joseph M</eterms:given-name>
+                  <eterms:family-name>Wu</eterms:family-name>
+                  <eterms:organization>
+                     <eterms:organization-name>Departments of Biochemistry and Molecular Biology. Joseph_Wu@nymc.edu</eterms:organization-name>
+                  </eterms:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>Induced cytoskeletal changes in bovine pulmonary artery endothelial cells by resveratrol and the accompanying modified responses to arterial shear stress</dc:title>
+            <dc:identifier xsi:type="eterms:PII">1471-2121-2-1</dc:identifier>
+            <dc:identifier xsi:type="eterms:DOI">10.1186/1471-2121-2-1</dc:identifier>
+            <dcterms:dateSubmitted>2000-11-22</dcterms:dateSubmitted>
+            <dcterms:dateAccepted>2001-01-29</dcterms:dateAccepted>
+            <eterms:published-online>2001-01-29</eterms:published-online>
+            <dcterms:abstract>ABSTRACT: BACKGROUND: Atherosclerosis and coronary heart disease (CHD) are significant contributors to morbidity and mortality in developed countries. A noted exception is the low mortality of CHD in France, particularly the southwest region. This phenomenon, commonly referred to as the French paradox, may be associated with high consumption of red wine. We investigate whether the cardioprotective activity of red wine may involve the grape skin-derived polyphenol, resveratrol. We further test the possibility that resveratrol acts by modulating structural and functional changes in endothelial cells lining the blood vessel wall. RESULTS: Bovine pulmonary artery endothelial cells (BPAEC) were incubated with resveratrol, with and without concurrent exposure to simulated arterial shear stress. Resveratrol significantly affected proliferation and shape of BPAEC; growth was suppressed and cells became elongated, based on morphologic analysis of rhodamine-conjugated phalloidin stained F-actin by confocal microscopy. Using selective signaling inhibitors, we showed that the resveratrol-induced cellular phenotype was dependent on intracellular calcium and tyrosine kinase activities, and assembly of actin microfilaments and microtubules, but was unrelated to PKC activity. Exposure to simulated arterial flow revealed that, whereas controls cells easily detached from the culture support in a time-dependent manner, resulting in total cell loss after a 5 min challenge with simulated arterial flow conditions, a significant percentage of the treated cells remained attached to the cultured plastic coverslips under identical experimental conditions, suggesting that they adhered more strongly to the surface. Western blot analysis shows that whereas cells treated with 25 μM and 100 μM resveratrol had no change in total ERK1/2, treatment did result in an increase in phosphorylated ERK1/2, which probably involved stabilization of the active enzyme. An increase in nitric oxide synthase expression was detected as early as 6 h and persisted for up to 4 days of treatment. CONCLUSIONS: Results of our studies show that resveratrol interacts with endothelial cells in vitro to elicit morphological and structural changes; the observed changes support the interpretation that resveratrol acts as a cardioprotective agent.</dcterms:abstract>
+            <source:source type="journal">
+               <dc:title>BMC Cell Biology</dc:title>
+               <eterms:volume>2</eterms:volume>
+               <eterms:issue>1</eterms:issue>
+               <eterms:publishing-info>
+                  <dc:publisher>BioMed Central Ltd.</dc:publisher>
+               </eterms:publishing-info>
+               <dc:identifier xsi:type="eterms:ISSN">1471-2121</dc:identifier>
+            </source:source>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.8"/>
+</ei:item>
