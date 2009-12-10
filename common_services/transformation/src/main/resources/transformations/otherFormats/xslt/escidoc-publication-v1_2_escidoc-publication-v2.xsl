@@ -194,7 +194,7 @@
 					else .
 				"/>
 			</xsl:if>
-			<xsl:if test="not(contains(@xsi:type, 'CONE'))">
+			<xsl:if test="not(@xsi:type)">
 				<xsl:value-of select="."/>
 			</xsl:if>
 			<xsl:apply-templates select="*/*"/>
@@ -274,6 +274,7 @@
 					else $vm/language/v1-to-v2/@default
 				"/>
 			</xsl:if>
+			<!-- skip duplicated value of the element -->
 			<xsl:apply-templates select="*/*"/>
 		</xsl:element>
 	</xsl:template>	
