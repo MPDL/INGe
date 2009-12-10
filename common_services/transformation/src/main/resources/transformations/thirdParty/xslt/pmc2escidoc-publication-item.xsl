@@ -276,7 +276,7 @@
 	</xsl:template>
 	<xsl:template match="pm:self-uri">
 		<xsl:element name="dc:identifier">
-			<xsl:attribute name="xsi:type">edit:URI</xsl:attribute>
+			<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
@@ -392,7 +392,7 @@
 	<!-- CREATE JOURNAL -->
 	<xsl:template name="createJournal">		
 		<xsl:element name="source:source">	
-			<xsl:attribute name="type" select="'journal'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='journal']/@uri"/>
 			<xsl:for-each select="../pm:journal-meta">
 				<xsl:apply-templates select="pm:journal-title"/>
 				<xsl:apply-templates select="pm:journal-subtitle"/>
