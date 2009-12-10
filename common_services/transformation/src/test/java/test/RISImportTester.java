@@ -17,13 +17,14 @@ import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mab.MABImport;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.Pair;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISImport;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.ris.RISTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class RISImportTester {
 
     private final Logger logger = Logger.getLogger(RISImportTester.class);
     private Util util = new Util();
-    RISImport imp = new RISImport();
+    RISTransformation risTransformer = new RISTransformation();
     
 	/**
 	 * @param args
@@ -32,11 +33,11 @@ public class RISImportTester {
 		// TODO Auto-generated method stub
 		RISImport imp = new RISImport();
 		
-    	Transformation transformation = new TransformationBean();
+		Transformation transformation = new TransformationBean();
     	Format inputFormat = new Format("RIS", "text/plain", "UTF-8");
     	Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "UTF-8");
     	
-    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/ris-testdatensaetze.txt");
+    	InputStream inputStream = ResourceUtil.getResourceAsStream("/home/kurt/Dokumente/RIS_utf8.txt");
     	ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	byte[] buffer = new byte[2048];
     	int read;
@@ -47,19 +48,27 @@ public class RISImportTester {
     	byte[] result = transformation.transform(baos.toByteArray(), inputFormat, outputFormat, "escidoc");
     	
     	
+    	   	
+    	
+    	
+    	
+    	String out = imp.transformRIS2XML(new String(baos.toByteArray(),"utf-8"));
+    	
     	
     	
     	System.out.print(new String(result,"UTF-8"));
+    	//System.out.print(out);
 	}
 	
     @Test
     public void risListTransformation() throws Exception
     {
         this.logger.info("Transform RIS list to xml format");
-        
-        String result = imp.transformRIS2XML(this.util.getResourceAsString("testFiles/ris/RIS.txt"));
+        Format inputFormat = new Format("RIS", "text/plain", "utf-8");
+        Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
+        byte[] result = risTransformer.transform(this.util.getResourceAsString("testFiles/ris/RIS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
         this.logger.info("transformation successful");
-        this.logger.info(result);
+        this.logger.info(new String(result));
     }
 
 }
