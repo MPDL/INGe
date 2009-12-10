@@ -30,9 +30,9 @@
 <!-- 
 	Transformation from the eSciDoc metadata profile v1 to v2  
 	Author: vmakarenko (initial creation) 
-	$Author: $ (last changed)
-	$Revision: $ 
-	$LastChangedDate: $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 
 <xsl:stylesheet version="2.0"  
