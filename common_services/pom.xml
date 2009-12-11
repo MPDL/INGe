@@ -539,6 +539,7 @@
 				<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
+				<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
 				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.idtypes>
 				<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 				<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
@@ -701,8 +702,8 @@
 				<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
-				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/idtypes/</xsd.metadata.escidocprofile.idtypes>
 				<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
+				<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/idtypes/</xsd.metadata.escidocprofile.idtypes>				
 				<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 				<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
 				<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
