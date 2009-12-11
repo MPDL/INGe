@@ -42,6 +42,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandlerBean;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.endnote.EndNoteTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -92,7 +93,7 @@ public class CommonTransformation
             this.logger.error("An error occurred during a common publication transformation.", e);
             throw new RuntimeException(e);
         }
-        
+        System.out.println("BIB: " + new String(bib));
         return bib;
     }
     
@@ -174,6 +175,16 @@ public class CommonTransformation
         throws RuntimeException
     {
         byte[] escidoc = null;
+        EndNoteTransformation endTransformer = new EndNoteTransformation();
+        try
+        {
+            escidoc = endTransformer.transform(src, srcFormat, trgFormat, service);
+        }
+        catch(TransformationNotSupportedException e)
+        {
+            logger.warn("Transformation Not Supported", e);
+            return null;
+        }
         return escidoc;
     }
 }

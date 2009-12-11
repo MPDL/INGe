@@ -53,6 +53,7 @@ public class TransformationBean implements Transformation
     private final Logger logger = Logger.getLogger(TransformationBean.class);    
     private Util util;
     private TransformationInitializer initializer;
+    private Class transformationClass = null;
  
     /**
      * Public constructor.
@@ -165,7 +166,7 @@ public class TransformationBean implements Transformation
     private byte[] escidocTransformService(byte[] src, Format srcFormat, Format trgFormat, String service) 
         throws TransformationNotSupportedException, RuntimeException
     {
-        Class transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
+        transformationClass = this.getTransformationClassForTransformation(srcFormat, trgFormat);
         byte[] result = null;
         String methodName = "transform";
         

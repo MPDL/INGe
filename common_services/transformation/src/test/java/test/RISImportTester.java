@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
@@ -67,8 +69,10 @@ public class RISImportTester {
         Format inputFormat = new Format("RIS", "text/plain", "utf-8");
         Format outputFormat = new Format("eSciDoc-publication-item-list", "application/xml", "utf-8");
         byte[] result = risTransformer.transform(this.util.getResourceAsString("testFiles/ris/RIS.txt").getBytes("UTF-8"), inputFormat, outputFormat, "escidoc");
-        this.logger.info("transformation successful");
-        this.logger.info(new String(result));
+
+        XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+        List <PubItemVO> itemVOList = xmlTransforming.transformToPubItemList(new String(result));
+        this.logger.info("PubItemVO List successfully created.");
     }
 
 }

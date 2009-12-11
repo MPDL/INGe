@@ -61,7 +61,7 @@
    xmlns:mml="http://www.w3.org/1998/Math/MathML"   
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder">
 
-	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

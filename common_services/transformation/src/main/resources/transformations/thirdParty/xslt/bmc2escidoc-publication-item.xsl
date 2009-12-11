@@ -56,7 +56,7 @@
    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
    
-   	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>   
+   	<xsl:import href="../../vocabulary-mappings.xsl"/>   
    
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>	

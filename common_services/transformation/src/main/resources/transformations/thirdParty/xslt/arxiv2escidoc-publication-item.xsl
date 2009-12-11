@@ -45,7 +45,7 @@
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
 	xmlns:dcterms="${xsd.metadata.dcterms}">
 
-	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 

@@ -56,7 +56,7 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:escidoc="urn:escidoc:functions">
 
-	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

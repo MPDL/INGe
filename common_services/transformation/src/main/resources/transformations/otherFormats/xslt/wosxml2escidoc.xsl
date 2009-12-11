@@ -57,7 +57,7 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}">
  
- <xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+ <xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

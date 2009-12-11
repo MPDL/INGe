@@ -88,7 +88,7 @@
 		      <ec:component>
 		        <!-- Default values we need to tansform item in itemVO -->
 		        <ec:properties>
-		        	<prop:visibility>public</prop:visibility>
+		        	<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 		        </ec:properties>
 		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>

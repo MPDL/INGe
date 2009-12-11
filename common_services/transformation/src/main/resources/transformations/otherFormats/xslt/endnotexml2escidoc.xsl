@@ -60,7 +60,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:esc="http://escidoc.mpg.de/">
 
-	<xsl:import href="src/main/resources/transformations/otherFormats/xslt/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

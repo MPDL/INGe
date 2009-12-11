@@ -48,7 +48,7 @@ public class TransformationTest
             this.logger.info(this.trans.getTargetFormatsAsXml("eSciDoc-publication-item", "application/xml", "*"));
             this.logger.info("-----OK");
             
-            this.logger.info("Get al source formats for escidoc-publication-item format:");
+            this.logger.info("Get all source formats for escidoc-publication-item format:");
             Format[] tmp = this.trans.getSourceFormats(
                     new Format ("eSciDoc-publication-item", "application/xml", "UTF-8"));
             this.logger.info(this.util.createFormatsXml(tmp));            
@@ -66,7 +66,7 @@ public class TransformationTest
     /* 
      * test TEI2 to eSciDoc item transformation 
      * */
-    //TODO: not working
+    @Test
     public void tei2escidoc() throws Exception
     {
         this.logger.info("---Transformation TEI to escidoc format ---");
@@ -103,8 +103,7 @@ public class TransformationTest
         this.logger.info(new String(result));
      }
      
-  
-     //TODO: Test Failure
+     @Test
      public void bmc2escidocTest() throws Exception
      {
          this.logger.info("---Transformation BMC to escidoc format ---");
@@ -126,10 +125,10 @@ public class TransformationTest
              
          result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/bmc.xml").getBytes(), bmc, escidocComponent, "escidoc");
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result));
-         this.logger.info("FileVO successfully created. "); 
+         this.logger.info("FileVO successfully created."); 
      }
      
-     //TODO: errornous Test
+     @Test
      public void arxiv2escidocTest() throws Exception
      {
          this.logger.info("---Transformation arXiv to escidoc format ---");
@@ -149,7 +148,7 @@ public class TransformationTest
          this.logger.info("FileVO successfully created. ");  
      }
      
-     //TODO
+     @Test
      public void spires2escidocTest() throws Exception
      {
          this.logger.info("---Transformation spires to escidoc format ---");
@@ -189,7 +188,7 @@ public class TransformationTest
          this.logger.info("PubItemVO successfully created."); 
      }
      
-     //TODO: results in empty item
+     @Test
      public void escidoc2bibtexTest() throws Exception
      {
          this.logger.info("---Transformation escidoc to BibTex format ---");
@@ -201,7 +200,7 @@ public class TransformationTest
          this.logger.info(new String(result));     
      }
      
-     //TODO Does not work due to errornous jibx binding
+     @Test
      public void endnote2escidocTest() throws Exception
      {
          this.logger.info("---Transformation EndNote to escidoc format ---");
@@ -216,7 +215,7 @@ public class TransformationTest
          this.logger.info("PubItemVO successfully created.");   
      }
      
-     //TODO: results in broken item
+     @Test
      public void escidoc2endnoteTest() throws Exception
      {
          this.logger.info("---Transformation EndNote to escidoc format ---");
@@ -265,6 +264,7 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods2.xml").getBytes("UTF-8"), mods, oai, "escidoc");
+         logger.info("Result: "+ new String (result, "UTF-8"));
          
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/modsAsOaidc.xml"));
 //         String actualItem = this.normalizeString(new String(result, "UTF-8"));        
@@ -272,7 +272,7 @@ public class TransformationTest
 //         this.logger.info("Transformation to oai_dc successful.");      
      }
      
-     //TODO: errornous test
+     @Test
      public void mods2marcTest () throws Exception
      {
          this.logger.info("---Transformation MODS to MARC format ---");
@@ -285,7 +285,7 @@ public class TransformationTest
          this.logger.info(new String(result, "UTF-8"));
      }
      
-     //TODO: results in emty item
+     @Test
      public void mods2escidocTest () throws Exception
      {
          this.logger.info("---Transformation MODS to escidoc format ---");
@@ -308,6 +308,8 @@ public class TransformationTest
         
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidocItem_newFormat.xml").getBytes("UTF-8"), escidoc, oai, "escidoc");
+         logger.info("Result: "+ new String (result, "UTF-8"));
+         
 //         String referenceItem = this.normalizeString(this.util.getResourceAsString("testFiles/testResults/escidocAsOaidc.xml"));
 //         String actualItem = this.normalizeString(new String(result, "UTF-8"));        
 //         Assert.assertTrue(referenceItem.equals(actualItem));
@@ -397,7 +399,7 @@ public class TransformationTest
          {
         	 this.logger.info("OK");
          }
-        	 
+         	 
 //         this.logger.info("output file: " + ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/testFiles/version2.xml");
 //         FileOutputStream fos = new FileOutputStream(ResourceUtil.getResourceAsFile(".").getAbsolutePath() + "/testFiles/version2.xml");
 //         fos.write(result);
