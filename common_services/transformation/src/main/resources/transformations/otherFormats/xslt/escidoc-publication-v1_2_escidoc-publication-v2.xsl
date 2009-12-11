@@ -58,14 +58,7 @@
 
 	<xsl:param name="is-item-list" select="true()"/>
 
-	<xsl:param name="path"/>
-	
-	<xsl:variable name="vm" select="document(
-		concat(
-			if ($path!='') then concat ($path, '/') else '', 
-			'ves-mapping.xml'
-		)
-	)/mappings"/>
+	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 
 	<xsl:template match="/">
 		<xsl:choose>
