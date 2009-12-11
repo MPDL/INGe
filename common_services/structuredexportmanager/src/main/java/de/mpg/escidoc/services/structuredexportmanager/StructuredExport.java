@@ -59,6 +59,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import de.mpg.escidoc.services.common.util.ResourceUtil;
+
 /**
  * Structured Export Manager. 
  * Converts PubMan item-list to one of the structured formats.   
@@ -74,8 +76,8 @@ public class StructuredExport implements StructuredExportHandler {
 
 	private final static Logger logger = Logger.getLogger(StructuredExport.class);
 	
-	private final static String PATH_TO_SCHEMAS = "schemas/";
 	private final static String PATH_TO_RESOURCES = "resources/";
+	private final static String PATH_TO_SCHEMAS = PATH_TO_RESOURCES + "schemas/";
 	private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
     private static final Map<String, String> XSLT_FILE_LIST =   
     	new HashMap<String, String>()   
@@ -143,7 +145,7 @@ public class StructuredExport implements StructuredExportHandler {
 							logger.info("base: " + base);
 							InputStream is;
 							try {
-								is = getResource(PATH_TO_SCHEMAS + href);
+								is = ResourceUtil.getResourceAsStream(PATH_TO_SCHEMAS + href);
 							} catch (IOException e) {
 								throw new TransformerException(e);
 							} 
@@ -161,7 +163,7 @@ public class StructuredExport implements StructuredExportHandler {
 				// xslt source
 				javax.xml.transform.Source xsltSource =
 					new javax.xml.transform.stream.StreamSource(
-							getResource(xsltFileName)
+							ResourceUtil.getResourceAsStream(xsltFileName)
 				);
 					
 				
@@ -190,26 +192,6 @@ public class StructuredExport implements StructuredExportHandler {
 			}
 	}	
 
-	/**
-	 * Gets resources according to an execution environment
-	 * @param fileName
-	 * @return InputStream of resource
-	 * @throws IOException
-	 */
-	private InputStream getResource(final String fileName) throws IOException
-	{
-		String path = PATH_TO_RESOURCES + fileName;
-		InputStream fileIn = getClass()
-								.getClassLoader()
-								.getResourceAsStream(path);
-
-		if (fileIn == null)
-		{
-			fileIn = new FileInputStream(path);
-		}
-		return fileIn;
-	}
-
 
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.StructuredExportHandler#explainFormats()
@@ -218,7 +200,7 @@ public class StructuredExport implements StructuredExportHandler {
 	{
         BufferedReader br;
 		try {
-			br = new BufferedReader(new InputStreamReader(getResource(EXPLAIN_FILE), "UTF-8"));
+			br = new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(PATH_TO_RESOURCES + EXPLAIN_FILE), "UTF-8"));
 		} catch (Exception e) {
 			throw new StructuredExportManagerException(e); 
 		}
