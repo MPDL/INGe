@@ -418,7 +418,7 @@
 	<xsl:template name="createCreator">
 		<xsl:param name="role"/>
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+			<xsl:attribute name="role" select="$role"/>
 			<xsl:call-template name="createPerson"/>
 		</xsl:element>
 	</xsl:template>	
