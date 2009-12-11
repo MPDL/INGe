@@ -84,7 +84,7 @@
 						<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:authors/arxiv:author">
 							<xsl:element name="eterms:creator">
 								<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>							
-								<escidoc:person>
+								<person:person>
 									<eterms:family-name>
 										<xsl:value-of select="arxiv:keyname" />
 									</eterms:family-name>
@@ -100,7 +100,7 @@
 											<xsl:value-of select="$external_organization_id" />
 										</eterms:identifier>
 									</eterms:organization>
-								</escidoc:person>							
+								</person:person>							
 							</xsl:element>
 						</xsl:for-each>
 						<dc:title>
@@ -139,14 +139,14 @@
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref" />
 									</dc:title>
 									<eterms:creator>
-										<escidoc:person>
+										<person:person>
 											<eterms:family-name></eterms:family-name>
 											<eterms:given-name></eterms:given-name>
 											<eterms:organization>
 												<eterms:organization-name></eterms:organization-name>
 												<eterms:address></eterms:address>
 											</eterms:organization>
-										</escidoc:person>
+										</person:person>
 									</eterms:creator>
 									<eterms:volume></eterms:volume>
 									<eterms:issue></eterms:issue>
@@ -166,14 +166,14 @@
 								<xsl:otherwise>
 									<dc:title></dc:title>
 									<eterms:creator>
-										<escidoc:person>
+										<person:person>
 											<eterms:family-name></eterms:family-name>
 											<eterms:given-name></eterms:given-name>
 											<eterms:organization>
 												<eterms:organization-name></eterms:organization-name>
 												<eterms:address></eterms:address>
 											</eterms:organization>
-										</escidoc:person>
+										</person:person>
 									</eterms:creator>
 									<eterms:volume></eterms:volume>
 									<eterms:issue></eterms:issue>
