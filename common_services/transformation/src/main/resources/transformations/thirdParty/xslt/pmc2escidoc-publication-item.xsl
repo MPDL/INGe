@@ -100,7 +100,7 @@
 	<!-- CREATE MD-RECORD -->
 	<xsl:template match="pm:front/pm:article-meta">
 		<xsl:element name="pub:publication">			
-			<xsl:attribute name="type" select="'article'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[.='article']/@uri"/>
 			<!-- CREATOR -->
 			<xsl:apply-templates select="pm:contrib-group"/>
 			<!-- TITLE -->
