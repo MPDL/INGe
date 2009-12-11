@@ -32,21 +32,21 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText id="lblViewItemFull_lblCreatorsHeader" value="#{lbl.ViewItemFull_lblCreators}" />
+	<h3 id="lblViewItemFull_lblCreatorsHeader" class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.ViewItemFull_lblCreators}" />
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
 
 <%-- Creators --%>
 		<div class="free_area0 endline itemLine noTopBorder">
-			<b class="xLarge_area0_p8 endline labelLine">
-				<sup>&nbsp;</sup><h:outputText id="lblViewItemFull_lblCreators" value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+			<b id="lblViewItemFull_lblCreators" class="xLarge_area0_p8 endline labelLine">
+				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" rows="0">
-					<h:panelGroup styleClass="free_area0 creator">
-						<h:outputText id="txtCreatorPersonFormattedDisplay" value="#{creatorPerson.formattedDisplay}" escape="false"/>
+					<h:panelGroup id="txtCreatorPersonFormattedDisplay" styleClass="free_area0 creator">
+						<h:outputText value="#{creatorPerson.formattedDisplay}" escape="false"/>
 						<h:panelGroup rendered="#{creatorPerson.portfolioLink != null}">
 							&#160;
 							<h:outputLink id="lnkCreatorPersonPortfolioLink" styleClass="authorCard" value="#{creatorPerson.portfolioLink}?lang=#{InternationalizationHelper.locale}" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -55,8 +55,8 @@
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
 				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" >
-					<h:panelGroup styleClass="free_area0 creator">
-						<h:outputText id="txtCreatorOrganizationOrganizationName" value="#{creatorOrganization.organizationName}"/>
+					<h:panelGroup id="txtCreatorOrganizationOrganizationName" styleClass="free_area0 creator">
+						<h:outputText value="#{creatorOrganization.organizationName}"/>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>		
@@ -65,14 +65,14 @@
 
 <%-- Affiliations --%>
 		<div class="free_area0 endline itemLine">
-			<b class="xLarge_area0_p8 endline labelLine">
-				<h:outputText id="lblViewItemFull_lblAffiliations" value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
+			<b id="lblViewItemFull_lblAffiliations" class="xLarge_area0_p8 endline labelLine">
+				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" rows="0">
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
-					<h:panelGroup styleClass="free_area0 affiliation">
-						<h:outputText id="txtCreatorAffiliation" value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
+					<h:panelGroup id="txtCreatorAffiliation" styleClass="free_area0 affiliation">
+						<h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/>
 						<h:panelGroup rendered="#{creatorAffiliation.hasOrganizationalIdentifier}">
 							&#160;
 							<h:outputLink id="lnkAffiliationDetail" value="" styleClass="ouCard" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false" target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
