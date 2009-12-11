@@ -48,6 +48,10 @@
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:pub="${xsd.metadata.publication}"
+   xmlns:source="${xsd.metadata.source}"
+   xmlns:event="${xsd.metadata.event}"
+   xmlns:person="${xsd.metadata.person}"
+   xmlns:organization="${xsd.metadata.organization}"
 > 
 
 <xsl:output method="text" encoding="UTF-8" indent="yes"/>
@@ -61,7 +65,7 @@
 			<xsl:variable name="mdr_pos" select="position()"/>
 	
 			<!-- if md-record is not in publication profile pur the message -->
-			<xsl:if test="name(mdp:publication)=''">
+			<xsl:if test="name(pub:publication)=''">
 				<xsl:value-of select="concat(
 					if ($mdr_pos!=1) then '&#13;&#10;' else ''
 					,'%0 Generic',
@@ -76,8 +80,8 @@
 			</xsl:if>
 			
 			<!-- md-record has md in publication profile -->
-			<xsl:if test="name(mdp:publication)!=''">
-				<xsl:for-each select="mdp:publication">
+			<xsl:if test="name(pub:publication)!=''">
+				<xsl:for-each select="pub:publication">
 				
 					<!-- Put new line for new doc  -->
 					<xsl:value-of select="if ($mdr_pos!=1) then '&#13;&#10;' else ''"/>
@@ -92,7 +96,7 @@
 								<!-- at least one editor! -->
 								<xsl:with-param name="value">
 									<xsl:choose>
-										<xsl:when test="count(pub:creator[@role='editor'])>0">Edited Book</xsl:when>
+										<xsl:when test="count(eterms:creator[@role='editor'])>0">Edited Book</xsl:when>
 										<xsl:otherwise>Book</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -159,7 +163,7 @@
 					<!-- GENRES END -->
 					
 					<!-- AUTHORS -->
-					<xsl:for-each select="pub:creator">
+					<xsl:for-each select="eterms:creator">
 						<xsl:variable name="creator-string">
 							<xsl:call-template name="get-creator-str">
 								<xsl:with-param name="creator" select="."/>
@@ -172,11 +176,11 @@
 							</xsl:message>
 							</xsl:when>
 							<xsl:otherwise>								
-								<xsl:apply-templates select="e:person">
+								<xsl:apply-templates select="person:person">
 									
 									<xsl:with-param name="gen" select="@gen"/>								
 								</xsl:apply-templates>
-								<xsl:apply-templates select="e:organization">
+								<xsl:apply-templates select="organization:organization">
 									
 									<xsl:with-param name="gen" select="@gen"/>
 								</xsl:apply-templates>
@@ -200,7 +204,7 @@
 						<m num="11">Nov</m>
 						<m num="12">Dec</m>
 					</xsl:variable>
-					<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if  (mdp:published-online!='') then mdp:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>			
+					<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if  (eterms:published-online!='') then eterms:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>			
 					<!-- <xsl:variable name="pubdate" select="dcterms:issued"/>-->
 					<xsl:variable name="year" select="substring($pubdate,1,4)"/>
 					<xsl:variable name="month" select="substring($pubdate,6,2)"/>
@@ -222,9 +226,9 @@
 					</xsl:for-each>	
 					
 					<!-- Artnum - Sequence Number of Article  -->
-					<xsl:variable name="sequence-number" select="pub:source[1]/e:sequence-number[.!='']"/>
+					<xsl:variable name="sequence-number" select="source:source[1]/eterms:sequence-number[.!='']"/>
 					<xsl:choose>
-						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source[1]/e:start-page=''">
+						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source[1]/eterms:start-page=''">
 							<xsl:if test="$sequence-number!=''">
 								<xsl:call-template name="print-line">
 									<xsl:with-param name="tag" select="'P'"/>
@@ -280,7 +284,7 @@
 						*:source[@type='series' and ../*:item[@type='book-item']/dcterms:alternative -> %S
 					-->
 					<!-- <xsl:for-each select="*:source/(dc:title|dcterms:alternative)">-->
-					<xsl:variable name="stitle" select="pub:source[1]/(dc:title|dcterms:alternative)[1]"/>
+					<xsl:variable name="stitle" select="source:source[1]/(dc:title|dcterms:alternative)[1]"/>
 					<xsl:if test="$stitle!=''">
 						<xsl:variable name="jb" select="normalize-space($stitle)"/>
 						<xsl:variable name="sgenre" select="$stitle/../@type"/>
@@ -315,7 +319,7 @@
 						[@type='proceedings' or @type='conference-paper']/e:event/dcterms:alternative -> %B 
 					-->
 					
-					<xsl:for-each select="mdp:event/dc:title">
+					<xsl:for-each select="event:event/dc:title">
 						<xsl:variable name="b" select="normalize-space(.)"/>
 						<xsl:if test="$b!=''">
 							<xsl:choose>
@@ -340,9 +344,9 @@
 					
 					
 					<!-- Date of event -->
-					<xsl:variable name="sd" select="substring(normalize-space(mdp:event/e:start-date),1,10)"/>
+					<xsl:variable name="sd" select="substring(normalize-space(event:event/eterms:start-date),1,10)"/>
 					<xsl:if test="$sd!=''">
-						<xsl:variable name="ed" select="substring(normalize-space(mdp:event/e:end-date),1,10)"/>
+						<xsl:variable name="ed" select="substring(normalize-space(event:event/eterms:end-date),1,10)"/>
 						<xsl:variable name="dateString" select="if ($ed='') then '' else concat(' - ', $ed)"/>
 						<xsl:variable name="dates" select="concat($sd, $dateString)"/>
 						<xsl:call-template name="print-line">
@@ -352,7 +356,7 @@
 					</xsl:if>
 					
 					<!-- AFFILIATIONS -->
-					<xsl:for-each select="pub:creator/e:person/e:organization/e:organization-name">
+					<xsl:for-each select="eterms:creator/person:person/organization:organization/dc:title">
 						<xsl:variable name="aff" select="normalize-space(.)"/>
 						<xsl:if test="$aff!=''">
 							<xsl:call-template name="print-line">
@@ -371,7 +375,7 @@
 					</xsl:for-each>
 					
 					<!-- Edition Description  -->
-					<xsl:for-each select="pub:publishing-info/e:edition">
+					<xsl:for-each select="eterms:publishing-info/eterms:edition">
 						<xsl:variable name="ed" select="normalize-space(.)"/>
 						<xsl:if test="$ed!=''">
 							<xsl:call-template name="print-line">
@@ -380,7 +384,7 @@
 							</xsl:call-template>
 						</xsl:if>
 					</xsl:for-each>
-					<xsl:for-each select="mdp:degree">
+					<xsl:for-each select="eterms:degree">
 						<xsl:variable name="ed" select="normalize-space(.)"/>
 						<xsl:if test="$ed!=''">
 							<xsl:if test="$gen='thesis'">
@@ -393,12 +397,12 @@
 					</xsl:for-each>
 		
 					<!-- Start Page - End Page -->
-					<xsl:for-each select="pub:source[1]">
-						<xsl:variable name="sp" select="normalize-space(e:start-page)"/>
+					<xsl:for-each select="source:source[1]">
+						<xsl:variable name="sp" select="normalize-space(eterms:start-page)"/>
 						<xsl:if test="not($sp='')">
 							<xsl:choose> 
 								<xsl:when test="not($gen='book')">
-									<xsl:variable name="ep" select="normalize-space(e:end-page)"/>
+									<xsl:variable name="ep" select="normalize-space(eterms:end-page)"/>
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'P'"/>
 										<xsl:with-param name="value" select="string-join(($sp, $ep), '-')"/>
@@ -419,15 +423,15 @@
 					<xsl:for-each select="dc:identifier">
 						<xsl:variable name="ident" select="."/>
 						<xsl:call-template name="print-line">
-							<xsl:with-param name="tag" select="if (@xsi:type='eidt:ISSN' or @xsi:type='eidt:ISBN') then '@'
-							else if (@xsi:type='dcterms:URI' or @xsi:type='eidt:URN') then 'U' 
-							else if (@xsi:type='eidt:DOI') then 'R'
+							<xsl:with-param name="tag" select="if (@xsi:type='eterms:ISSN' or @xsi:type='eterms:ISBN') then '@'
+							else if (@xsi:type='dcterms:URI' or @xsi:type='eterms:URN') then 'U' 
+							else if (@xsi:type='eterms:DOI') then 'R'
 							else 'Z'"/>
-							<xsl:with-param name="value" select="if(@xsi:type='eidt:ISSN' or @xsi:type='eidt:ISBN' or @xsi:type='dcterms:URI' or @xsi:type='eidt:URN' or @xsi:type='eidt:DOI') then $ident
+							<xsl:with-param name="value" select="if(@xsi:type='eterms:ISSN' or @xsi:type='eterms:ISBN' or @xsi:type='dcterms:URI' or @xsi:type='eterms:URN' or @xsi:type='eterms:DOI') then $ident
 							else concat(@xsi:type, ' : ', $ident)"/>
 						</xsl:call-template>
 						<!-- ESciDoc Identifier in %M -->
-						<xsl:if test="@xsi:type='eidt:ESCIDOC'">
+						<xsl:if test="@xsi:type='eterms:ESCIDOC'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'M'"/>
 								<xsl:with-param name="value" select="."/>
@@ -436,7 +440,7 @@
 					</xsl:for-each>
 					
 					<!-- Location -->
-					<xsl:for-each select="mdp:location">
+					<xsl:for-each select="eterms:location">
 						<xsl:variable name="location" select="."/>
 						<xsl:if test="$location!=''">
 							<xsl:call-template name="print-line">
@@ -447,11 +451,11 @@
 					</xsl:for-each>
 		
 					<!-- 	Issue -->
-					<xsl:for-each select="pub:source[1]">
+					<xsl:for-each select="source:source[1]">
 						<xsl:if test="not(@type='series')">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'N'"/>
-								<xsl:with-param name="value" select="e:issue"/>
+								<xsl:with-param name="value" select="eterms:issue"/>
 							</xsl:call-template>
 						</xsl:if>						
 					</xsl:for-each>
@@ -470,7 +474,7 @@
 					
 					<!-- Place of event -->
 					<xsl:variable name="flag" select="$gen='proceedings' or $gen='conference-paper'"/>
-					<xsl:variable name="ep" select="normalize-space(mdp:event/e:place)"/>
+					<xsl:variable name="ep" select="normalize-space(event:event/eterms:place)"/>
 					<xsl:if test="$ep!=''">
 						<xsl:call-template name="print-line">
 							<xsl:with-param name="tag" select="if($flag) then 'C' else 'Z'"/>
@@ -479,9 +483,9 @@
 					</xsl:if>
 					
 					<!-- Physical Description -->
-					<xsl:variable name="pd" select="normalize-space(mdp:total-number-of-pages)"/>
+					<xsl:variable name="pd" select="normalize-space(eterms:total-number-of-pages)"/>
 					<xsl:if test="$pd!=''">
-						<xsl:variable name="flag" select="normalize-space(pub:source[1]/e:start-page)!='' and normalize-space(pub:source[1]/e:end-page)!=''"/>
+						<xsl:variable name="flag" select="normalize-space(source:source[1]/eterms:start-page)!='' and normalize-space(source:source[1]/eterms:end-page)!=''"/>
 						<xsl:if test="$gen='book'">						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'P'"/>
@@ -494,12 +498,12 @@
 					<!-- Publisher -->
 					<xsl:call-template name="print-line">
 						<xsl:with-param name="tag" select="if ($gen='report') then 'Y' else 'I'"/>
-						<xsl:with-param name="value" select="pub:publishing-info/dc:publisher"/>
+						<xsl:with-param name="value" select="eterms:publishing-info/dc:publisher"/>
 					</xsl:call-template>
 									
 		
 					<!-- Publisher Address -->
-					<xsl:variable name="pa" select="normalize-space(pub:publishing-info/e:place)"/>
+					<xsl:variable name="pa" select="normalize-space(eterms:publishing-info/eterms:place)"/>
 					<xsl:if test="$pa!=''">
 						<xsl:call-template name="print-line">
 							<xsl:with-param name="tag" select="'C'"/>
@@ -508,7 +512,7 @@
 					</xsl:if>
 		
 					<!-- Refereed (review-method) -->
-					<xsl:variable name="rm" select="normalize-space(mdp:review-method)"/>
+					<xsl:variable name="rm" select="normalize-space(eterms:review-method)"/>
 					<xsl:if test="$rm!=''">
 						<xsl:call-template name="print-line">
 							<xsl:with-param name="tag" select="'Z'"/>
@@ -517,7 +521,7 @@
 					</xsl:if>
 		
 					<!-- Volume -->
-					<xsl:for-each select="pub:source[1]/e:volume">
+					<xsl:for-each select="source:source[1]/eterms:volume">
 					<xsl:variable name="sgenre" select="../@type"/>						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
@@ -532,41 +536,41 @@
 		
 	</xsl:template>
 	<!-- creator type organization -->
-	<xsl:template match="e:organization">
+	<xsl:template match="organization:organization">
 		
 		<xsl:param name="gen"/>
 		<xsl:choose>
 			<xsl:when test="../@role='author'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
-					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
+					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>	
 			</xsl:when>
 			<xsl:when test="../@role='editor'">				
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="if ($gen='book') then 'A' else 'E'"/>
-					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
+					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="../@role='translator'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
-					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
+					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(../@role, ' : ', e:organization-name,', ',e:address)"/>
+					<xsl:with-param name="value" select="concat(../@role, ' : ', dc:title,', ',eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<!-- creator type person -->
-	<xsl:template match="e:person">		
+	<xsl:template match="person:person">		
 		<xsl:param name="gen"/>
-		<xsl:variable name="given-name" select="e:given-name"/>
-		<xsl:variable name="family-name" select="e:family-name"/>	
+		<xsl:variable name="given-name" select="eterms:given-name"/>
+		<xsl:variable name="family-name" select="eterms:family-name"/>	
 			
 		<xsl:choose>
 			<xsl:when test="../@role='author'">
@@ -611,18 +615,18 @@
 	<!-- Generates  Creator string -->
 	<xsl:template name="get-creator-str">
 		<xsl:param name="creator"/>
-		<xsl:variable name="c" select="$creator/e:person | $creator/e:organization"/>
-		<xsl:variable name="name" select="normalize-space($c/e:family-name | $c/e:organization-name)"/>
+		<xsl:variable name="c" select="$creator/person:person | $creator/organization:organization"/>
+		<xsl:variable name="name" select="normalize-space($c/eterms:family-name | $c/eterms:organization-name)"/>
 		<!-- TODO: organization handling -->
 		<xsl:choose>
 			<xsl:when test="$name!=''">
 				<xsl:value-of select="$name"/>
-				<xsl:if test="normalize-space($c/e:given-name)!=''">
-					<xsl:value-of select="concat(', ', normalize-space($c/e:given-name))"/>
+				<xsl:if test="normalize-space($c/eterms:given-name)!=''">
+					<xsl:value-of select="concat(', ', normalize-space($c/eterms:given-name))"/>
 				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="normalize-space($c/e:complete-name)"/>
+				<xsl:value-of select="normalize-space($c/eterms:complete-name)"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
