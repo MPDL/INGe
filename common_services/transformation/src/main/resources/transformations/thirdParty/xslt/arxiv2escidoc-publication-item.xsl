@@ -40,6 +40,10 @@
 	xmlns:srel="${xsd.soap.common.srel}" 
 	xmlns:version="${xsd.soap.common.version}" 
 	xmlns:release="${xsd.soap.common.release}" 	 
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
@@ -91,15 +95,15 @@
 									<eterms:given-name>
 										<xsl:value-of select="arxiv:forenames" />
 									</eterms:given-name>
-									<eterms:organization>
-										<eterms:organization-name>
+									<organization:organization>
+										<dc:title>
 											<xsl:value-of select="arxiv:affiliation" />
-										</eterms:organization-name>
+										</dc:title>
 										<eterms:address />
-										<eterms:identifier>
+										<dc:identifier>
 											<xsl:value-of select="$external_organization_id" />
-										</eterms:identifier>
-									</eterms:organization>
+										</dc:identifier>
+									</organization:organization>
 								</person:person>							
 							</xsl:element>
 						</xsl:for-each>
@@ -142,10 +146,10 @@
 										<person:person>
 											<eterms:family-name></eterms:family-name>
 											<eterms:given-name></eterms:given-name>
-											<eterms:organization>
-												<eterms:organization-name></eterms:organization-name>
+											<organization:organization>
+												<dc:title></dc:title>
 												<eterms:address></eterms:address>
-											</eterms:organization>
+											</organization:organization>
 										</person:person>
 									</eterms:creator>
 									<eterms:volume></eterms:volume>
@@ -169,10 +173,10 @@
 										<person:person>
 											<eterms:family-name></eterms:family-name>
 											<eterms:given-name></eterms:given-name>
-											<eterms:organization>
-												<eterms:organization-name></eterms:organization-name>
+											<organization:organization>
+												<dc:title></dc:title>
 												<eterms:address></eterms:address>
-											</eterms:organization>
+											</organization:organization>
 										</person:person>
 									</eterms:creator>
 									<eterms:volume></eterms:volume>
