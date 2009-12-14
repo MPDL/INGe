@@ -319,35 +319,35 @@
 		</dc:identifier>
 	</xsl:template>
 	
-	<xsl:template match="organization:organization-details">
-		<organizationalunit:organization-details>
+	<xsl:template match="organization:organizational-unit">
+		<organizationalunit:organizational-unit>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
-		</organizationalunit:organization-details>
+		</organizationalunit:organizational-unit>
 	</xsl:template>
 	
-	<xsl:template match="organization:organization-details/organization:city">
+	<xsl:template match="organization:organizational-unit/organization:city">
 		<eterms:city>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</eterms:city>
 	</xsl:template>
 	
-	<xsl:template match="organization:organization-details/organization:country">
+	<xsl:template match="organization:organizational-unit/organization:country">
 		<eterms:country>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</eterms:country>
 	</xsl:template>
 	
-	<xsl:template match="organization:organization-details/organization:start-date">
+	<xsl:template match="organization:organizational-unit/organization:start-date">
 		<eterms:start-date>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
 		</eterms:start-date>
 	</xsl:template>
 	
-	<xsl:template match="organization:organization-details/organization:end-date">
+	<xsl:template match="organization:organizational-unit/organization:end-date">
 		<eterms:end-date>
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>

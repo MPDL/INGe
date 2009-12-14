@@ -40,7 +40,7 @@
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
 
-	<mapping name="organization-details" ns="${xsd.metadata.organizationalunit}"
+	<mapping name="organizational-unit" ns="${xsd.metadata.organizationalunit}"
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO"
 		value-style="attribute" ordered="false"
 		allow-repeats="true">
