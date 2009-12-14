@@ -120,6 +120,7 @@ public class TransformationTest
 //         this.logger.info("Transformation to escidoc xml successful.");
          
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+         System.out.println(new String(result));
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
          this.logger.info("PubItemVO successfully created.");
              
@@ -250,7 +251,7 @@ public class TransformationTest
          
          result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/pmc2.xml").getBytes(), pmcItem, escidocComponent, "escidoc");           
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result));
-         this.logger.info("FileVO successfully created. ");
+         this.logger.info("FileVO successfully created.");
          
      }
 	
@@ -316,7 +317,7 @@ public class TransformationTest
 //         this.logger.info("Transformation to oai_dc successful.");
      }
      
-     
+     //This transformation is currently not in use
      public void snippetToOutputFormatTest() throws Exception
      {
          this.logger.info("snippet -> outputFormat");
@@ -353,7 +354,7 @@ public class TransformationTest
          this.logger.info("AJP - odt: OK");
      }
      
-      
+     @Test
      public void eSciDocVer1toeSciDocVer2() throws TransformationNotSupportedException, RuntimeException, UnsupportedEncodingException, IOException
      {
     	 Format in_i = new Format("escidoc-publication-item-v1", "application/xml", "UTF-8");

@@ -2,12 +2,15 @@ package test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.TransformationBean;
 import de.mpg.escidoc.services.transformation.Util;
@@ -52,8 +55,7 @@ public class EndNoteImportTest
 	    this.logger.info("Transform EndNote list to escidoc format");
 	    
        	String result = imp.transformEndNote2XML(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote.txt"));
-       	this.logger.info("transformation successful");
-       	this.logger.info(result);
+
 	}
 
 }

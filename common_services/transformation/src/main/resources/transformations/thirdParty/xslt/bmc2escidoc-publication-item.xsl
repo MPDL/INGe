@@ -131,22 +131,21 @@
 	
 		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
-			<xsl:element name="person:person">
-			
-			<xsl:element name="eterms:complete-name">
-				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
-				<xsl:value-of select="concat(bmc:MiddleName, ' ')"/>
-				<xsl:value-of select="bmc:LastName"/>
+			<xsl:element name="person:person">		
+				<xsl:element name="eterms:complete-name">
+					<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
+					<xsl:value-of select="concat(bmc:MiddleName, ' ')"/>
+					<xsl:value-of select="bmc:LastName"/>
+				</xsl:element>
+				<xsl:element name="eterms:given-name">
+					<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
+					<xsl:value-of select="bmc:MiddleName"/>
+				</xsl:element>
+				<xsl:element name="eterms:family-name">
+					<xsl:value-of select="bmc:LastName"/>
+				</xsl:element>
+				<xsl:apply-templates select="bmc:Affiliation"/>
 			</xsl:element>
-			<xsl:element name="eterms:given-name">
-				<xsl:value-of select="concat(bmc:FirstName, ' ')"/>
-				<xsl:value-of select="bmc:MiddleName"/>
-			</xsl:element>
-			<xsl:element name="eterms:family-name">
-				<xsl:value-of select="bmc:LastName"/>
-			</xsl:element>
-			<xsl:apply-templates select="bmc:Affiliation"/>
-		</xsl:element>
 		</xsl:element>
 		<xsl:apply-templates select="bmc:CollectiveName"/>
 		
@@ -158,8 +157,7 @@
 	
 	<xsl:template match="bmc:CollectiveName">
 	
-		<xsl:element name="eterms:creator">	
-				
+		<xsl:element name="eterms:creator">					
 			<xsl:call-template name="createOrganization"/>
 		</xsl:element>
 	

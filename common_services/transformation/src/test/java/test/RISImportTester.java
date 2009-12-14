@@ -30,7 +30,7 @@ public class RISImportTester {
     
 	/**
 	 * @param args
-	 */
+	 */    
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
 		RISImport imp = new RISImport();
@@ -58,7 +58,7 @@ public class RISImportTester {
     	
     	
     	
-    	System.out.print(new String(result,"UTF-8"));
+    	//System.out.print(new String(result,"UTF-8"));
     	//System.out.print(out);
 	}
 	

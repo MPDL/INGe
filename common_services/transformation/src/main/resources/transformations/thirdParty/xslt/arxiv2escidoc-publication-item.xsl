@@ -71,7 +71,7 @@
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<publication:publication xmlns:dc="{xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}"
+					<publication:publication xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}"
 						xmlns:eterms="${xsd.metadata.terms}" 
 						xmlns:publication="${xsd.metadata.publication}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 						>
@@ -231,7 +231,7 @@
 				<escidocComponents:component>
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>public</prop:visibility>
+						<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
 						<prop:content-category></prop:content-category>
 						<prop:file-name>0</prop:file-name>
 					</escidocComponents:properties>
@@ -240,8 +240,8 @@
 				<escidocComponents:component>
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>public</prop:visibility>
-						<prop:content-category>supplementary-material</prop:content-category>
+						<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+						<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
 						<prop:file-name></prop:file-name>
 					</escidocComponents:properties>
 					<escidocComponents:content storage="external-url"/>

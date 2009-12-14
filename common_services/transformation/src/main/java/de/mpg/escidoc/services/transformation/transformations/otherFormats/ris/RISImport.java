@@ -45,7 +45,7 @@ public class RISImport{
     		for (String item : itemList) {
     			List<Pair> itemPairs = getItemPairs(getItemFromString(item, "([A-Z0-9]{2})\\s+- ((.*\n)+?)($|(?=(([A-Z0-9]{2})  -)))"));
     			for(Pair p : itemPairs){
-    				System.out.print(p.getKey()+" : "+p.getValue()+"\n");
+    				//System.out.print(p.getKey()+" : "+p.getValue()+"\n");
     			}
     			items.add(itemPairs);  
 			}
