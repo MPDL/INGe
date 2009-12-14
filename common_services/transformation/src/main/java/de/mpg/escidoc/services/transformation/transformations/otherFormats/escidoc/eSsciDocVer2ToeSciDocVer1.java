@@ -71,7 +71,9 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
     private static final Format ESCIDOC_ITEM_LIST_V2_FORMAT = new Format("escidoc-publication-item-list-v2", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_V2_FORMAT = new Format("escidoc-publication-item-v2", "application/xml", "*");
     
-    private static final String XSLT_PATH = "transformations/otherFormats/xslt/escidoc-publication-v2_2_escidoc-publication-v1.xsl";
+    private static final String PATH = "transformations/otherFormats/xslt";
+    
+    private static final String XSLT_PATH = PATH + "/escidoc-publication-v2_2_escidoc-publication-v1.xsl";
     
     /**
      * {@inheritDoc}
@@ -193,24 +195,17 @@ public class eSsciDocVer2ToeSciDocVer1 extends DefaultHandler implements Transfo
      */
     class myURIResolver implements URIResolver 
     {
-    	public String absPath;
-    	
-    	public myURIResolver() throws FileNotFoundException 
-    	{
-    		absPath = ResourceUtil.getResourceAsFile(XSLT_PATH).getParent();
-		}
     	
 		public Source resolve(String href, String base) throws TransformerException {
 //			System.out.println("resolving stylesheet ref " + href);
-//			System.out.println("abs path:" + absPath);
 			Source src = null;
 			try 
 			{
-				src = new StreamSource(ResourceUtil.getResourceAsStream(absPath + "/" + href));
+				src = new StreamSource(ResourceUtil.getResourceAsStream(PATH + "/" + href));
 			} 
 			catch (FileNotFoundException e) 
 			{
-				throw new TransformerException("cannot find path to the document:" + absPath + "/" + href, e);
+				throw new TransformerException("cannot find path to the document:" + PATH + "/" + href, e);
 			} 
 			return src;
 		}
