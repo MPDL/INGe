@@ -69,8 +69,14 @@ public class FileFormatVO extends ValueObject
     public static final String SNIPPET_NAME = "snippet";
     public static final String SNIPPET_MIMETYPE = "application/xml";
     
+    public static final String ESCIDOC_SNIPPET_NAME = "escidoc_snippet";
+    public static final String ESCIDOC_SNIPPET_MIMETYPE = "application/xml";
+    
     public static final String XML_NAME = "xml";
     public static final String XML_MIMETYPE = "application/xml";
+    
+    public static final String ESCIDOC_XML_NAME = "escidoc_xml";
+    public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
 
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
@@ -100,8 +106,10 @@ public class FileFormatVO extends ValueObject
         			HTML_NAME.equals(name) ? HTML_MIMETYPE : 
         				ODT_NAME.equals(name) ? ODT_MIMETYPE : 
         					SNIPPET_NAME.equals(name) ? SNIPPET_MIMETYPE : 
-        						XML_NAME.equals(name) ? XML_MIMETYPE : 
-        							DEFAULT_MIMETYPE; 
+        						ESCIDOC_SNIPPET_NAME.equals(name) ? ESCIDOC_SNIPPET_MIMETYPE : 
+        							XML_NAME.equals(name) ? XML_MIMETYPE : 
+        								ESCIDOC_XML_NAME.equals(name) ? ESCIDOC_XML_MIMETYPE : 
+        									DEFAULT_MIMETYPE; 
     }
 
     // workaround to find out whether the output format is presented  
