@@ -141,10 +141,10 @@
 						<xsl:element name="ec:component">
 							<xsl:element name="ec:properties">
 								<xsl:element name="prop:visibility">
-									<xsl:value-of select="'public'"/>
+									<xsl:value-of select="'http://purl.org/escidoc/metadata/ves/access-types/public'"/>
 								</xsl:element>
 								<xsl:element name="prop:content-category">
-									<xsl:value-of select="'publisher-version'"/>
+									<xsl:value-of select="'http://purl.org/escidoc/metadata/ves/content-categories/publisher-version'"/>
 								</xsl:element>
 								<xsl:element name="prop:file-name">
 									<xsl:value-of select="$component-name"/>
@@ -168,7 +168,7 @@
 										<dc:title>
 											<xsl:value-of select="$component-name"/>
 										</dc:title>
-										<file:content-category>publisher-version</file:content-category>
+										<file:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</file:content-category>
 										<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 										<!-- TODO: Filesize -->
 										<dcterms:extent><xsl:value-of select="util:getSize(concat($filename-prefix, $component-name))"/></dcterms:extent>
@@ -199,7 +199,7 @@
 		<xsl:choose>
 			<xsl:when test=".//mods:genre='Review'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'Article'"/>
+					<xsl:with-param name="gen" select="'http://purl.org/escidoc/metadata/ves/publication-types/article'"/>
 					<xsl:with-param name="volume" select="$volume"/>
 					<xsl:with-param name="year" select="$year"/>
 					<xsl:with-param name="publisher" select="$publisher"/>
@@ -208,7 +208,7 @@
 			</xsl:when>
 			<xsl:when test=".//mods:genre='Original Communication'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'Article'"/>
+					<xsl:with-param name="gen" select="'http://purl.org/escidoc/metadata/ves/publication-types/article'"/>
 					<xsl:with-param name="volume" select="$volume"/>
 					<xsl:with-param name="year" select="$year"/>
 					<xsl:with-param name="publisher" select="$publisher"/>
@@ -217,7 +217,7 @@
 			</xsl:when>
 			<xsl:when test=".//mods:genre='Report'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'Report'"/>
+					<xsl:with-param name="gen" select="'http://purl.org/eprint/type/Report'"/>
 					<xsl:with-param name="volume" select="$volume"/>
 					<xsl:with-param name="year" select="$year"/>
 					<xsl:with-param name="publisher" select="$publisher"/>
@@ -226,7 +226,7 @@
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="gen" select="'Other'"/>
+					<xsl:with-param name="gen" select="'http://purl.org/escidoc/metadata/ves/publication-types/other'"/>
 					<xsl:with-param name="volume" select="$volume"/>
 					<xsl:with-param name="year" select="$year"/>
 					<xsl:with-param name="publisher" select="$publisher"/>
@@ -379,7 +379,7 @@
 	<xsl:template name="createAuthors">
 		<xsl:for-each select=".//mods:name[@type='personal']">
 			<xsl:element name="pub:creator">
-				<xsl:attribute name="role">author</xsl:attribute>
+				<xsl:attribute name="role">http://www.loc.gov/loc.terms/relators/AUT</xsl:attribute>
 				<xsl:element name="e:person">
 					<xsl:element name="e:complete-name">
 						<xsl:value-of select="mods:displayForm"/>
