@@ -31,8 +31,6 @@ package de.mpg.escidoc.services.structuredexportmanager;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,13 +39,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
 import javax.xml.transform.OutputKeys;
-
+import javax.xml.transform.Source;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
@@ -60,6 +56,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Structured Export Manager. 
@@ -117,6 +115,26 @@ public class StructuredExport implements StructuredExportHandler {
 			
 			//return itemList XML in case of XML export
 			if ( "XML".equals(exportFormat) )
+			{
+		    	 
+		    	 TransformationBean trans = new TransformationBean(true);
+		    	 
+		    	 byte[] v1 = null;
+		    	 try 
+		    	 {
+					v1 = trans.transform(itemList.getBytes("UTF-8"), 
+							new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8"), 
+							new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8"), 
+							"escidoc"
+					);
+		    	 }
+		    	 catch (Exception e) 
+		    	 {
+		    		 throw new StructuredExportManagerException("Problems by escidoc v2 to v1 transformation:", e);	
+		    	 } 				
+				return v1;
+			}
+			else if ( "ESCIDOC_XML".equals(exportFormat) )
 			{
 				return itemList.getBytes();
 			}
