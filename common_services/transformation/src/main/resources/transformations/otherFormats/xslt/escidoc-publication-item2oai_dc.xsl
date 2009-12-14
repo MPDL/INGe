@@ -68,15 +68,16 @@
 				
 				<xsl:if test="eterms:degree!=''">
 					<xsl:element name="dc:type">
-						<xsl:value-of select="$degree-ves/enum[/@uri=eterms:degree]" />
+						<xsl:value-of select="$degree-ves/enum[@uri=eterms:degree]" />
 					</xsl:element>
 				</xsl:if>
 
-
+				
 				<!-- CREATORS -->
 				<xsl:for-each select="eterms:creator">
-					<xsl:variable name="role" select="$creator-ves/enum[/@uri=@role]" />
 					<xsl:variable name="role-uri" select="@role" />
+					<xsl:variable name="role" select="$creator-ves/enum[@uri=$role-uri]" />
+					
 					<xsl:variable name="creatorType"
 						select="
 				if ($role='author') then 'dc:creator' 
@@ -155,8 +156,8 @@
 						<xsl:value-of select="$date" />
 					</xsl:element>
 				</xsl:if>
-
-				<xsl:variable name="stype" select="$genre-ves/enum[/@uri=source:source/@type]"/>
+				<xsl:variable name="stype-uri" select="source:source/@type"/>
+				<xsl:variable name="stype" select="$genre-ves/enum[@uri=$stype-uri]"/>
 				<!-- dc:sources +? -->
 				<xsl:variable name="source">
 					<xsl:value-of select="eterms:publishing-info/eterms:place" />
