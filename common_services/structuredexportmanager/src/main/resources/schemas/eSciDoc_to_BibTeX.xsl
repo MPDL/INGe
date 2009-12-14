@@ -141,7 +141,7 @@
 		<!-- CREATOR -->
 		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']]"/>		
 		<!-- EDITOR -->
-		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.'editor']]"/>		
+		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']]"/>		
 		<!-- LANGUAGE -->
 		<xsl:apply-templates select="dc:language"/>
 		<!-- URI, URN -->
@@ -306,7 +306,7 @@
 	<!-- SOURCE -->
 	<xsl:template match="source:source">		
 		<!-- TITLE -->
-		<xsl:variable name="sgenre" select="$genre-ves/enum[/@uri=@type]"/>
+		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=@type]"/>
 		<xsl:choose>
 			<xsl:when test="$sgenre='series'">
 				<xsl:call-template name="createField">
@@ -329,7 +329,7 @@
 			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 		<!-- SOURCE CREATOR -->
-		<xsl:variable name="role" select="$creator-ves/enum[/@uri=eterms:creator/@role]"/>
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=eterms:creator/@role]"/>
 		<xsl:if test="exists($role='author' or $role='editor')">
 			<xsl:text disable-output-escaping="yes">note = "</xsl:text>	
 				<xsl:apply-templates select="eterms:creator/person:person[parent::*/parent::source:source]"/>
@@ -392,13 +392,13 @@
 	</xsl:template>
 	
 	<xsl:template name="roleLabel">
-		<xsl:variable name="role" select="$creator-ves/enum[/@uri=../@role]"/>	
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=../@role]"/>	
 		<xsl:value-of select="$role"/>
 		<xsl:text disable-output-escaping="yes"> = "</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="person:person">			
-		<xsl:variable name="role" select="$creator-ves/enum[/@uri=../@role]"/>	
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=../@role]"/>	
 		<xsl:choose>		
 			<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0">	
 				<xsl:call-template name="roleLabel"/>					
@@ -423,7 +423,7 @@
 	</xsl:template>
 	
 	<xsl:template match="organization:organization">		
-		<xsl:variable name="role" select="$creator-ves/enum[/@uri=../@role]"/>		
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=../@role]"/>		
 		<xsl:choose>	
 		<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0 and count(../parent::source:source)=1">	
 			<xsl:value-of select="concat($role, ' : ')"/>				
@@ -435,7 +435,7 @@
 		</xsl:choose>
 		<xsl:value-of select="jfunc:texString(dc:title)"/>
 		<!-- AND-connection of orgas -->		
-		<xsl:variable name="role" select="$creator-ves/enum[/@uri=../@role]"/>
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=../@role]"/>
 		<xsl:choose>		
 			<xsl:when test="exists(../following-sibling::*:creator[@role=$role])">
 				<xsl:value-of select="' and '"/>
