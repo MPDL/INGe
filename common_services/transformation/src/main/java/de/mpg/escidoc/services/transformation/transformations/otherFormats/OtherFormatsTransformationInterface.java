@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.transformation.transformations.otherFormats;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -42,7 +43,10 @@ import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer1ToeSciDocVer2;
+import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer2ToeSciDocVer1;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
+import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -63,12 +67,15 @@ public class OtherFormatsTransformationInterface implements Transformation
     
     private Util util;
     
+    private OtherFormatsTransformation transformer;
+    
     /**
      * Public constructor.
      */
     public OtherFormatsTransformationInterface()
     {
         this.util = new Util();
+        this.transformer = new OtherFormatsTransformation();
     }
     
     /**
@@ -221,24 +228,66 @@ public class OtherFormatsTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
         
-        if (trgFormat.getName().equals("virr-mets"))
+        String srcFormatName = srcFormat.getName();
+        String trgFormatName = trgFormat.getName();
+
+        if (this.transformer.checkXsltTransformation(srcFormatName, trgFormatName))
+        {   
+            try
+            {
+                String transformedXml = this.transformer.xsltTransform(srcFormatName, trgFormatName, new String(src, "UTF-8"));
+                result = transformedXml.getBytes("UTF-8");
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                throw new RuntimeException(e);
+            }
+            supported = true;
+        }
+        else if (trgFormat.getName().equals("virr-mets"))
         {
             OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
             result = otherTrans.transformEscidocToMets(src);
             supported = true;
         }  
-        if (trgFormat.getName().equals("oai_dc"))
+        else if (trgFormatName.equals("oai_dc"))
         {
             OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
             try
             {
-                result = otherTrans.xsltTransform(srcFormat.getName(), trgFormat.getName(), new String(src,"UTF-8")).getBytes();
+                result = otherTrans.xsltTransform(srcFormatName, trgFormatName, new String(src,"UTF-8")).getBytes();
             }
             catch(Exception e)
             {
                 this.logger.warn("An error occurred during String Cast." , e);
             }
             supported = true;
+        }  
+        else if (trgFormatName.equals("escidoc-publication-item-list-v2") || trgFormatName.equals("escidoc-publication-item-v2"))
+        {
+        	try
+        	{
+        		eSsciDocVer1ToeSciDocVer2 escidocTransformer = new eSsciDocVer1ToeSciDocVer2();
+        		result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
+        	}
+        	catch(Exception e)
+        	{
+        		this.logger.warn("An error occurred during String Cast." , e);
+        	}
+        	supported = true;
+        }  
+        else if (trgFormatName.equals("escidoc-publication-item-list-v1") || trgFormatName.equals("escidoc-publication-item-v1"))
+        {
+        	try
+        	{
+        		eSsciDocVer2ToeSciDocVer1 escidocTransformer = new eSsciDocVer2ToeSciDocVer1();
+        		result = escidocTransformer.transform(src, srcFormat, trgFormat, service);
+        	}
+        	catch(Exception e)
+        	{
+        		this.logger.warn("An error occurred during String Cast." , e);
+        	}
+        	supported = true;
         }  
         if (!supported)
         {
