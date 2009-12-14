@@ -89,7 +89,7 @@
 					<xsl:value-of select="if ($mdr_pos!=1) then '&#13;&#10;' else ''"/>
 		
 					<!-- GENRES -->
-					<xsl:variable name="gen" select="@type"/>
+					<xsl:variable name="gen" select="$genre-ves/enum[/@uri=@type]"/>
 					<xsl:choose>
 						<!-- ### book ### -->
 						<xsl:when test="$gen='book'">
@@ -98,7 +98,7 @@
 								<!-- at least one editor! -->
 								<xsl:with-param name="value">
 									<xsl:choose>
-										<xsl:when test="count(eterms:creator[@role='editor'])>0">Edited Book</xsl:when>
+										<xsl:when test="count(eterms:creator[@role=$creator-ves/enum[.='editor']/@uri])>0">Edited Book</xsl:when>
 										<xsl:otherwise>Book</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -289,7 +289,8 @@
 					<xsl:variable name="stitle" select="source:source[1]/(dc:title|dcterms:alternative)[1]"/>
 					<xsl:if test="$stitle!=''">
 						<xsl:variable name="jb" select="normalize-space($stitle)"/>
-						<xsl:variable name="sgenre" select="$stitle/../@type"/>
+						<xsl:variable name="sourcegenre" select="$stitle/../@type"/>
+						<xsl:variable name="sgenre" select="$genre-ves/enum[.=$sourcegenre]/@uri"/>
 						<xsl:if test="$jb!=''">
 							<xsl:choose>
 								<xsl:when test="$sgenre='journal'">
@@ -454,7 +455,7 @@
 		
 					<!-- 	Issue -->
 					<xsl:for-each select="source:source[1]">
-						<xsl:if test="not(@type='series')">
+						<xsl:if test="not($genre-ves/enum[.=@type]='series')">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'N'"/>
 								<xsl:with-param name="value" select="eterms:issue"/>
@@ -524,7 +525,7 @@
 		
 					<!-- Volume -->
 					<xsl:for-each select="source:source[1]/eterms:volume">
-					<xsl:variable name="sgenre" select="../@type"/>						
+					<xsl:variable name="sgenre" select="$genre-ves/enum[/@uri=../@type]"/>						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
 								<xsl:with-param name="value" select="."/>
@@ -541,29 +542,30 @@
 	<xsl:template match="organization:organization">
 		
 		<xsl:param name="gen"/>
+		<xsl:variable name="role-string" select="$creator-ves/enum[.=../@role]"/>
 		<xsl:choose>
-			<xsl:when test="../@role='author'">
+			<xsl:when test="$role-string='author'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>	
 			</xsl:when>
-			<xsl:when test="../@role='editor'">				
+			<xsl:when test="$role-string='editor'">				
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="if ($gen='book') then 'A' else 'E'"/>
 					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="../@role='translator'">
+			<xsl:when test="$role-string='translator'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
+			<xsl:when test="$role-string='artist' or $role-string='painter' or $role-string='photographer' or $role-string='illustrator' or $role-string='commentator' or $role-string='transcriber' or $role-string='advisor' or $role-string='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(../@role, ' : ', dc:title,', ',eterms:address)"/>
+					<xsl:with-param name="value" select="concat($role-string, ' : ', dc:title,', ',eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
@@ -571,32 +573,33 @@
 	<!-- creator type person -->
 	<xsl:template match="person:person">		
 		<xsl:param name="gen"/>
+		<xsl:variable name="role-string" select="$creator-ves/enum[.=../@role]"/>
 		<xsl:variable name="given-name" select="eterms:given-name"/>
 		<xsl:variable name="family-name" select="eterms:family-name"/>	
 			
 		<xsl:choose>
-			<xsl:when test="../@role='author'">
+			<xsl:when test="$role-string='author'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>		
 			</xsl:when>
-			<xsl:when test="../@role='editor'">					
+			<xsl:when test="$role-string='editor'">					
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="if ($gen='book')then 'A' else 'E'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>						
 			</xsl:when>
-			<xsl:when test="../@role='translator'">
+			<xsl:when test="$role-string='translator'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
+			<xsl:when test="$role-string='artist' or $role-string='painter' or $role-string='photographer' or $role-string='illustrator' or $role-string='commentator' or $role-string='transcriber' or $role-string='advisor' or $role-string='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(../@role, ' : ', $family-name,', ',$given-name)"/>
+					<xsl:with-param name="value" select="concat($role-string, ' : ', $family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
