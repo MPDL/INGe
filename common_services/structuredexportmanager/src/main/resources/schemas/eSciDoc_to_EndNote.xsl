@@ -44,7 +44,7 @@
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
+   xmlns:eterms="${xsd.metadata.terms}"
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}"
    xmlns:pub="${xsd.metadata.publication}"
