@@ -154,7 +154,11 @@ public class RestServlet extends HttpServlet
 
             if (se.isStructuredFormat(exportFormat))
             {
-                outputFormat = "XML".equalsIgnoreCase(exportFormat) ? "xml" : FileFormatVO.TEXT_NAME;
+            	
+                outputFormat = 
+                	exportFormat.equalsIgnoreCase("XML") ? "xml" : 
+                	exportFormat.equalsIgnoreCase("ESCIDOC_XML") ? "escidoc_xml" : 
+                	FileFormatVO.TEXT_NAME;
             } 
             else
             // citation style
