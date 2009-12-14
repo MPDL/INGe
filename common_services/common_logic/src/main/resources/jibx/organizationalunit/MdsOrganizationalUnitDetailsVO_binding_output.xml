@@ -68,7 +68,7 @@
 				
 			<!-- Node: organizational-unit.organization-details.organization-type -->
 			<!-- Field: MdsOrganizationalUnitDetailsVO.type [Type] -->
-			<value style="element" name="organization-type" ns="${xsd.metadata.organizationalunit}"
+			<value style="element" name="organization-type" ns="${xsd.metadata.escidocprofile.types}"
 				field="type" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.description -->
