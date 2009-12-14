@@ -359,7 +359,8 @@
 												<option value="AJP">AJP</option>
 												<option value="ENDNOTE">EndNote</option>
 												<option value="BIBTEX">BibTeX</option>
-												<option value="XML">eSciDoc XML</option>
+												<option value="XML">XML</option>
+												<option value="ESCIDOC_XML">eSciDoc XML</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
@@ -370,6 +371,7 @@
 												<option value="rtf">RTF</option>
 												<option value="odt">ODT</option>
 												<option value="snippet">SNIPPET</option>
+												<option value="escidoc_snippet">ESCIDOC SNIPPET</option>
 							                </select>
 										</span>
 									</span>
