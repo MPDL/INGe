@@ -46,7 +46,7 @@
                     </xs:annotation>
                 </xs:element>
                 <xs:element
-                    ref="organizational-unit:organization-details">
+                    ref="organizational-unit:organizational-unit">
                     <xs:annotation>
                         <xs:documentation>
                             <create>required</create>
@@ -180,7 +180,7 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="organization-details">
+    <xs:element name="organizational-unit">
         <xs:annotation>
             <xs:documentation>
                 <create>required</create>
@@ -348,9 +348,9 @@
                         <create>discarded</create>
                         <update>required (see note 1.)</update>
                         <comment> 1. This attribute is contained if the
-                            organization-details element is retrieved as 
+                            organizational-unit element is retrieved as 
                             a sub resource. It is not contained in the 
-                            organization-details element element within the
+                            organizational-unit element element within the
                             organizational-unit element. </comment>
                     </xs:documentation>
                 </xs:annotation>
