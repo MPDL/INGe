@@ -29,6 +29,7 @@
     */ 
 package de.mpg.escidoc.services.transformation.transformations.otherFormats;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -48,6 +49,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import net.sf.saxon.TransformerFactoryImpl;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.LocalURIResolver;
@@ -198,4 +200,20 @@ public class OtherFormatsTransformation
         }
         return instream;
     }
+    
+    public boolean checkXsltTransformation(String formatFrom, String formatTo)
+    {
+        String xsltUri = formatFrom.toLowerCase().trim() + "2" + formatTo.toLowerCase().trim() + ".xsl";
+        boolean check = false;
+        
+        try {
+            
+            File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+            check = true;
+            
+        }
+        catch (FileNotFoundException e){this.logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);}
+
+        return check;
+    }    
 }
