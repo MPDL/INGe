@@ -31,7 +31,7 @@
     - The element parents (contained in resources element) has been replaced by an element called parentObjects.
     - The element children (contained in resources element) has been replaced by an element called ChildObjects.
 
-	- The element organizational-unit has been replaced by a set of metadata-records. At least a metadata record 
+	- The element organization-details has been replaced by a set of metadata-records. At least a metadata record 
 	  with attribute name='escidoc' is mandatory. To be able to extract the name of the organizational unit the 
 	  mandatory must contain at least a 'http://purl.org/dc/elements/1.1/:title' element, if a description is 
 	  desired there must be a 'http://purl.org/dc/elements/1.1/:description' element.
