@@ -34,7 +34,10 @@ public class TestCitationManager {
     
     private XmlHelper xh = new XmlHelper();
     
-    private final static String dsFileName = "APA_revised_item-list.xml";  
+//    private final static String dsFileName = "APA_revised_item-list.xml";  
+//    private final static String dsFileName = "backward_trans.xml";  
+    private final static String dsFileName = "escidoc-item-ver2.xml";  
+//    private final static String dsFileName = "problem-by-ice.xml";  
     
     private static String itemList;
      
@@ -90,8 +93,8 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
-    public final void testExplainStuff() throws Exception {
-        
+    public final void testExplainStuff() throws Exception 
+    {
         String explain = pcs.explainStyles();
         assertTrue("Empty explain xml", Utils.checkVal(explain) );
         logger.info("Explain file:" + explain);
@@ -107,17 +110,13 @@ public class TestCitationManager {
             }
             
         }   
-        
-        
-        
     }       
     
     /**
      * Validates DataSource against XML Schema  
      * @throws IOException 
      */
-    @Test
-    @Ignore
+   // @Test
     public final void testDataSourceValidation() throws IOException{
         
         //TODO: always recent schema should be provided
@@ -143,7 +142,7 @@ public class TestCitationManager {
      * @throws ParserConfigurationException 
      * @throws CitationStyleManagerException 
      */
-    @Test
+//    @Test
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
         
@@ -174,18 +173,19 @@ public class TestCitationManager {
      * @throws Exception Any exception.
      */
     @Test
+//    @Ignore
     public final void testCitManOutput() throws Exception {
         
         
 //      for (String cs : pcs.getStyles() )
-//      for (String cs : new String[]{"AJP",/*"AJP"*/} )
-            for (String cs : new String[]{"APA"} )
+      for (String cs : new String[]{"AJP","AJP"} )
+//            for (String cs : new String[]{"AJP"} )
         {
             long start;
             byte[] result;
             for ( String format : 
-//                  pcs.getOutputFormats(cs)
-                    new String[]{/*"snippet"/*,*/ "pdf"}
+                  pcs.getOutputFormats(cs)
+//                    new String[]{/*"snippet"/*,*/ "escidoc_snippet"}
 //          new String[]{"snippet"}
             ) {
                 logger.info("Test Citation Style: " + cs);
@@ -203,7 +203,7 @@ public class TestCitationManager {
                 logger.info(format + " length: " + result.length);
                 logger.info(format + " is OK");
                 
-                TestHelper.writeToFile(cs + "." + format, result);
+//                TestHelper.writeToFile(cs + "." + format, result);
                 
             }
             

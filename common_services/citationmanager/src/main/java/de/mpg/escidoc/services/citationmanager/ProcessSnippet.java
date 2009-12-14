@@ -29,13 +29,22 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -45,7 +54,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.CDATASection;
@@ -55,6 +63,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -80,6 +89,8 @@ public class ProcessSnippet {
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
     private static final String ITEM_ELEMENT_NAME = "item";
 	private static final String URL_ELEMENT_NAME = "dc:identifier";
+	
+    private static TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
     
 	/**
 	 * Takes org.w3c.dom.Document  doc, processes it with InputStream report,
@@ -93,7 +104,7 @@ public class ProcessSnippet {
 	 * @throws IOException
 	 * @throws CitationStyleManagerException
 	 */
-	public void export(Document doc, Map params, final JasperReport jr, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
+	public void export(Document doc, byte[] v2, Map params, final JasperReport jr, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
 		
 		if ( doc == null ) 
 			throw new CitationStyleManagerException("org.w3c.dom.Document doc is null");
@@ -213,9 +224,71 @@ public class ProcessSnippet {
 			root.appendChild(itemsArr[i]);
 
 		}
-
-		XmlHelper.output(doc, os);
 		
+		//output format is snippet 
+		if ( v2 == null ) 
+			XmlHelper.output(doc, os);
+		else
+		//additional transformation snippet -> escidoc_snippet) 
+		{
+			transform(XmlHelper.outputString(doc).getBytes("UTF-8"), v2, os);
+		}
+		
+	}
+	
+	
+	
+	public void export(Document doc, Map params, final JasperReport jr, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
+		export(doc, null, params, jr, os);
+	}
+	
+	
+	//Additional transformation to the escidoc_snippet output format
+	public void transform(byte[] v1, byte[] v2, OutputStream os) 
+	{
+	    try
+	    {
+	        System.out.print("Started xslt transformation...");
+	        InputStream stylesheet = ResourceUtil.getResourceAsStream(
+	        		ResourceUtil.getPathToTransformations() + "/escidoc-snippet-v1-to-v2.xsl"
+	        );
+	        
+	        Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
+	        
+	        //trick to use 2 docs in input, 2nd doc is resolved with   
+	        //the document() function in XSLT  
+	        transformer.setURIResolver(new myURIResolver(v1));
+	        
+	        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+	        
+	        transformer.transform(new StreamSource(new ByteArrayInputStream(v2)), new StreamResult(os));
+	        System.out.println("Finished!");
+	        
+	    }
+	    catch (Exception e)
+	    {
+	        throw new RuntimeException("Error by snippet v1 to v2 transformation", e);
+	    }
+    
+	}
+
+	/**
+	 * URIResolver for the document() in the XSLT 
+	 *
+	 */
+	class myURIResolver implements URIResolver 
+	{
+		public byte[] ba;
+		
+		public myURIResolver(byte[] ba) throws FileNotFoundException 
+		{
+			this.ba = ba; 
+		}
+		
+		public Source resolve(String href, String base) 
+		{
+			return new StreamSource(new ByteArrayInputStream(ba));
+		}
 	}
 	
 	

@@ -93,6 +93,9 @@ import de.mpg.escidoc.services.citationmanager.data.Parameters;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
+import de.mpg.escidoc.services.transformation.TransformationBean;
+import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
 *
@@ -185,7 +188,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
     
     // Output Formats enum
-    public static enum OutFormats { rtf, pdf, html, odt, snippet, txt }; 
+    public static enum OutFormats { rtf, pdf, html, odt, snippet, escidoc_snippet, txt }; 
     
 	public ProcessCitationStyles() {
 
@@ -1165,7 +1168,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
 		String csj = ResourceUtil.getPathToCitationStyles() 
 			+ csName + "/CitationStyle" 
-			+ (OutFormats.snippet == OutFormats.valueOf(ouf) ? CSS_CLASS_POSTFIX : "")
+			+ (
+				OutFormats.snippet == OutFormats.valueOf(ouf) || OutFormats.escidoc_snippet == OutFormats.valueOf(ouf) ? CSS_CLASS_POSTFIX : "")
 			+ ".jasper"; 
 		
         JasperReport jasperReport = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj));
@@ -1217,10 +1221,31 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
 		long start;
 		start = System.currentTimeMillis();
+		
+		
+		/* 
+         * ruaround for the old version of citman, which works with the old MD set:
+         * transform md from v2 to v1     
+         */
+    	 Format in = new Format("escidoc-publication-item-list-v2", "application/xml", "UTF-8");
+    	 Format out = new Format("escidoc-publication-item-list-v1", "application/xml", "UTF-8");
+    	 
+    	 TransformationBean trans = new TransformationBean(true);
+    	 
+    	 byte[] v1 = null;
+    	 try 
+    	 {
+			v1 = trans.transform(itemList.getBytes("UTF-8"), in, out, "escidoc");
+    	 }
+    	 catch (Exception e) 
+    	 {
+    		 throw new CitationStyleManagerException("Problems by escidoc v1 to v2 transformation:", e);	
+    	 } 
+		
 
     	JRProperties.setProperty(JRProperties.COMPILER_KEEP_JAVA_FILE, String.valueOf(KEEP_COMPILER_KEEP_JAVA_FILE));
     	
-		ByteArrayInputStream bais = new ByteArrayInputStream(itemList.getBytes("UTF-8"));
+		ByteArrayInputStream bais = new ByteArrayInputStream(v1);
 		BufferedInputStream bis = new BufferedInputStream(bais);
 
 		Document document = JRXmlUtils.parse(bis);
@@ -1231,7 +1256,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 			ResourceUtil.getPathToCitationStyles() 
 			+ citationStyle 
 			+ "/CitationStyle" 
-			+ ( OutFormats.snippet == OutFormats.valueOf(outFormat) ? 
+			+ ( OutFormats.snippet == OutFormats.valueOf(outFormat) || OutFormats.escidoc_snippet == OutFormats.valueOf(outFormat)? 
 					CSS_CLASS_POSTFIX : "" )
 			+	".jasper";
 		
@@ -1254,10 +1279,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 		// generate snippet export
 		start = System.currentTimeMillis();
-		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
+		if (OutFormats.snippet == OutFormats.valueOf(outFormat) || OutFormats.escidoc_snippet == OutFormats.valueOf(outFormat))  
 		{
 			ProcessSnippet psn = new ProcessSnippet();
-			psn.export(document, params, jr, os);
+			if (OutFormats.snippet == OutFormats.valueOf(outFormat))
+				psn.export(document, params, jr, os);
+			else
+				psn.export(document, itemList.getBytes("UTF-8"), params, jr, os);
+			
 			logger.info("snippet generation: " + (System.currentTimeMillis() - start));        
 			return;
 		}
