@@ -38,7 +38,7 @@
 
 	<publication-type>
 		<v1-to-v2>
-			<map v1="article">http://purl.org/escidoc/metadata/ves/publication-types/journal-article</map>
+			<map v1="article">http://purl.org/escidoc/metadata/ves/publication-types/article</map>
 			<map v1="book">http://purl.org/eprint/type/Book</map>
 			<map v1="book-item">http://purl.org/eprint/type/BookItem</map>
 			<map v1="proceedings">http://purl.org/escidoc/metadata/ves/publication-types/proceedings</map>
@@ -72,32 +72,33 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/report">report</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper">paper</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">talk-at-event</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper">???</map>		
+			<!-- TODO: check the mapping -->
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper">paper</map> 	
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture">courseware-lecture</map>
 			<map v2="http://purl.org/eprint/type/Thesis">thesis</map>			
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series">series</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manuscript">manuscript</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/other">other</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manual">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/editorial">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/book-review">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/opinion">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-study">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-note">???</map>				
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph">???</map>	
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/multi-volume">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/commentary">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">???</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">???</map>	
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manual">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/editorial">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/book-review">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/opinion">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-study">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/case-note">other</map>				
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph">other</map>	
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/multi-volume">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/commentary">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>	
 		</v2-to-v1>		
 	</publication-type>
 	
@@ -132,8 +133,8 @@
 			<map v2="http://www.loc.gov/loc.terms/relators/CTB">contributor</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/publisher">publisher</map>
 			<map v2="http://www.loc.gov/loc.terms/relators/HNR">honoree</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">????</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">????</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">contributor</map>
 		</v2-to-v1>
 	</creator-role>
 	
