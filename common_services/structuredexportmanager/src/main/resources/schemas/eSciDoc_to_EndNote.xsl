@@ -51,8 +51,7 @@
    xmlns:source="${xsd.metadata.source}"
    xmlns:event="${xsd.metadata.event}"
    xmlns:person="${xsd.metadata.person}"
-   xmlns:organization="${xsd.metadata.organization}"
-> 
+   xmlns:organization="${xsd.metadata.organization}"> 
 	
 	<xsl:import href="../vocabulary-mappings.xsl"/>
 
