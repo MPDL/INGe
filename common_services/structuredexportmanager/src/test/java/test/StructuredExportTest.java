@@ -67,10 +67,12 @@ public class StructuredExportTest
 	    	new HashMap<String, String>()   
 	    	{  
 				{  
-		    		put("ENDNOTE", "src/test/resources/item_test_bibtex.xml");  
-		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
-		    		put("XML", "src/test/resources/item_test_bibtex.xml");  
-		    		put("CSV", "src/test/resources/faces_item-list.xml");  
+//		    		put("ENDNOTE", "src/test/resources/item_test_bibtex.xml");  
+//		    		put("ENDNOTE", "src/test/resources/test.xml");  
+//		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+//		    		put("BIBTEX", "src/test/resources/escidoc.xml");  
+//		    		put("XML", "src/test/resources/escidoc-item-ver2.xml");  
+//		    		put("CSV", "src/test/resources/faces_item-list.xml");  
 //		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
@@ -120,6 +122,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
+	    @Ignore
 	    public final void testExplainExport() throws Exception
 	    {
 	    	String result = export.explainFormats();
@@ -132,6 +135,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
+	    @Ignore
 	    public final void testFormatList() throws Exception
 	    {
 	    	String[] fl = export.getFormatsList();
@@ -156,14 +160,14 @@ public class StructuredExportTest
 	    		logger.info("Export format: " + f);
 	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
 	    		String itemList = itemLists.get(f);
-//	    		logger.info("Test item list:\n" + itemList);
+	    		logger.info("Test item list:\n" + itemList);
 		    	start = System.currentTimeMillis();
 		    	byte[] result = export.getOutput(itemList, f);
 	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
 		    	logger.info("---------------------------------------------------");
 		    	assertFalse(f + " output is empty", result == null || result.length==0 );
 		    	logger.info(f + " export result:\n" + new String(result) );
-		    	TestHelper.writeBinFile(result, f + "_result.txt");
+		    	TestHelper.writeBinFile(result, "target/" + f + "_result.txt");
 	    	}
 	    	
 	    }

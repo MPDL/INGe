@@ -56,8 +56,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.TransformationBean;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Structured Export Manager. 
@@ -84,7 +82,8 @@ public class StructuredExport implements StructuredExportHandler {
 	    		put( "ENDNOTE",	"eSciDoc_to_EndNote.xsl"	);  
 	    		put( "BIBTEX", 	"eSciDoc_to_BibTeX.xsl"			);  
 	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
-	    		put( "XML", 	null				);  
+	    		put( "XML", 	"escidoc-publication-v2_2_escidoc-publication-v1.xsl"				);  
+	    		put( "ESCIDOC_XML", null);  
 	    	}  
     	};	
 	public StructuredExport()
@@ -114,7 +113,7 @@ public class StructuredExport implements StructuredExportHandler {
 				throw new StructuredExportManagerException("Format: " + exportFormat + " is not supported");
 			
 			//return itemList XML in case of XML export
-			if ( "XML".equals(exportFormat) )
+			/*if ( "XML".equals(exportFormat) )
 			{
 		    	 
 		    	 TransformationBean trans = new TransformationBean(true);
@@ -134,7 +133,7 @@ public class StructuredExport implements StructuredExportHandler {
 		    	 } 				
 				return v1;
 			}
-			else if ( "ESCIDOC_XML".equals(exportFormat) )
+			else */if ( "ESCIDOC_XML".equals(exportFormat) )
 			{
 				return itemList.getBytes();
 			}
