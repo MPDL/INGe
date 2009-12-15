@@ -163,8 +163,8 @@
 	
 	</xsl:template>
 	<xsl:template name="createOrganization">		
-		<xsl:element name="eterms:organization">
-			<xsl:element name="eterms:organization-name">
+		<xsl:element name="organization:organization">
+			<xsl:element name="dc:title">
 				<xsl:value-of select="."/>
 			</xsl:element>			
 		</xsl:element>		
