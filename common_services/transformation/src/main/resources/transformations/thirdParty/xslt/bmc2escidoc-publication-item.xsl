@@ -52,6 +52,7 @@
    xmlns:file="${xsd.metadata.file}"
    xmlns:pub="${xsd.metadata.publication}"
    xmlns:person="${xsd.metadata.person}"
+   xmlns:organization="${xsd.metadata.organization}"
    xmlns:source="${xsd.metadata.source}"
    xmlns:bmc="http://www.biomedcentral.com/xml/schemas/oai/2.0/"
    xmlns:escidoc="urn:escidoc:functions">
