@@ -886,19 +886,7 @@ public class JiBXHelper
         }
         else
         {
-        	for(Visibility v: Visibility.values())
-        	{
-        		if (enumValue.equals(v.getUri()))
-        		{
-        			return v;
-        		}
-        	}
-        	 
-        	//throw exception if not found
-        	throw new WrongEnumException("FileVisibilityEnum value is '" + enumValue + "'.");
-        	
-        	/*
-            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+        	 String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
                 visibility = Visibility.valueOf(upperCaseText);
@@ -907,7 +895,7 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("FileVisibilityEnum value is '" + enumValue + "'.");
             }
-            */
+        
         }
         return visibility;
     }
@@ -1713,19 +1701,7 @@ public class JiBXHelper
         }
         else
         {
-        	
-        	for(Visibility v: Visibility.values())
-        	{
-        		if (enumValue.equals(v.getUri()))
-        		{
-        			return v;
-        		}
-        	}
-        	 
-        	//throw exception if not found
-            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
-        	/*
-            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+        	 String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
                 visibility = Visibility.valueOf(upperCaseText);
@@ -1734,25 +1710,10 @@ public class JiBXHelper
             {
                 throw new WrongEnumException("visibilityvalue  is '" + enumValue + "'.", e);
             }
-            */
         }
+        return visibility;
     }
     
-    /**
-     * Serializes enums to strings 
-     * 
-     * @param enumeration The enum
-     * @return The searialized string
-     */
-    public static String serializeVisibilityEnumToString(Visibility enumeration)
-    {
-        String enumString = "";
-        if (enumeration != null)
-        {
-            enumString = enumeration.getUri();
-        }
-        return enumString;
-    }
     
     /**
      * Deserializes a String containing a storage-attribute like defined in components.xsd to the corresponding

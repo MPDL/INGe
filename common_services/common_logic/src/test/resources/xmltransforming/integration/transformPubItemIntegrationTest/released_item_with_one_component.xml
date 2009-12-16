@@ -45,7 +45,7 @@
 				<escidocComponents:description>Ein Farbtest.</escidocComponents:description>				
 				<escidocComponents:last-modification-date>2007-04-24T16:20:19.308Z</escidocComponents:last-modification-date>
 				<escidocComponents:valid-status>valid</escidocComponents:valid-status>
-				<escidocComponents:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</escidocComponents:visibility>
+				<escidocComponents:visibility>public</escidocComponents:visibility>
 				<escidocComponents:pid>hdl:someHandle/test/escidoc:375</escidocComponents:pid>
 				<escidocComponents:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</escidocComponents:content-category>
 				<escidocComponents:file-name>farbtest.gif</escidocComponents:file-name>

@@ -55,7 +55,7 @@
                 <srel:created-by objid="escidoc:user1"/>
                 <prop:description>Ein Farbtest.</prop:description>                
                 <prop:valid-status>valid</prop:valid-status>
-                <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+                <prop:visibility>public</prop:visibility>
                 <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
                 <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
                 <prop:file-name>farbtest.gif</prop:file-name>

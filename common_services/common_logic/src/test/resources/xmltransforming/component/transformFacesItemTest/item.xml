@@ -48,7 +48,7 @@
 				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>high resolution</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+				<prop:visibility>public</prop:visibility>
 				<prop:content-category>high resolution</prop:content-category>
 				<prop:file-name>004_o_m_d_a_high_resolution.jpg</prop:file-name>
 			</escidocComponents:properties>
@@ -295,7 +295,7 @@
 				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>web resolution</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+				<prop:visibility>public</prop:visibility>
 				<prop:content-category>web resolution</prop:content-category>
 				<prop:file-name>004_o_m_d_a_web_resolution.jpg</prop:file-name>
 			</escidocComponents:properties>
@@ -462,7 +462,7 @@
 				<srel:created-by objid="escidoc:user42"/>
 				<prop:description>thumbnail</prop:description>
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+				<prop:visibility>public</prop:visibility>
 				<prop:content-category>thumbnail</prop:content-category>
 				<prop:file-name>004_o_m_d_a_thumbnail.jpg</prop:file-name>
 			</escidocComponents:properties>

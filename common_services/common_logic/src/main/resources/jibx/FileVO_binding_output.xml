@@ -75,7 +75,7 @@
 			<value style="element" name="visibility" ns="${xsd.soap.common.prop}"
 				field="visibility"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeVisibilityEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeVisibilityEnumToString" />
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
 
 			<!-- Node: component.properties.pid -->
 			<!-- Field: PubFileVO.pid[String] -->

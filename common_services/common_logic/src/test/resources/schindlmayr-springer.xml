@@ -117,7 +117,7 @@
 			<components:properties>
 				<components:description>A short description...</components:description>
 				<components:valid-status>valid</components:valid-status>
-				<components:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</components:visibility>
+				<components:visibility>public</components:visibility>
 				<components:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</components:content-category>
 				<components:file-name>schindlmayr-springer.pdf</components:file-name>
 				<components:mime-type>application/pdf</components:mime-type>

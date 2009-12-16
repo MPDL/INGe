@@ -226,7 +226,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top01</escidocComponents:description>                    
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</escidocComponents:visibility>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
                     <escidocComponents:pid>PID0815</escidocComponents:pid>
                     <escidocComponents:content-category>http://purl.org/escidoc/metadata/ves/content-categories/abstract</escidocComponents:content-category>
                     <escidocComponents:file-name>top01.pdf</escidocComponents:file-name>
@@ -241,7 +241,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top02a</escidocComponents:description>                    
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</escidocComponents:visibility>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
                     <escidocComponents:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</escidocComponents:content-category>
                     <escidocComponents:file-name>top02a.pdf</escidocComponents:file-name>
                     <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
@@ -255,7 +255,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top05</escidocComponents:description>
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</escidocComponents:visibility>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
                     <escidocComponents:content-category>http://purl.org/escidoc/metadata/ves/content-categories/post-print</escidocComponents:content-category>
                     <escidocComponents:file-name>top05.pdf</escidocComponents:file-name>
                     <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
