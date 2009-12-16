@@ -68,7 +68,7 @@
 	<xsl:template match="/">
 		      <ec:component>	      	
 		        <ec:properties>
-		        	<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+		        	<prop:visibility>public</prop:visibility>
 		        </ec:properties>
 		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>

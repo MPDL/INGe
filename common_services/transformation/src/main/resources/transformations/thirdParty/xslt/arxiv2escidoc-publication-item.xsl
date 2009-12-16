@@ -231,7 +231,7 @@
 				<escidocComponents:component>
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+						<prop:visibility>public</prop:visibility>
 						<prop:content-category></prop:content-category>
 						<prop:file-name>0</prop:file-name>
 					</escidocComponents:properties>
@@ -240,7 +240,7 @@
 				<escidocComponents:component>
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+						<prop:visibility>public</prop:visibility>
 						<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
 						<prop:file-name></prop:file-name>
 					</escidocComponents:properties>

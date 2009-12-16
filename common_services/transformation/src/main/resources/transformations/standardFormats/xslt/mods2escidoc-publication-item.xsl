@@ -141,7 +141,7 @@
 						<xsl:element name="ec:component">
 							<xsl:element name="ec:properties">
 								<xsl:element name="prop:visibility">
-									<xsl:value-of select="'http://purl.org/escidoc/metadata/ves/access-types/public'"/>
+									<xsl:value-of select="'public'"/>
 								</xsl:element>
 								<xsl:element name="prop:content-category">
 									<xsl:value-of select="'http://purl.org/escidoc/metadata/ves/content-categories/publisher-version'"/>

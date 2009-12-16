@@ -63,7 +63,7 @@
     <escidocComponents:component>
       <escidocComponents:properties>
         <prop:valid-status>valid</prop:valid-status>
-        <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+        <prop:visibility>public</prop:visibility>
         <prop:content-category>any-fulltext</prop:content-category>
         <prop:file-name>Link</prop:file-name>
       </escidocComponents:properties>
