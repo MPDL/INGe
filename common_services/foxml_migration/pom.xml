@@ -24,7 +24,7 @@
 				<filtering>true</filtering>
 			</resource>
 			<resource>
-				<directory>xml</directory>
+				<directory>xsl</directory>
 				<filtering>true</filtering>
 			</resource>
 		</resources>

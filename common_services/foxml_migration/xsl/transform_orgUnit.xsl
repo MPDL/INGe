@@ -30,12 +30,11 @@
 	xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit"
 	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
 	xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization"
-	xmlns:oldkml="http://www.opengis.net/kml/2.2"
-	xmlns:kml="http://earth.google.com/kml/2.1"
+	xmlns:kml="http://www.opengis.net/kml/2.2"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	exclude-result-prefixes="ou oldkml">
+	exclude-result-prefixes="ou">
 	
 	<xsl:output method="xml" encoding="UTF-8"/>
 	
@@ -53,7 +52,7 @@
 	<xsl:template match="ou:organization-details">
 		<organizational-unit xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit"
 			xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-			xmlns:kml="http://earth.google.com/kml/2.1"
+			xmlns:kml="http://www.opengis.net/kml/2.2"
 			xmlns:dc="http://purl.org/dc/elements/1.1/"
 			xmlns:dcterms="http://purl.org/dc/terms/">
 			
@@ -97,11 +96,13 @@
 		</eterms:organization-type>
 	</xsl:template>
 	
+	<!-- 
 	<xsl:template match="oldkml:coordinates">
 		<kml:coordinates>
 			<xsl:copy-of select="@*" copy-namespaces="no"/>
 			<xsl:apply-templates/>
 		</kml:coordinates>
 	</xsl:template>
+	 -->
 	
 </xsl:stylesheet>

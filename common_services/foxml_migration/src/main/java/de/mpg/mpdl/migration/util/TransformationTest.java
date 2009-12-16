@@ -13,9 +13,9 @@ import javax.xml.transform.stream.StreamSource;
 
 public class TransformationTest
 {
-    public static final String XML_IN = "xml/file2transform.xml";
-    public static final String XML_OUT = "xml/transformed.xml";
-    public static final String XSL = "xml/foxml_pubItem.xsl";
+    public static final String XML_IN = "xml_old/escidoc_37081";
+    public static final String XML_OUT = "xml_old/transformed37081.xml";
+    public static final String XSL = "xsl/foxml_pubItem.xsl";
 
     public static void main(String[] args)
     {
@@ -34,6 +34,7 @@ public class TransformationTest
         try
         {
             Transformer t = factory.newTransformer(xsl2use);
+            t.setParameter("cone_url", MigrationProperties.get("cone.persons.url"));
             t.transform(xmlIn, xmlOut);
         }
         catch (TransformerConfigurationException e)

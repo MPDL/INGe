@@ -22,6 +22,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.RDF;
 
+import de.mpg.mpdl.migration.util.MigrationProperties;
+
 import fedora.fedoraSystemDef.foxml.DatastreamType;
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
 import fedora.fedoraSystemDef.foxml.XmlContentType;
@@ -47,6 +49,7 @@ public class Foxml implements MigrationConstants
     private static int facesalbum = 3;
     private static int orgunit = 4;
     private static int virrelement = 5;
+    private static int context = 6;
 
     private Foxml()
     {
@@ -117,6 +120,13 @@ public class Foxml implements MigrationConstants
             {
                 context = about.getProperty(ESCIDOCPROPERTIES.contentcategory).getString();
             }
+            else
+            {
+                if (resourceType.equalsIgnoreCase("context"))
+                {
+                    context = about.getProperty(ESCIDOCPROPERTIES.type).getString();
+                }
+            }
         }
         return new String[] {id, resourceType, Integer.toString(streamVersion), context};
     }
@@ -131,6 +141,7 @@ public class Foxml implements MigrationConstants
         ArrayList<File> files = null;
         
         long time = -System.currentTimeMillis();
+        System.out.println(System.getenv("FEDORA_HOME"));
         files = fileList(new File(System.getenv("FEDORA_HOME") + "/data/objects"));
         logger.info("attempting to transform " + files.size() + " files");
         int filenum = 0;
@@ -292,6 +303,15 @@ public class Foxml implements MigrationConstants
                         }
                         */
                     }
+                    if (stream.getID().equalsIgnoreCase("pubman"))
+                    {
+                        updateRequired = true;
+                        transformed = xsltTransformation(f, context);
+                        if (transformed != null)
+                        {
+                            logger.info("    changed values in admin-descriptor !");
+                        }
+                    }
                 }
                 if (updateRequired)
                 {
@@ -343,22 +363,25 @@ public class Foxml implements MigrationConstants
         switch (schematype)
         {
             case 0:
-                xsltFileName = "xml/foxml_pubItem.xsl";
+                xsltFileName = "xsl/foxml_pubItem.xsl";
                 break;
             case 1:
-                xsltFileName = "xml/foxml_file.xsl";
+                xsltFileName = "xsl/foxml_file.xsl";
                 break;
             case 2:
-                xsltFileName = "xml/foxml_face.xsl";
+                xsltFileName = "xsl/foxml_face.xsl";
                 break;
             case 3:
-                xsltFileName = "xml/foxml_facesAlbum.xsl";
+                xsltFileName = "xsl/foxml_facesAlbum.xsl";
                 break;
             case 4:
-                xsltFileName = "xml/foxml_orgUnit.xsl";
+                xsltFileName = "xsl/foxml_orgUnit.xsl";
                 break;
             case 5:
-                xsltFileName = "xml/foxml_virrElement.xsl";
+                xsltFileName = "xsl/foxml_virrElement.xsl";
+                break;
+            case 6:
+                xsltFileName = "xsl/foxml_context.xsl";
                 break;
             default:
                 break;
@@ -369,6 +392,7 @@ public class Foxml implements MigrationConstants
             result = File.createTempFile(source.getName(), ".tmp", source.getParentFile());
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer t = tFactory.newTransformer(new StreamSource(xslt));
+            t.setParameter("cone_url", MigrationProperties.get("cone.persons.url"));
             t.transform(new StreamSource(source), new StreamResult(result));
             return result;
         }

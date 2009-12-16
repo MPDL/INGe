@@ -65,6 +65,25 @@
 							</xsl:for-each>
 							</xsl:element>
 						</xsl:when>
+						<xsl:when test="@ID='RELS-EXT'">
+							<xsl:element name="foxml:datastream" namespace="info:fedora/fedora-system:def/foxml#">
+							<xsl:for-each select="@*">
+								<xsl:copy />
+							</xsl:for-each>
+							<xsl:for-each select="foxml:datastreamVersion">
+								<xsl:element name="foxml:datastreamVersion" namespace="info:fedora/fedora-system:def/foxml#">
+									<xsl:for-each select="@*">
+										<xsl:copy />
+									</xsl:for-each>
+									<xsl:element name="foxml:xmlContent" namespace="info:fedora/fedora-system:def/foxml#">
+										<xsl:for-each select="foxml:xmlContent">
+											<xsl:call-template name="content-category-prop" />
+										</xsl:for-each>
+									</xsl:element>
+								</xsl:element>
+							</xsl:for-each>
+							</xsl:element>
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="." copy-namespaces="no" />
 						</xsl:otherwise>

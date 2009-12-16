@@ -12,7 +12,7 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 
-public class CollectionProperties
+public class MigrationProperties
 {
     private static Properties properties;
     private static final String DEFAULT_PROPERTY_FILE = "migration.properties";
@@ -41,7 +41,7 @@ public class CollectionProperties
             e.printStackTrace();
         }
         properties.putAll(properties);
-        Logger.getLogger(CollectionProperties.class).info("Properties loaded from " + propertiesFile);
+        Logger.getLogger(MigrationProperties.class).info("Properties loaded from " + propertiesFile);
     }
     
     private static InputStream getInputStream(String filepath)
@@ -53,7 +53,7 @@ public class CollectionProperties
         }
         catch (Exception e)
         {
-            URL url = CollectionProperties.class.getClassLoader().getResource(filepath);
+            URL url = MigrationProperties.class.getClassLoader().getResource(filepath);
             if (url != null)
             {
                 try
