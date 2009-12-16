@@ -64,7 +64,7 @@ u.tschida@zim.mpg.de for any questions.</context:description>
             <admin-descriptor:relation-type/>
             <admin-descriptor:relation-type/>
         </admin-descriptor:relation-types>
-        <admin-descriptor:component-visibility>http://purl.org/escidoc/metadata/ves/access-types/public</admin-descriptor:component-visibility>
+        <admin-descriptor:component-visibility>public</admin-descriptor:component-visibility>
         <admin-descriptor:visibility-of-references/>
         <admin-descriptor:visibility-of-annotations/>
     </admin-descriptor:admin-descriptor>

@@ -226,7 +226,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <prop:description>top01</prop:description>                    
                     <prop:valid-status>valid</prop:valid-status>
-                    <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+                    <prop:visibility>public</prop:visibility>
                     <prop:pid>PID0815</prop:pid>
                     <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/abstract</prop:content-category>
                     <prop:file-name>top01.pdf</prop:file-name>
@@ -240,7 +240,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <prop:description>top02a</prop:description>                    
                     <prop:valid-status>valid</prop:valid-status>
-                    <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+                    <prop:visibility>public</prop:visibility>
                     <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
                     <prop:file-name>top02a.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
@@ -253,7 +253,7 @@
                     <srel:created-by objid="escidoc:user2"/>
                     <prop:description>top05</prop:description>
                     <prop:valid-status>valid</prop:valid-status>
-                    <prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public</prop:visibility>
+                    <prop:visibility>public</prop:visibility>
                     <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/post-print</prop:content-category>
                     <prop:file-name>top05.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
