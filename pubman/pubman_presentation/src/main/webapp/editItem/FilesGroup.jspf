@@ -40,7 +40,7 @@
 		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
 
 <%-- Add File from local system--%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && (component.file.name == null || component.file.name == '')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtMandatoryField" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_lblFile}" rendered="#{genre.files_display != 'false'}"/><span class="noDisplay">: </span>
 				</b>
@@ -52,7 +52,7 @@
 					<tr:commandButton id="btnUploadFile" styleClass="free_txtBtn groupBtn fileUploadBtn" text="#{tip.EditItem_btUpload}"/>
 				</span>
 			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && (component.file.name == null || component.file.name == '')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="lblMultiMandatoryPath" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_optional != 'true'}" /><h:outputText value="#{lbl.EditItem_btAddFile}" /><span class="noDisplay">: </span>
 				</b>
@@ -66,7 +66,7 @@
 			</h:panelGroup>
 
 <%-- Add File from url--%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.size == 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"  rendered="#{component.file.name == null || component.file.name == ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
 				</b>
@@ -81,7 +81,7 @@
 
 <%-- Real filename --%>
 			<h:panelGroup rendered="#{component.index == 0}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != '' && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
 					</b>
@@ -91,7 +91,7 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{component.index > 0}">
-				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != '' && !(genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'full-submission' || genre.files_component_name_display == 'false' && genre.files_component_name_form_id == 'all')}">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<span class="noDisplay"> </span>
 					</b>
@@ -102,7 +102,7 @@
 			</h:panelGroup>
 
 <%-- File content category --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0 && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != '' && !(genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'full-submission' || genre.files_component_content_category_display == 'false' && genre.files_component_content_category_form_id == 'all')}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtTitleFileContentCategory" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{genre.files_component_content_category_optional != 'true'}" /><h:outputText value="#{genre.files_component_content_category_label}" converter="GenreLabelConverter"/><span class="noDisplay">: </span>
 				</b>
@@ -115,7 +115,7 @@
 
 
 <%-- Filename --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtTitleFilename" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
 				</b>
@@ -128,7 +128,7 @@
 			</h:panelGroup>
 
 <%-- File visibility, Embargo Date --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtTitleFileVisibility" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">:</span>
 				</b>
@@ -147,7 +147,7 @@
 			</h:panelGroup>
 
 <%-- File description, MIME type --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtTitleFileDescription" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
 				</b>
@@ -167,7 +167,7 @@
 			</h:panelGroup>
 
 <%-- Copyright Statement, Copyright Date, File Licence --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.file.name != null && component.file.name != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText id="txtHeaderCopyrightInformation" styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblRights}" /><span class="noDisplay">:</span>
 				</b>
