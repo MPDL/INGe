@@ -237,7 +237,7 @@
 				<prop:description>Description file</prop:description>
 
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public
+				<prop:visibility>public
 				</prop:visibility>
 				<prop:pid>hdl:11858/00-ZZZZ-0000-0000-2DB9-D</prop:pid>
 				<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
@@ -294,7 +294,7 @@
 				<prop:description>locator description</prop:description>
 
 				<prop:valid-status>valid</prop:valid-status>
-				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public
+				<prop:visibility>public
 				</prop:visibility>
 
 				<prop:pid>hdl:11858/00-ZZZZ-0000-0000-2DBA-B</prop:pid>
