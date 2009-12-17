@@ -71,7 +71,10 @@ public class GenreCriterion extends Criterion
     
     private String getSearchIdentifierByGenre( MdsPublicationVO.Genre g )
     {
-        switch( g ) 
+    	return g.getUri();
+       
+    	/*
+    	switch( g ) 
         {
             case ARTICLE:
                 return "article";
@@ -109,7 +112,8 @@ public class GenreCriterion extends Criterion
                 return "other";
             default: 
                     return "";
-        }
+             
+        }*/
     }
     
     public String getSearchIdentifier( int position )

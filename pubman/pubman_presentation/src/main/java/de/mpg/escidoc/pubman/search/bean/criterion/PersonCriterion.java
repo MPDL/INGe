@@ -73,7 +73,7 @@ public class PersonCriterion extends Criterion
     private String getRolesAsStringList() {
     	StringBuffer buffer = new StringBuffer();
     	for( int i = 0; i < creatorRole.size(); i++ ) {
-    		buffer.append( creatorRole.get( i ) );
+    		buffer.append( creatorRole.get( i ).getUri() );
     		if( i != creatorRole.size() -1  ) {
     			buffer.append( " OR " );
     		}
