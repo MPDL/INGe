@@ -84,4 +84,10 @@
 		<enum uri="http://purl.org/eprint/status/PeerReviewed">peer-reviewed</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/review-methods/no-review">no-review</enum>			
 	</xsl:variable>
+	
+	<xsl:variable name="accessType-ves">
+		<enum uri="http://purl.org/escidoc/metadata/ves/access-types/public">public</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/access-types/private">private</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/access-types/restricted">restricted</enum>			
+	</xsl:variable>
 </xsl:stylesheet>
