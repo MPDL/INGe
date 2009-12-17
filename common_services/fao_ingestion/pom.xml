@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.fao.oa</groupId>
-  <artifactId>foxml_ingestion</artifactId>
+  <artifactId>fao_ingestion</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>foxml_ingestion</name>
@@ -111,6 +111,26 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.fao.oa.ingestion</groupId>
+    	<artifactId>faodoc_items</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.fao.oa.ingestion</groupId>
+    	<artifactId>eimscdr_items</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.fao.oa.ingestion</groupId>
+    	<artifactId>fao_datastreams</artifactId>
+    	<version>1.0.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.fao.oa.ingestion</groupId>
+    	<artifactId>fao_uris</artifactId>
+    	<version>1.0.0</version>
     </dependency>
   </dependencies>
 </project>

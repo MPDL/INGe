@@ -1,16 +1,11 @@
 package org.fao.oa.ingestion;
 
-import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
-import gov.loc.mods.v3.ModsDocument;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,31 +16,23 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import noNamespace.BibDocument;
-import noNamespace.EimsDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
-import noNamespace.KosDocument;
 import noNamespace.FAOJournalDocument.FAOJournal;
 
-import org.apache.xmlbeans.XmlException;
 import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
 import org.fao.oa.ingestion.faodoc.ConferenceName;
 import org.fao.oa.ingestion.faodoc.FaodocItem;
 import org.fao.oa.ingestion.faodoc.JournalName;
 import org.fao.oa.ingestion.faodoc.SeriesName;
-import org.fao.oa.ingestion.foxml.AgrisAPDatastream;
 import org.fao.oa.ingestion.foxml.BibDatastream;
-import org.fao.oa.ingestion.foxml.EimsDatastream;
 import org.fao.oa.ingestion.foxml.Foxml;
-import org.fao.oa.ingestion.foxml.KosDatastream;
-import org.fao.oa.ingestion.foxml.ModsDatastream;
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
-import org.fao.oa.ingestion.utils.EimsItemParser;
 import org.fao.oa.ingestion.utils.IngestionProperties;
-import org.fao.oa.ingestion.utils.StaxParser;
 import org.fao.oa.ingestion.utils.XBeanUtils;
-import org.purl.agmes.x11.ResourcesDocument;
+
+import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
 
 public class Main
 {
@@ -102,17 +89,7 @@ public class Main
         }
     }
 
-    public static void testItemParser() throws Exception
-    {
-        FileReader eimscdr = new FileReader(IngestionProperties.get("eims.export.file.location") + "export.xml");
-        FileReader faodoc = new FileReader("/home/frank/data/AGRIS_FAO/20090910-FaodocExport/M-2.xml");
-        XMLInputFactory factory = (XMLInputFactory)XMLInputFactory.newInstance();
-        XMLStreamReader staxXmlReader = (XMLStreamReader)factory.createXMLStreamReader(faodoc);
-        StaxParser parser = new StaxParser();
-        parser.registerParser("ITEM", new EimsItemParser());
-        // parser.registerParser("entry", new EntryParser());
-        parser.parse(staxXmlReader);
-    }
+    
 
     public static void testURIFiles()
     {

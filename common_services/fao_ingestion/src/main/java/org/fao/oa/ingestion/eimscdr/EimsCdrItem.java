@@ -26,7 +26,6 @@ import noNamespace.ItemType;
 import noNamespace.ResourcesDocument;
 
 import org.apache.xmlbeans.XmlException;
-import org.fao.oa.ingestion.utils.ComponentParser;
 import org.fao.oa.ingestion.utils.IngestionProperties;
 
 public class EimsCdrItem
