@@ -1,21 +1,23 @@
-TY  - THES
-A3  - Rückert, Claudia
-AB  - Diese Magisterarbeit beschäftigt sich damit, wie populär Comics aus den USA im Vereinigten Königreich sind und waren.
-AU  - de la Iglesia, Martin
-CY  - Berlin
-DA  - 2007-09-01
-KW  - comic
-UK
-USA
-reception
-popular culture
-LA  - German
-PB  - Humboldt-Universität zu Berlin
-PY  - 2007
-SP  - 117
-ST  - Die Popularität US-amerikanischer Comics in Großbritannien
-T2  - Institut für Kunst- und Kulturwissenschaften
-TI  - Die Popularität US-amerikanischer Comics in Großbritannien
-VL  - Magister Artium
-ID  - 1336
-ER  - 
+
+%0 Journal Article
+%A Brandt, Ernst Helmut
+%A Mikitik, Grigorii P.
+%A Grauer, Markus T.
+%A ASDEX Update
+%A Overkamp, Inga
+%A Smittor, Thomas T.
+%A Krause, Michael T.
+%A Thanner, Mike
+%A Tatzel, Robert I.
+%D 2007
+%8 Aug 23
+%T This is the article title! Please note that the organization Asdex Update should be displayed est DiT 08 ? &; , $, §, \", @ % /, the !, -, the _, the ~, the @ and the # € mläüte ßind schön. à bientôt!
+%B Blood
+%Z Last Change of the Resource:
+%+ ASDEX Update
+%P 211-220
+%Z eSciDoc Reference Type: article
+%Z eidt:DOI identifier: 10.1088/0953-2048/20/9/S01
+%N 5-6
+%Z Review Type: peer
+%V 12
