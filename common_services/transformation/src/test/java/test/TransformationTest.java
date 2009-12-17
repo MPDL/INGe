@@ -219,7 +219,7 @@ public class TransformationTest
      @Test
      public void escidoc2endnoteTest() throws Exception
      {
-         this.logger.info("---Transformation EndNote to escidoc format ---");
+         this.logger.info("---Transformation escidoc to EndNote format ---");
          Format endnote = new Format("EndNote", "text/plain", "*");
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
          
