@@ -33,7 +33,9 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.FileOutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +50,9 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test; 
 
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
@@ -67,7 +72,11 @@ public class StructuredExportTest
 	    	new HashMap<String, String>()   
 	    	{  
 				{  
-//		    		put("ENDNOTE", "src/test/resources/item_test_bibtex.xml");  
+		    		//put("BIBTEX", "src/test/resources/item_thesis.xml"); 
+                    put("BIBTEX", "src/test/resources/publicationItems/metadataV2/item_book.xml");
+                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/item_book.xml");
+                    put("BIBTEX", "src/test/resources/publicationItems/metadataV2/item_thesis.xml");
+                    put("ENDNOTE", "src/test/resources/publicationItems/metadataV2/item_thesis.xml");
 //		    		put("ENDNOTE", "src/test/resources/test.xml");  
 //		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
 //		    		put("BIBTEX", "src/test/resources/escidoc.xml");  
@@ -81,7 +90,7 @@ public class StructuredExportTest
 	     * Get test item list from XML 
 	     * @throws Exception
 	     */
-	    @BeforeClass
+	    
 	    public static final void getItemLists() throws Exception
 	    {
 	    	itemLists = new HashMap<String, String>();
@@ -159,8 +168,14 @@ public class StructuredExportTest
 	    	{
 	    		logger.info("Export format: " + f);
 	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-	    		String itemList = itemLists.get(f);
-	    		logger.info("Test item list:\n" + itemList);
+	    		String itemList = TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(f),"UTF-8");    		
+	    		//logger.info("Test item list:\n" + itemList);
+	    		
+	    		XmlTransforming xmlTransforming = new XmlTransformingBean();
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
+                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+                itemList = xmlTransforming.transformToItemList(pubitemList);
+	    		
 		    	start = System.currentTimeMillis();
 		    	byte[] result = export.getOutput(itemList, f);
 	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
@@ -171,7 +186,6 @@ public class StructuredExportTest
 	    	}
 	    	
 	    }
-
 	    
 	    
 	    /**
