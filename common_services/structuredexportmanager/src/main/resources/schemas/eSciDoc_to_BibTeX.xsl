@@ -54,7 +54,7 @@
    xmlns:eterms="${xsd.metadata.terms}">
 	<!-- <xsl:import href="functions.xsl"/>-->
 	
-	<xsl:import href="../vocabulary-mappings.xsl"/>
+	<xsl:import href="vocabulary-mappings.xsl"/>
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	
 	

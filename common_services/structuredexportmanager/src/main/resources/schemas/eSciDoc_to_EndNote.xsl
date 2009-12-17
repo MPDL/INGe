@@ -53,7 +53,7 @@
    xmlns:person="${xsd.metadata.person}"
    xmlns:organization="${xsd.metadata.organization}"> 
 	
-	<xsl:import href="../vocabulary-mappings.xsl"/>
+	<xsl:import href="vocabulary-mappings.xsl"/>
 
 <xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	<!--
