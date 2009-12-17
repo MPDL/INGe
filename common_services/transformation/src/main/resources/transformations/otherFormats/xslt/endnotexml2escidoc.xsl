@@ -60,7 +60,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:esc="http://escidoc.mpg.de/">
 
-	<xsl:import href="../../vocabulary-mappings.xsl"/>
+	<xsl:import href="/src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -1009,8 +1009,8 @@
             <ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">               
                 <prop:visibility>
 					<xsl:choose>
-						<xsl:when test="NUM_4 = 'OA'">public</xsl:when>
-						<xsl:otherwise>private</xsl:otherwise>
+						<xsl:when test="NUM_4 = 'OA'">http://purl.org/escidoc/metadata/ves/access-types/public</xsl:when>
+						<xsl:otherwise>http://purl.org/escidoc/metadata/ves/access-types/private</xsl:otherwise>
 					</xsl:choose>
 				</prop:visibility>
                 <prop:content-category>any-fulltext</prop:content-category>
