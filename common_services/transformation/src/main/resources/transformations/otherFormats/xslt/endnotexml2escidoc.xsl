@@ -893,7 +893,7 @@
 		<xsl:param name="pos" select="0"/>
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		
-		<!-- 
+		 
 		<xsl:choose>
 			<xsl:when test="$source-name = 'endnote-ice'">
 			
@@ -1000,7 +1000,7 @@
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
--->
+
 	</xsl:template>
 	
 	
