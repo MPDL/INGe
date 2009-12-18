@@ -280,7 +280,7 @@
 		<xsl:element name="pub:publication">
 		
 			<xsl:attribute name="type">
-				<xsl:value-of select="$genre-ves/enum[.=$gen]/@uri"/>
+				<xsl:value-of select="$gen"/>
 			</xsl:attribute>
 			
 			
@@ -596,7 +596,9 @@
 				</xsl:element>
 			</xsl:if>
 			<xsl:if test="NUM_9 and $refType = 'Thesis'">
-				<xsl:element name="eterms:degree" select="$degree-ves/enum[.='diploma']/@uri"/>
+				<xsl:element name="eterms:degree">
+				 <xsl:value-of select="$degree-ves/enum[.='diploma']/@uri"/>
+				 </xsl:element>
 			</xsl:if>
 			
 			
@@ -869,7 +871,7 @@
 		<xsl:param name="pos" select="0"/>
 		<xsl:if test="$isSource">
 			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role"><xsl:value-of select="$creator-ves/enum[.=$role]/@uri"/></xsl:attribute>
+				<xsl:attribute name="role" select="$role"/>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
 				</xsl:call-template>				
@@ -877,7 +879,7 @@
 		</xsl:if>
 		<xsl:if test="not($isSource)">
 			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role"><xsl:value-of select="$creator-ves/enum[.=$role]/@uri"/></xsl:attribute>
+				<xsl:attribute name="role" select="$role"/>
 				<xsl:call-template name="createPerson">
 					<xsl:with-param name="isSource" select="$isSource"/>
 					<xsl:with-param name="pos" select="$pos"/>
@@ -891,7 +893,7 @@
 		<xsl:param name="pos" select="0"/>
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
 		
-		
+		<!-- 
 		<xsl:choose>
 			<xsl:when test="$source-name = 'endnote-ice'">
 			
@@ -998,7 +1000,7 @@
 				</xsl:element>
 			</xsl:otherwise>
 		</xsl:choose>
-
+-->
 	</xsl:template>
 	
 	
