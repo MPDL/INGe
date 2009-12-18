@@ -60,7 +60,7 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/journal">journal</map>
 			
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/article">article</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">article</map>
+			<!-- <map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article">article</map>-->
 			
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/issue">issue</map>
 			<map v2="http://purl.org/eprint/type/Book">book</map>
