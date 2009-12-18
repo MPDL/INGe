@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
+import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
@@ -110,8 +111,10 @@ public class EndNoteTransformation implements Transformation{
         {	
             
             StringWriter result = new StringWriter();
+            Util util = new Util();
             
-            if(srcFormat.matches(ENDNOTE_FORMAT) || srcFormat.matches(ENDNOTE_ICE_FORMAT))
+            
+            if(util.isFormatEqual(srcFormat, ENDNOTE_FORMAT) || util.isFormatEqual(srcFormat, ENDNOTE_ICE_FORMAT))
             {
             	
             	String endnoteSource = new String(src,"UTF-8");

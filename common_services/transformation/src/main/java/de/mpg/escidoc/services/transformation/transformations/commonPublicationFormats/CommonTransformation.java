@@ -93,7 +93,6 @@ public class CommonTransformation
             this.logger.error("An error occurred during a common publication transformation.", e);
             throw new RuntimeException(e);
         }
-        System.out.println("BIB: " + new String(bib));
         return bib;
     }
     

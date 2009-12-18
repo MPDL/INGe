@@ -55,7 +55,7 @@ public class EndNoteImportTest
 	    this.logger.info("Transform EndNote list to escidoc format");
 	    
        	String result = imp.transformEndNote2XML(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote.txt"));
-
+       	//TODO: Transform to PubItem
 	}
 
 }

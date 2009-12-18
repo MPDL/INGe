@@ -51,7 +51,6 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer1ToeSciDocVer2.myURIResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**

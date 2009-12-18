@@ -32,20 +32,10 @@
 package de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URI;
-import java.util.List;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -55,16 +45,9 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.xml.serializer.Serializer;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.util.creators.Author;
-import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
@@ -87,8 +70,6 @@ public class eSsciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfo
     private static final Format ESCIDOC_ITEM_LIST_V2_FORMAT = new Format("escidoc-publication-item-list-v2", "application/xml", "*");
     private static final Format ESCIDOC_ITEM_V2_FORMAT = new Format("escidoc-publication-item-v2", "application/xml", "*");
     
-    private static final String PATH = "transformations/otherFormats/xslt";
-
     private static final String XSLT_PATH = "transformations/otherFormats/xslt/escidoc-publication-v1_2_escidoc-publication-v2.xsl";
     
     /**
@@ -189,7 +170,12 @@ public class eSsciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfo
                 throw new TransformationNotSupportedException("The requested target format (" + trgFormat.toString() + ") is not supported");
             }
             
+            //Find path to the xslt directory.
+            //The path is needed to resolve the ves-mapping.xml in xslt  
+//            String path = ResourceUtil.getResourceAsFile(XSLT_PATH).getAbsolutePath();
+//            path = path.replaceFirst("\\/[\\w_.-]+$", "");
             transformer.setURIResolver(new myURIResolver());
+//            transformer.setParameter("path", path);
             
             transformer.setOutputProperty(OutputKeys.ENCODING, trgFormat.getEncoding());
             transformer.transform(new StreamSource(new ByteArrayInputStream(src)), new StreamResult(result));
@@ -206,27 +192,34 @@ public class eSsciDocVer1ToeSciDocVer2 extends DefaultHandler implements Transfo
     }
 
     /**
-     * URIResolver for the document() in the XSLT 
+     * URIResolver for the documnet() in the XSLT 
      *
      */
     class myURIResolver implements URIResolver 
     {
+    	public String absPath;
+    	
+    	public myURIResolver() throws FileNotFoundException 
+    	{
+    		absPath = ResourceUtil.getResourceAsFile(XSLT_PATH).getParent();
+		}
     	
 		public Source resolve(String href, String base) throws TransformerException {
 //			System.out.println("resolving stylesheet ref " + href);
+//			System.out.println("abs path:" + absPath);
 			Source src = null;
 			try 
 			{
-				src = new StreamSource(ResourceUtil.getResourceAsStream(PATH + "/" + href));
+				src = new StreamSource(ResourceUtil.getResourceAsStream(absPath + "/" + href));
 			} 
 			catch (FileNotFoundException e) 
 			{
-				throw new TransformerException("cannot find path to the document:" + PATH + "/" + href, e);
+				// TODO Auto-generated catch block
+				throw new TransformerException("cannot find path to the document:" + href, e);
 			} 
 			return src;
 		}
 	}
-
 
     
     

@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -60,7 +60,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:esc="http://escidoc.mpg.de/">
 
-	<xsl:import href="/src/main/resources/transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

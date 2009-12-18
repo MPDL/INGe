@@ -120,7 +120,7 @@ public class TransformationTest
 //         this.logger.info("Transformation to escidoc xml successful.");
          
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-         System.out.println(new String(result));
+         //System.out.println(new String(result));
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
          this.logger.info("PubItemVO successfully created.");
              
@@ -183,7 +183,6 @@ public class TransformationTest
 //         String actualItem = this.normalizeString(new String(result, "UTF-8"));        
 //         Assert.assertTrue(referenceItem.equals(actualItem));        
 //         this.logger.info("Transformation to escidoc xml successful.");
-         
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
          this.logger.info("PubItemVO successfully created."); 
@@ -296,7 +295,10 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, escidoc, "escidoc");
-         this.logger.info(new String(result, "UTF-8"));
+
+         XmlTransformingBean xmlTransforming = new XmlTransformingBean();
+         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
+         this.logger.info("PubItemVO successfully created.");
      }
   
      @Test

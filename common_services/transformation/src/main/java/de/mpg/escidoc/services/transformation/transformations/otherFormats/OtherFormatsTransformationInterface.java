@@ -45,8 +45,6 @@ import de.mpg.escidoc.services.transformation.Transformation.TransformationModul
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer1ToeSciDocVer2;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.escidoc.eSsciDocVer2ToeSciDocVer1;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
-import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
