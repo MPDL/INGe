@@ -116,7 +116,7 @@
 									<h:panelGroup styleClass="seperator" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestVersion and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}" />
 
 									<h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and !ViewItemFull.isInBasket}"/>
-									<h:commandLink id="lnkDeleteFromBasket" action="#{ViewItemFull.removeFromBasket}" value="#{lbl.ViewItemFull_lblRemoveFromBasket}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
+									<h:commandLink id="lnkDeleteFromBasket" action="#{ViewItemFull.removeFromBasket}" value="#{lbl.Basket_lblRemoveSelected}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isInBasket}"/>
 									
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>

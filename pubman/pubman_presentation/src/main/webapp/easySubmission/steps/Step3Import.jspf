@@ -81,7 +81,7 @@
 		</div>
 		<div class="subHeader">
 			<!-- Subheadline starts here -->
-			<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} #{EasySubmission.contextName}#{lbl.easy_submission_lblCollectionOfImportedItem2}." />
+			<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{EasySubmission.contextName}." />
 			<!-- Subheadline ends here -->
 		</div>
 		<div class="subHeader">

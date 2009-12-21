@@ -102,7 +102,7 @@
 										</div>
 										<div class="subHeader">
 											<!-- Subheadline starts here -->
-										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} #{MultipleImport.context.name} #{lbl.easy_submission_lblCollectionOfImportedItem2}." />
+										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{MultipleImport.context.name}." />
 											<!-- Subheadline ends here -->
 										</div>
 									</div>
@@ -111,7 +111,7 @@
 									<div class="full_area0 fullItem">
 										<div class="full_area0 itemBlock noTopBorder">
 											<h3 class="xLarge_area0_p8 endline blockHeader">
-												<h:outputText value="#{lbl.EasySubmission_lblImportMetadata}"/>
+												<h:outputText value="#{lbl.submission_lnkMultipleImport}"/>
 											</h3>
 											<h:panelGroup styleClass="seperator"></h:panelGroup>
 											<div class="free_area0 itemBlockContent endline">

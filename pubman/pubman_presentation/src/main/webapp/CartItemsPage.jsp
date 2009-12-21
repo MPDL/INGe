@@ -81,8 +81,8 @@
 									<h:commandLink id="lnkList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
 									<h:outputText id="lblList_lblSortOptions" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
-									<h:outputText id="lblList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportAllOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+									<h:commandLink id="lnkList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
+									<h:outputText id="lblList_lblExportAllOptions" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkBasket_lblRemoveSelected" styleClass="free_area0" value="#{lbl.Basket_lblRemoveSelected}" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
 								<!-- content menu upper line ends here -->

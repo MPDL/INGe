@@ -100,7 +100,7 @@
 										</div>
 										<div class="subHeader">
 											<!-- Subheadline starts here -->
-										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfImportedItem1} #{MultipleImport.context.name} #{lbl.easy_submission_lblCollectionOfImportedItem2}." />
+										 	<h:outputText value="#{lbl.easy_submission_lblCollectionOfItem} #{MultipleImport.context.name}." />
 											<!-- Subheadline ends here -->
 										</div>
 									</div>
