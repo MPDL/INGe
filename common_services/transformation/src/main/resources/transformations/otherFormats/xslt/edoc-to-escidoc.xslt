@@ -1500,8 +1500,8 @@
 											<xsl:variable name="mpgsunit" select="normalize-space(mpgsunit)"/>
 	
 											<xsl:if test="$is-mpgsunit or $is-mpgunit">
-												<xsl:element name="e:organization">
-													<xsl:element name="e:organization-name">
+												<xsl:element name="organization:organization">
+													<xsl:element name="dc:title">
 														<xsl:choose>
 															<xsl:when test="$mpgsunit != ''">
 																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($mpgsunit)]/escidoc-ou"/>
@@ -1511,7 +1511,7 @@
 															</xsl:otherwise>
 														</xsl:choose>
 													</xsl:element>
-													<e:identifier>
+													<dc:identifier>
 														<xsl:choose>
 															<xsl:when test="$mpgsunit != ''">
 																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgsunit))]/escidoc-id"/>
@@ -1520,30 +1520,30 @@
 																<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = normalize-space(lower-case($mpgunit))]/escidoc-id"/>
 															</xsl:otherwise>
 														</xsl:choose>
-													</e:identifier>
+													</dc:identifier>
 												</xsl:element>
 											</xsl:if>
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test="@internextern='mpg' and $collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)] and not(../../../docaff/affiliation/*[lower-case(.) = lower-case($collection)])">
-										<e:organization>
-											<e:organization-name>
+										<organization:organization>
+											<dc:title>
 												<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-ou"/>
-											</e:organization-name>
-											<e:identifier>
+											</dc:title>
+											<dc:identifier>
 												<xsl:value-of select="$collection-mapping/mapping[lower-case(edoc-collection) = lower-case($collection)]/escidoc-id"/>
-											</e:identifier>
-										</e:organization>
+											</dc:identifier>
+										</organization:organization>
 									</xsl:when>
 									<xsl:when test="@internextern='mpg' and ../../../docaff/affiliation and not(../../../docaff_external)">
 	
-										<xsl:element name="e:organization">
-											<xsl:element name="e:organization-name">
+										<xsl:element name="organization:organization">
+											<xsl:element name="dc:title">
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
 											</xsl:element>
-											<e:identifier>
+											<dc:identifier>
 												<xsl:value-of select="$root-ou"/>
-											</e:identifier>
+											</dc:identifier>
 										</xsl:element>
 	
 									</xsl:when>
@@ -1577,34 +1577,34 @@
 										</xsl:for-each>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and ../../../docaff/docaff_external">
-										<e:organization>
-											<e:organization-name>
+										<organization:organization>
+											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name(../../../docaff/docaff_external)"/>
-											</e:organization-name>
+											</dc:title>
 											<dc:identifier>
 												<xsl:value-of select="escidocFunctions:ou-id(../../../docaff/docaff_external)"/>
 											</dc:identifier>
-										</e:organization>
+										</organization:organization>
 									</xsl:when>
 									<xsl:when test=". = ../creator[1] and not(../creator[@internextern = 'mpg'])">
-										<e:organization>
-											<e:organization-name>
+										<organization:organization>
+											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
-											</e:organization-name>
-											<e:identifier>
+											</dc:title>
+											<dc:identifier>
 												<xsl:value-of select="escidocFunctions:ou-id('root')"/>
-											</e:identifier>
-										</e:organization>
+											</dc:identifier>
+										</organization:organization>
 									</xsl:when>
 									<xsl:when test="@internextern = 'mpg' and not(../creator[position() &lt; $position and @internextern = 'mpg'])">
-										<e:organization>
-											<e:organization-name>
+										<organization:organization>
+											<dc:title>
 												<xsl:value-of select="escidocFunctions:ou-name('root')"/>
-											</e:organization-name>
-											<e:identifier>
+											</dc:title>
+											<dc:identifier>
 												<xsl:value-of select="escidocFunctions:ou-id('root')"/>
-											</e:identifier>
-										</e:organization>
+											</dc:identifier>
+										</organization:organization>
 									</xsl:when>
 								</xsl:choose>
 							</xsl:if>

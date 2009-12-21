@@ -31,7 +31,7 @@
 			<Encoding>UTF-8</Encoding>
 		</Source>
 		<Target>
-			<Name>escidoc-publication-item</Name>
+			<Name>escidoc-publication-item-list</Name>
 			<Type>application/xml</Type>
 			<Encoding>UTF-8</Encoding>
 		</Target>

@@ -3,6 +3,7 @@ package test;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.TransformationBean;
@@ -286,18 +288,25 @@ public class TransformationTest
      }
      
      @Test
-     public void mods2escidocTest () throws Exception
+     public void mods2escidocTest() throws Exception
      {
          this.logger.info("---Transformation MODS to escidoc format ---");
          
          Format mods = new Format("mods", "application/xml", "UTF-8");
-         Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");
+         Format escidoc = new Format("escidoc-publication-item-list", "application/xml", "UTF-8");
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, escidoc, "escidoc");
+         
+         this.logger.info(trans.getSourceFormatsAsXml());
+         for (Format format : trans.getSourceFormats())
+         {
+             this.logger.info(trans.getTargetFormats(format));
+         }
+         
 
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-         PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
+         List<PubItemVO> itemList = (List<PubItemVO>)xmlTransforming.transformToItemList(new String(result));
          this.logger.info("PubItemVO successfully created.");
      }
   
