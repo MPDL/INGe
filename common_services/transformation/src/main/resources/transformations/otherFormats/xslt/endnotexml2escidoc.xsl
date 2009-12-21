@@ -184,7 +184,7 @@
 		
 		<xsl:choose>
 			<xsl:when test="$pos &gt; 1 and not(contains($text, $delimiter))">
-				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MatchingStringPartNotFound' ), concat('Unable to find part ', $pos, ' in &apos;', $text, '&apos; split by &apos;', $delimiter, '&apos;.'))"/>
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MatchingStringPartNotFound' ), concat('Unable to find part ', $pos, ' in ~', $text, '~ split by ~', $delimiter, '~.'))"/>
 			</xsl:when>
 			<xsl:when test="$pos &gt; 1"> 
 				<xsl:value-of select="escidoc:get-part(substring-after($text, $delimiter), $delimiter, $pos - 1)"/>
@@ -231,7 +231,14 @@
 			</xsl:element>
 			<xsl:element name="ec:components">
 				<xsl:if test="F and $source-name = 'endnote-ice'">
-					<xsl:call-template name="component"/>
+				
+					<xsl:variable name="oa" select="NUM_4 = 'OA'"/>
+				
+					<xsl:for-each select="tokenize(F, ' ')">
+						<xsl:call-template name="component">
+							<xsl:with-param name="oa" select="$oa"/>
+						</xsl:call-template>
+					</xsl:for-each>
 				</xsl:if>
 			</xsl:element>
 		</xsl:element>
@@ -869,23 +876,26 @@
 		<xsl:param name="role"/>
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
-		<xsl:if test="$isSource">
-			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role" select="$role"/>
-				<xsl:call-template name="createPerson">
-					<xsl:with-param name="isSource" select="$isSource"/>
-				</xsl:call-template>				
-			</xsl:element>
-		</xsl:if>
-		<xsl:if test="not($isSource)">
-			<xsl:element name="eterms:creator">
-				<xsl:attribute name="role" select="$role"/>
-				<xsl:call-template name="createPerson">
-					<xsl:with-param name="isSource" select="$isSource"/>
-					<xsl:with-param name="pos" select="$pos"/>
-				</xsl:call-template>				
-			</xsl:element>
-		</xsl:if>
+		
+		<xsl:choose>
+			<xsl:when test="$isSource">
+				<xsl:element name="eterms:creator">
+					<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+					<xsl:call-template name="createPerson">
+						<xsl:with-param name="isSource" select="$isSource"/>
+					</xsl:call-template>				
+				</xsl:element>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:element name="eterms:creator">
+					<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
+					<xsl:call-template name="createPerson">
+						<xsl:with-param name="isSource" select="$isSource"/>
+						<xsl:with-param name="pos" select="$pos"/>
+					</xsl:call-template>				
+				</xsl:element>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>	
 	
 	<xsl:template name="createPerson">
@@ -905,7 +915,7 @@
 				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
 			
 				<xsl:variable name="cone-creator">
-					<xsl:if test="not(($pos = 0) or (substring-after($additionalAuthorInformation, '-') = '-'))">
+					<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
 						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
 						</xsl:if>
@@ -1007,26 +1017,62 @@
 <!--	END OF CREATORS-->	
 	
 	<xsl:template name="component">
+		<xsl:param name="oa" select="false()"/>
+		
+		<xsl:variable name="suffix">
+			<xsl:choose>
+				<xsl:when test="contains(., '.')">
+					<xsl:value-of select="substring-after(., '.')"/>
+				</xsl:when>
+				<xsl:otherwise>pdf</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:variable name="filename">
+			<xsl:choose>
+				<xsl:when test="contains(., '.')">
+					<xsl:value-of select="."/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="."/>.<xsl:value-of select="$suffix"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		
+		<xsl:variable name="mimetype">
+			<xsl:value-of select="Util:getMimetype($suffix)"/>
+		</xsl:variable>
+	
 		<ec:component>
             <ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">               
                 <prop:visibility>
 					<xsl:choose>
-						<xsl:when test="NUM_4 = 'OA'">http://purl.org/escidoc/metadata/ves/access-types/public</xsl:when>
+						<xsl:when test="$oa">http://purl.org/escidoc/metadata/ves/access-types/public</xsl:when>
 						<xsl:otherwise>http://purl.org/escidoc/metadata/ves/access-types/private</xsl:otherwise>
 					</xsl:choose>
 				</prop:visibility>
-                <prop:content-category>any-fulltext</prop:content-category>
-                <prop:file-name><xsl:value-of select="F"/>.pdf</prop:file-name>
-                <prop:mime-type>application/pdf</prop:mime-type>
+                <prop:content-category>
+                	<xsl:choose>
+	                	<xsl:when test="contains(., 's')">supplementary-material</xsl:when>
+	                	<xsl:otherwise>any-fulltext</xsl:otherwise>
+					</xsl:choose>
+                </prop:content-category>
+                <prop:file-name><xsl:value-of select="$filename"/></prop:file-name>
+                <prop:mime-type><xsl:value-of select="$mimetype"/></prop:mime-type>
             </ec:properties>
-            <ec:content xlink:type="simple" xlink:title="{F}.pdf" xlink:href="{$fulltext-location}{F}.pdf" storage="internal-managed"/>
+            <ec:content xlink:type="simple" xlink:title="{.}.{$suffix}" xlink:href="{$fulltext-location}{$filename}" storage="internal-managed"/>
             <mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             	<mdr:md-record name="escidoc">
             		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<dc:title><xsl:value-of select="F"/>.pdf</dc:title>
-						<file:content-category>any-fulltext</file:content-category>
-						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
-						<dcterms:extent><xsl:value-of select="Util:getSize(concat($fulltext-location, F, '.pdf'))"/></dcterms:extent>
+						<dc:title><xsl:value-of select="$filename"/></dc:title>
+						<file:content-category>
+							<xsl:choose>
+			                	<xsl:when test="contains(., 's')">supplementary-material</xsl:when>
+			                	<xsl:otherwise>any-fulltext</xsl:otherwise>
+							</xsl:choose>
+						</file:content-category>
+						<dc:format xsi:type="dcterms:IMT"><xsl:value-of select="$mimetype"/></dc:format>
+						<dcterms:extent><xsl:value-of select="Util:getSize(concat($fulltext-location, $filename))"/></dcterms:extent>
 					</file:file>
             	</mdr:md-record>
             </mdr:md-records>

@@ -42,6 +42,8 @@ import java.io.InputStreamReader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -379,7 +381,8 @@ public class Util
             }
             else
             {
-                return null;
+                element.setTextContent("0");
+                return document;
             }
             
         }
@@ -387,6 +390,70 @@ public class Util
         {
             throw new RuntimeException(e);
         }
+    }
+    
+    public static String getMimetype(String suffix)
+    {
+        try
+        {
+            String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+            + "jquery/escidocmimetypes/query?q=" + URLEncoder.encode(suffix, "ISO-8859-15");
+            String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
+                + "json/escidocmimetypes/details/";
+            HttpClient client = new HttpClient();
+            GetMethod method = new GetMethod(queryUrl);
+            client.executeMethod(method);
+            if (method.getStatusCode() == 200)
+            {
+                String[] results = method.getResponseBodyAsString().split("\n");
+                for (String result : results)
+                {
+                    if (!"".equals(result.trim()))
+                    {
+                        String id = result.split("\\|")[1];
+                        GetMethod detailMethod = new GetMethod(detailsUrl + id);
+                        client.executeMethod(detailMethod);
+                        if (detailMethod.getStatusCode() == 200)
+                        {
+                            String response = detailMethod.getResponseBodyAsString();
+                            Pattern pattern = Pattern.compile("\"urn_cone_suffix\" : \"([^\"])\"");
+                            Matcher matcher = pattern.matcher(response);
+                            if (matcher.find())
+                            {
+                                pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \"([^\"])\"");
+                                matcher = pattern.matcher(response);
+                                if (matcher.find())
+                                {
+                                    return matcher.group(1);
+                                }
+                                else
+                                {
+                                    logger.warn("Found matching mimetype suffix but no mimetype: " + response);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            logger.error("Error querying CoNE: Status "
+                                    + detailMethod.getStatusCode() + "\n" + detailMethod.getResponseBodyAsString());
+                        }
+                    }
+                }
+                // Suffix not found, return default mimetype
+                return "application/octet-stream";
+            }
+            else
+            {
+                logger.error("Error querying CoNE: Status "
+                        + method.getStatusCode() + "\n" + method.getResponseBodyAsString());
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Error getting mimetype", e);
+        }
+     // Error querying CoNE, return default mimetype
+        return "application/octet-stream";
     }
     
     /**
