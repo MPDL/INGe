@@ -291,6 +291,7 @@ public class TransformationTest
      }
      
      @Test
+     @Ignore
      public void mods2escidocTest() throws Exception
      {
          this.logger.info("---Transformation MODS to escidoc format ---");
