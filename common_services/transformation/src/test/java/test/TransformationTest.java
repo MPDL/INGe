@@ -367,13 +367,13 @@ public class TransformationTest
          byte[] result;
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2");
-         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-v2, file with multiply items (Exception!)");
          try 
          {
-	         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
+	         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_i, "escidoc");
 	         Assert.fail("Exception should be thrown!");
          }
          catch (Exception e)
@@ -382,15 +382,15 @@ public class TransformationTest
          }
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2");
-         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
          this.logger.info("OK");
          
          logger.info("escidoc-publication-item-list-v1 to escidoc-publication-item-v2, 0 items (Exception!)");
@@ -404,7 +404,7 @@ public class TransformationTest
         	 this.logger.info("OK");
          }
          logger.info("escidoc-publication-item-list-v1 to escidoc-publication-item-list-v2, file with multiply items");
-         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_il, out_il, "escidoc");
+         result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-list-ver1.xml").getBytes("UTF-8"), in_il, out_il, "escidoc");
          this.logger.info("OK");
 
          
@@ -467,7 +467,7 @@ public class TransformationTest
          */
     	   
     	 logger.info("escidoc-publication-item-v2 to escidoc-publication-item-list-v1");
-    	 result = trans.transform(this.util.getResourceAsString("testFiles/escidoc-item-ver2.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
+    	 result = trans.transform(this.util.getResourceAsString("testFiles/escidoc/escidoc-item-ver2.xml").getBytes("UTF-8"), in_i, out_il, "escidoc");
     	 this.logger.info("OK");
     	 
     	 /*
