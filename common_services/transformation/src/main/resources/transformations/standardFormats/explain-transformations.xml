@@ -36,4 +36,16 @@
 			<Encoding>UTF-8</Encoding>
 		</Target>
 	</Transformation>
+	<Transformation>
+		<Source>
+			<Name>mods</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Source>
+		<Target>
+			<Name>escidoc-publication-item</Name>
+			<Type>application/xml</Type>
+			<Encoding>UTF-8</Encoding>
+		</Target>
+	</Transformation>
 </Transformations>

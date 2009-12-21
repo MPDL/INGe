@@ -91,7 +91,7 @@ public class TransformationInitializer
   
             for (int i = 0; i < entetiesV.size(); i++)
             {
-                this.logger.info(entetiesV.get(i));
+                this.logger.debug(entetiesV.get(i));
                 transformationClass = cl.loadClass(entetiesV.get(i).toString());
                 this.transformationClasses.add(transformationClass);
             }       

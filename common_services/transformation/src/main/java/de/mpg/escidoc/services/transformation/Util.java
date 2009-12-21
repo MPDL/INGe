@@ -349,7 +349,7 @@ public class Util
         catch (Exception e)
         {
             logger.error("Error querying CoNE service. This is normal during unit tests. " +
-            		"Otherwise it should be clarified if any measures have to be taken.", e);
+            		"Otherwise it should be clarified if any measures have to be taken.");
             return null;
             //throw new RuntimeException(e);
         }

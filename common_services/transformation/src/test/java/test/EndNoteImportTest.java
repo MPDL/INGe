@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -55,7 +56,8 @@ public class EndNoteImportTest
 	    this.logger.info("Transform EndNote list to escidoc format");
 	    
        	String result = imp.transformEndNote2XML(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote.txt"));
-       	//TODO: Transform to PubItem
+       	Assert.assertNotNull(result);
+       	//TODO: Transform to PubItem as test
 	}
 
 }

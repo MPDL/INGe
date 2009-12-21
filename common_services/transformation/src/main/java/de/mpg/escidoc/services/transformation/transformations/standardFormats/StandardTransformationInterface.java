@@ -191,6 +191,12 @@ public class StandardTransformationInterface implements Transformation
         byte[] result = null;
         boolean supported = false;
         
+        //One xslt for both transformations
+        if (trgFormat.getName().equalsIgnoreCase("escidoc-publication-item-list"))
+        {
+            trgFormat.setName("escidoc-publication-item");
+        }
+        
         if (this.transformer.checkXsltTransformation(srcFormat.getName(), trgFormat.getName()))
         {   
             try
