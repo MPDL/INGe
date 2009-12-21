@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item 
+	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.8"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8" 
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xml:base="http://dev-coreservice.mpdl.mpg.de:8080"
+	xlink:type="simple"
+	xlink:title="Kaiser Wilhelm Institut für Züchtungsforschung, Max-Planck-Gesellschaft"
+	xlink:href="/ir/item/escidoc:325082"
+	last-modification-date="2009-12-10T11:04:01.278Z">
+	<escidocItem:properties xlink:type="simple"
+		xlink:title="Properties" xlink:href="/ir/item/escidoc:325082/properties">
+
+		<prop:creation-date>2009-12-10T11:03:33.935Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="New Metadata Tester"
+			xlink:href="/aa/user-account/escidoc:321116" />
+		<prop:public-status>released</prop:public-status>
+		<prop:public-status-comment>acc</prop:public-status-comment>
+		<srel:context xlink:type="simple" xlink:title="PubMan Test Collection"
+			xlink:href="/ir/context/escidoc:persistent3" />
+
+		<srel:content-model xlink:type="simple"
+			xlink:title="ct" xlink:href="/cmm/content-model/escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>
+
+		<prop:pid>hdl:11858/00-ZZZZ-0000-0000-2DB7-2</prop:pid>
+		<prop:version xlink:type="simple" xlink:title="This Version"
+			xlink:href="/ir/item/escidoc:325082:1">
+			<version:number>1</version:number>
+			<version:date>2009-12-10T11:04:01.278Z</version:date>
+			<version:status>released</version:status>
+
+			<srel:modified-by xlink:type="simple" xlink:title="New Metadata Tester"
+				xlink:href="/aa/user-account/escidoc:321116" />
+			<version:comment>acc</version:comment>
+			<version:pid>hdl:11858/00-ZZZZ-0000-0000-2DB8-F</version:pid>
+		</prop:version>
+
+		<prop:latest-version xlink:type="simple"
+			xlink:title="Latest Version" xlink:href="/ir/item/escidoc:325082:1">
+
+			<version:number>1</version:number>
+			<version:date>2009-12-10T11:04:01.278Z</version:date>
+
+		</prop:latest-version>
+
+		<prop:latest-release xlink:type="simple"
+			xlink:title="Latest public version" xlink:href="/ir/item/escidoc:325082:1">
+
+			<release:number>1</release:number>
+			<release:date>2009-12-10T11:04:01.278Z</release:date>
+			<release:pid>hdl:11858/00-ZZZZ-0000-0000-2DB8-F</release:pid>
+		</prop:latest-release>
+
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/">
+
+			<local-tags>
+				<local-tag></local-tag>
+			</local-tags>
+		</prop:content-model-specific>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records
+		xlink:type="simple" xlink:title="Metadata Records of Item escidoc:325082"
+		xlink:href="/ir/item/escidoc:325082/md-records">
+		<escidocMetadataRecords:md-record
+			name="escidoc" md-type="http://purl.org/escidoc/metadata/ves/publication-types/article"
+			xlink:type="simple" xlink:title="escidoc"
+			xlink:href="/ir/item/escidoc:325082/md-records/md-record/escidoc">
+			<publication:publication
+				xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+				type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					role="http://www.loc.gov/loc.terms/relators/AUT">
+					<person:person
+						xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+
+						<eterms:complete-name></eterms:complete-name>
+						<eterms:family-name>Abel</eterms:family-name>
+						<eterms:given-name>Christian</eterms:given-name>
+						<organization:organization
+							xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+							<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department of Biochemistry, MPI for
+								Chemical Ecology, Max Planck Society</dc:title>
+							<eterms:address></eterms:address>
+							<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:182687
+							</dc:identifier>
+
+						</organization:organization>
+						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">urn:cone:persons27820
+						</dc:identifier>
+					</person:person>
+				</eterms:creator>
+				<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					role="http://www.loc.gov/loc.terms/relators/ILL">
+					<organization:organization
+						xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Org Unit Creator</dc:title>
+						<eterms:address>org unit address</eterms:address>
+
+						<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">escidoc:persistent22
+						</dc:identifier>
+					</organization:organization>
+				</eterms:creator>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Test new MD journal Article title
+				</dc:title>
+				<dc:language xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:ISO639-3">de</dc:language>
+				<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Test new MD
+					journal Article alt title 1</dcterms:alternative>
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xsi:type="eterms:ISBN">1234567</dc:identifier>
+
+				<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xsi:type="eterms:EDOC">65656</dc:identifier>
+				<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2009-12-20
+				</dcterms:created>
+				<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2009-12-06
+				</dcterms:modified>
+				<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2009-12-05
+				</dcterms:dateSubmitted>
+				<dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2009-12-04
+				</dcterms:dateAccepted>
+				<eterms:published-online
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2009-03-12
+				</eterms:published-online>
+
+				<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2009-12-02
+				</dcterms:issued>
+				<eterms:review-method xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/review-methods/internal
+				</eterms:review-method>
+				<source:source
+					xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+					type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Source Journal</dc:title>
+					<eterms:creator xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+						role="http://www.loc.gov/loc.terms/relators/SAD">
+						<person:person
+							xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+							<eterms:complete-name></eterms:complete-name>
+
+							<eterms:family-name>Agerberg</eterms:family-name>
+							<eterms:given-name>Lars S.</eterms:given-name>
+							<organization:organization
+								xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
+								<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Kaiser Wilhelm Institut für
+									Züchtungsforschung, Max-Planck-Gesellschaft</dc:title>
+								<eterms:address></eterms:address>
+								<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+							</organization:organization>
+
+							<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+								xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:CONE">urn:cone:sb113
+							</dc:identifier>
+						</person:person>
+					</eterms:creator>
+					<eterms:volume xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Vol 12</eterms:volume>
+					<eterms:issue xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">Issue 3</eterms:issue>
+					<eterms:start-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">1445
+					</eterms:start-page>
+					<eterms:end-page xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">7657
+					</eterms:end-page>
+					
+					<event:event xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event">
+                        <dc:title>9th Symposium on Rain</dc:title>
+                        <eterms:start-date xsi:type="dcterms:W3CDTF">2006</eterms:start-date>
+                        <eterms:end-date xsi:type="dcterms:W3CDTF"/>
+                        <eterms:place>Garching</eterms:place>
+                    </event:event>
+
+					<eterms:sequence-number
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">4</eterms:sequence-number>
+					<eterms:total-number-of-pages
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">1324</eterms:total-number-of-pages>
+					<eterms:publishing-info
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">
+						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Publisher</dc:publisher>
+						<eterms:place>Place</eterms:place>
+					</eterms:publishing-info>
+					<eterms:degree xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/academic-degrees/phd</eterms:degree>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+						xsi:type="eterms:ISSN">987657345</dc:identifier>
+
+				</source:source>
+				<eterms:total-number-of-pages
+					xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">1234</eterms:total-number-of-pages>
+				<dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">Abstract
+				</dcterms:abstract>
+				<dcterms:subject xmlns:dcterms="http://purl.org/dc/terms/">free keywords1
+				</dcterms:subject>
+				<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">001 - Knowledge</dc:subject>
+				<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">The
+					toc</dcterms:tableOfContents>
+
+			</publication:publication>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+
+
+	<escidocComponents:components xlink:type="simple"
+		xlink:title="Components of Item escidoc:325082" xlink:href="/ir/item/escidoc:325082/components">
+
+		<escidocComponents:component xlink:type="simple"
+			xlink:title="Rest_api_doc_AA_UserGroup.1.1.3.pdf"
+			xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325080">
+			<escidocComponents:properties
+				xlink:type="simple" xlink:title="Properties"
+				xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325080/properties">
+
+				<prop:creation-date>2009-12-10T11:03:32.598Z</prop:creation-date>
+
+				<srel:created-by xlink:type="simple" xlink:title="New Metadata Tester"
+					xlink:href="/aa/user-account/escidoc:321116" />
+				<prop:description>Description file</prop:description>
+
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public
+				</prop:visibility>
+				<prop:pid>hdl:11858/00-ZZZZ-0000-0000-2DB9-D</prop:pid>
+				<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+				</prop:content-category>
+				<prop:file-name>Rest_api_doc_AA_UserGroup.1.1.3.pdf</prop:file-name>
+				<prop:mime-type>application/pdf</prop:mime-type>
+
+				<prop:checksum>bcb4d813f8a3ca93c209025182c57962</prop:checksum>
+				<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+			</escidocComponents:properties>
+			<escidocComponents:content xlink:type="simple"
+				xlink:title="Rest_api_doc_AA_UserGroup.1.1.3.pdf"
+				xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325080/content"
+				storage="internal-managed" />
+			<escidocMetadataRecords:md-records
+				xlink:type="simple" xlink:title="Metadata Records of Component escidoc:325080"
+				xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325080/md-records">
+				<escidocMetadataRecords:md-record
+					name="escidoc" xlink:type="simple" xlink:title="escidoc"
+					xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325080/md-records/md-record/escidoc">
+					<file:file xmlns:file="http://purl.org/metadata/profiles/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Rest_api_doc_AA_UserGroup.1.1.3.pdf
+						</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Description file
+						</dc:description>
+						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/"
+							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:IMT">application/pdf
+						</dc:format>
+
+						<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">232321
+						</dcterms:extent>
+						<dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/">2000-12-10
+						</dcterms:dateCopyrighted>
+						<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">Copyright blabla</dc:rights>
+						<dcterms:license xmlns:dcterms="http://purl.org/dc/terms/">http://creativecommons.org/licenses/by-nc-nd/3.0/
+						</dcterms:license>
+					</file:file>
+				</escidocMetadataRecords:md-record>
+
+			</escidocMetadataRecords:md-records>
+
+		</escidocComponents:component>
+		<escidocComponents:component xlink:type="simple"
+			xlink:title="http://escidoc.org"
+			xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325081">
+			<escidocComponents:properties
+				xlink:type="simple" xlink:title="Properties"
+				xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325081/properties">
+
+				<prop:creation-date>2009-12-10T11:03:32.677Z</prop:creation-date>
+				<srel:created-by xlink:type="simple" xlink:title="New Metadata Tester"
+					xlink:href="/aa/user-account/escidoc:321116" />
+				<prop:description>locator description</prop:description>
+
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>http://purl.org/escidoc/metadata/ves/access-types/public
+				</prop:visibility>
+
+				<prop:pid>hdl:11858/00-ZZZZ-0000-0000-2DBA-B</prop:pid>
+				<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+				</prop:content-category>
+				<prop:file-name>http://escidoc.org</prop:file-name>
+				<prop:mime-type>application/octet-stream</prop:mime-type>
+				<prop:checksum>2ba1dd33b6d6327fa5489951f48d4114</prop:checksum>
+				<prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+			</escidocComponents:properties>
+			<escidocComponents:content xlink:type="simple"
+				xlink:title="http://escidoc.org" xlink:href="http://escidoc.org"
+				storage="external-url" />
+			<escidocMetadataRecords:md-records
+				xlink:type="simple" xlink:title="Metadata Records of Component escidoc:325081"
+				xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325081/md-records">
+
+				<escidocMetadataRecords:md-record
+					name="escidoc" xlink:type="simple" xlink:title="escidoc"
+					xlink:href="/ir/item/escidoc:325082/components/component/escidoc:325081/md-records/md-record/escidoc">
+					<file:file xmlns:file="http://purl.org/metadata/profiles/0.1/file">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">http://escidoc.org</dc:title>
+						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">locator description
+						</dc:description>
+						<dcterms:dateCopyrighted xmlns:dcterms="http://purl.org/dc/terms/">2009-12-02
+						</dcterms:dateCopyrighted>
+						<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">Copyright statement</dc:rights>
+						<dcterms:license xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:license>
+					</file:file>
+
+				</escidocMetadataRecords:md-record>
+
+			</escidocMetadataRecords:md-records>
+		</escidocComponents:component>
+
+	</escidocComponents:components>
+
+	<relations:relations xlink:type="simple"
+		xlink:title="Relations of container" xlink:href="/ir/item/escidoc:325082/relations">
+	</relations:relations>
+	<escidocItem:resources xlink:type="simple"
+		xlink:title="Resources" xlink:href="/ir/item/escidoc:325082/resources">
+		<escidocItem:version-history xlink:type="simple"
+			xlink:title="Version History" xlink:href="/ir/item/escidoc:325082/resources/version-history" />
+	</escidocItem:resources>
+</escidocItem:item>
+
