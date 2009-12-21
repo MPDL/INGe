@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -204,7 +203,6 @@ public class TransformationTest
      }
      
      @Test
-     @Ignore
      public void endnote2escidocTest() throws Exception
      {
          this.logger.info("---Transformation EndNote to escidoc format ---");
@@ -259,7 +257,6 @@ public class TransformationTest
      }
 	
      @Test
-     @Ignore
      public void mods2oaidcTest () throws Exception
      {
          this.logger.info("---Transformation MODS to oai_dc format ---");
@@ -291,7 +288,6 @@ public class TransformationTest
      }
      
      @Test
-     @Ignore
      public void mods2escidocTest() throws Exception
      {
          this.logger.info("---Transformation MODS to escidoc format ---");
