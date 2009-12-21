@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.escidoc.services.cone.formatter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,7 +37,6 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
@@ -51,7 +50,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -61,19 +59,19 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * Servlet to answer calls from the JQuery Javascript API.
  *
  * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 2233 $ $LastChangedDate: 2009-08-05 11:16:29 +0200 (Mi, 05 Aug 2009) $
  *
  */
-public class HtmlConeServlet extends ConeServlet
+public class HtmlFormatter extends Formatter
 {
 
-    private static final Logger logger = Logger.getLogger(HtmlConeServlet.class);
+    private static final Logger logger = Logger.getLogger(HtmlFormatter.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
-    protected String getContentType()
+    public String getContentType()
     {
         return "text/html;charset=" + DEFAULT_ENCODING;
     }
@@ -87,7 +85,7 @@ public class HtmlConeServlet extends ConeServlet
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
      */
-    protected void explain(HttpServletResponse response) throws FileNotFoundException,
+    public void explain(HttpServletResponse response) throws FileNotFoundException,
             TransformerFactoryConfigurationError, IOException
     {
         response.setContentType("text/xml");
@@ -114,7 +112,7 @@ public class HtmlConeServlet extends ConeServlet
      * @param pairs A list of key-value pairs
      * @return A String formatted as HTML
      */
-    protected String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<Pair> pairs) throws IOException
     {
         
         String result = RdfHelper.formatList(pairs);
@@ -144,7 +142,7 @@ public class HtmlConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples, String lang)
+    public String formatDetails(String id, Model model, TreeFragment triples, String lang)
         throws IOException
     {
         
@@ -169,7 +167,7 @@ public class HtmlConeServlet extends ConeServlet
                     .newTransformer(
                             new StreamSource(xsltFile));
             transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.any-identifier=" + id + "&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+            transformer.setParameter("citation-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + "/search/SearchAndExport?cqlQuery=escidoc.any-identifier=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + id + "\"&exportFormat=APA&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
             transformer.setParameter("item-link", PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
             transformer.setParameter("lang", lang);
             transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));

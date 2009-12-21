@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.escidoc.services.cone.formatter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -37,10 +37,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -53,31 +52,30 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.
  *
  * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 1952 $ $LastChangedDate: 2009-05-07 10:33:48 +0200 (Do, 07 Mai 2009) $
  *
  */
-public class JQueryConeServlet extends ConeServlet
+public class JsonFormatter extends Formatter
 {
 
-    private static final Logger logger = Logger.getLogger(JQueryConeServlet.class);
+    private static final Logger logger = Logger.getLogger(JsonFormatter.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
-    protected String getContentType()
+    public String getContentType()
     {
-        return "text/plain;charset=" + DEFAULT_ENCODING;
+        return "application/json;charset=" + DEFAULT_ENCODING;
     }
 
     /**
@@ -89,13 +87,13 @@ public class JQueryConeServlet extends ConeServlet
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
      */
-    protected void explain(HttpServletResponse response) throws FileNotFoundException,
+    public void explain(HttpServletResponse response) throws FileNotFoundException,
             TransformerFactoryConfigurationError, IOException
     {
         response.setContentType("text/xml");
         
         InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl");
         
         try
         {
@@ -116,7 +114,7 @@ public class JQueryConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected OutputStream format(String source) throws IOException
+    public OutputStream format(String source) throws IOException
     {
 
         InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl");
@@ -141,23 +139,47 @@ public class JQueryConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<Pair> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
+        
+        result.append("[\n");
         
         if (pairs != null)
         {
             for (Pair pair : pairs)
             {
+                result.append("\t{\n");
                 String key = pair.getKey();
                 String value = pair.getValue();
-                result.append(value);
-                result.append("|");
-                result.append(key);
+                
+                result.append("\t\t\"id\" : \"");
+                try
+                {
+                    result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\""));
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
+                result.append("\",\n");
+                
+                result.append("\t\t\"value\" : \"");
+                result.append(value.replace("\"", "\\\""));
+                result.append("\"\n");
+                
+                result.append("\t}");
+                
+                if (!(pair == pairs.get(pairs.size() - 1)))
+                {
+                    result.append(",");
+                }
                 result.append("\n");
             }
         }
+        
+        result.append("]\n");
         
         return result.toString();
     }
@@ -168,7 +190,7 @@ public class JQueryConeServlet extends ConeServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
+    public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         return triples.toJson();
     }

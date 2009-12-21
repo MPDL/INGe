@@ -28,15 +28,13 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.escidoc.services.cone.formatter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
@@ -50,29 +48,28 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
-import de.mpg.escidoc.services.cone.util.LocalizedTripleObject;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Servlet to answer calls from PubMan for options generation.
  *
  * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 1952 $ $LastChangedDate: 2009-05-07 10:33:48 +0200 (Do, 07 Mai 2009) $
  *
  */
-public class OptionsConeServlet extends ConeServlet
+public class OptionsFormatter extends Formatter
 {
 
-    private static final Logger logger = Logger.getLogger(OptionsConeServlet.class);
+    private static final Logger logger = Logger.getLogger(OptionsFormatter.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
-    protected String getContentType()
+    public String getContentType()
     {
         return "text/plain;charset=" + DEFAULT_ENCODING;
     }
@@ -86,7 +83,7 @@ public class OptionsConeServlet extends ConeServlet
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
      */
-    protected void explain(HttpServletResponse response) throws FileNotFoundException,
+    public void explain(HttpServletResponse response) throws FileNotFoundException,
             TransformerFactoryConfigurationError, IOException
     {
         response.setContentType("text/xml");
@@ -113,7 +110,7 @@ public class OptionsConeServlet extends ConeServlet
      * @param pairs The list.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<Pair> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
@@ -124,7 +121,15 @@ public class OptionsConeServlet extends ConeServlet
             {
                 String key = pair.getKey();
                 String value = pair.getValue();
-                result.append(key.substring(key.lastIndexOf(":") + 1));
+                try
+                {
+                    result.append(key.substring(key.lastIndexOf("/") + 1));
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
+                //result.append(key.substring(key.lastIndexOf(":") + 1));
                 result.append("|");
                 result.append(value);
                 result.append("\n");
@@ -140,7 +145,7 @@ public class OptionsConeServlet extends ConeServlet
      * @param result The JSON.
      * @return A String formatted  in a JQuery readable format.
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
+    public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         return triples.toJson();
     }

@@ -28,18 +28,12 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.cone.web;
+package de.mpg.escidoc.services.cone.formatter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
@@ -53,7 +47,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.ModelList.Model;
-import de.mpg.escidoc.services.cone.util.LocalizedString;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
@@ -62,19 +55,19 @@ import de.mpg.escidoc.services.cone.util.TreeFragment;
  * Servlet to answer calls from the JQuery Javascript API.
  *
  * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 1952 $ $LastChangedDate: 2009-05-07 10:33:48 +0200 (Do, 07 Mai 2009) $
  *
  */
-public class RdfConeServlet extends ConeServlet
+public class RdfFormatter extends Formatter
 {
 
-    private static final Logger logger = Logger.getLogger(RdfConeServlet.class);
+    private static final Logger logger = Logger.getLogger(RdfFormatter.class);
     private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
     private static final String DEFAULT_ENCODING = "UTF-8";
     
     @Override
-    protected String getContentType()
+    public String getContentType()
     {
         return "application/xml;charset=" + DEFAULT_ENCODING;
     }
@@ -88,7 +81,7 @@ public class RdfConeServlet extends ConeServlet
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
      */
-    protected void explain(HttpServletResponse response) throws FileNotFoundException,
+    public void explain(HttpServletResponse response) throws FileNotFoundException,
             TransformerFactoryConfigurationError, IOException
     {
         response.setContentType("text/xml");
@@ -115,7 +108,7 @@ public class RdfConeServlet extends ConeServlet
      * @param pairs A list of key-value pairs
      * @return A String formatted as HTML
      */
-    protected String formatQuery(List<Pair> pairs) throws IOException
+    public String formatQuery(List<Pair> pairs) throws IOException
     {
         
         String result = RdfHelper.formatList(pairs);
@@ -132,7 +125,7 @@ public class RdfConeServlet extends ConeServlet
      * 
      * @throws IOException Any i/o exception
      */
-    protected String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
+    public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws IOException
     {
         
         String result = RdfHelper.formatMap(id, triples);
