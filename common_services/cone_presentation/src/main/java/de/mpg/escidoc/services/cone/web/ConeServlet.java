@@ -60,7 +60,6 @@
 
 package de.mpg.escidoc.services.cone.web;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -71,7 +70,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.apache.log4j.Logger;
 
@@ -79,6 +77,7 @@ import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.formatter.Formatter;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
 
@@ -90,12 +89,15 @@ import de.mpg.escidoc.services.cone.util.TreeFragment;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public abstract class ConeServlet extends HttpServlet
+public class ConeServlet extends HttpServlet
 {
 
     private static final Logger logger = Logger.getLogger(ConeServlet.class);
     private static final String DB_ERROR_MESSAGE = "Error querying database.";
     private static final String DEFAULT_ENCODING = "UTF-8";
+    private static final String DEFAULT_FORMAT = "html";
+    
+    Formatter formatter;
     
     /**
      * {@inheritDoc}
@@ -109,10 +111,12 @@ public abstract class ConeServlet extends HttpServlet
         PrintWriter out = response.getWriter();
         
         // Read the model name and action from the URL
-        String[] path = request.getPathInfo().split("/");
+        String[] path = request.getServletPath().split("/");
         
         String model = null;
         String action = null;
+        String format = DEFAULT_FORMAT;
+        String lang = request.getParameter("lang");
         
         if (path.length >= 2)
         {
@@ -121,8 +125,20 @@ public abstract class ConeServlet extends HttpServlet
         
         if (path.length >= 3)
         {
-            action = path[2];
+            action = path[2].split("\\.")[0];
         }
+        
+        if (path[path.length - 1].contains("."))
+        {
+            format = path[path.length - 1].substring(path[path.length - 1].lastIndexOf(".") + 1);
+        }
+        
+        if ("default".equals(format))
+        {
+            format = DEFAULT_FORMAT;
+        }
+        
+        formatter = Formatter.getFormatter(format);
 
         logger.debug("Querying for '" + model + "'");
         
@@ -130,11 +146,13 @@ public abstract class ConeServlet extends HttpServlet
 //        {
 //            explain(response);
 //        }
+        
         if ("query".equals(action))
         {
+            String query = request.getParameter("q");
             try
             {
-                queryAction(request, response, model);
+                queryAction(query, lang, response, model);
             }
             catch (Exception e)
             {
@@ -152,11 +170,18 @@ public abstract class ConeServlet extends HttpServlet
                 throw new ServletException(e);
             }
         }
-        else if ("details".equals(action))
+        else if ("resource".equals(action))
         {
+            String id = null;
+            
+            if (path.length >= 4)
+            {
+                id = path[3].split("\\.")[0];
+            }
+            
             try
             {
-                detailAction(request, response, out, model);
+                detailAction(id, lang, response, out, model);
             }
             catch (Exception e)
             {
@@ -179,7 +204,7 @@ public abstract class ConeServlet extends HttpServlet
 
         if (model != null)
         {
-            response.setContentType(getContentType());
+            response.setContentType(formatter.getContentType());
             String lang = request.getParameter("lang");
             Querier querier = QuerierFactory.newQuerier();
             
@@ -202,7 +227,7 @@ public abstract class ConeServlet extends HttpServlet
                     logger.error(DB_ERROR_MESSAGE, e);
                 }
    
-                response.getWriter().print(formatQuery(result));
+                response.getWriter().print(formatter.formatQuery(result));
             }
             querier.release();
         }
@@ -222,7 +247,8 @@ public abstract class ConeServlet extends HttpServlet
      * @throws IOException
      */
     private void detailAction(
-            HttpServletRequest request,
+            String id,
+            String lang,
             HttpServletResponse response,
             PrintWriter out,
             String modelName)
@@ -232,16 +258,7 @@ public abstract class ConeServlet extends HttpServlet
 
         if (model != null)
         {
-            String[] path = request.getPathInfo().split("/");
-            response.setContentType(getContentType());
-            String id = null;
-            String lang = request.getParameter("lang");
-            
-            if (path.length > 3)
-            {
-                int startPos = path[0].length() + path[1].length() + path[2].length() + 3;
-                id = request.getPathInfo().substring(startPos);
-            }
+            response.setContentType(formatter.getContentType());
 
             try
             {
@@ -254,7 +271,7 @@ public abstract class ConeServlet extends HttpServlet
             catch (URISyntaxException e)
             {
 
-                id = model.getIdentifierPrefix() + id;
+                id = model.getSubjectPrefix() + id;
                 
                 try
                 {
@@ -296,7 +313,7 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    out.print(formatDetails(id, model, result, lang));
+                    out.print(formatter.formatDetails(id, model, result, lang));
                 }
                 querier.release();
             }
@@ -315,16 +332,14 @@ public abstract class ConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(HttpServletRequest request, HttpServletResponse response, String modelName)
+    private void queryAction(String query, String lang, HttpServletResponse response, String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().getModelByAlias(modelName);
 
         if (model != null)
         {
-            response.setContentType(getContentType());
-            String query = request.getParameter("q");
-            String lang = request.getParameter("lang");
+            response.setContentType(formatter.getContentType());
             
             if (query == null)
             {
@@ -358,7 +373,7 @@ public abstract class ConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    response.getWriter().print(formatQuery(result));
+                    response.getWriter().print(formatter.formatQuery(result));
                 }
                 querier.release();
             }
@@ -392,44 +407,4 @@ public abstract class ConeServlet extends HttpServlet
         response.getWriter().println("Error: Parameter '" + param + "' is missing.");
     }
 
-    /**
-     * Explain action to be implemented by a format servlet.
-     * 
-     * @param response The HTTP response piped through.
-     * @throws FileNotFoundException From XSLT transformation.
-     * @throws TransformerFactoryConfigurationError From XSLT transformation.
-     * @throws IOException From XSLT transformation.
-     */
-    protected abstract void explain(HttpServletResponse response)
-        throws FileNotFoundException, TransformerFactoryConfigurationError, IOException;
-
-    /**
-     * Format the results of the query action.
-     * 
-     * @param pairs The results
-     * @return A string that displays the given results in the current format.
-     * @throws IOException From XSLT transformation.
-     */
-    protected abstract String formatQuery(List<Pair> pairs) throws IOException;
-
-    /**
-     * Format the results of the details action.
-     * 
-     * @param id The id of the object.
-     * @param model The current model.
-     * @param triples The structure of the current object.
-     * @param lang The selected language.
-     * 
-     * @return A string that displays the given results in the current format.
-     * @throws IOException From XSLT transformation.
-     */
-    protected abstract String formatDetails(String id, Model model, TreeFragment triples, String lang)
-        throws IOException;
-    
-    /**
-     * An implementing servlet should return the "Content-Type" header value of its format (e.g. "text/html"). 
-     * 
-     * @return The content type as string.
-     */
-    protected abstract String getContentType();
 }

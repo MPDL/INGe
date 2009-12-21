@@ -30,7 +30,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 public class QuerierFactory
 {
     private static final Logger logger = Logger.getLogger(QuerierFactory.class);
-    private static final String DEFAULT_QUERIER = MulgaraQuerier.class.getName();
+    private static final String DEFAULT_QUERIER = SQLQuerier.class.getName();
 
     /**
      * Hide constructor for factory class.

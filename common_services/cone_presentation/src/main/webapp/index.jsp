@@ -102,9 +102,9 @@
 										HTML<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="html/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query/html?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all/html">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>/html">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -112,9 +112,9 @@
 										RDF/XML<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="rdf/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query/rdf?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all/rdf">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>/rdf">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -122,9 +122,9 @@
 										JSON<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="json/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query/json?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all/json">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>/json">details</a>
 									</span>
 								</span>
 								<span class="free_area0 endline itemLine noTopBorder">
@@ -132,9 +132,19 @@
 										Options<span class="noDisplay">: </span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLIncl endline">
-										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/query?q=a">query</a>
-										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/all">all</a>
-										<a class="free_area0 xTiny_marginRIncl" href="options/<%= model.getName() %>/<%= ids.size() > 0 ? ids.get(0) : "" %>">details</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query/options?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all/options">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>/options">details</a>
+									</span>
+								</span>
+								<span class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										JQuery<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLIncl endline">
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/query/jquery?q=a">query</a>
+										<a class="free_area0 xTiny_marginRIncl" href="<%= model.getName() %>/all/jquery">all</a>
+										<a class="free_area0 xTiny_marginRIncl" href="./<%= ids.size() > 0 ? ids.get(0) : "" %>/jquery">details</a>
 									</span>
 								</span>
 							</div>

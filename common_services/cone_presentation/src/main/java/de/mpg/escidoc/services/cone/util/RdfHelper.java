@@ -31,7 +31,10 @@
 package de.mpg.escidoc.services.cone.util;
 
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Static Helper class for RDF formatting.
@@ -71,9 +74,16 @@ public class RdfHelper
                 String key = pair.getKey();
                 String value = pair.getValue();
                 
-                result.append("\t<rdf:Description rdf:about=\"" + key.replace("\"", "\\\"") + "\">\n");
-                result.append("\t\t<dc:title>" + xmlEscape(value) + "</dc:title>\n");
-                result.append("\t</rdf:Description>\n");
+                try
+                {
+                    result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("escidoc.cone.service.url") + key.replace("\"", "\\\"") + "\">\n");
+                    result.append("\t\t<dc:title>" + xmlEscape(value) + "</dc:title>\n");
+                    result.append("\t</rdf:Description>\n");
+                }
+                catch (Exception exception)
+                {
+                    throw new RuntimeException(exception);
+                }
             }
         }
         

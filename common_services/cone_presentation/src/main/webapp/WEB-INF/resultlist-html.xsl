@@ -40,7 +40,7 @@
 				<ul>
 					<xsl:for-each select="rdf:RDF/rdf:Description">
 						<li>
-							<a href="./{@rdf:about}"><xsl:value-of select="dc:title"/></a>
+							<a href="{@rdf:about}"><xsl:value-of select="dc:title"/></a>
 						</li>
 					</xsl:for-each>
 				</ul>

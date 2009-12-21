@@ -439,7 +439,7 @@
 									</div>
 								</div>
 								<div class="full_area0 itemBlock">
-									<h3 class="xLarge_area0_p8 endline blockHeader">External references</h3>
+									<h3 class="xLarge_area0_p8 endline blockHeader"><xsl:value-of select="escidoc:label('external_references')"/></h3>
 									<span class="seperator">&#160;</span>
 									<div class="free_area0 itemBlockContent endline">
 										<div class="free_area0 endline itemLine noTopBorder">
@@ -499,6 +499,7 @@
 			<label id="research_fields">Research Fields</label>
 			<label id="subject">Subject</label>
 			<label id="publications">Publications</label>
+			<label id="external_references">External references</label>
 		</language>
 		<language id="de" label="Deutsch">
 			<label id="researcher_portfolio">Forscher Portfolio</label>
@@ -516,6 +517,7 @@
 			<label id="research_fields">Forschungsgebiete</label>
 			<label id="subject">Subjekt</label>
 			<label id="publications">Veröffentlichungen</label>
+			<label id="external_references">Externe Verweise</label>
 		</language>
 		<language id="ja" label="日本語 ">
 			<label id="researcher_portfolio">研究者ポートフォリオ</label>
@@ -533,6 +535,7 @@
 			<label id="research_fields">研究分野</label>
 			<label id="subject">主題</label>
 			<label id="publications">出版物</label>
+			<label id="external_references">外部参照</label>
 		</language>
 
 	</xsl:variable>

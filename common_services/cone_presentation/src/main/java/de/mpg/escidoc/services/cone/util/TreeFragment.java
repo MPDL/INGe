@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * A representation of a tree-like structure built of s-p-o triples.
@@ -131,7 +132,14 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     {
         if (size() == 0)
         {
-            return RdfHelper.xmlEscape(subject);
+            try
+            {
+                return RdfHelper.xmlEscape(PropertyReader.getProperty("escidoc.cone.service.url") + subject);
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
         }
         else
         {
@@ -152,9 +160,16 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
             result.append("<rdf:Description");
             if (!subject.startsWith("genid:"))
             {
-                result.append(" rdf:about=\"");
-                result.append(subject);
-                result.append("\"");
+                try
+                {
+                    result.append(" rdf:about=\"");
+                    result.append(PropertyReader.getProperty("escidoc.cone.service.url") + subject);
+                    result.append("\"");
+                }
+                catch (Exception e)
+                {
+                    throw new RuntimeException(e);
+                }
             }
             
             if (language != null && !"".equals(language))
@@ -263,7 +278,14 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     {
         if (size() == 0)
         {
-            return "\"" + subject.replace("\"", "\\\"") + "\"";
+            try
+            {
+                return "\"" + PropertyReader.getProperty("escidoc.cone.service.url") + subject.replace("\"", "\\\"") + "\"";
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
         }
         else
         {
@@ -311,7 +333,14 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     @Override
     public String toString()
     {
-        return subject;
+        try
+        {
+            return PropertyReader.getProperty("escidoc.cone.service.url") + subject;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

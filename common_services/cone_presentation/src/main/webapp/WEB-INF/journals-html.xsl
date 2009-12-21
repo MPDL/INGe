@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/">
 	
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
@@ -65,14 +65,14 @@
 					</div>
 				</xsl:if>
 				<div>
-					Main identifier (SFX): <xsl:value-of select="dc:identifier"/>
+					Main identifier (SFX): <xsl:value-of select="dc:identifier/rdf:Description[xsi:type = 'http://purl.org/dc/elements/1.1/identifier/SFX']/rdf:value"/>
 				</div>
-				<xsl:if test="dcterms:identifier != ''">
+				<xsl:if test="dc:identifier/rdf:Description[xsi:type != 'http://purl.org/dc/elements/1.1/identifier/SFX']">
 					<div>
 						Additional identifiers:
 						<ul>
-							<xsl:for-each select="dcterms:identifier">
-								<li><xsl:value-of select="."/></li>
+							<xsl:for-each select="dc:identifier/rdf:Description[xsi:type != 'http://purl.org/dc/elements/1.1/identifier/SFX']">
+								<li><xsl:value-of select="xsi:type"/>: <xsl:value-of select="rdf:value"/></li>
 							</xsl:for-each>
 						</ul>
 					</div>
