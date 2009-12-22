@@ -68,7 +68,7 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="publication:creator">
+	<xsl:template match="publication:creator | escidoc:creator" priority="999">
 		<xsl:variable name="v1" select="@role"/>
 		<xsl:variable name="v2" select="$vm/creator-role/v1-to-v2/map[@v1=$v1]"/>
 		<xsl:element name="eterms:creator">
