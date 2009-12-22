@@ -59,9 +59,10 @@
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    xmlns:ce="http://www.elsevier.com"
    xmlns:mml="http://www.w3.org/1998/Math/MathML"   
-   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder">
+   xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+   xmlns:itemlist="${xsd.soap.item.itemlist}">
 
-	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -104,9 +105,9 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
-				<item-list>
+				<itemlist:item-list>
 					<xsl:call-template name="createItem"/>
-				</item-list>
+				</itemlist:item-list>
 			</xsl:when>
 			<xsl:when test="count(.) = 1">
 				<xsl:call-template name="createItem"/>

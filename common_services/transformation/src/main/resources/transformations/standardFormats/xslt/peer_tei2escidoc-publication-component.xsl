@@ -54,6 +54,7 @@
    xmlns:ce="http://www.elsevier.com"
    xmlns:mml="http://www.w3.org/1998/Math/MathML"   
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+   xmlns:itemlist="${xsd.soap.item.itemlist}"
    >
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -64,9 +65,9 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
-				<item-list>
+				<itemlist:item-list>
 					<xsl:call-template name="createComponents"/>
-				</item-list>
+				</itemlist:item-list>
 			</xsl:when>
 			<xsl:when test="count(.) = 1">
 				<xsl:call-template name="createComponents"/>

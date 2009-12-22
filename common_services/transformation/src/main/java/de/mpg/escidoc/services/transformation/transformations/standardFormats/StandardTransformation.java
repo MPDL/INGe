@@ -43,6 +43,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -55,6 +56,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * Handles all transformations for standard metadata records.
@@ -66,6 +69,9 @@ public class StandardTransformation
     private final Logger logger = Logger.getLogger(StandardTransformation.class);
     
     private final String METADATA_XSLT_LOCATION ="transformations/standardFormats/xslt";
+    private static final Format ESCIDOC_ITEM_LIST_FORMAT = new Format("eSciDoc-publication-item-list", "application/xml", "*");
+    private static final Format ESCIDOC_ITEM_FORMAT = new Format("eSciDoc-publication-item", "application/xml", "*");
+    private static final Format ESCIDOC_COMPONENT_FORMAT = new Format("eSciDoc-publication-component", "application/xml", "*");
     private static Properties properties;
     
     /**
@@ -95,20 +101,22 @@ public class StandardTransformation
             InputStream in = cl.getResourceAsStream(this.METADATA_XSLT_LOCATION + "/" + xsltUri);
             Transformer transformer = factory.newTransformer(new StreamSource(in));
 
-              try
-            {
-                transformer.setParameter("external_organization_id",
+            transformer.setParameter("external_organization_id",
                         this.getProperty("escidoc.pubman.external.organisation.id"));
-            }
-            catch (Exception e)
-            {
-                this.logger.warn("Property external organization could not be set.");
-            }
+
     
+            if(formatTo.endsWith("list"))
+            {
+                transformer.setParameter("is-item-list", Boolean.TRUE);
+            }
+            else
+            {
+                transformer.setParameter("is-item-list", Boolean.FALSE);
+            }
             StringReader xmlSource = new StringReader(itemXML);
             transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
         }
-        catch (TransformerException e)
+        catch (Exception e)
         {
             this.logger.error("An error occurred during a standard metadata transformation.", e);
             throw new RuntimeException();

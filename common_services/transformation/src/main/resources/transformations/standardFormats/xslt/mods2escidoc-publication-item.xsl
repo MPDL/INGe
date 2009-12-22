@@ -47,7 +47,7 @@
 	xmlns:util="java:de.mpg.escidoc.services.transformation.Util"
 	xmlns:escidoc="urn:escidoc:functions"
 	xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
-	xmlns:eil="http://www.escidoc.de/schemas/itemlist/0.8"
+	xmlns:eil="${xsd.soap.item.itemlist}"
 	xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
 	xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
 	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"

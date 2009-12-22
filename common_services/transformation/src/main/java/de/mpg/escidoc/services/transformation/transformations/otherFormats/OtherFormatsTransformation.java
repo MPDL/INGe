@@ -46,15 +46,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.TransformerFactoryImpl;
+
 import org.apache.log4j.Logger;
 
-import net.sf.saxon.TransformerFactoryImpl;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.tei.TEITransformation;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.LocalURIResolver;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
-import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
  * 
@@ -83,23 +82,6 @@ public class OtherFormatsTransformation
     {
         METSTransformation metsTrans = new METSTransformation();
         return metsTrans.transformToMETS(new String(src));
-    }
-    
-    /**
-     * Provides the transformation from a tei (PEER) object to a escidoc publication object.
-     * @param src
-     * @param srcFormat
-     * @param trgFormat
-     * @param service
-     * @return mets as byte[]
-     */
-    public byte[] transformPeerTeiToEscidoc(byte[] src, Format trgFormat) throws RuntimeException
-    {
-        TEITransformation teiTrans = new TEITransformation ();
-        try
-        {
-        }catch(Exception e){}
-        return teiTrans.transform(src, trgFormat);
     }
     
     /**

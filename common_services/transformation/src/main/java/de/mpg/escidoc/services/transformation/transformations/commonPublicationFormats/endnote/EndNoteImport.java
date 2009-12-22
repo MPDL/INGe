@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.transformation.transformations.otherFormats.endnote;
+package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.endnote;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,8 +14,8 @@ import org.apache.log4j.Logger;
 /**
  * provides the import of a EndNote file 
  * 
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 2391 $ $LastChangedDate: 2009-11-20 16:08:07 +0100 (Fr, 20 Nov 2009) $
  *
  */
 public class EndNoteImport

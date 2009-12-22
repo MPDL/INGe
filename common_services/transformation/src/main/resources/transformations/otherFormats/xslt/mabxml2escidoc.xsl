@@ -58,7 +58,8 @@
 		xmlns:eterms="${xsd.metadata.terms}"
 		xmlns:ec="${xsd.soap.item.components}"
 		xmlns:prop="${xsd.soap.common.prop}"
-		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:itemlist="${xsd.soap.item.itemlist}">
 	
 	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 	
@@ -84,9 +85,9 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
-				<item-list>
+				<itemlist:item-list>
 					<xsl:apply-templates select="//item"/>
-				</item-list>
+				</itemlist:item-list>
 			</xsl:when>
 			<xsl:when test="count(//item) = 1">
 				<xsl:apply-templates select="//item"/>

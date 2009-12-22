@@ -8,11 +8,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.transformation.TransformationBean;
@@ -42,18 +42,30 @@ public class TransformationTest
     {
         try
         {
-            this.logger.info("Get all source formats for all transformations:");
-            this.logger.info(this.trans.getSourceFormatsAsXml());
+            this.logger.info("ALL SOURCE FORMATS FOR ALL TRANSFORMATIONS");
+            Format[] formats = this.trans.getSourceFormats();
+            for (int i = 0; i< formats.length; i++)
+            {
+                this.logger.info(formats[i].getName() + " (" + formats[i].getType() + ")");
+            }
+            
             this.logger.info("-----OK");
             
-            this.logger.info("Get all target formats for escidoc-publication-item format:");
-            this.logger.info(this.trans.getTargetFormatsAsXml("eSciDoc-publication-item", "application/xml", "*"));
+            this.logger.info("ALL TARGET FORMATS FOR escidoc-publication-item:");
+            formats = this.trans.getTargetFormats(new Format("eSciDoc-publication-item", "application/xml", "*"));
+            for (int i = 0; i< formats.length; i++)
+            {
+                this.logger.info(formats[i].getName() + " (" + formats[i].getType() + ")");
+            }
             this.logger.info("-----OK");
             
-            this.logger.info("Get all source formats for escidoc-publication-item format:");
-            Format[] tmp = this.trans.getSourceFormats(
+            this.logger.info("ALL SOURCE FORMATS FOR escidoc-publication-item:");
+            formats = this.trans.getSourceFormats(
                     new Format ("eSciDoc-publication-item", "application/xml", "UTF-8"));
-            this.logger.info(this.util.createFormatsXml(tmp));            
+            for (int i = 0; i< formats.length; i++)
+            {
+                this.logger.info(formats[i].getName() + " (" + formats[i].getType() + ")");
+            }        
             this.logger.info("-----OK");
         }
         catch (Exception e)
@@ -193,7 +205,7 @@ public class TransformationTest
      public void endnote2escidocTest() throws Exception
      {
          this.logger.info("---Transformation EndNote to escidoc format ---");
-         Format endnote = new Format("EndNote", "text/plain", "*");
+         Format endnote = new Format("EndNote", "text/plain", "UTF-8");
          Format escidoc = new Format("escidoc-publication-item", "application/xml", "UTF-8");    
          
          byte[] result;
@@ -273,6 +285,8 @@ public class TransformationTest
      }
      
      @Test
+     @Ignore
+     //TODO: check, currently not needed
      public void mods2escidocTest() throws Exception
      {
          this.logger.info("---Transformation MODS to escidoc format ---");
@@ -284,7 +298,7 @@ public class TransformationTest
          result = this.trans.transform(this.util.getResourceAsString("testFiles/mods/mods.xml").getBytes("UTF-8"), mods, escidoc, "escidoc");
 
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
-         List<PubItemVO> itemList = (List<PubItemVO>)xmlTransforming.transformToItemList(new String(result));
+         List<PubItemVO> itemList = (List <PubItemVO>)xmlTransforming.transformToPubItem(new String(result));
          Assert.assertNotNull(itemList);
          this.logger.info("PubItemVO successfully created.");
      }

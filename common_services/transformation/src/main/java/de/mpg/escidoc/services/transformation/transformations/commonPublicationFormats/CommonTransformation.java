@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandlerBean;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
-import de.mpg.escidoc.services.transformation.transformations.otherFormats.endnote.EndNoteTransformation;
+import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.endnote.EndNoteTransformation;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -177,7 +177,7 @@ public class CommonTransformation
         EndNoteTransformation endTransformer = new EndNoteTransformation();
         try
         {
-            escidoc = endTransformer.transform(src, srcFormat, trgFormat, service);
+            escidoc = endTransformer.endnoteTransform(src, srcFormat, trgFormat, service);
         }
         catch(TransformationNotSupportedException e)
         {

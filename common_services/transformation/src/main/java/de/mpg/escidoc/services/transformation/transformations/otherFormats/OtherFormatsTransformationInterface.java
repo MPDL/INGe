@@ -201,15 +201,6 @@ public class OtherFormatsTransformationInterface implements Transformation
             result = this.escidocTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }     
-        if (srcFormat.getName().toLowerCase().startsWith("peer_tei"))
-        {
-            try{
-            }
-            catch(Exception e)
-            {}
-            result = this.peerTeiTransform(src, srcFormat, trgFormat, service);
-            supported = true;
-        }  
         if (!supported)
         {
             this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
@@ -247,20 +238,7 @@ public class OtherFormatsTransformationInterface implements Transformation
             OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
             result = otherTrans.transformEscidocToMets(src);
             supported = true;
-        }  
-        else if (trgFormatName.equals("oai_dc"))
-        {
-            OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
-            try
-            {
-                result = otherTrans.xsltTransform(srcFormatName, trgFormatName, new String(src,"UTF-8")).getBytes();
-            }
-            catch(Exception e)
-            {
-                this.logger.warn("An error occurred during String Cast." , e);
-            }
-            supported = true;
-        }  
+        }   
         else if (trgFormatName.equals("escidoc-publication-item-list-v2") || trgFormatName.equals("escidoc-publication-item-v2"))
         {
         	try
@@ -286,28 +264,6 @@ public class OtherFormatsTransformationInterface implements Transformation
         		this.logger.warn("An error occurred during String Cast." , e);
         	}
         	supported = true;
-        }  
-        if (!supported)
-        {
-            this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
-                    + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
-                    + ", " + trgFormat.getEncoding());
-            throw new TransformationNotSupportedException();
-        }
-        return result;
-    }
-    
-    private byte[] peerTeiTransform(byte[] src, Format srcFormat, Format trgFormat, String service)
-    throws TransformationNotSupportedException
-    {
-        byte[] result = null;
-        boolean supported = false;
-        
-        if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
-        {
-            OtherFormatsTransformation otherTrans = new OtherFormatsTransformation();
-            result = otherTrans.transformPeerTeiToEscidoc(src, trgFormat);
-            supported = true;
         }  
         if (!supported)
         {

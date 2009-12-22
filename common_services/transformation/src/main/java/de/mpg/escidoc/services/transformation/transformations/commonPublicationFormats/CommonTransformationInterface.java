@@ -145,7 +145,7 @@ public class CommonTransformationInterface implements Transformation
         }
         catch (Exception e)
         {
-            this.logger.error("An error occurred while reading transformations.xml for common publication formats.", e);
+            this.logger.error("An error occurred while reading transformations.xml for standard publication formats.", e);
             throw new RuntimeException(e);
         }
         
@@ -197,9 +197,14 @@ public class CommonTransformationInterface implements Transformation
             result = this.escidocTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }
-        if (srcFormat.getName().toLowerCase().equals("bibtex"))
+        if (srcFormat.getName().equalsIgnoreCase("bibtex"))
         {
             result = this.bibtexTransform(src, srcFormat, trgFormat, service);
+            supported = true;
+        }
+        if (srcFormat.getName().equalsIgnoreCase("endnote"))
+        {
+            result = this.endnoteTransform(src, srcFormat, trgFormat, service);
             supported = true;
         }
        
@@ -277,6 +282,31 @@ public class CommonTransformationInterface implements Transformation
         }
         return result;
     }
+    
+    private byte[] endnoteTransform(byte[] src, Format srcFormat, Format trgFormat, String service)
+    throws TransformationNotSupportedException
+{
+    byte[] result = null;
+    boolean supported = false;
+
+    //TODO 
+    if (trgFormat.getName().toLowerCase().startsWith("escidoc"))
+    {       
+        result = this.commonTrans.transformEndnoteToEscidoc(src, srcFormat, trgFormat, service);
+        if (result != null)
+        {
+            supported = true;
+        }              
+    }
+    if (!supported)
+    {
+        this.logger.warn("Transformation not supported: \n" + srcFormat.getName() + ", " + srcFormat.getType() 
+                + ", " + srcFormat.getEncoding() + "\n" + trgFormat.getName() + ", " + trgFormat.getType() 
+                + ", " + trgFormat.getEncoding());
+        throw new TransformationNotSupportedException();
+    }
+    return result;
+}
     
     /**
      * {@inheritDoc}

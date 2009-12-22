@@ -59,7 +59,8 @@
 		xmlns:organization="${xsd.metadata.organization}"
 		xmlns:escidocFunctions="urn:escidoc:functions"
 		xmlns:escidoc="http://escidoc.mpg.de/"
-		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util">
+		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
+		xmlns:itemlist="${xsd.soap.item.itemlist}">
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -508,9 +509,9 @@
 		<!-- <xsl:call-template name="validation"/> -->
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
-				<item-list>
+				<itemlist:item-list>
 					<xsl:apply-templates select="//record/metadata"/>
-				</item-list>
+				</itemlist:item-list>
 			</xsl:when>
 			<xsl:when test="count(//record/metadata) = 1">
 				<xsl:apply-templates select="//record/metadata"/>

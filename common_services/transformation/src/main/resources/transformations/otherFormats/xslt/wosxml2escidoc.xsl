@@ -55,7 +55,8 @@
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:ec="${xsd.soap.item.components}"
-   xmlns:prop="${xsd.soap.common.prop}">
+   xmlns:prop="${xsd.soap.common.prop}"
+   xmlns:itemlist="${xsd.soap.item.itemlist}">
  
  <xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
 
@@ -77,9 +78,9 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
-				<item-list>
+				<itemlist:item-list>
 					<xsl:apply-templates select="//item"/>
-				</item-list>
+				</itemlist:item-list>
 			</xsl:when>
 			<xsl:when test="count(//item) = 1">
 				<xsl:apply-templates select="//item"/>
