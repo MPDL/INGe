@@ -87,6 +87,16 @@ public class ModelList
         return instance;
     }
 
+    /**
+     * Returns the singleton.
+     * 
+     * @throws Exception Any exception.
+     * @return The singleton
+     */
+    public static void reload() throws Exception
+    {
+        instance = new ModelList();
+    }
     public Set<Model> getList()
     {
         return list;
@@ -254,13 +264,17 @@ public class ModelList
         /**
          * @param model
          */
-        private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> stack)
+        private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> stack) throws SAXException
         {
             for (Predicate predicate : predicates)
             {
                 for (String pattern : model.getResultPattern())
                 {
                     if (predicate.isLocalized() && pattern.contains("<" + predicate.getId() + ">"))
+                    {
+                        model.setLocalizedResultPattern(true);
+                    }
+                    else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(), pattern))
                     {
                         model.setLocalizedResultPattern(true);
                     }
@@ -310,6 +324,38 @@ public class ModelList
                     }
                 }
             }
+        }
+
+        private boolean isSubResourceLocalized(String prefix, String modelName, String pattern) throws SAXException
+        {
+            Model model = null;
+            try
+            {
+                for (Model existingModel : list)
+                {
+                    if (modelName.equals(existingModel.getName()))
+                    {
+                        model = existingModel;
+                        break;
+                    }
+                };
+            }
+            catch (Exception e)
+            {
+                throw new SAXException("Error getting sub model '" + modelName + "'", e);
+            }
+            for (Predicate predicate : model.getPredicates())
+            {
+                if (predicate.isLocalized() && pattern.contains("<" + prefix + predicate.getId() + ">"))
+                {
+                    return true;
+                }
+                else if (predicate.isResource() && isSubResourceLocalized(prefix + predicate.getId() + "|", predicate.getResourceModel(), pattern))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public Set<Model> getList()
@@ -930,5 +976,10 @@ public class ModelList
             this.event = event;
         }
 
+        public String toString()
+        {
+            return id;
+        }
+        
     }
 }

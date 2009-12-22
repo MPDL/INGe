@@ -111,7 +111,7 @@ public class ConeServlet extends HttpServlet
         PrintWriter out = response.getWriter();
         
         // Read the model name and action from the URL
-        String[] path = request.getServletPath().split("/");
+        String[] path = request.getPathInfo().split("/", 4);
         
         String model = null;
         String action = null;
@@ -125,15 +125,14 @@ public class ConeServlet extends HttpServlet
         
         if (path.length >= 3)
         {
-            action = path[2].split("\\.")[0];
+            action = path[2];
         }
         
-        if (path[path.length - 1].contains("."))
+        if (request.getParameter("format") != null)
         {
-            format = path[path.length - 1].substring(path[path.length - 1].lastIndexOf(".") + 1);
+            format = request.getParameter("format");
         }
-        
-        if ("default".equals(format))
+        else
         {
             format = DEFAULT_FORMAT;
         }
@@ -176,7 +175,7 @@ public class ConeServlet extends HttpServlet
             
             if (path.length >= 4)
             {
-                id = path[3].split("\\.")[0];
+                id = path[3];
             }
             
             try

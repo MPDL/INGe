@@ -112,11 +112,10 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 		<name>iso639-1</name>
 		<aliases>
 			<alias>iso639-1</alias>
-			<alias>iso639-1</alias>
 		</aliases>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="iso639-1/resource/" identifier-prefix="">http://purl.org/dc/elements/1.1/relation</primary-identifier>
+		<primary-identifier control="false" generate-cone-id="false" subject-prefix="iso639-1/resource/"></primary-identifier>
 		<predicates>
-			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" resourceModel="iso639-3"/>
+			<predicate name="ISO639-3 Relation" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" searchable="true" generateObject="false" resourceModel="iso639-3"/>
 		</predicates>
 		<result>
 			<pattern>
@@ -277,7 +276,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<aliases>
 			<alias>escidocmimetypes</alias>
 		</aliases>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="escidocmimetypes/resource/" identifier-prefix="">http://purl.org/dc/elements/1.1/relation</primary-identifier>
+		<primary-identifier control="true" generate-cone-id="false" subject-prefix="escidocmimetypes/resource/" identifier-prefix="mimetypes/resource/">http://purl.org/dc/elements/1.1/relation</primary-identifier>
 		<predicates>
 			<predicate name="Type" value="http://purl.org/dc/elements/1.1/relation" multiple="false" mandatory="true" localized="false" resourceModel="mimetypes" searchable="true"/>
 			<predicate name="File Ending" value="urn:cone:suffix" multiple="false" mandatory="false" localized="false" searchable="true" default=".abc" overwrite="false"/>
@@ -302,6 +301,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 		<name>cclicenses</name>
 		<aliases>
 			<alias>cclicenses</alias>
+			<alias>cclicences</alias>
 		</aliases>
 		<primary-identifier control="true" generate-cone-id="false" subject-prefix="cclicenses/resource/" identifier-prefix="http://creativecommons.org/licenses/">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
 		<predicates>
@@ -336,6 +336,7 @@ AND{&lt;http://purl.org/dc/terms/alternative&gt;,&lt;http://purl.org/escidoc/met
 	</model>
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
+		<default-namespace uri="http://dewey.info/" prefix="ddc"/>
 		<default-namespace uri="http://purl.org/dc/terms/" prefix="dcterms"/>
 		<default-namespace uri="http://xmlns.com/foaf/0.1/" prefix="foaf"/>
 		<default-namespace uri="http://purl.org/escidoc/metadata/terms/0.1/" prefix="escidoc"/>

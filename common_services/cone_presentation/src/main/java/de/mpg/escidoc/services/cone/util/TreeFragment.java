@@ -111,18 +111,21 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
      */
     public boolean hasValue()
     {
-        for (String element : this.keySet())
-        {
-            List<LocalizedTripleObject> list = this.get(element);
-            for (LocalizedTripleObject object : list)
-            {
-                if (object.hasValue())
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        
+        return (subject != null && !"".equals(subject));
+        
+//        for (String element : this.keySet())
+//        {
+//            List<LocalizedTripleObject> list = this.get(element);
+//            for (LocalizedTripleObject object : list)
+//            {
+//                if (object.hasValue())
+//                {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
     }
 
     /**
@@ -333,6 +336,11 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
     @Override
     public String toString()
     {
+        if (subject == null)
+        {
+            return null;
+        }
+        
         try
         {
             return PropertyReader.getProperty("escidoc.cone.service.url") + subject;

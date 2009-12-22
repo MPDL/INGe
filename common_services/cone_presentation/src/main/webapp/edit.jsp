@@ -88,6 +88,18 @@
 						for (LocalizedTripleObject object : results.get(predicate.getId()))
 						{
 							out.append(object.toString());
+							if (object instanceof TreeFragment)
+						    {
+						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+						    }
+						    else if (object instanceof LocalizedString)
+						    {
+						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+						    }
+						    else
+						    {
+						        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+						    }
 						}
 					}
 					else
@@ -126,7 +138,19 @@
 									}
 									else
 									{
-									    out.append(object.toString());
+									    if (object instanceof TreeFragment)
+									    {
+									        out.append(((TreeFragment) object).getSubject());
+									    }
+									    else if (object instanceof LocalizedString)
+									    {
+									        out.append(((LocalizedString) object).getValue());
+									    }
+									    else
+									    {
+									        out.append(object.toString());
+									    }
+									    
 									}
 									out.append("\" ");
 									out.append(" />");
@@ -198,7 +222,18 @@
 									else
 									{
 									    out.append(object.toString());
-									    request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+									    if (object instanceof TreeFragment)
+									    {
+									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+									    }
+									    else if (object instanceof LocalizedString)
+									    {
+									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+									    }
+									    else
+									    {
+									        request.getSession().setAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+									    }
 									}
 			                	}
 		            	    out.append("</span>");
@@ -391,6 +426,11 @@
 	            	        TreeFragment fragment = new TreeFragment(paramValue, langValue);
 	            	        objects.add(fragment);
 	            	        mapFormValues(model, predicate.getPredicates(), request, paramNames, fragment, paramName + ":" + i + ":");
+	            	    }
+	            	    else if (predicate.isResource())
+	            	    {
+	            	        TreeFragment fragment = new TreeFragment(paramValue, langValue);
+	            	        objects.add(fragment);
 	            	    }
 	            	    else
 	            	    {

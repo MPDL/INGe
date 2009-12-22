@@ -21,27 +21,6 @@
 		<servlet-name>ConeServlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.services.cone.web.ConeServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>JQueryConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.JQueryConeServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>OptionsConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.OptionsConeServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>JsonConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.JsonConeServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>HtmlConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.HtmlConeServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>RdfConeServlet</servlet-name>
-		<servlet-class>de.mpg.escidoc.services.cone.web.RdfConeServlet</servlet-class>
-	</servlet>
-
 	
 	<servlet-mapping>
 		<servlet-name>jsp</servlet-name>
@@ -49,6 +28,11 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
+		<servlet-name>ConeServlet</servlet-name>
+		<url-pattern>/cone-action/*</url-pattern>
+	</servlet-mapping>
+
+	<!--<servlet-mapping>
 		<servlet-name>ConeServlet</servlet-name>
 		<url-pattern>*.jquery</url-pattern>
 	</servlet-mapping>
@@ -76,7 +60,7 @@
 	<servlet-mapping>
 		<servlet-name>ConeServlet</servlet-name>
 		<url-pattern>*.default</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>-->
 	
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
