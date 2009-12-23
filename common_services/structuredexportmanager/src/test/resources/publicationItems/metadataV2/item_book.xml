@@ -22,8 +22,7 @@
 	xmlns:metadatarecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
 	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1">
 	<item:properties  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<srel:context objid="escidoc:persistent3"/>
 		<srel:content-model objid="escidoc:persistent4"/>
@@ -36,7 +35,7 @@
 			<publication:publication type="http://purl.org/eprint/type/Book">
 				<escidoc:creator role="http://www.loc.gov/loc.terms/relators/AUT">
 					<person:person>
-						<escidoc:complete-name>Hans Meier Book</escidoc:complete-name>
+						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
 						<escidoc:family-name>Meier</escidoc:family-name>
 						<escidoc:given-name>Hans</escidoc:given-name>
 						<escidoc:alternative-name>Werner</escidoc:alternative-name>

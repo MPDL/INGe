@@ -160,6 +160,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
+	    @Ignore
 	    public final void testStructuredExports() throws Exception
 	    {
 	    	long start;
@@ -185,6 +186,48 @@ public class StructuredExportTest
 		    	TestHelper.writeBinFile(result, "target/" + f + "_result.txt");
 	    	}
 	    	
+	    }
+	    
+	    @Test
+	    public void doExportTest() throws Exception
+	    {
+            String itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_book.xml","UTF-8");            
+            XmlTransforming xmlTransforming = new XmlTransformingBean();
+            PubItemVO itemVO = xmlTransforming.transformToPubItem(itemList);
+            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+            itemList = xmlTransforming.transformToItemList(pubitemList);
+            byte[] result = export.getOutput(itemList, "BIBTEX");
+            assertNotNull(result);
+            logger.info("BIBTEX (Book)");
+            logger.info(new String(result));
+            
+            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_book.xml","UTF-8");            
+            itemVO = xmlTransforming.transformToPubItem(itemList);
+            pubitemList = Arrays.asList(itemVO);
+            itemList = xmlTransforming.transformToItemList(pubitemList);
+            result = export.getOutput(itemList, "ENDNOTE");
+            assertNotNull(result);
+            logger.info("ENDNOTE (Book)");
+            logger.info(new String(result));
+            
+            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_thesis.xml","UTF-8");            
+            xmlTransforming = new XmlTransformingBean();
+            itemVO = xmlTransforming.transformToPubItem(itemList);
+            pubitemList = Arrays.asList(itemVO);
+            itemList = xmlTransforming.transformToItemList(pubitemList);
+            result = export.getOutput(itemList, "BIBTEX");
+            assertNotNull(result);
+            logger.info("BIBTEX (Thesis)");
+            logger.info(new String(result));
+            
+            itemList = TestHelper.readFile("src/test/resources/publicationItems/metadataV2/item_thesis.xml","UTF-8");            
+            itemVO = xmlTransforming.transformToPubItem(itemList);
+            pubitemList = Arrays.asList(itemVO);
+            itemList = xmlTransforming.transformToItemList(pubitemList);
+            result = export.getOutput(itemList, "ENDNOTE");
+            assertNotNull(result);
+            logger.info("ENDNOTE (Thesis)");
+            logger.info(new String(result));
 	    }
 	    
 	    

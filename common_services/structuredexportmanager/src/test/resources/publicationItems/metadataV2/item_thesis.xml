@@ -24,7 +24,7 @@
 	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+>
   		            
   	<item:properties  xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<srel:context objid="escidoc:persistent3"/>

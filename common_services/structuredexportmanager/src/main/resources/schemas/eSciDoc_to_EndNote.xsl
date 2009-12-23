@@ -172,9 +172,10 @@
 						</xsl:variable>
 						<xsl:choose>
 							<xsl:when test="$creator-string=''">
-								<xsl:message>
+							<!--  <xsl:message>
 								Error: The creator string is empty.
-							</xsl:message>
+								</xsl:message>
+							-->	
 							</xsl:when>
 							<xsl:otherwise>								
 								<xsl:apply-templates select="person:person">
@@ -541,7 +542,8 @@
 	<xsl:template match="organization:organization">
 		
 		<xsl:param name="gen"/>
-		<xsl:variable name="role-string" select="$creator-ves/enum[.=../@role]"/>
+		<xsl:variable name="role" select="../@role"/>	
+		<xsl:variable name="role-string" select="$creator-ves/enum[@uri=$role]"/>
 		<xsl:choose>
 			<xsl:when test="$role-string='author'">
 				<xsl:call-template name="print-line">
@@ -572,7 +574,8 @@
 	<!-- creator type person -->
 	<xsl:template match="person:person">		
 		<xsl:param name="gen"/>
-		<xsl:variable name="role-string" select="$creator-ves/enum[.=../@role]"/>
+		<xsl:variable name="role" select="../@role"/>	
+		<xsl:variable name="role-string" select="$creator-ves/enum[@uri=$role]"/>
 		<xsl:variable name="given-name" select="eterms:given-name"/>
 		<xsl:variable name="family-name" select="eterms:family-name"/>	
 			
