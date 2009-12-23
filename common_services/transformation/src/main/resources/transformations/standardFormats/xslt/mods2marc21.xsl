@@ -7,7 +7,7 @@
 	xmlns:marc="http://www.loc.gov/MARC21/slim">
 <!-- MODS v3 to MARC21Slim transformation  	ntra 2/20/04 -->
 
-	<xsl:include href="MARC21slimUtils.xsl"/>
+	<xsl:include href="transformations/standardFormats/xslt/MARC21slimUtils.xsl"/>
 	
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
 
