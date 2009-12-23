@@ -22,12 +22,13 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 --%>
 
-<head>
+
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%><head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="/pubman/resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
@@ -139,17 +140,17 @@
 			{
 				if (typeof cutId != 'undefined' && cutId)
 				{
-					$('.' + element).suggest("/cone/json/" + model + "/query?lang=en", {onSelect: fillSmallId});
+					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
-					$('.' + element).suggest("/cone/json/" + model + "/query?lang=en", {onSelect: fillId});
+					$('.' + element).suggest("<%= PropertyReader.getProperty("escidoc.cone.service.url") %>" + model + "/query?lang=en&format=json", {onSelect: fillId});
 				}
 			};
 
 			function fillSmallId()
 			{
-				$(this).val(this.resultID.substring(this.resultID.lastIndexOf(':') + 1));
+				$(this).val(this.resultID.substring(this.resultID.lastIndexOf('/') + 1));
 			}
 			
 			function fillId()

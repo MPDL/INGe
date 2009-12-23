@@ -526,20 +526,35 @@ public class SQLQuerier implements Querier
         {
             String maxIdAsString = result.getString("value");
             int maxId = Integer.parseInt(maxIdAsString) + 1;
-            
+                        
             query = "update properties set value = '" + maxId + "' where name = 'max_id'";
             statement.executeUpdate(query);
             
-            result.close();
-            statement.close();
-            
+            String uid;
             if (model == null)
             {
-                return "genid:" + maxId;
+                uid = "genid:" + maxId;
             }
             else
             {
-                return model + maxId;
+                uid = model + maxId;
+            }
+            
+            result.close();
+            query = "select * from triples where subject = '" + model + "/resource/" + uid + "' limit 1";
+            result = statement.executeQuery(query);
+
+            if (result.next())
+            {
+                result.close();
+                statement.close();
+                return createUniqueIdentifier(model);
+            }
+            else
+            {
+                result.close();
+                statement.close();
+                return uid;
             }
         }
         else

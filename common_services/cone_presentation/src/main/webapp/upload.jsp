@@ -53,7 +53,10 @@
 <%@page import="de.mpg.escidoc.services.cone.rdfimport.RDFHandler"%>
 <%@page import="de.mpg.escidoc.services.cone.util.LocalizedTripleObject"%>
 <%@page import="de.mpg.escidoc.services.cone.util.TreeFragment"%>
-<%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%><html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="de.mpg.escidoc.services.cone.ModelList.Model"%>
+<%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
+<%@page import="java.util.regex.Pattern"%>
+<%@page import="java.util.regex.Matcher"%><html xmlns="http://www.w3.org/1999/xhtml">
 	<jsp:include page="header.jsp"/>
 	<body>
 		<div class="full wrapper">
@@ -71,6 +74,8 @@
 				</div>
 				<div class="full_area0">
 					<%
+						boolean isMigrateNamespace = true;
+					
 						boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 						// Create a factory for disk-based file items
 						FileItemFactory factory = new DiskFileItemFactory();
@@ -115,7 +120,27 @@
 								}
 								else if (((TreeFragment) result).getSubject() != null)
 								{
-									id = ((TreeFragment) result).getSubject();
+								    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
+								    {
+								        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
+								    }
+								    else if (isMigrateNamespace)
+								    {
+								        Pattern pattern = Pattern.compile("[^/]+/resource/.+$");
+								        Matcher matcher = pattern.matcher(((TreeFragment) result).getSubject());
+								        if (matcher.find())
+								        {
+								            id = matcher.group();
+								        }
+								        else
+								        {
+								            throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' does not match required format");
+								        }
+								    }
+								    else
+								    {
+								        throw new RuntimeException("Identifier '" + ((TreeFragment) result).getSubject() + "' is no local URL, but migration is no allowed");
+								    }
 								}
 								else
 								{

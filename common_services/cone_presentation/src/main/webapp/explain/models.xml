@@ -34,7 +34,7 @@
 			<alias>journals</alias>
 		</aliases>
 		<description>Journal Names</description>
-		<primary-identifier control="true" generate-cone-id="false" subject-prefix="journals/resource/" identifier-prefix="">http://purl.org/dc/terms/identifier</primary-identifier>
+		<primary-identifier control="false" generate-cone-id="false" subject-prefix="journals/resource/"></primary-identifier>
 		<predicates>
 			<predicate name="Journal Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true"/>
 			<predicate name="Alternative Journal Name" value="http://purl.org/dc/terms/alternative" multiple="true" mandatory="false" localized="false" searchable="true"/>

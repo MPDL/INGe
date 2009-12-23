@@ -165,7 +165,7 @@
 					                    out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"" + (object.getLanguage() != null ? object.getLanguage() : "") + "\"");
 										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
 										out.append("/>");
-										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'languages', true)</script>");
+										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "', 'iso639-1', true)</script>");
 		                			}
 			                
 				                	if (predicate.isMultiple())
@@ -278,7 +278,7 @@
 	    				            out.append("<input type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
 									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
 									out.append("/>");
-									out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'languages', true)</script>");
+									out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
 		            			}
 			            
 //			            	  	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
@@ -403,6 +403,10 @@
             {
                 paramValues = new String[]{(String) request.getSession().getAttribute(paramName)};
             }
+            else if (model.getIdentifier() != null && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && request.getSession().getAttribute(paramName) != null)
+            {
+                paramValues = new String[]{(String) request.getSession().getAttribute(paramName)};
+            }
             String[] langValues = request.getParameterValues(paramName + "_lang");
             List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
             if (paramValues != null)
@@ -476,6 +480,7 @@
         	        objects.add(new LocalizedString(predicate.getDefault(request), null));
         	    }
             }
+            
             
             if (!predicate.isMultiple() && objects.size() > 1)
             {
