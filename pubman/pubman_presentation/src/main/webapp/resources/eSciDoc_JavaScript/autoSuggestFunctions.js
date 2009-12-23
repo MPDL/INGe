@@ -43,6 +43,9 @@
 
 	function getJournalDetails(details)
 	{
+		
+		alert(details);
+		
 		var parent = $input.parents('.'+journalSuggestCommonParentClass);
 		var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
 		var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
@@ -197,7 +200,7 @@
 	function fillFields()
 	{
 		$input = $(this);
-		$.getJSON(journalDetailsBaseURL + this.resultID, getJournalDetails);
+		$.getJSON(journalDetailsBaseURL.replace('$1', this.resultID), getJournalDetails);
 	}
 	
 	function fillPersonFields()
@@ -205,7 +208,7 @@
 		$input = $(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
-		$.getJSON(personDetailsBaseURL + this.resultID, getPersonDetails);
+		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), getPersonDetails);
 	}
 	
 	function bindJournalSuggest()
@@ -246,7 +249,7 @@
 
 		bindJournalSuggest();
 		
-		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[3] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[3] ); }   });
+		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split('/'))[(this.resultID.split('/')).length - 1] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split('/'))[(this.resultID.split('/')).length - 1] ); }   });
 		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 	};

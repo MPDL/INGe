@@ -248,7 +248,7 @@ public class CommonUtils extends InternationalizedImpl
         
         try
         {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"options/languages/all?lang="+localLang);
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"iso639-1/all?format=options&lang="+localLang);
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();

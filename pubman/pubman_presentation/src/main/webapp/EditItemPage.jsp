@@ -192,12 +192,12 @@
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
 			
-				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/languages/query';
-				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/journals/query';
-				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/ddc/query';
-				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/persons/query';
-				journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/journals/details?id=';
-				personDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>json/persons/details?id=';
+				languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>iso639-1/query?format=json';
+				journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>journals/query?format=json';
+				subjectSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>ddc/query?format=json';
+				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?format=json';
+				journalDetailsBaseURL = '$1?format=json';
+				personDetailsBaseURL = '$1?format=json';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
