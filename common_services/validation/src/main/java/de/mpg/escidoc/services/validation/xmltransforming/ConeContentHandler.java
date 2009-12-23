@@ -70,8 +70,7 @@ public class ConeContentHandler extends IdentityHandler
         {
             try
             {
-                String url = PropertyReader.getProperty("escidoc.cone.service.url")
-                        + "rdf/" + params + "/all";
+                String url = PropertyReader.getProperty("escidoc.cone.service.url") + params + "/all?format=rdf";
                 HttpClient client = new HttpClient();
                 GetMethod method = new GetMethod(url);
                 client.executeMethod(method);
