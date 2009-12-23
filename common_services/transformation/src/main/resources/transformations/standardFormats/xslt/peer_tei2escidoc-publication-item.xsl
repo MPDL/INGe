@@ -62,7 +62,7 @@
    xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
    xmlns:itemlist="${xsd.soap.item.itemlist}">
 
-	<xsl:import href="transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	

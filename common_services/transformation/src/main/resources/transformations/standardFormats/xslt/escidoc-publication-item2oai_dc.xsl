@@ -39,7 +39,7 @@
 	xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
 	xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
 
-	<xsl:import href="transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
 
