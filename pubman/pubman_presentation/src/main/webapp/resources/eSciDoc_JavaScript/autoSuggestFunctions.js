@@ -44,8 +44,6 @@
 	function getJournalDetails(details)
 	{
 		
-		alert(details);
-		
 		var parent = $input.parents('.'+journalSuggestCommonParentClass);
 		var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
 		var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?

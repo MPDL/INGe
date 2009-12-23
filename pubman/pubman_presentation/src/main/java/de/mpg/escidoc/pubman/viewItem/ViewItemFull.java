@@ -1062,7 +1062,7 @@ public class ViewItemFull extends FacesBean
                 {
                     try
                     {
-                        creatorDisplay.setPortfolioLink(PropertyReader.getProperty("escidoc.cone.service.url") + "html/persons/" + creator.getPerson().getIdentifier().getId());
+                        creatorDisplay.setPortfolioLink(creator.getPerson().getIdentifier().getId());
                     }
                     catch (Exception e) {
                         throw new RuntimeException(e);
