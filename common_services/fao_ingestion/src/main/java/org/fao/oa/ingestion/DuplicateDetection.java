@@ -2,6 +2,8 @@ package org.fao.oa.ingestion;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -54,15 +56,19 @@ public class DuplicateDetection
         for (ITEMType faodoc : faodocItems)
         {
             ArrayList<String> faodocJN = null;
-            String faodocLANG = null;
+            ArrayList<String> faodocLANG = null;
             if (faodoc.sizeOfJNArray() > 0 && faodoc.sizeOfLANGArray() > 0)
             {
                 faodocJN = new ArrayList<String>();
+                faodocLANG = new ArrayList<String>();
                 for (String jobno : faodoc.getJNArray())
                 {
                     faodocJN.add(jobno);
                 }
-                faodocLANG = faodoc.getLANGArray(0);
+                for (String lang : faodoc.getURLArray())
+                {
+                    faodocLANG.add(lang);
+                }
             }
             for (ItemType eims : eimsItems)
             {
@@ -80,15 +86,78 @@ public class DuplicateDetection
                 {
                     for (String jn : faodocJN)
                     {
-                        if ((jn.equalsIgnoreCase(eims_jobno) || eims_jobno.startsWith(jn))
-                                && faodocLANG.startsWith(eims_langkey))
+                        for (String lang : faodocLANG)
+                        {
+                            if ((jn.equalsIgnoreCase(eims_jobno) || eims_jobno.startsWith(jn))
+                                    && lang.startsWith(eims_langkey))
+                            {
+                                recordCounter++;
+                                logger.info("====== duplicated record number: " + recordCounter + " ======");
+                                logger.info("  EIMS record:\t" + eims.getIdentifier() + "\t" + eims_jobno + "\t"
+                                        + eims_langkey + "\t" + eims.getMaintype().getStringValue());
+                                logger.info("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + jn + "\t" + lang + "\t"
+                                        + faodoc.getBIBLEVELArray(0));
+                                duplicates.put(eims.getIdentifier(), faodoc.getARNArray(0));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Successfully parsed " + faodocItems.size() + " FAODOC items");
+        System.out.println("we found " + duplicates.size() + " duplicated records:");
+        LinkedHashMap<String, String> sorted = sortHashMapByValues(duplicates);
+        // System.out.println(sorted.toString());
+        // System.out.println(duplicates.toString());
+    }
+
+    /**
+     * compare all FAODOC items with BIBLEVEL 'M' or 'MS' with all EIMS_CDR items of maintype 'publication' or
+     * 'meeting'.
+     */
+    public void checkURL()
+    {
+        duplicates = new HashMap<String, String>();
+        String[] faodoc_filenames = IngestionProperties.get("faodoc.export.file.names").split(" ");
+        String[] eims_filenames = IngestionProperties.get("eims.export.file.names").split(" ");
+        faodocItems = FaodocItem.filteredList(faodoc_filenames, "M");
+        eimsItems = EimsCdrItem.allEIMSItemsAsList(eims_filenames);
+        int recordCounter = 0;
+        for (ITEMType faodoc : faodocItems)
+        {
+            ArrayList<String> faodocURLs = null;
+            if (faodoc.sizeOfURLArray() > 0)
+            {
+                faodocURLs = new ArrayList<String>();
+                for (String url : faodoc.getURLArray())
+                {
+                    faodocURLs.add(url);
+                }
+            }
+            for (ItemType eims : eimsItems)
+            {
+                String eims_html = null;
+                String eims_pdf = null;
+                if (eims.getURL() != null)
+                {
+                    eims_html = eims.getURL().getStringValue();
+                }
+                if (eims.getPDFURL() != null)
+                {
+                    eims_pdf = eims.getPDFURL().getStringValue();
+                }
+                if (faodocURLs != null && (eims_html != null || eims_pdf != null))
+                {
+                    for (String url : faodocURLs)
+                    {
+                        if (url.equalsIgnoreCase(eims_html) || url.equalsIgnoreCase(eims_pdf))
                         {
                             recordCounter++;
                             logger.info("====== duplicated record number: " + recordCounter + " ======");
-                            logger.info("  EIMS record:\t" + eims.getIdentifier() + "\t" + eims_jobno + "\t"
-                                    + eims_langkey + "\t" + eims.getMaintype().getStringValue());
-                            logger.info("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + jn + "\t" + faodocLANG
-                                    + "\t" + faodoc.getBIBLEVELArray(0));
+                            logger.info("  EIMS record:\t" + eims.getIdentifier() + "\t" + eims_html + "\t" + eims_pdf
+                                    + "\t" + eims.getMaintype().getStringValue());
+                            logger.info("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + url + "\t" + "\t"
+                                    + faodoc.getBIBLEVELArray(0));
                             duplicates.put(eims.getIdentifier(), faodoc.getARNArray(0));
                         }
                     }
@@ -98,7 +167,7 @@ public class DuplicateDetection
         System.out.println("Successfully parsed " + faodocItems.size() + " FAODOC items");
         System.out.println("we found " + duplicates.size() + " duplicated records:");
         LinkedHashMap<String, String> sorted = sortHashMapByValues(duplicates);
-        //System.out.println(sorted.toString());
+        // System.out.println(sorted.toString());
         // System.out.println(duplicates.toString());
     }
 
@@ -129,5 +198,26 @@ public class DuplicateDetection
             }
         }
         return sortedMap;
+    }
+    
+    public String comparableURL(String urlString)
+    {
+        try
+        {
+            URL url = new URL(urlString);
+            if (url.getQuery() != null)
+            {
+                return url.getQuery();
+            }
+            else
+            {
+                return url.getPath();
+            }
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

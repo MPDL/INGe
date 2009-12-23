@@ -39,20 +39,30 @@ public class EimsDatastream
     SimpleDateFormat sdf1 = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
     SimpleDateFormat sdf2 = new SimpleDateFormat("dd/mm/yyyy");
 
-    
-    public EimsDocument create(ItemType eimsItem, ITEMType faodocItem)
+    /**
+     * create EIMS datastream with merged values from FAODOC and EIMS-CDR
+     * @param eimsItem {@link ItemType}
+     * @param faodocItem {@link ITEMType}
+     * @return {@link EimsDocument}
+     */
+    public EimsDocument merge(ItemType eimsItem, ITEMType faodocItem)
     {
         EimsDocument eimsDoc = EimsDocument.Factory.newInstance();
         eims = eimsDoc.addNewEims();
+        // E-1
+        // add eims:identifier
         if (eimsItem.getIdentifier() != null)
         {
             eims.setIdentifier(new BigInteger(eimsItem.getIdentifier()));
         }
+        // E-2
+        // add eims:bib_reference
         if (eimsItem.getBibReference() != null)
         {
             eims.setBibReference(eimsItem.getBibReference());
         }
-        
+        // E-3
+        // add eims:category
         if (eimsItem.sizeOfCategoryArray() > 0)
         {
             for (CategoryType catType : eimsItem.getCategoryArray())
@@ -63,10 +73,14 @@ public class EimsDatastream
                 cat.setLabel(catType.getStringValue());
             }
         }
+        // E-4
+        // add eims:hardcopy
         if (eimsItem.getHardcopy() != null)
         {
             eims.setHardcopy(Hardcopy.Enum.forString(eimsItem.getHardcopy()));
         }
+        // E-5
+        // add eims:keyword
         if (eimsItem.sizeOfKeywordArray() > 0)
         {
             for (KeywordType kwt : eimsItem.getKeywordArray())
@@ -77,12 +91,17 @@ public class EimsDatastream
                 keyWord.setLabel(kwt.getStringValue());
             }
         }
+        // E-6
+        // add eims:price
         if (eimsItem.getPrice() != null)
         {
             eims.setPrice(new BigInteger(eimsItem.getPrice()));
         }
+        // E-7
         // TODO: subpriority_areas
         // neither eims resource items nor eims.xsd contain subpriority_areas
+        // E-8
+        // add eims:pwb_entities
         if (eimsItem.sizeOfPwbEntitiesArray() > 0)
         {
             for (PwbEntitiesType pet : eimsItem.getPwbEntitiesArray())
@@ -95,6 +114,8 @@ public class EimsDatastream
                 pwbEntities.setLabel(pet.getStringValue());
             }
         }
+        // E-9
+        // add eims:program_name
         if (eimsItem.sizeOfProgramNameArray() > 0)
         {
             for (ProgramNameType pnt : eimsItem.getProgramNameArray())
@@ -105,16 +126,22 @@ public class EimsDatastream
                 progName.setLable(pnt.getStringValue());
             }
         }
+        // E-10
         // TODO: check if this should be an array
+        // add eims:notes
         if (eimsItem.getNotes() != null)
         {
             XmlString note = eims.addNewNotes();
             note.setStringValue(eimsItem.getNotes());
         }
+        // E-11
+        // add eims:remarks
         if (eimsItem.getRemarks() != null)
         {
             eims.setRemarks(eimsItem.getRemarks());
         }
+        // E-12
+        // add eims:stat_body
         if (eimsItem.sizeOfStatBodyArray() > 0)
         {
             for (StatBodyType sbt : eimsItem.getStatBodyArray())
@@ -125,6 +152,8 @@ public class EimsDatastream
                 statBody.setLabel(sbt.getStringValue());
             }
         }
+        // E-13
+        // add eims:topic
         if (eimsItem.sizeOfTopicArray() > 0)
         {
             for (TopicType tt : eimsItem.getTopicArray())
@@ -135,10 +164,14 @@ public class EimsDatastream
                 topic.setLabel(tt.getStringValue());
             }
         }
+        // E-14
+        // add eims:suggested_position
         if (eimsItem.getSuggestedPosition() != null)
         {
             eims.setSuggestedPosition(eimsItem.getSuggestedPosition());
         }
+        // E-15
+        // add eims:context
         if (eimsItem.getContext() != null)
         {
             // TODO: context is missing in eims.xsd
@@ -148,6 +181,8 @@ public class EimsDatastream
             ctx.setLang(eimsItem.getContext().getLang());
             ctx.setLabel(eimsItem.getContext().getStringValue());
         }
+        // E-16
+        // add eims:maintype
         if (eimsItem.getMaintype() != null)
         {
             Maintype mainType = eims.addNewMaintype();
@@ -155,6 +190,8 @@ public class EimsDatastream
             mainType.setLang(eimsItem.getMaintype().getLang());
             mainType.setMaintypeDescription(eimsItem.getMaintype().getStringValue());
         }
+        // E-17
+        // add eims:division
         if (eimsItem.getDivision() != null)
         {
             Division division = eims.addNewDivision();
@@ -162,14 +199,19 @@ public class EimsDatastream
             division.setLang(eimsItem.getDivision().getLang());
             division.setLabel(eimsItem.getDivision().getStringValue());
         }
-        if (faodocItem.sizeOfDIVArray() > 0)
+        if (faodocItem != null)
         {
-            for (String div : faodocItem.getDIVArray())
+            if (faodocItem.sizeOfDIVArray() > 0)
             {
-                Division division = eims.addNewDivision();
-                division.setLabel(div);
+                for (String div : faodocItem.getDIVArray())
+                {
+                    Division division = eims.addNewDivision();
+                    division.setLabel(div);
+                }
             }
         }
+        // E-18
+        // add eims:department
         if (eimsItem.getDepartment() != null)
         {
             Department department = eims.addNewDepartment();
@@ -177,6 +219,8 @@ public class EimsDatastream
             department.setLang(eimsItem.getDepartment().getLang());
             department.setLabel(eimsItem.getDepartment().getStringValue());
         }
+        // E-19
+        // add eims:service
         if (eimsItem.getService() != null)
         {
             Service service = eims.addNewService();
@@ -184,14 +228,20 @@ public class EimsDatastream
             service.setLang(eimsItem.getService().getLang());
             service.setLabel(eimsItem.getService().getStringValue());
         }
+        // E-20
+        // add eims:DEP_DATE
         if (eimsItem.getDepDate() != null)
         {
             eims.setDEPDATE(string2cal(eimsItem.getDepDate()));
         }
+        // E-21
+        // add eims:WAICENT_DATE
         if (eimsItem.getWaicentDate() != null)
         {
             eims.setWAICENTDATE(string2cal(eimsItem.getWaicentDate()));
         }
+        // E-22
+        // add eims:priority_areas
         if (eimsItem.sizeOfPriorityAreasArray() > 0)
         {
             for (PriorityAreasType pat : eimsItem.getPriorityAreasArray())
@@ -202,13 +252,24 @@ public class EimsDatastream
                 prioAreas.setLabel(pat.getStringValue());
             }
         }
+        // E-23
+        // add eims:waicent_published
         if (eimsItem.getWaicentPublished() != null)
         {
             eims.setWaicentPublished(new BigInteger(eimsItem.getWaicentPublished()));
         }
+        // E-24
+        // TODO: add eims:paia
+        
+        // E-25
+        // TODO: add eims:creator
+        
+        // E-26
+        // TODO: add eims:google_url
+        
         return eimsDoc;
     }
-    
+
     public Calendar string2cal(String dateString)
     {
         Calendar cal = Calendar.getInstance();
@@ -228,7 +289,6 @@ public class EimsDatastream
         }
         catch (ParseException e)
         {
-
             e.printStackTrace();
         }
         return null;

@@ -1,8 +1,10 @@
 package org.fao.oa.ingestion.eimscdr;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,7 +51,7 @@ public class EimsCdrItem
         //filteredList(filenames, filter);
         //ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
         
-        //ItemType item = getById(itemList, "49785");
+        //ItemType item = getById(list, "137824");
         //System.out.println(item);
         
     }
@@ -90,22 +92,39 @@ public class EimsCdrItem
     public static void parseTest(String[] names)
     {
         int eimsitems = 0;
+        BufferedWriter writer = null;;
+        try
+        {
+            writer = new BufferedWriter(new FileWriter("/home/frank/data/AGRIS_FAO/url_variations_EIMS"));
+        }
+        catch (IOException e1)
+        {
+            e1.printStackTrace();
+        }
 
         for (String name : names)
         {
-            File faodocItemFile = new File(EIMS_BASE_DIR + name);
-            System.out.println("Attempt to parse file " + faodocItemFile.getName());
+            File eimsItemFile = new File(EIMS_BASE_DIR + name);
+            System.out.println("Attempt to parse file " + eimsItemFile.getName());
             try
             {
-                EimsresourcesDocument resDoc = EimsresourcesDocument.Factory.parse(faodocItemFile);
+                EimsresourcesDocument resDoc = EimsresourcesDocument.Factory.parse(eimsItemFile);
                 ItemType[] items = resDoc.getEimsresources().getItemArray();
                 System.out.println(name + " contains " + items.length + " items");
                 eimsitems = eimsitems + items.length;
                 for (ItemType i : items)
                 {
-                    if (i.getContext() != null)
+                    if (i.getURL() != null)
                     {
-                        System.out.println(i.getContext().getCode() + " " + i.getContext().getStringValue());
+                        writer.write(i.getIdentifier() + " " + i.getURL().getStringValue());
+                        writer.newLine();
+                        System.out.println(i.getIdentifier() + " " + i.getURL().getStringValue());
+                    }
+                    if (i.getPDFURL() != null)
+                    {
+                        writer.write(i.getIdentifier() + " " + i.getPDFURL().getStringValue());
+                        writer.newLine();
+                        System.out.println(i.getIdentifier() + " " + i.getPDFURL().getStringValue());
                     }
                 }
             }

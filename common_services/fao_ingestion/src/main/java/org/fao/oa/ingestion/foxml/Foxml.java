@@ -27,8 +27,19 @@ public class Foxml
     public DigitalObjectDocument merge(ITEMType faodocItem, ItemType eimscdrItem)
     {
         // ARN and identifier of merged resource items
-        String faodocARN = faodocItem.getARNArray(0);
-        String eimscdrID = eimscdrItem.getIdentifier();
+        String faodocARN = null;
+        String eimscdrID = null;
+        if (faodocItem != null)
+        {
+            faodocARN = faodocItem.getARNArray(0);
+        }
+        else
+        {
+            if (eimscdrItem != null)
+            {
+                eimscdrID = eimscdrItem.getIdentifier();
+            }
+        }
         // create new FOXML1.2 digital object
         DigitalObjectDocument foxmlObject = DigitalObjectDocument.Factory.newInstance();
         foxml = foxmlObject.addNewDigitalObject();
@@ -40,7 +51,24 @@ public class Foxml
         state.setVALUE("active");
         PropertyType label = foxmlProps.addNewProperty();
         label.setNAME(PropertyType.NAME.INFO_FEDORA_FEDORA_SYSTEM_DEF_MODEL_LABEL);
-        label.setVALUE("merged object from " + faodocARN + " and " + eimscdrID);
+        if (faodocARN != null && eimscdrID != null)
+        {
+            label.setVALUE("merged object from " + faodocARN + " and " + eimscdrID);
+        }
+        else
+        {
+            if (faodocARN != null && eimscdrID == null)
+            {
+                label.setVALUE("object from " + faodocARN);
+            }
+            else
+            {
+                if (faodocARN == null && eimscdrID != null)
+                {
+                    label.setVALUE("object from " + eimscdrID);
+                }
+            }
+        }
         // add MODS datastrem
         DatastreamType faoOAMods = foxml.addNewDatastream();
         faoOAMods.setID("MODS");
@@ -52,7 +80,25 @@ public class Foxml
         modsVersion.setLABEL("MODS datastream");
         modsVersion.setMIMETYPE("text/xml");
         XmlContentType modsContent = modsVersion.addNewXmlContent();
-        ModsDocument modsDocument = new ModsDatastream().merge(eimscdrItem, faodocItem);
+        ModsDocument modsDocument = null;
+        if (faodocItem != null && eimscdrItem != null)
+        {
+            modsDocument = new ModsDatastream().merge(eimscdrItem, faodocItem);
+        }
+        else
+        {
+            if (faodocItem != null && eimscdrItem == null)
+            {
+                modsDocument = new ModsDatastream().create4Faodoc(faodocItem);
+            }
+            else
+            {
+                if (faodocItem == null && eimscdrItem != null)
+                {
+                    modsDocument = new ModsDatastream().create4Eims(eimscdrItem);
+                }
+            }
+        }
         ModsDocument mods2add = null;
         try
         {
@@ -74,45 +120,72 @@ public class Foxml
         agrisapVersion.setLABEL("AGRIS_AP datastream");
         agrisapVersion.setMIMETYPE("text/xml");
         XmlContentType agrisapContent = agrisapVersion.addNewXmlContent();
+        ResourcesDocument resourcesDocument = null;
         try
         {
-            ResourcesDocument resourcesDocument = new AgrisAPDatastream().agrisValues(faodocItem, eimscdrItem);
+            if (faodocItem != null && eimscdrItem != null)
+            {
+                resourcesDocument = new AgrisAPDatastream().merge(faodocItem, eimscdrItem);
+            }
+            else
+            {
+                if (faodocItem != null && eimscdrItem == null)
+                {
+                    resourcesDocument = new AgrisAPDatastream().create4Faodoc(faodocItem);
+                }
+                else
+                {
+                    if (faodocItem == null && eimscdrItem != null)
+                    {
+                        resourcesDocument = new AgrisAPDatastream().create4Eims(eimscdrItem);
+                    }
+                }
+            }
             ResourcesDocument resources2add = null;
             resources2add = ResourcesDocument.Factory.parse(resourcesDocument.xmlText(XBeanUtils.getAgrisOpts()));
             agrisapContent.set(resources2add);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
         }
         catch (XmlException e)
         {
             e.printStackTrace();
         }
-        // add BIB datastrem
-        DatastreamType faoOABib = foxml.addNewDatastream();
-        faoOABib.setID("BIB");
-        faoOABib.setSTATE(StateType.A);
-        faoOABib.setCONTROLGROUP(DatastreamType.CONTROLGROUP.X);
-        faoOABib.setVERSIONABLE(true);
-        DatastreamVersionType bibVersion = faoOABib.addNewDatastreamVersion();
-        bibVersion.setID("BIB.1");
-        bibVersion.setLABEL("BIB datastream");
-        bibVersion.setMIMETYPE("text/xml");
-        XmlContentType bibContent = bibVersion.addNewXmlContent();
-        bibContent.set(new BibDatastream().create(faodocItem));
+        // add BIB datastrem (FAODOC ONLY!)
+        if (faodocItem != null)
+        {
+            DatastreamType faoOABib = foxml.addNewDatastream();
+            faoOABib.setID("BIB");
+            faoOABib.setSTATE(StateType.A);
+            faoOABib.setCONTROLGROUP(DatastreamType.CONTROLGROUP.X);
+            faoOABib.setVERSIONABLE(true);
+            DatastreamVersionType bibVersion = faoOABib.addNewDatastreamVersion();
+            bibVersion.setID("BIB.1");
+            bibVersion.setLABEL("BIB datastream");
+            bibVersion.setMIMETYPE("text/xml");
+            XmlContentType bibContent = bibVersion.addNewXmlContent();
+            bibContent.set(new BibDatastream().create(faodocItem));
+        }
         // add EIMS datastrem
-        DatastreamType faoOAEims = foxml.addNewDatastream();
-        faoOAEims.setID("EIMS");
-        faoOAEims.setSTATE(StateType.A);
-        faoOAEims.setCONTROLGROUP(DatastreamType.CONTROLGROUP.X);
-        faoOAEims.setVERSIONABLE(true);
-        DatastreamVersionType eimsVersion = faoOAEims.addNewDatastreamVersion();
-        eimsVersion.setID("EIMS.1");
-        eimsVersion.setLABEL("EIMS datastream");
-        eimsVersion.setMIMETYPE("text/xml");
-        XmlContentType eimsContent = eimsVersion.addNewXmlContent();
-        eimsContent.set(new EimsDatastream().create(eimscdrItem, faodocItem));
+        if (eimscdrItem != null)
+        {
+            DatastreamType faoOAEims = foxml.addNewDatastream();
+            faoOAEims.setID("EIMS");
+            faoOAEims.setSTATE(StateType.A);
+            faoOAEims.setCONTROLGROUP(DatastreamType.CONTROLGROUP.X);
+            faoOAEims.setVERSIONABLE(true);
+            DatastreamVersionType eimsVersion = faoOAEims.addNewDatastreamVersion();
+            eimsVersion.setID("EIMS.1");
+            eimsVersion.setLABEL("EIMS datastream");
+            eimsVersion.setMIMETYPE("text/xml");
+            XmlContentType eimsContent = eimsVersion.addNewXmlContent();
+            if (faodocItem != null)
+            {
+                eimsContent.set(new EimsDatastream().merge(eimscdrItem, faodocItem));
+            }
+            else
+            {
+                eimsContent.set(new EimsDatastream().merge(eimscdrItem, null));
+            }
+        }
         // add SKOS datastrem
         DatastreamType faoOAskos = foxml.addNewDatastream();
         faoOAskos.setID("SKOS");
@@ -124,13 +197,24 @@ public class Foxml
         skosVersion.setLABEL("SKOS datastream");
         skosVersion.setMIMETYPE("text/xml");
         XmlContentType skosContent = skosVersion.addNewXmlContent();
-        skosContent.set(new KosDatastream().create(faodocItem, eimscdrItem));
+        if (faodocItem != null && eimscdrItem != null)
+        {
+            skosContent.set(new KosDatastream().merge(faodocItem, eimscdrItem));
+        }
+        else
+        {
+            if (faodocItem != null && eimscdrItem == null)
+            {
+                skosContent.set(new KosDatastream().create4Faodoc(faodocItem));
+            }
+            else
+            {
+                if (faodocItem == null && eimscdrItem != null)
+                {
+                    skosContent.set(new KosDatastream().create4Eims(eimscdrItem));
+                }
+            }
+        }
         return foxmlObject;
-    }
-    
-    public XmlOptions loadOpts()
-    {
-        XmlOptions load = new XmlOptions();
-        return load;
     }
 }

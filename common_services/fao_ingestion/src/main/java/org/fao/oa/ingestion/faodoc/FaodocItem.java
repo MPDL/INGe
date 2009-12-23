@@ -1,6 +1,8 @@
 package org.fao.oa.ingestion.faodoc;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -28,10 +30,10 @@ public class FaodocItem
         // System.out.println(faodoc.getARNArray(0));
         // System.out.println(faodoc.sizeOfJNArray());
         // getAllARNs(faodocExportFile);
-        //parseTest(filenames);
+        parseTest(filenames);
         
-        String filter = "M";
-        ArrayList<ITEMType> items = filteredList(filenames, filter);
+        //String filter = "M";
+        //ArrayList<ITEMType> items = filteredList(filenames, filter);
         /*
         try
         {
@@ -43,10 +45,10 @@ public class FaodocItem
             e.printStackTrace();
         }
         */
-        ITEMType item = getByARN(items, "XF2006140233");
+        //ITEMType item = getByARN(items, "XF2009439211");
 //        ITEMType item = getByARN(items, "XF2002400347");
 
-        System.out.println(item);
+        //System.out.println(item);
         //System.out.println(item.getISBNArray(0) + "  " + item.getTITENArray(0));
 //        ITEMType item2 = getByARN(items, "XF2009786668");
 //        System.out.println(item2);
@@ -108,6 +110,17 @@ public class FaodocItem
     public static void parseTest(String[] names)
     {
         int faodocs = 0;
+        BufferedWriter writer = null;
+        try
+        {
+            writer = new BufferedWriter(new FileWriter("/home/frank/data/AGRIS_FAO/url_variations_FAODOC"));
+        }
+        catch (IOException e1)
+        {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
         for (String name : names)
         {
             File faodocItemFile = new File(FAODOC_BASE_DIR + name);
@@ -125,10 +138,15 @@ public class FaodocItem
                 {
                     if (item.getBIBLEVELArray(0).equals(pattern))
                     {
-                        if (item.sizeOfPARTOFArray() > 0)
+                        if (item.sizeOfURLArray() > 0)
                         {
-                            System.out.println(item.getARNArray(0));
-                            System.out.println(item.getPARTOFArray(0));
+                            for (int l = 0; l < item.sizeOfURLArray(); l++)
+                            {
+                                writer.write(item.getARNArray(0) + "   " + item.getURLArray(l));
+                                writer.newLine();
+                                System.out.println(item.getARNArray(0) + "   " + item.getURLArray(l));
+                            }
+                            
                         }
                     }
                     else

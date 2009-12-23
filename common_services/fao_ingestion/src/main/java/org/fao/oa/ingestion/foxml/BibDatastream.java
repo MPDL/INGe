@@ -12,27 +12,56 @@ import noNamespace.BibDocument.Bib.FileAssignment.FileAssignmentDescr;
 public class BibDatastream
 {
     Bib bib = null;
-    
+
+    /**
+     * create BIB datastream with value from FAODOC
+     * 
+     * @param faodoc {@link ITEMType}
+     * @return {@link BibDocument}
+     */
     public BibDocument create(ITEMType faodoc)
     {
         BibDocument bibDoc = BibDocument.Factory.newInstance();
         bib = bibDoc.addNewBib();
+        // B-1
+        // add bib:cataloguer/cataloguerID and bib:cataloguer/cataloguerTeam
         if (faodoc.sizeOfCATBYArray() > 0)
         {
-            Cataloguer cataloguer = bib.addNewCataloguer();
             for (String catBy : faodoc.getCATBYArray())
             {
-                cataloguer.addCataloguerID(catBy);
-            }
-            if (faodoc.sizeOfTEAMArray() > 0)
-            {
-                for (String team : faodoc.getTEAMArray())
+                if (catBy.contains(";"))
                 {
-                    // TODO: get team from FixedControlledLists.xsl
-                    cataloguer.addCataloguerTeam(team);
+                    for (String cat : catBy.split("; "))
+                    {
+                        Cataloguer cataloguer = bib.addNewCataloguer();
+                        cataloguer.addCataloguerID(cat);
+                        if (faodoc.sizeOfTEAMArray() > 0)
+                        {
+                            for (String team : faodoc.getTEAMArray())
+                            {
+                                // TODO: get team from FixedControlledLists.xsl
+                                cataloguer.addCataloguerTeam(team);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Cataloguer cataloguer = bib.addNewCataloguer();
+                    cataloguer.addCataloguerID(catBy);
+                    if (faodoc.sizeOfTEAMArray() > 0)
+                    {
+                        for (String team : faodoc.getTEAMArray())
+                        {
+                            // TODO: get team from FixedControlledLists.xsl
+                            cataloguer.addCataloguerTeam(team);
+                        }
+                    }
                 }
             }
         }
+        // B-3 + B-4
+        // add bib:FileAssignment/FileAssignmentCode and FileAssignmentDescr
         if (faodoc.sizeOfASSIGNArray() > 0)
         {
             FileAssignment assign = bib.addNewFileAssignment();
@@ -50,6 +79,8 @@ public class BibDatastream
                 }
             }
         }
+        // B-5
+        // add bib:InternalNotes
         if (faodoc.sizeOfINTERNALNOTESArray() > 0)
         {
             for (String internal : faodoc.getINTERNALNOTESArray())
@@ -57,6 +88,8 @@ public class BibDatastream
                 bib.addInternalNotes(internal);
             }
         }
+        // B-6
+        // add bib:REL_ARN_E
         if (faodoc.sizeOfRELARNEArray() > 0)
         {
             for (int rel_arn_e : faodoc.getRELARNEArray())
@@ -64,6 +97,8 @@ public class BibDatastream
                 bib.addRELARNE(Integer.toString(rel_arn_e));
             }
         }
+        // B-7
+        // add bib:REL_ARN_F
         if (faodoc.sizeOfRELARNFArray() > 0)
         {
             for (int rel_arn_f : faodoc.getRELARNFArray())
@@ -71,6 +106,8 @@ public class BibDatastream
                 bib.addRELARNF(Integer.toString(rel_arn_f));
             }
         }
+        // B-8
+        // add bib:REL_ARN_S
         if (faodoc.sizeOfRELARNSArray() > 0)
         {
             for (int rel_arn_s : faodoc.getRELARNSArray())
@@ -78,6 +115,8 @@ public class BibDatastream
                 bib.addRELARNS(Integer.toString(rel_arn_s));
             }
         }
+        // B-9
+        // add bib:REL_ARN_A
         if (faodoc.sizeOfRELARNAArray() > 0)
         {
             for (int rel_arn_a : faodoc.getRELARNAArray())
@@ -85,6 +124,8 @@ public class BibDatastream
                 bib.addRELARNA(Integer.toString(rel_arn_a));
             }
         }
+        // B-10
+        // add bib:REL_ARN_C
         if (faodoc.sizeOfRELARNCArray() > 0)
         {
             for (int rel_arn_c : faodoc.getRELARNCArray())
@@ -92,6 +133,8 @@ public class BibDatastream
                 bib.addRELARNC(Integer.toString(rel_arn_c));
             }
         }
+        // B-11
+        // add bib:REL_ARN_R
         if (faodoc.sizeOfRELARNRArray() > 0)
         {
             for (int rel_arn_r : faodoc.getRELARNRArray())
@@ -99,6 +142,8 @@ public class BibDatastream
                 bib.addRELARNR(Integer.toString(rel_arn_r));
             }
         }
+        // B-12
+        // add bib:PART_OF
         if (faodoc.sizeOfPARTOFArray() > 0)
         {
             for (String partOf : faodoc.getPARTOFArray())

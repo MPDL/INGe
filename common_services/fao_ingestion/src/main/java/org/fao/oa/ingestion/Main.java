@@ -2,37 +2,41 @@ package org.fao.oa.ingestion;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import noNamespace.BibDocument;
+import noNamespace.EimsDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
+import noNamespace.KosDocument;
 import noNamespace.FAOJournalDocument.FAOJournal;
 
 import org.fao.oa.ingestion.eimscdr.EimsCdrItem;
+import org.fao.oa.ingestion.faodoc.AgrovocSkos;
 import org.fao.oa.ingestion.faodoc.ConferenceName;
 import org.fao.oa.ingestion.faodoc.FaodocItem;
 import org.fao.oa.ingestion.faodoc.JournalName;
 import org.fao.oa.ingestion.faodoc.SeriesName;
+import org.fao.oa.ingestion.foxml.AgrisAPDatastream;
 import org.fao.oa.ingestion.foxml.BibDatastream;
+import org.fao.oa.ingestion.foxml.EimsDatastream;
 import org.fao.oa.ingestion.foxml.Foxml;
+import org.fao.oa.ingestion.foxml.KosDatastream;
+import org.fao.oa.ingestion.foxml.ModsDatastream;
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 import org.fao.oa.ingestion.utils.IngestionProperties;
 import org.fao.oa.ingestion.utils.XBeanUtils;
+import org.purl.agmes.x11.ResourcesDocument;
 
 import fedora.fedoraSystemDef.foxml.DigitalObjectDocument;
+import gov.loc.mods.v3.ModsDocument;
 
 public class Main
 {
@@ -41,10 +45,14 @@ public class Main
     public static void main(String[] args)
     {
         
-        //DuplicateDetection dd = new DuplicateDetection();
-        //dd.checkMMS();
-        
-        testMODSMerge();
+        DuplicateDetection dd = new DuplicateDetection();
+        //dd.checkURL();
+        String compare = dd.comparableURL("http://www.fao.org/documents/show_cdr.asp?url_file=/docrep/X5328F/X5328F00.htm");
+        String compare2 = dd.comparableURL(" http://www.fao.org/docrep/010/a1445e/a1445e00.htm");
+        System.out.println(compare);
+        System.out.println(compare2);
+        //testObjectMerge();
+        //testObjectCreation();
         /*
         try
         {
@@ -56,39 +64,18 @@ public class Main
             e.printStackTrace();
         }
         */
-        
+        /*
+        String label = "Forestry";
+        long time = -System.currentTimeMillis();
+        AgrovocSkos agskos = new AgrovocSkos();
+        String uri = agskos.getURI(label);
+        System.out.println(System.currentTimeMillis() + time);
+        System.out.println(uri + "  " + agskos.getLabels(uri));
+        */
+
     }
 
-    @SuppressWarnings("restriction")
-    public static void stax4fao() throws FileNotFoundException, XMLStreamException
-    {
-        FileReader faodoc = new FileReader("/home/frank/data/AGRIS_FAO/20090910-FaodocExport/M-2.xml");
-        // FileReader eimscdr = new FileReader(IngestionProperties.get("eims.export.file.location") + "export.xml");
-        XMLInputFactory factory = XMLInputFactory.newInstance();
-        XMLStreamReader parser = factory.createXMLStreamReader(faodoc);
-        System.out.println("using " + factory.getClass().getName());
-        System.out.println(parser.getEncoding());
-        parser.require(7, null, null);
-        System.out.println(parser.getEventType());
-        while (true)
-        {
-            int event = parser.next();
-            if (event == XMLStreamConstants.END_DOCUMENT)
-            {
-                parser.close();
-                break;
-            }
-            if (event == XMLStreamConstants.START_ELEMENT)
-            {
-                System.out.println(parser.getLocalName());
-            }
-            if (event == XMLStreamConstants.CHARACTERS)
-            {
-                System.out.println(parser.getText());
-            }
-        }
-    }
-
+   
     
 
     public static void testURIFiles()
@@ -162,18 +149,18 @@ public class Main
         return duplicatedObjects;
     }
     
-    public static void testMODSMerge()
+    public static void testObjectMerge()
     {
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "M";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2006140233";
+        String arn = "XF2009439073";
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
         String id = "137824";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
-        /*
+        
         ModsDocument merged = new ModsDatastream().merge(eims, faodoc);
         if (XBeanUtils.validation(merged))
         {
@@ -182,28 +169,21 @@ public class Main
         else
         {
             System.out.println("INVALID MODS");
+            System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
         }
         ResourcesDocument agris;
-        try
+        agris = new AgrisAPDatastream().merge(faodoc, eims);
+        if (XBeanUtils.validation(agris))
         {
-            agris = new AgrisAPDatastream().agrisValues(faodoc, eims);
-            if (XBeanUtils.validation(agris))
-            {
-                System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-            }
-            else
-            {
-                System.out.println("INVALID AGRIS_AP");
-                System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
-            }
+            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
         }
-        catch (IOException e)
+        else
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("INVALID AGRIS_AP");
+            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
         }
         EimsDocument eimsDoc;
-        eimsDoc = new EimsDatastream().create(eims, faodoc);
+        eimsDoc = new EimsDatastream().merge(eims, faodoc);
         if (XBeanUtils.validation(eimsDoc))
         {
             System.out.println(eimsDoc.xmlText(XBeanUtils.getDefaultOpts()));
@@ -213,7 +193,7 @@ public class Main
             System.out.println("INVALID EIMS!!!");
             System.out.println(eimsDoc.xmlText(XBeanUtils.getDefaultOpts()));
         }
-        */
+        
         BibDocument bibDoc;
         bibDoc = new BibDatastream().create(faodoc);
         if (XBeanUtils.validation(bibDoc))
@@ -225,9 +205,9 @@ public class Main
             System.out.println("INVALID BIB!!!");
             System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
         }
-        /*
+        
         KosDocument kosDoc;
-        kosDoc = new KosDatastream().create(faodoc, eims);
+        kosDoc = new KosDatastream().merge(faodoc, eims);
         if (XBeanUtils.validation(kosDoc))
         {
             System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
@@ -237,7 +217,69 @@ public class Main
             System.out.println("INVALID BIB!!!");
             System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
         }
-        */
+        
+        
+    }
+    
+    public static void testObjectCreation()
+    {
+        String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
+        String filter = "M";
+        ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
+        String arn = "XF2006140233";
+        new FaodocItem();
+        ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
+        String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
+        ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
+        String id = "137824";
+        ItemType eims = EimsCdrItem.getById(eimsList, id);
+        
+        
+        ModsDocument merged = new ModsDatastream().create4Faodoc(faodoc);
+        if (XBeanUtils.validation(merged))
+        {
+            System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
+        }
+        else
+        {
+            System.out.println("INVALID MODS");
+        }
+        ResourcesDocument agris;
+        agris = new AgrisAPDatastream().create4Faodoc(faodoc);
+        if (XBeanUtils.validation(agris))
+        {
+            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
+        }
+        else
+        {
+            System.out.println("INVALID AGRIS_AP");
+            System.out.println(agris.xmlText(XBeanUtils.getAgrisOpts()));
+        }
+        
+        BibDocument bibDoc;
+        bibDoc = new BibDatastream().create(faodoc);
+        if (XBeanUtils.validation(bibDoc))
+        {
+            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
+        }
+        else
+        {
+            System.out.println("INVALID BIB!!!");
+            System.out.println(bibDoc.xmlText(XBeanUtils.getDefaultOpts()));
+        }
+        
+        KosDocument kosDoc;
+        kosDoc = new KosDatastream().create4Faodoc(faodoc);
+        if (XBeanUtils.validation(kosDoc))
+        {
+            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
+        }
+        else
+        {
+            System.out.println("INVALID BIB!!!");
+            System.out.println(kosDoc.xmlText(XBeanUtils.getDefaultOpts()));
+        }
+        
         
     }
     public static void testControlledVocab()
