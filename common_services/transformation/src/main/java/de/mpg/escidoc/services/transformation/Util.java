@@ -310,9 +310,9 @@ public class Util
             document.appendChild(element);
             
             String queryUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                + "jquery/" + model + "/query?q=" + URLEncoder.encode(query, "ISO-8859-15");
+                 + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "ISO-8859-15");
             String detailsUrl = PropertyReader.getProperty("escidoc.cone.service.url")
-                + "rdf/" + model + "/details/";
+                + model + "/resource/$1?format=rdf";
             HttpClient client = new HttpClient();
             GetMethod method = new GetMethod(queryUrl);
             client.executeMethod(method);
@@ -324,7 +324,7 @@ public class Util
                     if (!"".equals(result.trim()))
                     {
                         String id = result.split("\\|")[1];
-                        GetMethod detailMethod = new GetMethod(detailsUrl + id);
+                        GetMethod detailMethod = new GetMethod(detailsUrl.replace("$1", id));
                         client.executeMethod(detailMethod);
                         if (detailMethod.getStatusCode() == 200)
                         {

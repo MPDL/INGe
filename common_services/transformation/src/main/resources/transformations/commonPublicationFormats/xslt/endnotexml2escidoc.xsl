@@ -62,7 +62,7 @@
    xmlns:itemlist="${xsd.soap.item.itemlist}">
    
 
-	<xsl:import href="src/main/resources/transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="transformations/vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
@@ -651,7 +651,7 @@
 
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
-				<xsl:value-of select="$genre-ves/enum[.=$sgen]/@uri"/>
+				<xsl:value-of select="$sgen"/>
 			</xsl:attribute>
 			
 

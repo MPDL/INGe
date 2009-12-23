@@ -16,6 +16,7 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Util;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 public class EndNoteTransformation 
@@ -52,6 +53,7 @@ public class EndNoteTransformation
             	output = endnote.transformEndNote2XML(endnoteSource);
             	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
             	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl");
+            	factory.setURIResolver(new LocalUriResolver());
             	Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             	//Transformer transformer = factory.newTransformer(stylesheet);
             	
