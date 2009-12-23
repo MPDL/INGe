@@ -70,8 +70,8 @@ public class RetrieveTest
     @Test
     public void testAllAction() throws Exception
     {
-        logger.debug("Query: " + serviceUrl + "options/languages/all");
-        GetMethod method = new GetMethod(serviceUrl + "options/languages/all");
+        logger.debug("Query: " + serviceUrl + "iso639-1/all?format=options");
+        GetMethod method = new GetMethod(serviceUrl + "iso639-1/all?format=options");
         client.executeMethod(method);
         
         assertTrue("Request did not return 200 Ok status", method.getStatusCode() == 200);
@@ -96,8 +96,8 @@ public class RetrieveTest
     @Test
     public void testQueryAction() throws Exception
     {
-        logger.debug("Query: " + serviceUrl + "html/dcc/query?q=b");
-        GetMethod method = new GetMethod(serviceUrl + "html/ddc/query?q=b");
+        logger.debug("Query: " + serviceUrl + "ddc/query?q=b&format=html");
+        GetMethod method = new GetMethod(serviceUrl + "ddc/query?q=b&format=html");
         client.executeMethod(method);
         
         assertTrue("Request did not return 200 Ok status, but " + method.getStatusCode(), method.getStatusCode() == 200);
@@ -114,8 +114,8 @@ public class RetrieveTest
     @Test
     public void testDetailAction() throws Exception
     {
-        logger.debug("Query: " + serviceUrl + "jquery/persons/all");
-        GetMethod method = new GetMethod(serviceUrl + "jquery/persons/all");
+        logger.debug("Query: " + serviceUrl + "persons/all?format=jquery");
+        GetMethod method = new GetMethod(serviceUrl + "persons/all?format=jquery");
         client.executeMethod(method);
         String result = getResponseAsString(method);
         
@@ -129,8 +129,8 @@ public class RetrieveTest
         
         logger.debug("ID: " + id);
         
-        logger.debug("Query: " + serviceUrl + "rdf/persons/details/" + id);
-        method = new GetMethod(serviceUrl + "rdf/persons/details/" + id);
+        logger.debug("Query: " + serviceUrl + "persons/resource/" + id + "?format=rdf");
+        method = new GetMethod(serviceUrl + "persons/resource/" + id + "?format=rdf");
         client.executeMethod(method);
         
         assertTrue("Request did not return 200 Ok status, but " + method.getStatusCode(), method.getStatusCode() == 200);
