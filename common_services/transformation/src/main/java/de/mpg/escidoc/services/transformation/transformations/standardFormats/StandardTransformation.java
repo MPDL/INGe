@@ -118,8 +118,7 @@ public class StandardTransformation
         }
         catch (Exception e)
         {
-            this.logger.error("An error occurred during a standard metadata transformation.", e);
-            throw new RuntimeException();
+            throw new RuntimeException("An error occurred during a standard metadata transformation.", e);
         }
         
         return writer.toString();
