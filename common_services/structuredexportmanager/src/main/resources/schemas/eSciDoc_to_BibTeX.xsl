@@ -64,8 +64,10 @@
 	</xsl:template>	
 	
 	<!-- create bibTeX entry -->
-	<xsl:template match="//ei:item/mdr:md-records/mdr:md-record/pub:publication">		
-		<xsl:param name="genre" select="$genre-ves/enum[.=@type]"/>
+	<xsl:template match="//ei:item/mdr:md-records/mdr:md-record/pub:publication">
+	
+		<xsl:variable name="gen" select="@type"/>
+		<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
 		
 		<!-- detect bibtex entry type -->		
 		<xsl:choose>
@@ -139,9 +141,9 @@
 		<!-- TITLE -->
 		<xsl:apply-templates select="dc:title"/>		
 		<!-- CREATOR -->
-		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']]"/>		
+		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']/@uri]"/>		
 		<!-- EDITOR -->
-		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']]"/>		
+		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='editor']/@uri]"/>		
 		<!-- LANGUAGE -->
 		<xsl:apply-templates select="dc:language"/>
 		<!-- URI, URN -->
@@ -386,7 +388,7 @@
 	</xsl:template>
 	
 	<!-- AUTHOR, EDITOR TEMPLATE -->
-	<xsl:template match="eterms:creator">					
+	<xsl:template match="eterms:creator">	
 		<xsl:apply-templates select="person:person"/>			
 		<xsl:apply-templates select="organization:organization"/>		
 	</xsl:template>
@@ -400,7 +402,7 @@
 	
 	<xsl:template match="person:person">			
 		<xsl:variable name="role-string" select="../@role"/>	
-		<xsl:variable name="role" select="$creator-ves/enum[@uri=$role-string]"/>	
+		<xsl:variable name="role" select="$creator-ves/enum[@uri=$role-string]"/>
 		<xsl:choose>		
 			<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0">	
 				<xsl:call-template name="roleLabel"/>					
@@ -408,7 +410,7 @@
 			<xsl:when test="count(../preceding-sibling::eterms:creator[@role=$role/@uri])=0 and count(../parent::source:source)=1">	
 				<xsl:value-of select="concat($role, ' : ')"/>				
 			</xsl:when>
-		<xsl:otherwise></xsl:otherwise>
+			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 		<xsl:variable name="familyname" select="jfunc:texString(normalize-space(eterms:family-name))"/>
 		<xsl:variable name="givenname" select="jfunc:texString(normalize-space(eterms:given-name))"/>
