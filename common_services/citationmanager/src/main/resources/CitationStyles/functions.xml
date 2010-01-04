@@ -27,7 +27,8 @@
 -->
 <xsl:functions 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:func="http://www.escidoc.de/citationstyle/functions"	
+	xmlns:func="http://www.escidoc.de/citationstyle/functions"
+	xmlns:functx="http://www.functx.com"	
 	>
 	
 	<!-- RUNTIME FUNCTIONS -->
@@ -76,5 +77,50 @@
 				select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')" />
 		</xsl:for-each>
 	</xsl:function>
+	
+	<!-- Postprocessing: clean citation -->
+	<xsl:function name="func:cleanCitation">
+		<xsl:param name="str" />
+			<xsl:value-of select="
+				normalize-space (
+				functx:replace-multi (
+					$str,
+					( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1',	'([.,?!:;])\s*\1',	'\.&quot;\.',	'\s+([.,?!:;])',	'\s*(&lt;[/]?span&gt;)\s*([.,?!:;])',	'([?!])+\.' ),
+					( '$1$2',									'$1',				'.&quot;',		'$1', 				'$1$2',									'$1' )
+				)
+				)
+			" />
+			<!-- 																	.".=>." ??? -->
+	</xsl:function>
+	
+	<xsl:function name="functx:replace-multi" as="xs:string?">
+	  <xsl:param name="arg" as="xs:string?"/> 
+	  <xsl:param name="changeFrom" as="xs:string*"/> 
+	  <xsl:param name="changeTo" as="xs:string*"/> 
+	 
+	  <xsl:sequence select=" 
+	   if (count($changeFrom) > 0)
+	   then functx:replace-multi(
+	          replace($arg, $changeFrom[1],
+	                     functx:if-absent($changeTo[1],'')),
+	          $changeFrom[position() > 1],
+	          $changeTo[position() > 1])
+	   else $arg
+	 "/>
+	   
+	</xsl:function>
+
+	<xsl:function name="functx:if-absent" as="item()*">
+	  <xsl:param name="arg" as="item()*"/> 
+	  <xsl:param name="value" as="item()*"/> 
+	 
+	  <xsl:sequence select=" 
+	    if (exists($arg))
+	    then $arg
+	    else $value
+	 "/>
+	   
+	</xsl:function>
+
 
 </xsl:functions>

@@ -62,6 +62,7 @@
 			<xsl:namespace name="fn">http://www.w3.org/2005/xpath-functions</xsl:namespace>
 			<xsl:namespace name="jfunc">java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper</xsl:namespace>
 			<xsl:namespace name="func">http://www.escidoc.de/citationstyle/functions</xsl:namespace>
+			<xsl:namespace name="functx">http://www.functx.com</xsl:namespace>
 			
 			<xsl:namespace name="escidocItem">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
 			<xsl:namespace name="ei">http://www.escidoc.de/schemas/item/0.8</xsl:namespace>
@@ -85,7 +86,7 @@
 				<xsl:attribute name="method">xml</xsl:attribute>
 				<xsl:attribute name="encoding">UTF-8</xsl:attribute>
 				<xsl:attribute name="indent">yes</xsl:attribute>
- 				<xsl:attribute name="cdata-section-elements" select="@citation-placeholder-tag"/>
+ 				<xsl:attribute name="cdata-section-elements" select="concat(@citation-placeholder-tag, ' dcterms:abstract')"/>
  				 
 			</xsl:element> 
 			
@@ -139,7 +140,7 @@
 						</xsl:element>
 						
 						<xsl:element name="xsl:value-of">
-							<xsl:attribute name="select" select="'normalize-space($citation)'" />
+							<xsl:attribute name="select" select="'func:cleanCitation($citation)'" />
 						</xsl:element>
 		
 					</xsl:element>
@@ -249,11 +250,11 @@
 									NOTE: 
 									objid should be always defined to ensure item-snippet binding!!!
 									
-									--><xsl:element name="xsl:attribute">
+									<xsl:element name="xsl:attribute">
 										<xsl:attribute name="name" select="'objid'"/>
 										<xsl:attribute name="select" select="'$objid'"/>
 									</xsl:element>
-																	
+									-->																	
 									<xsl:call-template name="createLayoutElement">
 										<xsl:with-param name="le" select="."/>
 									</xsl:call-template>
