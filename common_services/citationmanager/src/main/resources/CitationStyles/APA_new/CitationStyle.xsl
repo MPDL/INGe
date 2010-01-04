@@ -5,6 +5,7 @@
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:jfunc="java:de.mpg.escidoc.services.citationmanager.utils.XsltHelper"
                 xmlns:func="http://www.escidoc.de/citationstyle/functions"
+                xmlns:functx="http://www.functx.com"
                 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.8"
                 xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
                 xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
@@ -19,7 +20,7 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
-                cdata-section-elements="dcterms:bibliographicCitation"/>
+                cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
     <xsl:param name="pubman_instance"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
@@ -2532,7 +2533,7 @@
                         <!--### End of Citation Style Layout Definitions ###-->
 	</xsl:for-each>
                 </xsl:variable>
-                <xsl:value-of select="normalize-space($citation)"/>
+                <xsl:value-of select="func:cleanCitation($citation)"/>
             </xsl:element>
         </xsl:element>
     </xsl:template>
@@ -2589,5 +2590,25 @@
 		      <xsl:for-each select="tokenize(normalize-space ($str), '\s+|\.\s+|\-\s*')">
 			         <xsl:value-of select="concat(substring (., 1, 1), if (position()!=last())then concat ('.', $delim) else '.')"/>
 		      </xsl:for-each>
+	   </xsl:function>
+    <xsl:function name="func:cleanCitation">
+		      <xsl:param name="str"/>
+			     <xsl:value-of select="     normalize-space (     functx:replace-multi (      $str,      ( '([.,?!:;])\s*(&lt;[/]span&gt;)\s*\1', '([.,?!:;])\s*\1', '\.&#34;\.', '\s+([.,?!:;])', '\s*(&lt;[/]?span&gt;)\s*([.,?!:;])', '([?!])+\.' ),      ( '$1$2',         '$1',    '.&#34;',  '$1',     '$1$2',         '$1' )     )     )    "/>
+			     <!-- 																	.".=>." ??? -->
+	</xsl:function>
+    <xsl:function name="functx:replace-multi" as="xs:string?">
+	       <xsl:param name="arg" as="xs:string?"/> 
+	       <xsl:param name="changeFrom" as="xs:string*"/> 
+	       <xsl:param name="changeTo" as="xs:string*"/> 
+	 
+	       <xsl:sequence select="      if (count($changeFrom) &gt; 0)     then functx:replace-multi(            replace($arg, $changeFrom[1],                       functx:if-absent($changeTo[1],'')),            $changeFrom[position() &gt; 1],            $changeTo[position() &gt; 1])     else $arg   "/>
+	   
+	   </xsl:function>
+    <xsl:function name="functx:if-absent" as="item()*">
+	       <xsl:param name="arg" as="item()*"/> 
+	       <xsl:param name="value" as="item()*"/> 
+	 
+	       <xsl:sequence select="       if (exists($arg))      then $arg      else $value   "/>
+	   
 	   </xsl:function>
 </xsl:stylesheet>
