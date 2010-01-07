@@ -123,9 +123,12 @@
 	<h2>
 	PubMan - eSciDoc文献管理ソリューション
 	</h2>
-	<p>PubManは研究成果文献の管理とデジタル保存および発信に関し、<b>科学者</b>および<b>研究機関</b>を支援するソリューションとして開発されました。</p>
-	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、技術者を支援します。研究機関における方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
-	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳細はCoLab上の説明をご覧ください</b></a>
+	<p>
+	研究成果文献と関連資料を半永久的に保存提供できます。<br/>
+	研究者個人の“研究者ポートフォリオ”として論文情報を一箇所にまとめておくことができます。<br/>
+	マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
+	</p>
+	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>詳しく知るには</b></a>
 	<h:outputText value="|"/>
     <a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support" target="_blank"><b><h:outputText value="#{lbl.Home_Link_Support }"/></b></a>
 	<br/><br/>
