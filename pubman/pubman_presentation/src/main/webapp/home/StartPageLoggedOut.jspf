@@ -36,10 +36,11 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - an eSciDoc solution for publication data management 
+	PubMan - an eSciDoc solution for publication data management 
 	</h2>
-	<p>PubMan supports research organizations in the management, dissemination and re-use of <b>publications and supplementary material</b>.
-		The solution PubMan is a component of the eResearch infrastructure of the Max Planck Society and is based on the service-oriented architecture of eSciDoc.
+	<p>	Provide persistent access to your papers and supplementary material! <br/>
+		Compile your papers in your personal "Researcher Portfolio"! <br/>
+		Benefit from the MPG service for long-term archiving! <br/>
 	</p>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Read more</b></a>
 	<h:outputText value="|"/>
@@ -78,10 +79,11 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eine eSciDoc Lösung für Publikationsdaten-Management 
+	PubMan - eine eSciDoc Lösung für Publikationsdaten-Management 
 	</h2>
-	<p>PubMan unterstützt Forschungsorganisationen im Management, der Verbreitung und der Nachnutzung von <b>Publikationen und Supplementary Material</b>.
-		Die Anwendung PubMan ist eine Komponente der eResearch Infrastruktur der Max-Planck-Gesellschaft und basiert auf der service-orientierten Architektur von eSciDoc.
+	<p>	Machen Sie Ihre Publikationen und Supplementary Material verfügbar für Kollegen!<br/>
+		Stellen Sie Ihre Ergebnisse in einem persönlichen "Researcher Portfolio" zusammen!<br/>
+		Nutzen Sie den MPG Service für nachhaltige Datensicherung! <br/>
 	</p>
 	<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan" target="_blank"><b>Lesen Sie mehr </b></a>
 	<h:outputText value="|"/>
@@ -119,7 +121,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eSciDoc文献管理ソリューション
+	PubMan - eSciDoc文献管理ソリューション
 	</h2>
 	<p>PubManは研究成果文献の管理とデジタル保存および発信に関し、<b>科学者</b>および<b>研究機関</b>を支援するソリューションとして開発されました。</p>
 	<p>PubManソリューションは<b>あらゆる学術分野</b>に対応し、対象となる研究者、図書館員、技術者を支援します。研究機関における方針、文化、ワークフローに対応するため、ソリューション機能全体にわたる<b>カスタマイズ</b>と<b>オプション設定</b>が考慮されています。</p>
