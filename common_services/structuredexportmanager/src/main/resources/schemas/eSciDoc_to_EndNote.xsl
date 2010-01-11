@@ -88,7 +88,7 @@
 					<xsl:value-of select="if ($mdr_pos!=1) then '&#13;&#10;' else ''"/>
 		
 					<!-- GENRES -->
-					<xsl:variable name="gen" select="$genre-ves/enum[/@uri=@type]"/>
+					<xsl:variable name="gen" select="$genre-ves/enum[@uri=@type]"/>
 					<xsl:choose>
 						<!-- ### book ### -->
 						<xsl:when test="$gen='book'">
@@ -525,7 +525,7 @@
 		
 					<!-- Volume -->
 					<xsl:for-each select="source:source[1]/eterms:volume">
-					<xsl:variable name="sgenre" select="$genre-ves/enum[/@uri=../@type]"/>						
+					<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=../@type]"/>						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
 								<xsl:with-param name="value" select="."/>
@@ -623,7 +623,7 @@
 	<xsl:template name="get-creator-str">
 		<xsl:param name="creator"/>
 		<xsl:variable name="c" select="$creator/person:person | $creator/organization:organization"/>
-		<xsl:variable name="name" select="normalize-space($c/eterms:family-name | $c/eterms:organization-name)"/>
+		<xsl:variable name="name" select="normalize-space($c/eterms:family-name | $c/dc:title)"/>
 		<!-- TODO: organization handling -->
 		<xsl:choose>
 			<xsl:when test="$name!=''">
