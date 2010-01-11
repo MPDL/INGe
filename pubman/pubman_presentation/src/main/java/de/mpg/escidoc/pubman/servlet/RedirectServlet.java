@@ -98,7 +98,7 @@ public class RedirectServlet extends HttpServlet
                     GetMethod method = new GetMethod(url);
                     method.setFollowRedirects(false);
                     LoginHelper loginHelper = (LoginHelper) req.getSession().getAttribute("LoginHelper");
-                    if (loginHelper.getESciDocUserHandle() != null)
+                    if (loginHelper != null && loginHelper.getESciDocUserHandle() != null)
                     {
                         method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
                     }
