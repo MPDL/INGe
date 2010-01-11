@@ -51,7 +51,7 @@
 			<xs:enumeration value="http://purl.org/eprint/type/ConferencePaper"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/conference-report"/>
 			<xs:enumeration value="http://purl.org/eprint/type/ConferencePoster"/>
-			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/report"/>
+			<xs:enumeration value="http://purl.org/eprint/type/Report"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/paper"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"/>
 			<xs:enumeration value="http://purl.org/escidoc/metadata/ves/publication-types/working-paper"/>		
