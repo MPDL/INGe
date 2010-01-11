@@ -21,7 +21,7 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/series">series</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/manuscript">manuscript</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/other">other</enum>
-		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/report">report</enum>
+		<enum uri="http://purl.org/eprint/type/Report">report</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/paper">paper</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">talk-at-event</enum>
 		
