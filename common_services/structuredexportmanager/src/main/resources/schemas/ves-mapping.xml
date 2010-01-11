@@ -49,7 +49,7 @@
 			<map v1="courseware-lecture">http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</map>
 			<map v1="thesis">http://purl.org/eprint/type/Thesis</map>
 			<map v1="paper">http://purl.org/escidoc/metadata/ves/publication-types/paper</map>
-			<map v1="report">http://purl.org/escidoc/metadata/ves/publication-types/report</map>
+			<map v1="report">http://purl.org/eprint/type/Report</map>
 			<map v1="journal">http://purl.org/escidoc/metadata/ves/publication-types/journal</map>
 			<map v1="issue">http://purl.org/escidoc/metadata/ves/publication-types/issue</map>
 			<map v1="series">http://purl.org/escidoc/metadata/ves/publication-types/series</map>
