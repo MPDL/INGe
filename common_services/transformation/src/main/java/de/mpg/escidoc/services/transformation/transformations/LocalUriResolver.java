@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.transformation.transformations.commonPublicationFormats;
+package de.mpg.escidoc.services.transformation.transformations;
 
 import java.io.FileNotFoundException;
 
@@ -83,16 +83,15 @@ public class LocalUriResolver implements URIResolver
         
         try
         {
-            
-            //System.out.println(ResourceUtil.getResourceAsFile("."));
-            
-            Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
+            //Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
+            Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
 
             return source;
         }
         catch (FileNotFoundException e)
         {
-            throw new TransformerException("Cannot resolve URI: " + href);
+            //throw new TransformerException("Cannot resolve URI: " + href);
+            throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href);
         }
     }
 }

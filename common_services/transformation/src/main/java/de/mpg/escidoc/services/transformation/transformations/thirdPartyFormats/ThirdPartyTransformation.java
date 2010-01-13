@@ -53,7 +53,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.transformation.transformations.LocalURIResolver;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 
 /**
  * Handles all transformations for third party metadata records.
@@ -87,7 +87,7 @@ public class ThirdPartyTransformation
         String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
         
         TransformerFactory factory = new TransformerFactoryImpl();
-        factory.setURIResolver(new LocalURIResolver(this.METADATA_XSLT_LOCATION));
+        factory.setURIResolver(new LocalUriResolver(this.METADATA_XSLT_LOCATION));
         StringWriter writer = new StringWriter();
         
         try

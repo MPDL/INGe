@@ -57,7 +57,7 @@
    xmlns:escidoc="urn:escidoc:functions"
    xmlns:itemlist="${xsd.soap.item.itemlist}">
 
-	<xsl:import href="transformations/vocabulary-mappings.xsl"/>
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
