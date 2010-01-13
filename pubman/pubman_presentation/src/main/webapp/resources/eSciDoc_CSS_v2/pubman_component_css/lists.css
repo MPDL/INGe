@@ -152,7 +152,7 @@
 
 	/*GENERAL*/
 	
-.listItem {
+.listItem, .listItem td {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
 }
@@ -185,10 +185,6 @@
 
 .itemList tr.listItem {
 	border: 0px !important;
-}
-
-.listItem td {
-	 border-top: 0.09em solid #999999 !important;
 }
 
 .listItem td span, .listItem td {

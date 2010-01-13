@@ -381,7 +381,7 @@ FORM BG			#F2F8FC
 	
 		/*GENERAL*/
 		
-	.listItem {
+	.listItem, .listItem td {
 		border-top-color: #AEAEAE !important;
 	}
 	
