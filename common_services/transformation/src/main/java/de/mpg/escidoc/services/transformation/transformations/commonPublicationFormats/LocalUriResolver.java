@@ -84,7 +84,7 @@ public class LocalUriResolver implements URIResolver
         try
         {
             
-            System.out.println(ResourceUtil.getResourceAsFile("."));
+            //System.out.println(ResourceUtil.getResourceAsFile("."));
             
             Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
 

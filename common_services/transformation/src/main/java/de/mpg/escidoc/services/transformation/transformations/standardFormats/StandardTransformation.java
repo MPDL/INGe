@@ -38,14 +38,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -54,9 +51,8 @@ import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.transformation.transformations.LocalURIResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**

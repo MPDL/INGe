@@ -51,8 +51,8 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.transformation.transformations.LocalURIResolver;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.mets.METSTransformation;
-import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.LocalURIResolver;
 import de.mpg.escidoc.services.transformation.transformations.thirdPartyFormats.ThirdPartyTransformation;
 
 /**
