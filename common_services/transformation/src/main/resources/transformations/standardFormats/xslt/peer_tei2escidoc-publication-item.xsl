@@ -313,7 +313,7 @@
 			<xsl:attribute name="type">
 				<xsl:value-of select="
 					if ($monogr/t:title/@level='j') 
-					then 'journal' 
+					then $genre-ves/enum[.='journal']/@uri 
 					else if ($monogr/t:title/@level='s') 
 					then 'series'
 					else error(QName('http://www.escidoc.de', 'err:UnknownSourceGenre' ), 'Unknown or empty Source genre: ', $monogr/t:title/@level)
