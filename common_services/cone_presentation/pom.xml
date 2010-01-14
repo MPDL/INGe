@@ -60,61 +60,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.mulgara</groupId>
-			<artifactId>itql</artifactId>
-			<version>2.0-beta</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>common_logic</artifactId>
-			<version>1.1.34-SNAPSHOT</version>
-			<type>ejb</type>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-	      <groupId>saxon</groupId>
-	      <artifactId>saxon-dom</artifactId>
-	      <version>8.7</version>
-	      <scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>commons-beanutils</groupId>
-	    	<artifactId>commons-beanutils</artifactId>
-	    	<version>1.7.0</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>commons-digester</groupId>
-	    	<artifactId>commons-digester</artifactId>
-	    	<version>1.8</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-api</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-impl</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>richfaces</groupId>
-	    	<artifactId>richfaces-ui</artifactId>
-	    	<version>3.1.4</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>jsf-facelets</groupId>
-	    	<artifactId>jsf-facelets</artifactId>
-	    	<version>1.1.13</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
 	    	<groupId>log4j</groupId>
 	    	<artifactId>log4j</artifactId>
 	    	<version>1.2.14</version>
@@ -124,12 +69,6 @@
 	    	<groupId>urlrewrite</groupId>
 	    	<artifactId>urlrewrite</artifactId>
 	    	<version>3.1.0</version>
-	    	<scope>provided</scope>
-	    </dependency>
-		<dependency>
-	    	<groupId>postgresql</groupId>
-	    	<artifactId>postgresql</artifactId>
-	    	<version>8.3-604.jdbc3</version>
 	    	<scope>provided</scope>
 	    </dependency>
 		<dependency>
@@ -143,6 +82,12 @@
 	    	<artifactId>commons-io</artifactId>
 	    	<version>1.4</version>
 	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>de.mpg.escidoc.services</groupId>
+	    	<artifactId>cone</artifactId>
+	    	<version>1.1.0-SNAPSHOT</version>
+	    	<scope>compile</scope>
 	    </dependency>
 	</dependencies>
 	<dependencyManagement>

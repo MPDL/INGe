@@ -26,7 +26,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidoc="http://www.escidoc.de/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/">
 	
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" 
      doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" encoding="UTF-8" media-type="text/html"/>
@@ -272,10 +272,10 @@
 									<span class="seperator">&#160;</span>
 									<span class="free_area0_p8 endline itemHeadline">
 										<h2>
-											<xsl:if test="escidoc:degree != ''"><xsl:value-of select="escidoc:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
+											<xsl:if test="eterms:degree != ''"><xsl:value-of select="eterms:degree"/><xsl:text> </xsl:text></xsl:if> <xsl:value-of select="dc:title"/>
 										</h2>
 										<h3>
-											<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]/escidoc:organization">
+											<xsl:for-each select="eterms:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]/eprints:affiliatedInstitution">
 												<xsl:sort select="."/>
 												<xsl:value-of select="."/><xsl:if test="position() != last()">, </xsl:if> 
 											</xsl:for-each>
@@ -295,53 +295,53 @@
 									</h3>
 									<span class="seperator">&#160;</span>
 									<div class="free_area0 itemBlockContent endline">
-										<xsl:for-each select="escidoc:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
-											<xsl:sort select="escidoc:organization[0]"/>
+										<xsl:for-each select="eterms:position/rdf:Description[not(exists(dc:end-date)) or dc:end-date = '' or xs:date(dc:end-date) &gt;= current-date()]">
+											<xsl:sort select="eterms:organization[0]"/>
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('current_position')"/><span class="noDisplay">: </span>
 												</b>
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
-													<xsl:value-of select="escidoc:position-name"/>
+													<xsl:value-of select="eterms:position-name"/>
 													<xsl:text> </xsl:text>
-													<xsl:if test="escidoc:organization">
-														<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
-														<xsl:for-each select="escidoc:organization">
+													<xsl:if test="eterms:organization">
+														<xsl:if test="exists(eterms:position-name)">(</xsl:if>
+														<xsl:for-each select="eterms:organization">
 															<xsl:value-of select="."/>
 															<xsl:if test="position() != last()">, </xsl:if>
 														</xsl:for-each>
-														<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
+														<xsl:if test="exists(eterms:position-name)">)</xsl:if>
 													</xsl:if>
 												</span>
 											</div>
 										</xsl:for-each>
-										<xsl:for-each select="escidoc:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
+										<xsl:for-each select="eterms:position/rdf:Description[dc:end-date != '' and xs:date(dc:end-date) &lt; current-date()]">
 											<xsl:sort select="dc:end-date" order="descending"/>	
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('former_position')"/><span class="noDisplay">: </span>
 												</b>
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
-													<xsl:value-of select="escidoc:position-name"/>
+													<xsl:value-of select="eterms:position-name"/>
 													<xsl:text> </xsl:text>
-													<xsl:if test="escidoc:organization">
-														<xsl:if test="exists(escidoc:position-name)">(</xsl:if>
-														<xsl:for-each select="escidoc:organization">
+													<xsl:if test="eterms:organization">
+														<xsl:if test="exists(eterms:position-name)">(</xsl:if>
+														<xsl:for-each select="eterms:organization">
 															<xsl:value-of select="."/>
 															<xsl:if test="position() != last()">, </xsl:if>
 														</xsl:for-each>
-														<xsl:if test="exists(escidoc:position-name)">)</xsl:if>
+														<xsl:if test="exists(eterms:position-name)">)</xsl:if>
 													</xsl:if>
 												</span>
 											</div>
 										</xsl:for-each>
-										<xsl:if test="exists(escidoc:award)">
+										<xsl:if test="exists(eterms:award)">
 											<div class="free_area0 endline itemLine noTopBorder">
 												<b class="xLarge_area0 endline labelLine">
 													<xsl:value-of select="escidoc:label('awards')"/><span class="noDisplay">: </span>
 												</b>
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
-													<xsl:value-of select="escidoc:award"/>
+													<xsl:value-of select="eterms:award"/>
 												</span>
 											</div>
 										</xsl:if>
@@ -399,7 +399,7 @@
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:for-each select="dc:identifier/rdf:Description">
 														<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
-														<xsl:value-of select="escidoc:idtype"/>: <xsl:value-of select="rdf:value"/>
+														<xsl:value-of select="eterms:idtype"/>: <xsl:value-of select="rdf:value"/>
 													</xsl:for-each>
 												</span>
 											</div>
