@@ -91,7 +91,7 @@ public class JQueryFormatter extends Formatter
     {
         response.setContentType("text/xml");
         
-        InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
+        InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
         InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
         
         try

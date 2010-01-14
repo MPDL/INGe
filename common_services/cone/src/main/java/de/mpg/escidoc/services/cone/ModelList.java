@@ -37,6 +37,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * A SAX parser that reads in the servieces.xml configuration file.
@@ -60,7 +61,7 @@ public class ModelList
 
     private ModelList() throws Exception
     {
-        InputStream in = ResourceUtil.getResourceAsStream("explain/models.xml");
+        InputStream in = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"));
         ServiceListHandler listHandler = new ServiceListHandler();
         SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         parser.parse(in, listHandler);
