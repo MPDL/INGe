@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.cone.formatter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -89,7 +90,7 @@ public abstract class Formatter
      * @throws IOException From XSLT transformation.
      */
     public abstract void explain(HttpServletResponse response)
-        throws FileNotFoundException, TransformerFactoryConfigurationError, IOException;
+        throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException;
 
     /**
      * Format the results of the query action.

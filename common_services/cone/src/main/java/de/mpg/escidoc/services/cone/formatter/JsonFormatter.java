@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
@@ -86,9 +87,10 @@ public class JsonFormatter extends Formatter
      * @throws FileNotFoundException
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
+     * @throws URISyntaxException 
      */
     public void explain(HttpServletResponse response) throws FileNotFoundException,
-            TransformerFactoryConfigurationError, IOException
+            TransformerFactoryConfigurationError, IOException, URISyntaxException
     {
         response.setContentType("text/xml");
         

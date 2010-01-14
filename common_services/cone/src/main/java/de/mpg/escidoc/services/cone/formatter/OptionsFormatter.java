@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -82,9 +83,10 @@ public class OptionsFormatter extends Formatter
      * @throws FileNotFoundException
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
+     * @throws URISyntaxException 
      */
     public void explain(HttpServletResponse response) throws FileNotFoundException,
-            TransformerFactoryConfigurationError, IOException
+            TransformerFactoryConfigurationError, IOException, URISyntaxException
     {
         response.setContentType("text/xml");
         

@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.cone.formatter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,7 @@ import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.RdfHelper;
 import de.mpg.escidoc.services.cone.util.TreeFragment;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Servlet to answer calls from the JQuery Javascript API.
@@ -80,9 +82,10 @@ public class RdfFormatter extends Formatter
      * @throws FileNotFoundException
      * @throws TransformerFactoryConfigurationError
      * @throws IOException
+     * @throws URISyntaxException 
      */
     public void explain(HttpServletResponse response) throws FileNotFoundException,
-            TransformerFactoryConfigurationError, IOException
+            TransformerFactoryConfigurationError, IOException, URISyntaxException
     {
         response.setContentType("text/xml");
         
