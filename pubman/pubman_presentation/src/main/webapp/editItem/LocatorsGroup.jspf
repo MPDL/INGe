@@ -151,7 +151,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl licenseArea endline">
 					<h:panelGroup styleClass="quad_area0" rendered="true">
-						<label class="quad_label"><span class="mandatory" title="<h:outputText id="txtLicensingInfoRequired" value='#{msg.mandatoryField}' />"><h:outputText id="txtLicensingInfoRequired2" value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
+						<label class="quad_label"><span id="txtLicensingInfoRequired" class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />"><h:outputText id="txtLicensingInfoRequired2" value="*" rendered="false"/></span><h:outputText value="#{lbl.EditItem_lblLicencingInfo}"/></label>
 						<h:inputText id="inpLicensingInfo" styleClass="xDouble_txtInput tiny_marginRIncl licenseURL" value="#{locator.file.defaultMetadata.license}"/>
 						<tr:goButton id="btnLicensingInfo" text="#{lbl.EditItem_btnSelectCCLicense}" styleClass="large_txtBtn groupBtn ccLicense" onclick="$(this).parents('.licenseArea').find('.messageArea').find('.ccContent').html($('#CCScriptTag').val()); var actualCCContent = $(this).parents('.licenseArea').find('.messageArea').find('.ccContent'); window.setTimeout(function (){ $(actualCCContent).append($('head').children('div')); $(actualCCContent).parents('.messageArea').removeClass('noDisplay');},1000);"/>
 					</h:panelGroup>
