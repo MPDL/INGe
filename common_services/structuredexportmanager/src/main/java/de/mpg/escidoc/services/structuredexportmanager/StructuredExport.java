@@ -46,8 +46,11 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -55,6 +58,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 
 /**
@@ -217,6 +221,8 @@ public class StructuredExport implements StructuredExportHandler {
 	{
         BufferedReader br;
 		try {
+	        TransformerFactory factory = new TransformerFactoryImpl();
+	        factory.setURIResolver(new LocalURIResolver(PATH_TO_RESOURCES + EXPLAIN_FILE));
 			br = new BufferedReader(new InputStreamReader(ResourceUtil.getResourceAsStream(PATH_TO_RESOURCES + EXPLAIN_FILE), "UTF-8"));
 		} catch (Exception e) {
 			throw new StructuredExportManagerException(e); 

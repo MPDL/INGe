@@ -88,7 +88,7 @@ public class TransformationTest
         Format escidocFormat = new Format("eSciDoc-publication-item", "application/xml", "UTF-8");
         Format escidocComponentFormat = new Format("eSciDoc-publication-component", "application/xml", "UTF-8");
 
-        byte[] result = this.trans.transform(this.util.getResourceAsString("testFiles/tei/tei1.tei")
+        byte[] result = this.trans.transform(this.util.getResourceAsString("testFiles/tei/Taylor.tei")
                 .getBytes("UTF-8"), teiFormat, escidocFormat, "escidoc");
 
 //        result = this.trans.transform(this.util.getResourceAsString("testFiles/tei/Springer-351-S2.tei")

@@ -91,7 +91,7 @@ public class LocalUriResolver implements URIResolver
         catch (FileNotFoundException e)
         {
             //throw new TransformerException("Cannot resolve URI: " + href);
-            throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href);
+            throw new TransformerException("Cannot resolve URIdgdsgdfgdfgd: " + this.base + altBase + "/" + href, e);
         }
     }
 }

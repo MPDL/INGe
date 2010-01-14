@@ -60,7 +60,7 @@ public class EndNoteImportTest
 	{
 	    this.logger.info("Transform EndNote list to escidoc list");
 	    
-       	byte[] result = this.transformation.transform(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote.txt").getBytes(), 
+       	byte[] result = this.transformation.transform(this.util.getResourceAsString("testFiles/endnote/publikationsliste_2008_endnote2.txt").getBytes(), 
        	        this.inputFormat, this.outputFormat, "escidoc");
        	XmlTransformingBean xmlTransforming = new XmlTransformingBean();
        	List<PubItemVO> itemList = (List<PubItemVO>)xmlTransforming.transformToPubItemList(new String(result, "UTF-8"));
