@@ -31,7 +31,7 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-		WELCOME TO PUBMAN <h:outputText value="#{ApplicationBean.shortVersion}"/> - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
+		WELCOME TO PUBMAN - <br/>WHAT DO YOU WANT TO WORK ON TODAY?
 	</h2>
 	<br/>
 	</h:panelGroup>
@@ -105,7 +105,7 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-		WILLKOMMEN BEI PUBMAN <h:outputText value="#{ApplicationBean.shortVersion}"/> - <br/>WAS M&Ouml;CHTEN SIE HEUTE TUN?
+		WILLKOMMEN BEI PUBMAN - <br/>WAS M&Ouml;CHTEN SIE HEUTE TUN?
 	</h2>
 	<br/>
 	</h:panelGroup>
@@ -178,7 +178,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-		PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/>へようこそ <!-- -<br/>今日は何をしましょうか？ -->
+		PubMan へようこそ <!-- -<br/>今日は何をしましょうか？ -->
 	</h2>
 	<br/>
 	</h:panelGroup>
