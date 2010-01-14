@@ -81,7 +81,7 @@ public class LocalURIResolver implements URIResolver
         
         try
         {
-            Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
+            Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
 
             return source;
         }
