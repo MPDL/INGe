@@ -87,7 +87,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -97,6 +97,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -482,34 +483,37 @@ public class SwordUtil extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            XmlTransforming xmlTransforming = (XmlTransforming)
-                initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            XmlTransformingBean xmlTransforming = new XmlTransformingBean();
             ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
             Transformation transformer = appBean.getTransformationService();
             
             Format escidocFormat = new Format("escidoc-publication-item", "application/xml", "UTF-8");
             Format trgFormat = null;
+            Boolean transform = false;
             
             //Transform from tei to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatPeerTEI))
             {               
-                trgFormat = new Format("peer_tei", "application/xml", "UTF-8");                
+                trgFormat = new Format("peer_tei", "application/xml", "UTF-8");   
+                transform = true;
             }
-
             //Transform from bibtex to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatBibTex))
             {
                 trgFormat = new Format("bibtex", "text/plain", "*");
+                transform = true;
             }
-
             //Transform from endnote to escidoc-publication-item
             if (this.currentDeposit.getFormatNamespace().equalsIgnoreCase(this.mdFormatEndnote))
             {
                 trgFormat = new Format("endnote", "text/plain", "UTF-8");
+                transform = true;
             }
-
-            item = new String(transformer.transform(item.getBytes("UTF-8"), trgFormat,
-                    escidocFormat, this.transformationService), "UTF-8");
+            if (transform)
+            {
+                item = new String(transformer.transform(item.getBytes("UTF-8"), trgFormat,
+                        escidocFormat, this.transformationService), "UTF-8");
+            }
             //Create item
             itemVO = xmlTransforming.transformToPubItem(item);
             this.logger.debug("Item successfully created.");
@@ -735,7 +739,7 @@ public class SwordUtil extends FacesBean
             {
                 //Copyright information are imported from metadata file
                 InitialContext initialContext = new InitialContext();
-                XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                XmlTransformingBean xmlTransforming = new XmlTransformingBean();
                 Format teiFormat = 
                     new Format("peer_tei", "application/xml", "UTF-8");
                 Format escidocComponentFormat = 
@@ -808,7 +812,7 @@ public class SwordUtil extends FacesBean
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         InitialContext context = new InitialContext();
-        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        XmlTransformingBean ctransforming = new XmlTransformingBean();
         return ctransforming.transformUploadResponseToFileURL(response);
     }
 
