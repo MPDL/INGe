@@ -73,7 +73,7 @@ public class ResourceUtil
      */
     public static File getResourceAsFile(final String fileName) throws FileNotFoundException
     {
-        URL url = ResourceUtil.class.getClassLoader().getResource(fileName);
+        URL url = ResourceUtil.class.getClassLoader().getResource(resolveFileName(fileName));
         
         File file = null;
         if (url != null)
@@ -116,7 +116,7 @@ public class ResourceUtil
         // to try it.
         
         InputStream fileIn;
-        fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(fileName);
+        fileIn = ResourceUtil.class.getClassLoader().getResourceAsStream(resolveFileName(fileName));
 //        try
 //        {
             if (fileIn == null)
@@ -177,7 +177,7 @@ public class ResourceUtil
      */
     public static String getResourceAsString(final String fileName) throws IOException
     {
-        InputStream fileIn = getResourceAsStream(fileName);
+        InputStream fileIn = getResourceAsStream(resolveFileName(fileName));
         BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
         String line = null;
         String result = "";
@@ -197,7 +197,7 @@ public class ResourceUtil
      */
     public static File[] getFilenamesInDirectory(String dir) throws IOException
     {
-        File dirFile = getResourceAsFile(dir);
+        File dirFile = getResourceAsFile(resolveFileName(dir));
         
         
 
@@ -231,6 +231,23 @@ public class ResourceUtil
             }
             return fileArray.toArray(new File[]{});
         }
+    }
+    
+    /**
+     * This method resolves /.. in uris
+     * @param name
+     * @return
+     */
+    public static String resolveFileName (String name)
+    {
+        if (name.contains("/.."))
+        {
+            int pos1 = name.indexOf("/..");
+            int pos2 = name.substring(0, pos1).lastIndexOf("/");
+            return resolveFileName(name.substring(0, pos2) + name.substring(pos1 +3));
+        }
+        
+        return name;
     }
 
 }
