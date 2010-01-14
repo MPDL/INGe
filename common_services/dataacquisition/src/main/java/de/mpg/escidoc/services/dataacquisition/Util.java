@@ -78,8 +78,9 @@ public class Util
     private final String dummyFormat = "unknown";
 
     //Cone
-    private final String coneMethod = "rdf/escidocmimetypes";
-    private final String coneRel = "urn:cone:escidocmimetype:";
+    private final String coneMethod = "escidocmimetypes";
+    private final String coneRel1 = "/resource/";
+    private final String coneRel2 = "?format=rdf";
     
 
     /**
@@ -621,7 +622,7 @@ public class Util
         {
 
             URL coneUrl = new URL(PropertyReader.getProperty("escidoc.cone.service.url") + "/" 
-                    + this.coneMethod + "/" + this.coneRel + mimeType);
+                    + this.coneMethod + this.coneRel1 + mimeType + this.coneRel2);
             conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
