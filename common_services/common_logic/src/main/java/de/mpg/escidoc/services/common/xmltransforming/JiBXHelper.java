@@ -42,6 +42,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -326,6 +327,11 @@ public class JiBXHelper
     public static List<ValueObject> memberListFactory()
     {
         return new ArrayList<ValueObject>();
+    }
+    
+    public static List<AllowedRolesRO> allowedRolesListFactory()
+    {
+        return new ArrayList<AllowedRolesRO>();
     }
 
     /**
