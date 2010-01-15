@@ -69,7 +69,7 @@
 			<map v2="http://purl.org/eprint/type/ConferencePaper">conference-paper</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report">conference-report</map>
 			<map v2="http://purl.org/eprint/type/ConferencePoster">poster</map>
-			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/report">report</map>
+			<map v2="http://purl.org/eprint/type/Report">report</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper">paper</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event">talk-at-event</map>
 			<!-- TODO: check the mapping -->
