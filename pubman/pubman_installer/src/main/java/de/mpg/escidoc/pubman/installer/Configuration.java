@@ -33,11 +33,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * @author endres
@@ -90,6 +94,14 @@ public class Configuration
     {
         FileOutputStream outStream = new FileOutputStream(FileName);
         this.properties.store(outStream, "Automatic created configuration file");
+        outStream.close();
+        //
+        /*
+        FileOutputStream outStream2 = new FileOutputStream("pubman.properties");
+        this.properties.store(outStream2, "Automatic created configuration file");
+        outStream2.close();
+        */
+        //Reload property reader
     }
     
     public void setProperty( String key, String value)
@@ -103,10 +115,10 @@ public class Configuration
     }
     
     public void setProperties(Map<String, String> props) {
-        Iterator it = props.entrySet().iterator();
+    	Iterator<Map.Entry<String, String>> it = props.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry)it.next();
-            setProperty((String)pairs.getKey(), (String)pairs.getValue());
+            Map.Entry<String, String> pairs = it.next();
+            setProperty(pairs.getKey(), pairs.getValue());
         }
     }
 }

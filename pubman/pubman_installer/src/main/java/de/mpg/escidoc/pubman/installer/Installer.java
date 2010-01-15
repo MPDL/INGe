@@ -112,7 +112,7 @@ public class Installer extends InstallerBase
     public Installer() throws IOException {
         logger = Logger.getLogger(Installer.class);   
         userConfigValues = new HashMap<String, String>();
-        config = new Configuration("configuration/pubman.properties");
+        config = new Configuration("pubman.properties");
     }
     
     public void install() throws IOException, ServiceException, Exception {
@@ -268,8 +268,33 @@ public class Installer extends InstallerBase
                 "datasetObjects/grant_moderator.xml", userModeratorId, contextObjectId);
         dataset.createGrantForUser(
                 "datasetObjects/grant_depositor.xml", userDepositorId, contextObjectId);
+        
+        createInitialStatisticData(dataset);
     }
     
+    private void createInitialStatisticData(InitialDataset dataset) throws Exception
+    {
+        String authorAggrId = dataset.createAggregation("datasetObjects/statistics/aggregation_authors.xml");
+        String itemAggrId = dataset.createAggregation("datasetObjects/statistics/aggregation_items.xml");
+        String orgAggrId = dataset.createAggregation("datasetObjects/statistics/aggregation_organizations.xml");
+        String searchKeywordsAggrId = dataset.createAggregation("datasetObjects/statistics/aggregation_search_keywords.xml");
+        String usersAggrId = dataset.createAggregation("datasetObjects/statistics/aggregation_users.xml");
+        
+        String authorCountryRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_author_retrievals_country.xml", authorAggrId);
+        String authorTimeRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_author_retrievals_month_year_logged.xml", authorAggrId);
+        String itemCountryRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_item_retrievals_country.xml", itemAggrId);
+        String itemTimeRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_item_retrievals_month_year_logged.xml", itemAggrId);
+        String orgCountryRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_org_retrievals_country.xml", orgAggrId);
+        String orgTimeRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_org_retrievals_month_year_logged.xml", orgAggrId);
+        String topSearchKeywordsRepDefId = dataset.createReportDefinition("datasetObjects/statistics/report_definition_top_search_keywords.xml", searchKeywordsAggrId);
+        
+        
+        
+        
+        
+        
+    }
+
     public void checkContentModel() throws FileNotFoundException, Exception {
         System.out.println("Checking if content model (escidoc:persistent4) is available...");
         if( isContentModelValid() == true) {

@@ -11,6 +11,7 @@ import com.izforge.izpack.installer.IzPanel;
 
 import de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel;
 import de.mpg.escidoc.pubman.installer.panels.ConfigurationPanel;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class ConeInsertProcess extends Thread 
 {
@@ -41,12 +42,17 @@ public class ConeInsertProcess extends Thread
 			this.panel.getTextArea().append("Inserting CoNE data...\n");
 			try
 			{
+				coneDataset.connectToDB("");
+				
 				// check if cone database already exists on the Postgres server or not. if not create it.
 			   if(coneDataset.isConeDBAvailable(ConeDataset.CONE_CHECK_DATABASES) == false)
 			   {
 				   coneDataset.runConeScript(ConeDataset.CONE_CREATE_DATABASE);
 			   }
-				   
+			   coneDataset.disconnectFromDB();
+			   
+			   
+			   coneDataset.connectToDB("cone");
 			   // first create tables
 			   coneDataset.runConeScript(ConeDataset.CONE_CREATE_SCRIPT);
 			   
@@ -74,8 +80,16 @@ public class ConeInsertProcess extends Thread
 			   
 			   // at least index the tables
 			   coneDataset.runConeScript(ConeDataset.CONE_INDEX_SCRIPT);
+
+			   coneDataset.disconnectFromDB();
 			   
 			   panel.getTextArea().append("Good. CoNE data inserted.\n");
+			   
+			   panel.getTextArea().append("Processing Cone Data...\n");
+			   
+			   //PropertyReader.
+			   coneDataset.processConeData();
+
 			   panel.getTextArea().append("\n\n\n");
 			   panel.getTextArea().append("DONE. You can proceed with 'Next' now.\n");
 			   File pf = new File(idata.getInstallPath() + coneInsertDataFile);
@@ -86,6 +100,7 @@ public class ConeInsertProcess extends Thread
 			catch(Exception e)
 			{
 				successful = false;
+				panel.getTextArea().append("Could not insert CoNE data into database. Reason: \n" + e + ": " + e.getMessage());
 				panel.setValid(successful);
 				return;
 			}

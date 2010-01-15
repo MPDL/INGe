@@ -10,10 +10,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.installer.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.Querier;
+import de.mpg.escidoc.services.cone.QuerierFactory;
+import de.mpg.escidoc.services.cone.ModelList.Model;
+import de.mpg.escidoc.services.cone.util.TreeFragment;
 
 public class ConeDataset 
 {
@@ -100,25 +107,26 @@ public class ConeDataset
         return buffer.toString();
     }
     
-    public void runConeScript(String sqlScript) throws Exception
+    public void connectToDB(String dbName) throws Exception
     {
-    	Class.forName(CONE_DB_DRIVER_CLASS);
-        connection = DriverManager.getConnection(CONE_DB_CONNECTION_TYPE +
+    	connection = DriverManager.getConnection(CONE_DB_CONNECTION_TYPE +
         		this.coneServer +
                 ":" +
                 this.conePort +
                 "/" +
-                this.coneDatabase,
+                dbName,
                 this.coneUser,
                 this.conePassword);
-        System.out.println("Postgres Connection: " + CONE_DB_CONNECTION_TYPE +
-        		this.coneServer +
-                ":" +
-                this.conePort +
-                "/" +
-                this.coneDatabase + ", "+
-                this.coneUser + ", "+
-                this.conePassword);
+    }
+    
+    public void disconnectFromDB() throws Exception
+    {
+    	connection.close();
+       
+    }
+    
+    public void runConeScript(String sqlScript) throws Exception
+    {
         
         try
         {
@@ -157,15 +165,6 @@ public class ConeDataset
     public boolean isConeDBAvailable(String sqlScript) throws Exception
     {
     	boolean coneIsAvailable = false;
-    	Class.forName(CONE_DB_DRIVER_CLASS);
-        connection = DriverManager.getConnection(CONE_DB_CONNECTION_TYPE +
-        		this.coneServer +
-                ":" +
-                this.conePort +
-                "/" +
-                this.coneDatabase,
-                this.coneUser,
-                this.conePassword);
         
         String dbScript = ResourceUtil.getResourceAsString(sqlScript);
         
@@ -197,4 +196,27 @@ public class ConeDataset
         }
         return coneIsAvailable;
     }
+    
+    public void processConeData() throws Exception
+    {
+    	Querier querier = QuerierFactory.newQuerier();
+		Set<Model> models = ModelList.getInstance().getList();
+
+		for (Model model : models)
+		{
+		    
+		    List<String> ids = querier.getAllIds(model.getName());
+		    for (String id : ids)
+		    {
+		        TreeFragment details = querier.details(model.getName(), id, "*");
+		        querier.delete(model.getName(), id);
+		        querier.create(model.getName(), id, details);
+		       
+		    }
+		}
+		querier.release();
+    }
+
+    
+	
 }

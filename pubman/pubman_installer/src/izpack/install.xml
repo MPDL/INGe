@@ -92,6 +92,8 @@
     <jar src="dependency/framework_access.jar"/>
     <jar src="dependency/xmlsec.jar"/>
     <jar src="dependency/postgresql.jar"/>
+    <jar src="dependency/cone.jar"/>
+    <jar src="dependency/common_logic.jar"/>
 
     <!-- 
         The packs section.
@@ -156,11 +158,11 @@
         <variable name="StyleSheetClassicApply" value="true"/>
         <variable name="FavIconURL" value="./resources/pubman_favicon.ico"/>
         <variable name="FavIconApply" value="true"/>
-        <variable name="ConeCreateJournals" value="false"/>
-        <variable name="ConeCreateLanguages" value="false"/>
-        <variable name="ConeCreateDDC" value="false"/>
-        <variable name="ConeCreateMimetypes" value="false"/>
-        <variable name="ConeCreateEscidocMimeTypes" value="false"/>
+        <variable name="ConeCreateJournals" value="true"/>
+        <variable name="ConeCreateLanguages" value="true"/>
+        <variable name="ConeCreateDDC" value="true"/>
+        <variable name="ConeCreateMimetypes" value="true"/>
+        <variable name="ConeCreateEscidocMimeTypes" value="true"/>
     </variables>
     
     <listeners>

@@ -61,6 +61,8 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.escidoc.core.common.exceptions.application.violated.OrganizationalUnitNameNotUniqueException;
 import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.www.services.sm.AggregationDefinitionHandler;
+import de.escidoc.www.services.sm.ReportDefinitionHandler;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -323,5 +325,24 @@ public class InitialDataset
     public String getHandle()
     {
         return userHandle;
+    }
+    
+    public String createAggregation(String fileName) throws Exception
+    {
+        String aggregationXml = getResourceAsXml(fileName);
+        AggregationDefinitionHandler aggrHandler = ServiceLocator.getAggregationDefinitionHandler();
+        String createdAggr = aggrHandler.create(aggregationXml);
+        return getValueFromXml("objid", createdAggr);
+    }
+    
+    public String createReportDefinition(String fileName, String aggregationId) throws Exception
+    {
+        String repDefXml = getResourceAsXml(fileName);
+        repDefXml = repDefXml.replace("###aggrId###", aggregationId);
+        ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler(userHandle);
+        String createdRepDef = repDefHandler.create(repDefXml);
+        return getValueFromXml("objid", createdRepDef);
+        
+        
     }
 }

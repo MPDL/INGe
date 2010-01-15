@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.installer.panels;
 
 import java.awt.LayoutManager2;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ import de.mpg.escidoc.pubman.installer.ConeInsertProcess;
 import de.mpg.escidoc.pubman.installer.Configuration;
 import de.mpg.escidoc.pubman.installer.InitialDataset;
 import de.mpg.escidoc.pubman.installer.Installer;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class DatasetConfigurationCreatorPanel extends ConfigurationPanel
 {
@@ -65,7 +67,7 @@ public class DatasetConfigurationCreatorPanel extends ConfigurationPanel
       
        getLayoutHelper().completeLayout();
        
-       configuration = new Configuration("configuration/pubman.properties");
+       configuration = new Configuration("pubman.properties");
    }
 
    /**
@@ -78,7 +80,7 @@ public class DatasetConfigurationCreatorPanel extends ConfigurationPanel
        return isValid;
    }
    
-   private void storeConfiguration() throws IOException {
+   private void storeConfiguration() throws IOException, URISyntaxException {
        Map<String, String> userConfigValues = new HashMap<String, String>();
        userConfigValues.put(Configuration.KEY_CORESERVICE_URL, idata.getVariable("CoreserviceUrl"));
        userConfigValues.put(Configuration.KEY_CORESERVICE_ADMINUSERNAME, idata.getVariable("CoreserviceAdminUser"));
@@ -96,6 +98,10 @@ public class DatasetConfigurationCreatorPanel extends ConfigurationPanel
        userConfigValues.put(Configuration.KEY_EXTERNAL_OU, ouExternalObjectId);
        configuration.setProperties(userConfigValues);
        configuration.store(idata.getInstallPath() + "/jboss-4.2.2.GA/server/default/conf/pubman.properties");
+       //also store in local pubman properties
+       configuration.store("pubman.properties");
+       //... and update PropertyReader
+	   PropertyReader.loadProperties();
    }
    
    private void checkContentModel() throws Exception {

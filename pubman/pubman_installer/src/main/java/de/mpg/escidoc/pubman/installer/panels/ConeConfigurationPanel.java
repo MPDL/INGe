@@ -83,7 +83,8 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	      
 	       getLayoutHelper().completeLayout();
 	       
-	       configuration = new Configuration("configuration/pubman.properties");
+	       configuration = new Configuration("pubman.properties");
+	       
 	   }
 
 	   /**
@@ -105,13 +106,13 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	       checkBoxJournals.addActionListener(this);
 	       add(checkBoxJournals, NEXT_LINE);
 	       checkBoxLanguages = new JCheckBox("Languages");
-	       checkBoxJournals.addActionListener(this);
+	       checkBoxLanguages.addActionListener(this);
 	       add(checkBoxLanguages, NEXT_LINE);
 	       checkBoxDDC = new JCheckBox("DDC");
 	       checkBoxDDC.addActionListener(this);
 	       add(checkBoxDDC, NEXT_LINE);
 	       checkBoxMimeTypes = new JCheckBox("Mimetypes");
-	       checkBoxDDC.addActionListener(this);
+	       checkBoxMimeTypes.addActionListener(this);
 	       add(checkBoxMimeTypes, NEXT_LINE);
 	       checkBoxEscidocMimeTypes = new JCheckBox("eSciDoc Mimetypes");
 	       checkBoxEscidocMimeTypes.addActionListener(this);
@@ -122,49 +123,11 @@ public class ConeConfigurationPanel extends IzPanel implements ActionListener
 	   public void actionPerformed(ActionEvent e)
 	    {
 		// store settings in iData
-	       if(checkBoxJournals.isSelected())
-	       {
-	    	   idata.setVariable("ConeCreateJournals", "true");
-	       }
-	       else
-	       {
-	    	   idata.setVariable("ConeCreateJournals", "false");
-	       }
+		   idata.setVariable("ConeCreateJournals", String.valueOf(checkBoxJournals.isSelected()));
+		   idata.setVariable("ConeCreateLanguages", String.valueOf(checkBoxLanguages.isSelected()));
+		   idata.setVariable("ConeCreateDDC", String.valueOf(checkBoxDDC.isSelected()));
+		   idata.setVariable("ConeCreateMimetypes", String.valueOf(checkBoxMimeTypes.isSelected()));
+		   idata.setVariable("ConeCreateEscidocMimeTypes", String.valueOf(checkBoxEscidocMimeTypes.isSelected()));
 	    
-	       if(checkBoxLanguages.isSelected())
-	       {
-	    	   idata.setVariable("ConeCreateLanguages", "true");
-	       }
-	       else
-	       {
-	    	   idata.setVariable("ConeCreateLanguages", "false");
-	       }
-	       
-	       if(checkBoxDDC.isSelected())
-	       {
-	    	   idata.setVariable("ConeCreateDDC", "true");
-	       }
-	       else
-	       {
-	    	   idata.setVariable("ConeCreateDDC", "false");
-	       }
-	       
-	       if(checkBoxMimeTypes.isSelected())
-	       {
-	    	   idata.setVariable("ConeCreateMimetypes", "true");
-	       }
-	       else
-	       {
-	    	   idata.setVariable("ConeCreateMimetypes", "false");
-	       }
-	       
-	       if(checkBoxEscidocMimeTypes.isSelected())
-	       {
-	    	   idata.setVariable("ConeCreateEscidocMimeTypes", "true");
-	       }
-	       else
-	       {
-	    	   idata.setVariable("ConeCreateEscidocMimeTypes", "false");
-	       }
 	    }
 }
