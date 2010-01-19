@@ -71,8 +71,8 @@
 <!--        <panel classname="JDKPathPanel" id="CommonJDKPath" />-->
         <panel classname="TargetPanel"/>
         <panel classname="InstallPanel"/>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetConfigurationCreatorPanel" condition="dataset_selected"/>
-        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel" condition="!dataset_selected"/>
+        <!-- <panel classname="de.mpg.escidoc.pubman.installer.panels.DatasetConfigurationCreatorPanel" condition="dataset_selected"/>-->
+        <panel classname="de.mpg.escidoc.pubman.installer.panels.ConfigurationCreatorPanel"/>
         <panel classname="FinishPanel"/>
     </panels>
 

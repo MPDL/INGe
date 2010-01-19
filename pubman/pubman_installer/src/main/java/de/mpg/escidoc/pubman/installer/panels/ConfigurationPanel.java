@@ -17,7 +17,7 @@ public class ConfigurationPanel extends IzPanel
 	}
 
 	public JTextArea textArea;
-	boolean isValid = false;
+	boolean isPanelValid = false;
 	
 	
 
@@ -29,12 +29,12 @@ public class ConfigurationPanel extends IzPanel
 		this.textArea = textArea;
 	}
 
-	public boolean isValid() {
-		return isValid;
+	public boolean isPanelValid() {
+		return isPanelValid;
 	}
 
-	public void setValid(boolean isValid) {
-		this.isValid = isValid;
+	public void setPanelValid(boolean isPanelValid) {
+		this.isPanelValid = isPanelValid;
 	}
 
 	
