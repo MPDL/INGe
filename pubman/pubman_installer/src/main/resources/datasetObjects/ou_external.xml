@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<escidocOrganizationalUnit:organizational-unit xmlns:escidocOrganizationalUnit="http://www.escidoc.de/schemas/organizationalunit/0.7" xmlns:escidocOrganizationalUnitList="http://www.escidoc.de/schemas/organizationalunitlist/0.7" xmlns:escidocOrganizationalUnitRef="http://www.escidoc.de/schemas/organizationalunitref/0.4" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:ou-details="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/">
-  <escidocOrganizationalUnit:properties>
-    <prop:has-children>false</prop:has-children>
-  </escidocOrganizationalUnit:properties>
-  <escidocMetadataRecords:md-records>
-    <escidocMetadataRecords:md-record name="escidoc">
-      <ou-details:organization-details xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
-        <dc:title>External Organisation</dc:title>
-        <dcterms:alternative>EO</dcterms:alternative>
-        <dc:identifier xsi:type="dcterms:URI"></dc:identifier>
-        <dc:identifier xsi:type="eidt:ESCIDOC">4711</dc:identifier>
-        <dc:description>This is the default external organisation.</dc:description>
-        <ou-details:city>München</ou-details:city>
-        <ou-details:country>NO</ou-details:country>
-      </ou-details:organization-details>
-    </escidocMetadataRecords:md-record>
-  </escidocMetadataRecords:md-records>
+<escidocOrganizationalUnit:organizational-unit xmlns:escidocOrganizationalUnit="http://www.escidoc.de/schemas/organizationalunit/0.7">
+    <escidocOrganizationalUnit:properties>
+        <prop:has-children xmlns:prop="http://escidoc.de/core/01/properties/">false</prop:has-children>
+    </escidocOrganizationalUnit:properties>
+    <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
+        <escidocMetadataRecords:md-record name="escidoc">
+            <organizational-unit xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                                 xmlns:kml="http://www.opengis.net/kml/2.2"
+                                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                 xmlns:dcterms="http://purl.org/dc/terms/"
+                                 xmlns="http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit">
+                <dc:title>External Organisation</dc:title>
+                <dcterms:alternative>EO</dcterms:alternative>
+                <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:URI"/>
+                <dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">4711</dc:identifier>
+                <dc:description>This is the default external organisation.</dc:description>
+                <eterms:city>München</eterms:city>
+                <eterms:country>NO</eterms:country>
+            </organizational-unit>
+        </escidocMetadataRecords:md-record>
+    </escidocMetadataRecords:md-records>
 </escidocOrganizationalUnit:organizational-unit>
