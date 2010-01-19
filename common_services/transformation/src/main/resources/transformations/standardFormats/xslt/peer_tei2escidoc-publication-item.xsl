@@ -455,21 +455,22 @@
 				</xsl:if>
 			</xsl:variable>
 			<xsl:copy-of select="$givenName"/>
-			
-			<xsl:variable name="a" select="t:affiliation"/>			
-			<xsl:variable name="orgName" select="
-				if (exists($a/t:orgName) and (exists($a/t:orgName[@type='department']) or exists($a/t:orgName[@type='institution'])))
-				then string-join( ($a/t:orgName[@type='department'], $a/t:orgName[@type='institution']), ', ')
-				else if (exists($a))
-				then $a 
-				else 'External Organization'
-			"/>
 
+			
+				<!-- START OF AFFILIATIONS -->
+			<xsl:for-each select="t:affiliation">		
+				<xsl:variable name="orgName" select="
+					if (exists(t:orgName) and (exists(t:orgName[@type='department']) or exists(t:orgName[@type='institution'])))
+					then string-join( (t:orgName[@type='department'], t:orgName[@type='institution']), ', ')
+					else if (exists(.))
+					then .
+					else 'External Organization'
+				"/>
 				<organization:organization>
 					<dc:title>
 						<xsl:value-of select="normalize-space($orgName)"/>
 					</dc:title>
-					<xsl:variable name="addr" select="$a/t:address"/>
+					<xsl:variable name="addr" select="t:address"/>
 					<xsl:if test="exists($addr)">
 						<xsl:variable name="emlCount" select="count(t:email)"/>
 						<xsl:variable name="emails">
@@ -504,10 +505,13 @@
 					</xsl:if>
 					<dc:identifier>${escidoc.pubman.external.organisation.id}</dc:identifier>
 				</organization:organization>
+			</xsl:for-each>
+<!-- END OF AFFILIATIONS -->
 			
-		</xsl:element>
+		</xsl:element>		
 	</xsl:template>
 <!--	END OF CREATORS-->	
+
 
 
 <!--	IDENTIFIER-->
