@@ -124,7 +124,7 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
-				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-1/query';
+				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>iso639-1/query?format=json';
 			</script>
 			</body>
 		</html>
