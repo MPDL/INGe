@@ -457,7 +457,7 @@
 			<xsl:copy-of select="$givenName"/>
 
 			
-				<!-- START OF AFFILIATIONS -->
+			<!-- START OF AFFILIATIONS -->
 			<xsl:for-each select="t:affiliation">		
 				<xsl:variable name="orgName" select="
 					if (exists(t:orgName) and (exists(t:orgName[@type='department']) or exists(t:orgName[@type='institution'])))
