@@ -185,6 +185,7 @@
         <module>search</module>
         <module>search_presentation</module>
         <module>search_ear</module>
+        <module>cone</module>
         <module>cone_ear</module>
         <module>cone_presentation</module>
         <module>dataacquisition</module>

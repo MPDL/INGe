@@ -287,14 +287,16 @@ public class ModelList
                 
                 if (predicate.isSearchable())
                 {
-                    if (predicate.isLocalized())
+                    model.setLocalizedMatches(true);
+                    model.setGlobalMatches(true);
+                    /*if (predicate.isLocalized())
                     {
                         model.setLocalizedMatches(true);
                     }
                     else
                     {
                         model.setGlobalMatches(true);
-                    }
+                    }*/
                 }
                 
                 if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)

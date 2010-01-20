@@ -343,7 +343,7 @@ public class TreeFragment extends HashMap<String, List<LocalizedTripleObject>> i
         
         try
         {
-            return PropertyReader.getProperty("escidoc.cone.service.url") + subject;
+            return subject;
         }
         catch (Exception e)
         {

@@ -82,7 +82,7 @@ public class ModelHelper
      
         Model model = ModelList.getInstance().getModelByAlias(modelName);
         
-        Set<String> languages = getLanguages(model, poMap);
+        Set<String> languages = getLanguagesForResults(model, poMap);
         
         List<Pair> results = new ArrayList<Pair>();
         
@@ -268,7 +268,7 @@ public class ModelHelper
      * @return
      * @throws Exception
      */
-    private static Set<String> getLanguages(Model model, TreeFragment poMap) throws Exception
+    private static Set<String> getLanguagesForResults(Model model, TreeFragment poMap) throws Exception
     {
         Set<String> languages = new HashSet<String>();
         
@@ -292,12 +292,55 @@ public class ModelHelper
                         Querier querier = QuerierFactory.newQuerier();
                         Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
                         TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
-                        languages.addAll(getLanguages(subModel, subResource));
+                        languages.addAll(getLanguagesForResults(subModel, subResource));
                     }
                 }
             }
         }
         if (model.isGlobalResultPattern())
+        {
+            languages.add("");
+        }
+        return languages;
+    }
+
+    /**
+     * @param modelName
+     * @param poMap
+     * @param languages
+     * @return
+     * @throws Exception
+     */
+    private static Set<String> getLanguagesForMatches(Model model, TreeFragment poMap) throws Exception
+    {
+        Set<String> languages = new HashSet<String>();
+        
+        if (model.isLocalizedMatches())
+        {
+            for (String key : poMap.keySet())
+            {
+                List<LocalizedTripleObject> objects = poMap.get(key);
+                for (LocalizedTripleObject object : objects)
+                {
+                    if (object.getLanguage() == null)
+                    {
+                        languages.add("");
+                    }
+                    else
+                    {
+                        languages.add(object.getLanguage());
+                    }
+                    if (object instanceof TreeFragment && model.getPredicate(key).isResource())
+                    {
+                        Querier querier = QuerierFactory.newQuerier();
+                        Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
+                        TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
+                        languages.addAll(getLanguagesForMatches(subModel, subResource));
+                    }
+                }
+            }
+        }
+        if (model.isGlobalMatches())
         {
             languages.add("");
         }
@@ -401,27 +444,7 @@ public class ModelHelper
         
         List<Pair> results = new ArrayList<Pair>();
         
-        if (model.isLocalizedMatches())
-        {
-            for (List<LocalizedTripleObject> objects : values.values())
-            {
-                for (LocalizedTripleObject object : objects)
-                {
-                    if (object.getLanguage() == null)
-                    {
-                        languages.add("");
-                    }
-                    else
-                    {
-                        languages.add(object.getLanguage());
-                    }
-                }
-            }
-        }
-        if (model.isGlobalMatches())
-        {
-            languages.add("");
-        }
+        languages = getLanguagesForMatches(model, values);
 
         for (String lang : languages)
         {
@@ -445,10 +468,13 @@ public class ModelHelper
                 {
                     if (value.getLanguage() == null || "".equals(value.getLanguage()) || lang.equals(value.getLanguage()))
                     {
-                        if (predicate.isResource())
+                        if (predicate.isResource() && value instanceof TreeFragment)
                         {
                             Querier querier = QuerierFactory.newQuerier();
-                            TreeFragment treeFragment = querier.details(predicate.getResourceModel(), value.toString(), lang);
+                            
+                            String id = ((TreeFragment) value).getSubject();
+                            
+                            TreeFragment treeFragment = querier.details(predicate.getResourceModel(), id, "*");
                             Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
                             result.append(getMatchString(newModel.getPredicates(), treeFragment, lang));
                             querier.release();
