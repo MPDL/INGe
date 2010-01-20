@@ -505,7 +505,7 @@
                 <escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
 
                 <!-- Current XSD Schema versions -->
-<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
+				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
 				<xsd.soap.common.version>http://escidoc.de/core/01/properties/version/</xsd.soap.common.version>
 				<xsd.soap.common.release>http://escidoc.de/core/01/properties/release/</xsd.soap.common.release>
@@ -535,7 +535,7 @@
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
 				<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
 				<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
-				<xsd.metadata.file>http://purl.org/metadata/profiles/0.1/file</xsd.metadata.file>
+				<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
 				<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
@@ -699,7 +699,7 @@
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
 				<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
 				<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
-				<xsd.metadata.file>http://purl.org/metadata/profiles/0.1/file</xsd.metadata.file>
+				<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
 				<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
