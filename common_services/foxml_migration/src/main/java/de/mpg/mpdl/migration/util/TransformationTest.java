@@ -13,8 +13,8 @@ import javax.xml.transform.stream.StreamSource;
 
 public class TransformationTest
 {
-    public static final String XML_IN = "xml_old/escidoc_249588";
-    public static final String XML_OUT = "xml_old/transformed249588.xml";
+    public static final String XML_IN = "xml_old/escidoc_37083";
+    public static final String XML_OUT = "xml_old/transformed37083.xml";
     public static final String XSL = "xsl/foxml_pubItem.xsl";
 
     public static void main(String[] args)

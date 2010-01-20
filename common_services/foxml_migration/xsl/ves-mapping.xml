@@ -49,7 +49,7 @@
 			<map v1="courseware-lecture">http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture</map>
 			<map v1="thesis">http://purl.org/eprint/type/Thesis</map>
 			<map v1="paper">http://purl.org/escidoc/metadata/ves/publication-types/paper</map>
-			<map v1="report">http://purl.org/escidoc/metadata/ves/publication-types/report</map>
+			<map v1="report">http://purl.org/eprint/type/Report</map>
 			<map v1="journal">http://purl.org/escidoc/metadata/ves/publication-types/journal</map>
 			<map v1="issue">http://purl.org/escidoc/metadata/ves/publication-types/issue</map>
 			<map v1="series">http://purl.org/escidoc/metadata/ves/publication-types/series</map>
@@ -210,18 +210,25 @@
 		<v1-to-v2>
 			<map v1="any-fulltext">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
 			<map v1="any_fulltext">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
+			<map v1="ANY_FULLTEXT">http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</map>
 			<map v1="pre-print">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
 			<map v1="pre_print">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
+			<map v1="PRE_PRINT">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</map>
 			<map v1="post-print">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
 			<map v1="post_print">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
+			<map v1="POST_PRINT">http://purl.org/escidoc/metadata/ves/content-categories/post-print</map>
 			<map v1="publisher-version">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
 			<map v1="publisher_version">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
+			<map v1="PUBLISHER_VERSION">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</map>
 			<map v1="abstract">http://purl.org/escidoc/metadata/ves/content-categories/abstract</map>
+			<map v1="ABSTRACT">http://purl.org/escidoc/metadata/ves/content-categories/abstract</map>
 			<map v1="table-of-contents">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
 			<map v1="table_of_contents">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
 			<map v1="table_of_content">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
+			<map v1="TABLE_OF_CONTENTS">http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents</map>
 			<map v1="supplementary-material">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
 			<map v1="supplementary_material">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
+			<map v1="SUPPLEMENTARY_MATERIAL">http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</map>
 			<map v1="additional-material">http://purl.org/escidoc/metadata/ves/content-categories/additional-material</map>
 			<map v1="administrative-files">http://purl.org/escidoc/metadata/ves/content-categories/administrative-files</map>
 			<map v1="copyright-transfer-agreement">http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement</map>
