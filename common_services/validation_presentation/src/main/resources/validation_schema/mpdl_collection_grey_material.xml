@@ -316,7 +316,6 @@
 		<iso:rule context="publication:publication">
 			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '' or escidoc:creator/organization:organization/dc:title">CreatorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="escidoc:creator/@role = 'author'">AuthorNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator//dc:title[contains(., 'Max Planck Digital Library')]">MpdlCreatorRequired</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication/escidoc:creator/person:person">

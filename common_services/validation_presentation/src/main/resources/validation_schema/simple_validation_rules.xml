@@ -288,7 +288,6 @@
 	<iso:pattern name="creator_required" id="creator_required">
 		<iso:rule context="publication:publication">
 			<iso:assert test="escidoc:creator/person:person/escidoc:family-name != '' or escidoc:creator/organization:organization/dc:title != ''">CreatorNotProvided</iso:assert>
-			<iso:assert test="escidoc:creator/@role != ''">CreatorRoleNotProvided</iso:assert>
 			<iso:assert test="escidoc:creator/person:person/organization:organization/dc:title != '' or escidoc:creator/organization:organization/dc:title != ''">OrganizationalMetadataNotProvided</iso:assert>
 		</iso:rule>
 		<iso:rule context="publication:publication/escidoc:creator/person:person">
