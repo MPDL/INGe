@@ -5,20 +5,6 @@
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/frank/src/stax/sjsxp-1_0_1/sjsxp.jar"/>
-	<classpathentry kind="lib" path="/home/frank/src/stax/jsr173_1.0_api.jar"/>
-	<classpathentry kind="lib" path="/home/frank/src/stax/stax-utils-20070216/stax-utils.jar"/>
-	<classpathentry kind="lib" path="/home/frank/.m2/repository/xmlbeans/escidoc-core/1.1.0/escidoc-core-1.1.0.jar">
-		<attributes>
-			<attribute name="maven.groupId" value="xmlbeans"/>
-			<attribute name="maven.artifactId" value="escidoc-core"/>
-			<attribute name="maven.version" value="1.1.0"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/frank/data/AGRIS_FAO/URIs/fao_uris.jar"/>
-	<classpathentry kind="lib" path="/home/frank/data/AGRIS_FAO/20090910-FaodocExport/faodocitems.jar"/>
-	<classpathentry kind="lib" path="/home/frank/data/AGRIS_FAO/20090910-EIMSExport/final/eims091204.jar"/>
-	<classpathentry kind="lib" path="/home/frank/data/AGRIS_FAO/xsd/updated/fao_datastreams.jar"/>
+	<classpathentry kind="lib" path="/home/frank/data/mulgara-2.1.4/dist/querylang-2.1.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

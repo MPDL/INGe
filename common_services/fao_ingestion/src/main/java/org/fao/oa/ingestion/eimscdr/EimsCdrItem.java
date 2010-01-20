@@ -51,7 +51,7 @@ public class EimsCdrItem
         //filteredList(filenames, filter);
         //ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
         
-        //ItemType item = getById(list, "137824");
+        //ItemType item = getById(list, "232603");
         //System.out.println(item);
         
     }
@@ -112,8 +112,12 @@ public class EimsCdrItem
                 ItemType[] items = resDoc.getEimsresources().getItemArray();
                 System.out.println(name + " contains " + items.length + " items");
                 eimsitems = eimsitems + items.length;
+                int withoutJN = 0;
+                int withoutURL = 0;
+                int withoutTIT = 0;
                 for (ItemType i : items)
                 {
+                    /*
                     if (i.getURL() != null)
                     {
                         writer.write(i.getIdentifier() + " " + i.getURL().getStringValue());
@@ -126,7 +130,36 @@ public class EimsCdrItem
                         writer.newLine();
                         System.out.println(i.getIdentifier() + " " + i.getPDFURL().getStringValue());
                     }
+                    */
+                    if (i.getJobno() != null)
+                    {
+                        
+                    }
+                    else
+                    {
+                        withoutJN++;
+                        if (i.getURL() != null || i.getPDFURL() != null)
+                        {
+                            
+                        }
+                        else
+                        {
+                            withoutURL++;
+                            if (i.sizeOfTitleArray() > 0)
+                            {
+                                
+                            }
+                            else
+                            {
+                                withoutTIT++;
+                            }
+                        }
+                    }
                 }
+                System.out.println("items without job number: " + withoutJN);
+                System.out.println("items without jn and url: " + withoutURL);
+                System.out.println("items without anything: " + withoutTIT);
+
             }
             catch (XmlException e)
             {

@@ -26,6 +26,7 @@ import org.fao.oa.ingestion.utils.IngestionProperties;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
 import noNamespace.ResourcesDocument;
+import noNamespace.TitleType;
 
 public class DuplicateDetection
 {
@@ -39,6 +40,7 @@ public class DuplicateDetection
     ArrayList<ITEMType> faodocItems = null;
     ArrayList<ItemType> eimsItems = null;
     HashMap<String, String> duplicates = null;
+    boolean hasDuplicate = false;
     Logger logger = Logger.getLogger("ingestion");
 
     /**
@@ -55,6 +57,7 @@ public class DuplicateDetection
         int recordCounter = 0;
         for (ITEMType faodoc : faodocItems)
         {
+            hasDuplicate = false;
             ArrayList<String> faodocJN = null;
             ArrayList<String> faodocLANG = null;
             if (faodoc.sizeOfJNArray() > 0 && faodoc.sizeOfLANGArray() > 0)
@@ -65,7 +68,7 @@ public class DuplicateDetection
                 {
                     faodocJN.add(jobno);
                 }
-                for (String lang : faodoc.getURLArray())
+                for (String lang : faodoc.getLANGArray())
                 {
                     faodocLANG.add(lang);
                 }
@@ -92,16 +95,25 @@ public class DuplicateDetection
                                     && lang.startsWith(eims_langkey))
                             {
                                 recordCounter++;
-                                logger.info("====== duplicated record number: " + recordCounter + " ======");
-                                logger.info("  EIMS record:\t" + eims.getIdentifier() + "\t" + eims_jobno + "\t"
-                                        + eims_langkey + "\t" + eims.getMaintype().getStringValue());
-                                logger.info("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + jn + "\t" + lang + "\t"
-                                        + faodoc.getBIBLEVELArray(0));
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0)
+                                        + "\t" + jn + "\t" + lang + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t"
+                                        + eims_jobno + "\t" + eims_langkey);
+                                logger.info(message);
+                                hasDuplicate = true;
                                 duplicates.put(eims.getIdentifier(), faodoc.getARNArray(0));
                             }
                         }
                     }
                 }
+                else
+                {
+                    checkURL(faodoc, eims);
+                }
+            }
+            if (hasDuplicate == false)
+            {
+                logger.info("FAODOC record:\t" + faodoc.getARNArray(0));
             }
         }
         System.out.println("Successfully parsed " + faodocItems.size() + " FAODOC items");
@@ -109,6 +121,114 @@ public class DuplicateDetection
         LinkedHashMap<String, String> sorted = sortHashMapByValues(duplicates);
         // System.out.println(sorted.toString());
         // System.out.println(duplicates.toString());
+    }
+
+    /**
+     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC URL equals EIMS_CDR html or pdf URL
+     */
+    public void checkURL(ITEMType faodoc, ItemType eims)
+    {
+        ArrayList<String> faodocURLs = null;
+        if (faodoc.sizeOfURLArray() > 0)
+        {
+            faodocURLs = new ArrayList<String>();
+            for (String url : faodoc.getURLArray())
+            {
+                faodocURLs.add(url);
+            }
+        }
+        String eims_html = null;
+        String eims_pdf = null;
+        if (eims.getURL() != null)
+        {
+            eims_html = eims.getURL().getStringValue();
+        }
+        if (eims.getPDFURL() != null)
+        {
+            eims_pdf = eims.getPDFURL().getStringValue();
+        }
+        if (faodocURLs != null && (eims_html != null || eims_pdf != null))
+        {
+            for (String url : faodocURLs)
+            {
+                if (url.equalsIgnoreCase(eims_html) || url.equalsIgnoreCase(eims_pdf))
+                {
+                    hasDuplicate = true;
+                    StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + url
+                            + "\t");
+                    message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_html + "\t"
+                            + eims_pdf);
+                    logger.info(message);
+                }
+            }
+        }
+        else
+        {
+            checkTitles(faodoc, eims);
+        }
+    }
+
+    
+    /**
+     * compare a FAODOC item with an EIMS_CDR item. check if any FAODOC TITLE equals EIMS_CDR title
+     */
+    public void checkTitles(ITEMType faodoc, ItemType eims)
+    {
+        ArrayList<String> faodocTitles = null;
+        ArrayList<String> eimsTitles = null;
+        ArrayList<String> faodocDates = null;
+
+        if (faodoc.sizeOfTITENArray() > 0
+                || faodoc.sizeOfTITFRArray() > 0
+                || faodoc.sizeOfTITESArray() > 0
+                || faodoc.sizeOfTITOTArray() > 0
+                || faodoc.sizeOfTITTRArray() > 0)
+        {
+            faodocTitles = new ArrayList<String>();
+            for (String title : faodoc.getTITENArray())
+            {
+                faodocTitles.add(title);
+            }
+            for (String title : faodoc.getTITFRArray())
+            {
+                faodocTitles.add(title);
+            }
+            for (String title : faodoc.getTITESArray())
+            {
+                faodocTitles.add(title);
+            }
+            for (String title : faodoc.getTITOTArray())
+            {
+                faodocTitles.add(title);
+            }
+            for (String title : faodoc.getTITTRArray())
+            {
+                faodocTitles.add(title);
+            }
+        }
+        if (eims.sizeOfTitleArray() > 0)
+        {
+            eimsTitles = new ArrayList<String>();
+            for (TitleType eims_title : eims.getTitleArray())
+            {
+                eimsTitles.add(eims_title.getStringValue());
+            }
+        }
+        
+        if (faodocTitles != null && eimsTitles != null)
+        {
+            for (String title : faodocTitles)
+            {
+                if (eimsTitles.contains(title))
+                {
+                    hasDuplicate = true;
+                    StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + title
+                            + "\t");
+                    message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eimsTitles);
+                    logger.info(message);
+                }
+            }
+        }
     }
 
     /**
@@ -199,7 +319,7 @@ public class DuplicateDetection
         }
         return sortedMap;
     }
-    
+
     public String comparableURL(String urlString)
     {
         try
@@ -211,7 +331,7 @@ public class DuplicateDetection
             }
             else
             {
-                return url.getPath();
+                return url.getFile();
             }
         }
         catch (MalformedURLException e)

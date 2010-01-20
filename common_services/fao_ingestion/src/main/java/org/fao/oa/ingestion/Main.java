@@ -46,11 +46,19 @@ public class Main
     {
         
         DuplicateDetection dd = new DuplicateDetection();
-        //dd.checkURL();
+        dd.checkMMS();
+        /*
         String compare = dd.comparableURL("http://www.fao.org/documents/show_cdr.asp?url_file=/docrep/X5328F/X5328F00.htm");
         String compare2 = dd.comparableURL(" http://www.fao.org/docrep/010/a1445e/a1445e00.htm");
+        String compare3 = dd.comparableURL("http://www.fao.org/../docrep/X4480E/X4480E00.htm");
+        String compare4 = dd.comparableURL("http://www.fao.org/docrep/X4480E/X4480E00.htm");
+        String compare5 = dd.comparableURL("ftp://ftp.fao.org/docrep/fao/010/a1246e");
+        String compare6 = dd.comparableURL("ftp://ftp.fao.org/docrep/fao/010/a1246e/a1246e01.pdf");
         System.out.println(compare);
         System.out.println(compare2);
+        System.out.println(compare3 + "   " + compare4);
+        System.out.println(compare5 + "   " + compare6);
+        */
         //testObjectMerge();
         //testObjectCreation();
         /*
@@ -158,8 +166,11 @@ public class Main
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "137824";
+        String id = "259163";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
+        
+        System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));
+        System.out.println(eims.xmlText(XBeanUtils.getDefaultOpts()));
         
         ModsDocument merged = new ModsDatastream().merge(eims, faodoc);
         if (XBeanUtils.validation(merged))

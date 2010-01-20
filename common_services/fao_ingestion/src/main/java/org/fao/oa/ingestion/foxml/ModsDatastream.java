@@ -673,8 +673,11 @@ public class ModsDatastream
         // add mods:relatedItem@type='host'/part/detail
         if (faodoc.sizeOfSERPAGESArray() > 0)
         {
-            // addNewRelatedItemPartDetail(faodoc.getSERPAGESArray(0));
-            addPartDetail2existingRelatedItem(faodoc.getSERPAGESArray(0), "series");
+            for (String serPages : faodoc.getSERPAGESArray())
+            {
+                // addNewRelatedItemPartDetail(faodoc.getSERPAGESArray(0));
+                addPartDetail2existingRelatedItem(serPages, "series");
+            }
         }
         // M-61
         // add mods:note@type='library_subject_code'

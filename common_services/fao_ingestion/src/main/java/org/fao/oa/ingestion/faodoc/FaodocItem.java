@@ -4,8 +4,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -30,10 +34,10 @@ public class FaodocItem
         // System.out.println(faodoc.getARNArray(0));
         // System.out.println(faodoc.sizeOfJNArray());
         // getAllARNs(faodocExportFile);
-        parseTest(filenames);
+        //parseTest(filenames);
         
-        //String filter = "M";
-        //ArrayList<ITEMType> items = filteredList(filenames, filter);
+        String filter = "A";
+        ArrayList<ITEMType> items = filteredList(filenames, filter);
         /*
         try
         {
@@ -45,10 +49,21 @@ public class FaodocItem
             e.printStackTrace();
         }
         */
-        //ITEMType item = getByARN(items, "XF2009439211");
+        ITEMType item = getByARN(items, "XF2009439249");
 //        ITEMType item = getByARN(items, "XF2002400347");
 
-        //System.out.println(item);
+        System.out.println(item);
+        //Object o = matchCondition(item, "sizeOfJNArray").get(int.class);
+        Map map = matchCondition(item, "sizeOfISSNArray", null, null);
+        System.out.println(map);
+        int jns = Integer.valueOf(map.get(int.class).toString());
+        System.out.println(jns);
+        Class[] args = new Class[]{int.class};
+        Object[] vals = new Object[]{Integer.valueOf("0")};
+        Map issnMap = matchCondition(item, "getISSNArray", args, vals);
+        System.out.println(issnMap);
+        String issn = (String)matchCondition(item, "getISSNArray", args, vals).get(String.class);
+        System.out.println(issn);
         //System.out.println(item.getISBNArray(0) + "  " + item.getTITENArray(0));
 //        ITEMType item2 = getByARN(items, "XF2009786668");
 //        System.out.println(item2);
@@ -111,6 +126,7 @@ public class FaodocItem
     {
         int faodocs = 0;
         BufferedWriter writer = null;
+        /*
         try
         {
             writer = new BufferedWriter(new FileWriter("/home/frank/data/AGRIS_FAO/url_variations_FAODOC"));
@@ -120,6 +136,7 @@ public class FaodocItem
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+        */
 
         for (String name : names)
         {
@@ -134,10 +151,14 @@ public class FaodocItem
                 String pattern = name.split("-")[0];
                 ArrayList<String> langs = null;
 
+                int withoutJN = 0;
+                int withoutURL = 0;
+                int withoutTIT = 0;
                 for (ITEMType item : items)
                 {
                     if (item.getBIBLEVELArray(0).equals(pattern))
                     {
+                        /*
                         if (item.sizeOfURLArray() > 0)
                         {
                             for (int l = 0; l < item.sizeOfURLArray(); l++)
@@ -148,6 +169,39 @@ public class FaodocItem
                             }
                             
                         }
+                        */
+                        if (item.sizeOfJNArray() > 0)
+                        {
+                            for (String jn : item.getJNArray())
+                            {
+                               // System.out.println(item.getARNArray(0) + " has jn " + jn);
+                            }
+                        }
+                        else
+                        {
+                            withoutJN++;
+                            if (item.sizeOfURLArray() > 0)
+                            {
+                                //System.out.println(item.getARNArray(0) + " has no job number! BUT an URL: " + item.getURLArray(0));
+                            }
+                            else
+                            {
+                                withoutURL++;
+                                //System.out.println(item.getARNArray(0) + " has NO jn AND NO URL !!!");
+                                if (item.sizeOfTITENArray() > 0 
+                                        || item.sizeOfTITESArray() > 0 
+                                        || item.sizeOfTITFRArray() > 0 
+                                        || item.sizeOfTITOTArray() > 0 
+                                        || item.sizeOfTITTRArray() > 0)
+                                {
+                                    
+                                }
+                                else
+                                {
+                                    withoutTIT++;
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -156,6 +210,10 @@ public class FaodocItem
                                 + item.getARNArray(0));
                     }
                 }
+                System.out.println("items without job number: " + withoutJN);
+                System.out.println("items without jn and url: " + withoutURL);
+                System.out.println("items without anything: " + withoutTIT);
+
             }
             catch (XmlException e)
             {
@@ -240,5 +298,73 @@ public class FaodocItem
         System.out.println("zero: " + zero);
         System.out.println("once: " + onlyOnce);
         System.out.println("many: " + moreThanOnce);
+    }
+    
+    public static HashMap<Class, Object> matchCondition(ITEMType item, String condition, Class[] args, Object[] vals)
+    {
+        Class itemTypeClass = item.getClass();
+        HashMap<Class, Object> map = new HashMap<Class, Object>();
+        Method m = null;
+        try
+        {
+            if (args != null)
+            {
+                m = itemTypeClass.getDeclaredMethod(condition, args);
+            }
+            else
+            {
+                m = itemTypeClass.getDeclaredMethod(condition, null);
+            }
+        }
+        catch (SecurityException e1)
+        {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        catch (NoSuchMethodException e1)
+        {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+            if (m != null)
+            {
+                Class returnType = m.getReturnType();
+                try
+                {
+                    if (vals != null)
+                    {
+                        Object returnValue = m.invoke(item, vals);
+                        map.put(returnType, returnValue);
+                        return map;
+                    }
+                    else
+                    {
+                        Object returnValue = m.invoke(item, null);
+                        map.put(returnType, returnValue);
+                        return map;
+                    }
+                }
+                catch (IllegalArgumentException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                catch (IllegalAccessException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                catch (InvocationTargetException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                return null;
+            }
+        
+        return null;
     }
 }
