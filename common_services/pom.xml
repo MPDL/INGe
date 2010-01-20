@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+m<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.mpg.escidoc.services</groupId>
@@ -663,7 +663,7 @@
                 <escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
                 <escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
                 <escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
-                <escidoc.cone.modelxml.path>models.xml</escidoc.cone.modelxml.path>
+                <escidoc.cone.modelsxml.path>models.xml</escidoc.cone.modelsxml.path>
 
                 <!-- unAPI -->
                 <escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
