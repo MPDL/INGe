@@ -54,7 +54,7 @@
 						<h:outputText id="txtFileName" value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>
 						<h:outputText id="txtContentCategory" value=" (#{file.contentCategory})" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						<h:outputText id="txtViewItemFull_lblNoAccessToFile" value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
-						<h:commandLink id="lnkChecksum" value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null}"/>		
+						<h:commandLink id="lnkChecksum" value=" [#{file.checksumAlgorithmAsString}]" action="#{file.displayChecksum}" target="_blank" rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.isAudience)}"/>		
 				</span>
 			</h:panelGroup>
 
