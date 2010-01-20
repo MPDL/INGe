@@ -36,7 +36,7 @@
 <!-- HOMEPAGE ENGLISH VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
 	<h2>
-	PubMan - an eSciDoc solution for publication data management 
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - an eSciDoc solution for publication data management 
 	</h2>
 	<p>	Provide persistent access to your papers and supplementary material! <br/>
 		Compile your papers in your personal "Researcher Portfolio"! <br/>
@@ -79,7 +79,7 @@
 <!-- HOMEPAGE GERMAN VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
 	<h2>
-	PubMan - eine eSciDoc Lösung für Publikationsdaten-Management 
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eine eSciDoc Lösung für Publikationsdaten-Management 
 	</h2>
 	<p>	Machen Sie Ihre Publikationen und Supplementary Material verfügbar für Kollegen!<br/>
 		Stellen Sie Ihre Ergebnisse in einem persönlichen "Researcher Portfolio" zusammen!<br/>
@@ -121,7 +121,7 @@
 <!-- HOMEPAGE JAPANESE VERSION -->
 <h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 	<h2>
-	PubMan - eSciDoc文献管理ソリューション
+	PubMan <h:outputText value="#{ApplicationBean.shortVersion}"/> - eSciDoc文献管理ソリューション
 	</h2>
 	<p>
 	研究成果文献と関連資料を半永久的に保存提供できます。<br/>
