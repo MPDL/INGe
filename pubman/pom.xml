@@ -840,6 +840,8 @@
 				
 				<escidoc.statistics.max_mind_geo_lite_city_db.location />
                 <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
+                <escidoc.pubman.statistics.nims.link></escidoc.pubman.statistics.nims.link>
+				<escidoc.pubman.statistics.nims.context.ids></escidoc.pubman.statistics.nims.context.ids>
 				
 			</properties>
 				<distributionManagement>
