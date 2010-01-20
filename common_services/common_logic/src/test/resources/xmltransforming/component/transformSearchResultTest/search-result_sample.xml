@@ -43,7 +43,7 @@
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eterms:ESCIDOC">19484</dc:identifier>
 						<dc:identifier xsi:type="dcterms:URI">http://myFile.com</dc:identifier>
-						<file:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</file:content-category>
+						<eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
 					</file:file>

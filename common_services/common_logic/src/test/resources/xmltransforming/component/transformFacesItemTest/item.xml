@@ -58,7 +58,7 @@
 					<file:file>
 						<dc:title>004_o_m_d_a_high_resolution.jpg</dc:title>
 						<dc:description>high resolution</dc:description>
-						<file:content-category>high resolution</file:content-category>
+						<eterms:content-category>high resolution</eterms:content-category>
 						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>1086756</dcterms:extent>
 					</file:file>
@@ -305,7 +305,7 @@
 					<file:file>
 						<dc:title>004_o_m_d_a_web_resolution.jpg</dc:title>
 						<dc:description>web resolution</dc:description>
-						<file:content-category>web resolution</file:content-category>
+						<eterms:content-category>web resolution</eterms:content-category>
 						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>59723</dcterms:extent>
 					</file:file>
@@ -472,7 +472,7 @@
 					<file:file>
 						<dc:title>004_o_m_d_a_thumbnail.jpg</dc:title>
 						<dc:description>thumbnail</dc:description>
-						<file:content-category>thumbnail</file:content-category>
+						<eterms:content-category>thumbnail</eterms:content-category>
 						<dc:format xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>30846</dcterms:extent>
 					</file:file>
