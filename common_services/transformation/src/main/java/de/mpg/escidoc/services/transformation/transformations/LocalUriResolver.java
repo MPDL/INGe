@@ -1,5 +1,4 @@
-
-/*
+﻿/*
 *
 * CDDL HEADER START
 *
@@ -23,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -31,12 +30,13 @@
 
 package de.mpg.escidoc.services.transformation.transformations;
 
+import java.io.FileNotFoundException;
+
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.transformation.TransformationsDocument;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 
 /**
@@ -46,9 +46,9 @@ import de.mpg.escidoc.services.common.util.ResourceUtil;
  *
  * @author mfranke
  * @author $Author: mfranke $
- * @version $Revision: 1953 $$LastChangedDate: 2009-05-07 10:40:57 +0200 (Do, 07 Mai 2009) $
+ * @version $Revision: 1951 $$LastChangedDate: 2009-05-07 10:27:06 +0200 (Do, 07 Mai 2009) $
  */
-public class LocalURIResolver implements URIResolver
+public class LocalUriResolver implements URIResolver
 {
 
     private String base = "";
@@ -56,7 +56,7 @@ public class LocalURIResolver implements URIResolver
     /**
      * Default constructor.
      */
-    public LocalURIResolver()
+    public LocalUriResolver()
     {
         
     }
@@ -66,7 +66,7 @@ public class LocalURIResolver implements URIResolver
      * 
      * @param base The base URI.
      */
-    public LocalURIResolver(String base)
+    public LocalUriResolver(String base)
     {
         this.base = base;
     }
@@ -80,15 +80,18 @@ public class LocalURIResolver implements URIResolver
         {
             altBase = "";
         }
-
-        java.io.InputStream in;
+        
         try
         {
+            //Source source = new StreamSource(ResourceUtil.getResourceAsStream(href));
             Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
+
             return source;
         }
-        catch (Exception e) {
-            throw new TransformerException(e);
+        catch (FileNotFoundException e)
+        {
+            //throw new TransformerException("Cannot resolve URI: " + href);
+            throw new TransformerException("Cannot resolve URIdgdsgdfgdfgd: " + this.base + altBase + "/" + href, e);
         }
     }
 }
