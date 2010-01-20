@@ -252,6 +252,11 @@
 	margin-left: -0.65em;
 }
 
+.listItem .itemCheckBox, .listItem .itemCheckBox * {
+	float: right;
+	border-width: 0px;
+}
+
 .listItem td .statusIcon {
 	margin-top: 0.09em;
 	margin-left: 0em;
