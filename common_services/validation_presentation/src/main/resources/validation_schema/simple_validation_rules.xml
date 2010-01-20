@@ -190,7 +190,7 @@
 	<!-- if any fields at "Publication creator" are filled, "role" has to be filled also. -->
 	<iso:pattern name="publication_creator_role_required" id="publication_creator_role_required">
 		<iso:rule context="publication:publication/escidoc:creator">
-			<iso:assert test="(@role != '') or not(person:person/escidoc:family-name != '' or person:person/escidoc:given-name != '' or organization:organization/dc:title != '' or person:person/organization:organization/dc:title != '' or organization:organization/escidoc:address != '' or person:person/organization:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
+			<iso:assert test="(@role != '') or not(person:person/escidoc:family-name != '' or person:person/escidoc:given-name != '' or organization:organization/dc:title != '' or person:person/organization:organization/dc:title != '' or organization:organization/escidoc:address != '' or person:person/organization:organization/escidoc:address != '')">CreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
