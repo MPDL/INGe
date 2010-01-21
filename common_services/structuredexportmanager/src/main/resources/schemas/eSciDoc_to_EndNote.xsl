@@ -53,12 +53,8 @@
    xmlns:person="${xsd.metadata.person}"
    xmlns:organization="${xsd.metadata.organization}"> 
 	
-	<xsl:import href="vocabulary-mappings.xsl"/>
-
 <xsl:output method="text" encoding="UTF-8" indent="yes"/>
-	<!--
-  DC XML  Header
--->
+
 	<xsl:template match="/">
 	
 		<xsl:for-each select="//ei:item/mdr:md-records/mdr:md-record">
@@ -88,23 +84,24 @@
 					<xsl:value-of select="if ($mdr_pos!=1) then '&#13;&#10;' else ''"/>
 		
 					<!-- GENRES -->
-					<xsl:variable name="gen" select="$genre-ves/enum[@uri=@type]"/>
+					<xsl:variable name="gen" select="@type"/>
+					
 					<xsl:choose>
 						<!-- ### book ### -->
-						<xsl:when test="$gen='book'">
+						<xsl:when test="$gen='http://purl.org/eprint/type/Book'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<!-- at least one editor! -->
 								<xsl:with-param name="value">
 									<xsl:choose>
-										<xsl:when test="count(eterms:creator[@role=$creator-ves/enum[.='editor']/@uri])>0">Edited Book</xsl:when>
+										<xsl:when test="count(eterms:creator[@role='http://www.loc.gov/loc.terms/relators/EDT'])>0">Edited Book</xsl:when>
 										<xsl:otherwise>Book</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
 							</xsl:call-template>
 						</xsl:when>
 						<!-- ### book-item  ### -->
-						<xsl:when test="$gen='book-item'">
+						<xsl:when test="$gen='http://purl.org/eprint/type/BookItem'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Book Section'"/>
@@ -112,42 +109,42 @@
 						</xsl:when>
 						
 						<!-- ### conference-paper ### -->
-						<xsl:when test="$gen='conference-paper'">
+						<xsl:when test="$gen='http://purl.org/eprint/type/ConferencePaper'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Conference Paper'"/>
 							</xsl:call-template>
 						</xsl:when>
 						<!-- ### thesis ###  TODO: mapping of DegreeEnum  to EndNote  is needed  -->
-						<xsl:when test="$gen='thesis'">
+						<xsl:when test="$gen='http://purl.org/eprint/type/Thesis'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
-								<xsl:with-param name="value" select="'Thesis'"/>
+								<xsl:with-param name="value" select="'http://purl.org/eprint/type/Thesis'"/>
 							</xsl:call-template>							
 						</xsl:when>
 						<!-- ### article ### -->
-						<xsl:when test="$gen='article'">
+						<xsl:when test="$gen='http://purl.org/escidoc/metadata/ves/publication-types/article'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Journal Article'"/>
 							</xsl:call-template>
 						</xsl:when>
 						<!-- ### proceedings  ### -->
-						<xsl:when test="$gen='proceedings'">
+						<xsl:when test="$gen='http://purl.org/escidoc/metadata/ves/publication-types/proceedings'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Conference Proceedings'"/>
 							</xsl:call-template>
 						</xsl:when>
 						<!-- ### manuscript  ### -->
-						<xsl:when test="$gen='manuscript'">
+						<xsl:when test="$gen='http://purl.org/escidoc/metadata/ves/publication-types/manuscript'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Manuscript'"/>
 							</xsl:call-template>
 						</xsl:when>
 						<!-- ### report  ### -->
-						<xsl:when test="$gen='report'">
+						<xsl:when test="$gen='http://purl.org/eprint/type/Report'">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
 								<xsl:with-param name="value" select="'Report'"/>
@@ -230,7 +227,7 @@
 					<!-- Artnum - Sequence Number of Article  -->
 					<xsl:variable name="sequence-number" select="source:source[1]/eterms:sequence-number[.!='']"/>
 					<xsl:choose>
-						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source[1]/eterms:start-page=''">
+						<xsl:when test="($gen='http://purl.org/escidoc/metadata/ves/publication-types/article' or $gen='http://purl.org/eprint/type/ConferencePaper') and pub:source[1]/eterms:start-page=''">
 							<xsl:if test="$sequence-number!=''">
 								<xsl:call-template name="print-line">
 									<xsl:with-param name="tag" select="'P'"/>
@@ -282,24 +279,23 @@
 						*:source[@type='journal']/dcterms:alternative -> %J
 						*:source[@type!='journal']/dc:title -> %B
 						*:source[@type!='journal']/dcterms:alternative -> %B
-						*:source[@type='series' and ../*:item[@type='book-item']/dc:title -> %S
-						*:source[@type='series' and ../*:item[@type='book-item']/dcterms:alternative -> %S
+						*:source[@type='series' and ../*:item[@type='http://purl.org/eprint/type/BookItem']/dc:title -> %S
+						*:source[@type='series' and ../*:item[@type='http://purl.org/eprint/type/BookItem']/dcterms:alternative -> %S
 					-->
 					<!-- <xsl:for-each select="*:source/(dc:title|dcterms:alternative)">-->
 					<xsl:variable name="stitle" select="source:source[1]/(dc:title|dcterms:alternative)[1]"/>
 					<xsl:if test="$stitle!=''">
 						<xsl:variable name="jb" select="normalize-space($stitle)"/>
 						<xsl:variable name="sourcegenre" select="$stitle/../@type"/>
-						<xsl:variable name="sgenre" select="$genre-ves/enum[.=$sourcegenre]/@uri"/>
 						<xsl:if test="$jb!=''">
 							<xsl:choose>
-								<xsl:when test="$sgenre='journal'">
+								<xsl:when test="$sourcegenre='http://purl.org/escidoc/metadata/ves/publication-types/journal'">
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'J'"/>
 										<xsl:with-param name="value" select="$jb"/>
 									</xsl:call-template>
 								</xsl:when>
-								<xsl:when test="($gen='book-item' or $gen='conference-paper') and $sgenre='series'">
+								<xsl:when test="($gen='http://purl.org/eprint/type/BookItem' or $gen='http://purl.org/eprint/type/ConferencePaper') and $sourcegenre='http://purl.org/escidoc/metadata/ves/publication-types/series'">
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'S'"/>
 										<xsl:with-param name="value" select="$jb"/>
@@ -318,15 +314,15 @@
 					
 					
 					<!-- 
-						[@type='proceedings' or @type='conference-paper']/e:event/dc:title -> %B
-						[@type='proceedings' or @type='conference-paper']/e:event/dcterms:alternative -> %B 
+						[@type='http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or @type='http://purl.org/eprint/type/ConferencePaper']/e:event/dc:title -> %B
+						[@type='http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or @type='http://purl.org/eprint/type/ConferencePaper']/e:event/dcterms:alternative -> %B 
 					-->
 					
 					<xsl:for-each select="event:event/dc:title">
 						<xsl:variable name="b" select="normalize-space(.)"/>
 						<xsl:if test="$b!=''">
 							<xsl:choose>
-								<xsl:when test="$gen='proceedings' or $gen='conference-paper'">
+								<xsl:when test="$gen='http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or $gen='http://purl.org/eprint/type/ConferencePaper'">
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'B'"/>
 										<xsl:with-param name="value" select="$b"/>
@@ -390,7 +386,7 @@
 					<xsl:for-each select="eterms:degree">
 						<xsl:variable name="ed" select="normalize-space(.)"/>
 						<xsl:if test="$ed!=''">
-							<xsl:if test="$gen='thesis'">
+							<xsl:if test="$gen='http://purl.org/eprint/type/Thesis'">
 								<xsl:call-template name="print-line">
 									<xsl:with-param name="tag" select="'9'"/>
 									<xsl:with-param name="value" select="$ed"/>
@@ -404,14 +400,14 @@
 						<xsl:variable name="sp" select="normalize-space(eterms:start-page)"/>
 						<xsl:if test="not($sp='')">
 							<xsl:choose> 
-								<xsl:when test="not($gen='book')">
+								<xsl:when test="not($gen='http://purl.org/eprint/type/Book')">
 									<xsl:variable name="ep" select="normalize-space(eterms:end-page)"/>
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'P'"/>
 										<xsl:with-param name="value" select="string-join(($sp, $ep), '-')"/>
 									</xsl:call-template>
 								</xsl:when>							
-								<xsl:when test="$gen='article' or $gen='manuscript'">
+								<xsl:when test="$gen='http://purl.org/escidoc/metadata/ves/publication-types/article' or $gen='http://purl.org/escidoc/metadata/ves/publication-types/manuscript'">
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'&amp;'"/>
 										<xsl:with-param name="value" select="$sp"/>
@@ -455,7 +451,7 @@
 		
 					<!-- 	Issue -->
 					<xsl:for-each select="source:source[1]">
-						<xsl:if test="not($genre-ves/enum[.=@type]='series')">
+						<xsl:if test="not(@type='http://purl.org/escidoc/metadata/ves/publication-types/series')">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'N'"/>
 								<xsl:with-param name="value" select="eterms:issue"/>
@@ -476,7 +472,7 @@
 					</xsl:for-each>
 					
 					<!-- Place of event -->
-					<xsl:variable name="flag" select="$gen='proceedings' or $gen='conference-paper'"/>
+					<xsl:variable name="flag" select="$gen='http://purl.org/escidoc/metadata/ves/publication-types/proceedings' or $gen='http://purl.org/eprint/type/ConferencePaper'"/>
 					<xsl:variable name="ep" select="normalize-space(event:event/eterms:place)"/>
 					<xsl:if test="$ep!=''">
 						<xsl:call-template name="print-line">
@@ -489,7 +485,7 @@
 					<xsl:variable name="pd" select="normalize-space(eterms:total-number-of-pages)"/>
 					<xsl:if test="$pd!=''">
 						<xsl:variable name="flag" select="normalize-space(source:source[1]/eterms:start-page)!='' and normalize-space(source:source[1]/eterms:end-page)!=''"/>
-						<xsl:if test="$gen='book'">						
+						<xsl:if test="$gen='http://purl.org/eprint/type/Book'">						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'P'"/>
 								<xsl:with-param name="value" select="$pd"/>
@@ -500,7 +496,7 @@
 								
 					<!-- Publisher -->
 					<xsl:call-template name="print-line">
-						<xsl:with-param name="tag" select="if ($gen='report') then 'Y' else 'I'"/>
+						<xsl:with-param name="tag" select="if ($gen='http://purl.org/eprint/type/Report') then 'Y' else 'I'"/>
 						<xsl:with-param name="value" select="eterms:publishing-info/dc:publisher"/>
 					</xsl:call-template>
 									
@@ -525,11 +521,11 @@
 		
 					<!-- Volume -->
 					<xsl:for-each select="source:source[1]/eterms:volume">
-					<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=../@type]"/>						
-							<xsl:call-template name="print-line">
-								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
-								<xsl:with-param name="value" select="."/>
-							</xsl:call-template>						
+						<xsl:variable name="sgenre" select="../@type"/>						
+						<xsl:call-template name="print-line">
+							<xsl:with-param name="tag" select="if ($sgenre='http://purl.org/escidoc/metadata/ves/publication-types/series') then 'N' else 'V'"/>
+							<xsl:with-param name="value" select="."/>
+						</xsl:call-template>						
 					</xsl:for-each>			
 		
 				</xsl:for-each>
@@ -542,31 +538,30 @@
 	<xsl:template match="organization:organization">
 		
 		<xsl:param name="gen"/>
-		<xsl:variable name="role" select="../@role"/>	
-		<xsl:variable name="role-string" select="$creator-ves/enum[@uri=$role]"/>
+		<xsl:variable name="role" select="../@role"/>
 		<xsl:choose>
-			<xsl:when test="$role-string='author'">
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/AUT'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
-					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
+					<xsl:with-param name="value" select="concat(dc:title, eterms:address)"/>
 				</xsl:call-template>	
 			</xsl:when>
-			<xsl:when test="$role-string='editor'">				
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/EDT'">				
 				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag" select="if ($gen='book') then 'A' else 'E'"/>
-					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
+					<xsl:with-param name="tag" select="if ($gen='http://purl.org/eprint/type/Book') then 'A' else 'E'"/>
+					<xsl:with-param name="value" select="concat(dc:title, eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$role-string='translator'">
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/TRL'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat(dc:title,eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$role-string='artist' or $role-string='painter' or $role-string='photographer' or $role-string='illustrator' or $role-string='commentator' or $role-string='transcriber' or $role-string='advisor' or $role-string='contributor'">
+			<xsl:when test="$role = ('http://www.loc.gov/loc.terms/relators/ART', 'http://purl.org/escidoc/metadata/ves/creator-roles/painter', 'http://www.loc.gov/loc.terms/relators/PHT', 'http://www.loc.gov/loc.terms/relators/ILL', 'http://www.loc.gov/loc.terms/relators/CMM', 'http://www.loc.gov/loc.terms/relators/TRC', 'http://www.loc.gov/loc.terms/relators/SAD', 'http://www.loc.gov/loc.terms/relators/THS', 'http://www.loc.gov/loc.terms/relators/CTB')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat($role-string, ' : ', dc:title,', ',eterms:address)"/>
+					<xsl:with-param name="value" select="concat($role, ' : ', dc:title,', ',eterms:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
@@ -575,33 +570,31 @@
 	<xsl:template match="person:person">		
 		<xsl:param name="gen"/>
 		<xsl:variable name="role" select="../@role"/>	
-		<xsl:variable name="role-string" select="$creator-ves/enum[@uri=$role]"/>
 		<xsl:variable name="given-name" select="eterms:given-name"/>
 		<xsl:variable name="family-name" select="eterms:family-name"/>	
-			
 		<xsl:choose>
-			<xsl:when test="$role-string='author'">
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/AUT'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>		
 			</xsl:when>
-			<xsl:when test="$role-string='editor'">					
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/EDT'">					
 				<xsl:call-template name="print-line">
-					<xsl:with-param name="tag" select="if ($gen='book')then 'A' else 'E'"/>
+					<xsl:with-param name="tag" select="if ($gen='http://purl.org/eprint/type/Book')then 'A' else 'E'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>						
 			</xsl:when>
-			<xsl:when test="$role-string='translator'">
+			<xsl:when test="$role='http://www.loc.gov/loc.terms/relators/TRL'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$role-string='artist' or $role-string='painter' or $role-string='photographer' or $role-string='illustrator' or $role-string='commentator' or $role-string='transcriber' or $role-string='advisor' or $role-string='contributor'">
+			<xsl:when test="$role = ('http://www.loc.gov/loc.terms/relators/ART', 'http://purl.org/escidoc/metadata/ves/creator-roles/painter', 'http://www.loc.gov/loc.terms/relators/PHT', 'http://www.loc.gov/loc.terms/relators/ILL', 'http://www.loc.gov/loc.terms/relators/CMM', 'http://www.loc.gov/loc.terms/relators/TRC', 'http://www.loc.gov/loc.terms/relators/SAD', 'http://www.loc.gov/loc.terms/relators/THS', 'http://www.loc.gov/loc.terms/relators/CTB')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat($role-string, ' : ', $family-name,', ',$given-name)"/>
+					<xsl:with-param name="value" select="concat($role, ' : ', $family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
