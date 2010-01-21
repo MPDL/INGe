@@ -34,10 +34,10 @@ public class FaodocItem
         // System.out.println(faodoc.getARNArray(0));
         // System.out.println(faodoc.sizeOfJNArray());
         // getAllARNs(faodocExportFile);
-        //parseTest(filenames);
+        parseTest(filenames);
         
-        String filter = "A";
-        ArrayList<ITEMType> items = filteredList(filenames, filter);
+        //String filter = "A";
+        //ArrayList<ITEMType> items = filteredList(filenames, filter);
         /*
         try
         {
@@ -49,11 +49,12 @@ public class FaodocItem
             e.printStackTrace();
         }
         */
-        ITEMType item = getByARN(items, "XF2009439249");
+        //ITEMType item = getByARN(items, "XF2009439249");
 //        ITEMType item = getByARN(items, "XF2002400347");
 
-        System.out.println(item);
+        //System.out.println(item);
         //Object o = matchCondition(item, "sizeOfJNArray").get(int.class);
+        /*
         Map map = matchCondition(item, "sizeOfISSNArray", null, null);
         System.out.println(map);
         int jns = Integer.valueOf(map.get(int.class).toString());
@@ -64,6 +65,7 @@ public class FaodocItem
         System.out.println(issnMap);
         String issn = (String)matchCondition(item, "getISSNArray", args, vals).get(String.class);
         System.out.println(issn);
+        */
         //System.out.println(item.getISBNArray(0) + "  " + item.getTITENArray(0));
 //        ITEMType item2 = getByARN(items, "XF2009786668");
 //        System.out.println(item2);
@@ -170,6 +172,7 @@ public class FaodocItem
                             
                         }
                         */
+                        /*
                         if (item.sizeOfJNArray() > 0)
                         {
                             for (String jn : item.getJNArray())
@@ -201,6 +204,15 @@ public class FaodocItem
                                     withoutTIT++;
                                 }
                             }
+                        }
+                        */
+                        if (item.sizeOfCONFDATEArray() > 1)
+                        {
+                            System.out.println(item.getARNArray(0) + "  has " + item.sizeOfCONFDATEArray() + " conference");
+                        }
+                        if (item.sizeOfSERPAGESArray() > 1)
+                        {
+                            System.out.println(item.getARNArray(0) + "  has " + item.sizeOfSERPAGESArray() + " series");
                         }
                     }
                     else

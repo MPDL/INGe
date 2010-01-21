@@ -174,58 +174,178 @@ public class DuplicateDetection
      */
     public void checkTitles(ITEMType faodoc, ItemType eims)
     {
-        ArrayList<String> faodocTitles = null;
-        ArrayList<String> eimsTitles = null;
+        ArrayList<String> faodocTitlesEN = null;
+        ArrayList<String> faodocTitlesES = null;
+        ArrayList<String> faodocTitlesFR = null;
+        ArrayList<String> faodocTitlesOT = null;
+        ArrayList<String> faodocTitlesTR = null;
+
         ArrayList<String> faodocDates = null;
 
-        if (faodoc.sizeOfTITENArray() > 0
-                || faodoc.sizeOfTITFRArray() > 0
-                || faodoc.sizeOfTITESArray() > 0
-                || faodoc.sizeOfTITOTArray() > 0
-                || faodoc.sizeOfTITTRArray() > 0)
+        if (faodoc.sizeOfTITENArray() > 0)
         {
-            faodocTitles = new ArrayList<String>();
+            faodocTitlesEN = new ArrayList<String>();
             for (String title : faodoc.getTITENArray())
             {
-                faodocTitles.add(title);
-            }
-            for (String title : faodoc.getTITFRArray())
-            {
-                faodocTitles.add(title);
-            }
-            for (String title : faodoc.getTITESArray())
-            {
-                faodocTitles.add(title);
-            }
-            for (String title : faodoc.getTITOTArray())
-            {
-                faodocTitles.add(title);
-            }
-            for (String title : faodoc.getTITTRArray())
-            {
-                faodocTitles.add(title);
+                faodocTitlesEN.add(title);
             }
         }
-        if (eims.sizeOfTitleArray() > 0)
+        if (faodoc.sizeOfTITESArray() > 0)
         {
-            eimsTitles = new ArrayList<String>();
-            for (TitleType eims_title : eims.getTitleArray())
+            faodocTitlesES = new ArrayList<String>();
+            for (String title : faodoc.getTITESArray())
             {
-                eimsTitles.add(eims_title.getStringValue());
+                faodocTitlesES.add(title);
+            }
+        }
+        if (faodoc.sizeOfTITFRArray() > 0)
+        {
+            faodocTitlesFR = new ArrayList<String>();
+            for (String title : faodoc.getTITFRArray())
+            {
+                faodocTitlesFR.add(title);
+            }
+        }
+        if (faodoc.sizeOfTITOTArray() > 0)
+        {
+            faodocTitlesOT = new ArrayList<String>();
+            for (String title : faodoc.getTITOTArray())
+            {
+                faodocTitlesOT.add(title);
+            }
+        }
+        if (faodoc.sizeOfTITTRArray() > 0)
+        {
+            faodocTitlesTR = new ArrayList<String>();
+            for (String title : faodoc.getTITTRArray())
+            {
+                faodocTitlesTR.add(title);
+            }
+        }
+        if (faodoc.sizeOfDATEISSUEArray() > 0
+                || faodoc.sizeOfPUBDATEArray() > 0
+                || faodoc.sizeOfPUBYEARArray() > 0
+                || faodoc.sizeOfYEARPUBLArray() > 0)
+        {
+            faodocDates = new ArrayList<String>();
+            if (faodoc.sizeOfDATEISSUEArray() > 0)
+            {
+                for (String date : faodoc.getDATEISSUEArray())
+                {
+                    faodocDates.add(date);
+                }
+            }
+            if (faodoc.sizeOfPUBDATEArray() > 0)
+            {
+                for (String date : faodoc.getPUBDATEArray())
+                {
+                    faodocDates.add(date);
+                }
+            }
+            if (faodoc.sizeOfPUBYEARArray() > 0)
+            {
+                for (String date : faodoc.getPUBYEARArray())
+                {
+                    faodocDates.add(date);
+                }
+            }
+            if (faodoc.sizeOfYEARPUBLArray() > 0)
+            {
+                for (short date : faodoc.getYEARPUBLArray())
+                {
+                    faodocDates.add(Short.valueOf(date).toString());
+                }
             }
         }
         
-        if (faodocTitles != null && eimsTitles != null)
+        if (eims.sizeOfTitleArray() > 0)
         {
-            for (String title : faodocTitles)
+            for (TitleType eims_title : eims.getTitleArray())
             {
-                if (eimsTitles.contains(title))
+                if (eims_title.getLang().equalsIgnoreCase("en"))
                 {
-                    hasDuplicate = true;
-                    StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + title
-                            + "\t");
-                    message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eimsTitles);
-                    logger.info(message);
+                    if (faodocTitlesEN != null)
+                    {
+                        if (faodocTitlesEN.contains(eims_title.getStringValue()))
+                        {
+                            if (faodocDates.contains(eims.getDate().toString()))
+                            {
+                                hasDuplicate = true;
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + faodocTitlesEN
+                                        + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_title.getStringValue());
+                                logger.info(message);
+                            }
+                        }
+                    }
+                }
+                if (eims_title.getLang().equalsIgnoreCase("es"))
+                {
+                    if (faodocTitlesES != null)
+                    {
+                        if (faodocTitlesES.contains(eims_title.getStringValue()))
+                        {
+                            if (faodocDates.contains(eims.getDate().toString()))
+                            {
+                                hasDuplicate = true;
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + faodocTitlesES
+                                        + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_title.getStringValue());
+                                logger.info(message);
+                            }
+                        }
+                    }
+                }
+                if (eims_title.getLang().equalsIgnoreCase("fr"))
+                {
+                    if (faodocTitlesFR != null)
+                    {
+                        if (faodocTitlesFR.contains(eims_title.getStringValue()))
+                        {
+                            if (faodocDates.contains(eims.getDate().toString()))
+                            {
+                                hasDuplicate = true;
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + faodocTitlesFR
+                                        + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_title.getStringValue());
+                                logger.info(message);
+                            }
+                        }
+                    }
+                }
+                if (eims_title.getLang().equalsIgnoreCase("ot"))
+                {
+                    if (faodocTitlesOT != null)
+                    {
+                        if (faodocTitlesOT.contains(eims_title.getStringValue()))
+                        {
+                            if (faodocDates.contains(eims.getDate().toString()))
+                            {
+                                hasDuplicate = true;
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + faodocTitlesOT
+                                        + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_title.getStringValue());
+                                logger.info(message);
+                            }
+                        }
+                    }
+                }
+                if (eims_title.getLang().equalsIgnoreCase("tr"))
+                {
+                    if (faodocTitlesTR != null)
+                    {
+                        if (faodocTitlesTR.contains(eims_title.getStringValue()))
+                        {
+                            if (faodocDates.contains(eims.getDate().toString()))
+                            {
+                                hasDuplicate = true;
+                                StringBuilder message = new StringBuilder("FAODOC record:\t" + faodoc.getARNArray(0) + "\t" + faodocTitlesTR
+                                        + "\t");
+                                message.append("is a duplicate of EIMS record:\t" + eims.getIdentifier() + "\t" + eims_title.getStringValue());
+                                logger.info(message);
+                            }
+                        }
+                    }
                 }
             }
         }
