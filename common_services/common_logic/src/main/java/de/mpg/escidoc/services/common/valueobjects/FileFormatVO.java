@@ -31,12 +31,16 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Valueobject representing the export file format data needed for the export.
  *
  * @version $Revision$ $LastChangedDate$ by $Author$
  */
 
+@SuppressWarnings("serial")
 public class FileFormatVO extends ValueObject
 {
 
@@ -81,6 +85,41 @@ public class FileFormatVO extends ValueObject
     public static final String DEFAULT_NAME = PDF_NAME;
     public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
     
+    private static final Map<String, String> formatExtensions =   
+    	new HashMap<String, String>()   
+    	{  
+			{  
+                put(TEXT_NAME, "txt");
+                put(PDF_NAME, "pdf");
+                put(RTF_NAME, "rtf");
+                put(HTML_NAME, "html");
+                put(ODT_NAME, "odt");
+                put(SNIPPET_NAME, "xml");
+                put(ESCIDOC_SNIPPET_NAME, "xml");
+                put(XML_NAME, "xml");
+                put(ESCIDOC_XML_NAME, "xml");
+                put(DEFAULT_NAME, "pdf");
+	    	}  
+    	};
+	private static final Map<String, String> formatMimeTypes =   
+		new HashMap<String, String>()   
+		{  
+    		{  
+    			put(TEXT_NAME, TEXT_MIMETYPE);
+    			put(PDF_NAME, PDF_MIMETYPE);
+    			put(RTF_NAME, RTF_MIMETYPE);
+    			put(HTML_NAME, HTML_MIMETYPE);
+    			put(ODT_NAME, ODT_MIMETYPE);
+    			put(SNIPPET_NAME, SNIPPET_MIMETYPE);
+    			put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
+    			put(XML_NAME, XML_MIMETYPE);
+    			put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
+    			put(DEFAULT_NAME, DEFAULT_MIMETYPE);
+    		}  
+		};
+    
+    
+    
     /**
      * The mime type of FileFormat
      */
@@ -99,17 +138,16 @@ public class FileFormatVO extends ValueObject
         name = name == null || name.trim().equals("") ? "" : name.trim();  
         // if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
         // by default
-        return
-        TEXT_NAME.equals(name) ? TEXT_MIMETYPE : 
-        	PDF_NAME.equals(name) ? PDF_MIMETYPE : 
-        		RTF_NAME.equals(name) ? RTF_MIMETYPE : 
-        			HTML_NAME.equals(name) ? HTML_MIMETYPE : 
-        				ODT_NAME.equals(name) ? ODT_MIMETYPE : 
-        					SNIPPET_NAME.equals(name) ? SNIPPET_MIMETYPE : 
-        						ESCIDOC_SNIPPET_NAME.equals(name) ? ESCIDOC_SNIPPET_MIMETYPE : 
-        							XML_NAME.equals(name) ? XML_MIMETYPE : 
-        								ESCIDOC_XML_NAME.equals(name) ? ESCIDOC_XML_MIMETYPE : 
-        									DEFAULT_MIMETYPE; 
+        return formatMimeTypes.containsKey(name) ? formatMimeTypes.get(name) : formatMimeTypes.get(DEFAULT_NAME);   
+    }
+    
+    /**
+     * Delivers the name of the selected file according to name of format.
+     */
+    public static String getExtensionByName(String name)
+    {
+    	name = name == null || name.trim().equals("") ? "" : name.trim();  
+    	return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get(DEFAULT_NAME);   
     }
 
     // workaround to find out whether the output format is presented  
