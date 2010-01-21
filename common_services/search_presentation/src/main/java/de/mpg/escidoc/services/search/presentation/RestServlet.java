@@ -332,8 +332,7 @@ public class RestServlet extends HttpServlet
      */
     private String getFileExtension(final String outputFormat)
     {
-    	String of = outputFormat.trim();
-        return "." + ( "snippet".equals(of) ? "xml" : outputFormat);
+        return "." + FileFormatVO.getExtensionByName(outputFormat);
     }
 
     /**
