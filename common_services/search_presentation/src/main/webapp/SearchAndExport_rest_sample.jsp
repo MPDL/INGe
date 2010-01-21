@@ -359,8 +359,8 @@
 												<option value="AJP">AJP</option>
 												<option value="ENDNOTE">EndNote</option>
 												<option value="BIBTEX">BibTeX</option>
-												<option value="XML">XML</option>
-												<option value="ESCIDOC_XML">eSciDoc XML</option>
+												<option value="XML">eSciDoc XML v5.x</option>
+												<option value="ESCIDOC_XML">eSciDoc XML v6.x</option>
 							                </select>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
