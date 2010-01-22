@@ -775,7 +775,7 @@ public class Feed extends SyndFeedImpl
 	 * @throws FeedException
 	 */
 	private void populateModules(SyndEntry se, MdsPublicationVO md) throws SyndicationException {
-		populateMediaRss(se, md);
+		//populateMediaRss(se, md);
 		
 	}
 
