@@ -145,7 +145,7 @@ There are following limitations for the feeds:
 		</author>		
 		<image>
 			<title>Recent releases for Organizational Unit: ${organizationName}</title>
-			<url>http://localhost:8080/syndication/resources/escidoc-css/images/about.gif</url>
+			<url>${baseUrl}/syndication/resources/escidoc-css/images/about.gif</url>
 			<link>${baseUrl}/pubman?entry=feed&amp;name=organizational_unit_${organizationId}&amp;type=${feedType}</link>
 			<description>Recent releases for a specific Organization Unit (item versions)</description>
 		</image>
@@ -181,7 +181,7 @@ There are following limitations for the feeds:
 		</author>		
 		<image>
 			<title>Search result as feed: ${searchQuery}</title>
-			<url>http://localhost:8080/syndication/resources/escidoc-css/images/about.gif</url>
+			<url>${baseUrl}/syndication/resources/escidoc-css/images/about.gif</url>
 			<link>${baseUrl}/pubman?entry=feed&amp;name=search_as_feed&amp;type=${feedType}&amp;q=${searchQuery}</link>
 			<description>Search result as feed</description>
 		</image>
