@@ -77,6 +77,7 @@ public class CitationStyleHandlerTest {
         itemList = TestHelper.getTestItemListFromFramework();
 		assertTrue("item list from framework is empty", Utils.checkVal(itemList) );
 		logger.info("item list from framework:\n" + itemList);
+		TestHelper.writeBinFile(itemList.getBytes(), "/home/vlad/Projects/escidoc/common_services/citationmanager_ear/src/test/resources/DataSources/il.xml");
         
     }
     
@@ -112,6 +113,7 @@ public class CitationStyleHandlerTest {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testCitManOutput() throws Exception {
     	
 //    	for (String cs : pcs.getStyles() )

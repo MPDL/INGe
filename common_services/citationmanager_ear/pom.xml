@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
@@ -94,10 +95,29 @@
 						<jarModule>
 							<groupId>net.sf.saxon</groupId>
 							<artifactId>saxon</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
-						</jarModule>					
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>com.maxmind.geoip</groupId>
+							<artifactId>geoip</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>org.apache.xmlbeans</groupId>
+							<artifactId>xmlbeans</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>external</groupId>
+							<artifactId>scannotation</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>transformation</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+
 					</modules>
 				</configuration>
 			</plugin>
@@ -220,40 +240,58 @@
 			<version>1.7.0</version>
 			<scope>runtime</scope>
 		</dependency>
-    <dependency>
-      <groupId>xalan</groupId>
-      <artifactId>xalan</artifactId>
-      <version>2.7.1</version>
-      <scope>test</scope>
-    </dependency>
-    	 <dependency>
-          <groupId>com.sun</groupId>
-          <artifactId>tools</artifactId>
-          <version>1.5</version>
-          <scope>compile</scope>
-       </dependency>
-    <dependency>
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.5</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>javabib</groupId>
 			<artifactId>javabib</artifactId>
 			<version>20040801</version>
 			<scope>compile</scope>
 		</dependency>
-    <dependency>
-    	<groupId>com.lowagie</groupId>
-    	<artifactId>itext</artifactId>
-    	<version>2.1.5</version>
-    </dependency>
-    <dependency>
-    	<groupId>commons-digester</groupId>
-    	<artifactId>commons-digester</artifactId>
-    	<version>1.7</version>
-    	<type>jar</type>
-    	<scope>runtime</scope>
-    </dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.7</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>transformation</artifactId>
+			<version>1.0.22-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>xmlbeans</groupId>-->
+<!--			<artifactId>escidoc_profiles</artifactId>-->
+<!--			<version>0.1.1</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--      		<groupId>xmlbeans</groupId>-->
+<!--      		<artifactId>transformation</artifactId>-->
+<!--      		<version>1.0.0</version>-->
+<!--      		<scope>compile</scope>-->
+<!--    	</dependency>-->
+
 	</dependencies>
 
 	<profiles>
-		
+
 		<profile>
 			<id>jboss42</id>
 			<build>
@@ -325,9 +363,13 @@
 											<fileset dir="src/jboss/configuration42x" />
 										</copy>
 										<!-- copy over the jboss service descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true"
+											file="${project.build.directory}/classes/jboss-service.xml"
+											todir="${project.build.directory}/jboss/server/conf" />
 										<!-- copy over the properties file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/common.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true"
+											file="${project.build.directory}/classes/common.properties"
+											todir="${project.build.directory}/jboss/server/conf" />
 									</tasks>
 								</configuration>
 							</execution>
