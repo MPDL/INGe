@@ -53,6 +53,7 @@
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
 			<version>1.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>jdom</groupId>
@@ -95,6 +96,14 @@
       		<artifactId>commons-lang</artifactId>
       		<version>2.4</version>
     	</dependency>
+	    <dependency>
+	      <groupId>mediarss</groupId>
+	      <artifactId>mediarss</artifactId>
+	      <version>0.2.1</version>
+	      <type>jar</type>
+	    </dependency>
+    	
 	</dependencies>
+	
 
 </project>

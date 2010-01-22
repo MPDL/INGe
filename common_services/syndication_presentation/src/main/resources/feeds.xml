@@ -200,58 +200,83 @@ There are following limitations for the feeds:
 		</caching>	
 			
 	</feed>
-<!--	<feed>-->
-<!--		<title>Recent changes for a specific publication (PID)</title>-->
-<!--		<description>Recent changes for a specific publication, PID is specified</description>-->
-<!--		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>-->
-<!--		<link>${baseUrl}/pubman?entry=feed&amp;name=recent_changes_pid_${itemPid}&amp;type=${feedType}</link>-->
-<!--		<uri>${baseUrl}/syndication/feed/${feedType}/publications/item/pid/${itemPid}</uri>-->
-<!--		<category>MPG</category>-->
-<!--		<category>PubMan</category>-->
-<!--		<copyright>Copyright</copyright>-->
-<!--		<author>-->
-<!--			<name>makarenko@mpdl.mpg.de (Vlad Makarenko)</name>-->
-<!--			<email>makarenko@mpdl.mpg.de</email>-->
-<!--			<uri>http://www.mpdl.mpg.de/</uri>-->
-<!--		</author>-->
-<!--		<image>-->
-<!--			<title>Recent changes for a specific publication</title>-->
-<!--			<url>http://localhost:8080/syndication/resources/escidoc-css/images/about.gif</url>-->
-<!--			<link>${baseUrl}/pubman?entry=feed&amp;name=recent_changes_pid_${itemPid}&amp;type=${feedType}</link>-->
-<!--			<description>Recent changes for a specific publication</description>-->
-<!--		</image>-->
-<!--		<language >en-US</language>-->
-<!--		<entries context="cql">-->
-<!--			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.pid=${itemPid} and escidoc.context.objid&lt;&gt;escidoc:persistent3</query>-->
-<!--			<sortKeys>sort.escidoc.pid,,0</sortKeys>-->
-<!--			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>-->
-<!--		</entries>-->
-<!--	</feed>-->
-<!--	<feed>-->
-<!--		<title>Recent changes for a specific publication (eSciDoc OBJID)</title>-->
-<!--		<description>Recent changes for a specific publication, eSciDoc OBJID is specified</description>-->
-<!--		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>-->
-<!--		<link>${baseUrl}/pubman?entry=feed&amp;name=recent_changes_objid_${itemObjid}&amp;type=${feedType}</link>-->
-<!--		<uri>${baseUrl}/syndication/feed/${feedType}/publications/item/objid/${itemObjid}</uri>-->
-<!--		<category>MPG</category>-->
-<!--		<category>PubMan</category>-->
-<!--		<copyright>Copyright</copyright>-->
-<!--		<author>-->
-<!--			<name>makarenko@mpdl.mpg.de (Vlad Makarenko)</name>-->
-<!--			<email>makarenko@mpdl.mpg.de</email>-->
-<!--			<uri>http://www.mpdl.mpg.de/</uri>-->
-<!--		</author>-->
-<!--		<image>-->
-<!--			<title>Recent changes for a specific publication</title>-->
-<!--			<url>http://localhost:8080/syndication/resources/escidoc-css/images/about.gif</url>-->
-<!--			<link>${baseUrl}/pubman?entry=feed&amp;name=recent_changes_objid_${itemObjid}&amp;type=${feedType}</link>-->
-<!--			<description>Recent changes for a specific publication</description>-->
-<!--		</image>-->
-<!--		<language>en-US</language>-->
-<!--		<entries context="cql">-->
-<!--			<query>escidoc.content-model.objid=escidoc:persistent4 and escidoc.objid=${itemObjid} and escidoc.context.objid&lt;&gt;escidoc:persistent3</query>-->
-<!--			<sortKeys>sort.escidoc.objid,,0</sortKeys>-->
-<!--			<maximumRecords>${escidoc.syndication.maximum.records}</maximumRecords>-->
-<!--		</entries>-->
-<!--	</feed>-->
+	<feed>
+		<!--		The title of the feed -->
+		<title>eSciDoc Faces</title>
+		
+		<!--		Feed's description -->
+		<description>eSciDoc Faces album</description>
+		
+		<!-- Identifier of the feeder class -->
+		<!-- <dc:identifier>escidoc:feed_1</dc:identifier> -->
+		
+		<!-- supported output feed formats-->
+		<feedTypes>rss_0.91N,rss_0.93,rss_0.92,rss_1.0,rss_0.94,rss_2.0,rss_0.91U,rss_0.9,atom_1.0,atom_0.3</feedTypes>
+		<!--
+			Permanent link to the originated site, http://faces.mpdl.mpg.de
+		-->
+		<link>${baseUrl}/faces?entry=feed&amp;name=album&amp;albumId=${albumId}&amp;type=${feedType}</link>
+		<!--
+			feed matcher
+		-->
+		<uri>${baseUrl}/syndication/feed/${feedType}/album/${albumId}</uri>
+		<!--
+			html rel link template   
+		-->
+		<relLink>eSciDoc Syndication Service | Faces album ${albumId} | ${feedType}</relLink>
+		
+		<!-- Categories of the feed-->
+		<category>MPG</category>
+		<category>Faces</category>
+		
+		<!-- Copyright -->
+		<copyright>Copyright</copyright>
+		
+		<author>
+			<name>makarenko@mpdl.mpg.de (Vlad Makarenko)</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<uri>http://www.mpdl.mpg.de/</uri>
+		</author>
+		
+		<!-- Charset encoding of the feed-->
+		<!-- <encoding>UTF-8</encoding>-->
+		
+		<!-- Image of the feed -->
+		<image>
+		
+			<!--			Text alternative if image cannot be dispalyed-->
+			<title>Faces Collection </title>
+			
+			<!--			Location of the image file-->
+			<url>${baseUrl}/syndication/resources/escidoc-css/images/about.gif</url>
+			
+			<!--			Link back to the site-->
+			<link>${baseUrl}/faces?entry=feed&amp;name=complete&amp;type=${feedType}</link>			
+			<!--			Tooltip for the image -->
+			<description>Complete Faces metadata collection</description>
+		</image>
+
+		<!-- Language of the feed's content -->
+		<!--<dc:language xsi:type="dcterms:RFC3066">en-US</dc:language>-->
+		<language>en-US</language>
+		
+		<!-- Definition of the feed's entries retrieval -->
+		<entries context="cql">
+			<!-- CQL query which fetches required items-->
+			<!-- 
+				TODO: escidoc.context.objid&lt;&gt;escidoc:persistent3 
+				should be removed after fixing of the transformation problem with some testing items 
+			-->
+			<query>escidoc.content-model.objid=escidoc:faces40 and escidoc.property.public-status=released</query>
+			<sortKeys>escidoc.property.latest-release.date,,0</sortKeys>
+			<maximumRecords></maximumRecords>
+		</entries>
+		
+		<caching>
+			<status>true</status>
+			<ttl>${escidoc.syndication.ttl}</ttl>
+		</caching>	
+			
+	</feed>
+
 </feeds>

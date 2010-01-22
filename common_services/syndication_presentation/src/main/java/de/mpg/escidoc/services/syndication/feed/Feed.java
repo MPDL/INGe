@@ -38,8 +38,10 @@
 
 package de.mpg.escidoc.services.syndication.feed;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -57,6 +59,11 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import com.sun.syndication.feed.atom.Content;
+import com.sun.syndication.feed.module.mediarss.MediaEntryModuleImpl;
+import com.sun.syndication.feed.module.mediarss.types.MediaContent;
+import com.sun.syndication.feed.module.mediarss.types.Metadata;
+import com.sun.syndication.feed.module.mediarss.types.Thumbnail;
+import com.sun.syndication.feed.module.mediarss.types.UrlReference;
 import com.sun.syndication.feed.synd.SyndCategory;
 import com.sun.syndication.feed.synd.SyndCategoryImpl;
 import com.sun.syndication.feed.synd.SyndContent;
@@ -67,6 +74,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.feed.synd.SyndImage;
 import com.sun.syndication.feed.synd.SyndPerson;
 import com.sun.syndication.feed.synd.SyndPersonImpl;
+import com.sun.syndication.io.FeedException;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -516,8 +524,25 @@ public class Feed extends SyndFeedImpl
 		
         setChannelLimitations();
        
-		//search for itemList 
-		String itemListXml = performSearch( getQuery(), getMaximumRecords(), getSortKeys() );
+		//search for itemList
+                
+		String itemListXml = null;
+		/*
+		//hack to test Faces
+		if ( getQuery().equals("escidoc.content-model.objid=escidoc:faces40 and escidoc.property.public-status=released") )
+		{
+			try {
+				itemListXml = Utils.getResourceAsString("src/test/resources/FacesExport.xml");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else
+		{*/
+		itemListXml = performSearch( getQuery(), getMaximumRecords(), getSortKeys() );
+		/*}*/
+		
         
         //populate entires
 	 	setEntries( transformToEntryList( itemListXml ) );
@@ -557,7 +582,7 @@ public class Feed extends SyndFeedImpl
 					"cqlQuery=" + URLEncoder.encode(query, "UTF-8") + 
 					"&maximumRecords=" + URLEncoder.encode(maximumRecords, "UTF-8") + 
 					"&sortKeys=" + URLEncoder.encode(sortKeys, "UTF-8") + 
-					"&exportFormat=XML" +  
+					"&exportFormat=ESCIDOC_XML" +  
 					"&sortOrder=descending" + 
 					"&language=all"
 			);
@@ -628,11 +653,12 @@ public class Feed extends SyndFeedImpl
 		
 		for( ItemVO item: itemListVO ) 
 		{
+			
+			SyndEntry se = new SyndEntryImpl(); 
+
 			PubItemVO pi = (PubItemVO) item;
 			MdsPublicationVO md = pi.getMetadata();
-
-			SyndEntry se = new SyndEntryImpl();
-
+			
 			//Content
 			SyndContent scont = new SyndContentImpl();
 			scont.setType("application/xml");
@@ -731,14 +757,59 @@ public class Feed extends SyndFeedImpl
 			se.setPublishedDate( pi.getLatestRelease().getModificationDate() );
 			
 			setEntryLimitations(se);
+			
+			populateModules(se, md);
 
 			entries.add(se);
 
-		}	
+		}
+		
 		return entries;
+		
 		
 	}
 	
+	/**
+	 * @param se
+	 * @param md
+	 * @throws FeedException
+	 */
+	private void populateModules(SyndEntry se, MdsPublicationVO md) throws SyndicationException {
+		populateMediaRss(se, md);
+		
+	}
+
+	/**
+	 * @param se
+	 * @param pubMd
+	 * @throws FeedException
+	 */
+	private void populateMediaRss(SyndEntry se, MdsPublicationVO pubMd) throws SyndicationException {
+		
+		try {
+			  MediaContent[] contents = new MediaContent[1];
+		      MediaContent myItem = new MediaContent( new UrlReference("http://me.com/movie.mpg") ); 
+		      contents[0] = myItem;
+		      Metadata md = new Metadata();
+		      Thumbnail[] thumbs = new Thumbnail[2];
+		      thumbs[0] = new Thumbnail( new URL("http://me.com/movie1.jpg") );
+		      thumbs[1] = new Thumbnail( new URL("http://me.com/movie2.jpg") );
+		      md.setThumbnail( thumbs );
+		      myItem.setMetadata( md );
+		      MediaEntryModuleImpl module = new MediaEntryModuleImpl();
+		      module.setMediaContents( contents );
+		      se.getModules().add( module );
+			
+//		      logger.info( se.getModule( MediaModule.URI ) );
+            
+		} 
+		catch (Exception e) 
+		{
+			throw new SyndicationException("Problem by MediaRss module:", e);
+		}
+		
+	}
+
 
 	/**
 	 * set channel limitations

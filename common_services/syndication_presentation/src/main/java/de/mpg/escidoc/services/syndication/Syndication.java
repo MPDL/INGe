@@ -42,10 +42,18 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.sun.syndication.feed.module.mediarss.MediaEntryModuleImpl;
+import com.sun.syndication.feed.module.mediarss.MediaModule;
+import com.sun.syndication.feed.module.mediarss.types.MediaContent;
+import com.sun.syndication.feed.module.mediarss.types.Metadata;
+import com.sun.syndication.feed.module.mediarss.types.Thumbnail;
+import com.sun.syndication.feed.module.mediarss.types.UrlReference;
+import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 

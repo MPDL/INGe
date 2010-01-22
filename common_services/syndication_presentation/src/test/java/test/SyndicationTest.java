@@ -127,7 +127,7 @@ public class SyndicationTest
      * @throws FeedException
      */
     @Test
-    @Ignore
+//    @Ignore
     public void checkRecentReleasesFeed() throws Exception
     {
 
@@ -140,6 +140,7 @@ public class SyndicationTest
     	logger.info("pubman base url:" + pubman_url);
     	
     	for(String ft: sh.getFeedFormatList(sh.getFeedList()[0]))
+//   		for(String ft: new String[]{"rss_2.0"})
     	{
         	uri = pubman_url + "/syndication/feed/" + ft + "/releases";
         	logger.info("URL: " + uri );
@@ -148,6 +149,44 @@ public class SyndicationTest
         	logger.info("Processing time: " + (System.currentTimeMillis() - start) );
         	assertTrue("Empty Feed",  Utils.checkVal(result) );
         	logger.info("GENERATED FEED:\n" + result );
+//        	Utils.writeToFile("result_" + ft + ".xml", result);    	
+    	}
+    	
+    	
+    }
+    
+    /**
+     * Check feed generation - Faces
+     * 
+     * @throws SyndicationException
+     * @throws IOException
+     * @throws URISyntaxException
+     * @throws FeedException
+     */
+    @Test
+    @Ignore
+    public void checkFacesFeed() throws Exception
+    {
+    	
+    	String uri;
+    	long start;
+    	String result;
+    	
+//    	String pubman_url = PropertyReader.getProperty("escidoc.pubman.instance.url");
+//    	pubman_url = pubman_url.substring(0, pubman_url.indexOf("/pubman")  );
+//    	logger.info("pubman base url:" + pubman_url);
+    	String pubman_url = "http://faces.mpdl.mpg.de";
+    	
+//    	for(String ft: sh.getFeedFormatList(sh.getFeedList()[0]))
+    	for(String ft: new String[]{"rss_2.0"})
+    	{
+    		uri = pubman_url + "/syndication/feed/" + ft + "/complete";
+    		logger.info("URL: " + uri );
+    		start = System.currentTimeMillis();
+    		result = new String(sh.getFeed(uri));  
+    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
+    		assertTrue("Empty Feed",  Utils.checkVal(result) );
+    		logger.info("GENERATED FEED:\n" + result );
 //        	Utils.writeToFile("result_" + ft + ".xml", result);    	
     	}
     	
