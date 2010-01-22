@@ -150,7 +150,7 @@ public class TestBase
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
-    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:2024";
+    protected static final String FACES_TEST_COLLECTION_ID = "escidoc:persistent3";
     protected static final String FACES_CONTENT_MODEL_ID = "escidoc:faces50";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
