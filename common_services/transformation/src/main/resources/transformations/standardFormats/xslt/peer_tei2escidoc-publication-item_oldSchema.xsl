@@ -64,7 +64,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model" select="'dummy:content-model'"/>
+	<xsl:param name="content-model" select="'escidoc:persistent4'"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -451,7 +451,7 @@
 			</xsl:variable>
 			<xsl:copy-of select="$givenName"/>
 			
-			<!-- START OF AFFILIATIONS -->
+<!-- START OF AFFILIATIONS -->
 			<xsl:for-each select="t:affiliation">		
 				<xsl:variable name="orgName" select="
 				if (exists(t:orgName) and (exists(t:orgName[@type='department']) or exists(t:orgName[@type='institution'])))

@@ -1,4 +1,4 @@
-﻿/*
+/*
 *
 * CDDL HEADER START
 *
@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fr wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
@@ -91,7 +91,7 @@ public class LocalUriResolver implements URIResolver
         catch (FileNotFoundException e)
         {
             //throw new TransformerException("Cannot resolve URI: " + href);
-            throw new TransformerException("Cannot resolve URIdgdsgdfgdfgd: " + this.base + altBase + "/" + href, e);
+            throw new TransformerException("Cannot resolve URI: " + this.base + altBase + "/" + href, e);
         }
     }
 }
