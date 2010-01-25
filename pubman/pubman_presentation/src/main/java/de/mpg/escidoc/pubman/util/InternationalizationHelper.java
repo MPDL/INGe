@@ -249,12 +249,18 @@ public class InternationalizationHelper
      */
     public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry, final Object[] values)
     {
-        SelectItem[] selectItems = new SelectItem[values.length];
+    	Object[] valuesWithoutNull = removeNullValues(values);
+    	
+        SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
-        for (int i = 0; i < values.length; i++)
+        for (int i = 0; i < valuesWithoutNull.length; i++)
         {
-            SelectItem selectItem = new SelectItem(values[i].toString(), getLabel(convertEnumToString(values[i])));
-            selectItems[i] = selectItem;
+        	if (valuesWithoutNull[i] != null)
+        	{
+        		 SelectItem selectItem = new SelectItem(valuesWithoutNull[i].toString(), getLabel(convertEnumToString(valuesWithoutNull[i])));
+                 selectItems[i] = selectItem;
+        	}
+           
         }
 
         if (includeNoItemSelectedEntry)
@@ -264,7 +270,22 @@ public class InternationalizationHelper
 
         return selectItems;
     }
-    /**
+    
+    private static Object[] removeNullValues(Object[] values) {
+		
+    	List<Object> listWithoutNulls = new ArrayList<Object>();
+    	for(Object o : values)
+    	{
+    		if(o!=null)
+    		{
+    			listWithoutNulls.add(o);
+    		}
+    	}
+    	
+		return listWithoutNulls.toArray();
+	}
+
+	/**
      * Adds an entry for NoItemSelected in front of the given array.
      * @param selectItems the array where the entry should be added
      * @return a new array with an entry for NoItemSelected
