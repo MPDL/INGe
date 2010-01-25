@@ -89,13 +89,13 @@ public class Foxml
         {
             if (faodocItem != null && eimscdrItem == null)
             {
-                modsDocument = new ModsDatastream().create4Faodoc(faodocItem);
+                modsDocument = new ModsDatastream().faodoc(faodocItem);
             }
             else
             {
                 if (faodocItem == null && eimscdrItem != null)
                 {
-                    modsDocument = new ModsDatastream().create4Eims(eimscdrItem);
+                    modsDocument = new ModsDatastream().eimscdr(eimscdrItem);
                 }
             }
         }

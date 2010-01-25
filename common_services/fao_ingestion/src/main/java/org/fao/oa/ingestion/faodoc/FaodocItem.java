@@ -36,7 +36,7 @@ public class FaodocItem
         // getAllARNs(faodocExportFile);
         parseTest(filenames);
         
-        //String filter = "A";
+        //String filter = "M";
         //ArrayList<ITEMType> items = filteredList(filenames, filter);
         /*
         try
@@ -49,7 +49,7 @@ public class FaodocItem
             e.printStackTrace();
         }
         */
-        //ITEMType item = getByARN(items, "XF2009439249");
+        //ITEMType item = getByARN(items, "XF2006364349");
 //        ITEMType item = getByARN(items, "XF2002400347");
 
         //System.out.println(item);
@@ -127,6 +127,8 @@ public class FaodocItem
     public static void parseTest(String[] names)
     {
         int faodocs = 0;
+        int multiconf = 0;
+        int multiseries = 0;
         BufferedWriter writer = null;
         /*
         try
@@ -206,13 +208,34 @@ public class FaodocItem
                             }
                         }
                         */
-                        if (item.sizeOfCONFDATEArray() > 1)
+                        
+                        if (item.sizeOfCONFERENCEArray() > 0)
                         {
-                            System.out.println(item.getARNArray(0) + "  has " + item.sizeOfCONFDATEArray() + " conference");
+                            for (String tit : item.getTITOTArray())
+                            {
+                                System.out.println(item.getARNArray(0) + "  has TIT_OT " + tit);
+                                if (item.sizeOfLANGArray() > 0)
+                                {
+                                    for (String l : item.getLANGArray())
+                                    {
+                                        System.out.print(l + " ");
+                                    }
+                                }
+                            }
                         }
-                        if (item.sizeOfSERPAGESArray() > 1)
+                        if (item.sizeOfTITTRArray() > 0)
                         {
-                            System.out.println(item.getARNArray(0) + "  has " + item.sizeOfSERPAGESArray() + " series");
+                            for (String tit : item.getTITTRArray())
+                            {
+                                System.out.println(item.getARNArray(0) + "  has TIT_TR " + tit);
+                                if (item.sizeOfLANGArray() > 0)
+                                {
+                                    for (String l : item.getLANGArray())
+                                    {
+                                        System.out.print(l + " ");
+                                    }
+                                }
+                            }
                         }
                     }
                     else
@@ -222,9 +245,9 @@ public class FaodocItem
                                 + item.getARNArray(0));
                     }
                 }
-                System.out.println("items without job number: " + withoutJN);
-                System.out.println("items without jn and url: " + withoutURL);
-                System.out.println("items without anything: " + withoutTIT);
+                //System.out.println("items without job number: " + withoutJN);
+                //System.out.println("items without jn and url: " + withoutURL);
+                //System.out.println("items without anything: " + withoutTIT);
 
             }
             catch (XmlException e)
@@ -239,6 +262,8 @@ public class FaodocItem
             }
         }
         System.out.println("total number of faodocs " + faodocs);
+        System.out.println("multiple conferences " + multiconf);
+        System.out.println("multiple series " + multiseries);
     }
 
     public static ArrayList<ITEMType> filteredList(String[] filenames, String filter)
@@ -246,7 +271,7 @@ public class FaodocItem
         ArrayList<ITEMType> filteredFaodocList = new ArrayList<ITEMType>();
         for (String name : filenames)
         {
-            if (name.startsWith(filter))
+            if (name.startsWith(filter) || name.startsWith("updated_100120/" + filter))
             {
                 File faodocFile = new File(FAODOC_BASE_DIR + name);
                 try

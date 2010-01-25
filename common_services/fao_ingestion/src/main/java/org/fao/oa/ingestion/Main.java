@@ -45,8 +45,8 @@ public class Main
     public static void main(String[] args)
     {
         
-        DuplicateDetection dd = new DuplicateDetection();
-        dd.checkMMS();
+        //DuplicateDetection dd = new DuplicateDetection();
+        //dd.checkMMS();
         /*
         String compare = dd.comparableURL("http://www.fao.org/documents/show_cdr.asp?url_file=/docrep/X5328F/X5328F00.htm");
         String compare2 = dd.comparableURL(" http://www.fao.org/docrep/010/a1445e/a1445e00.htm");
@@ -60,7 +60,7 @@ public class Main
         System.out.println(compare5 + "   " + compare6);
         */
         //testObjectMerge();
-        //testObjectCreation();
+        testObjectCreation();
         /*
         try
         {
@@ -80,6 +80,7 @@ public class Main
         System.out.println(System.currentTimeMillis() + time);
         System.out.println(uri + "  " + agskos.getLabels(uri));
         */
+        //testControlledVocab();
 
     }
 
@@ -162,11 +163,11 @@ public class Main
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "M";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2009439073";
+        String arn = "XF2006219523";
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "259163";
+        String id = "58569";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
         
         System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));
@@ -237,7 +238,7 @@ public class Main
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "M";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2006140233";
+        String arn = "XF2006219523";
         new FaodocItem();
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
@@ -246,7 +247,7 @@ public class Main
         ItemType eims = EimsCdrItem.getById(eimsList, id);
         
         
-        ModsDocument merged = new ModsDatastream().create4Faodoc(faodoc);
+        ModsDocument merged = new ModsDatastream().faodoc(faodoc);
         if (XBeanUtils.validation(merged))
         {
             System.out.println(merged.xmlText(XBeanUtils.getModsOpts()));
@@ -306,9 +307,9 @@ public class Main
         ArrayList<ITEMType> itemList = FaodocItem.filteredList(filenames, filter);
         String id = "XF2006361095";
         ITEMType faodoc = FaodocItem.getByARN(itemList, id);
-        System.out.println(faodoc.getCONFENArray(0));
+        System.out.println(faodoc.getCONFERENCEArray(0).getCONFEN());
         ConferenceName cname = new ConferenceName();
-        String[] cvals = cname.getEnglish(faodoc, faodoc.getCONFENArray(0));
+        String[] cvals = cname.getEnglish(faodoc.getCONFERENCEArray(0), faodoc.getCONFERENCEArray(0).getCONFEN());
         System.out.println(cvals[0] + " " + cvals[1]);
       //LanguageCodes lc = new LanguageCodes();
         //String[] codes = lc.getIso639Codes2("ar");

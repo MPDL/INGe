@@ -43,9 +43,11 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import noNamespace.AUPERType;
+import noNamespace.CONFERENCEType;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
 import noNamespace.LOCType;
+import noNamespace.SERIESType;
 import noNamespace.SubtitleType;
 import noNamespace.TitleType;
 
@@ -178,51 +180,41 @@ public class ModsDatastream
         }
         // M-8 - M-15
         // add mods:name@type='conference'/namePart
-        if (faodoc.sizeOfCONFENArray() > 0 || faodoc.sizeOfCONFFRArray() > 0 || faodoc.sizeOfCONFESArray() > 0
-                || faodoc.sizeOfCONFOTArray() > 0)
+        if (faodoc.sizeOfCONFERENCEArray() > 0)
         {
-            if (faodoc.sizeOfCONFENArray() > 0)
+            for (CONFERENCEType conference : faodoc.getCONFERENCEArray())
             {
-                for (int c = 0; c < faodoc.sizeOfCONFENArray(); c++)
+                if (conference.isSetCONFEN())
                 {
-                    String name = faodoc.getCONFENArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFEN();
+                    String[] nameAndHref = new ConferenceName().getEnglish(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFFRArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFFRArray(); c++)
+                if (conference.isSetCONFFR())
                 {
-                    String name = faodoc.getCONFFRArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFFR();
+                    String[] nameAndHref = new ConferenceName().getFrench(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFESArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFESArray(); c++)
+                if (conference.isSetCONFES())
                 {
-                    String name = faodoc.getCONFESArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFES();
+                    String[] nameAndHref = new ConferenceName().getSpanish(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFOTArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFOTArray(); c++)
+                if (conference.isSetCONFOT())
                 {
-                    String name = faodoc.getCONFOTArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFOT();
+                    String[] nameAndHref = new ConferenceName().getOther(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
@@ -382,38 +374,28 @@ public class ModsDatastream
         }
         // M-38 - M-40
         // add mods:originInfo/dateIssued
+        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
         {
-            if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBDATEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
+            if (faodoc.sizeOfDATEISSUEArray() > 0)
             {
-                if (faodoc.sizeOfDATEISSUEArray() > 0)
-                {
-                    String date = faodoc.getDATEISSUEArray(0);
-                    addNewDateIssued(date);
-                }
-                else
-                {
-                    if (faodoc.sizeOfPUBDATEArray() > 0)
-                    {
-                        String date = faodoc.getPUBDATEArray(0);
-                        addNewDateIssued(date);
-                    }
-                    else
-                    {
-                        if (faodoc.sizeOfPUBYEARArray() > 0)
-                        {
-                            String date = faodoc.getPUBYEARArray(0);
-                            addNewDateIssued(date);
-                        }
-                    }
-                }
+                String date = faodoc.getDATEISSUEArray(0);
+                addNewDateIssued(date);
             }
             else
             {
-                if (eims.getDate() != null)
+                if (faodoc.sizeOfPUBYEARArray() > 0)
                 {
-                    String date = eims.getDate().getStringValue();
+                    String date = faodoc.getPUBYEARArray(0);
                     addNewDateIssued(date);
                 }
+            }
+        }
+        else
+        {
+            if (eims.getDate() != null)
+            {
+                String date = eims.getDate().getStringValue();
+                addNewDateIssued(date);
             }
         }
         // M-41
@@ -544,567 +526,576 @@ public class ModsDatastream
         }
         // M-49 - M-52 + M-54 - M-58
         // add mods:relatedItem@type='series'/titleInfo/title
-        if (faodoc.sizeOfSERTITENArray() > 0 || faodoc.sizeOfSERTITFRArray() > 0 || faodoc.sizeOfSERTITESArray() > 0
-                || faodoc.sizeOfSERTITOTArray() > 0 || faodoc.sizeOfSERTITArray() > 0)
+        if (faodoc.getBIBLEVELArray(0).equalsIgnoreCase("MS") || faodoc.getBIBLEVELArray(0).equalsIgnoreCase("AMS"))
         {
-            if (faodoc.sizeOfSERTITENArray() > 0)
+            ArrayList<String[]> seriesTitles = null;
+            if (faodoc.sizeOfSERIESArray() > 0)
             {
-                for (String s : faodoc.getSERTITENArray())
+                for (SERIESType series : faodoc.getSERIESArray())
                 {
-                    String[] ser_vals = new SeriesName().getEnglish(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
+                    seriesTitles = new ArrayList<String[]>();
+                    String issn = null;
+                    if (series.isSetSERTITEN())
                     {
-                        addNewRelatedItemSeries(ser_vals);
+                        String[] ser_vals = new SeriesName().getEnglish(series.getSERTITEN());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
-                    if (jour_vals != null)
+                    if (series.isSetSERTITFR())
                     {
-                        addNewRelatedItemHost(jour_vals);
+                        String[] ser_vals = new SeriesName().getFrench(series.getSERTITFR());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
-                }
-            }
-            if (faodoc.sizeOfSERTITFRArray() > 0)
-            {
-                for (String s : faodoc.getSERTITFRArray())
-                {
-                    String[] ser_vals = new SeriesName().getFrench(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
+                    if (series.isSetSERTITES())
                     {
-                        addNewRelatedItemSeries(ser_vals);
+                        String[] ser_vals = new SeriesName().getSpanish(series.getSERTITES());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
-                    if (jour_vals != null)
+                    if (series.isSetSERTITOT())
                     {
-                        addNewRelatedItemHost(jour_vals);
+                        String[] ser_vals = new SeriesName().getOther(series.getSERTITOT());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
-                }
-            }
-            if (faodoc.sizeOfSERTITESArray() > 0)
-            {
-                for (String s : faodoc.getSERTITESArray())
-                {
-                    String[] ser_vals = new SeriesName().getSpanish(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
+                    // M-53 + M-59
+                    // add mods:relatedItem@type='series'/identifier@type='issn'
+                    if (series.isSetISSN())
                     {
-                        addNewRelatedItemSeries(ser_vals);
-                    }
-                    if (jour_vals != null)
-                    {
-                        addNewRelatedItemHost(jour_vals);
-                    }
-                }
-            }
-            if (faodoc.sizeOfSERTITOTArray() > 0)
-            {
-                for (String s : faodoc.getSERTITOTArray())
-                {
-                    String[] ser_vals = new SeriesName().getOther(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
-                    {
-                        addNewRelatedItemSeries(ser_vals);
-                    }
-                    if (jour_vals != null)
-                    {
-                        addNewRelatedItemHost(jour_vals);
-                    }
-                }
-            }
-            // TODO: add check for SER_TIT
-            // is lang always en?
-        }
-        else
-        {
-            // assumption: lang is always en
-            if (eims.getIspartofseries() != null)
-            {
-                String[] ser_vals = new SeriesName().getEnglish(eims.getIspartofseries());
-                if (ser_vals != null)
-                {
-                    addNewRelatedItemSeries(ser_vals);
-                }
-            }
-        }
-        // M-53 + M-59
-        // add mods:relatedItem@type='series'/identifier@type='issn'
-        if (faodoc.getBIBLEVELArray(0).equals("MS") || faodoc.getBIBLEVELArray(0).equals("AMS"))
-        {
-            if (faodoc.sizeOfISSNArray() > 0)
-            {
-                for (String issn : faodoc.getISSNArray())
-                {
-                    // addNewRelatedItemIdentifier(issn, "series", "issn");
-                    addIdentifier2existingRelatedItem(issn, "series", "issn");
-                }
-            }
-            else
-            {
-                if (eims.getIssn() != null)
-                {
-                    // addNewRelatedItemIdentifier(eims.getIssn(), "series", "issn");
-                    addIdentifier2existingRelatedItem(eims.getIssn(), "series", "issn");
-                }
-            }
-        }
-        else
-        {
-            if (faodoc.getBIBLEVELArray(0).equals("AS"))
-            {
-                if (faodoc.sizeOfISSNArray() > 0)
-                {
-                    for (String issn : faodoc.getISSNArray())
-                    {
-                        // addNewRelatedItemIdentifier(issn, "host", "issn");
-                        addIdentifier2existingRelatedItem(issn, "host", "issn");
-                    }
-                }
-                else
-                {
-                    if (eims.getIssn() != null)
-                    {
-                        // addNewRelatedItemIdentifier(eims.getIssn(), "host", "issn");
-                        addIdentifier2existingRelatedItem(eims.getIssn(), "host", "issn");
-                    }
-                }
-            }
-        }
-        // M-60
-        // add mods:relatedItem@type='host'/part/detail
-        if (faodoc.sizeOfSERPAGESArray() > 0)
-        {
-            for (String serPages : faodoc.getSERPAGESArray())
-            {
-                // addNewRelatedItemPartDetail(faodoc.getSERPAGESArray(0));
-                addPartDetail2existingRelatedItem(serPages, "series");
-            }
-        }
-        // M-61
-        // add mods:note@type='library_subject_code'
-        if (faodoc.sizeOfSUBJLIBArray() > 0)
-        {
-            for (String subjLib : faodoc.getSUBJLIBArray())
-            {
-                addNewNoteType(subjLib, "library_subject_code", "en");
-            }
-        }
-        // M-62 - M-63
-        // add mods:physicalDescription/extent
-        if (faodoc.sizeOfPAGESArray() > 0 || faodoc.sizeOfSERHOLDArray() > 0 || eims.getPages() != null)
-        {
-            PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-            if (eims.getPages() != null)
-            {
-                desc.addExtent(eims.getPages());
-            }
-            else
-            {
-                if (faodoc.sizeOfPAGESArray() > 0)
-                {
-                    desc.addExtent(faodoc.getPAGESArray(0));
-                }
-                if (faodoc.sizeOfSERHOLDArray() > 0)
-                {
-                    desc.addExtent(faodoc.getSERHOLDArray(0));
-                }
-            }
-        }
-        // M-64
-        // add mods:physicalDescription/note
-        if (faodoc.sizeOfCOLLINFOArray() > 0)
-        {
-            PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-            for (String cInfo : faodoc.getCOLLINFOArray())
-            {
-                NoteType note = desc.addNewNote();
-                note.setStringValue(cInfo);
-            }
-        }
-        // M-65
-        // add mods:location/url@type='external url'
-        if (faodoc.sizeOfURLArray() > 0)
-        {
-            LocationType loc = modsType.addNewLocation();
-            for (String url : faodoc.getURLArray())
-            {
-                UrlType urlType = loc.addNewUrl();
-                urlType.setNote("external url");
-                urlType.setStringValue(url);
-            }
-        }
-        // M-66
-        // add mods:note@type='source note'
-        if (faodoc.sizeOfSOURCEArray() > 0)
-        {
-            NoteType note = modsType.addNewNote();
-            note.setType("source note");
-            note.setStringValue(faodoc.getSOURCEArray(0));
-        }
-        // M-67 -M-68
-        // add mods:note
-        if (faodoc.sizeOfNOTESArray() > 0)
-        {
-            for (String note : faodoc.getNOTESArray())
-            {
-                NoteType noteType = modsType.addNewNote();
-                noteType.setStringValue(note);
-            }
-        }
-        if (faodoc.sizeOfINSTArray() > 0)
-        {
-            for (String note : faodoc.getINSTArray())
-            {
-                NoteType noteType = modsType.addNewNote();
-                noteType.setStringValue(note);
-            }
-        }
-        // according to IS only taken from FAODOC
-        /*
-        if (eims.getNotes() != null)
-        {
-            NoteType noteType = modsType.addNewNote();
-            noteType.setStringValue(eims.getNotes());
-        }
-        */
-        // M-69 - M-75
-        // add mods:abstract
-        if (eims.sizeOfAbstractArray() > 0)
-        {
-            for (noNamespace.AbstractType abstType : eims.getAbstractArray())
-            {
-                AbstractType modsAbst = modsType.addNewAbstract();
-                modsAbst.setLang2(abstType.getLang());
-                modsAbst.setStringValue(abstType.getStringValue());
-            }
-        }
-        else
-        {
-            if (faodoc.sizeOfABSTRArray() > 0)
-            {
-                for (String abstr : faodoc.getABSTRArray())
-                {
-                    AbstractType modsAbst = modsType.addNewAbstract();
-                    // which language to set here?
-                    modsAbst.setStringValue(abstr);
-                }
-            }
-        }
-        // M-76 - M-82
-        // add tons of mods:genre@type='type'
-        if (faodoc.sizeOfLITINDICATORArray() > 0)
-        {
-            for (String litInd : faodoc.getLITINDICATORArray())
-            {
-                addNewGenreType(litInd, "type", "en");
-            }
-        }
-        if (faodoc.sizeOfTYPEArray() > 0)
-        {
-            for (String type : faodoc.getTYPEArray())
-            {
-                addNewGenreType(type, "type", "en");
-            }
-        }
-        if (faodoc.sizeOfCLASSCODEArray() > 0)
-        {
-            for (String cc : faodoc.getCLASSCODEArray())
-            {
-                if (cc.equalsIgnoreCase("Y") || cc.equalsIgnoreCase("Z"))
-                {
-                    AccessConditionType access = modsType.addNewAccessCondition();
-                    access.setType("copyright");
-                    access.setTitle(cc);
-                }
-                else
-                {
-                    if (cc.equalsIgnoreCase("W"))
-                    {
-                        addNewGenreType("U", "type", "en");
+                        issn = series.getISSN();
                     }
                     else
                     {
-                        if (cc.equalsIgnoreCase("C"))
+                        if (eims.getIssn() != null)
                         {
-                            addNewGenreType("G", "type", "en");
+                            issn = eims.getIssn();
+                        }
+                    }
+                    addNewRelatedItemSeries(seriesTitles, issn);
+                }
+                // TODO: add check for SER_TIT
+                // is lang always en?
+            }
+            else
+            {
+                // assumption: lang is always en
+                String issn = null;
+                if (eims.getIspartofseries() != null)
+                {
+                    String[] ser_vals = new SeriesName().getEnglish(eims.getIspartofseries());
+                    if (ser_vals != null)
+                    {
+                        seriesTitles = new ArrayList<String[]>();
+                        seriesTitles.add(ser_vals);
+                    }
+                }
+                if (eims.getIssn() != null)
+                {
+                    issn = eims.getIssn();
+                }
+                addNewRelatedItemSeries(seriesTitles, issn);
+            }
+        }
+        else
+        {
+            if (faodoc.getBIBLEVELArray(0).equalsIgnoreCase("AS"))
+            {
+                if (faodoc.sizeOfSERIESArray() > 0)
+                {
+                    for (SERIESType series : faodoc.getSERIESArray())
+                    {
+                        ArrayList<String[]> journalTitles = new ArrayList<String[]>();
+                        String issn = null;
+                        String pages = null;
+                        if (series.isSetSERTITEN())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITEN());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITFR())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITFR());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITES())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITES());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITOT())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITOT());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        // M-53 + M-59
+                        // add mods:relatedItem@type='series'/identifier@type='issn'
+                        if (series.isSetISSN())
+                        {
+                            issn = series.getISSN();
                         }
                         else
                         {
-                            addNewGenreType(cc, "type", "en");
+                            if (eims.getIssn() != null)
+                            {
+                                issn = eims.getIssn();
+                            }
+                        }
+                        // M-60
+                        // add mods:relatedItem@type='host'/part/detail
+                        if (series.isSetSERPAGES())
+                        {
+                            pages = series.getSERPAGES();
+                        }
+                        addNewRelatedItemHost(journalTitles, issn, pages);
+                    }
+                }
+            }
+            // M-61
+            // add mods:note@type='library_subject_code'
+            if (faodoc.sizeOfSUBJLIBArray() > 0)
+            {
+                for (String subjLib : faodoc.getSUBJLIBArray())
+                {
+                    addNewNoteType(subjLib, "library_subject_code", "en");
+                }
+            }
+            // M-62 - M-63
+            // add mods:physicalDescription/extent
+            if (faodoc.sizeOfPAGESArray() > 0 || faodoc.sizeOfSERIESArray() > 0 || eims.getPages() != null)
+            {
+                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                if (eims.getPages() != null)
+                {
+                    desc.addExtent(eims.getPages());
+                }
+                else
+                {
+                    if (faodoc.sizeOfPAGESArray() > 0)
+                    {
+                        desc.addExtent(faodoc.getPAGESArray(0));
+                    }
+                    for (SERIESType series : faodoc.getSERIESArray())
+                    {
+                        if (series.isSetSERHOLD())
+                        {
+                            desc.addExtent(series.getSERHOLD());
                         }
                     }
                 }
             }
-        }
-        if (faodoc.sizeOfCLASSCODEDCArray() > 0)
-        {
-            for (String ccdc : faodoc.getCLASSCODEDCArray())
+            // M-64
+            // add mods:physicalDescription/note
+            if (faodoc.sizeOfCOLLINFOArray() > 0)
             {
-                if (ccdc.contains("FAO"))
+                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                for (String cInfo : faodoc.getCOLLINFOArray())
                 {
-                    AccessConditionType access = modsType.addNewAccessCondition();
-                    access.setType("copyright");
-                    access.setTitle(ccdc);
-                }
-                else
-                {
-                    addNewGenreType(ccdc, "type", "en");
+                    NoteType note = desc.addNewNote();
+                    note.setStringValue(cInfo);
                 }
             }
-        }
-        if (faodoc.sizeOfRECORDTYPEArray() > 0)
-        {
-            for (String rec : faodoc.getRECORDTYPEArray())
+            // M-65
+            // add mods:location/url@type='external url'
+            if (faodoc.sizeOfURLArray() > 0)
             {
-                if (rec.equals("F"))
+                LocationType loc = modsType.addNewLocation();
+                for (String url : faodoc.getURLArray())
                 {
-                    addNewGenreType("L", "type", "en");
-                }
-                if (rec.equals("G"))
-                {
-                    addNewGenreType("Y", "type", "en");
-                }
-                if (rec.equals("J"))
-                {
-                    addNewGenreType("AS", "class", "en");
+                    UrlType urlType = loc.addNewUrl();
+                    urlType.setNote("external url");
+                    urlType.setStringValue(url);
                 }
             }
-        }
-        if (faodoc.sizeOfRECORDTYPEDCArray() > 0)
-        {
-            for (String recdc : faodoc.getRECORDTYPEDCArray())
+            // M-66
+            // add mods:note@type='source note'
+            if (faodoc.sizeOfSOURCEArray() > 0)
             {
-                if (recdc.equals("Monograph"))
+                NoteType note = modsType.addNewNote();
+                note.setType("source note");
+                note.setStringValue(faodoc.getSOURCEArray(0));
+            }
+            // M-67 -M-68
+            // add mods:note
+            if (faodoc.sizeOfNOTESArray() > 0)
+            {
+                for (String note : faodoc.getNOTESArray())
                 {
-                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                    StringPlusAuthorityPlusType form = desc.addNewForm();
-                    form.setStringValue(recdc);
-                }
-                if (recdc.equals("Film"))
-                {
-                    addNewGenreType(recdc, "type", "en");
-                }
-                if (recdc.contains("Map"))
-                {
-                    addNewGenreType("Map(s)/Atlas", "type", "en");
-                }
-                if (recdc.contains("Article"))
-                {
-                    addNewGenreType("Analytic from a serial", "type", "en");
+                    NoteType noteType = modsType.addNewNote();
+                    noteType.setStringValue(note);
                 }
             }
-        }
-        if (faodoc.getBIBLEVELArray(0).equals("AS"))
-        {
-            addNewGenreType("Journal article", "type", "en");
-        }
-        if (faodoc.getBIBLEVELArray(0).equals("AM") || faodoc.getBIBLEVELArray(0).equals("AMS"))
-        {
-            addNewGenreType("Analytic", "type", "en");
-        }
-        // TODO: check what to do with eims.fao
-        // M-83 - M-87
-        // add new mods:location/physicalLocation
-        LocationType fao_location = modsType.addNewLocation();
-        PhysicalLocationType phys = fao_location.addNewPhysicalLocation();
-        phys.setStringValue(FAO);
-        HoldingSimpleType holding = fao_location.addNewHoldingSimple();
-
-        if (faodoc.sizeOfLOCArray() > 0)
-        {
-            for (LOCType locType : faodoc.getLOCArray())
+            if (faodoc.sizeOfINSTArray() > 0)
             {
-                //LocationType location = modsType.addNewLocation();
+                for (String note : faodoc.getINSTArray())
+                {
+                    NoteType noteType = modsType.addNewNote();
+                    noteType.setStringValue(note);
+                }
+            }
+            // according to IS only taken from FAODOC
+            /*
+             * if (eims.getNotes() != null) { NoteType noteType = modsType.addNewNote();
+             * noteType.setStringValue(eims.getNotes()); }
+             */
+            // M-69 - M-75
+            // add mods:abstract
+            if (eims.sizeOfAbstractArray() > 0)
+            {
+                for (noNamespace.AbstractType abstType : eims.getAbstractArray())
+                {
+                    AbstractType modsAbst = modsType.addNewAbstract();
+                    modsAbst.setLang2(abstType.getLang());
+                    modsAbst.setStringValue(abstType.getStringValue());
+                }
+            }
+            else
+            {
+                if (faodoc.sizeOfABSTRArray() > 0)
+                {
+                    for (String abstr : faodoc.getABSTRArray())
+                    {
+                        AbstractType modsAbst = modsType.addNewAbstract();
+                        // which language to set here?
+                        modsAbst.setStringValue(abstr);
+                    }
+                }
+            }
+            // M-76 - M-82
+            // add tons of mods:genre@type='type'
+            if (faodoc.sizeOfLITINDICATORArray() > 0)
+            {
+                for (String litInd : faodoc.getLITINDICATORArray())
+                {
+                    addNewGenreType(litInd, "type", "en");
+                }
+            }
+            if (faodoc.sizeOfTYPEArray() > 0)
+            {
+                for (String type : faodoc.getTYPEArray())
+                {
+                    addNewGenreType(type, "type", "en");
+                }
+            }
+            if (faodoc.sizeOfCLASSCODEArray() > 0)
+            {
+                for (String cc : faodoc.getCLASSCODEArray())
+                {
+                    if (cc.equalsIgnoreCase("Y") || cc.equalsIgnoreCase("Z"))
+                    {
+                        AccessConditionType access = modsType.addNewAccessCondition();
+                        access.setType("copyright");
+                        access.setTitle(cc);
+                    }
+                    else
+                    {
+                        if (cc.equalsIgnoreCase("W"))
+                        {
+                            addNewGenreType("U", "type", "en");
+                        }
+                        else
+                        {
+                            if (cc.equalsIgnoreCase("C"))
+                            {
+                                addNewGenreType("G", "type", "en");
+                            }
+                            else
+                            {
+                                addNewGenreType(cc, "type", "en");
+                            }
+                        }
+                    }
+                }
+            }
+            if (faodoc.sizeOfCLASSCODEDCArray() > 0)
+            {
+                for (String ccdc : faodoc.getCLASSCODEDCArray())
+                {
+                    if (ccdc.contains("FAO"))
+                    {
+                        AccessConditionType access = modsType.addNewAccessCondition();
+                        access.setType("copyright");
+                        access.setTitle(ccdc);
+                    }
+                    else
+                    {
+                        addNewGenreType(ccdc, "type", "en");
+                    }
+                }
+            }
+            if (faodoc.sizeOfRECORDTYPEArray() > 0)
+            {
+                for (String rec : faodoc.getRECORDTYPEArray())
+                {
+                    if (rec.equals("F"))
+                    {
+                        addNewGenreType("L", "type", "en");
+                    }
+                    if (rec.equals("G"))
+                    {
+                        addNewGenreType("Y", "type", "en");
+                    }
+                    if (rec.equals("J"))
+                    {
+                        addNewGenreType("AS", "class", "en");
+                    }
+                }
+            }
+            if (faodoc.sizeOfRECORDTYPEDCArray() > 0)
+            {
+                for (String recdc : faodoc.getRECORDTYPEDCArray())
+                {
+                    if (recdc.equals("Monograph"))
+                    {
+                        PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                        StringPlusAuthorityPlusType form = desc.addNewForm();
+                        form.setStringValue(recdc);
+                    }
+                    if (recdc.equals("Film"))
+                    {
+                        addNewGenreType(recdc, "type", "en");
+                    }
+                    if (recdc.contains("Map"))
+                    {
+                        addNewGenreType("Map(s)/Atlas", "type", "en");
+                    }
+                    if (recdc.contains("Article"))
+                    {
+                        addNewGenreType("Analytic from a serial", "type", "en");
+                    }
+                }
+            }
+            if (faodoc.getBIBLEVELArray(0).equals("AS"))
+            {
+                addNewGenreType("Journal article", "type", "en");
+            }
+            if (faodoc.getBIBLEVELArray(0).equals("AM") || faodoc.getBIBLEVELArray(0).equals("AMS"))
+            {
+                addNewGenreType("Analytic", "type", "en");
+            }
+            // TODO: check what to do with eims.fao
+            // M-83 - M-87
+            // add new mods:location/physicalLocation
+            LocationType fao_location = modsType.addNewLocation();
+            PhysicalLocationType phys = fao_location.addNewPhysicalLocation();
+            phys.setStringValue(FAO);
+            HoldingSimpleType holding = fao_location.addNewHoldingSimple();
+            if (faodoc.sizeOfLOCArray() > 0)
+            {
+                for (LOCType locType : faodoc.getLOCArray())
+                {
+                    // LocationType location = modsType.addNewLocation();
+                    CopyInformationType copy = holding.addNewCopyInformation();
+                    StringPlusAuthority form = copy.addNewForm();
+                    form.setAuthority("marcform");
+                    form.setStringValue("print");
+                    copy.addSubLocation(locType.getLOCATION());
+                    copy.addShelfLocator(locType.getAVNUMBER());
+                }
+            }
+            if (faodoc.getLOCALNUMBERArray(0) != null)
+            {
+                // LocationType location = modsType.addNewLocation();
+                // HoldingSimpleType holding = fao_location.addNewHoldingSimple();
                 CopyInformationType copy = holding.addNewCopyInformation();
                 StringPlusAuthority form = copy.addNewForm();
                 form.setAuthority("marcform");
                 form.setStringValue("print");
-                copy.addSubLocation(locType.getLOCATION());
-                copy.addShelfLocator(locType.getAVNUMBER());
+                copy.addShelfLocator(faodoc.getLOCALNUMBERArray(0));
             }
-        }
-        if (faodoc.getLOCALNUMBERArray(0) != null)
-        {
-            //LocationType location = modsType.addNewLocation();
-            //HoldingSimpleType holding = fao_location.addNewHoldingSimple();
-            CopyInformationType copy = holding.addNewCopyInformation();
-            StringPlusAuthority form = copy.addNewForm();
-            form.setAuthority("marcform");
-            form.setStringValue("print");
-            copy.addShelfLocator(faodoc.getLOCALNUMBERArray(0));
-        }
-        if (faodoc.sizeOfMICROFICHEArray() > 0)
-        {
-            for (String mf : faodoc.getMICROFICHEArray())
+            if (faodoc.sizeOfMICROFICHEArray() > 0)
             {
-                //LocationType microFiche = modsType.addNewLocation();
-                //HoldingSimpleType holding = fao_location.addNewHoldingSimple();
-                CopyInformationType copy = holding.addNewCopyInformation();
-                StringPlusAuthority form = copy.addNewForm();
-                form.setAuthority("marcform");
-                form.setStringValue("microfiche");
-                copy.addShelfLocator(mf);
-            }
-        }
-        // M-88 - M-90
-        // add mods:location/url@note
-        if (eims.getURL() != null)
-        {
-            LocationType location = modsType.addNewLocation();
-            UrlType url = location.addNewUrl();
-            url.setNote(eims.getURL().getNote());
-            url.setStringValue(eims.getURL().getStringValue());
-        }
-        if (eims.getPDFURL() != null)
-        {
-            LocationType location = modsType.addNewLocation();
-            UrlType url = location.addNewUrl();
-            url.setNote(eims.getPDFURL().getNote());
-            url.setStringValue(eims.getPDFURL().getStringValue());
-        }
-        if (eims.getZIPURL() != null)
-        {
-            LocationType location = modsType.addNewLocation();
-            UrlType url = location.addNewUrl();
-            url.setNote(eims.getZIPURL().getNote());
-            url.setStringValue(eims.getZIPURL().getStringValue());
-        }
-        // M-91
-        // add mods:physicalDescription/form or genre@type='type'
-        if (faodoc.sizeOfFORMDOCArray() > 0)
-        {
-            if (faodoc.getFORMDOCArray(0).equals("Audiocassette"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Videocassette"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Filmstrip"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/reel");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Slides"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0));
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Bibliography"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("Z", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Dictionary"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("O", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Directory"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("B", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Field Document"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("X", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Handbook/Manual"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("H", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Map(s)/Atlas"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("Y", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Terminal Report"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("R", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Thesaurus"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("T", "type", "en");
-            }
-            if (eims.getGenre() != null)
-            {
-                if (eims.getGenre().getStringValue().equals("Annotated bibliography"))
+                for (String mf : faodoc.getMICROFICHEArray())
                 {
-                    addNewGenreType("Bibliography", "literary indicator", "en");
+                    // LocationType microFiche = modsType.addNewLocation();
+                    // HoldingSimpleType holding = fao_location.addNewHoldingSimple();
+                    CopyInformationType copy = holding.addNewCopyInformation();
+                    StringPlusAuthority form = copy.addNewForm();
+                    form.setAuthority("marcform");
+                    form.setStringValue("microfiche");
+                    copy.addShelfLocator(mf);
+                }
+            }
+            // M-88 - M-90
+            // add mods:location/url@note
+            if (eims.getURL() != null)
+            {
+                LocationType location = modsType.addNewLocation();
+                UrlType url = location.addNewUrl();
+                url.setNote(eims.getURL().getNote());
+                url.setStringValue(eims.getURL().getStringValue());
+            }
+            if (eims.getPDFURL() != null)
+            {
+                LocationType location = modsType.addNewLocation();
+                UrlType url = location.addNewUrl();
+                url.setNote(eims.getPDFURL().getNote());
+                url.setStringValue(eims.getPDFURL().getStringValue());
+            }
+            if (eims.getZIPURL() != null)
+            {
+                LocationType location = modsType.addNewLocation();
+                UrlType url = location.addNewUrl();
+                url.setNote(eims.getZIPURL().getNote());
+                url.setStringValue(eims.getZIPURL().getStringValue());
+            }
+            // M-91
+            // add mods:physicalDescription/form or genre@type='type'
+            if (faodoc.sizeOfFORMDOCArray() > 0)
+            {
+                if (faodoc.getFORMDOCArray(0).equals("Audiocassette"))
+                {
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Videocassette"))
+                {
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Filmstrip"))
+                {
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/reel");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Slides"))
+                {
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0));
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Bibliography"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
                     addNewGenreType("Z", "type", "en");
                 }
-                if (eims.getGenre().getStringValue().equals("Book"))
+                if (faodoc.getFORMDOCArray(0).equals("Dictionary"))
                 {
-                    addNewGenreType("Publication", "literary indicator", "en");
-                    addNewGenreType("P", "type", "en");
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("O", "type", "en");
                 }
-                if (eims.getGenre().getStringValue().equals("Journal"))
+                if (faodoc.getFORMDOCArray(0).equals("Directory"))
                 {
-                    addNewGenreType(eims.getGenre().getStringValue(), "literary indicator", "en");
-                    addNewGenreType("J", "type", "en");
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("B", "type", "en");
                 }
-                if (eims.getGenre().getStringValue().equals("Meeting"))
+                if (faodoc.getFORMDOCArray(0).equals("Field Document"))
                 {
-                    addNewGenreType(eims.getGenre().getStringValue(), "literary indicator", "en");
-                    addNewGenreType("K", "type", "en");
-                }
-                if (eims.getGenre().getStringValue().equals("Other"))
-                {
-                    addNewGenreType("Information", "literary indicator", "en");
-                    addNewGenreType("I", "type", "en");
-                }
-                if (eims.getGenre().getStringValue().equals("Project"))
-                {
-                    addNewGenreType("Field document", "literary indicator", "en");
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
                     addNewGenreType("X", "type", "en");
                 }
-                if (eims.getGenre().getStringValue().equals("Report"))
+                if (faodoc.getFORMDOCArray(0).equals("Handbook/Manual"))
                 {
-                    addNewGenreType("Meeting", "literary indicator", "en");
-                    addNewGenreType("K", "type", "en");
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("H", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Map(s)/Atlas"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("Y", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Terminal Report"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("R", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Thesaurus"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("T", "type", "en");
+                }
+                if (eims.getGenre() != null)
+                {
+                    if (eims.getGenre().getStringValue().equals("Annotated bibliography"))
+                    {
+                        addNewGenreType("Bibliography", "literary indicator", "en");
+                        addNewGenreType("Z", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Book"))
+                    {
+                        addNewGenreType("Publication", "literary indicator", "en");
+                        addNewGenreType("P", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Journal"))
+                    {
+                        addNewGenreType(eims.getGenre().getStringValue(), "literary indicator", "en");
+                        addNewGenreType("J", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Meeting"))
+                    {
+                        addNewGenreType(eims.getGenre().getStringValue(), "literary indicator", "en");
+                        addNewGenreType("K", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Other"))
+                    {
+                        addNewGenreType("Information", "literary indicator", "en");
+                        addNewGenreType("I", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Project"))
+                    {
+                        addNewGenreType("Field document", "literary indicator", "en");
+                        addNewGenreType("X", "type", "en");
+                    }
+                    if (eims.getGenre().getStringValue().equals("Report"))
+                    {
+                        addNewGenreType("Meeting", "literary indicator", "en");
+                        addNewGenreType("K", "type", "en");
+                    }
+                }
+            }
+            // M-92
+            // add mods:recordInfo/record/creationDate
+            if (faodoc.sizeOfCDArray() > 0)
+            {
+                RecordInfoType infoCD = modsType.addNewRecordInfo();
+                DateType dateCD = infoCD.addNewRecordCreationDate();
+                dateCD.setStringValue(Integer.valueOf(faodoc.getCDArray(0)).toString());
+                // M-93
+                // add mods:recordInfo/record/changedDate
+                if (faodoc.sizeOfDUArray() > 0)
+                {
+                    RecordInfoType infoDU = modsType.addNewRecordInfo();
+                    DateType dateDU = infoDU.addNewRecordChangeDate();
+                    dateDU.setStringValue(Integer.valueOf(faodoc.getDUArray(0)).toString());
+                }
+            }
+            else
+            {
+                if (eims.getDateCreated() != null)
+                {
+                    RecordInfoType info = modsType.addNewRecordInfo();
+                    DateType date = info.addNewRecordCreationDate();
+                    date.setStringValue(eims.getDateCreated());
                 }
             }
         }
-        // M-92
-        // add mods:recordInfo/record/creationDate
-        if (faodoc.sizeOfCDArray() > 0)
-        {
-            RecordInfoType infoCD = modsType.addNewRecordInfo();
-            DateType dateCD = infoCD.addNewRecordCreationDate();
-            dateCD.setStringValue(Integer.valueOf(faodoc.getCDArray(0)).toString());
-            // M-93
-            // add mods:recordInfo/record/changedDate
-            if (faodoc.sizeOfDUArray() > 0)
-            {
-                RecordInfoType infoDU = modsType.addNewRecordInfo();
-                DateType dateDU = infoDU.addNewRecordChangeDate();
-                dateDU.setStringValue(Integer.valueOf(faodoc.getDUArray(0)).toString());
-            }
-        }
-        else
-        {
-            if (eims.getDateCreated() != null)
-            {
-                RecordInfoType info = modsType.addNewRecordInfo();
-                DateType date = info.addNewRecordCreationDate();
-                date.setStringValue(eims.getDateCreated());
-            }
-        }
-        // System.out.println(modsDoc.xmlText(XBeanUtils.getModsOpts()));
         return modsDoc;
     }
 
@@ -1416,16 +1407,25 @@ public class ModsDatastream
      * 
      * @param values {@link String[]}
      */
-    public void addNewRelatedItemSeries(String[] values)
+    public void addNewRelatedItemSeries(ArrayList<String[]> titles, String issn)
     {
         RelatedItemType related = modsType.addNewRelatedItem();
         related.setType(RelatedItemType.Type.SERIES);
-        TitleInfoType titleInfo = related.addNewTitleInfo();
-        titleInfo.setLang2(values[2]);
-        titleInfo.setAuthority("fao-aos-series");
-        titleInfo.setHref(values[1]);
-        XmlString title = titleInfo.addNewTitle();
-        title.setStringValue(values[0]);
+        for (String[] ser_title : titles)
+        {
+            TitleInfoType titleInfo = related.addNewTitleInfo();
+            titleInfo.setLang2(ser_title[2]);
+            titleInfo.setAuthority("fao-aos-series");
+            titleInfo.setHref(ser_title[1]);
+            XmlString title = titleInfo.addNewTitle();
+            title.setStringValue(ser_title[0]);
+        }
+        if (issn != null)
+        {
+            IdentifierType idType = related.addNewIdentifier();
+            idType.setType("issn");
+            idType.setStringValue(issn);
+        }
     }
 
     /**
@@ -1433,16 +1433,31 @@ public class ModsDatastream
      * 
      * @param values {@link String[]}
      */
-    public void addNewRelatedItemHost(String[] values)
+    public void addNewRelatedItemHost(ArrayList<String[]> journal_titles, String issn, String pages)
     {
         RelatedItemType related = modsType.addNewRelatedItem();
         related.setType(RelatedItemType.Type.HOST);
-        TitleInfoType titleInfo = related.addNewTitleInfo();
-        titleInfo.setLang2(values[2]);
-        titleInfo.setAuthority("fao-aos-journal");
-        titleInfo.setHref(values[1]);
-        XmlString title = titleInfo.addNewTitle();
-        title.setStringValue(values[0]);
+        for (String[] journal : journal_titles)
+        {
+            TitleInfoType titleInfo = related.addNewTitleInfo();
+            titleInfo.setLang2(journal[2]);
+            titleInfo.setAuthority("fao-aos-journal");
+            titleInfo.setHref(journal[1]);
+            XmlString title = titleInfo.addNewTitle();
+            title.setStringValue(journal[0]);
+        }
+        if (issn != null)
+        {
+            IdentifierType idType = related.addNewIdentifier();
+            idType.setType("issn");
+            idType.setStringValue(issn);
+        }
+        if (pages != null)
+        {
+            PartType part = related.addNewPart();
+            DetailType detail = part.addNewDetail();
+            detail.addNumber(pages);
+        }
     }
 
     /**
@@ -1460,7 +1475,6 @@ public class ModsDatastream
     }
 
     /**
-     * 
      * @param langArray {@link String[]}
      * @return {@link boolean}
      */
@@ -1484,21 +1498,23 @@ public class ModsDatastream
     }
 
     /**
-     * creata a MODS datastream with values from FAODOC only.
+     * creata MODS datastream with values from FAODOC only.
      * 
      * @param faodoc {@link ITEMType}
      * @return {@link ModsDocument}
      */
-    public ModsDocument create4Faodoc(ITEMType faodoc)
+    public ModsDocument faodoc(ITEMType faodoc)
     {
         ModsDocument modsDoc = ModsDocument.Factory.newInstance();
         modsType = modsDoc.addNewMods();
         modsType.setVersion(VersionType.X_3_3);
+        // M-1
         // add mods:genre@type='class'
         if (faodoc.sizeOfBIBLEVELArray() > 0)
         {
             addNewGenreType(faodoc.getBIBLEVELArray(0), "class", null);
         }
+        // M-2 + M-3
         // add mods:name@type='personal'/namePart
         if (faodoc.sizeOfAUPERArray() > 0)
         {
@@ -1529,6 +1545,7 @@ public class ModsDatastream
                 roleTerm.setStringValue(e.getValue().toString());
             }
         }
+        // M-4 - M-7
         // add mods:name@type='corporate'/namePart
         if (faodoc.sizeOfAUCORENArray() > 0)
         {
@@ -1578,52 +1595,43 @@ public class ModsDatastream
                 }
             }
         }
+        // M-8 - M-15
         // add mods:name@type='conference'/namePart
-        if (faodoc.sizeOfCONFENArray() > 0 || faodoc.sizeOfCONFFRArray() > 0 || faodoc.sizeOfCONFESArray() > 0
-                || faodoc.sizeOfCONFOTArray() > 0)
+        if (faodoc.sizeOfCONFERENCEArray() > 0)
         {
-            if (faodoc.sizeOfCONFENArray() > 0)
+            for (CONFERENCEType conference : faodoc.getCONFERENCEArray())
             {
-                for (int c = 0; c < faodoc.sizeOfCONFENArray(); c++)
+                if (conference.isSetCONFEN())
                 {
-                    String name = faodoc.getCONFENArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFEN();
+                    String[] nameAndHref = new ConferenceName().getEnglish(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFFRArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFFRArray(); c++)
+                if (conference.isSetCONFFR())
                 {
-                    String name = faodoc.getCONFFRArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFFR();
+                    String[] nameAndHref = new ConferenceName().getFrench(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFESArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFESArray(); c++)
+                if (conference.isSetCONFES())
                 {
-                    String name = faodoc.getCONFESArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFES();
+                    String[] nameAndHref = new ConferenceName().getSpanish(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
                     }
                 }
-            }
-            if (faodoc.sizeOfCONFOTArray() > 0)
-            {
-                for (int c = 0; c < faodoc.sizeOfCONFOTArray(); c++)
+                if (conference.isSetCONFOT())
                 {
-                    String name = faodoc.getCONFOTArray(c);
-                    String[] nameAndHref = new ConferenceName().getEnglish(faodoc, name);
+                    String name = conference.getCONFOT();
+                    String[] nameAndHref = new ConferenceName().getOther(conference, name);
                     if (nameAndHref != null)
                     {
                         addNewConferenceNameType(nameAndHref[0], "en", nameAndHref[1]);
@@ -1631,7 +1639,9 @@ public class ModsDatastream
                 }
             }
         }
+        // M-16 - M-22
         // add mods:titleInfo/title
+        // TODO: check rules for TIT_OT and title lang=ot
         if (faodoc.sizeOfTITENArray() > 0)
         {
             String tit_en = faodoc.getTITENArray(0);
@@ -1647,6 +1657,7 @@ public class ModsDatastream
             String tit_es = faodoc.getTITESArray(0);
             addNewTitleInfoType(tit_es, "es");
         }
+        // M-23
         // add mods:titleInfo@type='translated'/title
         if (faodoc.sizeOfTITTRArray() > 0)
         {
@@ -1656,6 +1667,10 @@ public class ModsDatastream
                 addNewTranslatedTitleInfoType(translated, "en");
             }
         }
+        // M-24 - M-29
+        // add mods:titleInfo/subTitle
+        // not available in FAODOC
+        // M-30 - M-34
         // add mods:note@type='title'
         if (faodoc.sizeOfSUBTITENArray() > 0)
         {
@@ -1692,6 +1707,7 @@ public class ModsDatastream
                 addNewNoteType(s, "title", "tr");
             }
         }
+        // M-35
         // add mods:originInfo/edition
         if (faodoc.sizeOfEDITIONArray() > 0)
         {
@@ -1699,6 +1715,7 @@ public class ModsDatastream
             XmlString edition = origin.addNewEdition();
             edition.setStringValue(faodoc.getEDITIONArray(0));
         }
+        // M-36
         // add mods:originInfo/publisher
         if (faodoc.sizeOfPUBNAMEArray() > 0)
         {
@@ -1709,6 +1726,7 @@ public class ModsDatastream
                 publisher.setStringValue(p);
             }
         }
+        // M-37
         // add mods:originInfo/placce/placeterm@type='text'
         if (faodoc.sizeOfPUBPLACEArray() > 0)
         {
@@ -1721,33 +1739,25 @@ public class ModsDatastream
                 placeTerm.setStringValue(pp);
             }
         }
+        // M-38 - M-40
         // add mods:originInfo/dateIssued
+        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
         {
-            if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBDATEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
+            if (faodoc.sizeOfDATEISSUEArray() > 0)
             {
-                if (faodoc.sizeOfDATEISSUEArray() > 0)
+                String date = faodoc.getDATEISSUEArray(0);
+                addNewDateIssued(date);
+            }
+            else
+            {
+                if (faodoc.sizeOfPUBYEARArray() > 0)
                 {
-                    String date = faodoc.getDATEISSUEArray(0);
+                    String date = faodoc.getPUBYEARArray(0);
                     addNewDateIssued(date);
-                }
-                else
-                {
-                    if (faodoc.sizeOfPUBDATEArray() > 0)
-                    {
-                        String date = faodoc.getPUBDATEArray(0);
-                        addNewDateIssued(date);
-                    }
-                    else
-                    {
-                        if (faodoc.sizeOfPUBYEARArray() > 0)
-                        {
-                            String date = faodoc.getPUBYEARArray(0);
-                            addNewDateIssued(date);
-                        }
-                    }
                 }
             }
         }
+        // M-41
         // add mods:originInfo/dateOther@type='year'
         if (faodoc.sizeOfYEARPUBLArray() > 0)
         {
@@ -1756,11 +1766,13 @@ public class ModsDatastream
             other.setType("year");
             other.setStringValue(Short.valueOf(faodoc.getYEARPUBLArray(0)).toString());
         }
+        // M-42
         // add mods:identifier@type='type'
         if (faodoc.sizeOfISBNArray() > 0)
         {
             addNewIdentifier(faodoc.getISBNArray(0), "isbn");
         }
+        // M-43
         // add mods:language/languageTerm@type='code'@authority
         if (faodoc.sizeOfLANGArray() > 0)
         {
@@ -1773,20 +1785,24 @@ public class ModsDatastream
                 }
                 else
                 {
-                    // TODO: add alternative if label_en does not work
+                    // TODO: handle languages, where desc != FAODOC LANG!
+                    // i.e. Spanish
                 }
             }
         }
+        // M-44
         // add mods:identifier@type='type'
         if (faodoc.sizeOfRNArray() > 0)
         {
             addNewIdentifier(faodoc.getRNArray(0), "rn");
         }
+        // M-45
         // add mods:identifier@type='type'
         if (faodoc.sizeOfJNArray() > 0)
         {
             addNewIdentifier(faodoc.getJNArray(0), "jn");
         }
+        // M-46
         // add mods:relatedItem@type='originel'/titleInfo/title
         if (faodoc.sizeOfPNAMEArray() > 0)
         {
@@ -1799,6 +1815,7 @@ public class ModsDatastream
                 }
             }
         }
+        // M-47
         // add mods:relatedItem@type='project'/identifier@type='faopn'
         if (faodoc.sizeOfPNUMBERArray() > 0)
         {
@@ -1807,6 +1824,7 @@ public class ModsDatastream
                 addNewRelatedItemIdentifier(pnumber, "project", "faopn");
             }
         }
+        // M-48
         // add mods:relatedItem@type='project'/note@type='project'
         if (faodoc.sizeOfPDOCArray() > 0)
         {
@@ -1815,432 +1833,477 @@ public class ModsDatastream
                 addNewRelatedItemNote(pdoc);
             }
         }
+        // M-49 - M-52 + M-54 - M-58
         // add mods:relatedItem@type='series'/titleInfo/title
-        if (faodoc.sizeOfSERTITENArray() > 0 || faodoc.sizeOfSERTITFRArray() > 0 || faodoc.sizeOfSERTITESArray() > 0
-                || faodoc.sizeOfSERTITOTArray() > 0 || faodoc.sizeOfSERTITArray() > 0)
+        if (faodoc.getBIBLEVELArray(0).equalsIgnoreCase("MS") || faodoc.getBIBLEVELArray(0).equalsIgnoreCase("AMS"))
         {
-            if (faodoc.sizeOfSERTITENArray() > 0)
+            ArrayList<String[]> seriesTitles = null;
+            if (faodoc.sizeOfSERIESArray() > 0)
             {
-                for (String s : faodoc.getSERTITENArray())
+                for (SERIESType series : faodoc.getSERIESArray())
                 {
-                    String[] ser_vals = new SeriesName().getEnglish(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
+                    seriesTitles = new ArrayList<String[]>();
+                    String issn = null;
+                    if (series.isSetSERTITEN())
                     {
-                        addNewRelatedItemSeries(ser_vals);
+                        String[] ser_vals = new SeriesName().getEnglish(series.getSERTITEN());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
-                    if (jour_vals != null)
+                    if (series.isSetSERTITFR())
                     {
-                        addNewRelatedItemHost(jour_vals);
+                        String[] ser_vals = new SeriesName().getFrench(series.getSERTITFR());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
                     }
+                    if (series.isSetSERTITES())
+                    {
+                        String[] ser_vals = new SeriesName().getSpanish(series.getSERTITES());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
+                    }
+                    if (series.isSetSERTITOT())
+                    {
+                        String[] ser_vals = new SeriesName().getOther(series.getSERTITOT());
+                        if (ser_vals != null)
+                        {
+                            seriesTitles.add(ser_vals);
+                        }
+                    }
+                    // M-53 + M-59
+                    // add mods:relatedItem@type='series'/identifier@type='issn'
+                    if (series.isSetISSN())
+                    {
+                        issn = series.getISSN();
+                    }
+                    addNewRelatedItemSeries(seriesTitles, issn);
                 }
-            }
-            if (faodoc.sizeOfSERTITFRArray() > 0)
-            {
-                for (String s : faodoc.getSERTITFRArray())
-                {
-                    String[] ser_vals = new SeriesName().getFrench(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
-                    {
-                        addNewRelatedItemSeries(ser_vals);
-                    }
-                    if (jour_vals != null)
-                    {
-                        addNewRelatedItemHost(jour_vals);
-                    }
-                }
-            }
-            if (faodoc.sizeOfSERTITESArray() > 0)
-            {
-                for (String s : faodoc.getSERTITESArray())
-                {
-                    String[] ser_vals = new SeriesName().getSpanish(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
-                    {
-                        addNewRelatedItemSeries(ser_vals);
-                    }
-                    if (jour_vals != null)
-                    {
-                        addNewRelatedItemHost(jour_vals);
-                    }
-                }
-            }
-            if (faodoc.sizeOfSERTITOTArray() > 0)
-            {
-                for (String s : faodoc.getSERTITOTArray())
-                {
-                    String[] ser_vals = new SeriesName().getOther(s);
-                    String[] jour_vals = new JournalName().get(s);
-                    if (ser_vals != null)
-                    {
-                        addNewRelatedItemSeries(ser_vals);
-                    }
-                    if (jour_vals != null)
-                    {
-                        addNewRelatedItemHost(jour_vals);
-                    }
-                }
-            }
-            // TODO: add check for SER_TIT
-            // is lang always en?
-        }
-        // add mods:relatedItem@type='series'/identifier@type='issn'
-        if (faodoc.getBIBLEVELArray(0).equals("MS") || faodoc.getBIBLEVELArray(0).equals("AMS"))
-        {
-            if (faodoc.sizeOfISSNArray() > 0)
-            {
-                for (String issn : faodoc.getISSNArray())
-                {
-                    addNewRelatedItemIdentifier(issn, "series", "issn");
-                }
+                // TODO: add check for SER_TIT
+                // is lang always en?
             }
         }
         else
         {
-            if (faodoc.getBIBLEVELArray(0).equals("AS"))
+            if (faodoc.getBIBLEVELArray(0).equalsIgnoreCase("AS"))
             {
-                if (faodoc.sizeOfISSNArray() > 0)
+                if (faodoc.sizeOfSERIESArray() > 0)
                 {
-                    for (String issn : faodoc.getISSNArray())
+                    for (SERIESType series : faodoc.getSERIESArray())
                     {
-                        addNewRelatedItemIdentifier(issn, "host", "issn");
+                        ArrayList<String[]> journalTitles = new ArrayList<String[]>();
+                        String issn = null;
+                        String pages = null;
+                        if (series.isSetSERTITEN())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITEN());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITFR())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITFR());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITES())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITES());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        if (series.isSetSERTITOT())
+                        {
+                            String[] jour_vals = new JournalName().get(series.getSERTITOT());
+                            if (jour_vals != null)
+                            {
+                                journalTitles.add(jour_vals);
+                            }
+                        }
+                        // M-53 + M-59
+                        // add mods:relatedItem@type='series'/identifier@type='issn'
+                        if (series.isSetISSN())
+                        {
+                            issn = series.getISSN();
+                        }
+                        // M-60
+                        // add mods:relatedItem@type='host'/part/detail
+                        if (series.isSetSERPAGES())
+                        {
+                            pages = series.getSERPAGES();
+                        }
+                        addNewRelatedItemHost(journalTitles, issn, pages);
                     }
                 }
             }
-        }
-        // add mods:relatedItem@type='host'/part/detail
-        if (faodoc.sizeOfSERPAGESArray() > 0)
-        {
-            addNewRelatedItemPartDetail(faodoc.getSERPAGESArray(0));
-        }
-        // add mods:note@type='library_subject_code'
-        if (faodoc.sizeOfSUBJLIBArray() > 0)
-        {
-            for (String subjLib : faodoc.getSUBJLIBArray())
+            // M-61
+            // add mods:note@type='library_subject_code'
+            if (faodoc.sizeOfSUBJLIBArray() > 0)
             {
-                addNewNoteType(subjLib, "library_subject_code", "en");
-            }
-        }
-        // add mods:physicalDescription/extent
-        if (faodoc.sizeOfPAGESArray() > 0 || faodoc.sizeOfSERHOLDArray() > 0)
-        {
-            PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-            if (faodoc.sizeOfPAGESArray() > 0)
-            {
-                desc.addExtent(faodoc.getPAGESArray(0));
-            }
-            if (faodoc.sizeOfSERHOLDArray() > 0)
-            {
-                desc.addExtent(faodoc.getSERHOLDArray(0));
-            }
-        }
-        // add mods:physicalDescription/note
-        if (faodoc.sizeOfCOLLINFOArray() > 0)
-        {
-            PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-            for (String cInfo : faodoc.getCOLLINFOArray())
-            {
-                NoteType note = desc.addNewNote();
-                note.setStringValue(cInfo);
-            }
-        }
-        // add mods:location/url@type='external url'
-        if (faodoc.sizeOfURLArray() > 0)
-        {
-            LocationType loc = modsType.addNewLocation();
-            for (String url : faodoc.getURLArray())
-            {
-                UrlType urlType = loc.addNewUrl();
-                urlType.setNote("external url");
-                urlType.setStringValue(url);
-            }
-        }
-        // add mods:note@type='source note'
-        if (faodoc.sizeOfSOURCEArray() > 0)
-        {
-            NoteType note = modsType.addNewNote();
-            note.setType("source note");
-            note.setStringValue(faodoc.getSOURCEArray(0));
-        }
-        // add mods:note
-        if (faodoc.sizeOfNOTESArray() > 0)
-        {
-            for (String note : faodoc.getNOTESArray())
-            {
-                NoteType noteType = modsType.addNewNote();
-                noteType.setStringValue(note);
-            }
-        }
-        if (faodoc.sizeOfINSTArray() > 0)
-        {
-            for (String note : faodoc.getINSTArray())
-            {
-                NoteType noteType = modsType.addNewNote();
-                noteType.setStringValue(note);
-            }
-        }
-        // add mods:abstract
-        if (faodoc.sizeOfABSTRArray() > 0)
-        {
-            for (String abstr : faodoc.getABSTRArray())
-            {
-                AbstractType modsAbst = modsType.addNewAbstract();
-                // which language to set here?
-                modsAbst.setStringValue(abstr);
-            }
-        }
-        // add tons of mods:genre@type='type'
-        if (faodoc.sizeOfLITINDICATORArray() > 0)
-        {
-            for (String litInd : faodoc.getLITINDICATORArray())
-            {
-                addNewGenreType(litInd, "type", "en");
-            }
-        }
-        if (faodoc.sizeOfTYPEArray() > 0)
-        {
-            for (String type : faodoc.getTYPEArray())
-            {
-                addNewGenreType(type, "type", "en");
-            }
-        }
-        if (faodoc.sizeOfCLASSCODEArray() > 0)
-        {
-            for (String cc : faodoc.getCLASSCODEArray())
-            {
-                if (cc.equalsIgnoreCase("Y") || cc.equalsIgnoreCase("Z"))
+                for (String subjLib : faodoc.getSUBJLIBArray())
                 {
-                    AccessConditionType access = modsType.addNewAccessCondition();
-                    access.setType("copyright");
-                    access.setTitle(cc);
+                    addNewNoteType(subjLib, "library_subject_code", "en");
                 }
-                else
+            }
+            // M-62 - M-63
+            // add mods:physicalDescription/extent
+            if (faodoc.sizeOfPAGESArray() > 0 || faodoc.sizeOfSERIESArray() > 0)
+            {
+                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                if (faodoc.sizeOfPAGESArray() > 0)
                 {
-                    if (cc.equalsIgnoreCase("W"))
+                    desc.addExtent(faodoc.getPAGESArray(0));
+                }
+                for (SERIESType series : faodoc.getSERIESArray())
+                {
+                    if (series.isSetSERHOLD())
                     {
-                        addNewGenreType("U", "type", "en");
+                        desc.addExtent(series.getSERHOLD());
+                    }
+                }
+            }
+            // M-64
+            // add mods:physicalDescription/note
+            if (faodoc.sizeOfCOLLINFOArray() > 0)
+            {
+                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                for (String cInfo : faodoc.getCOLLINFOArray())
+                {
+                    NoteType note = desc.addNewNote();
+                    note.setStringValue(cInfo);
+                }
+            }
+            // M-65
+            // add mods:location/url@type='external url'
+            if (faodoc.sizeOfURLArray() > 0)
+            {
+                LocationType loc = modsType.addNewLocation();
+                for (String url : faodoc.getURLArray())
+                {
+                    UrlType urlType = loc.addNewUrl();
+                    urlType.setNote("external url");
+                    urlType.setStringValue(url);
+                }
+            }
+            // M-66
+            // add mods:note@type='source note'
+            if (faodoc.sizeOfSOURCEArray() > 0)
+            {
+                NoteType note = modsType.addNewNote();
+                note.setType("source note");
+                note.setStringValue(faodoc.getSOURCEArray(0));
+            }
+            // M-67 -M-68
+            // add mods:note
+            if (faodoc.sizeOfNOTESArray() > 0)
+            {
+                for (String note : faodoc.getNOTESArray())
+                {
+                    NoteType noteType = modsType.addNewNote();
+                    noteType.setStringValue(note);
+                }
+            }
+            if (faodoc.sizeOfINSTArray() > 0)
+            {
+                for (String note : faodoc.getINSTArray())
+                {
+                    NoteType noteType = modsType.addNewNote();
+                    noteType.setStringValue(note);
+                }
+            }
+            // according to IS only taken from FAODOC
+            /*
+             * if (eims.getNotes() != null) { NoteType noteType = modsType.addNewNote();
+             * noteType.setStringValue(eims.getNotes()); }
+             */
+            // M-69 - M-75
+            // add mods:abstract
+            if (faodoc.sizeOfABSTRArray() > 0)
+            {
+                for (String abstr : faodoc.getABSTRArray())
+                {
+                    AbstractType modsAbst = modsType.addNewAbstract();
+                    // which language to set here?
+                    modsAbst.setStringValue(abstr);
+                }
+            }
+            // M-76 - M-82
+            // add tons of mods:genre@type='type'
+            if (faodoc.sizeOfLITINDICATORArray() > 0)
+            {
+                for (String litInd : faodoc.getLITINDICATORArray())
+                {
+                    addNewGenreType(litInd, "type", "en");
+                }
+            }
+            if (faodoc.sizeOfTYPEArray() > 0)
+            {
+                for (String type : faodoc.getTYPEArray())
+                {
+                    addNewGenreType(type, "type", "en");
+                }
+            }
+            if (faodoc.sizeOfCLASSCODEArray() > 0)
+            {
+                for (String cc : faodoc.getCLASSCODEArray())
+                {
+                    if (cc.equalsIgnoreCase("Y") || cc.equalsIgnoreCase("Z"))
+                    {
+                        AccessConditionType access = modsType.addNewAccessCondition();
+                        access.setType("copyright");
+                        access.setTitle(cc);
                     }
                     else
                     {
-                        if (cc.equalsIgnoreCase("C"))
+                        if (cc.equalsIgnoreCase("W"))
                         {
-                            addNewGenreType("G", "type", "en");
+                            addNewGenreType("U", "type", "en");
                         }
                         else
                         {
-                            addNewGenreType(cc, "type", "en");
+                            if (cc.equalsIgnoreCase("C"))
+                            {
+                                addNewGenreType("G", "type", "en");
+                            }
+                            else
+                            {
+                                addNewGenreType(cc, "type", "en");
+                            }
                         }
                     }
                 }
             }
-        }
-        if (faodoc.sizeOfCLASSCODEDCArray() > 0)
-        {
-            for (String ccdc : faodoc.getCLASSCODEDCArray())
+            if (faodoc.sizeOfCLASSCODEDCArray() > 0)
             {
-                if (ccdc.contains("FAO"))
+                for (String ccdc : faodoc.getCLASSCODEDCArray())
                 {
-                    AccessConditionType access = modsType.addNewAccessCondition();
-                    access.setType("copyright");
-                    access.setTitle(ccdc);
-                }
-                else
-                {
-                    addNewGenreType(ccdc, "type", "en");
+                    if (ccdc.contains("FAO"))
+                    {
+                        AccessConditionType access = modsType.addNewAccessCondition();
+                        access.setType("copyright");
+                        access.setTitle(ccdc);
+                    }
+                    else
+                    {
+                        addNewGenreType(ccdc, "type", "en");
+                    }
                 }
             }
-        }
-        if (faodoc.sizeOfRECORDTYPEArray() > 0)
-        {
-            for (String rec : faodoc.getRECORDTYPEArray())
+            if (faodoc.sizeOfRECORDTYPEArray() > 0)
             {
-                if (rec.equals("F"))
+                for (String rec : faodoc.getRECORDTYPEArray())
                 {
-                    addNewGenreType("L", "type", "en");
-                }
-                if (rec.equals("G"))
-                {
-                    addNewGenreType("Y", "type", "en");
-                }
-                if (rec.equals("J"))
-                {
-                    addNewGenreType("AS", "class", "en");
+                    if (rec.equals("F"))
+                    {
+                        addNewGenreType("L", "type", "en");
+                    }
+                    if (rec.equals("G"))
+                    {
+                        addNewGenreType("Y", "type", "en");
+                    }
+                    if (rec.equals("J"))
+                    {
+                        addNewGenreType("AS", "class", "en");
+                    }
                 }
             }
-        }
-        if (faodoc.sizeOfRECORDTYPEDCArray() > 0)
-        {
-            for (String recdc : faodoc.getRECORDTYPEDCArray())
+            if (faodoc.sizeOfRECORDTYPEDCArray() > 0)
             {
-                if (recdc.equals("Monograph"))
+                for (String recdc : faodoc.getRECORDTYPEDCArray())
+                {
+                    if (recdc.equals("Monograph"))
+                    {
+                        PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                        StringPlusAuthorityPlusType form = desc.addNewForm();
+                        form.setStringValue(recdc);
+                    }
+                    if (recdc.equals("Film"))
+                    {
+                        addNewGenreType(recdc, "type", "en");
+                    }
+                    if (recdc.contains("Map"))
+                    {
+                        addNewGenreType("Map(s)/Atlas", "type", "en");
+                    }
+                    if (recdc.contains("Article"))
+                    {
+                        addNewGenreType("Analytic from a serial", "type", "en");
+                    }
+                }
+            }
+            if (faodoc.getBIBLEVELArray(0).equals("AS"))
+            {
+                addNewGenreType("Journal article", "type", "en");
+            }
+            if (faodoc.getBIBLEVELArray(0).equals("AM") || faodoc.getBIBLEVELArray(0).equals("AMS"))
+            {
+                addNewGenreType("Analytic", "type", "en");
+            }
+            // TODO: check what to do with eims.fao
+            // M-83 - M-87
+            // add new mods:location/physicalLocation
+            LocationType fao_location = modsType.addNewLocation();
+            PhysicalLocationType phys = fao_location.addNewPhysicalLocation();
+            phys.setStringValue(FAO);
+            HoldingSimpleType holding = fao_location.addNewHoldingSimple();
+            if (faodoc.sizeOfLOCArray() > 0)
+            {
+                for (LOCType locType : faodoc.getLOCArray())
+                {
+                    // LocationType location = modsType.addNewLocation();
+                    CopyInformationType copy = holding.addNewCopyInformation();
+                    StringPlusAuthority form = copy.addNewForm();
+                    form.setAuthority("marcform");
+                    form.setStringValue("print");
+                    copy.addSubLocation(locType.getLOCATION());
+                    copy.addShelfLocator(locType.getAVNUMBER());
+                }
+            }
+            if (faodoc.getLOCALNUMBERArray(0) != null)
+            {
+                // LocationType location = modsType.addNewLocation();
+                // HoldingSimpleType holding = fao_location.addNewHoldingSimple();
+                CopyInformationType copy = holding.addNewCopyInformation();
+                StringPlusAuthority form = copy.addNewForm();
+                form.setAuthority("marcform");
+                form.setStringValue("print");
+                copy.addShelfLocator(faodoc.getLOCALNUMBERArray(0));
+            }
+            if (faodoc.sizeOfMICROFICHEArray() > 0)
+            {
+                for (String mf : faodoc.getMICROFICHEArray())
+                {
+                    // LocationType microFiche = modsType.addNewLocation();
+                    // HoldingSimpleType holding = fao_location.addNewHoldingSimple();
+                    CopyInformationType copy = holding.addNewCopyInformation();
+                    StringPlusAuthority form = copy.addNewForm();
+                    form.setAuthority("marcform");
+                    form.setStringValue("microfiche");
+                    copy.addShelfLocator(mf);
+                }
+            }
+            // M-88 - M-90
+            // add mods:location/url@note
+            // not available in FAODOC
+            // M-91
+            // add mods:physicalDescription/form or genre@type='type'
+            if (faodoc.sizeOfFORMDOCArray() > 0)
+            {
+                if (faodoc.getFORMDOCArray(0).equals("Audiocassette"))
                 {
                     PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
                     StringPlusAuthorityPlusType form = desc.addNewForm();
-                    form.setStringValue(recdc);
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
                 }
-                if (recdc.equals("Film"))
+                if (faodoc.getFORMDOCArray(0).equals("Videocassette"))
                 {
-                    addNewGenreType(recdc, "type", "en");
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
                 }
-                if (recdc.contains("Map"))
+                if (faodoc.getFORMDOCArray(0).equals("Filmstrip"))
                 {
-                    addNewGenreType("Map(s)/Atlas", "type", "en");
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0) + "/reel");
                 }
-                if (recdc.contains("Article"))
+                if (faodoc.getFORMDOCArray(0).equals("Slides"))
                 {
-                    addNewGenreType("Analytic from a serial", "type", "en");
+                    PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+                    desc.setLang2("en");
+                    StringPlusAuthorityPlusType form = desc.addNewForm();
+                    form.setStringValue(faodoc.getFORMDOCArray(0));
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Bibliography"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("Z", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Dictionary"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("O", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Directory"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("B", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Field Document"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("X", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Handbook/Manual"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("H", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Map(s)/Atlas"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("Y", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Terminal Report"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("R", "type", "en");
+                }
+                if (faodoc.getFORMDOCArray(0).equals("Thesaurus"))
+                {
+                    addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
+                    addNewGenreType("T", "type", "en");
+                }
+            }
+            // M-92
+            // add mods:recordInfo/record/creationDate
+            if (faodoc.sizeOfCDArray() > 0)
+            {
+                RecordInfoType infoCD = modsType.addNewRecordInfo();
+                DateType dateCD = infoCD.addNewRecordCreationDate();
+                dateCD.setStringValue(Integer.valueOf(faodoc.getCDArray(0)).toString());
+                // M-93
+                // add mods:recordInfo/record/changedDate
+                if (faodoc.sizeOfDUArray() > 0)
+                {
+                    RecordInfoType infoDU = modsType.addNewRecordInfo();
+                    DateType dateDU = infoDU.addNewRecordChangeDate();
+                    dateDU.setStringValue(Integer.valueOf(faodoc.getDUArray(0)).toString());
                 }
             }
         }
-        if (faodoc.getBIBLEVELArray(0).equals("AS"))
-        {
-            addNewGenreType("Journal article", "type", "en");
-        }
-        if (faodoc.getBIBLEVELArray(0).equals("AM") || faodoc.getBIBLEVELArray(0).equals("AMS"))
-        {
-            addNewGenreType("Analytic", "type", "en");
-        }
-        // TODO: check what to do with eims.fao
-        // add new mods:location/physicalLocation
-        LocationType fao_location = modsType.addNewLocation();
-        PhysicalLocationType phys = fao_location.addNewPhysicalLocation();
-        phys.setStringValue(FAO);
-        if (faodoc.sizeOfLOCArray() > 0)
-        {
-            for (LOCType locType : faodoc.getLOCArray())
-            {
-                LocationType location = modsType.addNewLocation();
-                HoldingSimpleType holding = location.addNewHoldingSimple();
-                CopyInformationType copy = holding.addNewCopyInformation();
-                copy.addSubLocation(locType.getLOCATION());
-                copy.addShelfLocator(locType.getAVNUMBER());
-            }
-        }
-        if (faodoc.getLOCALNUMBERArray(0) != null)
-        {
-            LocationType local = modsType.addNewLocation();
-            HoldingSimpleType holding = local.addNewHoldingSimple();
-            CopyInformationType copy = holding.addNewCopyInformation();
-            copy.addShelfLocator(faodoc.getLOCALNUMBERArray(0));
-        }
-        if (faodoc.sizeOfMICROFICHEArray() > 0)
-        {
-            for (String mf : faodoc.getMICROFICHEArray())
-            {
-                LocationType microFiche = modsType.addNewLocation();
-                HoldingSimpleType holding = microFiche.addNewHoldingSimple();
-                CopyInformationType copy = holding.addNewCopyInformation();
-                copy.addShelfLocator(mf);
-            }
-        }
-        // add mods:location/url@note
-        // no eims - no URL?
-        // add mods:physicalDescription/form or genre@type='type'
-        if (faodoc.sizeOfFORMDOCArray() > 0)
-        {
-            if (faodoc.getFORMDOCArray(0).equals("Audiocassette"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Videocassette"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/tape");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Filmstrip"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0) + "/reel");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Slides"))
-            {
-                PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
-                desc.setLang2("en");
-                StringPlusAuthorityPlusType form = desc.addNewForm();
-                form.setStringValue(faodoc.getFORMDOCArray(0));
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Bibliography"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("Z", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Dictionary"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("O", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Directory"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("B", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Field Document"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("X", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Handbook/Manual"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("H", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Map(s)/Atlas"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("Y", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Terminal Report"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("R", "type", "en");
-            }
-            if (faodoc.getFORMDOCArray(0).equals("Thesaurus"))
-            {
-                addNewGenreType(faodoc.getFORMDOCArray(0), "literary indicator", "en");
-                addNewGenreType("T", "type", "en");
-            }
-        }
-        // add mods:recordInfo/record/creationDate
-        if (faodoc.sizeOfCDArray() > 0)
-        {
-            RecordInfoType info = modsType.addNewRecordInfo();
-            DateType date = info.addNewRecordCreationDate();
-            date.setStringValue(Integer.valueOf(faodoc.getCDArray(0)).toString());
-        }
-        // add mods:recordInfo/record/changedDate
-        if (faodoc.sizeOfDUArray() > 0)
-        {
-            RecordInfoType info = modsType.addNewRecordInfo();
-            DateType date = info.addNewRecordChangeDate();
-            date.setStringValue(Integer.valueOf(faodoc.getDUArray(0)).toString());
-        }
-        // TODO: check which date from EIMS
-        // System.out.println(modsDoc.xmlText(XBeanUtils.getModsOpts()));
         return modsDoc;
     }
 
     /**
-     * creata a MODS datastream with values from EIMS_CDR only.
+     * creata MODS datastream with values from EIMS_CDR only.
      * 
      * @param eims {@link ItemType}
      * @return {@link ModsDocument}
      */
-    public ModsDocument create4Eims(ItemType eims)
+    public ModsDocument eimscdr(ItemType eims)
     {
         ModsDocument modsDoc = ModsDocument.Factory.newInstance();
         modsType = modsDoc.addNewMods();
         modsType.setVersion(VersionType.X_3_3);
+        // M-1
         // add mods:genre@type='class'
-        // any equivalent for BIBLEVEL?
+        // n/a
+        // M-2 + M-3
         // add mods:name@type='personal'/namePart
         if (eims.getAuthor() != null)
         {
@@ -2253,8 +2316,10 @@ public class ModsDatastream
                 nameType.addNewNamePart().setStringValue(author);
             }
         }
+        // M-4 - M-7
         // add mods:name@type='corporate'/namePart
-        // any equivalent for CorporateBody ?
+        // n/a
+        // M-8 - M-15
         // add mods:name@type='conference'/namePart
         if (eims.getConference() != null)
         {
@@ -2264,7 +2329,9 @@ public class ModsDatastream
             String confname = eims.getConference().getConferenceName().getStringValue();
             nameType.addNewNamePart().setStringValue(confname);
         }
+        // M-16 - M-22
         // add mods:titleInfo/title
+        // TODO: check rules for TIT_OT and title lang=ot
         if (eims.sizeOfTitleArray() > 0)
         {
             for (int t = 0; t < eims.sizeOfTitleArray(); t++)
@@ -2275,8 +2342,10 @@ public class ModsDatastream
                 addNewTitleInfoType(title, lang);
             }
         }
+        // M-23
         // add mods:titleInfo@type='translated'/title
-        // any equivalent for translated title ?
+        // n/a
+        // M-24 - M-29
         // add mods:titleInfo/subTitle
         if (eims.sizeOfSubtitleArray() > 0)
         {
@@ -2288,10 +2357,13 @@ public class ModsDatastream
                 addNewSubTitleInfoType(sub, lang);
             }
         }
+        // M-30 - M-34
         // add mods:note@type='title'
-        // any equivalent ?
+        // n/a
+        // M-35
         // add mods:originInfo/edition
-        // any equivalent ?
+        // n/a
+        // M-36
         // add mods:originInfo/publisher
         if (eims.getPublisher() != null)
         {
@@ -2299,19 +2371,26 @@ public class ModsDatastream
             XmlString publisher = origin.addNewPublisher();
             publisher.setStringValue(eims.getPublisher().getPublisherName());
         }
+        // M-37
         // add mods:originInfo/placce/placeterm@type='text'
+        // n/a
+        // M-38 - M-40
         // add mods:originInfo/dateIssued
         if (eims.getDate() != null)
         {
             String date = eims.getDate().getStringValue();
             addNewDateIssued(date);
         }
+        // M-41
         // add mods:originInfo/dateOther@type='year'
+        // n/a
+        // M-42
         // add mods:identifier@type='type'
         if (eims.getIsbn() != null)
         {
             addNewIdentifier(eims.getIsbn(), "isbn");
         }
+        // M-43
         // add mods:language/languageTerm@type='code'@authority
         if (eims.getLanguage() != null)
         {
@@ -2321,12 +2400,16 @@ public class ModsDatastream
                 addNewLanguage(codes);
             }
         }
+        // M-44
         // add mods:identifier@type='type'
+        // n/a
+        // M-45
         // add mods:identifier@type='type'
         if (eims.getJobno() != null)
         {
             addNewIdentifier(eims.getJobno(), "jn");
         }
+        // M-46
         // add mods:relatedItem@type='originel'/titleInfo/title
         if (eims.getProject() != null)
         {
@@ -2336,40 +2419,64 @@ public class ModsDatastream
                 addNewRelatedItem(values);
             }
         }
+        // M-47
         // add mods:relatedItem@type='project'/identifier@type='faopn'
         if (eims.getProject() != null)
         {
             addNewRelatedItemIdentifier(eims.getProject().getProjectCode(), "project", "faopn");
         }
+        // M-48
         // add mods:relatedItem@type='project'/note@type='project'
+        // n/a
+        // M-49 - M-52 + M-54 - M-58
         // add mods:relatedItem@type='series'/titleInfo/title
-        // assumption: lang is always en
+        // no distinction related to BIBLEVEL (MS or AMS vs. AS)
+        ArrayList<String[]> seriesTitles = null;
+        String issn = null;
         if (eims.getIspartofseries() != null)
         {
             String[] ser_vals = new SeriesName().getEnglish(eims.getIspartofseries());
             if (ser_vals != null)
             {
-                addNewRelatedItemSeries(ser_vals);
+                seriesTitles = new ArrayList<String[]>();
+                seriesTitles.add(ser_vals);
             }
         }
-        // add mods:relatedItem@type='series'/identifier@type='issn'
-        // TODO: required BIBLEVEL check !!!
-        /*
-         * if (eims.getIssn() != null) { addNewRelatedItemIdentifier(eims.getIssn(), "series", "issn"); } if
-         * (eims.getIssn() != null) { addNewRelatedItemIdentifier(eims.getIssn(), "host", "issn"); }
-         */
-        // add mods:relatedItem@type='host'/part/detail
-        // add mods:note@type='library_subject_code'
-        // add mods:physicalDescription/extent
-        // add mods:physicalDescription/note
-        // add mods:location/url@type='external url'
-        // add mods:note@type='source note'
-        // add mods:note
-        if (eims.getNotes() != null)
+        if (eims.getIssn() != null)
         {
-            NoteType noteType = modsType.addNewNote();
-            noteType.setStringValue(eims.getNotes());
+            issn = eims.getIssn();
         }
+        addNewRelatedItemSeries(seriesTitles, issn);
+        // M-61
+        // add mods:note@type='library_subject_code'
+        // n/a
+        // M-62 - M-63
+        // add mods:physicalDescription/extent
+        if (eims.getPages() != null)
+        {
+            PhysicalDescriptionType desc = modsType.addNewPhysicalDescription();
+            if (eims.getPages() != null)
+            {
+                desc.addExtent(eims.getPages());
+            }
+        }
+        // M-64
+        // add mods:physicalDescription/note
+        // n/a
+        // M-65
+        // add mods:location/url@type='external url'
+        // n/a
+        // M-66
+        // add mods:note@type='source note'
+        // n/a
+        // M-67 -M-68
+        // add mods:note
+        // according to IS only taken from FAODOC
+        /*
+         * if (eims.getNotes() != null) { NoteType noteType = modsType.addNewNote();
+         * noteType.setStringValue(eims.getNotes()); }
+         */
+        // M-69 - M-75
         // add mods:abstract
         if (eims.sizeOfAbstractArray() > 0)
         {
@@ -2380,12 +2487,15 @@ public class ModsDatastream
                 modsAbst.setStringValue(abstType.getStringValue());
             }
         }
+        // M-76 - M-82
         // add tons of mods:genre@type='type'
-        // TODO: check what to do with eims.fao
+        // n/a
+        // M-83 - M-87
         // add new mods:location/physicalLocation
         LocationType fao_location = modsType.addNewLocation();
         PhysicalLocationType phys = fao_location.addNewPhysicalLocation();
         phys.setStringValue(FAO);
+        // M-88 - M-90
         // add mods:location/url@note
         if (eims.getURL() != null)
         {
@@ -2408,6 +2518,7 @@ public class ModsDatastream
             url.setNote(eims.getZIPURL().getNote());
             url.setStringValue(eims.getZIPURL().getStringValue());
         }
+        // M-91
         // add mods:physicalDescription/form or genre@type='type'
         if (eims.getGenre() != null)
         {
@@ -2447,6 +2558,7 @@ public class ModsDatastream
                 addNewGenreType("K", "type", "en");
             }
         }
+        // M-92 - M-93
         // add mods:recordInfo/record/creationDate
         if (eims.getDateCreated() != null)
         {
@@ -2454,10 +2566,6 @@ public class ModsDatastream
             DateType date = info.addNewRecordCreationDate();
             date.setStringValue(eims.getDateCreated());
         }
-        // TODO: check which date from EIMS
-        // add mods:recordInfo/record/changedDate
-        // TODO: check which date from EIMS
-        // System.out.println(modsDoc.xmlText(XBeanUtils.getModsOpts()));
         return modsDoc;
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.fao.oa.ingestion.uris.FaoUris;
 import org.fao.oa.ingestion.uris.FaoUris.URI_TYPE;
 
+import noNamespace.CONFERENCEType;
 import noNamespace.ITEMType;
 import noNamespace.FAOConferenceDocument.FAOConference;
 
@@ -15,7 +16,7 @@ public class ConferenceName
         
     }
     
-    public String[] getEnglish(ITEMType faodoc, String name)
+    public String[] getEnglish(CONFERENCEType conference, String name)
     {
         String label_en = null;
         String href = null;
@@ -45,13 +46,13 @@ public class ConferenceName
         }
         if (label_en != null && href != null)
         {
-            String confName = conferenceName(faodoc, label_en);
+            String confName = conferenceName(conference, label_en);
             return new String[] {confName, href};
         }
         return null;
     }
     
-    public String[] getFrench(ITEMType faodoc, String name)
+    public String[] getFrench(CONFERENCEType conference, String name)
     {
         String label_fr = null;
         String href = null;
@@ -85,13 +86,13 @@ public class ConferenceName
         }
         if (label_fr != null && href != null)
         {
-            String confName = conferenceName(faodoc, label_fr);
+            String confName = conferenceName(conference, label_fr);
             return new String[] {confName, href};
         }
         return null;
     }
     
-    public String[] getOther(ITEMType faodoc, String name)
+    public String[] getOther(CONFERENCEType conference, String name)
     {
         String label = null;
         String href = null;
@@ -167,13 +168,13 @@ public class ConferenceName
         }
         if (label != null && href != null)
         {
-            String confName = conferenceName(faodoc, label);
+            String confName = conferenceName(conference, label);
             return new String[] {confName, href};
         }
         return null;
     }
     
-    public String[] getSpanish(ITEMType faodoc, String name)
+    public String[] getSpanish(CONFERENCEType conference, String name)
     {
         String label_es = null;
         String href = null;
@@ -211,30 +212,30 @@ public class ConferenceName
         }
         if (label_es != null && href != null)
         {
-            String confName = conferenceName(faodoc, label_es);
+            String confName = conferenceName(conference, label_es);
             return new String[] {confName, href};
         }
         return null;
     }
     
-    public String conferenceName(ITEMType item, String name)
+    public String conferenceName(CONFERENCEType conference, String name)
     {
         StringBuilder sb = new StringBuilder(name);
         sb.append(" (");
-        if (item.sizeOfCONFNOArray() > 0)
+        if (conference.isSetCONFNO())
         {
-            sb.append(item.getCONFNOArray(0) + ": ");
+            sb.append(conference.getCONFNO() + ": ");
         }
-        if (item.sizeOfCONFDATEArray() > 0)
+        if (conference.isSetCONFDATE())
         {
-            sb.append(item.getCONFDATEArray(0) + " : ");
+            sb.append(conference.getCONFDATE() + " : ");
         }
-        if (item.sizeOfCONFPLACEArray() > 0)
+        if (conference.isSetCONFPLACE())
         {
             String confCity = null;
             String confState = null;
             String confCountry = null;
-            String confPlace = item.getCONFPLACEArray(0);
+            String confPlace = conference.getCONFPLACE();
             if (!confPlace.contains(","))
             {
                 confCity = confPlace.split("\\s\\(")[0];

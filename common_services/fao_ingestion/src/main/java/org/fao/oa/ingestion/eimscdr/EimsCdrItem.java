@@ -43,16 +43,16 @@ public class EimsCdrItem
         //ItemType eimsItem = getById(eimsExportFile, "19000");
         //System.out.println(eimsItem.getIdentifierArray(0));
         //System.out.println(eimsItem.getJobnoArray(0));
-        parseTest(filenames);
+        //parseTest(filenames);
         
         //ArrayList<ItemType> itemList = allEIMSItemsAsList(filenames);
         //System.out.println("total number of EIMS items: " + itemList.size());
         //String filter = "other";
         //filteredList(filenames, filter);
-        //ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
+        ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
         
-        //ItemType item = getById(list, "232603");
-        //System.out.println(item);
+        ItemType item = getById(list, "145763");
+        System.out.println(item);
         
     }
 
@@ -101,7 +101,7 @@ public class EimsCdrItem
         {
             e1.printStackTrace();
         }
-
+        int noDate = 0;
         for (String name : names)
         {
             File eimsItemFile = new File(EIMS_BASE_DIR + name);
@@ -115,6 +115,7 @@ public class EimsCdrItem
                 int withoutJN = 0;
                 int withoutURL = 0;
                 int withoutTIT = 0;
+
                 for (ItemType i : items)
                 {
                     /*
@@ -131,6 +132,7 @@ public class EimsCdrItem
                         System.out.println(i.getIdentifier() + " " + i.getPDFURL().getStringValue());
                     }
                     */
+                    /*
                     if (i.getJobno() != null)
                     {
                         
@@ -155,11 +157,16 @@ public class EimsCdrItem
                             }
                         }
                     }
+                    */
+                    if (i.getDate() != null)
+                    {
+                        System.out.println(i.getIdentifier() + "  " + i.getDate().getStringValue()); 
+                    }
+                    else
+                    {
+                        noDate++;
+                    }
                 }
-                System.out.println("items without job number: " + withoutJN);
-                System.out.println("items without jn and url: " + withoutURL);
-                System.out.println("items without anything: " + withoutTIT);
-
             }
             catch (XmlException e)
             {
@@ -173,6 +180,8 @@ public class EimsCdrItem
             }
         }
         System.out.println("total number of eimsitems " + eimsitems);
+        System.out.println("items without date: " + noDate);
+
     }
     
     public static ArrayList<ItemType> allEIMSItemsAsList(String[] filenames)
