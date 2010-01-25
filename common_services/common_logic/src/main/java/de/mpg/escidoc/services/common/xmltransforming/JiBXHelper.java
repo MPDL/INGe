@@ -1409,7 +1409,7 @@ public class JiBXHelper
             }
             catch (IllegalArgumentException e)
             {
-                throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+                throw new WrongEnumException("WorkflowEnum value is '" + enumValue + "'.");
             }
         }
         return workflow; // null is a possible return value
