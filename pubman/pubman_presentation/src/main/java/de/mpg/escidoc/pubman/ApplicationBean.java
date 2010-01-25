@@ -236,7 +236,26 @@ public class ApplicationBean extends FacesBean
             throw new PubManVersionNotAvailableException(e);
         }
         
-    }
+    }    
+    
+    /**
+     * Provides the url for the pubman blog feed.
+    *
+    * @return the escidoc instance
+    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
+    */
+   public String getPubmanBlogFeedUrl()
+   {
+       try
+       {
+           String prop = PropertyReader.getProperty("escidoc.pubman.blog.news");
+           return prop;
+       } 
+       catch (Exception e)
+       {
+           return "";
+       } 
+   }
     
     /**
      * Provides the URLs of the pubman stylsheets.

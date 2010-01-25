@@ -113,8 +113,8 @@
 								<h:panelGroup styleClass="free_area0_p8 sideSection">
 									<jsp:directive.include file="home/LastReleased.jspf" />
 								</h:panelGroup>
-								<h:panelGroup styleClass="free_area0_p8 sideSection">
-									<jsp:directive.include file="home/BlogIntegration.jspf" />
+								<h:panelGroup styleClass="free_area0_p8 sideSection" rendered="#{ApplicationBean.pubmanBlogFeedUrl != ''}" >
+									<jsp:directive.include file="home/BlogIntegration.jspf"  />
 								</h:panelGroup>
 								<h:panelGroup styleClass="free_area0_p8">
 									<div id="searchCloudDiv"></div>
