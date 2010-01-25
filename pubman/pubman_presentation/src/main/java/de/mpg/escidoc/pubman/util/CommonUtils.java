@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -50,6 +51,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -190,35 +193,35 @@ public class CommonUtils extends InternationalizedImpl
         options[0] = new SelectItem("", NO_ITEM_SET);
         if (CommonUtils.localLang.equals("de"))
         {
-            options[1] = new SelectItem("en", "en - Englisch");  
-            options[2] = new SelectItem("de", "de - Deutsch");  
-            options[3] = new SelectItem("ja", "ja - Japanisch"); 
+            options[1] = new SelectItem("eng", "eng - Englisch");  
+            options[2] = new SelectItem("deu", "deu - Deutsch");  
+            options[3] = new SelectItem("jpn", "jpn - Japanisch"); 
         }
         else if (CommonUtils.localLang.equals("en"))
         {
-            options[1] = new SelectItem("en", "en - English");  
-            options[2] = new SelectItem("de", "de - German");  
-            options[3] = new SelectItem("ja", "ja - Japanese"); 
+            options[1] = new SelectItem("eng", "eng - English");  
+            options[2] = new SelectItem("deu", "deu - German");  
+            options[3] = new SelectItem("jpn", "jpn - Japanese"); 
         }
         else if (CommonUtils.localLang.equals("fr"))
         {
-            options[1] = new SelectItem("en", "en - Anglais");  
-            options[2] = new SelectItem("de", "de - Allemand");  
-            options[3] = new SelectItem("ja", "ja - Japonais"); 
+            options[1] = new SelectItem("eng", "eng - Anglais");  
+            options[2] = new SelectItem("deu", "deu - Allemand");  
+            options[3] = new SelectItem("jpn", "jpn - Japonais"); 
         }
         else if (CommonUtils.localLang.equals("ja"))
         {
-            options[1] = new SelectItem("en", "en - 英語");
-            options[2] = new SelectItem("de", "de - ドイツ語");
-            options[3] = new SelectItem("ja", "ja - 日本語");
+            options[1] = new SelectItem("eng", "eng - 英語");
+            options[2] = new SelectItem("deu", "deu - ドイツ語");
+            options[3] = new SelectItem("jpn", "jpn - 日本語");
         }
         else
         {
             logger.error("Language not supported: " + CommonUtils.localLang);
             // Using english as default
-            options[1] = new SelectItem("en", "en - English");  
-            options[2] = new SelectItem("de", "de - German");  
-            options[3] = new SelectItem("ja", "ja - Japanese");
+            options[1] = new SelectItem("eng", "eng - English");  
+            options[2] = new SelectItem("deu", "deu - German");  
+            options[3] = new SelectItem("jpn", "jpn - Japanese");
         }
         options[4] = new SelectItem("", NO_ITEM_SET);
 
@@ -248,7 +251,7 @@ public class CommonUtils extends InternationalizedImpl
         
         try
         {
-            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"iso639-1/all?format=options&lang="+localLang);
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+"iso639-1/all?format=jquery&lang="+localLang);
             URLConnection conn = coneUrl.openConnection();
             HttpURLConnection httpConn = (HttpURLConnection) conn;
             int responseCode = httpConn.getResponseCode();
@@ -256,7 +259,7 @@ public class CommonUtils extends InternationalizedImpl
             switch (responseCode)
             {
                 case 200:
-                    logger.info("Cone Service responded with 200.");
+                    logger.debug("Cone Service responded with 200.");
                     break;
                 default:
                     throw new RuntimeException("An error occurred while calling Cone Service: "
@@ -268,10 +271,50 @@ public class CommonUtils extends InternationalizedImpl
             String line = "";
             while ((line = bReader.readLine()) != null)
             {
-                line = line.replace("|", " - ");
-                if (!line.trim().equals(""))
+                String[] parts = line.split("\\|");
+                if (parts.length == 2)
                 {
-                    langVec.add(line);                  
+                    URL coneUrl2 = new URL(parts[1] + "?format=jquery");
+                    HttpURLConnection conn2 = (HttpURLConnection) coneUrl2.openConnection();
+                    responseCode = conn2.getResponseCode();
+                    
+                    switch (responseCode)
+                    {
+                        case 200:
+                            logger.info("Cone Service responded with 200.");
+                            break;
+                        default:
+                            throw new RuntimeException("An error occurred while calling Cone Service: "
+                                    + responseCode + ": " + httpConn.getResponseMessage());
+                    }
+                    InputStreamReader isReader2 = new InputStreamReader(coneUrl2.openStream(), "UTF-8");
+                    StringWriter writer = new StringWriter();
+                    char[] chars = new char[1024];
+                    int read;
+                    while ((read = isReader2.read(chars)) >= 0)
+                    {
+                        writer.write(chars, 0, read);
+                    }
+                    Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_identifier\"\\s*:\\s*\\[([^\\]]*)\\]");
+                    Matcher matcher = pattern.matcher(writer.toString());
+                    if (matcher.find())
+                    {
+                        String[] ids = matcher.group(1).trim().replace("\"", "").split("\\s*,\\s*");
+                        String id2 = null;
+                        String id3 = null;
+                        for (String id : ids)
+                        {
+                            if (id.length() == 2)
+                            {
+                                id2 = id;
+                            }
+                            else if (id.length() == 3)
+                            {
+                                id3 = id;
+                            }
+                        }
+                        langVec.add(id3 + " - " + id2 + " - " + parts[0]);
+                    }
                 }
             }
         }

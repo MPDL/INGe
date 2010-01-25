@@ -37,6 +37,7 @@
 	var subjectSuggestURL = '';
 	var personSuggestURL = '';
 	var journalDetailsBaseURL = '';
+	var languageDetailsBaseURL = '';
 	var autopasteDelimiter = ' ||##|| ';
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
@@ -247,7 +248,36 @@
 
 		bindJournalSuggest();
 		
-		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split('/'))[(this.resultID.split('/')).length - 1] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split('/'))[(this.resultID.split('/')).length - 1] ); }   });
+		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: selectLanguage});
 		$('.subjectSuggest').suggest(subjectSuggestURL, { onSelect: function() {$(this).val(this.currentResult)}});
 		$('.personSuggest').suggest(personSuggestURL, { onSelect: fillPersonFields });
 	};
+	
+	function selectLanguage()
+	{
+		$input = $(this);
+		$.getJSON(this.resultID, selectLanguageDetails);
+	}
+	
+	function selectLanguageDetails()
+	{
+		var identifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
+				details.http_purl_org_dc_elements_1_1_identifier : null);
+		var id3;
+		if (identifier != null && typeof identifier == 'object' && identifier.length == 3)
+		{
+			id3 = identifier;
+		}
+		else if (identifier != null)
+		{
+			for (var i=0; i < identifier.length; i++)
+			{
+				if (identifier[i].length == 3)
+				{
+					id3 = identifier[i];
+				}
+			}
+		}
+		$(this).siblings('select').val(id3);
+		$(this).siblings('span.replace').replaceValue(id3);
+	}
