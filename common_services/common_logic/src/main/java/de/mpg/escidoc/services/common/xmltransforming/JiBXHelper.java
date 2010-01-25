@@ -946,7 +946,7 @@ public class JiBXHelper
         }
         
         //Logger not working here
-        System.out.println("SourceGenre " + enumValue + "could not be transformed to corresponding enum value. Returning null.");
+        System.out.println("Genre " + enumValue + "could not be found. Returning null.");
         return null;
     }
     
@@ -1373,8 +1373,8 @@ public class JiBXHelper
             */
         }
         //Logger not working here
-        System.out.println("SourceGenre " + enumValue + "could not be transformed to corresponding enum value. Returning null");
-        return genre; // null is a possible return value
+        System.out.println("SourceGenre " + enumValue + "could not be found. Returning null.");
+        return null; // null is a possible return value
     }
     
     /**
