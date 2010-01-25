@@ -90,4 +90,17 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/access-types/private">private</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/access-types/restricted">restricted</enum>			
 	</xsl:variable>
+
+	<xsl:variable name="contentCategory-ves">
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext">any-fulltext</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/pre-print">pre-print</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/post-print">post-print</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/publisher-version">publisher-version</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/abstract">abstract</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents">table-of-contents</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material">supplementary-material</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/correspondence">correspondence</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement">copyright-transfer-agreement</enum>
+	</xsl:variable>
+	
 </xsl:stylesheet>

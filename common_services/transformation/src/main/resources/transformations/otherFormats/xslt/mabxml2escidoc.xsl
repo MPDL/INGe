@@ -73,6 +73,7 @@
 	<xsl:param name="localIdentifier" select="'xserveg5.eva.mpg.de'"/>
 	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
+	<xsl:param name="locator-filename-substitute" seldct="'external resource'"/>
 	<!--
 		DC XML  Header
 	-->
@@ -124,56 +125,31 @@
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
 		<xsl:choose>
-				<xsl:when test="mab029_m='B'">
-					<xsl:variable name="genre" select="substring-after(mab519,',')"/>
-					<xsl:choose>
-						<xsl:when test="contains($genre,'Dipl') or contains($genre,'Diplom')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>	
-						</xsl:when>
-						<xsl:when test="contains($genre,'Master')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:when test="contains($genre,'MA') or contains($genre,'M.A.') or contains($genre,'Magister')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:when test="contains($genre,'Diss') or contains($genre,'PhD')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:when test="contains($genre,'Habil.-Schr.')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:when test="contains($genre,'BA') or contains($genre,'B.A.') or contains($genre,'Bachelor')">
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:call-template name="createEntry">
-								<xsl:with-param name="gen" select="$genre-ves/enum[.='book']/@uri"/>
-							</xsl:call-template>						
-						</xsl:otherwise>
-					</xsl:choose>				
-					
-				</xsl:when>				
-				<xsl:when test="mab029_m='P'">
+				<xsl:when test="mab029_m = 'P'">
 					<xsl:call-template name="createEntry">
 						<xsl:with-param name="gen" select="$genre-ves/enum[.='article']/@uri"/>
 					</xsl:call-template>
-				</xsl:when>					
+				</xsl:when>
+				<xsl:when test="mab029_m = 'CH'">
+					<xsl:call-template name="createEntry">
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='book-item']/@uri"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="mab029_m = 'J'">
+					<xsl:call-template name="createEntry">
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='journal']/@uri"/>
+					</xsl:call-template>
+				</xsl:when>
+				<!-- Other cases -->
+				<xsl:when test="normalize-space(mab519) != ''">
+					<xsl:call-template name="createEntry">
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
+					</xsl:call-template>	
+				</xsl:when>
 				<xsl:otherwise>
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='other']/@uri"/>
-					</xsl:call-template>
+						<xsl:with-param name="gen" select="$genre-ves/enum[.='book']/@uri"/>
+					</xsl:call-template>			
 				</xsl:otherwise>
 			</xsl:choose>
 
@@ -337,9 +313,10 @@
 			<xsl:apply-templates select="mab750"/>
 			<xsl:apply-templates select="mab526"/>
 			<!-- SUBJECT -->
-			<xsl:apply-templates select="mab711_b"/>
-			<xsl:apply-templates select="mab711_t"/>
-			<xsl:apply-templates select="mab740_s"/>
+			<xsl:apply-templates select="mab700_c" mode="subject"/>
+			<xsl:apply-templates select="mab711_b" mode="subject"/>
+			<xsl:apply-templates select="mab711_t" mode="subject"/>
+			<xsl:apply-templates select="mab740_s" mode="subject"/>
 			<!--end publication-->
 		</xsl:element>
 	</xsl:template>
@@ -609,19 +586,7 @@
 	</xsl:template>
 	<!-- SUBJECT -->
 	
-	<xsl:template match="mab711_b">
-		<xsl:element name="dcterms:subject">
-			<xsl:value-of select="."/>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="mab711_t">
-		<xsl:element name="dcterms:subject">
-			<xsl:value-of select="."/>
-		</xsl:element>
-	</xsl:template>
-	
-	<xsl:template match="mab740_s">
+	<xsl:template match="*" mode="subject">
 		<xsl:element name="dcterms:subject">
 			<xsl:value-of select="."/>
 		</xsl:element>
@@ -791,13 +756,21 @@
 		<xsl:if test="not(normalize-space(.)='-')">
 			
 			<xsl:variable name="filename" as="xs:string" select="escidoc:computeFilename(.)"/>
-			
+
 			<xsl:choose>
 				<xsl:when test="starts-with($filename, $localPrefix)">
+				
+					<xsl:variable name="content-category">
+						<xsl:choose>
+							<xsl:when test="exists(preceding-sibling::*[name() = 'mab655_e' and starts-with(escidoc:computeFilename(.), $localPrefix)])">publisher-version</xsl:when>
+							<xsl:otherwise>any-fulltext</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+				
 					<xsl:element name="ec:component">
 						<ec:properties>
 							<prop:visibility>private</prop:visibility>
-							<prop:content-category>any-fulltext</prop:content-category>
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
 							<prop:file-name>
 								<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 							</prop:file-name>
@@ -814,7 +787,7 @@
 										<xsl:attribute name="xsi:type">eterms:URI</xsl:attribute>
 										<xsl:value-of select="."/>
 									</xsl:element>
-									<file:content-category>any-fulltext</file:content-category>
+									<file:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></file:content-category>
 									<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 									<xsl:variable name="file-size" select="Util:getSize($filename)"/>
 									<xsl:if test="exists($file-size)">
@@ -831,7 +804,7 @@
 					<xsl:element name="ec:component">
 						<ec:properties>
 							<prop:visibility>public</prop:visibility>
-							<prop:content-category>any-fulltext</prop:content-category>
+							<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
 							<prop:file-name><xsl:value-of select="$filename"/></prop:file-name>
 						</ec:properties>
 						<ec:content xlink:type="simple" xlink:title="{escidoc:substring-after-last($filename, '/')}" xlink:href="{$filename}" storage="external-url"/>
@@ -868,9 +841,8 @@
 	</xsl:template>
 	
 	<xsl:function name="escidoc:computeFilename" as="xs:string">
-		<xsl:param name="src" as="xs:string"/>
 		
-		<xsl:variable name="srcWithoutSpaces" select="translate($src, ' &#xA;&#xD; ', '')" as="xs:string"/>
+		<xsl:variable name="srcWithoutSpaces" select="translate(., ' &#xA;&#xD; ', '')" as="xs:string"/>
 		
 		<xsl:variable name="result">
 			<xsl:choose>
@@ -878,6 +850,9 @@
 					<xsl:value-of select="$localPrefix"/>
 					<xsl:value-of select="escidoc:substring-before-last(escidoc:substring-after-last($srcWithoutSpaces, '/'), '.')"/>
 					<xsl:value-of select="$localSuffix"/>
+				</xsl:when>
+				<xsl:when test="$srcWithoutSpaces = ''">
+					<xsl:value-of select="$locator-filename-substitute"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="$srcWithoutSpaces"/>
