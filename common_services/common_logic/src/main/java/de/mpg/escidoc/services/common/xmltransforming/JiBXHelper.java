@@ -37,10 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.AllowedRolesRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
@@ -102,7 +100,7 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumExcept
  */
 public class JiBXHelper
 {
-    
+	
     /**
      * Hide default constructor.
      */
@@ -932,7 +930,7 @@ public class JiBXHelper
         	}
         	 
         	//throw exception if not found
-            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+            //throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
              
         	/*
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
@@ -946,6 +944,10 @@ public class JiBXHelper
             }
             */
         }
+        
+        //Logger not working here
+        System.out.println("SourceGenre " + enumValue + "could not be transformed to corresponding enum value. Returning null.");
+        return null;
     }
     
     /**
@@ -1356,7 +1358,7 @@ public class JiBXHelper
         	}
         	 
         	//throw exception if not found
-            throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+            //throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
             
             /*
         	String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
@@ -1370,6 +1372,8 @@ public class JiBXHelper
             }
             */
         }
+        //Logger not working here
+        System.out.println("SourceGenre " + enumValue + "could not be transformed to corresponding enum value. Returning null");
         return genre; // null is a possible return value
     }
     
