@@ -59,23 +59,35 @@ public class IdentifierVO extends ValueObject implements Cloneable
      */
     public enum IdType
     {
-        CONE, 
-        URI, 
-        ISBN, 
-        ISSN, 
-        DOI, 
-        URN,
-        PII,
-        EDOC, 
-        ESCIDOC, 
-        ISI, 
-        PND,
-        ZDB,
-        PMID,
-        ARXIV,
-        PMC,
-        BMC,
-        OTHER
+        CONE ("http://purl.org/escidoc/metadata/ves/identifier-types/CONE"), 
+        URI ("http://purl.org/escidoc/metadata/ves/identifier-types/URI"), 
+        ISBN ("http://purl.org/escidoc/metadata/ves/identifier-types/ISBN"), 
+        ISSN ("http://purl.org/escidoc/metadata/ves/identifier-types/ISSN"), 
+        DOI ("http://purl.org/escidoc/metadata/ves/identifier-types/DOI"), 
+        URN ("http://purl.org/escidoc/metadata/ves/identifier-types/URN"),
+        PII ("http://purl.org/escidoc/metadata/ves/identifier-types/PII"),
+        EDOC ("http://purl.org/escidoc/metadata/ves/identifier-types/EDOC"), 
+        ESCIDOC ("http://purl.org/escidoc/metadata/ves/identifier-types/ESCIDOC"), 
+        ISI ("http://purl.org/escidoc/metadata/ves/identifier-types/ISI"), 
+        PND("http://purl.org/escidoc/metadata/ves/identifier-types/PND"),
+        ZDB ("http://purl.org/escidoc/metadata/ves/identifier-types/ZDB"),
+        PMID ("http://purl.org/escidoc/metadata/ves/identifier-types/PMID"),
+        ARXIV ("http://purl.org/escidoc/metadata/ves/identifier-types/ARXIV"),
+        PMC ("http://purl.org/escidoc/metadata/ves/identifier-types/PMC"),
+        BMC ("http://purl.org/escidoc/metadata/ves/identifier-types/BMC"),
+        OTHER ("http://purl.org/escidoc/metadata/ves/identifier-types/OTHER");
+        
+        private String uri;
+        
+        private IdType(String uri)
+        {
+        	this.uri=uri;
+        }
+        
+        public String getUri()
+        {
+        	return uri;
+        }
     }
 
     private String id;
