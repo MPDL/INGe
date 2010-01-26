@@ -446,7 +446,7 @@
 											<b class="xLarge_area0 endline labelLine">WorldCat</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<a>
-													<xsl:attribute name="href">http://www.worldcat.org/search?q=au%3A<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/></xsl:attribute>
+													<xsl:attribute name="href">http://www.worldcat.org/search?q=au%3A<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:family_name"/></xsl:attribute>
 													Search for <xsl:value-of select="dc:title"/>
 												</a>
 											</span>
@@ -455,7 +455,7 @@
 											<b class="xLarge_area0 endline labelLine">Google Scholar</b>
 											<span class="xHuge_area0 xTiny_marginLExcl endline">
 												<a>
-													<xsl:attribute name="href">http://scholar.google.de/scholar?q=author%3A%22<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:familyname"/>%22</xsl:attribute>
+													<xsl:attribute name="href">http://scholar.google.de/scholar?q=author%3A%22<xsl:value-of select="foaf:givenname"/><xsl:text> </xsl:text><xsl:value-of select="foaf:family_name"/>%22</xsl:attribute>
 													Search for <xsl:value-of select="dc:title"/>
 												</a>
 											</span>
