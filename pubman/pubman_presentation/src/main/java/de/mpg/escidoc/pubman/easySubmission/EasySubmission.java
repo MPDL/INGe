@@ -248,7 +248,7 @@ public class EasySubmission extends FacesBean
                 // add a locator
                 FileVO newLocator = new FileVO();
                 newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
                 newLocator.setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.setDefaultMetadata(new MdsFileVO());
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
@@ -484,7 +484,7 @@ public class EasySubmission extends FacesBean
                     .getLocators().size(), true);
             // set fixed content type
             newLocator.getFile().setContentCategory(
-                    PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+                    PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
             newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
             newLocator.getFile().setDefaultMetadata(new MdsFileVO());
             newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
@@ -1344,7 +1344,7 @@ public class EasySubmission extends FacesBean
                         .getLocators().size(), true);
                 // set fixed content type
                 newLocator.getFile().setContentCategory(
-                        PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+                        PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
                 newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.getFile().setDefaultMetadata(new MdsFileVO());
                 newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
