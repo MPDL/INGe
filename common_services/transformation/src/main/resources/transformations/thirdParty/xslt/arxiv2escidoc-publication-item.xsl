@@ -66,7 +66,7 @@
 
 		<escidocItem:item>
 			<escidocItem:properties>
-				<srel:content-model objid="escidoc:persistent4" />
+				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}" />
 				<prop:content-model-specific />
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>

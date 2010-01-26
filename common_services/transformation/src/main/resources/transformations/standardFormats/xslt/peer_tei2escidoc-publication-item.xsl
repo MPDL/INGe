@@ -68,7 +68,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model" select="'escidoc:persistent4'"/>
+	<xsl:param name="content-model" select="${escidoc.framework_access.content-model.id.publication}"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	

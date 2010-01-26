@@ -80,7 +80,7 @@
 				<!--<xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
 				</xsl:element>-->
-				<srel:content-model objid="escidoc:persistent4"/>
+				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

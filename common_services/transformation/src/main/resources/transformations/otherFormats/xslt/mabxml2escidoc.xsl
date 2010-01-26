@@ -106,7 +106,7 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:content-model objid="escidoc:persistent4"/>
+				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

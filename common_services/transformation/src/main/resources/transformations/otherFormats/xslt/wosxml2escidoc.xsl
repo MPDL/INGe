@@ -98,16 +98,8 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:content-model objid="escidoc:persistent4"/>
+				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
 				<xsl:element name="prop:content-model-specific"/>
-				<!-- <xsl:element name="srel:context">
-					<xsl:attribute name="xlink:href">
-						<xsl:text>/ir/context/</xsl:text>
-						<xsl:value-of select="$context"/>
-					</xsl:attribute>
-				</xsl:element>
-				<srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>
-				<xsl:element name="prop:content-model-specific"></xsl:element>-->
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
 				<mdr:md-record name="escidoc">

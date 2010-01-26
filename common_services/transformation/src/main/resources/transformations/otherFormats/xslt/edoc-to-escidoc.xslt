@@ -73,7 +73,7 @@
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'dummy-context'"/>
 	<xsl:param name="external-ou"/>
-	<xsl:param name="root-ou" select="'escidoc:persistent13'"/>
+	<xsl:param name="root-ou" select="${escidoc.pubman.external.organisation.id}"/>
 	<xsl:param name="source-name" select="'eDoc'"/>
 	
 	<xsl:param name="content-model" select="'dummy-content-model'"/>
