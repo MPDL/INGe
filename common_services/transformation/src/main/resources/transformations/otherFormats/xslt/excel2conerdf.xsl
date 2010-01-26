@@ -7,6 +7,7 @@
 	
 	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/rdf/persons/all'))"/>
+	
 
 	<xsl:template match="/">
 		<rdf:RDF>
@@ -44,9 +45,9 @@
 						</xsl:call-template>
 						<escidoc:position>
 							<rdf:Description>
-							
+								
 								<xsl:variable name="escidoc-ou">
-									<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organization-details/dc:title = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
+									<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organization-details/dc:title) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/@objid"/>
 								</xsl:variable>
 							
 								<xsl:variable name="ou-path">
@@ -81,7 +82,7 @@
 		
 		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[@objid = $id]"/>
 		
-		<xsl:value-of select="$ou/mdr:md-records/mdr:md-record/mdou:organization-details/dc:title"/>
+		<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organization-details/dc:title)"/>
 		
 		<xsl:choose>
 			<xsl:when test="exists($ou/organizational-unit:parents/srel:parent)">
