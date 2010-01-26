@@ -299,7 +299,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("supplementary-material");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
