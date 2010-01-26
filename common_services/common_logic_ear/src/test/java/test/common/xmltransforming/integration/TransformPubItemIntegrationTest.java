@@ -454,7 +454,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("supplementary-material");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -486,13 +486,13 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         assertEquals("Item does not contain exactly one file as expected.", 1, files.size());
         FileVO file = files.get(0);
         String currentContentType = file.getContentCategory();
-        if ("abstract".equals(currentContentType))
+        if ("http://purl.org/escidoc/metadata/ves/content-categories/abstract".equals(currentContentType))
         {
-            file.setContentCategory("supplementary-material");
+            file.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material");
         }
         else
         {
-            file.setContentCategory("abstract");
+            file.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/abstract");
         }
         // transform the PubItemVO into an item again
         String pubItemXMLPreUpdate = xmlTransforming.transformToItem(pubItemVOPostCreate);
