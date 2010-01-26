@@ -1384,7 +1384,7 @@ public class ItemControllerSessionBean extends FacesBean
                 if (creator.getPerson() != null)
                 {
                     for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-                        if (organization.getIdentifier() == null)
+                        if (organization.getIdentifier() == null || organization.getIdentifier().equals(""))
                         {
                             organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                         }
@@ -1392,7 +1392,7 @@ public class ItemControllerSessionBean extends FacesBean
                 }
                 else
                 {
-                    if (creator.getOrganization() != null && creator.getOrganization().getIdentifier() == null)
+                    if (creator.getOrganization() != null && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals("")))
                     {
                         creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                     }
@@ -1403,7 +1403,7 @@ public class ItemControllerSessionBean extends FacesBean
                     if (creator.getPerson() != null)
                     {
                         for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
-                            if (organization.getIdentifier() == null)
+                            if (organization.getIdentifier() == null || organization.getIdentifier().equals(""))
                             {
                                 organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                             }
@@ -1411,7 +1411,7 @@ public class ItemControllerSessionBean extends FacesBean
                     }
                     else
                     {
-                        if (creator.getOrganization() != null && creator.getOrganization().getIdentifier() == null)
+                        if (creator.getOrganization() != null && (creator.getOrganization().getIdentifier() == null  || creator.getOrganization().getIdentifier().equals("")))
                         {
                             creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
                         }
