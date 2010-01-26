@@ -115,7 +115,7 @@ public class PubFileVOPresentation extends FacesBean
          */
         public String toString()
         {
-            return super.toString().toLowerCase().replace("_", "-");
+            return getUri();
         }
 
     }
