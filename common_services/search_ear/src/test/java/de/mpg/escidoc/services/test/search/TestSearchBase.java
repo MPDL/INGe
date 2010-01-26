@@ -171,7 +171,7 @@ public class TestSearchBase extends TestBase
         file.getDefaultMetadata().setTitle(new TextVO("Der_kleine_Prinz_Auszug.pdf"));
         file.setMimeType("application/pdf");
         file.setDescription("Auszug aus \"Der kleine Prinz\" von Antoine de Saint-Exupery.");
-        file.setContentCategory("ANY_FULLTEXT");
+        file.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
         myItem.getFiles().add(file);
         ItemVO createdItem = createItem(myItem, user);
         assertNotNull(createdItem);
