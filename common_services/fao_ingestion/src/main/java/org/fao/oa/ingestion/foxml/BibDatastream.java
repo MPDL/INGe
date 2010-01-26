@@ -39,7 +39,6 @@ public class BibDatastream
                         {
                             for (String team : faodoc.getTEAMArray())
                             {
-                                // TODO: get team from FixedControlledLists.xsl
                                 cataloguer.addCataloguerTeam(team);
                             }
                         }
@@ -53,7 +52,6 @@ public class BibDatastream
                     {
                         for (String team : faodoc.getTEAMArray())
                         {
-                            // TODO: get team from FixedControlledLists.xsl
                             cataloguer.addCataloguerTeam(team);
                         }
                     }
@@ -65,6 +63,7 @@ public class BibDatastream
         if (faodoc.sizeOfASSIGNArray() > 0)
         {
             FileAssignment assign = bib.addNewFileAssignment();
+            assign.setLang("en");
             for (String asg : faodoc.getASSIGNArray())
             {
                 assign.addFileAssignmentCode(FileAssignment.FileAssignmentCode.Enum.forString(asg));
@@ -75,7 +74,6 @@ public class BibDatastream
                 {
                     // changed bib.xsd. enum did not contain FAO document/publication
                     assign.addFileAssignmentDescr(FileAssignment.FileAssignmentDescr.Enum.forString(asg_dc));
-                    // TODO: xml:lang
                 }
             }
         }

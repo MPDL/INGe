@@ -45,7 +45,6 @@ public class FaodocItem
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         */
@@ -137,7 +136,6 @@ public class FaodocItem
         }
         catch (IOException e1)
         {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         */
@@ -209,32 +207,12 @@ public class FaodocItem
                         }
                         */
                         
-                        if (item.sizeOfCONFERENCEArray() > 0)
+                        
+                        if (item.sizeOfSERTITArray() > 0)
                         {
-                            for (String tit : item.getTITOTArray())
+                            for (String tit : item.getSERTITArray())
                             {
-                                System.out.println(item.getARNArray(0) + "  has TIT_OT " + tit);
-                                if (item.sizeOfLANGArray() > 0)
-                                {
-                                    for (String l : item.getLANGArray())
-                                    {
-                                        System.out.print(l + " ");
-                                    }
-                                }
-                            }
-                        }
-                        if (item.sizeOfTITTRArray() > 0)
-                        {
-                            for (String tit : item.getTITTRArray())
-                            {
-                                System.out.println(item.getARNArray(0) + "  has TIT_TR " + tit);
-                                if (item.sizeOfLANGArray() > 0)
-                                {
-                                    for (String l : item.getLANGArray())
-                                    {
-                                        System.out.print(l + " ");
-                                    }
-                                }
+                                System.out.println(item.getARNArray(0) + "  has SER_TIT " + tit);
                             }
                         }
                     }
@@ -252,12 +230,10 @@ public class FaodocItem
             }
             catch (XmlException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (IOException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -285,12 +261,10 @@ public class FaodocItem
                 }
                 catch (XmlException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 catch (IOException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -355,12 +329,10 @@ public class FaodocItem
         }
         catch (SecurityException e1)
         {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         catch (NoSuchMethodException e1)
         {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
             if (m != null)
@@ -383,17 +355,14 @@ public class FaodocItem
                 }
                 catch (IllegalArgumentException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 catch (IllegalAccessException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 catch (InvocationTargetException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

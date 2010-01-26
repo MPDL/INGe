@@ -98,7 +98,6 @@ public class EimsDatastream
             eims.setPrice(new BigInteger(eimsItem.getPrice()));
         }
         // E-7
-        // TODO: subpriority_areas
         // neither eims resource items nor eims.xsd contain subpriority_areas
         // E-8
         // add eims:pwb_entities
@@ -107,7 +106,7 @@ public class EimsDatastream
             for (PwbEntitiesType pet : eimsItem.getPwbEntitiesArray())
             {
                 PwbEntities pwbEntities = eims.addNewPwbEntities();
-                // TODO: changed eims.xsd code type to xs:string
+                // changed eims.xsd code type to xs:string
                 // because of code="243P2" in eims item 49785
                 pwbEntities.setCode(pet.getCode());
                 pwbEntities.setLang(pet.getLang());
@@ -127,7 +126,6 @@ public class EimsDatastream
             }
         }
         // E-10
-        // TODO: check if this should be an array
         // add eims:notes
         if (eimsItem.getNotes() != null)
         {
@@ -174,7 +172,7 @@ public class EimsDatastream
         // add eims:context
         if (eimsItem.getContext() != null)
         {
-            // TODO: context is missing in eims.xsd
+            // context is missing in eims.xsd
             // added elemnt context to eims.xsd
             Context ctx = eims.addNewContext();
             ctx.setCode(new BigInteger(eimsItem.getContext().getCode()));

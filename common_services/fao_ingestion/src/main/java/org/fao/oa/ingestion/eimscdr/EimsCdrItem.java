@@ -22,6 +22,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
 
+import noNamespace.CountryType;
 import noNamespace.EimsresourcesDocument;
 import noNamespace.ITEMType;
 import noNamespace.ItemType;
@@ -43,16 +44,16 @@ public class EimsCdrItem
         //ItemType eimsItem = getById(eimsExportFile, "19000");
         //System.out.println(eimsItem.getIdentifierArray(0));
         //System.out.println(eimsItem.getJobnoArray(0));
-        //parseTest(filenames);
+        parseTest(filenames);
         
         //ArrayList<ItemType> itemList = allEIMSItemsAsList(filenames);
         //System.out.println("total number of EIMS items: " + itemList.size());
         //String filter = "other";
         //filteredList(filenames, filter);
-        ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
+        //ArrayList<ItemType> list = allEIMSItemsAsList(filenames);
         
-        ItemType item = getById(list, "145763");
-        System.out.println(item);
+        //ItemType item = getById(list, "145763");
+        //System.out.println(item);
         
     }
 
@@ -158,9 +159,12 @@ public class EimsCdrItem
                         }
                     }
                     */
-                    if (i.getDate() != null)
+                    if (i.sizeOfCountryArray() > 0)
                     {
-                        System.out.println(i.getIdentifier() + "  " + i.getDate().getStringValue()); 
+                        for (CountryType c : i.getCountryArray())
+                        {
+                            System.out.println(i.getIdentifier() + "  " + c.getStringValue());
+                        }
                     }
                     else
                     {
@@ -170,12 +174,10 @@ public class EimsCdrItem
             }
             catch (XmlException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (IOException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -209,12 +211,10 @@ public class EimsCdrItem
             }
             catch (XmlException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             catch (IOException e)
             {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -254,12 +254,10 @@ public class EimsCdrItem
                 }
                 catch (XmlException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 catch (IOException e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
         }

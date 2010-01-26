@@ -98,6 +98,7 @@ public class KosDatastream
             for (CountryType country : eims.getCountryArray())
             {
                 Country c = kos.addNewCountry();
+                c.setISO3("ISO3");
                 noNamespace.KosDocument.Kos.Country.Label countryLabel = c.addNewLabel();
                 countryLabel.setLanguage(country.getLang());
                 countryLabel.setStringValue(country.getStringValue());

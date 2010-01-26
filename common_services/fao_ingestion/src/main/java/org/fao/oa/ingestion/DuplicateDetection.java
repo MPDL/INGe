@@ -213,7 +213,7 @@ public class DuplicateDetection
                 }
             }
         }
-        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0
+        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBDATEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0
                 || faodoc.sizeOfYEARPUBLArray() > 0)
         {
             faodocDates = new ArrayList<String>();
@@ -224,17 +224,15 @@ public class DuplicateDetection
                     faodocDates.add(date);
                 }
             }
-            // PUBDATE has been moved to SERIES
-            // should it still be used ???
-            /*
-            if (faodoc.dizuOfPUBDATEArray() > 0)
+            
+            if (faodoc.sizeOfPUBDATEArray() > 0)
             {
                 for (String date : faodoc.getPUBDATEArray())
                 {
                     faodocDates.add(date);
                 }
             }
-            */
+
             if (faodoc.sizeOfPUBYEARArray() > 0)
             {
                 for (String date : faodoc.getPUBYEARArray())

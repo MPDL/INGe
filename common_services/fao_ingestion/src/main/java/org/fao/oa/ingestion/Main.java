@@ -59,8 +59,8 @@ public class Main
         System.out.println(compare3 + "   " + compare4);
         System.out.println(compare5 + "   " + compare6);
         */
-        //testObjectMerge();
-        testObjectCreation();
+        testObjectMerge();
+        //testObjectCreation();
         /*
         try
         {
@@ -68,7 +68,6 @@ public class Main
         }
         catch (Exception e)
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         */
@@ -81,6 +80,7 @@ public class Main
         System.out.println(uri + "  " + agskos.getLabels(uri));
         */
         //testControlledVocab();
+        
 
     }
 
@@ -98,19 +98,20 @@ public class Main
         }
     }
 
-    public static List parseLogFile() throws Exception
+    public static List<String[]> parseLogFile() throws Exception
     {
         File logfile = new File("ingestion.log");
         BufferedReader reader = new BufferedReader(new FileReader(logfile));
         ArrayList<String> eims_ids = new ArrayList<String>();
         ArrayList<String> faodoc_ids = new ArrayList<String>();
-        ArrayList<String> dups = new ArrayList<String>();
+        ArrayList<String[]> dups = new ArrayList<String[]>();
         String key = null;
         String val;
         String line;
         int counter = 0;
         while ((line = reader.readLine()) != null)
         {
+            /*
             if (line.contains("EIMS"))
             {
                 int begin = line.indexOf("EIMS record:") + 13;
@@ -127,12 +128,26 @@ public class Main
                 val = line.substring(begin, begin + 12).trim();
                 dups.add(key + "=" + val);
             }
+            */
+            String[] values = line.split("\t");
+            dups.add(values);
         }
         
-        //System.out.println(dups.size() + " duplicated items !!!");
-        List<String> subList = dups.subList(6666, 7777);
+        System.out.println(dups.size() + " items !!!");
+        List<String[]> subList = dups.subList(666, 699);
         System.out.println(subList.size());
-        System.out.println("taken: " + subList);
+        for (String[] vals : subList)
+        {
+            //System.out.println(vals[0] + "  " + vals[1] + "  " + vals[2]);
+            if (vals.length > 1)
+            {
+                System.out.println(vals[0].substring(vals[0].length() -12, vals[0].length()) + "  " + vals[1] + "  " + vals[2]);
+            }
+            else
+            {
+                System.out.println(vals[0].substring(vals[0].length() -12, vals[0].length()));
+            }
+        }
         return subList;
     }
 
@@ -163,11 +178,11 @@ public class Main
         String[] faodocFiles = IngestionProperties.get("faodoc.export.file.names").split(" ");
         String filter = "M";
         ArrayList<ITEMType> faodocList = FaodocItem.filteredList(faodocFiles, filter);
-        String arn = "XF2006219523";
+        String arn = "XF2006123588";
         ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
         String[] eimsFiles = IngestionProperties.get("eims.export.file.names").split(" ");
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
-        String id = "58569";
+        String id = "169463";
         ItemType eims = EimsCdrItem.getById(eimsList, id);
         
         System.out.println(faodoc.xmlText(XBeanUtils.getDefaultOpts()));
@@ -325,16 +340,35 @@ public class Main
         ArrayList<ItemType> eimsList = EimsCdrItem.allEIMSItemsAsList(eimsFiles);
         try
         {
-            List<String> duplicates = parseLogFile();
-            for (String duplicate : duplicates)
+            List<String[]> duplicates = parseLogFile();
+            for (String[] duplicate : duplicates)
             {
-                String arn = duplicate.split("=")[1];
-                ITEMType faodoc = FaodocItem.getByARN(faodocList, arn);
-                String id = duplicate.split("=")[0];
-                ItemType eims = EimsCdrItem.getById(eimsList, id);
-                System.out.println("Merging EIMS " + id + " with FAODOC " + arn);
-                DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
-                fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
+                String arn = null;
+                String id = null;
+                ITEMType faodoc = null;
+                ItemType eims = null;
+                int size = duplicate.length;
+                arn = duplicate[0].substring(duplicate[0].length() -12, duplicate[0].length());
+                faodoc = FaodocItem.getByARN(faodocList, arn);
+                if (size > 1)
+                {
+                    id = duplicate[1];
+                    eims = EimsCdrItem.getById(eimsList, id);
+                }
+                if (arn != null && id != null)
+                {
+                    System.out.println("Merging EIMS " + id + " with FAODOC " + arn);
+                }
+                else
+                {
+                    if (arn != null)
+                    {
+                        System.out.println("Creating FOXML for " + arn);
+                    }
+                }
+                //DigitalObjectDocument fox = new Foxml().merge(faodoc, eims);
+                //fox.save(new File(FOXML_DESTINATION_DIR + arn + "_" + id), XBeanUtils.getFoxmlOpts());
+                System.out.println("file name " + FOXML_DESTINATION_DIR + arn + "_" + id);
             }
         }
         catch (Exception e1)

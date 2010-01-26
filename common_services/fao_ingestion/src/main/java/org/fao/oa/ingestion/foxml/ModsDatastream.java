@@ -374,7 +374,7 @@ public class ModsDatastream
         }
         // M-38 - M-40
         // add mods:originInfo/dateIssued
-        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
+        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBDATEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
         {
             if (faodoc.sizeOfDATEISSUEArray() > 0)
             {
@@ -383,10 +383,18 @@ public class ModsDatastream
             }
             else
             {
-                if (faodoc.sizeOfPUBYEARArray() > 0)
+                if (faodoc.sizeOfPUBDATEArray() > 0)
                 {
-                    String date = faodoc.getPUBYEARArray(0);
+                    String date = faodoc.getPUBDATEArray(0);
                     addNewDateIssued(date);
+                }
+                else
+                {
+                    if (faodoc.sizeOfPUBYEARArray() > 0)
+                    {
+                        String date = faodoc.getPUBYEARArray(0);
+                        addNewDateIssued(date);
+                    }
                 }
             }
         }
@@ -1741,7 +1749,7 @@ public class ModsDatastream
         }
         // M-38 - M-40
         // add mods:originInfo/dateIssued
-        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
+        if (faodoc.sizeOfDATEISSUEArray() > 0 || faodoc.sizeOfPUBDATEArray() > 0 || faodoc.sizeOfPUBYEARArray() > 0)
         {
             if (faodoc.sizeOfDATEISSUEArray() > 0)
             {
@@ -1750,10 +1758,18 @@ public class ModsDatastream
             }
             else
             {
-                if (faodoc.sizeOfPUBYEARArray() > 0)
+                if (faodoc.sizeOfPUBDATEArray() > 0)
                 {
-                    String date = faodoc.getPUBYEARArray(0);
+                    String date = faodoc.getPUBDATEArray(0);
                     addNewDateIssued(date);
+                }
+                else
+                {
+                    if (faodoc.sizeOfPUBYEARArray() > 0)
+                    {
+                        String date = faodoc.getPUBYEARArray(0);
+                        addNewDateIssued(date);
+                    }
                 }
             }
         }
