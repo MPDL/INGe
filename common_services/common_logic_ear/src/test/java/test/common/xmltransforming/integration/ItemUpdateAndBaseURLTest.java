@@ -133,7 +133,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         fileVO.setContent(stagingURL);
         logger.info("File uploaded to staging area. Retrieved URL stored in FileVO.content[String]: " + stagingURL);
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("supplementary-material");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material");
         fileVO.setName("galaxy.gif");
         fileVO.setDescription("The Universe within 50000 Light Years");
         fileVO.setVisibility(Visibility.PRIVATE);
