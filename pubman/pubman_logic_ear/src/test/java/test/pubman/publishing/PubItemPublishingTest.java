@@ -123,7 +123,7 @@ public class PubItemPublishingTest extends TestBase
         String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
-        file.setContentCategory("publisher_version");
+        file.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version");
         file.setVisibility(Visibility.PUBLIC);
         
         
