@@ -276,7 +276,7 @@ public class EasySubmission extends FacesBean
                 // add a locator
                 FileVO newLocator = new FileVO();
                 newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+                newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
                 newLocator.setVisibility(FileVO.Visibility.PUBLIC);
                 newLocator.setDefaultMetadata(new MdsFileVO());
                 newLocator.getDefaultMetadata().setTitle(new TextVO());
