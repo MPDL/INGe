@@ -229,7 +229,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
 
         logger.info("Content: " + fileVO.getContent());
 
-        fileVO.setContentCategory("post-print");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
