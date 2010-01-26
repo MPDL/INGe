@@ -484,7 +484,7 @@ public class EasySubmission extends FacesBean
                     .getLocators().size(), true);
             // set fixed content type
             newLocator.getFile().setContentCategory(
-                    PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
+                    PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
             newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
             newLocator.getFile().setDefaultMetadata(new MdsFileVO());
             newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
