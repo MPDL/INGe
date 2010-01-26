@@ -1049,11 +1049,7 @@ public class ViewItemFull extends FacesBean
             {
                 annotation.append("</sup>");
             }
-            //genre = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getGenre()));
-            //formattedCreator = formatter.formatCreator(creator, annotation.toString());
-            System.out.println("HHÄÄHHH!!!");
-            formattedCreator += creator.getPerson().getFamilyName() + ", " + creator.getPerson().getGivenName()+ annotation.toString()+", " + 
-            getLabel(this.i18nHelper.convertEnumToString(creator.getRole()));
+            formattedCreator = formatter.formatCreator(creator, annotation.toString());
             
             if (creator.getPerson() != null)
             {
