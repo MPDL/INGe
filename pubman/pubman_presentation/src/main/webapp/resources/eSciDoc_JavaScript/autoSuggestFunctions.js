@@ -73,7 +73,7 @@
 		if((typeof(identifier)=='object') && (identifier != null)){
 			for(var i = 0; i<identifier.length; i++) {
 				
-				var identifierType = identifier[i]['http_escidoc_mpg_de_idtype'];
+				var identifierType = identifier[i]['http_www_w3_org_2001_XMLSchema_instance_type'];
 				var identifierValue = identifier[i]['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
 
 				if (i > 0)
@@ -87,7 +87,7 @@
 				allIDs += identifierValue;
 			}
 		} else {
-			var identifierType = identifier['http_escidoc_mpg_de_idtype'];
+			var identifierType = identifier['http_www_w3_org_2001_XMLSchema_instance_type'];
 			var identifierValue = identifier['http_www_w3_org_1999_02_22_rdf_syntax_ns#_value'];
 			if (typeof identifierType != 'undefined' && identifierType != null)
 			{
@@ -134,39 +134,39 @@
 		}
 		if (orgName != null)
 		{
-			if (typeof details.http_escidoc_mpg_de_position != 'undefined'
-				&& typeof details.http_escidoc_mpg_de_position.length != 'undefined')
+			if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined'
+				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.length != 'undefined')
 			{
-				for (var i = 0; i < details.http_escidoc_mpg_de_position.length; i++)
+				for (var i = 0; i < details.http_purl_org_escidoc_metadata_terms_0_1_position.length; i++)
 				{
-					if (details.http_escidoc_mpg_de_position[i].http_escidoc_mpg_de_organization == orgName
-						&& typeof details.http_escidoc_mpg_de_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined')
+					if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution == orgName
+						&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined')
 					{
-						orgId = details.http_escidoc_mpg_de_position[i].http_purl_org_dc_elements_1_1_identifier;
+						orgId = details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier;
 						break;
 					}
 				}
 			}
-			else if (typeof details.http_escidoc_mpg_de_position != 'undefined'
-				&& typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined'
-				&& typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined'
-				&& details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization == orgName)
+			else if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined'
+				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution != 'undefined'
+				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier != 'undefined'
+				&& details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution == orgName)
 			{
-				orgId = details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier;
+				orgId = details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier;
 			}
 		}
 		else
 		{
-			if (typeof details.http_escidoc_mpg_de_position != 'undefined'
-				&& typeof details.http_escidoc_mpg_de_position.length != 'undefined')
+			if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined'
+				&& typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.length != 'undefined')
 			{
-				orgName = (typeof details.http_escidoc_mpg_de_position[0].http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position[0].http_escidoc_mpg_de_organization : null);
-				orgId = (typeof details.http_escidoc_mpg_de_position[0].http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position[0].http_purl_org_dc_elements_1_1_identifier : null);
+				orgName = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[0].http_purl_org_eprint_terms_affiliatedInstitution != 'undefined' ? details.http_purl_org_escidoc_metadata_terms_0_1_position[0].http_purl_org_eprint_terms_affiliatedInstitution : null);
+				orgId = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[0].http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_escidoc_metadata_terms_0_1_position[0].http_purl_org_dc_elements_1_1_identifier : null);
 			}
-			else if (typeof details.http_escidoc_mpg_de_position != 'undefined')
+			else if (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position != 'undefined')
 			{
-				orgName = (typeof details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization != 'undefined' ? details.http_escidoc_mpg_de_position.http_escidoc_mpg_de_organization : null);
-				orgId = (typeof details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_escidoc_mpg_de_position.http_purl_org_dc_elements_1_1_identifier : null);
+				orgName = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution != 'undefined' ? details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_eprint_terms_affiliatedInstitution : null);
+				orgId = (typeof details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_escidoc_metadata_terms_0_1_position.http_purl_org_dc_elements_1_1_identifier : null);
 			}
 		}
 		var personId = $input.resultID;
