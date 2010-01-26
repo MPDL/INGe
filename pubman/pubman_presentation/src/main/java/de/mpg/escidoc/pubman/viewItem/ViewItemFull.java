@@ -87,6 +87,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.CreatorDisplay;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -493,11 +494,6 @@ public class ViewItemFull extends FacesBean
             // set up some pre-requisites
             // the list of numbered affiliated organizations 
             createAffiliatedOrganizationList();
-            
-            // the list of creators (persons and organizations)
-            createCreatorList();
-            
-            // the list of sources
            
             //clear source list first
             this.sourceList.clear();
@@ -617,7 +613,7 @@ public class ViewItemFull extends FacesBean
 //                    logger.error(e);
 //                }
 //            }
-        }
+        }        
     }
     
     /**
@@ -1053,7 +1049,12 @@ public class ViewItemFull extends FacesBean
             {
                 annotation.append("</sup>");
             }
-            formattedCreator = formatter.formatCreator(creator, annotation.toString());
+            //genre = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getGenre()));
+            //formattedCreator = formatter.formatCreator(creator, annotation.toString());
+            System.out.println("HHÄÄHHH!!!");
+            formattedCreator += creator.getPerson().getFamilyName() + ", " + creator.getPerson().getGivenName()+ annotation.toString()+", " + 
+            getLabel(this.i18nHelper.convertEnumToString(creator.getRole()));
+            
             if (creator.getPerson() != null)
             {
                 CreatorDisplay creatorDisplay = new CreatorDisplay();
@@ -1817,6 +1818,7 @@ public class ViewItemFull extends FacesBean
 
 	public ArrayList<CreatorDisplay> getCreatorArray()
 	{
+	    createCreatorList();
 		return this.creatorArray;
 	}
 
