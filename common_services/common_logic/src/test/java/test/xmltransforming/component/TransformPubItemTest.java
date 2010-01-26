@@ -151,13 +151,13 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent("<blink>organisation</blink>");
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("post-print");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO md = new MdsFileVO();
-        md.setContentCategory("post-print");
+        md.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         md.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         md.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
         md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
