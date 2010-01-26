@@ -123,7 +123,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("post-print");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -158,7 +158,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("supplementary-material");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
