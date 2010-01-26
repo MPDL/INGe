@@ -267,7 +267,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
 
         logger.info("Content: " + fileVO.getContent());
 
-        fileVO.setContentCategory("post-print");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -312,7 +312,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO1.setContentCategory("post-print");
+        fileVO1.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
@@ -544,7 +544,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO1.setContentCategory("post-print");
+        fileVO1.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
