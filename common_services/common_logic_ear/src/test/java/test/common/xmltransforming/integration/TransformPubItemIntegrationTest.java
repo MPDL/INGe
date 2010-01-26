@@ -557,7 +557,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO2.setContent(uploadFile(PDF_RUNAWAY_FILE, "application/pdf", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO2.setContentCategory("copyright-transfer-agreement");
+        fileVO2.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement");
         fileVO2.setName("RunawayMassiveBinariesAndClusterEjectionScenarios.pdf");
         fileVO2.setDescription("The production of runaway massive binaries offers key insights into the evolution of close "
                 + "binary stars and open clusters. The stars HD 14633 and HD 15137 are rare examples of such "
