@@ -259,11 +259,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         */
         super.readOutParameters();
         
-        String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext);
+        String context = getExternalContext().getRequestParameterMap().get(parameterSelectedContext); 
         if (context==null)
         {
-            //select first context as default, if available
-            if (getContextSelectItems().size()>1)
+            //select first context as default, if there's only one
+            if (getContextSelectItems().size()==2)
             {
                 setSelectedContext((String)getContextSelectItems().get(1).getValue());
             }
