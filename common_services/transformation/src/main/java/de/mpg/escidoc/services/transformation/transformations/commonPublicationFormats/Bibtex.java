@@ -584,10 +584,10 @@ public class Bibtex
                     locator.setName("Link");
                     locator.setStorage(FileVO.Storage.EXTERNAL_URL);
                     locator.setVisibility(FileVO.Visibility.PUBLIC);
-                    locator.setContentCategory("any-fulltext");
+                    locator.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
                     
                     MdsFileVO metadata = new MdsFileVO();
-                    metadata.setContentCategory("any-fulltext");
+                    metadata.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
                     metadata.setTitle(new TextVO("Link"));
                     locator.getMetadataSets().add(metadata);
 
