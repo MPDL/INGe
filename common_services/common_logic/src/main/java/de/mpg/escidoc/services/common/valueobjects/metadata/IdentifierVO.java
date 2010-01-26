@@ -59,23 +59,23 @@ public class IdentifierVO extends ValueObject implements Cloneable
      */
     public enum IdType
     {
-        CONE ("http://purl.org/escidoc/metadata/ves/identifier-types/CONE"), 
-        URI ("http://purl.org/escidoc/metadata/ves/identifier-types/URI"), 
-        ISBN ("http://purl.org/escidoc/metadata/ves/identifier-types/ISBN"), 
-        ISSN ("http://purl.org/escidoc/metadata/ves/identifier-types/ISSN"), 
-        DOI ("http://purl.org/escidoc/metadata/ves/identifier-types/DOI"), 
-        URN ("http://purl.org/escidoc/metadata/ves/identifier-types/URN"),
-        PII ("http://purl.org/escidoc/metadata/ves/identifier-types/PII"),
-        EDOC ("http://purl.org/escidoc/metadata/ves/identifier-types/EDOC"), 
-        ESCIDOC ("http://purl.org/escidoc/metadata/ves/identifier-types/ESCIDOC"), 
-        ISI ("http://purl.org/escidoc/metadata/ves/identifier-types/ISI"), 
-        PND("http://purl.org/escidoc/metadata/ves/identifier-types/PND"),
-        ZDB ("http://purl.org/escidoc/metadata/ves/identifier-types/ZDB"),
-        PMID ("http://purl.org/escidoc/metadata/ves/identifier-types/PMID"),
-        ARXIV ("http://purl.org/escidoc/metadata/ves/identifier-types/ARXIV"),
-        PMC ("http://purl.org/escidoc/metadata/ves/identifier-types/PMC"),
-        BMC ("http://purl.org/escidoc/metadata/ves/identifier-types/BMC"),
-        OTHER ("http://purl.org/escidoc/metadata/ves/identifier-types/OTHER");
+        CONE ("http://purl.org/escidoc/metadata/terms/0.1/CONE"), 
+        URI ("http://purl.org/escidoc/metadata/terms/0.1/URI"), 
+        ISBN ("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), 
+        ISSN ("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), 
+        DOI ("http://purl.org/escidoc/metadata/terms/0.1/DOI"), 
+        URN ("http://purl.org/escidoc/metadata/terms/0.1/URN"),
+        PII ("http://purl.org/escidoc/metadata/terms/0.1/PII"),
+        EDOC ("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), 
+        ESCIDOC ("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), 
+        ISI ("http://purl.org/escidoc/metadata/terms/0.1/ISI"), 
+        PND("http://purl.org/escidoc/metadata/terms/0.1/PND"),
+        ZDB ("http://purl.org/escidoc/metadata/terms/0.1/ZDB"),
+        PMID ("http://purl.org/escidoc/metadata/terms/0.1/PMID"),
+        ARXIV ("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"),
+        PMC ("http://purl.org/escidoc/metadata/terms/0.1/PMC"),
+        BMC ("http://purl.org/escidoc/metadata/terms/0.1/BMC"),
+        OTHER ("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
         
         private String uri;
         
