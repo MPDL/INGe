@@ -844,7 +844,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("post-print");
+        fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein <a href=\"http://www.escidoc.de/farbtest_wasserfarben.jpg\"> Farbtest mit Wasserfarben.</a>");
         fileVO.setVisibility(Visibility.PUBLIC);
