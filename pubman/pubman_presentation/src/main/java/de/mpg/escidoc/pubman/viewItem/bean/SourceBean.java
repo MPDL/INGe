@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.viewItem.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import javax.faces.context.FacesContext;
 
@@ -42,6 +43,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.CreatorDisplay;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -110,7 +112,7 @@ public class SourceBean extends FacesBean
         // the list of creators (persons and organizations)
         createCreatorList(source);
         
-        this.identifiers = getIdentifiers(source);
+        this.identifiers = ViewItemFull.getIdentifierHtmlString(source.getIdentifiers());
         
         this.startEndPage = getStartEndPage(source);
         
@@ -260,40 +262,7 @@ public class SourceBean extends FacesBean
         }
     }
     
-    
-    
-    /**
-     * Returns all Identifiers as formatted String
-     * @return String the formatted Identifiers
-     */
-    private String getIdentifiers(SourceVO source)
-    {
-        StringBuffer identifiers = new StringBuffer();
-        if(source.getIdentifiers() != null)
-        {
-            for(int i = 0; i < source.getIdentifiers().size(); i++)
-            {
-                identifiers.append(source.getIdentifiers().get(i).getTypeString());
-                identifiers.append(": ");
-                if (CommonUtils.getisUriValidUrl(source.getIdentifiers().get(i)))
-                {
-                    identifiers.append("<a href='"+source.getIdentifiers().get(i).getId()+"'>"+source.getIdentifiers().get(i).getId()+"</a>"); 
 
-                }
-                else
-                {
-                    identifiers.append(source.getIdentifiers().get(i).getId());
-                }
-                if(i < source.getIdentifiers().size() - 1)
-                {
-                    identifiers.append("<br/>");
-                }
-            }
-        }
-        return identifiers.toString();
-    }
-
-    
     /**
      * Returns the formatted Publishing Info according to filled elements
      * @return String the formatted Publishing Info
