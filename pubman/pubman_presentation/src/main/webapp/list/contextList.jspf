@@ -40,9 +40,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectContextFirst" title="#{tip.list_select}" action="#{context.select}">
-					<h:outputText value="#{context.name}"/>
-				</h:commandLink>
+				<tr:commandLink id="lnkSelectContextFirst" shortDesc="#{tip.list_select}" action="#{context.select}">
+					<tr:outputText value="#{context.name}"/>
+				</tr:commandLink>
 			</b>
 		</span>
 	</h:panelGroup>
@@ -53,9 +53,9 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink id="lnkSelectContext" title="#{tip.list_select}" action="#{context.select}">
-					<h:outputText value="#{context.name}"/>
-				</h:commandLink>
+				<tr:commandLink id="lnkSelectContext" shortDesc="#{tip.list_select}" action="#{context.select}">
+					<tr:outputText value="#{context.name}"/>
+				</tr:commandLink>
 			</b>
 		</span>
 	</h:panelGroup>
