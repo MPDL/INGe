@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.MissingResourceException;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
@@ -1140,8 +1141,15 @@ public class ViewItemFull extends FacesBean
         {
             for (int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
             {
-                identifiers.append(this.getLabel("ENUM_IDENTIFIERTYPE_" + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString()));
-                identifiers.append(": ");
+                
+            	try {
+					identifiers.append(this.getLabel("ENUM_IDENTIFIERTYPE_" + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString()));
+					identifiers.append(": ");
+				} catch (MissingResourceException e) 
+				{
+					logger.debug("Found no label for identifier type " + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
+				}
+                
                 if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
                 {
                     identifiers.append("<a target='_blank' href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
