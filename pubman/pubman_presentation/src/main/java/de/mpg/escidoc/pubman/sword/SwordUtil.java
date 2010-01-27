@@ -779,11 +779,11 @@ public class SwordUtil extends FacesBean
             //This is the provided metadata file which we store as a component
             if (!name.endsWith(".pdf"))
             {
-                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
+                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.getUri());
             }
             else
             {
-                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.toString());
+                fileVO.setContentCategory(PubFileVOPresentation.ContentCategory.PUBLISHER_VERSION.getUri());
             }
         }
 
