@@ -1856,8 +1856,7 @@ public class ItemControllerSessionBean extends FacesBean
      */
     public List<AffiliationVO> searchTopLevelAffiliations() throws Exception
     {
-
-        PlainCqlQuery cqlQuery = new PlainCqlQuery("(escidoc.objid=e* not escidoc.parent.objid>\"''\")");
+        PlainCqlQuery cqlQuery = new PlainCqlQuery("((escidoc.public-status=opened or escidoc.public-status=closed) not escidoc.parent.objid>\"''\")");
         OrgUnitsSearchResult results = search.searchForOrganizationalUnits(cqlQuery);
         return results.getResults();
     }

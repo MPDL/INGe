@@ -398,7 +398,8 @@ public class SiteMapTask extends Thread
      */
     private OrgUnitsSearchResult getOUs(int firstRecord)
     {
-        SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
+        //SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
+        SearchQuery ouQuery = new PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
         ouQuery.setStartRecord(firstRecord + "");
         ouQuery.setMaximumRecords(maxItemsPerRetrieve + "");
         try
