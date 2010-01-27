@@ -137,7 +137,7 @@ public class StructuredExport implements StructuredExportHandler {
 		    	 } 				
 				return v1;
 			}
-			else */if ( "ESCIDOC_XML".equals(exportFormat) )
+			else */if ( "ESCIDOC_XML".equalsIgnoreCase(exportFormat) )
 			{
 				return itemList.getBytes();
 			}

@@ -137,7 +137,7 @@ public class RestServlet extends HttpServlet
                 return;
             }
 
-            exportFormat = req.getParameter("exportFormat");
+            exportFormat = req.getParameter("exportFormat").toUpperCase();
             exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim();
 
             if (exportFormat.equals(""))
@@ -163,7 +163,7 @@ public class RestServlet extends HttpServlet
             else
             // citation style
             {
-                outputFormat = req.getParameter("outputFormat");
+                outputFormat = req.getParameter("outputFormat").toLowerCase();
                 outputFormat = !checkVal(outputFormat) ? "" : outputFormat.trim().toLowerCase();
                 // get default outputFormat if it is not defined
                 if (outputFormat.equals(""))
