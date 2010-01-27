@@ -69,6 +69,7 @@
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
 	<xsl:param name="content-model" select="'dummy:content-model'"/>
+	<xsl:param name="root-ou"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
@@ -999,7 +1000,7 @@
 						<xsl:when test="not($isSource)">
 							<organization:organization>
 								<dc:title>Max Planck Society</dc:title>
-								<dc:identifier>${escidoc.pubman.root.organisation.id}</dc:identifier>
+								<dc:identifier><xsl:value-of select="$root-ou"/></dc:identifier>
 							</organization:organization>
 						</xsl:when>
 					</xsl:choose>
