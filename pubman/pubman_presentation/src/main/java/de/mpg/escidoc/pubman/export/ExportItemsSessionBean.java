@@ -183,7 +183,7 @@ public class ExportItemsSessionBean extends FacesBean
 //        	exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
-    	if  ( "APA".equals(exportFormatName) || "AJP".equals(exportFormatName))
+    	if  ( "APA".equalsIgnoreCase(exportFormatName) || "AJP".equalsIgnoreCase(exportFormatName))
     	{
     		curExportFormatVO.setFormatType(FormatType.LAYOUT);
             this.exportFormatType = FormatType.LAYOUT.toString();
@@ -206,8 +206,8 @@ public class ExportItemsSessionBean extends FacesBean
     {
         if ( 
         		fileFormat == null || fileFormat.trim().equals("")
-        		|| getExportFormatName().equals("ENDNOTE")
-        		|| getExportFormatName().equals("BIBTEX")
+        		|| getExportFormatName().equalsIgnoreCase("ENDNOTE")
+        		|| getExportFormatName().equalsIgnoreCase("BIBTEX")
 //        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
         )
         	fileFormat = FileFormatVO.TEXT_NAME;
