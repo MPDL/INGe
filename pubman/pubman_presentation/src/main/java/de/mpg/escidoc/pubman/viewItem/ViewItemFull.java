@@ -40,6 +40,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
@@ -109,6 +110,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.ItemAction;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -1135,48 +1137,63 @@ public class ViewItemFull extends FacesBean
      */
     public String getIdentifiers()
     {
+
+        return getIdentifierHtmlString(this.pubItem.getMetadata().getIdentifiers());
+    }
+    
+    public static String getIdentifierHtmlString(List<IdentifierVO> idList)
+    {
         StringBuffer identifiers = new StringBuffer();
 
-        if (this.pubItem.getMetadata().getIdentifiers() != null)
+        if (idList != null)
         {
-            for (int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
+            for (int i = 0; i < idList.size(); i++)
             {
                 
             	try {
-					identifiers.append(this.getLabel("ENUM_IDENTIFIERTYPE_" + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString()));
-					identifiers.append(": ");
+            		String labelKey = "ENUM_IDENTIFIERTYPE_" + idList.get(i).getTypeString();
+					identifiers.append(getLabelStatic(labelKey));
+					
 				} catch (MissingResourceException e) 
 				{
-					logger.debug("Found no label for identifier type " + this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
+					logger.debug("Found no label for identifier type " + idList.get(i).getTypeString());
+					identifiers.append(idList.get(i).getTypeString());
 				}
+				identifiers.append(": ");
                 
-                if (CommonUtils.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
+                if (CommonUtils.getisUriValidUrl(idList.get(i)))
                 {
-                    identifiers.append("<a target='_blank' href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                    identifiers.append("<a target='_blank' href='"+idList.get(i).getId()+"'>"+idList.get(i).getId()+"</a>");
                 }
-                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.DOI)
+                else if (idList.get(i).getType() == IdType.DOI)
                 {
-                    identifiers.append("<a target='_blank' href='http://dx.doi.org/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                    identifiers.append("<a target='_blank' href='http://dx.doi.org/"+idList.get(i).getId()+"'>"+idList.get(i).getId()+"</a>");
                 }
-                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.EDOC)
+                else if (idList.get(i).getType() == IdType.EDOC)
                 {
-                    identifiers.append("<a target='_blank' href='http://edoc.mpg.de/"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                    identifiers.append("<a target='_blank' href='http://edoc.mpg.de/"+idList.get(i).getId()+"'>"+idList.get(i).getId()+"</a>");
                 }
-                else if (this.pubItem.getMetadata().getIdentifiers().get(i).getType() == IdType.ISI)
+                else if (idList.get(i).getType() == IdType.ISI)
                 {
-                    identifiers.append("<a target='_blank' href='" + ISI_KNOWLEDGE_BASE_LINK +this.pubItem.getMetadata().getIdentifiers().get(i).getId()+ ISI_KNOWLEDGE_DEST_APP +"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>");
+                    identifiers.append("<a target='_blank' href='" + ISI_KNOWLEDGE_BASE_LINK +idList.get(i).getId()+ ISI_KNOWLEDGE_DEST_APP +"'>"+idList.get(i).getId()+"</a>");
                 }
                 else
                 {
-                    identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                    identifiers.append(idList.get(i).getId());
                 }
-                if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
+                if (i < idList.size() - 1)
                 {
                     identifiers.append("<br/>");
                 }
             }
         }
         return identifiers.toString();
+    }
+    
+    public static String getLabelStatic(String placeholder)
+    {
+    	InternationalizationHelper i18nHelper = (InternationalizationHelper)getSessionBean(InternationalizationHelper.class);
+    	return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
     }
     
     /**
