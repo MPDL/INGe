@@ -66,7 +66,7 @@
 		        <!-- Default values we need to tansform item in itemVO -->
 		        <ec:properties>
 		        	<prop:visibility>public</prop:visibility>
-		        	<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
+		        	<prop:content-category>pre-print</prop:content-category>
 		        </ec:properties>
 		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>
