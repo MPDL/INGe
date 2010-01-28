@@ -31,7 +31,11 @@
 package de.mpg.escidoc.pubman.sword;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.StringTokenizer;
 
 import javax.servlet.ServletException;
@@ -49,7 +53,6 @@ import org.purl.sword.base.SWORDContentTypeException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.escidoc.pubman.sword.PubManSwordErrorDocument.swordError;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.validation.ItemInvalidException;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -69,6 +72,7 @@ public class PubManDepositServlet extends HttpServlet
     private String error = "";
     private PubManSwordErrorDocument errorDoc;
     private boolean validDeposit = true;
+    private String md5Header = "";
 
     /**
     * Process the GET request. This will return an unimplemented response.
@@ -318,10 +322,17 @@ public class PubManDepositServlet extends HttpServlet
        {
           deposit.setVerbose(false);
        }
+       
+//       // Set the MD5 Checksum header
+//       String checksum = request.getHeader("Content-MD5");
+//       if ((checksum != null) && (!checksum.equals("")))
+//       {
+//           this.md5Header = checksum;
+//       }
 
        //Check X-On-Behalf-Of header
        String mediation = request.getHeader("X-On-Behalf-Of");
-       if ((mediation != null) && (mediation.equals("")))
+       if ((mediation != null) && (!mediation.equals("")))
        {
            this.errorDoc.setSummary("Mediation not supported.");
            this.errorDoc.setErrorDesc(swordError.MediationNotAllowed);
@@ -356,6 +367,43 @@ public class PubManDepositServlet extends HttpServlet
        return deposit;
    }
 
+   public boolean checkChecksum(InputStream fis, String md5) throws NoSuchAlgorithmException, IOException
+   {
+       boolean check = false;
+       byte[] buffer = new byte[1024];
+       String checkCalc="";       
+       MessageDigest md = MessageDigest.getInstance("MD5");
+       int numRead;
+       
+       do
+       {
+           numRead = fis.read(buffer);
+           if (numRead > 0) 
+           {
+             md.update(buffer, 0, numRead);
+           }
+       } 
+       while (numRead != -1);
+       fis.close();
+       
+       byte[] digest = md.digest();
+       BigInteger bigInt = new BigInteger(1,digest);
+       checkCalc = bigInt.toString(16);
+       while(checkCalc.length() < 32 )
+       {
+           checkCalc = "0"+checkCalc;
+       }
+
+       System.out.println("Checksum calculated: " + checkCalc);
+       System.out.println("Checksum header: " + md5);
+       
+       if (md5.equals(checkCalc))
+       {
+           check = true;
+       }
+       
+       return check;
+   }
 
    public PubManSwordServer getPubMan()
     {

@@ -39,6 +39,8 @@ public class PubManSwordErrorDocument
     private static String ErrorBadRequest = "http://purl.org/net/sword/error/ErrorBadRequest";
     //[412]
     private static String MediationNotAllowed = "http://purl.org/net/sword/error/MediationNotAllowed";
+    //[412]
+    private static String ChecksumMismatch = "http://purl.org/escidoc/sword/error/ChecksumMismatch";
     //[400]
     private static String ValidationFailure = "http://purl.org/escidoc/sword/error/ValidationFailure";
     //[400] User not recognized
@@ -63,7 +65,7 @@ public class PubManSwordErrorDocument
     {
         ErrorContent,  ErrorBadRequest, MediationNotAllowed,
         ValidationFailure, AuthentificationFailure,
-        AuthorisationFailure, InternalError
+        AuthorisationFailure, InternalError, ChecksumMismatch
     }
 
     /**
@@ -143,6 +145,11 @@ public class PubManSwordErrorDocument
         {
             this.setStatus(412);
             this.setHref(PubManSwordErrorDocument.MediationNotAllowed);
+        }
+        if (this.errorDesc.equals(swordError.ChecksumMismatch))
+        {
+            this.setStatus(412);
+            this.setHref(PubManSwordErrorDocument.ChecksumMismatch);
         }
         if (this.errorDesc.equals(swordError.ErrorBadRequest))
         {
