@@ -277,8 +277,6 @@ public class Util
         for (int i = 0; i < idPrefVec.size(); i++)
         {
             String idPref = idPrefVec.get(i).toLowerCase();
-            System.out.println(identifier.toLowerCase());
-            System.out.println(idPref);
             if (identifier.toLowerCase().startsWith(idPref))
             {               
                 identifier = identifier.substring(idPref.length());
