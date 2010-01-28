@@ -232,7 +232,7 @@
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
 						<prop:visibility>public</prop:visibility>
-						<prop:content-category></prop:content-category>
+						<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</prop:content-category>
 						<prop:file-name>0</prop:file-name>
 					</escidocComponents:properties>
 					<escidocComponents:content storage="internal-managed"/>
@@ -241,7 +241,7 @@
 					<escidocComponents:properties>
 						<prop:valid-status>valid</prop:valid-status>
 						<prop:visibility>public</prop:visibility>
-						<prop:content-category>supplementary-material</prop:content-category>
+						<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
 						<prop:file-name></prop:file-name>
 					</escidocComponents:properties>
 					<escidocComponents:content storage="external-url"/>
