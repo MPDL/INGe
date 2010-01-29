@@ -96,6 +96,34 @@
 		</eterms:organization-type>
 	</xsl:template>
 	
+	<xsl:template match="dc:identifier"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		exclude-result-prefixes="xsi xs">
+		
+		<xsl:element name="dc:identifier">
+			<xsl:copy-of select="@*[name() != 'xsi:type']"/>
+			<xsl:if test="@*[name() = 'xsi:type']">
+				<xsl:variable name="value" as="xs:string" select="@xsi:type"/>
+				<xsl:variable name="prefix" select="substring-before($value, ':')"/>
+				<xsl:variable name="name" select="substring-after($value, ':')"/>
+				<xsl:choose>
+					<xsl:when test="contains($prefix, 'eidt')">
+						<xsl:namespace name="eterms" select="'http://purl.org/escidoc/metadata/terms/0.1/'"/>
+						<xsl:attribute name="xsi:type" select="concat('eterms:', $name)"/>
+					</xsl:when>
+					<xsl:otherwise>
+					<!-- 
+						<xsl:namespace name="dcterms" select="'http://purl.org/dc/terms/'"/>
+					 -->
+						<xsl:attribute name="xsi:type" select="concat(concat($prefix, ':'), $name)"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+			<xsl:apply-templates/>
+		</xsl:element>
+	</xsl:template>
+	
 	<!-- 
 	<xsl:template match="oldkml:coordinates">
 		<kml:coordinates>

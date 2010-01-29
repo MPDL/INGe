@@ -43,6 +43,12 @@
 	
 	<xsl:output method="xml" encoding="UTF-8"/>
 	
+	<xsl:param name="path"/>
+	
+	<xsl:param name="cone_url"/>
+	
+	<xsl:variable name="vm" select="document( concat( if ($path!='') then concat ($path, '/') else '', 'ves-mapping.xml' ) )/mappings"/>
+	
 	<xsl:template name="facesAlbum">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -71,18 +77,16 @@
 			<xsl:copy-of select="@*" copy-namespaces="no"/>
 			
 			<xsl:for-each select="./metadata:creator">
-				<eterms:creator>
-					<xsl:copy-of select="@*" copy-namespaces="no"/>
-					<!--
-					<xsl:for-each select="./escidoc:person">
-						<xsl:call-template name="person"/>
-					</xsl:for-each>
-					<xsl:for-each select="./escidoc:organization">
-						<xsl:call-template name="organization"/>
-					</xsl:for-each>
-					-->
-					<xsl:apply-templates/>
-				</eterms:creator>
+				<xsl:variable name="v1" select="@role"/>
+		<xsl:variable name="v2" select="$vm/creator-role/v1-to-v2/map[@v1=$v1]"/>
+		<xsl:element name="eterms:creator">
+			<xsl:copy-of select="@*[name()!='role']" />
+			<!-- creator role from the ves -->
+			<xsl:if test="(exists($v2))" >
+			<xsl:attribute name="role" select="$v2" />
+			</xsl:if>
+			<xsl:apply-templates />
+		</xsl:element>
 			</xsl:for-each>
 			
 			<dc:title>

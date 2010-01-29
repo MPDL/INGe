@@ -237,6 +237,10 @@
 			<map v1="jpeg_default">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
 			<map v1="jpeg_min">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
 			<map v1="original-data">http://purl.org/escidoc/metadata/ves/content-categories/original-data</map>
+			<map v1="high resolution">http://purl.org/escidoc/metadata/ves/content-categories/original-resolution</map>
+			<map v1="web resolution">http://purl.org/escidoc/metadata/ves/content-categories/web-resolution</map>
+			<map v1="thumbnail">http://purl.org/escidoc/metadata/ves/content-categories/thumbnail</map>
+			
 		</v1-to-v2>
 		<!-- later -->
 		<v2-to-v1>

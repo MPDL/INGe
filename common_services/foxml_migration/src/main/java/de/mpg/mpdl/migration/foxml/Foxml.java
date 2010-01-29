@@ -190,6 +190,7 @@ public class Foxml implements MigrationConstants
                                 }
                                 if (metadata.equalsIgnoreCase(OLD_FILE))
                                 {
+                                    /*
                                     if (props[1].equalsIgnoreCase("component"))
                                     {
                                         if (props[3].equalsIgnoreCase("high resolution") || props[3].equalsIgnoreCase("web resolution") || props[3].equalsIgnoreCase("thumbnail"))
@@ -202,6 +203,8 @@ public class Foxml implements MigrationConstants
                                             transformed = xsltTransformation(f, file);
                                         }
                                     }
+                                    */
+                                    transformed = xsltTransformation(f, file);
                                 }
                                 if (metadata.equalsIgnoreCase(OLD_ORGUNIT))
                                 {
@@ -248,9 +251,9 @@ public class Foxml implements MigrationConstants
                             transMD = null;
                         }
                         /*
-                         * no transformation for FACES in this version
+                         * transformation for FACES
                          */
-                        /*
+                        
                         else
                         {
                             metadata = "unknown metadata format";
@@ -301,8 +304,10 @@ public class Foxml implements MigrationConstants
                             metadata = null;
                             transMD = null;
                         }
-                        */
+                        
                     }
+                    // no need to transform contexts again
+                    /*
                     if (stream.getID().equalsIgnoreCase("pubman"))
                     {
                         updateRequired = true;
@@ -312,6 +317,7 @@ public class Foxml implements MigrationConstants
                             logger.info("    changed values in admin-descriptor !");
                         }
                     }
+                    */
                 }
                 if (updateRequired)
                 {

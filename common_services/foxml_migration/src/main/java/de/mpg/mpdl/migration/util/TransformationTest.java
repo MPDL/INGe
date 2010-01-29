@@ -13,18 +13,26 @@ import javax.xml.transform.stream.StreamSource;
 
 public class TransformationTest
 {
-    public static final String XML_IN = "xml_old/escidoc_37083";
-    public static final String XML_OUT = "xml_old/transformed37083.xml";
-    public static final String XSL = "xsl/foxml_pubItem.xsl";
+    public static final String XML_IN = "/home/frank/data/faces_albums/escidoc_";
+    public static final String XML_OUT = "xml_old/transformed_faces_album";
+    public static final String XSL = "xsl/foxml_facesAlbum.xsl";
+    public static final String DIR = "/home/frank/data/faces_albums/transformed";
 
     public static void main(String[] args)
     {
-        File in = new File(XML_IN);
-        File out = new File(XML_OUT);
-        File xsl = new File(XSL);
-        transform(in, out, xsl);
+        
+        File files = new File(DIR);
+        for (File f : files.listFiles())
+        {
+            f.renameTo(new File(DIR + "/" + f.getName().replace("_transformed", "")));
+            //File out = new File(f.getAbsolutePath().concat("_transformed"));
+            //File xsl = new File(XSL);
+            //transform(f, out, xsl);
+        }
+        
+        
     }
-    
+
     public static void transform(File in, File out, File xsl)
     {
         TransformerFactory factory = TransformerFactory.newInstance();
