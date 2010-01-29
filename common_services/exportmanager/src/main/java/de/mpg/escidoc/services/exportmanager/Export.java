@@ -932,7 +932,7 @@ class ComponentNodeFilter implements NodeFilter {
 
 class FileNameNodeFilter implements NodeFilter {
 	
-	public static final String FILE_NS = "http://escidoc.mpg.de/metadataprofile/schema/0.1/file";
+	public static final String FILE_NS = "http://purl.org/escidoc/metadata/profiles/0.1/file";
 	public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
 
 	public short acceptNode(Node n) {
