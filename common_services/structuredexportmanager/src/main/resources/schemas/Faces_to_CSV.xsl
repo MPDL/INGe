@@ -29,9 +29,12 @@
 	xmlns:escidocItem="${xsd.soap.item.item}"
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
+	xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face"
+	xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
 	xmlns:prop="${xsd.soap.common.prop}">
 	<xsl:output method="text" encoding="UTF-8" indent="yes" />
 	<xsl:template match="/">
+
 		
 		<xsl:variable name="all-lines" >
 			<line>
@@ -40,7 +43,7 @@
 			<xsl:for-each
 				select="//escidocItem:item/escidocComponents:components/escidocComponents:component">
 				<xsl:variable name="md"
-					select="../../escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/face-item" />
+					select="../../escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/face:face" />
 				<xsl:variable name="class-name">
 					<xsl:call-template name="generate-class-name">
 						<xsl:with-param name="file-name" select="escidocComponents:properties/prop:file-name"/>
@@ -51,11 +54,11 @@
 						concat(
 							$class-name
 							, ',', $md/dc:identifier
-							, ',', $md/age
-							, ',', $md/age-group
-							, ',', $md/gender
-							, ',', $md/emotion
-							, ',', $md/picture-group
+							, ',', $md/eterms:age
+							, ',', $md/eterms:age-group
+							, ',', $md/eterms:gender
+							, ',', $md/eterms:emotion
+							, ',', $md/eterms:picture-group
 						),
 						'[\t\r\n]', 
 						'',
