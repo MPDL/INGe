@@ -1,9 +1,16 @@
 package org.fao.oa.ingestion.faodoc;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.fao.oa.ingestion.utils.IngestionProperties;
+import org.mulgara.connection.ConnectionException;
+import org.mulgara.connection.ConnectionFactory;
+import org.mulgara.connection.JenaConnection;
+import org.mulgara.connection.SessionConnection;
 import org.mulgara.jena.JenaMulgara;
+import org.mulgara.query.QueryException;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -22,6 +29,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.PropertyImpl;
 import com.hp.hpl.jena.util.FileManager;
+import com.ibm.icu.impl.CalendarAstronomer.Horizon;
 
 public class AgrovocSkos
 {
@@ -30,13 +38,47 @@ public class AgrovocSkos
     public final String SKOS_PREFLABEL = "<http://www.w3.org/2004/02/skos/core#prefLabel>";
     Model model;
     
-    @SuppressWarnings("deprecation")
     public AgrovocSkos()
     {
-        String server = "rmi://localhost/server1" ;
-        String graphURI = server+"#agrovoc" ;
+        // create the mulgara connection factory
+        ConnectionFactory factory = new ConnectionFactory();
+        URI hostUri;
+        SessionConnection sessconn = null;
+        JenaConnection jenaconn = null;
+        try
+        {
+            hostUri = new URI("rmi://localhost/server1");
+            sessconn = (SessionConnection)factory.newConnection(hostUri);
+            jenaconn = sessconn.getJenaConnection();
+            model = jenaconn.connectModel(hostUri.toString() + "#agrovoc");
+        }
+        catch (URISyntaxException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ConnectionException e)
+        {
+            e.printStackTrace();
+        }
+        /*
+        finally
+        {
+            try
+            {
+                sessconn.close();
+                factory.closeAll();
+            }
+            catch (QueryException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        */
+
+        //String server = "rmi://localhost/server1" ;
+        //String graphURI = server+"#agrovoc" ;
               
-        model = JenaMulgara.connectModel(server, graphURI) ;
+        //model = JenaMulgara.connectModel(server, graphURI) ;
         
         //model = ModelFactory.createDefaultModel();
         //model.read(AGROVOC_RDF);

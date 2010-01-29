@@ -19,23 +19,24 @@ import noNamespace.PwbEntitiesType;
 import noNamespace.StatBodyType;
 import noNamespace.TopicType;
 import noNamespace.EimsDocument.Eims;
-import noNamespace.EimsDocument.Eims.Category;
-import noNamespace.EimsDocument.Eims.Context;
-import noNamespace.EimsDocument.Eims.Department;
-import noNamespace.EimsDocument.Eims.Division;
-import noNamespace.EimsDocument.Eims.Hardcopy;
-import noNamespace.EimsDocument.Eims.Keyword;
-import noNamespace.EimsDocument.Eims.Maintype;
-import noNamespace.EimsDocument.Eims.PriorityAreas;
-import noNamespace.EimsDocument.Eims.ProgramName;
-import noNamespace.EimsDocument.Eims.PwbEntities;
-import noNamespace.EimsDocument.Eims.Service;
-import noNamespace.EimsDocument.Eims.StatBody;
-import noNamespace.EimsDocument.Eims.Topic;
+import noNamespace.EimsDocument.Eims.Publication;
+import noNamespace.EimsDocument.Eims.Publication.Category;
+import noNamespace.EimsDocument.Eims.Publication.Context;
+import noNamespace.EimsDocument.Eims.Publication.Department;
+import noNamespace.EimsDocument.Eims.Publication.Division;
+import noNamespace.EimsDocument.Eims.Publication.Hardcopy;
+import noNamespace.EimsDocument.Eims.Publication.Keyword;
+import noNamespace.EimsDocument.Eims.Publication.Maintype;
+import noNamespace.EimsDocument.Eims.Publication.PriorityAreas;
+import noNamespace.EimsDocument.Eims.Publication.ProgramName;
+import noNamespace.EimsDocument.Eims.Publication.PwbEntities;
+import noNamespace.EimsDocument.Eims.Publication.Service;
+import noNamespace.EimsDocument.Eims.Publication.StatBody;
+import noNamespace.EimsDocument.Eims.Publication.Topic;
 
 public class EimsDatastream
 {
-    Eims eims = null;
+    Publication eims = null;
     SimpleDateFormat sdf1 = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
     SimpleDateFormat sdf2 = new SimpleDateFormat("dd/mm/yyyy");
 
@@ -48,7 +49,8 @@ public class EimsDatastream
     public EimsDocument merge(ItemType eimsItem, ITEMType faodocItem)
     {
         EimsDocument eimsDoc = EimsDocument.Factory.newInstance();
-        eims = eimsDoc.addNewEims();
+        Eims eimsType = eimsDoc.addNewEims();
+        eims = eimsType.addNewPublication();
         // E-1
         // add eims:identifier
         if (eimsItem.getIdentifier() != null)
@@ -77,7 +79,7 @@ public class EimsDatastream
         // add eims:hardcopy
         if (eimsItem.getHardcopy() != null)
         {
-            eims.setHardcopy(Hardcopy.Enum.forString(eimsItem.getHardcopy()));
+            eims.addHardcopy(Hardcopy.Enum.forString(eimsItem.getHardcopy()));
         }
         // E-5
         // add eims:keyword
@@ -122,7 +124,7 @@ public class EimsDatastream
                 ProgramName progName = eims.addNewProgramName();
                 progName.setCode(new BigInteger(pnt.getCode()));
                 progName.setLang(pnt.getLang());
-                progName.setLable(pnt.getStringValue());
+                progName.setLabel(pnt.getStringValue());
             }
         }
         // E-10
@@ -230,13 +232,13 @@ public class EimsDatastream
         // add eims:DEP_DATE
         if (eimsItem.getDepDate() != null)
         {
-            eims.setDEPDATE(string2cal(eimsItem.getDepDate()));
+            eims.addDEPDATE(string2cal(eimsItem.getDepDate()));
         }
         // E-21
         // add eims:WAICENT_DATE
         if (eimsItem.getWaicentDate() != null)
         {
-            eims.setWAICENTDATE(string2cal(eimsItem.getWaicentDate()));
+            eims.addWAICENTDATE(string2cal(eimsItem.getWaicentDate()));
         }
         // E-22
         // add eims:priority_areas
