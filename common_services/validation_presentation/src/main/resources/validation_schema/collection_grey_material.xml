@@ -70,6 +70,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
+		<iso:active pattern="id_type_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
@@ -113,6 +114,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
+		<iso:active pattern="id_type_required"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -133,6 +135,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
+		<iso:active pattern="id_type_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
 		<!-- <iso:active pattern="abstract_english_required"/> -->
@@ -159,6 +162,7 @@
 		<iso:active pattern="component_mimeType"/>
 		<iso:active pattern="ddc_keywords"/>
 		<iso:active pattern="no_slashes_in_filename"/>
+		<iso:active pattern="id_type_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
 		<!-- <iso:active pattern="abstract_english_required"/> -->
@@ -270,6 +274,14 @@
 		</iso:rule>
 		
 	</iso:pattern>
+	
+	<!-- if an id is filled in for publication or source, also an id type has to be provided -->
+	<iso:pattern name="id_type_required" id="id_type_required">
+		<iso:rule context="publication:publication/dc:identifier">
+			<iso:assert test=". = '' or not(.) or @xsi:type != ''">IdTypeNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
 
 	<!-- Validation point specific -->	
 	
