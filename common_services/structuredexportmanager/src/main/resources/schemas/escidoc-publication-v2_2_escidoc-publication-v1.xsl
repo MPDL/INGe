@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- CDDL HEADER START
+ CDDL HEADER START  
 
  The contents of this file are subject to the terms of the
  Common Development and Distribution License, Version 1.0 only
@@ -103,7 +103,7 @@
 
 	<xsl:template match="escidocItemList:item-list">
 		<xsl:if test="$is-item-list">
-			<xsl:element name="{name(.)}">
+			<xsl:element name="escidocItemList:item-list">
 				<xsl:namespace name="escidocItemList">http://www.escidoc.de/schemas/itemlist/0.8</xsl:namespace>			
 				<xsl:call-template name="item-namespaces"/>
 				<xsl:apply-templates />
@@ -116,7 +116,7 @@
 	</xsl:template>
 	
 	<xsl:template match="escidocItem:item">
-		<xsl:element name="{name(.)}">
+		<xsl:element name="escidocItem:item">
 			<xsl:if test="not($is-item-list)">
 				<xsl:call-template name="item-namespaces"/>
 			</xsl:if>				
@@ -136,7 +136,7 @@
 				then $v1
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v2.0 to v1.0 for publication type: ', $v2 )
+						concat ('No mapping v2.0 to v1.0 for publication type: ', $v2, ', item id: ', ../../../@objid )
 					)
 			" />
 			<xsl:apply-templates/>
@@ -154,7 +154,7 @@
 				then $v1
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v2.0 to v1.0 for creator role: ', $v2 )
+						concat ('No mapping v2.0 to v1.0 for creator role: ', $v2, ', item id: ', ../../../../@objid )
 					)
 			" />
 			<xsl:apply-templates />
@@ -223,7 +223,7 @@
 				then $v1
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v2.0 to v1.0 for review method: ', $v1 )
+						concat ('No mapping v2.0 to v1.0 for review method: ', $v1, ', item id: ', ../../../@objid )
 					)
 			" />
 			<!-- skip duplicated value of the element -->
@@ -232,19 +232,21 @@
 	</xsl:template>	
 
 	<xsl:template match="source:source">
-		<xsl:variable name="v2" select="@type"/>
-		<xsl:variable name="v1" select="$vm/publication-type/v2-to-v1/map[@v2=$v2]"/>
 		<xsl:element name="publication:source" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
 			<xsl:copy-of select="@*[name()!='type']"/>
-			<!-- source type from the ves -->	
-			<xsl:attribute name="type" select="
-				if (exists($v1))  
-				then $v1
-				else error(
-					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v2.0 to v1.0 for source type: ', $v2 )
-					)
-			" />
+			<!-- source type from the ves -->
+			<xsl:if test="@type">
+				<xsl:variable name="v2" select="@type"/>
+				<xsl:variable name="v1" select="$vm/publication-type/v2-to-v1/map[@v2=$v2]"/>
+				<xsl:attribute name="type" select="
+					if (exists($v1))  
+					then $v1
+					else error(
+						QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
+							concat ('No mapping v2.0 to v1.0 for source type: ', $v2, ', item id: ', ../../../../@objid)
+						)
+				" />
+			</xsl:if>
 			<xsl:apply-templates/>
 		</xsl:element>
 	</xsl:template>
@@ -295,7 +297,7 @@
 				then $v1
 				else error(
 					QName('http://www.escidoc.de/transformation', 'err:NoMappingForEnum' ), 
-						concat ('No mapping v2.0 to v1.0 for academic degree: ', $v2 )
+						concat ('No mapping v2.0 to v1.0 for academic degree: ', $v2, ', item id: ', ../../../@objid )
 					)
 			" />
 			<!-- skip duplicated value of the element -->
