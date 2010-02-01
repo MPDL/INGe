@@ -145,13 +145,14 @@ public class TransformationTest
          
          byte[] result;
          result = this.trans.transform(this.util.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes(), arxivItem, escidoc, "escidoc");
-
+         
          XmlTransformingBean xmlTransforming = new XmlTransformingBean();
          PubItemVO itemVO = xmlTransforming.transformToPubItem(new String(result));
          Assert.assertNotNull(itemVO);
          this.logger.info("PubItemVO successfully created.");  
          
          result = this.trans.transform(ResourceUtil.getResourceAsString("testFiles/externalSources/arxivItem.xml").getBytes(), arxivItem, escidocComponent, "escidoc");
+         System.out.println(new String(result));
          FileVO componentVO = xmlTransforming.transformToFileVO(new String(result));
          Assert.assertNotNull(componentVO);
          this.logger.info("FileVO successfully created. ");  

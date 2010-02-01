@@ -420,7 +420,12 @@
 		<xsl:param name="role"/>
 		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role" select="$role"/>
-			<xsl:call-template name="createPerson"/>
+			<xsl:if test="exists(t:persName)">
+				<xsl:call-template name="createPerson"/>
+			</xsl:if>
+			<xsl:if test="not (exists(t:persName))">
+				<xsl:call-template name="createOrganization"/>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>	
 	
@@ -508,6 +513,14 @@
 			</xsl:for-each>
 <!-- END OF AFFILIATIONS -->
 			
+		</xsl:element>		
+	</xsl:template>
+	
+		<xsl:template name="createOrganization">		
+		<xsl:element name="organization:organization">
+			<xsl:element name="dc:title">
+				<xsl:value-of select="t:orgName"/>
+			</xsl:element>			
 		</xsl:element>		
 	</xsl:template>
 <!--	END OF CREATORS-->	
