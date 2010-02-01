@@ -69,6 +69,7 @@
 	<!-- Kristina has to create a corresponding context 
 	<xsl:param name="context" select="'escidoc:XXXXXX'"/>-->
 	<xsl:param name="is-item-list" select="true()"/>
+	<xsl:param name="content-model"/>
 	
 	<xsl:param name="filename" select="tokenize(document-uri(/),'/')[last()]"/>
 	<xsl:param name="anchorfilename" select="concat(substring-before($filename, '.xml'), '_anchor.xml')"/>
@@ -119,7 +120,7 @@
 			<xsl:otherwise>
 				<xsl:element name="ei:item">
 					<xsl:element name="ei:properties">
-						<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
+						<srel:content-model objid="{$content-model}"/>
 						<xsl:element name="prop:content-model-specific"/>
 					</xsl:element>
 					<xsl:element name="mdr:md-records">

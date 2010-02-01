@@ -74,6 +74,8 @@
 	<xsl:param name="localPrefix" select="'http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/'"/>
 	<xsl:param name="localSuffix" select="'.pdf'"/>
 	<xsl:param name="locator-filename-substitute" seldct="'external resource'"/>
+	
+	<xsl:param name="content-model"/>
 	<!--
 		DC XML  Header
 	-->
@@ -106,7 +108,7 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
+				<srel:content-model objid="{$content-model}"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

@@ -52,6 +52,8 @@
    xmlns:arxiv="http://arxiv.org/OAI/arXiv/" 
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
    >
+   
+    <xsl:import href="../../vocabulary-mappings.xsl"/>
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
 	
@@ -66,7 +68,7 @@
 		        <!-- Default values we need to tansform item in itemVO -->
 		        <ec:properties>
 		        	<prop:visibility>public</prop:visibility>
-		        	<prop:content-category>pre-print</prop:content-category>
+		        	<prop:content-category/>		        	
 		        </ec:properties>
 		        <ec:content storage="internal-managed"/>
 		        <mdr:md-records>

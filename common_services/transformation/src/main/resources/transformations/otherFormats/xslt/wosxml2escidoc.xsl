@@ -65,6 +65,7 @@
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'escidoc:31013'"/>
 	<xsl:param name="is-item-list" select="true()"/>
+	<xsl:param name="content-model"/>
 	<!--
 		DC XML  Header
 	-->
@@ -98,7 +99,7 @@
 	<xsl:template match="item">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}"/>
+				<srel:content-model objid="{$content-model}"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">

@@ -57,6 +57,7 @@
 	<xsl:include href="arxiv_subjects.xsl" />
 
 	<xsl:param name="external_organization_id" />
+	<xsl:param name="content-model" />
 
 	<xsl:template match="/">
 
@@ -66,7 +67,7 @@
 
 		<escidocItem:item>
 			<escidocItem:properties>
-				<srel:content-model objid="${escidoc.framework_access.content-model.id.publication}" />
+				<srel:content-model objid="{$content-model}"/>
 				<prop:content-model-specific />
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>
@@ -227,26 +228,6 @@
 					</publication:publication>
 				</escidocMetadataRecords:md-record>
 			</escidocMetadataRecords:md-records>
-			<escidocComponents:components>
-				<escidocComponents:component>
-					<escidocComponents:properties>
-						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>public</prop:visibility>
-						<prop:content-category>pre-print</prop:content-category>
-						<prop:file-name>0</prop:file-name>
-					</escidocComponents:properties>
-					<escidocComponents:content storage="internal-managed"/>
-				</escidocComponents:component>
-				<escidocComponents:component>
-					<escidocComponents:properties>
-						<prop:valid-status>valid</prop:valid-status>
-						<prop:visibility>public</prop:visibility>
-						<prop:content-category>supplementary-material</prop:content-category>
-						<prop:file-name></prop:file-name>
-					</escidocComponents:properties>
-					<escidocComponents:content storage="external-url"/>
-				</escidocComponents:component>
-			</escidocComponents:components>
 		</escidocItem:item>
 
 	</xsl:template>

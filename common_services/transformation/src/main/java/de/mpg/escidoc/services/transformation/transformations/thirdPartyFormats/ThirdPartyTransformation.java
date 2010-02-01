@@ -53,6 +53,7 @@ import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 
 /**
@@ -100,6 +101,8 @@ public class ThirdPartyTransformation
             {
                 transformer.setParameter("external_organization_id",
                         this.getProperty("escidoc.pubman.external.organisation.id"));
+                transformer.setParameter("content-model", 
+                        this.getProperty("escidoc.framework_access.content-model.id.publication"));
             }
             catch (Exception e)
             {

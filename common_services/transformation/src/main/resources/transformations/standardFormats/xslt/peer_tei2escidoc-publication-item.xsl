@@ -68,7 +68,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model" select="${escidoc.framework_access.content-model.id.publication}"/>
+	<xsl:param name="content-model"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -124,7 +124,7 @@
 	<xsl:template name="createItem">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<srel:context objid="{$context}" />
+				<srel:context objid="{$context}"/>
 				<srel:content-model objid="{$content-model}" />
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
