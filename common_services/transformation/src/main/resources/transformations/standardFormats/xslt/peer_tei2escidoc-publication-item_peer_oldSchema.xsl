@@ -42,17 +42,17 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:mdr="${xsd.soap.common.mdrecords}"
-   xmlns:mdp="${xsd.metadata.escidocprofile}"
-   xmlns:e="${xsd.metadata.escidocprofile.types}"
-   xmlns:ei="${xsd.soap.item.item}"
-   xmlns:eidt="${xsd.metadata.escidocprofile}idtypes"
-   xmlns:srel="${xsd.soap.common.srel}"
-   xmlns:prop="${xsd.core.properties}"
+   xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
+   xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+   xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+   xmlns:ei="http://www.escidoc.de/schemas/item/0.8"
+   xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+   xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+   xmlns:prop="http://escidoc.de/core/01/properties/"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-   xmlns:ec="${xsd.soap.item.components}"
-   xmlns:file="${xsd.metadata.file}"
-   xmlns:pub="${xsd.metadata.publication}"
+   xmlns:ec="http://www.escidoc.de/schemas/components/0.8"
+   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+   xmlns:pub="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
    xmlns:escidoc="urn:escidoc:functions"
    xmlns:t="http://www.tei-c.org/ns/1.0" 
    xmlns:ce="http://www.elsevier.com"
@@ -64,7 +64,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model" select="${escidoc.framework_access.content-model.id.publication}"/>
+	<xsl:param name="content-model" select="'dummy:content-model'"/>
 
 	<xsl:param name="is-item-list" select="true()"/>
 	
@@ -413,9 +413,14 @@
 
 	<xsl:template name="createCreator">
 		<xsl:param name="role"/>
-		<xsl:element name="pub:creator">
-			<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
-			<xsl:call-template name="createPerson"/>
+		<xsl:element name="eterms:creator">
+			<xsl:attribute name="role" select="$role"/>
+			<xsl:if test="exists(t:persName)">
+				<xsl:call-template name="createPerson"/>
+			</xsl:if>
+			<xsl:if test="not (exists(t:persName))">
+				<xsl:call-template name="createOrganization"/>
+			</xsl:if>
 		</xsl:element>
 	</xsl:template>	
 	
@@ -498,11 +503,20 @@
 								)"/>
 						</e:address>
 					</xsl:if>
-					<e:identifier>${escidoc.pubman.external.organisation.id}</e:identifier>
+					<e:identifier>epeer:2001</e:identifier>
 				</e:organization>
 			</xsl:for-each>
 <!-- END OF AFFILIATIONS -->
+			
 		</xsl:element>
+	</xsl:template>
+	
+	<xsl:template name="createOrganization">		
+		<xsl:element name="e:organization">
+			<e:organization-name>
+				<xsl:value-of select="t:orgName"/>
+			</e:organization-name>		
+		</xsl:element>		
 	</xsl:template>
 <!--	END OF CREATORS-->	
 
