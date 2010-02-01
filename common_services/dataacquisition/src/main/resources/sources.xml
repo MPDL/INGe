@@ -221,7 +221,7 @@
 				<label>PDF</label>
 				<name>pdf</name>
 				<encoding>*</encoding>
-				<content-categorie>any-fulltext</content-categorie>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
@@ -268,7 +268,7 @@
 				<label>PDF</label>
 				<name>pdf</name>
 				<encoding>*</encoding>
-				<content-categorie>pre-print</content-categorie>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
@@ -277,7 +277,7 @@
 				<label>Postscript</label>
 				<name>ps</name>
 				<encoding>*</encoding>
-				<content-categorie>pre-print</content-categorie>
+				<content-categorie>http://purl.org/escidoc/metadata/ves/content-categories/pre-print</content-categorie>
 				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
