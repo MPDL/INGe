@@ -142,7 +142,7 @@ public class Bibtex
                 MdsPublicationVO.Genre itemGenre = BibTexUtil.getGenreMapping().get(bibGenre);
                 mds.setGenre(itemGenre);
                 SourceVO sourceVO = new SourceVO(new TextVO());
-                mds.getSources().add(sourceVO);
+                
 
                 Map fields = entry.getFields();
 
@@ -594,6 +594,12 @@ public class Bibtex
                     itemVO.getFiles().add(locator);
                 }
 
+                //Prevent the creation of an empty source
+                if (sourceVO.getTitle()!= null && sourceVO.getTitle().getValue()!="" 
+                    && sourceVO.getGenre()!= null)
+                {
+                    mds.getSources().add(sourceVO);
+                }
             }
             else if (object instanceof BibtexToplevelComment)
             {
