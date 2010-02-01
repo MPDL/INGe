@@ -99,7 +99,31 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>	
-		</v2-to-v1>		
+		</v2-to-v1>
+				
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/journal" edoc="Journal">29</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/article" edoc="Article">3</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/newspaper-article" edoc="Article">3</map>
+			<map v2="http://purl.org/eprint/type/Book" edoc="Book">1</map>
+			<map v2="http://purl.org/eprint/type/BookItem" edoc="In Book">2</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/proceedings" edoc="Proceedings">28</map>
+			<map v2="http://purl.org/eprint/type/ConferencePaper" edoc="Conference Paper">7</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event" edoc="Talk-at-Event">9</map> ????
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/conference-report"  edoc="Conference Report">10</map>
+			<map v2="http://purl.org/eprint/type/ConferencePoster" edoc="Poster">9</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture" edoc="Lecture/Courseware">13</map>
+			<map v2="http://purl.org/eprint/type/Thesis" edoc="Thesis">14</map>			
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/working-paper" edoc="Other">41</map> 	
+			<map v2="http://purl.org/eprint/type/Report" edoc="Report">46</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/issue" edoc="Issue">42</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/series" edoc="Series">30</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/other" edoc="Other">41</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/paper" edoc="Paper">44</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/webpage" ed="Interactive Resource">19</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/manuscript" edoc="Other">41</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/monograph" edoc="Book">1</map>	
+		</v2-to-edoc>		
 	</publication-type>
 	
 	<creator-role>
@@ -136,6 +160,22 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">contributor</map>
 		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://www.loc.gov/loc.terms/relators/AUT">author</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/EDT">editor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ART">artist</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/CMM">contributor</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/founder">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/HNR">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/ILL">artist</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/painter">artist</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/PHT">artist</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/creator-roles/referee">referee</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/SAD">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/THS">advisor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRC">contributor</map>
+			<map v2="http://www.loc.gov/loc.terms/relators/TRL">translator</map>
+		</v2-to-edoc>
 	</creator-role>
 	
 	<review-method>
@@ -149,6 +189,11 @@
 			<map v2="http://purl.org/eprint/status/PeerReviewed">peer</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/no-review">no-review</map>
 		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/internal">intrev</map>
+			<map v2="http://purl.org/eprint/status/PeerReviewed">joureview</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/review-methods/no-review">notrev</map>
+		</v2-to-edoc>
 	</review-method>
 	
 	<academic-degree>
@@ -170,6 +215,15 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation">habilitation</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor">bachelor</map>		
 		</v2-to-v1>
+		<v2-to-edoc>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/master">master</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/diploma">diplom</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/magister">magister</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen">staatsexamen</map>
+			<!-- map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/phd">phd</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation">habilitation</map-->
+			<map v2="http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor">bachelor</map>
+		</v2-to-edoc>
 	</academic-degree>
 	
 	<language v1="dcterms:RFC3066" v2="dcterms:ISO639-3">
@@ -191,25 +245,197 @@
 		   <map v1="zh">zho</map>
 		</v1-to-v2>
 		<v2-to-v1 default="en">
-		   <map v1="dan">da</map>
-		   <map v1="deu">de</map>
-		   <map v1="ell">el</map>
-		   <map v1="eng">en</map>
-		   <map v1="spa">es</map>
-		   <map v1="fin">fi</map>
-		   <map v1="fra">fr</map>
-		   <map v1="ita">it</map>
-		   <map v1="jpn">ja</map>
-		   <map v1="kor">ko</map>
-		   <map v1="nep">ne</map>
-		   <map v1="nld">nl</map>
-		   <map v1="pol">pl</map>
-		   <map v1="por">pt</map>
-		   <map v1="zho">zh</map>
+		   <map v2="dan">da</map>
+		   <map v2="deu">de</map>
+		   <map v2="ell">el</map>
+		   <map v2="eng">en</map>
+		   <map v2="spa">es</map>
+		   <map v2="fin">fi</map>
+		   <map v2="fra">fr</map>
+		   <map v2="ita">it</map>
+		   <map v2="jpn">ja</map>
+		   <map v2="kor">ko</map>
+		   <map v2="nep">ne</map>
+		   <map v2="nld">nl</map>
+		   <map v2="pol">pl</map>
+		   <map v2="por">pt</map>
+		   <map v2="zho">zh</map>
 		</v2-to-v1>
+		
+		<!-- http://www.sil.org/iso639-3/iso-639-3_Name_Index_20100119.tab -->
+		<v2-to-edoc default="English">
+	      <map v2="deu">German</map>
+	      <map v2="eng">English</map>
+	      <map v2="fra">French</map>
+	      <map v2="spa">Spanish</map>
+	      <map v2="rus">Russian</map>
+	      <map v2="abk">Abkhazian</map>
+	      <!--map v2="">Afan</map--> 
+	      <map v2="afr">Afrikaans</map>
+	      <map v2="sqi">Albanian</map>
+	      <!-- map v2="ase">American</map--> 
+	      <map v2="amh">Amharic</map>
+	      <map v2="ara">Arabic</map>
+	      <map v2="hye">Armenian</map>
+	      <map v2="asm">Assamese</map>
+	      <map v2="aym">Aymara</map>
+	      <map v2="aze">Azerbaijani</map>
+	      <!-- map v2="">Bangla</map-->
+	      <map v2="bak">Bashkir</map>
+	      <map v2="eus">Basque</map>
+	      <map v2="ben">Bengali</map>
+	      <!-- map v2="">Bhutani</map--> 
+	      <!-- map v2="">Bihari</map-->
+	      <map v2="bis">Bislama</map>
+	      <map v2="bos">Bosnian</map>
+	      <map v2="bre">Breton</map>
+	      <map v2="bul">Bulgarian</map>
+	      <map v2="mya">Burmese</map>
+	      <!-- map v2="">Byelorussian</map>
+	      <map v2="">Cambodian</map--> 
+	      <map v2="cat">Catalan</map>
+	      <map v2="zho">Chinese</map>
+	      <map v2="cos">Corsican</map>
+	      <map v2="hrv">Croatian</map>
+	      <map v2="ces">Czech</map>
+	      <map v2="dan">Danish</map>
+	      <map v2="nld">Dutch</map>
+	      <map v2="est">Estonian</map>
+	      <!-- map v2="">Faeroese</map--> 
+	      <map v2="fij">Fiji</map>
+	      <map v2="fin">Finnish</map>
+	      <map v2="frs">Frisian</map>
+	      <map v2="frr">Frisian</map>
+	      <map v2="fry">Frisian</map>
+	      <map v2="ofs">Frisian</map>
+	      <map v2="gla">Gaelic</map>
+	      <map v2="glg">Galician</map>
+	      <map v2="kat">Georgian</map>
+	      <map v2="ell">Greek</map>
+	      <map v2="kal">Greenlandic</map>
+	      <map v2="grn">Guarani</map>
+	      <!-- TODO: -->
+	      <!-- map v2="">Gujarati</map>
+	      <map v2="">Hausa</map>
+	      <map v2="">Hebrew</map>
+	      <map v2="">Hindi</map>
+	      <map v2="">Hungarian</map>
+	      <map v2="">Icelandic</map>
+	      <map v2="">Indonesian</map>
+	      <map v2="">Interlingua</map>
+	      <map v2="">Interlingue</map>
+	      <map v2="">Inupiak</map>
+	      <map v2="">Irish</map>
+	      <map v2="">Italian</map>
+	      <map v2="">Japanese</map>
+	      <map v2="">Javanese</map>
+	      <map v2="">Kannada</map>
+	      <map v2="">Kashmiri</map>
+	      <map v2="">Kazakh</map>
+	      <map v2="">Kinyarwanda</map>
+	      <map v2="">Kirghiz</map>
+	      <map v2="">Kirundi</map>
+	      <map v2="">Korean</map>
+	      <map v2="">Kurdish</map>
+	      <map v2="">Laothian</map>
+	      <map v2="">Latin</map>
+	      <map v2="">Latvian</map>
+	      <map v2="">Lettish</map>
+	      <map v2="">Lingala</map>
+	      <map v2="">Lithuanian</map>
+	      <map v2="">Macedonian</map>
+	      <map v2="">Malagasy</map>
+	      <map v2="">Malay</map>
+	      <map v2="">Malayalam</map>
+	      <map v2="">Maltese</map>
+	      <map v2="">Maori</map>
+	      <map v2="">Marathi</map>
+	      <map v2="">Moldavian</map>
+	      <map v2="">Mongolian</map>
+	      <map v2="">Nauru</map>
+	      <map v2="">Nepali</map>
+	      <map v2="">Norwegian</map>
+	      <map v2="">Occitan</map>
+	      <map v2="">Oriya</map>
+	      <map v2="">Oromo</map>
+	      <map v2="">Pashto</map>
+	      <map v2="">Persian</map>
+	      <map v2="">Polish</map>
+	      <map v2="">Portuguese</map>
+	      <map v2="">Punjabi</map>
+	      <map v2="">Pushto</map>
+	      <map v2="">Quechua</map>
+	      <map v2="">Rhaeto-Romance</map>
+	      <map v2="">Romanian</map>
+	      <map v2="">Samoan</map>
+	      <map v2="">Sangro</map>
+	      <map v2="">Sanskrit</map>
+	      <map v2="">Scots Gaelic</map>
+	      <map v2="">Serbian</map>
+	      <map v2="">Serbo-Croatian</map>
+	      <map v2="">Sesotho</map>
+	      <map v2="">Setswana</map>
+	      <map v2="">Shona</map>
+	      <map v2="">Sindhi</map>
+	      <map v2="">Singhalese</map>
+	      <map v2="">Siswati</map>
+	      <map v2="">Slovak</map>
+	      <map v2="">Slovenian</map>
+	      <map v2="">Somali</map>
+	      <map v2="">Sudanese</map>
+	      <map v2="">Swahili</map>
+	      <map v2="">Swedish</map>
+	      <map v2="">Tagalog</map>
+	      <map v2="">Tajik</map>
+	      <map v2="">Tamil</map>
+	      <map v2="">Tatar</map>
+	      <map v2="">Tegulu</map>
+	      <map v2="">Thai</map>
+	      <map v2="">Tibetan</map>
+	      <map v2="">Tigrinya</map>
+	      <map v2="">Tonga</map>
+	      <map v2="">Tsonga</map>
+	      <map v2="">Turkish</map>
+	      <map v2="">Turkmen</map>
+	      <map v2="">Twi</map>
+	      <map v2="">Ukrainian</map>
+	      <map v2="">Urdu</map>
+	      <map v2="">Uzbek</map>
+	      <map v2="">Vietnamese</map>
+	      <map v2="">Volapuk</map>
+	      <map v2="">Welsh</map>
+	      <map v2="">Wolof</map>
+	      <map v2="">Xhosa</map>
+	      <map v2="">Yiddish</map>
+	      <map v2="">Yoruba</map>
+	      <map v2="">Zulu</map-->
+		</v2-to-edoc>	
+		
+		
 	</language>
 	
-	
+	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping#Mapping_of_Identifier_Types -->
+	<identifier-type>
+		<v2-to-edoc>
+<!--			<map v2="eterms:ESCIDOC"></map>-->
+			<map v2="eterms:EDOC">edocid</map> 
+			<map v2="eterms:ISSN">issn</map>
+			<map v2="eterms:ISBN">isbn</map>
+<!--			<map v2="eterms:CONE"></map>-->
+			<map v2="eterms:DOI">doi</map>
+			<map v2="eterms:ISI">isi</map>
+<!--			<map v2="eterms:PND"></map>-->
+			<map v2="eterms:URN">url</map>
+			<map v2="eterms:URI">uri</map>
+			<map v2="eterms:PII">pii</map> <!-- !!!! in zim_transfer.xsd  --> 
+<!--			<map v2="eterms:PMID"></map>-->
+<!--			<map v2="eterms:ARXIV"></map>-->
+<!--			<map v2="eterms:PMC"></map>-->
+<!--			<map v2="eterms:BMC"></map>-->
+<!--			<map v2="eterms:ZDB"></map>-->
+<!--			<map v2="eterms:OTHER"></map>-->
+		</v2-to-edoc>
+	</identifier-type>
 	
 	
 </mappings>
