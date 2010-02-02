@@ -17,6 +17,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.transformations.otherFormats.wos.WoSImport;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
@@ -120,6 +121,7 @@ public class WoSTransformation implements Transformation{
             	WoSImport wos = new WoSImport();
             	output = wos.transformWoS2XML(wosSource);
             	TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
+            	factory.setURIResolver(new LocalUriResolver("transformations/otherFormats/xslt"));
             	InputStream stylesheet = ResourceUtil.getResourceAsStream("transformations/otherFormats/xslt/wosxml2escidoc.xsl");
                 Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
         		//Transformer transformer = factory.newTransformer(stylesheet);

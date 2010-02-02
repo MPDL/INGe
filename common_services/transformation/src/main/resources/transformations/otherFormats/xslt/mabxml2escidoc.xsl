@@ -126,35 +126,36 @@
 	
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
-		<xsl:choose>
+		<xsl:variable name="gen">
+			<xsl:choose>
+				<xsl:when test="normalize-space(mab519) != ''">
+					<xsl:value-of select="$genre-ves/enum[.='thesis']/@uri"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(mab590) != '' and normalize-space(mab591) != ''">
+					<xsl:value-of select="$genre-ves/enum[.='book-item']/@uri"/>
+				</xsl:when>
+				<xsl:when test="normalize-space(mab590) != ''">
+					<xsl:value-of select="$genre-ves/enum[.='article']/@uri"/>
+				</xsl:when>
 				<xsl:when test="mab029_m = 'P'">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='article']/@uri"/>
-					</xsl:call-template>
+					<xsl:value-of select="$genre-ves/enum[.='article']/@uri"/>
 				</xsl:when>
 				<xsl:when test="mab029_m = 'CH'">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='book-item']/@uri"/>
-					</xsl:call-template>
+					<xsl:value-of select="$genre-ves/enum[.='book-item']/@uri"/>
 				</xsl:when>
 				<xsl:when test="mab029_m = 'J'">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='journal']/@uri"/>
-					</xsl:call-template>
+					<xsl:value-of select="$genre-ves/enum[.='journal']/@uri"/>
 				</xsl:when>
 				<!-- Other cases -->
-				<xsl:when test="normalize-space(mab519) != ''">
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='thesis']/@uri"/>
-					</xsl:call-template>	
-				</xsl:when>
 				<xsl:otherwise>
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre-ves/enum[.='book']/@uri"/>
-					</xsl:call-template>			
+					<xsl:value-of select="$genre-ves/enum[.='book']/@uri"/>			
 				</xsl:otherwise>
 			</xsl:choose>
-
+		</xsl:variable>
+		
+		<xsl:call-template name="createEntry">
+			<xsl:with-param name="gen" select="$genre-ves/enum[. = $gen]/@uri"/>
+		</xsl:call-template>
 	</xsl:template>
 	
 	<!-- Create eSciDoc Entry -->

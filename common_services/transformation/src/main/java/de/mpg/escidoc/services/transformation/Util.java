@@ -522,5 +522,9 @@ public class Util
         }
         else return Styles.Default;
     }
-
+    
+    public static void log(String str)
+    {
+        System.out.println(str);
+    }
 }

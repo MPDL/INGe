@@ -62,6 +62,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.transformation.Transformation;
 import de.mpg.escidoc.services.transformation.Transformation.TransformationModule;
 import de.mpg.escidoc.services.transformation.exceptions.TransformationNotSupportedException;
+import de.mpg.escidoc.services.transformation.transformations.LocalUriResolver;
 import de.mpg.escidoc.services.transformation.valueObjects.Format;
 
 /**
@@ -84,7 +85,8 @@ public class EDocImport extends DefaultHandler implements Transformation
     private static final Format EDOC_FORMAT = new Format("eDoc", "application/xml", "*");
     private static final Format EDOC_FORMAT_AEI = new Format("eDoc-AEI", "application/xml", "*");
     
-    private static final String XSLT_PATH = "transformations/otherFormats/xslt/edoc-to-escidoc.xslt";
+    private static final String XSLT_PATH = "transformations/otherFormats/xslt";
+    private static final String XSLT_FILENAME = "edoc-to-escidoc.xslt";
     
     /**
      * {@inheritDoc}
@@ -178,7 +180,8 @@ public class EDocImport extends DefaultHandler implements Transformation
         {
             System.out.print("Started xslt transformation...");
             TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
-            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH);
+            factory.setURIResolver(new LocalUriResolver(XSLT_PATH));
+            InputStream stylesheet = ResourceUtil.getResourceAsStream(XSLT_PATH + "/" + XSLT_FILENAME);
             Transformer transformer = factory.newTransformer(new StreamSource(stylesheet));
             
             if (trgFormat.matches(ESCIDOC_ITEM_LIST_FORMAT))

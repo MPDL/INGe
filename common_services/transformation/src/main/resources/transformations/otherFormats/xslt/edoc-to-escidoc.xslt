@@ -62,6 +62,8 @@
 		xmlns:Util="java:de.mpg.escidoc.services.transformation.Util"
 		xmlns:itemlist="${xsd.soap.item.itemlist}">
 	
+	<xsl:import href="../../vocabulary-mappings.xsl"/>
+	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:param name="is-item-list" select="true()"/>
@@ -598,6 +600,10 @@
 		<xsl:param name="access"/>
 		<!-- FILE -->
 		<xsl:element name="ec:component">
+						
+			<!-- fturl-comment as content-category? -->
+			<xsl:variable name="comment" select="@comment"/>
+				
 			<ec:properties>
 				<xsl:choose>
 					<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
@@ -612,36 +618,37 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				
-				<!-- fturl-comment as content-category? -->
-				<xsl:variable name="comment" select="@comment"/>
-				
 				<xsl:comment><xsl:value-of select="$comment"/></xsl:comment>
 				<xsl:comment><xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]"/></xsl:comment>
 				
 				<xsl:choose>
 					<!-- Customized - AEI: prop:content-category -->
 					<xsl:when test="$source-name = 'eDoc-AEI'">
-						<xsl:choose>
-							<xsl:when test="contains(lower-case(@comment), 'arxiv')"><prop:content-category>pre-print</prop:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'preprint')"><prop:content-category>pre-print</prop:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'online journal')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'open access journal')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'open access article')"><prop:content-category>publisher-version</prop:content-category></xsl:when>
-							<xsl:when test="@comment = '' or not(exists(@comment))"><prop:content-category>publisher-version</prop:content-category></xsl:when>
-							<xsl:otherwise><prop:content-category>any-fulltext</prop:content-category></xsl:otherwise>
-						</xsl:choose>
+						<xsl:variable name="content-category">
+							<xsl:choose>
+								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
+								<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
+								<xsl:otherwise>any-fulltext</xsl:otherwise>
+							</xsl:choose>
+							</xsl:variable>
+						<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
 					</xsl:when>
 					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
-						<prop:content-category><xsl:value-of select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/></prop:content-category>
+						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
+						<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></prop:content-category>
 					</xsl:when>
 					<!-- Default: prop:content-category -->
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-								<prop:content-category>publisher-version</prop:content-category>
+								<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></prop:content-category>
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
-								<prop:content-category>any-fulltext</prop:content-category>
+								<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></prop:content-category>
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- ERROR -->
@@ -665,24 +672,31 @@
 						<xsl:choose>
 					<!-- Customized - AEI: prop:content-category -->
 					<xsl:when test="$source-name = 'eDoc-AEI'">
-						<xsl:choose>
-							<xsl:when test="contains(lower-case(@comment), 'arxiv')"><file:content-category>pre-print</file:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'preprint')"><file:content-category>pre-print</file:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'online journal')"><file:content-category>publisher-version</file:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'open access journal')"><file:content-category>publisher-version</file:content-category></xsl:when>
-							<xsl:when test="contains(lower-case(@comment), 'open access article')"><file:content-category>publisher-version</file:content-category></xsl:when>
-							<xsl:when test="@comment = '' or not(exists(@comment))"><file:content-category>publisher-version</file:content-category></xsl:when>
-							<xsl:otherwise><file:content-category>any-fulltext</file:content-category></xsl:otherwise>
-						</xsl:choose>
+						<xsl:variable name="content-category">
+							<xsl:choose>
+								<xsl:when test="contains(lower-case(@comment), 'arxiv')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'preprint')">pre-print</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'online journal')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open access journal')">publisher-version</xsl:when>
+								<xsl:when test="contains(lower-case(@comment), 'open access article')">publisher-version</xsl:when>
+								<xsl:when test="@comment = '' or not(exists(@comment))">publisher-version</xsl:when>
+								<xsl:otherwise>any-fulltext</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
 					</xsl:when>
-					<!-- Default: prop:content-category -->
+					<xsl:when test="$genre-mapping/genres/genre[edoc-genre = $comment]">
+						<xsl:variable name="content-category" select="$genre-mapping/genres/genre[edoc-genre = $comment]/pubman-genre"/>
+						<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri"/></eterms:content-category>
+					</xsl:when>
+					<!-- Default: eterms:content-category -->
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
-								<file:content-category>publisher-version</file:content-category>
+								<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/></eterms:content-category>
 							</xsl:when>
 							<xsl:when test="$access='PUBLIC'">
-								<file:content-category>any-fulltext</file:content-category>
+								<eterms:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/></eterms:content-category>
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- ERROR -->
@@ -713,7 +727,7 @@
 			<ec:properties>
 				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>public</prop:visibility>
-				<prop:content-category>supplementary-material</prop:content-category>
+				<prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']/@uri"/></prop:content-category>
 			</ec:properties>
 			<xsl:element name="ec:content">
 				<xsl:attribute name="xlink:href" select="."/>
@@ -892,7 +906,7 @@
 		</xsl:variable>
 		
 		<xsl:element name="pub:publication">
-			<xsl:attribute name="type" select="$gen"/>	
+			<xsl:attribute name="type" select="$genre-ves/enum[. = $gen]/@uri"/>
 			<!-- creator -->
 			<xsl:for-each select="../creators/creator">
 				<xsl:element name="eterms:creator">
@@ -938,7 +952,7 @@
 			<xsl:apply-templates select="datemodified"/>
 			<xsl:apply-templates select="datesubmitted"/>
 			<xsl:apply-templates select="dateaccepted"/>
-			<xsl:apply-templates select="datepublished"/>		
+			<xsl:apply-templates select="datepublished"/>
 			<!-- REVIEW METHOD -->
 			<xsl:apply-templates select="refereed"/>
 			<!-- SOURCE -->
@@ -1063,7 +1077,7 @@
 	
 	<xsl:template name="createPublCreatorOrga">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role" select="'editor'"/>
+			<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
 			<xsl:element name="organization:organization">
 				<xsl:element name="dc:title">
 					<xsl:value-of select="."/>
@@ -1077,7 +1091,7 @@
 	
 	<xsl:template name="createSourceCreatorOrga">
 		<xsl:element name="eterms:creator">
-			<xsl:attribute name="role" select="'editor'"/>
+			<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
 			<xsl:element name="organization:organization">
 				<xsl:element name="dc:title">
 					<xsl:value-of select="."/>
@@ -1151,7 +1165,7 @@
 	<xsl:template name="createJournal">
 		<!-- TITLE -->
 		<xsl:if test="journaltitle">
-			<xsl:attribute name="type" select="'journal'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'journal']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="journaltitle"/>
 			</xsl:element>
@@ -1209,7 +1223,7 @@
 	<xsl:template name="createIssue">
 		<!-- TITLE -->
 		<xsl:if test="issuetitle">
-			<xsl:attribute name="type" select="'issue'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'issue']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="issuetitle"/>
 			</xsl:element>
@@ -1235,7 +1249,7 @@
 	<xsl:template name="createBook">
 		<!-- TITLE -->
 		<xsl:if test="booktitle">
-			<xsl:attribute name="type" select="'book'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'book']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="booktitle"/>
 			</xsl:element>
@@ -1306,7 +1320,7 @@
 	<xsl:template name="createSeries">
 		<!-- TITLE -->
 		<xsl:if test="exists(titleofseries)">
-			<xsl:attribute name="type" select="'series'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'series']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="titleofseries"/>
 			</xsl:element>
@@ -1331,7 +1345,7 @@
 	<xsl:template name="createProceedings">
 		<!-- TITLE -->
 		<xsl:if test="titleofproceedings">
-			<xsl:attribute name="type" select="'proceedings'"/>
+			<xsl:attribute name="type" select="$genre-ves/enum[. = 'proceedings']/@uri"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="titleofproceedings"/>
 			</xsl:element>
@@ -1385,28 +1399,28 @@
 		<!-- CREATOR ROLE -->
 		<xsl:choose>
 			<xsl:when test="@role='advisor'">
-				<xsl:attribute name="role" select="'advisor'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'advisor']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='artist'">
-				<xsl:attribute name="role" select="'artist'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'artist']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='author'">
-				<xsl:attribute name="role" select="'author'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'author']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='contributor'">
-				<xsl:attribute name="role" select="'contributor'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'contributor']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='editor'">
-				<xsl:attribute name="role" select="'editor'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'editor']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='painter'">
-				<xsl:attribute name="role" select="'painter'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'painter']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='referee'">
-				<xsl:attribute name="role" select="'referee'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'referee']/@uri"/>
 			</xsl:when>
 			<xsl:when test="@role='translator'">
-				<xsl:attribute name="role" select="'translator'"/>
+				<xsl:attribute name="role" select="$creator-ves/enum[. = 'translator']/@uri"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CreatorRoleNotMapped' ), concat(@role, ' is not mapped to an eSciDoc creator role'))"/>
@@ -1737,7 +1751,7 @@
 		<xsl:param name="role"/>
 		
 		<xsl:element name="creatorstring">
-			<xsl:attribute name="role" select="$role"/>
+			<xsl:attribute name="role" select="$creator-ves/enum[. = $role]/@uri"/>
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>
