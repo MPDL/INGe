@@ -462,9 +462,14 @@ public class ApplicationBean extends FacesBean
     
     public String getReloadResourceBundlesAndProperties() throws Exception
     {
+    	String returnVal = "";
     	ResourceBundle.clearCache();
     	PropertyReader.loadProperties();
-    	return "... Resource bundles and properties reloaded";
+    	languageSelectItems.clear();
+    	returnVal = "... Resource bundles and properties reloaded, language selection menu reset.";
+    	return returnVal;
+    	
+    	
     }
     
 
