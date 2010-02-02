@@ -75,6 +75,7 @@ public class IdentifierVO extends ValueObject implements Cloneable
         ARXIV ("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"),
         PMC ("http://purl.org/escidoc/metadata/terms/0.1/PMC"),
         BMC ("http://purl.org/escidoc/metadata/terms/0.1/BMC"),
+        SFX ("http://purl.org/escidoc/metadata/terms/0.1/SFX"),
         OTHER ("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
         
         private String uri;

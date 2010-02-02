@@ -55,7 +55,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìôçø]+)";
     //protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
     protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
-    protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
+    protected static final String WORD = "((O'|D')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
     protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
     protected static final String NAME = "(" + PREFIX + "? *" + WORD + "( *- *" + WORD + ")*)";
     protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";

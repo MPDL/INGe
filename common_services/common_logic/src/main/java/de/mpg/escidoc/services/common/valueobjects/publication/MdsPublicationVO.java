@@ -78,7 +78,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
         MAGISTER("http://purl.org/escidoc/metadata/ves/academic-degrees/magister"),
         PHD("http://purl.org/escidoc/metadata/ves/academic-degrees/phd"),
         STAATSEXAMEN("http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen"),
-        HABILITATION("http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation");
+        HABILITATION("http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation"),
+        BACHELOR("http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor");
         
         private String uri;
         
