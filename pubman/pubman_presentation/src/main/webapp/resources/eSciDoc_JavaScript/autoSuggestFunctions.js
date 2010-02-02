@@ -207,6 +207,7 @@
 		$input = $(this);
 		$input.resultValue = this.resultValue;
 		$input.resultID = this.resultID;
+		alert(personDetailsBaseURL.replace('$1', this.resultID));
 		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), getPersonDetails);
 	}
 	
@@ -255,16 +256,17 @@
 	
 	function selectLanguage()
 	{
-		$input = $(this);
-		$.getJSON(this.resultID, selectLanguageDetails);
+		$input = $(this)
+		alert(personDetailsBaseURL.replace('$1', this.resultID));
+		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), selectLanguageDetails);
 	}
 	
-	function selectLanguageDetails()
+	function selectLanguageDetails(details)
 	{
-		var identifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
-				details.http_purl_org_dc_elements_1_1_identifier : null);
+		var identifier = (typeof details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
+				details.http_purl_org_dc_elements_1_1_relation.http_purl_org_dc_elements_1_1_identifier : null);
 		var id3;
-		if (identifier != null && typeof identifier == 'object' && identifier.length == 3)
+		if (identifier != null && !(typeof identifier.splice === 'function') && identifier.length == 3)
 		{
 			id3 = identifier;
 		}
@@ -278,6 +280,7 @@
 				}
 			}
 		}
-		$(this).siblings('select').val(id3);
-		$(this).siblings('span.replace').replaceValue(id3);
+		alert(id3 + " " + identifier + " " + details + "\n");
+		$input.siblings('select').val(id3);
+		$input.siblings('span.replace').replaceValue(id3);
 	}
