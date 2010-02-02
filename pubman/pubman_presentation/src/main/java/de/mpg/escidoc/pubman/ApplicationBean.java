@@ -32,10 +32,13 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
@@ -88,6 +91,8 @@ public class ApplicationBean extends FacesBean
     
     /** Initialization of the Transformation Service*/
     private Transformation transformationService;
+    
+    private Map<String, SelectItem[]> languageSelectItems;
 
     /**
      * Public constructor.
@@ -104,6 +109,7 @@ public class ApplicationBean extends FacesBean
            this.systemType=SystemType.Production_Server;
         }
         this.transformationService = new TransformationBean();
+        this.languageSelectItems = new HashMap<String, SelectItem[]>();
         
         this.init();
     }
@@ -471,5 +477,13 @@ public class ApplicationBean extends FacesBean
     {
         this.transformationService = transformationService;
     }
+
+	public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
+		this.languageSelectItems = languageSelectItems;
+	}
+
+	public Map<String, SelectItem[]> getLanguageSelectItems() {
+		return languageSelectItems;
+	}
 
 }

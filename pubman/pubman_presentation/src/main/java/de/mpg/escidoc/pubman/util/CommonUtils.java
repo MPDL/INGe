@@ -43,6 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,6 +53,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,6 +70,9 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import com.sun.tools.doclets.internal.toolkit.util.ImplementedMethods;
+
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -102,7 +108,7 @@ public class CommonUtils extends InternationalizedImpl
         "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>" , "&#160;&#160;"
     };
     
-    private static String localLang = "";
+
 
     /**
      * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -173,43 +179,67 @@ public class CommonUtils extends InternationalizedImpl
 
         return (SelectItem[]) options.toArray(new SelectItem[options.size()]);
     }
-
+    
+    public static SelectItem[] getLanguageOptions()
+    {
+    	ApplicationBean appBean = (ApplicationBean)getApplicationBean(ApplicationBean.class);
+    	String locale = Locale.getDefault().getLanguage();
+    	
+    	 if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+         {
+         	locale = "en";
+         }
+    	 
+    	if(appBean.getLanguageSelectItems().get(locale)!=null && appBean.getLanguageSelectItems().get(locale).length>0)
+		{
+    		return appBean.getLanguageSelectItems().get(locale);
+		}
+    	else
+    	{
+    		SelectItem[] languageSelectItems = retrieveLanguageOptions(locale);
+    		appBean.getLanguageSelectItems().put(locale, languageSelectItems);
+    		return languageSelectItems;
+    	}
+    	
+    }
     /**
      * Returns all Languages from Cone Service, with "de","en" and "ja" at the first positions.
      * @return all Languages from Cone Service, with "de","en" and "ja" at the first positions
      */
-    public static SelectItem[] getLanguageOptions()
+    public static SelectItem[] retrieveLanguageOptions(String locale)
     {
-        Object[] coneLanguages = null;
+       Map<String, String> coneLanguagesIso639_1 = null;
+       Map<String, String> coneLanguagesIso639_3 = null;
         try {
-            coneLanguages = CommonUtils.getConeLanguages();
+            coneLanguagesIso639_1 = CommonUtils.getConeLanguages("iso639-1", locale);
+            coneLanguagesIso639_3 = CommonUtils.getConeLanguages("iso639-3", locale);
+            
         }
         catch(Exception e) {
-            Vector <String> langVec = new Vector<String>();
-            coneLanguages = langVec.toArray();
+        	return new SelectItem[0];
         }
             
-        SelectItem[] options = new SelectItem[coneLanguages.length + 5];
+        SelectItem[] options = new SelectItem[coneLanguagesIso639_1.size() + 5];
         options[0] = new SelectItem("", NO_ITEM_SET);
-        if (CommonUtils.localLang.equals("de"))
+        if (locale.equals("de"))
         {
             options[1] = new SelectItem("eng", "eng - Englisch");  
             options[2] = new SelectItem("deu", "deu - Deutsch");  
             options[3] = new SelectItem("jpn", "jpn - Japanisch"); 
         }
-        else if (CommonUtils.localLang.equals("en"))
+        else if (locale.equals("en"))
         {
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
             options[3] = new SelectItem("jpn", "jpn - Japanese"); 
         }
-        else if (CommonUtils.localLang.equals("fr"))
+        else if (locale.equals("fr"))
         {
             options[1] = new SelectItem("eng", "eng - Anglais");  
             options[2] = new SelectItem("deu", "deu - Allemand");  
             options[3] = new SelectItem("jpn", "jpn - Japonais"); 
         }
-        else if (CommonUtils.localLang.equals("ja"))
+        else if (locale.equals("ja"))
         {
             options[1] = new SelectItem("eng", "eng - 英語");
             options[2] = new SelectItem("deu", "deu - ドイツ語");
@@ -217,7 +247,7 @@ public class CommonUtils extends InternationalizedImpl
         }
         else
         {
-            logger.error("Language not supported: " + CommonUtils.localLang);
+            logger.error("Language not supported: " + locale);
             // Using english as default
             options[1] = new SelectItem("eng", "eng - English");  
             options[2] = new SelectItem("deu", "deu - German");  
@@ -225,19 +255,27 @@ public class CommonUtils extends InternationalizedImpl
         }
         options[4] = new SelectItem("", NO_ITEM_SET);
 
-        for (int i = 0; i < coneLanguages.length; i++)
+        int i = 0;
+        List<String> langLabels = new ArrayList<String>(coneLanguagesIso639_1.keySet());
+        Collections.sort(langLabels);
+        
+        for (String label : langLabels)
         {
-            options[i + 5] = new SelectItem(coneLanguages[i].toString().split(" - ")[0], coneLanguages[i].toString());  
+        	String iso639Code = coneLanguagesIso639_3.get(label);
+            options[i + 5] = new SelectItem(iso639Code, iso639Code + " - " + label);
+            i++;
         }
 
         return options;
     }
+    
     
     /**
      * Retrievs an array of all languages from the cone service in format abbr - language name.
      * @return Object array of languages
      * @throws RuntimeException
      */
+    /*
     private static Object[] getConeLanguages() throws RuntimeException
     {
         Vector <String> langVec = new Vector<String>();
@@ -317,12 +355,65 @@ public class CommonUtils extends InternationalizedImpl
                     }
                 }
             }
+            isReader.close();
+            httpConn.disconnect();
+            
         }
         catch (Exception e)
         {
             throw new RuntimeException("An error occurred while calling the Cone service.",e);
         }
         return langVec.toArray();
+    }
+    */
+    
+    public static Map<String, String> getConeLanguages(String type, String locale)
+    {
+    	Map<String, String> langMap = new HashMap<String, String>();
+        
+        
+        if (!(locale.equals("en") || locale.equals("de") || locale.equals("fr") || locale.equals("ja")))
+        {
+        	locale = "en";
+        }
+        
+        try
+        {
+            URL coneUrl = new URL (PropertyReader.getProperty("escidoc.cone.service.url")+ type + "/all?format=options&lang="+locale);
+            URLConnection conn = coneUrl.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            
+            switch (responseCode)
+            {
+                case 200:
+                    logger.debug("Cone Service responded with 200.");
+                    break;
+                default:
+                    throw new RuntimeException("An error occurred while calling Cone Service: "
+                            + responseCode + ": " + httpConn.getResponseMessage());
+            }
+            
+            InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+            BufferedReader bReader = new BufferedReader(isReader);
+            String line = "";
+            while ((line = bReader.readLine()) != null)
+            {
+                String[] parts = line.split("\\|");
+                if (parts.length == 2)
+                {
+                	langMap.put(parts[1], parts[0]);
+                }
+            }
+            isReader.close();
+            httpConn.disconnect();
+            
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("An error occurred while calling the Cone service.",e);
+        }
+        return langMap;
     }
 
     /**
