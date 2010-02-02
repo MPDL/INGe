@@ -198,6 +198,7 @@
 				personSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>persons/query?format=json';
 				journalDetailsBaseURL = '$1?format=json';
 				personDetailsBaseURL = '$1?format=json';
+				languageDetailsBaseURL = '$1?format=json';
 				journalSuggestCommonParentClass = 'itemBlock';
 				personSuggestCommonParentClass = 'suggestAnchor';
 				journalSuggestTrigger = 'JOURNAL';
