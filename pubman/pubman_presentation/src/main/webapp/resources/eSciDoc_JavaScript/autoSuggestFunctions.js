@@ -256,8 +256,7 @@
 	
 	function selectLanguage()
 	{
-		$input = $(this)
-		alert(personDetailsBaseURL.replace('$1', this.resultID));
+		$input = $(this);
 		$.getJSON(personDetailsBaseURL.replace('$1', this.resultID), selectLanguageDetails);
 	}
 	
@@ -280,7 +279,7 @@
 				}
 			}
 		}
-		alert(id3 + " " + identifier + " " + details + "\n");
+		
 		$input.siblings('select').val(id3);
 		$input.siblings('span.replace').replaceValue(id3);
 	}
