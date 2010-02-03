@@ -72,13 +72,12 @@ public class ExportItems extends FacesBean
     // constants for comboBoxes and HtmlSelectOneRadios
     public SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
     public SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
-    public SelectItem EXPORTFORMAT_XML = new SelectItem("XML", getLabel("Export_ExportFormat_XML"));
     public SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", getLabel("Export_ExportFormat_ESCIDOC_XML"));
     public SelectItem EXPORTFORMAT_APA = new SelectItem("APA", getLabel("Export_ExportFormat_APA"));
     public SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", getLabel("Export_ExportFormat_AJP"));
 //    public SelectItemGroup CITATIONSTYLES_GROUP = new SelectItemGroup(getLabel("Export_CitationStyles_Group"), "", false, new SelectItem[]{EXPORTFORMAT_APA, EXPORTFORMAT_AJP});
 //    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, CITATIONSTYLES_GROUP};
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_XML, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP};
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP};
     public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
     public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
     public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
@@ -220,13 +219,13 @@ public class ExportItems extends FacesBean
             if ( fileFormat != null || fileFormat.trim().equals("") || 
                     fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
                 )
-                sb.setFileFormat(FileFormatVO.PDF_NAME); 
+                sb.setFileFormat(FileFormatVO.DEFAULT_NAME); 
         }
         else
         {
                 sb.setFileFormat(
-                        "XML".equals(selExportFormat) ?
-                            FileFormatVO.XML_NAME : 
+                        "ESCIDOC_XML".equals(selExportFormat) ?
+                            FileFormatVO.ESCIDOC_XML_NAME : 
                             //txt for all other
                             FileFormatVO.TEXT_NAME
                 );
