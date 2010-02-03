@@ -335,7 +335,7 @@
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="*[namespace-uri()='http://purl.org/metadata/profiles/0.1/file']" priority="1">
+	<xsl:template match="*[namespace-uri()='http://purl.org/escidoc/metadata/profiles/0.1/file']" priority="999">
 		<xsl:element name="{name()}" namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates/>
